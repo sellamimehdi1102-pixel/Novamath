@@ -1,0 +1,270 @@
+{
+  "chapterId": "Chapitre_6",
+  "title": "Droites du plan et systèmes d'équations",
+  "icon": "sliders",
+  "notions": [
+    {
+      "id": "vecteur-directeur-dune-droite",
+      "title": "Le vecteur directeur",
+      "intro": "Dans cette leçon, tu vas apprendre ce qu'est un vecteur directeur.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître un vecteur directeur d'une droite.",
+      "definition": "Un vecteur directeur d'une droite indique sa direction. C'est un vecteur non nul qui \"pointe\" dans le même sens que la droite.",
+      "reglesImportantes": [
+        "Une droite a une infinité de vecteurs directeurs, tous parallèles entre eux.",
+        "Deux points de la droite suffisent pour trouver un vecteur directeur.",
+        "$2\\vec{u}$ dirige la même droite que $\\vec{u}$."
+      ],
+      "methode": {
+        "titre": "Comment trouver un vecteur directeur",
+        "etapes": [
+          {"icone": "search", "couleur": "blue", "texte": "Prends deux points connus de la droite."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Calcule le vecteur qui va de l'un à l'autre."},
+          {"icone": "check", "couleur": "green", "texte": "Ce vecteur dirige la droite."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$A(1\\,;2)$ et $B(4\\,;6)$ sont sur une droite. Donne un vecteur directeur.",
+          "calcul": [
+            {"expr": "\\vec{AB}(4-1\\,;6-2)", "texte": "On calcule le vecteur entre les deux points."},
+            {"expr": "\\vec{AB}(3\\,;4)", "texte": "On obtient ses coordonnées."}
+          ],
+          "reponse": "$\\vec{AB}(3\\,;4)$ dirige la droite"
+        }
+      ],
+      "erreursFrequentes": [
+        "Croire qu'une droite n'a qu'un seul vecteur directeur possible.",
+        "Se tromper dans le calcul des coordonnées du vecteur."
+      ],
+      "astuce": "N'importe quel vecteur colinéaire à un vecteur directeur dirige aussi la droite.",
+      "aRetenir": [
+        "Vecteur directeur : donne la direction de la droite",
+        "Une infinité de vecteurs directeurs, tous colinéaires"
+      ],
+      "figure": null,
+      "quizExerciseIds": [108, 109, 110]
+    },
+    {
+      "id": "equation-cartesienne-dune-droite",
+      "title": "L'équation cartésienne",
+      "intro": "Dans cette leçon, tu vas apprendre à écrire l'équation d'une droite.",
+      "objectif": "À la fin de ce cours, tu sauras trouver l'équation cartésienne d'une droite.",
+      "definition": "Toute droite du plan a une équation de la forme $ax + by + c = 0$.",
+      "reglesImportantes": [
+        "Un vecteur directeur associé à cette équation est $(-b\\,;a)$.",
+        "Le point $A$ de la droite vérifie l'équation.",
+        "On trouve l'équation grâce à la colinéarité."
+      ],
+      "methode": {
+        "titre": "Comment trouver l'équation d'une droite",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Note un point connu et un vecteur directeur de la droite."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Écris la condition de colinéarité, puis développe."},
+          {"icone": "check", "couleur": "green", "texte": "Range l'équation sous la forme $ax+by+c=0$."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Droite passant par $A(1\\,;2)$, vecteur directeur $\\vec{u}(3\\,;-1)$.",
+          "calcul": [
+            {"expr": "3(y-2) - (-1)(x-1) = 0", "texte": "On écrit la condition de colinéarité."},
+            {"expr": "3y-6+x-1=0", "texte": "On développe."},
+            {"expr": "x+3y-7=0", "texte": "On simplifie."}
+          ],
+          "reponse": "$x+3y-7=0$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Se tromper de signe en développant.",
+        "Oublier de tout simplifier à la fin."
+      ],
+      "astuce": "Vérifie ton équation en remplaçant $x$ et $y$ par les coordonnées du point de départ : ça doit donner 0.",
+      "aRetenir": [
+        "$ax+by+c=0$",
+        "Vecteur directeur associé : $(-b\\,;a)$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [96, 97, 98]
+    },
+    {
+      "id": "equation-reduite-dune-droite",
+      "title": "L'équation réduite",
+      "intro": "Dans cette leçon, tu vas apprendre une autre façon d'écrire l'équation d'une droite.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser la forme $y = mx + p$.",
+      "definition": "L'équation réduite d'une droite s'écrit $y = mx + p$. Le nombre $m$ est le coefficient directeur (la pente). Le nombre $p$ est l'ordonnée à l'origine.",
+      "reglesImportantes": [
+        "$m$ indique si la droite monte ($m>0$) ou descend ($m<0$).",
+        "$p$ est la valeur de $y$ quand $x = 0$.",
+        "Les droites verticales n'ont pas d'équation réduite (elles s'écrivent $x = k$)."
+      ],
+      "methode": {
+        "titre": "Comment passer à la forme réduite",
+        "etapes": [
+          {"icone": "sliders", "couleur": "blue", "texte": "Isole $y$ dans l'équation cartésienne."},
+          {"icone": "target", "couleur": "purple", "texte": "Identifie le coefficient devant $x$ (c'est $m$)."},
+          {"icone": "check", "couleur": "green", "texte": "Identifie le nombre tout seul (c'est $p$)."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Mets $2x+3y-6=0$ sous forme réduite.",
+          "calcul": [
+            {"expr": "3y = -2x+6", "texte": "On isole le terme avec $y$."},
+            {"expr": "y = -\\dfrac{2}{3}x + 2", "texte": "On divise tout par 3."}
+          ],
+          "reponse": "$m=-\\dfrac{2}{3}$, $p=2$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de diviser TOUS les termes par le même nombre.",
+        "Confondre $m$ et $p$ dans la formule."
+      ],
+      "astuce": "$p$ est toujours le nombre \"tout seul\", sans le $x$ à côté.",
+      "aRetenir": [
+        "$y=mx+p$",
+        "$m$ = pente, $p$ = valeur de $y$ quand $x=0$"
+      ],
+      "figure": {
+        "viewBox": [-1, -1, 8, 8],
+        "grid": true, "axes": true,
+        "alt": "Droite d'équation y = 0,5x + 2",
+        "points": [
+          {"x": 0, "y": 2, "label": "p"},
+          {"x": 6, "y": 5}
+        ],
+        "segments": [{"from": {"x": -1, "y": 1.5}, "to": {"x": 6, "y": 5}}]
+      },
+      "quizExerciseIds": [99, 100, 101]
+    },
+    {
+      "id": "coefficient-directeur-dune-droite",
+      "title": "Calculer un coefficient directeur",
+      "intro": "Dans cette leçon, tu vas apprendre à calculer la pente d'une droite.",
+      "objectif": "À la fin de ce cours, tu sauras calculer $m$ à partir de deux points.",
+      "definition": "Le coefficient directeur mesure l'inclinaison d'une droite. On peut le calculer avec les coordonnées de deux points de la droite.",
+      "reglesImportantes": [
+        "$m = \\dfrac{y_B - y_A}{x_B - x_A}$",
+        "$m$ mesure combien $y$ augmente quand $x$ augmente de 1.",
+        "Cette formule marche pour deux points quelconques de la droite."
+      ],
+      "methode": {
+        "titre": "Comment calculer un coefficient directeur",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Repère les coordonnées de deux points de la droite."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Calcule la différence des $y$, puis la différence des $x$."},
+          {"icone": "check", "couleur": "green", "texte": "Divise le premier résultat par le second."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$A(1\\,;3)$, $B(4\\,;9)$. Calcule le coefficient directeur.",
+          "calcul": [
+            {"expr": "m = \\dfrac{9-3}{4-1}", "texte": "On applique la formule."},
+            {"expr": "m = \\dfrac{6}{3} = 2", "texte": "On simplifie."}
+          ],
+          "reponse": "$m = 2$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Inverser l'ordre : il faut toujours $y_B - y_A$ sur $x_B - x_A$, dans le même ordre.",
+        "Diviser par zéro si les deux points ont le même $x$ (droite verticale)."
+      ],
+      "astuce": "$m=2$ veut dire : \"$y$ monte de 2 à chaque fois que $x$ avance de 1\".",
+      "aRetenir": [
+        "$m=\\dfrac{y_B-y_A}{x_B-x_A}$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [93, 94, 95]
+    },
+    {
+      "id": "positions-relatives-de-deux-droites",
+      "title": "Comparer deux droites",
+      "intro": "Dans cette leçon, tu vas apprendre à savoir si deux droites sont parallèles ou pas.",
+      "objectif": "À la fin de ce cours, tu sauras dire si deux droites sont parallèles, sécantes ou confondues.",
+      "definition": "Deux droites sont parallèles si elles ont le même coefficient directeur. Sinon, elles se coupent en un seul point.",
+      "reglesImportantes": [
+        "$m = m'$ : les droites sont parallèles (ou confondues si $p=p'$).",
+        "$m \\neq m'$ : les droites sont sécantes (elles se coupent).",
+        "Deux droites verticales sont toujours parallèles entre elles."
+      ],
+      "methode": {
+        "titre": "Comment comparer deux droites",
+        "etapes": [
+          {"icone": "sliders", "couleur": "blue", "texte": "Mets chaque équation sous forme réduite."},
+          {"icone": "search", "couleur": "purple", "texte": "Compare les deux coefficients directeurs."},
+          {"icone": "check", "couleur": "green", "texte": "Si $m=m'$, regarde aussi si $p=p'$."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Droite 1 : $y=2x+1$. Droite 2 : $y=2x-3$. Sont-elles parallèles ?",
+          "calcul": [
+            {"expr": "m_1 = 2, \\; m_2 = 2", "texte": "Les deux coefficients directeurs sont égaux."},
+            {"expr": "p_1 \\neq p_2", "texte": "Les ordonnées à l'origine sont différentes."}
+          ],
+          "reponse": "Les droites sont parallèles mais pas confondues"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de vérifier $p$ après avoir trouvé $m=m'$.",
+        "Comparer des équations qui ne sont pas sous forme réduite."
+      ],
+      "astuce": "Deux droites parallèles ne se touchent jamais, sauf si elles sont identiques (confondues).",
+      "aRetenir": [
+        "$m=m'$ : parallèles",
+        "$m\\neq m'$ : sécantes"
+      ],
+      "figure": null,
+      "quizExerciseIds": [102, 103, 104]
+    },
+    {
+      "id": "resolution-de-systemes",
+      "title": "Résoudre un système",
+      "intro": "Dans cette leçon, tu vas apprendre à résoudre deux équations en même temps.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre un système de deux équations.",
+      "definition": "Un système, c'est deux équations à résoudre ensemble. La solution est le point où les deux droites se croisent.",
+      "reglesImportantes": [
+        "On peut isoler une inconnue et la remplacer dans l'autre équation.",
+        "Une solution unique = les droites sont sécantes.",
+        "Aucune solution = les droites sont parallèles."
+      ],
+      "methode": {
+        "titre": "Comment résoudre un système par substitution",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Isole une inconnue dans une des deux équations."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Remplace cette expression dans l'autre équation."},
+          {"icone": "check", "couleur": "green", "texte": "Résous, puis calcule la seconde inconnue."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Résous $\\begin{cases} x+y=5 \\\\ 2x-y=1 \\end{cases}$.",
+          "calcul": [
+            {"expr": "y = 5-x", "texte": "On isole $y$ dans la première équation."},
+            {"expr": "2x-(5-x)=1", "texte": "On remplace dans la deuxième équation."},
+            {"expr": "x=2, \\; y=3", "texte": "On résout puis on calcule $y$."}
+          ],
+          "reponse": "$(x\\,;y)=(2\\,;3)$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de recalculer la deuxième inconnue après avoir trouvé la première.",
+        "Faire une erreur de signe en remplaçant."
+      ],
+      "astuce": "Vérifie ta solution en la remplaçant dans les DEUX équations de départ.",
+      "aRetenir": [
+        "Solution unique = droites sécantes",
+        "Aucune solution = droites parallèles",
+        "Infinité de solutions = droites confondues"
+      ],
+      "figure": null,
+      "quizExerciseIds": [105, 106, 107]
+    }
+  ]
+}

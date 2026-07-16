@@ -1,0 +1,134 @@
+{
+  "chapterId": "Chapitre_10",
+  "title": "Proportions et évolutions",
+  "icon": "barChart",
+  "notions": [
+    {
+      "id": "proportion-de-proportion",
+      "title": "Une proportion dans une proportion",
+      "intro": "Dans cette leçon, tu vas apprendre à calculer une proportion à l'intérieur d'une autre.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une proportion emboîtée.",
+      "definition": "Quand une proportion s'applique à l'intérieur d'une autre proportion, on multiplie les deux nombres.",
+      "reglesImportantes": [
+        "On multiplie les deux proportions, on ne les additionne jamais.",
+        "Il faut écrire les proportions en écriture décimale (60% = 0,60).",
+        "Le résultat est une proportion de l'ensemble de départ."
+      ],
+      "methode": {
+        "titre": "Comment calculer une proportion emboîtée",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Écris les deux proportions en écriture décimale."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Multiplie les deux nombres entre eux."},
+          {"icone": "check", "couleur": "green", "texte": "Le résultat est la proportion finale, par rapport au groupe total."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "60% des élèves sont en filière générale. Parmi eux, 40% font des maths expertes. Quelle proportion de TOUS les élèves fait des maths expertes ?",
+          "calcul": [
+            {"expr": "0{,}60 \\times 0{,}40", "texte": "On multiplie les deux proportions."},
+            {"expr": "= 0{,}24", "texte": "On calcule."}
+          ],
+          "reponse": "$24\\%$ de tous les élèves"
+        }
+      ],
+      "erreursFrequentes": [
+        "Additionner les deux proportions au lieu de les multiplier.",
+        "Oublier de transformer les pourcentages en écriture décimale."
+      ],
+      "astuce": "Le mot \"parmi\" est un indice : ça veut souvent dire qu'il faut multiplier deux proportions.",
+      "aRetenir": [
+        "Proportions emboîtées : on multiplie",
+        "Jamais d'addition entre deux proportions différentes"
+      ],
+      "figure": null,
+      "quizExerciseIds": [159, 160, 161]
+    },
+    {
+      "id": "evolutions-dune-quantite",
+      "title": "Les évolutions en pourcentage",
+      "intro": "Dans cette leçon, tu vas apprendre à calculer une augmentation ou une baisse.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser un coefficient multiplicateur.",
+      "definition": "Le coefficient multiplicateur permet de passer directement d'un prix de départ à un prix d'arrivée, en une seule multiplication.",
+      "reglesImportantes": [
+        "Augmentation de $t\\%$ : coefficient multiplicateur $= 1+t$.",
+        "Baisse de $t\\%$ : coefficient multiplicateur $= 1-t$.",
+        "$V_{final} = V_{initial} \\times CM$"
+      ],
+      "methode": {
+        "titre": "Comment calculer une évolution",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Repère si c'est une augmentation ou une baisse."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Calcule le coefficient multiplicateur."},
+          {"icone": "check", "couleur": "green", "texte": "Multiplie la valeur de départ par ce coefficient."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Un prix de 80 € augmente de 15%. Quel est le nouveau prix ?",
+          "calcul": [
+            {"expr": "CM = 1 + 0{,}15 = 1{,}15", "texte": "On calcule le coefficient multiplicateur."},
+            {"expr": "80 \\times 1{,}15 = 92", "texte": "On multiplie le prix de départ."}
+          ],
+          "reponse": "$92$ €"
+        }
+      ],
+      "erreursFrequentes": [
+        "Écrire un coefficient multiplicateur négatif pour une baisse. C'est faux : il reste positif ($1-t$).",
+        "Oublier de transformer le pourcentage en écriture décimale."
+      ],
+      "astuce": "Le coefficient multiplicateur est toujours positif (tant que le prix final reste positif), même pour une baisse.",
+      "aRetenir": [
+        "Hausse de $t\\%$ : $CM=1+t$",
+        "Baisse de $t\\%$ : $CM=1-t$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [153, 154, 155]
+    },
+    {
+      "id": "evolutions-successives-et-reciproques",
+      "title": "Plusieurs évolutions à la suite",
+      "intro": "Dans cette leçon, tu vas apprendre à combiner plusieurs évolutions.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une évolution globale et une évolution réciproque.",
+      "definition": "Pour deux évolutions à la suite, on multiplie les deux coefficients multiplicateurs.",
+      "reglesImportantes": [
+        "$CM_{global} = CM_1 \\times CM_2$",
+        "L'évolution réciproque (pour revenir en arrière) utilise l'inverse du coefficient : $CM' = 1/CM$.",
+        "Une hausse de 20% n'est PAS annulée par une baisse de 20%."
+      ],
+      "methode": {
+        "titre": "Comment trouver l'évolution réciproque",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Calcule le coefficient multiplicateur de l'évolution de départ."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Prends son inverse (1 divisé par ce coefficient)."},
+          {"icone": "check", "couleur": "green", "texte": "Transforme cet inverse en pourcentage d'évolution."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Un prix augmente de 20%. Quelle baisse ramène au prix de départ ?",
+          "calcul": [
+            {"expr": "CM = 1{,}2", "texte": "Coefficient de la hausse de 20%."},
+            {"expr": "CM' = \\dfrac{1}{1{,}2} \\approx 0{,}833", "texte": "On prend l'inverse."},
+            {"expr": "\\text{baisse} \\approx 16{,}7\\%", "texte": "On transforme en pourcentage."}
+          ],
+          "reponse": "Une baisse d'environ $16{,}7\\%$ (pas 20% !)"
+        }
+      ],
+      "erreursFrequentes": [
+        "Croire qu'une hausse de 20% est annulée par une baisse de 20%. C'est faux.",
+        "Additionner les pourcentages au lieu de multiplier les coefficients."
+      ],
+      "astuce": "Retiens bien : pour revenir en arrière, on prend l'INVERSE du coefficient, jamais l'opposé du pourcentage.",
+      "aRetenir": [
+        "$CM_{global} = CM_1 \\times CM_2$",
+        "Évolution réciproque : $CM' = 1/CM$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [156, 157, 158]
+    }
+  ]
+}

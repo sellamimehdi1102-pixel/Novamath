@@ -1,0 +1,92 @@
+{
+  "chapterId": "Chapitre_6",
+  "title": "Droites du plan et systèmes d'équations",
+  "icon": "sliders",
+  "notions": [
+    {
+      "id": "vecteur-directeur-dune-droite",
+      "title": "Vecteur directeur d'une droite",
+      "objectifs": ["Définir un vecteur directeur", "Utiliser la colinéarité pour caractériser une droite"],
+      "prerequis": ["Condition de colinéarité"],
+      "sections": [
+        {"type": "definition", "title": "Vecteur directeur", "body": "Un vecteur directeur d'une droite $d$ est un vecteur non nul $\\vec{u}$ ayant la même direction que $d$. Tout vecteur formé par deux points de $d$ est un vecteur directeur (à un facteur multiplicatif près)."},
+        {"type": "propriete", "title": "Caractérisation", "body": "Un point $M(x\\,;y)$ appartient à la droite passant par $A(x_A\\,;y_A)$ de vecteur directeur $\\vec{u}(a\\,;b)$ si et seulement si $\\vec{AM}$ et $\\vec{u}$ sont colinéaires."},
+        {"type": "astuce", "body": "Une droite a une infinité de vecteurs directeurs, tous colinéaires entre eux : $\\vec{u}$ et $2\\vec{u}$ dirigent la même droite."}
+      ],
+      "resume": "Le vecteur directeur fixe la direction d'une droite. Toute la construction des équations de droites repose sur la colinéarité entre ce vecteur et le vecteur reliant un point fixe à un point courant.",
+      "ficheMemo": ["Vecteur directeur : direction de la droite", "$M \\in d \\Leftrightarrow \\vec{AM}$ colinéaire à $\\vec u$"],
+      "quizExerciseIds": [108, 109, 110]
+    },
+    {
+      "id": "equation-cartesienne-dune-droite",
+      "title": "Équation cartésienne d'une droite",
+      "objectifs": ["Déterminer une équation cartésienne à partir d'un point et d'un vecteur directeur", "Reconnaître un vecteur directeur à partir d'une équation"],
+      "prerequis": ["Vecteur directeur d'une droite"],
+      "sections": [
+        {"type": "definition", "title": "Forme cartésienne", "body": "Toute droite du plan admet une équation de la forme $ax+by+c=0$, où $(a,b) \\neq (0,0)$. Un vecteur directeur associé est alors $\\vec{u}(-b\\,;a)$."},
+        {"type": "methode", "title": "Trouver l'équation cartésienne", "steps": ["Écrire la condition de colinéarité entre $\\vec{AM}(x-x_A\\,;y-y_A)$ et $\\vec{u}(a\\,;b)$.", "Développer le déterminant $a(y-y_A) - b(x-x_A) = 0$.", "Réduire à la forme $\\alpha x + \\beta y + \\gamma = 0$."]},
+        {"type": "exemple", "enonce": "Droite passant par $A(1\\,;2)$, vecteur directeur $\\vec{u}(3\\,;-1)$.", "etapes": ["Colinéarité : $3(y-2) - (-1)(x-1) = 0$", "$3y - 6 + x - 1 = 0$"], "reponse": "$x + 3y - 7 = 0$"}
+      ],
+      "resume": "L'équation cartésienne $ax+by+c=0$ code entièrement une droite. Elle se construit directement à partir d'un point et d'un vecteur directeur via la condition de colinéarité.",
+      "ficheMemo": ["$ax+by+c=0$ ; vecteur directeur associé $(-b\\,;a)$"],
+      "quizExerciseIds": [96, 97, 98]
+    },
+    {
+      "id": "equation-reduite-dune-droite",
+      "title": "Équation réduite d'une droite",
+      "objectifs": ["Passer de l'équation cartésienne à l'équation réduite", "Interpréter le coefficient directeur et l'ordonnée à l'origine"],
+      "prerequis": ["Équation cartésienne d'une droite"],
+      "sections": [
+        {"type": "definition", "title": "Équation réduite", "body": "Toute droite non parallèle à l'axe des ordonnées admet une équation réduite unique $y = mx+p$, où $m$ est le coefficient directeur (pente) et $p$ l'ordonnée à l'origine (valeur de $y$ quand $x=0$)."},
+        {"type": "attention", "body": "Les droites parallèles à l'axe des ordonnées (verticales) n'ont pas d'équation réduite : elles s'écrivent $x = k$."},
+        {"type": "exemple", "enonce": "Mettre $2x+3y-6=0$ sous forme réduite.", "etapes": ["$3y = -2x+6$", "$y = -\\dfrac{2}{3}x + 2$"], "reponse": "$m=-\\dfrac{2}{3}$, $p=2$"}
+      ],
+      "resume": "L'équation réduite $y=mx+p$ met en évidence les deux informations essentielles d'une droite : sa pente $m$ et le point où elle coupe l'axe des ordonnées.",
+      "ficheMemo": ["$y=mx+p$", "$m$ = pente, $p$ = ordonnée à l'origine", "Droites verticales : $x=k$ (pas de forme réduite)"],
+      "quizExerciseIds": [99, 100, 101]
+    },
+    {
+      "id": "coefficient-directeur-dune-droite",
+      "title": "Coefficient directeur d'une droite",
+      "objectifs": ["Calculer un coefficient directeur à partir de deux points", "Relier coefficient directeur et vecteur directeur"],
+      "prerequis": ["Équation réduite d'une droite"],
+      "sections": [
+        {"type": "propriete", "title": "Calcul à partir de deux points", "body": "Si $A(x_A\\,;y_A)$ et $B(x_B\\,;y_B)$ appartiennent à une droite non verticale, son coefficient directeur est $m = \\dfrac{y_B-y_A}{x_B-x_A}$."},
+        {"type": "exemple", "enonce": "$A(1\\,;3)$, $B(4\\,;9)$. Coefficient directeur de $(AB)$ ?", "etapes": ["$m = \\dfrac{9-3}{4-1} = \\dfrac{6}{3}$"], "reponse": "$m = 2$"},
+        {"type": "astuce", "body": "Le coefficient directeur mesure combien $y$ augmente quand $x$ augmente de $1$ : $m=2$ signifie « $y$ augmente de $2$ à chaque fois que $x$ augmente de $1$ »."}
+      ],
+      "resume": "Le coefficient directeur quantifie l'inclinaison d'une droite. Il se calcule directement à partir des coordonnées de deux points, sans passer par l'équation complète.",
+      "ficheMemo": ["$m=\\dfrac{y_B-y_A}{x_B-x_A}$"],
+      "quizExerciseIds": [93, 94, 95]
+    },
+    {
+      "id": "positions-relatives-de-deux-droites",
+      "title": "Positions relatives de deux droites",
+      "objectifs": ["Déterminer si deux droites sont parallèles, sécantes ou confondues"],
+      "prerequis": ["Coefficient directeur d'une droite", "Condition de colinéarité"],
+      "sections": [
+        {"type": "propriete", "title": "Critère avec le coefficient directeur", "body": "Deux droites d'équations réduites $y=mx+p$ et $y=m'x+p'$ sont :\n• parallèles si $m=m'$ (confondues si en plus $p=p'$)\n• sécantes si $m \\neq m'$"},
+        {"type": "methode", "title": "Étudier deux droites", "steps": ["Mettre chaque équation sous forme réduite (si possible).", "Comparer les coefficients directeurs.", "Si parallèles, comparer les ordonnées à l'origine pour savoir si elles sont confondues."]},
+        {"type": "attention", "body": "Pour deux droites verticales ($x=k$), la notion de coefficient directeur ne s'applique pas : elles sont parallèles entre elles par définition."}
+      ],
+      "resume": "Comparer deux droites revient à comparer leurs coefficients directeurs : égaux, elles sont parallèles (ou confondues) ; différents, elles se coupent en un unique point.",
+      "ficheMemo": ["$m=m'$ : parallèles (confondues si $p=p'$)", "$m\\neq m'$ : sécantes"],
+      "quizExerciseIds": [102, 103, 104]
+    },
+    {
+      "id": "resolution-de-systemes",
+      "title": "Résolution de systèmes",
+      "objectifs": ["Résoudre un système de deux équations à deux inconnues", "Interpréter géométriquement la solution"],
+      "prerequis": ["Positions relatives de deux droites"],
+      "sections": [
+        {"type": "definition", "title": "Système linéaire 2×2", "body": "Un système $\\begin{cases} ax+by=c \\\\ a'x+b'y=c' \\end{cases}$ a pour solution le(s) point(s) d'intersection des deux droites associées."},
+        {"type": "methode", "title": "Méthode par substitution", "steps": ["Isoler une inconnue dans une des deux équations.", "Remplacer cette expression dans l'autre équation.", "Résoudre l'équation obtenue, puis calculer la seconde inconnue."]},
+        {"type": "exemple", "enonce": "Résoudre $\\begin{cases} x+y=5 \\\\ 2x-y=1 \\end{cases}$.", "etapes": ["De la première équation : $y=5-x$.", "On remplace : $2x-(5-x)=1 \\Rightarrow 3x-5=1 \\Rightarrow x=2$.", "$y=5-2=3$."], "reponse": "$(x\\,;y)=(2\\,;3)$"},
+        {"type": "propriete", "title": "Interprétation géométrique", "body": "Une solution unique correspond à deux droites sécantes ; aucune solution à deux droites strictement parallèles ; une infinité de solutions à deux droites confondues."}
+      ],
+      "resume": "Résoudre un système revient géométriquement à trouver l'intersection de deux droites. La méthode par substitution (ou combinaison) transforme le problème en une simple équation à une inconnue.",
+      "ficheMemo": ["Solution unique = droites sécantes", "Aucune solution = droites parallèles distinctes", "Infinité = droites confondues"],
+      "quizExerciseIds": [105, 106, 107]
+    }
+  ]
+}

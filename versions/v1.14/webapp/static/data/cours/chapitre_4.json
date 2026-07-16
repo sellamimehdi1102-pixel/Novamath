@@ -1,0 +1,80 @@
+{
+  "chapterId": "Chapitre_4",
+  "title": "Géométrie non repérée",
+  "icon": "compass",
+  "notions": [
+    {
+      "id": "geometrie-sans-repere",
+      "title": "Géométrie sans repère",
+      "objectifs": ["Utiliser les propriétés de géométrie plane sans coordonnées", "Reconnaître configurations classiques (parallélisme, milieu, triangle)"],
+      "prerequis": [],
+      "sections": [
+        {"type": "definition", "title": "Milieu d'un segment", "body": "Le milieu $I$ d'un segment $[AB]$ est le point situé à égale distance de $A$ et $B$ sur la droite $(AB)$ : $IA = IB$."},
+        {"type": "propriete", "title": "Droite des milieux", "body": "Dans un triangle, la droite qui joint les milieux de deux côtés est parallèle au troisième côté, et sa longueur vaut la moitié de celle de ce troisième côté."},
+        {"type": "exemple", "enonce": "$I$ et $J$ sont les milieux respectifs de $[AB]$ et $[AC]$ dans un triangle $ABC$ avec $BC = 8\\text{ cm}$. Que vaut $IJ$ ?", "etapes": ["D'après le théorème de la droite des milieux, $(IJ)$ est parallèle à $(BC)$.", "$IJ = \\dfrac{BC}{2}$"], "reponse": "$IJ = 4\\text{ cm}$"},
+        {"type": "astuce", "body": "Sans repère, appuyez-vous systématiquement sur des figures et des propriétés connues (milieux, parallélisme, triangles isocèles/équilatéraux) plutôt que sur des calculs de coordonnées."}
+      ],
+      "resume": "La géométrie sans repère s'appuie sur des propriétés de figures (milieux, parallélisme, égalités de longueurs) plutôt que sur des calculs algébriques avec coordonnées.",
+      "ficheMemo": ["Droite des milieux : parallèle et moitié du 3ᵉ côté", "Milieu : équidistant des deux extrémités"],
+      "quizExerciseIds": [53, 54, 55]
+    },
+    {
+      "id": "translations-et-vecteurs-associes",
+      "title": "Translations et vecteurs associés",
+      "objectifs": ["Comprendre la notion de translation", "Associer un vecteur à une translation"],
+      "prerequis": ["Géométrie sans repère"],
+      "sections": [
+        {"type": "definition", "title": "Vecteur", "body": "Un vecteur $\\vec{AB}$ représente un déplacement du point $A$ vers le point $B$ : il possède une direction, un sens et une longueur (appelée norme, notée $\\|\\vec{AB}\\|$)."},
+        {"type": "definition", "title": "Translation", "body": "La translation de vecteur $\\vec{u}$ transforme un point $M$ en un point $M'$ tel que $\\vec{MM'} = \\vec{u}$. Elle conserve les longueurs, les angles et le parallélisme."},
+        {"type": "propriete", "title": "Vecteurs égaux", "body": "Deux vecteurs $\\vec{AB}$ et $\\vec{CD}$ sont égaux si et seulement si $ABDC$ est un parallélogramme (éventuellement aplati), c'est-à-dire s'ils ont même direction, même sens et même longueur."},
+        {"type": "attention", "body": "$\\vec{AB}$ et $\\vec{BA}$ ont la même longueur mais sont opposés (sens contraire) : $\\vec{BA} = -\\vec{AB}$."}
+      ],
+      "resume": "Un vecteur code un déplacement (direction, sens, longueur). Une translation applique ce même déplacement à tous les points du plan, ce qui conserve les distances et les angles.",
+      "ficheMemo": ["$\\vec{AB} = -\\vec{BA}$", "Translation = même vecteur appliqué à tout point"],
+      "quizExerciseIds": [78, 79, 80]
+    },
+    {
+      "id": "somme-et-difference-de-deux-vecteurs",
+      "title": "Somme et différence de deux vecteurs",
+      "objectifs": ["Construire la somme de deux vecteurs", "Utiliser la relation de Chasles"],
+      "prerequis": ["Translations et vecteurs associés"],
+      "sections": [
+        {"type": "propriete", "title": "Relation de Chasles", "body": "Pour tous points $A, B, C$ : $\\vec{AB} + \\vec{BC} = \\vec{AC}$. Cette relation permet de décomposer ou de simplifier n'importe quelle somme de vecteurs."},
+        {"type": "methode", "title": "Construire une somme de vecteurs", "steps": ["Placer le premier vecteur.", "Placer le second vecteur à partir de l'extrémité du premier (méthode « bout à bout »).", "Le vecteur somme relie l'origine du premier à l'extrémité du second."]},
+        {"type": "exemple", "enonce": "Simplifier $\\vec{AB} + \\vec{BC} + \\vec{CD}$.", "etapes": ["$\\vec{AB}+\\vec{BC} = \\vec{AC}$ (Chasles).", "$\\vec{AC} + \\vec{CD} = \\vec{AD}$ (Chasles à nouveau)."], "reponse": "$\\vec{AD}$"},
+        {"type": "astuce", "body": "Une différence $\\vec{u} - \\vec{v}$ se calcule comme une somme : $\\vec{u} + (-\\vec{v})$, en inversant le sens du second vecteur."}
+      ],
+      "resume": "La relation de Chasles est l'outil central pour additionner ou simplifier des sommes de vecteurs : elle transforme une chaîne de vecteurs « bout à bout » en un seul vecteur direct.",
+      "ficheMemo": ["$\\vec{AB}+\\vec{BC}=\\vec{AC}$", "$\\vec u - \\vec v = \\vec u + (-\\vec v)$"],
+      "quizExerciseIds": [67, 68, 69]
+    },
+    {
+      "id": "produit-dun-vecteur",
+      "title": "Produit d'un vecteur",
+      "objectifs": ["Multiplier un vecteur par un réel", "Interpréter géométriquement ce produit"],
+      "prerequis": ["Somme et différence de deux vecteurs"],
+      "sections": [
+        {"type": "definition", "title": "Produit d'un vecteur par un réel", "body": "Pour un réel $k$ et un vecteur $\\vec{u}$, le vecteur $k\\vec{u}$ a la même direction que $\\vec{u}$, une longueur multipliée par $|k|$, et un sens identique à $\\vec{u}$ si $k>0$, opposé si $k<0$."},
+        {"type": "exemple", "enonce": "$I$ est le milieu de $[AB]$. Exprimer $\\vec{AI}$ en fonction de $\\vec{AB}$.", "etapes": ["$I$ milieu de $[AB]$ signifie que $\\vec{AI}$ et $\\vec{AB}$ ont même direction et même sens, avec $AI = \\dfrac{1}{2}AB$."], "reponse": "$\\vec{AI} = \\dfrac{1}{2}\\vec{AB}$"},
+        {"type": "attention", "body": "$k=0$ donne le vecteur nul $\\vec{0}$, qui n'a pas de direction définie."}
+      ],
+      "resume": "Multiplier un vecteur par un réel change sa longueur (et éventuellement son sens si le réel est négatif) sans changer sa direction. C'est l'outil qui permet d'exprimer des milieux et des alignements.",
+      "ficheMemo": ["$k\\vec u$ : direction inchangée, longueur $\\times|k|$, sens inversé si $k<0$"],
+      "quizExerciseIds": [50, 51, 60]
+    },
+    {
+      "id": "condition-de-colinearite",
+      "title": "Condition de colinéarité",
+      "objectifs": ["Définir deux vecteurs colinéaires", "Utiliser la colinéarité pour prouver un alignement ou un parallélisme"],
+      "prerequis": ["Produit d'un vecteur"],
+      "sections": [
+        {"type": "definition", "title": "Vecteurs colinéaires", "body": "Deux vecteurs $\\vec{u}$ et $\\vec{v}$ (non nuls) sont colinéaires s'il existe un réel $k$ tel que $\\vec{v} = k\\vec{u}$ : ils ont alors la même direction."},
+        {"type": "propriete", "title": "Utilisations classiques", "body": "• $A, B, C$ alignés $\\Leftrightarrow$ $\\vec{AB}$ et $\\vec{AC}$ colinéaires.\n• $(AB)$ parallèle à $(CD)$ $\\Leftrightarrow$ $\\vec{AB}$ et $\\vec{CD}$ colinéaires."},
+        {"type": "astuce", "body": "Pour prouver un alignement de trois points, il suffit donc de montrer que deux vecteurs qu'ils forment sont colinéaires — pas besoin de mesurer d'angle."}
+      ],
+      "resume": "La colinéarité de deux vecteurs traduit une même direction. C'est l'outil vectoriel de base pour démontrer un alignement de points ou un parallélisme de droites.",
+      "ficheMemo": ["$\\vec u, \\vec v$ colinéaires $\\Leftrightarrow \\vec v = k\\vec u$", "Alignement $\\Leftrightarrow$ vecteurs colinéaires"],
+      "quizExerciseIds": [52]
+    }
+  ]
+}

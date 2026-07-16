@@ -1,0 +1,53 @@
+{
+  "chapterId": "Chapitre_5",
+  "title": "Vecteurs et repère",
+  "icon": "target",
+  "notions": [
+    {
+      "id": "base-repere-et-coordonnees",
+      "title": "Base, repère et coordonnées",
+      "objectifs": ["Comprendre la notion de repère du plan", "Lire et calculer les coordonnées d'un vecteur"],
+      "prerequis": ["Produit d'un vecteur", "Somme et différence de deux vecteurs"],
+      "sections": [
+        {"type": "definition", "title": "Repère du plan", "body": "Un repère $(O\\,;\\vec{i},\\vec{j})$ est constitué d'une origine $O$ et de deux vecteurs non colinéaires $\\vec{i}$ et $\\vec{j}$. Tout point $M$ du plan est alors repéré par un couple unique $(x\\,;y)$ tel que $\\vec{OM} = x\\vec{i} + y\\vec{j}$."},
+        {"type": "propriete", "title": "Coordonnées d'un vecteur", "body": "Si $A(x_A\\,;y_A)$ et $B(x_B\\,;y_B)$, alors $\\vec{AB}$ a pour coordonnées $\\left(x_B-x_A\\,;\\,y_B-y_A\\right)$."},
+        {"type": "propriete", "title": "Somme et produit en coordonnées", "body": "Si $\\vec{u}(x\\,;y)$ et $\\vec{v}(x'\\,;y')$ : $\\vec{u}+\\vec{v}$ a pour coordonnées $(x+x'\\,;y+y')$, et $k\\vec{u}$ a pour coordonnées $(kx\\,;ky)$."},
+        {"type": "exemple", "enonce": "$A(2\\,;-1)$ et $B(5\\,;3)$. Calculer les coordonnées de $\\vec{AB}$.", "etapes": ["$x_{\\vec{AB}} = x_B - x_A = 5-2=3$", "$y_{\\vec{AB}} = y_B - y_A = 3-(-1)=4$"], "reponse": "$\\vec{AB}(3\\,;4)$"},
+        {"type": "astuce", "body": "Toujours « arrivée moins départ » pour les coordonnées d'un vecteur : c'est l'ordre inverse qui est la source d'erreur la plus fréquente."}
+      ],
+      "resume": "Un repère permet de traduire toute la géométrie vectorielle en calculs sur des couples de nombres, beaucoup plus rapides que des constructions géométriques.",
+      "ficheMemo": ["$\\vec{AB}(x_B-x_A\\,;y_B-y_A)$", "$\\vec u+\\vec v \\to$ coordonnées additionnées", "$k\\vec u \\to$ coordonnées multipliées par $k$"],
+      "quizExerciseIds": [84, 85, 86]
+    },
+    {
+      "id": "milieu-et-norme",
+      "title": "Milieu et norme",
+      "objectifs": ["Calculer les coordonnées du milieu d'un segment", "Calculer la norme d'un vecteur (distance entre deux points)"],
+      "prerequis": ["Base, repère et coordonnées"],
+      "sections": [
+        {"type": "propriete", "title": "Coordonnées du milieu", "body": "Le milieu $I$ de $[AB]$ a pour coordonnées $I\\left(\\dfrac{x_A+x_B}{2}\\,;\\dfrac{y_A+y_B}{2}\\right)$ : on fait la moyenne de chaque coordonnée."},
+        {"type": "propriete", "title": "Norme d'un vecteur (distance)", "body": "Dans un repère orthonormé, si $\\vec{u}(x\\,;y)$, sa norme est $\\|\\vec{u}\\| = \\sqrt{x^2+y^2}$. La distance $AB$ vaut donc $AB = \\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}$ (théorème de Pythagore généralisé)."},
+        {"type": "exemple", "enonce": "$A(1\\,;2)$, $B(4\\,;6)$. Calculer $AB$.", "etapes": ["$\\vec{AB}(4-1\\,;6-2) = (3\\,;4)$", "$AB = \\sqrt{3^2+4^2} = \\sqrt{9+16} = \\sqrt{25}$"], "reponse": "$AB = 5$"},
+        {"type": "attention", "body": "La formule de la norme n'est valable que dans un repère ORTHONORMÉ (axes perpendiculaires, même unité) — jamais dans un repère quelconque."}
+      ],
+      "resume": "Le milieu s'obtient en moyennant les coordonnées ; la norme (donc la distance) se calcule avec une formule directement issue du théorème de Pythagore, valable uniquement en repère orthonormé.",
+      "ficheMemo": ["Milieu : moyenne des coordonnées", "$AB=\\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}$ (repère orthonormé)"],
+      "quizExerciseIds": [90, 91, 92]
+    },
+    {
+      "id": "condition-de-colinearite-repere",
+      "title": "Condition de colinéarité",
+      "objectifs": ["Traduire la colinéarité de deux vecteurs par un calcul de coordonnées", "Prouver un alignement ou un parallélisme avec des coordonnées"],
+      "prerequis": ["Base, repère et coordonnées"],
+      "sections": [
+        {"type": "propriete", "title": "Déterminant de colinéarité", "body": "Deux vecteurs $\\vec{u}(x\\,;y)$ et $\\vec{v}(x'\\,;y')$ sont colinéaires si et seulement si $xy' - x'y = 0$."},
+        {"type": "methode", "title": "Prouver un alignement avec des coordonnées", "steps": ["Calculer les coordonnées de deux vecteurs formés par les trois points.", "Calculer le déterminant $xy'-x'y$.", "Si le résultat est $0$, les vecteurs sont colinéaires donc les points sont alignés."]},
+        {"type": "exemple", "enonce": "$A(0\\,;0)$, $B(2\\,;4)$, $C(3\\,;6)$ sont-ils alignés ?", "etapes": ["$\\vec{AB}(2\\,;4)$ et $\\vec{AC}(3\\,;6)$.", "Déterminant : $2\\times 6 - 3\\times 4 = 12-12=0$."], "reponse": "Le déterminant est nul : $A, B, C$ sont alignés"},
+        {"type": "astuce", "body": "Ce déterminant est le même outil qui, en droites, permet de vérifier si deux droites sont parallèles (vecteurs directeurs colinéaires)."}
+      ],
+      "resume": "Le déterminant $xy'-x'y$ traduit numériquement la colinéarité : il remplace toute construction géométrique par un simple calcul, très utilisé pour les alignements et parallélismes.",
+      "ficheMemo": ["$\\vec u,\\vec v$ colinéaires $\\Leftrightarrow xy'-x'y=0$"],
+      "quizExerciseIds": [87, 88, 89]
+    }
+  ]
+}

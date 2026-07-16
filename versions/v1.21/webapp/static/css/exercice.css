@@ -1,0 +1,129 @@
+/* ==========================================================================
+   Écrans question — évaluation initiale + entraînement (partagé)
+   ========================================================================== */
+
+.eval-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 60px;
+}
+
+.eval-topbar {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.eval-progress-track { flex: 1; }
+.eval-meta { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+.eval-meta-icon { width: 15px; height: 15px; flex-shrink: 0; }
+.eval-chrono { font-variant-numeric: tabular-nums; font-weight: 600; }
+
+.question-card {
+  width: 100%;
+  max-width: 720px;
+  padding: 40px;
+}
+
+.question-badges { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+
+.question-enonce {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.question-enonce .katex { font-size: 1.05em; }
+
+.answer-field {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-hover);
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+.answer-field:focus { border-color: var(--brand-indigo); outline: none; }
+
+.action-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 18px; }
+
+.callout {
+  background: var(--surface-hover);
+  border-left: 3px solid var(--brand-indigo);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.callout--steps ol { padding-left: 20px; list-style: decimal; display: flex; flex-direction: column; gap: 8px; }
+.eval-inline-icon, .exercice-inline-icon {
+  display: inline-flex; vertical-align: -3px;
+  width: 16px; height: 16px; margin-right: 8px;
+  color: var(--accent);
+}
+.eval-inline-icon svg, .exercice-inline-icon svg { width: 100%; height: 100%; }
+
+.verdict-row { display: flex; gap: 12px; margin-top: 24px; }
+.verdict-row .btn { flex: 1; }
+
+.xp-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.8rem; font-weight: 700; color: var(--warning);
+}
+
+.history-strip {
+  width: 100%;
+  max-width: 720px;
+  margin-top: 24px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.history-dot {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.history-dot svg { width: 15px; height: 15px; }
+.history-dot.correct { background: var(--success-soft); color: var(--success); }
+.history-dot.wrong { background: var(--danger-soft); color: var(--danger); }
+
+.result-panel {
+  width: 100%;
+  max-width: 560px;
+  padding: 48px 40px;
+  text-align: center;
+}
+.result-level-icon { width: 56px; height: 56px; margin: 0 auto 12px; color: var(--accent); }
+.result-level-icon svg { width: 100%; height: 100%; }
+
+.mode-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.mode-pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.mode-pill.active { background: var(--brand-gradient); color: #fff; border-color: transparent; }
+
+@media (max-width: 640px) {
+  .question-card, .result-panel { padding: 26px 20px; }
+}

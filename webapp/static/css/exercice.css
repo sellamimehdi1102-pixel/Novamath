@@ -1,0 +1,366 @@
+/* ==========================================================================
+   Écrans question — évaluation initiale + entraînement (partagé)
+   Les classes génériques ci-dessous (.question-card, .question-enonce,
+   .action-row, .callout, .verdict-row, .result-panel, .mode-pills...) sont
+   utilisées à la fois par exercice.html et evaluation.html : les enrichir
+   profite aux deux flux sans qu'aucun des deux ne soit restructuré. Les
+   classes propres à la page Entraînement (.series-hero, .series-dots,
+   .btn-verdict-*, .recap-*, .empty-state, .exercise-layout...) n'existent
+   que dans exercice.html et n'affectent jamais evaluation.html.
+   ========================================================================== */
+
+/* @keyframes nm-rise partagé — voir css/animations.css. */
+@keyframes nm-pop {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.eval-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 60px;
+}
+
+.eval-topbar {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.eval-progress-track { flex: 1; }
+.eval-meta { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+.eval-meta-icon { width: 15px; height: 15px; flex-shrink: 0; }
+.eval-chrono { font-variant-numeric: tabular-nums; font-weight: 600; }
+
+/* ── Mise en page à deux colonnes de la page Entraînement ────────────────── */
+.exercise-layout { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+.exercise-layout-main { flex: 2; min-width: 320px; }
+.exercise-layout-side { flex: 1; min-width: 260px; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PROGRESSION DE LA SÉRIE — reste visible en permanence pendant toute la
+   série (#series-topbar n'est masqué qu'entre deux séries). Compteur +
+   barre + une puce par question (faite / en cours / à venir), pour que la
+   progression se lise d'un coup d'œil, esprit Duolingo sans en copier le
+   design. #series-count/#series-progress-fill : ids inchangés, remplis par
+   exercice.js. #series-dots est peuplé par une fonction d'affichage pure
+   ajoutée à exercice.js (renderSeriesDots), à partir de draft.questions/
+   seriesIndex déjà calculés — aucune nouvelle donnée. ─────────────────────
+   ══════════════════════════════════════════════════════════════════════════ */
+.series-hero {
+  width: 100%;
+  padding: 20px 26px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(155deg, var(--surface), var(--surface-hover));
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 28px;
+}
+.series-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.series-hero .eval-progress-track { height: 8px; }
+.series-hero .progress-fill { transition: width var(--transition-slow); }
+
+.series-dots { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
+.series-dot {
+  width: 100%;
+  max-width: 22px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  flex: 1;
+  transition: background var(--transition-base), transform var(--transition-base);
+}
+.series-dot.is-current {
+  background: var(--brand-gradient);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.18);
+}
+.series-dot.is-correct { background: var(--success); }
+.series-dot.is-wrong { background: var(--danger); }
+
+/* ── Boutons de mode — icône + libellé, plus présents et plus vivants ────── */
+.mode-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.mode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-fast), box-shadow var(--transition-base);
+}
+.mode-pill svg { width: 16px; height: 16px; flex-shrink: 0; }
+.mode-pill:hover { color: var(--text); border-color: var(--border-strong); transform: translateY(-1px); }
+.mode-pill:active { transform: translateY(0) scale(0.97); }
+.mode-pill.active { background: var(--brand-gradient); color: var(--text-on-accent); border-color: transparent; box-shadow: 0 6px 18px -6px rgba(var(--accent-rgb), 0.5); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CARTE DE L'EXERCICE — plus de profondeur, hiérarchie claire énoncé >
+   badges > aides > verdict. #screen-ex garde son id, sa position dans le
+   flux et tous ses enfants ; seul le style change.
+   ══════════════════════════════════════════════════════════════════════════ */
+.question-card {
+  width: 100%;
+  max-width: 760px;
+  padding: 48px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-float);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Barre de chargement discrète (haut de carte) — affichée brièvement par
+   exercice.js pendant l'appel réseau qui charge la question suivante
+   (voir #question-loading-bar, purement présentationnel). */
+.question-loading-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: transparent;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+.question-loading-bar span {
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: var(--brand-gradient);
+  animation: none;
+}
+.question-card.is-loading .question-loading-bar { opacity: 1; }
+.question-card.is-loading .question-loading-bar span { animation: nm-loading-slide 1100ms ease-in-out infinite; }
+@keyframes nm-loading-slide {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(150%); }
+  100% { transform: translateX(280%); }
+}
+.question-card.is-loading .question-enonce,
+.question-card.is-loading .question-badges { opacity: 0.45; transition: opacity 150ms ease; }
+
+.question-badges { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; align-items: center; }
+
+.question-enonce {
+  font-size: 1.25rem;
+  line-height: 1.65;
+  margin-bottom: 28px;
+  padding: 22px 24px;
+  border-radius: var(--radius-md);
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+}
+.question-enonce .katex { font-size: 1.05em; }
+
+.answer-field {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-hover);
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+.answer-field:focus { border-color: var(--brand-indigo); outline: none; }
+
+.action-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 18px; }
+.action-row .btn.is-revealed {
+  background: rgba(var(--accent-rgb), 0.12);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  color: var(--accent-text);
+}
+
+/* ── Cartes de correction — différenciées par type (indice/méthode/solution)
+   pour qu'on identifie immédiatement ce qu'on est en train de lire. ─────── */
+.callout {
+  background: var(--surface-hover);
+  border-left: 3px solid var(--brand-indigo);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  animation: nm-rise 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.callout--hint { border-left-color: var(--warning); background: linear-gradient(135deg, var(--warning-soft), var(--surface-hover)); }
+.callout--method { border-left-color: var(--brand-indigo); }
+.callout--solution { border-left-color: var(--success); background: linear-gradient(135deg, var(--success-soft), var(--surface-hover)); }
+.callout--steps ol { padding-left: 20px; list-style: decimal; display: flex; flex-direction: column; gap: 8px; }
+.eval-inline-icon, .exercice-inline-icon {
+  display: inline-flex; vertical-align: -3px;
+  width: 16px; height: 16px; margin-right: 8px;
+  color: var(--accent);
+}
+.eval-inline-icon svg, .exercice-inline-icon svg { width: 100%; height: 100%; }
+
+.verdict-row { display: flex; gap: 12px; margin-top: 24px; }
+.verdict-row .btn { flex: 1; }
+
+/* ── Boutons Réussi / Échoué — code couleur explicite (vert/rouge), sans
+   jamais utiliser de lueur néon : mêmes tokens sémantiques que le reste du
+   site (--success/--danger). ─────────────────────────────────────────────── */
+.btn-verdict-yes {
+  /* --success brut ne passe que 2.3:1 avec du texte blanc (audit contraste) —
+     assombri pour respecter l'AA (≥4.5:1) tout en restant clairement "vert". */
+  background: color-mix(in srgb, var(--success) 65%, black 35%);
+  color: var(--text-on-accent);
+  box-shadow: 0 4px 18px -4px rgba(34, 197, 94, 0.45);
+}
+.btn-verdict-yes:hover { box-shadow: 0 6px 22px -4px rgba(34, 197, 94, 0.55); transform: translateY(-1px); }
+.btn-verdict-no {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+/* --danger brut ne passe que 3.8:1 sur les surfaces claires (audit contraste) —
+   assombri uniquement en thème clair, où le fond derrière le texte est
+   proche du blanc (en sombre, --danger est déjà ≥4.5:1). */
+:root[data-theme="light"] .btn-verdict-no { color: color-mix(in srgb, var(--danger) 78%, black 22%); border-color: color-mix(in srgb, var(--danger) 78%, black 22%); }
+.btn-verdict-no:hover { background: var(--danger-soft); transform: translateY(-1px); }
+.btn-verdict-yes, .btn-verdict-no { transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast); }
+
+.xp-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.8rem; font-weight: 700; color: var(--warning);
+}
+
+/* ── Chrono — les 10 dernières secondes se signalent en rouge, sobrement
+   (pas de clignotement agressif). #ex-chrono-badge, classe ajoutée par
+   exercice.js à partir du compte à rebours déjà existant. ──────────────── */
+#ex-chrono-badge.is-urgent {
+  background: var(--danger-soft);
+  color: var(--danger);
+  animation: nm-urgent-pulse 1s ease-in-out infinite;
+}
+@keyframes nm-urgent-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #ex-chrono-badge.is-urgent { animation: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HISTORIQUE RÉCENT — carte à part, puces plus grandes avec légère entrée
+   en cascade (#history-strip peuplé par exercice.js::renderHistory, id et
+   structure des .history-dot inchangés).
+   ══════════════════════════════════════════════════════════════════════════ */
+.history-card { padding: 20px; }
+.history-card h3 { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; margin-bottom: 14px; font-family: var(--font-display); }
+.history-card .h3-icon { width: 16px; height: 16px; color: var(--accent-text); }
+
+.history-strip {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.history-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  animation: nm-pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transition: transform var(--transition-fast);
+}
+.history-dot:hover { transform: scale(1.12); }
+.history-dot svg { width: 15px; height: 15px; }
+.history-dot.correct { background: var(--success-soft); color: var(--success); }
+.history-dot.wrong { background: var(--danger-soft); color: var(--danger); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   FIN DE SÉRIE — panneau de résultat avec message et icône adaptés à la
+   performance (#recap-icon rempli par exercice.js::showRecap à partir de
+   record.accuracy, déjà calculé — aucun nouveau calcul).
+   ══════════════════════════════════════════════════════════════════════════ */
+.result-panel {
+  width: 100%;
+  max-width: 560px;
+  padding: 48px 40px;
+  text-align: center;
+  animation: nm-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.result-level-icon { width: 56px; height: 56px; margin: 0 auto 12px; color: var(--accent); }
+.result-level-icon svg { width: 100%; height: 100%; }
+
+.recap-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(var(--accent-rgb), 0.14);
+  color: var(--accent-text);
+  animation: nm-pop 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.recap-icon svg { width: 30px; height: 30px; }
+/* Réservé aux meilleures séries (≥90%) : seul endroit "récompense" de cet
+   écran à utiliser l'accent Or, jamais pour un score moyen ou faible. */
+.recap-icon.tier-gold { background: rgba(var(--brand-gold-rgb), 0.18); color: var(--brand-gold-text); }
+.recap-icon.tier-good { background: rgba(var(--accent-rgb), 0.14); color: var(--accent-text); }
+.recap-icon.tier-encourage { background: var(--surface-hover); color: var(--text-muted); }
+
+#recap-title { text-align: center; margin-bottom: 6px; }
+.recap-sub { text-align: center; color: var(--text-muted); margin-bottom: 24px; }
+.recap-stats-grid { margin-bottom: 24px; }
+.recap-notions { margin-bottom: 24px; text-align: left; }
+.recap-actions { flex-wrap: wrap; }
+
+/* Corrige l'absence de style de .profile-stat/.profile-stats-grid : ce
+   composant vient de profil.css, non chargé sur cette page — redéfini ici
+   avec le même contrat visuel pour que les cartes de score ne restent pas
+   nues. */
+.profile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+}
+.profile-stat { padding: 20px; text-align: center; transition: transform var(--transition-base), box-shadow var(--transition-base); }
+.profile-stat:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.profile-stat .value { font-size: 1.6rem; font-weight: 700; font-family: var(--font-display); }
+.profile-stat .label { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ÉTAT VIDE — invite claire à démarrer, plutôt qu'un simple paragraphe.
+   ══════════════════════════════════════════════════════════════════════════ */
+.empty-state {
+  padding: 56px 40px;
+  text-align: center;
+  animation: nm-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.empty-state-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--accent-text);
+}
+.empty-state-icon svg { width: 26px; height: 26px; }
+.empty-state h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.empty-state p { color: var(--text-muted); margin-bottom: 22px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .question-loading-bar span { animation: none; }
+  .callout, .history-dot, .result-panel, .recap-icon, .empty-state { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .question-card, .result-panel { padding: 26px 20px; }
+  .question-enonce { padding: 18px; font-size: 1.12rem; }
+  .empty-state { padding: 40px 24px; }
+  .series-hero { padding: 16px; }
+}

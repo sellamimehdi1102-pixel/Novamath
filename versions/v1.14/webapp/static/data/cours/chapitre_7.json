@@ -1,0 +1,82 @@
+{
+  "chapterId": "Chapitre_7",
+  "title": "Généralités sur les fonctions, fonctions de référence",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "notion-de-fonction",
+      "title": "Notion de fonction",
+      "objectifs": ["Comprendre ce qu'est une fonction", "Calculer une image et déterminer un antécédent"],
+      "prerequis": [],
+      "sections": [
+        {"type": "definition", "title": "Fonction", "body": "Une fonction $f$ associe à chaque nombre $x$ d'un ensemble de départ (l'ensemble de définition) au plus un nombre $f(x)$, appelé image de $x$ par $f$. Un nombre $x$ tel que $f(x)=y$ est appelé antécédent de $y$."},
+        {"type": "attention", "body": "Un nombre a toujours UNE seule image, mais peut avoir zéro, un ou plusieurs antécédents."},
+        {"type": "exemple", "enonce": "Pour $f(x) = x^2 - 1$, calculer $f(3)$ puis trouver les antécédents de $0$.", "etapes": ["$f(3) = 3^2-1 = 8$.", "$f(x)=0 \\Leftrightarrow x^2=1 \\Leftrightarrow x=1$ ou $x=-1$."], "reponse": "$f(3)=8$ ; les antécédents de $0$ sont $1$ et $-1$"}
+      ],
+      "resume": "Une fonction transforme un nombre (antécédent) en un autre (image), de façon unique dans ce sens. Bien distinguer « calculer une image » (direct) de « chercher un antécédent » (résoudre une équation).",
+      "ficheMemo": ["Image : $x \\to f(x)$, unique", "Antécédent : résoudre $f(x)=y$, peut avoir 0, 1 ou plusieurs solutions"],
+      "quizExerciseIds": [117, 118, 119]
+    },
+    {
+      "id": "courbe-representative-dune-fonction",
+      "title": "Courbe représentative d'une fonction",
+      "objectifs": ["Lire graphiquement une image ou un antécédent", "Relier courbe et tableau de valeurs"],
+      "prerequis": ["Notion de fonction"],
+      "sections": [
+        {"type": "definition", "title": "Courbe représentative", "body": "La courbe représentative $\\mathcal{C}_f$ d'une fonction $f$ est l'ensemble des points $M(x\\,;f(x))$ pour $x$ décrivant l'ensemble de définition."},
+        {"type": "methode", "title": "Lire une image sur un graphique", "steps": ["Placer $x$ sur l'axe des abscisses.", "Remonter (ou descendre) verticalement jusqu'à la courbe.", "Lire l'ordonnée du point trouvé : c'est $f(x)$."]},
+        {"type": "astuce", "body": "Pour un antécédent, on fait le chemin inverse : on part de $y$ sur l'axe vertical, on va horizontalement jusqu'à la courbe, puis on descend lire l'abscisse."}
+      ],
+      "resume": "La courbe traduit graphiquement toutes les images d'une fonction. Lire une image se fait verticalement (de $x$ vers $y$), lire un antécédent horizontalement (de $y$ vers $x$).",
+      "ficheMemo": ["Image : lecture verticale (x → y)", "Antécédent : lecture horizontale (y → x)"],
+      "quizExerciseIds": [111, 112, 113]
+    },
+    {
+      "id": "resolutions-graphiques",
+      "title": "Résolutions graphiques d'équations et d'inéquations à l'aide d'une fonction",
+      "objectifs": ["Résoudre graphiquement $f(x)=k$", "Résoudre graphiquement $f(x) \\leq k$ ou $f(x) \\geq k$"],
+      "prerequis": ["Courbe représentative d'une fonction"],
+      "sections": [
+        {"type": "methode", "title": "Résoudre $f(x)=k$ graphiquement", "steps": ["Tracer la droite horizontale $y=k$.", "Repérer les points d'intersection avec la courbe.", "Lire les abscisses de ces points : ce sont les solutions."]},
+        {"type": "methode", "title": "Résoudre $f(x) \\leq k$ graphiquement", "steps": ["Tracer la droite $y=k$.", "Repérer la portion de courbe située en-dessous (ou sur) cette droite.", "Lire l'intervalle des abscisses correspondant à cette portion."]},
+        {"type": "astuce", "body": "Pensez à « la courbe en dessous de la droite » pour $\\leq$, « au-dessus » pour $\\geq$ : visualiser physiquement la zone solution évite les erreurs de sens."}
+      ],
+      "resume": "Toute équation ou inéquation du type $f(x)=k$ ou $f(x) \\leq k$ se résout graphiquement en comparant la courbe à une droite horizontale $y=k$ : intersections pour l'égalité, portions au-dessus/en-dessous pour les inégalités.",
+      "ficheMemo": ["$f(x)=k$ : intersections avec $y=k$", "$f(x)\\leq k$ : courbe sous la droite $y=k$"],
+      "quizExerciseIds": [123, 124, 125]
+    },
+    {
+      "id": "exemples-de-fonctions-de-reference",
+      "title": "Exemples de fonctions de référence",
+      "objectifs": ["Connaître l'allure des fonctions carré, cube, racine carrée et inverse"],
+      "prerequis": ["Courbe représentative d'une fonction"],
+      "sections": [
+        {"type": "tableau", "headers": ["Fonction", "Expression", "Allure"], "rows": [
+          ["Carré", "$f(x)=x^2$", "parabole, symétrique par rapport à l'axe des ordonnées"],
+          ["Cube", "$f(x)=x^3$", "courbe symétrique par rapport à l'origine"],
+          ["Racine carrée", "$f(x)=\\sqrt{x}$", "définie sur $[0\\,;+\\infty[$, croissante"],
+          ["Inverse", "$f(x)=\\dfrac{1}{x}$", "définie sur $\\mathbb{R}^*$, deux branches (hyperbole)"]
+        ]},
+        {"type": "astuce", "body": "Mémoriser l'allure de ces quatre courbes de référence permet d'anticiper le comportement de fonctions plus complexes construites à partir d'elles."}
+      ],
+      "resume": "Les fonctions carré, cube, racine carrée et inverse sont les briques de base à connaître par cœur : leur allure permet de prévoir rapidement variations et signes de fonctions plus complexes.",
+      "ficheMemo": ["$x^2$ : parabole", "$x^3$ : symétrique en O", "$\\sqrt x$ : croissante sur $[0;+\\infty[$", "$1/x$ : hyperbole sur $\\mathbb{R}^*$"],
+      "quizExerciseIds": [114, 115, 116]
+    },
+    {
+      "id": "parite",
+      "title": "Parité",
+      "objectifs": ["Déterminer si une fonction est paire, impaire, ou ni l'un ni l'autre", "Utiliser la parité pour la symétrie de la courbe"],
+      "prerequis": ["Exemples de fonctions de référence"],
+      "sections": [
+        {"type": "definition", "title": "Fonction paire", "body": "$f$ est paire si son ensemble de définition est symétrique par rapport à $0$ et si pour tout $x$, $f(-x) = f(x)$. Sa courbe est alors symétrique par rapport à l'axe des ordonnées."},
+        {"type": "definition", "title": "Fonction impaire", "body": "$f$ est impaire si son ensemble de définition est symétrique par rapport à $0$ et si pour tout $x$, $f(-x) = -f(x)$. Sa courbe est alors symétrique par rapport à l'origine du repère."},
+        {"type": "exemple", "enonce": "Étudier la parité de $f(x) = x^2 + 1$.", "etapes": ["$f(-x) = (-x)^2+1 = x^2+1 = f(x)$."], "reponse": "$f$ est paire"},
+        {"type": "attention", "body": "Une fonction n'est pas nécessairement paire ou impaire : beaucoup de fonctions ne vérifient aucune de ces deux propriétés (ex. $f(x)=x^2+x$)."}
+      ],
+      "resume": "La parité révèle une symétrie de la courbe : par rapport à l'axe des ordonnées (paire) ou par rapport à l'origine (impaire). Elle permet de limiter l'étude d'une fonction à la moitié de son ensemble de définition.",
+      "ficheMemo": ["Paire : $f(-x)=f(x)$, symétrie / axe des ordonnées", "Impaire : $f(-x)=-f(x)$, symétrie / origine"],
+      "quizExerciseIds": [120, 121, 122]
+    }
+  ]
+}

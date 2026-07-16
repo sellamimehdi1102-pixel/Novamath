@@ -1,0 +1,206 @@
+{
+  "chapterId": "Chapitre_1",
+  "title": "Nombres et calculs",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "puissances-entieres-relatives",
+      "title": "Les puissances",
+      "intro": "Dans cette leçon, tu vas apprendre à utiliser les puissances.",
+      "objectif": "À la fin de ce cours, tu sauras calculer et simplifier une puissance.",
+      "definition": "Une puissance, c'est une multiplication répétée. $a^n$ veut dire : on multiplie $a$ par lui-même, $n$ fois. Par exemple $2^3 = 2 \\times 2 \\times 2$.",
+      "reglesImportantes": [
+        "$a^0 = 1$ (toujours, sauf si $a = 0$)",
+        "$a^1 = a$",
+        "$a^{-n} = \\dfrac{1}{a^n}$ (un exposant négatif donne un inverse)"
+      ],
+      "methode": {
+        "titre": "Comment simplifier une puissance",
+        "etapes": [
+          {"icone": "search", "couleur": "blue", "texte": "Regarde si les puissances ont la même base (le même nombre en bas)."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Utilise la bonne règle : on additionne les exposants si on multiplie, on les soustrait si on divise."},
+          {"icone": "check", "couleur": "green", "texte": "Calcule le résultat final."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Calcule $2^3 \\times 2^2$.",
+          "calcul": [
+            {"expr": "2^3 \\times 2^2", "texte": "On a deux puissances de 2."},
+            {"expr": "2^{3+2}", "texte": "Même base : on additionne les exposants."},
+            {"expr": "2^5 = 32", "texte": "On calcule le résultat."}
+          ],
+          "reponse": "$32$"
+        },
+        {
+          "titre": "Exemple 2",
+          "enonce": "Calcule $5^{-2}$.",
+          "calcul": [
+            {"expr": "5^{-2}", "texte": "L'exposant est négatif."},
+            {"expr": "\\dfrac{1}{5^2}", "texte": "On prend l'inverse de $5^2$."},
+            {"expr": "\\dfrac{1}{25}", "texte": "On calcule $5^2 = 25$."}
+          ],
+          "reponse": "$\\dfrac{1}{25}$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre $a^n \\times a^m$ (on additionne les exposants) et $(a^n)^m$ (on les multiplie).",
+        "Croire que $a^{-n}$ est un nombre négatif. C'est faux : c'est un inverse, toujours positif si $a$ est positif."
+      ],
+      "astuce": "Si tu as un doute, écris la puissance en toutes lettres avec quelques facteurs. Ça t'aide à voir ce qui se passe.",
+      "aRetenir": [
+        "$a^n \\times a^m = a^{n+m}$",
+        "$a^{-n} = \\dfrac{1}{a^n}$",
+        "$a^0 = 1$",
+        "$(a^n)^m = a^{n \\times m}$",
+        "Vérifie toujours avec un petit nombre facile."
+      ],
+      "figure": null,
+      "quizExerciseIds": [6, 7, 8]
+    },
+    {
+      "id": "racine-carree",
+      "title": "La racine carrée",
+      "intro": "Dans cette leçon, tu vas apprendre ce qu'est une racine carrée.",
+      "objectif": "À la fin de ce cours, tu sauras calculer et simplifier une racine carrée.",
+      "definition": "La racine carrée d'un nombre positif $a$, notée $\\sqrt{a}$, c'est le nombre positif qui, multiplié par lui-même, donne $a$. Par exemple $\\sqrt{9} = 3$ car $3 \\times 3 = 9$.",
+      "reglesImportantes": [
+        "$\\sqrt{a}$ n'existe pas si $a$ est négatif.",
+        "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$",
+        "$\\sqrt{a+b}$ n'est PAS égal à $\\sqrt{a} + \\sqrt{b}$"
+      ],
+      "methode": {
+        "titre": "Comment simplifier une racine carrée",
+        "etapes": [
+          {"icone": "search", "couleur": "blue", "texte": "Cherche le plus grand carré parfait qui divise le nombre (4, 9, 16, 25...)."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Sépare la racine en deux racines : celle du carré parfait et celle du reste."},
+          {"icone": "check", "couleur": "green", "texte": "Calcule la racine du carré parfait."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Simplifie $\\sqrt{75}$.",
+          "calcul": [
+            {"expr": "75 = 25 \\times 3", "texte": "25 est un carré parfait : $25 = 5^2$."},
+            {"expr": "\\sqrt{75} = \\sqrt{25} \\times \\sqrt{3}", "texte": "On sépare la racine."},
+            {"expr": "5\\sqrt{3}", "texte": "On calcule $\\sqrt{25} = 5$."}
+          ],
+          "reponse": "$5\\sqrt{3}$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Écrire $\\sqrt{a+b} = \\sqrt{a} + \\sqrt{b}$. C'est faux !",
+        "Essayer de calculer $\\sqrt{a}$ avec $a$ négatif : ça n'existe pas."
+      ],
+      "astuce": "Pour trouver un carré parfait caché, teste dans l'ordre : 4, 9, 16, 25, 36, 49...",
+      "aRetenir": [
+        "$\\sqrt{a}$ existe seulement si $a \\geq 0$",
+        "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$",
+        "$\\sqrt{a+b} \\neq \\sqrt{a} + \\sqrt{b}$",
+        "$\\sqrt{a^2} = a$ (si $a$ positif)"
+      ],
+      "figure": null,
+      "quizExerciseIds": [10, 11, 12]
+    },
+    {
+      "id": "multiples-diviseurs-nombres-premiers",
+      "title": "Multiples, diviseurs, nombres premiers",
+      "intro": "Dans cette leçon, tu vas apprendre à repérer des multiples, des diviseurs, et des nombres premiers.",
+      "objectif": "À la fin de ce cours, tu sauras dire si un nombre est premier et le décomposer.",
+      "definition": "Un nombre $b$ est un multiple d'un nombre $a$ si on peut écrire $b = a \\times k$, avec $k$ un nombre entier. Dans ce cas, $a$ est un diviseur de $b$.",
+      "reglesImportantes": [
+        "Un nombre premier a exactement 2 diviseurs : 1 et lui-même.",
+        "1 n'est pas un nombre premier.",
+        "2 est le seul nombre premier pair."
+      ],
+      "methode": {
+        "titre": "Comment décomposer un nombre en facteurs premiers",
+        "etapes": [
+          {"icone": "search", "couleur": "blue", "texte": "Divise le nombre par le plus petit nombre premier possible (2, puis 3, puis 5...)."},
+          {"icone": "rotate", "couleur": "orange", "texte": "Recommence avec le résultat obtenu, jusqu'à arriver à 1."},
+          {"icone": "check", "couleur": "green", "texte": "Écris le nombre de départ comme un produit de tous les nombres premiers trouvés."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Décompose 60 en facteurs premiers.",
+          "calcul": [
+            {"expr": "60 = 2 \\times 30", "texte": "60 est pair, on divise par 2."},
+            {"expr": "30 = 2 \\times 15", "texte": "30 est pair, on divise encore par 2."},
+            {"expr": "15 = 3 \\times 5", "texte": "5 est un nombre premier, on s'arrête."}
+          ],
+          "reponse": "$60 = 2^2 \\times 3 \\times 5$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Penser que 1 est un nombre premier. C'est faux : il n'a qu'un seul diviseur.",
+        "Oublier de vérifier si un facteur peut être divisé encore une fois."
+      ],
+      "astuce": "Pour savoir si un nombre est premier, teste juste les diviseurs premiers jusqu'à sa racine carrée.",
+      "aRetenir": [
+        "Multiple de $a$ : $b = a \\times k$",
+        "Nombre premier : exactement 2 diviseurs",
+        "1 n'est pas premier, 2 est le seul nombre premier pair",
+        "Tout nombre se décompose en produit de nombres premiers"
+      ],
+      "figure": null,
+      "quizExerciseIds": [3, 4, 5]
+    },
+    {
+      "id": "ensembles-de-nombres",
+      "title": "Les ensembles de nombres",
+      "intro": "Dans cette leçon, tu vas apprendre à ranger les nombres dans des familles.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître à quelle famille appartient un nombre.",
+      "definition": "Il existe plusieurs familles de nombres, appelées ensembles. Chaque famille contient la précédente, comme des poupées russes.",
+      "reglesImportantes": [
+        "$\\mathbb{N}$ : les entiers naturels (0, 1, 2, 3...)",
+        "$\\mathbb{Z}$ : les entiers relatifs (..., -2, -1, 0, 1, 2...)",
+        "$\\mathbb{Q}$ : les rationnels (les fractions d'entiers)",
+        "$\\mathbb{R}$ : les réels (tous les nombres, même $\\sqrt{2}$ et $\\pi$)"
+      ],
+      "methode": {
+        "titre": "Comment trouver la famille d'un nombre",
+        "etapes": [
+          {"icone": "search", "couleur": "blue", "texte": "Regarde si le nombre est entier positif : alors il est dans $\\mathbb{N}$."},
+          {"icone": "compass", "couleur": "purple", "texte": "Sinon, regarde s'il peut s'écrire comme une fraction de deux entiers."},
+          {"icone": "check", "couleur": "green", "texte": "Si ce n'est pas possible, il est seulement dans $\\mathbb{R}$."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Dans quelle famille se trouve $-3$ ?",
+          "calcul": [
+            {"expr": "-3", "texte": "Ce n'est pas un entier positif, donc pas dans $\\mathbb{N}$."},
+            {"expr": "-3 \\in \\mathbb{Z}", "texte": "C'est un entier relatif."}
+          ],
+          "reponse": "$-3 \\in \\mathbb{Z}$ (et aussi dans $\\mathbb{Q}$ et $\\mathbb{R}$)"
+        },
+        {
+          "titre": "Exemple 2",
+          "enonce": "Dans quelle famille se trouve $\\sqrt{2}$ ?",
+          "calcul": [
+            {"expr": "\\sqrt{2} \\approx 1{,}414...", "texte": "Ses chiffres après la virgule ne s'arrêtent jamais."},
+            {"expr": "\\sqrt{2} \\notin \\mathbb{Q}", "texte": "Ce n'est pas une fraction d'entiers."}
+          ],
+          "reponse": "$\\sqrt{2} \\in \\mathbb{R}$ seulement"
+        }
+      ],
+      "erreursFrequentes": [
+        "Croire que tous les nombres sont des fractions. $\\sqrt{2}$ et $\\pi$ ne le sont pas.",
+        "Oublier qu'un nombre entier appartient aussi à toutes les familles plus grandes."
+      ],
+      "astuce": "Pour savoir si un nombre est une fraction (rationnel), demande-toi : peut-on l'écrire comme entier divisé par entier ?",
+      "aRetenir": [
+        "$\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$",
+        "$\\sqrt{2}$ et $\\pi$ sont dans $\\mathbb{R}$ mais pas dans $\\mathbb{Q}$",
+        "Un entier appartient à toutes les familles plus grandes"
+      ],
+      "figure": null,
+      "quizExerciseIds": [0, 1, 2]
+    }
+  ]
+}

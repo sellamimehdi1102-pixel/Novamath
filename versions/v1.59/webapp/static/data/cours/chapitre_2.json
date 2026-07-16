@@ -1,0 +1,180 @@
+{
+  "chapterId": "Chapitre_2",
+  "title": "Intervalles, inégalités, inéquations",
+  "icon": "compass",
+  "notions": [
+    {
+      "id": "intervalles",
+      "title": "Les intervalles",
+      "intro": "Dans cette leçon, tu vas apprendre à écrire un ensemble de nombres avec un intervalle.",
+      "objectif": "À la fin de ce cours, tu sauras lire et écrire un intervalle.",
+      "definition": "Un intervalle regroupe tous les nombres compris entre deux bornes, sans trou. On écrit $[a\\,;b]$ pour tous les nombres $x$ tels que $a \\leq x \\leq b$.",
+      "reglesImportantes": [
+        "Un crochet fermé $[$ ou $]$ veut dire : la borne est incluse.",
+        "Un crochet ouvert $]$ ou $[$ veut dire : la borne n'est pas incluse.",
+        "$+\\infty$ et $-\\infty$ sont toujours exclus."
+      ],
+      "methode": {
+        "titre": "Comment représenter un intervalle sur une droite",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Place les deux bornes sur la droite graduée."},
+          {"icone": "penSquare", "couleur": "purple", "texte": "Dessine un crochet fermé si la borne est incluse, ouvert sinon."},
+          {"icone": "check", "couleur": "green", "texte": "Trace un trait épais entre les deux bornes."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Représente l'ensemble des nombres $x$ tels que $-2 < x \\leq 5$.",
+          "calcul": [
+            {"expr": "-2 < x \\leq 5", "texte": "$-2$ est exclu, $5$ est inclus."},
+            {"expr": "]-2\\,;5]", "texte": "On écrit l'intervalle avec un crochet ouvert et un crochet fermé."}
+          ],
+          "reponse": "$]-2\\,;5]$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Mettre un crochet fermé à côté de $+\\infty$ ou $-\\infty$. C'est toujours ouvert.",
+        "Confondre le sens des crochets : ouvert = exclu, fermé = inclus."
+      ],
+      "astuce": "Le crochet fermé $[$ \"attrape\" la valeur. Le crochet ouvert $]$ la repousse.",
+      "aRetenir": [
+        "$[a\\,;b]$ : les deux bornes sont incluses",
+        "$]a\\,;b[$ : les deux bornes sont exclues",
+        "$+\\infty$ et $-\\infty$ sont toujours exclus"
+      ],
+      "figure": null,
+      "quizExerciseIds": [19, 20, 21]
+    },
+    {
+      "id": "inegalites-et-inequations",
+      "title": "Les inéquations",
+      "intro": "Dans cette leçon, tu vas apprendre à résoudre une inéquation simple.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre une inéquation du premier degré.",
+      "definition": "Une inéquation, c'est comme une équation, mais avec un signe $<$, $>$, $\\leq$ ou $\\geq$ à la place du signe $=$.",
+      "reglesImportantes": [
+        "Tu peux ajouter ou soustraire le même nombre des deux côtés, le sens ne change pas.",
+        "Si tu multiplies ou divises par un nombre positif, le sens ne change pas.",
+        "Si tu multiplies ou divises par un nombre NÉGATIF, le sens de l'inégalité s'inverse."
+      ],
+      "methode": {
+        "titre": "Comment résoudre une inéquation",
+        "etapes": [
+          {"icone": "sliders", "couleur": "blue", "texte": "Regroupe les termes avec $x$ d'un côté, les nombres de l'autre."},
+          {"icone": "zap", "couleur": "orange", "texte": "Divise par le nombre devant $x$. Attention au signe !"},
+          {"icone": "check", "couleur": "green", "texte": "Écris la réponse sous forme d'intervalle."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Résous $-3x + 5 \\leq 2$.",
+          "calcul": [
+            {"expr": "-3x \\leq 2 - 5", "texte": "On passe le 5 de l'autre côté."},
+            {"expr": "-3x \\leq -3", "texte": "On calcule."},
+            {"expr": "x \\geq 1", "texte": "On divise par $-3$ : le signe s'inverse."}
+          ],
+          "reponse": "$x \\in [1\\,;+\\infty[$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier d'inverser le sens quand on divise par un nombre négatif.",
+        "Confondre la solution d'une inéquation (un intervalle) avec celle d'une équation (un seul nombre)."
+      ],
+      "astuce": "Pour vérifier, remplace $x$ par un nombre de ta solution dans l'inéquation de départ. Ça doit être vrai.",
+      "aRetenir": [
+        "On résout comme une équation",
+        "Diviser par un nombre négatif : le sens change",
+        "La solution est toujours un intervalle"
+      ],
+      "figure": null,
+      "quizExerciseIds": [25, 26, 27]
+    },
+    {
+      "id": "comparaison",
+      "title": "Comparer deux nombres",
+      "intro": "Dans cette leçon, tu vas apprendre une méthode simple pour comparer deux expressions.",
+      "objectif": "À la fin de ce cours, tu sauras comparer deux expressions grâce à leur différence.",
+      "definition": "Pour comparer deux nombres $A$ et $B$, on peut calculer leur différence $A - B$ et regarder son signe.",
+      "reglesImportantes": [
+        "Si $A - B > 0$, alors $A > B$.",
+        "Si $A - B < 0$, alors $A < B$.",
+        "Si $A - B = 0$, alors $A = B$."
+      ],
+      "methode": {
+        "titre": "Comment comparer deux expressions",
+        "etapes": [
+          {"icone": "sliders", "couleur": "blue", "texte": "Calcule $A - B$."},
+          {"icone": "search", "couleur": "purple", "texte": "Regarde le signe du résultat."},
+          {"icone": "check", "couleur": "green", "texte": "Conclus grâce aux règles."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Compare $A = (x-1)^2$ et $B = x^2 - 2x$.",
+          "calcul": [
+            {"expr": "A - B = (x-1)^2 - (x^2-2x)", "texte": "On calcule la différence."},
+            {"expr": "= x^2-2x+1-x^2+2x", "texte": "On développe."},
+            {"expr": "= 1", "texte": "Tout s'annule sauf le 1."}
+          ],
+          "reponse": "$A - B = 1 > 0$, donc $A > B$ pour tout $x$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de développer complètement avant de conclure.",
+        "Se tromper de sens : $A - B > 0$ veut dire $A > B$, pas l'inverse."
+      ],
+      "astuce": "Cette méthode marche même quand tu ne connais pas la valeur de $x$.",
+      "aRetenir": [
+        "$A > B \\Leftrightarrow A - B > 0$",
+        "Méthode utile même avec des lettres"
+      ],
+      "figure": null,
+      "quizExerciseIds": [13, 14, 15]
+    },
+    {
+      "id": "valeur-absolue-dun-nombre-reel",
+      "title": "La valeur absolue",
+      "intro": "Dans cette leçon, tu vas apprendre ce qu'est une valeur absolue.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une valeur absolue et l'utiliser comme une distance.",
+      "definition": "La valeur absolue d'un nombre $a$, notée $|a|$, c'est sa distance à zéro. Elle est toujours positive ou nulle.",
+      "reglesImportantes": [
+        "$|a| = a$ si $a$ est positif.",
+        "$|a| = -a$ si $a$ est négatif.",
+        "$|a - b|$ représente la distance entre $a$ et $b$."
+      ],
+      "methode": {
+        "titre": "Comment résoudre une équation avec valeur absolue",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Vois la valeur absolue comme une distance."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Ajoute et soustrais cette distance au point de référence."},
+          {"icone": "check", "couleur": "green", "texte": "Tu obtiens les deux solutions."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Résous $|x - 3| = 5$.",
+          "calcul": [
+            {"expr": "|x-3|=5", "texte": "La distance entre $x$ et $3$ vaut $5$."},
+            {"expr": "x = 3+5 \\text{ ou } x = 3-5", "texte": "On ajoute et on soustrait $5$."}
+          ],
+          "reponse": "$x = 8$ ou $x = -2$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier qu'une valeur absolue a souvent DEUX solutions.",
+        "Essayer de résoudre $|x-3| = -2$ : impossible, une distance n'est jamais négative."
+      ],
+      "astuce": "Dès que tu vois une valeur absolue, pense \"distance\". Ça rend tout plus facile à comprendre.",
+      "aRetenir": [
+        "$|a| \\geq 0$ toujours",
+        "$|a-b|$ = distance entre $a$ et $b$",
+        "$|x-a| = r$ donne souvent 2 solutions"
+      ],
+      "figure": null,
+      "quizExerciseIds": [31, 32, 33]
+    }
+  ]
+}

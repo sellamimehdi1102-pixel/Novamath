@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Design tokens — Lumis
+   Source unique de vérité pour couleurs, typographie, espacements, ombres.
+   Dark mode par défaut ; [data-theme="light"] sur <html> bascule en clair.
+   ========================================================================== */
+
+:root {
+  /* Couleurs de marque */
+  --brand-indigo: #6366f1;
+  --brand-violet: #a855f7;
+  --brand-gradient: linear-gradient(135deg, var(--brand-indigo), var(--brand-violet));
+
+  --success: #22c55e;
+  --success-soft: rgba(34, 197, 94, 0.15);
+  --warning: #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.15);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.15);
+
+  /* Rayon / ombres / transitions */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 450ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Lexend", var(--font-ui);
+
+  /* Dark theme (par défaut) */
+  --bg: #08090d;
+  --bg-elevated: #0e1016;
+  --surface: #12141c;
+  --surface-hover: #171a24;
+  --surface-glass: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --text: #f5f5f7;
+  --text-muted: #9a9ba8;
+  --text-faint: #5f6270;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 0 1px rgba(99, 102, 241, 0.4), 0 8px 30px rgba(99, 102, 241, 0.25);
+}
+
+:root[data-theme="light"] {
+  --bg: #f7f7fb;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #f2f2f8;
+  --surface-glass: rgba(255, 255, 255, 0.6);
+  --border: rgba(15, 15, 20, 0.08);
+  --border-strong: rgba(15, 15, 20, 0.14);
+
+  --text: #14141a;
+  --text-muted: #62636f;
+  --text-faint: #9798a3;
+
+  --shadow-sm: 0 1px 2px rgba(20, 20, 30, 0.05);
+  --shadow-md: 0 8px 24px rgba(20, 20, 30, 0.08);
+  --shadow-lg: 0 24px 60px rgba(20, 20, 30, 0.12);
+  --shadow-glow: 0 0 0 1px rgba(99, 102, 241, 0.25), 0 8px 30px rgba(99, 102, 241, 0.15);
+}
+/* Dark mode reste la référence par défaut quel que soit le thème système :
+   seul le bouton de bascule (theme.js) écrit [data-theme] sur <html>. */

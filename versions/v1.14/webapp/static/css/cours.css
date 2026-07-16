@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Module Cours — réutilise .chapter-card/.chapters-grid/.progress-track de
+   chapitres.css pour la grille, styles propres au lecteur de notion ici.
+   ========================================================================== */
+
+.cours-back-row { margin-bottom: 16px; }
+
+.cours-notions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.cours-notion-card { padding: 18px; }
+.cours-notion-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 10px;
+}
+.cours-notion-top h3 { margin: 0; font-size: 1rem; }
+.cours-notion-meta {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;
+}
+
+.cours-notion-header { margin-bottom: 20px; }
+.cours-notion-header h1 { margin-bottom: 10px; }
+.cours-notion-progress-label {
+  font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;
+}
+
+.cours-intro-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.cours-intro-card { padding: 16px; }
+.cours-intro-card h4 {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.86rem; margin-bottom: 8px; color: var(--text-muted);
+}
+.cours-intro-card ul { margin: 0; padding-left: 20px; font-size: 0.86rem; }
+.cours-intro-card li { margin-bottom: 4px; }
+
+/* ── Boîtes de section (une par type pédagogique) ─────────────────────── */
+.cours-box {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-glass, var(--surface));
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+.cours-box-header {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 600; font-size: 0.92rem; margin-bottom: 10px;
+}
+.cours-box-header .btn-icon { display: inline-flex; width: 18px; height: 18px; }
+.cours-box-header svg { width: 18px; height: 18px; }
+.cours-box-body { font-size: 0.94rem; line-height: 1.65; white-space: pre-line; }
+
+.cours-box--definition { border-left: 4px solid var(--accent); }
+.cours-box--propriete { border-left: 4px solid var(--brand-indigo, var(--accent)); }
+.cours-box--methode { border-left: 4px solid var(--info, #38bdf8); background: rgba(56, 189, 248, 0.06); }
+.cours-box--exemple { border-left: 4px solid var(--success, #22c55e); background: rgba(34, 197, 94, 0.06); }
+.cours-box--attention { border-left: 4px solid var(--danger, #ef4444); background: rgba(239, 68, 68, 0.07); }
+.cours-box--astuce { border-left: 4px solid var(--warning, #f59e0b); background: rgba(245, 158, 11, 0.07); }
+.cours-box--tableau { border-left: 4px solid var(--text-faint); }
+
+.cours-exemple-enonce { font-weight: 500; margin-bottom: 10px; }
+.cours-exemple-etape { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px; padding-left: 8px; }
+.cours-exemple-reponse {
+  margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border);
+  font-weight: 600;
+}
+
+.cours-methode-steps { margin: 0; padding-left: 22px; }
+.cours-methode-steps li { margin-bottom: 8px; font-size: 0.92rem; }
+
+.cours-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; overflow-x: auto; display: block; }
+.cours-table thead, .cours-table tbody { display: table; width: 100%; table-layout: fixed; }
+.cours-table th, .cours-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
+.cours-table th { background: var(--surface-hover); font-weight: 600; }
+
+.cours-nav-row {
+  display: flex; justify-content: space-between; gap: 12px;
+  margin-top: 20px; flex-wrap: wrap;
+}
+
+.cours-resume-card, .cours-fichememo-card { padding: 18px 20px; margin-bottom: 16px; }
+.cours-resume-card p { margin: 0; line-height: 1.65; }
+.cours-fichememo-card h4 {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px; font-size: 0.9rem;
+}
+.cours-fichememo-card ul { margin: 0; padding-left: 20px; }
+.cours-fichememo-card li { margin-bottom: 6px; }
+
+.cours-quiz-card { padding: 18px 20px; margin-top: 4px; }
+.cours-quiz-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px;
+}
+#cours-quiz-enonce { font-size: 0.96rem; margin-bottom: 14px; }
+#cours-quiz-answer {
+  margin: 10px 0; padding: 12px 14px;
+  background: var(--surface-hover); border-radius: var(--radius-sm);
+  white-space: pre-line; font-size: 0.9rem;
+}
+.cours-quiz-done { padding: 18px 20px; display: flex; align-items: center; gap: 10px; font-size: 0.96rem; }
+
+@media (max-width: 640px) {
+  .cours-notions-list { grid-template-columns: 1fr; }
+  .cours-intro-row { grid-template-columns: 1fr; }
+  .cours-nav-row { flex-direction: column; }
+  .cours-nav-row .btn { width: 100%; justify-content: center; }
+}

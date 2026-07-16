@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot — NovaMath</title>
+<meta name="application-name" content="NovaMath">
+<meta name="theme-color" content="#6366f1">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/guest.css">
+<link rel="stylesheet" href="css/settings.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/command-palette.css">
+<link rel="stylesheet" href="css/chatbot.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <a href="/" class="brand"><img src="assets/logo.svg" alt=""> <span class="brand-name">NovaMath</span></a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg><span data-i18n="nav.dashboard">Dashboard</span></a>
+      <a href="chapitres.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 2 2 3-3"/><path d="M11 6h10"/><path d="m3 13 2 2 3-3"/><path d="M11 13h10"/><path d="m3 20 2 2 3-3"/><path d="M11 20h10"/></svg><span data-i18n="nav.exercices">Exercices</span></a>
+      <a href="cours.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span data-i18n="nav.cours">Cours</span></a>
+      <a href="exercice.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="8" width="4" height="8" rx="1.5"/><rect x="18" y="8" width="4" height="8" rx="1.5"/><line x1="6" y1="12" x2="18" y2="12"/></svg><span data-i18n="nav.entrainement">Entraînement</span></a>
+      <a href="chatbot.html" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="nav.chatbot">Chatbot</span></a>
+    </nav>
+    <div class="sidebar-toggle-group">
+      <button class="theme-toggle" id="settings-btn" aria-label="Paramètres">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"/></svg>
+      </button>
+    </div>
+    <a href="profil.html" class="sidebar-user" id="sidebar-user">
+      <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
+      <span class="sidebar-user-info">
+        <span class="name" id="sidebar-user-name">Élève</span>
+        <span class="sub" data-i18n="nav.profil">Voir le profil</span>
+      </span>
+    </a>
+    <div class="sidebar-version" id="sidebar-version"></div>
+  </aside>
+
+  <div class="chatbot-shell">
+    <aside class="chatbot-convos" id="chatbot-convos">
+      <div class="chatbot-convos-header">
+        <div class="chatbot-convos-toprow">
+          <button class="chatbot-convos-collapse-btn" id="chatbot-convos-collapse-btn" aria-label="Réduire la barre latérale" aria-expanded="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><line x1="9" x2="9" y1="3" y2="21"/></svg>
+          </button>
+        </div>
+        <button class="btn btn-primary" id="chatbot-new-btn" style="width:100%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="btn-label">Nouvelle conversation</span>
+        </button>
+        <div class="chatbot-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="chatbot-search-input" placeholder="Rechercher une conversation…">
+        </div>
+      </div>
+      <div class="chatbot-convo-list" id="chatbot-convo-list">
+        <div class="skeleton" style="height:40px; margin-bottom:6px;"></div>
+        <div class="skeleton" style="height:40px; margin-bottom:6px;"></div>
+      </div>
+    </aside>
+    <div class="chatbot-convos-overlay" id="chatbot-convos-overlay"></div>
+
+    <main class="chatbot-main">
+      <div class="chatbot-topbar">
+        <button class="chatbot-convos-mobile-trigger" id="chatbot-convos-mobile-trigger" aria-label="Ouvrir les conversations">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 6h17M3.5 12h17M3.5 18h17"/></svg>
+        </button>
+        <span class="chatbot-topbar-title" id="chatbot-topbar-title">Nouvelle conversation</span>
+        <div class="chatbot-context-toggle">
+          <span class="badge badge--neutral" id="chatbot-quota-badge"></span>
+        </div>
+      </div>
+
+      <div class="chatbot-provider-banner" id="chatbot-provider-banner" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
+        <span class="msg" id="chatbot-provider-banner-msg">Le service d'intelligence artificielle n'est pas disponible pour le moment.</span>
+        <div class="actions">
+          <button class="btn btn-ghost btn-sm" id="chatbot-provider-retry">Réessayer</button>
+          <button class="btn btn-ghost btn-sm" id="chatbot-provider-dismiss">Continuer sans le chatbot</button>
+        </div>
+      </div>
+
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chatbot-empty-state" id="chatbot-empty-state">
+          <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></div>
+          <h2 id="chatbot-empty-title">Pose ta première question</h2>
+          <p id="chatbot-empty-greeting">Un exercice qui bloque, une notion pas claire, une méthode à revoir ? Je t'accompagne étape par étape, jamais en te donnant juste la solution.</p>
+          <div class="chatbot-suggestions" id="chatbot-suggestions">
+            <button class="chatbot-suggestion-chip" type="button">Explique-moi cette notion</button>
+            <button class="chatbot-suggestion-chip" type="button">Je n'ai pas compris cet exercice</button>
+            <button class="chatbot-suggestion-chip" type="button">Fais-moi réviser</button>
+            <button class="chatbot-suggestion-chip" type="button">Donne-moi un exercice</button>
+            <button class="chatbot-suggestion-chip" type="button">Prépare-moi pour mon contrôle</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="chatbot-input-area">
+        <div class="chatbot-live-suggestions" id="chatbot-live-suggestions" hidden></div>
+        <div class="chatbot-input-wrap">
+          <div class="chatbot-input-row">
+            <div class="chatbot-attach-wrap">
+              <button class="chatbot-icon-btn chatbot-attach-toggle" id="chatbot-attach-toggle" title="Joindre" aria-label="Joindre un fichier" aria-expanded="false" aria-haspopup="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+              <div class="chatbot-attach-menu" id="chatbot-attach-menu" hidden>
+                <button id="chatbot-attach-image" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+                  <span>Joindre une image</span>
+                </button>
+                <button id="chatbot-attach-pdf" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z"/><path d="M14 2v6h6"/></svg>
+                  <span>Joindre un PDF</span>
+                </button>
+                <button id="chatbot-attach-exercise" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="8" width="4" height="8" rx="1.5"/><rect x="18" y="8" width="4" height="8" rx="1.5"/><line x1="6" y1="12" x2="18" y2="12"/></svg>
+                  <span>Joindre un exercice</span>
+                </button>
+              </div>
+            </div>
+            <div id="chatbot-input" class="chatbot-input-editable" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Pose une question sur ton cours ou ton exercice… (tape @ pour mentionner une page ou une notion)"></div>
+            <button class="chatbot-send-btn" id="chatbot-send-btn" aria-label="Envoyer" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="chatbot-input-hint">NovaMath peut se tromper. Vérifie toujours les résultats importants.</div>
+      </div>
+    </main>
+
+    <aside class="chatbot-context-panel" id="chatbot-context-panel">
+      <h3>Ton profil NovaMath</h3>
+      <div id="chatbot-context-content">
+        <div class="skeleton" style="height:16px; margin-bottom:10px;"></div>
+        <div class="skeleton" style="height:16px; margin-bottom:10px;"></div>
+        <div class="skeleton" style="height:16px;"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script type="module" src="js/identity.js"></script>
+<script type="module" src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/command-palette.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/lib/marked.umd.min.js"></script>
+<script type="module" src="js/chatbot.js"></script>
+</body>
+</html>

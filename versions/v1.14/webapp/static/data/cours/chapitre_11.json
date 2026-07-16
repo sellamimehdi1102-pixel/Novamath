@@ -1,0 +1,64 @@
+{
+  "chapterId": "Chapitre_11",
+  "title": "Statistiques descriptives",
+  "icon": "barChart",
+  "notions": [
+    {
+      "id": "moyenne",
+      "title": "Moyenne",
+      "objectifs": ["Calculer une moyenne simple et une moyenne pondérée"],
+      "prerequis": [],
+      "sections": [
+        {"type": "definition", "title": "Moyenne simple", "body": "Pour une série de $n$ valeurs $x_1,\\dots,x_n$, la moyenne est $\\bar{x} = \\dfrac{x_1+x_2+\\cdots+x_n}{n}$."},
+        {"type": "definition", "title": "Moyenne pondérée", "body": "Si chaque valeur $x_i$ apparaît avec un effectif (ou coefficient) $n_i$, la moyenne pondérée est $\\bar{x} = \\dfrac{n_1x_1+n_2x_2+\\cdots+n_kx_k}{n_1+n_2+\\cdots+n_k}$."},
+        {"type": "exemple", "enonce": "Notes $12$ (coefficient $2$) et $16$ (coefficient $1$). Moyenne pondérée ?", "etapes": ["$\\bar{x} = \\dfrac{2\\times 12 + 1\\times 16}{2+1} = \\dfrac{24+16}{3} = \\dfrac{40}{3}$"], "reponse": "$\\bar{x} \\approx 13{,}3$"},
+        {"type": "attention", "body": "Ne jamais faire la moyenne « simple » des valeurs quand elles ont des effectifs différents : oublier la pondération est l'erreur la plus fréquente."}
+      ],
+      "resume": "La moyenne pondérée généralise la moyenne simple en tenant compte du poids (effectif ou coefficient) de chaque valeur — indispensable dès que les valeurs n'ont pas toutes la même importance.",
+      "ficheMemo": ["Moyenne simple : somme / nombre de valeurs", "Moyenne pondérée : somme des (valeur × effectif) / somme des effectifs"],
+      "quizExerciseIds": [168, 169, 170]
+    },
+    {
+      "id": "linearite-de-la-moyenne",
+      "title": "Linéarité de la moyenne",
+      "objectifs": ["Utiliser la linéarité de la moyenne pour calculer rapidement une nouvelle moyenne"],
+      "prerequis": ["Moyenne"],
+      "sections": [
+        {"type": "propriete", "title": "Linéarité", "body": "Si on transforme chaque valeur $x_i$ d'une série en $ax_i+b$ ($a,b$ constants), la nouvelle moyenne est $a\\bar{x}+b$ : on applique la même transformation directement à la moyenne."},
+        {"type": "exemple", "enonce": "La moyenne des notes sur $20$ d'une classe est $12$. Quelle est la moyenne si l'on ajoute $1$ point de bonus à chaque copie ?", "etapes": ["Transformation : $x_i \\to x_i+1$, donc $a=1,b=1$.", "Nouvelle moyenne $= 1\\times 12+1$"], "reponse": "Nouvelle moyenne $= 13$"},
+        {"type": "astuce", "body": "Cette propriété évite de tout recalculer : dès qu'une transformation est identique pour toutes les valeurs, appliquez-la directement à la moyenne connue."}
+      ],
+      "resume": "La linéarité de la moyenne permet de calculer instantanément l'effet d'une transformation identique (ajout, multiplication) appliquée à toute une série, sans refaire le calcul complet.",
+      "ficheMemo": ["$x_i \\to ax_i+b$ ⟹ $\\bar x \\to a\\bar x+b$"],
+      "quizExerciseIds": [165, 166, 167]
+    },
+    {
+      "id": "ecart-type",
+      "title": "Écart-type",
+      "objectifs": ["Comprendre ce que mesure l'écart-type", "Interpréter un écart-type élevé ou faible"],
+      "prerequis": ["Moyenne"],
+      "sections": [
+        {"type": "definition", "title": "Écart-type", "body": "L'écart-type $\\sigma$ mesure la dispersion des valeurs d'une série autour de la moyenne. Il se calcule comme la racine carrée de la variance (moyenne des carrés des écarts à la moyenne) : $\\sigma = \\sqrt{\\dfrac{1}{n}\\sum (x_i-\\bar{x})^2}$."},
+        {"type": "propriete", "title": "Interprétation", "body": "Un écart-type faible signifie que les valeurs sont proches de la moyenne (série homogène) ; un écart-type élevé signifie que les valeurs sont très dispersées (série hétérogène)."},
+        {"type": "astuce", "body": "En pratique au lycée, l'écart-type se calcule le plus souvent à la calculatrice ou au tableur : ce qu'il faut maîtriser, c'est son interprétation, pas le calcul manuel complet."}
+      ],
+      "resume": "L'écart-type quantifie la dispersion d'une série de données autour de sa moyenne : plus il est grand, plus les valeurs sont étalées ; plus il est petit, plus elles sont regroupées.",
+      "ficheMemo": ["Écart-type faible = valeurs homogènes", "Écart-type élevé = valeurs dispersées"],
+      "quizExerciseIds": [162, 163, 164]
+    },
+    {
+      "id": "quartiles-et-ecart-interquartile",
+      "title": "Quartiles et écart interquartile",
+      "objectifs": ["Déterminer les quartiles $Q_1$ et $Q_3$ d'une série", "Calculer et interpréter l'écart interquartile"],
+      "prerequis": [],
+      "sections": [
+        {"type": "definition", "title": "Quartiles", "body": "Une série ordonnée étant donnée : le premier quartile $Q_1$ est la plus petite valeur telle qu'au moins $25\\%$ des données lui soient inférieures ou égales ; le troisième quartile $Q_3$, telle qu'au moins $75\\%$ le soient."},
+        {"type": "definition", "title": "Écart interquartile", "body": "L'écart interquartile est $Q_3 - Q_1$ : il mesure l'étendue de la moitié « centrale » des données, en ignorant les valeurs extrêmes."},
+        {"type": "astuce", "body": "Contrairement à l'écart-type, l'écart interquartile n'est pas sensible aux valeurs extrêmes (aberrantes) : c'est un indicateur de dispersion plus « robuste »."}
+      ],
+      "resume": "Les quartiles découpent une série ordonnée en quatre parts égales. L'écart interquartile mesure la dispersion de la moitié centrale des valeurs, en ignorant les extrêmes.",
+      "ficheMemo": ["$Q_1$ : 25% des valeurs en-dessous", "$Q_3$ : 75% des valeurs en-dessous", "Écart interquartile $=Q_3-Q_1$"],
+      "quizExerciseIds": [171, 172, 173]
+    }
+  ]
+}

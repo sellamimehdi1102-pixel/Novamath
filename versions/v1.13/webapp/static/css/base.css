@@ -1,0 +1,506 @@
+/* ==========================================================================
+   Base — reset, layout, composants réutilisables (cartes, boutons, nav, badges)
+   Chargé sur toutes les pages, après tokens.css.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Garantie site-wide que l'attribut [hidden] masque toujours l'élément.
+   Sans ce filet de sécurité, toute règle de composant qui fixe `display`
+   (ex: .badge, .modal-overlay, .eval-topbar en `display:flex`) l'emporte sur
+   le `[hidden] { display:none }` du navigateur — même à spécificité égale,
+   une règle d'auteur bat toujours une règle user-agent. Résultat concret
+   observé : le bouton "Quitter la série" (dans .eval-topbar) et la modale de
+   confirmation (.modal-overlay) ignoraient l'attribut hidden et restaient
+   affichés en permanence au lieu de suivre l'état réel de la série. */
+[hidden] { display: none !important; }
+
+html { color-scheme: dark; }
+html[data-theme="light"] { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ── Layout utilitaires ─────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Carte glassmorphism ────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.card--glass {
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.card--interactive:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Boutons ────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), opacity var(--transition-fast);
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+.btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.btn-icon { display: inline-flex; width: 16px; height: 16px; flex-shrink: 0; }
+.btn-icon svg { width: 100%; height: 100%; }
+
+.btn-primary {
+  background: var(--brand-gradient);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.35);
+}
+.btn-primary:hover { box-shadow: 0 6px 28px rgba(var(--accent-rgb), 0.5); }
+
+.btn-secondary {
+  background: var(--surface-hover);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+.btn-secondary:hover { background: var(--border); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+.btn-ghost:hover { color: var(--text); background: var(--surface-hover); }
+
+.btn-danger-outline {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+.btn-danger-outline:hover { background: var(--danger-soft); }
+
+.btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+.btn-lg { padding: 15px 30px; font-size: 1.05rem; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Badges / pills ─────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.badge--indigo { background: rgba(var(--accent-rgb), 0.15); color: var(--accent-text); }
+.badge--success { background: var(--success-soft); color: var(--success); }
+.badge--warning { background: var(--warning-soft); color: var(--warning); }
+.badge--danger { background: var(--danger-soft); color: var(--danger); }
+.badge--neutral { background: var(--surface-hover); color: var(--text-muted); }
+
+/* ── Barres de progression ──────────────────────────────────────────────── */
+.progress-track {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-hover);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--brand-gradient);
+  transition: width var(--transition-slow);
+}
+
+/* ── Navigation top (pages publiques) ───────────────────────────────────── */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: color-mix(in srgb, var(--bg) 75%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.brand img, .brand svg { width: 30px; height: 30px; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav-links a {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+
+/* ── Identité utilisateur (bas de sidebar) ──────────────────────────────── */
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin-top: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+.sidebar-user:hover { background: var(--surface-hover); border-color: var(--border); }
+.sidebar-user.is-current { background: rgba(var(--accent-rgb), 0.12); border-color: rgba(var(--accent-rgb), 0.3); }
+.sidebar-user.is-current .sidebar-user-info .name { color: var(--accent-text); }
+.sidebar-user-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--brand-gradient);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 0.8rem;
+  overflow: hidden;
+}
+.sidebar-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.sidebar-user-info { display: flex; flex-direction: column; min-width: 0; }
+.sidebar-user-info .name { font-size: 0.85rem; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sidebar-user-info .sub { font-size: 0.72rem; color: var(--text-faint); }
+
+/* ── Version affichée discrètement (bas de sidebar) ─────────────────────── */
+.sidebar-version {
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  margin-top: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* ── CTA "Créer un compte" (mode invité) ─────────────────────────────────
+   Même emplacement que le widget profil, mais traitement visuel dédié et
+   volontairement plus discret : glassmorphism léger, avatar réduit, hover
+   premium (léger relief + lueur violette), clic avec retour fluide — pensé
+   pour s'intégrer au design system dès le départ plutôt que ressembler à un
+   bloc plaqué en fin de développement (Notion/Linear/Raycast en référence). */
+.sidebar-user.sidebar-user--cta {
+  padding: 9px 10px;
+  gap: 9px;
+  background: linear-gradient(135deg, rgba(var(--brand-violet-rgb), 0.10), rgba(var(--accent-rgb), 0.05));
+  border: 1px solid rgba(var(--brand-violet-rgb), 0.20);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 1px 2px rgba(17, 12, 34, 0.06);
+  transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sidebar-user.sidebar-user--cta:hover {
+  background: linear-gradient(135deg, rgba(var(--brand-violet-rgb), 0.17), rgba(var(--accent-rgb), 0.08));
+  border-color: rgba(var(--brand-violet-rgb), 0.36);
+  box-shadow: 0 6px 16px -4px rgba(var(--brand-violet-rgb), 0.22);
+  transform: translateY(-1px);
+}
+.sidebar-user.sidebar-user--cta:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 90ms;
+}
+.sidebar-user.sidebar-user--cta .sidebar-user-avatar {
+  width: 28px; height: 28px;
+  background: rgba(var(--brand-violet-rgb), 0.16);
+  color: var(--accent-text);
+  transition: background 220ms ease, color 220ms ease;
+}
+.sidebar-user.sidebar-user--cta:hover .sidebar-user-avatar { background: rgba(var(--brand-violet-rgb), 0.26); color: var(--accent-text); }
+.sidebar-user.sidebar-user--cta .sidebar-user-avatar svg { width: 15px; height: 15px; }
+.sidebar-user.sidebar-user--cta .sidebar-user-info .name { font-size: 0.83rem; font-weight: 600; color: var(--text); }
+.sidebar-user.sidebar-user--cta .sidebar-user-info .sub { font-size: 0.68rem; font-weight: 400; color: var(--text-faint); }
+
+/* ── Groupe Paramètres + thème (bas de sidebar) ─────────────────────────── */
+.sidebar-toggle-group { display: flex; align-items: center; gap: 8px; align-self: flex-start; }
+
+/* ── Toggle thème (et bouton Paramètres, même style : icône seule) ───────── */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px; height: 38px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--border-strong); }
+.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
+/* ── App shell (dashboard/chapitres/exercice/profil) ────────────────────── */
+.app-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  border-right: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; margin-top: 32px; flex: 1; }
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.sidebar-link svg { width: 19px; height: 19px; flex-shrink: 0; }
+.sidebar-link:hover { background: var(--surface-hover); color: var(--text); }
+.sidebar-link.active {
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--accent-text);
+}
+
+.main-content { padding: 32px 40px 80px; max-width: 1240px; }
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ── Scrollbar discrète ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: var(--radius-pill); }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ── Skeleton loader ────────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-hover) 25%, var(--border) 37%, var(--surface-hover) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes skeleton-loading {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* ── Modal de confirmation ──────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  animation: lumis-modal-fade 200ms ease;
+}
+@keyframes lumis-modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  animation: lumis-modal-pop 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes lumis-modal-pop {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-card h3 { font-size: 1.1rem; margin-bottom: 12px; }
+.modal-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 22px; }
+.modal-card .verdict-row { margin-top: 0; }
+.modal-card--wide { max-width: 560px; max-height: 90vh; overflow-y: auto; }
+.modal-card--wide h3 { margin-bottom: 18px; }
+
+/* ── Popup générique (js/popup.js) — réutilisé par TOUS les popups du site ─
+   Étend .modal-overlay/.modal-card ci-dessus plutôt que de les dupliquer :
+   même fond, même flou, mêmes ombres/rayons/transitions. */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+.popup-overlay.is-open { opacity: 1; }
+
+.popup-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  transform: translateY(16px) scale(0.98);
+  opacity: 0;
+  transition: transform var(--transition-slow), opacity var(--transition-base);
+}
+.popup-overlay.is-open .popup-card { transform: translateY(0) scale(1); opacity: 1; }
+
+.popup-card--sm { max-width: 420px; }
+.popup-card--md { max-width: 560px; }
+.popup-card--lg { max-width: 780px; }
+.popup-card--xl { max-width: 980px; }
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.popup-title { font-size: 1.1rem; }
+.popup-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.popup-close:hover { background: var(--surface-hover); color: var(--text); }
+.popup-close svg { width: 16px; height: 16px; }
+
+.popup-body {
+  padding: 24px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ── Champs de formulaire réutilisables (modales) ───────────────────────── */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-field label, .form-field > span:first-child { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
+.form-field input[type="text"],
+.form-field input[type="password"],
+.form-field select,
+.form-field textarea {
+  background: var(--surface-hover);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  color: var(--text);
+  font-size: 0.92rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--transition-fast);
+  resize: vertical;
+}
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--brand-indigo); }
+.form-field.has-error input, .form-field.has-error textarea { border-color: var(--danger); }
+
+.char-counter { align-self: flex-end; font-size: 0.75rem; color: var(--text-faint); }
+
+.form-error { color: var(--danger); font-size: 0.8rem; }
+.form-error--global { display: block; margin: -6px 0 14px; }
+
+/* ── Focus visible accessible ───────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--brand-indigo);
+  outline-offset: 2px;
+}

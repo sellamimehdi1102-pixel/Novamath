@@ -1,0 +1,74 @@
+{
+  "chapterId": "Chapitre_9",
+  "title": "Signe d'une fonction",
+  "icon": "sliders",
+  "notions": [
+    {
+      "id": "signe-dune-fonction",
+      "title": "Signe d'une fonction",
+      "objectifs": ["Comprendre ce que signifie « étudier le signe » d'une fonction", "Lire un signe sur une courbe ou un tableau de signes"],
+      "prerequis": ["Courbe représentative d'une fonction"],
+      "sections": [
+        {"type": "definition", "title": "Signe d'une fonction", "body": "Étudier le signe de $f$ sur un intervalle, c'est déterminer sur quelles portions $f(x) > 0$ (courbe au-dessus de l'axe des abscisses), $f(x) < 0$ (en-dessous) et $f(x) = 0$ (points d'intersection avec l'axe, appelés racines ou zéros)."},
+        {"type": "methode", "title": "Lire le signe sur une courbe", "steps": ["Repérer les points où la courbe coupe l'axe des abscisses.", "Observer si la courbe est au-dessus (positif) ou en-dessous (négatif) entre ces points.", "Résumer dans un tableau de signes."]},
+        {"type": "astuce", "body": "Un tableau de signes se lit comme un tableau de variations, mais avec des « + » et des « − » séparés par des zéros au lieu de flèches."}
+      ],
+      "resume": "Le signe d'une fonction indique où sa courbe est au-dessus ou en-dessous de l'axe des abscisses. Cette étude est indispensable pour résoudre des inéquations.",
+      "ficheMemo": ["$f(x)>0$ : courbe au-dessus de l'axe", "$f(x)=0$ : intersection avec l'axe (racine)"],
+      "quizExerciseIds": [147, 148, 149]
+    },
+    {
+      "id": "signe-dune-fonction-affine",
+      "title": "Signe d'une fonction affine",
+      "objectifs": ["Déterminer le signe de $f(x)=mx+p$ selon $x$"],
+      "prerequis": ["Signe d'une fonction", "Variations des fonctions affines"],
+      "sections": [
+        {"type": "methode", "title": "Étudier le signe de $mx+p$", "steps": ["Résoudre $mx+p=0$ pour trouver la racine $x_0 = -p/m$.", "Utiliser le sens de variation : si $m>0$, $f$ est négative avant $x_0$ et positive après ; si $m<0$, c'est l'inverse."]},
+        {"type": "exemple", "enonce": "Signe de $f(x) = 2x-6$.", "etapes": ["Racine : $2x-6=0 \\Rightarrow x=3$.", "$m=2>0$ donc $f$ croissante : négative avant $3$, positive après."], "reponse": "$f(x)<0$ sur $]-\\infty;3[$, $f(x)>0$ sur $]3;+\\infty[$"}
+      ],
+      "resume": "Le signe d'une fonction affine se déduit directement de sa racine et du signe de son coefficient directeur, sans avoir besoin de tracer la droite.",
+      "ficheMemo": ["Racine $x_0=-p/m$", "$m>0$ : − avant $x_0$, + après", "$m<0$ : + avant $x_0$, − après"],
+      "quizExerciseIds": [150, 151, 152]
+    },
+    {
+      "id": "signe-dun-produit-ou-dun-quotient",
+      "title": "Signe d'un produit ou d'un quotient",
+      "objectifs": ["Utiliser la règle des signes pour un produit ou un quotient de facteurs"],
+      "prerequis": ["Signe d'une fonction affine"],
+      "sections": [
+        {"type": "propriete", "title": "Règle des signes", "body": "Le signe d'un produit ou d'un quotient de plusieurs facteurs se détermine en comptant le nombre de facteurs négatifs : un nombre pair de facteurs négatifs donne un résultat positif, un nombre impair donne un résultat négatif."},
+        {"type": "methode", "title": "Tableau de signes d'un produit", "steps": ["Étudier séparément le signe de chaque facteur.", "Reporter chaque signe sur une même ligne d'un tableau, aux mêmes valeurs de $x$.", "Multiplier les signes colonne par colonne (règle des signes) pour obtenir le signe du produit."]},
+        {"type": "attention", "body": "Pour un quotient, le dénominateur ne doit jamais s'annuler : sa racine devient une valeur interdite, marquée par une double barre dans le tableau de signes."}
+      ],
+      "resume": "Le tableau de signes d'un produit (ou d'un quotient) se construit en combinant les signes de chaque facteur ligne par ligne, puis en appliquant la règle des signes colonne par colonne.",
+      "ficheMemo": ["Nombre pair de facteurs négatifs → produit positif", "Nombre impair → produit négatif", "Dénominateur nul → valeur interdite"],
+      "quizExerciseIds": [144, 145, 146]
+    },
+    {
+      "id": "inequations-signe",
+      "title": "Inéquations",
+      "objectifs": ["Résoudre une inéquation à l'aide d'un tableau de signes"],
+      "prerequis": ["Signe d'un produit ou d'un quotient"],
+      "sections": [
+        {"type": "methode", "title": "Résoudre $f(x) \\leq 0$ avec un tableau de signes", "steps": ["Ramener l'inéquation à la forme $f(x) \\leq 0$ (ou $\\geq$, tout d'un côté).", "Factoriser $f(x)$ si possible pour faire apparaître un produit/quotient.", "Dresser le tableau de signes complet, puis lire les intervalles où le signe correspond à l'inéquation."]},
+        {"type": "astuce", "body": "Une fois le tableau de signes dressé, la réponse à l'inéquation se lit directement en surlignant les colonnes portant le bon signe."}
+      ],
+      "resume": "Le tableau de signes est l'outil universel pour résoudre une inéquation, quelle que soit sa complexité, dès lors que l'expression est ramenée à la forme « ... $\\leq 0$ » ou « ... $\\geq 0$ ».",
+      "ficheMemo": ["Toujours ramener à « expression ≤/≥ 0 »", "Factoriser avant de dresser le tableau de signes"],
+      "quizExerciseIds": [138, 139, 140]
+    },
+    {
+      "id": "positions-relatives-de-courbes-de-reference",
+      "title": "Positions relatives de courbes de référence",
+      "objectifs": ["Comparer deux fonctions de référence à l'aide du signe de leur différence"],
+      "prerequis": ["Comparaison", "Signe d'un produit ou d'un quotient"],
+      "sections": [
+        {"type": "methode", "title": "Comparer deux courbes", "steps": ["Calculer la différence des deux fonctions $f-g$.", "Étudier le signe de cette différence (souvent après factorisation).", "Conclure : où $f-g>0$, la courbe de $f$ est au-dessus de celle de $g$."]},
+        {"type": "exemple", "enonce": "Comparer les courbes de $f(x)=x^2$ et $g(x)=x$ sur $\\mathbb{R}$.", "etapes": ["$f(x)-g(x) = x^2-x = x(x-1)$.", "Signe d'un produit : négatif entre les racines $0$ et $1$, positif ailleurs."], "reponse": "$\\mathcal{C}_f$ est au-dessus de $\\mathcal{C}_g$ sur $]-\\infty;0[\\cup]1;+\\infty[$, en-dessous sur $]0;1[$"}
+      ],
+      "resume": "Comparer deux courbes revient exactement à étudier le signe de leur différence : la méthode est identique à la comparaison de deux nombres, appliquée à des fonctions.",
+      "ficheMemo": ["$f$ au-dessus de $g$ $\\Leftrightarrow f-g>0$"],
+      "quizExerciseIds": [141, 142, 143]
+    }
+  ]
+}

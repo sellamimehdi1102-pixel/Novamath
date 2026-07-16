@@ -1,0 +1,51 @@
+{
+  "chapterId": "Chapitre_10",
+  "title": "Proportions et évolutions",
+  "icon": "barChart",
+  "notions": [
+    {
+      "id": "proportion-de-proportion",
+      "title": "Proportion de proportion",
+      "objectifs": ["Calculer une proportion de proportion (proportion emboîtée)"],
+      "prerequis": [],
+      "sections": [
+        {"type": "definition", "title": "Proportion d'une proportion", "body": "Si une proportion $p_1$ d'un ensemble vérifie une propriété, et qu'une proportion $p_2$ de cette sous-partie vérifie une seconde propriété, alors la proportion de l'ensemble total vérifiant les deux propriétés est $p_1 \\times p_2$."},
+        {"type": "exemple", "enonce": "Dans un lycée, 60% des élèves sont en filière générale, et parmi eux 40% étudient les mathématiques expertes. Quelle proportion de l'ensemble des élèves étudie les maths expertes ?", "etapes": ["$p_1 = 0{,}60$ (filière générale)", "$p_2 = 0{,}40$ (maths expertes parmi eux)", "Proportion totale $= 0{,}60 \\times 0{,}40$"], "reponse": "$0{,}24$, soit $24\\%$ des élèves"},
+        {"type": "attention", "body": "On ne doit JAMAIS additionner deux proportions emboîtées : elles se multiplient, car la seconde proportion porte sur une sous-partie de l'ensemble, pas sur l'ensemble entier."}
+      ],
+      "resume": "Quand une proportion s'applique à l'intérieur d'une autre proportion, on multiplie les deux taux (exprimés en écriture décimale) pour obtenir la proportion finale par rapport à l'ensemble de départ.",
+      "ficheMemo": ["Proportions emboîtées : on multiplie, jamais on n'additionne"],
+      "quizExerciseIds": [159, 160, 161]
+    },
+    {
+      "id": "evolutions-dune-quantite",
+      "title": "Évolutions d'une quantité",
+      "objectifs": ["Calculer un taux d'évolution", "Appliquer un coefficient multiplicateur"],
+      "prerequis": [],
+      "sections": [
+        {"type": "definition", "title": "Taux d'évolution", "body": "Le taux d'évolution entre une valeur initiale $V_i$ et une valeur finale $V_f$ est $t = \\dfrac{V_f - V_i}{V_i}$, souvent exprimé en pourcentage."},
+        {"type": "definition", "title": "Coefficient multiplicateur", "body": "Le coefficient multiplicateur associé à un taux d'évolution $t$ est $CM = 1+t$. On a alors directement $V_f = V_i \\times CM$."},
+        {"type": "exemple", "enonce": "Un prix passe de $80€$ à $92€$. Quel est le taux d'évolution ?", "etapes": ["$t = \\dfrac{92-80}{80} = \\dfrac{12}{80} = 0{,}15$"], "reponse": "Le prix augmente de $15\\%$ ($CM=1{,}15$)"},
+        {"type": "attention", "body": "Une baisse de $t\\%$ correspond à un coefficient multiplicateur $1-t$ (et non $-t$) : le coefficient multiplicateur est toujours positif tant que la quantité finale reste positive."}
+      ],
+      "resume": "Le coefficient multiplicateur $1+t$ permet de passer directement de la valeur initiale à la valeur finale, en une seule multiplication, sans jamais additionner ou soustraire des pourcentages entre eux.",
+      "ficheMemo": ["$t=\\dfrac{V_f-V_i}{V_i}$", "$CM=1+t$, $V_f=V_i\\times CM$", "Baisse de $t\\%$ → $CM=1-t$"],
+      "quizExerciseIds": [153, 154, 155]
+    },
+    {
+      "id": "evolutions-successives-et-reciproques",
+      "title": "Évolutions successives et évolutions réciproques",
+      "objectifs": ["Calculer un coefficient multiplicateur global sur plusieurs évolutions", "Trouver l'évolution réciproque qui annule une évolution"],
+      "prerequis": ["Évolutions d'une quantité"],
+      "sections": [
+        {"type": "propriete", "title": "Évolutions successives", "body": "Pour deux évolutions successives de coefficients multiplicateurs $CM_1$ et $CM_2$, le coefficient multiplicateur global est $CM = CM_1 \\times CM_2$ (on multiplie, on n'additionne jamais les taux directement)."},
+        {"type": "propriete", "title": "Évolution réciproque", "body": "L'évolution réciproque, qui permet de revenir à la valeur de départ après une évolution de coefficient $CM$, a pour coefficient multiplicateur $CM' = \\dfrac{1}{CM}$."},
+        {"type": "exemple", "enonce": "Un prix augmente de $20\\%$. Quelle baisse en pourcentage permet de revenir au prix initial ?", "etapes": ["$CM = 1{,}2$.", "$CM' = \\dfrac{1}{1{,}2} \\approx 0{,}833$.", "Taux réciproque $\\approx 0{,}833 - 1 = -0{,}167$."], "reponse": "Une baisse d'environ $16{,}7\\%$ (et non $20\\%$ !)"},
+        {"type": "attention", "body": "L'erreur classique est de croire qu'une hausse de $20\\%$ est compensée par une baisse de $20\\%$ : ce n'est jamais le cas, car le coefficient multiplicateur réciproque n'est pas symétrique."}
+      ],
+      "resume": "Les évolutions successives se combinent par multiplication des coefficients multiplicateurs. L'évolution réciproque utilise l'inverse du coefficient — jamais l'opposé du taux, ce qui est la source d'erreur la plus fréquente du chapitre.",
+      "ficheMemo": ["$CM_{global} = CM_1 \\times CM_2$", "Évolution réciproque : $CM' = 1/CM$ (pas $-t$)"],
+      "quizExerciseIds": [156, 157, 158]
+    }
+  ]
+}

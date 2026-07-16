@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours — NovaMath</title>
+<meta name="application-name" content="NovaMath">
+<meta name="theme-color" content="#6366f1">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/guest.css">
+<link rel="stylesheet" href="css/chapitres.css">
+<link rel="stylesheet" href="css/cours.css">
+<link rel="stylesheet" href="css/settings.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <a href="/" class="brand"><img src="assets/logo.svg" alt=""> NovaMath</a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg><span data-i18n="nav.dashboard">Dashboard</span></a>
+      <a href="chapitres.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span data-i18n="nav.chapitres">Chapitres</span></a>
+      <a href="cours.html" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span data-i18n="nav.cours">Cours</span></a>
+      <a href="exercice.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6.5 6.5 11 11M14.5 3.5l6 6-3 3-6-6 3-3ZM3.5 14.5l6 6-3 3-6-6 3-3Z"/></svg><span data-i18n="nav.entrainement">Entraînement</span></a>
+    </nav>
+    <div class="sidebar-toggle-group">
+      <button class="theme-toggle" id="settings-btn" aria-label="Paramètres">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"/></svg>
+      </button>
+    </div>
+    <a href="profil.html" class="sidebar-user" id="sidebar-user">
+      <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
+      <span class="sidebar-user-info">
+        <span class="name" id="sidebar-user-name">Élève</span>
+        <span class="sub" data-i18n="nav.profil">Voir le profil</span>
+      </span>
+    </a>
+    <div class="sidebar-version" id="sidebar-version"></div>
+  </aside>
+
+  <main class="main-content">
+    <div id="cours-list-view">
+      <div class="page-header">
+        <div>
+          <h1>Cours</h1>
+          <p style="color:var(--text-muted); margin-top:6px;">Apprends chaque notion avant de passer aux exercices : définitions, méthodes, exemples résolus et mini-quiz.</p>
+        </div>
+      </div>
+
+      <div id="cours-grid" class="chapters-grid">
+        <div class="skeleton" style="height:220px;"></div>
+        <div class="skeleton" style="height:220px;"></div>
+        <div class="skeleton" style="height:220px;"></div>
+      </div>
+    </div>
+
+    <div id="cours-reader-view" class="cours-reader-view" hidden></div>
+  </main>
+</div>
+
+<script type="module" src="js/identity.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script type="module" src="js/cours.js"></script>
+</body>
+</html>

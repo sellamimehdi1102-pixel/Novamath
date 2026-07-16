@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Page Profil — header avatar, stats, radar, heatmap
+   ========================================================================== */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 32px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.profile-avatar {
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--brand-gradient);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.profile-info { flex: 1; min-width: 200px; }
+.profile-info h2 { font-size: 1.3rem; margin-bottom: 4px; }
+.profile-info .pseudo-edit {
+  background: none; border: none; color: var(--text-muted); font-size: 0.85rem;
+  cursor: pointer; text-decoration: underline; padding: 0; margin-top: 4px;
+}
+.profile-level-bar { max-width: 320px; margin-top: 12px; }
+.profile-level-bar .label-row { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
+
+.profile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.profile-stat { padding: 20px; text-align: center; }
+.profile-stat .value { font-size: 1.5rem; font-weight: 700; font-family: var(--font-display); }
+.profile-stat .label { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+
+.profile-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+.profile-card { padding: 24px; }
+.profile-card h3 { font-size: 0.95rem; margin-bottom: 18px; }
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(26, 1fr);
+  gap: 3px;
+}
+.heatmap-cell { aspect-ratio: 1; border-radius: 2px; background: var(--surface-hover); }
+.heatmap-cell[data-level="1"] { background: rgba(99, 102, 241, 0.3); }
+.heatmap-cell[data-level="2"] { background: rgba(99, 102, 241, 0.55); }
+.heatmap-cell[data-level="3"] { background: rgba(99, 102, 241, 0.8); }
+.heatmap-cell[data-level="4"] { background: #6366f1; }
+
+@media (max-width: 900px) {
+  .profile-columns { grid-template-columns: 1fr; }
+  .heatmap-grid { grid-template-columns: repeat(18, 1fr); }
+}

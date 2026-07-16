@@ -1,0 +1,36 @@
+/* ==========================================================================
+   Responsive partagé — mobile first overrides pour app-shell et nav publique
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .main-content { padding: 28px 24px 64px; }
+}
+
+@media (max-width: 860px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    padding: 14px 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-nav {
+    flex-direction: row;
+    margin-top: 0;
+    overflow-x: auto;
+    flex: 1;
+  }
+  .sidebar-link span { display: none; }
+  .sidebar-footer { display: none; }
+}
+
+@media (max-width: 640px) {
+  .topnav { padding: 14px 16px; }
+  .hero { padding: 64px 16px 56px; }
+  .section { padding: 56px 16px; }
+  .main-content { padding: 20px 16px 56px; }
+  .nav-actions { gap: 8px; }
+}

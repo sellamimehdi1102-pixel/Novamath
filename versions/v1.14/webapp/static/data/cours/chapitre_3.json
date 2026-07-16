@@ -1,0 +1,119 @@
+{
+  "chapterId": "Chapitre_3",
+  "title": "Calcul littéral",
+  "icon": "sliders",
+  "notions": [
+    {
+      "id": "distributivite-et-identites-remarquables",
+      "title": "Distributivité et identités remarquables",
+      "objectifs": [
+        "Développer une expression avec la distributivité",
+        "Connaître et utiliser les trois identités remarquables",
+        "Factoriser une expression simple"
+      ],
+      "prerequis": ["Calcul avec des nombres relatifs"],
+      "sections": [
+        {"type": "propriete", "title": "Double distributivité", "body": "Pour tous réels $a,b,c,d$ : $(a+b)(c+d) = ac+ad+bc+bd$. Chaque terme de la première parenthèse multiplie chaque terme de la seconde."},
+        {"type": "propriete", "title": "Les trois identités remarquables", "body": "• $(a+b)^2 = a^2 + 2ab + b^2$\n• $(a-b)^2 = a^2 - 2ab + b^2$\n• $(a+b)(a-b) = a^2 - b^2$"},
+        {"type": "methode", "title": "Reconnaître une identité remarquable pour factoriser", "steps": [
+          "Vérifier si l'expression a la forme $a^2+2ab+b^2$, $a^2-2ab+b^2$ ou $a^2-b^2$.",
+          "Identifier $a$ et $b$ (souvent des racines carrées des termes carrés).",
+          "Appliquer l'identité en sens inverse (factoriser)."
+        ]},
+        {"type": "exemple", "enonce": "Factoriser $E = 9x^2 - 25$.", "etapes": [
+          "$9x^2 = (3x)^2$ et $25 = 5^2$ : on reconnaît la forme $a^2-b^2$ avec $a=3x$, $b=5$.",
+          "$E = (3x)^2 - 5^2 = (3x-5)(3x+5)$."
+        ], "reponse": "$E = (3x-5)(3x+5)$"},
+        {"type": "attention", "body": "$(a+b)^2 \\neq a^2+b^2$ : le double produit $2ab$ est systématiquement oublié par erreur — c'est l'une des erreurs les plus fréquentes du lycée."},
+        {"type": "astuce", "body": "Pour vérifier un développement ou une factorisation, testez avec une valeur numérique simple (ex. $a=1,b=2$) des deux côtés de l'égalité : les résultats doivent coïncider."}
+      ],
+      "resume": "La distributivité permet de développer, les identités remarquables accélèrent le développement et la factorisation de formes récurrentes. Savoir reconnaître ces formes est la compétence clé de ce chapitre.",
+      "ficheMemo": [
+        "$(a+b)^2=a^2+2ab+b^2$",
+        "$(a-b)^2=a^2-2ab+b^2$",
+        "$(a+b)(a-b)=a^2-b^2$"
+      ],
+      "quizExerciseIds": [40, 41, 42]
+    },
+    {
+      "id": "resolution-dequation-produit-nul",
+      "title": "Résolution d'équation produit nul",
+      "objectifs": [
+        "Connaître la règle du produit nul",
+        "Résoudre une équation en la factorisant"
+      ],
+      "prerequis": ["Distributivité et identités remarquables"],
+      "sections": [
+        {"type": "propriete", "title": "Règle du produit nul", "body": "Un produit de facteurs est nul si et seulement si au moins l'un des facteurs est nul : $A \\times B = 0 \\Leftrightarrow A = 0 \\text{ ou } B = 0$."},
+        {"type": "methode", "title": "Résoudre une équation produit nul", "steps": [
+          "Vérifier que l'équation est bien écrite sous la forme $A \\times B = 0$ (factoriser si nécessaire).",
+          "Résoudre séparément $A=0$ puis $B=0$.",
+          "Rassembler toutes les solutions trouvées."
+        ]},
+        {"type": "exemple", "enonce": "Résoudre $(2x-4)(x+3) = 0$.", "etapes": [
+          "$2x-4=0 \\Rightarrow x=2$.",
+          "$x+3=0 \\Rightarrow x=-3$."
+        ], "reponse": "$\\mathcal{S} = \\{-3\\,;2\\}$"},
+        {"type": "attention", "body": "On ne peut appliquer cette règle que si le second membre de l'équation est $0$ et le premier membre un produit — jamais sur une somme comme $A+B=0$."}
+      ],
+      "resume": "L'équation produit nul transforme une équation potentiellement complexe en deux équations simples. La condition indispensable est d'avoir un produit égal à zéro : factoriser est souvent la première étape.",
+      "ficheMemo": ["$A\\times B=0 \\Leftrightarrow A=0 \\text{ ou } B=0$", "Toujours factoriser avant d'appliquer la règle"],
+      "quizExerciseIds": [43, 44, 45]
+    },
+    {
+      "id": "calcul-litteral-en-ecriture-fractionnaire",
+      "title": "Calcul littéral en écriture fractionnaire",
+      "objectifs": [
+        "Additionner, soustraire, multiplier et diviser des fractions littérales",
+        "Déterminer les valeurs interdites d'une expression"
+      ],
+      "prerequis": ["Distributivité et identités remarquables"],
+      "sections": [
+        {"type": "definition", "title": "Valeur interdite", "body": "Une expression fractionnaire $\\dfrac{A}{B}$ n'est définie que si $B \\neq 0$. Les valeurs de $x$ qui annulent le dénominateur sont appelées valeurs interdites."},
+        {"type": "propriete", "title": "Opérations sur les fractions", "body": "• $\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{ac}{bd}$\n• $\\dfrac{a}{b} \\div \\dfrac{c}{d} = \\dfrac{a}{b} \\times \\dfrac{d}{c}$\n• $\\dfrac{a}{c} + \\dfrac{b}{c} = \\dfrac{a+b}{c}$ (même dénominateur)"},
+        {"type": "methode", "title": "Additionner deux fractions de dénominateurs différents", "steps": [
+          "Mettre les deux fractions au même dénominateur (produit des dénominateurs, ou plus petit multiple commun).",
+          "Ajuster les numérateurs en conséquence.",
+          "Additionner les numérateurs sur le dénominateur commun, puis simplifier si possible."
+        ]},
+        {"type": "exemple", "enonce": "Calculer $\\dfrac{2}{x} + \\dfrac{3}{x+1}$ (avec $x\\neq 0$ et $x \\neq -1$).", "etapes": [
+          "Dénominateur commun : $x(x+1)$.",
+          "$\\dfrac{2(x+1)}{x(x+1)} + \\dfrac{3x}{x(x+1)} = \\dfrac{2x+2+3x}{x(x+1)}$."
+        ], "reponse": "$\\dfrac{5x+2}{x(x+1)}$"},
+        {"type": "attention", "body": "Toujours préciser les valeurs interdites avant de simplifier : une simplification peut faire « disparaître » visuellement une valeur interdite sans qu'elle cesse d'être interdite."}
+      ],
+      "resume": "Le calcul avec des fractions littérales suit exactement les mêmes règles qu'avec des fractions numériques, avec une contrainte supplémentaire : identifier systématiquement les valeurs qui annulent un dénominateur.",
+      "ficheMemo": [
+        "Toujours écarter les valeurs qui annulent un dénominateur",
+        "Même dénominateur avant d'additionner/soustraire",
+        "Diviser = multiplier par l'inverse"
+      ],
+      "quizExerciseIds": [37, 38, 39]
+    },
+    {
+      "id": "resolution-dequation-quotient",
+      "title": "Résolution d'équation quotient",
+      "objectifs": [
+        "Résoudre une équation de la forme $\\dfrac{A}{B}=0$",
+        "Ne pas oublier les valeurs interdites"
+      ],
+      "prerequis": ["Calcul littéral en écriture fractionnaire", "Résolution d'équation produit nul"],
+      "sections": [
+        {"type": "propriete", "title": "Règle du quotient nul", "body": "Un quotient $\\dfrac{A}{B}$ est nul si et seulement si $A = 0$ et $B \\neq 0$. Le numérateur doit s'annuler, mais jamais le dénominateur."},
+        {"type": "methode", "title": "Résoudre $\\dfrac{A}{B}=0$", "steps": [
+          "Déterminer la valeur interdite : résoudre $B=0$.",
+          "Résoudre $A=0$.",
+          "Vérifier que les solutions de $A=0$ ne sont pas des valeurs interdites, puis conclure."
+        ]},
+        {"type": "exemple", "enonce": "Résoudre $\\dfrac{x-2}{x+5} = 0$.", "etapes": [
+          "Valeur interdite : $x+5=0 \\Rightarrow x=-5$.",
+          "$x-2=0 \\Rightarrow x=2$, qui n'est pas la valeur interdite."
+        ], "reponse": "$\\mathcal{S} = \\{2\\}$"},
+        {"type": "attention", "body": "Si la solution trouvée pour le numérateur est justement la valeur interdite, alors l'équation n'a AUCUNE solution — un piège classique des sujets d'examen."}
+      ],
+      "resume": "Résoudre une équation quotient revient à annuler le numérateur tout en excluant systématiquement la ou les valeurs interdites. L'ordre des étapes (identifier l'interdit avant de conclure) est essentiel.",
+      "ficheMemo": ["$\\dfrac{A}{B}=0 \\Leftrightarrow A=0 \\text{ et } B\\neq 0$", "Toujours vérifier que la solution n'est pas interdite"],
+      "quizExerciseIds": [47, 48, 49]
+    }
+  ]
+}

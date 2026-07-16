@@ -1,0 +1,148 @@
+/* ==========================================================================
+   Dashboard — grille de cartes stats + graphiques SVG maison
+   ========================================================================== */
+
+.greeting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.greeting-row h1 { font-size: 1.6rem; }
+.streak-chip {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--warning-soft);
+  color: var(--warning);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.account-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+.account-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--brand-gradient);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 0.95rem;
+  overflow: hidden;
+}
+.account-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.account-info { flex: 1; min-width: 0; }
+.account-pseudo { font-weight: 600; font-size: 0.95rem; }
+.account-meta { color: var(--text-muted); font-size: 0.8rem; display: flex; gap: 6px; flex-wrap: wrap; }
+.account-meta-sep { color: var(--text-faint); }
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.stat-card { padding: 22px; }
+.stat-card .label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
+.stat-card .value { font-size: 1.7rem; font-weight: 700; font-family: var(--font-display); }
+.stat-card .sub { font-size: 0.78rem; color: var(--text-faint); margin-top: 4px; }
+
+.xp-ring-wrap { display: flex; align-items: center; gap: 16px; }
+.xp-ring-wrap svg { width: 64px; height: 64px; flex-shrink: 0; }
+
+/* ── Objectif quotidien (Dashboard) ─────────────────────────────────────── */
+.daily-goal-value { font-size: 1.15rem; font-weight: 700; font-family: var(--font-display); }
+#daily-goal-card .progress-fill { transition: width var(--transition-slow); }
+#daily-goal-card.is-reached {
+  border-color: var(--success);
+  box-shadow: 0 0 0 1px var(--success-soft), 0 8px 24px var(--success-soft);
+}
+#daily-goal-card.is-reached .daily-goal-value { color: var(--success); }
+#daily-goal-card.is-reached .progress-fill { background: var(--success); }
+#daily-goal-card .daily-goal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--success);
+}
+#daily-goal-card.is-reached { animation: dailyGoalPulse 600ms ease; }
+@keyframes dailyGoalPulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.week-grid { display: flex; gap: 6px; margin-top: 8px; }
+.week-day {
+  flex: 1;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: var(--surface-hover);
+}
+.week-day.active { background: var(--brand-gradient); }
+
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.chart-card { padding: 24px; }
+.chart-card h3 { font-size: 0.95rem; }
+.chart-card svg { width: 100%; height: 180px; cursor: crosshair; }
+
+.chart-zoom { display: flex; gap: 6px; }
+.chart-zoom-btn {
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-hover);
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.chart-zoom-btn.active { background: var(--brand-gradient); color: #fff; border-color: transparent; }
+
+.two-col-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+.list-card { padding: 22px; }
+.list-card h3 { font-size: 0.92rem; margin-bottom: 16px; }
+.mini-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-top: 1px solid var(--border); font-size: 0.85rem; }
+.mini-row:first-of-type { border-top: none; }
+
+.suggestion-card { padding: 14px; border-radius: var(--radius-sm); background: var(--surface-hover); margin-bottom: 10px; font-size: 0.85rem; }
+.suggestion-card:last-child { margin-bottom: 0; }
+
+.history-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.history-table th { text-align: left; color: var(--text-muted); font-weight: 600; padding: 8px 10px; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.history-table td { padding: 10px; border-top: 1px solid var(--border); }
+
+.badges-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 14px; }
+.badge-tile {
+  padding: 18px 12px;
+  text-align: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface-hover);
+}
+.badge-tile.unlocked { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.35); }
+.badge-tile .icon { font-size: 1.6rem; margin-bottom: 8px; opacity: 0.35; }
+.badge-tile.unlocked .icon { opacity: 1; }
+.badge-tile .name { font-size: 0.75rem; color: var(--text-muted); }
+.badge-tile.unlocked .name { color: var(--text); }
+
+@media (max-width: 900px) {
+  .dashboard-columns, .two-col-lists { grid-template-columns: 1fr; }
+}

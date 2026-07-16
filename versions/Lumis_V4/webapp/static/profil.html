@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil — Lumis</title>
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/profil.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <a href="index.html" class="brand"><img src="assets/logo.svg" alt=""> Lumis</a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg><span>Dashboard</span></a>
+      <a href="chapitres.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span>Chapitres</span></a>
+      <a href="exercice.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6.5 6.5 11 11M14.5 3.5l6 6-3 3-6-6 3-3ZM3.5 14.5l6 6-3 3-6-6 3-3Z"/></svg><span>Entraînement</span></a>
+      <a href="profil.html" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg><span>Profil</span></a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Changer de thème" style="align-self:flex-start;">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+    </button>
+  </aside>
+
+  <main class="main-content">
+    <div class="profile-header card">
+      <div class="profile-avatar" id="profile-avatar">É</div>
+      <div class="profile-info">
+        <h2 id="profile-pseudo">Élève</h2>
+        <button class="pseudo-edit" id="btn-edit-pseudo">Modifier le pseudo</button>
+        <div class="profile-level-bar">
+          <div class="label-row"><span id="profile-level-label">Niveau 1</span><span id="profile-xp-label">0 XP</span></div>
+          <div class="progress-track"><div class="progress-fill" id="profile-level-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-stats-grid">
+      <div class="profile-stat card"><div class="value tabular" id="stat-time">0 min</div><div class="label">Temps total</div></div>
+      <div class="profile-stat card"><div class="value tabular" id="stat-count">0</div><div class="label">Exercices faits</div></div>
+      <div class="profile-stat card"><div class="value tabular" id="stat-rate">0%</div><div class="label">Réussite globale</div></div>
+      <div class="profile-stat card"><div class="value tabular" id="stat-streak">0</div><div class="label">Série actuelle</div></div>
+    </div>
+
+    <div class="profile-columns">
+      <div class="profile-card card">
+        <h3>🎯 Radar des compétences</h3>
+        <svg id="radar-chart" viewBox="0 0 300 260"></svg>
+      </div>
+      <div class="profile-card card">
+        <h3>🏅 Badges &amp; succès</h3>
+        <div class="badges-grid" id="badges-grid"></div>
+      </div>
+    </div>
+
+    <div class="profile-card card" style="margin-bottom:24px;">
+      <h3>📅 Calendrier d'activité</h3>
+      <div class="heatmap-grid" id="heatmap-grid"></div>
+    </div>
+
+    <div class="profile-card card">
+      <h3>🕓 Historique des séries</h3>
+      <table class="history-table">
+        <thead><tr>
+          <th>Date</th><th>Heure</th><th>Chapitre</th><th>Notion</th><th>Score</th><th>Accuracy</th>
+          <th>Temps</th><th>Bonnes</th><th>Mauvaises</th><th>Niveau IA</th><th></th>
+        </tr></thead>
+        <tbody id="full-history-body"></tbody>
+      </table>
+      <div style="display:flex; justify-content:center; gap:10px; margin-top:16px;">
+        <button class="btn btn-secondary btn-sm" id="btn-prev-page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          Précédent
+        </button>
+        <button class="btn btn-secondary btn-sm" id="btn-next-page">
+          Suivant
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="js/profil.js"></script>
+</body>
+</html>

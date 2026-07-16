@@ -1,0 +1,128 @@
+{
+  "chapterId": "Chapitre_2",
+  "title": "Intervalles, inégalités, inéquations",
+  "icon": "compass",
+  "notions": [
+    {
+      "id": "intervalles",
+      "title": "Intervalles",
+      "objectifs": [
+        "Connaître les différents types d'intervalles",
+        "Passer de l'écriture avec intervalle à l'écriture avec inégalité et réciproquement",
+        "Représenter un intervalle sur une droite graduée"
+      ],
+      "prerequis": ["Comparaison de nombres réels"],
+      "sections": [
+        {"type": "definition", "title": "Qu'est-ce qu'un intervalle ?", "body": "Un intervalle est un ensemble de nombres réels compris entre deux bornes, sans « trou ». On note $[a\\,;b]$ l'ensemble des réels $x$ tels que $a \\leq x \\leq b$."},
+        {"type": "tableau", "headers": ["Écriture", "Inégalité", "Nom"], "rows": [
+          ["$[a\\,;b]$", "$a \\leq x \\leq b$", "fermé (bornes incluses)"],
+          ["$]a\\,;b[$", "$a < x < b$", "ouvert (bornes exclues)"],
+          ["$[a\\,;b[$", "$a \\leq x < b$", "semi-ouvert à droite"],
+          ["$]a\\,;b]$", "$a < x \\leq b$", "semi-ouvert à gauche"],
+          ["$[a\\,;+\\infty[$", "$x \\geq a$", "demi-droite"],
+          ["$]-\\infty\\,;a]$", "$x \\leq a$", "demi-droite"]
+        ]},
+        {"type": "attention", "body": "$+\\infty$ et $-\\infty$ ne sont jamais inclus dans un intervalle : le crochet à côté d'un infini est toujours ouvert (tourné vers l'extérieur)."},
+        {"type": "methode", "title": "Représenter un intervalle sur une droite graduée", "steps": [
+          "Placer les bornes sur la droite.",
+          "Dessiner un crochet fermé (trait vertical) si la borne est incluse, un crochet ouvert (parenthèse) si elle est exclue.",
+          "Tracer un trait épais entre les deux bornes (ou vers l'infini)."
+        ]},
+        {"type": "exemple", "enonce": "Représenter l'ensemble des réels $x$ tels que $-2 < x \\leq 5$.", "etapes": [
+          "Il s'agit de l'intervalle $]-2\\,;5]$.",
+          "Borne $-2$ exclue → crochet ouvert. Borne $5$ incluse → crochet fermé."
+        ], "reponse": "$]-2\\,;5]$, trait épais entre $-2$ (ouvert) et $5$ (fermé)"},
+        {"type": "astuce", "body": "Le crochet « pointe vers » les valeurs prises : $[a$ signifie que $a$ est pris, $]a$ signifie qu'il ne l'est pas — le crochet ouvert « repousse » la valeur."}
+      ],
+      "resume": "Un intervalle traduit une condition d'encadrement en une notation compacte. Le type de crochet indique si la borne appartient ou non à l'ensemble ; les infinis sont toujours exclus.",
+      "ficheMemo": [
+        "$[a\\,;b]$ fermé, $]a\\,;b[$ ouvert",
+        "$+\\infty$ et $-\\infty$ toujours exclus",
+        "Le crochet ouvert exclut, le crochet fermé inclut"
+      ],
+      "quizExerciseIds": [19, 20, 21]
+    },
+    {
+      "id": "inegalites-et-inequations",
+      "title": "Inégalités et inéquations",
+      "objectifs": [
+        "Connaître les règles de conservation d'une inégalité",
+        "Résoudre une inéquation du premier degré",
+        "Exprimer la solution sous forme d'intervalle"
+      ],
+      "prerequis": ["Intervalles", "Calcul littéral"],
+      "sections": [
+        {"type": "propriete", "title": "Règles de conservation", "body": "Soit $a < b$.\n• Addition/soustraction : $a + c < b + c$ pour tout réel $c$ (l'inégalité est conservée).\n• Multiplication/division par un nombre positif : $a \\times c < b \\times c$ si $c > 0$ (conservée).\n• Multiplication/division par un nombre négatif : $a \\times c > b \\times c$ si $c < 0$ (l'inégalité change de sens !)."},
+        {"type": "attention", "body": "L'erreur la plus fréquente : oublier d'inverser le sens de l'inégalité en multipliant ou divisant par un nombre négatif."},
+        {"type": "methode", "title": "Résoudre une inéquation du premier degré", "steps": [
+          "Isoler les termes en $x$ d'un côté, les constantes de l'autre (comme pour une équation).",
+          "Diviser par le coefficient de $x$ — en pensant à inverser le sens si ce coefficient est négatif.",
+          "Écrire l'ensemble des solutions sous forme d'intervalle."
+        ]},
+        {"type": "exemple", "enonce": "Résoudre $-3x + 5 \\leq 2$.", "etapes": [
+          "On isole le terme en $x$ : $-3x \\leq 2 - 5$, soit $-3x \\leq -3$.",
+          "On divise par $-3$ (négatif) : le sens s'inverse → $x \\geq 1$."
+        ], "reponse": "$\\mathcal{S} = [1\\,;+\\infty[$"},
+        {"type": "astuce", "body": "Pour vérifier votre résultat, remplacez $x$ par une valeur simple de l'intervalle trouvé (ici $x=2$) dans l'inéquation de départ : elle doit être vraie."}
+      ],
+      "resume": "Une inéquation se résout comme une équation, à un détail près capital : le sens de l'inégalité s'inverse lorsqu'on multiplie ou divise par un nombre négatif. La solution s'exprime toujours comme un intervalle.",
+      "ficheMemo": [
+        "Multiplier/diviser par un négatif → inverse le sens",
+        "La solution d'une inéquation est un intervalle",
+        "Toujours vérifier avec une valeur test"
+      ],
+      "quizExerciseIds": [25, 26, 27]
+    },
+    {
+      "id": "comparaison",
+      "title": "Comparaison",
+      "objectifs": [
+        "Comparer deux nombres réels de différentes façons",
+        "Utiliser le signe d'une différence pour comparer"
+      ],
+      "prerequis": ["Inégalités et inéquations"],
+      "sections": [
+        {"type": "methode", "title": "Comparer par la différence", "steps": [
+          "Calculer $A - B$.",
+          "Étudier le signe de cette différence.",
+          "Conclure : si $A - B > 0$ alors $A > B$ ; si $A - B < 0$ alors $A < B$ ; si $A-B=0$ alors $A = B$."
+        ]},
+        {"type": "exemple", "enonce": "Comparer $A = (x-1)^2$ et $B = x^2 - 2x$ pour tout réel $x$.", "etapes": [
+          "$A - B = (x-1)^2 - (x^2-2x) = x^2 - 2x + 1 - x^2 + 2x = 1$.",
+          "$A - B = 1 > 0$ pour tout $x$."
+        ], "reponse": "$A > B$ pour tout réel $x$"},
+        {"type": "astuce", "body": "La méthode de la différence fonctionne toujours, même quand une comparaison « directe » semble impossible (expressions avec des carrés, des variables des deux côtés...)."}
+      ],
+      "resume": "Comparer deux expressions revient à étudier le signe de leur différence : une méthode universelle qui fonctionne même sans connaître de valeur numérique précise.",
+      "ficheMemo": ["$A>B \\Leftrightarrow A-B>0$", "Méthode universelle, y compris avec des lettres"],
+      "quizExerciseIds": [13, 14, 15]
+    },
+    {
+      "id": "valeur-absolue-dun-nombre-reel",
+      "title": "Valeur absolue d'un nombre réel",
+      "objectifs": [
+        "Connaître la définition de la valeur absolue",
+        "Interpréter $|a-b|$ comme une distance",
+        "Résoudre des équations/inéquations simples avec valeur absolue"
+      ],
+      "prerequis": ["Ensembles de nombres"],
+      "sections": [
+        {"type": "definition", "title": "Valeur absolue", "body": "La valeur absolue d'un réel $a$, notée $|a|$, est définie par $|a| = a$ si $a \\geq 0$ et $|a| = -a$ si $a < 0$. C'est toujours un nombre positif ou nul."},
+        {"type": "propriete", "title": "Interprétation géométrique", "body": "$|a|$ représente la distance entre $a$ et $0$ sur la droite numérique. Plus généralement, $|a-b|$ représente la distance entre $a$ et $b$."},
+        {"type": "exemple", "enonce": "Résoudre $|x - 3| = 5$.", "etapes": [
+          "$|x-3|=5$ signifie que la distance entre $x$ et $3$ vaut $5$.",
+          "Donc $x = 3+5$ ou $x = 3-5$."
+        ], "reponse": "$x = 8$ ou $x = -2$"},
+        {"type": "attention", "body": "$|a| \\geq 0$ toujours : une équation du type $|x-3| = -2$ n'a donc aucune solution."},
+        {"type": "astuce", "body": "Dès que vous voyez une valeur absolue, pensez « distance » : cela rend beaucoup de résolutions intuitives, surtout pour les inéquations $|x-a| \\leq r$ (encadrement autour de $a$)."}
+      ],
+      "resume": "La valeur absolue mesure une distance à zéro (ou entre deux nombres). Elle est toujours positive, ce qui conditionne l'existence de solutions dans les équations et inéquations associées.",
+      "ficheMemo": [
+        "$|a| \\geq 0$ toujours",
+        "$|a-b|$ = distance entre $a$ et $b$",
+        "$|x-a| \\leq r \\Leftrightarrow x \\in [a-r\\,;a+r]$"
+      ],
+      "quizExerciseIds": [31, 32, 33]
+    }
+  ]
+}

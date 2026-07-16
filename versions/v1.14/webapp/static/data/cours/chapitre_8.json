@@ -1,0 +1,67 @@
+{
+  "chapterId": "Chapitre_8",
+  "title": "Variations et extremums",
+  "icon": "barChart",
+  "notions": [
+    {
+      "id": "variations-dune-fonction",
+      "title": "Variations d'une fonction",
+      "objectifs": ["Comprendre croissance et décroissance", "Lire ou dresser un tableau de variations"],
+      "prerequis": ["Courbe représentative d'une fonction"],
+      "sections": [
+        {"type": "definition", "title": "Fonction croissante / décroissante", "body": "Une fonction $f$ est croissante sur un intervalle $I$ si, pour tous $a,b \\in I$ avec $a<b$, on a $f(a) \\leq f(b)$ (les images gardent le même ordre). Elle est décroissante si $f(a) \\geq f(b)$ (l'ordre s'inverse)."},
+        {"type": "propriete", "title": "Tableau de variations", "body": "Un tableau de variations résume, à l'aide de flèches montantes ou descendantes, les intervalles où une fonction croît ou décroît, avec les valeurs prises aux bornes."},
+        {"type": "methode", "title": "Dresser un tableau de variations à partir d'une courbe", "steps": ["Repérer les abscisses où la courbe change de sens (monte puis descend, ou l'inverse).", "Découper l'ensemble de définition en intervalles entre ces abscisses.", "Indiquer une flèche montante ou descendante sur chaque intervalle."]},
+        {"type": "astuce", "body": "Pensez à un parcours en voiture sur la courbe de gauche à droite : « je monte » = croissante, « je descends » = décroissante."}
+      ],
+      "resume": "Étudier les variations d'une fonction, c'est repérer sur quels intervalles ses images augmentent ou diminuent. Le tableau de variations en donne une synthèse visuelle immédiate.",
+      "ficheMemo": ["Croissante : $a<b \\Rightarrow f(a)\\leq f(b)$", "Décroissante : $a<b \\Rightarrow f(a)\\geq f(b)$"],
+      "quizExerciseIds": [129, 130, 131]
+    },
+    {
+      "id": "variations-des-fonctions-affines",
+      "title": "Variations des fonctions affines",
+      "objectifs": ["Relier le signe du coefficient directeur au sens de variation"],
+      "prerequis": ["Variations d'une fonction", "Coefficient directeur d'une droite"],
+      "sections": [
+        {"type": "propriete", "title": "Sens de variation d'une fonction affine", "body": "Pour $f(x) = mx+p$ : si $m>0$, $f$ est croissante sur $\\mathbb{R}$ ; si $m<0$, $f$ est décroissante sur $\\mathbb{R}$ ; si $m=0$, $f$ est constante."},
+        {"type": "exemple", "enonce": "Étudier les variations de $f(x) = -2x+5$.", "etapes": ["Coefficient directeur $m=-2 < 0$."], "reponse": "$f$ est décroissante sur $\\mathbb{R}$"}
+      ],
+      "resume": "Pour une fonction affine, le signe du coefficient directeur donne immédiatement le sens de variation sur tout $\\mathbb{R}$, sans qu'il soit nécessaire de tracer la courbe.",
+      "ficheMemo": ["$m>0$ : croissante", "$m<0$ : décroissante", "$m=0$ : constante"],
+      "quizExerciseIds": [132, 133, 134]
+    },
+    {
+      "id": "maximum-et-minimum-dune-fonction",
+      "title": "Maximum et minimum d'une fonction",
+      "objectifs": ["Définir maximum et minimum (globaux) d'une fonction sur un intervalle", "Les identifier sur une courbe ou un tableau de variations"],
+      "prerequis": ["Variations d'une fonction"],
+      "sections": [
+        {"type": "definition", "title": "Maximum et minimum", "body": "$f$ admet un maximum $M$ en $x_0$ sur $I$ si $f(x_0) = M$ et $f(x) \\leq M$ pour tout $x \\in I$. Définition symétrique pour le minimum, avec $f(x) \\geq m$."},
+        {"type": "methode", "title": "Identifier un extremum sur un tableau de variations", "steps": ["Repérer les flèches qui changent de sens (montante puis descendante = maximum, descendante puis montante = minimum).", "Lire la valeur correspondante indiquée dans le tableau à cet endroit."]},
+        {"type": "astuce", "body": "Un maximum ou un minimum se situe toujours à la jonction entre une flèche montante et une flèche descendante (ou inversement) — jamais au milieu d'une flèche."}
+      ],
+      "resume": "Un extremum correspond au point le plus haut (maximum) ou le plus bas (minimum) atteint par la fonction sur un intervalle donné : il se lit directement à la jonction de deux variations opposées.",
+      "ficheMemo": ["Maximum : sommet, flèche montante puis descendante", "Minimum : creux, flèche descendante puis montante"],
+      "quizExerciseIds": [126, 127, 128]
+    },
+    {
+      "id": "variations-des-fonctions-de-reference",
+      "title": "Variations des fonctions de référence",
+      "objectifs": ["Connaître le sens de variation des fonctions carré, cube, racine carrée, inverse"],
+      "prerequis": ["Exemples de fonctions de référence", "Variations d'une fonction"],
+      "sections": [
+        {"type": "tableau", "headers": ["Fonction", "Variations"], "rows": [
+          ["$x^2$", "décroissante sur $]-\\infty\\,;0]$, croissante sur $[0\\,;+\\infty[$"],
+          ["$x^3$", "croissante sur $\\mathbb{R}$"],
+          ["$\\sqrt{x}$", "croissante sur $[0\\,;+\\infty[$"],
+          ["$1/x$", "décroissante sur $]-\\infty\\,;0[$ et décroissante sur $]0\\,;+\\infty[$ (jamais sur $\\mathbb{R}^*$ tout entier)"]
+        ]},
+        {"type": "attention", "body": "La fonction inverse est décroissante sur chacun des deux intervalles séparément, mais on ne peut PAS dire qu'elle est décroissante sur $\\mathbb{R}^*$ en un seul bloc (il y a une rupture en $0$)."}
+      ],
+      "resume": "Connaître par cœur les variations des quatre fonctions de référence permet d'étudier rapidement des fonctions composées à partir d'elles, sans repasser par une étude complète.",
+      "ficheMemo": ["$x^2$ : décroît puis croît (minimum en 0)", "$x^3$, $\\sqrt x$ : toujours croissantes", "$1/x$ : décroissante sur chaque intervalle séparément"],
+      "quizExerciseIds": [135, 136, 137]
+    }
+  ]
+}

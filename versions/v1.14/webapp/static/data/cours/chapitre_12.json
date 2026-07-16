@@ -1,0 +1,77 @@
+{
+  "chapterId": "Chapitre_12",
+  "title": "Probabilités et échantillonnage",
+  "icon": "target",
+  "notions": [
+    {
+      "id": "loi-de-probabilite",
+      "title": "Loi de probabilité",
+      "objectifs": ["Définir une loi de probabilité sur un univers fini", "Vérifier qu'une distribution est bien une loi de probabilité"],
+      "prerequis": [],
+      "sections": [
+        {"type": "definition", "title": "Univers et loi de probabilité", "body": "L'univers $\\Omega$ d'une expérience aléatoire est l'ensemble de ses issues possibles. Une loi de probabilité associe à chaque issue $x_i$ un nombre $p_i \\in [0\\,;1]$, avec $\\sum p_i = 1$ (la somme de toutes les probabilités vaut $1$)."},
+        {"type": "exemple", "enonce": "Un dé truqué a pour probabilités $P(1)=P(2)=P(3)=P(4)=P(5)=0{,}1$. Que vaut $P(6)$ ?", "etapes": ["Somme des 5 probabilités connues : $5 \\times 0{,}1 = 0{,}5$.", "$P(6) = 1 - 0{,}5$"], "reponse": "$P(6) = 0{,}5$"},
+        {"type": "attention", "body": "Une probabilité est toujours comprise entre $0$ et $1$ (jamais négative, jamais supérieure à $1$)."}
+      ],
+      "resume": "Une loi de probabilité répartit une masse totale de 1 entre toutes les issues possibles d'une expérience aléatoire. Vérifier que la somme des probabilités vaut 1 est le réflexe de base pour toute loi.",
+      "ficheMemo": ["$\\sum p_i = 1$", "$0 \\leq p_i \\leq 1$ pour chaque issue"],
+      "quizExerciseIds": [180, 181, 182]
+    },
+    {
+      "id": "notion-devenement",
+      "title": "Notion d'évènement",
+      "objectifs": ["Définir un évènement et calculer sa probabilité"],
+      "prerequis": ["Loi de probabilité"],
+      "sections": [
+        {"type": "definition", "title": "Évènement", "body": "Un évènement est un sous-ensemble de l'univers $\\Omega$, c'est-à-dire un ensemble d'issues. La probabilité d'un évènement $A$ est la somme des probabilités des issues qui le composent : $P(A) = \\sum_{x_i \\in A} p_i$."},
+        {"type": "exemple", "enonce": "On lance un dé équilibré. Quelle est la probabilité de l'évènement $A$ « obtenir un nombre pair » ?", "etapes": ["$A = \\{2,4,6\\}$, chaque issue a une probabilité $\\dfrac{1}{6}$.", "$P(A) = 3 \\times \\dfrac{1}{6}$"], "reponse": "$P(A) = \\dfrac{1}{2}$"}
+      ],
+      "resume": "Un évènement regroupe plusieurs issues ; sa probabilité s'obtient en additionnant les probabilités des issues qui le constituent.",
+      "ficheMemo": ["Évènement = sous-ensemble de l'univers", "$P(A)$ = somme des probabilités des issues de $A$"],
+      "quizExerciseIds": [183, 184, 185]
+    },
+    {
+      "id": "operations-sur-les-evenements",
+      "title": "Opérations sur les évènements",
+      "objectifs": ["Utiliser l'évènement contraire, l'union et l'intersection de deux évènements"],
+      "prerequis": ["Notion d'évènement"],
+      "sections": [
+        {"type": "definition", "title": "Évènement contraire", "body": "L'évènement contraire de $A$, noté $\\bar{A}$, regroupe toutes les issues de $\\Omega$ qui ne sont pas dans $A$. On a toujours $P(A) + P(\\bar{A}) = 1$, donc $P(\\bar A) = 1-P(A)$."},
+        {"type": "definition", "title": "Union et intersection", "body": "$A \\cup B$ (« A ou B ») regroupe les issues qui sont dans $A$, dans $B$, ou dans les deux. $A \\cap B$ (« A et B ») regroupe les issues communes à $A$ et $B$."},
+        {"type": "propriete", "title": "Formule d'union", "body": "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$ (on soustrait l'intersection pour ne pas la compter deux fois)."},
+        {"type": "astuce", "body": "Il est souvent plus rapide de calculer $P(\\bar A) = 1-P(A)$ que $P(A)$ directement, notamment pour des évènements du type « au moins un »."}
+      ],
+      "resume": "Le contraire, l'union et l'intersection permettent de combiner des évènements simples pour en calculer des plus complexes, avec la formule d'union comme outil central pour éviter de compter deux fois les issues communes.",
+      "ficheMemo": ["$P(\\bar A)=1-P(A)$", "$P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$"],
+      "quizExerciseIds": [186, 187, 188]
+    },
+    {
+      "id": "echantillon-et-simulation",
+      "title": "Échantillon et simulation",
+      "objectifs": ["Comprendre la notion d'échantillon aléatoire", "Interpréter les résultats d'une simulation"],
+      "prerequis": ["Loi de probabilité"],
+      "sections": [
+        {"type": "definition", "title": "Échantillon", "body": "Un échantillon de taille $n$ est une série de $n$ répétitions indépendantes de la même expérience aléatoire (ex. tirer $100$ fois une pièce). La fréquence observée d'un évènement fluctue d'un échantillon à l'autre."},
+        {"type": "propriete", "title": "Loi des grands nombres (intuition)", "body": "Plus la taille de l'échantillon augmente, plus la fréquence observée d'un évènement se rapproche de sa probabilité théorique."},
+        {"type": "astuce", "body": "Ne confondez jamais fréquence observée (résultat d'une expérience réelle ou simulée, qui varie) et probabilité théorique (valeur fixe calculée à l'avance)."}
+      ],
+      "resume": "Un échantillon simule la répétition d'une expérience aléatoire. Plus il est grand, plus la fréquence observée se rapproche de la probabilité théorique — sans jamais l'atteindre exactement.",
+      "ficheMemo": ["Échantillon = répétitions indépendantes", "Grand échantillon → fréquence proche de la probabilité théorique"],
+      "quizExerciseIds": [174, 175, 176]
+    },
+    {
+      "id": "fluctuation-et-estimation",
+      "title": "Fluctuation et estimation",
+      "objectifs": ["Utiliser un intervalle de fluctuation pour juger un résultat expérimental"],
+      "prerequis": ["Échantillon et simulation"],
+      "sections": [
+        {"type": "definition", "title": "Intervalle de fluctuation", "body": "Pour une proportion théorique $p$ et un échantillon de taille $n$ (avec $n \\geq 25$ et $0{,}2 \\leq p \\leq 0{,}8$ au lycée), l'intervalle de fluctuation au seuil de $95\\%$ est $\\left[p-\\dfrac{1}{\\sqrt n}\\,;\\,p+\\dfrac{1}{\\sqrt n}\\right]$."},
+        {"type": "methode", "title": "Décider si un résultat est cohérent avec une hypothèse", "steps": ["Calculer l'intervalle de fluctuation à partir de $p$ (hypothèse) et $n$ (taille de l'échantillon).", "Calculer la fréquence observée $f$ dans l'échantillon.", "Si $f$ appartient à l'intervalle, le résultat est cohérent avec l'hypothèse ; sinon, on la rejette."]},
+        {"type": "attention", "body": "Sortir de l'intervalle de fluctuation ne prouve pas que l'hypothèse est fausse à coup sûr : cela signifie seulement que le résultat est peu probable si l'hypothèse était vraie."}
+      ],
+      "resume": "L'intervalle de fluctuation donne une plage de fréquences « normales » autour d'une probabilité supposée. Comparer la fréquence observée à cet intervalle permet de juger si un résultat expérimental remet en question une hypothèse.",
+      "ficheMemo": ["Intervalle de fluctuation : $\\left[p-\\frac{1}{\\sqrt n}\\,;p+\\frac{1}{\\sqrt n}\\right]$", "$f$ hors intervalle → hypothèse remise en question"],
+      "quizExerciseIds": [177, 178, 179]
+    }
+  ]
+}

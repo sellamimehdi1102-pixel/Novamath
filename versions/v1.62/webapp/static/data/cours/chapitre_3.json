@@ -1,0 +1,617 @@
+{
+  "chapterId": "Chapitre_3",
+  "title": "Calcul littéral",
+  "icon": "sliders",
+  "notions": [
+    {
+      "id": "distributivite-et-identites-remarquables",
+      "title": "Développer et factoriser",
+      "intro": "Dans cette leçon, tu vas apprendre à développer et à factoriser une expression.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser les trois identités remarquables.",
+      "definition": "Développer, c'est transformer un produit en somme. Factoriser, c'est l'inverse : transformer une somme en produit.",
+      "reglesImportantes": [
+        "$(a+b)^2 = a^2 + 2ab + b^2$",
+        "$(a-b)^2 = a^2 - 2ab + b^2$",
+        "$(a+b)(a-b) = a^2 - b^2$"
+      ],
+      "methode": {
+        "titre": "Comment factoriser avec une identité remarquable",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Regarde si l'expression ressemble à une des trois formes."
+          },
+          {
+            "icone": "target",
+            "couleur": "purple",
+            "texte": "Trouve qui est $a$ et qui est $b$ (souvent une racine carrée)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Applique la règle à l'envers pour factoriser."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Regarde si l'expression ressemble à une des trois formes."
+            },
+            {
+              "icone": "target",
+              "couleur": "purple",
+              "texte": "Trouve qui est $a$ et qui est $b$ (souvent une racine carrée)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Applique la règle à l'envers pour factoriser."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Factorise $E = 9x^2 - 25$.",
+          "calcul": [
+            {
+              "expr": "9x^2 = (3x)^2 \\text{ et } 25 = 5^2",
+              "texte": "On reconnaît deux carrés."
+            },
+            {
+              "expr": "E = (3x)^2 - 5^2",
+              "texte": "C'est la forme $a^2 - b^2$."
+            },
+            {
+              "expr": "E = (3x-5)(3x+5)",
+              "texte": "On applique la règle."
+            }
+          ],
+          "reponse": "$E = (3x-5)(3x+5)$",
+          "id": "distributivite-et-identites-remarquables-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Écrire $(a+b)^2 = a^2 + b^2$. C'est faux, il manque le double produit $2ab$ !",
+        "Oublier de vérifier son résultat en redéveloppant."
+      ],
+      "astuce": "Pour vérifier un développement, remplace $a$ et $b$ par des petits nombres (par exemple 1 et 2) des deux côtés de l'égalité.",
+      "aRetenir": [
+        "$(a+b)^2 = a^2+2ab+b^2$",
+        "$(a-b)^2 = a^2-2ab+b^2$",
+        "$(a+b)(a-b) = a^2-b^2$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        40,
+        41,
+        42
+      ],
+      "schemaVersion": 2,
+      "topic_id": "distributivite-et-identites-remarquables",
+      "definitions": {
+        "lycee": "Développer, c'est transformer un produit en somme. Factoriser, c'est l'inverse : transformer une somme en produit.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "distributivite-et-identites-remarquables-regle-1",
+          "nom": "",
+          "expression": "$(a+b)^2 = a^2 + 2ab + b^2$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "distributivite-et-identites-remarquables-regle-2",
+          "nom": "",
+          "expression": "$(a-b)^2 = a^2 - 2ab + b^2$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "distributivite-et-identites-remarquables-regle-3",
+          "nom": "",
+          "expression": "$(a+b)(a-b) = a^2 - b^2$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $(a+b)^2 = a^2 + b^2$. C'est faux, il manque le double produit $2ab$ !",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier de vérifier son résultat en redéveloppant.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Distributivité et identités remarquables"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras utiliser les trois identités remarquables."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "resolution-dequation-produit-nul",
+      "title": "L'équation produit nul",
+      "intro": "Dans cette leçon, tu vas apprendre une astuce pour résoudre des équations grâce à un produit.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre une équation du type $A \\times B = 0$.",
+      "definition": "Un produit de deux nombres est nul seulement si l'un des deux nombres est nul (ou les deux).",
+      "reglesImportantes": [
+        "$A \\times B = 0$ veut dire $A = 0$ ou $B = 0$.",
+        "Cette règle marche seulement si le résultat est $0$.",
+        "Il faut d'abord factoriser pour obtenir un produit."
+      ],
+      "methode": {
+        "titre": "Comment résoudre une équation produit nul",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Vérifie que l'équation est bien écrite comme un produit égal à zéro."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Résous chaque facteur séparément."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Rassemble toutes les solutions trouvées."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Vérifie que l'équation est bien écrite comme un produit égal à zéro."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Résous chaque facteur séparément."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Rassemble toutes les solutions trouvées."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Résous $(2x-4)(x+3) = 0$.",
+          "calcul": [
+            {
+              "expr": "2x-4=0",
+              "texte": "On résout le premier facteur."
+            },
+            {
+              "expr": "x=2",
+              "texte": "Première solution."
+            },
+            {
+              "expr": "x+3=0 \\Rightarrow x=-3",
+              "texte": "Deuxième solution."
+            }
+          ],
+          "reponse": "$x = 2$ ou $x = -3$",
+          "id": "resolution-dequation-produit-nul-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Utiliser cette règle quand le résultat n'est pas $0$. Ça ne marche que pour $0$.",
+        "Oublier une des deux solutions."
+      ],
+      "astuce": "Si l'équation n'est pas déjà un produit, essaie de la factoriser d'abord.",
+      "aRetenir": [
+        "$A \\times B = 0 \\Leftrightarrow A=0$ ou $B=0$",
+        "Toujours factoriser avant d'utiliser cette règle"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        43,
+        44,
+        45
+      ],
+      "schemaVersion": 2,
+      "topic_id": "resolution-dequation-produit-nul",
+      "definitions": {
+        "lycee": "Un produit de deux nombres est nul seulement si l'un des deux nombres est nul (ou les deux).",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "resolution-dequation-produit-nul-regle-1",
+          "nom": "",
+          "expression": "$A \\times B = 0$ veut dire $A = 0$ ou $B = 0$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "resolution-dequation-produit-nul-regle-2",
+          "nom": "",
+          "expression": "Cette règle marche seulement si le résultat est $0$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "resolution-dequation-produit-nul-regle-3",
+          "nom": "",
+          "expression": "Il faut d'abord factoriser pour obtenir un produit.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Utiliser cette règle quand le résultat n'est pas $0$. Ça ne marche que pour $0$.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier une des deux solutions.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Résolution d'équation produit nul"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre une équation du type $A \\times B = 0$."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "calcul-litteral-en-ecriture-fractionnaire",
+      "title": "Calculer avec des fractions de lettres",
+      "intro": "Dans cette leçon, tu vas apprendre à additionner et multiplier des fractions avec des lettres.",
+      "objectif": "À la fin de ce cours, tu sauras calculer avec des fractions littérales.",
+      "definition": "Une fraction $\\dfrac{A}{B}$ existe seulement si $B$ n'est pas égal à $0$. Les valeurs qui annulent $B$ sont interdites.",
+      "reglesImportantes": [
+        "$\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$",
+        "Diviser par une fraction, c'est multiplier par son inverse.",
+        "Pour additionner deux fractions, il faut le même dénominateur."
+      ],
+      "methode": {
+        "titre": "Comment additionner deux fractions différentes",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Trouve un dénominateur commun aux deux fractions."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Transforme chaque fraction pour avoir ce dénominateur."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Additionne les numérateurs et simplifie si possible."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Trouve un dénominateur commun aux deux fractions."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Transforme chaque fraction pour avoir ce dénominateur."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Additionne les numérateurs et simplifie si possible."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Calcule $\\dfrac{2}{x} + \\dfrac{3}{x+1}$ (avec $x \\neq 0$ et $x \\neq -1$).",
+          "calcul": [
+            {
+              "expr": "\\text{dénominateur commun} = x(x+1)",
+              "texte": "On multiplie les deux dénominateurs."
+            },
+            {
+              "expr": "\\dfrac{2(x+1) + 3x}{x(x+1)}",
+              "texte": "On met les deux fractions au même dénominateur."
+            },
+            {
+              "expr": "\\dfrac{5x+2}{x(x+1)}",
+              "texte": "On simplifie le numérateur."
+            }
+          ],
+          "reponse": "$\\dfrac{5x+2}{x(x+1)}$",
+          "id": "calcul-litteral-en-ecriture-fractionnaire-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de préciser les valeurs interdites (celles qui annulent un dénominateur).",
+        "Additionner les fractions sans les mettre au même dénominateur."
+      ],
+      "astuce": "Cherche toujours les valeurs interdites en tout premier, avant même de commencer le calcul.",
+      "aRetenir": [
+        "Une fraction n'existe pas si son dénominateur vaut 0",
+        "Même dénominateur avant d'additionner",
+        "Diviser = multiplier par l'inverse"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        37,
+        38,
+        39
+      ],
+      "schemaVersion": 2,
+      "topic_id": "calcul-litteral-en-ecriture-fractionnaire",
+      "definitions": {
+        "lycee": "Une fraction $\\dfrac{A}{B}$ existe seulement si $B$ n'est pas égal à $0$. Les valeurs qui annulent $B$ sont interdites.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "calcul-litteral-en-ecriture-fractionnaire-regle-1",
+          "nom": "",
+          "expression": "$\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "calcul-litteral-en-ecriture-fractionnaire-regle-2",
+          "nom": "",
+          "expression": "Diviser par une fraction, c'est multiplier par son inverse.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "calcul-litteral-en-ecriture-fractionnaire-regle-3",
+          "nom": "",
+          "expression": "Pour additionner deux fractions, il faut le même dénominateur.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de préciser les valeurs interdites (celles qui annulent un dénominateur).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Additionner les fractions sans les mettre au même dénominateur.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Calcul littéral en écriture fractionnaire"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras calculer avec des fractions littérales."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "resolution-dequation-quotient",
+      "title": "L'équation quotient",
+      "intro": "Dans cette leçon, tu vas apprendre à résoudre une équation avec une fraction.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre une équation du type $\\dfrac{A}{B} = 0$.",
+      "definition": "Un quotient $\\dfrac{A}{B}$ est nul seulement si le numérateur $A$ est nul et le dénominateur $B$ n'est pas nul.",
+      "reglesImportantes": [
+        "$\\dfrac{A}{B} = 0 \\Leftrightarrow A = 0$ et $B \\neq 0$",
+        "Il faut toujours vérifier la valeur interdite à la fin.",
+        "Si la solution trouvée est la valeur interdite, il n'y a pas de solution."
+      ],
+      "methode": {
+        "titre": "Comment résoudre une équation quotient",
+        "etapes": [
+          {
+            "icone": "target",
+            "couleur": "blue",
+            "texte": "Trouve la valeur interdite : résous $B = 0$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Résous $A = 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Vérifie que ta solution n'est pas la valeur interdite."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "target",
+              "couleur": "blue",
+              "texte": "Trouve la valeur interdite : résous $B = 0$."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Résous $A = 0$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Vérifie que ta solution n'est pas la valeur interdite."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Résous $\\dfrac{x-2}{x+5} = 0$.",
+          "calcul": [
+            {
+              "expr": "x+5=0 \\Rightarrow x=-5",
+              "texte": "C'est la valeur interdite."
+            },
+            {
+              "expr": "x-2=0 \\Rightarrow x=2",
+              "texte": "Ce n'est pas la valeur interdite : c'est valable."
+            }
+          ],
+          "reponse": "$x = 2$",
+          "id": "resolution-dequation-quotient-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de vérifier la valeur interdite à la fin.",
+        "Confondre les rôles du numérateur et du dénominateur."
+      ],
+      "astuce": "Trouve toujours la valeur interdite en premier, avant de résoudre le numérateur.",
+      "aRetenir": [
+        "$\\dfrac{A}{B}=0 \\Leftrightarrow A=0$ et $B\\neq 0$",
+        "Toujours vérifier que la solution n'est pas interdite"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        47,
+        48,
+        49
+      ],
+      "schemaVersion": 2,
+      "topic_id": "resolution-dequation-quotient",
+      "definitions": {
+        "lycee": "Un quotient $\\dfrac{A}{B}$ est nul seulement si le numérateur $A$ est nul et le dénominateur $B$ n'est pas nul.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "resolution-dequation-quotient-regle-1",
+          "nom": "",
+          "expression": "$\\dfrac{A}{B} = 0 \\Leftrightarrow A = 0$ et $B \\neq 0$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "resolution-dequation-quotient-regle-2",
+          "nom": "",
+          "expression": "Il faut toujours vérifier la valeur interdite à la fin.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "resolution-dequation-quotient-regle-3",
+          "nom": "",
+          "expression": "Si la solution trouvée est la valeur interdite, il n'y a pas de solution.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de vérifier la valeur interdite à la fin.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Confondre les rôles du numérateur et du dénominateur.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Résolution d'équation quotient"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre une équation du type $\\dfrac{A}{B} = 0$."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    }
+  ]
+}

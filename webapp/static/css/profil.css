@@ -1,0 +1,273 @@
+/* ==========================================================================
+   Page Profil — header avatar, stats, radar, heatmap
+   ========================================================================== */
+
+@keyframes profile-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 40px 44px;
+  margin-bottom: 28px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-float);
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+  animation: profile-rise 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Voile violet très discret en fond du héros — signature de marque sans
+   tomber dans l'effet néon (opacité minimale, jamais de couleur pleine). */
+.profile-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 480px 220px at 15% -10%, rgba(var(--accent-rgb), 0.14), transparent 70%);
+  pointer-events: none;
+}
+.profile-header > * { position: relative; }
+.profile-avatar-wrap { position: relative; flex-shrink: 0; }
+.profile-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--brand-gradient);
+  color: var(--text-on-accent);
+  font-size: 2.3rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 2px solid rgba(var(--brand-violet-rgb), 0.55);
+  box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0.12), 0 0 26px rgba(var(--brand-violet-rgb), 0.28);
+  animation: avatar-appear 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.profile-avatar--sm { width: 52px; height: 52px; font-size: 1.2rem; box-shadow: none; border-width: 1px; cursor: default; }
+.profile-avatar[role="button"] { cursor: pointer; transition: transform var(--transition-fast); }
+.profile-avatar[role="button"]:hover { transform: scale(1.04); }
+@keyframes avatar-appear {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+.avatar-edit-btn {
+  position: absolute;
+  bottom: -2px; right: -2px;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  color: var(--text-on-accent);
+  border: 3px solid var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.avatar-edit-btn svg { width: 14px; height: 14px; }
+.avatar-edit-btn:hover { transform: scale(1.1); box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.5); }
+
+.profile-info { flex: 1; min-width: 200px; }
+.profile-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.profile-info h2 { font-size: 1.3rem; }
+.profile-subtitle { color: var(--text-muted); font-size: 0.86rem; margin-top: 4px; }
+.profile-badges-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.profile-badges-row .badge svg { width: 12px; height: 12px; }
+.profile-level-bar { max-width: 320px; margin-top: 14px; }
+.profile-level-bar .label-row { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
+.profile-header-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+#avatar-page-error { display: block; margin-top: 10px; }
+
+.profile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.profile-stat {
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  animation: profile-rise 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.profile-stat:nth-child(1) { animation-delay: 20ms; }
+.profile-stat:nth-child(2) { animation-delay: 60ms; }
+.profile-stat:nth-child(3) { animation-delay: 100ms; }
+.profile-stat:nth-child(4) { animation-delay: 140ms; }
+.profile-stat:nth-child(5) { animation-delay: 180ms; }
+.profile-stat:nth-child(6) { animation-delay: 220ms; }
+.profile-stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.profile-stat .value { font-size: 1.5rem; font-weight: 700; font-family: var(--font-display); }
+
+/* La série (streak) est un moment de récompense au même titre que sur le
+   Dashboard (.streak-chip--lg) — seule carte de cette grille à recevoir la
+   touche Or, réservée aux récompenses (jamais utilisée comme couleur de
+   marque courante, voir tokens.css). */
+.profile-stat:has(#stat-streak) {
+  background: linear-gradient(165deg, rgba(var(--brand-gold-rgb), 0.1), var(--surface));
+  border-color: rgba(var(--brand-gold-rgb), 0.28);
+}
+.profile-stat:has(#stat-streak):hover { box-shadow: 0 14px 30px -16px rgba(var(--brand-gold-rgb), 0.55); }
+.profile-stat:has(#stat-streak) .value { color: var(--brand-gold-text); }
+.profile-stat .label { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+
+.profile-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+.profile-card { padding: 24px; position: relative; animation: profile-rise 460ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.profile-card h3 {
+  font-size: 0.95rem; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 8px;
+}
+.profile-card h3 svg { width: 16px; height: 16px; color: var(--accent-text); flex-shrink: 0; }
+
+/* ── Graphique accuracy ──────────────────────────────────────────────────── */
+#accuracy-chart { width: 100%; height: 140px; overflow: visible; }
+.accuracy-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 32px 0 8px;
+}
+/* ── Mini état vide réutilisé par les 3 graphiques (accuracy/donut/radar) —
+   même langage que .empty-state-icon (exercice.css) en version compacte,
+   adaptée à l'intérieur d'une carte plutôt qu'à une page entière. ────────── */
+.profile-chart-empty-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent-text);
+}
+.profile-chart-empty-icon svg { width: 20px; height: 20px; }
+
+/* ── Donut répartition ───────────────────────────────────────────────────── */
+.donut-wrap { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: center; }
+#donut-chart { width: 120px; height: 120px; flex-shrink: 0; }
+.donut-legend { display: flex; flex-direction: column; gap: 10px; }
+.donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+.donut-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.donut-legend-value { color: var(--text-muted); font-size: 0.78rem; }
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(26, 1fr);
+  gap: 4px;
+}
+.heatmap-cell { aspect-ratio: 1; border-radius: 3px; background: var(--surface-hover); transition: transform 150ms ease; }
+.heatmap-cell:hover { transform: scale(1.35); }
+.heatmap-cell[data-level="1"] { background: rgba(var(--accent-rgb), 0.3); }
+.heatmap-cell[data-level="2"] { background: rgba(var(--accent-rgb), 0.55); }
+.heatmap-cell[data-level="3"] { background: rgba(var(--accent-rgb), 0.8); }
+.heatmap-cell[data-level="4"] { background: var(--brand-indigo); }
+
+.series-review-row td { background: var(--surface-hover); }
+.series-review-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+}
+.series-review-item:first-child { border-top: none; }
+
+/* ── Modale "Modifier le profil" ────────────────────────────────────────── */
+.edit-profile-preview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  margin-bottom: 20px;
+  background: var(--surface-hover);
+  border-radius: var(--radius-sm);
+}
+.edit-preview-name { font-weight: 600; font-size: 1rem; }
+.edit-preview-pseudo { color: var(--text-muted); font-size: 0.82rem; }
+
+/* ── Éditeur d'avatar (import + recadrage) ──────────────────────────────── */
+.avatar-cropper-empty { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+.avatar-cropper-editor { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 8px 0 4px; }
+.crop-viewport {
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: var(--surface-hover);
+  border: 2px solid rgba(var(--brand-violet-rgb), 0.5);
+  box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0.1);
+  cursor: grab;
+  touch-action: none;
+}
+.crop-viewport.is-dragging { cursor: grabbing; }
+.crop-viewport img { position: absolute; user-select: none; -webkit-user-drag: none; }
+.crop-zoom-row { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 320px; color: var(--text-muted); }
+.crop-zoom-row svg { width: 18px; height: 18px; flex-shrink: 0; }
+.crop-zoom-row input[type="range"] { flex: 1; accent-color: var(--brand-indigo); }
+.crop-hint { color: var(--text-faint); font-size: 0.8rem; text-align: center; }
+
+/* ── Squelette de chargement initial ──────────────────────────────────────
+   Couvre l'aller-retour réseau (api.me/chapters, voir profil.js::init) —
+   .main-content.is-loading est présent par défaut dans profil.html et retiré
+   dès le premier rendu réel. Réutilise .skeleton (base.css) : mêmes couleurs
+   et même animation shimmer que partout ailleurs sur le site. */
+.main-content.is-loading #profile-name,
+.main-content.is-loading #profile-subtitle,
+.main-content.is-loading .profile-badges-row,
+.main-content.is-loading .profile-level-bar,
+.main-content.is-loading .profile-header-actions,
+.main-content.is-loading .avatar-edit-btn,
+.main-content.is-loading .profile-stat .value,
+.main-content.is-loading .profile-stat .label,
+.main-content.is-loading #accuracy-chart,
+.main-content.is-loading #donut-chart,
+.main-content.is-loading #donut-legend,
+.main-content.is-loading #radar-chart,
+.main-content.is-loading #badges-grid,
+.main-content.is-loading #heatmap-grid,
+.main-content.is-loading #full-history-body {
+  visibility: hidden;
+}
+.main-content.is-loading .profile-avatar,
+.main-content.is-loading .profile-info,
+.main-content.is-loading .profile-stat,
+.main-content.is-loading .profile-card {
+  position: relative;
+}
+.main-content.is-loading .profile-avatar::after,
+.main-content.is-loading .profile-info::after,
+.main-content.is-loading .profile-stat::after,
+.main-content.is-loading .profile-card::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  background: linear-gradient(90deg, var(--surface-hover) 25%, var(--border) 37%, var(--surface-hover) 63%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+.main-content.is-loading .profile-avatar::after { border-radius: 50%; inset: 0; }
+.main-content.is-loading .profile-info::after { inset: 4px 60px 4px 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-header, .profile-stat, .profile-card { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .profile-columns { grid-template-columns: 1fr; }
+  .heatmap-grid { grid-template-columns: repeat(18, 1fr); }
+}
+@media (max-width: 640px) {
+  .crop-viewport { width: 220px; height: 220px; }
+  .profile-header { padding: 24px 20px; gap: 18px; }
+  .profile-avatar { width: 68px; height: 68px; font-size: 1.6rem; }
+  .profile-badges-row .badge { font-size: 0.72rem; }
+  .profile-header-actions { flex-direction: column; }
+  .profile-header-actions .btn { width: 100%; }
+  .profile-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .profile-stat { padding: 14px; }
+  .profile-stat .value { font-size: 1.25rem; }
+}

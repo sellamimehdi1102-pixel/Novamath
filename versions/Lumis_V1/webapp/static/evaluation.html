@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Évaluation initiale — Lumis</title>
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/exercice.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+
+<div class="eval-shell">
+  <div class="eval-topbar">
+    <span class="badge badge--indigo" id="eval-question-count">Question 1/7</span>
+    <div class="progress-track eval-progress-track"><div class="progress-fill" id="eval-progress-fill" style="width:0%"></div></div>
+    <div class="eval-meta">⏱ <span class="eval-chrono" id="eval-chrono">00:00</span></div>
+  </div>
+
+  <section id="screen-quiz" class="question-card card" hidden>
+    <div class="question-badges">
+      <span class="badge badge--indigo" id="eval-chapter-badge"></span>
+      <span class="badge badge--neutral" id="eval-notion-badge"></span>
+    </div>
+    <div id="eval-enonce" class="question-enonce"></div>
+
+    <div class="action-row">
+      <button id="btn-hint" class="btn btn-secondary btn-sm">💡 Indice</button>
+      <button id="btn-ans" class="btn btn-secondary btn-sm">👁 Voir la réponse</button>
+    </div>
+    <div id="eval-hint" class="callout" hidden></div>
+    <div id="eval-answer" class="callout" hidden></div>
+
+    <div class="verdict-row">
+      <button id="btn-no" class="btn btn-secondary">❌ Échoué</button>
+      <button id="btn-yes" class="btn btn-primary">✅ Réussi</button>
+    </div>
+  </section>
+
+  <section id="screen-loading" class="question-card card">
+    <div class="skeleton" style="height:20px; width:60%; margin-bottom:20px;"></div>
+    <div class="skeleton" style="height:80px; margin-bottom:20px;"></div>
+    <div class="skeleton" style="height:40px; width:40%;"></div>
+  </section>
+
+  <section id="screen-result" class="result-panel card" hidden>
+    <div class="result-level-icon" id="result-icon"></div>
+    <h2 id="result-label"></h2>
+    <p style="color:var(--text-muted); margin:12px 0 28px;">Ton entraînement personnalisé t'attend.</p>
+    <a href="exercice.html" class="btn btn-primary btn-lg" style="width:100%;">Commencer à m'entraîner</a>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script type="module" src="js/evaluation.js"></script>
+</body>
+</html>

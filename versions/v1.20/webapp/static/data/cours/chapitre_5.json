@@ -1,0 +1,152 @@
+{
+  "chapterId": "Chapitre_5",
+  "title": "Vecteurs et repère",
+  "icon": "target",
+  "notions": [
+    {
+      "id": "base-repere-et-coordonnees",
+      "title": "Le repère et les coordonnées",
+      "intro": "Dans cette leçon, tu vas apprendre à repérer un point avec des coordonnées.",
+      "objectif": "À la fin de ce cours, tu sauras calculer les coordonnées d'un vecteur.",
+      "definition": "Un repère permet de donner à chaque point du plan deux nombres : ses coordonnées $(x\\,;y)$.",
+      "reglesImportantes": [
+        "Un point $A$ a des coordonnées $(x_A\\,;y_A)$.",
+        "Un vecteur $\\vec{AB}$ a pour coordonnées $(x_B - x_A\\,;\\,y_B - y_A)$.",
+        "On calcule toujours \"arrivée moins départ\"."
+      ],
+      "methode": {
+        "titre": "Comment calculer les coordonnées d'un vecteur",
+        "etapes": [
+          {"icone": "target", "couleur": "blue", "texte": "Repère les coordonnées du point de départ et du point d'arrivée."},
+          {"icone": "sliders", "couleur": "purple", "texte": "Soustrais : arrivée moins départ, pour $x$ puis pour $y$."},
+          {"icone": "check", "couleur": "green", "texte": "Écris le résultat sous forme $(x\\,;y)$."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$A(2\\,;-1)$ et $B(5\\,;3)$. Calcule les coordonnées de $\\vec{AB}$.",
+          "calcul": [
+            {"expr": "x = 5 - 2 = 3", "texte": "Coordonnée x : arrivée moins départ."},
+            {"expr": "y = 3 - (-1) = 4", "texte": "Coordonnée y : arrivée moins départ."}
+          ],
+          "reponse": "$\\vec{AB}(3\\,;4)$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Calculer \"départ moins arrivée\" au lieu de \"arrivée moins départ\".",
+        "Oublier le signe négatif d'une coordonnée."
+      ],
+      "astuce": "Retiens : toujours \"la fin moins le début\", comme pour calculer une différence de température.",
+      "aRetenir": [
+        "$\\vec{AB}(x_B-x_A\\,;y_B-y_A)$",
+        "Toujours arrivée moins départ"
+      ],
+      "figure": {
+        "viewBox": [-1, -1, 8, 6],
+        "grid": true, "axes": true,
+        "alt": "Repère avec un vecteur AB",
+        "points": [
+          {"x": 2, "y": -1, "label": "A"},
+          {"x": 5, "y": 3, "label": "B"}
+        ],
+        "vectors": [{"from": "A", "to": "B", "label": "AB"}]
+      },
+      "quizExerciseIds": [84, 85, 86]
+    },
+    {
+      "id": "milieu-et-norme",
+      "title": "Milieu et distance",
+      "intro": "Dans cette leçon, tu vas apprendre à calculer un milieu et une distance avec des coordonnées.",
+      "objectif": "À la fin de ce cours, tu sauras calculer les coordonnées d'un milieu et la longueur d'un segment.",
+      "definition": "Le milieu d'un segment se calcule en faisant la moyenne des coordonnées. La distance entre deux points se calcule avec une formule proche du théorème de Pythagore.",
+      "reglesImportantes": [
+        "Milieu $I$ de $[AB]$ : $I\\left(\\dfrac{x_A+x_B}{2}\\,;\\dfrac{y_A+y_B}{2}\\right)$",
+        "Distance : $AB = \\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}$",
+        "Cette formule marche seulement dans un repère bien carré (orthonormé)."
+      ],
+      "methode": {
+        "titre": "Comment calculer une distance",
+        "etapes": [
+          {"icone": "sliders", "couleur": "blue", "texte": "Calcule les coordonnées du vecteur entre les deux points."},
+          {"icone": "target", "couleur": "purple", "texte": "Mets chaque coordonnée au carré, puis additionne."},
+          {"icone": "check", "couleur": "green", "texte": "Prends la racine carrée du résultat."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$A(1\\,;2)$, $B(4\\,;6)$. Calcule $AB$.",
+          "calcul": [
+            {"expr": "\\vec{AB}(3\\,;4)", "texte": "On calcule les coordonnées du vecteur."},
+            {"expr": "AB = \\sqrt{3^2+4^2}", "texte": "On applique la formule."},
+            {"expr": "AB = \\sqrt{25} = 5", "texte": "On calcule la racine carrée."}
+          ],
+          "reponse": "$AB = 5$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de mettre les coordonnées au carré avant d'additionner.",
+        "Oublier la racine carrée à la fin du calcul."
+      ],
+      "astuce": "Si tu retrouves un résultat qui ressemble à 3-4-5 ou 6-8-10, c'est souvent un triangle rectangle bien connu.",
+      "aRetenir": [
+        "Milieu : moyenne des coordonnées",
+        "$AB=\\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}$"
+      ],
+      "figure": {
+        "viewBox": [-1, -1, 7, 8],
+        "grid": true, "axes": true,
+        "alt": "Repère avec le segment AB et son milieu I",
+        "points": [
+          {"x": 1, "y": 2, "label": "A"},
+          {"x": 4, "y": 6, "label": "B"},
+          {"x": 2.5, "y": 4, "label": "I"}
+        ],
+        "segments": [{"from": "A", "to": "B"}]
+      },
+      "quizExerciseIds": [90, 91, 92]
+    },
+    {
+      "id": "condition-de-colinearite-repere",
+      "title": "Colinéarité avec des coordonnées",
+      "intro": "Dans cette leçon, tu vas apprendre à vérifier une colinéarité par le calcul.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser un calcul pour prouver un alignement.",
+      "definition": "Deux vecteurs $\\vec{u}(x\\,;y)$ et $\\vec{v}(x'\\,;y')$ sont colinéaires quand $x \\times y' - x' \\times y = 0$.",
+      "reglesImportantes": [
+        "Ce calcul s'appelle un déterminant.",
+        "Si le déterminant vaut 0, les vecteurs sont colinéaires.",
+        "Ça sert à prouver un alignement ou un parallélisme."
+      ],
+      "methode": {
+        "titre": "Comment prouver un alignement avec des coordonnées",
+        "etapes": [
+          {"icone": "sliders", "couleur": "blue", "texte": "Calcule les coordonnées de deux vecteurs formés par les points."},
+          {"icone": "target", "couleur": "purple", "texte": "Calcule le déterminant $xy'-x'y$."},
+          {"icone": "check", "couleur": "green", "texte": "Si le résultat est 0, les points sont alignés."}
+        ]
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$A(0\\,;0)$, $B(2\\,;4)$, $C(3\\,;6)$ sont-ils alignés ?",
+          "calcul": [
+            {"expr": "\\vec{AB}(2\\,;4) \\text{ et } \\vec{AC}(3\\,;6)", "texte": "On calcule les deux vecteurs."},
+            {"expr": "2\\times 6 - 3\\times 4 = 0", "texte": "On calcule le déterminant."}
+          ],
+          "reponse": "Le déterminant vaut 0 : les points sont alignés"
+        }
+      ],
+      "erreursFrequentes": [
+        "Se tromper dans l'ordre de la soustraction du déterminant.",
+        "Oublier de calculer les coordonnées des vecteurs avant le déterminant."
+      ],
+      "astuce": "Ce même calcul sert aussi à vérifier si deux droites sont parallèles.",
+      "aRetenir": [
+        "$\\vec u,\\vec v$ colinéaires $\\Leftrightarrow xy'-x'y=0$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [87, 88, 89]
+    }
+  ]
+}

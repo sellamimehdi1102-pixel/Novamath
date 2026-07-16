@@ -1,0 +1,730 @@
+{
+  "chapterId": "Chapitre_12",
+  "title": "Probabilités et échantillonnage",
+  "icon": "target",
+  "notions": [
+    {
+      "id": "loi-de-probabilite",
+      "title": "La loi de probabilité",
+      "intro": "Dans cette leçon, tu vas apprendre à répartir des chances entre plusieurs résultats.",
+      "objectif": "À la fin de ce cours, tu sauras vérifier une loi de probabilité.",
+      "definition": "Une loi de probabilité donne une chance (un nombre entre 0 et 1) à chaque résultat possible d'une expérience.",
+      "reglesImportantes": [
+        "Chaque probabilité est comprise entre 0 et 1.",
+        "La somme de toutes les probabilités vaut toujours 1.",
+        "Une probabilité de 0 veut dire \"impossible\", 1 veut dire \"certain\"."
+      ],
+      "methode": {
+        "titre": "Comment vérifier une loi de probabilité",
+        "etapes": [
+          {
+            "icone": "sliders",
+            "couleur": "blue",
+            "texte": "Additionne toutes les probabilités données."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Vérifie que le total fait bien 1."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "sliders",
+              "couleur": "blue",
+              "texte": "Additionne toutes les probabilités données."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Vérifie que le total fait bien 1."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Un dé truqué : $P(1)=P(2)=P(3)=P(4)=P(5)=0{,}1$. Que vaut $P(6)$ ?",
+          "calcul": [
+            {
+              "expr": "5 \\times 0{,}1 = 0{,}5",
+              "texte": "On additionne les 5 probabilités connues."
+            },
+            {
+              "expr": "P(6) = 1 - 0{,}5",
+              "texte": "Le total doit faire 1."
+            }
+          ],
+          "reponse": "$P(6) = 0{,}5$",
+          "id": "loi-de-probabilite-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Donner une probabilité négative ou supérieure à 1.",
+        "Oublier de vérifier que la somme de toutes les probabilités fait bien 1."
+      ],
+      "astuce": "Le réflexe de base : additionne toujours toutes les probabilités pour vérifier que ça fait 1.",
+      "aRetenir": [
+        "$\\sum p_i = 1$",
+        "$0 \\leq p_i \\leq 1$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        180,
+        181,
+        182
+      ],
+      "schemaVersion": 2,
+      "topic_id": "loi-de-probabilite",
+      "definitions": {
+        "lycee": "Une loi de probabilité donne une chance (un nombre entre 0 et 1) à chaque résultat possible d'une expérience.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "loi-de-probabilite-regle-1",
+          "nom": "",
+          "expression": "Chaque probabilité est comprise entre 0 et 1.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "loi-de-probabilite-regle-2",
+          "nom": "",
+          "expression": "La somme de toutes les probabilités vaut toujours 1.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "loi-de-probabilite-regle-3",
+          "nom": "",
+          "expression": "Une probabilité de 0 veut dire \"impossible\", 1 veut dire \"certain\".",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Donner une probabilité négative ou supérieure à 1.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier de vérifier que la somme de toutes les probabilités fait bien 1.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Loi de probabilité"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras vérifier une loi de probabilité."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "notion-devenement",
+      "title": "Un évènement",
+      "intro": "Dans cette leçon, tu vas apprendre ce qu'est un évènement en probabilité.",
+      "objectif": "À la fin de ce cours, tu sauras calculer la probabilité d'un évènement.",
+      "definition": "Un évènement regroupe plusieurs résultats possibles. Sa probabilité est la somme des probabilités de ces résultats.",
+      "reglesImportantes": [
+        "Un évènement est un ensemble de résultats.",
+        "$P(A)$ = somme des probabilités des résultats qui composent $A$.",
+        "\"Obtenir un nombre pair\" est un exemple d'évènement."
+      ],
+      "methode": {
+        "titre": "Comment calculer la probabilité d'un évènement",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Liste tous les résultats qui composent l'évènement."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Additionne leurs probabilités."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Tu obtiens la probabilité de l'évènement."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Liste tous les résultats qui composent l'évènement."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Additionne leurs probabilités."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Tu obtiens la probabilité de l'évènement."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "On lance un dé équilibré. Probabilité de l'évènement \"obtenir un nombre pair\" ?",
+          "calcul": [
+            {
+              "expr": "A = \\{2,4,6\\}",
+              "texte": "On liste les résultats pairs."
+            },
+            {
+              "expr": "P(A) = 3 \\times \\dfrac{1}{6}",
+              "texte": "Chaque résultat a la même probabilité."
+            },
+            {
+              "expr": "= \\dfrac{1}{2}",
+              "texte": "On calcule."
+            }
+          ],
+          "reponse": "$P(A) = \\dfrac{1}{2}$",
+          "id": "notion-devenement-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier un résultat dans la liste de l'évènement.",
+        "Confondre le nombre de résultats et leur probabilité."
+      ],
+      "astuce": "Pour un dé équilibré à 6 faces, chaque résultat a une probabilité de $1/6$.",
+      "aRetenir": [
+        "Évènement = ensemble de résultats",
+        "$P(A)$ = somme des probabilités de ses résultats"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        183,
+        184,
+        185
+      ],
+      "schemaVersion": 2,
+      "topic_id": "notion-devenement",
+      "definitions": {
+        "lycee": "Un évènement regroupe plusieurs résultats possibles. Sa probabilité est la somme des probabilités de ces résultats.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "notion-devenement-regle-1",
+          "nom": "",
+          "expression": "Un évènement est un ensemble de résultats.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "notion-devenement-regle-2",
+          "nom": "",
+          "expression": "$P(A)$ = somme des probabilités des résultats qui composent $A$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "notion-devenement-regle-3",
+          "nom": "",
+          "expression": "\"Obtenir un nombre pair\" est un exemple d'évènement.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier un résultat dans la liste de l'évènement.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Confondre le nombre de résultats et leur probabilité.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Notion d'évènement"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras calculer la probabilité d'un évènement."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "operations-sur-les-evenements",
+      "title": "Combiner des évènements",
+      "intro": "Dans cette leçon, tu vas apprendre à combiner deux évènements avec ET et OU.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser le contraire, l'union et l'intersection.",
+      "definition": "On peut combiner deux évènements de plusieurs façons : le contraire, l'union (\"ou\"), l'intersection (\"et\").",
+      "reglesImportantes": [
+        "$P(\\bar{A}) = 1 - P(A)$ (le contraire).",
+        "$A \\cup B$ : \"A ou B\", tous les résultats des deux.",
+        "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$"
+      ],
+      "methode": {
+        "titre": "Comment calculer une probabilité d'union",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Calcule $P(A)$ et $P(B)$ séparément."
+          },
+          {
+            "icone": "target",
+            "couleur": "purple",
+            "texte": "Calcule $P(A \\cap B)$, la probabilité des deux en même temps."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Additionne $P(A)$ et $P(B)$, puis soustrais $P(A \\cap B)$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Calcule $P(A)$ et $P(B)$ séparément."
+            },
+            {
+              "icone": "target",
+              "couleur": "purple",
+              "texte": "Calcule $P(A \\cap B)$, la probabilité des deux en même temps."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Additionne $P(A)$ et $P(B)$, puis soustrais $P(A \\cap B)$."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$P(A) = 0{,}6$. Calcule $P(\\bar{A})$.",
+          "calcul": [
+            {
+              "expr": "P(\\bar A) = 1 - 0{,}6",
+              "texte": "On applique la règle du contraire."
+            }
+          ],
+          "reponse": "$P(\\bar A) = 0{,}4$",
+          "id": "operations-sur-les-evenements-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de soustraire $P(A \\cap B)$ dans la formule de l'union.",
+        "Confondre \"et\" (intersection) avec \"ou\" (union)."
+      ],
+      "astuce": "Pour un évènement du type \"au moins un\", pense d'abord à calculer le contraire : c'est souvent plus simple.",
+      "aRetenir": [
+        "$P(\\bar A)=1-P(A)$",
+        "$P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        186,
+        187,
+        188
+      ],
+      "schemaVersion": 2,
+      "topic_id": "operations-sur-les-evenements",
+      "definitions": {
+        "lycee": "On peut combiner deux évènements de plusieurs façons : le contraire, l'union (\"ou\"), l'intersection (\"et\").",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "operations-sur-les-evenements-regle-1",
+          "nom": "",
+          "expression": "$P(\\bar{A}) = 1 - P(A)$ (le contraire).",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "operations-sur-les-evenements-regle-2",
+          "nom": "",
+          "expression": "$A \\cup B$ : \"A ou B\", tous les résultats des deux.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "operations-sur-les-evenements-regle-3",
+          "nom": "",
+          "expression": "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de soustraire $P(A \\cap B)$ dans la formule de l'union.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Confondre \"et\" (intersection) avec \"ou\" (union).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Opérations sur les évènements"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras utiliser le contraire, l'union et l'intersection."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "echantillon-et-simulation",
+      "title": "Échantillon et simulation",
+      "intro": "Dans cette leçon, tu vas apprendre ce qu'est un échantillon.",
+      "objectif": "À la fin de ce cours, tu sauras ce qui se passe quand on répète une expérience.",
+      "definition": "Un échantillon, c'est répéter plusieurs fois la même expérience au hasard (par exemple lancer une pièce 100 fois).",
+      "reglesImportantes": [
+        "Plus l'échantillon est grand, plus le résultat observé se rapproche de la probabilité théorique.",
+        "La fréquence observée peut varier d'un échantillon à l'autre.",
+        "Ne confonds jamais fréquence observée et probabilité théorique."
+      ],
+      "methode": {
+        "titre": "Comment interpréter un échantillon",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Regarde la taille de l'échantillon."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Compare la fréquence observée à la probabilité théorique attendue."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Regarde la taille de l'échantillon."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Compare la fréquence observée à la probabilité théorique attendue."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "On lance une pièce 1000 fois et on obtient 51% de pile. Est-ce surprenant ?",
+          "calcul": [
+            {
+              "expr": "\\text{théorique} = 50\\%",
+              "texte": "On attend 50% de pile en théorie."
+            },
+            {
+              "expr": "\\text{observé} = 51\\%",
+              "texte": "C'est très proche du résultat théorique."
+            }
+          ],
+          "reponse": "Non, c'est un résultat tout à fait normal",
+          "id": "echantillon-et-simulation-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Croire qu'un petit échantillon donne un résultat toujours fiable.",
+        "Confondre la fréquence observée (qui varie) et la probabilité théorique (fixe)."
+      ],
+      "astuce": "Plus l'échantillon est grand, plus tu peux faire confiance au résultat observé.",
+      "aRetenir": [
+        "Grand échantillon = fréquence proche de la théorie"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        174,
+        175,
+        176
+      ],
+      "schemaVersion": 2,
+      "topic_id": "echantillon-et-simulation",
+      "definitions": {
+        "lycee": "Un échantillon, c'est répéter plusieurs fois la même expérience au hasard (par exemple lancer une pièce 100 fois).",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "echantillon-et-simulation-regle-1",
+          "nom": "",
+          "expression": "Plus l'échantillon est grand, plus le résultat observé se rapproche de la probabilité théorique.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "echantillon-et-simulation-regle-2",
+          "nom": "",
+          "expression": "La fréquence observée peut varier d'un échantillon à l'autre.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "echantillon-et-simulation-regle-3",
+          "nom": "",
+          "expression": "Ne confonds jamais fréquence observée et probabilité théorique.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Croire qu'un petit échantillon donne un résultat toujours fiable.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Confondre la fréquence observée (qui varie) et la probabilité théorique (fixe).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Echantillon et simulation"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras ce qui se passe quand on répète une expérience."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "fluctuation-et-estimation",
+      "title": "L'intervalle de fluctuation",
+      "intro": "Dans cette leçon, tu vas apprendre à juger si un résultat est normal ou pas.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser un intervalle de fluctuation.",
+      "definition": "L'intervalle de fluctuation donne une zone de résultats \"normaux\" autour d'une probabilité supposée.",
+      "reglesImportantes": [
+        "Intervalle : $\\left[p-\\dfrac{1}{\\sqrt n}\\,;\\,p+\\dfrac{1}{\\sqrt n}\\right]$",
+        "Si la fréquence observée est dans l'intervalle, le résultat est cohérent.",
+        "Si elle est en dehors, le résultat est surprenant."
+      ],
+      "methode": {
+        "titre": "Comment utiliser l'intervalle de fluctuation",
+        "etapes": [
+          {
+            "icone": "sliders",
+            "couleur": "blue",
+            "texte": "Calcule l'intervalle avec $p$ et $n$."
+          },
+          {
+            "icone": "target",
+            "couleur": "purple",
+            "texte": "Calcule la fréquence observée dans l'échantillon."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Regarde si cette fréquence est dans l'intervalle ou pas."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "sliders",
+              "couleur": "blue",
+              "texte": "Calcule l'intervalle avec $p$ et $n$."
+            },
+            {
+              "icone": "target",
+              "couleur": "purple",
+              "texte": "Calcule la fréquence observée dans l'échantillon."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Regarde si cette fréquence est dans l'intervalle ou pas."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$p=0{,}5$, $n=100$. Calcule l'intervalle de fluctuation.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{1}{\\sqrt{100}} = 0{,}1",
+              "texte": "On calcule l'écart."
+            },
+            {
+              "expr": "[0{,}4\\,;0{,}6]",
+              "texte": "On l'ajoute et on le soustrait à $p$."
+            }
+          ],
+          "reponse": "$[0{,}4\\,;0{,}6]$",
+          "id": "fluctuation-et-estimation-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Utiliser cette formule avec un échantillon trop petit (moins de 25).",
+        "Croire qu'un résultat hors de l'intervalle est forcément faux : c'est juste peu probable."
+      ],
+      "astuce": "Sortir de l'intervalle ne prouve rien à 100% : ça veut juste dire que le résultat est surprenant si l'hypothèse est vraie.",
+      "aRetenir": [
+        "Intervalle : $\\left[p-\\frac{1}{\\sqrt n}\\,;p+\\frac{1}{\\sqrt n}\\right]$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        177,
+        178,
+        179
+      ],
+      "schemaVersion": 2,
+      "topic_id": "fluctuation-et-estimation",
+      "definitions": {
+        "lycee": "L'intervalle de fluctuation donne une zone de résultats \"normaux\" autour d'une probabilité supposée.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "fluctuation-et-estimation-regle-1",
+          "nom": "",
+          "expression": "Intervalle : $\\left[p-\\dfrac{1}{\\sqrt n}\\,;\\,p+\\dfrac{1}{\\sqrt n}\\right]$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "fluctuation-et-estimation-regle-2",
+          "nom": "",
+          "expression": "Si la fréquence observée est dans l'intervalle, le résultat est cohérent.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "fluctuation-et-estimation-regle-3",
+          "nom": "",
+          "expression": "Si elle est en dehors, le résultat est surprenant.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Utiliser cette formule avec un échantillon trop petit (moins de 25).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Croire qu'un résultat hors de l'intervalle est forcément faux : c'est juste peu probable.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Fluctuation et estimation"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras utiliser un intervalle de fluctuation."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    }
+  ]
+}

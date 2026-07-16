@@ -1,0 +1,235 @@
+/* ==========================================================================
+   Module Cours — grille de chapitres (réutilise .chapter-card/.chapters-grid
+   de chapitres.css) + lecteur de notion en page unique, très découpé,
+   inspiré Khan Academy / Notion : jamais de gros bloc de texte.
+   ========================================================================== */
+
+.cours-back-row { margin-bottom: 16px; }
+
+.cours-notions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.cours-notion-card { padding: 18px; }
+.cours-notion-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 10px;
+}
+.cours-notion-top h3 { margin: 0; font-size: 1rem; }
+.cours-notion-meta {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;
+}
+
+/* ── En-tête de notion ────────────────────────────────────────────────── */
+.cours-notion-title { margin-bottom: 8px; }
+.cours-intro-text {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 68ch;
+}
+
+.cours-objectif-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+.cours-objectif-icon {
+  width: 34px; height: 34px; flex-shrink: 0;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(var(--accent-rgb), 0.16);
+  color: var(--accent-text);
+}
+.cours-objectif-icon svg { width: 18px; height: 18px; }
+.cours-objectif-card p { margin: 0; font-size: 0.94rem; line-height: 1.55; }
+
+.cours-section-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 28px 0 14px;
+}
+.cours-section-label svg { width: 16px; height: 16px; color: var(--accent); }
+
+/* ── Boîtes de section (définition / attention / astuce) ─────────────── */
+.cours-box {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-glass, var(--surface));
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+.cours-box-header {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 600; font-size: 0.92rem; margin-bottom: 10px;
+}
+.cours-box-header svg { width: 18px; height: 18px; }
+.cours-box-body { font-size: 0.94rem; line-height: 1.65; white-space: pre-line; }
+
+.cours-box--definition { border-left: 4px solid var(--accent); }
+.cours-box--attention { border-left: 4px solid var(--danger, #ef4444); background: rgba(239, 68, 68, 0.07); }
+.cours-box--astuce { border-left: 4px solid var(--warning, #f59e0b); background: rgba(245, 158, 11, 0.07); }
+
+.cours-erreurs-list { margin: 0; padding-left: 20px; font-size: 0.92rem; }
+.cours-erreurs-list li { margin-bottom: 8px; line-height: 1.5; }
+
+/* ── Figure géométrique ───────────────────────────────────────────────── */
+.cours-figure-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-glass, var(--surface));
+}
+.geom-figure { width: 100%; max-width: 260px; height: auto; }
+.geom-grid-line { stroke: var(--border); stroke-width: 0.5; }
+.geom-axis { stroke: var(--text-faint); stroke-width: 1.2; }
+.geom-segment { stroke: var(--text-muted); stroke-width: 1.6; }
+.geom-segment--dashed { stroke-dasharray: 4 3; }
+.geom-vector { stroke: var(--accent); stroke-width: 2; }
+.geom-arrow-head { fill: var(--accent); }
+.geom-polygon { fill: rgba(var(--accent-rgb), 0.12); stroke: var(--accent); stroke-width: 1.6; }
+.geom-circle { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+.geom-point { fill: var(--text); }
+.geom-label { font-size: 10px; fill: var(--text); font-weight: 600; }
+.geom-label--vector { fill: var(--accent); }
+.cours-figure-caption { font-size: 0.78rem; color: var(--text-muted); text-align: center; }
+
+/* ── Règles importantes (cartes) ──────────────────────────────────────── */
+.cours-regles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.cours-regle-card {
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  border-left: 3px solid var(--accent);
+}
+
+/* ── Méthode : étapes numérotées, colorées ────────────────────────────── */
+.cours-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+.cours-step {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  background: var(--surface-hover);
+}
+.cours-step-num {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  flex-shrink: 0;
+}
+.cours-step-icon {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+}
+.cours-step-icon svg { width: 15px; height: 15px; }
+.cours-step-index { font-size: 0.68rem; font-weight: 700; color: var(--text-faint); }
+.cours-step-text { font-size: 0.92rem; line-height: 1.55; padding-top: 5px; }
+
+.cours-step--blue .cours-step-icon { background: #3b82f6; }
+.cours-step--purple .cours-step-icon { background: #a855f7; }
+.cours-step--green .cours-step-icon { background: #22c55e; }
+.cours-step--orange .cours-step-icon { background: #f97316; }
+.cours-step--pink .cours-step-icon { background: #ec4899; }
+
+/* ── Exemples détaillés ───────────────────────────────────────────────── */
+.cours-exemple-card { padding: 18px 20px; margin-bottom: 16px; }
+.cours-exemple-title {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; color: var(--accent-text);
+}
+.cours-exemple-title svg { width: 17px; height: 17px; }
+.cours-exemple-enonce { font-size: 0.94rem; margin-bottom: 14px; line-height: 1.55; }
+
+.cours-calc-block {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px;
+  margin: 10px 0;
+}
+.cours-calc-row {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-hover);
+}
+.cours-calc-expr { font-weight: 700; font-size: 1rem; white-space: nowrap; }
+.cours-calc-texte { font-size: 0.82rem; color: var(--text-muted); }
+.cours-calc-arrow { color: var(--accent); width: 16px; height: 16px; transform: rotate(90deg); }
+.cours-calc-arrow svg { width: 100%; height: 100%; }
+
+.cours-exemple-reponse {
+  margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border);
+  font-weight: 600; font-size: 0.94rem;
+}
+
+/* ── À retenir ─────────────────────────────────────────────────────────── */
+.cours-aretenir-card {
+  padding: 20px 22px;
+  margin: 24px 0;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  background: rgba(var(--accent-rgb), 0.06);
+}
+.cours-aretenir-title {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 0.96rem; margin-bottom: 12px;
+}
+.cours-aretenir-title svg { width: 18px; height: 18px; color: var(--warning); }
+.cours-aretenir-list { margin: 0; padding-left: 20px; }
+.cours-aretenir-list li { margin-bottom: 8px; font-size: 0.92rem; line-height: 1.5; }
+
+.cours-nav-row {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-top: 20px; flex-wrap: wrap;
+}
+.cours-done-confirm {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 600; color: var(--success, #22c55e);
+}
+.cours-done-confirm svg { width: 18px; height: 18px; }
+
+/* ── Mini-quiz ─────────────────────────────────────────────────────────── */
+.cours-quiz-card { padding: 18px 20px; margin-top: 20px; }
+.cours-quiz-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px;
+}
+.cours-quiz-label svg { width: 16px; height: 16px; }
+#cours-quiz-enonce { font-size: 0.96rem; margin-bottom: 14px; }
+#cours-quiz-answer {
+  margin: 10px 0; padding: 12px 14px;
+  background: var(--surface-hover); border-radius: var(--radius-sm);
+  white-space: pre-line; font-size: 0.9rem;
+}
+.cours-quiz-done { padding: 18px 20px; margin-top: 20px; display: flex; align-items: center; gap: 10px; font-size: 0.96rem; }
+.cours-quiz-done svg { width: 18px; height: 18px; color: var(--success, #22c55e); }
+
+@media (max-width: 640px) {
+  .cours-notions-list { grid-template-columns: 1fr; }
+  .cours-regles-grid { grid-template-columns: 1fr; }
+  .cours-nav-row { flex-direction: column; align-items: stretch; }
+  .cours-nav-row .btn { width: 100%; justify-content: center; }
+  .cours-calc-row { flex-direction: column; gap: 4px; text-align: center; }
+  .cours-calc-expr { white-space: normal; overflow-wrap: break-word; }
+  .cours-step { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cours-objectif-card { flex-wrap: wrap; }
+  .cours-intro-text { max-width: 100%; }
+}
+
+@media (max-width: 420px) {
+  .geom-figure { max-width: 210px; }
+}
