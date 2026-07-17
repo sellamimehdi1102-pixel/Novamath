@@ -16,6 +16,76 @@ Le produit s'appelait auparavant **Lumis** (voir plus bas). Cette lignée reste 
 du nouveau schéma NovaMath, jamais renumérotée ni modifiée, conservée telle quelle pour
 l'historique (`versions/Lumis_V1` à `Lumis_V6`, intacts).
 
+## v1.70
+
+**Date** : 2026-07-17
+
+**Nom de la mise à jour** : SEC-04 : conformite RGPD et protection des mineurs
+
+### Nouveautés
+- Date de naissance obligatoire à l'inscription, âge calculé automatiquement (jamais demandé directement) — seuil légal français de 15 ans (art. 8 RGPD / art. 45 Loi Informatique et Libertés).
+- Consentement parental complet pour les moins de 15 ans : compte créé `pending_parental_consent` (aucun accès chatbot/Premium/exercices/données tant que non résolu), lien signé envoyé par email au parent, page publique `/parent/consent/<token>` (accepter/refuser), renvoi d'email, expiration du lien.
+- Nouveau `webapp/email_service.py` : premier vrai service d'envoi d'email SMTP du projet (stdlib, aucune dépendance ajoutée), avec filet de secours dev (lien en clair, comme `dev_reset_link`) si non configuré.
+- Nouveau `webapp/consent_service.py` : âge, seuil légal, cycle de vie du consentement parental, consentement cookies, versionnement des CGU/politique de confidentialité avec ré-acceptation forcée.
+- Nouveau `webapp/privacy_service.py` : agrégation RGPD (export, historique des consentements) — la suppression de compte et la rectification de profil existaient déjà (`DELETE`/`PUT /api/auth/me`), désormais journalisées explicitement `gdpr_delete_account`/`gdpr_rectification`.
+- Export RGPD (`GET /api/data/export`, déjà existant) étendu : historique de consentement, demandes de consentement parental, préférences cookies, journal de sécurité, progression Cours.
+- Bandeau de consentement cookies (nécessaires/statistiques/marketing), jamais réaffiché une fois un choix enregistré, modifiable depuis Paramètres.
+- Nouvelles tables `parental_consent_requests`, `consent_records` (preuve RGPD immuable, jamais supprimée), `cookie_consents` ; nouvelles colonnes `users.birth_date/account_status/terms_accepted_version/privacy_accepted_version` — migration idempotente.
+
+### Corrections
+- Aucune (chantier additif, aucune régression sur les 1306 tests existants).
+
+### Optimisations
+- Aucune (hors périmètre de ce chantier).
+
+### Fichiers modifiés
+- Créés : `webapp/consent_service.py`, `webapp/privacy_service.py`, `webapp/email_service.py`, `webapp/static/parent-consent.html`, `webapp/static/js/parentConsent.js`, `webapp/static/js/cookieConsent.js`, 9 fichiers de tests (`webapp/tests/test_consent_service.py`, `test_consent_migration.py`, `test_privacy_service.py`, `test_email_service.py`, `test_server_registration_age.py`, `test_server_parental_consent.py`, `test_server_privacy_routes.py`, `test_security_events_privacy.py`, `test_auth_privacy_validation.py`).
+- Modifiés : `webapp/db.py`, `webapp/config.py`, `webapp/auth.py`, `webapp/server.py`, `.env.example`, `webapp/static/js/authModalsTemplate.js`, `webapp/static/js/auth.js`, `webapp/static/js/api.js`, `webapp/static/js/settings.js`, `webapp/static/css/base.css`, `webapp/tests/test_database_service.py` (attentes de schéma mises à jour) et 8 fichiers de tests existants (`birth_date` ajouté aux payloads d'inscription).
+
+### Bugs connus
+- Aucun service SMTP réel configuré par défaut : à renseigner (`EMAIL_SMTP_*`, `.env.example`) avant mise en production pour un envoi réel des emails de consentement parental.
+
+### Validation finale (Node.js installé en cours de session)
+- `npm run lint` : OK (0 erreur, 0 warning).
+- `npm run build` : OK (`parent-consent.html` ajouté à `vite.config.js` — absent par erreur du build initial, corrigé).
+- `npm test` : OK (252/252, dont mocks `api.getCookieConsent`/champ `signup-birth-date` complétés dans 2 suites existantes touchées par ce chantier).
+- `pytest` : OK (1306 passés, 133 skip préexistants, 0 échec).
+
+### Temps estimé de développement
+- Une session (exploration architecture + implémentation backend/frontend/tests complète + validation Node.js).
+
+## v1.63
+
+**Date** : 2026-07-16
+
+**Nom de la mise à jour** : Stripe Billing complet : portail client, cycle de vie abonnement, changement de plan
+
+Termine Stripe Billing avant mise en production : Portail client Stripe (`/api/billing/customer-portal`), statut d'abonnement complet dérivé de Stripe (`/api/billing/status`), changement de plan respectant Stripe Billing (upgrade Premium→Ultra immédiat avec proration, downgrade Ultra→Premium programmé à la prochaine période via Subscription Schedule), et 8 nouveaux événements webhook. Le webhook reste l'unique source de vérité qui écrit `users.plan` — aucune des nouvelles routes n'écrit en base.
+
+### Nouveautés
+- `billing_service.py` (nouveau service) : `get_billing_status()`, `create_portal_session()`, `change_plan()`.
+- `stripe_service.py` : `create_billing_portal_session()`, `list_payment_methods()`, `list_invoices()`, `schedule_downgrade()`.
+- Routes `GET /api/billing/status`, `POST /api/billing/customer-portal`, `POST /api/billing/change-plan` dans `server.py`.
+- `stripe_webhook_service.py` : support de `invoice.finalized`, `invoice.payment_succeeded`, `invoice.upcoming`, `customer.subscription.trial_will_end`, `checkout.session.expired`, `payment_method.attached/updated/detached`.
+- Page Abonnement : carte de statut (plan/statut/date de renouvellement ou d'annulation) + bouton "Gérer mon abonnement" pour les comptes Premium/Ultra ; boutons "Changer vers Premium/Ultra" sur les autres cartes.
+- Page Profil : section "Abonnement" (plan, statut, dates, moyen de paiement, adresse de facturation, historique des factures, bouton "Gérer mon abonnement").
+
+### Corrections
+- (aucune — fonctionnalité nouvelle, aucune régression sur l'existant)
+
+### Optimisations
+- (aucune)
+
+### Fichiers modifiés
+- Nouveaux : `webapp/billing_service.py`, `webapp/tests/test_billing_service.py`, `webapp/tests/test_server_billing.py`.
+- Modifiés : `webapp/stripe_service.py`, `webapp/stripe_webhook_service.py`, `webapp/server.py`, `webapp/static/js/api.js`, `webapp/static/js/abonnement.js`, `webapp/static/abonnement.html`, `webapp/static/css/abonnement.css`, `webapp/static/js/profil.js`, `webapp/static/profil.html`, `webapp/static/css/profil.css`, `webapp/tests/test_stripe_service.py`, `webapp/tests/test_stripe_webhook_service.py`.
+
+### Bugs connus
+- Aucun connu à ce jour.
+
+### Temps estimé de développement
+- Environ 1 session de développement assistée.
+
 ## v1.62
 
 **Date** : 2026-07-14

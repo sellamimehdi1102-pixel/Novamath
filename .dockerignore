@@ -1,0 +1,57 @@
+# Exclut du contexte de build Docker tout ce qui n'est jamais lu au runtime
+# par webapp/server.py (voir README.md/DEPLOYMENT.md, section "Organisation
+# du projet") — garde l'image finale légère, comme exigé par le Dockerfile.
+
+# Contrôle de version / éditeurs
+.git
+.github
+.vscode
+.claude
+
+# Secrets locaux — jamais dans l'image, toujours injectés par la plateforme
+# d'hébergement (variables d'environnement) ou montés en volume.
+.env
+.env.*
+!.env.example
+.flask_secret_key
+.admin_key
+
+# Données runtime (persistées via un volume Docker, jamais figées dans
+# l'image — voir docker-compose.yml) et sauvegardes.
+data/novamath.db
+backups/
+
+# Frontend — jamais copié tel quel dans le contexte : reconstruit à neuf par
+# l'étape "frontend-builder" du Dockerfile (npm ci && npm run build).
+node_modules/
+webapp/static-dist/
+webapp/static/js/__tests__/
+coverage/
+
+# Python
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Tests — inutiles au runtime, exécutés par la CI directement sur le dépôt
+# (voir .github/workflows/ci.yml), jamais à l'intérieur de l'image finale.
+webapp/tests/
+
+# Sources hors périmètre du site (voir README.md, "Organisation du projet") :
+# ancien pipeline de génération, snapshots de versions archivées, sources PDF
+# du programme et leur extraction texte, graphe de connaissance de dev.
+tools/legacy-pipeline/
+versions/
+Chapitres/
+texts/
+graphify-out/
+webapp/graphify-out/
+
+# Documentation — pas nécessaire à l'exécution de l'application.
+*.md
+!README.md

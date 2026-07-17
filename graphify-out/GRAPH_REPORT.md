@@ -1,13 +1,18 @@
-# Graph Report - Programation AI  (2026-07-16)
+# Graph Report - Programation AI  (2026-07-17)
 
 ## Corpus Check
-- 3955 files · ~23,937,064 words
+- 1975 files · ~12,047,023 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 31483 nodes · 49265 edges · 2513 communities (2018 shown, 495 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 315 edges (avg confidence: 0.64)
+- 18400 nodes · 28243 edges · 1385 communities (1071 shown, 314 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 444 edges (avg confidence: 0.6)
 - Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `6f06c442`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - [[_COMMUNITY_Nombres Reels et Inegalites|Nombres Reels et Inegalites]]
@@ -382,7 +387,6 @@
 - [[_COMMUNITY_Community 369|Community 369]]
 - [[_COMMUNITY_Community 370|Community 370]]
 - [[_COMMUNITY_Community 371|Community 371]]
-- [[_COMMUNITY_Community 372|Community 372]]
 - [[_COMMUNITY_Community 373|Community 373]]
 - [[_COMMUNITY_Community 374|Community 374]]
 - [[_COMMUNITY_Community 375|Community 375]]
@@ -453,8 +457,6 @@
 - [[_COMMUNITY_Community 440|Community 440]]
 - [[_COMMUNITY_Community 441|Community 441]]
 - [[_COMMUNITY_Community 442|Community 442]]
-- [[_COMMUNITY_Community 443|Community 443]]
-- [[_COMMUNITY_Community 444|Community 444]]
 - [[_COMMUNITY_Community 445|Community 445]]
 - [[_COMMUNITY_Community 446|Community 446]]
 - [[_COMMUNITY_Community 447|Community 447]]
@@ -489,22 +491,14 @@
 - [[_COMMUNITY_Community 476|Community 476]]
 - [[_COMMUNITY_Community 477|Community 477]]
 - [[_COMMUNITY_Community 478|Community 478]]
-- [[_COMMUNITY_Community 479|Community 479]]
-- [[_COMMUNITY_Community 480|Community 480]]
-- [[_COMMUNITY_Community 481|Community 481]]
-- [[_COMMUNITY_Community 482|Community 482]]
-- [[_COMMUNITY_Community 483|Community 483]]
-- [[_COMMUNITY_Community 484|Community 484]]
 - [[_COMMUNITY_Community 485|Community 485]]
 - [[_COMMUNITY_Community 486|Community 486]]
 - [[_COMMUNITY_Community 487|Community 487]]
 - [[_COMMUNITY_Community 488|Community 488]]
 - [[_COMMUNITY_Community 489|Community 489]]
 - [[_COMMUNITY_Community 490|Community 490]]
-- [[_COMMUNITY_Community 491|Community 491]]
 - [[_COMMUNITY_Community 492|Community 492]]
 - [[_COMMUNITY_Community 493|Community 493]]
-- [[_COMMUNITY_Community 494|Community 494]]
 - [[_COMMUNITY_Community 495|Community 495]]
 - [[_COMMUNITY_Community 496|Community 496]]
 - [[_COMMUNITY_Community 497|Community 497]]
@@ -670,10 +664,14 @@
 - [[_COMMUNITY_Community 662|Community 662]]
 - [[_COMMUNITY_Community 664|Community 664]]
 - [[_COMMUNITY_Community 665|Community 665]]
+- [[_COMMUNITY_Community 666|Community 666]]
 - [[_COMMUNITY_Community 667|Community 667]]
+- [[_COMMUNITY_Community 668|Community 668]]
 - [[_COMMUNITY_Community 669|Community 669]]
 - [[_COMMUNITY_Community 670|Community 670]]
+- [[_COMMUNITY_Community 671|Community 671]]
 - [[_COMMUNITY_Community 672|Community 672]]
+- [[_COMMUNITY_Community 673|Community 673]]
 - [[_COMMUNITY_Community 674|Community 674]]
 - [[_COMMUNITY_Community 675|Community 675]]
 - [[_COMMUNITY_Community 677|Community 677]]
@@ -682,10 +680,34 @@
 - [[_COMMUNITY_Community 682|Community 682]]
 - [[_COMMUNITY_Community 684|Community 684]]
 - [[_COMMUNITY_Community 685|Community 685]]
-- [[_COMMUNITY_Community 686|Community 686]]
 - [[_COMMUNITY_Community 687|Community 687]]
 - [[_COMMUNITY_Community 689|Community 689]]
+- [[_COMMUNITY_Community 693|Community 693]]
+- [[_COMMUNITY_Community 694|Community 694]]
 - [[_COMMUNITY_Community 697|Community 697]]
+- [[_COMMUNITY_Community 699|Community 699]]
+- [[_COMMUNITY_Community 703|Community 703]]
+- [[_COMMUNITY_Community 704|Community 704]]
+- [[_COMMUNITY_Community 714|Community 714]]
+- [[_COMMUNITY_Community 715|Community 715]]
+- [[_COMMUNITY_Community 716|Community 716]]
+- [[_COMMUNITY_Community 717|Community 717]]
+- [[_COMMUNITY_Community 718|Community 718]]
+- [[_COMMUNITY_Community 719|Community 719]]
+- [[_COMMUNITY_Community 720|Community 720]]
+- [[_COMMUNITY_Community 721|Community 721]]
+- [[_COMMUNITY_Community 722|Community 722]]
+- [[_COMMUNITY_Community 723|Community 723]]
+- [[_COMMUNITY_Community 724|Community 724]]
+- [[_COMMUNITY_Community 725|Community 725]]
+- [[_COMMUNITY_Community 726|Community 726]]
+- [[_COMMUNITY_Community 727|Community 727]]
+- [[_COMMUNITY_Community 728|Community 728]]
+- [[_COMMUNITY_Community 729|Community 729]]
+- [[_COMMUNITY_Community 736|Community 736]]
+- [[_COMMUNITY_Community 737|Community 737]]
+- [[_COMMUNITY_Community 738|Community 738]]
+- [[_COMMUNITY_Community 739|Community 739]]
 - [[_COMMUNITY_Community 746|Community 746]]
 - [[_COMMUNITY_Community 747|Community 747]]
 - [[_COMMUNITY_Community 748|Community 748]]
@@ -836,64 +858,17 @@
 - [[_COMMUNITY_Community 914|Community 914]]
 - [[_COMMUNITY_Community 915|Community 915]]
 - [[_COMMUNITY_Community 916|Community 916]]
-- [[_COMMUNITY_Community 917|Community 917]]
-- [[_COMMUNITY_Community 918|Community 918]]
 - [[_COMMUNITY_Community 919|Community 919]]
 - [[_COMMUNITY_Community 920|Community 920]]
-- [[_COMMUNITY_Community 921|Community 921]]
-- [[_COMMUNITY_Community 922|Community 922]]
-- [[_COMMUNITY_Community 923|Community 923]]
-- [[_COMMUNITY_Community 924|Community 924]]
-- [[_COMMUNITY_Community 925|Community 925]]
-- [[_COMMUNITY_Community 926|Community 926]]
-- [[_COMMUNITY_Community 927|Community 927]]
 - [[_COMMUNITY_Community 928|Community 928]]
-- [[_COMMUNITY_Community 929|Community 929]]
-- [[_COMMUNITY_Community 930|Community 930]]
-- [[_COMMUNITY_Community 931|Community 931]]
-- [[_COMMUNITY_Community 932|Community 932]]
-- [[_COMMUNITY_Community 933|Community 933]]
 - [[_COMMUNITY_Community 934|Community 934]]
-- [[_COMMUNITY_Community 935|Community 935]]
-- [[_COMMUNITY_Community 936|Community 936]]
-- [[_COMMUNITY_Community 937|Community 937]]
 - [[_COMMUNITY_Community 938|Community 938]]
-- [[_COMMUNITY_Community 939|Community 939]]
-- [[_COMMUNITY_Community 940|Community 940]]
-- [[_COMMUNITY_Community 941|Community 941]]
-- [[_COMMUNITY_Community 942|Community 942]]
-- [[_COMMUNITY_Community 943|Community 943]]
-- [[_COMMUNITY_Community 944|Community 944]]
-- [[_COMMUNITY_Community 945|Community 945]]
-- [[_COMMUNITY_Community 946|Community 946]]
-- [[_COMMUNITY_Community 947|Community 947]]
-- [[_COMMUNITY_Community 948|Community 948]]
-- [[_COMMUNITY_Community 949|Community 949]]
-- [[_COMMUNITY_Community 950|Community 950]]
-- [[_COMMUNITY_Community 951|Community 951]]
-- [[_COMMUNITY_Community 952|Community 952]]
 - [[_COMMUNITY_Community 953|Community 953]]
-- [[_COMMUNITY_Community 954|Community 954]]
-- [[_COMMUNITY_Community 955|Community 955]]
-- [[_COMMUNITY_Community 957|Community 957]]
-- [[_COMMUNITY_Community 959|Community 959]]
 - [[_COMMUNITY_Community 960|Community 960]]
-- [[_COMMUNITY_Community 961|Community 961]]
 - [[_COMMUNITY_Community 962|Community 962]]
-- [[_COMMUNITY_Community 963|Community 963]]
-- [[_COMMUNITY_Community 964|Community 964]]
 - [[_COMMUNITY_Community 965|Community 965]]
-- [[_COMMUNITY_Community 966|Community 966]]
-- [[_COMMUNITY_Community 967|Community 967]]
-- [[_COMMUNITY_Community 968|Community 968]]
-- [[_COMMUNITY_Community 969|Community 969]]
-- [[_COMMUNITY_Community 971|Community 971]]
 - [[_COMMUNITY_Community 972|Community 972]]
-- [[_COMMUNITY_Community 973|Community 973]]
-- [[_COMMUNITY_Community 974|Community 974]]
 - [[_COMMUNITY_Community 975|Community 975]]
-- [[_COMMUNITY_Community 976|Community 976]]
-- [[_COMMUNITY_Community 977|Community 977]]
 - [[_COMMUNITY_Community 978|Community 978]]
 - [[_COMMUNITY_Community 983|Community 983]]
 - [[_COMMUNITY_Community 984|Community 984]]
@@ -905,7 +880,6 @@
 - [[_COMMUNITY_Community 990|Community 990]]
 - [[_COMMUNITY_Community 991|Community 991]]
 - [[_COMMUNITY_Community 992|Community 992]]
-- [[_COMMUNITY_Community 993|Community 993]]
 - [[_COMMUNITY_Community 994|Community 994]]
 - [[_COMMUNITY_Community 995|Community 995]]
 - [[_COMMUNITY_Community 996|Community 996]]
@@ -945,474 +919,121 @@
 - [[_COMMUNITY_Community 1030|Community 1030]]
 - [[_COMMUNITY_Community 1031|Community 1031]]
 - [[_COMMUNITY_Community 1033|Community 1033]]
-- [[_COMMUNITY_Community 1035|Community 1035]]
-- [[_COMMUNITY_Community 1036|Community 1036]]
 - [[_COMMUNITY_Community 1037|Community 1037]]
-- [[_COMMUNITY_Community 1038|Community 1038]]
 - [[_COMMUNITY_Community 1039|Community 1039]]
-- [[_COMMUNITY_Community 1040|Community 1040]]
 - [[_COMMUNITY_Community 1041|Community 1041]]
 - [[_COMMUNITY_Community 1042|Community 1042]]
-- [[_COMMUNITY_Community 1043|Community 1043]]
-- [[_COMMUNITY_Community 1044|Community 1044]]
-- [[_COMMUNITY_Community 1045|Community 1045]]
-- [[_COMMUNITY_Community 1051|Community 1051]]
-- [[_COMMUNITY_Community 1052|Community 1052]]
-- [[_COMMUNITY_Community 1053|Community 1053]]
-- [[_COMMUNITY_Community 1054|Community 1054]]
-- [[_COMMUNITY_Community 1055|Community 1055]]
 - [[_COMMUNITY_Community 1056|Community 1056]]
-- [[_COMMUNITY_Community 1057|Community 1057]]
-- [[_COMMUNITY_Community 1058|Community 1058]]
 - [[_COMMUNITY_Community 1059|Community 1059]]
-- [[_COMMUNITY_Community 1060|Community 1060]]
-- [[_COMMUNITY_Community 1061|Community 1061]]
 - [[_COMMUNITY_Community 1062|Community 1062]]
 - [[_COMMUNITY_Community 1063|Community 1063]]
-- [[_COMMUNITY_Community 1064|Community 1064]]
-- [[_COMMUNITY_Community 1065|Community 1065]]
-- [[_COMMUNITY_Community 1066|Community 1066]]
-- [[_COMMUNITY_Community 1067|Community 1067]]
-- [[_COMMUNITY_Community 1068|Community 1068]]
-- [[_COMMUNITY_Community 1069|Community 1069]]
-- [[_COMMUNITY_Community 1070|Community 1070]]
-- [[_COMMUNITY_Community 1071|Community 1071]]
-- [[_COMMUNITY_Community 1072|Community 1072]]
-- [[_COMMUNITY_Community 1073|Community 1073]]
-- [[_COMMUNITY_Community 1074|Community 1074]]
-- [[_COMMUNITY_Community 1075|Community 1075]]
 - [[_COMMUNITY_Community 1076|Community 1076]]
 - [[_COMMUNITY_Community 1077|Community 1077]]
-- [[_COMMUNITY_Community 1078|Community 1078]]
-- [[_COMMUNITY_Community 1079|Community 1079]]
-- [[_COMMUNITY_Community 1080|Community 1080]]
-- [[_COMMUNITY_Community 1081|Community 1081]]
 - [[_COMMUNITY_Community 1082|Community 1082]]
 - [[_COMMUNITY_Community 1083|Community 1083]]
 - [[_COMMUNITY_Community 1084|Community 1084]]
 - [[_COMMUNITY_Community 1085|Community 1085]]
-- [[_COMMUNITY_Community 1086|Community 1086]]
-- [[_COMMUNITY_Community 1087|Community 1087]]
-- [[_COMMUNITY_Community 1088|Community 1088]]
-- [[_COMMUNITY_Community 1089|Community 1089]]
-- [[_COMMUNITY_Community 1090|Community 1090]]
-- [[_COMMUNITY_Community 1091|Community 1091]]
-- [[_COMMUNITY_Community 1092|Community 1092]]
-- [[_COMMUNITY_Community 1093|Community 1093]]
-- [[_COMMUNITY_Community 1094|Community 1094]]
-- [[_COMMUNITY_Community 1095|Community 1095]]
-- [[_COMMUNITY_Community 1096|Community 1096]]
 - [[_COMMUNITY_Community 1097|Community 1097]]
 - [[_COMMUNITY_Community 1098|Community 1098]]
-- [[_COMMUNITY_Community 1099|Community 1099]]
-- [[_COMMUNITY_Community 1100|Community 1100]]
-- [[_COMMUNITY_Community 1101|Community 1101]]
-- [[_COMMUNITY_Community 1102|Community 1102]]
-- [[_COMMUNITY_Community 1103|Community 1103]]
-- [[_COMMUNITY_Community 1104|Community 1104]]
-- [[_COMMUNITY_Community 1105|Community 1105]]
 - [[_COMMUNITY_Community 1106|Community 1106]]
-- [[_COMMUNITY_Community 1107|Community 1107]]
-- [[_COMMUNITY_Community 1108|Community 1108]]
 - [[_COMMUNITY_Community 1109|Community 1109]]
-- [[_COMMUNITY_Community 1110|Community 1110]]
 - [[_COMMUNITY_Community 1111|Community 1111]]
-- [[_COMMUNITY_Community 1112|Community 1112]]
-- [[_COMMUNITY_Community 1113|Community 1113]]
-- [[_COMMUNITY_Community 1114|Community 1114]]
-- [[_COMMUNITY_Community 1115|Community 1115]]
 - [[_COMMUNITY_Community 1116|Community 1116]]
 - [[_COMMUNITY_Community 1117|Community 1117]]
-- [[_COMMUNITY_Community 1118|Community 1118]]
-- [[_COMMUNITY_Community 1119|Community 1119]]
-- [[_COMMUNITY_Community 1120|Community 1120]]
-- [[_COMMUNITY_Community 1121|Community 1121]]
-- [[_COMMUNITY_Community 1122|Community 1122]]
-- [[_COMMUNITY_Community 1123|Community 1123]]
-- [[_COMMUNITY_Community 1124|Community 1124]]
 - [[_COMMUNITY_Community 1125|Community 1125]]
-- [[_COMMUNITY_Community 1126|Community 1126]]
-- [[_COMMUNITY_Community 1127|Community 1127]]
 - [[_COMMUNITY_Community 1128|Community 1128]]
-- [[_COMMUNITY_Community 1129|Community 1129]]
-- [[_COMMUNITY_Community 1130|Community 1130]]
-- [[_COMMUNITY_Community 1131|Community 1131]]
 - [[_COMMUNITY_Community 1132|Community 1132]]
-- [[_COMMUNITY_Community 1133|Community 1133]]
-- [[_COMMUNITY_Community 1134|Community 1134]]
 - [[_COMMUNITY_Community 1135|Community 1135]]
-- [[_COMMUNITY_Community 1136|Community 1136]]
-- [[_COMMUNITY_Community 1137|Community 1137]]
-- [[_COMMUNITY_Community 1138|Community 1138]]
-- [[_COMMUNITY_Community 1139|Community 1139]]
 - [[_COMMUNITY_Community 1140|Community 1140]]
 - [[_COMMUNITY_Community 1141|Community 1141]]
-- [[_COMMUNITY_Community 1142|Community 1142]]
-- [[_COMMUNITY_Community 1143|Community 1143]]
-- [[_COMMUNITY_Community 1144|Community 1144]]
-- [[_COMMUNITY_Community 1145|Community 1145]]
-- [[_COMMUNITY_Community 1146|Community 1146]]
-- [[_COMMUNITY_Community 1147|Community 1147]]
-- [[_COMMUNITY_Community 1148|Community 1148]]
-- [[_COMMUNITY_Community 1149|Community 1149]]
 - [[_COMMUNITY_Community 1150|Community 1150]]
 - [[_COMMUNITY_Community 1151|Community 1151]]
-- [[_COMMUNITY_Community 1152|Community 1152]]
-- [[_COMMUNITY_Community 1153|Community 1153]]
-- [[_COMMUNITY_Community 1154|Community 1154]]
-- [[_COMMUNITY_Community 1155|Community 1155]]
-- [[_COMMUNITY_Community 1156|Community 1156]]
-- [[_COMMUNITY_Community 1157|Community 1157]]
-- [[_COMMUNITY_Community 1158|Community 1158]]
 - [[_COMMUNITY_Community 1159|Community 1159]]
-- [[_COMMUNITY_Community 1160|Community 1160]]
-- [[_COMMUNITY_Community 1161|Community 1161]]
 - [[_COMMUNITY_Community 1162|Community 1162]]
-- [[_COMMUNITY_Community 1163|Community 1163]]
-- [[_COMMUNITY_Community 1164|Community 1164]]
-- [[_COMMUNITY_Community 1165|Community 1165]]
-- [[_COMMUNITY_Community 1166|Community 1166]]
 - [[_COMMUNITY_Community 1167|Community 1167]]
 - [[_COMMUNITY_Community 1168|Community 1168]]
-- [[_COMMUNITY_Community 1169|Community 1169]]
-- [[_COMMUNITY_Community 1170|Community 1170]]
-- [[_COMMUNITY_Community 1171|Community 1171]]
-- [[_COMMUNITY_Community 1172|Community 1172]]
-- [[_COMMUNITY_Community 1173|Community 1173]]
-- [[_COMMUNITY_Community 1174|Community 1174]]
-- [[_COMMUNITY_Community 1175|Community 1175]]
 - [[_COMMUNITY_Community 1176|Community 1176]]
-- [[_COMMUNITY_Community 1177|Community 1177]]
-- [[_COMMUNITY_Community 1178|Community 1178]]
 - [[_COMMUNITY_Community 1179|Community 1179]]
 - [[_COMMUNITY_Community 1180|Community 1180]]
-- [[_COMMUNITY_Community 1181|Community 1181]]
-- [[_COMMUNITY_Community 1182|Community 1182]]
-- [[_COMMUNITY_Community 1183|Community 1183]]
-- [[_COMMUNITY_Community 1184|Community 1184]]
 - [[_COMMUNITY_Community 1185|Community 1185]]
 - [[_COMMUNITY_Community 1186|Community 1186]]
-- [[_COMMUNITY_Community 1187|Community 1187]]
-- [[_COMMUNITY_Community 1188|Community 1188]]
-- [[_COMMUNITY_Community 1189|Community 1189]]
-- [[_COMMUNITY_Community 1190|Community 1190]]
-- [[_COMMUNITY_Community 1191|Community 1191]]
-- [[_COMMUNITY_Community 1192|Community 1192]]
-- [[_COMMUNITY_Community 1193|Community 1193]]
 - [[_COMMUNITY_Community 1194|Community 1194]]
-- [[_COMMUNITY_Community 1195|Community 1195]]
-- [[_COMMUNITY_Community 1196|Community 1196]]
 - [[_COMMUNITY_Community 1197|Community 1197]]
 - [[_COMMUNITY_Community 1198|Community 1198]]
-- [[_COMMUNITY_Community 1199|Community 1199]]
-- [[_COMMUNITY_Community 1200|Community 1200]]
-- [[_COMMUNITY_Community 1201|Community 1201]]
-- [[_COMMUNITY_Community 1202|Community 1202]]
-- [[_COMMUNITY_Community 1203|Community 1203]]
-- [[_COMMUNITY_Community 1204|Community 1204]]
-- [[_COMMUNITY_Community 1205|Community 1205]]
-- [[_COMMUNITY_Community 1206|Community 1206]]
-- [[_COMMUNITY_Community 1207|Community 1207]]
-- [[_COMMUNITY_Community 1208|Community 1208]]
 - [[_COMMUNITY_Community 1209|Community 1209]]
 - [[_COMMUNITY_Community 1210|Community 1210]]
 - [[_COMMUNITY_Community 1211|Community 1211]]
 - [[_COMMUNITY_Community 1212|Community 1212]]
-- [[_COMMUNITY_Community 1213|Community 1213]]
-- [[_COMMUNITY_Community 1214|Community 1214]]
-- [[_COMMUNITY_Community 1215|Community 1215]]
-- [[_COMMUNITY_Community 1216|Community 1216]]
-- [[_COMMUNITY_Community 1217|Community 1217]]
-- [[_COMMUNITY_Community 1218|Community 1218]]
-- [[_COMMUNITY_Community 1219|Community 1219]]
-- [[_COMMUNITY_Community 1220|Community 1220]]
-- [[_COMMUNITY_Community 1221|Community 1221]]
-- [[_COMMUNITY_Community 1222|Community 1222]]
-- [[_COMMUNITY_Community 1223|Community 1223]]
-- [[_COMMUNITY_Community 1224|Community 1224]]
-- [[_COMMUNITY_Community 1225|Community 1225]]
-- [[_COMMUNITY_Community 1226|Community 1226]]
-- [[_COMMUNITY_Community 1227|Community 1227]]
-- [[_COMMUNITY_Community 1228|Community 1228]]
-- [[_COMMUNITY_Community 1229|Community 1229]]
-- [[_COMMUNITY_Community 1230|Community 1230]]
-- [[_COMMUNITY_Community 1231|Community 1231]]
-- [[_COMMUNITY_Community 1232|Community 1232]]
-- [[_COMMUNITY_Community 1233|Community 1233]]
-- [[_COMMUNITY_Community 1234|Community 1234]]
-- [[_COMMUNITY_Community 1235|Community 1235]]
-- [[_COMMUNITY_Community 1236|Community 1236]]
-- [[_COMMUNITY_Community 1237|Community 1237]]
 - [[_COMMUNITY_Community 1238|Community 1238]]
 - [[_COMMUNITY_Community 1239|Community 1239]]
 - [[_COMMUNITY_Community 1240|Community 1240]]
 - [[_COMMUNITY_Community 1241|Community 1241]]
-- [[_COMMUNITY_Community 1242|Community 1242]]
-- [[_COMMUNITY_Community 1243|Community 1243]]
-- [[_COMMUNITY_Community 1244|Community 1244]]
-- [[_COMMUNITY_Community 1245|Community 1245]]
-- [[_COMMUNITY_Community 1246|Community 1246]]
-- [[_COMMUNITY_Community 1247|Community 1247]]
-- [[_COMMUNITY_Community 1248|Community 1248]]
-- [[_COMMUNITY_Community 1249|Community 1249]]
 - [[_COMMUNITY_Community 1250|Community 1250]]
 - [[_COMMUNITY_Community 1251|Community 1251]]
 - [[_COMMUNITY_Community 1252|Community 1252]]
 - [[_COMMUNITY_Community 1253|Community 1253]]
 - [[_COMMUNITY_Community 1254|Community 1254]]
 - [[_COMMUNITY_Community 1255|Community 1255]]
-- [[_COMMUNITY_Community 1256|Community 1256]]
-- [[_COMMUNITY_Community 1257|Community 1257]]
-- [[_COMMUNITY_Community 1258|Community 1258]]
-- [[_COMMUNITY_Community 1259|Community 1259]]
-- [[_COMMUNITY_Community 1260|Community 1260]]
-- [[_COMMUNITY_Community 1261|Community 1261]]
-- [[_COMMUNITY_Community 1262|Community 1262]]
-- [[_COMMUNITY_Community 1263|Community 1263]]
-- [[_COMMUNITY_Community 1264|Community 1264]]
-- [[_COMMUNITY_Community 1265|Community 1265]]
-- [[_COMMUNITY_Community 1266|Community 1266]]
-- [[_COMMUNITY_Community 1267|Community 1267]]
 - [[_COMMUNITY_Community 1268|Community 1268]]
 - [[_COMMUNITY_Community 1269|Community 1269]]
 - [[_COMMUNITY_Community 1270|Community 1270]]
 - [[_COMMUNITY_Community 1271|Community 1271]]
-- [[_COMMUNITY_Community 1272|Community 1272]]
-- [[_COMMUNITY_Community 1273|Community 1273]]
-- [[_COMMUNITY_Community 1274|Community 1274]]
-- [[_COMMUNITY_Community 1275|Community 1275]]
-- [[_COMMUNITY_Community 1276|Community 1276]]
-- [[_COMMUNITY_Community 1277|Community 1277]]
-- [[_COMMUNITY_Community 1278|Community 1278]]
-- [[_COMMUNITY_Community 1279|Community 1279]]
-- [[_COMMUNITY_Community 1280|Community 1280]]
-- [[_COMMUNITY_Community 1281|Community 1281]]
-- [[_COMMUNITY_Community 1282|Community 1282]]
-- [[_COMMUNITY_Community 1283|Community 1283]]
 - [[_COMMUNITY_Community 1284|Community 1284]]
 - [[_COMMUNITY_Community 1285|Community 1285]]
-- [[_COMMUNITY_Community 1286|Community 1286]]
-- [[_COMMUNITY_Community 1287|Community 1287]]
-- [[_COMMUNITY_Community 1288|Community 1288]]
 - [[_COMMUNITY_Community 1289|Community 1289]]
 - [[_COMMUNITY_Community 1290|Community 1290]]
-- [[_COMMUNITY_Community 1291|Community 1291]]
-- [[_COMMUNITY_Community 1292|Community 1292]]
-- [[_COMMUNITY_Community 1293|Community 1293]]
-- [[_COMMUNITY_Community 1294|Community 1294]]
 - [[_COMMUNITY_Community 1295|Community 1295]]
 - [[_COMMUNITY_Community 1296|Community 1296]]
-- [[_COMMUNITY_Community 1297|Community 1297]]
-- [[_COMMUNITY_Community 1298|Community 1298]]
-- [[_COMMUNITY_Community 1299|Community 1299]]
-- [[_COMMUNITY_Community 1300|Community 1300]]
-- [[_COMMUNITY_Community 1301|Community 1301]]
-- [[_COMMUNITY_Community 1302|Community 1302]]
-- [[_COMMUNITY_Community 1303|Community 1303]]
 - [[_COMMUNITY_Community 1304|Community 1304]]
-- [[_COMMUNITY_Community 1305|Community 1305]]
-- [[_COMMUNITY_Community 1306|Community 1306]]
 - [[_COMMUNITY_Community 1307|Community 1307]]
-- [[_COMMUNITY_Community 1308|Community 1308]]
-- [[_COMMUNITY_Community 1309|Community 1309]]
 - [[_COMMUNITY_Community 1310|Community 1310]]
-- [[_COMMUNITY_Community 1311|Community 1311]]
-- [[_COMMUNITY_Community 1312|Community 1312]]
-- [[_COMMUNITY_Community 1313|Community 1313]]
-- [[_COMMUNITY_Community 1314|Community 1314]]
-- [[_COMMUNITY_Community 1315|Community 1315]]
 - [[_COMMUNITY_Community 1316|Community 1316]]
 - [[_COMMUNITY_Community 1317|Community 1317]]
-- [[_COMMUNITY_Community 1318|Community 1318]]
-- [[_COMMUNITY_Community 1319|Community 1319]]
-- [[_COMMUNITY_Community 1320|Community 1320]]
-- [[_COMMUNITY_Community 1321|Community 1321]]
-- [[_COMMUNITY_Community 1322|Community 1322]]
-- [[_COMMUNITY_Community 1323|Community 1323]]
-- [[_COMMUNITY_Community 1324|Community 1324]]
 - [[_COMMUNITY_Community 1325|Community 1325]]
-- [[_COMMUNITY_Community 1326|Community 1326]]
-- [[_COMMUNITY_Community 1327|Community 1327]]
 - [[_COMMUNITY_Community 1328|Community 1328]]
-- [[_COMMUNITY_Community 1329|Community 1329]]
 - [[_COMMUNITY_Community 1330|Community 1330]]
 - [[_COMMUNITY_Community 1331|Community 1331]]
-- [[_COMMUNITY_Community 1332|Community 1332]]
-- [[_COMMUNITY_Community 1333|Community 1333]]
-- [[_COMMUNITY_Community 1334|Community 1334]]
 - [[_COMMUNITY_Community 1335|Community 1335]]
-- [[_COMMUNITY_Community 1336|Community 1336]]
-- [[_COMMUNITY_Community 1337|Community 1337]]
-- [[_COMMUNITY_Community 1338|Community 1338]]
 - [[_COMMUNITY_Community 1339|Community 1339]]
 - [[_COMMUNITY_Community 1340|Community 1340]]
 - [[_COMMUNITY_Community 1341|Community 1341]]
 - [[_COMMUNITY_Community 1342|Community 1342]]
-- [[_COMMUNITY_Community 1343|Community 1343]]
-- [[_COMMUNITY_Community 1344|Community 1344]]
-- [[_COMMUNITY_Community 1345|Community 1345]]
-- [[_COMMUNITY_Community 1346|Community 1346]]
 - [[_COMMUNITY_Community 1347|Community 1347]]
 - [[_COMMUNITY_Community 1348|Community 1348]]
 - [[_COMMUNITY_Community 1349|Community 1349]]
-- [[_COMMUNITY_Community 1350|Community 1350]]
-- [[_COMMUNITY_Community 1351|Community 1351]]
-- [[_COMMUNITY_Community 1352|Community 1352]]
-- [[_COMMUNITY_Community 1353|Community 1353]]
-- [[_COMMUNITY_Community 1354|Community 1354]]
-- [[_COMMUNITY_Community 1355|Community 1355]]
-- [[_COMMUNITY_Community 1356|Community 1356]]
-- [[_COMMUNITY_Community 1357|Community 1357]]
-- [[_COMMUNITY_Community 1358|Community 1358]]
-- [[_COMMUNITY_Community 1359|Community 1359]]
-- [[_COMMUNITY_Community 1360|Community 1360]]
-- [[_COMMUNITY_Community 1361|Community 1361]]
-- [[_COMMUNITY_Community 1362|Community 1362]]
-- [[_COMMUNITY_Community 1363|Community 1363]]
 - [[_COMMUNITY_Community 1364|Community 1364]]
 - [[_COMMUNITY_Community 1365|Community 1365]]
-- [[_COMMUNITY_Community 1366|Community 1366]]
-- [[_COMMUNITY_Community 1367|Community 1367]]
-- [[_COMMUNITY_Community 1368|Community 1368]]
-- [[_COMMUNITY_Community 1369|Community 1369]]
 - [[_COMMUNITY_Community 1370|Community 1370]]
 - [[_COMMUNITY_Community 1371|Community 1371]]
-- [[_COMMUNITY_Community 1372|Community 1372]]
-- [[_COMMUNITY_Community 1373|Community 1373]]
-- [[_COMMUNITY_Community 1374|Community 1374]]
-- [[_COMMUNITY_Community 1375|Community 1375]]
 - [[_COMMUNITY_Community 1376|Community 1376]]
 - [[_COMMUNITY_Community 1377|Community 1377]]
-- [[_COMMUNITY_Community 1378|Community 1378]]
-- [[_COMMUNITY_Community 1379|Community 1379]]
-- [[_COMMUNITY_Community 1380|Community 1380]]
-- [[_COMMUNITY_Community 1381|Community 1381]]
-- [[_COMMUNITY_Community 1382|Community 1382]]
-- [[_COMMUNITY_Community 1383|Community 1383]]
-- [[_COMMUNITY_Community 1384|Community 1384]]
 - [[_COMMUNITY_Community 1385|Community 1385]]
-- [[_COMMUNITY_Community 1386|Community 1386]]
-- [[_COMMUNITY_Community 1387|Community 1387]]
 - [[_COMMUNITY_Community 1388|Community 1388]]
 - [[_COMMUNITY_Community 1389|Community 1389]]
-- [[_COMMUNITY_Community 1390|Community 1390]]
-- [[_COMMUNITY_Community 1391|Community 1391]]
-- [[_COMMUNITY_Community 1392|Community 1392]]
-- [[_COMMUNITY_Community 1393|Community 1393]]
 - [[_COMMUNITY_Community 1394|Community 1394]]
 - [[_COMMUNITY_Community 1395|Community 1395]]
-- [[_COMMUNITY_Community 1396|Community 1396]]
-- [[_COMMUNITY_Community 1397|Community 1397]]
-- [[_COMMUNITY_Community 1398|Community 1398]]
-- [[_COMMUNITY_Community 1399|Community 1399]]
-- [[_COMMUNITY_Community 1400|Community 1400]]
-- [[_COMMUNITY_Community 1401|Community 1401]]
-- [[_COMMUNITY_Community 1402|Community 1402]]
-- [[_COMMUNITY_Community 1403|Community 1403]]
-- [[_COMMUNITY_Community 1404|Community 1404]]
-- [[_COMMUNITY_Community 1405|Community 1405]]
-- [[_COMMUNITY_Community 1406|Community 1406]]
-- [[_COMMUNITY_Community 1407|Community 1407]]
-- [[_COMMUNITY_Community 1408|Community 1408]]
-- [[_COMMUNITY_Community 1409|Community 1409]]
-- [[_COMMUNITY_Community 1410|Community 1410]]
-- [[_COMMUNITY_Community 1411|Community 1411]]
-- [[_COMMUNITY_Community 1412|Community 1412]]
-- [[_COMMUNITY_Community 1413|Community 1413]]
-- [[_COMMUNITY_Community 1414|Community 1414]]
-- [[_COMMUNITY_Community 1415|Community 1415]]
 - [[_COMMUNITY_Community 1416|Community 1416]]
 - [[_COMMUNITY_Community 1417|Community 1417]]
 - [[_COMMUNITY_Community 1418|Community 1418]]
-- [[_COMMUNITY_Community 1419|Community 1419]]
-- [[_COMMUNITY_Community 1420|Community 1420]]
-- [[_COMMUNITY_Community 1421|Community 1421]]
-- [[_COMMUNITY_Community 1422|Community 1422]]
-- [[_COMMUNITY_Community 1423|Community 1423]]
-- [[_COMMUNITY_Community 1424|Community 1424]]
 - [[_COMMUNITY_Community 1425|Community 1425]]
 - [[_COMMUNITY_Community 1426|Community 1426]]
 - [[_COMMUNITY_Community 1427|Community 1427]]
-- [[_COMMUNITY_Community 1428|Community 1428]]
-- [[_COMMUNITY_Community 1429|Community 1429]]
-- [[_COMMUNITY_Community 1430|Community 1430]]
-- [[_COMMUNITY_Community 1431|Community 1431]]
-- [[_COMMUNITY_Community 1432|Community 1432]]
-- [[_COMMUNITY_Community 1433|Community 1433]]
-- [[_COMMUNITY_Community 1434|Community 1434]]
-- [[_COMMUNITY_Community 1435|Community 1435]]
-- [[_COMMUNITY_Community 1436|Community 1436]]
-- [[_COMMUNITY_Community 1437|Community 1437]]
-- [[_COMMUNITY_Community 1438|Community 1438]]
-- [[_COMMUNITY_Community 1439|Community 1439]]
 - [[_COMMUNITY_Community 1440|Community 1440]]
 - [[_COMMUNITY_Community 1441|Community 1441]]
 - [[_COMMUNITY_Community 1442|Community 1442]]
 - [[_COMMUNITY_Community 1443|Community 1443]]
 - [[_COMMUNITY_Community 1444|Community 1444]]
 - [[_COMMUNITY_Community 1445|Community 1445]]
-- [[_COMMUNITY_Community 1446|Community 1446]]
-- [[_COMMUNITY_Community 1447|Community 1447]]
-- [[_COMMUNITY_Community 1448|Community 1448]]
-- [[_COMMUNITY_Community 1449|Community 1449]]
-- [[_COMMUNITY_Community 1450|Community 1450]]
-- [[_COMMUNITY_Community 1451|Community 1451]]
-- [[_COMMUNITY_Community 1452|Community 1452]]
-- [[_COMMUNITY_Community 1453|Community 1453]]
-- [[_COMMUNITY_Community 1454|Community 1454]]
-- [[_COMMUNITY_Community 1455|Community 1455]]
-- [[_COMMUNITY_Community 1456|Community 1456]]
-- [[_COMMUNITY_Community 1457|Community 1457]]
-- [[_COMMUNITY_Community 1458|Community 1458]]
-- [[_COMMUNITY_Community 1459|Community 1459]]
-- [[_COMMUNITY_Community 1460|Community 1460]]
-- [[_COMMUNITY_Community 1461|Community 1461]]
-- [[_COMMUNITY_Community 1462|Community 1462]]
-- [[_COMMUNITY_Community 1463|Community 1463]]
-- [[_COMMUNITY_Community 1464|Community 1464]]
-- [[_COMMUNITY_Community 1465|Community 1465]]
-- [[_COMMUNITY_Community 1466|Community 1466]]
 - [[_COMMUNITY_Community 1467|Community 1467]]
 - [[_COMMUNITY_Community 1468|Community 1468]]
 - [[_COMMUNITY_Community 1469|Community 1469]]
-- [[_COMMUNITY_Community 1470|Community 1470]]
-- [[_COMMUNITY_Community 1471|Community 1471]]
-- [[_COMMUNITY_Community 1472|Community 1472]]
-- [[_COMMUNITY_Community 1473|Community 1473]]
-- [[_COMMUNITY_Community 1474|Community 1474]]
-- [[_COMMUNITY_Community 1475|Community 1475]]
-- [[_COMMUNITY_Community 1476|Community 1476]]
 - [[_COMMUNITY_Community 1477|Community 1477]]
 - [[_COMMUNITY_Community 1478|Community 1478]]
 - [[_COMMUNITY_Community 1479|Community 1479]]
 - [[_COMMUNITY_Community 1480|Community 1480]]
 - [[_COMMUNITY_Community 1481|Community 1481]]
-- [[_COMMUNITY_Community 1482|Community 1482]]
-- [[_COMMUNITY_Community 1483|Community 1483]]
-- [[_COMMUNITY_Community 1484|Community 1484]]
-- [[_COMMUNITY_Community 1485|Community 1485]]
-- [[_COMMUNITY_Community 1486|Community 1486]]
-- [[_COMMUNITY_Community 1487|Community 1487]]
-- [[_COMMUNITY_Community 1488|Community 1488]]
-- [[_COMMUNITY_Community 1489|Community 1489]]
-- [[_COMMUNITY_Community 1490|Community 1490]]
-- [[_COMMUNITY_Community 1491|Community 1491]]
-- [[_COMMUNITY_Community 1492|Community 1492]]
-- [[_COMMUNITY_Community 1493|Community 1493]]
-- [[_COMMUNITY_Community 1494|Community 1494]]
-- [[_COMMUNITY_Community 1495|Community 1495]]
 - [[_COMMUNITY_Community 1496|Community 1496]]
-- [[_COMMUNITY_Community 1497|Community 1497]]
-- [[_COMMUNITY_Community 1498|Community 1498]]
-- [[_COMMUNITY_Community 1499|Community 1499]]
-- [[_COMMUNITY_Community 1500|Community 1500]]
-- [[_COMMUNITY_Community 1501|Community 1501]]
-- [[_COMMUNITY_Community 1502|Community 1502]]
-- [[_COMMUNITY_Community 1503|Community 1503]]
-- [[_COMMUNITY_Community 1504|Community 1504]]
-- [[_COMMUNITY_Community 1505|Community 1505]]
 - [[_COMMUNITY_Community 1506|Community 1506]]
-- [[_COMMUNITY_Community 1507|Community 1507]]
 - [[_COMMUNITY_Community 1508|Community 1508]]
 - [[_COMMUNITY_Community 1509|Community 1509]]
 - [[_COMMUNITY_Community 1510|Community 1510]]
@@ -1420,75 +1041,20 @@
 - [[_COMMUNITY_Community 1512|Community 1512]]
 - [[_COMMUNITY_Community 1513|Community 1513]]
 - [[_COMMUNITY_Community 1514|Community 1514]]
-- [[_COMMUNITY_Community 1515|Community 1515]]
-- [[_COMMUNITY_Community 1516|Community 1516]]
-- [[_COMMUNITY_Community 1517|Community 1517]]
-- [[_COMMUNITY_Community 1518|Community 1518]]
-- [[_COMMUNITY_Community 1519|Community 1519]]
-- [[_COMMUNITY_Community 1520|Community 1520]]
 - [[_COMMUNITY_Community 1521|Community 1521]]
-- [[_COMMUNITY_Community 1522|Community 1522]]
-- [[_COMMUNITY_Community 1523|Community 1523]]
-- [[_COMMUNITY_Community 1524|Community 1524]]
-- [[_COMMUNITY_Community 1525|Community 1525]]
-- [[_COMMUNITY_Community 1526|Community 1526]]
-- [[_COMMUNITY_Community 1527|Community 1527]]
-- [[_COMMUNITY_Community 1528|Community 1528]]
-- [[_COMMUNITY_Community 1529|Community 1529]]
 - [[_COMMUNITY_Community 1530|Community 1530]]
-- [[_COMMUNITY_Community 1531|Community 1531]]
-- [[_COMMUNITY_Community 1532|Community 1532]]
-- [[_COMMUNITY_Community 1533|Community 1533]]
-- [[_COMMUNITY_Community 1534|Community 1534]]
-- [[_COMMUNITY_Community 1535|Community 1535]]
-- [[_COMMUNITY_Community 1536|Community 1536]]
-- [[_COMMUNITY_Community 1537|Community 1537]]
-- [[_COMMUNITY_Community 1538|Community 1538]]
-- [[_COMMUNITY_Community 1539|Community 1539]]
-- [[_COMMUNITY_Community 1540|Community 1540]]
-- [[_COMMUNITY_Community 1541|Community 1541]]
-- [[_COMMUNITY_Community 1542|Community 1542]]
-- [[_COMMUNITY_Community 1543|Community 1543]]
-- [[_COMMUNITY_Community 1544|Community 1544]]
 - [[_COMMUNITY_Community 1545|Community 1545]]
-- [[_COMMUNITY_Community 1546|Community 1546]]
-- [[_COMMUNITY_Community 1547|Community 1547]]
-- [[_COMMUNITY_Community 1548|Community 1548]]
 - [[_COMMUNITY_Community 1549|Community 1549]]
 - [[_COMMUNITY_Community 1550|Community 1550]]
 - [[_COMMUNITY_Community 1551|Community 1551]]
 - [[_COMMUNITY_Community 1552|Community 1552]]
 - [[_COMMUNITY_Community 1553|Community 1553]]
-- [[_COMMUNITY_Community 1554|Community 1554]]
-- [[_COMMUNITY_Community 1555|Community 1555]]
-- [[_COMMUNITY_Community 1556|Community 1556]]
-- [[_COMMUNITY_Community 1557|Community 1557]]
-- [[_COMMUNITY_Community 1558|Community 1558]]
-- [[_COMMUNITY_Community 1559|Community 1559]]
-- [[_COMMUNITY_Community 1560|Community 1560]]
-- [[_COMMUNITY_Community 1561|Community 1561]]
-- [[_COMMUNITY_Community 1562|Community 1562]]
-- [[_COMMUNITY_Community 1563|Community 1563]]
-- [[_COMMUNITY_Community 1564|Community 1564]]
-- [[_COMMUNITY_Community 1565|Community 1565]]
 - [[_COMMUNITY_Community 1566|Community 1566]]
 - [[_COMMUNITY_Community 1567|Community 1567]]
 - [[_COMMUNITY_Community 1568|Community 1568]]
 - [[_COMMUNITY_Community 1569|Community 1569]]
 - [[_COMMUNITY_Community 1570|Community 1570]]
 - [[_COMMUNITY_Community 1571|Community 1571]]
-- [[_COMMUNITY_Community 1572|Community 1572]]
-- [[_COMMUNITY_Community 1573|Community 1573]]
-- [[_COMMUNITY_Community 1574|Community 1574]]
-- [[_COMMUNITY_Community 1575|Community 1575]]
-- [[_COMMUNITY_Community 1576|Community 1576]]
-- [[_COMMUNITY_Community 1577|Community 1577]]
-- [[_COMMUNITY_Community 1578|Community 1578]]
-- [[_COMMUNITY_Community 1579|Community 1579]]
-- [[_COMMUNITY_Community 1580|Community 1580]]
-- [[_COMMUNITY_Community 1581|Community 1581]]
-- [[_COMMUNITY_Community 1582|Community 1582]]
-- [[_COMMUNITY_Community 1583|Community 1583]]
 - [[_COMMUNITY_Community 1584|Community 1584]]
 - [[_COMMUNITY_Community 1585|Community 1585]]
 - [[_COMMUNITY_Community 1586|Community 1586]]
@@ -1496,37 +1062,9 @@
 - [[_COMMUNITY_Community 1588|Community 1588]]
 - [[_COMMUNITY_Community 1589|Community 1589]]
 - [[_COMMUNITY_Community 1590|Community 1590]]
-- [[_COMMUNITY_Community 1591|Community 1591]]
-- [[_COMMUNITY_Community 1592|Community 1592]]
-- [[_COMMUNITY_Community 1593|Community 1593]]
-- [[_COMMUNITY_Community 1594|Community 1594]]
-- [[_COMMUNITY_Community 1595|Community 1595]]
-- [[_COMMUNITY_Community 1596|Community 1596]]
-- [[_COMMUNITY_Community 1597|Community 1597]]
-- [[_COMMUNITY_Community 1598|Community 1598]]
-- [[_COMMUNITY_Community 1599|Community 1599]]
-- [[_COMMUNITY_Community 1600|Community 1600]]
-- [[_COMMUNITY_Community 1601|Community 1601]]
-- [[_COMMUNITY_Community 1602|Community 1602]]
-- [[_COMMUNITY_Community 1603|Community 1603]]
-- [[_COMMUNITY_Community 1604|Community 1604]]
-- [[_COMMUNITY_Community 1605|Community 1605]]
-- [[_COMMUNITY_Community 1606|Community 1606]]
-- [[_COMMUNITY_Community 1607|Community 1607]]
-- [[_COMMUNITY_Community 1608|Community 1608]]
-- [[_COMMUNITY_Community 1609|Community 1609]]
-- [[_COMMUNITY_Community 1610|Community 1610]]
-- [[_COMMUNITY_Community 1611|Community 1611]]
 - [[_COMMUNITY_Community 1612|Community 1612]]
 - [[_COMMUNITY_Community 1613|Community 1613]]
 - [[_COMMUNITY_Community 1614|Community 1614]]
-- [[_COMMUNITY_Community 1615|Community 1615]]
-- [[_COMMUNITY_Community 1616|Community 1616]]
-- [[_COMMUNITY_Community 1617|Community 1617]]
-- [[_COMMUNITY_Community 1618|Community 1618]]
-- [[_COMMUNITY_Community 1619|Community 1619]]
-- [[_COMMUNITY_Community 1620|Community 1620]]
-- [[_COMMUNITY_Community 1621|Community 1621]]
 - [[_COMMUNITY_Community 1622|Community 1622]]
 - [[_COMMUNITY_Community 1623|Community 1623]]
 - [[_COMMUNITY_Community 1624|Community 1624]]
@@ -1535,36 +1073,10 @@
 - [[_COMMUNITY_Community 1627|Community 1627]]
 - [[_COMMUNITY_Community 1628|Community 1628]]
 - [[_COMMUNITY_Community 1629|Community 1629]]
-- [[_COMMUNITY_Community 1630|Community 1630]]
-- [[_COMMUNITY_Community 1631|Community 1631]]
-- [[_COMMUNITY_Community 1632|Community 1632]]
-- [[_COMMUNITY_Community 1633|Community 1633]]
 - [[_COMMUNITY_Community 1634|Community 1634]]
 - [[_COMMUNITY_Community 1635|Community 1635]]
-- [[_COMMUNITY_Community 1636|Community 1636]]
-- [[_COMMUNITY_Community 1637|Community 1637]]
-- [[_COMMUNITY_Community 1638|Community 1638]]
-- [[_COMMUNITY_Community 1639|Community 1639]]
-- [[_COMMUNITY_Community 1640|Community 1640]]
-- [[_COMMUNITY_Community 1641|Community 1641]]
-- [[_COMMUNITY_Community 1642|Community 1642]]
-- [[_COMMUNITY_Community 1643|Community 1643]]
-- [[_COMMUNITY_Community 1644|Community 1644]]
-- [[_COMMUNITY_Community 1645|Community 1645]]
-- [[_COMMUNITY_Community 1646|Community 1646]]
-- [[_COMMUNITY_Community 1647|Community 1647]]
-- [[_COMMUNITY_Community 1648|Community 1648]]
 - [[_COMMUNITY_Community 1649|Community 1649]]
-- [[_COMMUNITY_Community 1650|Community 1650]]
-- [[_COMMUNITY_Community 1651|Community 1651]]
-- [[_COMMUNITY_Community 1652|Community 1652]]
-- [[_COMMUNITY_Community 1653|Community 1653]]
-- [[_COMMUNITY_Community 1654|Community 1654]]
-- [[_COMMUNITY_Community 1655|Community 1655]]
-- [[_COMMUNITY_Community 1656|Community 1656]]
 - [[_COMMUNITY_Community 1657|Community 1657]]
-- [[_COMMUNITY_Community 1658|Community 1658]]
-- [[_COMMUNITY_Community 1659|Community 1659]]
 - [[_COMMUNITY_Community 1660|Community 1660]]
 - [[_COMMUNITY_Community 1661|Community 1661]]
 - [[_COMMUNITY_Community 1662|Community 1662]]
@@ -1575,34 +1087,11 @@
 - [[_COMMUNITY_Community 1667|Community 1667]]
 - [[_COMMUNITY_Community 1668|Community 1668]]
 - [[_COMMUNITY_Community 1669|Community 1669]]
-- [[_COMMUNITY_Community 1670|Community 1670]]
 - [[_COMMUNITY_Community 1671|Community 1671]]
-- [[_COMMUNITY_Community 1672|Community 1672]]
 - [[_COMMUNITY_Community 1673|Community 1673]]
-- [[_COMMUNITY_Community 1674|Community 1674]]
 - [[_COMMUNITY_Community 1675|Community 1675]]
-- [[_COMMUNITY_Community 1676|Community 1676]]
 - [[_COMMUNITY_Community 1677|Community 1677]]
-- [[_COMMUNITY_Community 1678|Community 1678]]
 - [[_COMMUNITY_Community 1679|Community 1679]]
-- [[_COMMUNITY_Community 1680|Community 1680]]
-- [[_COMMUNITY_Community 1681|Community 1681]]
-- [[_COMMUNITY_Community 1682|Community 1682]]
-- [[_COMMUNITY_Community 1683|Community 1683]]
-- [[_COMMUNITY_Community 1684|Community 1684]]
-- [[_COMMUNITY_Community 1685|Community 1685]]
-- [[_COMMUNITY_Community 1686|Community 1686]]
-- [[_COMMUNITY_Community 1687|Community 1687]]
-- [[_COMMUNITY_Community 1688|Community 1688]]
-- [[_COMMUNITY_Community 1689|Community 1689]]
-- [[_COMMUNITY_Community 1690|Community 1690]]
-- [[_COMMUNITY_Community 1691|Community 1691]]
-- [[_COMMUNITY_Community 1692|Community 1692]]
-- [[_COMMUNITY_Community 1693|Community 1693]]
-- [[_COMMUNITY_Community 1694|Community 1694]]
-- [[_COMMUNITY_Community 1695|Community 1695]]
-- [[_COMMUNITY_Community 1696|Community 1696]]
-- [[_COMMUNITY_Community 1697|Community 1697]]
 - [[_COMMUNITY_Community 1698|Community 1698]]
 - [[_COMMUNITY_Community 1699|Community 1699]]
 - [[_COMMUNITY_Community 1700|Community 1700]]
@@ -1613,89 +1102,18 @@
 - [[_COMMUNITY_Community 1705|Community 1705]]
 - [[_COMMUNITY_Community 1706|Community 1706]]
 - [[_COMMUNITY_Community 1707|Community 1707]]
-- [[_COMMUNITY_Community 1708|Community 1708]]
-- [[_COMMUNITY_Community 1709|Community 1709]]
-- [[_COMMUNITY_Community 1710|Community 1710]]
-- [[_COMMUNITY_Community 1711|Community 1711]]
-- [[_COMMUNITY_Community 1712|Community 1712]]
-- [[_COMMUNITY_Community 1713|Community 1713]]
-- [[_COMMUNITY_Community 1714|Community 1714]]
-- [[_COMMUNITY_Community 1715|Community 1715]]
-- [[_COMMUNITY_Community 1716|Community 1716]]
-- [[_COMMUNITY_Community 1717|Community 1717]]
-- [[_COMMUNITY_Community 1718|Community 1718]]
-- [[_COMMUNITY_Community 1719|Community 1719]]
-- [[_COMMUNITY_Community 1720|Community 1720]]
-- [[_COMMUNITY_Community 1721|Community 1721]]
-- [[_COMMUNITY_Community 1722|Community 1722]]
-- [[_COMMUNITY_Community 1723|Community 1723]]
-- [[_COMMUNITY_Community 1724|Community 1724]]
-- [[_COMMUNITY_Community 1725|Community 1725]]
-- [[_COMMUNITY_Community 1726|Community 1726]]
-- [[_COMMUNITY_Community 1727|Community 1727]]
-- [[_COMMUNITY_Community 1728|Community 1728]]
-- [[_COMMUNITY_Community 1729|Community 1729]]
-- [[_COMMUNITY_Community 1730|Community 1730]]
-- [[_COMMUNITY_Community 1731|Community 1731]]
-- [[_COMMUNITY_Community 1732|Community 1732]]
-- [[_COMMUNITY_Community 1733|Community 1733]]
-- [[_COMMUNITY_Community 1734|Community 1734]]
-- [[_COMMUNITY_Community 1735|Community 1735]]
-- [[_COMMUNITY_Community 1736|Community 1736]]
-- [[_COMMUNITY_Community 1737|Community 1737]]
-- [[_COMMUNITY_Community 1738|Community 1738]]
-- [[_COMMUNITY_Community 1739|Community 1739]]
-- [[_COMMUNITY_Community 1740|Community 1740]]
-- [[_COMMUNITY_Community 1741|Community 1741]]
-- [[_COMMUNITY_Community 1742|Community 1742]]
 - [[_COMMUNITY_Community 1743|Community 1743]]
 - [[_COMMUNITY_Community 1744|Community 1744]]
 - [[_COMMUNITY_Community 1745|Community 1745]]
 - [[_COMMUNITY_Community 1746|Community 1746]]
 - [[_COMMUNITY_Community 1747|Community 1747]]
-- [[_COMMUNITY_Community 1748|Community 1748]]
-- [[_COMMUNITY_Community 1749|Community 1749]]
-- [[_COMMUNITY_Community 1750|Community 1750]]
-- [[_COMMUNITY_Community 1751|Community 1751]]
-- [[_COMMUNITY_Community 1752|Community 1752]]
-- [[_COMMUNITY_Community 1753|Community 1753]]
-- [[_COMMUNITY_Community 1754|Community 1754]]
-- [[_COMMUNITY_Community 1755|Community 1755]]
-- [[_COMMUNITY_Community 1756|Community 1756]]
-- [[_COMMUNITY_Community 1757|Community 1757]]
 - [[_COMMUNITY_Community 1758|Community 1758]]
 - [[_COMMUNITY_Community 1759|Community 1759]]
 - [[_COMMUNITY_Community 1760|Community 1760]]
 - [[_COMMUNITY_Community 1761|Community 1761]]
-- [[_COMMUNITY_Community 1762|Community 1762]]
-- [[_COMMUNITY_Community 1763|Community 1763]]
-- [[_COMMUNITY_Community 1764|Community 1764]]
-- [[_COMMUNITY_Community 1765|Community 1765]]
-- [[_COMMUNITY_Community 1766|Community 1766]]
 - [[_COMMUNITY_Community 1767|Community 1767]]
-- [[_COMMUNITY_Community 1768|Community 1768]]
-- [[_COMMUNITY_Community 1769|Community 1769]]
-- [[_COMMUNITY_Community 1770|Community 1770]]
-- [[_COMMUNITY_Community 1771|Community 1771]]
-- [[_COMMUNITY_Community 1772|Community 1772]]
 - [[_COMMUNITY_Community 1773|Community 1773]]
-- [[_COMMUNITY_Community 1774|Community 1774]]
-- [[_COMMUNITY_Community 1775|Community 1775]]
-- [[_COMMUNITY_Community 1776|Community 1776]]
-- [[_COMMUNITY_Community 1777|Community 1777]]
-- [[_COMMUNITY_Community 1778|Community 1778]]
 - [[_COMMUNITY_Community 1779|Community 1779]]
-- [[_COMMUNITY_Community 1780|Community 1780]]
-- [[_COMMUNITY_Community 1781|Community 1781]]
-- [[_COMMUNITY_Community 1782|Community 1782]]
-- [[_COMMUNITY_Community 1783|Community 1783]]
-- [[_COMMUNITY_Community 1784|Community 1784]]
-- [[_COMMUNITY_Community 1785|Community 1785]]
-- [[_COMMUNITY_Community 1786|Community 1786]]
-- [[_COMMUNITY_Community 1787|Community 1787]]
-- [[_COMMUNITY_Community 1788|Community 1788]]
-- [[_COMMUNITY_Community 1789|Community 1789]]
-- [[_COMMUNITY_Community 1790|Community 1790]]
 - [[_COMMUNITY_Community 1791|Community 1791]]
 - [[_COMMUNITY_Community 1792|Community 1792]]
 - [[_COMMUNITY_Community 1793|Community 1793]]
@@ -1710,80 +1128,16 @@
 - [[_COMMUNITY_Community 1802|Community 1802]]
 - [[_COMMUNITY_Community 1803|Community 1803]]
 - [[_COMMUNITY_Community 1804|Community 1804]]
-- [[_COMMUNITY_Community 1805|Community 1805]]
-- [[_COMMUNITY_Community 1806|Community 1806]]
-- [[_COMMUNITY_Community 1807|Community 1807]]
-- [[_COMMUNITY_Community 1808|Community 1808]]
-- [[_COMMUNITY_Community 1809|Community 1809]]
-- [[_COMMUNITY_Community 1810|Community 1810]]
-- [[_COMMUNITY_Community 1811|Community 1811]]
-- [[_COMMUNITY_Community 1812|Community 1812]]
-- [[_COMMUNITY_Community 1813|Community 1813]]
 - [[_COMMUNITY_Community 1814|Community 1814]]
-- [[_COMMUNITY_Community 1815|Community 1815]]
-- [[_COMMUNITY_Community 1816|Community 1816]]
-- [[_COMMUNITY_Community 1817|Community 1817]]
-- [[_COMMUNITY_Community 1818|Community 1818]]
-- [[_COMMUNITY_Community 1819|Community 1819]]
-- [[_COMMUNITY_Community 1820|Community 1820]]
-- [[_COMMUNITY_Community 1821|Community 1821]]
-- [[_COMMUNITY_Community 1822|Community 1822]]
-- [[_COMMUNITY_Community 1823|Community 1823]]
-- [[_COMMUNITY_Community 1824|Community 1824]]
-- [[_COMMUNITY_Community 1825|Community 1825]]
-- [[_COMMUNITY_Community 1826|Community 1826]]
 - [[_COMMUNITY_Community 1827|Community 1827]]
-- [[_COMMUNITY_Community 1828|Community 1828]]
-- [[_COMMUNITY_Community 1829|Community 1829]]
-- [[_COMMUNITY_Community 1830|Community 1830]]
-- [[_COMMUNITY_Community 1831|Community 1831]]
-- [[_COMMUNITY_Community 1832|Community 1832]]
-- [[_COMMUNITY_Community 1833|Community 1833]]
-- [[_COMMUNITY_Community 1834|Community 1834]]
-- [[_COMMUNITY_Community 1835|Community 1835]]
-- [[_COMMUNITY_Community 1836|Community 1836]]
-- [[_COMMUNITY_Community 1837|Community 1837]]
-- [[_COMMUNITY_Community 1838|Community 1838]]
-- [[_COMMUNITY_Community 1839|Community 1839]]
-- [[_COMMUNITY_Community 1840|Community 1840]]
-- [[_COMMUNITY_Community 1841|Community 1841]]
-- [[_COMMUNITY_Community 1842|Community 1842]]
-- [[_COMMUNITY_Community 1843|Community 1843]]
-- [[_COMMUNITY_Community 1844|Community 1844]]
-- [[_COMMUNITY_Community 1845|Community 1845]]
-- [[_COMMUNITY_Community 1846|Community 1846]]
-- [[_COMMUNITY_Community 1847|Community 1847]]
-- [[_COMMUNITY_Community 1848|Community 1848]]
-- [[_COMMUNITY_Community 1849|Community 1849]]
-- [[_COMMUNITY_Community 1850|Community 1850]]
-- [[_COMMUNITY_Community 1851|Community 1851]]
-- [[_COMMUNITY_Community 1852|Community 1852]]
-- [[_COMMUNITY_Community 1853|Community 1853]]
-- [[_COMMUNITY_Community 1854|Community 1854]]
 - [[_COMMUNITY_Community 1855|Community 1855]]
 - [[_COMMUNITY_Community 1856|Community 1856]]
-- [[_COMMUNITY_Community 1857|Community 1857]]
 - [[_COMMUNITY_Community 1858|Community 1858]]
 - [[_COMMUNITY_Community 1859|Community 1859]]
 - [[_COMMUNITY_Community 1860|Community 1860]]
 - [[_COMMUNITY_Community 1861|Community 1861]]
 - [[_COMMUNITY_Community 1862|Community 1862]]
-- [[_COMMUNITY_Community 1863|Community 1863]]
-- [[_COMMUNITY_Community 1864|Community 1864]]
 - [[_COMMUNITY_Community 1865|Community 1865]]
-- [[_COMMUNITY_Community 1866|Community 1866]]
-- [[_COMMUNITY_Community 1867|Community 1867]]
-- [[_COMMUNITY_Community 1868|Community 1868]]
-- [[_COMMUNITY_Community 1869|Community 1869]]
-- [[_COMMUNITY_Community 1870|Community 1870]]
-- [[_COMMUNITY_Community 1871|Community 1871]]
-- [[_COMMUNITY_Community 1872|Community 1872]]
-- [[_COMMUNITY_Community 1873|Community 1873]]
-- [[_COMMUNITY_Community 1874|Community 1874]]
-- [[_COMMUNITY_Community 1875|Community 1875]]
-- [[_COMMUNITY_Community 1876|Community 1876]]
-- [[_COMMUNITY_Community 1877|Community 1877]]
-- [[_COMMUNITY_Community 1878|Community 1878]]
 - [[_COMMUNITY_Community 1879|Community 1879]]
 - [[_COMMUNITY_Community 1880|Community 1880]]
 - [[_COMMUNITY_Community 1881|Community 1881]]
@@ -1794,101 +1148,22 @@
 - [[_COMMUNITY_Community 1886|Community 1886]]
 - [[_COMMUNITY_Community 1887|Community 1887]]
 - [[_COMMUNITY_Community 1888|Community 1888]]
-- [[_COMMUNITY_Community 1889|Community 1889]]
-- [[_COMMUNITY_Community 1890|Community 1890]]
-- [[_COMMUNITY_Community 1891|Community 1891]]
-- [[_COMMUNITY_Community 1892|Community 1892]]
 - [[_COMMUNITY_Community 1893|Community 1893]]
 - [[_COMMUNITY_Community 1894|Community 1894]]
-- [[_COMMUNITY_Community 1895|Community 1895]]
-- [[_COMMUNITY_Community 1896|Community 1896]]
-- [[_COMMUNITY_Community 1897|Community 1897]]
-- [[_COMMUNITY_Community 1898|Community 1898]]
-- [[_COMMUNITY_Community 1899|Community 1899]]
-- [[_COMMUNITY_Community 1900|Community 1900]]
-- [[_COMMUNITY_Community 1901|Community 1901]]
 - [[_COMMUNITY_Community 1902|Community 1902]]
-- [[_COMMUNITY_Community 1903|Community 1903]]
-- [[_COMMUNITY_Community 1904|Community 1904]]
 - [[_COMMUNITY_Community 1905|Community 1905]]
-- [[_COMMUNITY_Community 1906|Community 1906]]
-- [[_COMMUNITY_Community 1907|Community 1907]]
-- [[_COMMUNITY_Community 1908|Community 1908]]
-- [[_COMMUNITY_Community 1909|Community 1909]]
-- [[_COMMUNITY_Community 1910|Community 1910]]
-- [[_COMMUNITY_Community 1911|Community 1911]]
-- [[_COMMUNITY_Community 1912|Community 1912]]
-- [[_COMMUNITY_Community 1913|Community 1913]]
-- [[_COMMUNITY_Community 1914|Community 1914]]
-- [[_COMMUNITY_Community 1915|Community 1915]]
-- [[_COMMUNITY_Community 1916|Community 1916]]
 - [[_COMMUNITY_Community 1917|Community 1917]]
-- [[_COMMUNITY_Community 1918|Community 1918]]
 - [[_COMMUNITY_Community 1919|Community 1919]]
 - [[_COMMUNITY_Community 1920|Community 1920]]
-- [[_COMMUNITY_Community 1921|Community 1921]]
-- [[_COMMUNITY_Community 1922|Community 1922]]
-- [[_COMMUNITY_Community 1923|Community 1923]]
-- [[_COMMUNITY_Community 1924|Community 1924]]
-- [[_COMMUNITY_Community 1925|Community 1925]]
-- [[_COMMUNITY_Community 1926|Community 1926]]
-- [[_COMMUNITY_Community 1927|Community 1927]]
-- [[_COMMUNITY_Community 1928|Community 1928]]
-- [[_COMMUNITY_Community 1929|Community 1929]]
-- [[_COMMUNITY_Community 1930|Community 1930]]
-- [[_COMMUNITY_Community 1931|Community 1931]]
-- [[_COMMUNITY_Community 1932|Community 1932]]
-- [[_COMMUNITY_Community 1933|Community 1933]]
-- [[_COMMUNITY_Community 1934|Community 1934]]
-- [[_COMMUNITY_Community 1935|Community 1935]]
-- [[_COMMUNITY_Community 1936|Community 1936]]
-- [[_COMMUNITY_Community 1937|Community 1937]]
-- [[_COMMUNITY_Community 1938|Community 1938]]
-- [[_COMMUNITY_Community 1939|Community 1939]]
-- [[_COMMUNITY_Community 1940|Community 1940]]
-- [[_COMMUNITY_Community 1941|Community 1941]]
-- [[_COMMUNITY_Community 1942|Community 1942]]
-- [[_COMMUNITY_Community 1943|Community 1943]]
-- [[_COMMUNITY_Community 1944|Community 1944]]
-- [[_COMMUNITY_Community 1945|Community 1945]]
-- [[_COMMUNITY_Community 1946|Community 1946]]
 - [[_COMMUNITY_Community 1947|Community 1947]]
 - [[_COMMUNITY_Community 1948|Community 1948]]
 - [[_COMMUNITY_Community 1949|Community 1949]]
-- [[_COMMUNITY_Community 1950|Community 1950]]
-- [[_COMMUNITY_Community 1951|Community 1951]]
-- [[_COMMUNITY_Community 1952|Community 1952]]
-- [[_COMMUNITY_Community 1953|Community 1953]]
-- [[_COMMUNITY_Community 1954|Community 1954]]
-- [[_COMMUNITY_Community 1955|Community 1955]]
-- [[_COMMUNITY_Community 1956|Community 1956]]
-- [[_COMMUNITY_Community 1957|Community 1957]]
-- [[_COMMUNITY_Community 1958|Community 1958]]
-- [[_COMMUNITY_Community 1959|Community 1959]]
-- [[_COMMUNITY_Community 1960|Community 1960]]
 - [[_COMMUNITY_Community 1961|Community 1961]]
 - [[_COMMUNITY_Community 1962|Community 1962]]
 - [[_COMMUNITY_Community 1963|Community 1963]]
 - [[_COMMUNITY_Community 1964|Community 1964]]
-- [[_COMMUNITY_Community 1965|Community 1965]]
 - [[_COMMUNITY_Community 1966|Community 1966]]
 - [[_COMMUNITY_Community 1967|Community 1967]]
-- [[_COMMUNITY_Community 1968|Community 1968]]
-- [[_COMMUNITY_Community 1969|Community 1969]]
-- [[_COMMUNITY_Community 1970|Community 1970]]
-- [[_COMMUNITY_Community 1971|Community 1971]]
-- [[_COMMUNITY_Community 1972|Community 1972]]
-- [[_COMMUNITY_Community 1973|Community 1973]]
-- [[_COMMUNITY_Community 1974|Community 1974]]
-- [[_COMMUNITY_Community 1975|Community 1975]]
-- [[_COMMUNITY_Community 1976|Community 1976]]
-- [[_COMMUNITY_Community 1977|Community 1977]]
-- [[_COMMUNITY_Community 1978|Community 1978]]
-- [[_COMMUNITY_Community 1979|Community 1979]]
-- [[_COMMUNITY_Community 1980|Community 1980]]
-- [[_COMMUNITY_Community 1981|Community 1981]]
-- [[_COMMUNITY_Community 1982|Community 1982]]
-- [[_COMMUNITY_Community 1983|Community 1983]]
 - [[_COMMUNITY_Community 1984|Community 1984]]
 - [[_COMMUNITY_Community 1985|Community 1985]]
 - [[_COMMUNITY_Community 1986|Community 1986]]
@@ -1897,43 +1172,9 @@
 - [[_COMMUNITY_Community 1989|Community 1989]]
 - [[_COMMUNITY_Community 1990|Community 1990]]
 - [[_COMMUNITY_Community 1991|Community 1991]]
-- [[_COMMUNITY_Community 1992|Community 1992]]
-- [[_COMMUNITY_Community 1993|Community 1993]]
-- [[_COMMUNITY_Community 1994|Community 1994]]
-- [[_COMMUNITY_Community 1995|Community 1995]]
-- [[_COMMUNITY_Community 1996|Community 1996]]
-- [[_COMMUNITY_Community 1997|Community 1997]]
-- [[_COMMUNITY_Community 1998|Community 1998]]
-- [[_COMMUNITY_Community 1999|Community 1999]]
-- [[_COMMUNITY_Community 2000|Community 2000]]
-- [[_COMMUNITY_Community 2001|Community 2001]]
-- [[_COMMUNITY_Community 2002|Community 2002]]
-- [[_COMMUNITY_Community 2003|Community 2003]]
-- [[_COMMUNITY_Community 2004|Community 2004]]
-- [[_COMMUNITY_Community 2005|Community 2005]]
-- [[_COMMUNITY_Community 2006|Community 2006]]
-- [[_COMMUNITY_Community 2007|Community 2007]]
-- [[_COMMUNITY_Community 2008|Community 2008]]
-- [[_COMMUNITY_Community 2009|Community 2009]]
-- [[_COMMUNITY_Community 2010|Community 2010]]
-- [[_COMMUNITY_Community 2011|Community 2011]]
-- [[_COMMUNITY_Community 2012|Community 2012]]
-- [[_COMMUNITY_Community 2013|Community 2013]]
-- [[_COMMUNITY_Community 2014|Community 2014]]
-- [[_COMMUNITY_Community 2015|Community 2015]]
-- [[_COMMUNITY_Community 2016|Community 2016]]
-- [[_COMMUNITY_Community 2017|Community 2017]]
 - [[_COMMUNITY_Community 2018|Community 2018]]
 - [[_COMMUNITY_Community 2019|Community 2019]]
 - [[_COMMUNITY_Community 2020|Community 2020]]
-- [[_COMMUNITY_Community 2021|Community 2021]]
-- [[_COMMUNITY_Community 2022|Community 2022]]
-- [[_COMMUNITY_Community 2023|Community 2023]]
-- [[_COMMUNITY_Community 2024|Community 2024]]
-- [[_COMMUNITY_Community 2025|Community 2025]]
-- [[_COMMUNITY_Community 2026|Community 2026]]
-- [[_COMMUNITY_Community 2027|Community 2027]]
-- [[_COMMUNITY_Community 2028|Community 2028]]
 - [[_COMMUNITY_Community 2029|Community 2029]]
 - [[_COMMUNITY_Community 2030|Community 2030]]
 - [[_COMMUNITY_Community 2031|Community 2031]]
@@ -1942,26 +1183,9 @@
 - [[_COMMUNITY_Community 2034|Community 2034]]
 - [[_COMMUNITY_Community 2035|Community 2035]]
 - [[_COMMUNITY_Community 2036|Community 2036]]
-- [[_COMMUNITY_Community 2037|Community 2037]]
-- [[_COMMUNITY_Community 2038|Community 2038]]
-- [[_COMMUNITY_Community 2039|Community 2039]]
-- [[_COMMUNITY_Community 2040|Community 2040]]
-- [[_COMMUNITY_Community 2041|Community 2041]]
-- [[_COMMUNITY_Community 2043|Community 2043]]
 - [[_COMMUNITY_Community 2045|Community 2045]]
-- [[_COMMUNITY_Community 2046|Community 2046]]
-- [[_COMMUNITY_Community 2047|Community 2047]]
-- [[_COMMUNITY_Community 2049|Community 2049]]
-- [[_COMMUNITY_Community 2051|Community 2051]]
 - [[_COMMUNITY_Community 2052|Community 2052]]
-- [[_COMMUNITY_Community 2053|Community 2053]]
-- [[_COMMUNITY_Community 2054|Community 2054]]
-- [[_COMMUNITY_Community 2056|Community 2056]]
-- [[_COMMUNITY_Community 2058|Community 2058]]
 - [[_COMMUNITY_Community 2059|Community 2059]]
-- [[_COMMUNITY_Community 2060|Community 2060]]
-- [[_COMMUNITY_Community 2061|Community 2061]]
-- [[_COMMUNITY_Community 2063|Community 2063]]
 - [[_COMMUNITY_Community 2065|Community 2065]]
 - [[_COMMUNITY_Community 2066|Community 2066]]
 - [[_COMMUNITY_Community 2067|Community 2067]]
@@ -1969,328 +1193,102 @@
 - [[_COMMUNITY_Community 2071|Community 2071]]
 - [[_COMMUNITY_Community 2072|Community 2072]]
 - [[_COMMUNITY_Community 2074|Community 2074]]
-- [[_COMMUNITY_Community 2076|Community 2076]]
-- [[_COMMUNITY_Community 2077|Community 2077]]
-- [[_COMMUNITY_Community 2078|Community 2078]]
-- [[_COMMUNITY_Community 2079|Community 2079]]
-- [[_COMMUNITY_Community 2081|Community 2081]]
 - [[_COMMUNITY_Community 2083|Community 2083]]
 - [[_COMMUNITY_Community 2084|Community 2084]]
-- [[_COMMUNITY_Community 2085|Community 2085]]
-- [[_COMMUNITY_Community 2086|Community 2086]]
-- [[_COMMUNITY_Community 2088|Community 2088]]
-- [[_COMMUNITY_Community 2090|Community 2090]]
-- [[_COMMUNITY_Community 2091|Community 2091]]
-- [[_COMMUNITY_Community 2093|Community 2093]]
-- [[_COMMUNITY_Community 2095|Community 2095]]
-- [[_COMMUNITY_Community 2096|Community 2096]]
-- [[_COMMUNITY_Community 2097|Community 2097]]
-- [[_COMMUNITY_Community 2098|Community 2098]]
-- [[_COMMUNITY_Community 2100|Community 2100]]
-- [[_COMMUNITY_Community 2102|Community 2102]]
-- [[_COMMUNITY_Community 2103|Community 2103]]
-- [[_COMMUNITY_Community 2104|Community 2104]]
-- [[_COMMUNITY_Community 2106|Community 2106]]
-- [[_COMMUNITY_Community 2108|Community 2108]]
-- [[_COMMUNITY_Community 2109|Community 2109]]
-- [[_COMMUNITY_Community 2110|Community 2110]]
-- [[_COMMUNITY_Community 2111|Community 2111]]
-- [[_COMMUNITY_Community 2112|Community 2112]]
-- [[_COMMUNITY_Community 2114|Community 2114]]
-- [[_COMMUNITY_Community 2116|Community 2116]]
-- [[_COMMUNITY_Community 2117|Community 2117]]
 - [[_COMMUNITY_Community 2118|Community 2118]]
-- [[_COMMUNITY_Community 2119|Community 2119]]
-- [[_COMMUNITY_Community 2120|Community 2120]]
-- [[_COMMUNITY_Community 2122|Community 2122]]
 - [[_COMMUNITY_Community 2124|Community 2124]]
 - [[_COMMUNITY_Community 2125|Community 2125]]
 - [[_COMMUNITY_Community 2126|Community 2126]]
 - [[_COMMUNITY_Community 2127|Community 2127]]
 - [[_COMMUNITY_Community 2128|Community 2128]]
 - [[_COMMUNITY_Community 2130|Community 2130]]
-- [[_COMMUNITY_Community 2132|Community 2132]]
-- [[_COMMUNITY_Community 2133|Community 2133]]
 - [[_COMMUNITY_Community 2134|Community 2134]]
-- [[_COMMUNITY_Community 2135|Community 2135]]
-- [[_COMMUNITY_Community 2136|Community 2136]]
-- [[_COMMUNITY_Community 2138|Community 2138]]
-- [[_COMMUNITY_Community 2140|Community 2140]]
-- [[_COMMUNITY_Community 2141|Community 2141]]
-- [[_COMMUNITY_Community 2142|Community 2142]]
-- [[_COMMUNITY_Community 2143|Community 2143]]
-- [[_COMMUNITY_Community 2144|Community 2144]]
-- [[_COMMUNITY_Community 2146|Community 2146]]
 - [[_COMMUNITY_Community 2148|Community 2148]]
 - [[_COMMUNITY_Community 2149|Community 2149]]
 - [[_COMMUNITY_Community 2150|Community 2150]]
-- [[_COMMUNITY_Community 2151|Community 2151]]
 - [[_COMMUNITY_Community 2152|Community 2152]]
 - [[_COMMUNITY_Community 2153|Community 2153]]
 - [[_COMMUNITY_Community 2155|Community 2155]]
 - [[_COMMUNITY_Community 2157|Community 2157]]
-- [[_COMMUNITY_Community 2158|Community 2158]]
-- [[_COMMUNITY_Community 2159|Community 2159]]
-- [[_COMMUNITY_Community 2160|Community 2160]]
 - [[_COMMUNITY_Community 2161|Community 2161]]
-- [[_COMMUNITY_Community 2162|Community 2162]]
-- [[_COMMUNITY_Community 2163|Community 2163]]
 - [[_COMMUNITY_Community 2164|Community 2164]]
-- [[_COMMUNITY_Community 2165|Community 2165]]
-- [[_COMMUNITY_Community 2166|Community 2166]]
-- [[_COMMUNITY_Community 2167|Community 2167]]
 - [[_COMMUNITY_Community 2168|Community 2168]]
 - [[_COMMUNITY_Community 2169|Community 2169]]
 - [[_COMMUNITY_Community 2170|Community 2170]]
-- [[_COMMUNITY_Community 2171|Community 2171]]
 - [[_COMMUNITY_Community 2172|Community 2172]]
-- [[_COMMUNITY_Community 2173|Community 2173]]
 - [[_COMMUNITY_Community 2174|Community 2174]]
 - [[_COMMUNITY_Community 2175|Community 2175]]
 - [[_COMMUNITY_Community 2176|Community 2176]]
 - [[_COMMUNITY_Community 2177|Community 2177]]
-- [[_COMMUNITY_Community 2178|Community 2178]]
-- [[_COMMUNITY_Community 2179|Community 2179]]
-- [[_COMMUNITY_Community 2180|Community 2180]]
-- [[_COMMUNITY_Community 2181|Community 2181]]
-- [[_COMMUNITY_Community 2183|Community 2183]]
-- [[_COMMUNITY_Community 2184|Community 2184]]
-- [[_COMMUNITY_Community 2185|Community 2185]]
 - [[_COMMUNITY_Community 2186|Community 2186]]
 - [[_COMMUNITY_Community 2187|Community 2187]]
-- [[_COMMUNITY_Community 2188|Community 2188]]
-- [[_COMMUNITY_Community 2189|Community 2189]]
-- [[_COMMUNITY_Community 2190|Community 2190]]
-- [[_COMMUNITY_Community 2191|Community 2191]]
-- [[_COMMUNITY_Community 2192|Community 2192]]
-- [[_COMMUNITY_Community 2193|Community 2193]]
-- [[_COMMUNITY_Community 2195|Community 2195]]
 - [[_COMMUNITY_Community 2196|Community 2196]]
-- [[_COMMUNITY_Community 2197|Community 2197]]
-- [[_COMMUNITY_Community 2198|Community 2198]]
 - [[_COMMUNITY_Community 2199|Community 2199]]
 - [[_COMMUNITY_Community 2200|Community 2200]]
 - [[_COMMUNITY_Community 2201|Community 2201]]
 - [[_COMMUNITY_Community 2202|Community 2202]]
 - [[_COMMUNITY_Community 2203|Community 2203]]
-- [[_COMMUNITY_Community 2204|Community 2204]]
-- [[_COMMUNITY_Community 2206|Community 2206]]
 - [[_COMMUNITY_Community 2207|Community 2207]]
 - [[_COMMUNITY_Community 2208|Community 2208]]
-- [[_COMMUNITY_Community 2209|Community 2209]]
-- [[_COMMUNITY_Community 2210|Community 2210]]
-- [[_COMMUNITY_Community 2211|Community 2211]]
-- [[_COMMUNITY_Community 2212|Community 2212]]
-- [[_COMMUNITY_Community 2213|Community 2213]]
-- [[_COMMUNITY_Community 2214|Community 2214]]
 - [[_COMMUNITY_Community 2215|Community 2215]]
 - [[_COMMUNITY_Community 2217|Community 2217]]
-- [[_COMMUNITY_Community 2218|Community 2218]]
-- [[_COMMUNITY_Community 2219|Community 2219]]
-- [[_COMMUNITY_Community 2220|Community 2220]]
-- [[_COMMUNITY_Community 2221|Community 2221]]
-- [[_COMMUNITY_Community 2222|Community 2222]]
-- [[_COMMUNITY_Community 2223|Community 2223]]
 - [[_COMMUNITY_Community 2224|Community 2224]]
-- [[_COMMUNITY_Community 2225|Community 2225]]
-- [[_COMMUNITY_Community 2226|Community 2226]]
-- [[_COMMUNITY_Community 2227|Community 2227]]
 - [[_COMMUNITY_Community 2229|Community 2229]]
-- [[_COMMUNITY_Community 2231|Community 2231]]
-- [[_COMMUNITY_Community 2232|Community 2232]]
-- [[_COMMUNITY_Community 2233|Community 2233]]
-- [[_COMMUNITY_Community 2234|Community 2234]]
-- [[_COMMUNITY_Community 2235|Community 2235]]
-- [[_COMMUNITY_Community 2236|Community 2236]]
-- [[_COMMUNITY_Community 2237|Community 2237]]
-- [[_COMMUNITY_Community 2238|Community 2238]]
 - [[_COMMUNITY_Community 2239|Community 2239]]
-- [[_COMMUNITY_Community 2240|Community 2240]]
-- [[_COMMUNITY_Community 2242|Community 2242]]
-- [[_COMMUNITY_Community 2243|Community 2243]]
-- [[_COMMUNITY_Community 2244|Community 2244]]
-- [[_COMMUNITY_Community 2245|Community 2245]]
 - [[_COMMUNITY_Community 2246|Community 2246]]
 - [[_COMMUNITY_Community 2247|Community 2247]]
 - [[_COMMUNITY_Community 2248|Community 2248]]
-- [[_COMMUNITY_Community 2249|Community 2249]]
-- [[_COMMUNITY_Community 2250|Community 2250]]
-- [[_COMMUNITY_Community 2251|Community 2251]]
-- [[_COMMUNITY_Community 2252|Community 2252]]
-- [[_COMMUNITY_Community 2254|Community 2254]]
-- [[_COMMUNITY_Community 2256|Community 2256]]
 - [[_COMMUNITY_Community 2257|Community 2257]]
 - [[_COMMUNITY_Community 2258|Community 2258]]
 - [[_COMMUNITY_Community 2259|Community 2259]]
 - [[_COMMUNITY_Community 2260|Community 2260]]
-- [[_COMMUNITY_Community 2261|Community 2261]]
-- [[_COMMUNITY_Community 2262|Community 2262]]
-- [[_COMMUNITY_Community 2263|Community 2263]]
-- [[_COMMUNITY_Community 2264|Community 2264]]
-- [[_COMMUNITY_Community 2265|Community 2265]]
-- [[_COMMUNITY_Community 2267|Community 2267]]
-- [[_COMMUNITY_Community 2268|Community 2268]]
-- [[_COMMUNITY_Community 2269|Community 2269]]
-- [[_COMMUNITY_Community 2270|Community 2270]]
 - [[_COMMUNITY_Community 2271|Community 2271]]
 - [[_COMMUNITY_Community 2272|Community 2272]]
-- [[_COMMUNITY_Community 2273|Community 2273]]
-- [[_COMMUNITY_Community 2274|Community 2274]]
-- [[_COMMUNITY_Community 2275|Community 2275]]
-- [[_COMMUNITY_Community 2276|Community 2276]]
 - [[_COMMUNITY_Community 2277|Community 2277]]
-- [[_COMMUNITY_Community 2278|Community 2278]]
-- [[_COMMUNITY_Community 2279|Community 2279]]
-- [[_COMMUNITY_Community 2281|Community 2281]]
-- [[_COMMUNITY_Community 2282|Community 2282]]
-- [[_COMMUNITY_Community 2283|Community 2283]]
-- [[_COMMUNITY_Community 2284|Community 2284]]
-- [[_COMMUNITY_Community 2285|Community 2285]]
-- [[_COMMUNITY_Community 2286|Community 2286]]
-- [[_COMMUNITY_Community 2287|Community 2287]]
-- [[_COMMUNITY_Community 2288|Community 2288]]
-- [[_COMMUNITY_Community 2289|Community 2289]]
-- [[_COMMUNITY_Community 2290|Community 2290]]
-- [[_COMMUNITY_Community 2291|Community 2291]]
-- [[_COMMUNITY_Community 2293|Community 2293]]
 - [[_COMMUNITY_Community 2294|Community 2294]]
 - [[_COMMUNITY_Community 2295|Community 2295]]
-- [[_COMMUNITY_Community 2296|Community 2296]]
-- [[_COMMUNITY_Community 2297|Community 2297]]
-- [[_COMMUNITY_Community 2298|Community 2298]]
-- [[_COMMUNITY_Community 2299|Community 2299]]
-- [[_COMMUNITY_Community 2300|Community 2300]]
 - [[_COMMUNITY_Community 2301|Community 2301]]
-- [[_COMMUNITY_Community 2302|Community 2302]]
 - [[_COMMUNITY_Community 2304|Community 2304]]
-- [[_COMMUNITY_Community 2305|Community 2305]]
-- [[_COMMUNITY_Community 2306|Community 2306]]
 - [[_COMMUNITY_Community 2307|Community 2307]]
-- [[_COMMUNITY_Community 2308|Community 2308]]
-- [[_COMMUNITY_Community 2309|Community 2309]]
 - [[_COMMUNITY_Community 2310|Community 2310]]
 - [[_COMMUNITY_Community 2311|Community 2311]]
-- [[_COMMUNITY_Community 2312|Community 2312]]
-- [[_COMMUNITY_Community 2313|Community 2313]]
-- [[_COMMUNITY_Community 2315|Community 2315]]
-- [[_COMMUNITY_Community 2316|Community 2316]]
-- [[_COMMUNITY_Community 2317|Community 2317]]
 - [[_COMMUNITY_Community 2318|Community 2318]]
-- [[_COMMUNITY_Community 2319|Community 2319]]
-- [[_COMMUNITY_Community 2320|Community 2320]]
-- [[_COMMUNITY_Community 2321|Community 2321]]
-- [[_COMMUNITY_Community 2322|Community 2322]]
 - [[_COMMUNITY_Community 2323|Community 2323]]
-- [[_COMMUNITY_Community 2324|Community 2324]]
-- [[_COMMUNITY_Community 2325|Community 2325]]
-- [[_COMMUNITY_Community 2327|Community 2327]]
-- [[_COMMUNITY_Community 2328|Community 2328]]
-- [[_COMMUNITY_Community 2329|Community 2329]]
-- [[_COMMUNITY_Community 2330|Community 2330]]
-- [[_COMMUNITY_Community 2331|Community 2331]]
-- [[_COMMUNITY_Community 2332|Community 2332]]
-- [[_COMMUNITY_Community 2333|Community 2333]]
 - [[_COMMUNITY_Community 2334|Community 2334]]
-- [[_COMMUNITY_Community 2335|Community 2335]]
-- [[_COMMUNITY_Community 2336|Community 2336]]
-- [[_COMMUNITY_Community 2337|Community 2337]]
 - [[_COMMUNITY_Community 2339|Community 2339]]
 - [[_COMMUNITY_Community 2340|Community 2340]]
-- [[_COMMUNITY_Community 2341|Community 2341]]
-- [[_COMMUNITY_Community 2342|Community 2342]]
-- [[_COMMUNITY_Community 2343|Community 2343]]
-- [[_COMMUNITY_Community 2344|Community 2344]]
-- [[_COMMUNITY_Community 2345|Community 2345]]
-- [[_COMMUNITY_Community 2346|Community 2346]]
-- [[_COMMUNITY_Community 2347|Community 2347]]
-- [[_COMMUNITY_Community 2348|Community 2348]]
 - [[_COMMUNITY_Community 2349|Community 2349]]
 - [[_COMMUNITY_Community 2351|Community 2351]]
-- [[_COMMUNITY_Community 2352|Community 2352]]
-- [[_COMMUNITY_Community 2353|Community 2353]]
 - [[_COMMUNITY_Community 2440|Community 2440]]
 - [[_COMMUNITY_Community 2441|Community 2441]]
 - [[_COMMUNITY_Community 2442|Community 2442]]
 - [[_COMMUNITY_Community 2443|Community 2443]]
 - [[_COMMUNITY_Community 2444|Community 2444]]
-- [[_COMMUNITY_Community 2445|Community 2445]]
-- [[_COMMUNITY_Community 2446|Community 2446]]
-- [[_COMMUNITY_Community 2447|Community 2447]]
-- [[_COMMUNITY_Community 2448|Community 2448]]
-- [[_COMMUNITY_Community 2449|Community 2449]]
-- [[_COMMUNITY_Community 2455|Community 2455]]
-- [[_COMMUNITY_Community 2456|Community 2456]]
-- [[_COMMUNITY_Community 2457|Community 2457]]
-- [[_COMMUNITY_Community 2458|Community 2458]]
-- [[_COMMUNITY_Community 2459|Community 2459]]
-- [[_COMMUNITY_Community 2460|Community 2460]]
-- [[_COMMUNITY_Community 2461|Community 2461]]
-- [[_COMMUNITY_Community 2462|Community 2462]]
-- [[_COMMUNITY_Community 2463|Community 2463]]
-- [[_COMMUNITY_Community 2464|Community 2464]]
-- [[_COMMUNITY_Community 2469|Community 2469]]
-- [[_COMMUNITY_Community 2470|Community 2470]]
-- [[_COMMUNITY_Community 2471|Community 2471]]
-- [[_COMMUNITY_Community 2472|Community 2472]]
-- [[_COMMUNITY_Community 2473|Community 2473]]
-- [[_COMMUNITY_Community 2474|Community 2474]]
-- [[_COMMUNITY_Community 2475|Community 2475]]
-- [[_COMMUNITY_Community 2476|Community 2476]]
-- [[_COMMUNITY_Community 2477|Community 2477]]
-- [[_COMMUNITY_Community 2478|Community 2478]]
-- [[_COMMUNITY_Community 2479|Community 2479]]
 - [[_COMMUNITY_Community 2480|Community 2480]]
 - [[_COMMUNITY_Community 2481|Community 2481]]
 - [[_COMMUNITY_Community 2482|Community 2482]]
 - [[_COMMUNITY_Community 2483|Community 2483]]
 - [[_COMMUNITY_Community 2484|Community 2484]]
-- [[_COMMUNITY_Community 2485|Community 2485]]
-- [[_COMMUNITY_Community 2488|Community 2488]]
-- [[_COMMUNITY_Community 2491|Community 2491]]
-- [[_COMMUNITY_Community 2492|Community 2492]]
 - [[_COMMUNITY_Community 2493|Community 2493]]
-- [[_COMMUNITY_Community 2494|Community 2494]]
 - [[_COMMUNITY_Community 2495|Community 2495]]
 - [[_COMMUNITY_Community 2496|Community 2496]]
 - [[_COMMUNITY_Community 2497|Community 2497]]
-- [[_COMMUNITY_Community 2498|Community 2498]]
 - [[_COMMUNITY_Community 2499|Community 2499]]
-- [[_COMMUNITY_Community 2500|Community 2500]]
-- [[_COMMUNITY_Community 2501|Community 2501]]
-- [[_COMMUNITY_Community 2502|Community 2502]]
-- [[_COMMUNITY_Community 2503|Community 2503]]
-- [[_COMMUNITY_Community 2504|Community 2504]]
-- [[_COMMUNITY_Community 2505|Community 2505]]
-- [[_COMMUNITY_Community 2506|Community 2506]]
-- [[_COMMUNITY_Community 2507|Community 2507]]
-- [[_COMMUNITY_Community 2508|Community 2508]]
-- [[_COMMUNITY_Community 2510|Community 2510]]
-- [[_COMMUNITY_Community 2511|Community 2511]]
-- [[_COMMUNITY_Community 2512|Community 2512]]
-- [[_COMMUNITY_Community 2514|Community 2514]]
-- [[_COMMUNITY_Community 2515|Community 2515]]
-- [[_COMMUNITY_Community 2516|Community 2516]]
-- [[_COMMUNITY_Community 2517|Community 2517]]
-- [[_COMMUNITY_Community 2518|Community 2518]]
-- [[_COMMUNITY_Community 2519|Community 2519]]
-- [[_COMMUNITY_Community 2520|Community 2520]]
 - [[_COMMUNITY_Community 2525|Community 2525]]
-- [[_COMMUNITY_Community 2526|Community 2526]]
-- [[_COMMUNITY_Community 2527|Community 2527]]
 - [[_COMMUNITY_Community 2528|Community 2528]]
 - [[_COMMUNITY_Community 2529|Community 2529]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `ChatProvider` - 110 edges
-2. `$()` - 72 edges
-3. `$()` - 59 edges
-4. `$()` - 59 edges
+1. `Plan` - 130 edges
+2. `get_connection()` - 86 edges
+3. `$()` - 68 edges
+4. `$()` - 68 edges
 5. `$()` - 59 edges
 6. `$()` - 59 edges
-7. `$()` - 59 edges
-8. `$()` - 59 edges
-9. `$()` - 59 edges
-10. `$()` - 59 edges
+7. `$()` - 58 edges
+8. `$()` - 58 edges
+9. `get_connection()` - 54 edges
+10. `$()` - 51 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `AnthropicProvider` --uses--> `ChatProvider`  [INFERRED]
@@ -2302,7 +1300,7 @@
 - `OllamaProvider` --uses--> `ChatProvider`  [INFERRED]
   versions/v1.40/webapp/chatbot/providers/ollama_provider.py → webapp/chatbot/providers/base.py
 - `AnthropicConnectionError` --uses--> `ChatProvider`  [INFERRED]
-  versions/v1.41/webapp/chatbot/providers/anthropic_provider.py → webapp/chatbot/providers/base.py
+  versions/v1.42/webapp/chatbot/providers/anthropic_provider.py → webapp/chatbot/providers/base.py
 
 ## Import Cycles
 - None detected.
@@ -2315,7 +1313,7 @@
 - **Vecteurs et Géométrie Analytique: Framework Commun** — chapitres_chapitre_4_translations_vecteurs, chapitres_chapitre_5_base_orthonormee, chapitres_chapitre_6_equation_cartesienne [INFERRED 0.95]
 - **Pipeline d'Analyse des Fonctions: Définition → Variations → Signe** — chapitres_chapitre_7_fonction_ensemble_definition, chapitres_chapitre_8_variations_fonction, chapitres_chapitre_9_signe_fonction [INFERRED 0.95]
 
-## Communities (2513 total, 495 thin omitted)
+## Communities (1385 total, 314 thin omitted)
 
 ### Community 0 - "Nombres Reels et Inegalites"
 Cohesion: 0.25
@@ -2374,16 +1372,16 @@ Cohesion: 0.07
 Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
 
 ### Community 14 - "Diviseurs et Nombres Premiers"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
+Cohesion: 0.06
+Nodes (71): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+63 more)
 
 ### Community 15 - "Multiples et Premiers PDF"
 Cohesion: 0.67
 Nodes (4): Décomposition en produit de facteurs premiers, Fraction irréductible, Multiples et diviseurs, Nombres premiers
 
 ### Community 17 - "Community 17"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
+Cohesion: 0.06
+Nodes (24): retry_last rejoue la génération d'un message utilisateur déjà         persisté S, Toutes les routes qui ne représentent PAS un vrai message envoyé au     moteur I, /api/chatbot/quota (ancien format) reste fonctionnel, désormais adossé     à quo, Vérifie que chatbot/conversation_manager.py ne gère plus aucun     compteur en p, Consomme `amount` unités directement en base (même table que     quota_service.c, Jamais deux, jamais zéro : un seul POST /messages doit incrémenter         le co, QuotaType, ChatbotQuotaTestCase (+16 more)
 
 ### Community 18 - "Community 18"
 Cohesion: 0.07
@@ -2394,8 +1392,8 @@ Cohesion: 0.07
 Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
 
 ### Community 20 - "Community 20"
-Cohesion: 0.06
-Nodes (63): _is_namespaced_by_class(), change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password() (+55 more)
+Cohesion: 0.05
+Nodes (79): accept_parental_consent(), _client_ip(), disable_2fa(), _finish_login(), change_password(), _clean(), _deep_merge_defaults(), delete_me() (+71 more)
 
 ### Community 21 - "Community 21"
 Cohesion: 0.06
@@ -2411,11 +1409,11 @@ Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export
 
 ### Community 24 - "Community 24"
 Cohesion: 0.06
-Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+48 more)
+Nodes (23): retry_last rejoue la génération d'un message utilisateur déjà         persisté S, Toutes les routes qui ne représentent PAS un vrai message envoyé au     moteur I, /api/chatbot/quota (ancien format) reste fonctionnel, désormais adossé     à quo, Vérifie que chatbot/conversation_manager.py ne gère plus aucun     compteur en p, Consomme `amount` unités directement en base (même table que     quota_service.c, Jamais deux, jamais zéro : un seul POST /messages doit incrémenter         le co, ChatbotQuotaTestCase, _create_conversation() (+15 more)
 
 ### Community 25 - "Community 25"
 Cohesion: 0.06
-Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+48 more)
+Nodes (63): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+55 more)
 
 ### Community 26 - "Community 26"
 Cohesion: 0.06
@@ -2423,39 +1421,39 @@ Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export
 
 ### Community 27 - "Community 27"
 Cohesion: 0.07
-Nodes (16): api_chatbot_attachment_pdf(), api_chatbot_context_preview(), api_chatbot_mentions(), api_chatbot_models(), api_data_export(), api_data_reset(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap (+8 more)
+Nodes (15): api_privacy_get_cookie_consent(), api_chatbot_context_preview(), api_chatbot_quota(), api_checkout_create_session(), api_settings(), api_stats(), _compute_stats_cache(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_app (+7 more)
 
 ### Community 28 - "Community 28"
-Cohesion: 0.09
-Nodes (45): _clean(), delete_me(), enter_guest(), forgot_password(), get_current_user(), guest_dashboard_seen(), hash_password(), _log_security_event() (+37 more)
+Cohesion: 0.04
+Nodes (13): QuotaServiceTestCase, Suite du service de quotas (webapp/quota_service.py) — source unique de vérité, Le compteur ne doit JAMAIS dépasser la limite après un refus —         preuve q, 40 threads tentent chacun de consommer 1 unité d'un quota limité à         25/j, La matrice elle-même — pas besoin de DB pour ces assertions., TestAccesConcurrentSimule, TestCanConsume, TestConsume (+5 more)
 
 ### Community 29 - "Community 29"
-Cohesion: 0.09
-Nodes (45): _clean(), delete_me(), enter_guest(), forgot_password(), get_current_user(), guest_dashboard_seen(), hash_password(), _log_security_event() (+37 more)
+Cohesion: 0.07
+Nodes (21): KnowledgeComposerTestCase, Suite de tests du Knowledge Response Composer — `chatbot/services/knowledge_resp, Sur 30 tirages, on doit observer plusieurs formulations distinctes         d'int, Si l'introduction "Bonne question !..." a déjà été utilisée         (présente da, Si TOUTES les variantes ont déjà été vues, le compositeur ne doit         pas pl, Blind spot corrigé (Phase Personality Engine) : _LEADIN_DEFINITION     est le se, Mission Personality Engine (suite) : chaque mode doit être     reconnaissable À, Aucune formule d'encouragement/clôture en mode examen (mission :         "aucune (+13 more)
 
 ### Community 30 - "Community 30"
-Cohesion: 0.09
-Nodes (42): _clean(), delete_me(), enter_guest(), forgot_password(), get_current_user(), hash_password(), _log_security_event(), login() (+34 more)
+Cohesion: 0.07
+Nodes (21): KnowledgeComposerTestCase, Suite de tests du Knowledge Response Composer — `chatbot/services/knowledge_resp, Sur 30 tirages, on doit observer plusieurs formulations distinctes         d'int, Si l'introduction "Bonne question !..." a déjà été utilisée         (présente da, Si TOUTES les variantes ont déjà été vues, le compositeur ne doit         pas pl, Blind spot corrigé (Phase Personality Engine) : _LEADIN_DEFINITION     est le se, Mission Personality Engine (suite) : chaque mode doit être     reconnaissable À, Aucune formule d'encouragement/clôture en mode examen (mission :         "aucune (+13 more)
 
 ### Community 31 - "Community 31"
-Cohesion: 0.09
-Nodes (42): _clean(), delete_me(), enter_guest(), forgot_password(), get_current_user(), hash_password(), _log_security_event(), login() (+34 more)
+Cohesion: 0.04
+Nodes (20): TestWebhookSignature, TestQuotaExceededErrorMessage, Plan, Variante stricte de from_value, pour valider une entrée externe         non fiab, QuotaExceededError, Levée par consume() quand la consommation demandée dépasserait la     limite quo, QuotaServiceTestCase, Suite du service de quotas (webapp/quota_service.py) — source unique de vérité (+12 more)
 
 ### Community 32 - "Community 32"
-Cohesion: 0.09
-Nodes (38): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+30 more)
+Cohesion: 0.06
+Nodes (25): Exercise Engine n'est PAS dans LOCAL_RESPONSE_ENGINE_ALLOWED_ENGINES         auj, ENABLE_RESPONSE_STRATEGY=True mais ENABLE_LOCAL_RESPONSE_ENGINE=False         :, Le Local Response Engine dépend de la décision du Strategy Engine         — le d, local_response_engine calcule son propre StudentContext si celui         fourni, Un intent introduit par le portage (ex. RESUME, "résume-moi") doit         redev, Retirer Knowledge/Search du périmètre déployé doit faire retomber         les qu, Les appelants existants (server.py) n'ont jamais besoin de passer         `debug, Bascule chaque flag à son état par défaut avant/après chaque test —     un test (+17 more)
 
 ### Community 33 - "Community 33"
-Cohesion: 0.09
-Nodes (38): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+30 more)
+Cohesion: 0.06
+Nodes (25): Les fonctions legacy (`rule_engine.try_handle`, etc.) restent         appelées e, Tous les flags activés (comportement par défaut de cette phase)., Exercise Engine n'est PAS dans LOCAL_RESPONSE_ENGINE_ALLOWED_ENGINES         auj, ENABLE_RESPONSE_STRATEGY=True mais ENABLE_LOCAL_RESPONSE_ENGINE=False         :, Le Local Response Engine dépend de la décision du Strategy Engine         — le d, local_response_engine calcule son propre StudentContext si celui         fourni, Un intent introduit par le portage (ex. RESUME, "résume-moi") doit         redev, Retirer Knowledge/Search du périmètre déployé doit faire retomber         les qu (+17 more)
 
 ### Community 34 - "Community 34"
-Cohesion: 0.09
-Nodes (38): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+30 more)
+Cohesion: 0.07
+Nodes (34): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+26 more)
 
 ### Community 35 - "Community 35"
-Cohesion: 0.09
-Nodes (38): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+30 more)
+Cohesion: 0.05
+Nodes (45): all_documents(), context_block(), get_a_retenir(), _get_by_ids(), get_definition(), get_difficulte(), get_erreurs_detail(), get_exemple() (+37 more)
 
 ### Community 36 - "Community 36"
 Cohesion: 0.09
@@ -2470,12 +1468,12 @@ Cohesion: 0.09
 Nodes (42): cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_guest_user(), create_password_reset(), create_session(), create_user(), delete_login_attempts() (+34 more)
 
 ### Community 39 - "Community 39"
-Cohesion: 0.09
-Nodes (42): cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_guest_user(), create_password_reset(), create_session(), create_user(), delete_login_attempts() (+34 more)
+Cohesion: 0.08
+Nodes (16): LocalResponseEngineTestCase, Suite de tests du Local Response Engine — `chatbot/services/local_response_engin, Vérifie le repli en cascade quand un moteur DÉCIDÉ échoue réellement à     produ, Si `local_knowledge_service.try_answer` échoue malgré la décision         Dashbo, Le repli après un échec de Knowledge Engine (position 3 dans         PRIORITY_OR, Deux appels identiques ne doivent PAS recalculer la décision         (response_s, Le texte composé (Knowledge/Dashboard) reste volontairement         variable d'u, student_context() (+8 more)
 
 ### Community 40 - "Community 40"
-Cohesion: 0.09
-Nodes (42): cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_guest_user(), create_password_reset(), create_session(), create_user(), delete_login_attempts() (+34 more)
+Cohesion: 0.05
+Nodes (13): La réponse doit être identique, flag activé ou non — cette         journalisatio, `_record_llm_call` (conversation_manager.py) protège l'appel à         llm_call_, Les champs proprietes/prerequis/liens/vocabulaire/demonstrations         sont vi, Suite de tests Phase 4 — outils d'audit et de perfectionnement (Missions 1 à 8)., summary_total_notions(), TestDevDashboard, TestDiversityAudit, TestGapDetection (+5 more)
 
 ### Community 41 - "Community 41"
 Cohesion: 0.09
@@ -2486,28 +1484,28 @@ Cohesion: 0.09
 Nodes (42): cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_guest_user(), create_password_reset(), create_session(), create_user(), delete_login_attempts() (+34 more)
 
 ### Community 43 - "Community 43"
-Cohesion: 0.06
-Nodes (71): ensure_daily_usage_row(), get_daily_usage(), get_user_by_stripe_customer_id(), has_processed_stripe_event(), increment_daily_usage(), mark_stripe_event_processed(), add_message(), cleanup_expired_guests() (+63 more)
+Cohesion: 0.09
+Nodes (42): count_recovery_codes(), delete_all_recovery_codes(), get_cookie_consent(), get_latest_parental_consent_request(), get_recovery_codes(), list_consent_records(), list_parental_consent_requests(), count_recent_failed_attempts() (+34 more)
 
 ### Community 44 - "Community 44"
-Cohesion: 0.09
-Nodes (37): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+29 more)
+Cohesion: 0.08
+Nodes (16): LocalResponseEngineTestCase, Suite de tests du Local Response Engine — `chatbot/services/local_response_engin, Vérifie le repli en cascade quand un moteur DÉCIDÉ échoue réellement à     produ, Si `local_knowledge_service.try_answer` échoue malgré la décision         Dashbo, Le repli après un échec de Knowledge Engine (position 3 dans         PRIORITY_OR, Deux appels identiques ne doivent PAS recalculer la décision         (response_s, Le texte composé (Knowledge/Dashboard) reste volontairement         variable d'u, student_context() (+8 more)
 
 ### Community 45 - "Community 45"
-Cohesion: 0.09
-Nodes (40): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+32 more)
+Cohesion: 0.05
+Nodes (14): Exerce réellement `conversation_manager.stream_reply()` — a besoin     d'un comp, La réponse doit être identique, flag activé ou non — cette         journalisatio, `_record_llm_call` (conversation_manager.py) protège l'appel à         llm_call_, Les champs proprietes/prerequis/liens/vocabulaire/demonstrations         sont vi, Suite de tests Phase 4 — outils d'audit et de perfectionnement (Missions 1 à 8)., summary_total_notions(), TestDevDashboard, TestDiversityAudit (+6 more)
 
 ### Community 46 - "Community 46"
-Cohesion: 0.09
-Nodes (37): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+29 more)
+Cohesion: 0.06
+Nodes (14): Enum, Feature, Suite du service de Feature Flags (webapp/plan_service.py) — source unique de vé, Le plan minimal renvoyé doit toujours réellement débloquer la         feature, e, Branché réellement sur les routes de server.py (voir     tests/test_server_featu, TestGetPlan, TestHasFeature, TestIsPlanHelpers (+6 more)
 
 ### Community 47 - "Community 47"
-Cohesion: 0.09
-Nodes (37): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+29 more)
+Cohesion: 0.06
+Nodes (11): Suite du service de Feature Flags (webapp/plan_service.py) — source unique de vé, Le plan minimal renvoyé doit toujours réellement débloquer la         feature, e, Branché réellement sur les routes de server.py (voir     tests/test_server_featu, TestGetPlan, TestHasFeature, TestIsPlanHelpers, TestListFeatures, TestMinimalPlanForFeature (+3 more)
 
 ### Community 48 - "Community 48"
-Cohesion: 0.09
-Nodes (37): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+29 more)
+Cohesion: 0.11
+Nodes (15): _make_event(), Suite du service de traitement des webhooks Stripe (webapp/stripe_webhook_servic, invoice.payment_succeeded doit resynchroniser le plan exactement comme     invoi, invoice.finalized, invoice.upcoming, trial_will_end,     checkout.session.expire, StripeWebhookTestCase, TestCheckoutSessionCompleted, TestEvenementNonGere, TestEvenementsJournalisesUniquement (+7 more)
 
 ### Community 49 - "Community 49"
 Cohesion: 0.08
@@ -2522,12 +1520,12 @@ Cohesion: 0.08
 Nodes (27): $(), ACCENTS, bindAppearance(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES(), formatDate() (+19 more)
 
 ### Community 52 - "Community 52"
-Cohesion: 0.08
-Nodes (27): $(), ACCENTS, bindAppearance(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES(), formatDate() (+19 more)
+Cohesion: 0.11
+Nodes (15): _make_event(), Suite du service de traitement des webhooks Stripe (webapp/stripe_webhook_servic, invoice.payment_succeeded doit resynchroniser le plan exactement comme     invoi, invoice.finalized, invoice.upcoming, trial_will_end,     checkout.session.expire, StripeWebhookTestCase, TestCheckoutSessionCompleted, TestEvenementNonGere, TestEvenementsJournalisesUniquement (+7 more)
 
 ### Community 53 - "Community 53"
-Cohesion: 0.08
-Nodes (27): $(), ACCENTS, bindAppearance(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES(), formatDate() (+19 more)
+Cohesion: 0.05
+Nodes (17): Suite fonctionnelle du routage chatbot : pour chaque catégorie de demande demand, Chemin canonique (search_service.exercises_by_topic) — remplace la         reche, Comblé par l'Intent Engine v2 (Response Engine v2, Phase 1) :     EXERCICE_RE re, Le quiz est intentionnellement répondu par le LLM (pose une question à     la fo, search_mentions renvoie plusieurs ressources apparentées classées         par sc, Bout en bout : @Dashboard -> intent DASHBOARD -> réponse composée         locale, Demande de cours"/"demande de définition" : traitées AVANT même la     classific, Limitation pré-existante découverte par cette suite (indépendante         de can (+9 more)
 
 ### Community 54 - "Community 54"
 Cohesion: 0.08
@@ -2535,7 +1533,7 @@ Nodes (27): $(), ACCENTS, bindAppearance(), bindLearning(), bindPillGroup(), bin
 
 ### Community 55 - "Community 55"
 Cohesion: 0.06
-Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+48 more)
+Nodes (55): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+47 more)
 
 ### Community 56 - "Community 56"
 Cohesion: 0.08
@@ -2543,51 +1541,51 @@ Nodes (27): $(), ACCENTS, bindAppearance(), bindLearning(), bindPillGroup(), bin
 
 ### Community 57 - "Community 57"
 Cohesion: 0.07
-Nodes (34): deviceListHtml(), $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining() (+26 more)
+Nodes (36): open2FASetupFlow(), $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining() (+28 more)
 
 ### Community 58 - "Community 58"
 Cohesion: 0.10
-Nodes (35): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+27 more)
+Nodes (36): _build_explanation(), _build_strategy(), _cache_get(), cache_stats(), _clarification_strategy(), clear_cache(), _context_is_complete(), decide_strategy() (+28 more)
 
 ### Community 59 - "Community 59"
-Cohesion: 0.10
-Nodes (36): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+28 more)
+Cohesion: 0.07
+Nodes (11): login/logout/register/checkout/webhook : jamais de contrôle de plan,     quel qu, PAGE_FEATURE_REQUIREMENTS est vide aujourd'hui (aucune page n'excède     Free) :, Les features rangées en Free (STATISTICS, COURSES, EXERCISES, GOALS,     CHATBOT, Feature.ADVANCED_AI (analyse de PDF joint au chatbot) : seule     restriction ré, Suite de bout en bout du gating Feature Flags sur les routes Flask (webapp/serve, _register(), _set_plan(), TestAdvancedAiIsUltraOnly (+3 more)
 
 ### Community 60 - "Community 60"
 Cohesion: 0.10
-Nodes (35): _clean(), delete_me(), forgot_password(), hash_password(), _log_security_event(), login(), logout(), me() (+27 more)
+Nodes (36): _build_explanation(), _build_strategy(), _cache_get(), cache_stats(), _clarification_strategy(), clear_cache(), _context_is_complete(), decide_strategy() (+28 more)
 
 ### Community 61 - "Community 61"
-Cohesion: 0.10
-Nodes (35): _clean(), delete_me(), forgot_password(), hash_password(), _log_security_event(), login(), logout(), me() (+27 more)
+Cohesion: 0.07
+Nodes (11): login/logout/register/checkout/webhook : jamais de contrôle de plan,     quel qu, PAGE_FEATURE_REQUIREMENTS est vide aujourd'hui (aucune page n'excède     Free) :, Les features rangées en Free (STATISTICS, COURSES, EXERCISES, GOALS,     CHATBOT, Feature.ADVANCED_AI (analyse de PDF joint au chatbot) : seule     restriction ré, Suite de bout en bout du gating Feature Flags sur les routes Flask (webapp/serve, _register(), _set_plan(), TestAdvancedAiIsUltraOnly (+3 more)
 
 ### Community 62 - "Community 62"
 Cohesion: 0.06
 Nodes (54): api_answer(), api_chapters(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load(), api_practice_result() (+46 more)
 
 ### Community 63 - "Community 63"
-Cohesion: 0.11
-Nodes (37): cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_guest_user(), create_password_reset(), create_session(), create_user(), delete_login_attempts() (+29 more)
+Cohesion: 0.13
+Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
 
 ### Community 64 - "Community 64"
-Cohesion: 0.11
-Nodes (37): cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_guest_user(), create_password_reset(), create_session(), create_user(), delete_login_attempts() (+29 more)
+Cohesion: 0.06
+Nodes (25): $(), ACTION_CARD_ICONS, activeMessages, attachMenu, attachToggle, contextContent, conversations, convoList (+17 more)
 
 ### Community 65 - "Community 65"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
+Cohesion: 0.06
+Nodes (5): Suite du service Stripe (webapp/stripe_service.py) : aucun appel réseau réel, le, TestClientConfiguration, TestResolvePriceId, TestServiceCalls, TestWebhook
 
 ### Community 66 - "Community 66"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
+Cohesion: 0.08
+Nodes (15): _fake_settings(), _fake_stats(), Suite fonctionnelle du Student Context Resolver v2 (Response Engine v2, Phase 2), class_level est purement transporté par le resolver à cette étape :     aucun ap, Preuve de non-régression : un appel exactement comme avant cette         étape (, class_level est optionnel : un StudentContext construit sans ce         champ (c, Un élève neuf (aucun fichier de données) doit produire un contexte         valid, Preuve directe que le resolver n'hérite PAS du bug de conflation     corrigé lor (+7 more)
 
 ### Community 67 - "Community 67"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
+Cohesion: 0.05
+Nodes (5): Suite du service Stripe (webapp/stripe_service.py) : aucun appel réseau réel, le, TestClientConfiguration, TestResolvePriceId, TestServiceCalls, TestWebhook
 
 ### Community 68 - "Community 68"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
+Cohesion: 0.09
+Nodes (27): attach_action_cards(), check_and_increment_quota(), _classify_intent(), _decide_strategy_shadow(), _generate_assistant_reply(), quota_status(), Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), p, Classification d'intention, respectant ENABLE_INTENT_ENGINE_V2. Le     module ` (+19 more)
 
 ### Community 69 - "Community 69"
 Cohesion: 0.13
@@ -2602,12 +1600,12 @@ Cohesion: 0.13
 Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
 
 ### Community 72 - "Community 72"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
+Cohesion: 0.08
+Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
 
 ### Community 73 - "Community 73"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
+Cohesion: 0.06
+Nodes (18): api_chatbot_greeting(), api_chatbot_mentions(), api_chatbot_retry(), api_curricula(), api_data_export(), api_data_summary(), api_restart(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap (+10 more)
 
 ### Community 74 - "Community 74"
 Cohesion: 0.13
@@ -2622,48 +1620,48 @@ Cohesion: 0.13
 Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
 
 ### Community 77 - "Community 77"
-Cohesion: 0.10
-Nodes (32): openAvatarEditor(), showEditor(), $(), applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove() (+24 more)
+Cohesion: 0.13
+Nodes (31): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+23 more)
 
 ### Community 78 - "Community 78"
-Cohesion: 0.13
-Nodes (33): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+25 more)
+Cohesion: 0.05
+Nodes (14): Suite fonctionnelle du système d'identifiants canoniques (canonical_ids.py) : fa, Condition de colinéarité" existe, texte identique, en Chapitre_4 ET     Chapitre, Limitation connue et attendue : SANS chapter_id, un texte ambigu         entre d, Preuve explicite de non-régression : ne pas fournir class_level, le     fournir, Première est un class_level déjà déclaré dans curriculum_registry.     courses_d, Différent d'une classe connue sans données : un identifiant de         classe qu, Preuve directe qu'un même chapter_id ("Chapitre_1") et un même texte     libre (, Lookup exact (crosswalk) — doit être fiable à 100% sur un texte connu. (+6 more)
 
 ### Community 79 - "Community 79"
-Cohesion: 0.13
-Nodes (33): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+25 more)
+Cohesion: 0.08
+Nodes (16): Suite fonctionnelle de curriculum_stats.py : comptages réels contre les banques, Une classe déclarée sans banque disponible ne doit jamais lever     d'exception, Seconde a une vraie banque déjà chargée en production — les compteurs     doiven, La banque Première existe déjà dans le projet (racine du dépôt) —     utilisée t, Ajouter un profil au registre (simulé ici, sans toucher au vrai         registre, _reference_counts(), TestCache, TestDegradationPropre (+8 more)
 
 ### Community 80 - "Community 80"
-Cohesion: 0.13
-Nodes (33): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+25 more)
+Cohesion: 0.11
+Nodes (29): _build_exceeded_error(), can_consume(), consume(), exceeded_error_payload(), get_limit(), get_remaining(), get_usage(), is_unlimited() (+21 more)
 
 ### Community 81 - "Community 81"
-Cohesion: 0.14
-Nodes (32): $(), actionBtn(), activateAdmin(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors(), confirmDelete() (+24 more)
+Cohesion: 0.08
+Nodes (17): audit_all(), audit_chapter(), audit_notion(), _chapter_scores(), format_chapter_report(), format_gaps_report(), gaps_summary(), _has_demonstration() (+9 more)
 
 ### Community 82 - "Community 82"
-Cohesion: 0.14
-Nodes (32): $(), actionBtn(), activateAdmin(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors(), confirmDelete() (+24 more)
+Cohesion: 0.11
+Nodes (24): buildStepsHtml(), chaptersMeta, computeChapterStats(), contentCache, coursDirFor(), courseProgress, ensureGuestCoursModal(), grid (+16 more)
 
 ### Community 83 - "Community 83"
-Cohesion: 0.14
-Nodes (32): $(), actionBtn(), activateAdmin(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors(), confirmDelete() (+24 more)
+Cohesion: 0.12
+Nodes (28): cancel_subscription(), change_plan(), _client(), construct_webhook_event(), create_billing_portal_session(), create_checkout_session(), create_customer(), get_checkout_session() (+20 more)
 
 ### Community 84 - "Community 84"
-Cohesion: 0.14
-Nodes (32): $(), actionBtn(), activateAdmin(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors(), confirmDelete() (+24 more)
+Cohesion: 0.08
+Nodes (17): audit_all(), audit_chapter(), audit_notion(), _chapter_scores(), format_chapter_report(), format_gaps_report(), gaps_summary(), _has_demonstration() (+9 more)
 
 ### Community 85 - "Community 85"
-Cohesion: 0.13
-Nodes (31): cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_guest_user(), create_password_reset(), create_session(), create_user(), delete_login_attempts() (+23 more)
+Cohesion: 0.11
+Nodes (31): is_configured(), _looks_unconfigured(), cancel_subscription(), change_plan(), _client(), construct_webhook_event(), create_billing_portal_session(), create_checkout_session() (+23 more)
 
 ### Community 86 - "Community 86"
-Cohesion: 0.13
-Nodes (31): cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_guest_user(), create_password_reset(), create_session(), create_user(), delete_login_attempts() (+23 more)
+Cohesion: 0.16
+Nodes (25): _block_astuce(), _block_conseil(), _block_definition(), _block_erreur_frequente(), _block_exemple(), _block_formule(), _block_introduction(), _block_introuvable() (+17 more)
 
 ### Community 87 - "Community 87"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Cohesion: 0.09
+Nodes (19): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), _favoriteKey(), FILTER_EMPTY_MESSAGES (+11 more)
 
 ### Community 88 - "Community 88"
 Cohesion: 0.08
@@ -2678,12 +1676,12 @@ Cohesion: 0.08
 Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
 
 ### Community 91 - "Community 91"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Cohesion: 0.07
+Nodes (13): Non-régression : vérifie que les fonctionnalités historiques (antérieures au cha, Bug corrigé lors de l'audit de généralisation KE v2 : le filtre         difficul, Les deux validateurs (chantiers précédents) doivent rester à 0 erreur     après, Rule Engine (salutations/identité) et Math Engine (sympy) ne dépendent     pas d, Les accesseurs KE v2 doivent continuer à retomber proprement sur le     format h, definitions.college a été scaffoldée à "" (pas de contenu collège         réelle, Après migration, les formules ne sont plus vides : elles ont été         automat, etapesParNiveau.debutant a été scaffoldée à [] (aucune version         "débutant (+5 more)
 
 ### Community 92 - "Community 92"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Cohesion: 0.09
+Nodes (12): Tests du Personality Engine (Phase ton/personnalité) : mémoire de style partagée, Aucune exception, aucun texte vide si l'historique contient déjà         toutes, Bug identifié à l'audit ton/personnalité : mode=professeur +     longueur=detail, Le module partagé lui-même (extrait de knowledge_response_composer.py)., Le blind spot corrigé : un pool avec placeholder doit être         comparé sur l, Pool sans placeholder (12 des 13 pools de knowledge_response_         composer.p, response_composer.py était jusqu'ici dépourvu de toute mémoire anti-     répétit, Les 3 variantes de SERIE, une fois formatées avec les mêmes         variables, d (+4 more)
 
 ### Community 93 - "Community 93"
 Cohesion: 0.08
@@ -2694,32 +1692,32 @@ Cohesion: 0.08
 Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
 
 ### Community 95 - "Community 95"
-Cohesion: 0.09
+Cohesion: 0.08
 Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
 
 ### Community 96 - "Community 96"
-Cohesion: 0.09
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Cohesion: 0.16
+Nodes (25): _block_astuce(), _block_conseil(), _block_definition(), _block_erreur_frequente(), _block_exemple(), _block_formule(), _block_introduction(), _block_introuvable() (+17 more)
 
 ### Community 97 - "Community 97"
 Cohesion: 0.09
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Nodes (12): Tests du Personality Engine (Phase ton/personnalité) : mémoire de style partagée, Aucune exception, aucun texte vide si l'historique contient déjà         toutes, Bug identifié à l'audit ton/personnalité : mode=professeur +     longueur=detail, Le module partagé lui-même (extrait de knowledge_response_composer.py)., Le blind spot corrigé : un pool avec placeholder doit être         comparé sur l, Pool sans placeholder (12 des 13 pools de knowledge_response_         composer.p, response_composer.py était jusqu'ici dépourvu de toute mémoire anti-     répétit, Les 3 variantes de SERIE, une fois formatées avec les mêmes         variables, d (+4 more)
 
 ### Community 98 - "Community 98"
-Cohesion: 0.09
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Cohesion: 0.17
+Nodes (25): _bank_path_for(), best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), exercises_by_topic(), _fuzzy_fallback(), _get_exercise_by_id() (+17 more)
 
 ### Community 99 - "Community 99"
-Cohesion: 0.09
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Cohesion: 0.12
+Nodes (24): api_answer(), api_chapters(), api_exercise(), api_practice_load(), api_practice_result(), api_start(), _class_bank(), _flatten_solution_steps() (+16 more)
 
 ### Community 100 - "Community 100"
-Cohesion: 0.09
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Cohesion: 0.16
+Nodes (22): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, dailyGoalMotivation(), formatDuration(), init(), initials() (+14 more)
 
 ### Community 101 - "Community 101"
-Cohesion: 0.09
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
+Cohesion: 0.12
+Nodes (8): Audit multi-classe du module Cours (progression de lecture) : les mêmes chapter_, Un appelant qui n'a pas encore été mis à jour pour transmettre         class_lev, Fichiers écrits AVANT cette évolution (format à plat, non namespacé)., Écrire une progression Première ne doit jamais faire disparaître         la prog, TestCompatibiliteAscendante, TestFormatNamespaceParClasse, TestIsolationEntreClasses, _TmpCourseDirMixin
 
 ### Community 102 - "Community 102"
 Cohesion: 0.11
@@ -2730,12 +1728,12 @@ Cohesion: 0.14
 Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
 
 ### Community 104 - "Community 104"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
+Cohesion: 0.07
+Nodes (11): Suite fonctionnelle du registre central des programmes scolaires (curriculum_reg, Le module ne doit dépendre d'aucun autre composant du projet., Seconde est le programme déjà en production : chaque chemin déclaré     doit poi, Première : les banques d'exercices déjà présentes dans le projet     doivent êtr, Généré par generate_cours_from_bank.py à partir de exercise_bank         (jamais, Point explicitement demandé : deux profils ne peuvent jamais partager     le mêm, TestCheminsPremiere, TestCheminsSeconde (+3 more)
 
 ### Community 105 - "Community 105"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
+Cohesion: 0.11
+Nodes (6): Suite de bout en bout des routes Billing (webapp/server.py) : GET /api/billing/s, _register(), _set_plan(), TestBillingStatusRoute, TestChangePlanRoute, TestCustomerPortalRoute
 
 ### Community 106 - "Community 106"
 Cohesion: 0.14
@@ -2747,27 +1745,27 @@ Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_
 
 ### Community 108 - "Community 108"
 Cohesion: 0.13
-Nodes (31): renderRecapIcon(), renderSeriesDots(), $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor() (+23 more)
+Nodes (31): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+23 more)
 
 ### Community 109 - "Community 109"
-Cohesion: 0.10
-Nodes (14): BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById(), getState() (+6 more)
+Cohesion: 0.12
+Nodes (8): Audit multi-classe du module Cours (progression de lecture) : les mêmes chapter_, Un appelant qui n'a pas encore été mis à jour pour transmettre         class_lev, Fichiers écrits AVANT cette évolution (format à plat, non namespacé)., Écrire une progression Première ne doit jamais faire disparaître         la prog, TestCompatibiliteAscendante, TestFormatNamespaceParClasse, TestIsolationEntreClasses, _TmpCourseDirMixin
 
 ### Community 110 - "Community 110"
-Cohesion: 0.10
-Nodes (14): BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById(), getState() (+6 more)
+Cohesion: 0.07
+Nodes (11): Suite fonctionnelle du registre central des programmes scolaires (curriculum_reg, Le module ne doit dépendre d'aucun autre composant du projet., Seconde est le programme déjà en production : chaque chemin déclaré     doit poi, Première : les banques d'exercices déjà présentes dans le projet     doivent êtr, Généré par generate_cours_from_bank.py à partir de exercise_bank         (jamais, Point explicitement demandé : deux profils ne peuvent jamais partager     le mêm, TestCheminsPremiere, TestCheminsSeconde (+3 more)
 
 ### Community 111 - "Community 111"
-Cohesion: 0.13
-Nodes (25): _clean(), forgot_password(), login(), me(), _migrate_legacy_stats_if_first_user(), oauth_callback(), oauth_start(), password_strength() (+17 more)
+Cohesion: 0.09
+Nodes (11): Suite fonctionnelle de curriculum_stats.py : comptages réels contre les banques, Une classe déclarée sans banque disponible ne doit jamais lever     d'exception, Seconde a une vraie banque déjà chargée en production — les compteurs     doiven, La banque Première existe déjà dans le projet (racine du dépôt) —     utilisée t, Ajouter un profil au registre (simulé ici, sans toucher au vrai         registre, _reference_counts(), TestCache, TestDegradationPropre (+3 more)
 
 ### Community 112 - "Community 112"
-Cohesion: 0.10
-Nodes (14): BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById(), getState() (+6 more)
+Cohesion: 0.11
+Nodes (6): Suite de bout en bout des routes Billing (webapp/server.py) : GET /api/billing/s, _register(), _set_plan(), TestBillingStatusRoute, TestChangePlanRoute, TestCustomerPortalRoute
 
 ### Community 113 - "Community 113"
-Cohesion: 0.13
-Nodes (25): _clean(), forgot_password(), login(), me(), _migrate_legacy_stats_if_first_user(), oauth_callback(), oauth_start(), password_strength() (+17 more)
+Cohesion: 0.21
+Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
 
 ### Community 114 - "Community 114"
 Cohesion: 0.15
@@ -2798,20 +1796,20 @@ Cohesion: 0.10
 Nodes (12): BADGE_DEFS, emptyState(), finalizeSeries(), getSeries(), getSeriesById(), getState(), hydrateFromServer(), LEVEL_THRESHOLDS (+4 more)
 
 ### Community 121 - "Community 121"
-Cohesion: 0.10
-Nodes (12): BADGE_DEFS, emptyState(), finalizeSeries(), getSeries(), getSeriesById(), getState(), hydrateFromServer(), LEVEL_THRESHOLDS (+4 more)
+Cohesion: 0.16
+Nodes (22): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), formatUnixDateFR(), globalProgressPct(), init() (+14 more)
 
 ### Community 122 - "Community 122"
-Cohesion: 0.10
-Nodes (12): BADGE_DEFS, emptyState(), finalizeSeries(), getSeries(), getSeriesById(), getState(), hydrateFromServer(), LEVEL_THRESHOLDS (+4 more)
+Cohesion: 0.20
+Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
 
 ### Community 123 - "Community 123"
-Cohesion: 0.15
-Nodes (27): count_recent_failed_attempts(), count_users(), create_password_reset(), create_session(), create_user(), delete_login_attempts(), delete_session(), delete_user() (+19 more)
+Cohesion: 0.16
+Nodes (4): Une mention "cours"/"exercices" (type search, pas data) ne         déclenche pas, TestMentions, TestQuantites, TestStructureImmuable
 
 ### Community 124 - "Community 124"
-Cohesion: 0.15
-Nodes (27): count_recent_failed_attempts(), count_users(), create_password_reset(), create_session(), create_user(), delete_login_attempts(), delete_session(), delete_user() (+19 more)
+Cohesion: 0.16
+Nodes (4): Une mention "cours"/"exercices" (type search, pas data) ne         déclenche pas, TestMentions, TestQuantites, TestStructureImmuable
 
 ### Community 125 - "Community 125"
 Cohesion: 0.12
@@ -2822,12 +1820,12 @@ Cohesion: 0.12
 Nodes (23): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_start(), api_stats(), _flatten_solution_steps() (+15 more)
 
 ### Community 127 - "Community 127"
-Cohesion: 0.12
-Nodes (23): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_start(), api_stats(), _flatten_solution_steps() (+15 more)
+Cohesion: 0.17
+Nodes (19): _fuzzy_topic_id(), get_topic_title(), _load_crosswalk(), _load_topics_by_chapter(), _normalize_label(), _profile_for(), Identifiants canoniques de NovaMath — point d'entrée unique pour tout système (c, Repli flou quand le lookup exact échoue — réutilise le même     tokenizer/normal (+11 more)
 
 ### Community 128 - "Community 128"
-Cohesion: 0.06
-Nodes (36): Path, clean_text(), extract_pdf(), main(), Outil d'aide à la mise à jour du module Cours quand un PDF de programme change (, _serve_protected(), _serve_protected(), _serve_protected() (+28 more)
+Cohesion: 0.11
+Nodes (21): Path, clean_text(), extract_pdf(), main(), Outil d'aide à la mise à jour du module Cours quand un PDF de programme change (, _serve_protected(), _serve_protected(), _serve_protected() (+13 more)
 
 ### Community 129 - "Community 129"
 Cohesion: 0.10
@@ -2839,7 +1837,7 @@ Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFil
 
 ### Community 131 - "Community 131"
 Cohesion: 0.09
-Nodes (19): _favoriteKey(), applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES (+11 more)
+Nodes (19): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), _favoriteKey(), FILTER_EMPTY_MESSAGES (+11 more)
 
 ### Community 132 - "Community 132"
 Cohesion: 0.13
@@ -2866,12 +1864,12 @@ Cohesion: 0.11
 Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
 
 ### Community 138 - "Community 138"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
+Cohesion: 0.14
+Nodes (16): get_plan(), has_feature(), is_free(), is_premium(), is_ultra(), list_features(), minimal_plan_for_feature(), Plan (+8 more)
 
 ### Community 139 - "Community 139"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
+Cohesion: 0.16
+Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
 
 ### Community 140 - "Community 140"
 Cohesion: 0.11
@@ -2882,8 +1880,8 @@ Cohesion: 0.11
 Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
 
 ### Community 142 - "Community 142"
-Cohesion: 0.10
-Nodes (26): NOTION_THEME, resolveChapterTitle(), coursDirFor(), init(), notionNavHtml(), renderNoCoursesState(), buildStepsHtml(), chaptersMeta (+18 more)
+Cohesion: 0.11
+Nodes (24): buildStepsHtml(), chaptersMeta, computeChapterStats(), contentCache, coursDirFor(), courseProgress, ensureGuestCoursModal(), grid (+16 more)
 
 ### Community 143 - "Community 143"
 Cohesion: 0.11
@@ -2891,43 +1889,43 @@ Nodes (17): SECTION_ICONS, SECTION_LABELS, chaptersMeta, contentCache, coursePro
 
 ### Community 144 - "Community 144"
 Cohesion: 0.18
-Nodes (23): count_recent_failed_attempts(), count_users(), create_password_reset(), create_session(), create_user(), delete_session(), get_connection(), get_password_reset() (+15 more)
+Nodes (18): _handle_checkout_session_completed(), _handle_checkout_session_expired(), handle_event(), _handle_invoice_finalized(), _handle_invoice_paid(), _handle_invoice_payment_failed(), _handle_invoice_upcoming(), _handle_payment_method_attached() (+10 more)
 
 ### Community 145 - "Community 145"
-Cohesion: 0.15
-Nodes (23): $(), announceAccountUpdate(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration() (+15 more)
+Cohesion: 0.18
+Nodes (18): _handle_checkout_session_completed(), _handle_checkout_session_expired(), handle_event(), _handle_invoice_finalized(), _handle_invoice_paid(), _handle_invoice_payment_failed(), _handle_invoice_upcoming(), _handle_payment_method_attached() (+10 more)
 
 ### Community 146 - "Community 146"
-Cohesion: 0.18
-Nodes (23): count_recent_failed_attempts(), count_users(), create_password_reset(), create_session(), create_user(), delete_session(), get_connection(), get_password_reset() (+15 more)
+Cohesion: 0.17
+Nodes (17): _cache_get(), _cache_key(), _cache_set(), clear_cache(), invalidate(), _normalize_history(), _normalize_mentions(), _normalize_parametres() (+9 more)
 
 ### Community 147 - "Community 147"
-Cohesion: 0.15
-Nodes (23): $(), announceAccountUpdate(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration() (+15 more)
+Cohesion: 0.11
+Nodes (9): Suite fonctionnelle de l'Intent Engine v2 (Response Engine v2, Phase 1) : les 10, Le repli flou ne doit jamais happer une conversation réellement         libre (a, Formulations directes, déclenchées par une regex de _INTENT_PATTERNS., Une quantité absurde ("500 exercices") est plafonnée, pas prise         telle qu, Formulations JAMAIS présentes dans _FUZZY_TRIGGER_PHRASES ni dans les     regex, Régression corrigée : "qu'est-ce que" était détecté à 100% de         couverture, TestNouvellesIntentionsRegex, TestQuantite (+1 more)
 
 ### Community 148 - "Community 148"
-Cohesion: 0.15
-Nodes (23): $(), announceAccountUpdate(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration() (+15 more)
+Cohesion: 0.18
+Nodes (16): build_context_summary(), _mastered_notions(), _mastered_topics(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., Filtre une liste d'entrées d'historique/séries (chacune taguée     `class_level`, Regroupe par (chapter, notion) — jamais par notion seule : un même     texte lib (+8 more)
 
 ### Community 149 - "Community 149"
 Cohesion: 0.15
-Nodes (23): $(), announceAccountUpdate(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration() (+15 more)
+Nodes (14): clear_cache(), _execute_engine(), generate(), _intent_result_from_strategy(), _lazy(), LocalResponseResult, _log_debug(), Local Response Engine — orchestrateur unique des réponses locales (Response Engi (+6 more)
 
 ### Community 150 - "Community 150"
-Cohesion: 0.15
-Nodes (23): $(), announceAccountUpdate(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration() (+15 more)
+Cohesion: 0.24
+Nodes (16): $(), formatDateFR(), handleCheckoutReturn(), handleUpgradeParams(), loadBillingStatus(), loadCurrentPlan(), openCustomerPortal(), paintCurrentPlan() (+8 more)
 
 ### Community 151 - "Community 151"
 Cohesion: 0.15
-Nodes (23): $(), announceAccountUpdate(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration() (+15 more)
+Nodes (7): Suite de tests du Response Strategy Engine (Phase 3A, Niveau 1) — `chatbot/servi, Chaque intent reconnu par l'Intent Engine v2 doit produire une     décision sans, ResponseStrategyTestCase, TestClarification, TestDifficultes, TestPerformance, TestToutesLesIntentions
 
 ### Community 152 - "Community 152"
 Cohesion: 0.15
-Nodes (23): $(), announceAccountUpdate(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration() (+15 more)
+Nodes (14): clear_cache(), _execute_engine(), generate(), _intent_result_from_strategy(), _lazy(), LocalResponseResult, _log_debug(), Local Response Engine — orchestrateur unique des réponses locales (Response Engi (+6 more)
 
 ### Community 153 - "Community 153"
-Cohesion: 0.15
-Nodes (23): $(), announceAccountUpdate(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration() (+15 more)
+Cohesion: 0.23
+Nodes (18): billingStatusManageBtn, $(), formatDateFR(), handleCheckoutReturn(), handleUpgradeParams(), loadBillingStatus(), loadCurrentPlan(), openCustomerPortal() (+10 more)
 
 ### Community 154 - "Community 154"
 Cohesion: 0.15
@@ -2962,52 +1960,52 @@ Cohesion: 0.19
 Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
 
 ### Community 162 - "Community 162"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.15
+Nodes (7): Suite de tests du Response Strategy Engine (Phase 3A, Niveau 1) — `chatbot/servi, Chaque intent reconnu par l'Intent Engine v2 doit produire une     décision sans, ResponseStrategyTestCase, TestClarification, TestDifficultes, TestPerformance, TestToutesLesIntentions
 
 ### Community 163 - "Community 163"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.03
+Nodes (21): _NovaMathUserFixture, Suite E2E Stripe — API RÉELLE Stripe Test Mode, JAMAIS de mocks.  Complète (ne d, « Nouvelle carte » : remplace le moyen de paiement par défaut par         une ca, Le downgrade ne modifie JAMAIS immédiatement users.plan (seul le         webhook, Utilisateur NovaMath local (base SQLite temporaire, jamais la base     réelle —, Seul groupe de tests à utiliser un Test Clock (lent : chaque avance     d'horlog, TestAbonnementPremiumReussi, TestAbonnementUltraReussi (+13 more)
 
 ### Community 164 - "Community 164"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.05
+Nodes (20): PostgresTestCase, Suite ARCH-02 : intégration RÉELLE avec un serveur PostgreSQL — jamais un serveu, Reproduit le pattern `finally: conn.close()` d'un appel db.py         interrompu, Une transaction non commitée sur une connexion n'est jamais         visible depu, Reconnexion propre après une coupure simulée (fermeture forcée du         pool), Après une erreur d'intégrité (contrainte UNIQUE violée), la         prochaine co, Même suite que TestDbPyRegressionSQLite (test_database_service.py)     mais exéc, Bascule `config.DATABASE_URL` vers le serveur PostgreSQL de test pour     la dur (+12 more)
 
 ### Community 165 - "Community 165"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.14
+Nodes (8): clear(), LRUCache, make_key(), normalize_message(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo, Normalisation de message partagée par tous les caches mémoire du     chatbot (cl, Cache mémoire LRU borné générique (OrderedDict), réutilisable par tout     modul, Vide le cache — utilisé par les tests pour repartir d'un état connu     (éviter
 
 ### Community 166 - "Community 166"
 Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Nodes (15): classify(), _detect_chapter(), _detect_difficulty(), _detect_quantity(), _fold_accents(), _fuzzy_intent(), _is_gibberish(), _phrase_coverage() (+7 more)
 
 ### Community 167 - "Community 167"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.13
+Nodes (14): format_debug_trace(), _initial_stats(), log_comparison(), Observabilité du pipeline hybride local/LLM (Phase 3B). Deux responsabilités uni, Bloc de debug détaillé pour UNE requête — Intent/Strategy/Engine     choisi/Temp, Étape 1 de l'intégration progressive : compare la décision du Strategy     Engin, Remet tous les compteurs à zéro — utilisé par les tests pour repartir     d'un é, `engine` : identifiant du moteur qui a RÉELLEMENT répondu (un des     `response_ (+6 more)
 
 ### Community 168 - "Community 168"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.23
+Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), _read_reviews() (+8 more)
 
 ### Community 169 - "Community 169"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.21
+Nodes (5): Suite du service d'agrégation Stripe Billing (webapp/billing_service.py) : statu, TestChangePlan, TestCreatePortalSession, TestGetBillingStatus, _user()
 
 ### Community 170 - "Community 170"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.17
+Nodes (15): change_plan(), create_portal_session(), get_billing_status(), _invoice_history(), NoActiveSubscription, NoStripeCustomer, _payment_method_summary(), Agrège les informations Stripe Billing nécessaires aux pages Abonnement et Profi (+7 more)
 
 ### Community 171 - "Community 171"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.13
+Nodes (14): format_debug_trace(), _initial_stats(), log_comparison(), Observabilité du pipeline hybride local/LLM (Phase 3B). Deux responsabilités uni, Bloc de debug détaillé pour UNE requête — Intent/Strategy/Engine     choisi/Temp, Étape 1 de l'intégration progressive : compare la décision du Strategy     Engin, Remet tous les compteurs à zéro — utilisé par les tests pour repartir     d'un é, `engine` : identifiant du moteur qui a RÉELLEMENT répondu (un des     `response_ (+6 more)
 
 ### Community 172 - "Community 172"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.17
+Nodes (14): get_plan(), has_feature(), is_free(), is_premium(), is_ultra(), list_features(), minimal_plan_for_feature(), Source unique de vérité des droits utilisateur (Feature Flags) pour NovaMath.  A (+6 more)
 
 ### Community 173 - "Community 173"
-Cohesion: 0.19
-Nodes (23): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+15 more)
+Cohesion: 0.21
+Nodes (5): Suite du service d'agrégation Stripe Billing (webapp/billing_service.py) : statu, TestChangePlan, TestCreatePortalSession, TestGetBillingStatus, _user()
 
 ### Community 174 - "Community 174"
 Cohesion: 0.16
@@ -3022,16 +2020,16 @@ Cohesion: 0.16
 Nodes (22): $(), announceAccountUpdate(), chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration(), globalProgressPct() (+14 more)
 
 ### Community 177 - "Community 177"
-Cohesion: 0.16
-Nodes (22): $(), announceAccountUpdate(), chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration(), globalProgressPct() (+14 more)
+Cohesion: 0.23
+Nodes (14): _build_etapes(), _build_notion(), _flatten_solution_steps(), generate(), _majority_difficulty_label(), _output_dir(), _pick_examples(), _ranked_distinct_hints() (+6 more)
 
 ### Community 178 - "Community 178"
-Cohesion: 0.16
-Nodes (22): $(), announceAccountUpdate(), chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration(), globalProgressPct() (+14 more)
+Cohesion: 0.22
+Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
 
 ### Community 179 - "Community 179"
-Cohesion: 0.16
-Nodes (21): $(), BADGE_ICONS, chaptersMeta, chapterTitles, clearProfileErrors(), formatDateFR(), formatDuration(), globalProgressPct() (+13 more)
+Cohesion: 0.13
+Nodes (5): Suite ciblée : knowledge_engine.py devient multi-classe (class_level optionnel,, Première a désormais des cours générés depuis exercise_bank (voir     generate_c, TestAucuneCollisionEntreClasses, TestDefautSecondeInchange, TestPremiereFonctionnelle
 
 ### Community 180 - "Community 180"
 Cohesion: 0.17
@@ -3042,20 +2040,20 @@ Cohesion: 0.21
 Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
 
 ### Community 182 - "Community 182"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
+Cohesion: 0.23
+Nodes (14): _build_etapes(), _build_notion(), _flatten_solution_steps(), generate(), _majority_difficulty_label(), _output_dir(), _pick_examples(), _ranked_distinct_hints() (+6 more)
 
 ### Community 183 - "Community 183"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
+Cohesion: 0.13
+Nodes (5): Suite ciblée : knowledge_engine.py devient multi-classe (class_level optionnel,, Première a désormais des cours générés depuis exercise_bank (voir     generate_c, TestAucuneCollisionEntreClasses, TestDefautSecondeInchange, TestPremiereFonctionnelle
 
 ### Community 184 - "Community 184"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
+Cohesion: 0.19
+Nodes (4): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e, Si `system` contient le bloc RAG (knowledge_engine.context_block,         déjà s
 
 ### Community 185 - "Community 185"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
+Cohesion: 0.24
+Nodes (11): applyFeatureLocks(), buildClassBadge(), buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), lockLink() (+3 more)
 
 ### Community 186 - "Community 186"
 Cohesion: 0.17
@@ -3074,32 +2072,32 @@ Cohesion: 0.21
 Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
 
 ### Community 190 - "Community 190"
-Cohesion: 0.13
-Nodes (27): animateCount(), dailyGoalMotivation(), animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement(), $() (+19 more)
+Cohesion: 0.16
+Nodes (22): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, dailyGoalMotivation(), formatDuration(), init(), initials() (+14 more)
 
 ### Community 191 - "Community 191"
 Cohesion: 0.21
 Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
 
 ### Community 192 - "Community 192"
-Cohesion: 0.17
-Nodes (19): renderGuestInfoCard(), $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials() (+11 more)
+Cohesion: 0.21
+Nodes (6): StudentContext minimal mais toujours valide (vérifié par     validate_student_co, class_level vient du StudentContext déjà résolu, jamais recalculé ni     deviné, Première a désormais des cours générés depuis exercise_bank (voir         genera, student_context(), TestCache, TestClassLevelPropagation
 
 ### Community 193 - "Community 193"
-Cohesion: 0.17
-Nodes (19): renderGuestUpgradeCard(), $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials() (+11 more)
+Cohesion: 0.21
+Nodes (6): StudentContext minimal mais toujours valide (vérifié par     validate_student_co, class_level vient du StudentContext déjà résolu, jamais recalculé ni     deviné, Première a désormais des cours générés depuis exercise_bank (voir         genera, student_context(), TestCache, TestClassLevelPropagation
 
 ### Community 194 - "Community 194"
 Cohesion: 0.20
 Nodes (21): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+13 more)
 
 ### Community 195 - "Community 195"
-Cohesion: 0.17
-Nodes (19): $(), applyGuestDashboardLock(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials() (+11 more)
+Cohesion: 0.18
+Nodes (11): classify_reason(), Analyse des appels LLM — Phase 4, Missions 3 & 4.  Mission 3 : journalise (mémoi, Pour UN enregistrement (dict renvoyé par `snapshot()["recent"]` ou     équivalen, Mission 4, vue d'ensemble : une suggestion par enregistrement récent., Classe automatiquement la raison d'un appel LLM à partir de la     `ResponseStra, Journalise un appel LLM réel (Mission 3). Ne lève jamais d'exception —     un éc, Statistiques agrégées par raison (Mission 3)., record() (+3 more)
 
 ### Community 196 - "Community 196"
-Cohesion: 0.17
-Nodes (19): $(), applyGuestDashboardLock(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials() (+11 more)
+Cohesion: 0.22
+Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
 
 ### Community 197 - "Community 197"
 Cohesion: 0.23
@@ -3111,19 +2109,19 @@ Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalS
 
 ### Community 199 - "Community 199"
 Cohesion: 0.18
-Nodes (18): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+10 more)
+Nodes (11): classify_reason(), Analyse des appels LLM — Phase 4, Missions 3 & 4.  Mission 3 : journalise (mémoi, Pour UN enregistrement (dict renvoyé par `snapshot()["recent"]` ou     équivalen, Mission 4, vue d'ensemble : une suggestion par enregistrement récent., Classe automatiquement la raison d'un appel LLM à partir de la     `ResponseStra, Journalise un appel LLM réel (Mission 3). Ne lève jamais d'exception —     un éc, Statistiques agrégées par raison (Mission 3)., record() (+3 more)
 
 ### Community 200 - "Community 200"
-Cohesion: 0.18
-Nodes (18): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+10 more)
+Cohesion: 0.17
+Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
 
 ### Community 201 - "Community 201"
-Cohesion: 0.18
-Nodes (18): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+10 more)
+Cohesion: 0.20
+Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
 
 ### Community 202 - "Community 202"
-Cohesion: 0.18
-Nodes (18): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+10 more)
+Cohesion: 0.27
+Nodes (11): Analyseur de qualité des réponses — Phase 4, Mission 5.  Outil d'ANALYSE PURE :, Raccourci pour un `ResponseDraft` (knowledge_response_composer.py) —     évite à, Note une réponse (texte final + kinds de blocs si disponibles, ex.     `[b.kind, _score_coherence(), score_draft(), _score_lisibilite(), score_response(), _score_richesse() (+3 more)
 
 ### Community 203 - "Community 203"
 Cohesion: 0.16
@@ -3138,12 +2136,12 @@ Cohesion: 0.16
 Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
 
 ### Community 206 - "Community 206"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
+Cohesion: 0.24
+Nodes (11): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, selectedChaptersForActiveClass() (+3 more)
 
 ### Community 207 - "Community 207"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
+Cohesion: 0.17
+Nodes (4): Les puissances" ne déclenche ni définition (pas de "c'est quoi"),         ni auc, Vérifie l'ORDRE lui-même (pas seulement un cas réel) en simulant         artific, Ordre exact demandé : Math > Rule > Knowledge > Dashboard > Search >     Exercis, TestPrioriteDesMoteurs
 
 ### Community 208 - "Community 208"
 Cohesion: 0.16
@@ -3178,36 +2176,36 @@ Cohesion: 0.20
 Nodes (16): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), render(), renderAccuracy() (+8 more)
 
 ### Community 216 - "Community 216"
-Cohesion: 0.20
-Nodes (16): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), render(), renderAccuracy() (+8 more)
+Cohesion: 0.21
+Nodes (3): TestEleveVideEtAvance, TestModes, TestPlusieursTopicsEtChapitres
 
 ### Community 217 - "Community 217"
-Cohesion: 0.20
-Nodes (16): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), render(), renderAccuracy() (+8 more)
+Cohesion: 0.27
+Nodes (11): Analyseur de qualité des réponses — Phase 4, Mission 5.  Outil d'ANALYSE PURE :, Raccourci pour un `ResponseDraft` (knowledge_response_composer.py) —     évite à, Note une réponse (texte final + kinds de blocs si disponibles, ex.     `[b.kind, _score_coherence(), score_draft(), _score_lisibilite(), score_response(), _score_richesse() (+3 more)
 
 ### Community 218 - "Community 218"
-Cohesion: 0.20
-Nodes (16): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), render(), renderAccuracy() (+8 more)
+Cohesion: 0.17
+Nodes (4): Les puissances" ne déclenche ni définition (pas de "c'est quoi"),         ni auc, Vérifie l'ORDRE lui-même (pas seulement un cas réel) en simulant         artific, Ordre exact demandé : Math > Rule > Knowledge > Dashboard > Search >     Exercis, TestPrioriteDesMoteurs
 
 ### Community 219 - "Community 219"
-Cohesion: 0.20
-Nodes (16): $(), BADGE_ICONS, bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), render(), renderAccuracy() (+8 more)
+Cohesion: 0.21
+Nodes (3): TestEleveVideEtAvance, TestModes, TestPlusieursTopicsEtChapitres
 
 ### Community 220 - "Community 220"
-Cohesion: 0.13
-Nodes (10): DIFF_BADGE, DIFF_LABEL, ensureGuestChaptersModal(), grid, selected, selectionBar, selectionCount, showGuestChaptersLimitModal() (+2 more)
+Cohesion: 0.25
+Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
 
 ### Community 221 - "Community 221"
-Cohesion: 0.13
-Nodes (10): DIFF_BADGE, DIFF_LABEL, ensureGuestChaptersModal(), grid, selected, selectionBar, selectionCount, showGuestChaptersLimitModal() (+2 more)
+Cohesion: 0.24
+Nodes (10): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), Si `user_message` ne contient QUE une mention "@" de type "data" avec     un dat, `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, Une notion peut être reliée à de nombreux exercices quasi identiques     (même i (+2 more)
 
 ### Community 222 - "Community 222"
-Cohesion: 0.13
-Nodes (10): DIFF_BADGE, DIFF_LABEL, ensureGuestChaptersModal(), grid, selected, selectionBar, selectionCount, showGuestChaptersLimitModal() (+2 more)
+Cohesion: 0.20
+Nodes (11): autoScrollIfNearBottom(), consumeStream(), isNearBottom(), refreshQuota(), regenerate(), renderErrorRetryState(), renderMessages(), runAssistantTurn() (+3 more)
 
 ### Community 223 - "Community 223"
-Cohesion: 0.13
-Nodes (10): DIFF_BADGE, DIFF_LABEL, ensureGuestChaptersModal(), grid, selected, selectionBar, selectionCount, showGuestChaptersLimitModal() (+2 more)
+Cohesion: 0.36
+Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
 
 ### Community 224 - "Community 224"
 Cohesion: 0.13
@@ -3222,12 +2220,12 @@ Cohesion: 0.13
 Nodes (10): DIFF_BADGE, DIFF_LABEL, ensureGuestChaptersModal(), grid, selected, selectionBar, selectionCount, showGuestChaptersLimitModal() (+2 more)
 
 ### Community 227 - "Community 227"
-Cohesion: 0.13
-Nodes (10): DIFF_BADGE, DIFF_LABEL, ensureGuestChaptersModal(), grid, selected, selectionBar, selectionCount, showGuestChaptersLimitModal() (+2 more)
+Cohesion: 0.20
+Nodes (5): RuntimeError, OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
 
 ### Community 228 - "Community 228"
-Cohesion: 0.13
-Nodes (10): DIFF_BADGE, DIFF_LABEL, ensureGuestChaptersModal(), grid, selected, selectionBar, selectionCount, showGuestChaptersLimitModal() (+2 more)
+Cohesion: 0.22
+Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
 
 ### Community 229 - "Community 229"
 Cohesion: 0.14
@@ -3246,8 +2244,8 @@ Cohesion: 0.22
 Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
 
 ### Community 233 - "Community 233"
-Cohesion: 0.20
-Nodes (19): renderClassBadge(), scopedStats(), $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct() (+11 more)
+Cohesion: 0.16
+Nodes (22): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), formatUnixDateFR(), globalProgressPct(), init() (+14 more)
 
 ### Community 234 - "Community 234"
 Cohesion: 0.13
@@ -3270,36 +2268,36 @@ Cohesion: 0.13
 Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
 
 ### Community 239 - "Community 239"
-Cohesion: 0.13
-Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
+Cohesion: 0.33
+Nodes (9): _all_pools(), audit_pool_size(), format_report(), low_diversity_pools(), Anti-répétition — Phase 4, Mission 6.  Mesure (jamais ne génère de texte automat, Mission 6, partie statique : nombre de variantes disponibles par pool,     sans, Tire `n` fois dans chaque pool (même mécanisme que le code réel,     `random.cho, Mission 6 : pools à enrichir en priorité — diversité réellement     observée sou (+1 more)
 
 ### Community 240 - "Community 240"
-Cohesion: 0.13
-Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
+Cohesion: 0.27
+Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
 
 ### Community 241 - "Community 241"
-Cohesion: 0.13
-Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
+Cohesion: 0.29
+Nodes (7): closeClassPanel(), fetchCurricula(), initClassBadge(), NUMBER_FORMAT, openClassPanel(), renderCurriculumCard(), statRow()
 
 ### Community 242 - "Community 242"
-Cohesion: 0.13
-Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
+Cohesion: 0.20
+Nodes (5): FEATURE_META, PAGE_FEATURE_REQUIREMENTS, PLAN_LABELS, PLAN_ORDER, PLAN_RANK
 
 ### Community 243 - "Community 243"
-Cohesion: 0.13
-Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
+Cohesion: 0.29
+Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
 
 ### Community 244 - "Community 244"
-Cohesion: 0.13
-Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
+Cohesion: 0.20
+Nodes (4): Les valeurs absolues" / "Valeur absolue" / "les valeurs absolues" /         "Cha, Un texte sans rapport ne doit jamais halluciner un topic_id., Repli flou (difflib) — texte jamais répertorié tel quel dans la     crosswalk :, TestResolveTopicIdFuzzy
 
 ### Community 245 - "Community 245"
-Cohesion: 0.13
-Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
+Cohesion: 0.20
+Nodes (3): Suite de non-régression pour /api/site/stats et /api/curricula (server.py) — cré, TestApiCurricula, TestApiSiteStats
 
 ### Community 246 - "Community 246"
-Cohesion: 0.13
-Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
+Cohesion: 0.20
+Nodes (5): ChatProvider, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
 
 ### Community 247 - "Community 247"
 Cohesion: 0.12
@@ -3310,44 +2308,44 @@ Cohesion: 0.07
 Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
 
 ### Community 249 - "Community 249"
-Cohesion: 0.13
-Nodes (14): Bugs connus, Cause, Contexte — comportement du logo pour un utilisateur connecté, Correctif, Corrections, Fichiers modifiés, Lumis V1, Nouveautés (+6 more)
+Cohesion: 0.07
+Nodes (29): Bugs connus, Bugs connus, Bugs connus, Cause, Contexte, Contexte — comportement du logo pour un utilisateur connecté, Correctif, Correction 1 : doublon du bouton "Profil" (+21 more)
 
 ### Community 250 - "Community 250"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.33
+Nodes (9): _all_pools(), audit_pool_size(), format_report(), low_diversity_pools(), Anti-répétition — Phase 4, Mission 6.  Mesure (jamais ne génère de texte automat, Mission 6, partie statique : nombre de variantes disponibles par pool,     sans, Tire `n` fois dans chaque pool (même mécanisme que le code réel,     `random.cho, Mission 6 : pools à enrichir en priorité — diversité réellement     observée sou (+1 more)
 
 ### Community 251 - "Community 251"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.29
+Nodes (7): closeClassPanel(), fetchCurricula(), initClassBadge(), NUMBER_FORMAT, openClassPanel(), renderCurriculumCard(), statRow()
 
 ### Community 252 - "Community 252"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.20
+Nodes (5): FEATURE_META, PAGE_FEATURE_REQUIREMENTS, PLAN_LABELS, PLAN_ORDER, PLAN_RANK
 
 ### Community 253 - "Community 253"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.20
+Nodes (3): Suite de non-régression pour /api/site/stats et /api/curricula (server.py) — cré, TestApiCurricula, TestApiSiteStats
 
 ### Community 254 - "Community 254"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.33
+Nodes (7): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, Carte "Revoir ce chapitre" pour le chapitre le plus faible de l'élève     (varia, `search_results` : résultats déjà obtenus par search_service.search sur     `use, _weak_chapter_card()
 
 ### Community 255 - "Community 255"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.36
+Nodes (8): _best_worst_chapter(), _chapter_stats(), _format_duration(), _mastered_and_in_progress_chapters(), Construit le dictionnaire de variables réelles ({username}, {accuracy}, {meilleu, Dict de variables réelles, prêt pour `str.format_map` dans un     template. Touj, resolve(), _time_totals()
 
 ### Community 256 - "Community 256"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.28
+Nodes (8): clear_cache(), compute_stats(), list_curricula(), _load_bank(), Statistiques par programme scolaire, calculées à la volée depuis la banque d'exe, Statistiques d'un programme, mises en cache après le premier calcul     (voir cl, Un profil par entrée de curriculum_registry, dans l'ordre déclaré —     seule li, Vide le cache — utilisé par les tests pour repartir d'un état connu,     jamais
 
 ### Community 257 - "Community 257"
 Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
 
 ### Community 258 - "Community 258"
 Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Nodes (4): Explique autrement" doit être classé REFORMULATION, pas         EXPLICATION (voi, resume moi" (sans trait d'union ni accent) doit encore être         reconnu via, Limitation pré-existante et assumée (voir test_chatbot_routing.py) :         try, TestAmbiguitesEtMessagesIncomplets
 
 ### Community 259 - "Community 259"
 Cohesion: 0.22
@@ -3362,12 +2360,12 @@ Cohesion: 0.22
 Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
 
 ### Community 262 - "Community 262"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.28
+Nodes (8): clear_cache(), compute_stats(), list_curricula(), _load_bank(), Statistiques par programme scolaire, calculées à la volée depuis la banque d'exe, Statistiques d'un programme, mises en cache après le premier calcul     (voir cl, Un profil par entrée de curriculum_registry, dans l'ordre déclaré —     seule li, Vide le cache — utilisé par les tests pour repartir d'un état connu,     jamais
 
 ### Community 263 - "Community 263"
 Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Nodes (4): Explique autrement" doit être classé REFORMULATION, pas         EXPLICATION (voi, resume moi" (sans trait d'union ni accent) doit encore être         reconnu via, Limitation pré-existante et assumée (voir test_chatbot_routing.py) :         try, TestAmbiguitesEtMessagesIncomplets
 
 ### Community 264 - "Community 264"
 Cohesion: 0.22
@@ -3378,16 +2376,16 @@ Cohesion: 0.22
 Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
 
 ### Community 266 - "Community 266"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+Cohesion: 0.07
+Nodes (16): _fake_ip(), Suite d'intégration SEC-03 : vérifie le branchement réel des routes 2FA sur `ser, Non-régression : un compte sans 2FA continue de se connecter     exactement comm, IP unique par appel — voir tests/test_server_rate_limits.py (même     convention, Le secret n'est renvoyé que par /setup elle-même — jamais par         /api/auth/, _register(), TestDisableRoute, TestEnableRoute (+8 more)
 
 ### Community 267 - "Community 267"
 Cohesion: 0.21
 Nodes (10): _fix_known_artifacts(), _flatten_steps(), main(), naturalize_exercise(), naturalize_text(), Convertisseur déterministe LaTeX -> notation mathématique lisible, pour exercise, Certains exercices de la banque ont solution_steps sous forme de dict     (ex: {, Corrige des artefacts de génération déjà connus dans exercises_bank.json     (ex (+2 more)
 
 ### Community 268 - "Community 268"
-Cohesion: 0.14
-Nodes (13): Base de données, Bugs connus / limites assumées, Changelog — NovaMath v1.05, Connexion Google et architecture multi-fournisseurs, Contexte, Inscription et connexion, Landing page, Migration des données existantes (+5 more)
+Cohesion: 0.25
+Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.63, Optimisations, Temps estimé de développement
 
 ### Community 269 - "Community 269"
 Cohesion: 0.27
@@ -3398,28 +2396,28 @@ Cohesion: 0.15
 Nodes (13): Base de données, Bugs connus / limites assumées, Connexion Google et architecture multi-fournisseurs, Contexte, Inscription et connexion, Landing page, Migration des données existantes, Mot de passe oublié (+5 more)
 
 ### Community 271 - "Community 271"
-Cohesion: 0.15
-Nodes (12): Améliorations UI, Améliorations UX, Bugs connus, Changelog — NovaMath v1.02, Contexte, Corrections de bugs, Fichiers modifiés, Fonctionnalités ajoutées (+4 more)
+Cohesion: 0.32
+Nodes (7): chapitres_evoques_par_les_appels_llm(), messages_incompris(), Expérience utilisateur — Phase 4, Mission 7.  IMPORTANT (honnêteté du périmètre,, Proportion de tours ayant déclenché la clarification (charabia détecté,     voir, Chapitres associés aux questions qui ont fini par appeler le LLM     (`llm_call_, Rapport Mission 7 — mesurable aujourd'hui + rappel explicite de ce qui     ne l', report()
 
 ### Community 272 - "Community 272"
-Cohesion: 0.15
-Nodes (12): 1. Doublon du bouton "Profil", 2. Upload de photo de profil non fonctionnel, Améliorations UI, Améliorations UX, Bugs connus, Changelog — NovaMath v1.04, Contexte, Corrections de bugs (+4 more)
+Cohesion: 0.36
+Nodes (7): _difficulte_heuristique(), main(), migrate_chapter_file(), migrate_notion(), Migration automatique vers le schéma Knowledge Engine v2 complet, pour les 12 ch, Heuristique de POSITION (1er exemple = facile, dernier = difficile,     milieu =, Applique le schéma KE v2 complet à une notion, en place. Additif     uniquement
 
 ### Community 273 - "Community 273"
-Cohesion: 0.15
-Nodes (12): Brute-force — temporisation progressive, Bugs connus / limites assumées, Changelog — NovaMath v1.07, Contexte — audit de sécurité complet, CSRF — double-submit cookie, En-têtes de sécurité HTTP, Journalisation des événements de sécurité, Mots de passe — migration vers Argon2id (+4 more)
+Cohesion: 0.36
+Nodes (7): api, buildApiError(), handleQuotaExceeded(), MUTATING_METHODS, PLAN_LABELS_FOR_TOAST, readCookie(), request()
 
 ### Community 274 - "Community 274"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.25
+Nodes (8): forceScrollToBottom(), hideLiveSuggestions(), hideScrollBottomBtn(), refreshChatbotStreamingSetting(), renderLiveSuggestions(), retryReply(), scheduleLiveSuggestions(), sendMessage()
 
 ### Community 275 - "Community 275"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.08
+Nodes (47): Exception, begin_setup(), confirm_setup(), create_login_challenge(), _decrypt_secret(), disable(), _encrypt_secret(), _ensure_not_locked_out() (+39 more)
 
 ### Community 276 - "Community 276"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.06
+Nodes (10): _mk_user(), Suite SEC-04 : consent_service.py — calcul d'âge, seuil légal des 15 ans, cycle, TestComputeAge, TestCookieConsent, TestCreateConsentRequest, TestGetPublicConsentInfo, TestPolicyVersions, TestRequiresParentalConsent (+2 more)
 
 ### Community 277 - "Community 277"
 Cohesion: 0.22
@@ -3434,12 +2432,12 @@ Cohesion: 0.22
 Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
 
 ### Community 280 - "Community 280"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.32
+Nodes (7): chapitres_evoques_par_les_appels_llm(), messages_incompris(), Expérience utilisateur — Phase 4, Mission 7.  IMPORTANT (honnêteté du périmètre,, Proportion de tours ayant déclenché la clarification (charabia détecté,     voir, Chapitres associés aux questions qui ont fini par appeler le LLM     (`llm_call_, Rapport Mission 7 — mesurable aujourd'hui + rappel explicite de ce qui     ne l', report()
 
 ### Community 281 - "Community 281"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.06
+Nodes (38): add_column_if_missing(), _autoincrement_tables(), DatabaseConnectionError, detect_engine(), _dict_row(), engine_of(), get_connection(), _get_pool() (+30 more)
 
 ### Community 282 - "Community 282"
 Cohesion: 0.22
@@ -3450,8 +2448,8 @@ Cohesion: 0.22
 Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
 
 ### Community 284 - "Community 284"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.12
+Nodes (15): computeAge(), isMinorSignup(), open2FAChallenge(), setRecoveryMode(), getCookieConsentChoice(), mountBanner(), openCookiePreferences(), readStoredConsent() (+7 more)
 
 ### Community 285 - "Community 285"
 Cohesion: 0.17
@@ -3462,16 +2460,16 @@ Cohesion: 0.27
 Nodes (10): exerciseCache, $(), BADGE_ICONS, formatDuration(), init(), render(), renderBadges(), renderHeatmap() (+2 more)
 
 ### Community 287 - "Community 287"
-Cohesion: 0.17
-Nodes (11): Badge déplacé dans l'en-tête, Bugs connus / limites assumées, Changelog — NovaMath v1.10, Contexte — assouplissement du Mode Invité, Dashboard non bloquant, Entrée en mode invité simplifiée, Fenêtre de limite de chapitres — texte mis à jour, Panneau flottant supprimé (+3 more)
+Cohesion: 0.06
+Nodes (13): BackupServiceTestCase, Suite de backup_service.py — backup_database()/list_backups()/restore_backup(),, Aucun fichier arbitraire du disque ne doit pouvoir être "restauré"         — seu, `when` : soit une date au format "YYYYMMDD" (convertie en         timestamp vali, TestBackupDatabaseSqlite, TestBackupDir, TestCompatibilitePostgresql, TestDetectBackend (+5 more)
 
 ### Community 288 - "Community 288"
 Cohesion: 0.18
 Nodes (8): DIFF_BADGE, DIFF_LABEL, grid, selected, selectionBar, selectionCount, toggleSelection(), updateSelectionBar()
 
 ### Community 289 - "Community 289"
-Cohesion: 0.24
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.38
+Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
 
 ### Community 290 - "Community 290"
 Cohesion: 0.18
@@ -3482,24 +2480,24 @@ Cohesion: 0.18
 Nodes (10): Améliorations UI, Améliorations UX, Bugs connus, Changelog — NovaMath v1.00, Contexte, Corrections de bugs, Fonctionnalités ajoutées, Fonctionnalités supprimées (+2 more)
 
 ### Community 292 - "Community 292"
-Cohesion: 0.18
-Nodes (10): Améliorations UI, Améliorations UX, Bugs connus, Changelog — NovaMath v1.01, Contexte, Corrections de bugs, Fonctionnalités ajoutées, Fonctionnalités supprimées (+2 more)
+Cohesion: 0.52
+Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
 
 ### Community 293 - "Community 293"
-Cohesion: 0.27
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.38
+Nodes (6): format_report(), Tableau de bord développeur — Phase 4, Mission 8.  Agrège en UNE lecture toutes, Snapshot complet. `quality_sample_size` : nombre de compositions     simulées po, Estime une qualité moyenne (Mission 5) en composant `n` réponses sur     une not, _sample_quality_score(), snapshot()
 
 ### Community 294 - "Community 294"
-Cohesion: 0.27
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.62
+Nodes (6): animateCount(), animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
 
 ### Community 295 - "Community 295"
-Cohesion: 0.27
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.29
+Nodes (7): actionCardsHtml(), appendMessageEl(), bindActionCards(), bindMessageActions(), escapeHtml(), messageActionsHtml(), renderMessageBody()
 
 ### Community 296 - "Community 296"
-Cohesion: 0.27
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
+Cohesion: 0.52
+Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
 
 ### Community 297 - "Community 297"
 Cohesion: 0.36
@@ -3518,20 +2516,16 @@ Cohesion: 0.36
 Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
 
 ### Community 301 - "Community 301"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 302 - "Community 302"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
+Cohesion: 0.43
+Nodes (5): prettify(), RAW_PATTERNS, renderMathIn(), setMathContent(), setRenderedHtmlContent()
 
 ### Community 303 - "Community 303"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.38
+Nodes (6): format_report(), Tableau de bord développeur — Phase 4, Mission 8.  Agrège en UNE lecture toutes, Snapshot complet. `quality_sample_size` : nombre de compositions     simulées po, Estime une qualité moyenne (Mission 5) en composant `n` réponses sur     une not, _sample_quality_score(), snapshot()
 
 ### Community 304 - "Community 304"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
+Cohesion: 0.62
+Nodes (6): animateCount(), animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
 
 ### Community 305 - "Community 305"
 Cohesion: 0.25
@@ -3550,8 +2544,8 @@ Cohesion: 0.36
 Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
 
 ### Community 309 - "Community 309"
-Cohesion: 0.12
-Nodes (21): getStoredClassLevel(), selectedChaptersForActiveClass(), loadContextPanel(), loadGreeting(), open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated() (+13 more)
+Cohesion: 0.24
+Nodes (11): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, selectedChaptersForActiveClass() (+3 more)
 
 ### Community 310 - "Community 310"
 Cohesion: 0.36
@@ -3594,12 +2588,12 @@ Cohesion: 0.20
 Nodes (9): Améliorations UI, Améliorations UX, Bugs connus, Changelog — Lumis V6, Contexte, Corrections de bugs, Fonctionnalités ajoutées, Fonctionnalités supprimées (+1 more)
 
 ### Community 320 - "Community 320"
-Cohesion: 0.20
-Nodes (9): Architecture / refactorisation, Bug corrigé : étoiles toujours à 5/5, Bugs connus, Changelog — NovaMath v1.03, Contexte, Modification du nom (expérience premium), Personnalisation et statistiques du profil, Photo de profil personnalisable (+1 more)
+Cohesion: 0.47
+Nodes (5): main(), _measure_performance(), Exécute toute la suite fonctionnelle (test_canonical_ids, test_chatbot_routing,, Temps moyen de resolve_topic_id sur le chemin exact (lookup direct) et     sur l, _run_suite()
 
 ### Community 321 - "Community 321"
-Cohesion: 0.20
-Nodes (9): Aucune régression, Bugs connus / limites assumées, Changelog — NovaMath v1.12, Contexte — Root Cause Analysis, pas un patch, Correction — la landing page devient un point de passage unique et autoritaire, Pourquoi ce problème ne peut plus se reproduire, PROBLÈME N°1 — Refonte du composant "Créer un compte" (sidebar), PROBLÈME N°2 — Root Cause Analysis : pourquoi le Mode Invité survivait au retour sur la landing page (+1 more)
+Cohesion: 0.47
+Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
 
 ### Community 322 - "Community 322"
 Cohesion: 0.29
@@ -3666,108 +2660,80 @@ Cohesion: 0.29
 Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
 
 ### Community 338 - "Community 338"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.33
+Nodes (5): pick_rendered(), Mémoire de style partagée : évite qu'un moteur de composition locale ne répète m, Concatène les réponses assistant récentes exposées par le Student     Context Re, Rend CHAQUE variante avec `mapping` (un dict, ou un `_SafeDict`-like     toléran, recent_assistant_text()
 
 ### Community 339 - "Community 339"
-Cohesion: 0.36
-Nodes (10): $(), BADGE_ICONS, chapterTitles, formatDuration(), init(), render(), renderBadges(), renderHeatmap() (+2 more)
+Cohesion: 0.40
+Nodes (5): build_registry(), CurriculumProfile, Registre central des programmes scolaires (curricula) de NovaMath.  Ce module ne, Description purement déclarative des ressources d'un programme scolaire.      `i, Assemble une séquence de profils en un mapping id -> profil, en     garantissant
 
 ### Community 340 - "Community 340"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
+Cohesion: 0.47
+Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
 
 ### Community 341 - "Community 341"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.53
+Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
 
 ### Community 342 - "Community 342"
-Cohesion: 0.36
-Nodes (10): $(), BADGE_ICONS, chapterTitles, formatDuration(), init(), render(), renderBadges(), renderHeatmap() (+2 more)
-
-### Community 343 - "Community 343"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
+Cohesion: 0.60
+Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
 ### Community 344 - "Community 344"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.06
+Nodes (7): Suite de migration/schéma pour la 2FA (SEC-03) — colonnes ajoutées à `users` (AL, Simule une base créée AVANT l'ajout des colonnes 2FA (schéma de         base seu, TestAccesseursDb, TestColonnesUsers, TestTableChallenges, TestTableRecoveryCodes, TwoFactorMigrationTestCase
 
 ### Community 345 - "Community 345"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
+Cohesion: 0.33
+Nodes (5): pick_rendered(), Mémoire de style partagée : évite qu'un moteur de composition locale ne répète m, Concatène les réponses assistant récentes exposées par le Student     Context Re, Rend CHAQUE variante avec `mapping` (un dict, ou un `_SafeDict`-like     toléran, recent_assistant_text()
 
 ### Community 346 - "Community 346"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.47
+Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
 
 ### Community 347 - "Community 347"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
+Cohesion: 0.40
+Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.63, Résolution des erreurs courantes
 
 ### Community 348 - "Community 348"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.50
+Nodes (4): Décide si une demande de l'élève peut être répondue entièrement en local (sans a, Renvoie le texte de la réponse locale, ou None si aucune réponse     locale n'es, try_answer(), _try_exercise_answer()
 
 ### Community 349 - "Community 349"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
+Cohesion: 0.40
+Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
 
 ### Community 350 - "Community 350"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.09
+Nodes (16): RateLimitEnabledTestCase, Suite d'intégration : vérifie le branchement réel de @rate_limit(...) sur les ro, Deux comptes connectés depuis la MÊME IP ne doivent pas partager         le même, Un endpoint billing distinct (customer-portal) ne doit pas être         affecté, methods={"POST"} sur /messages : la lecture (GET) de l'historique         n'est, Active RATE_LIMIT_ENABLED pour la durée de chaque test, la restaure     ensuite, _register(), TestBillingRateLimit (+8 more)
 
 ### Community 351 - "Community 351"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 352 - "Community 352"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.40
+Nodes (5): closeConvosDrawer(), ensureConversation(), loadConversations(), renderConvoList(), selectConversation()
 
 ### Community 353 - "Community 353"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
+Cohesion: 0.50
+Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
 
 ### Community 354 - "Community 354"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.67
+Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
 
 ### Community 355 - "Community 355"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
+Cohesion: 0.50
+Nodes (3): generate(), Point de sortie unique vers le fournisseur IA actif — Phase Q du chantier v2.12, Générateur de fragments texte — délègue entièrement au fournisseur     actif. Au
 
 ### Community 356 - "Community 356"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 357 - "Community 357"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 358 - "Community 358"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.50
+Nodes (3): Validateur de forme du StudentContext (student_context_resolver.py, Response Eng, Renvoie la liste des erreurs (vide si tout est correct). Ne lève     jamais d'ex, validate_student_context()
 
 ### Community 359 - "Community 359"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 360 - "Community 360"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
+Cohesion: 0.67
+Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
 
 ### Community 361 - "Community 361"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 362 - "Community 362"
-Cohesion: 0.29
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 363 - "Community 363"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
+Cohesion: 0.67
+Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
 
 ### Community 364 - "Community 364"
 Cohesion: 0.29
@@ -3789,22 +2755,6 @@ Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), form
 Cohesion: 0.29
 Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
 
-### Community 369 - "Community 369"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 370 - "Community 370"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 371 - "Community 371"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 372 - "Community 372"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
 ### Community 373 - "Community 373"
 Cohesion: 0.29
 Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
@@ -3824,10 +2774,6 @@ Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isM
 ### Community 377 - "Community 377"
 Cohesion: 0.29
 Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 378 - "Community 378"
-Cohesion: 0.13
-Nodes (14): enterCurriculum(), grid, closeClassPanel(), fetchCurricula(), initClassBadge(), NUMBER_FORMAT, openClassPanel(), renderCurriculumCard() (+6 more)
 
 ### Community 379 - "Community 379"
 Cohesion: 0.22
@@ -3865,61 +2811,17 @@ Nodes (8): bump_version(), detect_port(), ignore(), main(), Crée un instantané
 Cohesion: 0.33
 Nodes (5): handle_practice_result(), handle_quiz_answer(), pick_exercise(), predict_level(), start_quiz()
 
-### Community 388 - "Community 388"
-Cohesion: 0.22
-Nodes (8): Avis liés au compte connecté, Bugs connus / limites assumées, Changelog — NovaMath v1.06, Contexte — bug critique d'isolation des comptes, Correctifs, Purge du cache client au changement de compte (correctif principal), Session de quiz (Flask `session`) réinitialisée au changement de compte, Vérification
-
 ### Community 389 - "Community 389"
 Cohesion: 0.33
 Nodes (9): $(), handleAnswer(), init(), screenLoading, screenQuiz, screenResult, showQuestion(), startChrono() (+1 more)
 
-### Community 390 - "Community 390"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 391 - "Community 391"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 392 - "Community 392"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 393 - "Community 393"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 394 - "Community 394"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 395 - "Community 395"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
 ### Community 396 - "Community 396"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 397 - "Community 397"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
+Cohesion: 0.07
+Nodes (9): HealthServiceTestCase, Suite de health_service.py — chaque vérification individuelle (check_database/ch, Vérification de configuration uniquement (Partie 4) : aucun appel         au SDK, TestAppVersion, TestCheckBackupDirectory, TestCheckDatabase, TestCheckDiskSpace, TestCheckStripeConfigured (+1 more)
 
 ### Community 398 - "Community 398"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 399 - "Community 399"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 400 - "Community 400"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 401 - "Community 401"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
+Cohesion: 0.08
+Nodes (27): compute_age(), ConsentAlreadyResolved, ConsentExpired, create_consent_request(), get_public_consent_info(), InvalidConsentToken, NoPendingConsentRequest, Consentement (âge, protection des mineurs, cookies, versions de politique) pour (+19 more)
 
 ### Community 402 - "Community 402"
 Cohesion: 0.22
@@ -3930,14 +2832,6 @@ Cohesion: 0.22
 Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
 
 ### Community 404 - "Community 404"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 405 - "Community 405"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 406 - "Community 406"
 Cohesion: 0.22
 Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
 
@@ -3961,14 +2855,6 @@ Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), en
 Cohesion: 0.46
 Nodes (8): renderHistoryPage(), $(), BADGE_ICONS, init(), render(), renderBadges(), renderHeatmap(), renderRadar()
 
-### Community 412 - "Community 412"
-Cohesion: 0.25
-Nodes (7): Architecture retenue, Backend (`webapp/db.py`, `webapp/auth.py`, `webapp/server.py`), Bugs connus / limites assumées, Changelog — NovaMath v1.09, Contexte — Mode Invité, Frontend, Tests réalisés
-
-### Community 413 - "Community 413"
-Cohesion: 0.25
-Nodes (7): Aucune régression, Bugs connus / limites assumées, Changelog — NovaMath v1.11, Contexte — le Mode Invité doit être réellement temporaire, Cycle de vie de l'invité, désormais réellement éphémère, Dashboard verrouillé après la première découverte (et seulement lui), Tests effectués (curl, cookie jar dédié par scénario)
-
 ### Community 414 - "Community 414"
 Cohesion: 0.25
 Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.13, Optimisations, Temps estimé de développement
@@ -3982,12 +2868,8 @@ Cohesion: 0.25
 Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.15, Optimisations, Temps estimé de développement
 
 ### Community 417 - "Community 417"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.16, Optimisations, Temps estimé de développement
-
-### Community 418 - "Community 418"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.17, Optimisations, Temps estimé de développement
+Cohesion: 0.12
+Nodes (8): _fake_ip(), PrivacyRouteTestCase, Suite SEC-04 : routes RGPD du compte connecté — /api/data/export (étendu), /api/, _register(), TestConsentHistoryRoute, TestCookieConsentRoutes, TestDataExportRoute, TestPolicyStatusRoutes
 
 ### Community 419 - "Community 419"
 Cohesion: 0.25
@@ -4001,21 +2883,17 @@ Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v
 Cohesion: 0.29
 Nodes (7): Architecture retenue, Backend (`webapp/db.py`, `webapp/auth.py`, `webapp/server.py`), Bugs connus / limites assumées, Contexte — Mode Invité, Frontend, Tests réalisés, v1.09
 
-### Community 422 - "Community 422"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
 ### Community 423 - "Community 423"
-Cohesion: 0.08
-Nodes (42): Bugs connus, Bugs connus, Bugs connus, Bugs connus, Bugs connus, Bugs connus, Corrections, Corrections (+34 more)
+Cohesion: 0.06
+Nodes (54): Bugs connus, Bugs connus, Bugs connus, Bugs connus, Bugs connus, Bugs connus, Bugs connus, Bugs connus (+46 more)
 
 ### Community 424 - "Community 424"
 Cohesion: 0.07
-Nodes (55): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+47 more)
+Nodes (27): description, devDependencies, axe-core, eslint, @eslint/js, eslint-plugin-import, globals, jsdom (+19 more)
 
 ### Community 425 - "Community 425"
 Cohesion: 0.06
-Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+48 more)
+Nodes (55): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+47 more)
 
 ### Community 426 - "Community 426"
 Cohesion: 0.09
@@ -4037,17 +2915,21 @@ Nodes (27): $(), ACCENTS, bindAppearance(), bindLearning(), bindPillGroup(), bin
 Cohesion: 0.29
 Nodes (7): Échec: Ensembles de nombres Lvl 5, Échec: Puissances entières relatives Lvl 1, Encadrement d'un réel, Ensembles de nombres (ℕ, ℤ, 𝔻, ℚ, ℝ), Nombres irrationnels, Puissances entières relatives, Racine carrée
 
+### Community 438 - "Community 438"
+Cohesion: 0.07
+Nodes (7): Suite SEC-04 : validation unitaire côté auth.py (validate_birth_date, validate_p, Contrairement à validate_email (comptes NovaMath, Gmail         uniquement), l'e, /api/auth/me n'est jamais protégée par requires_active_account         (voir sa, TestParentConsentPage, TestRequiresActiveAccountDecorator, TestValidateBirthDate, TestValidateParentEmail
+
 ### Community 451 - "Community 451"
 Cohesion: 0.52
 Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
 
-### Community 453 - "Community 453"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
+### Community 454 - "Community 454"
+Cohesion: 0.08
+Nodes (9): ConfiguredEmailTestCase, Suite SEC-04 : email_service.py — envoi SMTP mocké (aucun appel réseau réel), fi, Un lien de consentement parental est un secret au même titre qu'un         token, Bascule config.EMAIL_* vers une configuration SMTP complète pour la     durée du, TestEmailTemplates, TestIsConfigured, TestSendEmailConfigure, TestSendEmailNonConfigure (+1 more)
 
-### Community 455 - "Community 455"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
+### Community 456 - "Community 456"
+Cohesion: 0.19
+Nodes (8): _fake_ip(), Suite SEC-04 : intégration serveur — vérification de l'âge à l'inscription, seui, _register_payload(), RegistrationAgeTestCase, TestBirthDateValidation, TestLoginBlockedForPendingAccount, TestMinorRegistration, TestPolicyAcceptanceRecorded
 
 ### Community 457 - "Community 457"
 Cohesion: 0.52
@@ -4072,22 +2954,6 @@ Nodes (6): Projeté orthogonal, Relation de Chasles, Somme et différence de vec
 ### Community 465 - "Community 465"
 Cohesion: 0.33
 Nodes (6): Coefficient directeur (pente) d'une droite, Équation réduite d'une droite, Maximum et minimum d'une fonction (extremums), Tableau de variations, Variations d'une fonction (croissante, décroissante), Variations des fonctions affines et taux d'accroissement
-
-### Community 466 - "Community 466"
-Cohesion: 0.33
-Nodes (5): Cause, Changelog — NovaMath v1.08, Contexte — comportement du logo pour un utilisateur connecté, Correctif, Tests réalisés
-
-### Community 467 - "Community 467"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 468 - "Community 468"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 469 - "Community 469"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
 ### Community 470 - "Community 470"
 Cohesion: 0.73
@@ -4125,30 +2991,6 @@ Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT,
 Cohesion: 0.60
 Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
-### Community 479 - "Community 479"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 480 - "Community 480"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 481 - "Community 481"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 482 - "Community 482"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 483 - "Community 483"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 484 - "Community 484"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
 ### Community 485 - "Community 485"
 Cohesion: 0.73
 Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
@@ -4173,10 +3015,6 @@ Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT,
 Cohesion: 0.60
 Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
-### Community 491 - "Community 491"
-Cohesion: 0.08
-Nodes (9): Suite fonctionnelle du registre central des programmes scolaires (curriculum_reg, Le module ne doit dépendre d'aucun autre composant du projet., Seconde est le programme déjà en production : chaque chemin déclaré     doit poi, Première : les banques d'exercices déjà présentes dans le projet     doivent êtr, Généré par generate_cours_from_bank.py à partir de exercise_bank         (jamais, TestCheminsPremiere, TestCheminsSeconde, TestIndependance (+1 more)
-
 ### Community 492 - "Community 492"
 Cohesion: 0.53
 Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
@@ -4184,10 +3022,6 @@ Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT,
 ### Community 493 - "Community 493"
 Cohesion: 0.60
 Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 494 - "Community 494"
-Cohesion: 0.70
-Nodes (4): renderGuestFloatingPanel(), initials(), paint(), render()
 
 ### Community 495 - "Community 495"
 Cohesion: 0.50
@@ -4202,8 +3036,8 @@ Cohesion: 0.13
 Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
 
 ### Community 498 - "Community 498"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.12, Résolution des erreurs courantes
+Cohesion: 0.13
+Nodes (27): _apply_retention(), backup_database(), backup_dir(), _backup_postgresql(), _backup_sqlite(), BackupNotFound, _delete_backup_file(), _detect_backend() (+19 more)
 
 ### Community 499 - "Community 499"
 Cohesion: 0.40
@@ -4218,12 +3052,12 @@ Cohesion: 0.40
 Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.15, Résolution des erreurs courantes
 
 ### Community 502 - "Community 502"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.16, Résolution des erreurs courantes
+Cohesion: 0.07
+Nodes (27): add_consent_record(), create_two_factor_challenge(), enable_two_factor(), get_two_factor_challenge(), add_message(), create_conversation(), create_password_reset(), create_session() (+19 more)
 
 ### Community 503 - "Community 503"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.17, Résolution des erreurs courantes
+Cohesion: 0.14
+Nodes (4): _load_gunicorn_conf(), Charge gunicorn.conf.py comme un module Python autonome — ne     nécessite PAS l, TestGunicornConfigDefauts, TestGunicornConfigSurcharges
 
 ### Community 504 - "Community 504"
 Cohesion: 0.40
@@ -4262,76 +3096,100 @@ Cohesion: 0.70
 Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
 
 ### Community 520 - "Community 520"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.11
+Nodes (10): 5 requêtes juste avant la limite, puis (à la seconde près) une         sixième q, 3 requêtes à t=0, 2 requêtes à t=30 (fenêtre 60s, limite 5) :         à t=61, se, Une tentative refusée ne doit pas s'ajouter au compteur stocké —         même ph, La toute première requête fixe le début de fenêtre à `now` ; 10         secondes, TestCheckAutorisationDeBase, TestFenetreGlissante, TestIsolationClesEtEndpoints, TestRetryAfterEtReset (+2 more)
+
+### Community 521 - "Community 521"
+Cohesion: 0.13
+Nodes (7): _fake_ip(), ParentalConsentRouteTestCase, Suite SEC-04 : routes publiques de consentement parental (GET status, accept, re, TestAcceptRoute, TestGetConsentStatus, TestRefuseRoute, TestResendRoute
 
 ### Community 522 - "Community 522"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.07
+Nodes (3): TestCheckoutSession, TestConnexionStripeReelle, TestCreationClient
+
+### Community 523 - "Community 523"
+Cohesion: 0.09
+Nodes (5): MetricsServiceDbTestCase, Suite de metrics_service.py — compteurs en mémoire (record_request/ record_error, record_request()/record_error() (appelés à CHAQUE requête par         logging_se, TestInMemoryCounters, TestSnapshotPersiste
 
 ### Community 524 - "Community 524"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.13
+Nodes (5): _EnvIsolatedTestCase, Régression : un `database_url` explicite passé à get_connection()         doit p, _reload_config(), TestConfigDefaults, TestPoolConstruction
+
+### Community 525 - "Community 525"
+Cohesion: 0.08
+Nodes (6): Suite d'intégration : vérifie le branchement réel des services d'observabilité s, server.app a déjà traité des requêtes au moment où cette suite     s'exécute (Fl, TestApiHealthRoute, TestLoggingConfigureAuDemarrage, TestPanicLogMiddlewareBrancheSurServerApp, TestRequestLoggingMiddlewareReel
 
 ### Community 526 - "Community 526"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.13
+Nodes (8): Suite ARCH-03/ARCH-05 : infrastructure de déploiement (Dockerfile, docker-compos, _read(), TestEditorConfig, TestGitattributes, TestRailwayConfig, TestRenderConfig, TestRequirementsDev, TestVariablesDocumentees
+
+### Community 527 - "Community 527"
+Cohesion: 0.10
+Nodes (6): RateLimitServiceTestCase, Suite unitaire de rate_limit_service.py — algorithme de fenêtre glissante (check, 40 threads tentent chacun une requête sur une limite de 25 —         exactement, TestConcurrence, TestDbLayer, TestIdentityKey
 
 ### Community 528 - "Community 528"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.13
+Nodes (8): Suite Phase 0 (SEC-05) : role_service.py isolé de server.py — Role, hiérarchie d, TestGetRole, TestIsStaff, TestSyncAdminBootstrap, get_role(), is_staff(), Rôle effectif d'un utilisateur. `user` peut être None (invité non     connecté,, True pour tout rôle interne (strictement au-dessus de USER) — utile     pour une
+
+### Community 529 - "Community 529"
+Cohesion: 0.11
+Nodes (20): advance_test_clock(), attach_payment_method(), build_real_signed_webhook_payload(), cleanup_customer(), cleanup_test_clock(), create_real_subscription(), create_test_clock(), create_test_customer() (+12 more)
 
 ### Community 530 - "Community 530"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.11
+Nodes (6): Suite ARCH-02 : webapp/database_service.py — détection du moteur, traduction SQL, Même stratégie que tests/test_two_factor_migration.py : base SQLite     temporai, _SqliteIsolatedTestCase, TestAutoincrementTables, TestEngineOf, TestTranslateSqlInsertOrIgnore
 
-### Community 532 - "Community 532"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+### Community 531 - "Community 531"
+Cohesion: 0.22
+Nodes (3): _reload_config(), TestBuildCspSourcesConfigurables, TestBuildHsts
 
 ### Community 533 - "Community 533"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
+Cohesion: 0.19
+Nodes (3): TestDecorateur, rate_limit(), Décorateur de route Flask : limite `requests` requêtes par fenêtre     glissante
+
+### Community 534 - "Community 534"
+Cohesion: 0.15
+Nodes (8): _fake_ip(), Suite SEC-06 : en-têtes de sécurité HTTP (security_headers_service.py).  Vérifie, Stripe est intégré côté client par redirection complète du navigateur     (jamai, Voir tests/test_server_two_factor.py — IP unique par appel pour éviter     toute, _register(), TestAuthenticationNonRegression, TestChatbotNonRegression, TestStripeNonRegression
 
 ### Community 535 - "Community 535"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.18
+Nodes (8): _fake_email(), _fake_ip(), Adresse IP unique par appel — évite qu'un register()/login() de mise     en plac, Email jetable unique par test : /api/auth/login applique déjà, en     plus et in, Sans activation explicite (comportement par défaut hors production,     voir con, TestLoginRateLimit, TestRateLimitDesactiveParDefaut, TestReviewsRateLimit
 
-### Community 536 - "Community 536"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 538 - "Community 538"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+### Community 537 - "Community 537"
+Cohesion: 0.16
+Nodes (5): Suite Phase 0 (SEC-05) : /api/dev/dashboard doit être réservée aux comptes ADMIN, Le rôle doit être lisible par le frontend (toute UI admin future) via     les mê, _register(), TestDevDashboardReserveeAuxAdmins, TestRoleExposeDansLeProfilPublic
 
 ### Community 539 - "Community 539"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
+Cohesion: 0.21
+Nodes (7): _fake_ip(), Suite SEC-04 : journalisation RGPD — vérifie que la rectification (PUT /api/auth, _register(), SecurityEventsPrivacyTestCase, TestDeletionLogging, TestNoSensitiveDataLogged, TestRectificationLogging
 
 ### Community 541 - "Community 541"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.21
+Nodes (7): _EnvIsolatedTestCase, Suite Phase 0 (passage en production) : vérifie que FLASK_ENV pilote bien debug/, Sauvegarde/restaure les variables d'environnement touchées par un test     et re, _reload_config(), TestConfigDeveloppementParDefaut, TestConfigProduction, TestSurchargesIndividuelles
 
 ### Community 542 - "Community 542"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
+Cohesion: 0.12
+Nodes (3): Suite SEC-04 : migration des colonnes/tables RGPD (birth_date, account_status, t, Preuve légale : jamais supprimée, même après suppression du compte         (voir, TestMigrationColonnesRGPD
 
 ### Community 544 - "Community 544"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+Cohesion: 0.21
+Nodes (4): _make_record(), Suite de logging_service.py : formatage structuré (StructuredFormatter), enrichi, TestContextFilter, TestStructuredFormatterDev
 
 ### Community 545 - "Community 545"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
+Cohesion: 0.15
+Nodes (13): capture_exception(), configure_logging(), configure_sentry(), _ContextFilter, init_app(), Journalisation structurée + supervision runtime pour NovaMath.  Architecture str, Configure le logger racine (niveau, handler, formatter, filtre) et     tente d'a, Active Sentry si SENTRY_DSN est configurée (Partie 2). Absence de     SENTRY_DSN (+5 more)
 
-### Community 547 - "Community 547"
-Cohesion: 0.70
-Nodes (4): ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
+### Community 546 - "Community 546"
+Cohesion: 0.12
+Nodes (4): Un en-tête de sécurité mal construit ne doit jamais faire planter une     route, TestApplyHeadersIntegrationDev, TestBalayageRoutesAucuneRegression, TestTelechargement
 
 ### Community 548 - "Community 548"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
+Cohesion: 0.17
+Nodes (15): apply_headers(), build_csp(), build_hsts(), _dedupe(), init_app(), _is_https(), En-têtes de sécurité HTTP pour NovaMath — niveau proche d'un SaaS professionnel, Valeur de Strict-Transport-Security, ou None si HSTS ne doit pas être     envoyé (+7 more)
+
+### Community 549 - "Community 549"
+Cohesion: 0.20
+Nodes (7): _EnvIsolatedTestCase, Suite Phase 0 (SEC-01) : les cookies posés par auth.py (nm_session, nm_csrf) et, Comportement actuel (non-régression) : aucun FLASK_ENV positionné., _reload_config(), TestCookiesEnDeveloppement, TestCookiesEnProduction, TestFlaskAppConfig
 
 ### Community 550 - "Community 550"
 Cohesion: 0.50
@@ -4345,14 +3203,6 @@ Nodes (4): api, MUTATING_METHODS, readCookie(), request()
 Cohesion: 0.50
 Nodes (4): api, MUTATING_METHODS, readCookie(), request()
 
-### Community 553 - "Community 553"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 554 - "Community 554"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
 ### Community 555 - "Community 555"
 Cohesion: 0.50
 Nodes (4): api, MUTATING_METHODS, readCookie(), request()
@@ -4362,8 +3212,8 @@ Cohesion: 0.50
 Nodes (4): api, MUTATING_METHODS, readCookie(), request()
 
 ### Community 557 - "Community 557"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
+Cohesion: 0.09
+Nodes (35): handleRateLimited(), AXE_OPTIONS, mockApi, mountSidebar(), $(), mockApi, mountAbonnement(), mockApi (+27 more)
 
 ### Community 558 - "Community 558"
 Cohesion: 0.67
@@ -4374,8 +3224,8 @@ Cohesion: 0.67
 Nodes (3): call_ai_fix(), main(), Demande à l'IA de corriger un exercice en suivant une instruction précise.
 
 ### Community 561 - "Community 561"
-Cohesion: 0.50
-Nodes (3): Démarrage, NovaMath, Organisation du projet
+Cohesion: 0.29
+Nodes (5): Frontend : build, lint, tests, Intégration continue, NovaMath, Organisation du projet, Tests End-to-End Stripe
 
 ### Community 562 - "Community 562"
 Cohesion: 0.67
@@ -4406,68 +3256,44 @@ Cohesion: 0.67
 Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
 
 ### Community 569 - "Community 569"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.22
+Nodes (3): Un échec journalisé il y a plus de LOCKOUT_MINUTES ne doit plus         compter, TestVerifyRecoveryChallenge, TestVerrouillageTemporaire
 
 ### Community 570 - "Community 570"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.24
+Nodes (4): _mk_user(), Suite SEC-04 : privacy_service.py — export RGPD (agrégation base uniquement ; le, TestExportAccountData, TestGetConsentHistory
 
 ### Community 571 - "Community 571"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.14
+Nodes (5): _verify_totp_code() est une fonction pure (aucun état partagé) —         vérifie, TestConcurrence, TestQrCode, TestRecoveryCodesRemaining, TwoFactorServiceTestCase
 
 ### Community 572 - "Community 572"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.20
+Nodes (13): app_version(), check_backup_directory(), check_database(), check_disk_space(), check_stripe_configured(), Agrégation des signaux de santé de NovaMath pour GET /api/health (server.py).  A, True si une connexion + requête triviale réussissent., Configuration uniquement (STRIPE_SECRET_KEY présente et valide) —     jamais d'a (+5 more)
 
 ### Community 573 - "Community 573"
-Cohesion: 0.83
-Nodes (3): initials(), paint(), render()
-
-### Community 574 - "Community 574"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.15
+Nodes (13): Docker, Déploiement de NovaMath, Développement, Environnements, GitHub Actions (CI), Installation, Mise à jour, Production (+5 more)
 
 ### Community 575 - "Community 575"
-Cohesion: 0.83
-Nodes (3): initials(), paint(), render()
+Cohesion: 0.22
+Nodes (8): TestHasRoleAtLeast, _admin_emails_from_env(), has_role_at_least(), Source unique de vérité des rôles d'équipe (autorisations d'administration) pour, Liste d'emails séparés par des virgules dans NOVAMATH_ADMIN_EMAILS     (voir .en, Promeut automatiquement en Role.ADMIN tout compte dont l'email figure     dans N, True si le rôle effectif de `user` est `minimum` ou un rôle plus     privilégié, sync_admin_bootstrap()
 
 ### Community 576 - "Community 576"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.18
+Nodes (12): in_memory_snapshot(), _initial_stats(), Métriques applicatives NovaMath.  Architecture stricte, identique à plan_service, Remet les compteurs en mémoire à zéro — tests uniquement, jamais     nécessaire, Appelée une fois par requête HTTP par logging_service.init_app()., Appelée pour toute réponse 5xx ou exception non gérée (voir     logging_service., Uniquement les compteurs process-local (voir docstring du module,     source 1), Instantané complet (compteurs process-local + compteurs persistés) —     jamais (+4 more)
 
 ### Community 577 - "Community 577"
-Cohesion: 0.83
-Nodes (3): initials(), paint(), render()
+Cohesion: 0.26
+Nodes (11): build_parental_consent_confirmed_email(), build_parental_consent_refused_email(), build_parental_consent_request_email(), build_policy_updated_email(), EmailNotConfigured, is_configured(), Envoi d'email pour NovaMath — SEC-04.  Architecture stricte, identique aux autre, Levée uniquement si un appelant utilise send_email(required=True) sans     confi (+3 more)
 
 ### Community 578 - "Community 578"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 579 - "Community 579"
-Cohesion: 0.83
-Nodes (3): initials(), paint(), render()
-
-### Community 580 - "Community 580"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 581 - "Community 581"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 582 - "Community 582"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 583 - "Community 583"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.18
+Nodes (10): build, builder, dockerfilePath, deploy, healthcheckPath, healthcheckTimeout, restartPolicyMaxRetries, restartPolicyType (+2 more)
 
 ### Community 584 - "Community 584"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.22
+Nodes (3): TestStructuredFormatterJson, Un seul Formatter pour tout le projet, deux rendus :     - développement : une l, StructuredFormatter
 
 ### Community 585 - "Community 585"
 Cohesion: 0.67
@@ -4482,12 +3308,20 @@ Cohesion: 0.67
 Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
 
 ### Community 591 - "Community 591"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.29
+Nodes (4): Le décorateur lit request.current_user (posé par login_required en     amont) —, TestRequiresRoleDecorator, Décorateur de route Flask : renvoie 403 si l'utilisateur courant n'a     pas au, requires_role()
+
+### Community 592 - "Community 592"
+Cohesion: 0.20
+Nodes (3): _EnvIsolatedTestCase, TestApplyHeadersIntegrationProduction, TestBuildCspProduction
 
 ### Community 593 - "Community 593"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.22
+Nodes (9): Azure App Service (conteneurs), Coolify, Docker / VPS avec Docker, Déploiement par plateforme, Fly.io, Google Cloud Run, Railway, Render (+1 more)
+
+### Community 594 - "Community 594"
+Cohesion: 0.25
+Nodes (8): RateLimitState, _apply_headers(), _client_ip(), _identity_key(), Source unique de vérité du rate limiting HTTP (fréquence des requêtes) pour Nova, Pose les en-têtes X-RateLimit-* (convention GitHub) sur `resp`, qu'elle     corr, Même expression que auth.py::_log_security_event (X-Forwarded-For en     priorit, Clé d'identité pour le rate limiting : `user:<id>` si un compte est     déjà rés
 
 ### Community 595 - "Community 595"
 Cohesion: 0.67
@@ -4499,15 +3333,59 @@ Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
 
 ### Community 599 - "Community 599"
 Cohesion: 0.43
-Nodes (5): renderMathIn(), setRenderedHtmlContent(), prettify(), RAW_PATTERNS, setMathContent()
+Nodes (5): prettify(), RAW_PATTERNS, renderMathIn(), setMathContent(), setRenderedHtmlContent()
 
-### Community 686 - "Community 686"
-Cohesion: 0.07
-Nodes (21): KnowledgeComposerTestCase, Suite de tests du Knowledge Response Composer — `chatbot/services/knowledge_resp, Sur 30 tirages, on doit observer plusieurs formulations distinctes         d'int, Si l'introduction "Bonne question !..." a déjà été utilisée         (présente da, Si TOUTES les variantes ont déjà été vues, le compositeur ne doit         pas pl, Blind spot corrigé (Phase Personality Engine) : _LEADIN_DEFINITION     est le se, Mission Personality Engine (suite) : chaque mode doit être     reconnaissable À, Aucune formule d'encouragement/clôture en mode examen (mission :         "aucune (+13 more)
+### Community 619 - "Community 619"
+Cohesion: 0.33
+Nodes (4): Deux clés distinctes, une seule expirée : cleanup() ne doit         supprimer qu, TestCleanup, cleanup(), Supprime les buckets dont la fenêtre ne peut plus influencer aucune     décision
 
-### Community 697 - "Community 697"
-Cohesion: 0.06
-Nodes (25): Phase3BTestCase, Suite de non-régression Phase 3B — intégration progressive du Response Strategy, Exercise Engine n'est PAS dans LOCAL_RESPONSE_ENGINE_ALLOWED_ENGINES         auj, ENABLE_RESPONSE_STRATEGY=True mais ENABLE_LOCAL_RESPONSE_ENGINE=False         :, Le Local Response Engine dépend de la décision du Strategy Engine         — le d, local_response_engine calcule son propre StudentContext si celui         fourni, Un intent introduit par le portage (ex. RESUME, "résume-moi") doit         redev, Retirer Knowledge/Search du périmètre déployé doit faire retomber         les qu (+17 more)
+### Community 620 - "Community 620"
+Cohesion: 0.22
+Nodes (4): TestRoleFromValue, Traduit une valeur brute (colonne users.role) en Role, en         dégradant sile, Variante stricte de from_value, pour valider une entrée externe         non fiab, Role
+
+### Community 623 - "Community 623"
+Cohesion: 0.29
+Nodes (3): LoginChallengeTestCase, Suite unitaire de two_factor_service.py — SEC-03 : génération du secret, chiffre, TestCreateAndLoadChallenge
+
+### Community 624 - "Community 624"
+Cohesion: 0.29
+Nodes (7): Authentification à deux facteurs (2FA), Base de données, Docker (recommandé pour tester en local ou déployer), Démarrage, Développement, En-têtes de sécurité HTTP, Production
+
+### Community 633 - "Community 633"
+Cohesion: 0.33
+Nodes (6): Analyse préalable (modules morts), Frontend : build, lint et tests, Lint (ESLint) et formatage (Prettier), Pipeline de build (Vite), Scripts npm, Tests (Vitest)
+
+### Community 634 - "Community 634"
+Cohesion: 0.33
+Nodes (6): Base de données : SQLite et PostgreSQL, Différences SQLite / PostgreSQL prises en charge, Hors périmètre, PostgreSQL avec Docker Compose, PostgreSQL (montée en charge), SQLite (par défaut)
+
+### Community 642 - "Community 642"
+Cohesion: 0.33
+Nodes (4): __dirname, outDir, PAGES, staticRoot
+
+### Community 643 - "Community 643"
+Cohesion: 0.40
+Nodes (5): Activation, CI, Outils Stripe utilisés, Parcours couverts, Tests End-to-End Stripe
+
+### Community 644 - "Community 644"
+Cohesion: 0.70
+Nodes (5): $(), loadStatus(), resolve(), showOnly(), token
+
+### Community 649 - "Community 649"
+Cohesion: 0.60
+Nodes (4): _check_base_structure(), _check_v2_invariants(), Validateur du schéma des cours NovaMath (static/data/cours/chapitre_*.json). Deu, validate_all()
+
+### Community 650 - "Community 650"
+Cohesion: 0.40
+Nodes (3): export_account_data(), Droits RGPD (export, historique des consentements) pour un compte NovaMath déjà, Agrège toutes les données RGPD directement issues de la base (hors     fichiers
+
+### Community 669 - "Community 669"
+Cohesion: 0.67
+Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
+
+### Community 670 - "Community 670"
+Cohesion: 0.67
+Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
 
 ### Community 746 - "Community 746"
 Cohesion: 0.08
@@ -4639,7 +3517,7 @@ Nodes (31): $(), activeMessages, appendMessageEl(), autoResize(), bindMessageAct
 
 ### Community 789 - "Community 789"
 Cohesion: 0.05
-Nodes (55): autoScrollIfNearBottom(), forceScrollToBottom(), hideScrollBottomBtn(), isNearBottom(), renderErrorRetryState(), retryReply(), runAssistantTurn(), scrollBottomBtn (+47 more)
+Nodes (56): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, autoScrollIfNearBottom() (+48 more)
 
 ### Community 790 - "Community 790"
 Cohesion: 0.08
@@ -4706,8 +3584,8 @@ Cohesion: 0.16
 Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
 
 ### Community 806 - "Community 806"
-Cohesion: 0.11
-Nodes (10): api_chapters(), api_chatbot_attachment_pdf(), api_site_stats(), _n_variants_for(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, _serve_landing(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ; (+2 more)
+Cohesion: 0.09
+Nodes (13): api_chatbot_attachment_pdf(), api_chatbot_models(), api_site_stats(), api_stats(), _compute_stats_cache(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, security_headers(), _serve_protected() (+5 more)
 
 ### Community 807 - "Community 807"
 Cohesion: 0.16
@@ -4715,11 +3593,11 @@ Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(
 
 ### Community 808 - "Community 808"
 Cohesion: 0.14
-Nodes (11): check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K, Générateur de fragments texte. Persiste le message utilisateur avant de     comm, regenerate_last() (+3 more)
+Nodes (11): Supprime le dernier message assistant et redemande une réponse à partir     du d, check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K, Générateur de fragments texte. Persiste le message utilisateur avant de     comm, regenerate_last() (+3 more)
 
 ### Community 809 - "Community 809"
 Cohesion: 0.09
-Nodes (27): _classify_intent(), _decide_strategy_shadow(), _generate_assistant_reply(), Classification d'intention, respectant ENABLE_INTENT_ENGINE_V2. Le     module `, Calcule le StudentContext v2 sans jamais impacter la réponse envoyée à     l'él, Étape 1 : calcule la décision du Strategy Engine sans jamais impacter     la ré, Étapes 2+3 : n'exécute (et ne peut donc REMPLACER la réponse) que si la     déc, Journalisation Mission 3 (Phase 4) : pur aparté, une panne ici ne doit     jama (+19 more)
+Nodes (27): attach_action_cards(), check_and_increment_quota(), _classify_intent(), _decide_strategy_shadow(), _generate_assistant_reply(), quota_status(), Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), p, Classification d'intention, respectant ENABLE_INTENT_ENGINE_V2. Le     module ` (+19 more)
 
 ### Community 810 - "Community 810"
 Cohesion: 0.15
@@ -4733,17 +3611,13 @@ Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), 
 Cohesion: 0.22
 Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
 
-### Community 813 - "Community 813"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
 ### Community 814 - "Community 814"
 Cohesion: 0.23
 Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), _read_reviews() (+8 more)
 
 ### Community 815 - "Community 815"
 Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Hook appelé par auth.py::delete_me() à la suppression d'un compte : les     avi (+8 more)
+Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), _read_reviews() (+8 more)
 
 ### Community 816 - "Community 816"
 Cohesion: 0.22
@@ -4752,10 +3626,6 @@ Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile()
 ### Community 817 - "Community 817"
 Cohesion: 0.22
 Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 818 - "Community 818"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.20
 
 ### Community 819 - "Community 819"
 Cohesion: 0.22
@@ -4766,16 +3636,16 @@ Cohesion: 0.22
 Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
 
 ### Community 821 - "Community 821"
-Cohesion: 0.10
-Nodes (9): ChatProvider, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider. La clé API n'est jama, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider. La clé API n'est jama, OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider. (+1 more)
+Cohesion: 0.18
+Nodes (5): ChatProvider, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider. La clé API n'est jama, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider. La clé API n'est jama
 
 ### Community 822 - "Community 822"
 Cohesion: 0.22
 Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
 
 ### Community 823 - "Community 823"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
+Cohesion: 0.06
+Nodes (33): ValueError, AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment, AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e (+25 more)
 
 ### Community 824 - "Community 824"
 Cohesion: 0.25
@@ -4803,7 +3673,7 @@ Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isM
 
 ### Community 830 - "Community 830"
 Cohesion: 0.29
-Nodes (9): context_block(), _get_index(), _load_notions(), Moteur de récupération de contexte (RAG) : retrouve, dans les cours NovaMath déj, Réponse directe (sans LLM) si la question est clairement une demande     de défi, Bloc de contexte compact à injecter dans le prompt système (RAG) :     quelques, Renvoie jusqu'à `top_k` notions pertinentes (score décroissant), en     excluant, search() (+1 more)
+Nodes (9): Réponse directe (sans LLM) si la question est clairement une demande     de défi, Bloc de contexte compact à injecter dans le prompt système (RAG) :     quelques, Renvoie jusqu'à `top_k` notions pertinentes (score décroissant), en     excluant, context_block(), _get_index(), _load_notions(), Moteur de récupération de contexte (RAG) : retrouve, dans les cours NovaMath déj, search() (+1 more)
 
 ### Community 831 - "Community 831"
 Cohesion: 0.20
@@ -4823,7 +3693,7 @@ Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isM
 
 ### Community 835 - "Community 835"
 Cohesion: 0.05
-Nodes (45): get_a_retenir(), get_regles(), Lookup exact (pas une recherche) — utilisé pour résoudre une mention "@"     déj, `level` : "college" | "lycee" | "expert", ou None. Renvoie la     définition du, Liste de formules structurées (nom/expression/quand_utiliser/     quand_ne_pas_u, Un exemple adapté à la difficulté demandée ("facile"/"moyen"/     "difficile"),, `niveau` : "debutant" | "normal" | "rapide", ou None. Renvoie les     étapes du, Propriétés structurées (nom/explication/preuve/importance/niveau/     erreurs_fr (+37 more)
+Nodes (45): all_documents(), context_block(), get_a_retenir(), _get_by_ids(), get_definition(), get_difficulte(), get_erreurs_detail(), get_exemple() (+37 more)
 
 ### Community 836 - "Community 836"
 Cohesion: 0.22
@@ -4847,11 +3717,7 @@ Nodes (8): background_color, description, display, icons, name, short_name, star
 
 ### Community 841 - "Community 841"
 Cohesion: 0.18
-Nodes (16): Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., Regroupe par (chapter, notion) — jamais par notion seule : un même     texte lib, Version canonique de `_weak_notions` : chaque entrée est résolue en     topic_id, Version canonique de `_mastered_notions` — même principe que     `_weak_topics`, scope_by_class_level(), build_context_summary(), _mastered_notions() (+8 more)
-
-### Community 842 - "Community 842"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
+Nodes (16): build_context_summary(), _mastered_notions(), _mastered_topics(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., Filtre une liste d'entrées d'historique/séries (chacune taguée     `class_level`, Regroupe par (chapter, notion) — jamais par notion seule : un même     texte lib (+8 more)
 
 ### Community 843 - "Community 843"
 Cohesion: 0.25
@@ -4862,12 +3728,8 @@ Cohesion: 0.25
 Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.40, Optimisations, Temps estimé de développement
 
 ### Community 845 - "Community 845"
-Cohesion: 0.08
-Nodes (13): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...)., OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...). (+5 more)
-
-### Community 846 - "Community 846"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.30
+Cohesion: 0.22
+Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
 
 ### Community 847 - "Community 847"
 Cohesion: 0.38
@@ -4883,7 +3745,7 @@ Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), 
 
 ### Community 851 - "Community 851"
 Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
+Nodes (6): Modèles disponibles pour le fournisseur actif : détection dynamique     en prior, active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss
 
 ### Community 852 - "Community 852"
 Cohesion: 0.52
@@ -4891,7 +3753,7 @@ Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure
 
 ### Community 854 - "Community 854"
 Cohesion: 0.38
-Nodes (6): Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend, build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle
+Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
 
 ### Community 855 - "Community 855"
 Cohesion: 0.52
@@ -4925,10 +3787,6 @@ Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT,
 Cohesion: 0.60
 Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
-### Community 863 - "Community 863"
-Cohesion: 0.11
-Nodes (31): $(), activeMessages, appendMessageEl(), autoResize(), bindMessageActions(), consumeStream(), contextContent, conversations (+23 more)
-
 ### Community 864 - "Community 864"
 Cohesion: 0.40
 Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.30, Résolution des erreurs courantes
@@ -4944,10 +3802,6 @@ Nodes (4): active_provider_name(), available_models(), get_provider(), Point d'e
 ### Community 867 - "Community 867"
 Cohesion: 0.50
 Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 868 - "Community 868"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
 
 ### Community 869 - "Community 869"
 Cohesion: 0.50
@@ -4977,58 +3831,6 @@ Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas beso
 Cohesion: 0.09
 Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
 
-### Community 891 - "Community 891"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 894 - "Community 894"
-Cohesion: 0.09
-Nodes (11): api_chatbot_context_preview(), api_chatbot_greeting(), api_chatbot_health(), api_chatbot_mentions(), api_course_progress(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Message d'accueil personnalisé affiché comme premier message assistant     à l' (+3 more)
-
-### Community 897 - "Community 897"
-Cohesion: 0.06
-Nodes (20): Preuve directe qu'un même chapter_id ("Chapitre_1") et un même texte     libre (, TestMultiClasseAucuneCollision, Point explicitement demandé : deux profils ne peuvent jamais partager     le mêm, TestUniciteIdentifiants, Suite fonctionnelle de curriculum_stats.py : comptages réels contre les banques, Une classe déclarée sans banque disponible ne doit jamais lever     d'exception, Seconde a une vraie banque déjà chargée en production — les compteurs     doiven, La banque Première existe déjà dans le projet (racine du dépôt) —     utilisée t (+12 more)
-
-### Community 898 - "Community 898"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 910 - "Community 910"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 911 - "Community 911"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 912 - "Community 912"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 913 - "Community 913"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 914 - "Community 914"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 915 - "Community 915"
-Cohesion: 0.10
-Nodes (11): api_chatbot_attachment_pdf(), api_data_reset(), api_site_stats(), api_stats(), _compute_stats_cache(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Source unique de vérité pour les statistiques marketing affichées sur la     la (+3 more)
-
-### Community 916 - "Community 916"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 917 - "Community 917"
-Cohesion: 0.14
-Nodes (11): check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K, Générateur de fragments texte. Persiste le message utilisateur avant de     comm, regenerate_last() (+3 more)
-
-### Community 918 - "Community 918"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
 ### Community 919 - "Community 919"
 Cohesion: 0.07
 Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
@@ -5037,131 +3839,19 @@ Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindP
 Cohesion: 0.13
 Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
 
-### Community 921 - "Community 921"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 922 - "Community 922"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 923 - "Community 923"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 924 - "Community 924"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 925 - "Community 925"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 926 - "Community 926"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 927 - "Community 927"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
 ### Community 928 - "Community 928"
 Cohesion: 0.25
 Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
 
-### Community 929 - "Community 929"
-Cohesion: 0.29
-Nodes (9): context_block(), _get_index(), _load_notions(), Moteur de récupération de contexte (RAG) : retrouve, dans les cours NovaMath déj, Réponse directe (sans LLM) si la question est clairement une demande     de défi, Bloc de contexte compact à injecter dans le prompt système (RAG) :     quelques, Renvoie jusqu'à `top_k` notions pertinentes (score décroissant), en     excluant, search() (+1 more)
-
-### Community 930 - "Community 930"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 931 - "Community 931"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 932 - "Community 932"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 933 - "Community 933"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
 ### Community 934 - "Community 934"
-Cohesion: 0.10
-Nodes (27): _class_bank(), _heuristic_predict_level(), _level_engine(), _model_predict_level(), api_answer(), api_chapters(), api_exercise(), api_practice_load() (+19 more)
-
-### Community 935 - "Community 935"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 936 - "Community 936"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 937 - "Community 937"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.41, Optimisations, Temps estimé de développement
+Cohesion: 0.11
+Nodes (27): api_answer(), api_chapters(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_start(), _class_bank() (+19 more)
 
 ### Community 938 - "Community 938"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.15
-
-### Community 939 - "Community 939"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 940 - "Community 940"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 941 - "Community 941"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 943 - "Community 943"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 944 - "Community 944"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 945 - "Community 945"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 946 - "Community 946"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 947 - "Community 947"
-Cohesion: 0.08
-Nodes (16): LocalResponseEngineTestCase, Suite de tests du Local Response Engine — `chatbot/services/local_response_engin, Vérifie le repli en cascade quand un moteur DÉCIDÉ échoue réellement à     produ, Si `local_knowledge_service.try_answer` échoue malgré la décision         Dashbo, Le repli après un échec de Knowledge Engine (position 3 dans         PRIORITY_OR, Deux appels identiques ne doivent PAS recalculer la décision         (response_s, Le texte composé (Knowledge/Dashboard) reste volontairement         variable d'u, student_context() (+8 more)
-
-### Community 948 - "Community 948"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.41, Résolution des erreurs courantes
-
-### Community 949 - "Community 949"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 950 - "Community 950"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 951 - "Community 951"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Cohesion: 0.10
+Nodes (21): Bugs connus, Bugs connus, Bugs connus, Corrections, Corrections, Corrections, Fichiers modifiés, Fichiers modifiés (+13 more)
 
 ### Community 953 - "Community 953"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 959 - "Community 959"
 Cohesion: 0.23
 Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
 
@@ -5173,47 +3863,11 @@ Nodes (31): $(), activeMessages, appendMessageEl(), autoResize(), bindMessageAct
 Cohesion: 0.08
 Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
 
-### Community 966 - "Community 966"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 967 - "Community 967"
-Cohesion: 0.09
-Nodes (9): Suite de bout en bout du gating Feature Flags sur les routes Flask (webapp/serve, PAGE_FEATURE_REQUIREMENTS est vide aujourd'hui (aucune page n'excède     Free) :, Les features rangées en Free (STATISTICS, COURSES, EXERCISES, GOALS,     CHATBOT, Feature.ADVANCED_AI (analyse de PDF joint au chatbot) : seule     restriction ré, _register(), _set_plan(), TestAdvancedAiIsUltraOnly, TestFreeTierFeaturesAccessibleToAll (+1 more)
-
-### Community 968 - "Community 968"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 969 - "Community 969"
-Cohesion: 0.36
-Nodes (4): Le plan minimal renvoyé doit toujours réellement débloquer la         feature, e, TestMinimalPlanForFeature, minimal_plan_for_feature(), Plan le moins élevé qui inclut `feature`. Lève ValueError si `feature`     n'app
-
-### Community 971 - "Community 971"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
 ### Community 972 - "Community 972"
 Cohesion: 0.20
 Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
 
-### Community 973 - "Community 973"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 974 - "Community 974"
-Cohesion: 0.16
-Nodes (11): _make_event(), Suite du service de traitement des webhooks Stripe (webapp/stripe_webhook_servic, StripeWebhookTestCase, TestCheckoutSessionCompleted, TestEvenementNonGere, TestIdempotence, TestInvoicePaid, TestInvoicePaymentFailed (+3 more)
-
 ### Community 975 - "Community 975"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 976 - "Community 976"
-Cohesion: 0.07
-Nodes (12): QuotaServiceTestCase, Suite du service de quotas (webapp/quota_service.py) — source unique de vérité d, 20 threads tentent chacun de consommer 1 unité d'un quota limité à         15/jo, TestAccesConcurrentSimule, TestCanConsume, TestGetLimitAndIsUnlimited, TestGetUsageAndRemaining, TestNouveauJourEtCreationAutomatique (+4 more)
-
-### Community 977 - "Community 977"
 Cohesion: 0.53
 Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
 
@@ -5247,7 +3901,7 @@ Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(),
 
 ### Community 989 - "Community 989"
 Cohesion: 0.10
-Nodes (11): api_chatbot_attachment_pdf(), api_site_stats(), api_stats(), _compute_stats_cache(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Point d'entrée UNIQUE de la landing page — pour `/` ET `/index.html`.      Cau, Source unique de vérité pour les statistiques marketing affichées sur la     la (+3 more)
+Nodes (11): api_chatbot_attachment_pdf(), api_data_reset(), api_settings(), api_stats(), _compute_stats_cache(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Persistance de la gamification (XP, historique, badges, séries) — un     fichie (+3 more)
 
 ### Community 990 - "Community 990"
 Cohesion: 0.16
@@ -5255,15 +3909,11 @@ Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(
 
 ### Community 991 - "Community 991"
 Cohesion: 0.14
-Nodes (11): check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K, Générateur de fragments texte. Persiste le message utilisateur avant de     comm, regenerate_last() (+3 more)
+Nodes (11): Supprime le dernier message assistant et redemande une réponse à partir     du d, check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K, Générateur de fragments texte. Persiste le message utilisateur avant de     comm, regenerate_last() (+3 more)
 
 ### Community 992 - "Community 992"
 Cohesion: 0.22
 Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 993 - "Community 993"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
 
 ### Community 994 - "Community 994"
 Cohesion: 0.23
@@ -5315,7 +3965,7 @@ Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isM
 
 ### Community 1007 - "Community 1007"
 Cohesion: 0.19
-Nodes (4): Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e, Si `system` contient le bloc RAG (knowledge_engine.context_block,         déjà s, FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp
+Nodes (4): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e, Si `system` contient le bloc RAG (knowledge_engine.context_block,         déjà s
 
 ### Community 1008 - "Community 1008"
 Cohesion: 0.28
@@ -5375,7 +4025,7 @@ Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
 ### Community 1023 - "Community 1023"
 Cohesion: 0.14
-Nodes (8): clear(), LRUCache, normalize_message(), Normalisation de message partagée par tous les caches mémoire du     chatbot (cl, Cache mémoire LRU borné générique (OrderedDict), réutilisable par tout     modul, Vide le cache — utilisé par les tests pour repartir d'un état connu     (éviter, make_key(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
+Nodes (8): clear(), LRUCache, make_key(), normalize_message(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo, Normalisation de message partagée par tous les caches mémoire du     chatbot (cl, Cache mémoire LRU borné générique (OrderedDict), réutilisable par tout     modul, Vide le cache — utilisé par les tests pour repartir d'un état connu     (éviter
 
 ### Community 1024 - "Community 1024"
 Cohesion: 0.40
@@ -5397,73 +4047,17 @@ Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
 Cohesion: 0.07
 Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
 
-### Community 1035 - "Community 1035"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 1038 - "Community 1038"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
 ### Community 1039 - "Community 1039"
 Cohesion: 0.23
 Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
 
-### Community 1040 - "Community 1040"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 1043 - "Community 1043"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 1045 - "Community 1045"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 1051 - "Community 1051"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 1052 - "Community 1052"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 1053 - "Community 1053"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 1054 - "Community 1054"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 1055 - "Community 1055"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
 ### Community 1056 - "Community 1056"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 1057 - "Community 1057"
-Cohesion: 0.07
-Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 1058 - "Community 1058"
 Cohesion: 0.07
 Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
 
 ### Community 1059 - "Community 1059"
 Cohesion: 0.07
 Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
-
-### Community 1060 - "Community 1060"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1061 - "Community 1061"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
 
 ### Community 1062 - "Community 1062"
 Cohesion: 0.07
@@ -5473,75 +4067,11 @@ Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempt
 Cohesion: 0.07
 Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
 
-### Community 1064 - "Community 1064"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1065 - "Community 1065"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1066 - "Community 1066"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1067 - "Community 1067"
-Cohesion: 0.05
-Nodes (46): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+38 more)
-
-### Community 1068 - "Community 1068"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1069 - "Community 1069"
-Cohesion: 0.05
-Nodes (46): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+38 more)
-
-### Community 1070 - "Community 1070"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1071 - "Community 1071"
-Cohesion: 0.05
-Nodes (46): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+38 more)
-
-### Community 1072 - "Community 1072"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1073 - "Community 1073"
-Cohesion: 0.05
-Nodes (46): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+38 more)
-
-### Community 1074 - "Community 1074"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1075 - "Community 1075"
-Cohesion: 0.05
-Nodes (46): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+38 more)
-
 ### Community 1076 - "Community 1076"
 Cohesion: 0.07
 Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
 
 ### Community 1077 - "Community 1077"
-Cohesion: 0.05
-Nodes (46): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+38 more)
-
-### Community 1078 - "Community 1078"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1079 - "Community 1079"
-Cohesion: 0.05
-Nodes (46): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+38 more)
-
-### Community 1080 - "Community 1080"
-Cohesion: 0.07
-Nodes (57): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+49 more)
-
-### Community 1081 - "Community 1081"
 Cohesion: 0.05
 Nodes (46): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+38 more)
 
@@ -5561,50 +4091,6 @@ Nodes (47): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMes
 Cohesion: 0.05
 Nodes (45): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+37 more)
 
-### Community 1086 - "Community 1086"
-Cohesion: 0.05
-Nodes (45): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+37 more)
-
-### Community 1087 - "Community 1087"
-Cohesion: 0.05
-Nodes (45): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, bindActionCards() (+37 more)
-
-### Community 1088 - "Community 1088"
-Cohesion: 0.07
-Nodes (55): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+47 more)
-
-### Community 1089 - "Community 1089"
-Cohesion: 0.07
-Nodes (55): add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation(), create_guest_user(), create_password_reset(), create_session() (+47 more)
-
-### Community 1090 - "Community 1090"
-Cohesion: 0.06
-Nodes (43): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, autoResize() (+35 more)
-
-### Community 1091 - "Community 1091"
-Cohesion: 0.06
-Nodes (43): $(), ACTION_CARD_ICONS, actionCardsHtml(), activeMessages, appendMessageEl(), attachMenu, attachToggle, autoResize() (+35 more)
-
-### Community 1092 - "Community 1092"
-Cohesion: 0.06
-Nodes (40): $(), activeMessages, appendMessageEl(), attachMenu, attachToggle, autoResize(), bindMessageActions(), closeConvosDrawer() (+32 more)
-
-### Community 1093 - "Community 1093"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1094 - "Community 1094"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1095 - "Community 1095"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1096 - "Community 1096"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
 ### Community 1097 - "Community 1097"
 Cohesion: 0.07
 Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
@@ -5613,43 +4099,7 @@ Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindP
 Cohesion: 0.07
 Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
 
-### Community 1099 - "Community 1099"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1100 - "Community 1100"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1101 - "Community 1101"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1102 - "Community 1102"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1103 - "Community 1103"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1104 - "Community 1104"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1105 - "Community 1105"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
 ### Community 1106 - "Community 1106"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1107 - "Community 1107"
-Cohesion: 0.07
-Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
-
-### Community 1108 - "Community 1108"
 Cohesion: 0.07
 Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
 
@@ -5657,29 +4107,9 @@ Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindP
 Cohesion: 0.07
 Nodes (33): $(), ACCENTS, bindAppearance(), bindChatbot(), bindLearning(), bindPillGroup(), bindTraining(), CATEGORIES() (+25 more)
 
-### Community 1110 - "Community 1110"
-Cohesion: 0.07
-Nodes (39): $(), activeMessages, appendMessageEl(), attachMenu, attachToggle, autoResize(), bindMessageActions(), closeConvosDrawer() (+31 more)
-
 ### Community 1111 - "Community 1111"
-Cohesion: 0.10
-Nodes (21): dict, pick_rendered(), Mémoire de style partagée : évite qu'un moteur de composition locale ne répète m, Concatène les réponses assistant récentes exposées par le Student     Context Re, Rend CHAQUE variante avec `mapping` (un dict, ou un `_SafeDict`-like     toléran, recent_assistant_text(), Une variable manquante reste visible (`{nom}`) plutôt que de faire     planter t, `rng`/`avoid_blob` (optionnels, Student Context Resolver v2) : évitent     de ré (+13 more)
-
-### Community 1112 - "Community 1112"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1113 - "Community 1113"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1114 - "Community 1114"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1115 - "Community 1115"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
+Cohesion: 0.09
+Nodes (24): dict, Une variable manquante reste visible (`{nom}`) plutôt que de faire     planter t, Renvoie une réponse locale prête à afficher, ou None si aucune     variante n'ex, apply_length(), _apply_mode(), compose(), Assemble une réponse locale : choisit une variante de formulation (template_libr, _SafeDict (+16 more)
 
 ### Community 1116 - "Community 1116"
 Cohesion: 0.13
@@ -5689,43 +4119,7 @@ Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersS
 Cohesion: 0.13
 Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
 
-### Community 1118 - "Community 1118"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1119 - "Community 1119"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1120 - "Community 1120"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1121 - "Community 1121"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1122 - "Community 1122"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1123 - "Community 1123"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1124 - "Community 1124"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
 ### Community 1125 - "Community 1125"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1126 - "Community 1126"
-Cohesion: 0.13
-Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
-
-### Community 1127 - "Community 1127"
 Cohesion: 0.13
 Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
 
@@ -5733,49 +4127,13 @@ Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersS
 Cohesion: 0.13
 Nodes (34): $(), actionBtn(), activateAdmin(), applyAccountLock(), applyFiltersSort(), buildCard(), clearAdmin(), clearFormErrors() (+26 more)
 
-### Community 1129 - "Community 1129"
-Cohesion: 0.08
-Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
-
-### Community 1130 - "Community 1130"
-Cohesion: 0.08
-Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
-
-### Community 1131 - "Community 1131"
-Cohesion: 0.08
-Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
-
 ### Community 1132 - "Community 1132"
-Cohesion: 0.08
-Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
-
-### Community 1133 - "Community 1133"
-Cohesion: 0.08
-Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
-
-### Community 1134 - "Community 1134"
 Cohesion: 0.08
 Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
 
 ### Community 1135 - "Community 1135"
 Cohesion: 0.08
 Nodes (17): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getChapterStatus(), getProfile(), getSeries() (+9 more)
-
-### Community 1136 - "Community 1136"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
-
-### Community 1137 - "Community 1137"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
-
-### Community 1138 - "Community 1138"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
-
-### Community 1139 - "Community 1139"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
 
 ### Community 1140 - "Community 1140"
 Cohesion: 0.08
@@ -5785,38 +4143,6 @@ Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), fin
 Cohesion: 0.08
 Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
 
-### Community 1142 - "Community 1142"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
-
-### Community 1143 - "Community 1143"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
-
-### Community 1144 - "Community 1144"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
-
-### Community 1145 - "Community 1145"
-Cohesion: 0.08
-Nodes (15): ACCOUNT_SCOPED_KEYS, BADGE_DEFS, defaultProfile(), emptyState(), finalizeSeries(), getProfile(), getSeries(), getSeriesById() (+7 more)
-
-### Community 1146 - "Community 1146"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1147 - "Community 1147"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1148 - "Community 1148"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1149 - "Community 1149"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
 ### Community 1150 - "Community 1150"
 Cohesion: 0.14
 Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
@@ -5825,65 +4151,13 @@ Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_
 Cohesion: 0.14
 Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
 
-### Community 1152 - "Community 1152"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1153 - "Community 1153"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1154 - "Community 1154"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1155 - "Community 1155"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1156 - "Community 1156"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1157 - "Community 1157"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1158 - "Community 1158"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
 ### Community 1159 - "Community 1159"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1160 - "Community 1160"
-Cohesion: 0.14
-Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1161 - "Community 1161"
 Cohesion: 0.14
 Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
 
 ### Community 1162 - "Community 1162"
 Cohesion: 0.14
 Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_XP, emptyMessageFor(), finishSeries(), handleVerdict() (+21 more)
-
-### Community 1163 - "Community 1163"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1164 - "Community 1164"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1165 - "Community 1165"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1166 - "Community 1166"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
 
 ### Community 1167 - "Community 1167"
 Cohesion: 0.10
@@ -5893,43 +4167,7 @@ Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFil
 Cohesion: 0.10
 Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
 
-### Community 1169 - "Community 1169"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1170 - "Community 1170"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1171 - "Community 1171"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1172 - "Community 1172"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1173 - "Community 1173"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1174 - "Community 1174"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1175 - "Community 1175"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
 ### Community 1176 - "Community 1176"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1177 - "Community 1177"
-Cohesion: 0.10
-Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
-
-### Community 1178 - "Community 1178"
 Cohesion: 0.10
 Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFilterMsg, ensureGuestChaptersModal(), FILTER_EMPTY_MESSAGES, getFavorites() (+10 more)
 
@@ -5941,22 +4179,6 @@ Nodes (18): applyFilter(), currentChaptersMeta, DIFF_BADGE, DIFF_LABEL, emptyFil
 Cohesion: 0.06
 Nodes (40): Lookup exact (pas une recherche) — utilisé pour résoudre une mention "@"     déj, `level` : "college" | "lycee" | "expert", ou None. Renvoie la     définition du, Liste de formules structurées (nom/expression/quand_utiliser/     quand_ne_pas_u, Un exemple adapté à la difficulté demandée ("facile"/"moyen"/     "difficile"),, `niveau` : "debutant" | "normal" | "rapide", ou None. Renvoie les     étapes du, Erreurs fréquentes structurées (description/pourquoi/comment_detecter/     comme, Propriétés structurées (nom/explication/preuve/importance/niveau/     erreurs_fr, Formulations alternatives connues de cette notion — dérivées de     static/data/ (+32 more)
 
-### Community 1181 - "Community 1181"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1182 - "Community 1182"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1183 - "Community 1183"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1184 - "Community 1184"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
 ### Community 1185 - "Community 1185"
 Cohesion: 0.11
 Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
@@ -5965,43 +4187,7 @@ Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensure
 Cohesion: 0.11
 Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
 
-### Community 1187 - "Community 1187"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1188 - "Community 1188"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1189 - "Community 1189"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1190 - "Community 1190"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1191 - "Community 1191"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1192 - "Community 1192"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1193 - "Community 1193"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
 ### Community 1194 - "Community 1194"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1195 - "Community 1195"
-Cohesion: 0.11
-Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
-
-### Community 1196 - "Community 1196"
 Cohesion: 0.11
 Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensureGuestCoursModal(), grid, listView, loadChapterContent() (+10 more)
 
@@ -6012,46 +4198,6 @@ Nodes (18): buildStepsHtml(), chaptersMeta, contentCache, courseProgress, ensure
 ### Community 1198 - "Community 1198"
 Cohesion: 0.25
 Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1199 - "Community 1199"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1200 - "Community 1200"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1201 - "Community 1201"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1202 - "Community 1202"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1203 - "Community 1203"
-Cohesion: 0.09
-Nodes (10): api_chatbot_attachment_pdf(), api_chatbot_health(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Projet en développement actif : on désactive tout cache navigateur pour     êtr, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
-
-### Community 1204 - "Community 1204"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1205 - "Community 1205"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1206 - "Community 1206"
-Cohesion: 0.09
-Nodes (10): api_chatbot_attachment_pdf(), api_chatbot_health(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Projet en développement actif : on désactive tout cache navigateur pour     êtr, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
-
-### Community 1207 - "Community 1207"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1208 - "Community 1208"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
 
 ### Community 1209 - "Community 1209"
 Cohesion: 0.17
@@ -6069,109 +4215,9 @@ Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMe
 Cohesion: 0.21
 Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
 
-### Community 1213 - "Community 1213"
-Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
-
-### Community 1214 - "Community 1214"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1215 - "Community 1215"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1216 - "Community 1216"
-Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
-
-### Community 1217 - "Community 1217"
-Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
-
-### Community 1218 - "Community 1218"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1219 - "Community 1219"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1220 - "Community 1220"
-Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
-
-### Community 1221 - "Community 1221"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1222 - "Community 1222"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1223 - "Community 1223"
-Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
-
-### Community 1224 - "Community 1224"
-Cohesion: 0.10
-Nodes (9): api_chapters(), api_course_progress(), api_stats(), _compute_stats_cache(), _n_variants_for(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p, Persistance de la gamification (XP, historique, badges, séries) — un     fichie (+1 more)
-
-### Community 1225 - "Community 1225"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1226 - "Community 1226"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1227 - "Community 1227"
-Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
-
-### Community 1228 - "Community 1228"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1229 - "Community 1229"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1230 - "Community 1230"
-Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
-
-### Community 1231 - "Community 1231"
-Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
-
-### Community 1232 - "Community 1232"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1233 - "Community 1233"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1234 - "Community 1234"
-Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
-
-### Community 1235 - "Community 1235"
-Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
-
-### Community 1236 - "Community 1236"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1237 - "Community 1237"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
 ### Community 1238 - "Community 1238"
 Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
+Nodes (21): Repli tolérant aux fautes de frappe : compare `query` directement aux     titres, `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, Un seul candidat, même faible (utilisé pour le "Voulez-vous dire : X ?"     des, Résolution exacte (pas une recherche) d'une ressource déjà identifiée     par se, Recherche d'exercices STRICTEMENT limitée à `chapter_id` — jamais de     repli v, best_guess(), _cours_result(), _dedupe_key() (+13 more)
 
 ### Community 1239 - "Community 1239"
 Cohesion: 0.09
@@ -6182,38 +4228,6 @@ Cohesion: 0.17
 Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
 
 ### Community 1241 - "Community 1241"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1242 - "Community 1242"
-Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
-
-### Community 1243 - "Community 1243"
-Cohesion: 0.10
-Nodes (9): api_chapters(), api_course_progress(), api_stats(), _compute_stats_cache(), _n_variants_for(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p, Persistance de la gamification (XP, historique, badges, séries) — un     fichie (+1 more)
-
-### Community 1244 - "Community 1244"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1245 - "Community 1245"
-Cohesion: 0.21
-Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
-
-### Community 1246 - "Community 1246"
-Cohesion: 0.19
-Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
-
-### Community 1247 - "Community 1247"
-Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
-
-### Community 1248 - "Community 1248"
-Cohesion: 0.17
-Nodes (20): $(), applyGuestDashboardLock(), bindGotoChapterButtons(), chaptersMeta, formatDuration(), init(), initials(), render() (+12 more)
-
-### Community 1249 - "Community 1249"
 Cohesion: 0.21
 Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalSection(), buildLevelStatsSection(), buildNotionProgressSection(), buildRecentHistorySection(), buildSummarySection(), chapterLabel() (+12 more)
 
@@ -6235,63 +4249,15 @@ Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalS
 
 ### Community 1254 - "Community 1254"
 Cohesion: 0.17
-Nodes (25): _bank_path_for(), Recherche d'exercices STRICTEMENT limitée à `chapter_id` — jamais de     repli v, Exercices d'un topic_id EXACT (canonical_ids.py) — à utiliser dès que     le top, Repli tolérant aux fautes de frappe : compare `query` directement aux     titres, `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, Un seul candidat, même faible (utilisé pour le "Voulez-vous dire : X ?"     des, Résolution exacte (pas une recherche) d'une ressource déjà identifiée     par se, _resolve_class_level() (+17 more)
+Nodes (25): _bank_path_for(), best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), exercises_by_topic(), _fuzzy_fallback(), _get_exercise_by_id() (+17 more)
 
 ### Community 1255 - "Community 1255"
 Cohesion: 0.12
 Nodes (13): Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
 
-### Community 1256 - "Community 1256"
-Cohesion: 0.12
-Nodes (13): Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1257 - "Community 1257"
-Cohesion: 0.12
-Nodes (13): Supprime le dernier message assistant et redemande une réponse à partir     du d, attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1258 - "Community 1258"
-Cohesion: 0.12
-Nodes (13): Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1259 - "Community 1259"
-Cohesion: 0.12
-Nodes (13): Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1260 - "Community 1260"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1261 - "Community 1261"
-Cohesion: 0.04
-Nodes (61): api_answer(), api_chapters(), api_chatbot_attachment_pdf(), api_chatbot_context_preview(), api_chatbot_health(), api_chatbot_models(), api_course_progress(), api_data_export() (+53 more)
-
-### Community 1262 - "Community 1262"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1263 - "Community 1263"
-Cohesion: 0.04
-Nodes (63): api_answer(), api_chapters(), api_chatbot_attachment_pdf(), api_chatbot_context_preview(), api_chatbot_greeting(), api_chatbot_health(), api_chatbot_models(), api_course_progress() (+55 more)
-
-### Community 1264 - "Community 1264"
-Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1265 - "Community 1265"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1266 - "Community 1266"
-Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1267 - "Community 1267"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
 ### Community 1268 - "Community 1268"
 Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
+Nodes (13): Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
 
 ### Community 1269 - "Community 1269"
 Cohesion: 0.20
@@ -6299,103 +4265,27 @@ Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(),
 
 ### Community 1270 - "Community 1270"
 Cohesion: 0.09
-Nodes (10): api_chatbot_attachment_pdf(), api_chatbot_health(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Projet en développement actif : on désactive tout cache navigateur pour     êtr, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
+Nodes (10): api_chatbot_attachment_pdf(), api_course_progress(), api_data_export(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Préférences de personnalisation (apparence, entraînement, apprentissage,     la, Progression de lecture du module Cours (section courante, notions     terminées (+2 more)
 
 ### Community 1271 - "Community 1271"
 Cohesion: 0.20
 Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
 
-### Community 1272 - "Community 1272"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1273 - "Community 1273"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1274 - "Community 1274"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1275 - "Community 1275"
-Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1276 - "Community 1276"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1277 - "Community 1277"
-Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1278 - "Community 1278"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1279 - "Community 1279"
-Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
-
-### Community 1280 - "Community 1280"
-Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1281 - "Community 1281"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1282 - "Community 1282"
-Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1283 - "Community 1283"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
 ### Community 1284 - "Community 1284"
 Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
+Nodes (13): Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
 
 ### Community 1285 - "Community 1285"
 Cohesion: 0.20
 Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
 
-### Community 1286 - "Community 1286"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1287 - "Community 1287"
-Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
-
-### Community 1288 - "Community 1288"
-Cohesion: 0.20
-Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
 ### Community 1289 - "Community 1289"
 Cohesion: 0.12
-Nodes (13): attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K (+5 more)
+Nodes (13): Supprime le dernier message assistant et redemande une réponse à partir     du d, Appelée par les routes SSE une fois le stream texte terminé (voir     server.py:, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K, Générateur de fragments texte. Persiste le message utilisateur avant de     comm, attach_action_cards(), check_and_increment_quota(), quota_status(), QuotaExceeded (+5 more)
 
 ### Community 1290 - "Community 1290"
 Cohesion: 0.20
 Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
-
-### Community 1291 - "Community 1291"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1292 - "Community 1292"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1293 - "Community 1293"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1294 - "Community 1294"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
 
 ### Community 1295 - "Community 1295"
 Cohesion: 0.16
@@ -6405,43 +4295,7 @@ Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(
 Cohesion: 0.16
 Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
 
-### Community 1297 - "Community 1297"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1298 - "Community 1298"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1299 - "Community 1299"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1300 - "Community 1300"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1301 - "Community 1301"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1302 - "Community 1302"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1303 - "Community 1303"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
 ### Community 1304 - "Community 1304"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1305 - "Community 1305"
-Cohesion: 0.16
-Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
-
-### Community 1306 - "Community 1306"
 Cohesion: 0.16
 Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
 
@@ -6449,37 +4303,9 @@ Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(
 Cohesion: 0.16
 Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
 
-### Community 1308 - "Community 1308"
-Cohesion: 0.14
-Nodes (11): check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K, Générateur de fragments texte. Persiste le message utilisateur avant de     comm, regenerate_last() (+3 more)
-
-### Community 1309 - "Community 1309"
-Cohesion: 0.14
-Nodes (11): check_and_increment_quota(), quota_status(), QuotaExceeded, Orchestre le chatbot : CRUD conversations/messages (SQLite via webapp/db.py), pu, Supprime le dernier message assistant et redemande une réponse à partir     du d, Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)     -> K, Générateur de fragments texte. Persiste le message utilisateur avant de     comm, regenerate_last() (+3 more)
-
 ### Community 1310 - "Community 1310"
 Cohesion: 0.21
-Nodes (18): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+10 more)
-
-### Community 1311 - "Community 1311"
-Cohesion: 0.21
-Nodes (18): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+10 more)
-
-### Community 1312 - "Community 1312"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1313 - "Community 1313"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1314 - "Community 1314"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1315 - "Community 1315"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
+Nodes (18): Repli tolérant aux fautes de frappe : compare `query` directement aux     titres, `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, Un seul candidat, même faible (utilisé pour le "Voulez-vous dire : X ?"     des, Résolution exacte (pas une recherche) d'une ressource déjà identifiée     par se, best_guess(), _cours_result(), _dedupe_key(), _exercice_result() (+10 more)
 
 ### Community 1316 - "Community 1316"
 Cohesion: 0.22
@@ -6489,43 +4315,7 @@ Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), 
 Cohesion: 0.22
 Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
 
-### Community 1318 - "Community 1318"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1319 - "Community 1319"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1320 - "Community 1320"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1321 - "Community 1321"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1322 - "Community 1322"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1323 - "Community 1323"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1324 - "Community 1324"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
 ### Community 1325 - "Community 1325"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1326 - "Community 1326"
-Cohesion: 0.22
-Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
-
-### Community 1327 - "Community 1327"
 Cohesion: 0.22
 Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
 
@@ -6533,41 +4323,17 @@ Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), 
 Cohesion: 0.22
 Nodes (17): $(), chaptersMeta, chapterTitles, formatDateFR(), formatDuration(), globalProgressPct(), init(), initials() (+9 more)
 
-### Community 1329 - "Community 1329"
-Cohesion: 0.05
-Nodes (13): Suite de tests Phase 4 — outils d'audit et de perfectionnement (Missions 1 à 8)., La réponse doit être identique, flag activé ou non — cette         journalisatio, `_record_llm_call` (conversation_manager.py) protège l'appel à         llm_call_, Les champs proprietes/prerequis/liens/vocabulaire/demonstrations         sont vi, summary_total_notions(), TestDevDashboard, TestDiversityAudit, TestGapDetection (+5 more)
-
 ### Community 1330 - "Community 1330"
 Cohesion: 0.20
 Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
 
 ### Community 1331 - "Community 1331"
-Cohesion: 0.06
-Nodes (12): Condition de colinéarité" existe, texte identique, en Chapitre_4 ET     Chapitre, Limitation connue et attendue : SANS chapter_id, un texte ambigu         entre d, Preuve explicite de non-régression : ne pas fournir class_level, le     fournir, Première est un class_level déjà déclaré dans curriculum_registry.     courses_d, Différent d'une classe connue sans données : un identifiant de         classe qu, Lookup exact (crosswalk) — doit être fiable à 100% sur un texte connu., TestMultiClasseDefautInchange, TestPremiereDegradationPropre (+4 more)
-
-### Community 1333 - "Community 1333"
-Cohesion: 0.16
-Nodes (19): can_consume(), consume(), get_limit(), get_remaining(), get_usage(), is_unlimited(), _next_plan_with_more(), Source unique de vérité des quotas d'utilisation (limitations numériques quotidi (+11 more)
-
-### Community 1334 - "Community 1334"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
+Cohesion: 0.05
+Nodes (14): Suite fonctionnelle du système d'identifiants canoniques (canonical_ids.py) : fa, Condition de colinéarité" existe, texte identique, en Chapitre_4 ET     Chapitre, Limitation connue et attendue : SANS chapter_id, un texte ambigu         entre d, Preuve explicite de non-régression : ne pas fournir class_level, le     fournir, Première est un class_level déjà déclaré dans curriculum_registry.     courses_d, Différent d'une classe connue sans données : un identifiant de         classe qu, Preuve directe qu'un même chapter_id ("Chapitre_1") et un même texte     libre (, Lookup exact (crosswalk) — doit être fiable à 100% sur un texte connu. (+6 more)
 
 ### Community 1335 - "Community 1335"
 Cohesion: 0.50
 Nodes (3): Renvoie la liste des erreurs (vide si tout est correct). Ne lève     jamais d'ex, Validateur de forme du StudentContext (student_context_resolver.py, Response Eng, validate_student_context()
-
-### Community 1336 - "Community 1336"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 1337 - "Community 1337"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 1338 - "Community 1338"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
 
 ### Community 1339 - "Community 1339"
 Cohesion: 0.16
@@ -6585,22 +4351,6 @@ Nodes (17): Suite fonctionnelle du routage chatbot : pour chaque catégorie de d
 Cohesion: 0.19
 Nodes (15): _fuzzy_topic_id(), get_topic_title(), _load_crosswalk(), _load_topics_by_chapter(), _normalize_label(), Identifiants canoniques de NovaMath — point d'entrée unique pour tout système (c, resolve_chapter_id(), resolve_topic_id() (+7 more)
 
-### Community 1343 - "Community 1343"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1344 - "Community 1344"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1345 - "Community 1345"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1346 - "Community 1346"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
 ### Community 1347 - "Community 1347"
 Cohesion: 0.22
 Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
@@ -6613,83 +4363,11 @@ Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_n
 Cohesion: 0.22
 Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
 
-### Community 1350 - "Community 1350"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1351 - "Community 1351"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1352 - "Community 1352"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1353 - "Community 1353"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1354 - "Community 1354"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1355 - "Community 1355"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1356 - "Community 1356"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1357 - "Community 1357"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1358 - "Community 1358"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1359 - "Community 1359"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1360 - "Community 1360"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1361 - "Community 1361"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1362 - "Community 1362"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1363 - "Community 1363"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
 ### Community 1364 - "Community 1364"
 Cohesion: 0.20
 Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
 
 ### Community 1365 - "Community 1365"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1366 - "Community 1366"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1367 - "Community 1367"
-Cohesion: 0.22
-Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
-
-### Community 1368 - "Community 1368"
-Cohesion: 0.20
-Nodes (14): all_documents(), context_block(), _get_by_ids(), _get_index(), get_notion(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Réponse directe (sans IA) si la question est clairement une demande     de défin (+6 more)
-
-### Community 1369 - "Community 1369"
 Cohesion: 0.22
 Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
 
@@ -6701,22 +4379,6 @@ Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile()
 Cohesion: 0.23
 Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
 
-### Community 1372 - "Community 1372"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1373 - "Community 1373"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1374 - "Community 1374"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1375 - "Community 1375"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
 ### Community 1376 - "Community 1376"
 Cohesion: 0.22
 Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
@@ -6725,43 +4387,7 @@ Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setField
 Cohesion: 0.22
 Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
 
-### Community 1378 - "Community 1378"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1379 - "Community 1379"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1380 - "Community 1380"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1381 - "Community 1381"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1382 - "Community 1382"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1383 - "Community 1383"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1384 - "Community 1384"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
 ### Community 1385 - "Community 1385"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1386 - "Community 1386"
-Cohesion: 0.22
-Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
-
-### Community 1387 - "Community 1387"
 Cohesion: 0.22
 Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
 
@@ -6773,22 +4399,6 @@ Nodes (11): Un texte sans rapport ne doit jamais halluciner un topic_id., Condit
 Cohesion: 0.22
 Nodes (6): $(), clearErrors(), evaluatePassword(), handleGoogleClick(), setFieldError(), validateSignupClientSide()
 
-### Community 1390 - "Community 1390"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1391 - "Community 1391"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1392 - "Community 1392"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1393 - "Community 1393"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
 ### Community 1394 - "Community 1394"
 Cohesion: 0.17
 Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
@@ -6796,86 +4406,6 @@ Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. 
 ### Community 1395 - "Community 1395"
 Cohesion: 0.17
 Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1396 - "Community 1396"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1397 - "Community 1397"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1398 - "Community 1398"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1399 - "Community 1399"
-Cohesion: 0.21
-Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
-
-### Community 1400 - "Community 1400"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1401 - "Community 1401"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1402 - "Community 1402"
-Cohesion: 0.21
-Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
-
-### Community 1403 - "Community 1403"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1404 - "Community 1404"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1405 - "Community 1405"
-Cohesion: 0.21
-Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
-
-### Community 1406 - "Community 1406"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1407 - "Community 1407"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1408 - "Community 1408"
-Cohesion: 0.21
-Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
-
-### Community 1409 - "Community 1409"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1410 - "Community 1410"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1411 - "Community 1411"
-Cohesion: 0.21
-Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
-
-### Community 1412 - "Community 1412"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1413 - "Community 1413"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1414 - "Community 1414"
-Cohesion: 0.21
-Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
-
-### Community 1415 - "Community 1415"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
 
 ### Community 1416 - "Community 1416"
 Cohesion: 0.17
@@ -6886,30 +4416,6 @@ Cohesion: 0.21
 Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
 
 ### Community 1418 - "Community 1418"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1419 - "Community 1419"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1420 - "Community 1420"
-Cohesion: 0.21
-Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
-
-### Community 1421 - "Community 1421"
-Cohesion: 0.20
-Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1422 - "Community 1422"
-Cohesion: 0.17
-Nodes (6): ChatProvider, Contrat unique que tout fournisseur IA doit respecter. Le reste du code (convers, Doit retourner un générateur de fragments de texte (str), au fil de         l'ar, Renvoie {"ok": bool, "detail": str}. Implémentation par défaut         optimiste, Dict {id_modele: libellé affichable}. Par défaut vide (le         provider_manag, Change le modèle utilisé par cette instance sans recréer le         provider. Pa
-
-### Community 1423 - "Community 1423"
-Cohesion: 0.21
-Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il resp, Si `system` contient un bloc de ressource déjà résolue (mention "@"         ou e
-
-### Community 1424 - "Community 1424"
 Cohesion: 0.20
 Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
 
@@ -6924,54 +4430,6 @@ Nodes (3): FakeProvider, Fournisseur par défaut de NovaMath aujourd'hui : ne co
 ### Community 1427 - "Community 1427"
 Cohesion: 0.20
 Nodes (10): build_index(), Index, _light_stem(), Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Normalisation légère (pas un vrai stemmer linguistique) : gomme les     pluriels, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor (+2 more)
-
-### Community 1428 - "Community 1428"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1429 - "Community 1429"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1430 - "Community 1430"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1431 - "Community 1431"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1432 - "Community 1432"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1433 - "Community 1433"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1434 - "Community 1434"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1435 - "Community 1435"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1436 - "Community 1436"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1437 - "Community 1437"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1438 - "Community 1438"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1439 - "Community 1439"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
 
 ### Community 1440 - "Community 1440"
 Cohesion: 0.25
@@ -6997,90 +4455,6 @@ Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQui
 Cohesion: 0.36
 Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
 
-### Community 1446 - "Community 1446"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1447 - "Community 1447"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1448 - "Community 1448"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1449 - "Community 1449"
-Cohesion: 0.11
-Nodes (9): RuntimeError, OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...)., AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa (+1 more)
-
-### Community 1450 - "Community 1450"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1451 - "Community 1451"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1452 - "Community 1452"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1453 - "Community 1453"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1454 - "Community 1454"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1455 - "Community 1455"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1456 - "Community 1456"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1457 - "Community 1457"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1458 - "Community 1458"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1459 - "Community 1459"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1460 - "Community 1460"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1461 - "Community 1461"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1462 - "Community 1462"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1463 - "Community 1463"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1464 - "Community 1464"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1465 - "Community 1465"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1466 - "Community 1466"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
 ### Community 1467 - "Community 1467"
 Cohesion: 0.25
 Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
@@ -7090,34 +4464,6 @@ Cohesion: 0.25
 Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
 
 ### Community 1469 - "Community 1469"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1470 - "Community 1470"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1471 - "Community 1471"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1472 - "Community 1472"
-Cohesion: 0.36
-Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
-
-### Community 1473 - "Community 1473"
-Cohesion: 0.25
-Nodes (4): AnthropicConnectionError, AnthropicProvider, Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par défa, Levée quand l'API Anthropic est injoignable, la clé API est absente/     invalid
-
-### Community 1474 - "Community 1474"
-Cohesion: 0.24
-Nodes (10): Si `user_message` ne contient QUE une mention "@" de type "data" avec     un dat, `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), Une notion peut être reliée à de nombreux exercices quasi identiques     (même i (+2 more)
-
-### Community 1475 - "Community 1475"
-Cohesion: 0.25
-Nodes (10): $(), handleAnswer(), init(), questionTimer, screenLoading, screenQuiz, screenResult, showQuestion() (+2 more)
-
-### Community 1476 - "Community 1476"
 Cohesion: 0.36
 Nodes (9): applyCategorySideEffects(), dispatchChange(), getSettings(), initSettingsManager(), readCache(), refreshSettings(), saveChain, setSetting() (+1 more)
 
@@ -7141,89 +4487,13 @@ Nodes (10): build_grounding_block(), _dedupe_resources(), _matching_categories()
 Cohesion: 0.05
 Nodes (17): Suite fonctionnelle du routage chatbot : pour chaque catégorie de demande demand, Chemin canonique (search_service.exercises_by_topic) — remplace la         reche, Comblé par l'Intent Engine v2 (Response Engine v2, Phase 1) :     EXERCICE_RE re, Le quiz est intentionnellement répondu par le LLM (pose une question à     la fo, search_mentions renvoie plusieurs ressources apparentées classées         par sc, Bout en bout : @Dashboard -> intent DASHBOARD -> réponse composée         locale, Demande de cours"/"demande de définition" : traitées AVANT même la     classific, Limitation pré-existante découverte par cette suite (indépendante         de can (+9 more)
 
-### Community 1482 - "Community 1482"
-Cohesion: 0.29
-Nodes (9): context_block(), _get_index(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Bloc de contexte compact (RAG) : quelques notions pertinentes, jamais     le cou, Construit les documents à indexer à partir des cours NovaMath existants     (sou, Réponse directe (sans IA) si la question est clairement une demande     de défin, search() (+1 more)
-
-### Community 1484 - "Community 1484"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 1485 - "Community 1485"
-Cohesion: 0.28
-Nodes (12): _handle_checkout_session_completed(), handle_event(), _handle_invoice_paid(), _handle_invoice_payment_failed(), _handle_subscription_created(), _handle_subscription_deleted(), _handle_subscription_updated(), Traitement des événements webhook Stripe : toute la logique métier (quel événem (+4 more)
-
-### Community 1486 - "Community 1486"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1487 - "Community 1487"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1488 - "Community 1488"
-Cohesion: 0.29
-Nodes (9): context_block(), _get_index(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Bloc de contexte compact (RAG) : quelques notions pertinentes, jamais     le cou, Construit les documents à indexer à partir des cours NovaMath existants     (sou, Réponse directe (sans IA) si la question est clairement une demande     de défin, search() (+1 more)
-
-### Community 1490 - "Community 1490"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 1491 - "Community 1491"
-Cohesion: 0.10
-Nodes (36): _build_explanation(), _build_strategy(), _cache_get(), cache_stats(), _clarification_strategy(), clear_cache(), _context_is_complete(), decide_strategy() (+28 more)
-
-### Community 1492 - "Community 1492"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1493 - "Community 1493"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1494 - "Community 1494"
-Cohesion: 0.29
-Nodes (9): context_block(), _get_index(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Bloc de contexte compact (RAG) : quelques notions pertinentes, jamais     le cou, Construit les documents à indexer à partir des cours NovaMath existants     (sou, Réponse directe (sans IA) si la question est clairement une demande     de défin, search() (+1 more)
-
 ### Community 1496 - "Community 1496"
 Cohesion: 0.08
-Nodes (15): class_level est purement transporté par le resolver à cette étape :     aucun ap, Preuve de non-régression : un appel exactement comme avant cette         étape (, class_level est optionnel : un StudentContext construit sans ce         champ (c, TestClassLevel, _fake_settings(), _fake_stats(), Suite fonctionnelle du Student Context Resolver v2 (Response Engine v2, Phase 2), Un élève neuf (aucun fichier de données) doit produire un contexte         valid (+7 more)
-
-### Community 1497 - "Community 1497"
-Cohesion: 0.11
-Nodes (4): Suite du service Stripe (webapp/stripe_service.py) : aucun appel réseau réel, le, TestClientConfiguration, TestResolvePriceId, TestWebhook
-
-### Community 1498 - "Community 1498"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1499 - "Community 1499"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1500 - "Community 1500"
-Cohesion: 0.29
-Nodes (9): context_block(), _get_index(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Bloc de contexte compact (RAG) : quelques notions pertinentes, jamais     le cou, Construit les documents à indexer à partir des cours NovaMath existants     (sou, Réponse directe (sans IA) si la question est clairement une demande     de défin, search() (+1 more)
-
-### Community 1502 - "Community 1502"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 1503 - "Community 1503"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 1504 - "Community 1504"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1505 - "Community 1505"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
+Nodes (15): _fake_settings(), _fake_stats(), Suite fonctionnelle du Student Context Resolver v2 (Response Engine v2, Phase 2), class_level est purement transporté par le resolver à cette étape :     aucun ap, Preuve de non-régression : un appel exactement comme avant cette         étape (, class_level est optionnel : un StudentContext construit sans ce         champ (c, Un élève neuf (aucun fichier de données) doit produire un contexte         valid, Preuve directe que le resolver n'hérite PAS du bug de conflation     corrigé lor (+7 more)
 
 ### Community 1506 - "Community 1506"
 Cohesion: 0.29
-Nodes (9): context_block(), _get_index(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Bloc de contexte compact (RAG) : quelques notions pertinentes, jamais     le cou, Construit les documents à indexer à partir des cours NovaMath existants     (sou, Réponse directe (sans IA) si la question est clairement une demande     de défin, search() (+1 more)
+Nodes (9): Bloc de contexte compact (RAG) : quelques notions pertinentes, jamais     le cou, Réponse directe (sans IA) si la question est clairement une demande     de défin, context_block(), _get_index(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Construit les documents à indexer à partir des cours NovaMath existants     (sou, search() (+1 more)
 
 ### Community 1508 - "Community 1508"
 Cohesion: 0.29
@@ -7249,133 +4519,13 @@ Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), form
 Cohesion: 0.33
 Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
 
-### Community 1516 - "Community 1516"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 1517 - "Community 1517"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1518 - "Community 1518"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1519 - "Community 1519"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1520 - "Community 1520"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 1522 - "Community 1522"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1523 - "Community 1523"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1524 - "Community 1524"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1525 - "Community 1525"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 1526 - "Community 1526"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1527 - "Community 1527"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1528 - "Community 1528"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1529 - "Community 1529"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
 ### Community 1530 - "Community 1530"
 Cohesion: 0.20
 Nodes (4): Les valeurs absolues" / "Valeur absolue" / "les valeurs absolues" /         "Cha, Un texte sans rapport ne doit jamais halluciner un topic_id., Repli flou (difflib) — texte jamais répertorié tel quel dans la     crosswalk :, TestResolveTopicIdFuzzy
 
-### Community 1531 - "Community 1531"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1532 - "Community 1532"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1533 - "Community 1533"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1534 - "Community 1534"
-Cohesion: 0.08
-Nodes (17): audit_all(), audit_chapter(), audit_notion(), _chapter_scores(), format_chapter_report(), format_gaps_report(), gaps_summary(), _has_demonstration() (+9 more)
-
-### Community 1535 - "Community 1535"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 1536 - "Community 1536"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1537 - "Community 1537"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1538 - "Community 1538"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1539 - "Community 1539"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 1540 - "Community 1540"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 1541 - "Community 1541"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1542 - "Community 1542"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1543 - "Community 1543"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1544 - "Community 1544"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
 ### Community 1545 - "Community 1545"
 Cohesion: 0.67
 Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 1546 - "Community 1546"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1547 - "Community 1547"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1548 - "Community 1548"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
 
 ### Community 1549 - "Community 1549"
 Cohesion: 0.22
@@ -7396,54 +4546,6 @@ Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), form
 ### Community 1553 - "Community 1553"
 Cohesion: 0.33
 Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1554 - "Community 1554"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 1555 - "Community 1555"
-Cohesion: 0.09
-Nodes (24): format_report(), Tableau de bord développeur — Phase 4, Mission 8.  Agrège en UNE lecture toutes, Snapshot complet. `quality_sample_size` : nombre de compositions     simulées po, Estime une qualité moyenne (Mission 5) en composant `n` réponses sur     une not, _sample_quality_score(), snapshot(), classify_reason(), Analyse des appels LLM — Phase 4, Missions 3 & 4.  Mission 3 : journalise (mémoi (+16 more)
-
-### Community 1556 - "Community 1556"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1557 - "Community 1557"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1558 - "Community 1558"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1559 - "Community 1559"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 1560 - "Community 1560"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 1561 - "Community 1561"
-Cohesion: 0.27
-Nodes (4): getText(), insertText(), isEmpty(), prependParagraphIfNotEmpty()
-
-### Community 1562 - "Community 1562"
-Cohesion: 0.29
-Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
-
-### Community 1563 - "Community 1563"
-Cohesion: 0.33
-Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
-
-### Community 1564 - "Community 1564"
-Cohesion: 0.16
-Nodes (25): _block_astuce(), _block_conseil(), _block_definition(), _block_erreur_frequente(), _block_exemple(), _block_formule(), _block_introduction(), _block_introuvable() (+17 more)
-
-### Community 1565 - "Community 1565"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
 
 ### Community 1566 - "Community 1566"
 Cohesion: 0.27
@@ -7469,54 +4571,6 @@ Nodes (8): Bugs connus, Clôture du chantier v2.11, Corrections, Fichiers modifi
 Cohesion: 0.22
 Nodes (8): Bugs connus, Clôture du chantier v2.12, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.62, Optimisations, Temps estimé de développement
 
-### Community 1572 - "Community 1572"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1573 - "Community 1573"
-Cohesion: 0.25
-Nodes (7): build_index(), Index, Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor, search()
-
-### Community 1574 - "Community 1574"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1575 - "Community 1575"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1576 - "Community 1576"
-Cohesion: 0.25
-Nodes (7): build_index(), Index, Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor, search()
-
-### Community 1577 - "Community 1577"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1578 - "Community 1578"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1579 - "Community 1579"
-Cohesion: 0.25
-Nodes (7): build_index(), Index, Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor, search()
-
-### Community 1580 - "Community 1580"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1581 - "Community 1581"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1582 - "Community 1582"
-Cohesion: 0.25
-Nodes (7): build_index(), Index, Moteur de recherche interne générique (TF-IDF + similarité cosinus, scikit-learn, Index immuable une fois construit (voir build_index). Un appelant     (knowledge, documents : liste de dicts contenant au moins un champ "text" (le     reste des, Renvoie jusqu'à `top_k` documents pertinents (score décroissant, champ     "scor, search()
-
-### Community 1583 - "Community 1583"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
 ### Community 1584 - "Community 1584"
 Cohesion: 0.28
 Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
@@ -7539,133 +4593,21 @@ Nodes (7): build_index(), Index, Moteur de recherche interne générique (TF-IDF
 
 ### Community 1589 - "Community 1589"
 Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     la, search_mentions()
+Nodes (8): Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     la, build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), search_mentions()
 
 ### Community 1590 - "Community 1590"
 Cohesion: 0.22
 Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
 
-### Community 1591 - "Community 1591"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1592 - "Community 1592"
-Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     la, search_mentions()
-
-### Community 1593 - "Community 1593"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1594 - "Community 1594"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1595 - "Community 1595"
-Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     la, search_mentions()
-
-### Community 1596 - "Community 1596"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1597 - "Community 1597"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1598 - "Community 1598"
-Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     la, search_mentions()
-
-### Community 1599 - "Community 1599"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1600 - "Community 1600"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1601 - "Community 1601"
-Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, search_mentions()
-
-### Community 1602 - "Community 1602"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1603 - "Community 1603"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1604 - "Community 1604"
-Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, search_mentions()
-
-### Community 1605 - "Community 1605"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1606 - "Community 1606"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1607 - "Community 1607"
-Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, search_mentions()
-
-### Community 1608 - "Community 1608"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1609 - "Community 1609"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1610 - "Community 1610"
-Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, search_mentions()
-
-### Community 1611 - "Community 1611"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
 ### Community 1612 - "Community 1612"
 Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
+Nodes (8): Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., summary_to_text(), _weak_notions()
 
 ### Community 1613 - "Community 1613"
 Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, search_mentions()
+Nodes (8): `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), search_mentions()
 
 ### Community 1614 - "Community 1614"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1615 - "Community 1615"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1616 - "Community 1616"
-Cohesion: 0.31
-Nodes (8): build_grounding_block(), _dedupe_resources(), _matching_categories(), _normalize(), Système de mentions "@" du chatbot : une seule route (GET /api/chatbot/mentions), `mentions` : liste de dicts {type, chapter_id?, notion_id?, exercise_id?,     da, Une notion peut être reliée à de nombreux exercices quasi identiques     (même i, search_mentions()
-
-### Community 1617 - "Community 1617"
-Cohesion: 0.36
-Nodes (8): _best_worst_chapter(), _chapter_stats(), _format_duration(), _mastered_and_in_progress_chapters(), Construit le dictionnaire de variables réelles ({username}, {accuracy}, {meilleu, Dict de variables réelles, prêt pour `str.format_map` dans un     template. Touj, resolve(), _time_totals()
-
-### Community 1618 - "Community 1618"
-Cohesion: 0.22
-Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
-
-### Community 1619 - "Community 1619"
-Cohesion: 0.28
-Nodes (8): build_context_summary(), _mastered_notions(), Construit un résumé compact (jamais les données brutes) de la situation NovaMath, Notions avec le plus d'erreurs récentes (100 dernières réponses)., Retourne un dict compact, sérialisable en quelques lignes de texte pour     le p, Version texte compacte injectée telle quelle dans le prompt système., summary_to_text(), _weak_notions()
-
-### Community 1620 - "Community 1620"
-Cohesion: 0.36
-Nodes (8): _best_worst_chapter(), _chapter_stats(), _format_duration(), _mastered_and_in_progress_chapters(), Construit le dictionnaire de variables réelles ({username}, {accuracy}, {meilleu, Dict de variables réelles, prêt pour `str.format_map` dans un     template. Touj, resolve(), _time_totals()
-
-### Community 1621 - "Community 1621"
 Cohesion: 0.22
 Nodes (8): background_color, description, display, icons, name, short_name, start_url, theme_color
 
@@ -7691,7 +4633,7 @@ Nodes (7): build_cards(), _course_card(), _notion_series_card(), Décide quelles
 
 ### Community 1627 - "Community 1627"
 Cohesion: 0.36
-Nodes (8): Dict de variables réelles, prêt pour `str.format_map` dans un     template. Touj, _best_worst_chapter(), _chapter_stats(), _format_duration(), _mastered_and_in_progress_chapters(), Construit le dictionnaire de variables réelles ({username}, {accuracy}, {meilleu, resolve(), _time_totals()
+Nodes (8): _best_worst_chapter(), _chapter_stats(), _format_duration(), _mastered_and_in_progress_chapters(), Construit le dictionnaire de variables réelles ({username}, {accuracy}, {meilleu, Dict de variables réelles, prêt pour `str.format_map` dans un     template. Touj, resolve(), _time_totals()
 
 ### Community 1628 - "Community 1628"
 Cohesion: 0.29
@@ -7701,22 +4643,6 @@ Nodes (5): ABC, ChatProvider, Contrat unique que tout fournisseur IA doit respec
 Cohesion: 0.25
 Nodes (8): Avis liés au compte connecté, Bugs connus / limites assumées, Contexte — bug critique d'isolation des comptes, Correctifs, Purge du cache client au changement de compte (correctif principal), Session de quiz (Flask `session`) réinitialisée au changement de compte, v1.06, Vérification
 
-### Community 1630 - "Community 1630"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.43, Optimisations, Temps estimé de développement
-
-### Community 1631 - "Community 1631"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.44, Optimisations, Temps estimé de développement
-
-### Community 1632 - "Community 1632"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.45, Optimisations, Temps estimé de développement
-
-### Community 1633 - "Community 1633"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.46, Optimisations, Temps estimé de développement
-
 ### Community 1634 - "Community 1634"
 Cohesion: 0.25
 Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.50, Optimisations, Temps estimé de développement
@@ -7725,101 +4651,13 @@ Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v
 Cohesion: 0.25
 Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.51, Optimisations, Temps estimé de développement
 
-### Community 1636 - "Community 1636"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.52, Optimisations, Temps estimé de développement
-
-### Community 1637 - "Community 1637"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.53, Optimisations, Temps estimé de développement
-
-### Community 1638 - "Community 1638"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.54, Optimisations, Temps estimé de développement
-
-### Community 1639 - "Community 1639"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.55, Optimisations, Temps estimé de développement
-
-### Community 1640 - "Community 1640"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.56, Optimisations, Temps estimé de développement
-
-### Community 1641 - "Community 1641"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.57, Optimisations, Temps estimé de développement
-
-### Community 1642 - "Community 1642"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.58, Optimisations, Temps estimé de développement
-
-### Community 1643 - "Community 1643"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.60, Optimisations, Temps estimé de développement
-
-### Community 1644 - "Community 1644"
-Cohesion: 0.25
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, NovaMath v1.61, Optimisations, Temps estimé de développement
-
-### Community 1645 - "Community 1645"
-Cohesion: 0.39
-Nodes (7): _get_exercise_index(), _load_exercise_documents(), Recherche unifiée sur le contenu réel de NovaMath (cours + exercices) — pour GET, `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, search(), _search_cours(), _search_exercices()
-
-### Community 1646 - "Community 1646"
-Cohesion: 0.39
-Nodes (7): _get_exercise_index(), _load_exercise_documents(), Recherche unifiée sur le contenu réel de NovaMath (cours + exercices) — pour GET, `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, search(), _search_cours(), _search_exercices()
-
-### Community 1647 - "Community 1647"
-Cohesion: 0.39
-Nodes (7): _get_exercise_index(), _load_exercise_documents(), Recherche unifiée sur le contenu réel de NovaMath (cours + exercices) — pour GET, `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, search(), _search_cours(), _search_exercices()
-
-### Community 1648 - "Community 1648"
-Cohesion: 0.39
-Nodes (7): _get_exercise_index(), _load_exercise_documents(), Recherche unifiée sur le contenu réel de NovaMath (cours + exercices) — pour GET, `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, search(), _search_cours(), _search_exercices()
-
 ### Community 1649 - "Community 1649"
 Cohesion: 0.39
-Nodes (7): _get_exercise_index(), _load_exercise_documents(), Recherche unifiée sur le contenu réel de NovaMath (cours + exercices) — pour GET, `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, search(), _search_cours(), _search_exercices()
-
-### Community 1650 - "Community 1650"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
-
-### Community 1651 - "Community 1651"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
-
-### Community 1652 - "Community 1652"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
-
-### Community 1653 - "Community 1653"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
-
-### Community 1654 - "Community 1654"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
-
-### Community 1655 - "Community 1655"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
-
-### Community 1656 - "Community 1656"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
+Nodes (7): `scope` : None (tout) ou itérable parmi VALID_SCOPES. Renvoie une liste     trié, _get_exercise_index(), _load_exercise_documents(), Recherche unifiée sur le contenu réel de NovaMath (cours + exercices) — pour GET, search(), _search_cours(), _search_exercices()
 
 ### Community 1657 - "Community 1657"
 Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
-
-### Community 1658 - "Community 1658"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
-
-### Community 1659 - "Community 1659"
-Cohesion: 0.36
-Nodes (7): classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat, Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau
+Nodes (7): Chapitre/notion visé par la demande — réutilise la recherche déjà     éprouvée d, Retourne {intent, chapter_id, notion_id, difficulty, simplify}.     `intent` vau, classify(), _detect_chapter(), _detect_difficulty(), _is_gibberish(), Classification d'intention pédagogique — appelée AVANT tout appel LLM (conversat
 
 ### Community 1660 - "Community 1660"
 Cohesion: 0.19
@@ -7861,101 +4699,25 @@ Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisati
 Cohesion: 0.29
 Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.52
 
-### Community 1670 - "Community 1670"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.51
-
 ### Community 1671 - "Community 1671"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.50
-
-### Community 1672 - "Community 1672"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.46
+Cohesion: 0.14
+Nodes (14): Bugs connus, Bugs connus, Corrections, Corrections, Fichiers modifiés, Fichiers modifiés, Nouveautés, Nouveautés (+6 more)
 
 ### Community 1673 - "Community 1673"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.45
-
-### Community 1674 - "Community 1674"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.44
+Cohesion: 0.16
+Nodes (14): Bugs connus, Bugs connus, Corrections, Corrections, Fichiers modifiés, Fichiers modifiés, Nouveautés, Nouveautés (+6 more)
 
 ### Community 1675 - "Community 1675"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.43
-
-### Community 1676 - "Community 1676"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.61
+Cohesion: 0.15
+Nodes (14): Bugs connus, Bugs connus, Corrections, Corrections, Fichiers modifiés, Fichiers modifiés, Nouveautés, Nouveautés (+6 more)
 
 ### Community 1677 - "Community 1677"
 Cohesion: 0.29
 Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.17
 
-### Community 1678 - "Community 1678"
-Cohesion: 0.29
-Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.16
-
 ### Community 1679 - "Community 1679"
 Cohesion: 0.29
 Nodes (7): Bugs connus, Corrections, Fichiers modifiés, Nouveautés, Optimisations, Temps estimé de développement, v1.60
-
-### Community 1680 - "Community 1680"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1681 - "Community 1681"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1682 - "Community 1682"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1684 - "Community 1684"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1685 - "Community 1685"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1686 - "Community 1686"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1688 - "Community 1688"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1689 - "Community 1689"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1690 - "Community 1690"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1691 - "Community 1691"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1693 - "Community 1693"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1694 - "Community 1694"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1695 - "Community 1695"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1696 - "Community 1696"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
 
 ### Community 1698 - "Community 1698"
 Cohesion: 0.38
@@ -7975,7 +4737,7 @@ Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure
 
 ### Community 1703 - "Community 1703"
 Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
+Nodes (6): Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend, build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle
 
 ### Community 1704 - "Community 1704"
 Cohesion: 0.52
@@ -7986,118 +4748,6 @@ Cohesion: 0.38
 Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
 
 ### Community 1706 - "Community 1706"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1708 - "Community 1708"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1709 - "Community 1709"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1710 - "Community 1710"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1711 - "Community 1711"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1713 - "Community 1713"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1714 - "Community 1714"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1715 - "Community 1715"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1716 - "Community 1716"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1718 - "Community 1718"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1719 - "Community 1719"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1720 - "Community 1720"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1721 - "Community 1721"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1723 - "Community 1723"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1724 - "Community 1724"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1725 - "Community 1725"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1726 - "Community 1726"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1728 - "Community 1728"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1729 - "Community 1729"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1730 - "Community 1730"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1731 - "Community 1731"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1733 - "Community 1733"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1734 - "Community 1734"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1735 - "Community 1735"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1736 - "Community 1736"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1738 - "Community 1738"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1739 - "Community 1739"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1740 - "Community 1740"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1741 - "Community 1741"
 Cohesion: 0.52
 Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
 
@@ -8117,38 +4767,6 @@ Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles
 Cohesion: 0.52
 Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
 
-### Community 1748 - "Community 1748"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1749 - "Community 1749"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1750 - "Community 1750"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1751 - "Community 1751"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
-### Community 1753 - "Community 1753"
-Cohesion: 0.38
-Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
-
-### Community 1754 - "Community 1754"
-Cohesion: 0.52
-Nodes (6): active_provider_name(), available_models(), get_provider(), health_check(), Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. Changer de fourniss, Modèles disponibles pour le fournisseur actif : détection dynamique     en prior
-
-### Community 1755 - "Community 1755"
-Cohesion: 0.38
-Nodes (5): build_cards(), _course_card(), _notion_series_card(), Décide quelles "cartes d'action" proposer sous une réponse du chatbot (ex: "Voir, `search_results` : résultats déjà obtenus par search_service.search sur     `use
-
-### Community 1756 - "Community 1756"
-Cohesion: 0.52
-Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
-
 ### Community 1758 - "Community 1758"
 Cohesion: 0.38
 Nodes (6): build_messages(), build_system_prompt(), _explanation_instruction(), _length_instruction(), Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique, règle, Convertit l'historique SQLite (webapp/db.py::list_messages) au format     attend
@@ -8161,117 +4779,17 @@ Nodes (6): active_provider_name(), available_models(), get_provider(), health_ch
 Cohesion: 0.52
 Nodes (5): buildArrowMarker(), buildAxes(), buildGrid(), project(), renderFigure()
 
-### Community 1762 - "Community 1762"
-Cohesion: 0.33
-Nodes (6): Bugs connus, Contexte, Correction 1 : doublon du bouton "Profil", Correction 2 : upload de photo de profil non fonctionnel, Tests réalisés, v1.04
-
-### Community 1763 - "Community 1763"
-Cohesion: 0.40
-Nodes (5): ValueError, AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1764 - "Community 1764"
-Cohesion: 0.09
-Nodes (12): Tests du Personality Engine (Phase ton/personnalité) : mémoire de style partagée, Aucune exception, aucun texte vide si l'historique contient déjà         toutes, Bug identifié à l'audit ton/personnalité : mode=professeur +     longueur=detail, Le module partagé lui-même (extrait de knowledge_response_composer.py)., Le blind spot corrigé : un pool avec placeholder doit être         comparé sur l, Pool sans placeholder (12 des 13 pools de knowledge_response_         composer.p, response_composer.py était jusqu'ici dépourvu de toute mémoire anti-     répétit, Les 3 variantes de SERIE, une fois formatées avec les mêmes         variables, d (+4 more)
-
-### Community 1765 - "Community 1765"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1766 - "Community 1766"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
 ### Community 1767 - "Community 1767"
 Cohesion: 0.29
 Nodes (7): api_exercise(), api_practice_load(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/, Route additive : consultation directe d'un exercice (mode entraînement enrichi),
-
-### Community 1768 - "Community 1768"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1769 - "Community 1769"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1770 - "Community 1770"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1771 - "Community 1771"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1772 - "Community 1772"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
 
 ### Community 1773 - "Community 1773"
 Cohesion: 0.53
 Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
 
-### Community 1774 - "Community 1774"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1775 - "Community 1775"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1776 - "Community 1776"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1777 - "Community 1777"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1778 - "Community 1778"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
 ### Community 1779 - "Community 1779"
 Cohesion: 0.53
 Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 1780 - "Community 1780"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1781 - "Community 1781"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1782 - "Community 1782"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1783 - "Community 1783"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1784 - "Community 1784"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
-### Community 1785 - "Community 1785"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 1786 - "Community 1786"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1788 - "Community 1788"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1789 - "Community 1789"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1790 - "Community 1790"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
 ### Community 1791 - "Community 1791"
 Cohesion: 0.40
@@ -8325,197 +4843,13 @@ Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT,
 Cohesion: 0.60
 Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
-### Community 1805 - "Community 1805"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1806 - "Community 1806"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
-### Community 1807 - "Community 1807"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 1808 - "Community 1808"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1809 - "Community 1809"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1810 - "Community 1810"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1811 - "Community 1811"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1812 - "Community 1812"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1813 - "Community 1813"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
 ### Community 1814 - "Community 1814"
 Cohesion: 0.07
 Nodes (13): Non-régression : vérifie que les fonctionnalités historiques (antérieures au cha, Bug corrigé lors de l'audit de généralisation KE v2 : le filtre         difficul, Les deux validateurs (chantiers précédents) doivent rester à 0 erreur     après, Rule Engine (salutations/identité) et Math Engine (sympy) ne dépendent     pas d, Les accesseurs KE v2 doivent continuer à retomber proprement sur le     format h, definitions.college a été scaffoldée à "" (pas de contenu collège         réelle, Après migration, les formules ne sont plus vides : elles ont été         automat, etapesParNiveau.debutant a été scaffoldée à [] (aucune version         "débutant (+5 more)
 
-### Community 1815 - "Community 1815"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1816 - "Community 1816"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1817 - "Community 1817"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1818 - "Community 1818"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1819 - "Community 1819"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1820 - "Community 1820"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
-### Community 1821 - "Community 1821"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1822 - "Community 1822"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1823 - "Community 1823"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1824 - "Community 1824"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1825 - "Community 1825"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1826 - "Community 1826"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
 ### Community 1827 - "Community 1827"
 Cohesion: 0.67
 Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 1828 - "Community 1828"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1829 - "Community 1829"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1830 - "Community 1830"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1831 - "Community 1831"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1832 - "Community 1832"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1833 - "Community 1833"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
-### Community 1834 - "Community 1834"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 1835 - "Community 1835"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1836 - "Community 1836"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1837 - "Community 1837"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1838 - "Community 1838"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1839 - "Community 1839"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1840 - "Community 1840"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
-### Community 1841 - "Community 1841"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 1842 - "Community 1842"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1843 - "Community 1843"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1844 - "Community 1844"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1845 - "Community 1845"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1847 - "Community 1847"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1848 - "Community 1848"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
-### Community 1849 - "Community 1849"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 1850 - "Community 1850"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1851 - "Community 1851"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1852 - "Community 1852"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1853 - "Community 1853"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
 ### Community 1855 - "Community 1855"
 Cohesion: 0.40
@@ -8524,10 +4858,6 @@ Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du
 ### Community 1856 - "Community 1856"
 Cohesion: 0.47
 Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
-### Community 1857 - "Community 1857"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
 
 ### Community 1858 - "Community 1858"
 Cohesion: 0.73
@@ -8545,61 +4875,9 @@ Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT,
 Cohesion: 0.60
 Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
-### Community 1863 - "Community 1863"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1864 - "Community 1864"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
 ### Community 1865 - "Community 1865"
 Cohesion: 0.07
 Nodes (13): Non-régression : vérifie que les fonctionnalités historiques (antérieures au cha, Bug corrigé lors de l'audit de généralisation KE v2 : le filtre         difficul, Les deux validateurs (chantiers précédents) doivent rester à 0 erreur     après, Rule Engine (salutations/identité) et Math Engine (sympy) ne dépendent     pas d, Les accesseurs KE v2 doivent continuer à retomber proprement sur le     format h, definitions.college a été scaffoldée à "" (pas de contenu collège         réelle, Après migration, les formules ne sont plus vides : elles ont été         automat, etapesParNiveau.debutant a été scaffoldée à [] (aucune version         "débutant (+5 more)
-
-### Community 1866 - "Community 1866"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1867 - "Community 1867"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1868 - "Community 1868"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1869 - "Community 1869"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
-
-### Community 1871 - "Community 1871"
-Cohesion: 0.40
-Nodes (3): make_key(), _normalize(), Cache mémoire simple pour les réponses du chatbot : si la même question est repo
-
-### Community 1872 - "Community 1872"
-Cohesion: 0.47
-Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
-
-### Community 1873 - "Community 1873"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 1874 - "Community 1874"
-Cohesion: 0.73
-Nodes (5): animationsEnabled(), ensureConfettiKeyframes(), fadeInTransition(), fireConfetti(), shakeElement()
-
-### Community 1875 - "Community 1875"
-Cohesion: 0.47
-Nodes (4): open(), renderList(), STATIC_COMMANDS, staticCommandsTranslated()
-
-### Community 1876 - "Community 1876"
-Cohesion: 0.53
-Nodes (5): applyTranslations(), bindLiveTranslations(), currentLanguage(), DICT, t()
-
-### Community 1877 - "Community 1877"
-Cohesion: 0.60
-Nodes (5): initials(), paint(), paintGuestBadge(), paintSidebarUser(), render()
 
 ### Community 1879 - "Community 1879"
 Cohesion: 0.40
@@ -8611,7 +4889,7 @@ Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quot
 
 ### Community 1881 - "Community 1881"
 Cohesion: 0.10
-Nodes (19): Enum, Suite du service de Feature Flags (webapp/plan_service.py) — source unique de vé, TestGetPlan, TestHasFeature, TestIsPlanHelpers, TestPlanEnum, _user(), Feature (+11 more)
+Nodes (32): _build_exceeded_error(), can_consume(), consume(), exceeded_error_payload(), get_limit(), get_remaining(), get_usage(), is_unlimited() (+24 more)
 
 ### Community 1882 - "Community 1882"
 Cohesion: 0.73
@@ -8637,22 +4915,6 @@ Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quot
 Cohesion: 0.10
 Nodes (11): _fake_settings(), _fake_stats(), Suite fonctionnelle du Student Context Resolver v2 (Response Engine v2, Phase 2), Un élève neuf (aucun fichier de données) doit produire un contexte         valid, Preuve directe que le resolver n'hérite PAS du bug de conflation     corrigé lor, TestCache, TestDesambiguisationTopicsMaitrisesEtFaibles, TestFormeDuContexte (+3 more)
 
-### Community 1889 - "Community 1889"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.43, Résolution des erreurs courantes
-
-### Community 1890 - "Community 1890"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.44, Résolution des erreurs courantes
-
-### Community 1891 - "Community 1891"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.45, Résolution des erreurs courantes
-
-### Community 1892 - "Community 1892"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.46, Résolution des erreurs courantes
-
 ### Community 1893 - "Community 1893"
 Cohesion: 0.40
 Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.50, Résolution des erreurs courantes
@@ -8661,181 +4923,21 @@ Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.50, Résolution des 
 Cohesion: 0.40
 Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.51, Résolution des erreurs courantes
 
-### Community 1895 - "Community 1895"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.52, Résolution des erreurs courantes
-
-### Community 1896 - "Community 1896"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.53, Résolution des erreurs courantes
-
-### Community 1897 - "Community 1897"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.54, Résolution des erreurs courantes
-
-### Community 1898 - "Community 1898"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.55, Résolution des erreurs courantes
-
-### Community 1899 - "Community 1899"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.56, Résolution des erreurs courantes
-
-### Community 1900 - "Community 1900"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.57, Résolution des erreurs courantes
-
-### Community 1901 - "Community 1901"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.58, Résolution des erreurs courantes
-
 ### Community 1902 - "Community 1902"
 Cohesion: 0.40
 Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.59, Résolution des erreurs courantes
-
-### Community 1903 - "Community 1903"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.60, Résolution des erreurs courantes
-
-### Community 1904 - "Community 1904"
-Cohesion: 0.40
-Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.61, Résolution des erreurs courantes
 
 ### Community 1905 - "Community 1905"
 Cohesion: 0.40
 Nodes (4): Arrêter le serveur, Lancer le site, NovaMath v1.62, Résolution des erreurs courantes
 
-### Community 1906 - "Community 1906"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1907 - "Community 1907"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1908 - "Community 1908"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1909 - "Community 1909"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1910 - "Community 1910"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1911 - "Community 1911"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1912 - "Community 1912"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1913 - "Community 1913"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1914 - "Community 1914"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1915 - "Community 1915"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1916 - "Community 1916"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
 ### Community 1917 - "Community 1917"
 Cohesion: 0.50
 Nodes (4): api, MUTATING_METHODS, readCookie(), request()
 
-### Community 1918 - "Community 1918"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
 ### Community 1919 - "Community 1919"
 Cohesion: 0.50
 Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1921 - "Community 1921"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1922 - "Community 1922"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1924 - "Community 1924"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1925 - "Community 1925"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1927 - "Community 1927"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1928 - "Community 1928"
-Cohesion: 0.40
-Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
-
-### Community 1929 - "Community 1929"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1931 - "Community 1931"
-Cohesion: 0.40
-Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
-
-### Community 1932 - "Community 1932"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1934 - "Community 1934"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1935 - "Community 1935"
-Cohesion: 0.40
-Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
-
-### Community 1936 - "Community 1936"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1938 - "Community 1938"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1939 - "Community 1939"
-Cohesion: 0.40
-Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
-
-### Community 1940 - "Community 1940"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1942 - "Community 1942"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1943 - "Community 1943"
-Cohesion: 0.40
-Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
-
-### Community 1944 - "Community 1944"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1946 - "Community 1946"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
 
 ### Community 1947 - "Community 1947"
 Cohesion: 0.40
@@ -8845,45 +4947,9 @@ Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiq
 Cohesion: 0.50
 Nodes (4): api, MUTATING_METHODS, readCookie(), request()
 
-### Community 1950 - "Community 1950"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1951 - "Community 1951"
-Cohesion: 0.50
-Nodes (4): Décide si une demande de l'élève peut être répondue entièrement en local (sans a, Renvoie le texte de la réponse locale, ou None si aucune réponse     locale n'es, try_answer(), _try_exercise_answer()
-
-### Community 1952 - "Community 1952"
-Cohesion: 0.40
-Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
-
-### Community 1953 - "Community 1953"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1955 - "Community 1955"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
-### Community 1956 - "Community 1956"
-Cohesion: 0.50
-Nodes (4): Décide si une demande de l'élève peut être répondue entièrement en local (sans a, Renvoie le texte de la réponse locale, ou None si aucune réponse     locale n'es, try_answer(), _try_exercise_answer()
-
-### Community 1957 - "Community 1957"
-Cohesion: 0.40
-Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
-
-### Community 1958 - "Community 1958"
-Cohesion: 0.50
-Nodes (4): api, MUTATING_METHODS, readCookie(), request()
-
-### Community 1960 - "Community 1960"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
 ### Community 1961 - "Community 1961"
 Cohesion: 0.50
-Nodes (4): Décide si une demande de l'élève peut être répondue entièrement en local (sans a, Renvoie le texte de la réponse locale, ou None si aucune réponse     locale n'es, try_answer(), _try_exercise_answer()
+Nodes (4): Renvoie le texte de la réponse locale, ou None si aucune réponse     locale n'es, Décide si une demande de l'élève peut être répondue entièrement en local (sans a, try_answer(), _try_exercise_answer()
 
 ### Community 1962 - "Community 1962"
 Cohesion: 0.40
@@ -8893,65 +4959,13 @@ Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiq
 Cohesion: 0.50
 Nodes (4): api, MUTATING_METHODS, readCookie(), request()
 
-### Community 1965 - "Community 1965"
-Cohesion: 0.50
-Nodes (4): AttachmentError, extract_pdf_text(), Extraction de texte pour les pièces jointes du chatbot (PDF). Le texte extrait e, Renvoie le texte extrait d'un PDF (tronqué à MAX_PDF_CHARS). Lève     Attachment
-
 ### Community 1966 - "Community 1966"
 Cohesion: 0.50
-Nodes (4): Renvoie le texte de la réponse locale, ou None si aucune réponse     locale n'es, Décide si une demande de l'élève peut être répondue entièrement en local (sans a, try_answer(), _try_exercise_answer()
+Nodes (4): Décide si une demande de l'élève peut être répondue entièrement en local (sans a, Renvoie le texte de la réponse locale, ou None si aucune réponse     locale n'es, try_answer(), _try_exercise_answer()
 
 ### Community 1967 - "Community 1967"
 Cohesion: 0.40
-Nodes (3): `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch, build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d
-
-### Community 1968 - "Community 1968"
-Cohesion: 0.12
-Nodes (8): Audit multi-classe du module Cours (progression de lecture) : les mêmes chapter_, Un appelant qui n'a pas encore été mis à jour pour transmettre         class_lev, Fichiers écrits AVANT cette évolution (format à plat, non namespacé)., Écrire une progression Première ne doit jamais faire disparaître         la prog, TestCompatibiliteAscendante, TestFormatNamespaceParClasse, TestIsolationEntreClasses, _TmpCourseDirMixin
-
-### Community 1969 - "Community 1969"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 1970 - "Community 1970"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 1972 - "Community 1972"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 1973 - "Community 1973"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 1974 - "Community 1974"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 1976 - "Community 1976"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 1977 - "Community 1977"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 1978 - "Community 1978"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 1980 - "Community 1980"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 1981 - "Community 1981"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 1982 - "Community 1982"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
+Nodes (3): build_intent_instruction(), Bibliothèque de préréponses pédagogiques (cahier des charges, section 3) : pas d, `intent_result` : dict renvoyé par intent_service.classify(). Renvoie     une ch
 
 ### Community 1984 - "Community 1984"
 Cohesion: 0.50
@@ -8977,90 +4991,6 @@ Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil perso
 Cohesion: 0.67
 Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
 
-### Community 1992 - "Community 1992"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 1993 - "Community 1993"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 1994 - "Community 1994"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 1996 - "Community 1996"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 1997 - "Community 1997"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 1998 - "Community 1998"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 2000 - "Community 2000"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 2001 - "Community 2001"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 2002 - "Community 2002"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 2004 - "Community 2004"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 2005 - "Community 2005"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 2006 - "Community 2006"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 2008 - "Community 2008"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 2009 - "Community 2009"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 2010 - "Community 2010"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 2012 - "Community 2012"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 2013 - "Community 2013"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 2014 - "Community 2014"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 2015 - "Community 2015"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 2016 - "Community 2016"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 2017 - "Community 2017"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
 ### Community 2018 - "Community 2018"
 Cohesion: 0.50
 Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
@@ -9070,38 +5000,6 @@ Cohesion: 0.67
 Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
 
 ### Community 2020 - "Community 2020"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 2021 - "Community 2021"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 2022 - "Community 2022"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 2023 - "Community 2023"
-Cohesion: 0.50
-Nodes (3): generate(), Point de sortie unique vers le fournisseur IA actif — Phase Q du chantier v2.12, Générateur de fragments texte — délègue entièrement au fournisseur     actif. Au
-
-### Community 2024 - "Community 2024"
-Cohesion: 0.67
-Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
-
-### Community 2025 - "Community 2025"
-Cohesion: 0.50
-Nodes (3): Court-circuite l'appel au LLM pour les demandes qui n'en ont pas besoin. Phase 1, Retourne une réponse toute faite si la demande peut être traitée sans     appel, try_handle()
-
-### Community 2026 - "Community 2026"
-Cohesion: 0.67
-Nodes (3): build_greeting(), _first_name(), Construit le message d'accueil personnalisé du chatbot à partir du résumé de con
-
-### Community 2027 - "Community 2027"
-Cohesion: 0.50
-Nodes (3): generate(), Point de sortie unique vers le fournisseur IA actif — Phase Q du chantier v2.12, Générateur de fragments texte — délègue entièrement au fournisseur     actif. Au
-
-### Community 2028 - "Community 2028"
 Cohesion: 0.67
 Nodes (3): prettify(), RAW_PATTERNS, setMathContent()
 
@@ -9130,48 +5028,24 @@ Cohesion: 0.50
 Nodes (3): generate(), Point de sortie unique vers le fournisseur IA actif — Phase Q du chantier v2.12, Générateur de fragments texte — délègue entièrement au fournisseur     actif. Au
 
 ### Community 2035 - "Community 2035"
-Cohesion: 0.15
-Nodes (22): Exception, cancel_subscription(), change_plan(), _client(), construct_webhook_event(), create_checkout_session(), create_customer(), get_checkout_session() (+14 more)
+Cohesion: 0.17
+Nodes (15): change_plan(), create_portal_session(), get_billing_status(), _invoice_history(), NoActiveSubscription, NoStripeCustomer, _payment_method_summary(), Agrège les informations Stripe Billing nécessaires aux pages Abonnement et Profi (+7 more)
 
 ### Community 2036 - "Community 2036"
 Cohesion: 0.20
 Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
 
-### Community 2037 - "Community 2037"
-Cohesion: 0.16
-Nodes (4): Une mention "cours"/"exercices" (type search, pas data) ne         déclenche pas, TestMentions, TestQuantites, TestStructureImmuable
-
-### Community 2039 - "Community 2039"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
 ### Community 2045 - "Community 2045"
 Cohesion: 0.67
 Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2051 - "Community 2051"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
 
 ### Community 2052 - "Community 2052"
 Cohesion: 0.67
 Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
 
-### Community 2058 - "Community 2058"
-Cohesion: 0.29
-Nodes (4): Branché réellement sur les routes de server.py (voir     tests/test_server_featu, TestRequiresFeature, Décorateur de route Flask : renvoie 403 si l'utilisateur courant n'a     pas `fe, requires_feature()
-
 ### Community 2059 - "Community 2059"
-Cohesion: 0.12
-Nodes (27): $(), handleCheckoutReturn(), handleRequiredFeatureParam(), loadCurrentPlan(), paintCurrentPlan(), setButtonLoading(), showRequiredFeatureBanner(), showToast() (+19 more)
-
-### Community 2076 - "Community 2076"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2077 - "Community 2077"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
+Cohesion: 0.24
+Nodes (11): applyFeatureLocks(), buildClassBadge(), buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), lockLink() (+3 more)
 
 ### Community 2083 - "Community 2083"
 Cohesion: 0.67
@@ -9179,99 +5053,23 @@ Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour u
 
 ### Community 2084 - "Community 2084"
 Cohesion: 0.17
-Nodes (19): _profile_for(), _fuzzy_topic_id(), get_topic_title(), _load_crosswalk(), _load_topics_by_chapter(), _normalize_label(), Identifiants canoniques de NovaMath — point d'entrée unique pour tout système (c, resolve_chapter_id() (+11 more)
-
-### Community 2095 - "Community 2095"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2096 - "Community 2096"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2109 - "Community 2109"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2110 - "Community 2110"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2117 - "Community 2117"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
+Nodes (19): _fuzzy_topic_id(), get_topic_title(), _load_crosswalk(), _load_topics_by_chapter(), _normalize_label(), _profile_for(), Identifiants canoniques de NovaMath — point d'entrée unique pour tout système (c, Repli flou quand le lookup exact échoue — réutilise le même     tokenizer/normal (+11 more)
 
 ### Community 2118 - "Community 2118"
 Cohesion: 0.17
-Nodes (17): _cache_key(), Résout chaque mention "@" (même forme que mentions_service.     build_grounding_, Historique de CONVERSATION récent (messages chat, db.list_messages) —     à ne p, Construit le StudentContext complet (dict, voir REQUIRED_FIELDS dans     validat, À appeler après une écriture qui doit être immédiatement visible     (nouvelle r, Vide tout le cache — utilisé par les tests pour repartir d'un état     connu, ja, Vocabulaire stable, indépendant des noms de champs bruts du frontend     (camelC, _cache_get() (+9 more)
+Nodes (17): _cache_get(), _cache_key(), _cache_set(), clear_cache(), invalidate(), _normalize_history(), _normalize_mentions(), _normalize_parametres() (+9 more)
 
 ### Community 2125 - "Community 2125"
 Cohesion: 0.67
 Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
 
-### Community 2133 - "Community 2133"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
 ### Community 2134 - "Community 2134"
 Cohesion: 0.11
 Nodes (9): Suite fonctionnelle de l'Intent Engine v2 (Response Engine v2, Phase 1) : les 10, Le repli flou ne doit jamais happer une conversation réellement         libre (a, Formulations directes, déclenchées par une regex de _INTENT_PATTERNS., Une quantité absurde ("500 exercices") est plafonnée, pas prise         telle qu, Formulations JAMAIS présentes dans _FUZZY_TRIGGER_PHRASES ni dans les     regex, Régression corrigée : "qu'est-ce que" était détecté à 100% de         couverture, TestNouvellesIntentionsRegex, TestQuantite (+1 more)
 
-### Community 2142 - "Community 2142"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
 ### Community 2149 - "Community 2149"
 Cohesion: 0.11
 Nodes (9): Suite fonctionnelle de l'Intent Engine v2 (Response Engine v2, Phase 1) : les 10, Le repli flou ne doit jamais happer une conversation réellement         libre (a, Formulations directes, déclenchées par une regex de _INTENT_PATTERNS., Une quantité absurde ("500 exercices") est plafonnée, pas prise         telle qu, Formulations JAMAIS présentes dans _FUZZY_TRIGGER_PHRASES ni dans les     regex, Régression corrigée : "qu'est-ce que" était détecté à 100% de         couverture, TestNouvellesIntentionsRegex, TestQuantite (+1 more)
-
-### Community 2151 - "Community 2151"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 2158 - "Community 2158"
-Cohesion: 0.15
-Nodes (14): clear_cache(), _execute_engine(), generate(), _intent_result_from_strategy(), _lazy(), LocalResponseResult, _log_debug(), Local Response Engine — orchestrateur unique des réponses locales (Response Engi (+6 more)
-
-### Community 2159 - "Community 2159"
-Cohesion: 0.15
-Nodes (7): Suite de tests du Response Strategy Engine (Phase 3A, Niveau 1) — `chatbot/servi, Chaque intent reconnu par l'Intent Engine v2 doit produire une     décision sans, ResponseStrategyTestCase, TestClarification, TestDifficultes, TestPerformance, TestToutesLesIntentions
-
-### Community 2160 - "Community 2160"
-Cohesion: 0.13
-Nodes (14): format_debug_trace(), _initial_stats(), log_comparison(), Observabilité du pipeline hybride local/LLM (Phase 3B). Deux responsabilités uni, Bloc de debug détaillé pour UNE requête — Intent/Strategy/Engine     choisi/Temp, Étape 1 de l'intégration progressive : compare la décision du Strategy     Engin, Remet tous les compteurs à zéro — utilisé par les tests pour repartir     d'un é, `engine` : identifiant du moteur qui a RÉELLEMENT répondu (un des     `response_ (+6 more)
-
-### Community 2163 - "Community 2163"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
-
-### Community 2165 - "Community 2165"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 2167 - "Community 2167"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2173 - "Community 2173"
-Cohesion: 0.13
-Nodes (5): Suite ciblée : knowledge_engine.py devient multi-classe (class_level optionnel,, Première a désormais des cours générés depuis exercise_bank (voir     generate_c, TestAucuneCollisionEntreClasses, TestDefautSecondeInchange, TestPremiereFonctionnelle
-
-### Community 2180 - "Community 2180"
-Cohesion: 0.23
-Nodes (14): _build_etapes(), _build_notion(), _flatten_solution_steps(), generate(), _majority_difficulty_label(), _output_dir(), _pick_examples(), _ranked_distinct_hints() (+6 more)
-
-### Community 2181 - "Community 2181"
-Cohesion: 0.21
-Nodes (6): StudentContext minimal mais toujours valide (vérifié par     validate_student_co, class_level vient du StudentContext déjà résolu, jamais recalculé ni     deviné, Première a désormais des cours générés depuis exercise_bank (voir         genera, student_context(), TestCache, TestClassLevelPropagation
-
-### Community 2184 - "Community 2184"
-Cohesion: 0.27
-Nodes (11): Analyseur de qualité des réponses — Phase 4, Mission 5.  Outil d'ANALYSE PURE :, Raccourci pour un `ResponseDraft` (knowledge_response_composer.py) —     évite à, Note une réponse (texte final + kinds de blocs si disponibles, ex.     `[b.kind, _score_coherence(), score_draft(), _score_lisibilite(), score_response(), _score_richesse() (+3 more)
-
-### Community 2185 - "Community 2185"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
 
 ### Community 2186 - "Community 2186"
 Cohesion: 0.53
@@ -9281,101 +5079,21 @@ Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exerci
 Cohesion: 0.36
 Nodes (7): _difficulte_heuristique(), main(), migrate_chapter_file(), migrate_notion(), Migration automatique vers le schéma Knowledge Engine v2 complet, pour les 12 ch, Heuristique de POSITION (1er exemple = facile, dernier = difficile,     milieu =, Applique le schéma KE v2 complet à une notion, en place. Additif     uniquement
 
-### Community 2188 - "Community 2188"
-Cohesion: 0.17
-Nodes (4): Les puissances" ne déclenche ni définition (pas de "c'est quoi"),         ni auc, Vérifie l'ORDRE lui-même (pas seulement un cas réel) en simulant         artific, Ordre exact demandé : Math > Rule > Knowledge > Dashboard > Search >     Exercis, TestPrioriteDesMoteurs
-
-### Community 2190 - "Community 2190"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
 ### Community 2196 - "Community 2196"
 Cohesion: 0.53
 Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 2197 - "Community 2197"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 2198 - "Community 2198"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
 
 ### Community 2199 - "Community 2199"
 Cohesion: 0.47
 Nodes (5): main(), _measure_performance(), Exécute toute la suite fonctionnelle (test_canonical_ids, test_chatbot_routing,, Temps moyen de resolve_topic_id sur le chemin exact (lookup direct) et     sur l, _run_suite()
 
-### Community 2204 - "Community 2204"
-Cohesion: 0.36
-Nodes (3): TestListFeatures, list_features(), Ensemble des Feature disponibles pour un Plan donné.
-
 ### Community 2208 - "Community 2208"
 Cohesion: 0.36
 Nodes (7): _difficulte_heuristique(), main(), migrate_chapter_file(), migrate_notion(), Migration automatique vers le schéma Knowledge Engine v2 complet, pour les 12 ch, Heuristique de POSITION (1er exemple = facile, dernier = difficile,     milieu =, Applique le schéma KE v2 complet à une notion, en place. Additif     uniquement
 
-### Community 2209 - "Community 2209"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2211 - "Community 2211"
-Cohesion: 0.21
-Nodes (3): TestEleveVideEtAvance, TestModes, TestPlusieursTopicsEtChapitres
-
-### Community 2212 - "Community 2212"
-Cohesion: 0.33
-Nodes (9): _all_pools(), audit_pool_size(), format_report(), low_diversity_pools(), Anti-répétition — Phase 4, Mission 6.  Mesure (jamais ne génère de texte automat, Mission 6, partie statique : nombre de variantes disponibles par pool,     sans, Tire `n` fois dans chaque pool (même mécanisme que le code réel,     `random.cho, Mission 6 : pools à enrichir en priorité — diversité réellement     observée sou (+1 more)
-
-### Community 2213 - "Community 2213"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2214 - "Community 2214"
-Cohesion: 0.20
-Nodes (3): Suite de non-régression pour /api/site/stats et /api/curricula (server.py) — cré, TestApiCurricula, TestApiSiteStats
-
 ### Community 2215 - "Community 2215"
 Cohesion: 0.22
 Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 2218 - "Community 2218"
-Cohesion: 0.22
-Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
-
-### Community 2219 - "Community 2219"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2225 - "Community 2225"
-Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
-
-### Community 2226 - "Community 2226"
-Cohesion: 0.22
-Nodes (4): Explique autrement" doit être classé REFORMULATION, pas         EXPLICATION (voi, resume moi" (sans trait d'union ni accent) doit encore être         reconnu via, Limitation pré-existante et assumée (voir test_chatbot_routing.py) :         try, TestAmbiguitesEtMessagesIncomplets
-
-### Community 2227 - "Community 2227"
-Cohesion: 0.31
-Nodes (7): apply_length(), _apply_mode(), compose(), Assemble une réponse locale : choisit une variante de formulation (template_libr, Une variable manquante reste visible (`{nom}`) plutôt que de faire     planter t, Renvoie une réponse locale prête à afficher, ou None si aucune     variante n'ex, _SafeDict
-
-### Community 2232 - "Community 2232"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2235 - "Community 2235"
-Cohesion: 0.31
-Nodes (7): apply_length(), _apply_mode(), compose(), Assemble une réponse locale : choisit une variante de formulation (template_libr, Une variable manquante reste visible (`{nom}`) plutôt que de faire     planter t, Renvoie une réponse locale prête à afficher, ou None si aucune     variante n'ex, _SafeDict
-
-### Community 2243 - "Community 2243"
-Cohesion: 0.28
-Nodes (8): clear_cache(), compute_stats(), list_curricula(), _load_bank(), Statistiques par programme scolaire, calculées à la volée depuis la banque d'exe, Statistiques d'un programme, mises en cache après le premier calcul     (voir cl, Un profil par entrée de curriculum_registry, dans l'ordre déclaré —     seule li, Vide le cache — utilisé par les tests pour repartir d'un état connu,     jamais
-
-### Community 2244 - "Community 2244"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2245 - "Community 2245"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
 
 ### Community 2246 - "Community 2246"
 Cohesion: 0.67
@@ -9387,51 +5105,27 @@ Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (
 
 ### Community 2248 - "Community 2248"
 Cohesion: 0.50
-Nodes (3): Renvoie la liste des erreurs (vide si tout est correct). Ne lève     jamais d'ex, Validateur de forme du StudentContext (student_context_resolver.py, Response Eng, validate_student_context()
-
-### Community 2249 - "Community 2249"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2250 - "Community 2250"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2252 - "Community 2252"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2261 - "Community 2261"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2268 - "Community 2268"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
-### Community 2305 - "Community 2305"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
+Nodes (3): Validateur de forme du StudentContext (student_context_resolver.py, Response Eng, Renvoie la liste des erreurs (vide si tout est correct). Ne lève     jamais d'ex, validate_student_context()
 
 ## Knowledge Gaps
-- **3908 isolated node(s):** `api`, `DIFF_LABEL`, `DIFF_BADGE`, `selected`, `grid` (+3903 more)
+- **2019 isolated node(s):** `vitestGlobals`, `name`, `private`, `version`, `description` (+2014 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **495 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **314 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `QuotaServiceTestCase` connect `Community 976` to `Community 1881`, `Community 1507`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
-- **Why does `QuotaExceededError` connect `Community 976` to `Community 2178`, `Community 1507`, `Community 2035`, `Community 1333`, `Community 1881`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
-- **Why does `QuotaExceeded` connect `Community 809` to `Community 2035`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Are the 103 inferred relationships involving `ChatProvider` (e.g. with `AnthropicProvider` and `AnthropicProvider`) actually correct?**
-  _`ChatProvider` has 103 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 83 inferred relationships involving `Path` (e.g. with `ignore()` and `.setUpClass()`) actually correct?**
-  _`Path` has 83 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `Plan` connect `Community 31` to `Community 522`, `Community 17`, `Community 535`, `Community 24`, `Community 538`, `Community 28`, `Community 163`, `Community 169`, `Community 170`, `Community 172`, `Community 173`, `Community 46`, `Community 47`, `Community 59`, `Community 61`, `Community 65`, `Community 67`, `Community 83`, `Community 85`, `Community 1881`, `Community 350`, `Community 105`, `Community 112`, `Community 2035`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **Why does `_serve_landing()` connect `Community 2311` to `Community 128`, `Community 1270`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **Why does `_serve_protected()` connect `Community 1270` to `Community 128`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **Are the 126 inferred relationships involving `Plan` (e.g. with `RateLimitEnabledTestCase` and `TestBillingRateLimit`) actually correct?**
+  _`Plan` has 126 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 78 inferred relationships involving `Path` (e.g. with `ignore()` and `.setUp()`) actually correct?**
+  _`Path` has 78 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Crée un instantané AUTONOME du site NovaMath dans versions/v{X.YY}/.  Usage :`, `Retourne la version courante SANS le préfixe "v" (usage interne : calculs,     v`, `Lit le port réellement utilisé par ce server.py (app.run(..., port=N)),     pour` to the rest of the system?**
-  _7139 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _4226 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Vecteurs et Geometrie` be split into smaller, more focused modules?**
   _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._

@@ -1,0 +1,28 @@
+# https://editorconfig.org — cohérence de formatage indépendante de l'éditeur
+# entre tous les contributeurs. Ne remplace aucun outil de lint/format déjà
+# en place ; se contente des règles de base (indentation, fin de ligne).
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.py]
+indent_size = 4
+
+[*.{js,json,yml,yaml,html,css}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+insert_final_newline = true
+
+[Makefile]
+indent_style = tab
+
+[*.{bat,cmd}]
+end_of_line = crlf

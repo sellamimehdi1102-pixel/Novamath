@@ -7,6 +7,7 @@
 import { api } from "./api.js";
 import { AUTH_MODALS_HTML } from "./authModalsTemplate.js";
 import { resetGuestLocalState } from "./store.js";
+import "./cookieConsent.js";
 
 const $ = (id) => document.getElementById(id);
 const EMAIL_RE = /^[a-zA-Z0-9](?:[a-zA-Z0-9._+-]*[a-zA-Z0-9])?@gmail\.com$/;
@@ -25,9 +26,10 @@ function closeModal(overlay) {
   overlay.hidden = true;
 }
 function closeAllAuthModals() {
-  ["signup-modal-overlay", "login-modal-overlay", "forgot-modal-overlay", "legal-modal-overlay", "privacy-modal-overlay"].forEach(
-    (id) => { $(id).hidden = true; }
-  );
+  [
+    "signup-modal-overlay", "login-modal-overlay", "login-2fa-modal-overlay",
+    "forgot-modal-overlay", "legal-modal-overlay", "privacy-modal-overlay",
+  ].forEach((id) => { $(id).hidden = true; });
 }
 
 // ── Ouverture / fermeture génériques ────────────────────────────────────────
@@ -64,6 +66,32 @@ wireOpeners(".js-open-signup", "signup-modal-overlay", () => {
   $("signup-transfer-guest-row").hidden = !currentAccount?.is_guest;
   setTransferGuestChoice(true);
 });
+
+// ── Protection des mineurs (RGPD) — seuil légal français : 15 ans (voir
+// consent_service.MINOR_CONSENT_AGE_THRESHOLD côté serveur, seule source de
+// vérité ; ce calcul client n'est qu'un confort d'affichage immédiat, revalidé
+// systématiquement côté serveur à l'inscription). ──────────────────────────
+const MINOR_CONSENT_AGE_THRESHOLD = 15;
+function computeAge(birthDateStr) {
+  const [year, month, day] = birthDateStr.split("-").map(Number);
+  if (!year || !month || !day) return null;
+  const born = new Date(year, month - 1, day);
+  const today = new Date();
+  let age = today.getFullYear() - born.getFullYear();
+  if (today.getMonth() < born.getMonth() || (today.getMonth() === born.getMonth() && today.getDate() < born.getDate())) {
+    age -= 1;
+  }
+  return age;
+}
+function isMinorSignup() {
+  const birthDate = $("signup-birth-date").value;
+  if (!birthDate) return false;
+  const age = computeAge(birthDate);
+  return age !== null && age < MINOR_CONSENT_AGE_THRESHOLD;
+}
+$("signup-birth-date").addEventListener("change", () => {
+  $("signup-parent-email-row").hidden = !isMinorSignup();
+});
 wireOpeners(".js-open-login", "login-modal-overlay");
 wireOpeners(".js-open-legal", "legal-modal-overlay");
 wireOpeners(".js-open-privacy", "privacy-modal-overlay");
@@ -99,13 +127,48 @@ document.addEventListener("click", (e) => {
 // compte). Un compte invité ne peut plus jamais être observé ici : le serveur
 // l'a déjà détruit avant de servir la page.
 let currentAccount = null;
-api.me().then(({ user }) => { currentAccount = user; }).catch(() => {
+api.me().then(({ user }) => {
+  currentAccount = user;
+  if (!user.is_guest) checkPolicyReacceptance();
+}).catch(() => {
   // 401 : aucune session valide. Purge défensive de tout résidu client d'une
   // éventuelle session invité précédente (localStorage/sessionStorage) — le
   // serveur a déjà détruit ses données, mais on élimine ici toute trace encore
   // visible dans CE navigateur avant que l'utilisateur ne relance quoi que ce
   // soit (voir store.js::resetGuestLocalState).
   if (document.querySelector(".js-start-guest-eval")) resetGuestLocalState();
+});
+
+// ── Ré-acceptation forcée des CGU/politique de confidentialité (RGPD) ──────
+// Vérifiée à chaque chargement de page pour un compte connecté (non invité) :
+// si consent_service.py signale une nouvelle version publiée depuis la
+// dernière acceptation de ce compte, une modale bloquante (fermeture
+// impossible sans accepter) est affichée avant de laisser continuer.
+async function checkPolicyReacceptance() {
+  try {
+    const status = await api.getPolicyStatus();
+    if (!status.needs_reacceptance) return;
+  } catch {
+    return;
+  }
+  $("policy-update-modal-overlay").hidden = false;
+}
+
+$("btn-policy-update-accept").addEventListener("click", async () => {
+  const errorEl = $("policy-update-error");
+  errorEl.hidden = true;
+  if (!$("policy-update-accept-terms").checked || !$("policy-update-accept-privacy").checked) {
+    errorEl.textContent = "Tu dois accepter les deux documents pour continuer.";
+    errorEl.hidden = false;
+    return;
+  }
+  try {
+    await api.acceptPolicy();
+    $("policy-update-modal-overlay").hidden = true;
+  } catch (err) {
+    errorEl.textContent = err.message || "Une erreur est survenue.";
+    errorEl.hidden = false;
+  }
 });
 
 document.addEventListener("click", async (e) => {
@@ -172,7 +235,7 @@ function clearErrors(prefix, fields) {
 }
 
 function validateSignupClientSide() {
-  clearErrors("signup", ["email", "username", "pseudo", "password", "confirm", "terms", "privacy", "global"]);
+  clearErrors("signup", ["email", "username", "pseudo", "birth_date", "parent_email", "password", "confirm", "terms", "privacy", "global"]);
   let ok = true;
 
   const email = $("signup-email").value.trim();
@@ -185,6 +248,13 @@ function validateSignupClientSide() {
 
   const pseudo = $("signup-pseudo").value.trim();
   if (!pseudo) { setFieldError("signup", "pseudo", "Le pseudo est obligatoire."); ok = false; }
+
+  const birthDate = $("signup-birth-date").value;
+  if (!birthDate) { setFieldError("signup", "birth_date", "La date de naissance est obligatoire."); ok = false; }
+  else if (new Date(birthDate) > new Date()) { setFieldError("signup", "birth_date", "La date de naissance ne peut pas être dans le futur."); ok = false; }
+  else if (isMinorSignup() && !$("signup-parent-email").value.trim()) {
+    setFieldError("signup", "parent_email", "L'email d'un parent est obligatoire pour ton âge."); ok = false;
+  }
 
   const password = $("signup-password").value;
   const { rules } = evaluatePassword(password);
@@ -214,16 +284,26 @@ $("signup-form").addEventListener("submit", async (e) => {
   const submitBtn = $("btn-signup-submit");
   submitBtn.disabled = true;
   try {
-    await api.register({
+    const isMinor = isMinorSignup();
+    const result = await api.register({
       email: $("signup-email").value.trim(),
       username: $("signup-username").value.trim(),
       pseudo: $("signup-pseudo").value.trim(),
+      birth_date: $("signup-birth-date").value,
+      parent_email: isMinor ? $("signup-parent-email").value.trim() : undefined,
       password: $("signup-password").value,
       confirm_password: $("signup-password-confirm").value,
       accept_terms: $("signup-accept-terms").checked,
       accept_privacy: $("signup-accept-privacy").checked,
       transfer_guest: !!currentAccount?.is_guest && transferGuestChoice,
     });
+    if (result.account_status === "pending_parental_consent") {
+      // Aucune session n'a été créée côté serveur — le compte doit attendre
+      // l'autorisation du parent (voir consent_service.py) avant tout accès.
+      setFieldError("signup", "global", result.message);
+      $("signup-error-global").classList.add("form-error--info");
+      return;
+    }
     redirectAfterAuth();
   } catch (err) {
     if (err.field) setFieldError("signup", err.field, err.message);
@@ -246,10 +326,66 @@ $("login-form").addEventListener("submit", async (e) => {
   const submitBtn = $("btn-login-submit");
   submitBtn.disabled = true;
   try {
-    await api.login({ email, password, remember: $("login-remember").checked });
-    redirectAfterAuth();
+    const result = await api.login({ email, password, remember: $("login-remember").checked });
+    if (result.two_factor_required) {
+      closeModal($("login-modal-overlay"));
+      open2FAChallenge(result.challenge_token);
+    } else {
+      redirectAfterAuth();
+    }
   } catch (err) {
     setFieldError("login", "global", err.message || "Connexion impossible.");
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+// ── Étape 2 de connexion : code TOTP ou recovery code (voir login() ci-dessus,
+// qui renvoie two_factor_required + challenge_token au lieu d'une session
+// quand le compte a activé la 2FA — webapp/two_factor_service.py). ──────────
+let recoveryMode = false;
+function setRecoveryMode(value) {
+  recoveryMode = value;
+  $("login-2fa-code-row").hidden = value;
+  $("login-2fa-recovery-row").hidden = !value;
+  $("login-2fa-intro").textContent = value
+    ? "Saisis l'un de tes recovery codes (généré lors de l'activation de la double authentification)."
+    : "Saisis le code à 6 chiffres généré par ton application d'authentification.";
+  $("btn-2fa-toggle-recovery").textContent = value
+    ? "Utiliser le code de mon application"
+    : "Utiliser un recovery code";
+  $("login-2fa-error-global").hidden = true;
+  const input = value ? $("login-2fa-recovery-code") : $("login-2fa-code");
+  setTimeout(() => input.focus(), 50);
+}
+
+function open2FAChallenge(challengeToken) {
+  $("login-2fa-form").dataset.challengeToken = challengeToken;
+  $("login-2fa-code").value = "";
+  $("login-2fa-recovery-code").value = "";
+  setRecoveryMode(false);
+  openModal($("login-2fa-modal-overlay"));
+}
+
+$("btn-2fa-toggle-recovery").addEventListener("click", () => setRecoveryMode(!recoveryMode));
+$("btn-login-2fa-cancel").addEventListener("click", () => closeModal($("login-2fa-modal-overlay")));
+
+$("login-2fa-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("login-2fa-error-global").hidden = true;
+  const challengeToken = e.currentTarget.dataset.challengeToken;
+  const submitBtn = $("btn-login-2fa-submit");
+  submitBtn.disabled = true;
+  try {
+    if (recoveryMode) {
+      await api.recover2FA(challengeToken, $("login-2fa-recovery-code").value.trim());
+    } else {
+      await api.verify2FA(challengeToken, $("login-2fa-code").value.trim());
+    }
+    redirectAfterAuth();
+  } catch (err) {
+    $("login-2fa-error-global").textContent = err.message || "Code invalide.";
+    $("login-2fa-error-global").hidden = false;
   } finally {
     submitBtn.disabled = false;
   }

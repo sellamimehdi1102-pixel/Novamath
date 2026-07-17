@@ -1,0 +1,292 @@
+{
+  "chapterId": "Chapitre_10",
+  "title": "Chapitre 10",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "esperance-–-variance-–-ecart-type",
+      "title": "Espérance – Variance – Écart-type",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à utiliser : Espérance – Variance – Écart-type.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Espérance – Variance – Écart-type.",
+      "definition": "Utiliser les formules de linéarité $E(aX+b)=aE(X)+b$ et $V(aX+b)=a^2V(X)$.",
+      "definitions": {
+        "lycee": "Utiliser les formules de linéarité $E(aX+b)=aE(X)+b$ et $V(aX+b)=a^2V(X)$.",
+        "college": "Utiliser $E(X)=\\sum x_ip_i$."
+      },
+      "reglesImportantes": [
+        "Utiliser $E(X)=\\sum x_ip_i$.",
+        "Utiliser $V(X)=E(X^2)-(E(X))^2$ puis $\\sigma(X)=\\sqrt{V(X)}$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Espérance – Variance – Écart-type",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On calcule d'abord $E(X) = \\dfrac{6}{5}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $E(X^2) = -1^2\\times\\dfrac{3}{5} + 3^2\\times\\dfrac{1}{5} + 6^2\\times\\dfrac{1}{5} = \\dfrac{48}{5}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : $V(X) = E(X^2) - (E(X))^2 = \\dfrac{48}{5} - (\\dfrac{6}{5})^2 = \\dfrac{204}{25}$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Étape 4 : $\\sigma(X) = \\sqrt{V(X)} = \\sqrt{\\dfrac{204}{25}}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1942",
+          "titre": "Exemple 1",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-1)=\\dfrac{3}{5}$, $P(X=3)=\\dfrac{1}{5}$, $P(X=6)=\\dfrac{1}{5}$. Calculer $V(X)$ puis $\\sigma(X)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On calcule d'abord $E(X) = \\dfrac{6}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $E(X^2) = -1^2\\times\\dfrac{3}{5} + 3^2\\times\\dfrac{1}{5} + 6^2\\times\\dfrac{1}{5} = \\dfrac{48}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $V(X) = E(X^2) - (E(X))^2 = \\dfrac{48}{5} - (\\dfrac{6}{5})^2 = \\dfrac{204}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : $\\sigma(X) = \\sqrt{V(X)} = \\sqrt{\\dfrac{204}{25}}$."
+            }
+          ],
+          "reponse": "$V(X) = \\dfrac{204}{25}$ et $\\sigma(X) = \\sqrt{\\dfrac{204}{25}}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1954",
+          "titre": "Exemple 2",
+          "enonce": "Une variable aléatoire $X$ est telle que $E(X) = \\dfrac{1}{4}$ et $V(X) = \\dfrac{99}{16}$. On pose $Y = 3X -2$. Calculer $E(Y)$ et $V(Y)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $E(aX+b) = aE(X)+b$ : $E(Y) = 3\\times\\dfrac{1}{4} -2 = -\\dfrac{5}{4}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On utilise $V(aX+b) = a^2V(X)$ : $V(Y) = 3^2 \\times \\dfrac{99}{16} = \\dfrac{891}{16}$."
+            }
+          ],
+          "reponse": "$E(Y) = -\\dfrac{5}{4}$ et $V(Y) = \\dfrac{891}{16}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1966",
+          "titre": "Exemple 3",
+          "enonce": "Une variable aléatoire $X$ est telle que $E(X) = -3$ et $V(X) = 2$. On pose $Y = 1X +4$. Calculer $E(Y)$ et $V(Y)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $E(aX+b) = aE(X)+b$ : $E(Y) = 1\\times-3 +4 = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On utilise $V(aX+b) = a^2V(X)$ : $V(Y) = 1^2 \\times 2 = 2$."
+            }
+          ],
+          "reponse": "$E(Y) = 1$ et $V(Y) = 2$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1978",
+          "titre": "Exemple 4",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-5)=\\dfrac{1}{4}$, $P(X=-3)=\\dfrac{1}{2}$, $P(X=7)=\\dfrac{1}{4}$. Calculer $V(X)$ puis $\\sigma(X)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On calcule d'abord $E(X) = -1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $E(X^2) = -5^2\\times\\dfrac{1}{4} + -3^2\\times\\dfrac{1}{2} + 7^2\\times\\dfrac{1}{4} = 23$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $V(X) = E(X^2) - (E(X))^2 = 23 - (-1)^2 = 22$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : $\\sigma(X) = \\sqrt{V(X)} = \\sqrt{22}$."
+            }
+          ],
+          "reponse": "$V(X) = 22$ et $\\sigma(X) = \\sqrt{22}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser $E(X)=\\sum x_ip_i$.",
+        "Utiliser $V(X)=E(X^2)-(E(X))^2$ puis $\\sigma(X)=\\sqrt{V(X)}$."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        1943,
+        1944,
+        1945
+      ],
+      "topic_id": "esperance-–-variance-–-ecart-type",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Espérance – Variance – Écart-type."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "esperance",
+        "variance",
+        "ecart",
+        "type"
+      ]
+    },
+    {
+      "id": "variables-aleatoires-reelles",
+      "title": "Variables aléatoires réelles",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à utiliser : Variables aléatoires réelles.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Variables aléatoires réelles.",
+      "definition": "La somme de toutes les probabilités d'une variable aléatoire vaut toujours $1$.",
+      "definitions": {
+        "lycee": "La somme de toutes les probabilités d'une variable aléatoire vaut toujours $1$.",
+        "college": "Additionner les probabilités de toutes les valeurs concernées."
+      },
+      "reglesImportantes": [
+        "Additionner les probabilités de toutes les valeurs concernées."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Variables aléatoires réelles",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : La somme des probabilités d'une loi de probabilité vaut $1$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $P(X=7) = 1 - \\left(\\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{10}\\right) = \\dfrac{1}{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1884",
+          "titre": "Exemple 1",
+          "enonce": "Une variable aléatoire $X$ peut prendre les valeurs $-4$, $0$, $5$ et $7$. On donne P(X=-4) = \\dfrac{1}{5}, P(X=0) = \\dfrac{1}{5}, P(X=5) = \\dfrac{1}{10}. Déterminer $P(X=7)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La somme des probabilités d'une loi de probabilité vaut $1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(X=7) = 1 - \\left(\\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{10}\\right) = \\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$P(X=7) = \\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1896",
+          "titre": "Exemple 2",
+          "enonce": "Une variable aléatoire $X$ peut prendre les valeurs $-4$, $-2$, $-1$ et $2$. On donne P(X=-4) = \\dfrac{1}{4}, P(X=-2) = \\dfrac{21}{100}, P(X=2) = \\dfrac{49}{100}. Déterminer $P(X=-1)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La somme des probabilités d'une loi de probabilité vaut $1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(X=-1) = 1 - \\left(\\dfrac{1}{4} + \\dfrac{21}{100} + \\dfrac{49}{100}\\right) = \\dfrac{1}{20}$."
+            }
+          ],
+          "reponse": "$P(X=-1) = \\dfrac{1}{20}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1908",
+          "titre": "Exemple 3",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-5)=\\dfrac{3}{20}$, $P(X=-3)=\\dfrac{1}{5}$, $P(X=0)=\\dfrac{1}{5}$, $P(X=5)=\\dfrac{9}{20}$. Calculer $P(X \\leqslant 0)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $P(X\\leqslant 0)$ est la somme des probabilités pour toutes les valeurs de $X$ inférieures ou égales à $0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(X\\leqslant 0) = \\dfrac{3}{20} + \\dfrac{1}{5} + \\dfrac{1}{5} = \\dfrac{11}{20}$."
+            }
+          ],
+          "reponse": "$P(X \\leqslant 0) = \\dfrac{11}{20}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1920",
+          "titre": "Exemple 4",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-2)=\\dfrac{1}{5}$, $P(X=2)=\\dfrac{1}{5}$, $P(X=4)=\\dfrac{1}{5}$, $P(X=6)=\\dfrac{2}{5}$. Calculer $P(X \\leqslant 4)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $P(X\\leqslant 4)$ est la somme des probabilités pour toutes les valeurs de $X$ inférieures ou égales à $4$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(X\\leqslant 4) = \\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{5} = \\dfrac{3}{5}$."
+            }
+          ],
+          "reponse": "$P(X \\leqslant 4) = \\dfrac{3}{5}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "",
+      "aRetenir": [
+        "Additionner les probabilités de toutes les valeurs concernées."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        1885,
+        1886,
+        1887
+      ],
+      "topic_id": "variables-aleatoires-reelles",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Variables aléatoires réelles."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "variables",
+        "aleatoires",
+        "reelles"
+      ]
+    }
+  ]
+}

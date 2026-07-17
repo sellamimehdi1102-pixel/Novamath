@@ -1,0 +1,30 @@
+# Configuration Fly.io (https://fly.io/docs/reference/configuration/) —
+# déploiement : `fly launch --no-deploy` (une fois) puis `fly deploy`.
+# Secrets (Stripe, TWO_FACTOR_SECRET_KEY, ...) : `fly secrets set NOM=valeur`
+# — jamais dans ce fichier, qui est committé.
+app = "novamath"
+primary_region = "cdg"
+
+[build]
+
+[env]
+  FLASK_ENV = "production"
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[http_service.checks]]
+  interval = "30s"
+  timeout = "5s"
+  grace_period = "20s"
+  method = "GET"
+  path = "/api/health"
+
+[mounts]
+  source = "novamath_data"
+  destination = "/app/data"

@@ -1,0 +1,331 @@
+/* ==========================================================================
+   Design tokens — NovaMath
+   Source unique de vérité pour couleurs, typographie, espacements, ombres.
+   Dark mode par défaut ; [data-theme="light"] sur <html> bascule en clair.
+   ========================================================================== */
+
+/* ── Polices auto-hébergées (Design System : Satoshi/titres, Inter/texte) ──
+   Fichiers statiques dans static/fonts/ (sous-ensemble latin, woff2) — aucun
+   CDN, compatible avec la CSP existante (font-src 'self'). Chemin relatif à
+   ce fichier CSS (webapp/static/css/tokens.css → webapp/static/fonts/). */
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("../fonts/satoshi-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("../fonts/satoshi-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("../fonts/satoshi-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ── Échelle violette V3 — "muted premium" ──────────────────────────────
+     Désaturée volontairement par rapport aux versions précédentes : la V2
+     restait trop proche d'un violet Tailwind saturé ("néon" au sens de
+     l'audit produit). Ici la teinte est ramenée vers un violet-prune plus
+     naturel (chroma réduite ~35%, plus de gris dans le mélange), façon
+     Linear/Stripe — un violet qu'on associe à un produit mature, pas à un
+     dégradé générique. Identique dark/light (échelle de teinte pure). */
+  --violet-50: #f8f7fb;
+  --violet-100: #efedf6;
+  --violet-200: #ddd8ee;
+  --violet-300: #c2b8e0;
+  --violet-400: #a08ecc;
+  --violet-500: #8069b8;
+  --violet-600: #6b52a0;
+  --violet-700: #574287;
+  --violet-800: #45356c;
+  --violet-900: #362a54;
+
+  /* Couleurs de marque — alias sur l'échelle ci-dessus, pour ne rien casser
+     dans les fichiers CSS qui consomment déjà --brand-indigo/--brand-violet. */
+  --brand-indigo: var(--violet-600);
+  --brand-violet: var(--violet-400);
+  --brand-gradient: linear-gradient(135deg, var(--brand-indigo), var(--brand-violet));
+  /* Triplet r,g,b de --brand-indigo, pour les rgba(var(--accent-rgb), x) —
+     une variable CSS ne peut pas être décomposée en JS/CSS pur, donc chaque
+     bloc [data-accent] ci-dessous doit redéfinir --accent-rgb en même temps
+     que --brand-indigo/--brand-violet pour rester synchronisé. */
+  --accent-rgb: 107, 82, 160;
+  --brand-violet-rgb: 160, 142, 204;
+  --accent: var(--brand-indigo);
+  --accent-soft-bg: rgba(var(--accent-rgb), 0.12);
+  --accent-text: color-mix(in srgb, var(--brand-indigo) 60%, white 25%);
+
+  /* ── Gris froids (chrome d'interface, thème sombre) et gris chauds (thème
+     clair, blanc cassé) — remplacent les valeurs de fond/surface "en dur"
+     par une vraie échelle nommée, réutilisable et cohérente. */
+  --gray-cool-950: #08080d;
+  --gray-cool-900: #0e0f15;
+  --gray-cool-800: #14151d;
+  --gray-cool-700: #1a1b25;
+  --gray-cool-600: #22232f;
+  --gray-cool-500: #2b2c3a;
+  --gray-warm-50: #faf9f7;
+  --gray-warm-100: #f4f2ee;
+  --gray-warm-200: #ebe8e2;
+  --gray-warm-300: #d8d4cc;
+  --off-white: var(--gray-warm-50);
+
+  /* Accent secondaire réservé aux moments de récompense/motivation (séries,
+     badges, mise en avant ponctuelle) — jamais utilisé comme couleur de
+     marque, uniquement en touche, pour ne pas diluer le violet signature. */
+  --brand-gold: #f2b74d;
+  --brand-gold-rgb: 242, 183, 77;
+  /* --brand-gold "cru" ne passe que ~1.8:1 sur une surface claire (audit
+     contraste Dashboard) — variante utilisable pour du texte/icônes,
+     recalculée par thème juste en dessous. */
+  --brand-gold-text: var(--brand-gold);
+
+  --success: #22c55e;
+  --success-soft: rgba(34, 197, 94, 0.15);
+  --warning: #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.15);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.15);
+  --info: #3b82f6;
+  --info-soft: rgba(59, 130, 246, 0.15);
+
+  /* Texte sur fond violet plein (boutons primaires, avatars, gradient) —
+     reste blanc dans les deux thèmes, centralisé pour remplacer les
+     `color: #fff` dispersés dans les CSS de page. */
+  --text-on-accent: #fff;
+
+  /* Palette catégorielle fixe (step-icons de Cours) — non thémée par accent,
+     sert uniquement à distinguer visuellement des étapes, pas la marque. */
+  --step-color-1: #3b82f6;
+  --step-color-2: #a855f7;
+  --step-color-3: #22c55e;
+  --step-color-4: #f97316;
+  --step-color-5: #ec4899;
+
+  /* Rayon / ombres / transitions — échelle V2, nettement plus généreuse
+     (Linear/Raycast/Arc) : les cartes premium respirent, jamais des coins
+     presque droits. */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-pill: 999px;
+
+  /* Échelle d'espacement V2 — utilisée par les nouvelles sections/grilles
+     pour une respiration nettement supérieure à l'ancien design. */
+  --space-xs: 8px;
+  --space-sm: 14px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --space-2xl: 96px;
+
+  /* Ombres "flottantes" — profondeur premium multi-couches, très douces et
+     majoritairement neutres (façon Stripe : le gris fait le travail, la
+     teinte violette n'est qu'un soupçon en couche basse, jamais dominante). */
+  --shadow-float: 0 1px 2px rgba(0, 0, 0, 0.08), 0 8px 24px -8px rgba(0, 0, 0, 0.28), 0 32px 64px -24px rgba(var(--accent-rgb), 0.12);
+  --shadow-float-lg: 0 2px 4px rgba(0, 0, 0, 0.1), 0 16px 40px -12px rgba(0, 0, 0, 0.32), 0 48px 96px -28px rgba(var(--accent-rgb), 0.16);
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 450ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Satoshi", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Dark theme (par défaut) — encre profonde et stratifiée sur l'échelle
+     --gray-cool-* : le violet reste une signature ponctuelle, jamais le
+     fond lui-même. */
+  --bg: var(--gray-cool-950);
+  --bg-secondary: var(--gray-cool-900);
+  --bg-elevated: var(--gray-cool-800);
+  --surface: var(--gray-cool-800);
+  --surface-hover: var(--gray-cool-700);
+  --surface-elevated: var(--gray-cool-600);
+  --surface-glass: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.13);
+  --border-hover: rgba(255, 255, 255, 0.18);
+
+  --text: #f2f1f5;
+  --text-muted: #9c9aa8;
+  /* #5f6270 ne passait que 3.2:1 sur --bg (audit contraste landing) —
+     éclairci pour respecter l'AA (≥4.5:1) tout en restant "discret". */
+  --text-faint: #7a7886;
+  /* Alias sémantiques (vocabulaire Design System V2) — mêmes valeurs que
+     --text-muted/--text-faint, sans renommer les usages déjà en place. */
+  --text-secondary: var(--text-muted);
+  --text-tertiary: var(--text-faint);
+  /* Couleurs d'icônes — au repos discrètes (text-muted), actives teintées
+     violet (accent-text) : évite d'avoir une échelle séparée à maintenir. */
+  --icon: var(--text-muted);
+  --icon-active: var(--accent-text);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 0 1px rgba(var(--accent-rgb), 0.3), 0 8px 28px rgba(var(--accent-rgb), 0.18);
+}
+
+:root[data-theme="light"] {
+  /* Blanc cassé (--gray-warm-*) plutôt qu'un blanc pur clinique : plus
+     chaleureux, plus proche du papier que de l'écran d'hôpital. */
+  --bg: var(--gray-warm-50);
+  --bg-secondary: var(--gray-warm-100);
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: var(--gray-warm-100);
+  --surface-elevated: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.6);
+  --border: rgba(15, 15, 20, 0.08);
+  --border-strong: rgba(15, 15, 20, 0.14);
+  --border-hover: rgba(15, 15, 20, 0.20);
+
+  --text: #17161c;
+  --text-muted: #64626e;
+  /* #9798a3 ne passait que 2.7:1 sur fond clair (audit contraste landing) —
+     assombri pour respecter l'AA (≥4.5:1). */
+  --text-faint: #6b6976;
+  --text-secondary: var(--text-muted);
+  --text-tertiary: var(--text-faint);
+  --icon: var(--text-muted);
+  --icon-active: var(--accent-text);
+  /* --accent-text (formule par défaut, éclaircie vers le blanc) ne passait
+     que ~2.8:1 sur les surfaces claires : sur fond clair, le même violet
+     signature doit au contraire s'assombrir pour rester lisible (labels,
+     section-tag, stat-label...). Recalculé dynamiquement à partir de
+     --brand-indigo pour rester cohérent avec les variantes [data-accent]. */
+  --accent-text: color-mix(in srgb, var(--brand-indigo) 82%, black 18%);
+  /* Même logique pour l'Or : assombri pour rester lisible sur fond clair
+     (icônes de badges débloqués, Dashboard). */
+  --brand-gold-text: color-mix(in srgb, var(--brand-gold) 60%, black 40%);
+
+  --shadow-sm: 0 1px 2px rgba(20, 20, 30, 0.05);
+  --shadow-md: 0 8px 24px rgba(20, 20, 30, 0.08);
+  --shadow-lg: 0 24px 60px rgba(20, 20, 30, 0.12);
+  --shadow-glow: 0 0 0 1px rgba(var(--accent-rgb), 0.25), 0 8px 30px rgba(var(--accent-rgb), 0.15);
+}
+/* Dark mode reste la référence par défaut quel que soit le thème système :
+   seul le bouton de bascule (theme.js) écrit [data-theme] sur <html>. */
+
+/* ── Couleur principale (Apparence → Couleur principale) ───────────────────
+   [data-accent] sur <html>, écrit par theme.js à partir des préférences.
+   Nova Purple (--brand-indigo/--brand-violet ci-dessus) reste la valeur par
+   défaut : ces règles ne s'appliquent que si une autre couleur est choisie. */
+:root[data-accent="blue"] {
+  --brand-indigo: #3b82f6;
+  --brand-violet: #06b6d4;
+  --accent-rgb: 59, 130, 246;
+  --brand-violet-rgb: 6, 182, 212;
+  --shadow-glow: 0 0 0 1px rgba(59, 130, 246, 0.4), 0 8px 30px rgba(59, 130, 246, 0.25);
+}
+:root[data-accent="green"] {
+  --brand-indigo: #16a34a;
+  --brand-violet: #22c55e;
+  --accent-rgb: 22, 163, 74;
+  --brand-violet-rgb: 34, 197, 94;
+  --shadow-glow: 0 0 0 1px rgba(22, 163, 74, 0.4), 0 8px 30px rgba(22, 163, 74, 0.25);
+}
+:root[data-accent="red"] {
+  /* "red" est la clé interne historique (préférences déjà enregistrées) —
+     la couleur affichée est désormais un rose moderne, plus "rouge". */
+  --brand-indigo: #db2777;
+  --brand-violet: #f472b6;
+  --accent-rgb: 219, 39, 119;
+  --brand-violet-rgb: 244, 114, 182;
+  --shadow-glow: 0 0 0 1px rgba(219, 39, 119, 0.4), 0 8px 30px rgba(219, 39, 119, 0.25);
+}
+:root[data-accent="orange"] {
+  --brand-indigo: #ea580c;
+  --brand-violet: #f59e0b;
+  --accent-rgb: 234, 88, 12;
+  --brand-violet-rgb: 245, 158, 11;
+  --shadow-glow: 0 0 0 1px rgba(234, 88, 12, 0.4), 0 8px 30px rgba(234, 88, 12, 0.25);
+}
+
+/* ── Taille du texte (Apparence → Taille du texte) ─────────────────────────
+   Échelle globale via la taille de police racine — tous les rem du site
+   suivent, sans casser aucune mise en page (unités relatives partout). */
+:root[data-font-size="small"] { font-size: 14px; }
+:root[data-font-size="normal"] { font-size: 16px; }
+:root[data-font-size="large"] { font-size: 18px; }
+
+/* ── Coins des cartes (Apparence → Coins des cartes) ───────────────────────
+   "Très arrondis" amplifie l'échelle existante plutôt que d'introduire de
+   nouvelles valeurs, pour rester cohérent avec le reste du design system. */
+:root[data-radius="rounded"] {
+  --radius-sm: 16px;
+  --radius-md: 28px;
+  --radius-lg: 36px;
+  --radius-xl: 44px;
+}
+
+/* ── Animations (Apparence → Animations) ───────────────────────────────────
+   Désactive transitions/animations CSS globalement — respecte aussi
+   prefers-reduced-motion par défaut (voir media query plus bas). */
+:root[data-animations="off"] *,
+:root[data-animations="off"] *::before,
+:root[data-animations="off"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ── Effet de transparence (Apparence → Effet de transparence) ─────────────
+   Désactivé : les surfaces "glass" (cartes flottantes, overlays) redeviennent
+   pleinement opaques — utile aussi pour la lisibilité/l'accessibilité. */
+:root[data-glass="off"] {
+  --surface-glass: var(--surface);
+}
+:root[data-glass="off"] .glass,
+:root[data-glass="off"] .modal-card,
+:root[data-glass="off"] .card--glass {
+  backdrop-filter: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

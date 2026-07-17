@@ -1,0 +1,30 @@
+# Normalise les fins de ligne en LF dans le dépôt, quelle que soit la
+# plateforme du contributeur (Windows/macOS/Linux) — évite les diffs
+# "fichier entier modifié" causés par un changement CRLF<->LF involontaire.
+* text=auto eol=lf
+
+# Fichiers Windows natifs : conservent CRLF (attendu par cmd.exe).
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binaires : jamais de conversion de fin de ligne, jamais de diff textuel.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.pkl binary
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+
+# Banques d'exercices volumineuses/générées : exclues des diffs GitHub par
+# défaut (restent suivies par git, seulement masquées de l'affichage "Files
+# changed" d'une PR) — n'affecte ni git ni les tests, uniquement l'affichage.
+exercises_bank*.json linguist-generated=true
+graphify-out/** linguist-generated=true linguist-vendored=true

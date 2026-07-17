@@ -1,12 +1,12 @@
 # Graph Report - Programation AI  (2026-07-16)
 
 ## Corpus Check
-- 3953 files · ~23,934,637 words
+- 3955 files · ~23,937,064 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 31396 nodes · 49120 edges · 2509 communities (2021 shown, 488 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 282 edges (avg confidence: 0.65)
+- 31483 nodes · 49265 edges · 2513 communities (2018 shown, 495 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 315 edges (avg confidence: 0.64)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -2154,20 +2154,27 @@
 - [[_COMMUNITY_Community 2291|Community 2291]]
 - [[_COMMUNITY_Community 2293|Community 2293]]
 - [[_COMMUNITY_Community 2294|Community 2294]]
+- [[_COMMUNITY_Community 2295|Community 2295]]
 - [[_COMMUNITY_Community 2296|Community 2296]]
 - [[_COMMUNITY_Community 2297|Community 2297]]
 - [[_COMMUNITY_Community 2298|Community 2298]]
 - [[_COMMUNITY_Community 2299|Community 2299]]
 - [[_COMMUNITY_Community 2300|Community 2300]]
 - [[_COMMUNITY_Community 2301|Community 2301]]
+- [[_COMMUNITY_Community 2302|Community 2302]]
 - [[_COMMUNITY_Community 2304|Community 2304]]
 - [[_COMMUNITY_Community 2305|Community 2305]]
 - [[_COMMUNITY_Community 2306|Community 2306]]
+- [[_COMMUNITY_Community 2307|Community 2307]]
 - [[_COMMUNITY_Community 2308|Community 2308]]
 - [[_COMMUNITY_Community 2309|Community 2309]]
+- [[_COMMUNITY_Community 2310|Community 2310]]
+- [[_COMMUNITY_Community 2311|Community 2311]]
+- [[_COMMUNITY_Community 2312|Community 2312]]
 - [[_COMMUNITY_Community 2313|Community 2313]]
 - [[_COMMUNITY_Community 2315|Community 2315]]
 - [[_COMMUNITY_Community 2316|Community 2316]]
+- [[_COMMUNITY_Community 2317|Community 2317]]
 - [[_COMMUNITY_Community 2318|Community 2318]]
 - [[_COMMUNITY_Community 2319|Community 2319]]
 - [[_COMMUNITY_Community 2320|Community 2320]]
@@ -2181,7 +2188,10 @@
 - [[_COMMUNITY_Community 2329|Community 2329]]
 - [[_COMMUNITY_Community 2330|Community 2330]]
 - [[_COMMUNITY_Community 2331|Community 2331]]
+- [[_COMMUNITY_Community 2332|Community 2332]]
+- [[_COMMUNITY_Community 2333|Community 2333]]
 - [[_COMMUNITY_Community 2334|Community 2334]]
+- [[_COMMUNITY_Community 2335|Community 2335]]
 - [[_COMMUNITY_Community 2336|Community 2336]]
 - [[_COMMUNITY_Community 2337|Community 2337]]
 - [[_COMMUNITY_Community 2339|Community 2339]]
@@ -2200,13 +2210,14 @@
 - [[_COMMUNITY_Community 2353|Community 2353]]
 - [[_COMMUNITY_Community 2440|Community 2440]]
 - [[_COMMUNITY_Community 2441|Community 2441]]
+- [[_COMMUNITY_Community 2442|Community 2442]]
 - [[_COMMUNITY_Community 2443|Community 2443]]
+- [[_COMMUNITY_Community 2444|Community 2444]]
 - [[_COMMUNITY_Community 2445|Community 2445]]
 - [[_COMMUNITY_Community 2446|Community 2446]]
 - [[_COMMUNITY_Community 2447|Community 2447]]
 - [[_COMMUNITY_Community 2448|Community 2448]]
-- [[_COMMUNITY_Community 2451|Community 2451]]
-- [[_COMMUNITY_Community 2452|Community 2452]]
+- [[_COMMUNITY_Community 2449|Community 2449]]
 - [[_COMMUNITY_Community 2455|Community 2455]]
 - [[_COMMUNITY_Community 2456|Community 2456]]
 - [[_COMMUNITY_Community 2457|Community 2457]]
@@ -2253,7 +2264,6 @@
 - [[_COMMUNITY_Community 2506|Community 2506]]
 - [[_COMMUNITY_Community 2507|Community 2507]]
 - [[_COMMUNITY_Community 2508|Community 2508]]
-- [[_COMMUNITY_Community 2509|Community 2509]]
 - [[_COMMUNITY_Community 2510|Community 2510]]
 - [[_COMMUNITY_Community 2511|Community 2511]]
 - [[_COMMUNITY_Community 2512|Community 2512]]
@@ -2264,17 +2274,11 @@
 - [[_COMMUNITY_Community 2518|Community 2518]]
 - [[_COMMUNITY_Community 2519|Community 2519]]
 - [[_COMMUNITY_Community 2520|Community 2520]]
-- [[_COMMUNITY_Community 2521|Community 2521]]
 - [[_COMMUNITY_Community 2525|Community 2525]]
 - [[_COMMUNITY_Community 2526|Community 2526]]
 - [[_COMMUNITY_Community 2527|Community 2527]]
 - [[_COMMUNITY_Community 2528|Community 2528]]
 - [[_COMMUNITY_Community 2529|Community 2529]]
-- [[_COMMUNITY_Community 2531|Community 2531]]
-- [[_COMMUNITY_Community 2532|Community 2532]]
-- [[_COMMUNITY_Community 2533|Community 2533]]
-- [[_COMMUNITY_Community 2534|Community 2534]]
-- [[_COMMUNITY_Community 2535|Community 2535]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `ChatProvider` - 110 edges
@@ -2311,7 +2315,7 @@
 - **Vecteurs et Géométrie Analytique: Framework Commun** — chapitres_chapitre_4_translations_vecteurs, chapitres_chapitre_5_base_orthonormee, chapitres_chapitre_6_equation_cartesienne [INFERRED 0.95]
 - **Pipeline d'Analyse des Fonctions: Définition → Variations → Signe** — chapitres_chapitre_7_fonction_ensemble_definition, chapitres_chapitre_8_variations_fonction, chapitres_chapitre_9_signe_fonction [INFERRED 0.95]
 
-## Communities (2509 total, 488 thin omitted)
+## Communities (2513 total, 495 thin omitted)
 
 ### Community 0 - "Nombres Reels et Inegalites"
 Cohesion: 0.25
@@ -2403,7 +2407,7 @@ Nodes (55): change_password(), _clean(), _deep_merge_defaults(), delete_me(), en
 
 ### Community 23 - "Community 23"
 Cohesion: 0.06
-Nodes (55): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+47 more)
+Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+48 more)
 
 ### Community 24 - "Community 24"
 Cohesion: 0.06
@@ -2415,11 +2419,11 @@ Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export
 
 ### Community 26 - "Community 26"
 Cohesion: 0.06
-Nodes (53): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+45 more)
+Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+48 more)
 
 ### Community 27 - "Community 27"
 Cohesion: 0.07
-Nodes (16): api_chatbot_retry(), api_curricula(), checkout_success(), api_chatbot_attachment_pdf(), api_chatbot_greeting(), api_course_progress(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, security_headers() (+8 more)
+Nodes (16): api_chatbot_attachment_pdf(), api_chatbot_context_preview(), api_chatbot_mentions(), api_chatbot_models(), api_data_export(), api_data_reset(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap (+8 more)
 
 ### Community 28 - "Community 28"
 Cohesion: 0.09
@@ -2483,15 +2487,15 @@ Nodes (42): cleanup_expired_guests(), count_recent_failed_attempts(), count_user
 
 ### Community 43 - "Community 43"
 Cohesion: 0.06
-Nodes (65): get_user_by_stripe_customer_id(), has_processed_stripe_event(), mark_stripe_event_processed(), add_message(), cleanup_expired_guests(), count_recent_failed_attempts(), count_users(), create_conversation() (+57 more)
+Nodes (71): ensure_daily_usage_row(), get_daily_usage(), get_user_by_stripe_customer_id(), has_processed_stripe_event(), increment_daily_usage(), mark_stripe_event_processed(), add_message(), cleanup_expired_guests() (+63 more)
 
 ### Community 44 - "Community 44"
 Cohesion: 0.09
-Nodes (38): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+30 more)
+Nodes (37): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+29 more)
 
 ### Community 45 - "Community 45"
 Cohesion: 0.09
-Nodes (38): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+30 more)
+Nodes (40): api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_review_detail(), api_review_hide(), api_review_pin() (+32 more)
 
 ### Community 46 - "Community 46"
 Cohesion: 0.09
@@ -2559,7 +2563,7 @@ Nodes (35): _clean(), delete_me(), forgot_password(), hash_password(), _log_secu
 
 ### Community 62 - "Community 62"
 Cohesion: 0.06
-Nodes (53): api_answer(), api_chapters(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load(), api_practice_result() (+45 more)
+Nodes (54): api_answer(), api_chapters(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load(), api_practice_result() (+46 more)
 
 ### Community 63 - "Community 63"
 Cohesion: 0.11
@@ -2823,7 +2827,7 @@ Nodes (23): api_answer(), api_exercise(), api_practice_load(), api_practice_resu
 
 ### Community 128 - "Community 128"
 Cohesion: 0.06
-Nodes (37): Path, clean_text(), extract_pdf(), main(), Outil d'aide à la mise à jour du module Cours quand un PDF de programme change (, _serve_landing(), _serve_protected(), _serve_protected() (+29 more)
+Nodes (36): Path, clean_text(), extract_pdf(), main(), Outil d'aide à la mise à jour du module Cours quand un PDF de programme change (, _serve_protected(), _serve_protected(), _serve_protected() (+28 more)
 
 ### Community 129 - "Community 129"
 Cohesion: 0.10
@@ -4011,7 +4015,7 @@ Nodes (55): add_message(), cleanup_expired_guests(), count_recent_failed_attempt
 
 ### Community 425 - "Community 425"
 Cohesion: 0.06
-Nodes (55): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+47 more)
+Nodes (56): api_answer(), api_chapters(), api_course_progress(), api_data_export(), api_data_reset(), api_data_summary(), api_exercise(), api_practice_load() (+48 more)
 
 ### Community 426 - "Community 426"
 Cohesion: 0.09
@@ -4702,8 +4706,8 @@ Cohesion: 0.16
 Nodes (15): ACCENT_VALUES, APPEARANCE_DEFAULTS, applyAppearance(), currentTheme(), FONT_SIZE_VALUES, getAccentColor(), getCachedAppearance(), initAppearance() (+7 more)
 
 ### Community 806 - "Community 806"
-Cohesion: 0.09
-Nodes (13): api_chatbot_attachment_pdf(), api_chatbot_models(), api_site_stats(), api_stats(), _compute_stats_cache(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, security_headers(), _serve_protected() (+5 more)
+Cohesion: 0.11
+Nodes (10): api_chapters(), api_chatbot_attachment_pdf(), api_site_stats(), _n_variants_for(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, _serve_landing(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ; (+2 more)
 
 ### Community 807 - "Community 807"
 Cohesion: 0.16
@@ -4979,7 +4983,7 @@ Nodes (29): $(), buildSeriesPool(), clearChrono(), consumePendingSeries(), DIFF_
 
 ### Community 894 - "Community 894"
 Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
+Nodes (11): api_chatbot_context_preview(), api_chatbot_greeting(), api_chatbot_health(), api_chatbot_mentions(), api_course_progress(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Message d'accueil personnalisé affiché comme premier message assistant     à l' (+3 more)
 
 ### Community 897 - "Community 897"
 Cohesion: 0.06
@@ -5086,8 +5090,8 @@ Cohesion: 0.33
 Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isMobile(), setCollapsed(), wireTooltips()
 
 ### Community 934 - "Community 934"
-Cohesion: 0.14
-Nodes (19): _class_bank(), api_answer(), api_exercise(), api_practice_load(), api_practice_result(), api_restart(), api_start(), difficulty_bucket() (+11 more)
+Cohesion: 0.10
+Nodes (27): _class_bank(), _heuristic_predict_level(), _level_engine(), _model_predict_level(), api_answer(), api_chapters(), api_exercise(), api_practice_load() (+19 more)
 
 ### Community 935 - "Community 935"
 Cohesion: 0.28
@@ -5174,8 +5178,8 @@ Cohesion: 0.07
 Nodes (59): change_password(), _clean(), _deep_merge_defaults(), delete_me(), enable_2fa(), enter_guest(), forgot_password(), get_current_user() (+51 more)
 
 ### Community 967 - "Community 967"
-Cohesion: 0.11
-Nodes (7): Suite de bout en bout du gating Feature Flags sur les routes Flask (webapp/serve, Les features rangées en Free (STATISTICS, COURSES, EXERCISES, GOALS,     CHATBOT, Feature.ADVANCED_AI (analyse de PDF joint au chatbot) : seule     restriction ré, _register(), _set_plan(), TestAdvancedAiIsUltraOnly, TestFreeTierFeaturesAccessibleToAll
+Cohesion: 0.09
+Nodes (9): Suite de bout en bout du gating Feature Flags sur les routes Flask (webapp/serve, PAGE_FEATURE_REQUIREMENTS est vide aujourd'hui (aucune page n'excède     Free) :, Les features rangées en Free (STATISTICS, COURSES, EXERCISES, GOALS,     CHATBOT, Feature.ADVANCED_AI (analyse de PDF joint au chatbot) : seule     restriction ré, _register(), _set_plan(), TestAdvancedAiIsUltraOnly, TestFreeTierFeaturesAccessibleToAll (+1 more)
 
 ### Community 968 - "Community 968"
 Cohesion: 0.23
@@ -5206,8 +5210,8 @@ Cohesion: 0.53
 Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
 
 ### Community 976 - "Community 976"
-Cohesion: 0.23
-Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
+Cohesion: 0.07
+Nodes (12): QuotaServiceTestCase, Suite du service de quotas (webapp/quota_service.py) — source unique de vérité d, 20 threads tentent chacun de consommer 1 unité d'un quota limité à         15/jo, TestAccesConcurrentSimule, TestCanConsume, TestGetLimitAndIsUnlimited, TestGetUsageAndRemaining, TestNouveauJourEtCreationAutomatique (+4 more)
 
 ### Community 977 - "Community 977"
 Cohesion: 0.53
@@ -6027,7 +6031,7 @@ Nodes (20): buildAdviceSection(), buildChapterProgressSection(), buildDailyGoalS
 
 ### Community 1203 - "Community 1203"
 Cohesion: 0.09
-Nodes (11): api_chatbot_context_preview(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Projet en développement actif : on désactive tout cache navigateur pour     êtr, Point d'entrée UNIQUE de la landing page — pour `/` ET `/index.html`.      Cau, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+3 more)
+Nodes (10): api_chatbot_attachment_pdf(), api_chatbot_health(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Projet en développement actif : on désactive tout cache navigateur pour     êtr, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
 
 ### Community 1204 - "Community 1204"
 Cohesion: 0.17
@@ -6110,8 +6114,8 @@ Cohesion: 0.19
 Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
 
 ### Community 1224 - "Community 1224"
-Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
+Cohesion: 0.10
+Nodes (9): api_chapters(), api_course_progress(), api_stats(), _compute_stats_cache(), _n_variants_for(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p, Persistance de la gamification (XP, historique, badges, séries) — un     fichie (+1 more)
 
 ### Community 1225 - "Community 1225"
 Cohesion: 0.17
@@ -6186,8 +6190,8 @@ Cohesion: 0.19
 Nodes (21): best_guess(), _cours_result(), _dedupe_key(), _exercice_result(), _fuzzy_fallback(), _get_exercise_by_id(), _get_exercise_documents_cached(), _get_exercise_index() (+13 more)
 
 ### Community 1243 - "Community 1243"
-Cohesion: 0.09
-Nodes (10): api_chatbot_context_preview(), api_chatbot_health(), api_course_progress(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
+Cohesion: 0.10
+Nodes (9): api_chapters(), api_course_progress(), api_stats(), _compute_stats_cache(), _n_variants_for(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p, Persistance de la gamification (XP, historique, badges, séries) — un     fichie (+1 more)
 
 ### Community 1244 - "Community 1244"
 Cohesion: 0.17
@@ -6258,8 +6262,8 @@ Cohesion: 0.20
 Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
 
 ### Community 1261 - "Community 1261"
-Cohesion: 0.09
-Nodes (11): api_chapters(), api_chatbot_context_preview(), api_chatbot_models(), api_data_export(), _n_variants_for(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p, Alimente le panneau contextuel de chatbot.html (niveau, notions faibles,     ch (+3 more)
+Cohesion: 0.04
+Nodes (61): api_answer(), api_chapters(), api_chatbot_attachment_pdf(), api_chatbot_context_preview(), api_chatbot_health(), api_chatbot_models(), api_course_progress(), api_data_export() (+53 more)
 
 ### Community 1262 - "Community 1262"
 Cohesion: 0.20
@@ -6294,8 +6298,8 @@ Cohesion: 0.20
 Nodes (20): _ascii_fold(), _calculate(), _expand_expr(), _factor_expr(), _fmt(), _fr_number(), _normalize_expr_text(), _percent_evolution() (+12 more)
 
 ### Community 1270 - "Community 1270"
-Cohesion: 0.04
-Nodes (63): api_answer(), api_chapters(), api_chatbot_attachment_pdf(), api_chatbot_context_preview(), api_chatbot_greeting(), api_chatbot_health(), api_chatbot_models(), api_course_progress() (+55 more)
+Cohesion: 0.09
+Nodes (10): api_chatbot_attachment_pdf(), api_chatbot_health(), api_settings(), Backend Flask pour l'interface web NovaMath. Remplace l'UI Gradio de 06_quiz_ap, Extrait le texte d'un PDF joint dans le chatbot (voir chatbot/attachments.py) ;, Testé au chargement de chatbot.html : si le fournisseur actif (Anthropic     pa, Projet en développement actif : on désactive tout cache navigateur pour     êtr, Préférences de personnalisation (apparence, entraînement, apprentissage,     la (+2 more)
 
 ### Community 1271 - "Community 1271"
 Cohesion: 0.20
@@ -6538,12 +6542,12 @@ Cohesion: 0.20
 Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
 
 ### Community 1331 - "Community 1331"
-Cohesion: 0.05
-Nodes (16): Les valeurs absolues" / "Valeur absolue" / "les valeurs absolues" /         "Cha, Un texte sans rapport ne doit jamais halluciner un topic_id., Condition de colinéarité" existe, texte identique, en Chapitre_4 ET     Chapitre, Limitation connue et attendue : SANS chapter_id, un texte ambigu         entre d, Preuve explicite de non-régression : ne pas fournir class_level, le     fournir, Première est un class_level déjà déclaré dans curriculum_registry.     courses_d, Différent d'une classe connue sans données : un identifiant de         classe qu, Lookup exact (crosswalk) — doit être fiable à 100% sur un texte connu. (+8 more)
+Cohesion: 0.06
+Nodes (12): Condition de colinéarité" existe, texte identique, en Chapitre_4 ET     Chapitre, Limitation connue et attendue : SANS chapter_id, un texte ambigu         entre d, Preuve explicite de non-régression : ne pas fournir class_level, le     fournir, Première est un class_level déjà déclaré dans curriculum_registry.     courses_d, Différent d'une classe connue sans données : un identifiant de         classe qu, Lookup exact (crosswalk) — doit être fiable à 100% sur un texte connu., TestMultiClasseDefautInchange, TestPremiereDegradationPropre (+4 more)
 
 ### Community 1333 - "Community 1333"
-Cohesion: 0.25
-Nodes (8): _heuristic_predict_level(), _level_engine(), _model_predict_level(), api_chapters(), _n_variants_for(), Prédiction par modèle ML entraîné (contrat de features figé : 7     réponses, 3, Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p, Moteur générique utilisé quand curriculum_registry.py ne déclare     aucun modè
+Cohesion: 0.16
+Nodes (19): can_consume(), consume(), get_limit(), get_remaining(), get_usage(), is_unlimited(), _next_plan_with_more(), Source unique de vérité des quotas d'utilisation (limitations numériques quotidi (+11 more)
 
 ### Community 1334 - "Community 1334"
 Cohesion: 0.23
@@ -6692,6 +6696,10 @@ Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile()
 ### Community 1370 - "Community 1370"
 Cohesion: 0.22
 Nodes (11): $(), ACCEPTED_TYPES, applyTransform(), clampPosition(), handleFile(), loadImageFile(), onPointerMove(), resetEditorState() (+3 more)
+
+### Community 1371 - "Community 1371"
+Cohesion: 0.23
+Nodes (16): api_review_detail(), api_review_hide(), api_review_pin(), api_reviews(), _clean_text(), _is_admin(), _public_review(), Écriture atomique (fichier temporaire + rename), même stratégie que _write_stats (+8 more)
 
 ### Community 1372 - "Community 1372"
 Cohesion: 0.22
@@ -7217,10 +7225,6 @@ Nodes (7): buildCollapseBtn(), buildMobileTrigger(), buildOverlay(), init(), isM
 Cohesion: 0.29
 Nodes (9): context_block(), _get_index(), _load_notions(), Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient auc, Bloc de contexte compact (RAG) : quelques notions pertinentes, jamais     le cou, Construit les documents à indexer à partir des cours NovaMath existants     (sou, Réponse directe (sans IA) si la question est clairement une demande     de défin, search() (+1 more)
 
-### Community 1507 - "Community 1507"
-Cohesion: 0.47
-Nodes (5): main(), _measure_performance(), Exécute toute la suite fonctionnelle (test_canonical_ids, test_chatbot_routing,, Temps moyen de resolve_topic_id sur le chemin exact (lookup direct) et     sur l, _run_suite()
-
 ### Community 1508 - "Community 1508"
 Cohesion: 0.29
 Nodes (7): buildSeriesRow(), chapterLabel(), exerciseCache, formatDateFR(), formatDuration(), getChaptersMeta(), getChapterTitles()
@@ -7299,7 +7303,7 @@ Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèl
 
 ### Community 1530 - "Community 1530"
 Cohesion: 0.20
-Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
+Nodes (4): Les valeurs absolues" / "Valeur absolue" / "les valeurs absolues" /         "Cha, Un texte sans rapport ne doit jamais halluciner un topic_id., Repli flou (difflib) — texte jamais répertorié tel quel dans la     crosswalk :, TestResolveTopicIdFuzzy
 
 ### Community 1531 - "Community 1531"
 Cohesion: 0.27
@@ -7378,8 +7382,8 @@ Cohesion: 0.22
 Nodes (4): OllamaConnectionError, OllamaProvider, Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider., Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...).
 
 ### Community 1550 - "Community 1550"
-Cohesion: 0.60
-Nodes (4): _check_base_structure(), _check_v2_invariants(), Validateur du schéma des cours NovaMath (static/data/cours/chapitre_*.json). Deu, validate_all()
+Cohesion: 0.20
+Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
 
 ### Community 1551 - "Community 1551"
 Cohesion: 0.27
@@ -8606,8 +8610,8 @@ Cohesion: 0.47
 Nodes (5): _compute_streak(), get_daily_goals_summary(), Agrège l'objectif quotidien de l'élève côté backend — même logique que webapp/st, Nombre de jours consécutifs (aujourd'hui ou hier inclus) avec au moins     un ex, _today_str()
 
 ### Community 1881 - "Community 1881"
-Cohesion: 0.15
-Nodes (10): Enum, TestIsPlanHelpers, TestPlanEnum, Feature, is_free(), is_premium(), is_ultra(), Plan (+2 more)
+Cohesion: 0.10
+Nodes (19): Enum, Suite du service de Feature Flags (webapp/plan_service.py) — source unique de vé, TestGetPlan, TestHasFeature, TestIsPlanHelpers, TestPlanEnum, _user(), Feature (+11 more)
 
 ### Community 1882 - "Community 1882"
 Cohesion: 0.73
@@ -9253,10 +9257,6 @@ Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (
 Cohesion: 0.13
 Nodes (5): Suite ciblée : knowledge_engine.py devient multi-classe (class_level optionnel,, Première a désormais des cours générés depuis exercise_bank (voir     generate_c, TestAucuneCollisionEntreClasses, TestDefautSecondeInchange, TestPremiereFonctionnelle
 
-### Community 2178 - "Community 2178"
-Cohesion: 0.53
-Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
-
 ### Community 2180 - "Community 2180"
 Cohesion: 0.23
 Nodes (14): _build_etapes(), _build_notion(), _flatten_solution_steps(), generate(), _majority_difficulty_label(), _output_dir(), _pick_examples(), _ranked_distinct_hints() (+6 more)
@@ -9278,8 +9278,8 @@ Cohesion: 0.53
 Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
 
 ### Community 2187 - "Community 2187"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
+Cohesion: 0.36
+Nodes (7): _difficulte_heuristique(), main(), migrate_chapter_file(), migrate_notion(), Migration automatique vers le schéma Knowledge Engine v2 complet, pour les 12 ch, Heuristique de POSITION (1er exemple = facile, dernier = difficile,     milieu =, Applique le schéma KE v2 complet à une notion, en place. Additif     uniquement
 
 ### Community 2188 - "Community 2188"
 Cohesion: 0.17
@@ -9290,8 +9290,8 @@ Cohesion: 0.20
 Nodes (10): api_exercise(), api_practice_load(), api_restart(), api_start(), _flatten_solution_steps(), public_exercise(), Certains exercices ont solution_steps sous forme de dict plutôt que de     list, Exercice envoyé au front (enonce + hint + answer inclus, le JS gère l'affichage/ (+2 more)
 
 ### Community 2196 - "Community 2196"
-Cohesion: 0.19
-Nodes (8): Suite du service de Feature Flags (webapp/plan_service.py) — source unique de vé, TestGetPlan, TestHasFeature, _user(), get_plan(), has_feature(), Plan effectif d'un utilisateur. `user` peut être None (invité non     connecté,, Traduit une valeur brute (colonne users.plan) en Plan, en         dégradant sile
+Cohesion: 0.53
+Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exercise(), practice_choices(), predict_level()
 
 ### Community 2197 - "Community 2197"
 Cohesion: 0.53
@@ -9300,6 +9300,10 @@ Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exerci
 ### Community 2198 - "Community 2198"
 Cohesion: 0.67
 Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
+
+### Community 2199 - "Community 2199"
+Cohesion: 0.47
+Nodes (5): main(), _measure_performance(), Exécute toute la suite fonctionnelle (test_canonical_ids, test_chatbot_routing,, Temps moyen de resolve_topic_id sur le chemin exact (lookup direct) et     sur l, _run_suite()
 
 ### Community 2204 - "Community 2204"
 Cohesion: 0.36
@@ -9353,6 +9357,10 @@ Nodes (4): Explique autrement" doit être classé REFORMULATION, pas         EXP
 Cohesion: 0.31
 Nodes (7): apply_length(), _apply_mode(), compose(), Assemble une réponse locale : choisit une variante de formulation (template_libr, Une variable manquante reste visible (`{nom}`) plutôt que de faire     planter t, Renvoie une réponse locale prête à afficher, ou None si aucune     variante n'ex, _SafeDict
 
+### Community 2232 - "Community 2232"
+Cohesion: 0.67
+Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
+
 ### Community 2235 - "Community 2235"
 Cohesion: 0.31
 Nodes (7): apply_length(), _apply_mode(), compose(), Assemble une réponse locale : choisit une variante de formulation (template_libr, Une variable manquante reste visible (`{nom}`) plutôt que de faire     planter t, Renvoie une réponse locale prête à afficher, ou None si aucune     variante n'ex, _SafeDict
@@ -9383,15 +9391,11 @@ Nodes (3): Renvoie la liste des erreurs (vide si tout est correct). Ne lève    
 
 ### Community 2249 - "Community 2249"
 Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
+Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
 
 ### Community 2250 - "Community 2250"
 Cohesion: 0.67
 Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2251 - "Community 2251"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
 
 ### Community 2252 - "Community 2252"
 Cohesion: 0.67
@@ -9409,37 +9413,25 @@ Nodes (6): api_answer(), api_practice_result(), difficulty_bucket(), pick_exerci
 Cohesion: 0.67
 Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
 
-### Community 2313 - "Community 2313"
-Cohesion: 0.67
-Nodes (3): api_chapters(), _n_variants_for(), Somme des variantes Natural pour un sous-ensemble d'exercices, identifiés     p
-
-### Community 2319 - "Community 2319"
-Cohesion: 0.67
-Nodes (3): api_stats(), _compute_stats_cache(), Persistance de la gamification (XP, historique, badges, séries) — un     fichie
-
-### Community 2352 - "Community 2352"
-Cohesion: 0.33
-Nodes (4): api_site_stats(), Projet en développement actif : on désactive tout cache navigateur pour     êtr, Source unique de vérité pour les statistiques marketing affichées sur la     la, security_headers()
-
 ## Knowledge Gaps
 - **3908 isolated node(s):** `api`, `DIFF_LABEL`, `DIFF_BADGE`, `selected`, `grid` (+3903 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **488 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **495 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `_serve_landing()` connect `Community 425` to `Community 128`?**
-  _High betweenness centrality (0.001) - this node is a cross-community bridge._
-- **Why does `_serve_protected()` connect `Community 128` to `Community 425`?**
-  _High betweenness centrality (0.001) - this node is a cross-community bridge._
+- **Why does `QuotaServiceTestCase` connect `Community 976` to `Community 1881`, `Community 1507`?**
+  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **Why does `QuotaExceededError` connect `Community 976` to `Community 2178`, `Community 1507`, `Community 2035`, `Community 1333`, `Community 1881`?**
+  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **Why does `QuotaExceeded` connect `Community 809` to `Community 2035`?**
+  _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **Are the 103 inferred relationships involving `ChatProvider` (e.g. with `AnthropicProvider` and `AnthropicProvider`) actually correct?**
   _`ChatProvider` has 103 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 82 inferred relationships involving `Path` (e.g. with `ignore()` and `.setUpClass()`) actually correct?**
-  _`Path` has 82 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 83 inferred relationships involving `Path` (e.g. with `ignore()` and `.setUpClass()`) actually correct?**
+  _`Path` has 83 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Crée un instantané AUTONOME du site NovaMath dans versions/v{X.YY}/.  Usage :`, `Retourne la version courante SANS le préfixe "v" (usage interne : calculs,     v`, `Lit le port réellement utilisé par ce server.py (app.run(..., port=N)),     pour` to the rest of the system?**
-  _7121 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _7139 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Vecteurs et Geometrie` be split into smaller, more focused modules?**
   _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
-- **Should `Factorisation et Equations` be split into smaller, more focused modules?**
-  _Cohesion score 0.06821787414066631 - nodes in this community are weakly interconnected._

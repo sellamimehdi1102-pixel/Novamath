@@ -1,0 +1,739 @@
+{
+  "chapterId": "Chapitre_9",
+  "title": "Signe d'une fonction",
+  "icon": "sliders",
+  "notions": [
+    {
+      "id": "signe-dune-fonction",
+      "title": "Le signe d'une fonction",
+      "intro": "Dans cette leçon, tu vas apprendre à dire quand une fonction est positive ou négative.",
+      "objectif": "À la fin de ce cours, tu sauras lire un signe sur une courbe ou un tableau.",
+      "definition": "Étudier le signe d'une fonction, c'est dire quand elle est positive, négative, ou nulle.",
+      "reglesImportantes": [
+        "$f(x) > 0$ : la courbe est au-dessus de l'axe horizontal.",
+        "$f(x) < 0$ : la courbe est en dessous.",
+        "$f(x) = 0$ : la courbe touche l'axe (on appelle ça une racine)."
+      ],
+      "methode": {
+        "titre": "Comment lire le signe sur une courbe",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Repère où la courbe touche l'axe horizontal."
+          },
+          {
+            "icone": "compass",
+            "couleur": "purple",
+            "texte": "Regarde si elle est au-dessus ou en dessous entre ces points."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Résume tout dans un tableau de signes."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Repère où la courbe touche l'axe horizontal."
+            },
+            {
+              "icone": "compass",
+              "couleur": "purple",
+              "texte": "Regarde si elle est au-dessus ou en dessous entre ces points."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Résume tout dans un tableau de signes."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Une courbe touche l'axe en $x=2$ et $x=5$, et reste au-dessus entre les deux. Quel est le signe ?",
+          "calcul": [
+            {
+              "expr": "f(x) > 0 \\text{ entre 2 et 5}",
+              "texte": "La courbe est au-dessus dans cette zone."
+            }
+          ],
+          "reponse": "$f(x) > 0$ sur $]2\\,;5[$",
+          "id": "signe-dune-fonction-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre \"au-dessus\" et \"positif\" avec \"en dessous\" et \"négatif\".",
+        "Oublier une racine (un endroit où la courbe touche l'axe)."
+      ],
+      "astuce": "Un tableau de signes se lit comme un tableau de variations, mais avec des + et des - au lieu de flèches.",
+      "aRetenir": [
+        "$f(x)>0$ : au-dessus de l'axe",
+        "$f(x)=0$ : sur l'axe (racine)"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        147,
+        148,
+        149
+      ],
+      "schemaVersion": 2,
+      "topic_id": "signe-dune-fonction",
+      "definitions": {
+        "lycee": "Étudier le signe d'une fonction, c'est dire quand elle est positive, négative, ou nulle.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "signe-dune-fonction-regle-1",
+          "nom": "",
+          "expression": "$f(x) > 0$ : la courbe est au-dessus de l'axe horizontal.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "signe-dune-fonction-regle-2",
+          "nom": "",
+          "expression": "$f(x) < 0$ : la courbe est en dessous.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "signe-dune-fonction-regle-3",
+          "nom": "",
+          "expression": "$f(x) = 0$ : la courbe touche l'axe (on appelle ça une racine).",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre \"au-dessus\" et \"positif\" avec \"en dessous\" et \"négatif\".",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier une racine (un endroit où la courbe touche l'axe).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Signe d'une fonction"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras lire un signe sur une courbe ou un tableau."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "signe-dune-fonction-affine",
+      "title": "Le signe d'une fonction affine",
+      "intro": "Dans cette leçon, tu vas apprendre à trouver le signe d'une droite très vite.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer le signe de $mx+p$.",
+      "definition": "Le signe d'une fonction affine change une seule fois, exactement à sa racine.",
+      "reglesImportantes": [
+        "La racine se trouve en résolvant $mx+p=0$, donc $x_0 = -p/m$.",
+        "Si $m>0$ : négatif avant $x_0$, positif après.",
+        "Si $m<0$ : positif avant $x_0$, négatif après."
+      ],
+      "methode": {
+        "titre": "Comment trouver le signe d'une fonction affine",
+        "etapes": [
+          {
+            "icone": "sliders",
+            "couleur": "blue",
+            "texte": "Calcule la racine en résolvant $mx+p=0$."
+          },
+          {
+            "icone": "search",
+            "couleur": "purple",
+            "texte": "Regarde le signe de $m$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Complète le tableau de signes avec les deux règles."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "sliders",
+              "couleur": "blue",
+              "texte": "Calcule la racine en résolvant $mx+p=0$."
+            },
+            {
+              "icone": "search",
+              "couleur": "purple",
+              "texte": "Regarde le signe de $m$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Complète le tableau de signes avec les deux règles."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Signe de $f(x) = 2x - 6$.",
+          "calcul": [
+            {
+              "expr": "2x-6=0 \\Rightarrow x=3",
+              "texte": "On calcule la racine."
+            },
+            {
+              "expr": "m=2>0",
+              "texte": "Le coefficient est positif."
+            }
+          ],
+          "reponse": "Négatif avant 3, positif après 3",
+          "id": "signe-dune-fonction-affine-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Se tromper en calculant la racine (erreur de signe).",
+        "Inverser les deux zones de signe."
+      ],
+      "astuce": "Vérifie avec une valeur simple : remplace $x$ par 0 dans $f(x)$ pour voir si ton signe est cohérent.",
+      "aRetenir": [
+        "Racine : $x_0 = -p/m$",
+        "$m>0$ : $-$ avant, $+$ après"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        150,
+        151,
+        152
+      ],
+      "schemaVersion": 2,
+      "topic_id": "signe-dune-fonction-affine",
+      "definitions": {
+        "lycee": "Le signe d'une fonction affine change une seule fois, exactement à sa racine.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "signe-dune-fonction-affine-regle-1",
+          "nom": "",
+          "expression": "La racine se trouve en résolvant $mx+p=0$, donc $x_0 = -p/m$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "signe-dune-fonction-affine-regle-2",
+          "nom": "",
+          "expression": "Si $m>0$ : négatif avant $x_0$, positif après.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "signe-dune-fonction-affine-regle-3",
+          "nom": "",
+          "expression": "Si $m<0$ : positif avant $x_0$, négatif après.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Se tromper en calculant la racine (erreur de signe).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Inverser les deux zones de signe.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Signe d'une fonction affine"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras déterminer le signe de $mx+p$."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "signe-dun-produit-ou-dun-quotient",
+      "title": "Le signe d'un produit",
+      "intro": "Dans cette leçon, tu vas apprendre à combiner plusieurs signes ensemble.",
+      "objectif": "À la fin de ce cours, tu sauras faire un tableau de signes complet.",
+      "definition": "Le signe d'un produit se trouve en comptant le nombre de facteurs négatifs.",
+      "reglesImportantes": [
+        "Nombre pair de facteurs négatifs : le résultat est positif.",
+        "Nombre impair de facteurs négatifs : le résultat est négatif.",
+        "Pour un quotient, le dénominateur ne doit jamais être nul."
+      ],
+      "methode": {
+        "titre": "Comment faire un tableau de signes d'un produit",
+        "etapes": [
+          {
+            "icone": "sliders",
+            "couleur": "blue",
+            "texte": "Étudie le signe de chaque facteur, un par un."
+          },
+          {
+            "icone": "search",
+            "couleur": "purple",
+            "texte": "Place tous les signes sur une même ligne, aux mêmes valeurs de $x$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Multiplie les signes colonne par colonne."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "sliders",
+              "couleur": "blue",
+              "texte": "Étudie le signe de chaque facteur, un par un."
+            },
+            {
+              "icone": "search",
+              "couleur": "purple",
+              "texte": "Place tous les signes sur une même ligne, aux mêmes valeurs de $x$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Multiplie les signes colonne par colonne."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$f(x) = (x-1)(x+2)$ est-elle positive quand les deux facteurs sont négatifs ?",
+          "calcul": [
+            {
+              "expr": "(-) \\times (-)",
+              "texte": "Deux facteurs négatifs, c'est un nombre pair."
+            }
+          ],
+          "reponse": "Oui : $f(x)$ est positive",
+          "id": "signe-dun-produit-ou-dun-quotient-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier un facteur dans le tableau de signes.",
+        "Oublier la valeur interdite pour un quotient (dénominateur nul)."
+      ],
+      "astuce": "Compte simplement le nombre de \"moins\" : pair = résultat positif, impair = résultat négatif.",
+      "aRetenir": [
+        "Nombre pair de $-$ : produit positif",
+        "Nombre impair de $-$ : produit négatif"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        144,
+        145,
+        146
+      ],
+      "schemaVersion": 2,
+      "topic_id": "signe-dun-produit-ou-dun-quotient",
+      "definitions": {
+        "lycee": "Le signe d'un produit se trouve en comptant le nombre de facteurs négatifs.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "signe-dun-produit-ou-dun-quotient-regle-1",
+          "nom": "",
+          "expression": "Nombre pair de facteurs négatifs : le résultat est positif.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "signe-dun-produit-ou-dun-quotient-regle-2",
+          "nom": "",
+          "expression": "Nombre impair de facteurs négatifs : le résultat est négatif.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "signe-dun-produit-ou-dun-quotient-regle-3",
+          "nom": "",
+          "expression": "Pour un quotient, le dénominateur ne doit jamais être nul.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier un facteur dans le tableau de signes.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier la valeur interdite pour un quotient (dénominateur nul).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Signe d'un produit ou d'un quotient"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras faire un tableau de signes complet."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "inequations-signe",
+      "title": "Résoudre une inéquation avec un tableau",
+      "intro": "Dans cette leçon, tu vas apprendre à résoudre une inéquation grâce à un tableau de signes.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre $f(x) \\leq 0$ avec cette méthode.",
+      "definition": "Un tableau de signes permet de résoudre n'importe quelle inéquation, même compliquée.",
+      "reglesImportantes": [
+        "Il faut d'abord ramener l'inéquation à la forme \"... $\\leq 0$\" ou \"... $\\geq 0$\".",
+        "Il faut factoriser l'expression si possible.",
+        "La réponse se lit directement dans le tableau de signes."
+      ],
+      "methode": {
+        "titre": "Comment résoudre une inéquation avec un tableau",
+        "etapes": [
+          {
+            "icone": "sliders",
+            "couleur": "blue",
+            "texte": "Ramène tout d'un côté pour avoir \"... $\\leq 0$\"."
+          },
+          {
+            "icone": "search",
+            "couleur": "purple",
+            "texte": "Factorise l'expression si tu peux."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Fais le tableau de signes et lis la réponse."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "sliders",
+              "couleur": "blue",
+              "texte": "Ramène tout d'un côté pour avoir \"... $\\leq 0$\"."
+            },
+            {
+              "icone": "search",
+              "couleur": "purple",
+              "texte": "Factorise l'expression si tu peux."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Fais le tableau de signes et lis la réponse."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Le tableau donne $f(x)$ négatif sur $]-2\\,;3[$. Résous $f(x) < 0$.",
+          "calcul": [
+            {
+              "expr": "x \\in ]-2\\,;3[",
+              "texte": "On lit directement la zone négative dans le tableau."
+            }
+          ],
+          "reponse": "$x \\in ]-2\\,;3[$",
+          "id": "inequations-signe-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de factoriser avant de faire le tableau.",
+        "Se tromper en lisant le tableau (prendre le signe opposé)."
+      ],
+      "astuce": "Une fois le tableau fait, surligne juste les colonnes avec le bon signe : la réponse saute aux yeux.",
+      "aRetenir": [
+        "Toujours ramener à \"... $\\leq 0$\"",
+        "Factoriser avant de faire le tableau"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        138,
+        139,
+        140
+      ],
+      "schemaVersion": 2,
+      "topic_id": "inequations-signe",
+      "definitions": {
+        "lycee": "Un tableau de signes permet de résoudre n'importe quelle inéquation, même compliquée.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "inequations-signe-regle-1",
+          "nom": "",
+          "expression": "Il faut d'abord ramener l'inéquation à la forme \"... $\\leq 0$\" ou \"... $\\geq 0$\".",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "inequations-signe-regle-2",
+          "nom": "",
+          "expression": "Il faut factoriser l'expression si possible.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "inequations-signe-regle-3",
+          "nom": "",
+          "expression": "La réponse se lit directement dans le tableau de signes.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de factoriser avant de faire le tableau.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Se tromper en lisant le tableau (prendre le signe opposé).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Inéquations"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre $f(x) \\leq 0$ avec cette méthode."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    },
+    {
+      "id": "positions-relatives-de-courbes-de-reference",
+      "title": "Comparer deux courbes",
+      "intro": "Dans cette leçon, tu vas apprendre à comparer deux courbes entre elles.",
+      "objectif": "À la fin de ce cours, tu sauras dire quelle courbe est au-dessus de l'autre.",
+      "definition": "Pour comparer deux courbes, on étudie le signe de leur différence, exactement comme pour comparer deux nombres.",
+      "reglesImportantes": [
+        "Si $f(x) - g(x) > 0$, la courbe de $f$ est au-dessus de celle de $g$.",
+        "Si $f(x) - g(x) < 0$, la courbe de $f$ est en dessous.",
+        "On utilise un tableau de signes pour trouver ces zones."
+      ],
+      "methode": {
+        "titre": "Comment comparer deux courbes",
+        "etapes": [
+          {
+            "icone": "sliders",
+            "couleur": "blue",
+            "texte": "Calcule $f(x) - g(x)$."
+          },
+          {
+            "icone": "search",
+            "couleur": "purple",
+            "texte": "Étudie le signe de cette différence."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Conclus quelle courbe est au-dessus, selon le signe."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "sliders",
+              "couleur": "blue",
+              "texte": "Calcule $f(x) - g(x)$."
+            },
+            {
+              "icone": "search",
+              "couleur": "purple",
+              "texte": "Étudie le signe de cette différence."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Conclus quelle courbe est au-dessus, selon le signe."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Compare $f(x)=x^2$ et $g(x)=x$.",
+          "calcul": [
+            {
+              "expr": "f(x)-g(x) = x^2-x = x(x-1)",
+              "texte": "On calcule et on factorise la différence."
+            },
+            {
+              "expr": "\\text{négatif entre 0 et 1}",
+              "texte": "Le produit est négatif entre les deux racines."
+            }
+          ],
+          "reponse": "$\\mathcal{C}_g$ est au-dessus entre 0 et 1, $\\mathcal{C}_f$ au-dessus ailleurs",
+          "id": "positions-relatives-de-courbes-de-reference-exemple-1",
+          "difficulte": "moyen"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de factoriser la différence avant d'étudier le signe.",
+        "Se tromper dans le sens de la comparaison."
+      ],
+      "astuce": "C'est exactement la même méthode que pour comparer deux nombres, juste avec des fonctions.",
+      "aRetenir": [
+        "$f$ au-dessus de $g$ $\\Leftrightarrow f-g>0$"
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        141,
+        142,
+        143
+      ],
+      "schemaVersion": 2,
+      "topic_id": "positions-relatives-de-courbes-de-reference",
+      "definitions": {
+        "lycee": "Pour comparer deux courbes, on étudie le signe de leur différence, exactement comme pour comparer deux nombres.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "positions-relatives-de-courbes-de-reference-regle-1",
+          "nom": "",
+          "expression": "Si $f(x) - g(x) > 0$, la courbe de $f$ est au-dessus de celle de $g$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "positions-relatives-de-courbes-de-reference-regle-2",
+          "nom": "",
+          "expression": "Si $f(x) - g(x) < 0$, la courbe de $f$ est en dessous.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "positions-relatives-de-courbes-de-reference-regle-3",
+          "nom": "",
+          "expression": "On utilise un tableau de signes pour trouver ces zones.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de factoriser la différence avant d'étudier le signe.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Se tromper dans le sens de la comparaison.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Positions relatives de courbes de référence"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras dire quelle courbe est au-dessus de l'autre."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": []
+    }
+  ]
+}

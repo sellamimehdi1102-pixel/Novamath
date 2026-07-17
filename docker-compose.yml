@@ -1,0 +1,94 @@
+# Usage local/VPS recommandé (SQLite, défaut) : `docker compose up -d --build`.
+# Un nouveau développeur peut lancer NovaMath avec cette seule commande, une
+# fois `.env` créé depuis `.env.example` (voir README.md/DEPLOYMENT.md).
+#
+# PostgreSQL (ARCH-02, profil "postgres", désactivé par défaut) :
+#   docker compose --profile postgres up -d --build db   # 1. Postgres d'abord
+#   # attendre "healthy" (docker compose ps), puis :
+#   docker compose --profile postgres up -d --build       # 2. l'application
+# `depends_on` n'est volontairement PAS utilisé entre "web" et "db" : leur
+# comportement vis-à-vis des profils Compose diffère selon les versions
+# (un service sans profil qui dépend d'un service profilé peut soit forcer
+# son démarrage, soit échouer si le profil n'est pas actif) — l'un ou
+# l'autre casserait le mode SQLite par défaut, qui doit rester garanti sans
+# aucune surprise. `webapp/database_service.py` gère de toute façon une
+# connexion PostgreSQL pas encore prête via une erreur claire et rejouable
+# (DatabaseConnectionError, voir /api/health) plutôt que de supposer un
+# ordre de démarrage strict — cohérent avec la reconnexion automatique du
+# pool. Voir DEPLOYMENT.md, section "PostgreSQL (Docker Compose)".
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: novamath:local
+    restart: unless-stopped
+    ports:
+      # ${PORT:-8000} côté hôte : le port interne du conteneur reste 8000
+      # (voir Dockerfile EXPOSE/gunicorn.conf.py) — seul le mapping hôte est
+      # personnalisable, sans jamais reconstruire l'image.
+      - "${PORT:-8000}:8000"
+    env_file:
+      # Copier .env.example vers .env avant le premier démarrage (voir
+      # README.md) — jamais committé (voir .gitignore). Contient notamment
+      # DATABASE_URL : absente/vide => SQLite (volume novamath-data
+      # ci-dessous) ; positionnée à
+      # postgresql://novamath:novamath@db:5432/novamath => PostgreSQL (le
+      # profil "postgres" ci-dessous), "db" étant le nom DNS interne du
+      # service PostgreSQL au sein du réseau Compose.
+      - .env
+    environment:
+      # Toujours "production" dans ce compose (cookies Secure, debug
+      # désactivé, HSTS activé si HTTPS — voir webapp/config.py). Un
+      # reverse-proxy TLS (Nginx/Traefik/Caddy) devant ce service doit
+      # transmettre l'en-tête X-Forwarded-Proto pour que HSTS s'active
+      # correctement (voir webapp/security_headers_service.py).
+      FLASK_ENV: production
+      PORT: 8000
+    volumes:
+      # Volumes NOMMÉS (pas un bind mount host) : Docker copie le contenu
+      # initial de l'image (base de données seed, statistiques d'exemple,
+      # sauvegardes) dans le volume à sa toute première création, puis le
+      # préserve indéfiniment à travers rebuilds/redémarrages — voir
+      # DEPLOYMENT.md, section "Sauvegardes". Sans effet en mode PostgreSQL
+      # pour les données applicatives (voir volume "novamath-postgres"
+      # ci-dessous) — conservé tel quel pour les statistiques utilisateurs
+      # (fichiers JSON, hors base de données, voir auth.py) et les
+      # sauvegardes, indépendantes du moteur SQL choisi.
+      - novamath-data:/app/data
+      - novamath-backups:/app/backups
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+  # ── PostgreSQL (ARCH-02) — désactivé par défaut ─────────────────────────
+  # Activer explicitement avec `docker compose --profile postgres up`.
+  # `docker compose up` seul (sans --profile) ne démarre jamais ce service :
+  # le mode SQLite par défaut reste garanti disponible sans PostgreSQL.
+  db:
+    image: postgres:16-alpine
+    profiles: ["postgres"]
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-novamath}
+      POSTGRES_USER: ${POSTGRES_USER:-novamath}
+      # Toujours surchargée en production (voir .env) — jamais la valeur par
+      # défaut ci-dessous hors développement local.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-novamath}
+    volumes:
+      - novamath-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-novamath} -d ${POSTGRES_DB:-novamath}"]
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+
+volumes:
+  novamath-data:
+  novamath-backups:
+  novamath-postgres:

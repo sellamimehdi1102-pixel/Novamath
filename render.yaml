@@ -1,0 +1,35 @@
+# Blueprint Render (https://render.com/docs/blueprint-spec) — déploie
+# NovaMath en un clic via "New +" > "Blueprint" en pointant ce dépôt.
+# Toutes les valeurs secrètes (sync: false) doivent être saisies dans le
+# tableau de bord Render après création — jamais committées ici.
+services:
+  - type: web
+    name: novamath
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: NOVAMATH_SECRET_KEY
+        generateValue: true
+      - key: NOVAMATH_ADMIN_KEY
+        generateValue: true
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLIC_KEY
+        sync: false
+      - key: STRIPE_PRICE_PREMIUM
+        sync: false
+      - key: STRIPE_PRICE_ULTRA
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: TWO_FACTOR_SECRET_KEY
+        sync: false
+    disk:
+      name: novamath-data
+      mountPath: /app/data
+      sizeGB: 1

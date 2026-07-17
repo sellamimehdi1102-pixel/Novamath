@@ -4,3 +4,31 @@ __pycache__/
 data/novamath.db
 .flask_secret_key
 .admin_key
+backups/
+
+# Ajouts SEC-07 (infrastructure de déploiement) — voir DEPLOYMENT.md.
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Overrides Docker Compose locaux (ex : docker-compose.override.yml pour
+# activer le service Postgres réservé) — jamais committés, chacun le sien.
+docker-compose.override.yml
+
+# Variables d'environnement par plateforme/environnement, jamais l'exemple.
+.env.*
+!.env.example
+
+# Éditeurs/IDE courants (le projet ne dépend d'aucun réglage spécifique).
+.idea/
+*.swp
+
+# Frontend (voir package.json/vite.config.js) — node_modules réinstallable via
+# `npm ci`, static-dist/ régénéré par `npm run build` (jamais commité, voir
+# webapp/server.py qui retombe sur static/ tant qu'il n'existe pas).
+node_modules/
+webapp/static-dist/
+coverage/

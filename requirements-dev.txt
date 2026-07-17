@@ -1,0 +1,10 @@
+# Outils de développement/CI uniquement (voir .github/workflows/ci.yml) —
+# JAMAIS installés dans l'image Docker de production (voir Dockerfile, qui
+# n'installe que requirements.txt). Installer en plus de requirements.txt :
+#   pip install -r requirements.txt -r requirements-dev.txt
+-r requirements.txt
+
+# Lint rapide (voir ci.yml, job "lint") : ne vérifie que les erreurs
+# réellement bloquantes (syntaxe, noms non définis) — pas de règles de style,
+# pour ne jamais faire échouer la CI sur une préférence de formatage.
+ruff==0.15.22

@@ -1,0 +1,226 @@
+/* ==========================================================================
+   Sélecteur de classe — badge d'en-tête + page de choix du cursus
+   Réutilise entièrement les tokens/composants existants (.card, .btn,
+   .badge, .section-tag) : aucune nouvelle palette, aucun nouveau système
+   d'espacement/rayon/ombre.
+   ========================================================================== */
+
+/* ── Groupe gauche du topnav (badge + logo), sans changer .topnav lui-même ─
+   .topnav garde son unique règle `justify-content: space-between` sur 3
+   groupes désormais : .topnav-left / .nav-links / .nav-actions. */
+.topnav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Badge "classe actuelle" (topnav + sidebar) — icône dans une pastille
+   teintée façon "sélecteur d'espace" (Linear/Notion), plutôt qu'une icône
+   nue à plat sur le fond du bouton. ──────────────────────────────────────── */
+.class-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px 6px 6px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-fast);
+}
+.class-badge:hover {
+  background: var(--surface-hover);
+  border-color: rgba(var(--accent-rgb), 0.28);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+.class-badge:active { transform: translateY(0) scale(0.97); transition-duration: 90ms; }
+
+.class-badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px; height: 25px;
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.14);
+  color: var(--accent-text);
+  flex-shrink: 0;
+  transition: background var(--transition-base);
+}
+.class-badge-icon svg { width: 14px; height: 14px; }
+.class-badge:hover .class-badge-icon { background: rgba(var(--accent-rgb), 0.22); }
+
+.class-badge-label {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.class-badge-chevron {
+  display: inline-flex;
+  width: 14px; height: 14px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+.class-badge:hover .class-badge-chevron { transform: translateY(1px); }
+
+@media (max-width: 640px) {
+  .class-badge-label { max-width: 96px; }
+}
+@media (max-width: 480px) {
+  .topnav-left { gap: 10px; }
+  .class-badge { padding: 8px; }
+  .class-badge-label, .class-badge-chevron { display: none; }
+}
+
+/* ── Badge dans la sidebar (dashboard/chapitres/cours/exercice/chatbot/profil) ─
+   Injecté par js/sidebar.js — mêmes classes que le badge du topnav
+   (index.html), simplement adaptées à une barre latérale verticale. */
+.sidebar .class-badge { width: 100%; margin: 2px 0 6px; }
+.sidebar.is-collapsed .sidebar-class-badge {
+  padding: 8px;
+  gap: 0;
+  justify-content: center;
+}
+.sidebar.is-collapsed .sidebar-class-badge .class-badge-label,
+.sidebar.is-collapsed .sidebar-class-badge .class-badge-chevron { display: none; }
+
+/* ── Panneau flottant du badge (toutes pages) ───────────────────────────────
+   Réutilise .cursus-card tel quel (renderCurriculumCard) — même composant que
+   la page "Choisissez votre classe" ci-dessous, affiché ici dans un panneau
+   flottant ancré sous le badge plutôt qu'en pleine page. */
+.class-badge-panel {
+  position: fixed;
+  z-index: 260;
+  width: min(320px, calc(100vw - 32px));
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-lg);
+}
+.class-badge-panel[aria-busy="true"] {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 24px;
+}
+.class-badge-panel .cursus-card { padding: 20px; gap: 12px; animation: none; }
+
+/* ── Page "Choisissez votre classe" ─────────────────────────────────────── */
+.cursus-select {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 72px 24px 110px;
+}
+
+.cursus-select-header {
+  max-width: 640px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+.cursus-select-header h1 {
+  font-size: clamp(2rem, 4.2vw, 2.7rem);
+  margin: 16px 0 14px;
+}
+.cursus-select-header p { color: var(--text-muted); font-size: 1.02rem; }
+
+.cursus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+}
+
+.cursus-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 36px 32px;
+  text-align: left;
+  cursor: pointer;
+  animation: cursus-card-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cursus-card:nth-of-type(2) { animation-delay: 70ms; }
+.cursus-card:nth-of-type(3) { animation-delay: 140ms; }
+.cursus-card:nth-of-type(4) { animation-delay: 210ms; }
+.cursus-card:nth-of-type(5) { animation-delay: 280ms; }
+
+@keyframes cursus-card-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cursus-card.is-current {
+  border-color: rgba(var(--accent-rgb), 0.45);
+  box-shadow: var(--shadow-glow);
+}
+
+.cursus-card-current-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.cursus-card-icon {
+  width: 52px; height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--accent-rgb), 0.14);
+  color: var(--accent-text);
+}
+.cursus-card-icon svg { width: 26px; height: 26px; }
+
+/* Variété visuelle purement positionnelle (2e carte, 4e carte, ...) — jamais
+   liée à un identifiant de classe précis, pour rester valable quel que soit
+   le nombre de programmes déclarés dans curriculum_registry.py. */
+.cursus-card:nth-of-type(2n) .cursus-card-icon {
+  background: rgba(var(--brand-violet-rgb), 0.16);
+  color: color-mix(in srgb, var(--brand-violet) 65%, white 20%);
+}
+
+.cursus-card-title { font-size: 1.3rem; }
+.cursus-card-desc { color: var(--text-muted); font-size: 0.92rem; margin-top: -8px; }
+
+.cursus-card-stats {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-top: 18px;
+  margin-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.cursus-stat { display: flex; flex-direction: column; gap: 3px; }
+.cursus-stat-value { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
+.cursus-stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+.cursus-card-cta { margin-top: auto; align-self: flex-start; }
+
+/* ── État de chargement (avant la réponse de /api/curricula) ───────────────
+   Réutilise .skeleton (déjà défini dans base.css) plutôt qu'un nouveau
+   composant — mêmes proportions que la grille réelle pour éviter tout saut
+   de mise en page à l'arrivée des données. */
+.cursus-grid.is-loading { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.cursus-card-skeleton { height: 320px; border-radius: var(--radius-md); }
+
+.cursus-select-error {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 40px 20px;
+}
+
+@media (max-width: 640px) {
+  .cursus-select { padding: 56px 16px 80px; }
+  .cursus-card { padding: 28px 24px; }
+}

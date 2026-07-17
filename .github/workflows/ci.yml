@@ -1,0 +1,175 @@
+# CI de NovaMath — valide UNIQUEMENT (installation, lint, tests, imports,
+# build frontend, build Docker). Ne déploie JAMAIS automatiquement : aucun `docker push`,
+# aucune étape vers Railway/Render/Fly.io/Azure/Cloud Run/un VPS. Le
+# déploiement reste une action manuelle/documentée (voir DEPLOYMENT.md).
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Python 3.12 : version cible du Dockerfile de production (voir Dockerfile,
+# "FROM python:3.12-slim") — la CI valide contre la même version que celle
+# réellement déployée, pas nécessairement celle utilisée en développement.
+env:
+  PYTHON_VERSION: "3.12"
+  NODE_VERSION: "22"
+
+jobs:
+  frontend:
+    name: Frontend (lint, build, tests)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installation de Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Installation des dépendances npm
+        run: npm ci
+
+      - name: Lint (ESLint — bloquant)
+        run: npm run lint
+
+      - name: Vérification du formatage (Prettier — bloquant)
+        run: npm run format:check
+
+      - name: Tests frontend (Vitest — bloquant, voir webapp/static/js/__tests__/)
+        run: npm test
+
+      - name: Build de production (Vite — valide le pipeline de bundling/cache busting)
+        run: npm run build
+
+      - name: Vérification que le build a produit du HTML réécrit avec des assets hashés
+        run: |
+          test -f webapp/static-dist/index.html
+          grep -q 'assets/' webapp/static-dist/index.html
+
+  install-lint-test:
+    name: Installation, lint et tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installation de Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Installation des dépendances (runtime + dev)
+        run: python -m pip install --upgrade pip && pip install -r requirements-dev.txt
+
+      - name: Lint (erreurs bloquantes uniquement — syntaxe, noms non définis)
+        run: ruff check --select=E9,F63,F7,F82 .
+
+      - name: Vérification des imports (webapp.server et modules critiques)
+        working-directory: webapp
+        run: |
+          python -c "import server; import auth; import config; import db"
+          python -c "import security_headers_service; import two_factor_service; import role_service"
+          python -c "import stripe_service; import stripe_webhook_service; import billing_service"
+          python -c "import plan_service; import quota_service; import rate_limit_service"
+          python -c "import logging_service; import metrics_service; import health_service; import backup_service"
+          python -c "import database_service"
+
+      - name: Suite de tests (webapp/tests/) — SQLite (défaut)
+        working-directory: webapp
+        env:
+          FLASK_ENV: development
+        run: python -m pytest tests/ -q
+
+  postgres-tests:
+    name: Tests PostgreSQL (ARCH-02)
+    runs-on: ubuntu-latest
+    # Conteneur de test PostgreSQL — voir webapp/tests/test_database_service_postgres.py :
+    # ces tests ne nécessitent JAMAIS de serveur externe permanent, uniquement
+    # ce service éphémère fourni par GitHub Actions pour la durée du job.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: novamath_test
+          POSTGRES_USER: novamath
+          POSTGRES_PASSWORD: novamath
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U novamath -d novamath_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installation de Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Installation des dépendances
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Suite de tests — PostgreSQL réel
+        working-directory: webapp
+        env:
+          FLASK_ENV: development
+          DATABASE_URL: postgresql://novamath:novamath@localhost:5432/novamath_test
+        run: python -m pytest tests/test_database_service.py tests/test_database_service_postgres.py -q
+
+  stripe-e2e-tests:
+    name: Tests E2E Stripe (Test Mode réel)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installation de Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Installation des dépendances
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      # Secrets absents du dépôt (Settings > Secrets and variables >
+      # Actions) : chaque test se désactive proprement (skip) — voir
+      # webapp/tests/stripe_e2e_helpers.py. Jamais d'échec dans ce cas, le
+      # job reste vert. Présents : appels RÉELS à Stripe Test Mode, jamais
+      # de mock (voir DEPLOYMENT.md, section "Tests End-to-End Stripe").
+      - name: Suite de tests E2E Stripe (skip automatique si secrets absents)
+        working-directory: webapp
+        env:
+          FLASK_ENV: development
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
+          STRIPE_PRICE_PREMIUM: ${{ secrets.STRIPE_PRICE_PREMIUM }}
+          STRIPE_PRICE_ULTRA: ${{ secrets.STRIPE_PRICE_ULTRA }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+        run: python -m pytest tests/test_stripe_e2e.py -v
+
+  docker-build:
+    name: Vérification du build Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: Construction de l'image (validation uniquement, jamais de push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: novamath:ci
