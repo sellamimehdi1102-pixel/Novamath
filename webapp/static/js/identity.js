@@ -11,6 +11,11 @@ function initials(name) {
   return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
 }
 
+const PLAN_LABELS = { free: "Free", premium: "Premium", ultra: "Ultra" };
+function planLabel(plan) {
+  return PLAN_LABELS[plan] || PLAN_LABELS.free;
+}
+
 // ── Badge "Mode invité", à côté du logo (dans l'en-tête, pas dans le widget
 // de profil) — rappelle simplement que certaines fonctionnalités sont
 // limitées, sans bloquer quoi que ce soit. ──────────────────────────────────
@@ -55,7 +60,7 @@ function paintSidebarUser(user) {
   userLink.setAttribute("href", "profil.html");
   userLink.removeAttribute("role");
   userLink.removeAttribute("tabindex");
-  if (subEl) subEl.textContent = "Voir le profil";
+  if (subEl) subEl.textContent = planLabel(user.plan);
   const onProfilePage = /(^|\/)profil\.html$/.test(window.location.pathname);
   userLink.classList.toggle("is-current", onProfilePage);
 
@@ -90,6 +95,17 @@ async function render() {
 
 render();
 window.addEventListener("novamath:account-updated", (e) => paint(e.detail));
+
+// Navigation arrière/avant restaurée depuis le bfcache du navigateur : la
+// page reprend telle qu'elle était figée au moment de la quitter, SANS
+// réexécuter ce module — si le plan a changé entre-temps sur une autre page
+// (ex: abonnement.html), la sidebar resterait bloquée sur l'ancienne valeur
+// jusqu'à un rechargement complet. `event.persisted` est vrai uniquement
+// dans ce cas précis (jamais sur un premier chargement normal, où `render()`
+// ci-dessus a déjà fait le travail) — voir MDN "Page Lifecycle API".
+window.addEventListener("pageshow", (e) => {
+  if (e.persisted) render();
+});
 
 // Sans `href`, un <a role="button"> n'est pas activable au clavier nativement
 // (contrairement à un vrai lien) — on relaie Entrée/Espace vers un clic.
