@@ -1,0 +1,795 @@
+{
+  "chapterId": "Chapitre_2",
+  "title": "Nombres relatifs",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "addition-et-soustraction-de-nombres-relatifs",
+      "title": "Addition et soustraction de nombres relatifs",
+      "schemaVersion": 2,
+      "intro": "Un nombre relatif est un nombre précédé d'un signe + ou −, qui indique une position par rapport à zéro (par exemple une température, une altitude ou un solde bancaire). Additionner et soustraire des nombres relatifs, c'est apprendre à combiner ces positions : avancer ou reculer sur une droite graduée. Cette notion sert à calculer une variation de température, un solde après plusieurs opérations, ou une altitude après une montée puis une descente.\n\nDans cette leçon, tu vas apprendre la règle des nombres de même signe, celle des nombres de signes différents, et comment transformer une soustraction en addition.",
+      "explicationSimple": "Imagine une droite graduée avec zéro au milieu, comme un thermomètre couché. Additionner un nombre positif, c'est avancer vers la droite ; additionner un nombre négatif, c'est reculer vers la gauche. Soustraire un nombre, c'est faire exactement le mouvement inverse de celui qu'il représenterait en addition : soustraire $(-3)$, c'est donc avancer de 3, comme si on ajoutait $+3$.",
+      "objectif": "À la fin de ce cours, tu sauras additionner deux nombres relatifs de même signe ou de signes différents, transformer une soustraction en addition de l'opposé, et calculer une somme algébrique comportant plusieurs termes.",
+      "definition": "Additionner deux nombres relatifs de même signe revient à additionner leurs distances à zéro et à garder ce signe commun ; additionner deux nombres relatifs de signes différents revient à soustraire la plus petite distance à zéro de la plus grande, et à garder le signe du nombre qui a la plus grande distance à zéro. Soustraire un nombre relatif revient toujours à additionner son opposé.",
+      "definitions": {
+        "lycee": "Additionner deux nombres relatifs de même signe revient à additionner leurs distances à zéro et à garder ce signe commun ; additionner deux nombres relatifs de signes différents revient à soustraire la plus petite distance à zéro de la plus grande, et à garder le signe du nombre qui a la plus grande distance à zéro. Soustraire un nombre relatif revient toujours à additionner son opposé.",
+        "college": "Pour additionner deux nombres relatifs : s'ils ont le même signe, on additionne leurs distances à zéro et on garde le signe commun ; s'ils ont des signes différents, on soustrait la plus petite distance à zéro de la plus grande, et on garde le signe du nombre le plus « fort ». Soustraire un nombre relatif, c'est ajouter son opposé."
+      },
+      "intuition": "La difficulté vient presque toujours des soustractions : transforme systématiquement chaque soustraction en addition de l'opposé avant de calculer (par exemple $7 - (-5)$ devient $7 + 5$). Une fois que tout est écrit avec des additions, il suffit de regrouper les nombres positifs d'un côté, les négatifs de l'autre, puis d'appliquer la règle du signe commun ou des signes différents.",
+      "reglesImportantes": [
+        "Additionne successivement les déplacements, en te souvenant que remonter s'ajoute positivement et descendre négativement.",
+        "Transforme toutes les soustractions en additions puis regroupe les nombres positifs d'un côté et négatifs de l'autre.",
+        "Compare le total des sommes ajoutées (dépôts) au total des sommes retranchées (solde initial négatif et retraits).",
+        "Quand les signes sont différents, la somme prend le signe du nombre dont la distance à zéro est la plus grande.",
+        "Calcule d'abord le contenu de chaque parenthèse avant de t'occuper des additions et soustractions restantes."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Addition et soustraction de nombres relatifs",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $-3+9=6$ et $7-12=-5$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : l'expression devient $(-8)+5-6-(-5)+(-4) = (-8)+5-6+5+(-4)$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : positifs : $5+5=10$. Négatifs : $8+6+4=18$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : $10-18=-8$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-150",
+          "titre": "Exemple 1",
+          "enonce": "Calculer $(-5) + (-3)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-5)$ et $(-3)$ ont le même signe (négatif)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on additionne leurs distances à zéro : $5+3=8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la somme est donc $-8$."
+            }
+          ],
+          "reponse": "$-8$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-8$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-156",
+          "titre": "Exemple 2",
+          "enonce": "Calculer $(-3) + 5 - 8$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-3)+5-8 = (-3)+5+(-8)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on regroupe les positifs : $5$, et les négatifs : $(-3)+(-8)=-11$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $5 + (-11) = -6$."
+            }
+          ],
+          "reponse": "$-6$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-6$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-162",
+          "titre": "Exemple 3",
+          "enonce": "Calculer $(-7) + 3 - 5 + (-2)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on réécrit avec des additions : $(-7)+3+(-5)+(-2)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : positifs : $3$. Négatifs : $(-7)+(-5)+(-2) = -14$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $3 + (-14) = -11$."
+            }
+          ],
+          "reponse": "$-11$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-11$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-168",
+          "titre": "Exemple 4",
+          "enonce": "Calculer $(-9,5) - (-3,2) + (-6,8) - 2,5$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-9,5) - (-3,2) + (-6,8) - 2,5 = (-9,5) + 3,2 + (-6,8) + (-2,5)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : positifs : $3,2$. Négatifs : $(-9,5)+(-6,8)+(-2,5) = -18,8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $3,2 + (-18,8) = -15,6$."
+            }
+          ],
+          "reponse": "$-15,6$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-15,6$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Oublier de transformer une soustraction en addition de l'opposé, et se tromper de signe en calculant directement $a - (-b)$.",
+        "Additionner les distances à zéro au lieu de les soustraire lorsque les deux nombres ont des signes différents.",
+        "Se tromper de signe pour le résultat en oubliant de garder le signe du nombre ayant la plus grande distance à zéro."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de transformer une soustraction en addition de l'opposé, et se tromper de signe en calculant directement $a - (-b)$.",
+          "pourquoi": "Le double signe « moins moins » est déroutant et pousse à des raccourcis de calcul non vérifiés.",
+          "comment_detecter": "Le résultat obtenu correspond à $a - b$ au lieu de $a + b$.",
+          "comment_eviter": "Toujours réécrire l'expression complète avec des additions avant de calculer quoi que ce soit."
+        },
+        {
+          "description": "Additionner les distances à zéro au lieu de les soustraire lorsque les deux nombres ont des signes différents.",
+          "pourquoi": "On applique par réflexe la règle des nombres de même signe (additionner les distances) à tous les cas.",
+          "comment_detecter": "Le résultat obtenu est plus grand en valeur absolue que les deux nombres de départ.",
+          "comment_eviter": "Identifier d'abord si les deux nombres ont le même signe ou des signes différents avant de choisir la règle à appliquer."
+        },
+        {
+          "description": "Se tromper de signe pour le résultat en oubliant de garder le signe du nombre ayant la plus grande distance à zéro.",
+          "pourquoi": "Une fois la soustraction des distances à zéro effectuée, on oublie de reporter le bon signe sur le résultat final.",
+          "comment_detecter": "Le signe du résultat ne correspond pas à celui du terme le plus « fort » (le plus éloigné de zéro).",
+          "comment_eviter": "Repérer d'abord lequel des deux nombres a la plus grande distance à zéro, et affecter son signe au résultat avant même de terminer le calcul."
+        }
+      ],
+      "astuce": "N'oublie pas que soustraire un nombre négatif revient à ajouter un nombre positif.",
+      "aRetenir": [
+        "Additionne successivement les déplacements, en te souvenant que remonter s'ajoute positivement et descendre négativement.",
+        "Transforme toutes les soustractions en additions puis regroupe les nombres positifs d'un côté et négatifs de l'autre.",
+        "Compare le total des sommes ajoutées (dépôts) au total des sommes retranchées (solde initial négatif et retraits).",
+        "Quand les signes sont différents, la somme prend le signe du nombre dont la distance à zéro est la plus grande.",
+        "Calcule d'abord le contenu de chaque parenthèse avant de t'occuper des additions et soustractions restantes.",
+        "Quand les deux nombres ont le même signe, on additionne leurs distances à zéro et on garde ce signe commun."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        151,
+        152,
+        153
+      ],
+      "topic_id": "addition-et-soustraction-de-nombres-relatifs",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Addition et soustraction de nombres relatifs."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "addition",
+        "soustraction",
+        "nombres",
+        "relatifs"
+      ]
+    },
+    {
+      "id": "multiplication-et-division-de-nombres-relatifs",
+      "title": "Multiplication et division de nombres relatifs",
+      "schemaVersion": 2,
+      "intro": "Multiplier ou diviser des nombres relatifs consiste à combiner à la fois leurs distances à zéro (leurs valeurs absolues) et leurs signes, selon une règle appelée la règle des signes. Contrairement à l'addition, le signe du résultat ne dépend pas de la « taille » des nombres, mais uniquement du nombre de facteurs négatifs présents dans le calcul. Cette notion sert à calculer une variation répétée (une température qui baisse plusieurs fois de suite), ou à répartir une dette entre plusieurs personnes.\n\nDans cette leçon, tu vas apprendre la règle des signes pour la multiplication et la division, puis à l'appliquer à des produits comportant plusieurs facteurs.",
+      "explicationSimple": "Retiens une image simple : « les amis de mes amis sont mes amis, les ennemis de mes ennemis sont mes amis, mais les amis de mes ennemis sont mes ennemis. » En clair : deux signes identiques (+ et +, ou − et −) donnent un résultat positif ; deux signes différents (+ et −) donnent un résultat négatif. Pour plusieurs facteurs, il suffit de compter le nombre de signes négatifs : s'il y en a un nombre pair, le résultat est positif ; s'il y en a un nombre impair, le résultat est négatif.",
+      "objectif": "À la fin de ce cours, tu sauras appliquer la règle des signes pour multiplier ou diviser deux nombres relatifs, et déterminer le signe d'un produit ou d'un quotient comportant plusieurs facteurs.",
+      "definition": "Le produit ou le quotient de deux nombres relatifs de même signe est positif ; le produit ou le quotient de deux nombres relatifs de signes différents est négatif. Dans les deux cas, on multiplie ou on divise les distances à zéro des deux nombres pour obtenir la distance à zéro du résultat. Pour un produit de plusieurs facteurs, le résultat est positif si le nombre de facteurs négatifs est pair, et négatif s'il est impair.",
+      "definitions": {
+        "lycee": "Le produit ou le quotient de deux nombres relatifs de même signe est positif ; le produit ou le quotient de deux nombres relatifs de signes différents est négatif. Dans les deux cas, on multiplie ou on divise les distances à zéro des deux nombres pour obtenir la distance à zéro du résultat. Pour un produit de plusieurs facteurs, le résultat est positif si le nombre de facteurs négatifs est pair, et négatif s'il est impair.",
+        "college": "Pour multiplier ou diviser deux nombres relatifs : si les deux signes sont identiques, le résultat est positif ; s'ils sont différents, le résultat est négatif. On multiplie ou on divise ensuite les distances à zéro des deux nombres normalement."
+      },
+      "intuition": "Détermine toujours le signe du résultat avant de calculer sa valeur : compte le nombre de facteurs négatifs dans le calcul (pair → positif, impair → négatif), puis multiplie ou divise tranquillement les distances à zéro, sans te soucier des signes pendant cette étape. Séparer ainsi « trouver le signe » et « calculer la valeur » évite la plupart des erreurs.",
+      "reglesImportantes": [
+        "Détermine d'abord le signe du numérateur, puis celui du dénominateur, avant de conclure sur le signe du quotient.",
+        "Un quotient de deux nombres négatifs est égal au quotient de leurs distances à zéro, avec un signe positif.",
+        "Compte le nombre de facteurs négatifs : pair donne un résultat positif, impair donne un résultat négatif.",
+        "Détermine d'abord le signe du résultat avec la règle des signes, puis multiplie les distances à zéro.",
+        "Compte le nombre de facteurs négatifs pour connaître le signe, puis multiplie les distances à zéro."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Multiplication et division de nombres relatifs",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les deux facteurs sont de signes différents, le résultat sera négatif."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : on multiplie les distances à zéro : $4 \\times 5 = 20$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : le résultat est donc $-20$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-180",
+          "titre": "Exemple 1",
+          "enonce": "Calculer $(-4) \\times 5$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les deux facteurs sont de signes différents, le résultat sera négatif."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on multiplie les distances à zéro : $4 \\times 5 = 20$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le résultat est donc $-20$."
+            }
+          ],
+          "reponse": "$-20$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-20$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-186",
+          "titre": "Exemple 2",
+          "enonce": "Calculer $(-2) \\times (-3) \\times 5$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : il y a deux facteurs négatifs, un nombre pair : le résultat est positif."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $2 \\times 3 \\times 5 = 30$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le résultat est $30$."
+            }
+          ],
+          "reponse": "$30$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $30$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-192",
+          "titre": "Exemple 3",
+          "enonce": "Calculer $(-2) \\times (-3) \\times (-4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : il y a trois facteurs négatifs, un nombre impair : le résultat est négatif."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $2 \\times 3 \\times 4 = 24$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le résultat est $-24$."
+            }
+          ],
+          "reponse": "$-24$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-24$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-198",
+          "titre": "Exemple 4",
+          "enonce": "Calculer $(-3) \\times 4 \\times (-2) \\times (-5)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les facteurs négatifs sont $-3$, $-2$ et $-5$ : il y en a trois, un nombre impair."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le résultat sera donc négatif."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $3 \\times 4 \\times 2 \\times 5 = 120$, donc le résultat est $-120$."
+            }
+          ],
+          "reponse": "$-120$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-120$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Oublier de compter le nombre de facteurs négatifs et se tromper de signe dans un produit de plusieurs facteurs.",
+        "Additionner les signes au lieu d'appliquer la règle des signes (par exemple penser que $(-) \\times (-) \\times (-)$ donne un résultat positif).",
+        "Confondre la règle des signes de la multiplication avec celle de l'addition, où le signe dépend de la distance à zéro et non du nombre de termes négatifs."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de compter le nombre de facteurs négatifs et se tromper de signe dans un produit de plusieurs facteurs.",
+          "pourquoi": "Avec plus de deux facteurs, on applique la règle des signes seulement sur les deux premiers et on oublie les suivants.",
+          "comment_detecter": "Le signe du résultat ne correspond pas à la parité du nombre de facteurs négatifs comptés dans l'expression.",
+          "comment_eviter": "Compter d'abord, un par un, tous les facteurs négatifs de l'expression avant de commencer le calcul des valeurs."
+        },
+        {
+          "description": "Additionner les signes au lieu d'appliquer la règle des signes (par exemple penser que $(-) \\times (-) \\times (-)$ donne un résultat positif).",
+          "pourquoi": "On confond intuitivement la logique de la multiplication avec celle, différente, de l'addition de nombres relatifs.",
+          "comment_detecter": "Un produit de trois facteurs négatifs est annoncé positif alors qu'il doit être négatif (nombre impair de facteurs négatifs).",
+          "comment_eviter": "Retenir la règle par cœur : pair de facteurs négatifs → positif, impair de facteurs négatifs → négatif."
+        },
+        {
+          "description": "Confondre la règle des signes de la multiplication avec celle de l'addition, où le signe dépend de la distance à zéro et non du nombre de termes négatifs.",
+          "pourquoi": "Les deux opérations portent sur les mêmes nombres relatifs mais suivent des logiques différentes, ce qui entraîne une confusion des règles.",
+          "comment_detecter": "On cherche à comparer des « distances à zéro » pour un produit, alors que seul le comptage des signes négatifs compte.",
+          "comment_eviter": "Se rappeler que pour une multiplication ou une division, seul le nombre de signes négatifs détermine le signe du résultat — la distance à zéro n'intervient que pour calculer la valeur."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Détermine d'abord le signe du numérateur, puis celui du dénominateur, avant de conclure sur le signe du quotient.",
+        "Un quotient de deux nombres négatifs est égal au quotient de leurs distances à zéro, avec un signe positif.",
+        "Compte le nombre de facteurs négatifs : pair donne un résultat positif, impair donne un résultat négatif.",
+        "Détermine d'abord le signe du résultat avec la règle des signes, puis multiplie les distances à zéro.",
+        "Compte le nombre de facteurs négatifs pour connaître le signe, puis multiplie les distances à zéro.",
+        "Compte soigneusement le nombre de facteurs négatifs avant de multiplier les distances à zéro."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        181,
+        182,
+        183
+      ],
+      "topic_id": "multiplication-et-division-de-nombres-relatifs",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Multiplication et division de nombres relatifs."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "multiplication",
+        "division",
+        "nombres",
+        "relatifs"
+      ]
+    },
+    {
+      "id": "puissances-d-un-nombre-relatif",
+      "title": "Puissances d'un nombre relatif",
+      "schemaVersion": 2,
+      "intro": "Une puissance d'un nombre relatif, comme $(-2)^4$, est une écriture abrégée pour une multiplication répétée de ce nombre par lui-même. Le signe du résultat dépend à la fois du signe de la base et de la parité de l'exposant : c'est cette combinaison qui rend les puissances de nombres relatifs plus délicates que celles des nombres positifs. Cette notion sert à calculer des aires, des volumes, ou à écrire de très grands ou très petits nombres.\n\nDans cette leçon, tu vas apprendre à calculer une puissance d'un nombre relatif, à déterminer son signe sans tout calculer, et à utiliser les exposants négatifs et l'exposant $0$.",
+      "explicationSimple": "Imagine que tu dois écrire « $(-2)$ fois $(-2)$ fois $(-2)$ fois $(-2)$ ». Une puissance, c'est juste une écriture raccourcie pour dire « ce nombre, multiplié par lui-même, un certain nombre de fois ». La difficulté avec les nombres relatifs, c'est de bien suivre les signes qui s'annulent deux par deux : deux négatifs multipliés donnent un positif, comme deux claques qui s'annulent.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une puissance d'un nombre relatif, déterminer son signe selon la parité de l'exposant, et utiliser un exposant négatif ou nul.",
+      "definition": "La puissance $n$-ième d'un nombre relatif $a$, notée $a^n$, est le produit de $n$ facteurs égaux à $a$. Si $a$ est négatif, le résultat est positif quand $n$ est pair, et négatif quand $n$ est impair. Un exposant négatif $a^{-n}$ désigne l'inverse de $a^n$, c'est-à-dire $\\dfrac{1}{a^n}$, et tout nombre non nul élevé à la puissance $0$ vaut $1$.",
+      "definitions": {
+        "lycee": "La puissance $n$-ième d'un nombre relatif $a$, notée $a^n$, est le produit de $n$ facteurs égaux à $a$. Si $a$ est négatif, le résultat est positif quand $n$ est pair, et négatif quand $n$ est impair. Un exposant négatif $a^{-n}$ désigne l'inverse de $a^n$, c'est-à-dire $\\dfrac{1}{a^n}$, et tout nombre non nul élevé à la puissance $0$ vaut $1$.",
+        "college": "$a^n$ signifie qu'on multiplie $a$ par lui-même $n$ fois. Si $a$ est négatif et $n$ est pair, le résultat est positif ; si $n$ est impair, le résultat est négatif."
+      },
+      "intuition": "Pour trouver rapidement le signe de $(-a)^n$ sans tout calculer, regarde seulement la parité de l'exposant $n$ : pair donne toujours un résultat positif, impair garde le signe négatif de la base. Fais bien attention à la présence des parenthèses : $(-2)^2 = 4$ mais $-2^2 = -4$, car sans parenthèses, seul le $2$ est élevé au carré, le signe moins s'applique après.",
+      "reglesImportantes": [
+        "Compte le nombre de facteurs négatifs dans le produit.",
+        "Un exposant négatif transforme la puissance en inverse d'une puissance positive, et un carré est toujours positif.",
+        "Regarde si l'exposant est pair ou impair pour savoir si le signe de la base a une influence sur le résultat.",
+        "Multiplier plusieurs fois de suite par le même nombre relatif revient à calculer une puissance de ce nombre.",
+        "Vérifie s'il y a des parenthèses autour du $-2$ avant d'appliquer la règle sur les exposants pairs."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Puissances d'un nombre relatif",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-3)^2 - 5 = 9 - 5 = 4$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $(-2)^3 = -8$, donc $4 \\times (-8) = -32$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : $(-1)^{10} = 1$ (exposant pair)."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : $-32 + 1 = -31$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-210",
+          "titre": "Exemple 1",
+          "enonce": "Calculer $(-2)^3$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-2)^3 = (-2)\\times(-2)\\times(-2)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $(-2)\\times(-2) = 4$, puis $4\\times(-2) = -8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le résultat est $-8$."
+            }
+          ],
+          "reponse": "$-8$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-8$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-216",
+          "titre": "Exemple 2",
+          "enonce": "Calculer $(-2)^4$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-2)^4 = (-2)\\times(-2)\\times(-2)\\times(-2)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : quatre facteurs négatifs, un nombre pair : le résultat est positif."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $2\\times2\\times2\\times2=16$."
+            }
+          ],
+          "reponse": "$16$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $16$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-222",
+          "titre": "Exemple 3",
+          "enonce": "Calculer $(-2)^{-3}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-2)^{-3} = \\dfrac{1}{(-2)^3}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $(-2)^3 = -8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $(-2)^{-3} = \\dfrac{1}{-8} = -\\dfrac{1}{8}$."
+            }
+          ],
+          "reponse": "$-\\dfrac{1}{8}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-\\dfrac{1}{8}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-228",
+          "titre": "Exemple 4",
+          "enonce": "Calculer $(-5)^{-2}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-5)^{-2} = \\dfrac{1}{(-5)^2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $(-5)^2 = 25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $(-5)^{-2} = \\dfrac{1}{25}$."
+            }
+          ],
+          "reponse": "$\\dfrac{1}{25}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\dfrac{1}{25}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le nombre d'octets en informatique (2, 4, 8, 16... des puissances de 2)",
+        "la croissance d'une population de bactéries qui double régulièrement",
+        "les intérêts composés d'une épargne bancaire"
+      ],
+      "erreursFrequentes": [
+        "Oublier les parenthèses et confondre $(-2)^2 = 4$ avec $-2^2 = -4$.",
+        "Se tromper sur le signe du résultat en confondant la parité de l'exposant (croire qu'un exposant impair donne toujours un résultat positif).",
+        "Confondre exposant négatif et résultat négatif : $(-2)^{-3}$ n'est pas simplement « $-2$ élevé à la puissance $3$ avec un signe moins », mais l'inverse de $(-2)^3$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier les parenthèses et confondre $(-2)^2 = 4$ avec $-2^2 = -4$.",
+          "pourquoi": "Sans parenthèses, l'exposant ne porte que sur le chiffre juste avant lui, pas sur le signe moins qui le précède.",
+          "comment_detecter": "Le signe du résultat change selon que l'écriture comporte des parenthèses autour du nombre négatif ou non, sans que cette distinction ait été prise en compte.",
+          "comment_eviter": "Toujours vérifier si le signe moins est à l'intérieur ou à l'extérieur des parenthèses avant de calculer."
+        },
+        {
+          "description": "Se tromper sur le signe du résultat en confondant la parité de l'exposant (croire qu'un exposant impair donne toujours un résultat positif).",
+          "pourquoi": "On retient la règle « exposant pair = positif » mais on l'applique par erreur aussi aux exposants impairs.",
+          "comment_detecter": "$(-2)^3$ est annoncé positif alors qu'un exposant impair garde le signe négatif de la base.",
+          "comment_eviter": "Vérifier systématiquement si l'exposant est pair ou impair avant de donner le signe du résultat."
+        },
+        {
+          "description": "Confondre exposant négatif et résultat négatif : $(-2)^{-3}$ n'est pas simplement « $-2$ élevé à la puissance $3$ avec un signe moins », mais l'inverse de $(-2)^3$.",
+          "pourquoi": "Le signe « − » devant l'exposant est interprété comme un signe du résultat plutôt que comme une indication de prise d'inverse.",
+          "comment_detecter": "Le résultat proposé n'est pas une fraction alors que l'exposant de départ était négatif.",
+          "comment_eviter": "Toujours réécrire d'abord $a^{-n}$ sous la forme $\\dfrac{1}{a^n}$ avant de calculer quoi que ce soit."
+        }
+      ],
+      "astuce": "Pour ne jamais te tromper entre additionner et multiplier les exposants, teste toujours la règle sur un petit exemple simple (comme 2² × 2³) avant de l'appliquer à ton exercice.",
+      "aRetenir": [
+        "Compte le nombre de facteurs négatifs dans le produit.",
+        "Un exposant négatif transforme la puissance en inverse d'une puissance positive, et un carré est toujours positif.",
+        "Regarde si l'exposant est pair ou impair pour savoir si le signe de la base a une influence sur le résultat.",
+        "Multiplier plusieurs fois de suite par le même nombre relatif revient à calculer une puissance de ce nombre.",
+        "Vérifie s'il y a des parenthèses autour du $-2$ avant d'appliquer la règle sur les exposants pairs.",
+        "Calcule d'abord le contenu des crochets, puis les puissances restantes, dans l'ordre des priorités."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        211,
+        212,
+        213
+      ],
+      "topic_id": "puissances-d-un-nombre-relatif",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Puissances d'un nombre relatif."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "puissances",
+        "nombre",
+        "relatif"
+      ]
+    },
+    {
+      "id": "puissances-de-10-et-ecriture-scientifique",
+      "title": "Puissances de 10 et écriture scientifique",
+      "schemaVersion": 2,
+      "intro": "Les puissances de 10 permettent d'écrire très simplement de très grands nombres (comme la distance Terre-Soleil) ou de très petits nombres (comme la taille d'un virus), en comptant le nombre de rangs dont on déplace la virgule. L'écriture scientifique va plus loin : elle écrit tout nombre sous la forme $a \\times 10^n$, avec un seul chiffre non nul avant la virgule dans $a$, ce qui permet de comparer facilement des nombres de tailles très différentes.\n\nDans cette leçon, tu vas apprendre à calculer une puissance de 10 (positive ou négative), à multiplier un nombre par une puissance de 10 en déplaçant la virgule, et à écrire un nombre en écriture scientifique.",
+      "explicationSimple": "Multiplier par $10^3$, c'est comme faire glisser la virgule de 3 crans vers la droite ; multiplier par $10^{-3}$, c'est la faire glisser de 3 crans vers la gauche. L'écriture scientifique, elle, range toujours un nombre sous la forme d'un chiffre entre 1 et 9 (avec éventuellement des décimales), suivi d'une puissance de 10 qui indique où se trouve « vraiment » la virgule.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une puissance de 10 positive ou négative, multiplier un nombre par une puissance de 10, et écrire un nombre en écriture scientifique sous la forme $a \\times 10^n$ avec $1 \\leq |a| < 10$.",
+      "definition": "Pour un entier $n$ positif, $10^n$ s'écrit avec un $1$ suivi de $n$ zéros, et $10^{-n} = \\dfrac{1}{10^n}$ s'écrit avec un $0$, une virgule, $(n-1)$ zéros, puis un $1$. L'écriture scientifique d'un nombre décimal est son écriture sous la forme $a \\times 10^n$, où $a$ est un nombre décimal tel que $1 \\leq |a| < 10$ et $n$ est un entier relatif.",
+      "definitions": {
+        "lycee": "Pour un entier $n$ positif, $10^n$ s'écrit avec un $1$ suivi de $n$ zéros, et $10^{-n} = \\dfrac{1}{10^n}$ s'écrit avec un $0$, une virgule, $(n-1)$ zéros, puis un $1$. L'écriture scientifique d'un nombre décimal est son écriture sous la forme $a \\times 10^n$, où $a$ est un nombre décimal tel que $1 \\leq |a| < 10$ et $n$ est un entier relatif.",
+        "college": "$10^n$ s'écrit $1$ suivi de $n$ zéros. L'écriture scientifique d'un nombre s'écrit $a \\times 10^n$, où $a$ n'a qu'un seul chiffre (non nul) avant la virgule."
+      },
+      "intuition": "Pour passer un nombre en écriture scientifique, repère d'abord où il faudrait placer la virgule pour n'avoir qu'un seul chiffre non nul devant elle, puis compte le nombre de rangs parcourus : ce nombre devient l'exposant, positif si tu as déplacé la virgule vers la gauche (nombre grand), négatif si tu l'as déplacée vers la droite (nombre petit).",
+      "reglesImportantes": [
+        "$10^n$ s'écrit $1$ suivi de $n$ zéros.",
+        "Multiplie les deux facteurs numériques et additionne les exposants des puissances de $10$, puis vérifie que le facteur obtenu est bien compris entre $1$ et $10$.",
+        "Multiplie le nombre d'opérations par seconde par le nombre de secondes dans une minute, puis remets le résultat en écriture scientifique.",
+        "Compare d'abord les exposants des puissances de $10$ : le plus grand exposant l'emporte, sauf en cas d'égalité.",
+        "Écris d'abord le nombre en écriture scientifique, puis arrondis le facteur pour obtenir l'ordre de grandeur."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Puissances de 10 et écriture scientifique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : multiplier par $10^3$ déplace la virgule de $3$ rangs vers la droite."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $4 \\to 4,0 \\to 4\\,000$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $4 \\times 10^3 = 4\\,000$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-240",
+          "titre": "Exemple 1",
+          "enonce": "Calculer $10^4$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'exposant est $4$, on écrit donc $1$ suivi de $4$ zéros."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $10^4 = 10\\,000$."
+            }
+          ],
+          "reponse": "$10\\,000$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $10\\,000$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-246",
+          "titre": "Exemple 2",
+          "enonce": "Donner l'écriture décimale de $4 \\times 10^3$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : multiplier par $10^3$ déplace la virgule de $3$ rangs vers la droite."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $4 \\to 4,0 \\to 4\\,000$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $4 \\times 10^3 = 4\\,000$."
+            }
+          ],
+          "reponse": "$4\\,000$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $4\\,000$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-252",
+          "titre": "Exemple 3",
+          "enonce": "La distance moyenne Terre-Soleil est d'environ $150\\,000\\,000$ km. Écrire cette distance en écriture scientifique.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $150\\,000\\,000 = 150\\,000\\,000,0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on déplace la virgule de $8$ rangs vers la gauche pour obtenir $1,5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $150\\,000\\,000 = 1,5 \\times 10^8$ km."
+            }
+          ],
+          "reponse": "$1,5 \\times 10^8$ km",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $1,5 \\times 10^8$ km",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-258",
+          "titre": "Exemple 4",
+          "enonce": "La masse de la Terre est d'environ $5\\,970\\,000\\,000\\,000\\,000\\,000\\,000\\,000$ kg. Écrire cette masse en écriture scientifique.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on repère la position de la virgule à la fin du nombre."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on la déplace de $24$ rangs vers la gauche pour obtenir $5,97$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la masse de la Terre s'écrit $5,97 \\times 10^{24}$ kg."
+            }
+          ],
+          "reponse": "$5,97 \\times 10^{24}$ kg",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $5,97 \\times 10^{24}$ kg",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le nombre d'octets en informatique (2, 4, 8, 16... des puissances de 2)",
+        "la croissance d'une population de bactéries qui double régulièrement",
+        "les intérêts composés d'une épargne bancaire"
+      ],
+      "erreursFrequentes": [
+        "Se tromper de sens dans le déplacement de la virgule (aller à gauche au lieu d'aller à droite, ou inversement).",
+        "Écrire un facteur $a$ qui n'est pas compris entre 1 et 10 dans l'écriture scientifique (par exemple $15 \\times 10^7$ au lieu de $1{,}5 \\times 10^8$).",
+        "Confondre le nombre de zéros de $10^n$ avec l'exposant lui-même dans un calcul intermédiaire."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Se tromper de sens dans le déplacement de la virgule (aller à gauche au lieu d'aller à droite, ou inversement).",
+          "pourquoi": "Les deux sens de déplacement (multiplier par une puissance positive ou négative de 10) sont faciles à inverser sous la pression du calcul.",
+          "comment_detecter": "Un nombre censé devenir plus grand après multiplication par $10^3$ devient plus petit, ou inversement.",
+          "comment_eviter": "Retenir que multiplier par $10^n$ (avec $n$ positif) rend le nombre plus grand, donc la virgule avance vers la droite ; diviser (ou multiplier par $10^{-n}$) le rend plus petit, la virgule recule vers la gauche."
+        },
+        {
+          "description": "Écrire un facteur $a$ qui n'est pas compris entre 1 et 10 dans l'écriture scientifique (par exemple $15 \\times 10^7$ au lieu de $1{,}5 \\times 10^8$).",
+          "pourquoi": "On s'arrête dès qu'on obtient une puissance de 10 correcte pour la valeur, sans vérifier que le facteur devant respecte bien la condition $1 \\leq a < 10$.",
+          "comment_detecter": "Le nombre devant la puissance de 10 a deux chiffres ou plus avant la virgule (ou est inférieur à 1).",
+          "comment_eviter": "Toujours vérifier, à la fin, que le facteur numérique est bien compris entre 1 et 10 avant de donner la réponse finale."
+        },
+        {
+          "description": "Confondre le nombre de zéros de $10^n$ avec l'exposant lui-même dans un calcul intermédiaire.",
+          "pourquoi": "Pour de grands nombres, on perd le compte exact du nombre de zéros ou de rangs parcourus par la virgule.",
+          "comment_detecter": "L'exposant final obtenu diffère d'une unité par rapport au nombre réel de rangs parcourus par la virgule.",
+          "comment_eviter": "Compter les rangs un par un, en s'aidant si besoin de repères (dizaines, centaines...) plutôt que d'estimer le nombre de zéros d'un coup d'œil."
+        }
+      ],
+      "astuce": "Pour ne jamais te tromper entre additionner et multiplier les exposants, teste toujours la règle sur un petit exemple simple (comme 2² × 2³) avant de l'appliquer à ton exercice.",
+      "aRetenir": [
+        "$10^n$ s'écrit $1$ suivi de $n$ zéros.",
+        "Multiplie les deux facteurs numériques et additionne les exposants des puissances de $10$, puis vérifie que le facteur obtenu est bien compris entre $1$ et $10$.",
+        "Multiplie le nombre d'opérations par seconde par le nombre de secondes dans une minute, puis remets le résultat en écriture scientifique.",
+        "Compare d'abord les exposants des puissances de $10$ : le plus grand exposant l'emporte, sauf en cas d'égalité.",
+        "Écris d'abord le nombre en écriture scientifique, puis arrondis le facteur pour obtenir l'ordre de grandeur.",
+        "Déplace la virgule jusqu'à obtenir un nombre compris entre $1$ et $10$, et compte les rangs de déplacement."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        241,
+        242,
+        243
+      ],
+      "topic_id": "puissances-de-10-et-ecriture-scientifique",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Puissances de 10 et écriture scientifique."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "puissances",
+        "ecriture",
+        "scientifique"
+      ]
+    }
+  ]
+}

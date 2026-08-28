@@ -109,5 +109,49 @@ class TestRepliFlou(unittest.TestCase):
                 self.assertEqual(ins.classify(text)["intent"], ins.NONE_INTENT)
 
 
+class TestExempleNu(unittest.TestCase):
+    """Audit global du routage pédagogique (2026-08-22) : "un exemple"/
+    "encore un exemple" seuls (sans "donne-moi"/"montre-moi") restaient
+    NONE_INTENT — l'instruction pédagogique spécifique EXEMPLE
+    (pedagogy_templates) n'était alors jamais injectée."""
+
+    def test_messages_nus_sont_bien_exemple(self):
+        for text in ["un exemple", "Un exemple", "exemple", "exemples", "encore un exemple", "un autre exemple", "autre exemple"]:
+            with self.subTest(text=text):
+                self.assertEqual(ins.classify(text)["intent"], ins.EXEMPLE)
+
+    def test_ne_casse_pas_la_formulation_avec_sujet_deja_couverte(self):
+        """Non-régression : une demande d'exemple portant un vrai sujet
+        (déjà couverte avant ce correctif) doit rester EXEMPLE."""
+        result = ins.classify("Je voudrais un exemple sur les probabilités")
+        self.assertEqual(result["intent"], ins.EXEMPLE)
+
+
+class TestSimplifieNu(unittest.TestCase):
+    """Chantier "reformulations successives" (2026-08-22) : "simplifie"/"plus
+    simple" seuls restaient NONE_INTENT, cassant la chaîne de
+    conversation_manager._detect_repeated_incomprehension (qui exige que le
+    tour PRÉCÉDENT soit déjà classé REFORMULATION/RESTART_BASICS pour
+    déclencher l'instruction "change réellement d'approche" au tour
+    suivant — bug confirmé sur la séquence "simplifie" -> "explique plus
+    simplement je n'ai rien compris")."""
+
+    def test_simplifie_nu_est_reconnu_comme_reformulation(self):
+        from chatbot import conversation_manager as cm
+
+        for text in ["simplifie", "Simplifie.", "plus simple", "plus simple !"]:
+            with self.subTest(text=text):
+                self.assertEqual(ins.classify(text)["intent"], ins.REFORMULATION)
+                self.assertIn(ins.REFORMULATION, cm._INCOMPREHENSION_INTENTS)
+
+    def test_ne_capture_pas_simple_au_milieu_dune_phrase(self):
+        """Garde-fou anti-sur-correction : "simple"/"simplifie" au milieu
+        d'une phrase avec un vrai sujet ne doit jamais être reclassé
+        REFORMULATION — seul le message NU (ancré ^...$) est concerné."""
+        for text in ["j'aimerais un exercice plus simple", "un exemple plus simple stp", "donne-moi une méthode simple"]:
+            with self.subTest(text=text):
+                self.assertNotEqual(ins.classify(text)["intent"], ins.REFORMULATION)
+
+
 if __name__ == "__main__":
     unittest.main()

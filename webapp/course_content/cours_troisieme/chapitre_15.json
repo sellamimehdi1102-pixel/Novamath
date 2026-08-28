@@ -1,0 +1,1032 @@
+{
+  "chapterId": "Chapitre_15",
+  "title": "Solides de l'espace",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "calculer-le-volume-d-un-solide",
+      "title": "Calculer le volume d'un solide",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre à calculer le volume d'un solide de l'espace : pavé droit, cylindre, cône, pyramide, ou un solide composé de plusieurs de ces formes assemblées (comme un silo formé d'un cylindre surmonté d'un cône).\n\nCette notion sert à trouver combien d'espace occupe réellement un objet en trois dimensions, en choisissant la formule adaptée à sa forme, puis en additionnant ou soustrayant les volumes si l'objet est composé de plusieurs solides.\n\nTout au long de cette leçon, nous allons apprendre à identifier la bonne formule et à l'appliquer pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Le volume, c'est la quantité d'espace que prend un objet en trois dimensions, un peu comme la quantité d'eau qu'il faudrait pour le remplir complètement. Un pavé droit se calcule en multipliant longueur × largeur × hauteur. Un cylindre, un cône ou une pyramide utilisent une formule basée sur l'aire de leur base. Quand un objet est fait de plusieurs solides collés (comme un silo = un cylindre + un cône), on calcule chaque volume séparément, puis on les additionne.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître la formule de volume adaptée à un solide (pavé droit, cylindre, cône, pyramide) et calculer le volume d'un solide simple ou composé de plusieurs solides assemblés.",
+      "definition": "Le volume d'un solide mesure la quantité d'espace qu'il occupe en trois dimensions ; il s'exprime en unités cubes (cm³, m³...). Chaque famille de solides a sa propre formule : $V = L \\times \\ell \\times h$ pour un pavé droit, $V = \\pi r^2 h$ pour un cylindre, $V = \\frac{1}{3} \\times \\text{aire de la base} \\times h$ pour une pyramide ou un cône. Quand un objet est composé de plusieurs solides assemblés, on calcule le volume de chaque partie séparément avant de les additionner (ou de les soustraire, s'il s'agit d'un creux).",
+      "definitions": {
+        "lycee": "Le volume d'un solide mesure la quantité d'espace qu'il occupe en trois dimensions ; il s'exprime en unités cubes (cm³, m³...). Chaque famille de solides a sa propre formule : $V = L \\times \\ell \\times h$ pour un pavé droit, $V = \\pi r^2 h$ pour un cylindre, $V = \\frac{1}{3} \\times \\text{aire de la base} \\times h$ pour une pyramide ou un cône. Quand un objet est composé de plusieurs solides assemblés, on calcule le volume de chaque partie séparément avant de les additionner (ou de les soustraire, s'il s'agit d'un creux).",
+        "college": "Le volume, c'est l'espace occupé par un solide en trois dimensions. On le calcule avec une formule qui dépend de la forme du solide (pavé droit, cylindre, cône, pyramide...), et on l'exprime en cm³ ou en m³."
+      },
+      "intuition": "Ne confonds jamais l'aire d'une face (une surface plate, en cm²) et le volume du solide entier (un espace en trois dimensions, en cm³). Quand un solide est composé de plusieurs formes assemblées, calcule et note chaque volume séparément avant de faire l'addition : c'est la meilleure façon de ne pas mélanger les formules en cours de route.",
+      "reglesImportantes": [
+        "Le volume d'un cylindre est $\\pi r^2 h$.",
+        "Utilise Pythagore avec le rayon et la génératrice pour trouver la hauteur du cône, puis additionne les deux volumes.",
+        "Calcule séparément le volume de la demi-boule et celui du cône avant de les additionner.",
+        "Le volume d'une pyramide est $\\frac{1}{3} \\times \\text{aire de la base} \\times h$.",
+        "Additionne le volume du pavé et celui de la pyramide, qui partagent la même base."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Calculer le volume d'un solide",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la hauteur $h$ du cône vérifie $h^2 = 2,6^2 - 2,4^2 = 6,76 - 5,76 = 1$, donc $h = 1$ m."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : le volume du cylindre est $\\pi \\times 2,4^2 \\times 6 = 34,56\\pi \\approx 108,52$ m³."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : le volume du cône est $\\frac{1}{3}\\pi \\times 2,4^2 \\times 1 = 1,92\\pi \\approx 6,03$ m³."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : le volume total est environ $108,52 + 6,03 \\approx 114,55$ m³, soit environ 115 m³ arrondi."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1890",
+          "titre": "Exemple 1",
+          "enonce": "Calculer le volume d'un pavé droit de dimensions 8 cm, 5 cm et 6 cm.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on applique la formule $V = L \\times \\ell \\times h = 8 \\times 5 \\times 6$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on trouve $V = 240$ cm³."
+            }
+          ],
+          "reponse": "240 cm³.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 240 cm³.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1896",
+          "titre": "Exemple 2",
+          "enonce": "Une boîte a la forme d'un pavé droit de dimensions 12 cm, 9 cm et 7 cm. Calculer son volume en cm³ puis le convertir en litres.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $V = 12 \\times 9 \\times 7 = 756$ cm³."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $1\\,000$ cm³ correspondent à 1 L, on a $756$ cm³ $= 0,756$ L."
+            }
+          ],
+          "reponse": "756 cm³, soit 0,756 L.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 756 cm³, soit 0,756 L.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1902",
+          "titre": "Exemple 3",
+          "enonce": "Calculer le volume d'une pyramide à base carrée de côté 6 cm et de hauteur 10 cm.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'aire de la base est $6^2 = 36$ cm²."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $V = \\frac{1}{3} \\times 36 \\times 10 = 120$ cm³."
+            }
+          ],
+          "reponse": "120 cm³.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 120 cm³.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1908",
+          "titre": "Exemple 4",
+          "enonce": "Un silo est formé d'un cylindre de rayon 3 m et de hauteur 5 m, surmonté d'un cône de même rayon et de hauteur 2 m. Calculer le volume total du silo (valeur exacte puis arrondie au centième, $\\pi \\approx 3,14$).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le volume du cylindre est $\\pi \\times 3^2 \\times 5 = 45\\pi$ m³."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le volume du cône est $\\frac{1}{3} \\times \\pi \\times 3^2 \\times 2 = 6\\pi$ m³."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le volume total est $45\\pi + 6\\pi = 51\\pi$ m³ $\\approx 160,14$ m³."
+            }
+          ],
+          "reponse": "Valeur exacte : $51\\pi$ m³, soit environ 160,14 m³.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Valeur exacte : $51\\pi$ m³, soit environ 160,14 m³.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "calculer le volume d'un emballage ou d'un réservoir",
+        "calculer la quantité de peinture nécessaire pour une surface",
+        "estimer la quantité d'eau que peut contenir une piscine"
+      ],
+      "erreursFrequentes": [
+        "Confondre l'aire d'une face (en cm²) avec le volume du solide (en cm³) et utiliser une formule de surface à la place d'une formule de volume.",
+        "Oublier le facteur $\\frac{1}{3}$ dans la formule du volume d'une pyramide ou d'un cône.",
+        "Pour un solide composé de plusieurs formes (comme un silo), additionner les dimensions au lieu d'additionner les volumes calculés séparément."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre l'aire d'une face (en cm²) avec le volume du solide (en cm³) et utiliser une formule de surface à la place d'une formule de volume.",
+          "pourquoi": "L'aire et le volume se calculent tous les deux à partir des dimensions du solide, ce qui peut faire croire qu'il s'agit de la même chose.",
+          "comment_detecter": "Le résultat est exprimé ou attendu en cm² alors que la question porte sur une quantité de matière ou de contenu, ou inversement.",
+          "comment_eviter": "Toujours vérifier l'unité attendue : cm² pour une surface (deux dimensions), cm³ pour un volume (trois dimensions multipliées entre elles)."
+        },
+        {
+          "description": "Oublier le facteur $\\frac{1}{3}$ dans la formule du volume d'une pyramide ou d'un cône.",
+          "pourquoi": "La formule ressemble à celle du prisme ou du cylindre (aire de la base × hauteur), et on oublie qu'une pyramide ou un cône ne remplissent qu'un tiers de ce volume.",
+          "comment_detecter": "Le volume trouvé est exactement trois fois trop grand par rapport au résultat attendu.",
+          "comment_eviter": "Écrire systématiquement la formule complète $V = \\frac{1}{3} \\times \\text{aire de la base} \\times h$ avant de remplacer les valeurs."
+        },
+        {
+          "description": "Pour un solide composé de plusieurs formes (comme un silo), additionner les dimensions au lieu d'additionner les volumes calculés séparément.",
+          "pourquoi": "On pense pouvoir combiner les longueurs directement, alors que chaque solide a sa propre formule de volume qui doit être appliquée séparément.",
+          "comment_detecter": "Le calcul mélange des dimensions de solides différents dans une seule formule au lieu de deux calculs distincts.",
+          "comment_eviter": "Calculer et écrire le volume de chaque solide séparément, puis additionner (ou soustraire) les résultats obtenus, jamais les dimensions de départ."
+        }
+      ],
+      "astuce": "Utilise la formule $a^3$ et n'oublie pas de multiplier trois fois par 4,5.",
+      "aRetenir": [
+        "Le volume d'un cylindre est $\\pi r^2 h$.",
+        "Utilise Pythagore avec le rayon et la génératrice pour trouver la hauteur du cône, puis additionne les deux volumes.",
+        "Calcule séparément le volume de la demi-boule et celui du cône avant de les additionner.",
+        "Le volume d'une pyramide est $\\frac{1}{3} \\times \\text{aire de la base} \\times h$.",
+        "Additionne le volume du pavé et celui de la pyramide, qui partagent la même base.",
+        "Retranche le volume du petit cylindre (le trou) au volume du grand cylindre."
+      ],
+      "figure": {
+        "kind": "solid",
+        "shape": "cube"
+      },
+      "quizExerciseIds": [
+        1891,
+        1892,
+        1893
+      ],
+      "topic_id": "calculer-le-volume-d-un-solide",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Calculer le volume d'un solide."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "calculer",
+        "volume",
+        "solide"
+      ]
+    },
+    {
+      "id": "effet-d-un-agrandissement-ou-d-une-reduction-sur-les-volumes",
+      "title": "Effet d'un agrandissement ou d'une réduction sur les volumes",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre ce qui se passe pour le volume d'un solide quand on agrandit ou qu'on réduit toutes ses dimensions dans la même proportion (comme pour une maquette à l'échelle, ou un cube dont on double l'arête).\n\nCette notion sert à comprendre pourquoi le volume ne varie pas de la même façon que les longueurs : elle est utile pour les maquettes, les plans à l'échelle, ou tout objet agrandi ou réduit proportionnellement.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Quand on multiplie toutes les dimensions d'un solide par un même nombre $k$ (par exemple, on double toutes les longueurs, donc $k = 2$), le volume n'est pas multiplié par $k$, mais par $k \\times k \\times k = k^3$. Par exemple, si tu doubles l'arête d'un cube, son volume est multiplié par $2^3 = 8$, pas par 2 : c'est parce que le volume dépend de trois dimensions à la fois (longueur, largeur, hauteur), qui sont toutes les trois multipliées par $k$.",
+      "objectif": "À la fin de ce cours, tu sauras calculer l'effet d'un agrandissement ou d'une réduction de rapport $k$ sur le volume d'un solide, en utilisant le facteur $k^3$.",
+      "definition": "Lorsqu'on agrandit ou qu'on réduit un solide en multipliant toutes ses dimensions par un même rapport $k$ (agrandissement si $k > 1$, réduction si $k < 1$), son volume est multiplié par $k^3$, et non par $k$. Ce résultat vient du fait que le volume dépend de trois dimensions multipliées entre elles : chacune d'elles étant multipliée par $k$, le volume l'est par $k \\times k \\times k$.",
+      "definitions": {
+        "lycee": "Lorsqu'on agrandit ou qu'on réduit un solide en multipliant toutes ses dimensions par un même rapport $k$ (agrandissement si $k > 1$, réduction si $k < 1$), son volume est multiplié par $k^3$, et non par $k$. Ce résultat vient du fait que le volume dépend de trois dimensions multipliées entre elles : chacune d'elles étant multipliée par $k$, le volume l'est par $k \\times k \\times k$.",
+        "college": "Si on multiplie toutes les longueurs d'un solide par un nombre $k$, alors son volume est multiplié par $k^3$ (et non par $k$)."
+      },
+      "intuition": "Ne multiplie jamais le volume directement par le rapport $k$ : le volume est toujours multiplié par $k^3$, car les trois dimensions (longueur, largeur, hauteur) sont chacune multipliées par $k$. Pour retrouver le rapport $k$ à partir d'un rapport de volumes, il faut faire l'opération inverse : chercher le nombre $k$ tel que $k^3$ soit égal à ce rapport.",
+      "reglesImportantes": [
+        "Divise chaque dimension par 2, puis calcule le nouveau volume directement et par le facteur $k^3$.",
+        "Convertis d'abord le volume en cm³, puis applique le facteur $\\left(\\frac{1}{20}\\right)^3$.",
+        "Applique le facteur $\\left(\\frac{1}{10}\\right)^3$ au volume réel, puis convertis en cm³.",
+        "Utilise la formule du volume de la sphère pour le grand ballon, puis applique $k^3$.",
+        "Trouve d'abord la hauteur du petit réservoir avec la formule du volume du cylindre."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Effet d'un agrandissement ou d'une réduction sur les volumes",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les nouvelles dimensions sont $4\\div 2=2$ cm, $3\\div 2=1,5$ cm et $2\\div 2=1$ cm."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : le nouveau volume est $2 \\times 1,5 \\times 1 = 3$ cm³."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : le volume initial était $4\\times 3\\times 2=24$ cm³ ; on vérifie que $24 \\times \\left(\\frac{1}{2}\\right)^3 = 24 \\div 8 = 3$ cm³."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1920",
+          "titre": "Exemple 1",
+          "enonce": "Un cube d'arête 3 cm subit un agrandissement de rapport 2. Quelle est l'arête du nouveau cube, et par combien son volume est-il multiplié ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la nouvelle arête est $3 \\times 2 = 6$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le volume est multiplié par $2^3 = 8$."
+            }
+          ],
+          "reponse": "La nouvelle arête est 6 cm et le volume est multiplié par 8.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : La nouvelle arête est 6 cm et le volume est multiplié par 8.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1926",
+          "titre": "Exemple 2",
+          "enonce": "Une réduction transforme un volume de 512 cm³ en un volume de 64 cm³. Déterminer le rapport de réduction $k$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le rapport des volumes est $\\frac{64}{512} = \\frac{1}{8}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $k^3 = \\frac{1}{8}$, on trouve $k = \\frac{1}{2}$."
+            }
+          ],
+          "reponse": "$k = \\frac{1}{2}$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $k = \\frac{1}{2}$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1932",
+          "titre": "Exemple 3",
+          "enonce": "Une maquette de bâtiment est réalisée à l'échelle $\\frac{1}{50}$. Le volume réel du bâtiment est de 4 000 000 cm³. Calculer le volume de la maquette.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le facteur multiplicatif du volume est $\\left(\\frac{1}{50}\\right)^3 = \\frac{1}{125\\,000}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le volume de la maquette est $4\\,000\\,000 \\div 125\\,000 = 32$ cm³."
+            }
+          ],
+          "reponse": "32 cm³.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 32 cm³.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1938",
+          "titre": "Exemple 4",
+          "enonce": "Un cube voit son arête multipliée par 1,5. Calculer le facteur multiplicatif exact de son volume.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $1,5^3 = 1,5 \\times 1,5 \\times 1,5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on trouve $1,5^3 = 3,375$."
+            }
+          ],
+          "reponse": "3,375.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 3,375.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Multiplier le volume directement par le rapport $k$ au lieu de le multiplier par $k^3$.",
+        "Pour retrouver le rapport $k$ à partir d'un rapport de volumes, diviser le rapport de volumes par 3 au lieu de calculer sa racine cubique.",
+        "Oublier de convertir les unités (cm³ et L, par exemple) avant d'appliquer le facteur $k^3$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Multiplier le volume directement par le rapport $k$ au lieu de le multiplier par $k^3$.",
+          "pourquoi": "On applique le même raisonnement que pour les longueurs, en oubliant que le volume dépend de trois dimensions multipliées entre elles.",
+          "comment_detecter": "Le volume trouvé est beaucoup plus petit que le volume réel attendu (car $k$ est bien plus petit que $k^3$ dès que $k>1$).",
+          "comment_eviter": "Toujours écrire le facteur complet $k^3 = k \\times k \\times k$ avant de l'appliquer au volume de départ."
+        },
+        {
+          "description": "Pour retrouver le rapport $k$ à partir d'un rapport de volumes, diviser le rapport de volumes par 3 au lieu de calculer sa racine cubique.",
+          "pourquoi": "On confond l'opération inverse d'une puissance 3 (la racine cubique) avec une simple division par 3.",
+          "comment_detecter": "En réappliquant le $k$ trouvé au cube, on ne retombe pas sur le rapport de volumes donné dans l'énoncé.",
+          "comment_eviter": "Chercher le nombre $k$ tel que $k^3$ soit égal au rapport de volumes, en testant ou en calculant la racine cubique, puis vérifier en recalculant $k^3$."
+        },
+        {
+          "description": "Oublier de convertir les unités (cm³ et L, par exemple) avant d'appliquer le facteur $k^3$.",
+          "pourquoi": "Le facteur $k^3$ ne fonctionne que si le volume de départ est exprimé dans l'unité cohérente avec le résultat attendu.",
+          "comment_detecter": "Le résultat final a un ordre de grandeur incohérent (beaucoup trop grand ou trop petit) par rapport à la situation décrite.",
+          "comment_eviter": "Convertir toutes les grandeurs dans la même unité avant d'appliquer le facteur $k^3$, puis reconvertir le résultat si nécessaire."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Divise chaque dimension par 2, puis calcule le nouveau volume directement et par le facteur $k^3$.",
+        "Convertis d'abord le volume en cm³, puis applique le facteur $\\left(\\frac{1}{20}\\right)^3$.",
+        "Applique le facteur $\\left(\\frac{1}{10}\\right)^3$ au volume réel, puis convertis en cm³.",
+        "Utilise la formule du volume de la sphère pour le grand ballon, puis applique $k^3$.",
+        "Trouve d'abord la hauteur du petit réservoir avec la formule du volume du cylindre.",
+        "Le rapport de réduction sur les volumes est $\\left(\\frac{1}{50}\\right)^3$."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        1921,
+        1922,
+        1923
+      ],
+      "topic_id": "effet-d-un-agrandissement-ou-d-une-reduction-sur-les-volumes",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Effet d'un agrandissement ou d'une réduction sur les volumes."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "effet",
+        "agrandissement",
+        "reduction",
+        "volumes"
+      ]
+    },
+    {
+      "id": "perspective-cavaliere-et-patrons-de-solides",
+      "title": "Perspective cavalière et patrons de solides",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre à représenter un solide de l'espace de deux façons : en perspective cavalière (un dessin en volume sur une feuille plate) et par son patron (les faces du solide, dépliées et posées à plat, qui permettent de le construire en carton).\n\nCette notion sert à visualiser un solide dans l'espace (identifier ses faces, arêtes et sommets) et à en fabriquer un patron, par exemple pour construire une boîte ou une pyramide.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Un patron, c'est comme un solide qu'on aurait déplié à plat : imagine une boîte en carton que tu ouvres et que tu aplatis complètement, tu obtiens toutes ses faces côte à côte. Pour reconstituer le solide, il suffit de replier le patron le long des arêtes. La perspective cavalière, elle, permet de dessiner ce même solide en relief sur une feuille, sans le déplier, en représentant les arêtes cachées en pointillés.",
+      "objectif": "À la fin de ce cours, tu sauras identifier les faces, arêtes et sommets d'un solide, construire ou compléter son patron, et calculer les longueurs nécessaires à ce patron (périmètres, apothèmes) à l'aide du théorème de Pythagore.",
+      "definition": "Le patron d'un solide est l'ensemble de ses faces, dépliées et posées à plat sans chevauchement, de telle sorte qu'en le repliant le long des arêtes on reconstitue exactement le solide de départ. La perspective cavalière est une méthode de représentation qui permet de dessiner un solide en volume sur une feuille plane, en montrant certaines faces en vraie grandeur et en traçant les arêtes cachées en pointillés.",
+      "definitions": {
+        "lycee": "Le patron d'un solide est l'ensemble de ses faces, dépliées et posées à plat sans chevauchement, de telle sorte qu'en le repliant le long des arêtes on reconstitue exactement le solide de départ. La perspective cavalière est une méthode de représentation qui permet de dessiner un solide en volume sur une feuille plane, en montrant certaines faces en vraie grandeur et en traçant les arêtes cachées en pointillés.",
+        "college": "Le patron d'un solide, c'est ses faces dessinées à plat, dans le bon agencement, pour qu'on puisse les découper et les replier afin de reconstruire le solide."
+      },
+      "intuition": "Pour ne pas te tromper dans un patron, repère d'abord les faces qui se répètent (les faces opposées d'un pavé droit sont identiques deux à deux) afin de ne pas les recompter ou les redessiner en trop. Pour les longueurs qui ne sont pas données directement (comme l'apothème d'une pyramide), pense à chercher un triangle rectangle caché dans le solide et à utiliser le théorème de Pythagore.",
+      "reglesImportantes": [
+        "Utilise le théorème de Pythagore dans le triangle rectangle formé par le rayon, la hauteur et la génératrice.",
+        "Calcule le périmètre de chaque type de rectangle, puis multiplie par 2 car chaque type apparaît deux fois.",
+        "Utilise le théorème de Pythagore avec la hauteur de la pyramide et la moitié du côté de la base.",
+        "L'apothème de la base est la moitié du côté ; utilise ensuite Pythagore pour l'apothème latéral.",
+        "La demi-diagonale de la base, la hauteur et l'arête latérale forment un triangle rectangle."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Perspective cavalière et patrons de solides",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le périmètre du rectangle 8x6 est $2\\times(8+6)=28$ cm, soit 56 cm pour les deux exemplaires."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : le périmètre du rectangle 8x3 est $2\\times(8+3)=22$ cm, soit 44 cm pour les deux exemplaires."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : le périmètre du rectangle 6x3 est $2\\times(6+3)=18$ cm, soit 36 cm pour les deux exemplaires."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : la somme totale est $56+44+36=136$ cm."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1860",
+          "titre": "Exemple 1",
+          "enonce": "Un pavé droit possède 6 faces. Combien a-t-il d'arêtes et combien de sommets ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : un pavé droit a 6 faces rectangulaires opposées deux à deux."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en comptant les arêtes qui séparent ces faces, on trouve 12 arêtes."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les sommets sont les points de rencontre de 3 arêtes : il y en a 8."
+            }
+          ],
+          "reponse": "12 arêtes et 8 sommets.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 12 arêtes et 8 sommets.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1866",
+          "titre": "Exemple 2",
+          "enonce": "On veut construire le patron d'un pavé droit de dimensions 6 cm, 4 cm et 3 cm. Combien de rectangles de dimensions différentes faut-il tracer, et quelles sont ces dimensions ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les faces opposées d'un pavé droit sont superposables, donc il n'y a que 3 formes distinctes."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : ces trois rectangles associent les dimensions deux par deux : 6x4, 6x3 et 4x3, chacun apparaissant deux fois dans le patron."
+            }
+          ],
+          "reponse": "3 rectangles différents, chacun en double : 6 cm x 4 cm, 6 cm x 3 cm et 4 cm x 3 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 3 rectangles différents, chacun en double : 6 cm x 4 cm, 6 cm x 3 cm et 4 cm x 3 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1872",
+          "titre": "Exemple 3",
+          "enonce": "Calculer la longueur totale des arêtes d'un pavé droit de dimensions 9 cm, 5 cm et 4 cm.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : il y a 4 arêtes de longueur 9 cm, 4 de longueur 5 cm et 4 de longueur 4 cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la somme des trois dimensions est $9 + 5 + 4 = 18$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la longueur totale des arêtes est $4 \\times 18 = 72$ cm."
+            }
+          ],
+          "reponse": "72 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 72 cm.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1878",
+          "titre": "Exemple 4",
+          "enonce": "On veut construire le patron d'une pyramide régulière à base carrée de côté 6 cm et de hauteur 4 cm. Calculer l'apothème latéral (la hauteur d'une face triangulaire) nécessaire pour tracer ce patron.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la moitié du côté de la base vaut $6 \\div 2 = 3$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'apothème latéral $a$ vérifie $a^2 = 4^2 + 3^2 = 16 + 9 = 25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on trouve $a = \\sqrt{25} = 5$ cm."
+            }
+          ],
+          "reponse": "L'apothème latéral mesure 5 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'apothème latéral mesure 5 cm.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Compter deux fois la même arête ou le même sommet en les comptant sur chaque face au lieu de compter une seule fois les éléments communs à plusieurs faces.",
+        "Oublier qu'un pavé droit n'a que 3 formes de faces distinctes (et non 6), car les faces opposées sont identiques deux à deux.",
+        "Calculer l'apothème latéral d'une pyramide avec la moitié de l'arête de base au lieu de la moitié du côté de la base."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Compter deux fois la même arête ou le même sommet en les comptant sur chaque face au lieu de compter une seule fois les éléments communs à plusieurs faces.",
+          "pourquoi": "Chaque arête est partagée par deux faces et chaque sommet par plusieurs arêtes, donc un comptage face par face répète les mêmes éléments.",
+          "comment_detecter": "Le nombre d'arêtes ou de sommets trouvé est plus grand que les valeurs habituelles connues pour ce type de solide.",
+          "comment_eviter": "Compter les arêtes et les sommets directement sur le solide en volume (ou sur un schéma), en cochant chaque élément une seule fois."
+        },
+        {
+          "description": "Oublier qu'un pavé droit n'a que 3 formes de faces distinctes (et non 6), car les faces opposées sont identiques deux à deux.",
+          "pourquoi": "Un pavé droit a bien 6 faces, mais elles sont regroupées par paires de faces superposables, ce qu'on oublie facilement en listant les faces une par une.",
+          "comment_detecter": "Le patron dessiné comporte 6 rectangles de tailles toutes différentes au lieu de 3 formes répétées chacune deux fois.",
+          "comment_eviter": "Associer les dimensions du pavé deux par deux (longueur-largeur, longueur-hauteur, largeur-hauteur) pour retrouver les 3 formes de faces, chacune en double."
+        },
+        {
+          "description": "Calculer l'apothème latéral d'une pyramide avec la moitié de l'arête de base au lieu de la moitié du côté de la base.",
+          "pourquoi": "Dans une pyramide à base carrée, l'arête de base et le côté de la base ont la même longueur, ce qui peut faire confondre les deux dans un triangle rectangle où l'un des deux n'est pas le bon repère.",
+          "comment_detecter": "Le triangle rectangle utilisé pour Pythagore ne correspond pas à la position réelle de l'apothème sur le patron.",
+          "comment_eviter": "Dessiner le triangle rectangle formé par la hauteur de la pyramide, la moitié du côté de la base, et l'apothème latéral, avant d'appliquer Pythagore."
+        }
+      ],
+      "astuce": "Pense à une boîte rectangulaire : compte les côtés de chaque face sans recompter deux fois les côtés communs.",
+      "aRetenir": [
+        "Utilise le théorème de Pythagore dans le triangle rectangle formé par le rayon, la hauteur et la génératrice.",
+        "Calcule le périmètre de chaque type de rectangle, puis multiplie par 2 car chaque type apparaît deux fois.",
+        "Utilise le théorème de Pythagore avec la hauteur de la pyramide et la moitié du côté de la base.",
+        "L'apothème de la base est la moitié du côté ; utilise ensuite Pythagore pour l'apothème latéral.",
+        "La demi-diagonale de la base, la hauteur et l'arête latérale forment un triangle rectangle.",
+        "Chaque côté de la base carrée donne naissance à une face triangulaire reliée au sommet S."
+      ],
+      "figure": {
+        "kind": "solid",
+        "shape": "pave",
+        "alt": "Représentation en perspective cavalière d'un pavé droit : les faces avant et arrière, rectangulaires et identiques, sont reliées par des arêtes fuyantes qui suggèrent le volume en trois dimensions."
+      },
+      "quizExerciseIds": [
+        1861,
+        1862,
+        1863
+      ],
+      "topic_id": "perspective-cavaliere-et-patrons-de-solides",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Perspective cavalière et patrons de solides."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "perspective",
+        "cavaliere",
+        "patrons",
+        "solides"
+      ]
+    },
+    {
+      "id": "reperage-dans-l-espace-et-sur-une-sphere",
+      "title": "Repérage dans l'espace et sur une sphère",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre à repérer un point dans l'espace à l'aide de trois coordonnées, en plaçant un pavé droit dans un repère dont l'origine est l'un de ses sommets et dont les axes suivent trois arêtes qui partent de ce sommet.\n\nCette notion sert à donner la position exacte d'un point dans l'espace (par exemple un sommet d'un solide) et à calculer une distance entre deux points de l'espace grâce au théorème de Pythagore généralisé à trois dimensions.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Sur un plan, deux nombres (l'abscisse et l'ordonnée) suffisent pour repérer un point. Dans l'espace, il en faut trois : un troisième nombre indique la hauteur. Pour un pavé droit posé à l'origine du repère, avec ses trois arêtes issues de ce sommet le long des axes, chaque sommet du pavé se repère facilement : ses coordonnées sont 0 ou la longueur de l'arête correspondante. Pour calculer la distance entre deux points de l'espace, on fait comme pour Pythagore, mais avec trois différences de coordonnées au lieu de deux.",
+      "objectif": "À la fin de ce cours, tu sauras donner les coordonnées des sommets d'un pavé droit placé dans un repère de l'espace, et calculer la distance entre deux points de l'espace à partir de leurs coordonnées.",
+      "definition": "Dans l'espace, un point est repéré par trois coordonnées $(x ; y ; z)$, correspondant chacune à une position le long de l'un des trois axes du repère. Pour un pavé droit placé avec un sommet à l'origine et ses arêtes portées par les axes, les coordonnées de chaque sommet correspondent aux dimensions du pavé atteintes ou non le long de chaque axe. La distance entre deux points $A(x_A ; y_A ; z_A)$ et $B(x_B ; y_B ; z_B)$ se calcule en généralisant le théorème de Pythagore à trois dimensions : $AB = \\sqrt{(x_B-x_A)^2 + (y_B-y_A)^2 + (z_B-z_A)^2}$.",
+      "definitions": {
+        "lycee": "Dans l'espace, un point est repéré par trois coordonnées $(x ; y ; z)$, correspondant chacune à une position le long de l'un des trois axes du repère. Pour un pavé droit placé avec un sommet à l'origine et ses arêtes portées par les axes, les coordonnées de chaque sommet correspondent aux dimensions du pavé atteintes ou non le long de chaque axe. La distance entre deux points $A(x_A ; y_A ; z_A)$ et $B(x_B ; y_B ; z_B)$ se calcule en généralisant le théorème de Pythagore à trois dimensions : $AB = \\sqrt{(x_B-x_A)^2 + (y_B-y_A)^2 + (z_B-z_A)^2}$.",
+        "college": "Dans l'espace, un point se repère avec trois nombres au lieu de deux : une abscisse, une ordonnée, et une altitude, chacune mesurée le long d'un des trois axes du repère."
+      },
+      "intuition": "Pour ne pas te tromper sur les coordonnées d'un sommet d'un pavé droit, repère d'abord sur quelle(s) arête(s) issue(s) de l'origine il se trouve : une coordonnée est nulle si le sommet est dans le plan de base correspondant. Pour une distance dans l'espace, n'oublie aucune des trois différences de coordonnées : la formule est celle de Pythagore, mais avec un terme de plus qu'en géométrie plane.",
+      "reglesImportantes": [
+        "Comme la troisième coordonnée est nulle, M est dans le plan de base : utilise Pythagore avec les deux premières coordonnées.",
+        "Chaque sommet a une seule coordonnée non nulle, correspondant à l'arête sur laquelle il se trouve.",
+        "Dans l'espace, un point est repéré par trois nombres correspondant aux trois directions du repère.",
+        "La latitude indique l'hémisphère Nord/Sud, la longitude indique Est/Ouest par rapport à Greenwich.",
+        "Calcule d'abord les différences de chaque coordonnée, puis applique Pythagore en trois dimensions."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Repérage dans l'espace et sur une sphère",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'origine est le sommet (0;0;0)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : les trois sommets voisins de l'origine sont (10;0;0), (0;10;0) et (0;0;10)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : les trois sommets suivants combinent deux coordonnées à 10 : (10;10;0), (10;0;10) et (0;10;10)."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : le sommet opposé à l'origine a toutes ses coordonnées à 10 : (10;10;10)."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1950",
+          "titre": "Exemple 1",
+          "enonce": "Dans un pavé droit ABCDEFGH muni d'un repère de l'espace, le sommet A est à l'origine (0;0;0) et les arêtes AB, AD, AE sont portées par les axes. On a AB = 5 cm, AD = 3 cm et AE = 4 cm. Donner les coordonnées des sommets B, D et E.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : b est sur l'axe des abscisses à distance 5 de A, donc B(5;0;0)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d est sur l'axe des ordonnées à distance 3 de A, donc D(0;3;0)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : e est sur l'axe des altitudes à distance 4 de A, donc E(0;0;4)."
+            }
+          ],
+          "reponse": "B(5;0;0), D(0;3;0), E(0;0;4).",
+          "conclusion": "Nous avons ainsi obtenu le résultat : B(5;0;0), D(0;3;0), E(0;0;4).",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1956",
+          "titre": "Exemple 2",
+          "enonce": "Dans un pavé droit de dimensions 8 cm, 6 cm et 5 cm muni d'un repère (origine au sommet A, arêtes portées par les axes), donner les coordonnées du sommet G, opposé à A.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le sommet opposé à A se trouve à la plus grande distance dans les trois directions."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : ses coordonnées sont donc (8;6;5), correspondant aux trois dimensions du pavé."
+            }
+          ],
+          "reponse": "G(8;6;5).",
+          "conclusion": "Nous avons ainsi obtenu le résultat : G(8;6;5).",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1962",
+          "titre": "Exemple 3",
+          "enonce": "Dans un repère de l'espace, un point M a pour coordonnées (6;8;0). Calculer la distance OM (O étant l'origine) à l'aide du théorème de Pythagore.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $OM^2 = 6^2 + 8^2 = 36 + 64 = 100$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $OM = \\sqrt{100} = 10$."
+            }
+          ],
+          "reponse": "OM = 10.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : OM = 10.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1968",
+          "titre": "Exemple 4",
+          "enonce": "Dans un repère de l'espace, calculer la distance entre les points A(1;2;2) et B(4;6;14).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les différences de coordonnées sont $4-1=3$, $6-2=4$ et $14-2=12$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $AB^2 = 3^2 + 4^2 + 12^2 = 9 + 16 + 144 = 169$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $AB = \\sqrt{169} = 13$."
+            }
+          ],
+          "reponse": "AB = 13.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : AB = 13.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "calculer le volume d'un emballage ou d'un réservoir",
+        "calculer la quantité de peinture nécessaire pour une surface",
+        "estimer la quantité d'eau que peut contenir une piscine"
+      ],
+      "erreursFrequentes": [
+        "Se tromper dans l'ordre ou le nombre des coordonnées d'un sommet du pavé droit en oubliant sur quel axe il se trouve.",
+        "Dans le calcul d'une distance dans l'espace, oublier l'une des trois différences de coordonnées (ne garder que deux termes sous la racine, comme en géométrie plane).",
+        "Confondre la différence de coordonnées $x_B - x_A$ avec la coordonnée elle-même, en oubliant de soustraire les deux valeurs avant de mettre au carré."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Se tromper dans l'ordre ou le nombre des coordonnées d'un sommet du pavé droit en oubliant sur quel axe il se trouve.",
+          "pourquoi": "Chaque sommet du pavé n'est pas forcément situé sur un seul axe : certains sommets combinent deux ou trois dimensions non nulles, ce qui peut faire hésiter sur les coordonnées à écrire.",
+          "comment_detecter": "Les coordonnées données ne correspondent pas aux dimensions réelles du pavé le long de chaque axe.",
+          "comment_eviter": "Repérer d'abord, pour chaque sommet, sur quelles arêtes issues de l'origine il se trouve, puis écrire une coordonnée non nulle uniquement pour les directions concernées."
+        },
+        {
+          "description": "Dans le calcul d'une distance dans l'espace, oublier l'une des trois différences de coordonnées (ne garder que deux termes sous la racine, comme en géométrie plane).",
+          "pourquoi": "L'habitude du théorème de Pythagore en géométrie plane, avec seulement deux coordonnées, pousse à oublier la troisième dimension propre à l'espace.",
+          "comment_detecter": "La formule utilisée ne contient que deux termes au carré sous la racine, alors que le point a bien trois coordonnées.",
+          "comment_eviter": "Écrire systématiquement les trois différences de coordonnées $(x_B-x_A)$, $(y_B-y_A)$ et $(z_B-z_A)$ avant de les mettre au carré et de les additionner."
+        },
+        {
+          "description": "Confondre la différence de coordonnées $x_B - x_A$ avec la coordonnée elle-même, en oubliant de soustraire les deux valeurs avant de mettre au carré.",
+          "pourquoi": "Quand l'un des deux points est proche de l'origine, on peut être tenté de n'utiliser que la coordonnée du second point.",
+          "comment_detecter": "Le résultat obtenu correspond à la distance entre l'origine et l'un des deux points, pas à la distance entre les deux points donnés.",
+          "comment_eviter": "Toujours calculer la différence entre les deux coordonnées correspondantes ($x_B - x_A$, etc.) avant de l'élever au carré, même quand l'un des points est proche de zéro."
+        }
+      ],
+      "astuce": "Pour ne pas confondre aire et volume, retiens que l'aire se mesure en cm² (une surface plate), le volume en cm³ (un espace en trois dimensions).",
+      "aRetenir": [
+        "Comme la troisième coordonnée est nulle, M est dans le plan de base : utilise Pythagore avec les deux premières coordonnées.",
+        "Chaque sommet a une seule coordonnée non nulle, correspondant à l'arête sur laquelle il se trouve.",
+        "Dans l'espace, un point est repéré par trois nombres correspondant aux trois directions du repère.",
+        "La latitude indique l'hémisphère Nord/Sud, la longitude indique Est/Ouest par rapport à Greenwich.",
+        "Calcule d'abord les différences de chaque coordonnée, puis applique Pythagore en trois dimensions.",
+        "La distance au pôle est la différence à 90°, la distance à l'équateur est la latitude elle-même."
+      ],
+      "figure": {
+        "kind": "solid",
+        "shape": "sphere"
+      },
+      "quizExerciseIds": [
+        1951,
+        1952,
+        1953
+      ],
+      "topic_id": "reperage-dans-l-espace-et-sur-une-sphere",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Repérage dans l'espace et sur une sphère."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "reperage",
+        "espace",
+        "sphere"
+      ]
+    },
+    {
+      "id": "sections-planes-de-solides",
+      "title": "Sections planes de solides",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre ce qu'est la section d'un solide par un plan : la figure plane que l'on obtient en \"coupant\" un solide (pavé droit, sphère...) avec un plan, comme lorsqu'on tranche un objet en deux.\n\nCette notion sert à déterminer la forme et les dimensions de la surface de coupe obtenue, selon la position du plan de coupe par rapport au solide.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu coupes un objet avec un couteau bien à plat : la trace laissée par la coupe, c'est la section. Si tu coupes un pavé droit parallèlement à une de ses faces, tu obtiens un rectangle identique à cette face. Si tu coupes une sphère (comme une balle) avec un plan, tu obtiens toujours un cercle, sauf si le plan touche juste la sphère en un point (le cercle devient alors un simple point).",
+      "objectif": "À la fin de ce cours, tu sauras déterminer la forme d'une section plane d'un pavé droit ou d'une sphère, et calculer ses dimensions (longueurs, rayon) à l'aide du théorème de Pythagore lorsque c'est nécessaire.",
+      "definition": "Une section plane d'un solide est la figure plane obtenue en coupant ce solide par un plan. Sa forme dépend de la position du plan par rapport au solide : un plan parallèle à une face d'un pavé droit donne un rectangle identique à cette face ; un plan qui coupe une sphère donne un cercle, dont le rayon $r$ vérifie $r^2 = R^2 - d^2$ (où $R$ est le rayon de la sphère et $d$ la distance du centre au plan), sauf lorsque le plan est tangent à la sphère : la section se réduit alors à un unique point.",
+      "definitions": {
+        "lycee": "Une section plane d'un solide est la figure plane obtenue en coupant ce solide par un plan. Sa forme dépend de la position du plan par rapport au solide : un plan parallèle à une face d'un pavé droit donne un rectangle identique à cette face ; un plan qui coupe une sphère donne un cercle, dont le rayon $r$ vérifie $r^2 = R^2 - d^2$ (où $R$ est le rayon de la sphère et $d$ la distance du centre au plan), sauf lorsque le plan est tangent à la sphère : la section se réduit alors à un unique point.",
+        "college": "La section d'un solide par un plan, c'est la forme qu'on obtient en le coupant avec ce plan : un rectangle pour un pavé droit coupé parallèlement à une face, un cercle pour une sphère."
+      },
+      "intuition": "Avant de calculer, identifie toujours la forme de la section en imaginant concrètement la coupe : parallèle à une face d'un pavé droit, elle reproduit cette face à l'identique ; sur une sphère, elle donne toujours un cercle (sauf le cas particulier du plan tangent, où le cercle se réduit à un point). Pour une sphère, pense au triangle rectangle formé par le rayon de la sphère, la distance du centre au plan, et le rayon du cercle de section, pour appliquer Pythagore correctement.",
+      "reglesImportantes": [
+        "Trouve d'abord le côté de la base à partir du volume, puis utilise le rapport des distances au sommet.",
+        "Un plan passant par l'axe coupe le cylindre selon un rectangle dont une dimension est le diamètre.",
+        "Applique Pythagore : rayon de la sphère au carré = distance au carré + rayon de section au carré.",
+        "La section d'un cône par un plan parallèle à la base reproduit la forme circulaire, réduite.",
+        "Calcule d'abord le rapport de réduction entre le côté de la section et le côté de la base."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Sections planes de solides",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le rapport de réduction est $\\frac{5}{10} = \\frac{1}{2}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : la distance au sommet est $18 \\times \\frac{1}{2} = 9$ cm."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : la distance à la base est $18 - 9 = 9$ cm."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1980",
+          "titre": "Exemple 1",
+          "enonce": "On coupe un pavé droit par un plan parallèle à une de ses faces. Quelle est la forme de la section obtenue ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : un plan parallèle à une face d'un pavé droit coupe les autres faces perpendiculairement."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la section obtenue est donc un rectangle de mêmes dimensions que la face considérée."
+            }
+          ],
+          "reponse": "Un rectangle identique à la face à laquelle le plan est parallèle.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Un rectangle identique à la face à laquelle le plan est parallèle.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1986",
+          "titre": "Exemple 2",
+          "enonce": "Un pavé droit de dimensions 10 cm, 6 cm et 4 cm est coupé par un plan parallèle à la face de dimensions 6 cm x 4 cm. Quelles sont les dimensions de la section ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le plan étant parallèle à la face de 6 cm x 4 cm, la section obtenue reproduit exactement cette face."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la section mesure donc 6 cm sur 4 cm."
+            }
+          ],
+          "reponse": "6 cm x 4 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 6 cm x 4 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1992",
+          "titre": "Exemple 3",
+          "enonce": "Une sphère de rayon 10 cm est coupée par un plan situé à 6 cm du centre. Calculer le rayon du cercle de section obtenu.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le rayon $r$ de la section vérifie $r^2 = 10^2 - 6^2 = 100 - 36 = 64$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on trouve $r = \\sqrt{64} = 8$ cm."
+            }
+          ],
+          "reponse": "8 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 8 cm.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1998",
+          "titre": "Exemple 4",
+          "enonce": "Une sphère de rayon 20 cm est coupée par un plan tangent à la sphère. Que peut-on dire de la section obtenue ? Justifier à l'aide de la distance du centre au plan.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : un plan tangent touche la sphère en un seul point."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la distance du centre à ce plan est alors exactement égale au rayon de la sphère, ce qui donne un cercle de rayon nul, c'est-à-dire un point."
+            }
+          ],
+          "reponse": "La section se réduit à un point unique, car la distance du centre au plan est égale au rayon.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : La section se réduit à un point unique, car la distance du centre au plan est égale au rayon.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Penser que la section d'une sphère par un plan est toujours un cercle de même rayon que la sphère, quelle que soit la position du plan.",
+        "Dans la formule $r^2 = R^2 - d^2$, confondre le rayon de la sphère $R$ avec le rayon de la section $r$ ou avec la distance $d$.",
+        "Pour la section d'un pavé droit, se tromper de face de référence et donner les dimensions d'une face non parallèle au plan de coupe."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Penser que la section d'une sphère par un plan est toujours un cercle de même rayon que la sphère, quelle que soit la position du plan.",
+          "pourquoi": "On retient que la section d'une sphère est un cercle, mais on oublie que la taille de ce cercle dépend de la distance entre le centre et le plan de coupe.",
+          "comment_detecter": "Le rayon de section donné est égal au rayon de la sphère alors que le plan ne passe pas par le centre.",
+          "comment_eviter": "Toujours utiliser la relation $r^2 = R^2 - d^2$ pour calculer le rayon réel de la section, sauf si le plan passe exactement par le centre (auquel cas $d = 0$ et $r = R$)."
+        },
+        {
+          "description": "Dans la formule $r^2 = R^2 - d^2$, confondre le rayon de la sphère $R$ avec le rayon de la section $r$ ou avec la distance $d$.",
+          "pourquoi": "Les trois grandeurs ($R$, $r$, $d$) interviennent toutes dans la même formule et portent des noms proches, ce qui prête à confusion.",
+          "comment_detecter": "Le résultat obtenu est négatif sous la racine carrée, ou incohérent (le rayon de section est plus grand que le rayon de la sphère).",
+          "comment_eviter": "Identifier clairement au départ quelle est la grandeur connue (rayon de la sphère, distance au plan) et quelle est l'inconnue (rayon de la section), en s'appuyant sur le triangle rectangle formé par ces trois longueurs."
+        },
+        {
+          "description": "Pour la section d'un pavé droit, se tromper de face de référence et donner les dimensions d'une face non parallèle au plan de coupe.",
+          "pourquoi": "Un pavé droit a trois formes de faces différentes, et il est facile d'associer le plan de coupe à la mauvaise paire de dimensions.",
+          "comment_detecter": "Les dimensions données pour la section ne correspondent pas à la face à laquelle l'énoncé précise que le plan est parallèle.",
+          "comment_eviter": "Relire l'énoncé pour identifier précisément à quelle face le plan de coupe est parallèle, puis reprendre exactement les deux dimensions de cette face."
+        }
+      ],
+      "astuce": "Pense à une tranche verticale d'un cube.",
+      "aRetenir": [
+        "Trouve d'abord le côté de la base à partir du volume, puis utilise le rapport des distances au sommet.",
+        "Un plan passant par l'axe coupe le cylindre selon un rectangle dont une dimension est le diamètre.",
+        "Applique Pythagore : rayon de la sphère au carré = distance au carré + rayon de section au carré.",
+        "La section d'un cône par un plan parallèle à la base reproduit la forme circulaire, réduite.",
+        "Calcule d'abord le rapport de réduction entre le côté de la section et le côté de la base.",
+        "Identifie d'abord le rayon du cercle à partir de son aire exacte, puis applique Pythagore."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -11,
+          -11,
+          22,
+          20
+        ],
+        "grid": false,
+        "axes": false,
+        "circles": [
+          {
+            "center": "O",
+            "radius": 10
+          }
+        ],
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O",
+            "tooltip": "Centre de la sphère"
+          },
+          {
+            "x": 0,
+            "y": -6,
+            "label": "C",
+            "tooltip": "Centre de la section plane"
+          },
+          {
+            "x": 8,
+            "y": -6,
+            "label": "P",
+            "tooltip": "Point du cercle de section"
+          },
+          {
+            "x": -8,
+            "y": -6,
+            "label": "Q",
+            "tooltip": "Point du cercle de section"
+          }
+        ],
+        "segments": [
+          {
+            "from": "O",
+            "to": "C",
+            "tooltip": "d = 6 cm : distance du centre au plan"
+          },
+          {
+            "from": "O",
+            "to": "P",
+            "dashed": true,
+            "tooltip": "R = 10 cm : rayon de la sphère"
+          },
+          {
+            "from": "P",
+            "to": "Q",
+            "variant": "hypotenuse",
+            "tooltip": "Section plane de la sphère (rayon r = 8 cm)"
+          }
+        ],
+        "texts": [
+          {
+            "x": -2.4,
+            "y": -3,
+            "label": "d = 6"
+          },
+          {
+            "x": 3.6,
+            "y": -7.4,
+            "label": "r = 8"
+          },
+          {
+            "x": 5.4,
+            "y": -2.6,
+            "label": "R = 10"
+          }
+        ],
+        "relation": "$r^2 = R^2 - d^2 = 10^2 - 6^2 = 64 \\Rightarrow r = 8$ cm",
+        "alt": "Une sphère de centre O et de rayon R = 10 cm est coupée par un plan situé à d = 6 cm du centre. Le triangle rectangle OCP (C centre de la section, P sur le cercle de section) donne r² = R² − d² = 100 − 36 = 64, soit un rayon de section r = 8 cm ; PQ représente le diamètre de la section obtenue."
+      },
+      "quizExerciseIds": [
+        1981,
+        1982,
+        1983
+      ],
+      "topic_id": "sections-planes-de-solides",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Sections planes de solides."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "sections",
+        "planes",
+        "solides"
+      ]
+    }
+  ]
+}

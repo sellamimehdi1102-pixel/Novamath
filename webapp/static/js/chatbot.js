@@ -8,6 +8,9 @@ import * as composer from "./chatbot-composer.js";
 import { openPromptPopup, openConfirmPopup } from "./popup.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
 import { featureLabel } from "./features.js";
+import { openReportTicketPopup } from "./supportTicket.js";
+import { ICONS } from "./icons.js";
+import { mountGuestLockOverlay } from "./guestLockOverlay.js";
 
 initSettingsManager().then(() => bindLiveTranslations());
 bindSettingsButton(document.getElementById("settings-btn"));
@@ -21,7 +24,6 @@ const sendBtn = $("chatbot-send-btn");
 const topbarTitle = $("chatbot-topbar-title");
 const quotaIndicator = $("chatbot-quota-indicator");
 const quotaValue = $("chatbot-quota-value");
-const contextContent = $("chatbot-context-content");
 const emptyGreeting = $("chatbot-empty-greeting");
 const liveSuggestions = $("chatbot-live-suggestions");
 const providerBanner = $("chatbot-provider-banner");
@@ -37,6 +39,7 @@ let activeMessages = [];
 let abortController = null;
 let isStreaming = false;
 let mentionsController = null;
+
 // Réglage "Streaming" (Paramètres → Chatbot) : jusqu'ici purement décoratif,
 // jamais lu côté frontend — désormais désactive réellement l'effet machine
 // à écrire (la réponse s'affiche d'un bloc dès qu'elle est complète).
@@ -98,6 +101,9 @@ window.addEventListener("resize", () => {
 // l'ancien prettify() post-traitement corrompait les blocs <code>). Si le
 // CDN marked venait à manquer, le texte est échappé (pas de risque d'injection
 // HTML) puis les retours à la ligne sont conservés comme <br>.
+// setRenderedHtmlContent neutralise le HTML dangereux (voir mathrender.js::
+// sanitizeChatHtml) avant de l'injecter dans le DOM — nécessaire ici car
+// marked ne le fait pas lui-même.
 function renderMessageBody(el, rawText) {
   const html = window.marked
     ? window.marked.parse(rawText || "")
@@ -270,6 +276,7 @@ function messageActionsHtml(msg) {
       <button data-action="dislike" title="Je n'aime pas" aria-label="Je n'aime pas cette réponse" aria-pressed="${msg.liked === 0}" class="${msg.liked === 0 ? "active" : ""}" ${dis}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(180deg)"><path d="M7 22V11l5-8 1 1v6h6l-2 12H7Z"/></svg></button>
       <button data-action="export-md" title="Exporter Markdown" aria-label="Exporter la réponse en Markdown" ${dis}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></svg></button>
       <button data-action="export-pdf" title="Exporter PDF" aria-label="Exporter la réponse en PDF" ${dis}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z"/><path d="M14 2v6h6"/></svg></button>
+      <button data-action="report" title="Signaler un problème" aria-label="Signaler un problème avec cette réponse" ${dis}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="3"/></svg></button>
     </div>`;
 }
 
@@ -329,18 +336,34 @@ function bindActionCards(row, cards) {
   });
 }
 
+// Deux structures DOM distinctes, pas une seule structure partagée
+// re-coloriée en CSS : le message utilisateur est un simple conteneur
+// `justify-content: flex-end` contenant SA bulle (aucun avatar dans le DOM,
+// jamais seulement masqué), le message assistant est un conteneur
+// `justify-content: flex-start` avec avatar + colonne (bulle, actions,
+// cartes). Chaque rôle a sa propre classe de bulle (`--user`/`--assistant`)
+// pour que la couleur/l'alignement ne dépendent d'aucun sélecteur composé
+// fragile (ex. un `flex-direction: row-reverse` combiné à un
+// `justify-content`, plus difficile à auditer qu'un `flex-end` direct).
 function appendMessageEl(msg) {
   const row = document.createElement("div");
-  row.className = `chatbot-msg ${msg.role}`;
   row.dataset.id = msg.id || "";
-  row.innerHTML = `
-    <div class="chatbot-msg-avatar">${msg.role === "user" ? "Toi" : "NM"}</div>
-    <div>
-      <div class="chatbot-msg-bubble"></div>
-      ${msg.role === "assistant" ? messageActionsHtml(msg) : ""}
-      ${msg.role === "assistant" ? actionCardsHtml(msg.cards) : ""}
-    </div>
-  `;
+
+  if (msg.role === "user") {
+    row.className = "chatbot-msg-row chatbot-msg-row--user";
+    row.innerHTML = `<div class="chatbot-msg-bubble chatbot-msg-bubble--user"></div>`;
+  } else {
+    row.className = "chatbot-msg-row chatbot-msg-row--assistant";
+    row.innerHTML = `
+      <div class="chatbot-msg-avatar" aria-hidden="true">NM</div>
+      <div class="chatbot-msg-col">
+        <div class="chatbot-msg-bubble chatbot-msg-bubble--assistant"></div>
+        ${messageActionsHtml(msg)}
+        ${actionCardsHtml(msg.cards)}
+      </div>
+    `;
+  }
+
   renderMessageBody(row.querySelector(".chatbot-msg-bubble"), msg.content);
   if (msg.role === "assistant") {
     bindMessageActions(row, msg);
@@ -394,6 +417,26 @@ function bindMessageActions(row, msg) {
     a.click();
   });
   row.querySelector('[data-action="export-pdf"]')?.addEventListener("click", () => window.print());
+  row.querySelector('[data-action="report"]')?.addEventListener("click", () => {
+    const index = activeMessages.indexOf(msg);
+    let userMessage = "";
+    for (let i = index - 1; i >= 0; i -= 1) {
+      if (activeMessages[i].role === "user") { userMessage = activeMessages[i].content || ""; break; }
+    }
+    // Provider/modèle ne sont jamais transmis au frontend par design — le
+    // contexte joint au ticket se limite donc à ce que ce module connaît
+    // réellement côté client.
+    openReportTicketPopup({
+      sourceLabel: "Chatbot",
+      defaultCategory: "ia",
+      contextLines: [
+        { label: "Conversation", value: activeConversationId },
+        { label: "Message utilisateur", value: userMessage },
+        { label: "Réponse IA", value: msg.content || "" },
+        { label: "Horodatage", value: new Date().toISOString() },
+      ],
+    });
+  });
 }
 
 // ── Streaming ────────────────────────────────────────────────────────────────
@@ -479,7 +522,11 @@ async function consumeStream(response, bubbleEl, onDone) {
       const line = part.replace(/^data: /, "").trim();
       if (!line) continue;
       let payload;
-      try { payload = JSON.parse(line); } catch { continue; }
+      try {
+        payload = JSON.parse(line);
+      } catch (parseErr) {
+        continue;
+      }
       if (payload.delta) {
         fullText += payload.delta;
         typewriter.push(payload.delta);
@@ -494,7 +541,7 @@ async function consumeStream(response, bubbleEl, onDone) {
         // serveur (vérifié avant tout appel LLM) — pas de refetch, qui le
         // ferait disparaître à tort.
         handleQuotaExceeded(payload);
-        const notice = "\n\n*Tu as atteint ta limite de messages IA aujourd'hui — redirection vers la page Abonnement…*";
+        const notice = "\n\n*Tu as atteint ta limite de messages aujourd'hui — redirection vers la page Abonnement…*";
         fullText += notice;
         typewriter.push(notice);
         typewriter.finish(() => {});
@@ -581,7 +628,7 @@ async function runAssistantTurn(convId, bubbleEl, startStream, onRetry) {
       // ici on finalise juste la bulle assistant avec un message explicite,
       // jamais l'erreur brute, jamais l'état "Réessayer" (retenter ne
       // débloquerait rien avant demain ou une mise à niveau).
-      renderMessageBody(bubbleEl, "*Tu as atteint ta limite de messages IA aujourd'hui — redirection vers la page Abonnement…*");
+      renderMessageBody(bubbleEl, "*Tu as atteint ta limite de messages aujourd'hui — redirection vers la page Abonnement…*");
       return;
     }
     let lastIsUser = true;
@@ -589,11 +636,14 @@ async function runAssistantTurn(convId, bubbleEl, startStream, onRetry) {
       const { messages } = await api.chatbotMessages(convId);
       activeMessages = messages;
       lastIsUser = !messages.length || messages[messages.length - 1].role === "user";
-    } catch {
+    } catch (getErr) {
       /* même le rechargement échoue (réseau totalement coupé) : on suppose
          le pire et on propose quand même un réessai plutôt qu'un blocage. */
     }
     if (lastIsUser) {
+      // Point d'entrée unique de renderErrorRetryState (voir le graphe
+      // d'appel en tête de fichier) : c'est ICI, et seulement ici, que
+      // l'élève voit "La réponse n'a pas pu être générée."
       renderErrorRetryState(bubbleEl, onRetry);
     } else {
       // Une réponse (au moins partielle) a été persistée avant la coupure :
@@ -817,10 +867,10 @@ $("chatbot-attach-exercise").addEventListener("click", () => {
   insertIntoInput("Voici l'exercice sur lequel je bloque :\n");
 });
 
-// ── Santé du fournisseur IA (Claude/Anthropic par défaut) ───────────────────
-async function checkProviderHealth(providerOverride) {
+// ── Santé du fournisseur IA (décidé en interne, jamais exposé côté client) ──
+async function checkProviderHealth() {
   try {
-    const health = await api.chatbotHealth(providerOverride);
+    const health = await api.chatbotHealth();
     if (health.ok) {
       providerBanner.hidden = true;
     } else {
@@ -831,11 +881,10 @@ async function checkProviderHealth(providerOverride) {
     /* silencieux : ne bloque jamais le reste de la page */
   }
 }
-window.checkChatbotProviderHealth = checkProviderHealth;
 $("chatbot-provider-retry").addEventListener("click", checkProviderHealth);
 $("chatbot-provider-dismiss").addEventListener("click", () => { providerBanner.hidden = true; });
 
-// ── Quota + panneau contextuel ───────────────────────────────────────────────
+// ── Quota ────────────────────────────────────────────────────────────────────
 // Source unique : GET /api/quota (quota_service.py) — appelé au chargement de
 // la page et après chaque réponse (voir runAssistantTurn), jamais recalculé
 // côté client (le serveur reste la seule source de vérité de l'usage réel).
@@ -852,22 +901,52 @@ async function refreshQuota() {
   } catch { /* silencieux : l'indicateur reste dans son dernier état connu */ }
 }
 
-async function loadContextPanel() {
-  try {
-    const summary = await api.chatbotContextPreview(getStoredClassLevel());
-    const goals = summary.daily_goals;
-    contextContent.innerHTML = `
-      <div class="chatbot-context-item"><span class="label">Niveau</span><span class="value">${summary.level_label}</span></div>
-      ${summary.accuracy_pct !== null ? `<div class="chatbot-context-item"><span class="label">Précision</span><span class="value">${summary.accuracy_pct}%</span></div>` : ""}
-      <div class="chatbot-context-item"><span class="label">Exercices faits</span><span class="value">${summary.total_exercises}</span></div>
-      ${goals ? `<div class="chatbot-context-item"><span class="label">Objectif du jour</span><span class="value">${goals.done_exercises}/${goals.target_exercises}${goals.reached ? " ✓" : ""}</span></div>` : ""}
-      ${goals && goals.streak_days ? `<div class="chatbot-context-item"><span class="label">Série en cours</span><span class="value">${goals.streak_days} j</span></div>` : ""}
-      ${summary.weak_notions.length ? `<div class="chatbot-context-group"><span class="chatbot-context-group-label">Notions à renforcer</span><div class="chatbot-context-tags chatbot-context-tags--weak">${summary.weak_notions.map((n) => `<span class="chatbot-context-tag">${escapeHtml(n)}</span>`).join("")}</div></div>` : ""}
-      ${summary.mastered_notions.length ? `<div class="chatbot-context-group"><span class="chatbot-context-group-label">Notions maîtrisées</span><div class="chatbot-context-tags chatbot-context-tags--mastered">${summary.mastered_notions.map((n) => `<span class="chatbot-context-tag">${escapeHtml(n)}</span>`).join("")}</div></div>` : ""}
-    `;
-  } catch {
-    contextContent.innerHTML = `<p style="color:var(--text-faint); font-size:0.82rem;">Profil indisponible pour le moment.</p>`;
-  }
+// ── Suggestions personnalisées par classe (état vide, avant toute
+// conversation) ─────────────────────────────────────────────────────────────
+// Questions d'exemple réellement rattachées au programme officiel de chaque
+// classe (voir les vrais chapitres de webapp/static/data/cours_*/) — jamais
+// les mêmes quel que soit le niveau sélectionné. Purement client (pas
+// d'appel réseau) : mis à jour au chargement de la page, la classe active ne
+// changeant qu'après un rechargement complet (voir curriculumSelector.js).
+const CLASS_SUGGESTIONS = {
+  troisieme: [
+    "Explique-moi le théorème de Pythagore",
+    "Comment reconnaître une situation de Thalès ?",
+    "Comment calculer un angle avec la trigonométrie ?",
+    "Aide-moi à calculer une moyenne ou une médiane",
+    "Comment calculer une probabilité simple ?",
+    "Qu'est-ce qu'une fonction affine ?",
+  ],
+  seconde: [
+    "Aide-moi à développer une expression littérale",
+    "Comment étudier les variations d'une fonction ?",
+    "Comment résoudre une inéquation ?",
+    "Qu'est-ce qu'un vecteur directeur ?",
+    "Comment trouver l'équation d'une droite ?",
+    "Explique-moi les statistiques descriptives",
+  ],
+  premiere: [
+    "Comment calculer les termes d'une suite arithmétique ou géométrique ?",
+    "Explique-moi le nombre dérivé",
+    "Comment étudier un trinôme du second degré ?",
+    "Qu'est-ce que le produit scalaire ?",
+    "Comment utiliser un arbre de probabilités ?",
+    "Explique-moi la fonction exponentielle",
+  ],
+};
+const DEFAULT_SUGGESTIONS = [
+  "Explique-moi cette notion",
+  "Je n'ai pas compris cet exercice",
+  "Fais-moi réviser",
+  "Donne-moi un exercice",
+  "Prépare-moi pour mon contrôle",
+];
+
+function renderSuggestions() {
+  const chips = $("chatbot-suggestions");
+  if (!chips) return;
+  const questions = CLASS_SUGGESTIONS[getStoredClassLevel()] || DEFAULT_SUGGESTIONS;
+  chips.innerHTML = questions.map((q) => `<button class="chatbot-suggestion-chip" type="button">${escapeHtml(q)}</button>`).join("");
 }
 
 // ── Accueil personnalisé (état vide, avant toute conversation) ──────────────
@@ -879,6 +958,40 @@ async function loadGreeting() {
   } catch {
     /* silencieux : le texte statique par défaut reste affiché */
   }
+}
+
+// ── Blocage total pour un compte invité ──────────────────────────────────────
+// Contrairement au verrou du dashboard (dismissible), l'accès est ici
+// totalement refusé (aussi côté serveur par auth.py::require_non_guest sur
+// toutes les routes /api/chatbot/*) : le même composant guestLockOverlay
+// couvre TOUTE la zone chatbot (conversations + messages + saisie, voir
+// .chatbot-shell) — jamais deux zones floutées séparément, pour qu'aucun
+// message/bouton/champ ne reste distinguable ni cliquable/scrollable/
+// sélectionnable derrière. Seul élément interactif : "Se connecter" (pas de
+// bouton pour lever le verrou, contrairement au dashboard.js).
+function applyGuestChatbotLock() {
+  const shell = document.querySelector(".chatbot-shell");
+  if (!shell) return;
+  input.setAttribute("contenteditable", "false");
+  sendBtn.disabled = true;
+
+  mountGuestLockOverlay(shell, {
+    id: "chatbot-guest-lock-overlay",
+    icon: "lock",
+    title: "Connexion requise",
+    description: "Connecte-toi pour utiliser le professeur IA.",
+    actionsHtml: `<button type="button" class="btn btn-primary js-open-login">Se connecter</button>`,
+  });
+}
+
+async function guardAgainstGuestAccess() {
+  let user;
+  try {
+    ({ user } = await api.me());
+  } catch {
+    return; // Session expirée : login_required redirigera de toute façon.
+  }
+  if (user.is_guest) applyGuestChatbotLock();
 }
 
 // ── Actions déclenchées par une catégorie de la palette "@" ─────────────────
@@ -910,9 +1023,10 @@ async function handleMentionAction(action) {
 mentionsController = initMentions({ input, onAction: handleMentionAction });
 
 // ── Démarrage ────────────────────────────────────────────────────────────────
+guardAgainstGuestAccess();
 loadConversations();
 refreshQuota();
-loadContextPanel();
+renderSuggestions();
 loadGreeting();
 checkProviderHealth();
 refreshChatbotStreamingSetting();

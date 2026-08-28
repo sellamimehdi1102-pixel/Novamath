@@ -27,7 +27,7 @@ function closeModal(overlay) {
 }
 function closeAllAuthModals() {
   [
-    "signup-modal-overlay", "login-modal-overlay", "login-2fa-modal-overlay",
+    "signup-modal-overlay", "oauth-signup-modal-overlay", "login-modal-overlay", "login-2fa-modal-overlay",
     "forgot-modal-overlay", "legal-modal-overlay", "privacy-modal-overlay",
   ].forEach((id) => { $(id).hidden = true; });
 }
@@ -83,14 +83,17 @@ function computeAge(birthDateStr) {
   }
   return age;
 }
-function isMinorSignup() {
-  const birthDate = $("signup-birth-date").value;
+function isMinorSignup(birthDateFieldId = "signup-birth-date") {
+  const birthDate = $(birthDateFieldId).value;
   if (!birthDate) return false;
   const age = computeAge(birthDate);
   return age !== null && age < MINOR_CONSENT_AGE_THRESHOLD;
 }
 $("signup-birth-date").addEventListener("change", () => {
   $("signup-parent-email-row").hidden = !isMinorSignup();
+});
+$("oauth-signup-birth-date").addEventListener("change", () => {
+  $("oauth-signup-parent-email-row").hidden = !isMinorSignup("oauth-signup-birth-date");
 });
 wireOpeners(".js-open-login", "login-modal-overlay");
 wireOpeners(".js-open-legal", "legal-modal-overlay");
@@ -108,6 +111,7 @@ document.addEventListener("click", (e) => {
 });
 document.addEventListener("click", (e) => {
   if (e.target.closest("#btn-signup-cancel")) closeModal($("signup-modal-overlay"));
+  if (e.target.closest("#btn-oauth-signup-cancel")) closeModal($("oauth-signup-modal-overlay"));
   if (e.target.closest("#btn-login-cancel")) closeModal($("login-modal-overlay"));
   if (e.target.closest("#btn-forgot-cancel")) closeModal($("forgot-modal-overlay"));
   if (e.target.closest("#btn-legal-close")) closeModal($("legal-modal-overlay"));
@@ -115,17 +119,17 @@ document.addEventListener("click", (e) => {
 });
 
 // ── Mode invité ──────────────────────────────────────────────────────────────
-// "Démarrer l'évaluation" sur la landing page ne demande plus de compte : il
+// "Commencer gratuitement" sur la landing page ne demande plus de compte : il
 // entre directement en mode invité (aucun formulaire, aucune connexion) et
-// lance l'évaluation. `currentAccount` distingue 2 cas désormais possibles ici
-// (voir webapp/server.py::_serve_landing, point de passage UNIQUE de la
-// landing page — `/` et `/index.html` — qui purge systématiquement toute
-// session invité avant même de renvoyer ce HTML) : anonyme (aucun compte → on
-// crée un invité tout neuf), ou un compte réel (un utilisateur connecté qui
-// atteint quand même la landing page — via le logo — ne doit JAMAIS être
-// transformé en invité : on le laisse simplement continuer avec son vrai
-// compte). Un compte invité ne peut plus jamais être observé ici : le serveur
-// l'a déjà détruit avant de servir la page.
+// ouvre directement les chapitres. `currentAccount` distingue 2 cas désormais
+// possibles ici (voir webapp/server.py::_serve_landing, point de passage
+// UNIQUE de la landing page — `/` et `/index.html` — qui purge
+// systématiquement toute session invité avant même de renvoyer ce HTML) :
+// anonyme (aucun compte → on crée un invité tout neuf), ou un compte réel (un
+// utilisateur connecté qui atteint quand même la landing page — via le logo —
+// ne doit JAMAIS être transformé en invité : on le laisse simplement
+// continuer avec son vrai compte). Un compte invité ne peut plus jamais être
+// observé ici : le serveur l'a déjà détruit avant de servir la page.
 let currentAccount = null;
 api.me().then(({ user }) => {
   currentAccount = user;
@@ -136,7 +140,7 @@ api.me().then(({ user }) => {
   // serveur a déjà détruit ses données, mais on élimine ici toute trace encore
   // visible dans CE navigateur avant que l'utilisateur ne relance quoi que ce
   // soit (voir store.js::resetGuestLocalState).
-  if (document.querySelector(".js-start-guest-eval")) resetGuestLocalState();
+  if (document.querySelector(".js-start-guest")) resetGuestLocalState();
 });
 
 // ── Ré-acceptation forcée des CGU/politique de confidentialité (RGPD) ──────
@@ -172,12 +176,12 @@ $("btn-policy-update-accept").addEventListener("click", async () => {
 });
 
 document.addEventListener("click", async (e) => {
-  const trigger = e.target.closest(".js-start-guest-eval");
+  const trigger = e.target.closest(".js-start-guest");
   if (!trigger) return;
   trigger.disabled = true;
   try {
     if (!currentAccount) await api.enterGuest();
-    window.location.href = "/evaluation.html";
+    window.location.href = "/chapitres.html";
   } catch {
     trigger.disabled = false;
   }
@@ -273,7 +277,7 @@ function validateSignupClientSide() {
 function redirectAfterAuth() {
   const params = new URLSearchParams(window.location.search);
   const next = params.get("next");
-  const allowed = ["dashboard.html", "chapitres.html", "exercice.html", "evaluation.html", "profil.html"];
+  const allowed = ["dashboard.html", "chapitres.html", "exercice.html", "profil.html"];
   window.location.href = next && allowed.includes(next) ? `/${next}` : "/dashboard.html";
 }
 
@@ -308,6 +312,75 @@ $("signup-form").addEventListener("submit", async (e) => {
   } catch (err) {
     if (err.field) setFieldError("signup", err.field, err.message);
     else setFieldError("signup", "global", err.message || "Une erreur est survenue.");
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+// ── Finalise une inscription Google amorcée par oauth_callback (voir
+// initFromQuery ci-dessous) : email déjà vérifié par Google, il ne manque que
+// nom d'utilisateur/pseudo/date de naissance/CGU (auth.py::oauth_complete_signup). ─
+let pendingOAuthProvider = null;
+function validateOAuthSignupClientSide() {
+  clearErrors("oauth-signup", ["username", "pseudo", "birth_date", "parent_email", "accept_terms", "accept_privacy", "global"]);
+  let ok = true;
+
+  const username = $("oauth-signup-username").value.trim();
+  if (!username) { setFieldError("oauth-signup", "username", "Le nom d'utilisateur est obligatoire."); ok = false; }
+  else if (!USERNAME_RE.test(username)) { setFieldError("oauth-signup", "username", "3 à 25 caractères : lettres, chiffres, - ou _ uniquement."); ok = false; }
+
+  const pseudo = $("oauth-signup-pseudo").value.trim();
+  if (!pseudo) { setFieldError("oauth-signup", "pseudo", "Le pseudo est obligatoire."); ok = false; }
+
+  const birthDate = $("oauth-signup-birth-date").value;
+  if (!birthDate) { setFieldError("oauth-signup", "birth_date", "La date de naissance est obligatoire."); ok = false; }
+  else if (new Date(birthDate) > new Date()) { setFieldError("oauth-signup", "birth_date", "La date de naissance ne peut pas être dans le futur."); ok = false; }
+  else if (isMinorSignup("oauth-signup-birth-date") && !$("oauth-signup-parent-email").value.trim()) {
+    setFieldError("oauth-signup", "parent_email", "L'email d'un parent est obligatoire pour ton âge."); ok = false;
+  }
+
+  if (!$("oauth-signup-accept-terms").checked) { setFieldError("oauth-signup", "accept_terms", "Tu dois accepter les conditions d'utilisation."); ok = false; }
+  if (!$("oauth-signup-accept-privacy").checked) { setFieldError("oauth-signup", "accept_privacy", "Tu dois accepter la politique de confidentialité."); ok = false; }
+
+  return ok;
+}
+
+function openOAuthCompleteSignup(provider) {
+  pendingOAuthProvider = provider;
+  closeAllAuthModals();
+  clearErrors("oauth-signup", ["username", "pseudo", "birth_date", "parent_email", "accept_terms", "accept_privacy", "global"]);
+  $("oauth-signup-form").reset();
+  $("oauth-signup-parent-email-row").hidden = true;
+  openModal($("oauth-signup-modal-overlay"));
+}
+
+$("oauth-signup-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!validateOAuthSignupClientSide()) return;
+
+  const submitBtn = $("btn-oauth-signup-submit");
+  submitBtn.disabled = true;
+  try {
+    const isMinor = isMinorSignup("oauth-signup-birth-date");
+    const result = await api.oauthCompleteSignup(pendingOAuthProvider, {
+      username: $("oauth-signup-username").value.trim(),
+      pseudo: $("oauth-signup-pseudo").value.trim(),
+      birth_date: $("oauth-signup-birth-date").value,
+      parent_email: isMinor ? $("oauth-signup-parent-email").value.trim() : undefined,
+      accept_terms: $("oauth-signup-accept-terms").checked,
+      accept_privacy: $("oauth-signup-accept-privacy").checked,
+    });
+    if (result.account_status === "pending_parental_consent") {
+      // Aucune session n'a été créée côté serveur — le compte doit attendre
+      // l'autorisation du parent (voir consent_service.py) avant tout accès.
+      setFieldError("oauth-signup", "global", result.message);
+      $("oauth-signup-error-global").classList.add("form-error--info");
+      return;
+    }
+    redirectAfterAuth();
+  } catch (err) {
+    if (err.field) setFieldError("oauth-signup", err.field, err.message);
+    else setFieldError("oauth-signup", "global", err.message || "Une erreur est survenue.");
   } finally {
     submitBtn.disabled = false;
   }
@@ -436,14 +509,45 @@ async function handleGoogleClick() {
 $("btn-google-signup").addEventListener("click", handleGoogleClick);
 $("btn-google-login").addEventListener("click", handleGoogleClick);
 
-// ── Si redirigé depuis une page protégée (?next=...), pré-ouvre la connexion ─
+// ── Si redirigé depuis une page protégée (?next=...), pré-ouvre la connexion ;
+// si redirigé depuis oauth_callback (webapp/auth.py), termine le flux Google :
+// erreur, second facteur requis, ou inscription à finaliser (nouveau compte). ─
+function stripQueryParams(names) {
+  const url = new URL(window.location.href);
+  names.forEach((n) => url.searchParams.delete(n));
+  window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+}
+
 (function initFromQuery() {
   const params = new URLSearchParams(window.location.search);
+
+  const oauthError = params.get("oauth_error");
+  if (oauthError) {
+    stripQueryParams(["oauth_error"]);
+    setFieldError("login", "global", oauthError);
+    openModal($("login-modal-overlay"));
+    return;
+  }
+
+  const challengeToken = params.get("oauth_two_factor_required");
+  if (challengeToken) {
+    stripQueryParams(["oauth_two_factor_required"]);
+    open2FAChallenge(challengeToken);
+    return;
+  }
+
+  const oauthProvider = params.get("oauth_complete_signup");
+  if (oauthProvider) {
+    stripQueryParams(["oauth_complete_signup"]);
+    openOAuthCompleteSignup(oauthProvider);
+    return;
+  }
+
   const next = params.get("next");
   if (!next) return;
   const labels = {
     "dashboard.html": "ton dashboard", "chapitres.html": "les exercices",
-    "exercice.html": "l'entraînement", "evaluation.html": "l'évaluation", "profil.html": "ton profil",
+    "exercice.html": "l'entraînement", "profil.html": "ton profil",
   };
   $("login-next-hint").textContent = `Connecte-toi pour accéder à ${labels[next] || "cette page"}.`;
   $("login-next-hint").hidden = false;

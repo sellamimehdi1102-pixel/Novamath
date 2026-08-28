@@ -19,7 +19,6 @@ import threading
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from unittest.mock import patch
 
 import pyotp
 from cryptography.fernet import Fernet

@@ -11,7 +11,7 @@
 .topnav-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 22px;
 }
 
 /* ── Badge "classe actuelle" (topnav + sidebar) — icône dans une pastille
@@ -83,13 +83,25 @@
    Injecté par js/sidebar.js — mêmes classes que le badge du topnav
    (index.html), simplement adaptées à une barre latérale verticale. */
 .sidebar .class-badge { width: 100%; margin: 2px 0 6px; }
-.sidebar.is-collapsed .sidebar-class-badge {
-  padding: 8px;
-  gap: 0;
-  justify-content: center;
+/* Avant : icône seule (label/chevron display:none) — impossible de savoir
+   dans quelle classe on se trouve sans ouvrir le menu. Repasse en ligne
+   icône + nom + chevron (même schéma que .sidebar-link ci-dessus et que la
+   variante mobile plus bas), dimensionné pour le rail 196px : le nom tronque
+   proprement (ellipsis) plutôt que de faire déborder la sidebar. */
+.sidebar .sidebar-class-badge {
+  padding: 8px 10px;
+  gap: 8px;
+  justify-content: flex-start;
 }
-.sidebar.is-collapsed .sidebar-class-badge .class-badge-label,
-.sidebar.is-collapsed .sidebar-class-badge .class-badge-chevron { display: none; }
+.sidebar .sidebar-class-badge .class-badge-label,
+.sidebar .sidebar-class-badge .class-badge-chevron { display: inline-flex; }
+.sidebar .sidebar-class-badge .class-badge-label {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  font-size: 0.78rem;
+  max-width: none;
+}
 
 /* ── Panneau flottant du badge (toutes pages) ───────────────────────────────
    Réutilise .cursus-card tel quel (renderCurriculumCard) — même composant que

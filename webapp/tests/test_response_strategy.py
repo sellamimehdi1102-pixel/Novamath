@@ -473,5 +473,70 @@ class TestClassLevelPropagation(ResponseStrategyTestCase):
         self.assertIn(strategy.engine, (rs.ENGINE_LLM, rs.ENGINE_KNOWLEDGE, rs.ENGINE_SEARCH))
 
 
+class TestSecondRoutageNecrasePasLeContexteFiable(ResponseStrategyTestCase):
+    """Bug réel confirmé (audit du 2026-08-22) : _probe_search_service()
+    (étape 5 de decide_strategy) refait sa PROPRE recherche brute sur le
+    message, sans reranking de titre ni connaissance du Current Learning
+    Context, et écrasait silencieusement un routage déjà correctement
+    protégé par intent_service._detect_chapter (confidence "inherited").
+    Cas réel : contexte "Fonction dérivée" (Chapitre_3), message "comment
+    dérivé une fonction ?" — la recherche brute renvoie "Fonction
+    exponentielle" (Chapitre_5, score 0.157, sous le seuil fort) alors que
+    intent_service avait déjà tranché "inherited". Correctif : ne plus
+    écraser chapter_id/topic_id quand topic_confidence == "inherited"
+    (voir response_strategy.py, étape 5)."""
+
+    PREMIERE_LC = {"chapter_id": "Chapitre_3", "notion_id": "fonction-derivee"}
+
+    def test_search_faible_necrase_pas_learning_context_dans_strategy(self):
+        strategy = self.decide(
+            "comment dérivé une fonction?",
+            ctx=student_context(class_level="premiere"),
+            learning_context=self.PREMIERE_LC,
+        )
+        self.assertEqual(strategy.chapter_id, "Chapitre_3")
+        self.assertEqual(strategy.topic_id, "fonction-derivee")
+
+    def test_changement_de_sujet_explicite_reste_possible(self):
+        """Un changement de sujet assumé doit toujours pouvoir remplacer le
+        contexte — le correctif ne doit pas figer indéfiniment le sujet."""
+        strategy = self.decide(
+            "Maintenant explique-moi les probabilités.",
+            ctx=student_context(class_level="premiere"),
+            learning_context=self.PREMIERE_LC,
+        )
+        self.assertNotEqual(strategy.chapter_id, "Chapitre_3")
+        self.assertNotEqual(strategy.topic_id, "fonction-derivee")
+
+    def test_followup_conserve_le_sujet(self):
+        ctx = student_context(class_level="premiere")
+        for message in ["Pourquoi ?", "Continue.", "Encore.", "Explique autrement."]:
+            with self.subTest(message=message):
+                strategy = self.decide(message, ctx=ctx, learning_context=self.PREMIERE_LC)
+                self.assertEqual(strategy.chapter_id, "Chapitre_3")
+                self.assertEqual(strategy.topic_id, "fonction-derivee")
+
+    def test_sans_contexte_la_recherche_fonctionne_normalement(self):
+        """Sans Current Learning Context fiable, le correctif ne doit rien
+        changer au comportement existant du moteur de recherche."""
+        strategy = self.decide(
+            "comment dérivé une fonction?",
+            ctx=student_context(class_level="premiere"),
+            learning_context=None,
+        )
+        self.assertEqual(strategy.engine, rs.ENGINE_SEARCH)
+        self.assertEqual(strategy.chapter_id, "Chapitre_5")
+        self.assertEqual(strategy.topic_id, "fonction-exponentielle")
+
+    def test_valeur_absolue_seconde_reste_correcte(self):
+        """Cas réel supplémentaire signalé — vérifié en Seconde, seul niveau
+        où la notion "Valeur absolue" existe réellement dans le corpus."""
+        strategy = self.decide(
+            "c'est quoi une valeur absolue", ctx=student_context(class_level="seconde"),
+        )
+        self.assertEqual(strategy.chapter_id, "Chapitre_2")
+        self.assertEqual(strategy.topic_id, "valeur-absolue-dun-nombre-reel")
+
+
 if __name__ == "__main__":
     unittest.main()

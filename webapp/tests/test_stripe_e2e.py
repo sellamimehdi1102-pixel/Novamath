@@ -216,7 +216,7 @@ class TestAbonnementPremiumReussi(_NovaMathUserFixture):
         self.assertEqual(invoice["status"], "paid")
 
     def test_payment_intent_reussi(self):
-        payment_intent = self.subscription["latest_invoice"]["payment_intent"]
+        payment_intent = h.latest_payment_intent(self.subscription)
         self.assertEqual(payment_intent["status"], "succeeded")
 
     def test_plan_from_price_id_resout_premium(self):
@@ -278,6 +278,25 @@ class TestAbonnementUltraReussi(_NovaMathUserFixture):
     def test_invoice_payee(self):
         self.assertEqual(self.subscription["latest_invoice"]["status"], "paid")
 
+    def test_subscription_updated_past_due_conserve_le_plan_ultra(self):
+        """Même scénario que TestWebhookInvoices::
+        test_subscription_updated_past_due_conserve_le_plan_premium, pour
+        Ultra — webhook customer.subscription.updated(status="past_due")
+        réellement signé et traité, jamais simulé."""
+        stripe_webhook_service.sync_subscription(self._user(), self.subscription)
+        self.assertEqual(self._user()["plan"], "ultra")
+
+        past_due_obj = dict(self.subscription, status="past_due")
+        payload, sig_header = h.build_real_signed_webhook_payload(
+            "customer.subscription.updated", past_due_obj,
+        )
+        event = stripe_service.construct_webhook_event(payload, sig_header)
+        result = stripe_webhook_service.handle_event(event)
+        self.assertEqual(result["status"], "processed")
+        user = self._user()
+        self.assertEqual(user["plan"], "ultra", "le plan Ultra doit être conservé pendant la relance (past_due)")
+        self.assertEqual(user["stripe_subscription_status"], "past_due")
+
 
 # ── Paiement refusé ────────────────────────────────────────────────────────
 @h.skip_unless_e2e
@@ -296,7 +315,7 @@ class TestPaiementRefuse(_NovaMathUserFixture):
         self.assertNotEqual(self.subscription["latest_invoice"]["status"], "paid")
 
     def test_payment_intent_necessite_un_moyen_de_paiement(self):
-        payment_intent = self.subscription["latest_invoice"]["payment_intent"]
+        payment_intent = h.latest_payment_intent(self.subscription)
         self.assertIn(payment_intent["status"], ("requires_payment_method", "requires_action"))
 
     def test_sync_subscription_najamais_les_droits_premium(self):
@@ -349,9 +368,14 @@ class TestCarteExpiree(_NovaMathUserFixture):
         une carte de test valide et confirme que la facture en attente peut
         alors être payée — reproduit le parcours "mettre à jour ma carte"
         du Customer Portal."""
-        h.attach_payment_method(self.customer["id"], h.CARD_VISA_SUCCESS)
+        # Jamais réutiliser le jeton magique h.CARD_VISA_SUCCESS tel quel ici :
+        # vérifié en conditions réelles, Stripe crée une PaymentMethod RÉELLE
+        # DIFFÉRENTE à chaque utilisation de ce jeton (voir la docstring de
+        # attach_payment_method) — seul l'ID réellement attaché, renvoyé par
+        # cet appel, est valide pour Invoice.pay().
+        real_payment_method_id = h.attach_payment_method(self.customer["id"], h.CARD_VISA_SUCCESS)
         invoice_id = self.subscription["latest_invoice"]["id"]
-        paid_invoice = stripe.Invoice.pay(invoice_id, payment_method=h.CARD_VISA_SUCCESS)
+        paid_invoice = stripe.Invoice.pay(invoice_id, payment_method=real_payment_method_id)
         self.assertEqual(paid_invoice["status"], "paid")
 
 
@@ -467,6 +491,28 @@ class TestWebhookInvoices(_NovaMathUserFixture):
         # n'est retiré que par customer.subscription.deleted, jamais ici.
         self.assertEqual(self._user()["plan"], "premium")
 
+    def test_subscription_updated_past_due_conserve_le_plan_premium(self):
+        """Chemin distinct de test_invoice_payment_failed_ne_retire_pas_le_plan
+        ci-dessus : ici c'est customer.subscription.updated(status="past_due")
+        — reçu par Stripe en même temps qu'invoice.payment_failed lors d'un
+        échec de renouvellement réel — qui est envoyé, signé et traité par le
+        VRAI stripe_webhook_service (via sync_subscription()/_GRACE_STATUSES),
+        jamais simulé. Avant ce chantier, ce chemin précis rétrogradait à
+        tort vers Free (voir l'audit Stripe du 2026-08-27)."""
+        stripe_webhook_service.sync_subscription(self._user(), self.subscription)
+        self.assertEqual(self._user()["plan"], "premium")
+
+        past_due_obj = dict(self.subscription, status="past_due")
+        payload, sig_header = h.build_real_signed_webhook_payload(
+            "customer.subscription.updated", past_due_obj,
+        )
+        event = stripe_service.construct_webhook_event(payload, sig_header)
+        result = stripe_webhook_service.handle_event(event)
+        self.assertEqual(result["status"], "processed")
+        user = self._user()
+        self.assertEqual(user["plan"], "premium", "le plan Premium doit être conservé pendant la relance (past_due)")
+        self.assertEqual(user["stripe_subscription_status"], "past_due")
+
     def test_invoice_finalized_journalise_sans_modifier_le_plan(self):
         before = self._user()["plan"]
         payload, sig_header = h.build_real_signed_webhook_payload("invoice.finalized", dict(self.invoice))
@@ -520,19 +566,27 @@ class TestUpgradePremiumVersUltra(_NovaMathUserFixture):
         cls.subscription = h.create_real_subscription(cls.customer["id"], config.STRIPE_PRICE_PREMIUM)
         db.set_stripe_subscription(cls.user_id, cls.subscription["id"], "premium", "active")
 
-    def test_upgrade_change_immediatement_le_price(self):
+    # Préfixes numériques (même convention que TestRenouvellementAvecTestClock)
+    # : unittest exécute les méthodes d'une classe par ordre alphabétique —
+    # sans ce préfixe, "test_apres_upgrade_..." ('a') s'exécuterait AVANT
+    # "test_upgrade_change_immediatement_le_price" ('u'), sur le même
+    # cls.subscription partagé (jamais recréé par méthode), lisant l'état
+    # Stripe réel avant que l'upgrade n'ait réellement eu lieu — vérifié en
+    # conditions réelles (échec reproductible : plan "premium" au lieu de
+    # "ultra" attendu).
+    def test_01_upgrade_change_immediatement_le_price(self):
         updated = billing_service.change_plan(self._user(), Plan.ULTRA)
         self.assertEqual(updated["items"]["data"][0]["price"]["id"], config.STRIPE_PRICE_ULTRA)
 
-    def test_upgrade_meme_plan_leve_same_plan(self):
+    def test_02_upgrade_meme_plan_leve_same_plan(self):
         with self.assertRaises(billing_service.SamePlan):
             billing_service.change_plan(self._user(), Plan.PREMIUM)
 
-    def test_upgrade_sans_abonnement_leve_no_active_subscription(self):
+    def test_03_upgrade_sans_abonnement_leve_no_active_subscription(self):
         with self.assertRaises(billing_service.NoActiveSubscription):
             billing_service.change_plan({"id": 0, "plan": "free", "stripe_subscription_id": None}, Plan.ULTRA)
 
-    def test_apres_upgrade_la_synchronisation_reflete_ultra(self):
+    def test_04_apres_upgrade_la_synchronisation_reflete_ultra(self):
         updated = stripe_service.get_subscription(self.subscription["id"])
         stripe_webhook_service.sync_subscription(self._user(), updated)
         self.assertEqual(self._user()["plan"], "ultra")
@@ -547,20 +601,27 @@ class TestDowngradeUltraVersPremium(_NovaMathUserFixture):
         cls.subscription = h.create_real_subscription(cls.customer["id"], config.STRIPE_PRICE_ULTRA)
         db.set_stripe_subscription(cls.user_id, cls.subscription["id"], "ultra", "active")
 
-    def test_downgrade_cree_un_subscription_schedule_reel(self):
-        schedule = billing_service.change_plan(self._user(), Plan.PREMIUM)
-        self.assertTrue(schedule["id"].startswith("sub_sched_"))
+    # Stripe refuse de planifier deux fois le même abonnement ("You cannot
+    # migrate a subscription that is already attached to a schedule") —
+    # vérifié en conditions réelles : change_plan() (downgrade) crée un VRAI
+    # SubscriptionSchedule, donc ne peut être appelé qu'UNE seule fois pour
+    # cls.subscription (jamais recréé par méthode, partagé par toute la
+    # classe). Le schedule est calculé une seule fois (préfixe numérique,
+    # même convention que TestRenouvellementAvecTestClock) et réutilisé par
+    # les méthodes suivantes, jamais recréé.
+    def test_01_downgrade_cree_un_subscription_schedule_reel(self):
+        type(self).schedule = billing_service.change_plan(self._user(), Plan.PREMIUM)
+        self.assertTrue(self.schedule["id"].startswith("sub_sched_"))
 
-    def test_downgrade_najamais_immediat(self):
+    def test_02_downgrade_najamais_immediat(self):
         """Le downgrade ne modifie JAMAIS immédiatement users.plan (seul le
         webhook, quand Stripe applique réellement la seconde phase, le
-        fait) — vérifié en relisant l'utilisateur juste après l'appel."""
-        billing_service.change_plan(self._user(), Plan.PREMIUM)
+        fait) — vérifié en relisant l'utilisateur après le downgrade
+        planifié par test_01 ci-dessus."""
         self.assertEqual(self._user()["plan"], "ultra")
 
-    def test_downgrade_conserve_la_phase_courante(self):
-        schedule = billing_service.change_plan(self._user(), Plan.PREMIUM)
-        self.assertEqual(len(schedule["phases"]), 2)
+    def test_03_downgrade_conserve_la_phase_courante(self):
+        self.assertEqual(len(self.schedule["phases"]), 2)
 
 
 # ── Résiliation ────────────────────────────────────────────────────────────
@@ -717,7 +778,11 @@ class TestRenouvellementAvecTestClock(_NovaMathUserFixture):
         cls.user_id = db.create_user(cls.customer["email"], f"e2eclock{now}", "E2E Clock", "hash")
         db.set_stripe_customer_id(cls.user_id, cls.customer["id"])
         cls.subscription = h.create_real_subscription(cls.customer["id"], config.STRIPE_PRICE_PREMIUM)
-        cls.initial_period_end = cls.subscription["current_period_end"]
+        # current_period_end vit sous items.data[].current_period_end depuis
+        # l'API Stripe "Basil" (2025-03-31, vérifié par un appel réel),
+        # jamais au niveau racine de la Subscription — voir aussi
+        # billing_service.get_billing_status, corrigé pour la même raison.
+        cls.initial_period_end = cls.subscription["items"]["data"][0]["current_period_end"]
 
     @classmethod
     def tearDownClass(cls):
@@ -735,7 +800,7 @@ class TestRenouvellementAvecTestClock(_NovaMathUserFixture):
     def test_02_avance_du_temps_declenche_le_renouvellement(self):
         h.advance_test_clock(self.clock["id"], self.initial_period_end + 3600)
         renewed = stripe_service.get_subscription(self.subscription["id"])
-        self.assertGreater(renewed["current_period_end"], self.initial_period_end)
+        self.assertGreater(renewed["items"]["data"][0]["current_period_end"], self.initial_period_end)
 
     def test_03_abonnement_toujours_actif_apres_renouvellement(self):
         renewed = stripe_service.get_subscription(self.subscription["id"])

@@ -94,22 +94,22 @@ def check(key: str, endpoint: str, requests: int, per_seconds: int) -> RateLimit
     l'appelant (aucun accès à `request` ici) — testable indépendamment de
     Flask, réutilisée par le décorateur rate_limit() ci-dessous.
 
-    Incrémente D'ABORD (opération atomique unique, voir db.record_rate_limit_
-    event), compare ENSUITE : si le total dépasse `requests`, l'incrément qui
-    vient d'être posé est immédiatement annulé par un décrément tout aussi
-    atomique avant de refuser — jamais de requête comptée au-delà de la
-    limite même sous accès concurrents (même principe que
-    quota_service.consume())."""
+    Incrément + lecture du total agrégé + décrément compensatoire éventuel se
+    font en une seule transaction atomique (db.check_and_record_rate_limit) :
+    jamais de requête comptée au-delà de la limite même sous accès
+    concurrents, y compris en mode SQLite WAL (voir sa docstring — un
+    lire-puis-écrire réparti sur plusieurs connexions séparées, correct en
+    apparence, ne suffit pas dès que la fenêtre glissante agrège plusieurs
+    lignes ; seul le fait de tout faire dans la même transaction le
+    garantit)."""
     now = int(time.time())
     since = now - per_seconds + 1
 
-    db.record_rate_limit_event(key, endpoint, now, amount=1)
-    total, oldest = db.get_rate_limit_usage(key, endpoint, since)
+    allowed, total, oldest = db.check_and_record_rate_limit(key, endpoint, now, since, requests)
     effective_oldest = oldest if oldest is not None else now
     reset = effective_oldest + per_seconds
 
-    if total > requests:
-        db.record_rate_limit_event(key, endpoint, now, amount=-1)
+    if not allowed:
         retry_after = max(1, reset - now)
         return RateLimitState(allowed=False, limit=requests, remaining=0, reset=reset, retry_after=retry_after)
 

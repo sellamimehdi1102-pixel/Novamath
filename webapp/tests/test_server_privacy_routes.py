@@ -6,7 +6,6 @@ Suite SEC-04 : routes RGPD du compte connecté — /api/data/export (étendu),
 import random
 import unittest
 
-import consent_service as cs
 import db
 import server
 

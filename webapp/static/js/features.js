@@ -32,10 +32,43 @@ export function nextPlanAbove(currentPlan) {
 // palier le moins élevé qui débloque la feature (voir
 // plan_service.minimal_plan_for_feature) — tenu à jour manuellement en
 // miroir de plan_service.FEATURE_MATRIX.
+//
+// Chantier "Synchronisation globale des abonnements" (2026-08-27) — audit
+// exhaustif de chaque Feature de plan_service.FEATURE_MATRIX (recherche de
+// has_feature()/@requires_feature() dans tout server.py + tout le frontend) :
+// 5 entrées ci-dessous (sur les 6 initialement identifiées) sont déclarées
+// dans FEATURE_MATRIX et présentes ici, mais AUCUNE route backend ne les
+// consomme (`@requires_feature(Feature.X)` introuvable pour ces 5 valeurs)
+// — donc jamais déclenchées côté client non plus (ce module n'est consulté
+// qu'après un refus 403 déjà décidé côté serveur, voir docstring
+// ci-dessus). Volontairement CONSERVÉES : les supprimer changerait
+// FEATURE_MATRIX/plan_service.py (hors périmètre d'un chantier de
+// cohérence marketing) et pourrait affecter un futur chantier qui les
+// brancherait réellement. Ne pas les retirer sans re-vérifier ces deux
+// fichiers au moment considéré :
+//   - profile_analytics (Premium+) — aucune route/vue "statistiques
+//     avancées" n'existe ; le Dashboard actuel (dashboard.js) ne
+//     différencie que le nombre de séries/suggestions/le bilan par notion
+//     (via advanced_explanations, pas cette Feature-ci), jamais via
+//     profile_analytics.
+//   - early_access (Ultra) — aucun contenu "en accès anticipé" n'existe
+//     dans le produit à distribuer.
+//   - priority_queue (Ultra) — aucune file d'attente différenciée dans le
+//     pipeline chatbot (llm_fallback_service.py ne connaît aucune notion de
+//     priorité par plan).
+//   - priority_support (Premium+) — aucune logique de priorité dans
+//     support_service.py.
+//   - long_responses (Ultra) — max_tokens (2500) est une constante globale,
+//     jamais différenciée par plan (voir llm_fallback_service.py).
+// custom_exercises (Ultra) N'EST PLUS dans cette liste depuis le Chantier
+// "Différenciateurs Premium/Ultra" (même jour) : POST /api/practice/generate
+// (server.py) la consomme désormais réellement, voir
+// exercise_generator/registry.py — hasFeature(user, "custom_exercises")
+// reflète donc un vrai accès, pas seulement un libellé.
 export const FEATURE_META = {
-  chatbot: { label: "Chatbot IA", requiredPlan: "free" },
-  chatbot_unlimited: { label: "Chatbot IA illimité", requiredPlan: "premium" },
-  advanced_ai: { label: "IA avancée (analyse de documents joints)", requiredPlan: "ultra" },
+  chatbot: { label: "Chatbot", requiredPlan: "free" },
+  chatbot_unlimited: { label: "Chatbot illimité", requiredPlan: "premium" },
+  advanced_ai: { label: "Analyse de documents joints", requiredPlan: "ultra" },
   advanced_explanations: { label: "Explications avancées", requiredPlan: "premium" },
   courses: { label: "Cours", requiredPlan: "free" },
   exercises: { label: "Exercices", requiredPlan: "free" },
@@ -65,4 +98,21 @@ export function featureLabel(featureValue) {
 
 export function requiredPlanFor(featureValue) {
   return FEATURE_META[featureValue]?.requiredPlan || "premium";
+}
+
+// Chantier 8 : décide si `user` a accès à `featureValue`. Source de vérité
+// PRIMAIRE = user.features (voir auth.py::_public_user, calculé côté serveur
+// via plan_service.has_feature() — donc déjà "Owner-aware" via
+// owner_test_plan_service.effective_plan(), sans que ce module ait besoin de
+// le savoir). N'utilise le repli local (planMeetsRequirement/requiredPlanFor,
+// déjà existants ci-dessus — jamais une nouvelle matrice) que si `user`
+// provient d'une réponse qui n'expose pas encore `features` (compatibilité
+// descendante), ce qui ne devrait plus arriver une fois /api/auth/me à jour
+// partout. Reste un affichage informatif dans les deux cas : la route reste
+// de toute façon protégée côté serveur par @requires_feature.
+export function hasFeature(user, featureValue) {
+  if (user?.features && Object.prototype.hasOwnProperty.call(user.features, featureValue)) {
+    return !!user.features[featureValue];
+  }
+  return planMeetsRequirement(user?.plan || "free", requiredPlanFor(featureValue));
 }

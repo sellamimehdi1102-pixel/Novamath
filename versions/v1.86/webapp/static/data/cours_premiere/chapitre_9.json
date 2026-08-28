@@ -1,0 +1,589 @@
+{
+  "chapterId": "Chapitre_9",
+  "title": "Chapitre 9",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "arbres-ponderes",
+      "title": "Arbres pondérés",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : arbres pondérés.\n\nCette notion sert à estimer les chances qu'un événement se produise avant qu'il n'arrive, par exemple au jeu, en météo ou en médecine.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances un dé : tu ne sais pas à l'avance quel numéro va sortir, mais tu sais que chaque face a la même chance de sortir. La probabilité, c'est justement ce qui mesure cette chance, entre 0 (impossible) et 1 (certain).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Arbres pondérés.",
+      "definition": "Utiliser la formule des probabilités totales : $P(B)=P(A)P_A(B)+P(\\overline{A})P_{\\overline{A}}(B)$.",
+      "definitions": {
+        "lycee": "Utiliser la formule des probabilités totales : $P(B)=P(A)P_A(B)+P(\\overline{A})P_{\\overline{A}}(B)$."
+      },
+      "intuition": "Une probabilité est toujours un nombre compris entre 0 et 1 (ou entre 0 % et 100 %). Ne confonds jamais un événement (une situation possible, comme « obtenir un nombre pair ») avec sa probabilité (le nombre qui mesure sa chance de se réaliser).",
+      "reglesImportantes": [],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Arbres pondérés",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'arbre a deux branches initiales : $P(A) = \\dfrac{1}{2}$ et $P(\\overline{A}) = 1-\\dfrac{1}{2} = \\dfrac{1}{2}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : sur chaque branche, on place $P_A(B)=\\dfrac{1}{4}$, $P_A(\\overline{B})=\\dfrac{3}{4}$, $P_{\\overline{A}}(B)=\\dfrac{11}{20}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{9}{20}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : d'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : $P(B) = \\dfrac{1}{2}\\times\\dfrac{1}{4} + \\dfrac{1}{2}\\times\\dfrac{11}{20} = \\dfrac{2}{5}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1768",
+          "titre": "Exemple 1",
+          "enonce": "Dans un lycée avec deux filières, un événement $A$ vérifie $P(A) = \\dfrac{1}{2}$. On sait que $P_A(B) = \\dfrac{1}{4}$ et $P_{\\overline{A}}(B) = \\dfrac{11}{20}$. Construire l'arbre pondéré correspondant puis calculer $P(B)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'arbre a deux branches initiales : $P(A) = \\dfrac{1}{2}$ et $P(\\overline{A}) = 1-\\dfrac{1}{2} = \\dfrac{1}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : sur chaque branche, on place $P_A(B)=\\dfrac{1}{4}$, $P_A(\\overline{B})=\\dfrac{3}{4}$, $P_{\\overline{A}}(B)=\\dfrac{11}{20}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{9}{20}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(B) = \\dfrac{1}{2}\\times\\dfrac{1}{4} + \\dfrac{1}{2}\\times\\dfrac{11}{20} = \\dfrac{2}{5}$."
+            }
+          ],
+          "reponse": "$P(B) = \\dfrac{2}{5}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(B) = \\dfrac{2}{5}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1780",
+          "titre": "Exemple 2",
+          "enonce": "Dans une loterie avec deux types de billets, un événement $A$ vérifie $P(A) = \\dfrac{9}{100}$. On sait que $P_A(B) = \\dfrac{2}{5}$ et $P_{\\overline{A}}(B) = \\dfrac{71}{100}$. Construire l'arbre pondéré correspondant puis calculer $P(B)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'arbre a deux branches initiales : $P(A) = \\dfrac{9}{100}$ et $P(\\overline{A}) = 1-\\dfrac{9}{100} = \\dfrac{91}{100}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : sur chaque branche, on place $P_A(B)=\\dfrac{2}{5}$, $P_A(\\overline{B})=\\dfrac{3}{5}$, $P_{\\overline{A}}(B)=\\dfrac{71}{100}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{29}{100}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(B) = \\dfrac{9}{100}\\times\\dfrac{2}{5} + \\dfrac{91}{100}\\times\\dfrac{71}{100} = \\dfrac{6821}{10000}$."
+            }
+          ],
+          "reponse": "$P(B) = \\dfrac{6821}{10000}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(B) = \\dfrac{6821}{10000}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1792",
+          "titre": "Exemple 3",
+          "enonce": "Dans un lycée avec deux filières, un événement $A$ vérifie $P(A) = \\dfrac{3}{10}$. On sait que $P_A(B) = \\dfrac{3}{5}$ et $P_{\\overline{A}}(B) = \\dfrac{1}{20}$. Construire l'arbre pondéré correspondant puis calculer $P(B)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'arbre a deux branches initiales : $P(A) = \\dfrac{3}{10}$ et $P(\\overline{A}) = 1-\\dfrac{3}{10} = \\dfrac{7}{10}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : sur chaque branche, on place $P_A(B)=\\dfrac{3}{5}$, $P_A(\\overline{B})=\\dfrac{2}{5}$, $P_{\\overline{A}}(B)=\\dfrac{1}{20}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{19}{20}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(B) = \\dfrac{3}{10}\\times\\dfrac{3}{5} + \\dfrac{7}{10}\\times\\dfrac{1}{20} = \\dfrac{43}{200}$."
+            }
+          ],
+          "reponse": "$P(B) = \\dfrac{43}{200}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(B) = \\dfrac{43}{200}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1804",
+          "titre": "Exemple 4",
+          "enonce": "Dans un lycée avec deux filières, un événement $A$ vérifie $P(A) = \\dfrac{13}{25}$. On sait que $P_A(B) = \\dfrac{21}{50}$ et $P_{\\overline{A}}(B) = \\dfrac{23}{50}$. Construire l'arbre pondéré correspondant puis calculer $P(B)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'arbre a deux branches initiales : $P(A) = \\dfrac{13}{25}$ et $P(\\overline{A}) = 1-\\dfrac{13}{25} = \\dfrac{12}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : sur chaque branche, on place $P_A(B)=\\dfrac{21}{50}$, $P_A(\\overline{B})=\\dfrac{29}{50}$, $P_{\\overline{A}}(B)=\\dfrac{23}{50}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{27}{50}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(B) = \\dfrac{13}{25}\\times\\dfrac{21}{50} + \\dfrac{12}{25}\\times\\dfrac{23}{50} = \\dfrac{549}{1250}$."
+            }
+          ],
+          "reponse": "$P(B) = \\dfrac{549}{1250}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(B) = \\dfrac{549}{1250}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "les jeux de dés, de cartes ou de pile ou face",
+        "les prévisions météorologiques (chance de pluie)",
+        "un test médical (probabilité d'être malade selon le résultat)"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour vérifier un calcul de probabilité, rappelle-toi que la somme des probabilités de tous les résultats possibles doit toujours faire exactement 1.",
+      "aRetenir": [],
+      "figure": {
+        "kind": "tree",
+        "branches": [
+          {
+            "label": "Boule rouge",
+            "proba": "0,4",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          },
+          {
+            "label": "Boule bleue",
+            "proba": "0,6",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          }
+        ],
+        "alt": "Arbre pondéré à deux tirages successifs."
+      },
+      "quizExerciseIds": [
+        1769,
+        1770,
+        1771
+      ],
+      "topic_id": "arbres-ponderes",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Arbres pondérés."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "arbres",
+        "ponderes"
+      ]
+    },
+    {
+      "id": "notion-d-independance",
+      "title": "Notion d'indépendance",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : notion d'indépendance.\n\nCette notion sert à estimer les chances qu'un événement se produise avant qu'il n'arrive, par exemple au jeu, en météo ou en médecine.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances un dé : tu ne sais pas à l'avance quel numéro va sortir, mais tu sais que chaque face a la même chance de sortir. La probabilité, c'est justement ce qui mesure cette chance, entre 0 (impossible) et 1 (certain).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Notion d'indépendance.",
+      "definition": "Comparer $P(A\\cap B)$ à $P(A)\\times P(B)$.",
+      "definitions": {
+        "lycee": "Comparer $P(A\\cap B)$ à $P(A)\\times P(B)$."
+      },
+      "intuition": "Une probabilité est toujours un nombre compris entre 0 et 1 (ou entre 0 % et 100 %). Ne confonds jamais un événement (une situation possible, comme « obtenir un nombre pair ») avec sa probabilité (le nombre qui mesure sa chance de se réaliser).",
+      "reglesImportantes": [
+        "Comparer $P_A(B)$ à $P(B)$ : l'égalité caractérise l'indépendance."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Notion d'indépendance",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $P(A)\\times P(B) = \\dfrac{9}{20}\\times\\dfrac{4}{5} = \\dfrac{9}{25}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : comme $P(A\\cap B) = \\dfrac{9}{25} = P(A)\\times P(B)$, $A$ et $B$ sont indépendants."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1826",
+          "titre": "Exemple 1",
+          "enonce": "On donne $P(A) = \\dfrac{9}{20}$, $P(B) = \\dfrac{4}{5}$ et $P(A \\cap B) = \\dfrac{9}{25}$. Les événements $A$ et $B$ sont-ils indépendants ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(A)\\times P(B) = \\dfrac{9}{20}\\times\\dfrac{4}{5} = \\dfrac{9}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $P(A\\cap B) = \\dfrac{9}{25} = P(A)\\times P(B)$, $A$ et $B$ sont indépendants."
+            }
+          ],
+          "reponse": "Oui, $A$ et $B$ sont indépendants.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $A$ et $B$ sont indépendants.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1838",
+          "titre": "Exemple 2",
+          "enonce": "On donne $P(A) = \\dfrac{3}{5}$, $P(B) = \\dfrac{3}{5}$ et $P(A \\cap B) = \\dfrac{1}{2}$. Les événements $A$ et $B$ sont-ils indépendants ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(A)\\times P(B) = \\dfrac{3}{5}\\times\\dfrac{3}{5} = \\dfrac{9}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $P(A\\cap B) = \\dfrac{1}{2} \\neq P(A)\\times P(B) = \\dfrac{9}{25}$, $A$ et $B$ ne sont pas indépendants."
+            }
+          ],
+          "reponse": "Non, $A$ et $B$ ne sont pas indépendants.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Non, $A$ et $B$ ne sont pas indépendants.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1850",
+          "titre": "Exemple 3",
+          "enonce": "On donne $P(A) = \\dfrac{87}{100}$, $P(B) = \\dfrac{1}{10}$ et $P(A \\cap B) = \\dfrac{79}{2500}$. Les événements $A$ et $B$ sont-ils indépendants ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(A)\\times P(B) = \\dfrac{87}{100}\\times\\dfrac{1}{10} = \\dfrac{87}{1000}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $P(A\\cap B) = \\dfrac{79}{2500} \\neq P(A)\\times P(B) = \\dfrac{87}{1000}$, $A$ et $B$ ne sont pas indépendants."
+            }
+          ],
+          "reponse": "Non, $A$ et $B$ ne sont pas indépendants.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Non, $A$ et $B$ ne sont pas indépendants.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1862",
+          "titre": "Exemple 4",
+          "enonce": "On donne $P(A) = \\dfrac{2}{5}$, $P(B) = \\dfrac{2}{5}$ et $P(A \\cap B) = \\dfrac{31}{50}$. Les événements $A$ et $B$ sont-ils indépendants ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(A)\\times P(B) = \\dfrac{2}{5}\\times\\dfrac{2}{5} = \\dfrac{4}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $P(A\\cap B) = \\dfrac{31}{50} \\neq P(A)\\times P(B) = \\dfrac{4}{25}$, $A$ et $B$ ne sont pas indépendants."
+            }
+          ],
+          "reponse": "Non, $A$ et $B$ ne sont pas indépendants.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Non, $A$ et $B$ ne sont pas indépendants.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "les jeux de dés, de cartes ou de pile ou face",
+        "les prévisions météorologiques (chance de pluie)",
+        "un test médical (probabilité d'être malade selon le résultat)"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour vérifier un calcul de probabilité, rappelle-toi que la somme des probabilités de tous les résultats possibles doit toujours faire exactement 1.",
+      "aRetenir": [
+        "Comparer $P_A(B)$ à $P(B)$ : l'égalité caractérise l'indépendance."
+      ],
+      "figure": {
+        "kind": "tree",
+        "branches": [
+          {
+            "label": "Boule rouge",
+            "proba": "0,4",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          },
+          {
+            "label": "Boule bleue",
+            "proba": "0,6",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          }
+        ],
+        "alt": "Arbre pondéré à deux tirages successifs."
+      },
+      "quizExerciseIds": [
+        1827,
+        1828,
+        1829
+      ],
+      "topic_id": "notion-d-independance",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Notion d'indépendance."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "notion",
+        "independance"
+      ]
+    },
+    {
+      "id": "probabilite-conditionnelle",
+      "title": "Probabilité conditionnelle",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : probabilité conditionnelle.\n\nCette notion sert à estimer les chances qu'un événement se produise avant qu'il n'arrive, par exemple au jeu, en météo ou en médecine.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances un dé : tu ne sais pas à l'avance quel numéro va sortir, mais tu sais que chaque face a la même chance de sortir. La probabilité, c'est justement ce qui mesure cette chance, entre 0 (impossible) et 1 (certain).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Probabilité conditionnelle.",
+      "definition": "Utiliser $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}$.",
+      "definitions": {
+        "lycee": "Utiliser $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}$.",
+        "college": "Utiliser $P(A\\cap B)=P(A)\\times P_A(B)$."
+      },
+      "intuition": "Une probabilité est toujours un nombre compris entre 0 et 1 (ou entre 0 % et 100 %). Ne confonds jamais un événement (une situation possible, comme « obtenir un nombre pair ») avec sa probabilité (le nombre qui mesure sa chance de se réaliser).",
+      "reglesImportantes": [
+        "Utiliser $P(A\\cap B)=P(A)\\times P_A(B)$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Probabilité conditionnelle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $P_A(B) = \\dfrac{P(A\\cap B)}{P(A)}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous arrivons ainsi au résultat : $P_A(B) = \\dfrac{\\dfrac{1}{4}}{\\dfrac{9}{20}} = \\dfrac{5}{9}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1710",
+          "titre": "Exemple 1",
+          "enonce": "On donne $P(A) = \\dfrac{9}{20}$ et $P(A \\cap B) = \\dfrac{1}{4}$. Calculer la probabilité conditionnelle $P_A(B)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $P_A(B) = \\dfrac{P(A\\cap B)}{P(A)}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P_A(B) = \\dfrac{\\dfrac{1}{4}}{\\dfrac{9}{20}} = \\dfrac{5}{9}$."
+            }
+          ],
+          "reponse": "$P_A(B) = \\dfrac{5}{9}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P_A(B) = \\dfrac{5}{9}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1722",
+          "titre": "Exemple 2",
+          "enonce": "On donne $P(A) = \\dfrac{16}{25}$ et $P(A \\cap B) = \\dfrac{11}{25}$. Calculer la probabilité conditionnelle $P_A(B)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $P_A(B) = \\dfrac{P(A\\cap B)}{P(A)}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P_A(B) = \\dfrac{\\dfrac{11}{25}}{\\dfrac{16}{25}} = \\dfrac{11}{16}$."
+            }
+          ],
+          "reponse": "$P_A(B) = \\dfrac{11}{16}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P_A(B) = \\dfrac{11}{16}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1734",
+          "titre": "Exemple 3",
+          "enonce": "On donne $P(A) = \\dfrac{93}{100}$ et $P(A \\cap B) = \\dfrac{33}{50}$. Calculer la probabilité conditionnelle $P_A(B)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $P_A(B) = \\dfrac{P(A\\cap B)}{P(A)}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P_A(B) = \\dfrac{\\dfrac{33}{50}}{\\dfrac{93}{100}} = \\dfrac{22}{31}$."
+            }
+          ],
+          "reponse": "$P_A(B) = \\dfrac{22}{31}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P_A(B) = \\dfrac{22}{31}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1746",
+          "titre": "Exemple 4",
+          "enonce": "On donne $P(A) = \\dfrac{7}{20}$ et $P_A(B) = \\dfrac{19}{25}$. Calculer $P(A \\cap B)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $P(A\\cap B) = P(A) \\times P_A(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(A\\cap B) = \\dfrac{7}{20} \\times \\dfrac{19}{25} = \\dfrac{133}{500}$."
+            }
+          ],
+          "reponse": "$P(A \\cap B) = \\dfrac{133}{500}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(A \\cap B) = \\dfrac{133}{500}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "les jeux de dés, de cartes ou de pile ou face",
+        "les prévisions météorologiques (chance de pluie)",
+        "un test médical (probabilité d'être malade selon le résultat)"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour vérifier un calcul de probabilité, rappelle-toi que la somme des probabilités de tous les résultats possibles doit toujours faire exactement 1.",
+      "aRetenir": [
+        "Utiliser $P(A\\cap B)=P(A)\\times P_A(B)$."
+      ],
+      "figure": {
+        "kind": "tree",
+        "branches": [
+          {
+            "label": "Boule rouge",
+            "proba": "0,4",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          },
+          {
+            "label": "Boule bleue",
+            "proba": "0,6",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          }
+        ],
+        "alt": "Arbre pondéré à deux tirages successifs."
+      },
+      "quizExerciseIds": [
+        1711,
+        1712,
+        1713
+      ],
+      "topic_id": "probabilite-conditionnelle",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Probabilité conditionnelle."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "probabilite",
+        "conditionnelle"
+      ]
+    }
+  ]
+}

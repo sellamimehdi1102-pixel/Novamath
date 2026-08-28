@@ -33,18 +33,19 @@
       <a href="chatbot.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="nav.chatbot">Chatbot</span></a>
       <a href="abonnement.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z"/></svg><span data-i18n="nav.abonnement">Abonnement</span></a>
     </nav>
-    <div class="sidebar-toggle-group">
-      <button class="theme-toggle" id="settings-btn" aria-label="Paramètres">
+    <div class="sidebar-bottom">
+      <button class="sidebar-settings-btn" id="settings-btn" aria-label="Paramètres" data-tooltip="Paramètres">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"/></svg>
+        <span data-i18n="settings.title">Paramètres</span>
       </button>
+      <a href="profil.html" class="sidebar-user" id="sidebar-user">
+        <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
+        <span class="sidebar-user-info">
+          <span class="name" id="sidebar-user-name">Élève</span>
+          <span class="sub" id="sidebar-user-plan">Free</span>
+        </span>
+      </a>
     </div>
-    <a href="profil.html" class="sidebar-user" id="sidebar-user">
-      <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
-      <span class="sidebar-user-info">
-        <span class="name" id="sidebar-user-name">Élève</span>
-        <span class="sub" data-i18n="nav.profil">Voir le profil</span>
-      </span>
-    </a>
     <div class="sidebar-version" id="sidebar-version"></div>
   </aside>
 
@@ -154,7 +155,7 @@
     <div class="ai-usage-card card card--glass" id="ai-usage-card" hidden>
       <div class="ai-usage-head">
         <span class="ai-usage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></span>
-        <span class="label">Utilisation IA aujourd'hui</span>
+        <span class="label">Messages du chatbot aujourd'hui</span>
       </div>
       <div class="ai-usage-value tabular" id="ai-usage-value">0 / 25 messages</div>
       <div class="progress-track ai-usage-track">
@@ -179,7 +180,7 @@
         </div>
       </div>
       <div class="list-card card">
-        <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4"/><path d="M12 2a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 2Z"/></svg>Suggestions de l'IA</h3>
+        <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4"/><path d="M12 2a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 2Z"/></svg>Suggestions pour toi</h3>
         <div id="suggestions"></div>
       </div>
     </div>
@@ -195,12 +196,17 @@
       </div>
     </div>
 
+    <div class="list-card card reveal" id="notion-breakdown-card" style="overflow-x:auto;">
+      <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M8 17V10M13 17V6M18 17v-4"/></svg>Bilan de progression par notion</h3>
+      <div id="notion-breakdown"></div>
+    </div>
+
     <div class="list-card card reveal" style="overflow-x:auto;">
       <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Dernières séries</h3>
       <table class="history-table">
         <thead><tr>
           <th>Date</th><th>Heure</th><th>Chapitre</th><th>Notion</th><th>Score</th><th>Accuracy</th>
-          <th>Temps</th><th>Bonnes</th><th>Mauvaises</th><th>Niveau IA</th><th></th>
+          <th>Temps</th><th>Bonnes</th><th>Mauvaises</th><th>Niveau</th><th></th>
         </tr></thead>
         <tbody id="history-body"></tbody>
       </table>

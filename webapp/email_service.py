@@ -8,10 +8,8 @@ Architecture stricte, identique aux autres services :
 jamais l'inverse. Ce module ne connaît rien de la base de données ni de la
 logique métier RGPD : il expose uniquement `send_email()` (transport SMTP
 générique) et des fonctions `build_*_email()` (contenu HTML/texte des emails
-NovaMath). C'est le PREMIER point d'intégration email réel du projet — avant
-SEC-04, le seul précédent (réinitialisation de mot de passe, voir
-auth.py::forgot_password) renvoyait son lien en clair dans la réponse JSON en
-mode développement, sans jamais envoyer de vrai email.
+NovaMath) : consentement parental, mise à jour de politique, et
+réinitialisation de mot de passe (voir auth.py::forgot_password).
 
 Aucune nouvelle dépendance : `smtplib`/`email` (bibliothèque standard Python)
 suffisent à un envoi SMTP classique (TLS/STARTTLS), sans les particularités
@@ -20,11 +18,13 @@ propriétaires d'un fournisseur tiers.
 Configuration absente (EMAIL_SMTP_HOST non positionnée) : `send_email()` ne
 lève jamais d'erreur, renvoie `sent=False` — même philosophie que
 TWO_FACTOR_SECRET_KEY/STRIPE_SECRET_KEY absentes ailleurs dans le projet. Les
-appelants (consent_service.py) suivent alors le même filet que
-dev_reset_link : le lien concerné est renvoyé en clair dans la réponse JSON,
-jamais journalisé (un token de consentement est un secret au même titre qu'un
-token de réinitialisation de mot de passe).
-"""
+appelants (consent_service.py, auth.py::forgot_password) suivent alors le
+même filet : le lien concerné (consentement ou réinitialisation) est renvoyé
+en clair dans la réponse JSON UNIQUEMENT dans ce cas (jamais journalisé), pour
+rester utilisable en développement sans SMTP configuré. Dès que le SMTP est
+configuré, ce filet ne s'active plus jamais : le lien part uniquement par
+email, jamais dans une réponse API (un token de réinitialisation est un
+secret au même titre qu'un mot de passe)."""
 import logging
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -134,6 +134,24 @@ def build_parental_consent_refused_email(child_pseudo):
         "compte NovaMath. Il restera inaccessible.</p>",
     )
     text = f"Bonjour {child_pseudo}, ton parent n'a pas autorisé la création de ton compte NovaMath."
+    return subject, html, text
+
+
+def build_password_reset_email(pseudo, reset_url):
+    subject = "NovaMath — Réinitialisation de mot de passe"
+    html = _wrap_html(
+        "Réinitialisation de mot de passe",
+        f"""<p>Bonjour {pseudo},</p>
+        <p>Tu as demandé la réinitialisation de ton mot de passe NovaMath. Si tu n'es
+        pas à l'origine de cette demande, ignore simplement cet email : ton mot de
+        passe actuel reste inchangé.</p>""",
+        button_label="Réinitialiser mon mot de passe",
+        button_url=reset_url,
+    )
+    text = (
+        f"Bonjour {pseudo}, tu as demandé la réinitialisation de ton mot de passe NovaMath.\n"
+        f"Lien : {reset_url}\nSi tu n'es pas à l'origine de cette demande, ignore cet email."
+    )
     return subject, html, text
 
 

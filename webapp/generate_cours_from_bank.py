@@ -64,9 +64,10 @@ import re
 import sys
 import unicodedata
 from collections import Counter
-from pathlib import Path
 
 import curriculum_registry
+import figure_builder
+import pedagogy_templates as pedago
 
 EXERCISES_BANK_SCALE_TO_LABEL = {1: "facile", 2: "facile", 3: "moyen", 4: "difficile", 5: "difficile"}
 DIFFICULTE_LEVELS = ("facile", "moyen", "difficile")
@@ -121,7 +122,11 @@ def _flatten_solution_steps(steps):
 
 
 def _output_dir(class_level):
-    return curriculum_registry.STATIC_DATA_DIR / f"cours_{class_level}"
+    # Chantier "Répartition du contenu des cours par plan" : le contenu
+    # pédagogique a été déplacé hors de webapp/static/ (voir
+    # curriculum_registry.COURSE_CONTENT_DIR) — dérivé du registre plutôt que
+    # reconstruit ici, pour ne jamais diverger de courses_dir.
+    return curriculum_registry.CURRICULUM_REGISTRY[class_level].courses_dir
 
 
 def _ranked_distinct_hints(exercises):
@@ -190,6 +195,7 @@ def _majority_difficulty_label(exercises):
 
 
 def _build_notion(notion_label, exercises):
+    category = pedago.detect_category(_slug(notion_label), notion_label)
     hints_ranked = _ranked_distinct_hints(exercises)
     if hints_ranked:
         definition = hints_ranked[0]
@@ -210,24 +216,28 @@ def _build_notion(notion_label, exercises):
 
     erreurs = [h for h in hints_ranked if _ERREUR_MARKERS.search(h)]
     astuce_candidates = [h for h in hints_ranked if _ASTUCE_MARKERS.search(h)]
-    astuce = astuce_candidates[0] if astuce_candidates else ""
+    astuce = astuce_candidates[0] if astuce_candidates else pedago.build_astuce_fallback(category)
 
     # Méthode : les étapes réelles de l'exercice le plus détaillé de la
-    # notion (le plus d'étapes réelles), jamais recomposées.
+    # notion (le plus d'étapes réelles), jamais recomposées — seule leur
+    # formulation est humanisée (retrait du préfixe mécanique "Étape N :"
+    # déjà présent dans la banque, remplacé par une phrase de professeur).
     with_steps = [ex for ex in exercises if _flatten_solution_steps(ex.get("solution_steps"))]
     methode_source = max(with_steps, key=lambda ex: len(_flatten_solution_steps(ex["solution_steps"]))) if with_steps else None
-    etapes = _build_etapes(_flatten_solution_steps(methode_source["solution_steps"])) if methode_source else []
+    etapes = _build_etapes(pedago.humanize_steps(_flatten_solution_steps(methode_source["solution_steps"]))) if methode_source else []
 
     exemples = []
     exemple_ids = set()
     for ex in _pick_examples(exercises, MAX_EXEMPLES_PAR_NOTION):
-        steps = _flatten_solution_steps(ex.get("solution_steps"))
+        steps = pedago.humanize_steps(_flatten_solution_steps(ex.get("solution_steps")))
         exemples.append({
             "id": f"exemple-{ex['id']}",
             "titre": f"Exemple {len(exemples) + 1}",
             "enonce": ex.get("enonce", ""),
+            "explication": f"Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
             "calcul": [{"expr": "", "texte": s} for s in steps],
             "reponse": ex.get("answer", ""),
+            "conclusion": f"Nous avons ainsi obtenu le résultat : {ex.get('answer', '')}",
             "difficulte": EXERCISES_BANK_SCALE_TO_LABEL.get(ex.get("difficulty"), "moyen"),
         })
         exemple_ids.add(ex["id"])
@@ -250,19 +260,22 @@ def _build_notion(notion_label, exercises):
         "id": notion_id,
         "title": notion_label,
         "schemaVersion": 2,
-        "intro": f"Dans cette leçon, tu vas apprendre à utiliser : {notion_label}.",
+        "intro": pedago.build_intro(notion_label, category),
+        "explicationSimple": pedago.build_explication_simple(category),
         "objectif": objectif,
         "definition": definition,
         "definitions": definitions,
+        "intuition": pedago.build_intuition(category),
         "reglesImportantes": regles,
         "formules": [],
         "methode": {"titre": f"Méthode — {notion_label}", "etapes": etapes} if etapes else {},
         "exemples": exemples,
+        "exemplesConcrets": pedago.build_exemples_concrets(category),
         "erreursFrequentes": erreurs,
         "erreursFrequentesDetail": [],
         "astuce": astuce,
         "aRetenir": a_retenir,
-        "figure": None,
+        "figure": figure_builder.build_figure(category, notion_id, notion_label),
         "quizExerciseIds": quiz_ids,
         "topic_id": notion_id,
         "proprietes": [],
@@ -278,7 +291,11 @@ def _build_notion(notion_label, exercises):
     }
 
 
-def generate(class_level):
+def generate(class_level, chapter_filter=None):
+    """chapter_filter (optionnel) : identifiant de chapitre (ex. "chapitre_1",
+    insensible à la casse) pour ne (re)générer qu'un seul fichier — utile pour
+    piloter un chapitre avant de généraliser à toute la classe, sans toucher
+    aux autres fichiers déjà en place."""
     profile = curriculum_registry.CURRICULUM_REGISTRY[class_level]
     if profile.exercise_bank is None or not profile.exercise_bank.exists():
         raise SystemExit(f"Aucune banque d'exercices déclarée/trouvée pour {class_level!r} — rien à générer.")
@@ -289,24 +306,33 @@ def generate(class_level):
             ex["id"] = i
 
     by_chapter = {}
+    chapter_names = {}
     for ex in bank:
         chapter_id = ex.get("chapter_id")
         notion = ex.get("notion")
         if not chapter_id or not notion:
             continue
         by_chapter.setdefault(chapter_id, {}).setdefault(notion, []).append(ex)
+        chapter_name = ex.get("chapter")
+        if chapter_name:
+            chapter_names.setdefault(chapter_id, Counter())[chapter_name] += 1
 
     out_dir = _output_dir(class_level)
     out_dir.mkdir(parents=True, exist_ok=True)
     written = []
     for chapter_id, notions_by_label in sorted(by_chapter.items()):
+        if chapter_filter and chapter_id.lower() != chapter_filter.lower():
+            continue
+        # Titre réel s'il est déclaré dans la banque (champ "chapter", ex.
+        # "Nombres entiers") — sinon dérivé de l'identifiant, comme le fait
+        # déjà /api/chapters (server.py::api_chapters) quand CHAPTER_META ne
+        # connaît pas ce chapitre. Jamais un titre inventé : uniquement lu
+        # depuis la donnée déjà présente dans exercise_bank.
+        names_seen = chapter_names.get(chapter_id)
+        title = names_seen.most_common(1)[0][0] if names_seen else chapter_id.replace("_", " ")
         chapter = {
             "chapterId": chapter_id,
-            # Aucun programme officiel déclaré pour cette classe (program_file
-            # absent du registre) : titre dérivé de l'identifiant, comme le
-            # fait déjà /api/chapters (server.py::api_chapters) quand
-            # CHAPTER_META ne connaît pas ce chapitre.
-            "title": chapter_id.replace("_", " "),
+            "title": title,
             "icon": "layers",
             "notions": [
                 _build_notion(notion_label, exs)
@@ -320,12 +346,13 @@ def generate(class_level):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        raise SystemExit("Usage : python -m generate_cours_from_bank <class_level>")
+    if len(sys.argv) not in (2, 3):
+        raise SystemExit("Usage : python -m generate_cours_from_bank <class_level> [chapitre_N]")
     target_class_level = sys.argv[1]
+    target_chapter_filter = sys.argv[2] if len(sys.argv) == 3 else None
     if target_class_level not in curriculum_registry.CURRICULUM_REGISTRY:
         raise SystemExit(f"Classe inconnue du registre : {target_class_level!r}")
-    out_dir, written = generate(target_class_level)
+    out_dir, written = generate(target_class_level, target_chapter_filter)
     print(f"{len(written)} chapitre(s) écrit(s) dans {out_dir}")
 
     from chatbot.validate_cours_schema import validate_all

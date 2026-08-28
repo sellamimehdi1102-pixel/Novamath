@@ -48,9 +48,9 @@ describe("api.js — request() / gestion d'erreurs", () => {
 
   it("sérialise le body JSON pour une requête POST", async () => {
     mockFetchOnce(200, { ok: true });
-    await api.start(["ch1"], "seconde");
+    await api.practiceLoad("ex1", "seconde");
     const [, opts] = global.fetch.mock.calls[0];
-    expect(JSON.parse(opts.body)).toEqual({ chapters: ["ch1"], class_level: "seconde" });
+    expect(JSON.parse(opts.body)).toEqual({ exercise_id: "ex1", class_level: "seconde" });
   });
 
   it("retourne le JSON de la réponse en cas de succès", async () => {
@@ -79,6 +79,38 @@ describe("api.js — request() / gestion d'erreurs", () => {
       expect(err.feature).toBe("advanced_ai");
       expect(err.requiredPlan).toBe("ultra");
     }
+  });
+
+  it("marque isQuotaExceeded + quota/remaining/limit/requiredPlan sur un 429 quota_exceeded (n'importe quel quota)", async () => {
+    mockFetchOnce(429, {
+      error: "quota_exceeded", quota: "exercises_daily", remaining: 0, limit: 20, required_plan: "premium",
+    });
+    try {
+      await api.practiceLoad("ex1", "seconde");
+      throw new Error("aurait dû lever");
+    } catch (err) {
+      expect(err.isQuotaExceeded).toBe(true);
+      expect(err.quota).toBe("exercises_daily");
+      expect(err.remaining).toBe(0);
+      expect(err.limit).toBe(20);
+      expect(err.requiredPlan).toBe("premium");
+    }
+  });
+
+  it("un 429 quota_exceeded sur exercises_daily NE déclenche PAS le toast/la redirection chatbot (contrairement à chat_messages)", async () => {
+    mockFetchOnce(429, {
+      error: "quota_exceeded", quota: "exercises_daily", remaining: 0, limit: 20, required_plan: "premium",
+    });
+    await expect(api.practiceLoad("ex1", "seconde")).rejects.toThrow();
+    expect(document.getElementById("novamath-quota-toast")).toBeNull();
+  });
+
+  it("un 429 quota_exceeded sur chat_messages déclenche toujours le toast (comportement chatbot historique inchangé)", async () => {
+    mockFetchOnce(429, {
+      error: "quota_exceeded", quota: "chat_messages", remaining: 0, limit: 15, required_plan: "premium",
+    });
+    await expect(api.getStats()).rejects.toThrow();
+    expect(document.getElementById("novamath-quota-toast")).not.toBeNull();
   });
 
   it("gère une réponse non-JSON sans planter (payload vide)", async () => {

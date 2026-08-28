@@ -113,6 +113,58 @@ export const AUTH_MODALS_HTML = `
   </div>
 </div>
 
+<div class="modal-overlay" id="oauth-signup-modal-overlay" hidden>
+  <div class="modal-card modal-card--wide card">
+    <form id="oauth-signup-form" novalidate>
+      <h3>Finaliser ton inscription</h3>
+      <p class="form-hint">Ton compte Google est vérifié — il ne manque que ces quelques informations pour créer ton compte NovaMath.</p>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="oauth-signup-username">Nom d'utilisateur</label>
+          <input type="text" id="oauth-signup-username" autocomplete="username" maxlength="25">
+          <span class="form-error" id="oauth-signup-error-username" hidden></span>
+        </div>
+        <div class="form-field">
+          <label for="oauth-signup-pseudo">Pseudo (nom affiché)</label>
+          <input type="text" id="oauth-signup-pseudo" maxlength="30">
+          <span class="form-error" id="oauth-signup-error-pseudo" hidden></span>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="oauth-signup-birth-date">Date de naissance</label>
+        <input type="date" id="oauth-signup-birth-date" autocomplete="bday">
+        <span class="form-error" id="oauth-signup-error-birth_date" hidden></span>
+      </div>
+      <div class="form-field" id="oauth-signup-parent-email-row" hidden>
+        <label for="oauth-signup-parent-email">Email d'un parent ou tuteur</label>
+        <input type="email" id="oauth-signup-parent-email" autocomplete="off">
+        <span class="form-hint">Ton compte a besoin de l'autorisation d'un parent pour être activé (protection des mineurs, RGPD).</span>
+        <span class="form-error" id="oauth-signup-error-parent_email" hidden></span>
+      </div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="oauth-signup-accept-terms">
+        <span>J'accepte les <button type="button" class="link-inline js-open-legal">conditions d'utilisation</button></span>
+      </label>
+      <span class="form-error" id="oauth-signup-error-accept_terms" hidden></span>
+      <label class="checkbox-row">
+        <input type="checkbox" id="oauth-signup-accept-privacy">
+        <span>J'accepte la <button type="button" class="link-inline js-open-privacy">politique de confidentialité</button></span>
+      </label>
+      <span class="form-error" id="oauth-signup-error-accept_privacy" hidden></span>
+
+      <span class="form-error form-error--global" id="oauth-signup-error-global" hidden></span>
+
+      <div class="verdict-row">
+        <button type="button" class="btn btn-secondary" id="btn-oauth-signup-cancel">Annuler</button>
+        <button type="submit" class="btn btn-primary" id="btn-oauth-signup-submit">Créer mon compte</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div class="modal-overlay" id="login-modal-overlay" hidden>
   <div class="modal-card modal-card--wide card">
     <form id="login-form" novalidate>

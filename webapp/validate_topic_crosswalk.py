@@ -13,9 +13,15 @@ import json
 import sys
 from pathlib import Path
 
+import curriculum_registry
+
 ROOT = Path(__file__).resolve().parent.parent
 CROSSWALK_PATH = Path(__file__).resolve().parent / "static" / "data" / "topic_crosswalk.json"
-COURS_DIR = Path(__file__).resolve().parent / "static" / "data" / "cours"
+# Chantier "Répartition du contenu des cours par plan" : le contenu de
+# static/data/cours/ a été déplacé vers curriculum_registry.COURSE_CONTENT_DIR
+# — dérivé du registre plutôt que reconstruit ici, pour ne jamais diverger de
+# courses_dir.
+COURS_DIR = curriculum_registry.CURRICULUM_REGISTRY["seconde"].courses_dir
 BANK_PATH = ROOT / "exercises_bank.json"
 
 

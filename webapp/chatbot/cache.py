@@ -51,8 +51,14 @@ class LRUCache:
 _store = LRUCache(MAX_ENTRIES)  # (user_id, provider, model, message_normalisé) -> réponse
 
 
-def make_key(user_id, provider, model, message, class_level=None):
-    return (user_id, provider, model or "", class_level or "seconde", normalize_message(message))
+def make_key(user_id, provider, model, message, class_level=None, topic=None):
+    """`topic` (optionnel, chapter_id résolu par intent_service.classify) :
+    sans lui, un message ambigu ("réexplique", "encore"...) donnerait
+    exactement la même clé de cache dans deux conversations différentes du
+    même utilisateur, même si le Current Learning Context (voir
+    conversation_manager.py) y désigne deux notions différentes — la réponse
+    mise en cache pour l'une serait alors servie à tort dans l'autre."""
+    return (user_id, provider, model or "", class_level or "seconde", normalize_message(message), topic or "")
 
 
 def get(key):

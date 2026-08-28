@@ -12,7 +12,7 @@ import { bindSettingsButton } from "./settingsPopup.js";
 import { bindLiveTranslations } from "./i18n.js";
 import { icon } from "./icons.js";
 import { api } from "./api.js";
-import { PLAN_LABELS, featureLabel, requiredPlanFor, planMeetsRequirement, nextPlanAbove } from "./features.js";
+import { PLAN_LABELS, featureLabel, requiredPlanFor, nextPlanAbove, hasFeature } from "./features.js";
 
 initSettingsManager().then(() => bindLiveTranslations());
 bindSettingsButton(document.getElementById("settings-btn"));
@@ -261,9 +261,18 @@ function paintUpgradeBanner({ title, desc, requiredPlan }) {
   }
 }
 
-function showRequiredFeatureBanner(featureValue, currentPlan) {
+function showRequiredFeatureBanner(featureValue, user) {
+  // Chantier 10 (centralisation du feature gating) : la décision d'accès
+  // passe par hasFeature(user, ...) — SEULE source de vérité, déjà
+  // Owner-aware (voir features.js/plan_service.has_feature) — jamais un
+  // recalcul local à partir du nom du plan réel (user.plan) comme avant. Un
+  // Owner en mode test Premium/Ultra a désormais accès à cette page/bannière
+  // sans être compté "Free" ici alors que le backend le considère déjà
+  // éligible. requiredPlanFor() reste utilisé UNIQUEMENT pour le libellé du
+  // plan mis en avant dans la bannière (present à titre indicatif), jamais
+  // pour la décision d'accès elle-même.
+  if (hasFeature(user, featureValue)) return;
   const requiredPlan = requiredPlanFor(featureValue);
-  if (planMeetsRequirement(currentPlan, requiredPlan)) return;
   const planLabel = PLAN_LABELS[requiredPlan] || "Premium";
   paintUpgradeBanner({
     title: `Cette fonctionnalité nécessite ${planLabel}.`,
@@ -272,14 +281,20 @@ function showRequiredFeatureBanner(featureValue, currentPlan) {
   });
 }
 
-// Free -> Premium mis en avant ; Premium -> Ultra mis en avant (jamais
-// déclenché pour un compte déjà Ultra, qui n'épuise jamais son quota — voir
-// quota_service.consume). `quotaValue` n'affecte pas le texte générique de
-// la bannière (le message reste le même quel que soit le quota concerné,
-// aujourd'hui uniquement chat_messages) mais reste transporté pour un futur
-// message spécifique par type de quota si besoin.
-function showQuotaExceededBanner(currentPlan) {
-  const requiredPlan = nextPlanAbove(currentPlan);
+// Le palier à proposer vient du serveur (quota_service._next_plan_with_more,
+// transporté dans le paramètre required_plan par api.js::handleQuotaExceeded)
+// — jamais recalculé ici : Free (15) et Premium (25) ont des limites
+// CHAT_MESSAGES distinctes, donc "le palier suivant" est bien Premium pour
+// un Free qui épuise ce quota précis, et Ultra pour un Premium qui épuise le
+// sien (Premium==Ultra n'est jamais le cas).
+// nextPlanAbove(currentPlan) ne reste qu'un repli défensif si le paramètre est
+// absent (lien externe/ancien, jamais le cas pour une redirection récente).
+// `quotaValue` n'affecte pas le texte générique de la bannière (le message
+// reste le même quel que soit le quota concerné, aujourd'hui uniquement
+// chat_messages) mais reste transporté pour un futur message spécifique par
+// type de quota si besoin.
+function showQuotaExceededBanner(currentPlan, requiredPlanParam) {
+  const requiredPlan = requiredPlanParam || nextPlanAbove(currentPlan);
   const planLabel = PLAN_LABELS[requiredPlan] || "Premium";
   paintUpgradeBanner({
     title: "Tu as atteint ta limite quotidienne.",
@@ -288,23 +303,151 @@ function showQuotaExceededBanner(currentPlan) {
   });
 }
 
-function handleUpgradeParams(currentPlan) {
+function handleUpgradeParams(user) {
   const params = new URLSearchParams(window.location.search);
   const feature = params.get("required");
   const reason = params.get("reason");
   if (feature) {
-    showRequiredFeatureBanner(feature, currentPlan);
+    // Décision d'accès (hasFeature) : a besoin de l'objet `user` complet
+    // (features Owner-aware), pas seulement du nom du plan réel — voir
+    // showRequiredFeatureBanner.
+    showRequiredFeatureBanner(feature, user);
   } else if (reason === "quota") {
-    showQuotaExceededBanner(currentPlan);
+    // Un quota (CHAT_MESSAGES/LLM_CALLS) n'est jamais Owner-aware côté
+    // affichage ici : seul le nom du plan sert à choisir le libellé du
+    // palier suivant proposé (voir showQuotaExceededBanner) — jamais une
+    // décision d'accès à une Feature, donc le plan réel suffit.
+    showQuotaExceededBanner(user.plan || "free", params.get("required_plan"));
   }
+}
+
+// ── Compte Owner uniquement (Chantier 6) : les cartes deviennent des
+// boutons de simulation locale — /api/owner/test-plan, jamais Stripe. La
+// distinction Owner/utilisateur normal est déjà décidée côté serveur
+// (owner_service.is_owner_account, voir user.is_owner exposé par
+// /api/auth/me dans auth.py::_public_user) : ce module ne fait que suivre
+// ce que le serveur a déjà déterminé, jamais une logique de confiance côté
+// client — la sécurité réelle reste entièrement dans owner_service.owner_only
+// sur la route /api/owner/test-plan elle-même. Réutilise le widget flottant
+// owner-test-panel.js pour les réglages avancés (quotas illimités, provider/
+// modèle) : celui-ci s'auto-masque sur cette page (voir son propre module)
+// pour ne jamais dupliquer visuellement les mêmes boutons FREE/PREMIUM/ULTRA.
+function paintOwnerMode(status) {
+  const banner = $("owner-mode-banner");
+  if (banner) banner.hidden = false;
+  const footnote = $("pricing-footnote");
+  if (footnote) footnote.hidden = true;
+
+  document.querySelectorAll(".pricing-card").forEach((card) => {
+    const cardPlan = card.dataset.plan;
+    const btn = card.querySelector("[data-plan-button]");
+    const isCurrent = cardPlan === status.effective_plan;
+    card.toggleAttribute("data-plan-current", isCurrent);
+    if (!btn) return;
+    btn.classList.remove("js-open-signup");
+    delete btn.dataset.changePlan;
+    btn.dataset.ownerTest = "true";
+    btn.disabled = isCurrent;
+    btn.textContent = isCurrent ? "Mode testé" : `Tester ${PLAN_LABELS[cardPlan]}`;
+  });
+}
+
+async function startOwnerTest(plan, btn) {
+  setButtonLoading(btn, true);
+  try {
+    // unlimited_quotas: false — sans ce réglage (True par défaut pour le
+    // compte Owner, voir owner_test_plan_service.get_unlimited_quotas), les
+    // quotas resteraient illimités quel que soit le plan "testé", ce qui
+    // viderait "Tester Premium/Ultra" de son intérêt (impossible d'observer
+    // les vraies limites 25/20 ou 40/40 depuis cette page). Le widget
+    // flottant (autres pages) garde, lui, son propre réglage indépendant —
+    // ce chantier ne le modifie pas.
+    const status = await api.ownerTestPlanUpdate({ plan, unlimited_quotas: false });
+    // setButtonLoading(false) DOIT s'exécuter avant paintOwnerMode : il
+    // restaure textContent/disabled depuis l'état "avant clic" (voir
+    // btn.dataset.originalText), ce qui écraserait sinon le nouvel état
+    // correct ("Mode testé"/disabled=true) que paintOwnerMode vient de poser.
+    setButtonLoading(btn, false);
+    showToast(`Mode test Owner : ${PLAN_LABELS[plan]} activé — aucun paiement Stripe.`);
+    paintOwnerMode(status);
+    // Notifie les autres widgets de la page (sidebar/identity.js, carte
+    // compte…) — voir le commentaire dans loadCurrentPlan(). `status` n'a pas
+    // la forme d'un objet `user` (pas de pseudo/avatar), donc un second appel
+    // à api.me() est nécessaire ici plutôt que de dispatcher `status` tel quel.
+    try {
+      const { user } = await api.me();
+      notifyAccountUpdated(user);
+    } catch {
+      // Best-effort : la carte Owner elle-même est déjà à jour (paintOwnerMode
+      // ci-dessus), seule la notification des autres widgets échouerait.
+    }
+  } catch (err) {
+    setButtonLoading(btn, false);
+    showToast(err.message || "Impossible de changer le plan de test.", true);
+  }
+}
+
+// Câblage dédié Owner : contrairement à wireButtons() (utilisateurs normaux),
+// le bouton "free" est ici aussi actif (l'Owner doit pouvoir tester FREE).
+// Le module appelle wireButtons() de façon inconditionnelle au chargement
+// (voir le bas de ce fichier, pour la page landing publique) AVANT de savoir
+// si le compte est Owner (api.me() est asynchrone) : sur abonnement.html, ça
+// peut donc déjà avoir posé l'écouteur Stripe sur ces mêmes boutons. On clone
+// chaque bouton (sans ses écouteurs) avant d'attacher celui d'Owner, pour
+// ne JAMAIS avoir deux gestionnaires actifs sur le même clic (Stripe +
+// simulation locale déclenchés en même temps serait un vrai bug de sécurité
+// perçue, même si /api/checkout/create-session resterait de toute façon
+// fonctionnel pour ce compte côté serveur).
+function wireOwnerButtons() {
+  document.querySelectorAll("[data-plan-button]").forEach((btn) => {
+    const clean = btn.cloneNode(true);
+    btn.replaceWith(clean);
+    delete clean.dataset.wired;
+    clean.dataset.ownerTest = "true";
+    const plan = clean.dataset.planButton;
+    clean.addEventListener("click", () => {
+      if (clean.disabled) return;
+      startOwnerTest(plan, clean);
+    });
+  });
+}
+
+// Notifie les autres widgets de la page (sidebar/identity.js, carte compte du
+// dashboard, page profil) qu'un plan à jour est disponible — même événement
+// que settings.js après une modification de profil. Sans ça,
+// startChangePlan()/startOwnerTest() changent le plan en place (sans
+// rechargement de page) et la sidebar, peinte une seule fois au chargement
+// initial, continue d'afficher l'ancien plan indéfiniment.
+function notifyAccountUpdated(user) {
+  window.dispatchEvent(new CustomEvent("novamath:account-updated", { detail: user }));
 }
 
 async function loadCurrentPlan() {
   try {
     const { user } = await api.me();
+    notifyAccountUpdated(user);
+
+    if (user.is_owner) {
+      try {
+        const status = await api.ownerTestPlanStatus();
+        paintOwnerMode(status);
+        wireOwnerButtons();
+        // Statut de facturation basé sur le VRAI plan (toujours "free" pour
+        // l'Owner, voir owner_test_plan_service.py) : la carte Stripe reste
+        // masquée, jamais un abonnement Stripe fictif affiché pour un plan
+        // de test simulé.
+        loadBillingStatus(user.plan || "free");
+        return;
+      } catch {
+        // /api/owner/test-plan a renvoyé 404 (NOVAMATH_OWNER_USER_ID mal
+        // configuré au moment de l'appel) : repli sur le parcours normal
+        // ci-dessous, jamais un panneau Owner à moitié affiché.
+      }
+    }
+
     const plan = user.plan || "free";
     paintCurrentPlan(plan);
-    handleUpgradeParams(plan);
+    handleUpgradeParams(user);
     loadBillingStatus(plan);
     // Re-câble les boutons devenus éligibles (paintCurrentPlan vient de leur
     // retirer .js-open-signup) : no-op sur abonnement.html (déjà câblés plus

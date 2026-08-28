@@ -1,0 +1,1539 @@
+{
+  "chapterId": "Chapitre_12",
+  "title": "Triangles et quadrilatères",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "angles-formes-par-deux-droites-paralleles-et-une-secante",
+      "title": "Angles formés par deux droites parallèles et une sécante",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre à utiliser les angles formés par deux droites parallèles et une sécante.\n\nCette notion sert à calculer la mesure d'un angle sans le mesurer directement, en utilisant le parallélisme de deux droites.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Quand une sécante coupe deux droites parallèles, elle forme à chaque intersection une même « croix » d'angles. Certains de ces angles sont toujours égaux entre eux (angles correspondants, angles alternes-internes), et d'autres sont toujours supplémentaires (leur somme fait 180°). Ces propriétés permettent de calculer un angle inconnu dès qu'on en connaît un autre.",
+      "objectif": "À la fin de ce cours, tu sauras identifier des angles correspondants, alternes-internes ou supplémentaires formés par une sécante coupant deux droites parallèles, et utiliser leurs propriétés pour calculer un angle inconnu à partir d'un angle connu.",
+      "definition": "Quand une sécante coupe deux droites parallèles, elle forme deux angles correspondants (même position par rapport à la sécante et à chaque parallèle) qui sont égaux, ainsi que deux angles alternes-internes (situés de part et d'autre de la sécante, entre les deux parallèles) qui sont également égaux.",
+      "definitions": {
+        "lycee": "Quand une sécante coupe deux droites parallèles, elle forme deux angles correspondants (même position par rapport à la sécante et à chaque parallèle) qui sont égaux, ainsi que deux angles alternes-internes (situés de part et d'autre de la sécante, entre les deux parallèles) qui sont également égaux.",
+        "college": "Deux angles correspondants formés par une sécante sur deux droites parallèles ont toujours la même mesure."
+      },
+      "intuition": "Repère d'abord la sécante, puis les deux droites parallèles qu'elle coupe. Pour savoir si deux angles sont correspondants (même position, égaux), alternes-internes (de part et d'autre de la sécante, entre les parallèles, égaux) ou supplémentaires (adjacents sur une même droite, somme = 180°), imagine-toi transporter l'un des deux angles le long de la sécante jusqu'à l'autre point d'intersection.",
+      "reglesImportantes": [
+        "Utiliser d'abord l'égalité des angles correspondants (angle 2 = angle 1), puis celle des angles opposés par le sommet (angle 5 = angle 2).",
+        "Utiliser les angles alternes-internes créés par la droite (d) parallèle à (BC) passant par A, qui forment un angle plat avec l'angle BAC.",
+        "Introduire un troisième angle adjacent aux deux angles opposés par le sommet et utiliser deux fois la relation de supplémentarité.",
+        "Les trois angles formés en A le long de la droite (d) sont supplémentaires deux à deux et forment ensemble un angle plat de 180°.",
+        "Traduire d'abord l'égalité des angles correspondants (angle 2 = angle 1), puis la supplémentarité de l'angle 2 et de l'angle 3."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Angles formés par deux droites parallèles et une sécante",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on trace la droite (d) passant par A et parallèle à (BC). Cette droite forme avec (AB) un angle alterne-interne égal à l'angle B, et avec (AC) un angle alterne-interne égal à l'angle C."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : ces deux angles alternes-internes, ainsi que l'angle BAC, se partagent l'angle plat formé par la droite (d) en A : leur somme vaut donc 180°, c'est-à-dire angle B + angle BAC + angle C = 180°."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : ceci démontre que la somme des angles du triangle ABC vaut 180°, quels que soient les angles B et C."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : application numérique : avec angle B = 52° et angle C = 61°, on obtient angle A = 180° − 52° − 61° = 67°."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1470",
+          "titre": "Exemple 1",
+          "enonce": "Les droites (d) et (d') sont parallèles. Une sécante (Δ) coupe (d) en A et (d') en B. En A, l'angle 1 mesure 128°. En B, l'angle 2 est correspondant à l'angle 1 (même position par rapport à la sécante et à chaque parallèle). Calculer la mesure de l'angle 2.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les droites (d) et (d') étant parallèles, les angles correspondants formés par la sécante (Δ) ont la même mesure."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'angle 2 mesure donc 128°, comme l'angle 1."
+            }
+          ],
+          "reponse": "L'angle 2 mesure 128°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'angle 2 mesure 128°.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1476",
+          "titre": "Exemple 2",
+          "enonce": "Les droites (d) et (d') sont parallèles, coupées par une sécante (Δ) en A et en B. En A, l'angle 1 mesure 132°. En B, l'angle 2 est correspondant à l'angle 1, et l'angle 3, adjacent à l'angle 2 sur la droite (d'), lui est supplémentaire (leur somme forme un angle plat). Calculer les mesures de l'angle 2 et de l'angle 3.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : (d) et (d') étant parallèles, l'angle 2 (correspondant à l'angle 1) mesure 132°."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'angle 3 est adjacent à l'angle 2 sur la droite (d') et forme avec lui un angle plat : angle 3 = 180° − 132° = 48°."
+            }
+          ],
+          "reponse": "L'angle 2 mesure 132° et l'angle 3 mesure 48°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'angle 2 mesure 132° et l'angle 3 mesure 48°.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1482",
+          "titre": "Exemple 3",
+          "enonce": "Les droites (d) et (d') sont parallèles, coupées par une sécante (Δ) en A et en B. En A, l'angle 1 mesure 73°. En B, l'angle 2 est alterne-interne à l'angle 1, et l'angle 9, adjacent à l'angle 2 sur (d'), lui est supplémentaire. Justifier la mesure de l'angle 2, puis calculer et justifier la mesure de l'angle 9.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les droites (d) et (d') sont parallèles et coupées par la sécante (Δ) : les angles alternes-internes qu'elles forment sont donc égaux, ce qui donne angle 2 = angle 1 = 73°."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'angle 9 et l'angle 2 sont adjacents et forment ensemble un angle plat sur la droite (d') : leur somme vaut 180°."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on calcule donc angle 9 = 180° − 73° = 107°."
+            }
+          ],
+          "reponse": "L'angle 2 mesure 73° et l'angle 9 mesure 107°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'angle 2 mesure 73° et l'angle 9 mesure 107°.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1488",
+          "titre": "Exemple 4",
+          "enonce": "Les droites (d) et (d') sont parallèles, coupées par une sécante (Δ) en A et en B. En A, l'angle 1 mesure (3x+10)°. En B, l'angle 2, correspondant à l'angle 1, mesure (5x−30)°. Déterminer x, puis calculer la mesure commune de ces deux angles.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : (d) et (d') étant parallèles, l'angle 1 et l'angle 2 (correspondants) sont égaux : 3x+10 = 5x−30."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on résout : 10+30 = 5x−3x, soit 40 = 2x, donc x = 20."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'angle 1 mesure 3×20+10 = 70°, et l'angle 2 mesure 5×20−30 = 70° : les deux valeurs coïncident bien."
+            }
+          ],
+          "reponse": "x = 20, donc les deux angles mesurent 70° chacun.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : x = 20, donc les deux angles mesurent 70° chacun.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "les rails d'un chemin de fer, parallèles, coupés par un passage à niveau",
+        "les lignes d'un cahier coupées par un trait tracé en diagonale",
+        "la charpente d'un toit, où plusieurs poutres parallèles sont soutenues par une même traverse"
+      ],
+      "erreursFrequentes": [
+        "Confondre angles correspondants (égaux) et angles supplémentaires (dont la somme fait 180°), et additionner deux angles qui sont en fait égaux.",
+        "Appliquer la propriété des angles correspondants ou alternes-internes sans avoir vérifié que les deux droites sont bien parallèles.",
+        "Se tromper d'angle en regardant mal la figure et confondre l'angle demandé avec un autre angle formé au même point d'intersection."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre angles correspondants (égaux) et angles supplémentaires (dont la somme fait 180°), et additionner deux angles qui sont en fait égaux.",
+          "pourquoi": "L'élève mélange les deux propriétés vues dans la leçon et applique la mauvaise règle (égalité au lieu de supplémentarité, ou l'inverse) sans identifier précisément la position des deux angles l'un par rapport à l'autre.",
+          "comment_detecter": "Le résultat obtenu ne correspond pas à ce qu'on attend visuellement sur la figure (par exemple deux angles qui ont l'air identiques sur le dessin mais que l'élève a rendus supplémentaires).",
+          "comment_eviter": "Toujours nommer précisément la relation entre les deux angles (correspondants, alternes-internes, ou adjacents sur une même droite) avant de choisir entre égalité et supplémentarité."
+        },
+        {
+          "description": "Appliquer la propriété des angles correspondants ou alternes-internes sans avoir vérifié que les deux droites sont bien parallèles.",
+          "pourquoi": "L'élève applique la propriété par réflexe dès qu'il voit une sécante couper deux droites, sans lire l'énoncé pour vérifier que le parallélisme est bien donné ou démontré.",
+          "comment_detecter": "L'énoncé ne mentionne jamais explicitement que les deux droites sont parallèles, ou demande au contraire de démontrer ce parallélisme à partir des angles.",
+          "comment_eviter": "Vérifier systématiquement dans l'énoncé ou sur le codage de la figure que les droites sont parallèles avant d'utiliser l'égalité des angles correspondants ou alternes-internes."
+        },
+        {
+          "description": "Se tromper d'angle en regardant mal la figure et confondre l'angle demandé avec un autre angle formé au même point d'intersection.",
+          "pourquoi": "À chaque point d'intersection, une sécante et une droite créent quatre angles ; l'élève repère mal lequel est correspondant, alterne-interne ou opposé par le sommet à l'angle connu.",
+          "comment_detecter": "L'angle trouvé ne correspond pas à sa position réelle sur la figure, ou l'élève utilise un angle opposé par le sommet en pensant utiliser un angle correspondant.",
+          "comment_eviter": "Repasser en couleur les deux angles concernés sur la figure avant de conclure, pour vérifier visuellement leur position l'un par rapport à l'autre et par rapport à la sécante."
+        }
+      ],
+      "astuce": "Pour ne pas confondre les trois types d'angles, retiens : correspondants = même position (« F »), alternes-internes = en \"Z\" entre les parallèles, adjacents sur une même droite = supplémentaires (somme 180°).",
+      "aRetenir": [
+        "Utiliser d'abord l'égalité des angles correspondants (angle 2 = angle 1), puis celle des angles opposés par le sommet (angle 5 = angle 2).",
+        "Utiliser les angles alternes-internes créés par la droite (d) parallèle à (BC) passant par A, qui forment un angle plat avec l'angle BAC.",
+        "Introduire un troisième angle adjacent aux deux angles opposés par le sommet et utiliser deux fois la relation de supplémentarité.",
+        "Les trois angles formés en A le long de la droite (d) sont supplémentaires deux à deux et forment ensemble un angle plat de 180°.",
+        "Traduire d'abord l'égalité des angles correspondants (angle 2 = angle 1), puis la supplémentarité de l'angle 2 et de l'angle 3.",
+        "Utiliser la réciproque de la propriété des angles alternes-internes : si ces angles sont égaux, les droites sont parallèles."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -2, 7, 10],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 1, "y": 1, "label": "A"},
+          {"x": 2.5, "y": 4, "label": "B"}
+        ],
+        "segments": [
+          {"from": {"x": -1, "y": 1}, "to": {"x": 5, "y": 1}, "tooltip": "Droite (d)"},
+          {"from": {"x": -1, "y": 4}, "to": {"x": 5, "y": 4}, "tooltip": "Droite (d'), parallèle à (d)"},
+          {"from": {"x": 0, "y": -1}, "to": {"x": 4, "y": 7}, "tooltip": "Sécante (Δ)"}
+        ],
+        "arcs": [
+          {"center": {"x": 1, "y": 1}, "radius": 0.7, "startDeg": 0, "endDeg": 63, "label": "1"},
+          {"center": {"x": 2.5, "y": 4}, "radius": 0.7, "startDeg": 0, "endDeg": 63, "label": "2"}
+        ],
+        "texts": [
+          {"x": -0.8, "y": 1.3, "label": "(d)"},
+          {"x": -0.8, "y": 4.3, "label": "(d')"},
+          {"x": 3.9, "y": 6.7, "label": "(Δ)"}
+        ],
+        "alt": "Deux droites parallèles (d) et (d') coupées par une sécante (Δ) : l'angle 1 en A et l'angle 2 en B sont des angles correspondants, donc de même mesure."
+      },
+      "quizExerciseIds": [
+        1471,
+        1472,
+        1473
+      ],
+      "topic_id": "angles-formes-par-deux-droites-paralleles-et-une-secante",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Angles formés par deux droites parallèles et une sécante."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "angles",
+        "formes",
+        "deux",
+        "droites"
+      ]
+    },
+    {
+      "id": "parallelogrammes-particuliers-(rectangle,-losange,-carre)",
+      "title": "Parallélogrammes particuliers (rectangle, losange, carré)",
+      "schemaVersion": 2,
+      "intro": "Le rectangle, le losange et le carré sont des parallélogrammes particuliers : ils ont donc toutes les propriétés d'un parallélogramme (côtés opposés parallèles et égaux, diagonales qui se coupent en leur milieu), plus une propriété supplémentaire qui les distingue. Connaître ces propriétés supplémentaires permet de démontrer la nature exacte d'un quadrilatère et de calculer des longueurs ou des angles sans les mesurer.",
+      "explicationSimple": "Un rectangle, c'est un parallélogramme qui a en plus un angle droit (ce qui force les trois autres à l'être aussi) : ses diagonales sont alors de la même longueur. Un losange, c'est un parallélogramme qui a en plus tous ses côtés de la même longueur : ses diagonales sont alors perpendiculaires. Un carré, c'est les deux à la fois : quatre angles droits ET quatre côtés égaux.",
+      "objectif": "À la fin de ce cours, tu sauras citer les propriétés des diagonales du rectangle, du losange et du carré, et les utiliser pour calculer des longueurs ou démontrer la nature d'un quadrilatère.",
+      "definition": "Un rectangle est un parallélogramme qui possède un angle droit (ses quatre angles sont alors droits) ; ses diagonales ont la même longueur. Un losange est un parallélogramme qui possède quatre côtés de même longueur ; ses diagonales sont perpendiculaires. Un carré est à la fois un rectangle et un losange : il possède quatre angles droits, quatre côtés égaux, et des diagonales à la fois égales et perpendiculaires.",
+      "definitions": {
+        "lycee": "Un rectangle est un parallélogramme qui possède un angle droit (ses quatre angles sont alors droits) ; ses diagonales ont la même longueur. Un losange est un parallélogramme qui possède quatre côtés de même longueur ; ses diagonales sont perpendiculaires. Un carré est à la fois un rectangle et un losange : il possède quatre angles droits, quatre côtés égaux, et des diagonales à la fois égales et perpendiculaires.",
+        "college": "Un carré a quatre côtés égaux et quatre angles droits."
+      },
+      "intuition": "Pour ne pas confondre les propriétés, associe chaque forme à sa diagonale : rectangle → diagonales ÉGALES (comme les deux bras d'un « X » symétrique), losange → diagonales PERPENDICULAIRES (elles se croisent à angle droit), carré → diagonales égales ET perpendiculaires en même temps.",
+      "reglesImportantes": [
+        "Combiner la définition du rectangle (quatre angles droits) et celle du losange (quatre côtés égaux) pour obtenir les deux caractéristiques du carré.",
+        "Un losange est un parallélogramme particulier : ses diagonales sont perpendiculaires, et se coupent en leur milieu comme dans tout parallélogramme.",
+        "Les diagonales d'un losange se coupent en leur milieu et sont perpendiculaires : utiliser le théorème de Pythagore dans le triangle rectangle AOB.",
+        "La perpendicularité des diagonales suffit pour conclure au losange, indépendamment de x ; utiliser la condition supplémentaire pour déterminer x.",
+        "Les diagonales d'un rectangle sont égales et se coupent en leur milieu ; en déduire que les quatre segments AO, BO, CO, DO sont tous égaux."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Parallélogrammes particuliers (rectangle, losange, carré)",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans le parallélogramme ABCD, les côtés opposés sont égaux : AB = DC. On a par hypothèse AC = BD, et BC est un côté commun aux triangles ABC et DCB."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : les trois côtés du triangle ABC (AB, BC, CA) sont donc respectivement égaux aux trois côtés du triangle DCB (DC, CB, BD) : les triangles ABC et DCB sont égaux."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : on en déduit que l'angle ABC (en B, dans ABC) est égal à l'angle DCB (en C, dans DCB) : angle ABC = angle DCB."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : or, dans le parallélogramme ABCD, les angles ABC et DCB sont consécutifs et donc supplémentaires (leur somme vaut 180°, comme le montre la somme des angles du quadrilatère combinée à l'égalité des angles opposés). Deux angles égaux et supplémentaires valent chacun 90° : angle ABC = angle DCB = 90°. Les autres angles du parallélogramme, égaux à ces derniers (angles opposés), valent donc aussi 90° : ABCD est un rectangle."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1590",
+          "titre": "Exemple 1",
+          "enonce": "ABCD est un rectangle. On donne AC = 8 cm. Calculer BD.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans un rectangle, les diagonales AC et BD ont la même longueur."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on en déduit : BD = AC = 8 cm."
+            }
+          ],
+          "reponse": "BD = 8 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : BD = 8 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1596",
+          "titre": "Exemple 2",
+          "enonce": "ABCD est un rectangle avec AB = 6 cm et BC = 8 cm. Calculer la longueur de la diagonale AC.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le triangle ABC est rectangle en B (angle du rectangle) : AC² = AB² + BC²."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on calcule : AC² = 6² + 8² = 36 + 64 = 100, donc AC = √100 = 10 cm."
+            }
+          ],
+          "reponse": "AC = 10 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : AC = 10 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1602",
+          "titre": "Exemple 3",
+          "enonce": "ABCD est un parallélogramme dont les diagonales mesurent AC = 9 cm et BD = 9 cm. Justifier que ABCD est un rectangle, puis donner la mesure de chacun de ses angles.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on constate que les diagonales AC et BD ont la même longueur (9 cm chacune)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'après la réciproque de la propriété des diagonales du rectangle, un parallélogramme dont les diagonales sont égales est un rectangle : ABCD est donc un rectangle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : un rectangle ayant quatre angles droits, chaque angle de ABCD mesure 90°."
+            }
+          ],
+          "reponse": "ABCD est un rectangle ; chaque angle mesure 90°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : ABCD est un rectangle ; chaque angle mesure 90°.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1608",
+          "titre": "Exemple 4",
+          "enonce": "ABCD est un parallélogramme dont les diagonales, se coupant en O, mesurent AC = (5x−3) cm et BD = (3x+7) cm. Sachant que ABCD est un rectangle, déterminer x, puis calculer la longueur commune des diagonales.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : aBCD étant un rectangle, ses diagonales sont égales : 5x−3 = 3x+7."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on résout : 5x−3x = 7+3, soit 2x = 10, donc x = 5."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on calcule AC = 5×5−3 = 22 cm, et BD = 3×5+7 = 22 cm : les deux diagonales mesurent bien 22 cm."
+            }
+          ],
+          "reponse": "x = 5 ; les diagonales mesurent chacune 22 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : x = 5 ; les diagonales mesurent chacune 22 cm.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Confondre la propriété du rectangle (diagonales égales) avec celle du losange (diagonales perpendiculaires).",
+        "Croire qu'un parallélogramme quelconque a forcément des diagonales égales ou perpendiculaires, alors que ce n'est vrai que pour le rectangle, le losange ou le carré.",
+        "Oublier qu'un rectangle et un losange sont d'abord des parallélogrammes, et donc négliger d'utiliser les propriétés générales du parallélogramme (diagonales qui se coupent en leur milieu, côtés opposés égaux) en plus de la propriété particulière."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre la propriété du rectangle (diagonales égales) avec celle du losange (diagonales perpendiculaires).",
+          "pourquoi": "Les deux propriétés portent sur les diagonales et se ressemblent par leur formulation, ce qui entretient la confusion entre les deux figures.",
+          "comment_detecter": "On utilise l'égalité des diagonales pour un losange, ou leur perpendicularité pour un rectangle, ce qui ne correspond à aucune propriété réelle de ces figures.",
+          "comment_eviter": "Associe chaque figure à un mot-clé : rectangle → « égales » (comme les deux diagonales d'une porte rectangulaire), losange → « perpendiculaires » (comme un carrefour à angle droit)."
+        },
+        {
+          "description": "Croire qu'un parallélogramme quelconque a forcément des diagonales égales ou perpendiculaires, alors que ce n'est vrai que pour le rectangle, le losange ou le carré.",
+          "pourquoi": "Les propriétés étudiées dans ce chapitre concernent des parallélogrammes particuliers, et il est facile d'oublier qu'elles ne s'appliquent pas à tous les parallélogrammes.",
+          "comment_detecter": "On affirme que les diagonales d'un parallélogramme quelconque sont égales ou perpendiculaires sans avoir justifié qu'il s'agit bien d'un rectangle ou d'un losange.",
+          "comment_eviter": "Avant d'utiliser une propriété des diagonales, vérifie toujours que le quadrilatère est bien précisé comme un rectangle, un losange ou un carré, et pas seulement un parallélogramme quelconque."
+        },
+        {
+          "description": "Oublier qu'un rectangle et un losange sont d'abord des parallélogrammes, et donc négliger d'utiliser les propriétés générales du parallélogramme (diagonales qui se coupent en leur milieu, côtés opposés égaux) en plus de la propriété particulière.",
+          "pourquoi": "L'attention se concentre sur la propriété nouvelle (angle droit ou côtés égaux) et fait oublier les propriétés déjà connues du parallélogramme.",
+          "comment_detecter": "Un exercice demande d'utiliser le milieu des diagonales, mais cette propriété n'est pas mobilisée alors que la figure est bien un rectangle ou un losange.",
+          "comment_eviter": "Rappelle-toi qu'un rectangle et un losange gardent TOUTES les propriétés du parallélogramme ; la propriété particulière s'ajoute, elle ne les remplace pas."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Combiner la définition du rectangle (quatre angles droits) et celle du losange (quatre côtés égaux) pour obtenir les deux caractéristiques du carré.",
+        "Un losange est un parallélogramme particulier : ses diagonales sont perpendiculaires, et se coupent en leur milieu comme dans tout parallélogramme.",
+        "Les diagonales d'un losange se coupent en leur milieu et sont perpendiculaires : utiliser le théorème de Pythagore dans le triangle rectangle AOB.",
+        "La perpendicularité des diagonales suffit pour conclure au losange, indépendamment de x ; utiliser la condition supplémentaire pour déterminer x.",
+        "Les diagonales d'un rectangle sont égales et se coupent en leur milieu ; en déduire que les quatre segments AO, BO, CO, DO sont tous égaux.",
+        "Un parallélogramme dont les diagonales sont perpendiculaires est un losange ; utiliser ensuite Pythagore dans le triangle rectangle AOB."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 8, 10],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 0, "y": 0, "label": "A"},
+          {"x": 6, "y": 0, "label": "B"},
+          {"x": 6, "y": 8, "label": "C"},
+          {"x": 0, "y": 8, "label": "D"}
+        ],
+        "polygons": [
+          {"points": ["A", "B", "C", "D"], "tooltip": "Rectangle ABCD"}
+        ],
+        "segments": [
+          {"from": "A", "to": "C", "dashed": true, "tooltip": "Diagonale AC = 10 cm"},
+          {"from": "B", "to": "D", "dashed": true, "tooltip": "Diagonale BD = 10 cm"}
+        ],
+        "texts": [
+          {"x": 2.6, "y": 4.6, "label": "="},
+          {"x": 3.8, "y": 3.4, "label": "="}
+        ],
+        "alt": "Rectangle ABCD (AB=6 cm, BC=8 cm) et ses deux diagonales AC et BD, tracées et de même longueur (10 cm chacune)."
+      },
+      "quizExerciseIds": [
+        1591,
+        1592,
+        1593
+      ],
+      "topic_id": "parallelogrammes-particuliers-(rectangle,-losange,-carre)",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Parallélogrammes particuliers (rectangle, losange, carré)."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "parallelogrammes",
+        "particuliers",
+        "rectangle",
+        "losange"
+      ]
+    },
+    {
+      "id": "reconnaitre-un-parallelogramme",
+      "title": "Reconnaître un parallélogramme",
+      "schemaVersion": 2,
+      "intro": "Un parallélogramme est un quadrilatère dont les côtés opposés sont parallèles deux à deux. Pour prouver qu'un quadrilatère donné en est un, sans mesurer les angles avec un rapporteur, on utilise des propriétés équivalentes plus faciles à vérifier : les diagonales qui se coupent en leur milieu, les côtés opposés égaux, ou les angles opposés égaux.",
+      "explicationSimple": "Un parallélogramme, c'est un quadrilatère « penché » dont les côtés opposés ne se croiseraient jamais, même prolongés à l'infini : ils restent toujours à la même distance l'un de l'autre, comme les rails d'un chemin de fer. Pour reconnaître un parallélogramme sans avoir à vérifier ce parallélisme directement, il suffit de contrôler une seule autre propriété plus facile à mesurer : par exemple, si les deux diagonales se coupent exactement en leur milieu commun, c'est forcément un parallélogramme.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser les réciproques des propriétés du parallélogramme (diagonales de même milieu, côtés opposés égaux, angles opposés égaux) pour démontrer qu'un quadrilatère est un parallélogramme.",
+      "definition": "Un parallélogramme est un quadrilatère dont les côtés opposés sont parallèles deux à deux. Pour reconnaître un parallélogramme sans vérifier directement ce parallélisme, on peut utiliser l'une des propriétés réciproques suivantes, chacune suffisante à elle seule : les diagonales du quadrilatère se coupent en leur milieu commun ; ou les côtés opposés sont deux à deux de même longueur ; ou les angles opposés sont deux à deux de même mesure.",
+      "definitions": {
+        "lycee": "Un parallélogramme est un quadrilatère dont les côtés opposés sont parallèles deux à deux. Pour reconnaître un parallélogramme sans vérifier directement ce parallélisme, on peut utiliser l'une des propriétés réciproques suivantes, chacune suffisante à elle seule : les diagonales du quadrilatère se coupent en leur milieu commun ; ou les côtés opposés sont deux à deux de même longueur ; ou les angles opposés sont deux à deux de même mesure.",
+        "college": "Dans un parallélogramme, les angles opposés ont la même mesure."
+      },
+      "intuition": "Pour démontrer qu'un quadrilatère est un parallélogramme, il suffit de vérifier UNE seule des propriétés réciproques (milieu commun des diagonales, ou côtés opposés égaux, ou angles opposés égaux) : inutile de toutes les vérifier. Choisis celle qui correspond aux informations données par l'énoncé.",
+      "reglesImportantes": [
+        "Dans un parallélogramme, les côtés opposés ont la même longueur.",
+        "Dans un parallélogramme, les angles opposés ont la même mesure.",
+        "Utiliser la réciproque des diagonales pour la nature du quadrilatère, la réciproque de Pythagore pour la vérification, puis les propriétés des côtés opposés pour le périmètre.",
+        "Les angles égaux obtenus par l'égalité des triangles sont alternes-internes par rapport aux diagonales et côtés : utiliser la réciproque des angles alternes-internes.",
+        "Remarquer que les angles opposés sont égaux par construction de l'énoncé, indépendamment de x ; utiliser ensuite la condition supplémentaire pour déterminer x."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Reconnaître un parallélogramme",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les triangles ABC et CDA étant égaux (trois côtés égaux : AB=CD, BC=AD, AC commun), leurs angles correspondants sont égaux : angle BAC = angle DCA et angle BCA = angle DAC."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : les angles BAC et DCA sont alternes-internes par rapport à la sécante (AC) qui coupe (AB) et (CD) : leur égalité entraîne, par la réciproque des angles alternes-internes, que (AB) est parallèle à (CD)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : de même, les angles BCA et DAC sont alternes-internes par rapport à (AC) qui coupe (BC) et (AD) : leur égalité entraîne que (BC) est parallèle à (AD)."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : les côtés opposés étant parallèles deux à deux, ABCD est un parallélogramme."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1560",
+          "titre": "Exemple 1",
+          "enonce": "ABCD est un parallélogramme. On donne AB = 7 cm. Calculer CD.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans un parallélogramme, les côtés opposés AB et CD sont de même longueur."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on en déduit : CD = AB = 7 cm."
+            }
+          ],
+          "reponse": "CD = 7 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : CD = 7 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1566",
+          "titre": "Exemple 2",
+          "enonce": "Un quadrilatère ABCD a ses diagonales [AC] et [BD] qui se coupent en un point O tel que AO = OC = 4 cm et BO = OD = 6 cm. Justifier que ABCD est un parallélogramme.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on constate que O est le milieu de [AC] (car AO = OC) et le milieu de [BD] (car BO = OD) : les diagonales se coupent donc en leur milieu commun."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : d'après la réciproque de la propriété des diagonales, ABCD est un parallélogramme."
+            }
+          ],
+          "reponse": "ABCD est un parallélogramme.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : ABCD est un parallélogramme.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1572",
+          "titre": "Exemple 3",
+          "enonce": "Un quadrilatère ABCD a pour angles : angle A = 72°, angle B = 108°, angle C = 72°. Calculer l'angle D à l'aide de la somme des angles d'un quadrilatère (360°), puis justifier que ABCD est un parallélogramme.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des angles d'un quadrilatère vaut 360° : angle D = 360° − 72° − 108° − 72° = 108°."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on constate que angle A = angle C = 72° et angle B = angle D = 108° : les angles opposés sont égaux deux à deux."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : d'après la réciproque de la propriété des angles opposés, ABCD est un parallélogramme."
+            }
+          ],
+          "reponse": "L'angle D mesure 108° ; ABCD est un parallélogramme.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'angle D mesure 108° ; ABCD est un parallélogramme.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1578",
+          "titre": "Exemple 4",
+          "enonce": "Un quadrilatère ABCD a des diagonales qui se coupent en O. On donne AO = (3x−2) cm, OC = (x+8) cm, BO = (2y+1) cm et OD = (5y−11) cm. Déterminer x et y, puis calculer les longueurs des deux diagonales AC et BD, et justifier que ABCD est un parallélogramme.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : pour que O soit le milieu de [AC] : 3x−2 = x+8, soit 2x = 10, donc x = 5. On calcule AO = 3×5−2 = 13 cm et OC = 5+8 = 13 cm, donc AC = 26 cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : pour que O soit le milieu de [BD] : 2y+1 = 5y−11, soit 12 = 3y, donc y = 4. On calcule BO = 2×4+1 = 9 cm et OD = 5×4−11 = 9 cm, donc BD = 18 cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les diagonales se coupant toutes deux en leur milieu commun O, ABCD est un parallélogramme."
+            }
+          ],
+          "reponse": "x = 5, y = 4 ; AC = 26 cm et BD = 18 cm ; ABCD est un parallélogramme.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : x = 5, y = 4 ; AC = 26 cm et BD = 18 cm ; ABCD est un parallélogramme.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Confondre la propriété directe (« si c'est un parallélogramme, alors... ») avec la réciproque (« si ... , alors c'est un parallélogramme »), et les utiliser dans le mauvais sens.",
+        "Vérifier une seule diagonale coupée en son milieu, sans vérifier que ce milieu est bien commun aux deux diagonales.",
+        "Confondre côtés opposés égaux (propriété qui prouve un parallélogramme) et côtés consécutifs égaux (qui ne prouve rien de tel)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre la propriété directe (« si c'est un parallélogramme, alors... ») avec la réciproque (« si ... , alors c'est un parallélogramme »), et les utiliser dans le mauvais sens.",
+          "pourquoi": "Les deux phrases utilisent les mêmes mots dans un ordre différent, ce qui les rend faciles à confondre à l'oral comme à l'écrit.",
+          "comment_detecter": "On part de « ABCD est un parallélogramme » pour conclure une propriété, alors que l'exercice demandait justement de PROUVER que ABCD est un parallélogramme.",
+          "comment_eviter": "Demande-toi toujours ce que tu cherches à prouver : si c'est la nature du quadrilatère, tu as besoin de la réciproque (une propriété qui entraîne la conclusion « parallélogramme »)."
+        },
+        {
+          "description": "Vérifier une seule diagonale coupée en son milieu, sans vérifier que ce milieu est bien commun aux deux diagonales.",
+          "pourquoi": "On peut confondre « le milieu d'une diagonale » (un point qui existe toujours) avec « le point où les deux diagonales se coupent » (qui doit être ce même milieu commun).",
+          "comment_detecter": "Seule une des deux diagonales a été étudiée dans la démonstration, l'autre n'apparaît pas.",
+          "comment_eviter": "Pour utiliser la réciproque des diagonales, vérifie que le POINT D'INTERSECTION des deux diagonales est le milieu de CHACUNE des deux diagonales."
+        },
+        {
+          "description": "Confondre côtés opposés égaux (propriété qui prouve un parallélogramme) et côtés consécutifs égaux (qui ne prouve rien de tel).",
+          "pourquoi": "Sur une figure, il n'est pas toujours immédiat de repérer quels côtés sont opposés (non côte à côte) et lesquels sont consécutifs (côte à côte).",
+          "comment_detecter": "On compare deux côtés qui partagent un sommet commun, alors que la propriété exige de comparer des côtés qui ne se touchent pas.",
+          "comment_eviter": "Dans un quadrilatère ABCD, les côtés opposés sont [AB] et [CD] d'une part, [BC] et [AD] d'autre part : vérifie bien que tu compares ces paires-là, jamais deux côtés qui se touchent."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Dans un parallélogramme, les côtés opposés ont la même longueur.",
+        "Dans un parallélogramme, les angles opposés ont la même mesure.",
+        "Utiliser la réciproque des diagonales pour la nature du quadrilatère, la réciproque de Pythagore pour la vérification, puis les propriétés des côtés opposés pour le périmètre.",
+        "Les angles égaux obtenus par l'égalité des triangles sont alternes-internes par rapport aux diagonales et côtés : utiliser la réciproque des angles alternes-internes.",
+        "Remarquer que les angles opposés sont égaux par construction de l'énoncé, indépendamment de x ; utiliser ensuite la condition supplémentaire pour déterminer x.",
+        "Utiliser l'égalité des angles opposés par le sommet en O, combinée aux longueurs égales OA=OC et OB=OD, pour établir l'égalité des triangles AOB et COD."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-5, -4, 10, 8],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 0, "y": 0, "label": "O"},
+          {"x": -4, "y": -1.5, "label": "A"},
+          {"x": 4, "y": 1.5, "label": "C"},
+          {"x": -2, "y": 3, "label": "B"},
+          {"x": 2, "y": -3, "label": "D"}
+        ],
+        "polygons": [
+          {"points": ["A", "B", "C", "D"], "tooltip": "Quadrilatère ABCD"}
+        ],
+        "segments": [
+          {"from": "A", "to": "C", "dashed": true, "tooltip": "AO = OC = 4 cm"},
+          {"from": "B", "to": "D", "dashed": true, "tooltip": "BO = OD = 6 cm"}
+        ],
+        "texts": [
+          {"x": -2.3, "y": -0.4, "label": "="},
+          {"x": 2.3, "y": 0.4, "label": "="},
+          {"x": -1.1, "y": 1.9, "label": "="},
+          {"x": 1.1, "y": -1.9, "label": "="}
+        ],
+        "alt": "Quadrilatère ABCD dont les diagonales [AC] et [BD] se coupent en O avec AO = OC = 4 cm et BO = OD = 6 cm : les diagonales se coupent en leur milieu commun, donc ABCD est un parallélogramme."
+      },
+      "quizExerciseIds": [
+        1561,
+        1562,
+        1563
+      ],
+      "topic_id": "reconnaitre-un-parallelogramme",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Reconnaître un parallélogramme."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "reconnaitre",
+        "parallelogramme"
+      ]
+    },
+    {
+      "id": "somme-des-angles-d-un-triangle-et-inegalite-triangulaire",
+      "title": "Somme des angles d'un triangle et inégalité triangulaire",
+      "schemaVersion": 2,
+      "intro": "Dans tout triangle, la somme des trois angles vaut toujours 180°, ce qui permet de calculer un angle inconnu dès que l'on connaît les deux autres. L'inégalité triangulaire, elle, donne une condition sur les longueurs des côtés : elle permet de savoir si trois longueurs données peuvent réellement former un triangle, avant même de le tracer.",
+      "explicationSimple": "Si tu découpes les trois coins (les angles) d'un triangle en papier et que tu les places bout à bout, ils forment toujours une ligne droite, c'est-à-dire un angle plat de 180°. Pour l'inégalité triangulaire, imagine trois brins de spaghetti : si l'un d'eux est plus long que les deux autres mis bout à bout, tu ne pourras jamais refermer un triangle avec eux — le plus grand côté doit toujours être plus court que la somme des deux autres.",
+      "objectif": "À la fin de ce cours, tu sauras calculer un angle manquant d'un triangle grâce à la somme des angles (180°), et vérifier si trois longueurs peuvent former un triangle grâce à l'inégalité triangulaire.",
+      "definition": "Dans tout triangle, la somme des mesures des trois angles est égale à 180°. Par ailleurs, dans tout triangle, chaque côté a une longueur strictement inférieure à la somme des longueurs des deux autres côtés : c'est l'inégalité triangulaire. Si cette condition n'est pas vérifiée pour trois longueurs données, alors aucun triangle ne peut être construit avec ces longueurs.",
+      "definitions": {
+        "lycee": "Dans tout triangle, la somme des mesures des trois angles est égale à 180°. Par ailleurs, dans tout triangle, chaque côté a une longueur strictement inférieure à la somme des longueurs des deux autres côtés : c'est l'inégalité triangulaire. Si cette condition n'est pas vérifiée pour trois longueurs données, alors aucun triangle ne peut être construit avec ces longueurs.",
+        "college": "Pour vérifier si trois longueurs peuvent former un triangle, on compare la plus grande longueur à la somme des deux autres."
+      },
+      "intuition": "Pour l'inégalité triangulaire, il suffit de comparer la PLUS GRANDE des trois longueurs à la somme des deux autres : si elle est strictement plus petite, le triangle existe ; si elle est égale ou plus grande, le triangle est impossible (les côtés seraient alignés ou ne se rejoindraient pas). Pour la somme des angles, retiens que 180° correspond à un angle plat, une ligne droite.",
+      "reglesImportantes": [
+        "Comparer la plus grande longueur à la somme des deux autres.",
+        "Utiliser d'une part la somme des angles du triangle, d'autre part le fait que l'angle en C et l'angle ACD sont supplémentaires (angle plat).",
+        "Utiliser le périmètre pour former une équation en x, la résoudre, puis vérifier l'inégalité triangulaire sur le plus grand côté.",
+        "L'angle extérieur en C est égal à la somme des deux angles intérieurs non adjacents, c'est-à-dire les angles en A et en B.",
+        "Utiliser le périmètre pour trouver le troisième côté, puis comparer la plus grande longueur à la somme des deux autres."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Somme des angles d'un triangle et inégalité triangulaire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des trois angles du triangle vaut 180°, et l'un d'eux mesure 90°."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : les deux autres angles vérifient donc : angle 1 + angle 2 = 180° − 90° = 90°."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : comme chacun de ces deux angles est strictement positif et que leur somme vaut 90°, chacun est strictement inférieur à 90° : ils sont donc aigus."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : avec un angle de 34°, le second angle mesure 90° − 34° = 56°."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1410",
+          "titre": "Exemple 1",
+          "enonce": "Dans un triangle ABC, l'angle en A mesure 50° et l'angle en B mesure 70°. Calculer la mesure de l'angle en C.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans le triangle ABC, la somme des trois angles vaut 180°."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on calcule : angle en C = 180° − 50° − 70° = 60°."
+            }
+          ],
+          "reponse": "L'angle en C mesure 60°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'angle en C mesure 60°.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1416",
+          "titre": "Exemple 2",
+          "enonce": "Dans un triangle ABC, l'angle en A mesure x, l'angle en B mesure 2x et l'angle en C mesure 90°. Déterminer la valeur de x, puis les mesures des angles en A et en B.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des angles du triangle donne l'équation x + 2x + 90 = 180."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on résout : 3x + 90 = 180, donc 3x = 90, donc x = 30."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'angle en A mesure 30° et l'angle en B mesure 2×30° = 60°."
+            }
+          ],
+          "reponse": "x = 30°, donc l'angle en A mesure 30° et l'angle en B mesure 60°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : x = 30°, donc l'angle en A mesure 30° et l'angle en B mesure 60°.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1422",
+          "titre": "Exemple 3",
+          "enonce": "Dans un triangle ABC, l'angle en A mesure (2x−10)°, l'angle en B mesure (x+40)° et l'angle en C est un angle droit. Déterminer x, puis calculer les mesures des angles en A et en B, et vérifier que la somme des trois angles fait bien 180°.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'angle en C mesure 90°, donc l'équation devient (2x−10) + (x+40) + 90 = 180."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on résout : 3x + 120 = 180, donc 3x = 60, donc x = 20."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'angle en A mesure 2×20−10 = 30° et l'angle en B mesure 20+40 = 60° ; on vérifie 30+60+90 = 180°."
+            }
+          ],
+          "reponse": "x = 20°, donc l'angle en A mesure 30° et l'angle en B mesure 60°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : x = 20°, donc l'angle en A mesure 30° et l'angle en B mesure 60°.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1428",
+          "titre": "Exemple 4",
+          "enonce": "Dans un triangle ABC, l'angle extérieur en C (obtenu en prolongeant [BC] au-delà de C) mesure 132°. On sait aussi que l'angle en A est supérieur de 18° à l'angle en B. Calculer les angles en A, en B et en C.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'angle extérieur en C est égal à la somme des angles en A et en B : A + B = 132."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on sait aussi que A − B = 18. En additionnant les deux équations : 2A = 150, donc A = 75, puis B = 132 − 75 = 57."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'angle en C est le supplémentaire de l'angle extérieur : C = 180 − 132 = 48. On vérifie : 75 + 57 + 48 = 180."
+            }
+          ],
+          "reponse": "L'angle en A mesure 75°, l'angle en B mesure 57° et l'angle en C mesure 48°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'angle en A mesure 75°, l'angle en B mesure 57° et l'angle en C mesure 48°.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Comparer une longueur quelconque à la somme des deux autres, sans avoir identifié au préalable la plus grande des trois longueurs.",
+        "Oublier le mot « strictement » dans l'inégalité triangulaire et accepter un triangle où le plus grand côté est égal à la somme des deux autres (les points seraient alors alignés).",
+        "Confondre l'angle extérieur d'un triangle (supplémentaire d'un angle intérieur) avec l'un des angles intérieurs eux-mêmes."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Comparer une longueur quelconque à la somme des deux autres, sans avoir identifié au préalable la plus grande des trois longueurs.",
+          "pourquoi": "L'inégalité triangulaire n'est décisive que lorsqu'elle est appliquée à la plus grande longueur ; l'appliquer à une autre ne permet pas de conclure.",
+          "comment_detecter": "La comparaison effectuée porte sur une longueur qui n'est pas la plus grande des trois, ce qui rend la conclusion peu fiable.",
+          "comment_eviter": "Classe toujours les trois longueurs de la plus petite à la plus grande avant de comparer la plus grande à la somme des deux autres."
+        },
+        {
+          "description": "Oublier le mot « strictement » dans l'inégalité triangulaire et accepter un triangle où le plus grand côté est égal à la somme des deux autres (les points seraient alors alignés).",
+          "pourquoi": "L'inégalité « inférieur ou égal » semble plus naturelle que « strictement inférieur », surtout dans un cas limite proche de l'égalité.",
+          "comment_detecter": "Le triangle validé a un côté exactement égal à la somme des deux autres, ce qui correspondrait en réalité à trois points alignés, pas à un vrai triangle.",
+          "comment_eviter": "Retiens que l'inégalité doit être STRICTE : si la plus grande longueur est égale (et non strictement inférieure) à la somme des deux autres, le triangle n'existe pas, il est « aplati »."
+        },
+        {
+          "description": "Confondre l'angle extérieur d'un triangle (supplémentaire d'un angle intérieur) avec l'un des angles intérieurs eux-mêmes.",
+          "pourquoi": "L'angle extérieur et l'angle intérieur adjacent partagent le même sommet, ce qui peut faire croire qu'ils sont interchangeables.",
+          "comment_detecter": "La somme des trois angles utilisés (dont un extérieur pris par erreur pour un intérieur) ne fait pas 180°.",
+          "comment_eviter": "Rappelle-toi qu'un angle extérieur et l'angle intérieur adjacent forment ensemble un angle plat (180°) ; l'angle extérieur est aussi égal à la somme des deux autres angles intérieurs non adjacents."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Comparer la plus grande longueur à la somme des deux autres.",
+        "Utiliser d'une part la somme des angles du triangle, d'autre part le fait que l'angle en C et l'angle ACD sont supplémentaires (angle plat).",
+        "Utiliser le périmètre pour former une équation en x, la résoudre, puis vérifier l'inégalité triangulaire sur le plus grand côté.",
+        "L'angle extérieur en C est égal à la somme des deux angles intérieurs non adjacents, c'est-à-dire les angles en A et en B.",
+        "Utiliser le périmètre pour trouver le troisième côté, puis comparer la plus grande longueur à la somme des deux autres.",
+        "Raisonner par l'absurde en supposant que deux angles soient obtus, et utiliser la somme des angles du triangle."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1.5, -1, 9, 5.5],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 2, "y": 3, "label": "A"},
+          {"x": 0, "y": 0, "label": "B"},
+          {"x": 6, "y": 0, "label": "C"}
+        ],
+        "polygons": [
+          {"points": ["A", "B", "C"], "tooltip": "Triangle ABC"}
+        ],
+        "segments": [
+          {"from": {"x": -1, "y": 3}, "to": {"x": 7, "y": 3}, "dashed": true, "tooltip": "Droite parallèle à (BC) passant par A"}
+        ],
+        "arcs": [
+          {"center": "B", "radius": 0.9, "startDeg": 0, "endDeg": 56.31, "label": "B"},
+          {"center": "C", "radius": 0.9, "startDeg": 143.13, "endDeg": 180, "label": "C"},
+          {"center": "A", "radius": 0.9, "startDeg": 236.31, "endDeg": 323.13, "label": "A"},
+          {"center": "A", "radius": 0.5, "startDeg": 180, "endDeg": 236.31, "label": "B"},
+          {"center": "A", "radius": 0.5, "startDeg": 323.13, "endDeg": 360, "label": "C"}
+        ],
+        "texts": [
+          {"x": -1.3, "y": 3.35, "label": "(d)"}
+        ],
+        "alt": "Triangle ABC avec ses trois angles marqués, et une droite (d) parallèle à (BC) passant par A : les angles alternes-internes en A reproduisent les angles B et C, formant avec l'angle A un angle plat de 180°, ce qui illustre la démonstration de la somme des angles d'un triangle."
+      },
+      "quizExerciseIds": [
+        1411,
+        1412,
+        1413
+      ],
+      "topic_id": "somme-des-angles-d-un-triangle-et-inegalite-triangulaire",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Somme des angles d'un triangle et inégalité triangulaire."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "somme",
+        "angles",
+        "triangle",
+        "inegalite"
+      ]
+    },
+    {
+      "id": "triangle-isocele-et-triangle-equilateral",
+      "title": "Triangle isocèle et triangle équilatéral",
+      "schemaVersion": 2,
+      "intro": "Un triangle isocèle a deux côtés de même longueur, et un triangle équilatéral a ses trois côtés de même longueur : ce sont deux triangles particuliers, plus « réguliers » qu'un triangle quelconque. Cette régularité des côtés entraîne automatiquement une régularité des angles, ce qui permet de calculer des angles sans les mesurer.",
+      "explicationSimple": "Un triangle isocèle ressemble au toit d'une maison : deux côtés inclinés de la même longueur (les « côtés égaux ») et une base en bas. Comme il est symétrique, les deux angles à la base (là où les côtés inclinés touchent le sol) sont automatiquement égaux. Un triangle équilatéral, c'est encore plus régulier : ses trois côtés sont égaux, et donc ses trois angles aussi, chacun mesurant exactement 60°.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser l'égalité des angles à la base d'un triangle isocèle (ou les trois angles de 60° d'un triangle équilatéral) pour calculer un angle ou une longueur manquante.",
+      "definition": "Un triangle isocèle est un triangle qui a exactement deux côtés de même longueur ; le sommet commun à ces deux côtés est appelé le sommet principal, et les deux angles opposés aux côtés égaux, appelés angles à la base, sont eux aussi égaux entre eux. Un triangle équilatéral est un triangle dont les trois côtés ont la même longueur ; ses trois angles sont alors également égaux entre eux, et valent chacun 60° (car leur somme doit faire 180°).",
+      "definitions": {
+        "lycee": "Un triangle isocèle est un triangle qui a exactement deux côtés de même longueur ; le sommet commun à ces deux côtés est appelé le sommet principal, et les deux angles opposés aux côtés égaux, appelés angles à la base, sont eux aussi égaux entre eux. Un triangle équilatéral est un triangle dont les trois côtés ont la même longueur ; ses trois angles sont alors également égaux entre eux, et valent chacun 60° (car leur somme doit faire 180°).",
+        "college": "Un triangle isocèle a deux côtés égaux et deux angles égaux à la base ; un triangle équilatéral a trois côtés égaux et trois angles de 60°."
+      },
+      "intuition": "Dans un triangle isocèle, ce sont les angles OPPOSÉS aux côtés égaux qui sont égaux entre eux (pas n'importe quels deux angles) : repère d'abord le sommet principal (celui d'où partent les deux côtés égaux), les deux autres angles, à la base, sont ceux qui sont égaux. Pour un triangle équilatéral, retiens directement que chaque angle vaut 60°, sans avoir besoin de refaire le calcul à chaque fois.",
+      "reglesImportantes": [
+        "L'angle intérieur et son angle extérieur adjacent sont supplémentaires ; le triangle étant isocèle en M, les angles en N et en P sont égaux.",
+        "L'angle intérieur en B est le supplémentaire de son angle extérieur ; le triangle étant isocèle en A, les angles en B et C sont égaux.",
+        "Poser l'angle en A égal à a ; alors les angles en B et C valent chacun 2a d'après l'énoncé et l'égalité imposée par l'isocélie.",
+        "Le triangle étant isocèle en A, les angles en B et en C sont égaux entre eux ; noter b leur mesure commune, avec angle A = 3b.",
+        "Utiliser le fait que le triangle DEF est isocèle en D pour établir l'égalité des angles en E et F, puis la somme des angles."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Triangle isocèle et triangle équilatéral",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des angles donne : (4x−20) + (x+25) + (x+25) = 180."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : on résout : 6x + 30 = 180, donc 6x = 150, donc x = 25."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : l'angle en A mesure 4×25−20 = 80°, et chaque angle à la base mesure 25+25 = 50°."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : chacun des trois angles (80°, 50°, 50°) est bien strictement compris entre 0° et 180°, et leur somme vaut 180° : le triangle existe bien."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1440",
+          "titre": "Exemple 1",
+          "enonce": "Un triangle ABC est isocèle en A : l'angle au sommet A mesure 40°. Calculer les mesures des angles en B et en C.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le triangle étant isocèle en A, les angles à la base, en B et en C, sont égaux."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la somme des angles vaut 180° : angle B + angle C = 180° − 40° = 140°."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme les deux angles sont égaux, chacun mesure 140° ÷ 2 = 70°."
+            }
+          ],
+          "reponse": "Les angles en B et en C mesurent chacun 70°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Les angles en B et en C mesurent chacun 70°.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1446",
+          "titre": "Exemple 2",
+          "enonce": "Un triangle ABC isocèle en A a un périmètre de 22 cm. Les côtés AB et AC mesurent chacun 7 cm. Calculer la longueur du côté BC.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des trois côtés vaut 22 cm, avec AB = AC = 7 cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on calcule : BC = 22 − 7 − 7 = 8 cm."
+            }
+          ],
+          "reponse": "Le côté BC mesure 8 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Le côté BC mesure 8 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1452",
+          "titre": "Exemple 3",
+          "enonce": "Dans un triangle ABC, l'angle en B mesure 55° et l'angle en C mesure 55°. Justifier que ce triangle est isocèle, préciser en quel sommet, puis calculer l'angle en A.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les angles en B et en C sont égaux (55° chacun), donc les côtés opposés (AC et AB) sont égaux : le triangle est isocèle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le sommet du triangle isocèle est celui commun aux deux côtés égaux, c'est-à-dire A."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la somme des angles donne : angle A = 180° − 55° − 55° = 70°."
+            }
+          ],
+          "reponse": "Le triangle est isocèle en A ; l'angle en A mesure 70°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Le triangle est isocèle en A ; l'angle en A mesure 70°.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1458",
+          "titre": "Exemple 4",
+          "enonce": "Un triangle isocèle ABC, isocèle en A, a un périmètre de 32 cm. Le côté BC (la base) mesure 4 cm de moins que chacun des côtés AB et AC. Calculer les longueurs des trois côtés du triangle.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on note AB = AC = y ; alors BC = y − 4. Le périmètre donne : y + y + (y−4) = 32."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on résout : 3y − 4 = 32, donc 3y = 36, donc y = 12."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on en déduit BC = 12 − 4 = 8 cm. Les côtés mesurent donc AB = AC = 12 cm et BC = 8 cm."
+            }
+          ],
+          "reponse": "AB = AC = 12 cm et BC = 8 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : AB = AC = 12 cm et BC = 8 cm.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Se tromper de sommet et affirmer que deux angles sont égaux alors qu'ils ne sont pas ceux opposés aux côtés égaux.",
+        "Croire que tout triangle équilatéral est seulement isocèle sans remarquer qu'il a une propriété plus forte (les trois angles valent 60°, pas seulement deux angles égaux).",
+        "Additionner deux angles à la base au lieu d'utiliser le fait qu'ils sont égaux, ce qui fait perdre une information utile pour poser l'équation."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Se tromper de sommet et affirmer que deux angles sont égaux alors qu'ils ne sont pas ceux opposés aux côtés égaux.",
+          "pourquoi": "Sur une figure orientée différemment de l'habitude, il n'est pas toujours facile de repérer immédiatement quel sommet est le sommet principal.",
+          "comment_detecter": "Les deux angles déclarés égaux ne sont pas ceux situés à la base du triangle isocèle, c'est-à-dire ceux opposés aux deux côtés de même longueur.",
+          "comment_eviter": "Identifie d'abord les deux côtés de même longueur et leur sommet commun (le sommet principal) ; les angles égaux sont toujours les deux AUTRES angles, à la base."
+        },
+        {
+          "description": "Croire que tout triangle équilatéral est seulement isocèle sans remarquer qu'il a une propriété plus forte (les trois angles valent 60°, pas seulement deux angles égaux).",
+          "pourquoi": "Un triangle équilatéral est effectivement un cas particulier de triangle isocèle, ce qui peut faire oublier sa propriété plus précise.",
+          "comment_detecter": "On calcule un angle du triangle équilatéral avec la méthode générale de l'isocèle (somme des angles), alors qu'il suffisait de savoir directement que chaque angle vaut 60°.",
+          "comment_eviter": "Dès que tu identifies un triangle équilatéral (trois côtés égaux), utilise directement le fait que ses trois angles valent 60° chacun, sans refaire tout le calcul."
+        },
+        {
+          "description": "Additionner deux angles à la base au lieu d'utiliser le fait qu'ils sont égaux, ce qui fait perdre une information utile pour poser l'équation.",
+          "pourquoi": "Quand un angle à la base est inconnu (noté x), on peut oublier que l'autre angle à la base vaut aussi x, et le traiter comme une inconnue séparée.",
+          "comment_detecter": "L'équation posée contient deux inconnues différentes pour les deux angles à la base, alors qu'elles devraient être identiques.",
+          "comment_eviter": "Dès que tu sais qu'un triangle est isocèle, note directement les deux angles à la base avec la MÊME lettre (par exemple x et x, pas x et y)."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "L'angle intérieur et son angle extérieur adjacent sont supplémentaires ; le triangle étant isocèle en M, les angles en N et en P sont égaux.",
+        "L'angle intérieur en B est le supplémentaire de son angle extérieur ; le triangle étant isocèle en A, les angles en B et C sont égaux.",
+        "Poser l'angle en A égal à a ; alors les angles en B et C valent chacun 2a d'après l'énoncé et l'égalité imposée par l'isocélie.",
+        "Le triangle étant isocèle en A, les angles en B et en C sont égaux entre eux ; noter b leur mesure commune, avec angle A = 3b.",
+        "Utiliser le fait que le triangle DEF est isocèle en D pour établir l'égalité des angles en E et F, puis la somme des angles.",
+        "Utiliser la somme des angles du triangle : les deux angles de base, égaux, ont une somme de 180° moins l'angle au sommet."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 8, 10.5],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 3, "y": 8.25, "label": "A"},
+          {"x": 0, "y": 0, "label": "B"},
+          {"x": 6, "y": 0, "label": "C"}
+        ],
+        "polygons": [
+          {"points": ["A", "B", "C"], "tooltip": "Triangle ABC isocèle en A"}
+        ],
+        "segments": [
+          {"from": "A", "to": "B", "tooltip": "AB"},
+          {"from": "A", "to": "C", "tooltip": "AC = AB"}
+        ],
+        "arcs": [
+          {"center": "A", "radius": 0.9, "startDeg": 250, "endDeg": 290, "label": "40°"},
+          {"center": "B", "radius": 0.9, "startDeg": 0, "endDeg": 70, "label": "70°"},
+          {"center": "C", "radius": 0.9, "startDeg": 110, "endDeg": 180, "label": "70°"}
+        ],
+        "texts": [
+          {"x": 1.2, "y": 4.4, "label": "="},
+          {"x": 4.8, "y": 4.4, "label": "="}
+        ],
+        "alt": "Triangle ABC isocèle en A : les côtés AB et AC sont marqués comme égaux, et les deux angles à la base, en B et en C, sont marqués égaux (70° chacun), pour un angle au sommet A de 40°."
+      },
+      "quizExerciseIds": [
+        1441,
+        1442,
+        1443
+      ],
+      "topic_id": "triangle-isocele-et-triangle-equilateral",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Triangle isocèle et triangle équilatéral."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "triangle",
+        "isocele",
+        "equilateral"
+      ]
+    },
+    {
+      "id": "triangles-semblables",
+      "title": "Triangles semblables",
+      "schemaVersion": 2,
+      "intro": "Deux triangles sont semblables lorsqu'ils ont exactement la même forme, sans forcément avoir la même taille : c'est comme une photo et son agrandissement. Cette notion permet de calculer une longueur inconnue dans un triangle à partir d'un autre triangle de même forme, en utilisant un coefficient qui relie les longueurs des deux triangles.",
+      "explicationSimple": "Imagine deux triangles découpés dans du papier, l'un plus grand que l'autre, mais qui ont exactement les mêmes angles : si tu réduis une photocopie du grand triangle, tu obtiens exactement le petit. C'est ça, être semblables. Pour prouver que deux triangles sont semblables, il suffit de vérifier que deux de leurs angles sont égaux deux à deux : le troisième angle sera alors automatiquement égal aussi (puisque la somme des angles fait toujours 180°).",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître deux triangles semblables (deux angles égaux deux à deux suffisent), calculer le coefficient de similitude, et l'utiliser pour trouver une longueur manquante.",
+      "definition": "Deux triangles sont semblables lorsque leurs angles sont égaux deux à deux (ils ont la même forme), et donc que leurs côtés correspondants sont proportionnels, c'est-à-dire que l'on passe des longueurs de l'un aux longueurs de l'autre en les multipliant toutes par un même nombre appelé coefficient de similitude. Il suffit de vérifier l'égalité de deux paires d'angles pour conclure que deux triangles sont semblables, car le troisième angle est alors automatiquement égal (somme des angles égale à 180°).",
+      "definitions": {
+        "lycee": "Deux triangles sont semblables lorsque leurs angles sont égaux deux à deux (ils ont la même forme), et donc que leurs côtés correspondants sont proportionnels, c'est-à-dire que l'on passe des longueurs de l'un aux longueurs de l'autre en les multipliant toutes par un même nombre appelé coefficient de similitude. Il suffit de vérifier l'égalité de deux paires d'angles pour conclure que deux triangles sont semblables, car le troisième angle est alors automatiquement égal (somme des angles égale à 180°).",
+        "college": "Deux triangles semblables ont la même forme : leurs angles sont égaux deux à deux et leurs côtés sont proportionnels."
+      },
+      "intuition": "Ne confonds pas « triangles semblables » (même forme, tailles éventuellement différentes) et « triangles égaux » (même forme ET même taille). Pour retrouver une longueur, identifie d'abord soigneusement quel côté du petit triangle correspond à quel côté du grand triangle (les côtés opposés à des angles égaux se correspondent), avant de multiplier par le coefficient.",
+      "reglesImportantes": [
+        "Utiliser la somme des angles pour montrer que le troisième angle est également égal, puis chercher un exemple de deux triangles semblables mais de tailles différentes.",
+        "La parallèle (MN) à (BC) crée des angles correspondants égaux avec les sécantes (AB) et (AC), ce qui entraîne la similitude des triangles AMN et ABC.",
+        "Les bases [AB] et [CD] étant parallèles, utiliser les angles alternes-internes formés par les diagonales (sécantes) pour établir la similitude.",
+        "La parallèle (DE) à (BC) crée des angles correspondants égaux avec les sécantes (AB) et (AC) ; ajouter l'angle en A commun.",
+        "Calculer d'abord l'angle E du triangle DEF à l'aide de la somme des angles, puis comparer aux angles du triangle ABC."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Triangles semblables",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la relation de similitude donne : DE = 3 × AB, soit 8x−13 = 3(2x+1)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : on développe : 8x − 13 = 6x + 3."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : on résout : 8x − 6x = 3 + 13, soit 2x = 16, donc x = 8."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : on calcule AB = 2×8+1 = 17 cm, et DE = 8×8−13 = 51 cm. On vérifie : 51 = 3 × 17."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1530",
+          "titre": "Exemple 1",
+          "enonce": "Dans les triangles ABC et DEF, l'angle A mesure 50° et l'angle D mesure 50° ; l'angle B mesure 65° et l'angle E mesure 65°. Justifier que les triangles ABC et DEF sont semblables, puis calculer les angles C et F.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on a angle A = angle D = 50° et angle B = angle E = 65° : deux paires d'angles égales suffisent pour affirmer que les triangles sont semblables."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la somme des angles du triangle ABC donne angle C = 180° − 50° − 65° = 65°, et de même angle F = 65°."
+            }
+          ],
+          "reponse": "Les triangles sont semblables (deux angles égaux) ; les angles C et F mesurent chacun 65°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Les triangles sont semblables (deux angles égaux) ; les angles C et F mesurent chacun 65°.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1536",
+          "titre": "Exemple 2",
+          "enonce": "Les triangles ABC et DEF sont semblables. On donne AB = 4 cm et DE = 10 cm. On donne aussi AC = 6 cm et BC = 7 cm. Calculer le coefficient de similitude k de ABC vers DEF, puis en déduire les longueurs DF et EF.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le coefficient k se calcule par k = DE / AB = 10 / 4 = 2,5."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on calcule DF = k × AC = 2,5 × 6 = 15 cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on calcule EF = k × BC = 2,5 × 7 = 17,5 cm."
+            }
+          ],
+          "reponse": "k = 2,5 ; DF = 15 cm et EF = 17,5 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : k = 2,5 ; DF = 15 cm et EF = 17,5 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1542",
+          "titre": "Exemple 3",
+          "enonce": "Dans les triangles ABC et DEF, l'angle A mesure 48°, l'angle B mesure 95°, l'angle D mesure 48° et l'angle F mesure 37°. Justifier que les triangles ABC et DEF sont semblables, puis calculer le troisième angle de chaque triangle pour confirmer.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des angles du triangle DEF donne : angle E = 180° − 48° − 37° = 95°."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on constate que angle A = angle D = 48° et angle B = angle E = 95° : deux paires d'angles égales."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : deux triangles ayant deux paires d'angles égaux sont semblables : les triangles ABC et DEF sont donc semblables, avec pour troisième angle 180°−48°−95° = 37° dans chaque triangle."
+            }
+          ],
+          "reponse": "Les triangles sont semblables (deux angles égaux : angle A = angle D et angle B = angle E) ; les deux triangles ont bien pour angles 48°, 95° et 37°.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Les triangles sont semblables (deux angles égaux : angle A = angle D et angle B = angle E) ; les deux triangles ont bien pour angles 48°, 95° et 37°.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1548",
+          "titre": "Exemple 4",
+          "enonce": "Dans un triangle ABC, M est un point de [AB] et N un point de [AC] tels que (MN) soit parallèle à (BC). On donne AM = 3x cm, AB = 20 cm, AN = (x+2) cm et AC = 10 cm. Sachant que les triangles AMN et ABC sont semblables, écrire l'égalité des rapports AM/AB = AN/AC, puis déterminer x.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la similitude des triangles AMN et ABC donne : AM/AB = AN/AC, soit 3x/20 = (x+2)/10."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on effectue le produit en croix : 3x × 10 = 20 × (x+2), soit 30x = 20x + 40."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on résout : 10x = 40, donc x = 4."
+            }
+          ],
+          "reponse": "x = 4.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : x = 4.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Confondre triangles semblables (même forme) et triangles égaux (même forme et même taille), et donc chercher une égalité de longueurs au lieu d'une proportionnalité.",
+        "Se tromper de côtés correspondants en calculant le coefficient de similitude, par exemple diviser deux côtés qui ne se correspondent pas.",
+        "Inverser le sens du coefficient k (multiplier par AB/DE au lieu de DE/AB), ce qui donne un résultat totalement faux."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre triangles semblables (même forme) et triangles égaux (même forme et même taille), et donc chercher une égalité de longueurs au lieu d'une proportionnalité.",
+          "pourquoi": "Les deux notions se ressemblent et sont étudiées dans le même chapitre, ce qui favorise la confusion entre elles.",
+          "comment_detecter": "On affirme que deux côtés correspondants de triangles semblables sont égaux, sans tenir compte d'un possible coefficient différent de 1.",
+          "comment_eviter": "Retiens que « semblables » veut dire même forme, tailles éventuellement différentes (rapport de longueurs constant) ; « égaux » veut dire en plus même taille (rapport égal à 1)."
+        },
+        {
+          "description": "Se tromper de côtés correspondants en calculant le coefficient de similitude, par exemple diviser deux côtés qui ne se correspondent pas.",
+          "pourquoi": "Sans figure claire, il est facile de comparer deux côtés qui occupent la même position sur le dessin plutôt que ceux réellement opposés aux mêmes angles.",
+          "comment_detecter": "Le coefficient calculé avec une autre paire de côtés correspondants ne donne pas la même valeur, ce qui montre une erreur de correspondance.",
+          "comment_eviter": "Repère d'abord les angles égaux deux à deux entre les deux triangles ; les côtés correspondants sont ceux qui sont OPPOSÉS à ces angles égaux."
+        },
+        {
+          "description": "Inverser le sens du coefficient k (multiplier par AB/DE au lieu de DE/AB), ce qui donne un résultat totalement faux.",
+          "pourquoi": "Le coefficient de similitude dépend du sens dans lequel on va (du petit vers le grand triangle, ou l'inverse), ce qui peut être source de confusion.",
+          "comment_detecter": "Le résultat obtenu pour une longueur du grand triangle est plus petit que la longueur correspondante du petit triangle, ce qui est incohérent avec un agrandissement.",
+          "comment_eviter": "Écris clairement le sens de ta transformation (« de ABC vers DEF » ou l'inverse), et vérifie que multiplier par k dans ce sens donne bien un résultat cohérent (plus grand pour un agrandissement, plus petit pour une réduction)."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Utiliser la somme des angles pour montrer que le troisième angle est également égal, puis chercher un exemple de deux triangles semblables mais de tailles différentes.",
+        "La parallèle (MN) à (BC) crée des angles correspondants égaux avec les sécantes (AB) et (AC), ce qui entraîne la similitude des triangles AMN et ABC.",
+        "Les bases [AB] et [CD] étant parallèles, utiliser les angles alternes-internes formés par les diagonales (sécantes) pour établir la similitude.",
+        "La parallèle (DE) à (BC) crée des angles correspondants égaux avec les sécantes (AB) et (AC) ; ajouter l'angle en A commun.",
+        "Calculer d'abord l'angle E du triangle DEF à l'aide de la somme des angles, puis comparer aux angles du triangle ABC.",
+        "Le coefficient s'obtient en divisant la longueur du grand triangle par la longueur correspondante du petit triangle."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 10, 8],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 0, "y": 6, "label": "A"},
+          {"x": -1, "y": 0, "label": "B"},
+          {"x": 7, "y": 0, "label": "C"},
+          {"x": -0.6, "y": 2.4, "label": "M"},
+          {"x": 4.2, "y": 2.4, "label": "N"}
+        ],
+        "polygons": [
+          {"points": ["A", "B", "C"], "tooltip": "Triangle ABC"},
+          {"points": ["A", "M", "N"], "variant": "b", "tooltip": "Triangle AMN, semblable à ABC"}
+        ],
+        "segments": [
+          {"from": "M", "to": "N", "variant": "hypotenuse", "tooltip": "(MN) parallèle à (BC)"}
+        ],
+        "texts": [
+          {"x": -0.9, "y": 1.1, "label": "AM=12"},
+          {"x": 4.3, "y": 1.1, "label": "AN=6"}
+        ],
+        "alt": "Dans le triangle ABC, M appartient à [AB] et N à [AC], avec (MN) parallèle à (BC) : AM = 12 cm, AB = 20 cm, AN = 6 cm et AC = 10 cm, les triangles AMN et ABC sont semblables."
+      },
+      "quizExerciseIds": [
+        1531,
+        1532,
+        1533
+      ],
+      "topic_id": "triangles-semblables",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Triangles semblables."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "triangles",
+        "semblables"
+      ]
+    },
+    {
+      "id": "triangles-egaux",
+      "title": "Triangles égaux",
+      "schemaVersion": 2,
+      "intro": "Deux triangles sont égaux (on dit aussi superposables) lorsqu'ils ont exactement la même forme et la même taille : en découpant l'un dans du papier, on peut le poser exactement sur l'autre. Pour le prouver sans tout mesurer, on utilise des cas d'égalité qui ne demandent de vérifier que trois informations bien choisies parmi les côtés et les angles.",
+      "explicationSimple": "Deux triangles égaux, c'est comme deux pièces de puzzle identiques : si tu découpes l'un dans du papier calque, il recouvre parfaitement l'autre, sans qu'aucun côté ne dépasse. Pour le prouver sans devoir mesurer les trois côtés ET les trois angles, il suffit de vérifier seulement trois informations bien choisies (par exemple deux côtés et l'angle entre eux) : c'est ce qu'on appelle un cas d'égalité.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser les cas d'égalité des triangles (côtés-côtés-côtés, côté-angle-côté, angle-côté-angle) pour démontrer que deux triangles sont égaux, et en déduire l'égalité de leurs autres côtés ou angles correspondants.",
+      "definition": "Deux triangles sont égaux (ou superposables) lorsque leurs côtés correspondants ont deux à deux la même longueur et leurs angles correspondants ont deux à deux la même mesure. Pour établir cette égalité sans tout vérifier, on utilise des cas d'égalité, qui suffisent chacun à eux seuls : les trois côtés égaux deux à deux ; ou deux côtés égaux et l'angle qu'ils forment (compris entre eux) égal ; ou un côté égal compris entre deux angles égaux deux à deux.",
+      "definitions": {
+        "lycee": "Deux triangles sont égaux (ou superposables) lorsque leurs côtés correspondants ont deux à deux la même longueur et leurs angles correspondants ont deux à deux la même mesure. Pour établir cette égalité sans tout vérifier, on utilise des cas d'égalité, qui suffisent chacun à eux seuls : les trois côtés égaux deux à deux ; ou deux côtés égaux et l'angle qu'ils forment (compris entre eux) égal ; ou un côté égal compris entre deux angles égaux deux à deux.",
+        "college": "Dans deux triangles égaux, les angles qui se correspondent ont la même mesure."
+      },
+      "intuition": "Une fois l'égalité de deux triangles établie par un cas d'égalité, TOUS les côtés et TOUS les angles correspondants sont automatiquement égaux, même ceux que tu n'as pas vérifiés directement : inutile de les redémontrer un par un. Fais toujours bien attention à la correspondance des sommets (A↔D, B↔E, C↔F) pour associer les bons côtés et les bons angles entre eux.",
+      "reglesImportantes": [
+        "Dans deux triangles égaux, les angles qui se correspondent ont la même mesure.",
+        "Ce cas particulier (triangle rectangle avec hypoténuse et un côté égaux) permet de conclure à l'égalité des deux triangles rectangles, donc à celle de tous leurs éléments correspondants.",
+        "Une fois l'égalité des triangles établie par un cas d'égalité, toutes les paires de côtés et d'angles correspondants sont automatiquement égales.",
+        "Montrer que les triangles ABM et ACM sont égaux, en utilisant le côté commun AM, l'égalité BM = MC et l'angle droit en M dans les deux triangles.",
+        "Le côté AB est commun aux deux triangles avec la correspondance A↔B, B↔A ; identifier les angles compris entre AB et les côtés adjacents."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Triangles égaux",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on a AB = AC car le triangle est isocèle en A, angle BAD = angle CAD car (AD) est la bissectrice de l'angle A, et AD est un côté commun aux deux triangles ABD et ACD."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : d'après le cas d'égalité « un angle égal compris entre deux côtés égaux » (l'angle en A est compris entre AB, AD d'une part et AC, AD d'autre part), les triangles ABD et ACD sont égaux."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : les côtés correspondants BD et DC sont donc égaux, ce qui prouve que D est le milieu de [BC]."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : les angles correspondants ADB et ADC sont également égaux ; or ils sont adjacents et supplémentaires (ils forment l'angle plat en D sur la droite (BC)), donc chacun mesure 90° : la bissectrice (AD) est donc perpendiculaire à (BC)."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1500",
+          "titre": "Exemple 1",
+          "enonce": "Les triangles ABC et DEF sont égaux, avec la correspondance A↔D, B↔E, C↔F. On donne AB = 6 cm, BC = 8 cm et CA = 10 cm. Donner les longueurs de DE, EF et FD.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la correspondance des sommets est A↔D, B↔E, C↔F, donc le côté DE correspond au côté AB, EF correspond à BC, et FD correspond à CA."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on en déduit : DE = AB = 6 cm, EF = BC = 8 cm et FD = CA = 10 cm."
+            }
+          ],
+          "reponse": "DE = 6 cm, EF = 8 cm et FD = 10 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : DE = 6 cm, EF = 8 cm et FD = 10 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1506",
+          "titre": "Exemple 2",
+          "enonce": "Dans le triangle ABC, AB = 5 cm, AC = 7 cm et l'angle BAC (compris entre AB et AC) mesure 40°. On sait par ailleurs que BC = 6,3 cm. Dans le triangle DEF, DE = 5 cm, DF = 7 cm et l'angle EDF (compris entre DE et DF) mesure 40°. Justifier que les triangles ABC et DEF sont égaux, puis donner la longueur de EF.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on a AB = DE = 5 cm, AC = DF = 7 cm, et l'angle BAC = angle EDF = 40°, cet angle étant compris entre les côtés égaux dans chaque triangle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'après le cas d'égalité « un angle égal compris entre deux côtés égaux », les triangles ABC et DEF sont égaux."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le côté EF correspond au côté BC, donc EF = BC = 6,3 cm."
+            }
+          ],
+          "reponse": "Les triangles sont égaux (un angle égal compris entre deux côtés égaux) ; EF = 6,3 cm.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Les triangles sont égaux (un angle égal compris entre deux côtés égaux) ; EF = 6,3 cm.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1512",
+          "titre": "Exemple 3",
+          "enonce": "Dans le triangle ABC, AB = 4 cm, l'angle A mesure 38° et l'angle B mesure 74°, le côté AB étant compris entre les deux angles. Dans le triangle DEF, DE = 4 cm, l'angle D mesure 38° et l'angle F mesure 68°. Calculer l'angle E du triangle DEF, vérifier qu'il correspond à l'angle B, puis justifier l'égalité des deux triangles.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des angles du triangle DEF donne : angle E = 180° − 38° − 68° = 74°."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on constate que angle D = angle A = 38°, angle E = angle B = 74°, et DE = AB = 4 cm, ce côté étant compris entre les deux angles égaux dans chaque triangle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : d'après le cas d'égalité « un côté égal compris entre deux angles égaux », les triangles ABC et DEF sont égaux."
+            }
+          ],
+          "reponse": "L'angle E mesure 74°, ce qui correspond à l'angle B ; les triangles ABC et DEF sont égaux (côté compris entre deux angles égaux).",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'angle E mesure 74°, ce qui correspond à l'angle B ; les triangles ABC et DEF sont égaux (côté compris entre deux angles égaux).",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1518",
+          "titre": "Exemple 4",
+          "enonce": "On considère un segment [BD] et un point A situé de façon que les segments [AB] et [AD] se croisent avec un point C commun, de sorte que AC soit un côté partagé par les triangles ABC et ADC. On donne AB = AD = 6 cm, et l'angle BAC = angle DAC = 32°. Le côté AC est commun aux deux triangles. Justifier que les triangles ABC et ADC sont égaux, puis en déduire que BC = DC.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le côté AC est commun aux deux triangles ABC et ADC : il a donc la même longueur des deux côtés (AC = AC)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on a de plus AB = AD = 6 cm et l'angle BAC = angle DAC = 32°, cet angle étant compris entre les côtés AB, AC d'une part et AD, AC d'autre part."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : d'après le cas d'égalité « un angle égal compris entre deux côtés égaux », les triangles ABC et ADC sont égaux, donc BC = DC (côtés correspondants)."
+            }
+          ],
+          "reponse": "Les triangles ABC et ADC sont égaux (angle compris entre deux côtés égaux) ; on en déduit BC = DC.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Les triangles ABC et ADC sont égaux (angle compris entre deux côtés égaux) ; on en déduit BC = DC.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Utiliser un angle qui n'est pas compris entre les deux côtés égaux dans le cas « côté-angle-côté », ce qui rend le cas d'égalité invalide.",
+        "Oublier de vérifier la correspondance des sommets (A↔D, B↔E, C↔F) avant d'associer les côtés ou les angles entre les deux triangles.",
+        "Croire que trois angles égaux deux à deux suffisent pour affirmer que deux triangles sont égaux, alors que cela prouve seulement qu'ils sont semblables (même forme, pas forcément même taille)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Utiliser un angle qui n'est pas compris entre les deux côtés égaux dans le cas « côté-angle-côté », ce qui rend le cas d'égalité invalide.",
+          "pourquoi": "Le cas d'égalité exige précisément que l'angle soit celui formé PAR les deux côtés égaux, condition facile à oublier de vérifier.",
+          "comment_detecter": "L'angle utilisé dans la démonstration est opposé à l'un des côtés égaux, plutôt que compris entre les deux côtés.",
+          "comment_eviter": "Avant de conclure, vérifie toujours que l'angle égal est bien celui qui se trouve entre les deux côtés égaux dans chaque triangle, comme les deux branches d'un compas."
+        },
+        {
+          "description": "Oublier de vérifier la correspondance des sommets (A↔D, B↔E, C↔F) avant d'associer les côtés ou les angles entre les deux triangles.",
+          "pourquoi": "Sans correspondance précisée, on associe parfois les éléments qui se ressemblent visuellement sur le dessin plutôt que ceux réellement liés par l'égalité.",
+          "comment_detecter": "Le côté utilisé pour conclure ne correspond pas à celui associé par la correspondance donnée dans l'énoncé.",
+          "comment_eviter": "Note toujours clairement la correspondance des sommets donnée par l'énoncé, et utilise-la pour associer systématiquement chaque côté et chaque angle à son vis-à-vis dans l'autre triangle."
+        },
+        {
+          "description": "Croire que trois angles égaux deux à deux suffisent pour affirmer que deux triangles sont égaux, alors que cela prouve seulement qu'ils sont semblables (même forme, pas forcément même taille).",
+          "pourquoi": "Trois angles égaux semblent une information très forte, ce qui laisse penser à tort qu'elle suffit à garantir aussi l'égalité des longueurs.",
+          "comment_detecter": "On conclut à l'égalité des triangles en ne s'appuyant que sur des angles égaux, sans aucune information sur une longueur de côté.",
+          "comment_eviter": "Retiens que des angles égaux deux à deux prouvent seulement que les triangles ont la même forme (ils sont semblables) ; pour l'égalité, il faut au moins une information de longueur dans le cas d'égalité utilisé."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Dans deux triangles égaux, les angles qui se correspondent ont la même mesure.",
+        "Ce cas particulier (triangle rectangle avec hypoténuse et un côté égaux) permet de conclure à l'égalité des deux triangles rectangles, donc à celle de tous leurs éléments correspondants.",
+        "Une fois l'égalité des triangles établie par un cas d'égalité, toutes les paires de côtés et d'angles correspondants sont automatiquement égales.",
+        "Montrer que les triangles ABM et ACM sont égaux, en utilisant le côté commun AM, l'égalité BM = MC et l'angle droit en M dans les deux triangles.",
+        "Le côté AB est commun aux deux triangles avec la correspondance A↔B, B↔A ; identifier les angles compris entre AB et les côtés adjacents.",
+        "Un angle égal compris entre deux côtés de même longueur, respectivement égaux dans les deux triangles, entraîne l'égalité des triangles."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 18, 10],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 0, "y": 0, "label": "A"},
+          {"x": 6, "y": 0, "label": "B"},
+          {"x": 6, "y": 8, "label": "C"},
+          {"x": 11, "y": 0, "label": "D"},
+          {"x": 17, "y": 0, "label": "E"},
+          {"x": 17, "y": 8, "label": "F"}
+        ],
+        "polygons": [
+          {"points": ["A", "B", "C"], "tooltip": "Triangle ABC : AB=6 cm, BC=8 cm, CA=10 cm"},
+          {"points": ["D", "E", "F"], "variant": "b", "tooltip": "Triangle DEF : DE=6 cm, EF=8 cm, FD=10 cm"}
+        ],
+        "texts": [
+          {"x": 3, "y": -0.5, "label": "6 cm", "anchor": "middle"},
+          {"x": 6.8, "y": 4, "label": "8 cm"},
+          {"x": 2.6, "y": 4.6, "label": "10 cm"},
+          {"x": 14, "y": -0.5, "label": "6 cm", "anchor": "middle"},
+          {"x": 17.8, "y": 4, "label": "8 cm"},
+          {"x": 13.6, "y": 4.6, "label": "10 cm"}
+        ],
+        "alt": "Deux triangles égaux ABC et DEF, séparés côte à côte, avec la correspondance A↔D, B↔E, C↔F : AB=DE=6 cm, BC=EF=8 cm et CA=FD=10 cm, des côtés correspondants de même longueur."
+      },
+      "quizExerciseIds": [
+        1501,
+        1502,
+        1503
+      ],
+      "topic_id": "triangles-egaux",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Triangles égaux."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "triangles",
+        "egaux"
+      ]
+    }
+  ]
+}

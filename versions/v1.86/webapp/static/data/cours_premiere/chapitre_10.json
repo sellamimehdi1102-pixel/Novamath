@@ -1,0 +1,358 @@
+{
+  "chapterId": "Chapitre_10",
+  "title": "Chapitre 10",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "esperance-–-variance-–-ecart-type",
+      "title": "Espérance – Variance – Écart-type",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : espérance – variance – écart-type.\n\nCette notion sert à associer un nombre (souvent un gain ou une durée) à chaque résultat possible d'une expérience aléatoire, pour en calculer une moyenne théorique.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine un jeu où chaque résultat du dé rapporte un certain nombre de points. La variable aléatoire, c'est justement cette règle qui transforme chaque résultat du hasard en un nombre précis (les points gagnés).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Espérance – Variance – Écart-type.",
+      "definition": "Utiliser les formules de linéarité $E(aX+b)=aE(X)+b$ et $V(aX+b)=a^2V(X)$.",
+      "definitions": {
+        "lycee": "Utiliser les formules de linéarité $E(aX+b)=aE(X)+b$ et $V(aX+b)=a^2V(X)$.",
+        "college": "Utiliser $E(X)=\\sum x_ip_i$."
+      },
+      "intuition": "L'espérance est la moyenne des valeurs possibles, pondérée par leur probabilité : c'est ce qu'on peut espérer gagner « en moyenne » si on répète l'expérience un grand nombre de fois. Ne confonds pas l'espérance (une moyenne théorique) avec un résultat réellement observé.",
+      "reglesImportantes": [
+        "Utiliser $E(X)=\\sum x_ip_i$.",
+        "Utiliser $V(X)=E(X^2)-(E(X))^2$ puis $\\sigma(X)=\\sqrt{V(X)}$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Espérance – Variance – Écart-type",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on calcule d'abord $E(X) = \\dfrac{6}{5}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $E(X^2) = -1^2\\times\\dfrac{3}{5} + 3^2\\times\\dfrac{1}{5} + 6^2\\times\\dfrac{1}{5} = \\dfrac{48}{5}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : $V(X) = E(X^2) - (E(X))^2 = \\dfrac{48}{5} - (\\dfrac{6}{5})^2 = \\dfrac{204}{25}$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : $\\sigma(X) = \\sqrt{V(X)} = \\sqrt{\\dfrac{204}{25}}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1942",
+          "titre": "Exemple 1",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-1)=\\dfrac{3}{5}$, $P(X=3)=\\dfrac{1}{5}$, $P(X=6)=\\dfrac{1}{5}$. Calculer $V(X)$ puis $\\sigma(X)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on calcule d'abord $E(X) = \\dfrac{6}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $E(X^2) = -1^2\\times\\dfrac{3}{5} + 3^2\\times\\dfrac{1}{5} + 6^2\\times\\dfrac{1}{5} = \\dfrac{48}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $V(X) = E(X^2) - (E(X))^2 = \\dfrac{48}{5} - (\\dfrac{6}{5})^2 = \\dfrac{204}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\sigma(X) = \\sqrt{V(X)} = \\sqrt{\\dfrac{204}{25}}$."
+            }
+          ],
+          "reponse": "$V(X) = \\dfrac{204}{25}$ et $\\sigma(X) = \\sqrt{\\dfrac{204}{25}}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $V(X) = \\dfrac{204}{25}$ et $\\sigma(X) = \\sqrt{\\dfrac{204}{25}}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1954",
+          "titre": "Exemple 2",
+          "enonce": "Une variable aléatoire $X$ est telle que $E(X) = \\dfrac{1}{4}$ et $V(X) = \\dfrac{99}{16}$. On pose $Y = 3X -2$. Calculer $E(Y)$ et $V(Y)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $E(aX+b) = aE(X)+b$ : $E(Y) = 3\\times\\dfrac{1}{4} -2 = -\\dfrac{5}{4}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on utilise $V(aX+b) = a^2V(X)$ : $V(Y) = 3^2 \\times \\dfrac{99}{16} = \\dfrac{891}{16}$."
+            }
+          ],
+          "reponse": "$E(Y) = -\\dfrac{5}{4}$ et $V(Y) = \\dfrac{891}{16}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $E(Y) = -\\dfrac{5}{4}$ et $V(Y) = \\dfrac{891}{16}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1966",
+          "titre": "Exemple 3",
+          "enonce": "Une variable aléatoire $X$ est telle que $E(X) = -3$ et $V(X) = 2$. On pose $Y = 1X +4$. Calculer $E(Y)$ et $V(Y)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $E(aX+b) = aE(X)+b$ : $E(Y) = 1\\times-3 +4 = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on utilise $V(aX+b) = a^2V(X)$ : $V(Y) = 1^2 \\times 2 = 2$."
+            }
+          ],
+          "reponse": "$E(Y) = 1$ et $V(Y) = 2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $E(Y) = 1$ et $V(Y) = 2$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1978",
+          "titre": "Exemple 4",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-5)=\\dfrac{1}{4}$, $P(X=-3)=\\dfrac{1}{2}$, $P(X=7)=\\dfrac{1}{4}$. Calculer $V(X)$ puis $\\sigma(X)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on calcule d'abord $E(X) = -1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $E(X^2) = -5^2\\times\\dfrac{1}{4} + -3^2\\times\\dfrac{1}{2} + 7^2\\times\\dfrac{1}{4} = 23$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $V(X) = E(X^2) - (E(X))^2 = 23 - (-1)^2 = 22$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\sigma(X) = \\sqrt{V(X)} = \\sqrt{22}$."
+            }
+          ],
+          "reponse": "$V(X) = 22$ et $\\sigma(X) = \\sqrt{22}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $V(X) = 22$ et $\\sigma(X) = \\sqrt{22}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le gain moyen espéré à un jeu de hasard",
+        "la durée de vie moyenne attendue d'un appareil",
+        "le nombre moyen de clients attendus dans une file d'attente"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir ce qu'est l'espérance, imagine que tu joues au même jeu des milliers de fois : l'espérance est le gain moyen que tu observerais sur le long terme.",
+      "aRetenir": [
+        "Utiliser $E(X)=\\sum x_ip_i$.",
+        "Utiliser $V(X)=E(X^2)-(E(X))^2$ puis $\\sigma(X)=\\sqrt{V(X)}$."
+      ],
+      "figure": {
+        "kind": "bars",
+        "bars": [
+          {
+            "label": "-1",
+            "value": 0.3
+          },
+          {
+            "label": "0",
+            "value": 0.2
+          },
+          {
+            "label": "2",
+            "value": 0.5
+          }
+        ],
+        "maxValue": 0.6,
+        "alt": "Loi de probabilité d'une variable aléatoire X : chaque valeur possible a sa probabilité."
+      },
+      "quizExerciseIds": [
+        1943,
+        1944,
+        1945
+      ],
+      "topic_id": "esperance-–-variance-–-ecart-type",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Espérance – Variance – Écart-type."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "esperance",
+        "variance",
+        "ecart",
+        "type"
+      ]
+    },
+    {
+      "id": "variables-aleatoires-reelles",
+      "title": "Variables aléatoires réelles",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : variables aléatoires réelles.\n\nCette notion sert à associer un nombre (souvent un gain ou une durée) à chaque résultat possible d'une expérience aléatoire, pour en calculer une moyenne théorique.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine un jeu où chaque résultat du dé rapporte un certain nombre de points. La variable aléatoire, c'est justement cette règle qui transforme chaque résultat du hasard en un nombre précis (les points gagnés).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Variables aléatoires réelles.",
+      "definition": "La somme de toutes les probabilités d'une variable aléatoire vaut toujours $1$.",
+      "definitions": {
+        "lycee": "La somme de toutes les probabilités d'une variable aléatoire vaut toujours $1$.",
+        "college": "Additionner les probabilités de toutes les valeurs concernées."
+      },
+      "intuition": "L'espérance est la moyenne des valeurs possibles, pondérée par leur probabilité : c'est ce qu'on peut espérer gagner « en moyenne » si on répète l'expérience un grand nombre de fois. Ne confonds pas l'espérance (une moyenne théorique) avec un résultat réellement observé.",
+      "reglesImportantes": [
+        "Additionner les probabilités de toutes les valeurs concernées."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Variables aléatoires réelles",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des probabilités d'une loi de probabilité vaut $1$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous arrivons ainsi au résultat : $P(X=7) = 1 - \\left(\\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{10}\\right) = \\dfrac{1}{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1884",
+          "titre": "Exemple 1",
+          "enonce": "Une variable aléatoire $X$ peut prendre les valeurs $-4$, $0$, $5$ et $7$. On donne P(X=-4) = \\dfrac{1}{5}, P(X=0) = \\dfrac{1}{5}, P(X=5) = \\dfrac{1}{10}. Déterminer $P(X=7)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des probabilités d'une loi de probabilité vaut $1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(X=7) = 1 - \\left(\\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{10}\\right) = \\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$P(X=7) = \\dfrac{1}{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(X=7) = \\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1896",
+          "titre": "Exemple 2",
+          "enonce": "Une variable aléatoire $X$ peut prendre les valeurs $-4$, $-2$, $-1$ et $2$. On donne P(X=-4) = \\dfrac{1}{4}, P(X=-2) = \\dfrac{21}{100}, P(X=2) = \\dfrac{49}{100}. Déterminer $P(X=-1)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des probabilités d'une loi de probabilité vaut $1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(X=-1) = 1 - \\left(\\dfrac{1}{4} + \\dfrac{21}{100} + \\dfrac{49}{100}\\right) = \\dfrac{1}{20}$."
+            }
+          ],
+          "reponse": "$P(X=-1) = \\dfrac{1}{20}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(X=-1) = \\dfrac{1}{20}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1908",
+          "titre": "Exemple 3",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-5)=\\dfrac{3}{20}$, $P(X=-3)=\\dfrac{1}{5}$, $P(X=0)=\\dfrac{1}{5}$, $P(X=5)=\\dfrac{9}{20}$. Calculer $P(X \\leqslant 0)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $P(X\\leqslant 0)$ est la somme des probabilités pour toutes les valeurs de $X$ inférieures ou égales à $0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(X\\leqslant 0) = \\dfrac{3}{20} + \\dfrac{1}{5} + \\dfrac{1}{5} = \\dfrac{11}{20}$."
+            }
+          ],
+          "reponse": "$P(X \\leqslant 0) = \\dfrac{11}{20}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(X \\leqslant 0) = \\dfrac{11}{20}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1920",
+          "titre": "Exemple 4",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-2)=\\dfrac{1}{5}$, $P(X=2)=\\dfrac{1}{5}$, $P(X=4)=\\dfrac{1}{5}$, $P(X=6)=\\dfrac{2}{5}$. Calculer $P(X \\leqslant 4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $P(X\\leqslant 4)$ est la somme des probabilités pour toutes les valeurs de $X$ inférieures ou égales à $4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(X\\leqslant 4) = \\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{5} = \\dfrac{3}{5}$."
+            }
+          ],
+          "reponse": "$P(X \\leqslant 4) = \\dfrac{3}{5}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(X \\leqslant 4) = \\dfrac{3}{5}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le gain moyen espéré à un jeu de hasard",
+        "la durée de vie moyenne attendue d'un appareil",
+        "le nombre moyen de clients attendus dans une file d'attente"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir ce qu'est l'espérance, imagine que tu joues au même jeu des milliers de fois : l'espérance est le gain moyen que tu observerais sur le long terme.",
+      "aRetenir": [
+        "Additionner les probabilités de toutes les valeurs concernées."
+      ],
+      "figure": {
+        "kind": "bars",
+        "bars": [
+          {
+            "label": "-1",
+            "value": 0.3
+          },
+          {
+            "label": "0",
+            "value": 0.2
+          },
+          {
+            "label": "2",
+            "value": 0.5
+          }
+        ],
+        "maxValue": 0.6,
+        "alt": "Loi de probabilité d'une variable aléatoire X : chaque valeur possible a sa probabilité."
+      },
+      "quizExerciseIds": [
+        1885,
+        1886,
+        1887
+      ],
+      "topic_id": "variables-aleatoires-reelles",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Variables aléatoires réelles."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "variables",
+        "aleatoires",
+        "reelles"
+      ]
+    }
+  ]
+}

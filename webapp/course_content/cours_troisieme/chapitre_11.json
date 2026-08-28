@@ -1,0 +1,1224 @@
+{
+  "chapterId": "Chapitre_11",
+  "title": "Construction et transformation de figures",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "effets-d-une-homothetie-sur-les-longueurs-et-les-aires",
+      "title": "Effets d'une homothétie sur les longueurs et les aires",
+      "schemaVersion": 2,
+      "intro": "Quand on applique une homothétie de rapport k à une figure, toutes ses longueurs sont multipliées par |k|, mais ses aires ne sont pas multipliées par k : elles le sont par k². Cette notion sert à passer directement d'une figure à son agrandissement ou sa réduction (plan, carte, photocopie, maquette) sans refaire tous les calculs de longueur un par un.",
+      "explicationSimple": "Imagine une photocopie agrandie deux fois plus grande (k = 2) : chaque longueur du dessin (largeur, hauteur, périmètre) double bien. Mais la surface de papier occupée, elle, est multipliée par 4, pas par 2 : c'est parce qu'une aire se mesure dans les deux directions à la fois (longueur ET largeur), donc le facteur k s'applique deux fois, ce qui donne k².",
+      "objectif": "À la fin de ce cours, tu sauras calculer comment une longueur ou une aire est transformée par une homothétie de rapport k, en utilisant |k| pour les longueurs et k² pour les aires.",
+      "definition": "Une homothétie de rapport k multiplie toutes les longueurs d'une figure (côtés, périmètre) par |k|, et toutes ses aires par k². Ce dernier résultat vient du fait qu'une aire dépend de deux dimensions à la fois : le facteur k s'applique une fois pour chaque dimension, d'où l'exposant 2.",
+      "definitions": {
+        "lycee": "Une homothétie de rapport k multiplie toutes les longueurs d'une figure (côtés, périmètre) par |k|, et toutes ses aires par k². Ce dernier résultat vient du fait qu'une aire dépend de deux dimensions à la fois : le facteur k s'applique une fois pour chaque dimension, d'où l'exposant 2.",
+        "college": "Sur un plan ou une carte, si toutes les longueurs sont multipliées par un nombre k, alors toutes les aires (surfaces) sont multipliées par k fois k, c'est-à-dire k²."
+      },
+      "intuition": "Ne multiplie jamais une aire par k : c'est toujours par k² qu'il faut passer, même si k est négatif (dans ce cas, utilise k² qui reste positif). Pour retrouver le rapport k à partir d'un rapport d'aires, il faut faire l'opération inverse du carré, c'est-à-dire la racine carrée du rapport des aires.",
+      "reglesImportantes": [
+        "Multiplie l'aire par k².",
+        "Trouve k avec le rapport des aires, puis applique-le à la longueur.",
+        "Le rayon est multiplié par k, l'aire par k².",
+        "Trouve k avec le rapport des aires, puis divise la longueur du plan par k pour revenir au réel.",
+        "Calcule l'aire initiale, trouve k avec le rapport des aires, puis applique-le aux dimensions."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Effets d'une homothétie sur les longueurs et les aires",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : longueur réelle = 8×200 = 1600 cm = 16 m."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : largeur réelle = 5×200 = 1000 cm = 10 m."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : aire réelle = 16×10 = 160 m²."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1350",
+          "titre": "Exemple 1",
+          "enonce": "Une homothétie de rapport k=4 est appliquée à un segment de longueur 5 cm. Quelle est la longueur du segment-image ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : longueur image = |k|×5 = 4×5 = 20 cm."
+            }
+          ],
+          "reponse": "20 cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 20 cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1356",
+          "titre": "Exemple 2",
+          "enonce": "Un triangle a un périmètre de 20 cm. Il subit une homothétie de rapport k=1,5. Donne le périmètre du triangle-image.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : périmètre image = 1,5×20 = 30 cm."
+            }
+          ],
+          "reponse": "30 cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 30 cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1362",
+          "titre": "Exemple 3",
+          "enonce": "Un rectangle d'aire 18 cm² subit une homothétie de rapport k=-2,5. Calcule l'aire du rectangle-image (utilise k²).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : k² = (-2,5)² = 6,25."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : aire image = 6,25×18 = 112,5 cm²."
+            }
+          ],
+          "reponse": "112,5 cm²",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 112,5 cm²",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1368",
+          "titre": "Exemple 4",
+          "enonce": "Un logo est agrandi par une homothétie. Son aire initiale est de 2 cm² et l'aire du logo agrandi est de 32 cm². Détermine le rapport d'agrandissement k (k>0), puis calcule la nouvelle longueur d'un segment qui mesurait 3 cm sur le logo initial.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : k² = 32/2 = 16, donc k = 4."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : segment image = 4×3 = 12 cm."
+            }
+          ],
+          "reponse": "k = 4 ; segment image = 12 cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : k = 4 ; segment image = 12 cm",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Multiplier une aire par k au lieu de k², en appliquant la même règle que pour une longueur.",
+        "Oublier la valeur absolue pour un rapport k négatif lors du calcul d'une longueur image.",
+        "Confondre le rapport k des longueurs avec le rapport k² des aires quand on cherche k à partir d'un rapport de surfaces (il faut alors prendre la racine carrée)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Multiplier une aire par k au lieu de k², en appliquant la même règle que pour une longueur.",
+          "pourquoi": "La règle pour les longueurs (multiplier par k) est apprise en premier et semble se généraliser naturellement à toutes les grandeurs.",
+          "comment_detecter": "Le résultat obtenu pour l'aire image est exactement k fois l'aire initiale, sans qu'aucun carré n'apparaisse dans le calcul.",
+          "comment_eviter": "Retiens qu'une aire se mesure « dans deux directions » : le facteur k intervient donc deux fois, ce qui donne k² et jamais k seul."
+        },
+        {
+          "description": "Oublier la valeur absolue pour un rapport k négatif lors du calcul d'une longueur image.",
+          "pourquoi": "Le rapport k peut être négatif (l'homothétie retourne alors la figure), mais une longueur, elle, reste toujours positive.",
+          "comment_detecter": "Le calcul donne une longueur négative, ce qui n'a pas de sens pour une distance.",
+          "comment_eviter": "Avant de donner une longueur, prends toujours |k| (la valeur absolue de k), jamais k directement s'il est négatif."
+        },
+        {
+          "description": "Confondre le rapport k des longueurs avec le rapport k² des aires quand on cherche k à partir d'un rapport de surfaces (il faut alors prendre la racine carrée).",
+          "pourquoi": "Retrouver k à partir d'un rapport d'aires demande d'inverser l'opération « élever au carré », ce qui est moins automatique que de l'appliquer.",
+          "comment_detecter": "La valeur de k trouvée, une fois élevée au carré, ne redonne pas le rapport des aires annoncé dans l'énoncé.",
+          "comment_eviter": "Si le rapport des aires vaut k², alors k s'obtient en prenant la racine carrée de ce rapport des aires, jamais en le divisant ou en le laissant tel quel."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Multiplie l'aire par k².",
+        "Trouve k avec le rapport des aires, puis applique-le à la longueur.",
+        "Le rayon est multiplié par k, l'aire par k².",
+        "Trouve k avec le rapport des aires, puis divise la longueur du plan par k pour revenir au réel.",
+        "Calcule l'aire initiale, trouve k avec le rapport des aires, puis applique-le aux dimensions.",
+        "Applique les deux homothéties successivement, ou utilise directement le rapport global."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 9, 9],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 0, "y": 0, "label": "O"},
+          {"x": 1, "y": 1, "label": "A"},
+          {"x": 3, "y": 1, "label": "B"},
+          {"x": 1, "y": 3, "label": "C"},
+          {"x": 2, "y": 2, "label": "A'"},
+          {"x": 6, "y": 2, "label": "B'"},
+          {"x": 2, "y": 6, "label": "C'"}
+        ],
+        "polygons": [
+          {"points": ["A", "B", "C"], "variant": "a", "tooltip": "Triangle ABC (figure initiale)"},
+          {"points": ["A'", "B'", "C'"], "variant": "b", "tooltip": "Triangle A'B'C', image de ABC par l'homothétie de centre O et de rapport k=2"}
+        ],
+        "segments": [
+          {"from": "O", "to": "A'", "dashed": true, "tooltip": "O, A et A' sont alignés"},
+          {"from": "O", "to": "B'", "dashed": true, "tooltip": "O, B et B' sont alignés"},
+          {"from": "O", "to": "C'", "dashed": true, "tooltip": "O, C et C' sont alignés"}
+        ],
+        "texts": [
+          {"x": 4, "y": 7.5, "label": "k = 2 : longueurs ×2, aire ×4", "weight": "big"}
+        ],
+        "alt": "Triangle ABC et son image A'B'C' par l'homothétie de centre O et de rapport k=2 : chaque longueur de A'B'C' est le double de celle de ABC, et son aire est multipliée par k²=4."
+      },
+      "quizExerciseIds": [
+        1351,
+        1352,
+        1353
+      ],
+      "topic_id": "effets-d-une-homothetie-sur-les-longueurs-et-les-aires",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Effets d'une homothétie sur les longueurs et les aires."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "effets",
+        "homothetie",
+        "longueurs",
+        "aires"
+      ]
+    },
+    {
+      "id": "frises,-pavages-et-rosaces",
+      "title": "Frises, pavages et rosaces",
+      "schemaVersion": 2,
+      "intro": "Une frise, un pavage et une rosace sont des motifs qui se répètent selon une règle géométrique précise : une frise répète un motif le long d'une bande par translation, un pavage recouvre tout un plan sans trou ni chevauchement, et une rosace répète un motif tout autour d'un centre par rotation. Cette notion sert à décrire et reproduire ces motifs que l'on retrouve en architecture, en art ou en décoration.",
+      "explicationSimple": "Une frise, c'est comme une bordure de papier peint : le même motif est recopié encore et encore en ligne droite, toujours avec le même écart, comme si on faisait glisser un tampon. Une rosace, c'est différent : le motif tourne autour d'un point central, comme les pétales d'une fleur ou les rayons d'une roue de vélo, régulièrement espacés tout autour du centre.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître une frise, un pavage et une rosace, identifier la transformation qui engendre chaque motif (translation ou rotation), et calculer l'angle de rotation entre deux motifs consécutifs d'une rosace.",
+      "definition": "Une frise est un motif qui se répète indéfiniment le long d'une bande par translations successives de même vecteur. Un pavage est un recouvrement complet du plan par des motifs qui se répètent, sans laisser de trou ni se superposer. Une rosace est un motif qui se répète autour d'un point central, chaque copie s'obtenant à partir de la précédente par une rotation de même centre et de même angle ; si une rosace comporte n motifs répartis régulièrement, l'angle entre deux motifs consécutifs vaut 360° divisé par n.",
+      "definitions": {
+        "lycee": "Une frise est un motif qui se répète indéfiniment le long d'une bande par translations successives de même vecteur. Un pavage est un recouvrement complet du plan par des motifs qui se répètent, sans laisser de trou ni se superposer. Une rosace est un motif qui se répète autour d'un point central, chaque copie s'obtenant à partir de la précédente par une rotation de même centre et de même angle ; si une rosace comporte n motifs répartis régulièrement, l'angle entre deux motifs consécutifs vaut 360° divisé par n.",
+        "college": "Une frise avance toujours tout droit (translation), un pavage recouvre toute une surface sans trou, une rosace tourne autour d'un point (rotation)."
+      },
+      "intuition": "Repère d'abord la transformation qui engendre le motif : si le motif avance en ligne droite, c'est une translation (frise) ; s'il tourne autour d'un point fixe, c'est une rotation (rosace). Pour une rosace à n motifs réguliers, l'angle entre deux motifs consécutifs se calcule en partageant le tour complet de 360° en n parts égales.",
+      "reglesImportantes": [
+        "Divise 360° par l'angle donné.",
+        "Additionne les vecteurs multipliés par leur nombre de répétitions, puis utilise Pythagore pour la distance.",
+        "Calcule l'angle unitaire, multiplie-le par le nombre d'écarts, puis utilise la conservation des distances.",
+        "Utilise 360°/15 pour l'angle, la conservation des distances pour OA', et 3×5 pour la frise.",
+        "Entre le 2e et le 8e motif il y a 6 translations ; entre le 1er et le 10e il y en a 9."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Frises, pavages et rosaces",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : décalage horizontal : 2×(6 ; 0) = (12 ; 0)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : décalage vertical : 1×(0 ; 4) = (0 ; 4)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : point image = (1+12+0 ; 1+0+4) = (13 ; 5)."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1380",
+          "titre": "Exemple 1",
+          "enonce": "Une rosace est composée de 8 motifs identiques régulièrement répartis autour d'un centre O. Quel est l'angle de rotation entre deux motifs consécutifs ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : angle = 360°/8 = 45°."
+            }
+          ],
+          "reponse": "45°",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 45°",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1386",
+          "titre": "Exemple 2",
+          "enonce": "Une rosace comporte 5 motifs régulièrement répartis. Donne l'angle de rotation entre deux motifs consécutifs.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : angle = 360°/5 = 72°."
+            }
+          ],
+          "reponse": "72°",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 72°",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1392",
+          "titre": "Exemple 3",
+          "enonce": "Une rosace comporte 7 motifs régulièrement répartis autour d'un centre. Calcule l'angle de rotation entre deux motifs consécutifs, arrondi au dixième de degré.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : angle = 360°/7 ≈ 51,4°."
+            }
+          ],
+          "reponse": "≈ 51,4°",
+          "conclusion": "Nous avons ainsi obtenu le résultat : ≈ 51,4°",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1398",
+          "titre": "Exemple 4",
+          "enonce": "Une rosace comporte n motifs régulièrement répartis, avec un angle de rotation de 22,5° entre deux motifs consécutifs. Détermine n.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : n = 360°/22,5° = 16."
+            }
+          ],
+          "reponse": "n = 16",
+          "conclusion": "Nous avons ainsi obtenu le résultat : n = 16",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Confondre une frise (translation, motif qui avance en ligne droite) avec une rosace (rotation, motif qui tourne autour d'un point).",
+        "Oublier de diviser 360° par le nombre de motifs et utiliser un autre nombre (le nombre d'écarts entre certains motifs, par exemple).",
+        "Additionner les angles de rotation au lieu de bien identifier l'angle entre deux motifs consécutifs seulement."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre une frise (translation, motif qui avance en ligne droite) avec une rosace (rotation, motif qui tourne autour d'un point).",
+          "pourquoi": "Les deux notions reposent sur la répétition d'un même motif, ce qui peut faire oublier que la transformation utilisée n'est pas la même.",
+          "comment_detecter": "On cherche un vecteur de translation pour un motif qui en réalité tourne autour d'un centre fixe, ou inversement.",
+          "comment_eviter": "Avant de commencer, regarde si le motif se déplace en ligne droite (frise, translation) ou s'il tourne autour d'un point fixe (rosace, rotation)."
+        },
+        {
+          "description": "Oublier de diviser 360° par le nombre de motifs et utiliser un autre nombre (le nombre d'écarts entre certains motifs, par exemple).",
+          "pourquoi": "Sur un schéma, il est facile de confondre le nombre total de motifs avec le nombre d'écarts comptés entre deux motifs particuliers.",
+          "comment_detecter": "L'angle trouvé, multiplié par le nombre de motifs annoncé dans l'énoncé, ne redonne pas 360°.",
+          "comment_eviter": "Compte d'abord le nombre total de motifs répartis autour du centre, puis divise 360° exactement par ce nombre."
+        },
+        {
+          "description": "Additionner les angles de rotation au lieu de bien identifier l'angle entre deux motifs consécutifs seulement.",
+          "pourquoi": "Quand on doit passer du 2e au 5e motif par exemple, il est tentant de mal compter le nombre de « sauts » de rotation nécessaires.",
+          "comment_detecter": "Le nombre d'angles additionnés ne correspond pas au nombre d'écarts réellement présents entre les deux motifs choisis.",
+          "comment_eviter": "Compte précisément le nombre d'écarts entre les deux motifs concernés (jamais le numéro des motifs directement), puis multiplie cet écart par l'angle unitaire."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Divise 360° par l'angle donné.",
+        "Additionne les vecteurs multipliés par leur nombre de répétitions, puis utilise Pythagore pour la distance.",
+        "Calcule l'angle unitaire, multiplie-le par le nombre d'écarts, puis utilise la conservation des distances.",
+        "Utilise 360°/15 pour l'angle, la conservation des distances pour OA', et 3×5 pour la frise.",
+        "Entre le 2e et le 8e motif il y a 6 translations ; entre le 1er et le 10e il y en a 9.",
+        "Chaque motif suivant est obtenu par rotation, qui conserve la distance au centre."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-2.5, -2.5, 5, 5],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 0, "y": 0, "label": "O"},
+          {"x": 0, "y": 2, "label": "1"},
+          {"x": 1.73, "y": 1, "label": "2"},
+          {"x": 1.73, "y": -1, "label": "3"},
+          {"x": 0, "y": -2, "label": "4"},
+          {"x": -1.73, "y": -1, "label": "5"},
+          {"x": -1.73, "y": 1, "label": "6"}
+        ],
+        "circles": [
+          {"center": "O", "radius": 2}
+        ],
+        "segments": [
+          {"from": "O", "to": "1", "dashed": true},
+          {"from": "O", "to": "2", "dashed": true}
+        ],
+        "arcs": [
+          {"center": "O", "radius": 0.6, "startDeg": 30, "endDeg": 90, "label": "60°"}
+        ],
+        "alt": "Une rosace formée de 6 motifs (points 1 à 6) régulièrement répartis sur un cercle de centre O : l'angle de rotation entre deux motifs consécutifs vaut 360°/6 = 60°."
+      },
+      "quizExerciseIds": [
+        1381,
+        1382,
+        1383
+      ],
+      "topic_id": "frises,-pavages-et-rosaces",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Frises, pavages et rosaces."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "frises",
+        "pavages",
+        "rosaces"
+      ]
+    },
+    {
+      "id": "homothetie",
+      "title": "Homothétie",
+      "schemaVersion": 2,
+      "intro": "Une homothétie est une transformation géométrique définie par un point fixe, appelé centre, et un nombre appelé rapport (noté k). Elle agrandit ou réduit une figure en conservant sa forme, tout en alignant chaque point avec le centre et son image. C'est le principe utilisé pour zoomer une image, redimensionner un plan ou une carte tout en gardant les proportions.",
+      "explicationSimple": "Imagine que tu projettes une photo avec un vidéoprojecteur : plus tu éloignes l'appareil du mur, plus l'image s'agrandit, mais elle garde exactement la même forme, juste plus grande. C'est ce que fait une homothétie : à partir d'un point fixe (le centre), elle multiplie toutes les distances par un même nombre k, ce qui agrandit (si k est plus grand que 1) ou réduit (si k est entre 0 et 1) la figure, sans la déformer.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer l'image d'un point par une homothétie de centre et de rapport donnés, et reconnaître les propriétés conservées (angles, alignements) ou transformées (longueurs multipliées par |k|, aires par k²).",
+      "definition": "Une homothétie de centre O et de rapport k est une transformation qui, à tout point M, associe le point M' aligné avec O et M, tel que la distance OM' soit égale à |k| fois la distance OM (du même côté de O si k est positif, du côté opposé si k est négatif). Une homothétie conserve les angles et l'alignement des points, mais multiplie toutes les longueurs par |k| et toutes les aires par k².",
+      "definitions": {
+        "lycee": "Une homothétie de centre O et de rapport k est une transformation qui, à tout point M, associe le point M' aligné avec O et M, tel que la distance OM' soit égale à |k| fois la distance OM (du même côté de O si k est positif, du côté opposé si k est négatif). Une homothétie conserve les angles et l'alignement des points, mais multiplie toutes les longueurs par |k| et toutes les aires par k².",
+        "college": "Une homothétie de centre O et de rapport k transforme un point M en un point M' situé sur la droite (OM), à une distance de O multipliée par k par rapport à celle de M."
+      },
+      "intuition": "Le centre O est le seul point qui ne bouge jamais ; tous les autres points s'éloignent ou se rapprochent de lui selon le rapport k. Si k est négatif, l'image se retrouve de l'autre côté du centre (comme un demi-tour combiné à un agrandissement) : ne confonds jamais le signe de k, qui indique le côté, et sa valeur absolue, qui indique le facteur d'agrandissement.",
+      "reglesImportantes": [
+        "Divise les côtés pour trouver k, puis élève k au carré pour le rapport des aires.",
+        "La longueur est multipliée par |k| ; un rapport négatif ajoute un retournement.",
+        "Applique les deux homothéties successivement, puis multiplie les rapports.",
+        "Un rapport k=-1 équivaut à un demi-tour, comme une symétrie centrale.",
+        "Calcule d'abord le vecteur F-O, multiplie-le par k, puis ajoute O."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Homothétie",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : f - O = (3-1 ; 4-2) = (2 ; 2)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : k × (F-O) = (4 ; 4)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : f' = O + (4 ; 4) = (5 ; 6)."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1320",
+          "titre": "Exemple 1",
+          "enonce": "Dans un repère, le point A a pour coordonnées (2 ; 3). On applique l'homothétie de centre O (origine) et de rapport k=3. Donne les coordonnées de l'image A' de A (indication : les coordonnées de A' s'obtiennent en multipliant celles de A par k).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : comme le centre est O, A' = k × A."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : a' = (3×2 ; 3×3) = (6 ; 9)."
+            }
+          ],
+          "reponse": "A'(6 ; 9)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : A'(6 ; 9)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1326",
+          "titre": "Exemple 2",
+          "enonce": "On considère le centre O(1 ; 2) et le point F(3 ; 4). Applique l'homothétie de centre O et de rapport k=2 : utilise la formule F' = O + k×(F-O). Donne les coordonnées de F'.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : f - O = (3-1 ; 4-2) = (2 ; 2)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : k × (F-O) = (4 ; 4)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : f' = O + (4 ; 4) = (5 ; 6)."
+            }
+          ],
+          "reponse": "F'(5 ; 6)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : F'(5 ; 6)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1332",
+          "titre": "Exemple 3",
+          "enonce": "Une homothétie de centre O et de rapport k=-2 transforme le point L(3 ; 1) en L'. Donne les coordonnées de L' (indication : L' = k×L quand O est l'origine).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l' = (-2×3 ; -2×1) = (-6 ; -2)."
+            }
+          ],
+          "reponse": "L'(-6 ; -2)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'(-6 ; -2)",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1338",
+          "titre": "Exemple 4",
+          "enonce": "Le point T(4 ; 2) a pour image T'(12 ; 6) par une homothétie de centre O (origine). Détermine le rapport k de cette homothétie.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : k = 12/4 = 3."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on vérifie avec l'autre coordonnée : 6/2 = 3, cohérent."
+            }
+          ],
+          "reponse": "k = 3",
+          "conclusion": "Nous avons ainsi obtenu le résultat : k = 3",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Oublier que le centre O ne bouge pas, et déplacer par erreur ses coordonnées lors du calcul de l'image d'un point.",
+        "Ne pas tenir compte du signe de k : placer l'image du même côté du centre alors que k est négatif.",
+        "Multiplier une longueur par k au lieu de |k|, ce qui donne une distance négative quand k est négatif."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier que le centre O ne bouge pas, et déplacer par erreur ses coordonnées lors du calcul de l'image d'un point.",
+          "pourquoi": "Lors d'un calcul avec plusieurs points, on peut confondre le centre de l'homothétie avec un point ordinaire de la figure.",
+          "comment_detecter": "Les coordonnées trouvées pour l'image du centre sont différentes de ses coordonnées de départ.",
+          "comment_eviter": "Avant tout calcul, identifie clairement le centre O et rappelle-toi qu'il est le seul point invariant : son image est lui-même."
+        },
+        {
+          "description": "Ne pas tenir compte du signe de k : placer l'image du même côté du centre alors que k est négatif.",
+          "pourquoi": "On retient souvent que l'homothétie « agrandit dans la même direction », en oubliant le cas où k est négatif.",
+          "comment_detecter": "Le point image tombé du même côté que le point de départ ne correspond pas à un rapport négatif annoncé dans l'énoncé.",
+          "comment_eviter": "Si k est négatif, place systématiquement l'image de l'autre côté du centre par rapport au point de départ."
+        },
+        {
+          "description": "Multiplier une longueur par k au lieu de |k|, ce qui donne une distance négative quand k est négatif.",
+          "pourquoi": "Le rapport k sert à la fois à indiquer le facteur d'agrandissement et le côté du centre, ce qui prête à confusion.",
+          "comment_detecter": "Une longueur calculée est négative, ce qui est impossible pour une distance.",
+          "comment_eviter": "Pour une longueur ou un périmètre, utilise toujours |k| (sans le signe) ; le signe de k ne sert qu'à situer l'image par rapport au centre."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Divise les côtés pour trouver k, puis élève k au carré pour le rapport des aires.",
+        "La longueur est multipliée par |k| ; un rapport négatif ajoute un retournement.",
+        "Applique les deux homothéties successivement, puis multiplie les rapports.",
+        "Un rapport k=-1 équivaut à un demi-tour, comme une symétrie centrale.",
+        "Calcule d'abord le vecteur F-O, multiplie-le par k, puis ajoute O.",
+        "Les longueurs sont multipliées par k ; k>1 est un agrandissement."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 6, 4],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 0, "y": 0, "label": "O"},
+          {"x": 2, "y": 1, "label": "M"},
+          {"x": 4, "y": 2, "label": "M'"}
+        ],
+        "segments": [
+          {"from": "O", "to": "M", "tooltip": "OM"},
+          {"from": "M", "to": "M'", "tooltip": "MM' = OM, donc OM' = 2 × OM"}
+        ],
+        "texts": [
+          {"x": 1, "y": 0.25, "label": "d"},
+          {"x": 3, "y": 1.25, "label": "d"},
+          {"x": 2, "y": 2.6, "label": "k = 2"}
+        ],
+        "alt": "Homothétie de centre O et de rapport k=2 : le point M a pour image M', avec O, M et M' alignés et OM' = 2 × OM."
+      },
+      "quizExerciseIds": [
+        1321,
+        1322,
+        1323
+      ],
+      "topic_id": "homothetie",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Homothétie."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "homothetie"
+      ]
+    },
+    {
+      "id": "rotation",
+      "title": "Rotation",
+      "schemaVersion": 2,
+      "intro": "Une rotation est une transformation géométrique qui fait tourner une figure d'un certain angle, dans un sens donné, autour d'un point fixe appelé centre. Elle sert à décrire un mouvement de rotation (comme les aiguilles d'une montre, une roue ou un manège) et à construire des figures possédant une symétrie de rotation, comme les rosaces.",
+      "explicationSimple": "Imagine que tu piques une épingle sur une feuille au point O, puis que tu fais tourner la feuille d'un certain angle autour de cette épingle, toujours dans le même sens (comme les aiguilles d'une montre ou dans l'autre sens). Chaque point de la feuille se déplace sur un cercle centré en O, mais le point O, lui, ne bouge jamais : c'est le centre de la rotation.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer l'image d'un point par une rotation de centre, d'angle et de sens donnés, et utiliser le fait qu'une rotation conserve les longueurs, les angles et les aires.",
+      "definition": "Une rotation de centre O, d'angle a et de sens donné est une transformation qui, à tout point M distinct de O, associe le point M' tel que OM' = OM (même distance au centre) et tel que l'angle formé par M, O et M' mesure a, dans le sens indiqué. Le centre O est le seul point invariant (image de lui-même) dès que l'angle n'est pas un multiple de 360°. Une rotation conserve les longueurs, les angles et les aires des figures.",
+      "definitions": {
+        "lycee": "Une rotation de centre O, d'angle a et de sens donné est une transformation qui, à tout point M distinct de O, associe le point M' tel que OM' = OM (même distance au centre) et tel que l'angle formé par M, O et M' mesure a, dans le sens indiqué. Le centre O est le seul point invariant (image de lui-même) dès que l'angle n'est pas un multiple de 360°. Une rotation conserve les longueurs, les angles et les aires des figures.",
+        "college": "Une rotation fait tourner tous les points de la figure d'un même angle, dans le même sens, autour d'un point fixe appelé centre ; la distance au centre ne change pas."
+      },
+      "intuition": "Une rotation a besoin de trois informations pour être bien définie : un centre, un angle et un sens (direct, comme le sens inverse des aiguilles d'une montre, ou indirect). Oublier l'une de ces trois informations rend la rotation incomplète : ne dis jamais juste « on tourne de 90° » sans préciser autour de quel point et dans quel sens.",
+      "reglesImportantes": [
+        "Calcule OF' avec les coordonnées, puis identifie l'angle FOF' à l'angle de la rotation.",
+        "Une rotation conserve la distance au centre et l'angle GOG' est l'angle de la rotation.",
+        "Le seul point invariant d'une rotation (d'angle différent de 0°/360°) est son centre.",
+        "Applique la formule (x;y)→(y;-x), puis relie l'angle HOH' à l'angle de la rotation.",
+        "Une rotation de +90° suivie d'une rotation de -90° équivaut à une rotation nulle."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Rotation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : h - O = (3 ; 0)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : rotation directe : (3 ; 0) → (0 ; 3)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : h' = O + (0 ; 3) = (2 ; 6)."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1290",
+          "titre": "Exemple 1",
+          "enonce": "Dans un repère, on considère le point A(3 ; 5). On applique à A la rotation de centre O (origine), d'angle 90° dans le sens direct (sens inverse des aiguilles d'une montre). Sachant que cette rotation transforme tout point (x ; y) en (-y ; x), donne les coordonnées de l'image A' de A.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on applique la formule (x ; y) → (-y ; x) à A(3 ; 5)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : a' = (-5 ; 3)."
+            }
+          ],
+          "reponse": "A'(-5 ; 3)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : A'(-5 ; 3)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1296",
+          "titre": "Exemple 2",
+          "enonce": "Dans un repère, on considère le point O(2 ; 3), centre de rotation, et le point H(5 ; 3). On applique à H la rotation de centre O, d'angle 90° dans le sens direct. Indication : ramène H dans un repère centré en O (calcule H-O), applique la rotation (x ; y) → (-y ; x), puis reviens dans le repère initial. Donne les coordonnées de H'.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : h - O = (3 ; 0)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : rotation directe : (3 ; 0) → (0 ; 3)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : h' = O + (0 ; 3) = (2 ; 6)."
+            }
+          ],
+          "reponse": "H'(2 ; 6)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : H'(2 ; 6)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1302",
+          "titre": "Exemple 3",
+          "enonce": "Le point R(2,5 ; -1) subit une rotation de centre O et d'angle 90° dans le sens direct. Donne les coordonnées exactes de R'.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on applique (x ; y) → (-y ; x) à R(2,5 ; -1)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : r' = (1 ; 2,5)."
+            }
+          ],
+          "reponse": "R'(1 ; 2,5)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : R'(1 ; 2,5)",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1308",
+          "titre": "Exemple 4",
+          "enonce": "Le point A(6 ; 2) a pour image A'(-2 ; 6) par une rotation de centre O et d'angle 90°. Indique si le sens de cette rotation est direct ou indirect, en justifiant à l'aide des formules (x ; y) → (-y ; x) [sens direct] et (x ; y) → (y ; -x) [sens indirect].",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : formule directe : (-y ; x) appliquée à A(6 ; 2) donne (-2 ; 6)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : cela correspond exactement à A'(-2 ; 6)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la rotation est donc de sens direct."
+            }
+          ],
+          "reponse": "Sens direct",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Sens direct",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Confondre le sens direct et le sens indirect de la rotation, ce qui inverse la position de l'image.",
+        "Oublier de ramener les coordonnées dans un repère centré sur le centre de la rotation avant d'appliquer la formule, quand le centre n'est pas l'origine.",
+        "Croire qu'une rotation change les longueurs ou les aires d'une figure, alors qu'elle les conserve toujours."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre le sens direct et le sens indirect de la rotation, ce qui inverse la position de l'image.",
+          "pourquoi": "Les deux formules (x;y)→(-y;x) et (x;y)→(y;-x) se ressemblent beaucoup et sont faciles à intervertir de mémoire.",
+          "comment_detecter": "Le point image obtenu est symétrique de la bonne réponse par rapport au centre, ou ne correspond pas au sens précisé dans l'énoncé.",
+          "comment_eviter": "Retiens que le sens direct (inverse des aiguilles d'une montre) correspond à (x;y)→(-y;x), et vérifie toujours le sens indiqué dans l'énoncé avant de choisir la formule."
+        },
+        {
+          "description": "Oublier de ramener les coordonnées dans un repère centré sur le centre de la rotation avant d'appliquer la formule, quand le centre n'est pas l'origine.",
+          "pourquoi": "Les formules de rotation simples ne fonctionnent directement que si le centre de rotation est l'origine du repère.",
+          "comment_detecter": "Le point trouvé ne respecte pas la distance au centre annoncée dans l'énoncé (OM différent de OM').",
+          "comment_eviter": "Si le centre O n'est pas l'origine, calcule d'abord les coordonnées du point moins celles de O, applique la rotation, puis rajoute les coordonnées de O au résultat."
+        },
+        {
+          "description": "Croire qu'une rotation change les longueurs ou les aires d'une figure, alors qu'elle les conserve toujours.",
+          "pourquoi": "Comme l'homothétie (étudiée juste avant) modifie les longueurs, on peut penser par erreur que toutes les transformations le font aussi.",
+          "comment_detecter": "On multiplie une longueur ou une aire par un facteur alors que l'énoncé ne parle que d'une rotation.",
+          "comment_eviter": "Rappelle-toi qu'une rotation ne fait que tourner la figure : elle conserve toujours les longueurs, les angles et les aires, sans aucun facteur multiplicatif."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Calcule OF' avec les coordonnées, puis identifie l'angle FOF' à l'angle de la rotation.",
+        "Une rotation conserve la distance au centre et l'angle GOG' est l'angle de la rotation.",
+        "Le seul point invariant d'une rotation (d'angle différent de 0°/360°) est son centre.",
+        "Applique la formule (x;y)→(y;-x), puis relie l'angle HOH' à l'angle de la rotation.",
+        "Une rotation de +90° suivie d'une rotation de -90° équivaut à une rotation nulle.",
+        "Une rotation conserve les aires ; pour l'angle total, additionne deux fois 120°."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-7, -2, 14, 10],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 0, "y": 0, "label": "O"},
+          {"x": 3, "y": 5, "label": "M"},
+          {"x": -5, "y": 3, "label": "M'"}
+        ],
+        "segments": [
+          {"from": "O", "to": "M", "tooltip": "OM"},
+          {"from": "O", "to": "M'", "tooltip": "OM' = OM"}
+        ],
+        "arcs": [
+          {"center": "O", "radius": 1.2, "startDeg": 59.04, "endDeg": 149.04, "label": "90°"}
+        ],
+        "texts": [
+          {"x": -4, "y": 6.6, "label": "OM = OM'"}
+        ],
+        "alt": "Rotation de centre O, d'angle 90° dans le sens direct : le point M(3 ; 5) a pour image M'(-5 ; 3), avec OM = OM' et un angle MOM' de 90°."
+      },
+      "quizExerciseIds": [
+        1291,
+        1292,
+        1293
+      ],
+      "topic_id": "rotation",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Rotation."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "rotation"
+      ]
+    },
+    {
+      "id": "symetrie-axiale-et-symetrie-centrale",
+      "title": "Symétrie axiale et symétrie centrale",
+      "schemaVersion": 2,
+      "intro": "La symétrie axiale et la symétrie centrale sont deux transformations qui produisent une image « en miroir » d'une figure : la symétrie axiale se fait par rapport à une droite (comme un pliage), la symétrie centrale se fait par rapport à un point (comme un demi-tour). Elles servent à construire des figures symétriques et à retrouver rapidement les coordonnées d'un point image.",
+      "explicationSimple": "Pour la symétrie axiale, imagine que tu plies une feuille le long d'une droite (d) : le point et son image se superposent exactement quand tu plies, comme dans un miroir. Pour la symétrie centrale, imagine un point O fixe, et que tu fais faire un demi-tour (180°) à toute la figure autour de ce point, comme si tu la retournais avec une punaise plantée en O.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer l'image d'un point par une symétrie axiale (par rapport à une droite) ou par une symétrie centrale (par rapport à un point), et utiliser le fait que ces deux transformations conservent les longueurs, les angles et les aires.",
+      "definition": "La symétrie axiale par rapport à une droite (d) associe à tout point M le point M' tel que (d) soit la médiatrice du segment [MM'] (M et M' sont à la même distance de (d), de part et d'autre, sur une perpendiculaire à (d)). La symétrie centrale par rapport à un point O associe à tout point M le point M' tel que O soit le milieu du segment [MM']. Ces deux transformations conservent les longueurs, les angles et les aires des figures.",
+      "definitions": {
+        "lycee": "La symétrie axiale par rapport à une droite (d) associe à tout point M le point M' tel que (d) soit la médiatrice du segment [MM'] (M et M' sont à la même distance de (d), de part et d'autre, sur une perpendiculaire à (d)). La symétrie centrale par rapport à un point O associe à tout point M le point M' tel que O soit le milieu du segment [MM']. Ces deux transformations conservent les longueurs, les angles et les aires des figures.",
+        "college": "Dans une symétrie axiale, la droite (d) est la médiatrice de [MM'] ; dans une symétrie centrale, le point O est le milieu de [MM']."
+      },
+      "intuition": "Distingue bien les deux cas : dans une symétrie axiale, c'est une droite qui sépare le point de son image (comme un miroir) ; dans une symétrie centrale, c'est un point unique qui est le milieu exact entre le point et son image. Une symétrie centrale équivaut toujours à une rotation d'angle 180° autour du même centre.",
+      "reglesImportantes": [
+        "(d) est horizontale : l'abscisse ne change pas, seule l'ordonnée se transforme par rapport à y = -1.",
+        "P est le milieu de [NN']. Ensuite Q' se calcule avec la formule du symétrique par rapport à P.",
+        "Par rapport à l'axe des abscisses, l'abscisse ne change pas et l'ordonnée change de signe.",
+        "Par rapport à l'axe des ordonnées, l'ordonnée ne change pas et l'abscisse change de signe.",
+        "La translation et la symétrie centrale conservent toutes deux les longueurs et les angles."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Symétrie axiale et symétrie centrale",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'axe des abscisses est la droite d'équation y = 0."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : le symétrique par rapport à cette droite conserve l'abscisse et change le signe de l'ordonnée."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : a(2 ; 5) a donc pour symétrique A'(2 ; -5)."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1230",
+          "titre": "Exemple 1",
+          "enonce": "Dans un repère orthonormé, on considère le point A(2 ; 5). On note A' le symétrique de A par rapport à l'axe des abscisses. Donne les coordonnées de A'.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'axe des abscisses est la droite d'équation y = 0."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le symétrique par rapport à cette droite conserve l'abscisse et change le signe de l'ordonnée."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : a(2 ; 5) a donc pour symétrique A'(2 ; -5)."
+            }
+          ],
+          "reponse": "A'(2 ; -5)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : A'(2 ; -5)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1236",
+          "titre": "Exemple 2",
+          "enonce": "On travaille dans un repère. La droite (d) a pour équation y = -1. Le point G a pour coordonnées (5 ; 4). Détermine les coordonnées de G', symétrique de G par rapport à (d).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : (d) est horizontale, donc x_G' = x_G = 5."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : y_G' = 2×(-1) - 4 = -6."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : g' a pour coordonnées (5 ; -6)."
+            }
+          ],
+          "reponse": "G'(5 ; -6)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : G'(5 ; -6)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1242",
+          "titre": "Exemple 3",
+          "enonce": "Dans un repère, le point M a pour coordonnées (3,5 ; -2,4). On note M' son symétrique par rapport à l'axe des abscisses. Donne les coordonnées exactes de M'.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : par rapport à l'axe des abscisses, l'abscisse est conservée : x_M' = 3,5."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'ordonnée change de signe : y_M' = 2,4."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : m' a pour coordonnées (3,5 ; 2,4)."
+            }
+          ],
+          "reponse": "M'(3,5 ; 2,4)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : M'(3,5 ; 2,4)",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1248",
+          "titre": "Exemple 4",
+          "enonce": "Le quadrilatère ABCD a une aire de 24 cm². Son symétrique A'B'C'D' est obtenu par une symétrie axiale. Quelle est l'aire de A'B'C'D' ? Justifie ta réponse en citant la propriété utilisée.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la symétrie axiale conserve les aires."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc l'aire de A'B'C'D' est égale à celle de ABCD, soit 24 cm²."
+            }
+          ],
+          "reponse": "24 cm²",
+          "conclusion": "Nous avons ainsi obtenu le résultat : 24 cm²",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Confondre symétrie axiale (par rapport à une droite) et symétrie centrale (par rapport à un point), et donc utiliser la mauvaise formule de coordonnées.",
+        "Oublier que, dans une symétrie axiale par rapport à un axe horizontal ou vertical, une des deux coordonnées ne change pas du tout.",
+        "Ne pas vérifier que le point trouvé est bien à la même distance de l'axe ou du centre que le point de départ."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre symétrie axiale (par rapport à une droite) et symétrie centrale (par rapport à un point), et donc utiliser la mauvaise formule de coordonnées.",
+          "pourquoi": "Les deux transformations portent un nom proche et produisent toutes les deux une figure « inversée », ce qui entretient la confusion.",
+          "comment_detecter": "Le point image ne se trouve pas du bon côté par rapport à l'axe ou au centre annoncé dans l'énoncé.",
+          "comment_eviter": "Vérifie toujours si l'énoncé donne une droite (d) — c'est une symétrie axiale — ou un point O — c'est une symétrie centrale — avant de choisir la méthode."
+        },
+        {
+          "description": "Oublier que, dans une symétrie axiale par rapport à un axe horizontal ou vertical, une des deux coordonnées ne change pas du tout.",
+          "pourquoi": "L'élève applique une transformation aux deux coordonnées alors qu'une seule doit changer quand l'axe est horizontal ou vertical.",
+          "comment_detecter": "Les deux coordonnées du point image sont différentes de celles du point de départ, alors que l'axe est horizontal ou vertical.",
+          "comment_eviter": "Repère si l'axe est horizontal (alors seule l'ordonnée change) ou vertical (alors seule l'abscisse change), avant de transformer les coordonnées."
+        },
+        {
+          "description": "Ne pas vérifier que le point trouvé est bien à la même distance de l'axe ou du centre que le point de départ.",
+          "pourquoi": "Cette vérification est souvent négligée alors qu'elle permet de repérer immédiatement une erreur de calcul.",
+          "comment_detecter": "La distance entre le point de départ et l'axe (ou le centre) est différente de la distance entre le point image et ce même axe (ou centre).",
+          "comment_eviter": "Une fois le point image trouvé, calcule rapidement sa distance à l'axe ou au centre et compare-la à celle du point de départ : elles doivent être égales."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "(d) est horizontale : l'abscisse ne change pas, seule l'ordonnée se transforme par rapport à y = -1.",
+        "P est le milieu de [NN']. Ensuite Q' se calcule avec la formule du symétrique par rapport à P.",
+        "Par rapport à l'axe des abscisses, l'abscisse ne change pas et l'ordonnée change de signe.",
+        "Par rapport à l'axe des ordonnées, l'ordonnée ne change pas et l'abscisse change de signe.",
+        "La translation et la symétrie centrale conservent toutes deux les longueurs et les angles.",
+        "L'aire est conservée par symétrie axiale. Pour les coordonnées, utilise x' = 2×6 - x."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -4, 6, 8],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {"x": 2, "y": 3, "label": "M"},
+          {"x": 2, "y": -3, "label": "M'"},
+          {"x": 2, "y": 0, "label": "I"}
+        ],
+        "segments": [
+          {"from": {"x": -1, "y": 0}, "to": {"x": 5, "y": 0}, "tooltip": "Axe (d)"},
+          {"from": "M", "to": "M'", "dashed": true, "tooltip": "[MM'] coupe (d) perpendiculairement en son milieu I"}
+        ],
+        "arcs": [
+          {"center": "I", "radius": 0.4, "startDeg": 0, "endDeg": 90, "tooltip": "Angle droit en I"}
+        ],
+        "texts": [
+          {"x": -0.8, "y": 0.4, "label": "(d)"}
+        ],
+        "alt": "La droite (d) est l'axe de symétrie : le point M a pour symétrique M', et le segment [MM'] coupe (d) perpendiculairement en son milieu I."
+      },
+      "quizExerciseIds": [
+        1231,
+        1232,
+        1233
+      ],
+      "topic_id": "symetrie-axiale-et-symetrie-centrale",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Symétrie axiale et symétrie centrale."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "symetrie",
+        "axiale",
+        "centrale"
+      ]
+    },
+    {
+      "id": "translation",
+      "title": "Translation",
+      "schemaVersion": 2,
+      "intro": "La translation est une transformation qui déplace tous les points du plan de la même façon : même direction, même sens et même distance, définis par un vecteur. Cette notion sert à décrire un déplacement, comme sur une carte ou un plan, et à retrouver les coordonnées d'un point déplacé ou le vecteur qui relie un point à son image.",
+      "explicationSimple": "Imagine une flèche tracée sur une carte pour indiquer un déplacement : « avance de 3 cases à droite et 2 cases vers le haut ». Cette flèche (le vecteur) a une direction, un sens et une longueur. La translation applique exactement ce même déplacement à tous les points d'une figure, qui garde alors sa forme et sa taille.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer l'image d'un point par une translation de vecteur donné, retrouver le vecteur d'une translation à partir d'un point et de son image, et utiliser le fait qu'une translation conserve les longueurs et les aires.",
+      "definition": "Une translation est une transformation qui déplace tous les points du plan d'un même vecteur : chaque point M a pour image un point M' tel que le vecteur MM' est toujours le même, quel que soit M choisi. Ce vecteur donne la direction, le sens et la distance du déplacement. Une translation conserve les longueurs, les angles et les aires des figures.",
+      "definitions": {
+        "lycee": "Une translation est une transformation qui déplace tous les points du plan d'un même vecteur : chaque point M a pour image un point M' tel que le vecteur MM' est toujours le même, quel que soit M choisi. Ce vecteur donne la direction, le sens et la distance du déplacement. Une translation conserve les longueurs, les angles et les aires des figures.",
+        "college": "Une translation fait glisser tous les points d'une figure dans la même direction, le même sens et sur la même distance : celle donnée par le vecteur de la translation."
+      },
+      "intuition": "Un vecteur n'a pas de position fixe : deux flèches de même longueur, même direction et même sens représentent le même vecteur, même si elles sont dessinées à des endroits différents dans le repère. Ne confonds jamais un vecteur (un déplacement) avec un point (une position précise).",
+      "reglesImportantes": [
+        "Additionne les deux vecteurs pour obtenir le vecteur global, puis applique-le à M.",
+        "Un déplacement horizontal vers la droite de 10 correspond au vecteur (10 ; 0).",
+        "Les translations conservent longueurs et aires, quel que soit leur nombre.",
+        "Utilise le vecteur AD pour trouver C, puis compare les vecteurs AB et DC.",
+        "Le vecteur de translation est (5 ; -2), à ajouter aux coordonnées de C."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Translation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : x_A' = 2 + 4 = 6."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : y_A' = 3 - 1 = 2."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : a' a pour coordonnées (6 ; 2)."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1260",
+          "titre": "Exemple 1",
+          "enonce": "Dans un repère, on considère le point A(2 ; 3). On applique à A la translation qui transforme tout point M(x ; y) en M'(x+4 ; y-1). Détermine les coordonnées du point A', image de A par cette translation.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : x_A' = 2 + 4 = 6."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : y_A' = 3 - 1 = 2."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : a' a pour coordonnées (6 ; 2)."
+            }
+          ],
+          "reponse": "A'(6 ; 2)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : A'(6 ; 2)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1266",
+          "titre": "Exemple 2",
+          "enonce": "On donne les points H(1 ; 2) et H'(4 ; 6). Une translation transforme H en H'. Détermine les coordonnées de l'image K' du point K(-3 ; 5) par cette même translation.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : vecteur de translation : (4-1 ; 6-2) = (3 ; 4)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : x_K' = -3 + 3 = 0 et y_K' = 5 + 4 = 9."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : k' a pour coordonnées (0 ; 9)."
+            }
+          ],
+          "reponse": "K'(0 ; 9)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : K'(0 ; 9)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1272",
+          "titre": "Exemple 3",
+          "enonce": "Le point X(2,5 ; -1,5) subit la translation de vecteur (-0,5 ; 3,2). Donne les coordonnées de son image X'.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : x_X' = 2,5 + (-0,5) = 2."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : y_X' = -1,5 + 3,2 = 1,7."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : x' a pour coordonnées (2 ; 1,7)."
+            }
+          ],
+          "reponse": "X'(2 ; 1,7)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : X'(2 ; 1,7)",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1278",
+          "titre": "Exemple 4",
+          "enonce": "Le point C(x ; 7) a pour image C'(3 ; y) par la translation de vecteur (-2 ; 4). Détermine les valeurs de x et y.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : x - 2 = 3, donc x = 5."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : 7 + 4 = y, donc y = 11."
+            }
+          ],
+          "reponse": "x = 5 et y = 11",
+          "conclusion": "Nous avons ainsi obtenu le résultat : x = 5 et y = 11",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "un déplacement GPS (direction et distance à parcourir)",
+        "une force en physique (intensité et direction)",
+        "un vent (vitesse et direction)"
+      ],
+      "erreursFrequentes": [
+        "Se tromper de sens en calculant le vecteur de translation, par exemple calculer D - D' au lieu de D' - D.",
+        "Additionner les coordonnées du vecteur dans le mauvais ordre ou avec un mauvais signe, surtout quand le vecteur a une coordonnée négative.",
+        "Confondre un vecteur (un déplacement, sans position fixe) avec un point (une position précise dans le repère)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Se tromper de sens en calculant le vecteur de translation, par exemple calculer D - D' au lieu de D' - D.",
+          "pourquoi": "Les deux soustractions ressemblent beaucoup et il est facile d'inverser l'ordre du point de départ et du point d'arrivée.",
+          "comment_detecter": "Le vecteur trouvé, appliqué au point de départ, ne redonne pas exactement le point d'arrivée attendu.",
+          "comment_eviter": "Retiens l'ordre : le vecteur d'une translation qui amène D vers D' se calcule toujours en faisant « coordonnées de l'arrivée moins coordonnées du départ », donc D' - D."
+        },
+        {
+          "description": "Additionner les coordonnées du vecteur dans le mauvais ordre ou avec un mauvais signe, surtout quand le vecteur a une coordonnée négative.",
+          "pourquoi": "Une coordonnée négative dans le vecteur peut être mal gérée lors de l'addition avec les coordonnées du point de départ.",
+          "comment_detecter": "Le résultat trouvé est plus grand que prévu alors que le vecteur devait faire reculer le point (coordonnée négative).",
+          "comment_eviter": "Traite l'addition d'une coordonnée négative comme une soustraction : ajouter -2, c'est la même chose que soustraire 2."
+        },
+        {
+          "description": "Confondre un vecteur (un déplacement, sans position fixe) avec un point (une position précise dans le repère).",
+          "pourquoi": "Un vecteur et un point se notent tous les deux avec deux coordonnées, ce qui peut faire croire qu'ils représentent la même chose.",
+          "comment_detecter": "On place le vecteur sur le repère comme un point unique, sans tenir compte du fait qu'il peut être « glissé » n'importe où tant que sa longueur et sa direction restent les mêmes.",
+          "comment_eviter": "Rappelle-toi qu'un point répond à la question « où ? » alors qu'un vecteur répond à la question « comment se déplacer ? » (direction, sens, longueur)."
+        }
+      ],
+      "astuce": "Pour retenir qu'un vecteur ne dépend pas de sa position, imagine que tu peux le faire glisser n'importe où sur une feuille tant que sa longueur et sa direction ne changent pas.",
+      "aRetenir": [
+        "Additionne les deux vecteurs pour obtenir le vecteur global, puis applique-le à M.",
+        "Un déplacement horizontal vers la droite de 10 correspond au vecteur (10 ; 0).",
+        "Les translations conservent longueurs et aires, quel que soit leur nombre.",
+        "Utilise le vecteur AD pour trouver C, puis compare les vecteurs AB et DC.",
+        "Le vecteur de translation est (5 ; -2), à ajouter aux coordonnées de C.",
+        "Calcule d'abord le vecteur de translation à partir de H et H'."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          7,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "points": [
+          {
+            "x": 1,
+            "y": 1,
+            "label": "A"
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "label": "B"
+          }
+        ],
+        "vectors": [
+          {
+            "from": "A",
+            "to": "B",
+            "label": "u"
+          }
+        ],
+        "alt": "Le vecteur u va du point A au point B."
+      },
+      "quizExerciseIds": [
+        1261,
+        1262,
+        1263
+      ],
+      "topic_id": "translation",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Translation."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "translation"
+      ]
+    }
+  ]
+}

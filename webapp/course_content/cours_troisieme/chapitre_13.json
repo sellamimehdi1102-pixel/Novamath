@@ -1,0 +1,1423 @@
+{
+  "chapterId": "Chapitre_13",
+  "title": "Triangles rectangles : trigonométrie",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "calculer-une-longueur-ou-un-angle-grace-a-la-trigonometrie",
+      "title": "Calculer une longueur ou un angle grâce à la trigonométrie",
+      "schemaVersion": 2,
+      "intro": "Le théorème de Pythagore relie les longueurs des côtés d'un triangle rectangle entre elles, mais il ne dit rien sur les angles. La trigonométrie va plus loin : elle permet de calculer une longueur à partir d'un angle, ou un angle à partir de longueurs, grâce à trois outils : le cosinus, le sinus et la tangente.",
+      "explicationSimple": "Dans un triangle rectangle, chaque côté a un nom par rapport à l'angle que tu étudies : le côté juste à côté de l'angle s'appelle le côté adjacent, le côté en face s'appelle le côté opposé, et le plus grand côté s'appelle toujours l'hypoténuse. Une fois ces trois côtés repérés, tu peux utiliser cosinus, sinus ou tangente pour calculer ce qui te manque.",
+      "objectif": "À la fin de ce cours, tu sauras identifier les côtés adjacent, opposé et hypoténuse d'un angle dans un triangle rectangle, choisir entre cosinus, sinus et tangente selon les données, et calculer une longueur manquante ou un angle inconnu à l'aide de ces formules.",
+      "definition": "Utiliser le cosinus, le sinus ou la tangente de l'angle connu pour calculer une longueur, ou la fonction inverse (arccos, arcsin, arctan) pour calculer un angle.",
+      "definitions": {
+        "lycee": "Utiliser le cosinus, le sinus ou la tangente de l'angle connu pour calculer une longueur, ou la fonction inverse (arccos, arcsin, arctan) pour calculer un angle.",
+        "college": "Utiliser $\\cos\\widehat A = \\dfrac{AB}{AC}$ et isoler $AC$."
+      },
+      "intuition": "Avant tout calcul, prends l'habitude de dessiner le triangle et d'écrire sous chaque côté son nom (adjacent, opposé, hypoténuse) par rapport à l'angle qui t'intéresse. La moitié des erreurs viennent d'un côté mal identifié, pas d'une erreur de calcul.",
+      "reglesImportantes": [
+        "Utiliser $\\sin$ pour la hauteur, $\\cos$ pour la distance au mur, puis vérifier avec Pythagore que la somme des carrés redonne $6^2$.",
+        "$YZ$ et $XY$ sont respectivement le côté opposé et le côté adjacent à $\\widehat{X}$ : utiliser $\\tan\\widehat{X} = \\dfrac{YZ}{XY}$.",
+        "L'angle de dépression, mesuré depuis l'horizontale de l'avion, est égal à l'angle d'élévation depuis le sol : utiliser $\\tan$.",
+        "Utiliser $\\tan$ de l'angle d'élévation dans le triangle rectangle formé par le géomètre, le pied et le sommet de la falaise.",
+        "Le pied de l'arbre, l'observateur et le sommet forment un triangle rectangle : utiliser $\\tan$ de l'angle d'élévation."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Calculer une longueur ou un angle grâce à la trigonométrie",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $AB = AC \\times \\cos 37° \\approx 15 \\times 0,7986 \\approx 12$ cm (côté adjacent à $\\widehat A$)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $BC = AC \\times \\sin 37° \\approx 15 \\times 0,6018 \\approx 9$ cm (côté opposé à $\\widehat A$)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : vérification : $AB^2+BC^2 \\approx 12^2+9^2 \\approx 225 \\approx AC^2 = 225$, ce qui confirme la cohérence des résultats."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1740",
+          "titre": "Exemple 1",
+          "enonce": "$$ABC$$ est un triangle rectangle en $B$ tel que $\\widehat{A} = 42°$ et $AC = 8$ cm. Calculer la longueur $AB$, arrondie au dixième de centimètre.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\cos 42° = \\dfrac{AB}{AC}$, donc $AB = AC \\times \\cos 42°$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $AB = 8 \\times \\cos 42° \\approx 8 \\times 0,7431 \\approx 5,9$ cm."
+            }
+          ],
+          "reponse": "$AB \\approx 5,9$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $AB \\approx 5,9$ cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1746",
+          "titre": "Exemple 2",
+          "enonce": "Dans un triangle rectangle en $B$, l'angle $\\widehat A$ mesure $48°$ et le côté adjacent $AB$ mesure $7{,}5$ cm. Calculer l'hypoténuse $AC$, arrondie au dixième de centimètre.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\cos 48° = \\dfrac{AB}{AC}$, donc $AC = \\dfrac{AB}{\\cos 48°}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $AC = \\dfrac{7{,}5}{\\cos 48°} \\approx \\dfrac{7{,}5}{0,6691} \\approx 11,2$ cm."
+            }
+          ],
+          "reponse": "$AC \\approx 11,2$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $AC \\approx 11,2$ cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1752",
+          "titre": "Exemple 3",
+          "enonce": "$$ABC$$ est un triangle rectangle en $B$ tel que $AB = 5$ cm et $BC = 7$ cm. Calculer la mesure de l'angle $\\widehat A$, arrondie au dixième de degré.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\tan\\widehat A = \\dfrac{BC}{AB} = \\dfrac{7}{5} = 1{,}4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\widehat A = \\arctan(1{,}4) \\approx 54,5°$."
+            }
+          ],
+          "reponse": "$\\widehat A \\approx 54,5°$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\widehat A \\approx 54,5°$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1758",
+          "titre": "Exemple 4",
+          "enonce": "Un observateur se tient à $15$ m du pied d'un arbre. Il vise le sommet de l'arbre avec un angle d'élévation de $32°$. Calculer la hauteur de l'arbre, arrondie au dixième de mètre.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans le triangle rectangle formé, $\\tan 32° = \\dfrac{\\text{hauteur}}{15}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : hauteur $= 15 \\times \\tan 32° \\approx 15 \\times 0,6249 \\approx 9,4$ m."
+            }
+          ],
+          "reponse": "La hauteur de l'arbre est $\\approx 9,4$ m",
+          "conclusion": "Nous avons ainsi obtenu le résultat : La hauteur de l'arbre est $\\approx 9,4$ m",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la position d'une aiguille d'horloge ou d'une roue qui tourne",
+        "les ondes sonores et lumineuses (mouvements périodiques)",
+        "la navigation et le repérage d'un angle de direction"
+      ],
+      "erreursFrequentes": [
+        "Confondre le côté opposé et le côté adjacent, surtout quand le triangle est dessiné dans une position inhabituelle.",
+        "Utiliser cosinus alors qu'il fallait utiliser sinus (ou l'inverse), en oubliant de vérifier quels côtés sont réellement donnés dans l'énoncé."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre le côté opposé et le côté adjacent, surtout quand le triangle est dessiné dans une position inhabituelle.",
+          "pourquoi": "« Opposé » et « adjacent » se définissent toujours PAR RAPPORT À L'ANGLE choisi, pas par rapport à l'orientation du dessin sur la page.",
+          "comment_detecter": "Si tu identifies les côtés seulement en regardant leur position sur la feuille (en haut, en bas...), tu risques de te tromper dès que le triangle est tourné.",
+          "comment_eviter": "Place toujours ton doigt sur l'angle étudié en premier : le côté qui le touche (autre que l'hypoténuse) est l'adjacent, le côté en face est l'opposé."
+        },
+        {
+          "description": "Utiliser cosinus alors qu'il fallait utiliser sinus (ou l'inverse), en oubliant de vérifier quels côtés sont réellement donnés dans l'énoncé.",
+          "pourquoi": "Chaque formule relie une paire précise de côtés à l'angle : cosinus = adjacent/hypoténuse, sinus = opposé/hypoténuse, tangente = opposé/adjacent — se tromper de paire donne un résultat totalement faux.",
+          "comment_detecter": "Vérifie que les deux côtés que tu utilises dans ta formule correspondent bien à ceux que l'énoncé te donne (ou celui que tu cherches).",
+          "comment_eviter": "Écris d'abord les trois formules de côté (cos/sin/tan), puis choisis celle qui ne contient QUE des éléments connus plus l'inconnue cherchée."
+        }
+      ],
+      "astuce": "Pour ne pas inverser cosinus et sinus, retiens que « cosinus » commence comme « côté horizontal » (l'abscisse), et sinus reste donc pour la verticale.",
+      "aRetenir": [
+        "Utiliser $\\sin$ pour la hauteur, $\\cos$ pour la distance au mur, puis vérifier avec Pythagore que la somme des carrés redonne $6^2$.",
+        "$YZ$ et $XY$ sont respectivement le côté opposé et le côté adjacent à $\\widehat{X}$ : utiliser $\\tan\\widehat{X} = \\dfrac{YZ}{XY}$.",
+        "L'angle de dépression, mesuré depuis l'horizontale de l'avion, est égal à l'angle d'élévation depuis le sol : utiliser $\\tan$.",
+        "Utiliser $\\tan$ de l'angle d'élévation dans le triangle rectangle formé par le géomètre, le pied et le sommet de la falaise.",
+        "Le pied de l'arbre, l'observateur et le sommet forment un triangle rectangle : utiliser $\\tan$ de l'angle d'élévation.",
+        "L'échelle est l'hypoténuse du triangle rectangle formé avec le mur et le sol : utiliser $\\sin$ de l'angle au sol."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          6,
+          5
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "A"
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "label": "B"
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "label": "C"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "tooltip": "Triangle rectangle en B"
+          }
+        ],
+        "arcs": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0.6,
+            "startDeg": 0,
+            "endDeg": 37,
+            "label": "angle"
+          },
+          {
+            "center": {
+              "x": 4,
+              "y": 0
+            },
+            "radius": 0.4,
+            "startDeg": 90,
+            "endDeg": 180
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B",
+            "variant": "a",
+            "reveal": 2,
+            "tooltip": "Côté adjacent à l'angle (à côté, pas en face)"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "Côté opposé à l'angle (en face)"
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "Hypoténuse : le côté le plus long, en face de l'angle droit"
+          }
+        ],
+        "texts": [
+          {
+            "x": 2,
+            "y": -0.4,
+            "label": "côté adjacent",
+            "reveal": 2
+          },
+          {
+            "x": 4.6,
+            "y": 1.5,
+            "label": "côté opposé",
+            "reveal": 2
+          },
+          {
+            "x": 1.6,
+            "y": 2,
+            "label": "hypoténuse",
+            "reveal": 3
+          }
+        ],
+        "steps": [
+          "Le triangle et l'angle étudié",
+          "Les côtés adjacent et opposé",
+          "L'hypoténuse"
+        ],
+        "alt": "Triangle rectangle en A : selon l'angle étudié, on distingue le côté adjacent, le côté opposé et l'hypoténuse.",
+        "emphasis": true
+      },
+      "quizExerciseIds": [
+        1741,
+        1742,
+        1743
+      ],
+      "topic_id": "calculer-une-longueur-ou-un-angle-grace-a-la-trigonometrie",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Calculer une longueur ou un angle grâce à la trigonométrie."
+      ],
+      "prerequis": [
+        "Cosinus, sinus et tangente d'un angle aigu (notion suivante de ce chapitre)",
+        "Théorème de Pythagore"
+      ],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "calculer",
+        "longueur",
+        "angle",
+        "grace"
+      ]
+    },
+    {
+      "id": "cosinus,-sinus-et-tangente-d-un-angle-aigu",
+      "title": "Cosinus, sinus et tangente d'un angle aigu",
+      "schemaVersion": 2,
+      "intro": "Le cosinus, le sinus et la tangente sont trois nombres qui décrivent la forme d'un triangle rectangle à partir d'un de ses angles aigus. Ce ne sont pas des notions abstraites : ce sont simplement des rapports (des divisions) entre deux côtés du triangle, toujours les mêmes pour un angle donné, quelle que soit la taille du triangle.",
+      "explicationSimple": "Pour un angle aigu $\\widehat A$ d'un triangle rectangle : le cosinus est le côté adjacent divisé par l'hypoténuse, le sinus est le côté opposé divisé par l'hypoténuse, et la tangente est le côté opposé divisé par le côté adjacent. Ces trois nombres sont toujours compris entre $0$ et $1$ pour cosinus et sinus (la tangente peut être plus grande).",
+      "objectif": "À la fin de ce cours, tu sauras calculer le cosinus, le sinus et la tangente d'un angle aigu comme rapport de deux côtés d'un triangle rectangle, et utiliser la relation $\\cos^2\\widehat A + \\sin^2\\widehat A = 1$ pour vérifier ou compléter un calcul.",
+      "definition": "Calculer $\\cos\\widehat A$, $\\sin\\widehat A$ ou $\\tan\\widehat A$ comme un rapport de deux côtés du triangle rectangle, en utilisant si besoin la relation $\\cos^2\\widehat A + \\sin^2\\widehat A = 1$.",
+      "definitions": {
+        "lycee": "Calculer $\\cos\\widehat A$, $\\sin\\widehat A$ ou $\\tan\\widehat A$ comme un rapport de deux côtés du triangle rectangle, en utilisant si besoin la relation $\\cos^2\\widehat A + \\sin^2\\widehat A = 1$.",
+        "college": "Calculer $\\cos^2 A + \\sin^2 A$ et comparer le résultat à $1$."
+      },
+      "intuition": "Plus l'angle $\\widehat A$ est grand, plus le côté opposé devient grand par rapport à l'hypoténuse : c'est pour ça que le sinus augmente quand l'angle augmente. À l'inverse, le cosinus diminue quand l'angle grandit, car le côté adjacent devient relativement plus petit.",
+      "reglesImportantes": [
+        "Un triangle rectangle avec un angle de $60°$ donne $\\tan 60° = \\sqrt3$, $\\cos 60° = \\dfrac12$, $\\sin 60° = \\dfrac{\\sqrt3}{2}$.",
+        "Utiliser la définition du tangente dans un triangle rectangle : $\\tan G = \\dfrac{HI}{GH}$ (côté opposé sur côté adjacent).",
+        "Utiliser la définition du tangente dans un triangle rectangle : $\\tan X = \\dfrac{YZ}{XY}$ (côté opposé sur côté adjacent).",
+        "Utiliser la définition du cosinus dans un triangle rectangle : $\\cos A = \\dfrac{AB}{AC}$ (côté adjacent sur hypoténuse).",
+        "Utiliser la définition du cosinus dans un triangle rectangle : $\\cos M = \\dfrac{MN}{MP}$ (côté adjacent sur hypoténuse)."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Cosinus, sinus et tangente d'un angle aigu",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans le triangle rectangle en $B$, on identifie les côtés par rapport à l'angle $\\widehat{A}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $\\cos A = \\dfrac{AB}{AC}$ (côté adjacent sur hypoténuse)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : après calcul, $cos\\,A \\approx 0,60$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1710",
+          "titre": "Exemple 1",
+          "enonce": "$$ABC$$ est un triangle rectangle en $B$ tel que $AB = 6$ cm, $BC = 8$ cm et $AC = 10$ cm. Calculer $cosinus$ de l'angle $\\widehat{A}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans le triangle rectangle en $B$, on identifie les côtés par rapport à l'angle $\\widehat{A}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $\\cos A = \\dfrac{AB}{AC}$ (côté adjacent sur hypoténuse)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : après calcul, $cos\\,A \\approx 0,60$."
+            }
+          ],
+          "reponse": "$cos \\, A = 0,60$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $cos \\, A = 0,60$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1716",
+          "titre": "Exemple 2",
+          "enonce": "$$ABC$$ est un triangle rectangle en $B$ tel que $AB = 4,5$ cm, $BC = 6$ cm et $AC = 7,5$ cm. Calculer $sinus\\,A$, arrondi au centième.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $sin\\,A = côté opposé$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $sin\\,A = 6 \\div 7,5 \\approx 0,80$."
+            }
+          ],
+          "reponse": "$sin\\,A \\approx 0,80$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $sin\\,A \\approx 0,80$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1722",
+          "titre": "Exemple 3",
+          "enonce": "Dans un triangle rectangle, un angle aigu $\\widehat{A}$ vérifie $\\cos A = 0,6000$. Calculer $\\sin A$ puis $\\tan A$, arrondis au centième.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\sin^2A = 1 - \\cos^2A = 1 - 0,6000^2 \\approx 0,6400$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $\\sin A = \\sqrt{0,6400} \\approx 0,80$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\tan A = \\dfrac{\\sin A}{\\cos A} \\approx \\dfrac{0,80}{0,60} \\approx 1,33$."
+            }
+          ],
+          "reponse": "$\\sin A \\approx 0,80$ et $\\tan A \\approx 1,33$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\sin A \\approx 0,80$ et $\\tan A \\approx 1,33$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1728",
+          "titre": "Exemple 4",
+          "enonce": "Un angle aigu $\\widehat A$ vérifie $\\cos A = 0{,}5$ et $\\sin A = 0{,}75$. Ces deux valeurs sont-elles compatibles avec la relation $\\cos^2\\widehat A + \\sin^2\\widehat A = 1$ ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\cos^2 A + \\sin^2 A = 0{,}5^2 + 0{,}75^2 = 0{,}25 + 0{,}5625 = 0,8125$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $0,8125 \\neq 1$, ces deux valeurs ne peuvent pas être simultanément exactes pour un même angle aigu."
+            }
+          ],
+          "reponse": "Non, ces deux valeurs ne sont pas compatibles (la somme des carrés vaut $0,8125 \\neq 1$).",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Non, ces deux valeurs ne sont pas compatibles (la somme des carrés vaut $0,8125 \\neq 1$).",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la vitesse instantanée affichée par le compteur d'une voiture",
+        "trouver le moment où un bénéfice est maximal",
+        "trouver la dimension qui minimise la matière utilisée pour fabriquer un objet"
+      ],
+      "erreursFrequentes": [
+        "Écrire la formule à l'envers, par exemple $\\cos A = \\dfrac{AC}{AB}$ au lieu de $\\dfrac{AB}{AC}$.",
+        "Oublier que $\\cos^2\\widehat A + \\sin^2\\widehat A = 1$ signifie « le carré du cosinus plus le carré du sinus », pas « cosinus plus sinus, le tout au carré »."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire la formule à l'envers, par exemple $\\cos A = \\dfrac{AC}{AB}$ au lieu de $\\dfrac{AB}{AC}$.",
+          "pourquoi": "L'hypoténuse est toujours au dénominateur pour le cosinus et le sinus : c'est elle qui divise, jamais l'inverse.",
+          "comment_detecter": "Le résultat d'un cosinus ou d'un sinus doit toujours être inférieur à 1 (l'hypoténuse est le plus grand côté) — un résultat supérieur à 1 signale une formule inversée.",
+          "comment_eviter": "Mémorise que l'hypoténuse est toujours en bas de la fraction pour cosinus et sinus."
+        },
+        {
+          "description": "Oublier que $\\cos^2\\widehat A + \\sin^2\\widehat A = 1$ signifie « le carré du cosinus plus le carré du sinus », pas « cosinus plus sinus, le tout au carré ».",
+          "pourquoi": "$\\cos^2\\widehat A$ est une notation qui veut dire $(\\cos\\widehat A)^2$ : chaque nombre est mis au carré séparément, avant d'être additionné.",
+          "comment_detecter": "Si tu additionnes d'abord cosinus et sinus puis mets le résultat au carré, tu n'obtiendras presque jamais $1$.",
+          "comment_eviter": "Calcule toujours $\\cos\\widehat A$ et $\\sin\\widehat A$ séparément, mets chacun au carré, puis additionne seulement à la fin."
+        }
+      ],
+      "astuce": "Pour retenir ce qu'est une dérivée, pense au compteur de vitesse : ce n'est jamais une moyenne, toujours une valeur instantanée.",
+      "aRetenir": [
+        "Un triangle rectangle avec un angle de $60°$ donne $\\tan 60° = \\sqrt3$, $\\cos 60° = \\dfrac12$, $\\sin 60° = \\dfrac{\\sqrt3}{2}$.",
+        "Utiliser la définition du tangente dans un triangle rectangle : $\\tan G = \\dfrac{HI}{GH}$ (côté opposé sur côté adjacent).",
+        "Utiliser la définition du tangente dans un triangle rectangle : $\\tan X = \\dfrac{YZ}{XY}$ (côté opposé sur côté adjacent).",
+        "Utiliser la définition du cosinus dans un triangle rectangle : $\\cos A = \\dfrac{AB}{AC}$ (côté adjacent sur hypoténuse).",
+        "Utiliser la définition du cosinus dans un triangle rectangle : $\\cos M = \\dfrac{MN}{MP}$ (côté adjacent sur hypoténuse).",
+        "Poser $\\sin F = 5k$ et $\\cos F = 12k$ (car leur rapport vaut $\\frac{5}{12}$), puis utiliser l'identité pour trouver $k$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          6,
+          5
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "A"
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "label": "B"
+          },
+          {
+            "x": 4,
+            "y": 3,
+            "label": "C"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "tooltip": "Triangle rectangle en B"
+          }
+        ],
+        "arcs": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0.6,
+            "startDeg": 0,
+            "endDeg": 37,
+            "label": "angle"
+          },
+          {
+            "center": {
+              "x": 4,
+              "y": 0
+            },
+            "radius": 0.4,
+            "startDeg": 90,
+            "endDeg": 180
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B",
+            "variant": "a",
+            "reveal": 2,
+            "tooltip": "Côté adjacent à l'angle (à côté, pas en face)"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "Côté opposé à l'angle (en face)"
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "Hypoténuse : le côté le plus long, en face de l'angle droit"
+          }
+        ],
+        "texts": [
+          {
+            "x": 2,
+            "y": -0.4,
+            "label": "côté adjacent",
+            "reveal": 2
+          },
+          {
+            "x": 4.6,
+            "y": 1.5,
+            "label": "côté opposé",
+            "reveal": 2
+          },
+          {
+            "x": 1.6,
+            "y": 2,
+            "label": "hypoténuse",
+            "reveal": 3
+          }
+        ],
+        "steps": [
+          "Le triangle et l'angle étudié",
+          "Les côtés adjacent et opposé",
+          "L'hypoténuse"
+        ],
+        "alt": "Triangle rectangle en A : cos = adjacent/hypoténuse, sin = opposé/hypoténuse, tan = opposé/adjacent.",
+        "emphasis": true
+      },
+      "quizExerciseIds": [
+        1711,
+        1712,
+        1713
+      ],
+      "topic_id": "cosinus,-sinus-et-tangente-d-un-angle-aigu",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Cosinus, sinus et tangente d'un angle aigu."
+      ],
+      "prerequis": [
+        "Reconnaître un côté adjacent, opposé et l'hypoténuse dans un triangle rectangle"
+      ],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "cosinus",
+        "sinus",
+        "tangente",
+        "angle"
+      ]
+    },
+    {
+      "id": "racine-carree-d-un-nombre-positif",
+      "title": "Racine carrée d'un nombre positif",
+      "schemaVersion": 2,
+      "intro": "Tu sais déjà calculer l'aire d'un carré en multipliant son côté par lui-même. Mais comment faire l'inverse : retrouver la longueur du côté quand on connaît seulement l'aire ? C'est exactement à ça que sert la racine carrée.",
+      "explicationSimple": "Imagine un carré dont tu connais l'aire (par exemple 9 m²) mais pas la longueur du côté. La racine carrée est justement l'outil qui te permet de retrouver ce côté : c'est le nombre positif qui, multiplié par lui-même, redonne l'aire de départ.",
+      "objectif": "À la fin de ce cours, tu sauras calculer la racine carrée d'un nombre, décomposer un nombre pour simplifier une racine sous la forme $b\\sqrt{c}$, et additionner ou soustraire des racines carrées ayant la même partie sous le radical.",
+      "definition": "Le côté d'un carré est la racine carrée de son aire ; il faut ensuite simplifier ce radical.",
+      "definitions": {
+        "lycee": "Le côté d'un carré est la racine carrée de son aire ; il faut ensuite simplifier ce radical.",
+        "college": "Utiliser $(\\sqrt a)^2 = a$."
+      },
+      "intuition": "La racine carrée « défait » ce que fait la mise au carré. Il ne faut jamais oublier qu'une racine carrée est toujours un nombre positif (ou nul) : $\\sqrt{9}$ vaut $3$, jamais $-3$, même si $(-3)^2$ vaut aussi $9$.",
+      "reglesImportantes": [
+        "La racine carrée d'un nombre positif $a$ est le nombre positif dont le carré vaut $a$.",
+        "On peut calculer directement $\\sqrt{36}$, ou décomposer $36 = 4 \\times 9$ et utiliser $\\sqrt{a\\times b}=\\sqrt a \\times \\sqrt b$.",
+        "La fonction racine carrée est croissante sur les nombres positifs : si $a < b$ alors $\\sqrt a < \\sqrt b$.",
+        "$\\sqrt2$ joue ici le rôle d'une unité commune : on additionne les coefficients devant $\\sqrt2$.",
+        "On peut utiliser $\\sqrt{\\dfrac{a}{b}} = \\dfrac{\\sqrt a}{\\sqrt b}$ pour des nombres positifs."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Racine carrée d'un nombre positif",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : directement, $6^2=36$ donc $\\sqrt{36}=6$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : avec la décomposition, $\\sqrt{4\\times 9} = \\sqrt 4 \\times \\sqrt 9 = 2 \\times 3 = 6$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : les deux méthodes donnent bien $6$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1620",
+          "titre": "Exemple 1",
+          "enonce": "Calculer $\\sqrt{25}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on cherche le nombre positif $x$ tel que $x^2 = 25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $5^2 = 25$, on a $\\sqrt{25} = 5$."
+            }
+          ],
+          "reponse": "$\\sqrt{25} = 5$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\sqrt{25} = 5$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1626",
+          "titre": "Exemple 2",
+          "enonce": "Calculer $(\\sqrt{11})^2$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : par définition, $\\sqrt{11}$ est le nombre positif dont le carré vaut 11."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $(\\sqrt{11})^2 = 11$."
+            }
+          ],
+          "reponse": "$(\\sqrt{11})^2 = 11$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $(\\sqrt{11})^2 = 11$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1632",
+          "titre": "Exemple 3",
+          "enonce": "Écrire $\\sqrt{45}$ sous la forme $b\\sqrt{c}$ avec $b$ entier et $c$ le plus petit possible.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on remarque que $45 = 9 \\times 5$, où $9$ est un carré parfait ($3^2$)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\sqrt{45} = \\sqrt{9 \\times 5} = \\sqrt{9} \\times \\sqrt{5} = 3\\sqrt{5}$."
+            }
+          ],
+          "reponse": "$\\sqrt{45} = 3\\sqrt{5}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\sqrt{45} = 3\\sqrt{5}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1638",
+          "titre": "Exemple 4",
+          "enonce": "Calculer et simplifier $A = 3\\sqrt2 + 5\\sqrt2 - 2\\sqrt2$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $A = (3+5-2)\\sqrt2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $A = 6\\sqrt2$."
+            }
+          ],
+          "reponse": "$A = 6\\sqrt2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $A = 6\\sqrt2$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "calculer le côté d'un terrain carré connaissant sa surface",
+        "calculer une distance entre deux points dans un plan (GPS, cartographie)",
+        "vérifier si un nombre est un carré parfait"
+      ],
+      "erreursFrequentes": [
+        "Écrire $\\sqrt{a} + \\sqrt{b} = \\sqrt{a+b}$, ce qui est faux en général.",
+        "Oublier qu'une racine carrée est toujours positive ou nulle, et écrire par exemple $\\sqrt{9} = \\pm3$.",
+        "Additionner des racines carrées qui n'ont pas la même partie sous le radical, comme $3\\sqrt2 + 5\\sqrt3$, en les traitant comme si elles étaient identiques."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $\\sqrt{a} + \\sqrt{b} = \\sqrt{a+b}$, ce qui est faux en général.",
+          "pourquoi": "L'élève applique à l'addition la règle valable pour la multiplication ($\\sqrt{a\\times b} = \\sqrt a \\times \\sqrt b$), en pensant que la racine carrée se comporte comme une simple distribution sur toutes les opérations.",
+          "comment_detecter": "En testant avec des nombres simples, par exemple $\\sqrt4 + \\sqrt9 = 2+3 = 5$ alors que $\\sqrt{4+9} = \\sqrt{13} \\approx 3,6$, les deux résultats ne coïncident jamais.",
+          "comment_eviter": "Retenir que la règle $\\sqrt{a\\times b} = \\sqrt a \\times \\sqrt b$ ne fonctionne que pour la multiplication et la division, jamais pour l'addition ou la soustraction : il faut d'abord calculer chaque racine séparément."
+        },
+        {
+          "description": "Oublier qu'une racine carrée est toujours positive ou nulle, et écrire par exemple $\\sqrt{9} = \\pm3$.",
+          "pourquoi": "L'élève confond la racine carrée d'un nombre avec les solutions de l'équation $x^2 = 9$, qui elle admet bien deux solutions, $3$ et $-3$.",
+          "comment_detecter": "Le symbole $\\sqrt{\\ }$ est suivi d'un résultat négatif ou d'un double signe $\\pm$ dans la réponse finale.",
+          "comment_eviter": "Se rappeler que $\\sqrt{a}$ désigne par définition le nombre positif dont le carré vaut $a$ : associer l'image du côté d'un carré, qui est toujours une longueur positive."
+        },
+        {
+          "description": "Additionner des racines carrées qui n'ont pas la même partie sous le radical, comme $3\\sqrt2 + 5\\sqrt3$, en les traitant comme si elles étaient identiques.",
+          "pourquoi": "L'élève applique la règle d'addition des racines identiques (comme $3\\sqrt2 + 5\\sqrt2 = 8\\sqrt2$) sans vérifier que le nombre sous le radical est bien le même dans les deux termes.",
+          "comment_detecter": "Le résultat écrit combine des coefficients devant des racines différentes en une seule racine, alors que $\\sqrt2$ et $\\sqrt3$ ne peuvent pas se regrouper.",
+          "comment_eviter": "Vérifier systématiquement que le nombre sous le radical est identique avant d'additionner les coefficients ; si les radicaux sont différents, il faut d'abord essayer de les simplifier pour voir s'ils deviennent identiques."
+        }
+      ],
+      "astuce": "Pour retenir qu'une racine carrée est toujours positive, imagine une longueur de côté de carré : une longueur ne peut jamais être négative.",
+      "aRetenir": [
+        "La racine carrée d'un nombre positif $a$ est le nombre positif dont le carré vaut $a$.",
+        "On peut calculer directement $\\sqrt{36}$, ou décomposer $36 = 4 \\times 9$ et utiliser $\\sqrt{a\\times b}=\\sqrt a \\times \\sqrt b$.",
+        "La fonction racine carrée est croissante sur les nombres positifs : si $a < b$ alors $\\sqrt a < \\sqrt b$.",
+        "$\\sqrt2$ joue ici le rôle d'une unité commune : on additionne les coefficients devant $\\sqrt2$.",
+        "On peut utiliser $\\sqrt{\\dfrac{a}{b}} = \\dfrac{\\sqrt a}{\\sqrt b}$ pour des nombres positifs.",
+        "Utiliser $\\dfrac{\\sqrt a}{\\sqrt b} = \\sqrt{\\dfrac{a}{b}}$ pour des nombres positifs."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          6,
+          6
+        ],
+        "grid": false,
+        "axes": false,
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "A"
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "label": "B"
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "label": "C"
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "label": "D"
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.5,
+            "y": 1.5,
+            "label": "Aire = 9"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B"
+          }
+        ],
+        "alt": "Un carré d'aire 9 a un côté de longueur √9 = 3."
+      },
+      "quizExerciseIds": [
+        1621,
+        1622,
+        1623
+      ],
+      "topic_id": "racine-carree-d-un-nombre-positif",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Racine carrée d'un nombre positif."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "racine",
+        "carree",
+        "nombre",
+        "positif"
+      ]
+    },
+    {
+      "id": "reciproque-du-theoreme-de-pythagore",
+      "title": "Réciproque du théorème de Pythagore",
+      "schemaVersion": 2,
+      "intro": "Le théorème de Pythagore permet de calculer une longueur quand on sait déjà que le triangle est rectangle. Mais on peut aussi faire l'inverse : si on connaît les trois côtés d'un triangle, on peut vérifier s'il est rectangle ou non, sans jamais mesurer un seul angle. C'est ce qu'on appelle la réciproque du théorème de Pythagore.",
+      "explicationSimple": "On calcule le carré du plus long côté, puis la somme des carrés des deux autres côtés. Si les deux résultats sont égaux, le triangle est rectangle. Si les deux résultats sont différents, le triangle n'est pas rectangle.",
+      "objectif": "À la fin de ce cours, tu sauras comparer le carré du plus grand côté d'un triangle à la somme des carrés des deux autres côtés pour déterminer si ce triangle est rectangle, sans mesurer aucun angle.",
+      "definition": "Si le carré du plus grand côté d'un triangle est égal à la somme des carrés des deux autres côtés, alors ce triangle est rectangle.",
+      "definitions": {
+        "lycee": "Si le carré du plus grand côté d'un triangle est égal à la somme des carrés des deux autres côtés, alors ce triangle est rectangle.",
+        "college": "Comparer $14^2$ à $9^2+12^2$ pour vérifier si le triangle est rectangle."
+      },
+      "intuition": "Cette méthode est très utilisée dans la vie réelle : par exemple, un jardinier ou un maçon qui veut vérifier qu'un angle de terrain est bien droit peut simplement mesurer les trois côtés d'un triangle et faire ce calcul, sans instrument de mesure d'angle.",
+      "reglesImportantes": [
+        "Comparer le carré du plus grand côté à la somme des carrés des deux autres.",
+        "Comparer le carré du plus grand côté à la somme des carrés des deux autres ; attention à ne pas confondre avec un triangle 3-4-5 réduit.",
+        "Comparer le carré de la plus grande mesure à la somme des carrés des deux autres ; ici on attendrait $10$ m pour un angle droit.",
+        "Comparer le carré du plus grand côté ($6$ cm) à la somme des carrés des deux autres, en utilisant $(\\sqrt{20})^2=20$.",
+        "Vérifier avec la réciproque de Pythagore, puis utiliser les deux côtés de l'angle droit pour calculer l'aire."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Réciproque du théorème de Pythagore",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le plus grand côté mesure $25$ cm, donc on calcule $25^2 = 625$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : on calcule $7^2 + 24^2 = 49 + 576 = 625$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : les deux résultats sont égaux ($625$), donc $$ABC$$ est rectangle, l'angle droit étant opposé au côté de $25$ cm."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1680",
+          "titre": "Exemple 1",
+          "enonce": "$$ABC$$ est un triangle tel que les trois côtés mesurent $7$ cm, $24$ cm et $25$ cm. Le triangle $$ABC$$ est-il rectangle ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le plus grand côté mesure $25$ cm, donc on calcule $25^2 = 625$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on calcule $7^2 + 24^2 = 49 + 576 = 625$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les deux résultats sont égaux ($625$), donc $$ABC$$ est rectangle, l'angle droit étant opposé au côté de $25$ cm."
+            }
+          ],
+          "reponse": "Oui, $$ABC$$ est rectangle.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $$ABC$$ est rectangle.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1686",
+          "titre": "Exemple 2",
+          "enonce": "$$STU$$ est un triangle tel que les trois côtés mesurent $5$ cm, $6$ cm et $7$ cm. Le triangle $$STU$$ est-il rectangle ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le plus grand côté mesure $7$ cm, donc $7^2 = 49$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $5^2 + 6^2 = 25 + 36 = 61$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $61 \\neq 49$, donc d'après la réciproque du théorème de Pythagore, $$STU$$ n'est pas rectangle."
+            }
+          ],
+          "reponse": "Non, $$STU$$ n'est pas rectangle.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Non, $$STU$$ n'est pas rectangle.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1692",
+          "titre": "Exemple 3",
+          "enonce": "$$KLM$$ est un triangle tel que les trois côtés mesurent $7,5$ cm, $10$ cm et $12,5$ cm. Le triangle $$KLM$$ est-il rectangle ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le plus grand côté mesure $12,5$ cm, donc son carré vaut $156,25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la somme des carrés des deux autres côtés vaut $7,5^2 + 10^2 = 156,25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les deux résultats sont égaux, donc $$KLM$$ est rectangle."
+            }
+          ],
+          "reponse": "Oui, $$KLM$$ est rectangle.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $$KLM$$ est rectangle.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1698",
+          "titre": "Exemple 4",
+          "enonce": "Un jardinier veut vérifier qu'un angle de son terrain rectangulaire est bien droit. Il mesure $3$ m et $4$ m le long des deux bords à partir du coin, puis mesure $5$ m entre les deux marques. Cet angle est-il droit ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $5^2 = 25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $3^2 + 4^2 = 9 + 16 = 25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les deux résultats sont égaux, donc l'angle du terrain est bien droit d'après la réciproque du théorème de Pythagore."
+            }
+          ],
+          "reponse": "Oui, l'angle est droit.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, l'angle est droit.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Comparer le carré d'un petit côté à la somme des carrés des deux autres, au lieu de toujours prendre le carré du PLUS GRAND côté.",
+        "Conclure que le triangle est rectangle alors que les deux résultats sont proches mais pas exactement égaux."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Comparer le carré d'un petit côté à la somme des carrés des deux autres, au lieu de toujours prendre le carré du PLUS GRAND côté.",
+          "pourquoi": "Dans un triangle rectangle, c'est toujours l'hypoténuse (le plus grand côté) qui est égale à la somme des carrés des deux autres — jamais un petit côté.",
+          "comment_detecter": "Avant de calculer, identifie toujours le plus grand des trois côtés donnés : c'est lui qui doit être isolé seul dans le calcul.",
+          "comment_eviter": "Classe les trois longueurs du plus petit au plus grand avant de commencer le calcul."
+        },
+        {
+          "description": "Conclure que le triangle est rectangle alors que les deux résultats sont proches mais pas exactement égaux.",
+          "pourquoi": "La réciproque du théorème de Pythagore exige une égalité EXACTE, pas seulement une valeur proche : un petit écart signifie que le triangle n'est pas rectangle.",
+          "comment_detecter": "Si les deux calculs ne donnent pas rigoureusement le même nombre, la réponse est toujours « non, pas rectangle ».",
+          "comment_eviter": "Écris clairement les deux résultats côte à côte avant de conclure, pour vérifier l'égalité sans te précipiter."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Comparer le carré du plus grand côté à la somme des carrés des deux autres.",
+        "Comparer le carré du plus grand côté à la somme des carrés des deux autres ; attention à ne pas confondre avec un triangle 3-4-5 réduit.",
+        "Comparer le carré de la plus grande mesure à la somme des carrés des deux autres ; ici on attendrait $10$ m pour un angle droit.",
+        "Comparer le carré du plus grand côté ($6$ cm) à la somme des carrés des deux autres, en utilisant $(\\sqrt{20})^2=20$.",
+        "Vérifier avec la réciproque de Pythagore, puis utiliser les deux côtés de l'angle droit pour calculer l'aire.",
+        "Comparer le carré du plus grand côté à la somme des carrés des deux autres, en utilisant $(\\sqrt a)^2 = a$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          6,
+          5
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 3,
+            "label": "A"
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "label": "B"
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "label": "C"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "tooltip": "Triangle ABC"
+          }
+        ],
+        "arcs": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0.5,
+            "startDeg": 0,
+            "endDeg": 90
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B",
+            "variant": "a",
+            "reveal": 2,
+            "tooltip": "7 cm = 7"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "24 cm = 24"
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "25 cm = 25"
+          }
+        ],
+        "texts": [
+          {
+            "x": -0.4,
+            "y": 1.5,
+            "label": "7",
+            "reveal": 2
+          },
+          {
+            "x": 2,
+            "y": -0.45,
+            "label": "24",
+            "reveal": 2
+          },
+          {
+            "x": 2.3,
+            "y": 1.9,
+            "label": "25",
+            "reveal": 3
+          }
+        ],
+        "steps": [
+          "Le triangle rectangle",
+          "Les deux côtés de l'angle droit",
+          "L'hypoténuse"
+        ],
+        "relation": "$25^2 = 7^2 + 24^2\\ ?$",
+        "alt": "Triangle avec des côtés de 7 cm, 24 cm et 25 cm : on vérifie si 25² est égal à 7²+24² pour savoir s'il est rectangle.",
+        "emphasis": true
+      },
+      "quizExerciseIds": [
+        1681,
+        1682,
+        1683
+      ],
+      "topic_id": "reciproque-du-theoreme-de-pythagore",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Réciproque du théorème de Pythagore."
+      ],
+      "prerequis": [
+        "Théorème de Pythagore (notion précédente de ce chapitre)",
+        "Calculer le carré d'un nombre"
+      ],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "reciproque",
+        "theoreme",
+        "pythagore"
+      ]
+    },
+    {
+      "id": "theoreme-de-pythagore",
+      "title": "Théorème de Pythagore",
+      "schemaVersion": 2,
+      "intro": "Tu connais déjà comment calculer la longueur d'un côté dans un triangle simple. Mais dans un triangle rectangle, il existe une règle magique qui relie les trois côtés entre eux, sans même avoir besoin de mesurer avec une règle : le théorème de Pythagore. Il sert par exemple à calculer une distance qu'on ne peut pas mesurer directement, comme la hauteur d'un arbre ou la diagonale d'un écran.",
+      "explicationSimple": "Dans un triangle rectangle, il y a un côté plus long que les deux autres : c'est l'hypoténuse, toujours en face de l'angle droit. Le théorème de Pythagore dit que si on multiplie chaque côté par lui-même (on dit « mettre au carré »), alors la somme des carrés des deux petits côtés est toujours égale au carré du grand côté.",
+      "objectif": "À la fin de ce cours, tu sauras repérer l'hypoténuse d'un triangle rectangle et utiliser la relation $AC^2 = AB^2 + BC^2$ pour calculer la longueur d'un côté manquant, qu'il s'agisse de l'hypoténuse ou d'un côté de l'angle droit.",
+      "definition": "Dans un triangle rectangle, le carré de l'hypoténuse est égal à la somme des carrés des deux autres côtés.",
+      "definitions": {
+        "lycee": "Dans un triangle rectangle, le carré de l'hypoténuse est égal à la somme des carrés des deux autres côtés.",
+        "college": "On isole le carré du côté manquant : $BC^2 = AC^2 - AB^2$."
+      },
+      "intuition": "Repère d'abord l'angle droit dans ton triangle : le côté juste en face de cet angle droit, c'est toujours l'hypoténuse, et c'est toujours le plus long des trois côtés. Une fois que tu l'as repéré, tu sais quel côté isoler dans la formule.",
+      "reglesImportantes": [
+        "On isole le carré du côté manquant : $BC^2 = AC^2 - AB^2$.",
+        "Appliquer Pythagore pour trouver $AC$, puis utiliser la formule de l'aire d'un triangle rectangle : $\\dfrac{1}{2}\\times$ côté $\\times$ côté.",
+        "Dans un triangle rectangle en $B$, l'hypoténuse est $AC$ ; le théorème de Pythagore donne $AC^2 = AB^2 + BC^2$.",
+        "Dans un triangle rectangle en $S$, l'hypoténuse est $RT$ ; le théorème de Pythagore donne $RT^2 = RS^2 + ST^2$.",
+        "Dans un triangle rectangle en $N$, l'hypoténuse est $MP$ ; le théorème de Pythagore donne $MP^2 = MN^2 + NP^2$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Théorème de Pythagore",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $ABC$ est rectangle en $B$, donc $AC^2 = AB^2 + BC^2$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $AC^2 = 3^2 + 4^2 = 9 + 16 = 25$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $AC = \\sqrt{25} = 5$ cm."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1650",
+          "titre": "Exemple 1",
+          "enonce": "$$ABC$$ est un triangle rectangle en $B$ tel que $AB = 3$ cm et $BC = 4$ cm. Calculer la longueur $AC$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $ABC$ est rectangle en $B$, donc $AC^2 = AB^2 + BC^2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $AC^2 = 3^2 + 4^2 = 9 + 16 = 25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $AC = \\sqrt{25} = 5$ cm."
+            }
+          ],
+          "reponse": "$AC = 5$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $AC = 5$ cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1656",
+          "titre": "Exemple 2",
+          "enonce": "$$ABC$$ est un triangle rectangle en $B$ tel que $AB = 5$ cm et $BC = 7$ cm. Calculer la longueur $AC$, arrondie au centième de centimètre.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $AC^2 = AB^2 + BC^2 = 5^2 + 7^2 = 25 + 49 = 74$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $AC = \\sqrt{74} \\approx 8,60$ cm."
+            }
+          ],
+          "reponse": "$AC \\approx 8,60$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $AC \\approx 8,60$ cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1662",
+          "titre": "Exemple 3",
+          "enonce": "$$ABC$$ est un triangle rectangle en $B$ tel que $AC = 25$ cm (hypoténuse) et $AB = 7$ cm. Calculer la longueur $BC$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $AC^2 = AB^2 + BC^2$ donc $BC^2 = AC^2 - AB^2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $BC^2 = 25^2 - 7^2 = 625 - 49 = 576$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $BC = \\sqrt{576} = 24$ cm."
+            }
+          ],
+          "reponse": "$BC = 24$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $BC = 24$ cm",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1668",
+          "titre": "Exemple 4",
+          "enonce": "Une échelle de $5$ m est posée contre un mur, le pied de l'échelle étant placé à $1{,}4$ m du mur. Calculer la hauteur atteinte par l'échelle sur le mur.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le triangle formé par le mur, le sol et l'échelle est rectangle, l'échelle étant l'hypoténuse."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : hauteur$^2 = 5^2 - 1{,}4^2 = 25 - 1{,}96 = 23{,}04$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : hauteur $= \\sqrt{23{,}04} = 4,80$ m."
+            }
+          ],
+          "reponse": "La hauteur atteinte est $4,80$ m",
+          "conclusion": "Nous avons ainsi obtenu le résultat : La hauteur atteinte est $4,80$ m",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Se tromper de côté et isoler l'hypoténuse alors qu'on cherche un petit côté (ou l'inverse).",
+        "Oublier de repasser par la racine carrée à la fin, et donner $AC^2$ comme réponse au lieu de $AC$.",
+        "Additionner les côtés au lieu de les mettre au carré avant de les additionner."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Se tromper de côté et isoler l'hypoténuse alors qu'on cherche un petit côté (ou l'inverse).",
+          "pourquoi": "La formule change de forme selon ce qu'on cherche : on ADDITIONNE pour trouver l'hypoténuse, mais on SOUSTRAIT pour trouver un petit côté.",
+          "comment_detecter": "Avant de calculer, demande-toi toujours : est-ce que je cherche le plus long côté (hypoténuse) ou un des deux petits côtés ?",
+          "comment_eviter": "Repère d'abord l'angle droit sur un dessin, entoure l'hypoténuse (en face de l'angle droit), puis écris la formule complète avant de remplacer les nombres."
+        },
+        {
+          "description": "Oublier de repasser par la racine carrée à la fin, et donner $AC^2$ comme réponse au lieu de $AC$.",
+          "pourquoi": "Le théorème de Pythagore donne d'abord le carré de la longueur cherchée, jamais la longueur directement : il manque toujours une dernière étape.",
+          "comment_detecter": "Si ta réponse finale contient encore un exposant $^2$, le calcul n'est pas terminé.",
+          "comment_eviter": "Prends l'habitude d'écrire la ligne finale avec le symbole racine carrée, même avant de faire le calcul : $AC = \\sqrt{\\dots}$."
+        },
+        {
+          "description": "Additionner les côtés au lieu de les mettre au carré avant de les additionner.",
+          "pourquoi": "Le théorème de Pythagore relie les CARRÉS des longueurs, pas les longueurs elles-mêmes : $3+4=7$ n'a aucun rapport avec le résultat correct.",
+          "comment_detecter": "Vérifie que chaque longueur a bien été élevée au carré (multipliée par elle-même) avant toute addition ou soustraction.",
+          "comment_eviter": "Écris toujours la formule avec les exposants $^2$ en premier, remplis les carrés un par un, additionne seulement à la fin."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "On isole le carré du côté manquant : $BC^2 = AC^2 - AB^2$.",
+        "Appliquer Pythagore pour trouver $AC$, puis utiliser la formule de l'aire d'un triangle rectangle : $\\dfrac{1}{2}\\times$ côté $\\times$ côté.",
+        "Dans un triangle rectangle en $B$, l'hypoténuse est $AC$ ; le théorème de Pythagore donne $AC^2 = AB^2 + BC^2$.",
+        "Dans un triangle rectangle en $S$, l'hypoténuse est $RT$ ; le théorème de Pythagore donne $RT^2 = RS^2 + ST^2$.",
+        "Dans un triangle rectangle en $N$, l'hypoténuse est $MP$ ; le théorème de Pythagore donne $MP^2 = MN^2 + NP^2$.",
+        "Dans un triangle rectangle en $E$, l'hypoténuse est $DF$ ; le théorème de Pythagore donne $DF^2 = DE^2 + EF^2$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          6,
+          5
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 3,
+            "label": "A"
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "label": "B"
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "label": "C"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "tooltip": "Triangle ABC"
+          }
+        ],
+        "arcs": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0.5,
+            "startDeg": 0,
+            "endDeg": 90
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B",
+            "variant": "a",
+            "reveal": 2,
+            "tooltip": "AB = 3"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "BC = 4"
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "AC = 5"
+          }
+        ],
+        "texts": [
+          {
+            "x": -0.4,
+            "y": 1.5,
+            "label": "3",
+            "reveal": 2
+          },
+          {
+            "x": 2,
+            "y": -0.45,
+            "label": "4",
+            "reveal": 2
+          },
+          {
+            "x": 2.3,
+            "y": 1.9,
+            "label": "5",
+            "reveal": 3
+          }
+        ],
+        "steps": [
+          "Le triangle rectangle",
+          "Les deux côtés de l'angle droit",
+          "L'hypoténuse"
+        ],
+        "relation": "$AC^2 = AB^2 + BC^2$",
+        "alt": "Triangle ABC rectangle en B : AB et BC sont les côtés de l'angle droit, AC est l'hypoténuse, en face de l'angle droit.",
+        "emphasis": true
+      },
+      "quizExerciseIds": [
+        1651,
+        1652,
+        1653
+      ],
+      "topic_id": "theoreme-de-pythagore",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Théorème de Pythagore."
+      ],
+      "prerequis": [
+        "Calculer le carré d'un nombre",
+        "Calculer une racine carrée"
+      ],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "theoreme",
+        "pythagore"
+      ],
+      "demonstration": {
+        "titre": "Pourquoi cette règle est-elle toujours vraie ? — une preuve avec des aires",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Ce qu'on veut montrer",
+            "texte": "On veut montrer que, dans n'importe quel triangle rectangle de côtés $a$, $b$ (les deux côtés de l'angle droit) et $c$ (l'hypoténuse), on a toujours $a^2 + b^2 = c^2$."
+          },
+          {
+            "titre": "Étape 2 — On construit un grand carré",
+            "texte": "Imagine 4 triangles rectangles identiques, tous de côtés $a$, $b$ et $c$, assemblés en carré autour d'un petit carré central de côté $c$. L'ensemble forme un grand carré dont chaque côté mesure $a+b$."
+          },
+          {
+            "titre": "Étape 3 — On calcule l'aire du grand carré de deux façons",
+            "texte": "D'un côté, l'aire du grand carré vaut $(a+b)^2$. De l'autre côté, cette même aire est aussi égale à l'aire des 4 triangles plus l'aire du petit carré central : $4 \\times \\dfrac{a \\times b}{2} + c^2$, soit $2ab + c^2$."
+          },
+          {
+            "titre": "Étape 4 — On compare les deux résultats",
+            "texte": "Les deux façons de calculer donnent la même aire, donc $(a+b)^2 = 2ab + c^2$. En développant $(a+b)^2 = a^2 + 2ab + b^2$, on obtient $a^2 + 2ab + b^2 = 2ab + c^2$, puis en simplifiant par $2ab$ des deux côtés : $a^2 + b^2 = c^2$."
+          }
+        ],
+        "conclusion": "C'est exactement le théorème de Pythagore : cette égalité est vraie pour n'importe quel triangle rectangle, quelles que soient les longueurs de ses côtés."
+      }
+    }
+  ]
+}

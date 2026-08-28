@@ -1,7 +1,7 @@
 // ── auth.js : mode invité — fichier séparé de auth.test.js ─────────────────
 // Isolé exprès (voir le commentaire laissé dans auth.test.js) : Vitest donne
 // à chaque fichier de test son propre jsdom/document, ce qui garantit ici
-// qu'aucun listener .js-start-guest-eval périmé d'un autre test ne persiste
+// qu'aucun listener .js-start-guest périmé d'un autre test ne persiste
 // sur `document` au moment du clic. Le test à assertion négative
 // ("ne recrée pas d'invité...") est volontairement le PREMIER de ce fichier :
 // c'est le seul moyen de garantir zéro import précédent de auth.js (donc zéro
@@ -27,21 +27,21 @@ describe("auth.js — mode invité", () => {
   it("ne recrée pas d'invité si un compte réel est déjà connecté (currentAccount résolu)", async () => {
     await mountAuth({ meResolves: { id: 1, is_guest: false } });
     await withMockedLocation(async () => {
-      document.querySelector(".js-start-guest-eval").click();
+      document.querySelector(".js-start-guest").click();
       await flushPromises();
       expect(mockApi.enterGuest).not.toHaveBeenCalled();
-      expect(window.location.href).toBe("/evaluation.html");
+      expect(window.location.href).toBe("/chapitres.html");
     });
   });
 
-  it("démarre une session invité puis redirige vers /evaluation.html", async () => {
+  it("démarre une session invité puis redirige vers /chapitres.html", async () => {
     await mountAuth();
     mockApi.enterGuest.mockResolvedValue({});
     await withMockedLocation(async () => {
-      document.querySelector(".js-start-guest-eval").click();
+      document.querySelector(".js-start-guest").click();
       await flushPromises();
       expect(mockApi.enterGuest).toHaveBeenCalled();
-      expect(window.location.href).toBe("/evaluation.html");
+      expect(window.location.href).toBe("/chapitres.html");
     });
   });
 });

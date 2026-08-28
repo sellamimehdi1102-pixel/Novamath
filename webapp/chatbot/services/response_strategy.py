@@ -149,6 +149,22 @@ class ResponseStrategy:
     simplify: bool = False
     cache_hit: bool = False
     class_level: Optional[str] = None
+    # Escalade pédagogique (chantier "repeated_incomprehension insuffisant",
+    # 2026-08-22) : PAS calculés ici (aucune logique de routage nouvelle) —
+    # décorés après coup sur le résultat de decide_strategy() par
+    # local_response_engine.generate() via dataclasses.replace(), à partir de
+    # l'état déjà calculé par conversation_manager._advance_escalation_state.
+    # Champs optionnels : aucune instanciation existante de ResponseStrategy
+    # n'a besoin d'y toucher.
+    escalation_level: int = 0
+    recommended_approach: Optional[str] = None
+    # Chantier "répétition des exemples" (2026-08-23) : ids des exemples déjà
+    # montrés dans CETTE conversation (voir conversation_manager.
+    # _commit_used_exemple), décoré après coup exactement comme escalation_
+    # level/recommended_approach ci-dessus — jamais recalculé ici, aucune
+    # logique de routage nouvelle. Lu par knowledge_response_composer.compose()
+    # pour exclure ces ids du tirage d'exemple.
+    used_exemple_ids: tuple = ()
 
 
 # ── Cache (LRU mémoire process, réutilise cache.LRUCache/normalize_message) ─
@@ -165,8 +181,14 @@ def _mentions_signature(mentions):
     return tuple(sorted(tuple(sorted((m or {}).items())) for m in mentions))
 
 
-def make_cache_key(user_id, user_message, current_chapter_ref, current_topic_ref, chatbot_settings, mentions, class_level=None):
+def make_cache_key(user_id, user_message, current_chapter_ref, current_topic_ref, chatbot_settings, mentions, class_level=None, learning_context=None):
     cs = chatbot_settings or {}
+    # `learning_context` (chantier continuité conversationnelle, 2026-08-22) :
+    # sans lui, un message ambigu identique ("développe", "pourquoi ?"...)
+    # renverrait la même décision mise en cache dans deux conversations aux
+    # sujets différents — même défaut que celui déjà corrigé pour le cache de
+    # réponses LLM (voir chatbot/cache.py::make_key, paramètre `topic`).
+    lc = learning_context or {}
     return (
         user_id,
         class_level or "seconde",
@@ -176,6 +198,8 @@ def make_cache_key(user_id, user_message, current_chapter_ref, current_topic_ref
         cs.get("mode"),
         cs.get("responseLength"),
         _mentions_signature(mentions),
+        lc.get("chapter_id"),
+        lc.get("notion_id"),
     )
 
 
@@ -396,6 +420,7 @@ def decide_strategy(
     user_message, user, chapters_summary=None, chatbot_settings=None, mentions=None,
     current_chapter_ref=None, current_topic_ref=None, history_rows=None,
     student_context=None, use_cache=True, debug=False, class_level=None,
+    learning_context=None, last_assistant_message=None,
 ):
     """Décide quel moteur doit répondre à `user_message`. Ne produit et ne
     renvoie AUCUN texte de réponse — uniquement une `ResponseStrategy`.
@@ -406,7 +431,15 @@ def decide_strategy(
     `use_cache=True` (par défaut) : deux appels identiques (même utilisateur,
     même message normalisé, même chapitre/topic/mode/longueur/mentions)
     renvoient la même décision sans recalcul — déterminisme garanti par
-    construction (voir docstring module)."""
+    construction (voir docstring module).
+    `learning_context`/`last_assistant_message` (chantier continuité
+    conversationnelle, 2026-08-22) : Current Learning Context de la
+    conversation en cours et dernier message assistant — transmis tels quels
+    à intent_service.classify() pour que ce moteur (RÉELLEMENT actif pour
+    Knowledge/Search Engine, pas seulement en aparté, voir conversation_
+    manager._try_local_response_engine) bénéficie des mêmes corrections que
+    le pipeline principal (messages courts, non-écrasement d'un sujet déjà
+    établi) plutôt que de reclassifier le message hors de tout contexte."""
     chatbot_settings = chatbot_settings or {}
     t0 = time.perf_counter()
 
@@ -419,7 +452,7 @@ def decide_strategy(
     if use_cache:
         cache_key = make_cache_key(
             user["id"], user_message, current_chapter_ref, current_topic_ref, chatbot_settings, mentions,
-            class_level=effective_class_level,
+            class_level=effective_class_level, learning_context=learning_context,
         )
         cached = _cache_get(cache_key)
         if cached is not None:
@@ -439,7 +472,10 @@ def decide_strategy(
     # chapitre en cours) — dérivé du StudentContext déjà calculé, jamais relu
     # séparément via context_builder (voir Phase 2).
     pseudo_context_summary = {"chapters_in_progress": (student_context.get("dashboard") or {}).get("chapitres_en_cours") or []}
-    intent_result = intent_service.classify(user_message, pseudo_context_summary, class_level=student_context.get("class_level"))
+    intent_result = intent_service.classify(
+        user_message, pseudo_context_summary, class_level=student_context.get("class_level"),
+        learning_context=learning_context, last_assistant_message=last_assistant_message,
+    )
     intent = intent_result["intent"]
 
     # Mention "@" seule (Phase R, inchangé) : une intention directe tout
@@ -495,11 +531,25 @@ def decide_strategy(
             student_context, chatbot_settings, simplify=intent_result.get("simplify", False),
         ))
 
-    # 5. Search Service (grounding générique par recherche de cours)
+    # 5. Search Service (grounding générique par recherche de cours) — cette
+    #    sonde refait sa PROPRE recherche brute sur `user_message`, sans
+    #    reranking de titre ni connaissance du Current Learning Context (voir
+    #    _probe_search_service). Un score faible mais réel (≥
+    #    TFIDF_WEAK_THRESHOLD) écrasait alors silencieusement un routage déjà
+    #    correctement protégé par intent_service._detect_chapter (confidence
+    #    "inherited" = sujet déjà établi, qu'un simple signal faible ne doit
+    #    jamais pouvoir remplacer — voir sa docstring). Bug réel confirmé :
+    #    "comment dérivé une fonction ?" avec pour sujet en cours "Fonction
+    #    dérivée" faisait dériver la réponse vers "Fonction exponentielle"
+    #    (score brut 0.157) alors qu'intent_service avait déjà correctement
+    #    tranché "inherited" (audit du 2026-08-22). Ne PAS écraser chapter_id/
+    #    topic_id dans ce seul cas : intent_service reste l'UNIQUE source de
+    #    vérité du routage quand il a déjà décidé de protéger le contexte.
     found, match = _probe_search_service(user_message, intent, class_level=student_context.get("class_level"))
     if found:
-        topic_id = match.get("notion_id") or topic_id
-        chapter_id = match.get("chapter_id") or chapter_id
+        if intent_result.get("topic_confidence") != "inherited":
+            topic_id = match.get("notion_id") or topic_id
+            chapter_id = match.get("chapter_id") or chapter_id
         return finalize(_build_strategy(
             ENGINE_SEARCH, intent, chapter_id, topic_id, quantity, difficulty, mode,
             student_context, chatbot_settings, simplify=intent_result.get("simplify", False),

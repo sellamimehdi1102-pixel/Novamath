@@ -32,18 +32,19 @@
       <a href="chatbot.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="nav.chatbot">Chatbot</span></a>
       <a href="abonnement.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z"/></svg><span data-i18n="nav.abonnement">Abonnement</span></a>
     </nav>
-    <div class="sidebar-toggle-group">
-      <button class="theme-toggle" id="settings-btn" aria-label="Paramètres">
+    <div class="sidebar-bottom">
+      <button class="sidebar-settings-btn" id="settings-btn" aria-label="Paramètres" data-tooltip="Paramètres">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"/></svg>
+        <span data-i18n="settings.title">Paramètres</span>
       </button>
+      <a href="profil.html" class="sidebar-user" id="sidebar-user">
+        <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
+        <span class="sidebar-user-info">
+          <span class="name" id="sidebar-user-name">Élève</span>
+          <span class="sub" id="sidebar-user-plan">Free</span>
+        </span>
+      </a>
     </div>
-    <a href="profil.html" class="sidebar-user" id="sidebar-user">
-      <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
-      <span class="sidebar-user-info">
-        <span class="name" id="sidebar-user-name">Élève</span>
-        <span class="sub" data-i18n="nav.profil">Voir le profil</span>
-      </span>
-    </a>
     <div class="sidebar-version" id="sidebar-version"></div>
   </aside>
 
@@ -56,6 +57,13 @@
     </div>
 
     <div class="card" id="resume-card" style="padding:24px; margin-bottom:24px;" hidden></div>
+
+    <div class="page-search" role="search">
+      <span class="page-search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+      <input type="text" id="chapters-search-input" class="page-search-input" placeholder="Rechercher un chapitre, une notion ou un exercice…" aria-label="Rechercher un chapitre, une notion ou un exercice" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="chapters-search-results">
+      <button type="button" class="page-search-clear" id="chapters-search-clear" aria-label="Effacer la recherche" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="page-search-results" id="chapters-search-results" role="listbox" aria-label="Résultats de recherche" hidden></div>
 
     <div class="chapter-filter-bar" id="chapter-filter-bar" role="tablist" aria-label="Filtrer les chapitres">
       <button type="button" class="chapter-filter-pill active" data-filter="all" role="tab" aria-selected="true">Tout</button>
@@ -72,14 +80,6 @@
     </div>
     <p class="chapters-empty-filter" id="chapters-empty-filter" hidden></p>
   </main>
-</div>
-
-<div class="selection-bar" id="selection-bar">
-  <span class="count" id="selection-count">0 chapitre sélectionné</span>
-  <a href="#" class="btn btn-primary btn-sm" id="btn-start-evaluation">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4.5v15l13-7.5-13-7.5Z" stroke-linejoin="round"/></svg>
-    Démarrer l'évaluation
-  </a>
 </div>
 
 <script type="module" src="js/identity.js"></script>

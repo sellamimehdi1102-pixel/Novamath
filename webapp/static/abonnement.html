@@ -30,18 +30,19 @@
       <a href="chatbot.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="nav.chatbot">Chatbot</span></a>
       <a href="abonnement.html" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z"/></svg><span data-i18n="nav.abonnement">Abonnement</span></a>
     </nav>
-    <div class="sidebar-toggle-group">
-      <button class="theme-toggle" id="settings-btn" aria-label="Paramètres">
+    <div class="sidebar-bottom">
+      <button class="sidebar-settings-btn" id="settings-btn" aria-label="Paramètres" data-tooltip="Paramètres">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"/></svg>
+        <span data-i18n="settings.title">Paramètres</span>
       </button>
+      <a href="profil.html" class="sidebar-user" id="sidebar-user">
+        <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
+        <span class="sidebar-user-info">
+          <span class="name" id="sidebar-user-name">Élève</span>
+          <span class="sub" id="sidebar-user-plan">Free</span>
+        </span>
+      </a>
     </div>
-    <a href="profil.html" class="sidebar-user" id="sidebar-user">
-      <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
-      <span class="sidebar-user-info">
-        <span class="name" id="sidebar-user-name">Élève</span>
-        <span class="sub" data-i18n="nav.profil">Voir le profil</span>
-      </span>
-    </a>
     <div class="sidebar-version" id="sidebar-version"></div>
   </aside>
 
@@ -84,13 +85,41 @@
       </div>
     </section>
 
+    <!-- Réservée exclusivement au compte Owner (voir owner_service.is_owner_account,
+         vérification serveur uniquement) — les boutons des cartes ci-dessous
+         deviennent alors des boutons de simulation locale (voir abonnement.js,
+         /api/owner/test-plan, owner_test_plan_service.py) : aucun paiement,
+         aucune Checkout Session, aucune donnée Stripe/users.plan modifiée. -->
+    <section class="premium-required-banner card" id="owner-mode-banner" hidden>
+      <span class="premium-required-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><path d="M1 14h6M9 8h6M17 16h6"/></svg>
+      </span>
+      <div class="premium-required-body">
+        <h2>Mode test Owner — aucun paiement Stripe</h2>
+        <p class="premium-required-desc">
+          Les boutons des formules ci-dessous changent uniquement ton plan de simulation locale
+          (effective_plan). Ils ne déclenchent jamais Stripe, ne créent aucun paiement et ne
+          modifient jamais ton abonnement réel.
+        </p>
+      </div>
+    </section>
+
     <div class="pricing-header reveal">
       <span class="pricing-eyebrow">Abonnement</span>
       <h1>Choisis la formule qui te correspond</h1>
-      <p class="pricing-subtitle">Progresse plus vite en maths avec un accès étendu au chatbot IA, aux exports et
+      <p class="pricing-subtitle">Progresse plus vite en maths avec un accès étendu au chatbot, aux exports et
         aux outils avancés de suivi. Résiliable à tout moment.</p>
     </div>
 
+    <!-- Montants affichés ci-dessous (0€ / 6,99€ / 12,99€) : vérifiés
+         (Chantier 6, lecture réelle stripe.Price.retrieve()) identiques aux
+         Price ID Stripe réellement configurés (STRIPE_PRICE_PREMIUM/
+         STRIPE_PRICE_ULTRA, voir stripe_service.py — Stripe reste la seule
+         source de vérité pour le montant RÉELLEMENT facturé, jamais une
+         valeur en dur ici). Dupliqués tels quels dans static/index.html : si
+         un prix change côté Stripe, mettre à jour les DEUX fichiers. Un
+         endpoint backend dédié n'a pas été créé pour ces 3 valeurs statiques
+         (coût de maintenance disproportionné par rapport au risque réel). -->
     <div class="pricing-grid reveal-stagger" id="pricing-grid">
       <!-- ── Gratuit ─────────────────────────────────────────────────────── -->
       <article class="pricing-card card" data-plan="free">
@@ -106,10 +135,11 @@
           <span class="price-period">/mois</span>
         </div>
         <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Accès à tous les chapitres et exercices</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Suivi de progression et statistiques de base</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot IA avec quota quotidien</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>1 export PDF par mois</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Accès à tous les chapitres, avec l'essentiel du cours</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>20 exercices/jour</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot : 15 messages/jour</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Historique complet et suivi de progression</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>3 suggestions de révision personnalisées</li>
         </ul>
         <button type="button" class="btn btn-secondary pricing-cta" data-plan-button="free" disabled>
           Plan actuel
@@ -134,11 +164,13 @@
           <span class="price-period">/mois</span>
         </div>
         <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Tout Gratuit, en illimité</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot IA sans quota quotidien</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Exports PDF illimités</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Statistiques avancées et badges exclusifs</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Support prioritaire par email</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Cours complet, toutes les notions et exemples</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>60 exercices/jour</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot : 25 messages/jour</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Explications avancées du chatbot</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Dashboard élargi : 50 séries d'entraînement conservées</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>5 suggestions de révision personnalisées</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Bilan de progression détaillé par notion</li>
         </ul>
         <button type="button" class="btn btn-primary pricing-cta" data-plan-button="premium">
           Passer à Premium
@@ -159,11 +191,13 @@
           <span class="price-period">/mois</span>
         </div>
         <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Tout Premium, inclus</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Génération d'exercices sur mesure illimitée</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Recommandations IA personnalisées</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Accès anticipé aux nouvelles fonctionnalités</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Support prioritaire dédié (réponse &lt; 24h)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Cours complet, avec les démonstrations</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Exercices illimités</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot : 40 messages/jour</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Analyse de PDF par l'IA du chatbot</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Dashboard complet : toutes tes séries conservées</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>8 suggestions de révision personnalisées</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Génération d'exercices sur mesure</li>
         </ul>
         <button type="button" class="btn btn-secondary pricing-cta" data-plan-button="ultra">
           Passer à Ultra
@@ -171,7 +205,7 @@
       </article>
     </div>
 
-    <p class="pricing-footnote reveal">
+    <p class="pricing-footnote reveal" id="pricing-footnote">
       Paiement sécurisé par Stripe. Annule à tout moment depuis ton espace client, sans engagement.
     </p>
   </main>

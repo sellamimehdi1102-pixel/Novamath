@@ -33,18 +33,19 @@
       <a href="chatbot.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="nav.chatbot">Chatbot</span></a>
       <a href="abonnement.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z"/></svg><span data-i18n="nav.abonnement">Abonnement</span></a>
     </nav>
-    <div class="sidebar-toggle-group">
-      <button class="theme-toggle" id="settings-btn" aria-label="Paramètres">
+    <div class="sidebar-bottom">
+      <button class="sidebar-settings-btn" id="settings-btn" aria-label="Paramètres" data-tooltip="Paramètres">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"/></svg>
+        <span data-i18n="settings.title">Paramètres</span>
       </button>
+      <a href="profil.html" class="sidebar-user" id="sidebar-user">
+        <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
+        <span class="sidebar-user-info">
+          <span class="name" id="sidebar-user-name">Élève</span>
+          <span class="sub" id="sidebar-user-plan">Free</span>
+        </span>
+      </a>
     </div>
-    <a href="profil.html" class="sidebar-user" id="sidebar-user">
-      <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
-      <span class="sidebar-user-info">
-        <span class="name" id="sidebar-user-name">Élève</span>
-        <span class="sub" data-i18n="nav.profil">Voir le profil</span>
-      </span>
-    </a>
     <div class="sidebar-version" id="sidebar-version"></div>
   </aside>
 
@@ -54,6 +55,9 @@
         <h1>Entraînement</h1>
         <p style="color:var(--text-muted); margin-top:6px;" id="level-line">Chargement de ton niveau...</p>
         <p style="color:var(--text-faint); font-size:0.8rem; margin-top:2px;" data-i18n="exercise.notice_fr_only">Le contenu des exercices reste en français quelle que soit la langue de l'interface.</p>
+        <div class="exercises-quota-indicator" id="exercises-quota-indicator" hidden>
+          <span class="exercises-quota-value" id="exercises-quota-value">Chargement...</span>
+        </div>
       </div>
     </div>
 
@@ -107,6 +111,7 @@
           <div class="question-badges">
             <span class="badge badge--indigo" id="ex-chapter-badge"></span>
             <span class="badge badge--neutral" id="ex-notion-badge"></span>
+            <span class="badge" id="ex-difficulty-badge"></span>
             <span class="xp-pill" id="ex-xp-badge">+10 XP</span>
             <span class="badge badge--warning" id="ex-chrono-badge" hidden></span>
           </div>
@@ -138,6 +143,13 @@
             <button id="ex-btn-yes" class="btn btn-verdict-yes">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 13 4 4L19 7"/></svg>
               Réussi
+            </button>
+          </div>
+
+          <div class="support-report-row">
+            <button id="btn-report-exercise" class="support-report-link" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="3"/></svg>
+              Signaler un problème
             </button>
           </div>
         </section>
@@ -174,6 +186,11 @@
           <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Historique récent</h3>
           <div class="history-strip" id="history-strip"></div>
         </div>
+
+        <div class="card custom-exercise-card" id="custom-exercise-card">
+          <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z" stroke-linejoin="round"/></svg>Exercice sur mesure</h3>
+          <div id="custom-exercise-body"></div>
+        </div>
       </aside>
     </div>
   </main>
@@ -186,5 +203,6 @@
 <script type="module" src="js/auth.js"></script>
 <script type="module" src="js/command-palette.js"></script>
 <script type="module" src="js/exercice.js"></script>
+<script type="module" src="js/customExercise.js"></script>
 </body>
 </html>

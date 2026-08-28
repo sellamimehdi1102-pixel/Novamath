@@ -1,0 +1,900 @@
+/* ==========================================================================
+   Chatbot — style ChatGPT réinterprété avec les tokens NovaMath existants
+   (mêmes cartes, boutons, rayons, ombres que le reste du site).
+   ========================================================================== */
+
+/* `calc(100vh - 36px)` (pas 100vh) : .app-shell (base.css) a `padding: 18px`
+   (haut+bas = 36px) et `box-sizing: border-box`, donc son espace de contenu
+   réel ne fait que 100vh - 36px de haut — exactement la même convention que
+   .sidebar (base.css:510). Utiliser 100vh directement ici forçait .app-shell
+   (min-height: 100vh) à grandir de 36px de plus que la fenêtre, ce qui
+   faisait défiler toute la PAGE (body) en plus du panneau de conversation
+   (bug remonté : "la molette fait défiler toute la page" + décor de fond qui
+   semblait "coupé" une fois la page décalée). En dessous de 860px, .app-shell
+   repasse à padding:0 (drawer mobile) : la règle plus bas restaure 100vh. */
+.chatbot-shell {
+  display: flex;
+  height: calc(100vh - 36px);
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ── Sidebar conversations ────────────────────────────────────────────────── */
+.chatbot-convos {
+  position: relative;
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+  background: var(--bg-elevated);
+  height: calc(100vh - 36px);
+  overflow: hidden;
+  transition: width var(--transition-base);
+}
+
+/* Rangée dédiée au bouton de repli — plus jamais superposée au bouton
+   "Nouvelle conversation" (qui occupe toute la largeur du panneau juste en
+   dessous), chacun a désormais son propre espace dans le flux normal. */
+.chatbot-convos-toprow {
+  display: flex;
+  justify-content: flex-end;
+}
+.chatbot-convos.is-collapsed .chatbot-convos-toprow { justify-content: center; }
+
+.chatbot-convos-collapse-btn {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-faint);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition-fast), background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+.chatbot-convos:hover .chatbot-convos-collapse-btn,
+.chatbot-convos-collapse-btn:focus-visible { opacity: 1; }
+.chatbot-convos-collapse-btn:hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-convos-collapse-btn svg { width: 15px; height: 15px; transition: transform var(--transition-base); }
+.chatbot-convos.is-collapsed .chatbot-convos-collapse-btn svg { transform: rotate(180deg); }
+
+.chatbot-convos.is-collapsed {
+  width: 64px;
+}
+.chatbot-convos.is-collapsed .chatbot-convos-header { padding: 18px 10px 12px; }
+.chatbot-convos.is-collapsed .btn-label,
+.chatbot-convos.is-collapsed .chatbot-search input,
+.chatbot-convos.is-collapsed .chatbot-convo-title,
+.chatbot-convos.is-collapsed .chatbot-convo-actions,
+.chatbot-convos.is-collapsed .pin-icon,
+.chatbot-convos.is-collapsed .chatbot-convo-empty {
+  display: none;
+}
+.chatbot-convos.is-collapsed .chatbot-search { justify-content: center; padding: 8px; }
+.chatbot-convos.is-collapsed #chatbot-new-btn { width: 34px; height: 34px; padding: 0; border-radius: 50%; margin: 0 auto; }
+.chatbot-convos.is-collapsed .chatbot-convo-item { justify-content: center; padding: 10px 0; }
+
+.chatbot-convos-mobile-trigger {
+  display: none;
+  width: 34px; height: 34px;
+  align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--text-muted);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  flex-shrink: 0;
+}
+.chatbot-convos-mobile-trigger:hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-convos-mobile-trigger svg { width: 18px; height: 18px; }
+
+.chatbot-convos-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 75;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+.chatbot-convos-overlay.is-visible { display: block; opacity: 1; }
+
+.chatbot-convos-header {
+  padding: 20px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+/* Bouton "Nouvelle conversation" : hérite de .btn.btn-primary (identité
+   NovaMath, cohérent avec tout le site) — juste un peu plus compact pour
+   rester à l'aise dans les 280px du panneau. */
+#chatbot-new-btn { width: 100%; padding: 11px 20px; font-size: 0.9rem; }
+
+.chatbot-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.chatbot-search:focus-within { border-color: var(--accent); background: var(--surface); }
+.chatbot-search svg { width: 16px; height: 16px; color: var(--text-faint); flex-shrink: 0; }
+.chatbot-search input {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+/* Petit repère de section — la liste se lit comme un vrai historique de
+   discussions plutôt qu'une liste anonyme (ChatGPT/Claude/Cursor). */
+.chatbot-convo-list-label {
+  padding: 12px 14px 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.chatbot-convos.is-collapsed .chatbot-convo-list-label { display: none; }
+
+.chatbot-convo-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.chatbot-convo-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  position: relative;
+}
+.chatbot-convo-item:hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-convo-item.active { background: rgba(var(--accent-rgb), 0.13); color: var(--accent-text); font-weight: 600; }
+.chatbot-convo-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.86rem;
+}
+.chatbot-convo-item .pin-icon { width: 14px; height: 14px; flex-shrink: 0; color: var(--accent-text); }
+.chatbot-convo-actions {
+  display: none;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.chatbot-convo-item:hover .chatbot-convo-actions { display: flex; }
+.chatbot-convo-actions button {
+  width: 26px; height: 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--text-faint);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.chatbot-convo-actions button:hover { background: var(--border); color: var(--text); }
+.chatbot-convo-actions svg { width: 14px; height: 14px; }
+
+.chatbot-convo-empty { padding: 24px 12px; text-align: center; color: var(--text-faint); font-size: 0.82rem; }
+
+/* ── Colonne conversation principale ─────────────────────────────────────── */
+.chatbot-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 36px);
+  min-height: 0;
+}
+
+.chatbot-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.chatbot-topbar-title { font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
+.chatbot-context-toggle { display: flex; align-items: center; gap: 8px; }
+
+/* ── Bandeau "moteur IA local indisponible" ──────────────────────────────── */
+.chatbot-provider-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 24px 0;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--warning-soft);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: var(--text);
+  font-size: 0.88rem;
+  flex-shrink: 0;
+}
+.chatbot-provider-banner svg { width: 18px; height: 18px; color: var(--warning); flex-shrink: 0; }
+.chatbot-provider-banner .msg { flex: 1; }
+.chatbot-provider-banner .actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+.chatbot-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  position: relative;
+  /* Halo décoratif discret, ancré au conteneur (pas de ::before ici : ce
+     conteneur défile seul, voir la correction de la chaîne de hauteurs plus
+     haut) — reste fixe par rapport à .chatbot-messages, ne "saute" jamais
+     pendant le défilement des messages. */
+  background: radial-gradient(ellipse 620px 480px at 50% 0%, rgba(var(--accent-rgb), 0.06), transparent 68%);
+}
+
+.chatbot-empty-state {
+  margin: auto;
+  text-align: center;
+  color: var(--text-muted);
+  max-width: 460px;
+  animation: chatbot-msg-in 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chatbot-empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.chatbot-empty-state p { font-size: 0.95rem; line-height: 1.6; }
+.chatbot-empty-state .icon-wrap {
+  width: 64px; height: 64px; margin: 0 auto 20px;
+  border-radius: var(--radius-lg);
+  background: var(--brand-gradient);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-on-accent);
+  box-shadow: var(--shadow-glow);
+  animation: chatbot-thinking-pulse 3.2s ease-in-out infinite;
+}
+.chatbot-empty-state .icon-wrap svg { width: 30px; height: 30px; }
+
+.chatbot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.chatbot-suggestion-chip {
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+  animation: chatbot-msg-in 260ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.chatbot-suggestions .chatbot-suggestion-chip:nth-child(1) { animation-delay: 40ms; }
+.chatbot-suggestions .chatbot-suggestion-chip:nth-child(2) { animation-delay: 80ms; }
+.chatbot-suggestions .chatbot-suggestion-chip:nth-child(3) { animation-delay: 120ms; }
+.chatbot-suggestions .chatbot-suggestion-chip:nth-child(4) { animation-delay: 160ms; }
+.chatbot-suggestions .chatbot-suggestion-chip:nth-child(5) { animation-delay: 200ms; }
+.chatbot-suggestion-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent-text);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Vraies bulles de conversation (ChatGPT / Claude / iMessage) ─────────────
+   Utilisateur : alignée à droite, fond violet plein (--brand-gradient),
+   texte blanc. Assistant : alignée à gauche, fond clair (--surface), légère
+   bordure + légère ombre — jamais de fond transparent ni de filet central. */
+.chatbot-msg {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 880px;
+  animation: chatbot-msg-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes chatbot-msg-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.chatbot-msg { justify-content: flex-start; }
+.chatbot-msg.assistant { justify-content: flex-start; }
+.chatbot-msg.user { justify-content: flex-end; flex-direction: row-reverse; }
+/* Petit marqueur d'avatar, uniquement côté assistant (le message utilisateur
+   n'a pas besoin d'un repère : sa bulle violette + son alignement à droite
+   suffisent à l'identifier, exactement comme iMessage/ChatGPT). */
+.chatbot-msg-avatar {
+  width: 26px; height: 26px; border-radius: var(--radius-sm); flex-shrink: 0;
+  margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.68rem; font-weight: 700; color: var(--text-on-accent);
+  overflow: hidden;
+}
+.chatbot-msg.assistant .chatbot-msg-avatar { background: var(--brand-gradient); }
+.chatbot-msg.user .chatbot-msg-avatar { display: none; }
+
+.chatbot-msg-bubble {
+  padding: 14px 18px;
+  border-radius: 20px;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  min-width: 0;
+  max-width: min(72ch, 100%);
+  overflow-wrap: break-word;
+  text-align: left;
+}
+.chatbot-msg.assistant .chatbot-msg-bubble {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  border-top-left-radius: 6px;
+  color: var(--text);
+}
+.chatbot-msg.user .chatbot-msg-bubble {
+  background: var(--brand-gradient);
+  color: var(--text-on-accent);
+  border: none;
+  box-shadow: var(--shadow-sm);
+  border-top-right-radius: 6px;
+}
+/* Sur une bulle utilisateur (fond violet plein), le code inline/blocs et les
+   liens gardent une bonne lisibilité malgré le fond sombre du dégradé. */
+.chatbot-msg.user .chatbot-msg-bubble strong { color: var(--text-on-accent); }
+.chatbot-msg.user .chatbot-msg-bubble a { color: var(--text-on-accent); text-decoration-color: rgba(255, 255, 255, 0.6); }
+.chatbot-msg.user .chatbot-msg-bubble :not(pre) > code { background: rgba(255, 255, 255, 0.18); color: var(--text-on-accent); }
+.chatbot-msg.user .chatbot-msg-bubble pre { background: rgba(0, 0, 0, 0.18); border-color: rgba(255, 255, 255, 0.2); }
+.chatbot-msg-bubble p { margin: 0 0 10px; }
+.chatbot-msg-bubble p:last-child { margin-bottom: 0; }
+.chatbot-msg-bubble > *:first-child { margin-top: 0; }
+.chatbot-msg-bubble > *:last-child { margin-bottom: 0; }
+
+/* ── Titres à l'intérieur d'une réponse (structure d'une explication longue,
+   pas de gros titres de page — juste un repère visuel entre étapes). ────── */
+.chatbot-msg-bubble h1, .chatbot-msg-bubble h2, .chatbot-msg-bubble h3, .chatbot-msg-bubble h4 {
+  font-family: var(--font-display);
+  color: var(--text);
+  margin: 16px 0 8px;
+  line-height: 1.3;
+}
+.chatbot-msg-bubble h1 { font-size: 1.15rem; }
+.chatbot-msg-bubble h2 { font-size: 1.08rem; }
+.chatbot-msg-bubble h3, .chatbot-msg-bubble h4 { font-size: 1rem; }
+
+.chatbot-msg-bubble strong { color: var(--text); font-weight: 700; }
+.chatbot-msg-bubble a { color: var(--accent-text); text-decoration: underline; text-underline-offset: 2px; }
+.chatbot-msg-bubble a:hover { text-decoration-thickness: 2px; }
+.chatbot-msg-bubble hr { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+.chatbot-msg-bubble pre {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin: 0 0 10px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+.chatbot-msg-bubble pre:last-child { margin-bottom: 0; }
+.chatbot-msg-bubble code { font-family: "SFMono-Regular", Consolas, monospace; }
+.chatbot-msg-bubble :not(pre) > code {
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent-text);
+  border-radius: 5px;
+  padding: 2px 6px;
+  font-size: 0.85em;
+}
+.chatbot-msg-bubble ul, .chatbot-msg-bubble ol { padding-left: 22px; margin: 0 0 10px; }
+.chatbot-msg-bubble li { margin: 4px 0; }
+.chatbot-msg-bubble li::marker { color: var(--accent-text); }
+.chatbot-msg-bubble ul li input[type="checkbox"] { margin-right: 6px; accent-color: var(--accent); }
+
+/* ── Citations (méthode/rappel mis en avant dans une réponse) ───────────── */
+.chatbot-msg-bubble blockquote {
+  margin: 0 0 10px;
+  padding: 8px 14px;
+  border-left: 3px solid var(--accent);
+  background: rgba(var(--accent-rgb), 0.06);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.chatbot-msg-bubble blockquote p:last-child { margin-bottom: 0; }
+
+.chatbot-msg-bubble table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 4px 0 10px;
+  font-size: 0.88rem;
+  border-radius: var(--radius-sm);
+}
+.chatbot-msg-bubble th, .chatbot-msg-bubble td { border: 1px solid var(--border); padding: 7px 12px; text-align: left; }
+.chatbot-msg-bubble th { background: var(--surface-hover); font-weight: 600; color: var(--text); }
+.chatbot-msg-bubble tr:nth-child(even) td { background: color-mix(in srgb, var(--text) 4%, transparent); }
+
+/* ── Formules KaTeX : jamais de débordement hors bulle sur mobile ───────── */
+.chatbot-msg-bubble .katex-display { margin: 8px 0; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+.chatbot-msg-bubble .katex { font-size: 1.02em; }
+
+.chatbot-msg-actions {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+/* Desktop : révélées au survol ET au focus clavier (jamais d'action
+   invisible en Tab — l'anneau :focus-visible global, base.css:604, ne sert
+   à rien si le parent reste à opacity:0). */
+.chatbot-msg.assistant:hover .chatbot-msg-actions,
+.chatbot-msg.assistant:focus-within .chatbot-msg-actions {
+  opacity: 1;
+}
+.chatbot-msg-actions button {
+  width: 28px; height: 28px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--text-faint);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.chatbot-msg-actions button:hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-msg-actions button.active { color: var(--accent-text); }
+.chatbot-msg-actions button.is-copied { color: var(--success); }
+.chatbot-msg-actions button:disabled { opacity: 0.4; cursor: not-allowed; }
+.chatbot-msg-actions button:disabled:hover { background: transparent; color: var(--text-faint); }
+.chatbot-msg-actions svg { width: 15px; height: 15px; }
+
+/* Tactile (mobile/tablette) : toujours visibles (pas de hover sur ces
+   appareils — une action cachée derrière un survol qui n'existe pas est
+   invisible pour de bon) et cible d'au moins 44px (WCAG 2.5.5), comme
+   ChatGPT/Claude sur mobile. */
+@media (hover: none), (pointer: coarse) {
+  .chatbot-msg-actions { opacity: 1; gap: 6px; }
+  .chatbot-msg-actions button { width: 44px; height: 44px; }
+  .chatbot-msg-actions svg { width: 18px; height: 18px; }
+}
+
+/* ── Indicateur "réflexion" premium ──────────────────────────────────────── */
+.chatbot-thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 0;
+}
+.chatbot-thinking-orb {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  flex-shrink: 0;
+  animation: chatbot-thinking-pulse 1.6s ease-in-out infinite;
+}
+@keyframes chatbot-thinking-pulse {
+  0%, 100% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4); }
+  50% { transform: scale(1); box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0); }
+}
+.chatbot-thinking-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: linear-gradient(90deg, var(--text-faint) 0%, var(--text) 50%, var(--text-faint) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: chatbot-thinking-shimmer 1.8s linear infinite;
+}
+@keyframes chatbot-thinking-shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ── État d'erreur réseau + reprise (jamais de plantage visible) ─────────── */
+.chatbot-error-state {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+.chatbot-error-state svg { width: 18px; height: 18px; color: var(--warning); flex-shrink: 0; }
+
+/* ── Curseur clignotant pendant le streaming (effet machine à écrire) ────── */
+.chatbot-msg-bubble.is-streaming::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: chatbot-cursor-blink 0.9s step-end infinite;
+}
+@keyframes chatbot-cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ── Cartes d'action (Phase C) : reprennent le format carte des pages
+   Cours/Exercices (icône ronde + libellé + chevron) plutôt qu'une pastille,
+   pour que "Voir le cours"/"S'entraîner" se lisent comme de vraies actions
+   de travail et non comme des tags décoratifs. ─────────────────────────── */
+.chatbot-action-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+  max-width: 420px;
+}
+.chatbot-action-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  animation: chatbot-msg-in 220ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.chatbot-action-cards .chatbot-action-card:nth-child(1) { animation-delay: 40ms; }
+.chatbot-action-cards .chatbot-action-card:nth-child(2) { animation-delay: 90ms; }
+.chatbot-action-cards .chatbot-action-card:nth-child(3) { animation-delay: 140ms; }
+.chatbot-action-card svg {
+  width: 40px; height: 40px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: var(--radius-md);
+  background: var(--brand-gradient);
+  color: var(--text-on-accent);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+.chatbot-action-card:hover svg { transform: scale(1.06) rotate(-4deg); }
+.chatbot-action-card span { flex: 1; min-width: 0; line-height: 1.35; }
+.chatbot-action-card::after {
+  content: "";
+  width: 8px; height: 8px;
+  flex-shrink: 0;
+  border-right: 2px solid var(--text-faint);
+  border-bottom: 2px solid var(--text-faint);
+  transform: rotate(-45deg);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.chatbot-action-card:hover::after { transform: rotate(-45deg) translate(2px, -2px); border-color: var(--accent-text); }
+
+/* ── Fade au changement de conversation ──────────────────────────────────── */
+.chatbot-messages.is-switching { opacity: 0; }
+.chatbot-messages { transition: opacity 160ms ease; }
+
+/* ── Zone de saisie ───────────────────────────────────────────────────────── */
+.chatbot-input-area {
+  padding: 16px 24px 20px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* ── Bouton "Aller au dernier message" : n'apparaît que si l'utilisateur a
+   remonté manuellement pendant qu'une réponse s'écrit, plutôt que de le
+   ramener de force en bas à chaque caractère (cf. scroll intelligent). ── */
+.chatbot-scroll-bottom-btn {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  margin-bottom: 12px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast), background var(--transition-fast);
+  z-index: 5;
+}
+.chatbot-scroll-bottom-btn svg { width: 18px; height: 18px; }
+.chatbot-scroll-bottom-btn:hover { background: var(--surface-hover); }
+.chatbot-scroll-bottom-btn.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.chatbot-live-suggestions {
+  max-width: 880px;
+  margin: 0 auto 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chatbot-input-wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  padding: 11px 11px 11px 20px;
+  box-shadow: var(--shadow-float);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-fast);
+}
+.chatbot-input-wrap:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-float), 0 0 0 4px rgba(var(--accent-rgb), 0.15);
+  transform: translateY(-1px);
+}
+.chatbot-input-row { display: flex; align-items: flex-end; gap: 8px; }
+.chatbot-input-editable {
+  flex: 1;
+  min-width: 0;
+  outline: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 9px 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.chatbot-input-editable:empty::before {
+  content: attr(data-placeholder);
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+/* ── Badge de mention "@" (Phase D, refonte) ─────────────────────────────── */
+.chatbot-mention-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px 2px;
+  margin: 0 1px;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--accent-rgb), 0.14);
+  color: var(--accent-text);
+  font-weight: 600;
+  font-size: 0.88em;
+  white-space: nowrap;
+  animation: chatbot-menu-in 140ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chatbot-icon-btn {
+  width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--text-muted);
+  border-radius: var(--radius-pill); cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  flex-shrink: 0;
+}
+.chatbot-icon-btn:hover { background: var(--surface-hover); color: var(--text); transform: scale(1.06); }
+.chatbot-icon-btn svg { width: 18px; height: 18px; }
+
+/* ── Menu "+" (pièces jointes) ────────────────────────────────────────────── */
+.chatbot-attach-wrap { position: relative; flex-shrink: 0; }
+.chatbot-attach-toggle[aria-expanded="true"] { background: var(--surface-hover); color: var(--text); transform: rotate(45deg); }
+.chatbot-attach-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  animation: chatbot-menu-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes chatbot-menu-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.chatbot-attach-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.chatbot-attach-menu button:hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-attach-menu button svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+.chatbot-send-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--brand-gradient);
+  color: var(--text-on-accent);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+.chatbot-send-btn:hover { transform: scale(1.05); box-shadow: 0 4px 16px -2px rgba(var(--accent-rgb), 0.5); }
+.chatbot-send-btn:active { transform: scale(0.92); }
+.chatbot-send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.chatbot-send-btn svg { width: 17px; height: 17px; }
+.chatbot-send-btn.is-stop { background: var(--danger); }
+
+.chatbot-input-hint { text-align: center; font-size: 0.72rem; color: var(--text-faint); margin-top: 8px; }
+
+/* ── Indicateur de quota de messages IA (quota_service.py::QuotaType.CHAT_MESSAGES) ──
+   Sous la zone de saisie, mis à jour après chaque réponse (voir
+   chatbot.js::refreshQuota) — jamais masqué au profit d'un blocage silencieux,
+   toujours visible pour que la limite ne soit jamais une surprise. */
+.chatbot-quota-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+.chatbot-quota-value { font-weight: 600; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.chatbot-quota-indicator.is-low .chatbot-quota-value { color: var(--warning); }
+.chatbot-quota-indicator.is-exhausted .chatbot-quota-value { color: var(--danger); }
+.chatbot-quota-indicator.is-unlimited .chatbot-quota-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-text);
+}
+
+/* ── Palette de commandes "@" (Phase D) ──────────────────────────────────── */
+.chatbot-mentions-menu {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 8px;
+  right: 8px;
+  max-width: 420px;
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+  animation: chatbot-menu-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chatbot-mentions-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.chatbot-mentions-item:hover,
+.chatbot-mentions-item.is-active { background: var(--surface-hover); }
+.chatbot-mentions-item svg { width: 16px; height: 16px; color: var(--accent-text); flex-shrink: 0; }
+.chatbot-mentions-item-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.chatbot-mentions-item .title { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chatbot-mentions-item .subtitle { font-size: 0.78rem; color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chatbot-mentions-empty { padding: 10px; font-size: 0.8rem; color: var(--text-faint); text-align: center; }
+
+@media (max-width: 860px) {
+  /* .app-shell repasse à padding:0 sous 860px (base.css/responsive.css) :
+     plus de 36px à soustraire ici, sous peine de laisser 36px de vide en
+     bas de l'écran. */
+  .chatbot-shell, .chatbot-main { height: 100vh; }
+  .chatbot-convos {
+    position: fixed; left: 0; top: 0; z-index: 80; width: 280px !important;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+  }
+  .chatbot-convos.is-open { transform: translateX(0); }
+  .chatbot-convos-collapse-btn { display: none; }
+  .chatbot-convos-mobile-trigger { display: inline-flex; }
+  /* Le rail principal du site a lui aussi un hamburger fixe sous 860px
+     (#sidebar-mobile-trigger, top:14px/left:16px, voir responsive.css) —
+     .main-content réserve 76px en haut pour ne jamais le chevaucher, mais
+     .chatbot-topbar n'est pas dans .main-content : sans cette même marge,
+     les deux boutons "ouvrir un tiroir" (menu principal / conversations) se
+     superposaient exactement dans le même coin (bug confirmé par capture). */
+  .chatbot-topbar { padding-top: 64px; }
+}
+@media (max-width: 560px) {
+  .chatbot-topbar { padding: 64px 14px 12px; }
+  .chatbot-messages { padding: 16px 12px; gap: 16px; }
+  .chatbot-msg-bubble { padding: 12px 14px; font-size: 0.9rem; }
+  .chatbot-msg-avatar { width: 28px; height: 28px; font-size: 0.68rem; }
+  .chatbot-empty-state .icon-wrap { width: 52px; height: 52px; }
+  .chatbot-empty-state h2 { font-size: 1.25rem; }
+  .chatbot-suggestions { gap: 6px; }
+  .chatbot-suggestion-chip { padding: 7px 12px; font-size: 0.78rem; }
+  .chatbot-input-area { padding: 12px 12px 16px; }
+  .chatbot-action-card { padding: 10px 12px; font-size: 0.85rem; }
+  /* Le placeholder ("Pose une question sur ton cours ou ton exercice…") ne
+     doit jamais passer à la ligne (retour explicite) : sous 560px, la police
+     de la zone de saisie est réduite, le padding resserré et les boutons
+     joindre/envoyer légèrement réduits pour lui laisser assez de place sur
+     une seule ligne, même sur les très petits écrans (~360-390px). */
+  .chatbot-input-wrap { padding: 8px 8px 8px 10px; gap: 6px; }
+  .chatbot-input-row { gap: 5px; }
+  .chatbot-input-editable { font-size: 0.71rem; padding: 8px 2px; }
+  .chatbot-icon-btn { width: 30px; height: 30px; }
+  .chatbot-icon-btn svg { width: 16px; height: 16px; }
+  .chatbot-send-btn { width: 32px; height: 32px; }
+  .chatbot-send-btn svg { width: 15px; height: 15px; }
+}
+/* Téléphones étroits (iPhone SE, petits Android ≤ ~380px) : le budget
+   horizontal restant pour le texte est trop faible même avec les réglages
+   ci-dessus — resserré encore une fois pour ne jamais revenir à 2 lignes. */
+@media (max-width: 400px) {
+  .chatbot-input-wrap { padding: 7px 7px 7px 9px; gap: 4px; }
+  .chatbot-input-row { gap: 4px; }
+  .chatbot-input-editable { font-size: 0.64rem; }
+  .chatbot-icon-btn { width: 27px; height: 27px; }
+  .chatbot-icon-btn svg { width: 15px; height: 15px; }
+  .chatbot-send-btn { width: 29px; height: 29px; }
+  .chatbot-send-btn svg { width: 14px; height: 14px; }
+}

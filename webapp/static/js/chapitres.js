@@ -1,5 +1,5 @@
 import { api } from "./api.js";
-import { initSettingsManager, getSettings, setSetting } from "./settingsManager.js";
+import { initSettingsManager } from "./settingsManager.js";
 import { bindSettingsButton } from "./settingsPopup.js";
 import { getState, masteryByChapter, masteryByNotion, coverageByChapter, coverageByNotion, getInProgressSeries, getChapterStatus, scopedStats } from "./store.js";
 import { renderResumeCard } from "./resume.js";
@@ -7,57 +7,50 @@ import { icon } from "./icons.js";
 import { bindLiveTranslations } from "./i18n.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
 import { resolveChapterTitle } from "./chapterTitleByNotions.js";
+import { getFavoriteChapters, toggleFavoriteChapter, favoriteIconSvg } from "./favorites.js";
+import { normalizeText, debounce } from "./searchUtils.js";
+import { DIFF_EMOJI, DIFF_LABEL_SHORT, DIFF_BADGE } from "./difficultyLevels.js";
 
 const settingsReady = initSettingsManager();
 settingsReady.then(() => bindLiveTranslations());
 bindSettingsButton(document.getElementById("settings-btn"));
 renderResumeCard(document.getElementById("resume-card"));
 
-const DIFF_LABEL = { 1: "Facile", 2: "Moyen", 3: "Confirmé", 4: "Difficile", 5: "Expert" };
-const DIFF_BADGE = { 1: "badge--success", 2: "badge--success", 3: "badge--warning", 4: "badge--danger", 5: "badge--danger" };
+const DIFF_LABEL = Object.fromEntries(
+  Object.entries(DIFF_LABEL_SHORT).map(([lvl, label]) => [lvl, `${DIFF_EMOJI[lvl]} ${label}`])
+);
 
-const selected = new Set();
 const grid = document.getElementById("chapters-grid");
-const selectionBar = document.getElementById("selection-bar");
-const selectionCount = document.getElementById("selection-count");
 const emptyFilterMsg = document.getElementById("chapters-empty-filter");
 
 let currentChaptersMeta = [];
 let activeFilter = "all";
 
-// ── Mode invité : limité à 2 chapitres sélectionnés ─────────────────────────
-const GUEST_MAX_CHAPTERS = 2;
-let isGuest = false;
-api.me().then(({ user }) => { isGuest = !!user.is_guest; }).catch(() => {});
+// ── Sélection multiple (chapitres entiers + notions isolées, tous chapitres
+// confondus) — fusionnée en une seule série au clic sur la barre flottante.
+// Map<chapterId, Set<notionLabel>> : structure unique, indépendante du DOM,
+// pour que la sélection survive à un re-render (changement de filtre) et
+// couvre plusieurs chapitres simultanément (contrairement à l'ancien système
+// pré-évaluation qui ne sélectionnait qu'un chapitre entier à la fois, jamais
+// mélangé avec des notions isolées d'autres chapitres). ───────────────────
+const selectedNotions = new Map();
 
-function ensureGuestChaptersModal() {
-  if (document.getElementById("guest-chapters-modal-overlay")) return;
-  const overlay = document.createElement("div");
-  overlay.className = "modal-overlay";
-  overlay.id = "guest-chapters-modal-overlay";
-  overlay.hidden = true;
-  overlay.innerHTML = `
-    <div class="modal-card card">
-      <h3>Débloquez tous les chapitres</h3>
-      <p>Créez gratuitement votre compte NovaMath afin d'accéder à tous les chapitres, sauvegarder votre progression et retrouver vos statistiques sur tous vos appareils.</p>
-      <div class="verdict-row" style="flex-direction:column; gap:10px;">
-        <button type="button" class="btn btn-primary js-open-signup">Créer un compte</button>
-        <button type="button" class="btn btn-secondary js-open-login">Se connecter</button>
-        <button type="button" class="btn btn-ghost" id="btn-guest-chapters-dismiss">Continuer en mode invité</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.hidden = true; });
-  overlay.querySelector("#btn-guest-chapters-dismiss").addEventListener("click", () => { overlay.hidden = true; });
-  overlay.querySelectorAll(".js-open-signup, .js-open-login").forEach((btn) => {
-    btn.addEventListener("click", () => { overlay.hidden = true; });
-  });
+function selectedSetFor(chapterId) {
+  let set = selectedNotions.get(chapterId);
+  if (!set) { set = new Set(); selectedNotions.set(chapterId, set); }
+  return set;
 }
 
-function showGuestChaptersLimitModal() {
-  ensureGuestChaptersModal();
-  document.getElementById("guest-chapters-modal-overlay").hidden = false;
+/** "empty" (rien coché) / "full" (toutes les notions sélectionnables du
+ * chapitre) / "partial". `selectableCount` exclut les notions "reprenables"
+ * (déjà en série sur exercice.html — voir isResumable dans renderChapters) :
+ * elles ne rejoignent jamais selectedNotions, donc ne comptent ni au
+ * numérateur ni au dénominateur. */
+function chapterSelectionState(chapterId, selectableCount) {
+  const set = selectedNotions.get(chapterId);
+  const n = set ? set.size : 0;
+  if (n === 0) return "empty";
+  return n >= selectableCount ? "full" : "partial";
 }
 
 function formatDate(ts) {
@@ -79,47 +72,14 @@ function masteryLabel(coveragePct, accuracyPct, count) {
   return { text: "À renforcer", cls: "badge--danger" };
 }
 
-// ── Favoris ("Enregistrés") ─────────────────────────────────────────────────
-// Persistés comme n'importe quelle autre préférence (SettingsManager →
-// /api/settings) : pas de nouveau point d'API, pas de stockage parallèle,
-// survit à la fermeture du navigateur comme le reste des paramètres.
-// chapter_id ("Chapitre_1"...) est le même identifiant dans toutes les
-// classes déclarées au registre : sans préfixe de classe, un favori Seconde
-// apparaîtrait aussi comme favori en Première. Les entrées historiques (sans
-// préfixe) restent des favoris Seconde par convention — même repli que
-// class_level absent partout ailleurs dans le projet — donc les favoris déjà
-// enregistrés avant ce correctif ne sont ni perdus ni déplacés.
-function _favoriteKey(chapterId, classLevel) {
-  return classLevel === "seconde" ? chapterId : `${classLevel}:${chapterId}`;
-}
-
+// ── Favoris ("Enregistrés") — voir favorites.js pour la persistance (partagée
+// avec la page Cours, même chapitre = même favori partout). ─────────────────
 function getFavorites() {
-  const classLevel = getStoredClassLevel();
-  const raw = getSettings().favorites || [];
-  const chapterIds = raw
-    .filter((f) => {
-      const sepIdx = f.indexOf(":");
-      return sepIdx === -1 ? classLevel === "seconde" : f.slice(0, sepIdx) === classLevel;
-    })
-    .map((f) => {
-      const sepIdx = f.indexOf(":");
-      return sepIdx === -1 ? f : f.slice(sepIdx + 1);
-    });
-  return new Set(chapterIds);
+  return getFavoriteChapters(getStoredClassLevel());
 }
 
 function toggleFavorite(chapterId) {
-  const classLevel = getStoredClassLevel();
-  const raw = getSettings().favorites || [];
-  const key = _favoriteKey(chapterId, classLevel);
-  const isFav = raw.includes(key);
-  const next = isFav ? raw.filter((f) => f !== key) : [...raw, key];
-  setSetting("favorites", null, next);
-  return !isFav;
-}
-
-function favoriteIconSvg() {
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2.5 3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6-6.2 3.6 1.4-7L2 9.9l7-.8 3-6.6Z" stroke-linejoin="round"/></svg>`;
+  return toggleFavoriteChapter(chapterId, getStoredClassLevel());
 }
 
 // ── Filtres ──────────────────────────────────────────────────────────────────
@@ -201,6 +161,19 @@ function renderChapters(chaptersMeta) {
     card.className = "chapter-card card card--interactive";
     card.dataset.id = ch.id;
 
+    // Notions "reprenables" (déjà en série en cours ailleurs) : jamais
+    // sélectionnables pour une nouvelle série — exclues du numérateur ET du
+    // dénominateur de chapterSelectionState (voir sa doc ci-dessus).
+    const seriesConfig = inProgress?.seriesConfig;
+    const resumableLabels = new Set(
+      ch.notions_detail
+        .filter((n) => !!seriesConfig
+          && seriesConfig.chapterId === ch.id
+          && (seriesConfig.notions ? seriesConfig.notions.includes(n.notion) : seriesConfig.notion === n.notion))
+        .map((n) => n.notion)
+    );
+    const selectableCount = ch.notions_detail.length - resumableLabels.size;
+
     const notionsHtml = ch.notions_detail
       .map((n) => {
         const key = `${ch.id}|${n.notion}`;
@@ -209,12 +182,10 @@ function renderChapters(chaptersMeta) {
         const nm = notionMastery[key] || { count: 0, rate: 0, last: null };
         const nAccuracyPct = Math.round(nm.rate * 100);
         const mastery = masteryLabel(nCoveragePct, nAccuracyPct, nm.count);
-        const seriesConfig = inProgress?.seriesConfig;
-        const isResumable = !!seriesConfig
-          && seriesConfig.chapterId === ch.id
-          && (seriesConfig.notions ? seriesConfig.notions.includes(n.notion) : seriesConfig.notion === n.notion);
+        const isResumable = resumableLabels.has(n.notion);
+        const isSelected = !isResumable && selectedSetFor(ch.id).has(n.notion);
         return `
-        <div class="notion-row${isResumable ? " notion-row--resumable" : " notion-row--selectable"}" data-chapter="${ch.id}" data-notion="${n.notion.replace(/"/g, "&quot;")}" data-ids="${n.exercise_ids.join(",")}" data-resumable="${isResumable}">
+        <div class="notion-row${isResumable ? " notion-row--resumable" : " notion-row--selectable"}${isSelected ? " selected" : ""}" data-chapter="${ch.id}" data-notion="${n.notion.replace(/"/g, "&quot;")}" data-ids="${n.exercise_ids.join(",")}" data-resumable="${isResumable}">
           <div class="notion-row-top">
             <span class="notion-row-label">${isResumable ? "" : `<span class="notion-checkbox" aria-hidden="true"></span>`}<span>${n.notion}</span></span>
             <span class="badge ${DIFF_BADGE[n.difficulty_dominant]}">${DIFF_LABEL[n.difficulty_dominant]}</span>
@@ -235,12 +206,17 @@ function renderChapters(chaptersMeta) {
       })
       .join("");
 
+    const selectState = chapterSelectionState(ch.id, selectableCount);
+    const hasAnySelected = selectState !== "empty";
+
     card.innerHTML = `
       <div class="chapter-card-top">
         <div class="chapter-icon">${chapterIcon()}</div>
         <div class="chapter-card-top-right">
           <button type="button" class="chapter-favorite-btn${isFavorite ? " is-favorite" : ""}" aria-label="${isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}" aria-pressed="${isFavorite}">${favoriteIconSvg()}</button>
-          <div class="chapter-select-dot"></div>
+          <button type="button" class="chapter-select-btn" data-state="${selectState}" aria-label="Sélectionner tout le chapitre" aria-pressed="${selectState === "full"}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>
+          </button>
         </div>
       </div>
       <h3>${resolveChapterTitle(ch.title, ch.notions_cours) || ch.id.replace(/_/g, " ")}</h3>
@@ -264,14 +240,10 @@ function renderChapters(chaptersMeta) {
       </button>
       <div class="notions-panel">
         ${notionsHtml}
-        <button class="btn btn-primary btn-sm notions-start-btn" type="button" disabled>Commencer la série</button>
+        <button class="btn btn-primary btn-sm notions-start-btn" type="button" ${hasAnySelected ? "" : "disabled"}>Commencer la série</button>
       </div>
     `;
 
-    card.addEventListener("click", (e) => {
-      if (e.target.closest(".chapter-expand-btn") || e.target.closest(".notion-row") || e.target.closest(".chapter-favorite-btn")) return;
-      toggleSelection(ch.id, card);
-    });
     card.querySelector(".chapter-favorite-btn").addEventListener("click", (e) => {
       e.stopPropagation();
       const nowFavorite = toggleFavorite(ch.id);
@@ -292,6 +264,20 @@ function renderChapters(chaptersMeta) {
     });
 
     const startBtn = card.querySelector(".notions-start-btn");
+    const selectBtn = card.querySelector(".chapter-select-btn");
+
+    /** Reflète l'état courant de selectedNotions (pour CE chapitre) sur le
+     * DOM de sa carte : bouton chapitre (vide/partiel/complet), bouton
+     * "Commencer la série" local, puis la barre flottante globale — jamais
+     * l'inverse (selectedNotions reste l'unique source de vérité). */
+    function syncCardUI() {
+      const state = chapterSelectionState(ch.id, selectableCount);
+      selectBtn.dataset.state = state;
+      selectBtn.setAttribute("aria-pressed", String(state === "full"));
+      startBtn.disabled = state === "empty";
+      updateSelectionBar();
+    }
+
     card.querySelectorAll(".notion-row").forEach((row) => {
       row.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -302,10 +288,33 @@ function renderChapters(chaptersMeta) {
           return;
         }
         // Multi-sélection : un clic sélectionne/désélectionne la notion au
-        // lieu de démarrer immédiatement une série (§11-12).
-        row.classList.toggle("selected");
-        startBtn.disabled = card.querySelectorAll(".notion-row.selected").length === 0;
+        // lieu de démarrer immédiatement une série (§11-12) — synchronisé
+        // dans selectedNotions pour que le bouton chapitre et la barre
+        // flottante restent cohérents (CAS 2/3 de la synchronisation).
+        const nowSelected = row.classList.toggle("selected");
+        const set = selectedSetFor(ch.id);
+        if (nowSelected) set.add(row.dataset.notion);
+        else set.delete(row.dataset.notion);
+        syncCardUI();
       });
+    });
+
+    selectBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const state = chapterSelectionState(ch.id, selectableCount);
+      const set = selectedSetFor(ch.id);
+      if (state === "full") {
+        // Bascule complète -> vide (CAS de désélection totale du chapitre).
+        set.clear();
+      } else {
+        // Vide ou partiel -> sélection complète (CAS 1) : coche toutes les
+        // notions sélectionnables du chapitre (jamais les "reprenables").
+        ch.notions_detail.forEach((n) => { if (!resumableLabels.has(n.notion)) set.add(n.notion); });
+      }
+      card.querySelectorAll(".notion-row--selectable").forEach((row) => {
+        row.classList.toggle("selected", set.has(row.dataset.notion));
+      });
+      syncCardUI();
     });
 
     startBtn.addEventListener("click", (e) => {
@@ -319,6 +328,14 @@ function renderChapters(chaptersMeta) {
 
     grid.appendChild(card);
   });
+
+  updateSelectionBar();
+
+  // Un changement de filtre re-génère toute la grille : réappliquer
+  // l'assombrissement de la recherche en cours (si l'utilisateur cherchait
+  // déjà) pour ne pas perdre son état.
+  const searchInputEl = document.getElementById("chapters-search-input");
+  if (searchInputEl?.value) applySearchDim(searchInputEl.value);
 }
 
 function avgDuration(history, chapter, notion) {
@@ -341,38 +358,148 @@ function launchNotionSeries(chapterId, notions, exerciseIds) {
   window.location.href = "exercice.html";
 }
 
-function toggleSelection(id, card) {
-  if (selected.has(id)) {
-    selected.delete(id);
-    card.classList.remove("selected");
-  } else {
-    if (isGuest && selected.size >= GUEST_MAX_CHAPTERS) {
-      showGuestChaptersLimitModal();
-      return;
+// ── Barre flottante de sélection multiple ────────────────────────────────
+// Créée une seule fois (position:fixed, injectée hors de #chapters-grid pour
+// ne jamais être détruite par un re-render de la grille au changement de
+// filtre) puis seulement mise à jour ensuite. Agrège selectedNotions sur
+// TOUS les chapitres de currentChaptersMeta — y compris ceux masqués par le
+// filtre actif — pour que rien ne soit perdu si on change de filtre en
+// cours de sélection.
+let selectionBarEl = null;
+
+function ensureSelectionBar() {
+  if (selectionBarEl) return selectionBarEl;
+  const bar = document.createElement("div");
+  bar.className = "series-selection-bar";
+  bar.id = "series-selection-bar";
+  bar.innerHTML = `
+    <div class="series-selection-stats">
+      <div class="series-selection-stat">
+        <strong id="series-selection-chapters">0</strong>
+        <span>chapitre<span class="plural-s"></span></span>
+      </div>
+      <div class="series-selection-stat">
+        <strong id="series-selection-notions">0</strong>
+        <span>notion<span class="plural-s"></span></span>
+      </div>
+      <div class="series-selection-stat">
+        <strong id="series-selection-exercises">0</strong>
+        <span>exercice<span class="plural-s"></span></span>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary series-selection-launch" id="series-selection-launch">
+      Lancer la série
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  `;
+  document.body.appendChild(bar);
+  bar.querySelector("#series-selection-launch").addEventListener("click", launchMergedSeries);
+  selectionBarEl = bar;
+
+  // La bannière cookies (cookieConsent.js) est aussi position:fixed, ancrée
+  // en bas d'écran (voir guest.css/base.css::.cookie-banner) : sans ce
+  // repositionnement, les deux se superposent et "Lancer la série" devient
+  // physiquement inatteignable tant que la bannière n'est pas fermée. Un
+  // MutationObserver (et non un simple appel ponctuel) car la bannière peut
+  // apparaître/disparaître (accepter/refuser) à tout moment, indépendamment
+  // d'un changement de sélection.
+  const repositionAboveCookieBanner = () => {
+    const cookieBanner = document.getElementById("cookie-consent-banner");
+    if (cookieBanner) {
+      const rect = cookieBanner.getBoundingClientRect();
+      bar.style.bottom = `${Math.max(22, window.innerHeight - rect.top + 14)}px`;
+    } else {
+      bar.style.bottom = "";
     }
-    selected.add(id);
-    card.classList.add("selected");
-  }
-  updateSelectionBar();
+  };
+  repositionAboveCookieBanner();
+  new MutationObserver(repositionAboveCookieBanner).observe(document.body, { childList: true });
+  window.addEventListener("resize", repositionAboveCookieBanner);
+
+  return bar;
 }
 
+/** Recalcule les compteurs globaux depuis selectedNotions + currentChaptersMeta
+ * (jamais depuis le DOM, pour rester exact même pour un chapitre masqué par
+ * le filtre actif) et anime la barre à l'apparition / au changement de valeur. */
 function updateSelectionBar() {
-  const n = selected.size;
-  selectionCount.textContent = n === 0 ? "Tous les chapitres (aucune sélection)" : `${n} chapitre${n > 1 ? "s" : ""} sélectionné${n > 1 ? "s" : ""}`;
-  selectionBar.classList.add("visible");
+  const bar = ensureSelectionBar();
+  let chaptersFull = 0;
+  let notionsCount = 0;
+  let exerciseIdSet = new Set();
+
+  for (const [chapterId, notionSet] of selectedNotions) {
+    if (notionSet.size === 0) continue;
+    const ch = currentChaptersMeta.find((c) => c.id === chapterId);
+    if (!ch) continue;
+    notionsCount += notionSet.size;
+    if (notionSet.size >= ch.notions_detail.length) chaptersFull += 1;
+    for (const notionLabel of notionSet) {
+      const detail = ch.notions_detail.find((n) => n.notion === notionLabel);
+      detail?.exercise_ids.forEach((id) => exerciseIdSet.add(id));
+    }
+  }
+
+  const hasSelection = notionsCount > 0;
+  bar.classList.toggle("visible", hasSelection);
+  if (!hasSelection) return;
+
+  const setCounter = (id, value) => {
+    const el = document.getElementById(id);
+    if (el.textContent !== String(value)) {
+      el.textContent = String(value);
+      el.closest(".series-selection-stat").classList.remove("bump");
+      // Force un reflow pour rejouer l'animation même si la valeur change
+      // deux fois de suite au même compteur (ex: +1 puis -1 rapidement).
+      void el.offsetWidth;
+      el.closest(".series-selection-stat").classList.add("bump");
+    }
+    el.closest(".series-selection-stat").querySelector(".plural-s").textContent = value > 1 ? "s" : "";
+  };
+  setCounter("series-selection-chapters", chaptersFull);
+  setCounter("series-selection-notions", notionsCount);
+  setCounter("series-selection-exercises", exerciseIdSet.size);
 }
 
-document.getElementById("btn-start-evaluation").addEventListener("click", (e) => {
-  e.preventDefault();
-  // chapter_id ("Chapitre_1"...) est partagé entre classes : tagué pour que
-  // evaluation.js ne réutilise jamais une sélection faite dans une autre
-  // classe (voir la même convention que lumis:practice_choices).
+/** Fusionne TOUTE la sélection courante (chapitres entiers + notions isolées,
+ * tous chapitres confondus) en une seule série, en construisant exactement
+ * l'objet que consumePendingSeries()/buildSeriesPool()/startSeries()
+ * (exercice.js, non modifiés) savent déjà consommer — voir launchNotionSeries
+ * ci-dessus pour le même contrat, cas à un seul chapitre. */
+function launchMergedSeries() {
+  const notions = [];
+  const exerciseIdSet = new Set();
+  const chapterIds = [];
+
+  for (const [chapterId, notionSet] of selectedNotions) {
+    if (notionSet.size === 0) continue;
+    const ch = currentChaptersMeta.find((c) => c.id === chapterId);
+    if (!ch) continue;
+    chapterIds.push(chapterId);
+    for (const notionLabel of notionSet) {
+      notions.push(notionLabel);
+      const detail = ch.notions_detail.find((n) => n.notion === notionLabel);
+      detail?.exercise_ids.forEach((id) => exerciseIdSet.add(id));
+    }
+  }
+  if (!exerciseIdSet.size) return;
+
+  const label = notions.length <= 3 ? notions.join(" + ") : `${notions.length} notions sélectionnées`;
   localStorage.setItem(
-    "lumis:selected_chapters",
-    JSON.stringify({ classLevel: getStoredClassLevel(), chapters: [...selected] }),
+    "lumis:pending_series",
+    JSON.stringify({
+      mode: "notion",
+      // Un seul chapitre sélectionné : comportement identique à
+      // launchNotionSeries() (isResumable pourra encore cibler ce chapitre).
+      // Plusieurs chapitres mélangés : null, jamais une valeur inventée.
+      chapterId: chapterIds.length === 1 ? chapterIds[0] : null,
+      notion: label,
+      notions,
+      exerciseIds: [...exerciseIdSet],
+    })
   );
-  window.location.href = "evaluation.html";
-});
+  window.location.href = "exercice.html";
+}
 
 /** Ouvre automatiquement un chapitre (et scrolle jusqu'à lui) si on arrive
  * depuis le bouton "Aller au chapitre" du dashboard (MOD4). */
@@ -393,8 +520,157 @@ function openRequestedChapter() {
   card.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+// ── Recherche (chapitre / notion / difficulté) ──────────────────────────────
+// Index construit UNE SEULE FOIS (dans le .then final ci-dessous) à partir de
+// chaptersMeta déjà chargé en mémoire — jamais de nouvelle requête réseau ni
+// de parcours du DOM pour chercher : tout se fait sur les données. Réutilise
+// exactement le vocabulaire de difficulté déjà affiché sur les cartes
+// (DIFF_LABEL) pour qu'une recherche "difficile" retrouve les notions
+// concernées, sans introduire de nouvelle taxonomie.
+const DIFF_SEARCH_WORDS = { 1: "facile", 2: "moyen", 3: "confirme", 4: "difficile", 5: "expert" };
+let searchIndex = [];
+
+function buildSearchIndex(chaptersMeta) {
+  searchIndex = chaptersMeta.flatMap((ch) => {
+    const chapterTitle = resolveChapterTitle(ch.title, ch.notions_cours) || ch.id.replace(/_/g, " ");
+    const chapterEntry = {
+      type: "chapter", chapterId: ch.id, chapterTitle, notionLabel: null,
+      norm: normalizeText(chapterTitle),
+    };
+    const notionEntries = (ch.notions_detail || []).map((n) => {
+      const diffWords = (n.difficulties_available || []).map((d) => DIFF_SEARCH_WORDS[d] || "").join(" ");
+      return {
+        type: "notion", chapterId: ch.id, chapterTitle, notionLabel: n.notion,
+        norm: normalizeText(`${chapterTitle} ${n.notion} ${diffWords}`),
+        notionNorm: normalizeText(n.notion),
+      };
+    });
+    return [chapterEntry, ...notionEntries];
+  });
+}
+
+function runSearch(query) {
+  const q = normalizeText(query);
+  if (!q) return [];
+  return searchIndex
+    .filter((item) => item.norm.includes(q))
+    .sort((a, b) => {
+      const aRank = (a.notionNorm || a.norm).startsWith(q) ? 0 : 1;
+      const bRank = (b.notionNorm || b.norm).startsWith(q) ? 0 : 1;
+      return aRank - bRank;
+    })
+    .slice(0, 20);
+}
+
+const searchInput = document.getElementById("chapters-search-input");
+const searchClearBtn = document.getElementById("chapters-search-clear");
+const searchResultsEl = document.getElementById("chapters-search-results");
+
+/** Assombrit (sans les retirer du flux — transition CSS douce, jamais de
+ * ré-render coûteux) les cartes qui ne correspondent pas à la recherche en
+ * cours, en plus du panneau de résultats détaillé (qui, lui, descend au
+ * niveau des notions). */
+function applySearchDim(query) {
+  const q = normalizeText(query);
+  grid.querySelectorAll(".chapter-card").forEach((card) => {
+    if (!q) { card.classList.remove("is-search-dimmed"); return; }
+    const ch = currentChaptersMeta.find((c) => c.id === card.dataset.id);
+    const chapterTitle = ch ? (resolveChapterTitle(ch.title, ch.notions_cours) || ch.id) : "";
+    const matches = normalizeText(chapterTitle).includes(q)
+      || (ch?.notions_detail || []).some((n) => normalizeText(n.notion).includes(q));
+    card.classList.toggle("is-search-dimmed", !matches);
+  });
+}
+
+function renderSearchResults(query) {
+  if (searchClearBtn) searchClearBtn.hidden = !query;
+  applySearchDim(query);
+  if (!query) {
+    searchResultsEl.hidden = true;
+    searchResultsEl.innerHTML = "";
+    return;
+  }
+  const results = runSearch(query);
+  searchResultsEl.hidden = false;
+  if (!results.length) {
+    searchResultsEl.innerHTML = `<div class="page-search-empty">Aucun résultat pour « ${query} ».</div>`;
+    return;
+  }
+  searchResultsEl.innerHTML = results.map((r, i) => `
+    <button type="button" class="page-search-item${i === 0 ? " is-active" : ""}" data-index="${i}" role="option">
+      <span class="title">${icon(r.type === "chapter" ? "checklist" : "layers")}${r.type === "chapter" ? r.chapterTitle : r.notionLabel}</span>
+      <span class="subtitle">${r.type === "chapter" ? "Chapitre" : `${r.chapterTitle} — Notion`}</span>
+    </button>
+  `).join("");
+  results.forEach((r, i) => {
+    searchResultsEl.children[i].addEventListener("click", () => pickSearchResult(r));
+  });
+}
+
+/** Ouvre le chapitre (accordéon) du résultat choisi et, pour une notion,
+ * scrolle jusqu'à sa ligne précise en la mettant brièvement en évidence —
+ * même mécanique que openRequestedChapter() ci-dessous (déjà éprouvée pour
+ * le lien "Aller au chapitre" du dashboard). */
+function pickSearchResult(result) {
+  searchInput.value = result.type === "chapter" ? result.chapterTitle : result.notionLabel;
+  searchResultsEl.hidden = true;
+  const card = grid.querySelector(`.chapter-card[data-id="${result.chapterId}"]`);
+  if (!card) return;
+  grid.querySelectorAll(".chapter-card.expanded").forEach((c) => { if (c !== card) c.classList.remove("expanded"); });
+  card.classList.add("expanded");
+  card.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (result.type === "notion") {
+    const row = card.querySelector(`.notion-row[data-notion="${CSS.escape(result.notionLabel)}"]`);
+    if (row) {
+      setTimeout(() => {
+        row.scrollIntoView({ behavior: "smooth", block: "center" });
+        row.classList.add("notion-row--highlight");
+        setTimeout(() => row.classList.remove("notion-row--highlight"), 1600);
+      }, 380); // laisse le temps à l'accordéon de s'ouvrir (transition max-height 350ms)
+    }
+  }
+}
+
+if (searchInput) {
+  const debouncedSearch = debounce((q) => renderSearchResults(q), 250);
+  searchInput.addEventListener("input", () => debouncedSearch(searchInput.value));
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (searchInput.value) { searchInput.value = ""; renderSearchResults(""); }
+      else searchInput.blur();
+      return;
+    }
+    if (e.key === "Enter") {
+      const active = searchResultsEl.querySelector(".page-search-item.is-active") || searchResultsEl.querySelector(".page-search-item");
+      if (active) active.click();
+      return;
+    }
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      const items = [...searchResultsEl.querySelectorAll(".page-search-item")];
+      if (!items.length) return;
+      const activeIdx = items.findIndex((it) => it.classList.contains("is-active"));
+      const nextIdx = Math.max(0, Math.min(items.length - 1, activeIdx + (e.key === "ArrowDown" ? 1 : -1)));
+      items.forEach((it) => it.classList.remove("is-active"));
+      items[nextIdx].classList.add("is-active");
+      items[nextIdx].scrollIntoView({ block: "nearest" });
+    }
+  });
+  searchClearBtn?.addEventListener("click", () => {
+    searchInput.value = "";
+    renderSearchResults("");
+    searchInput.focus();
+  });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".page-search") && !e.target.closest(".page-search-results")) {
+      searchResultsEl.hidden = true;
+    }
+  });
+}
+
 Promise.all([settingsReady, api.chapters(getStoredClassLevel())]).then(([, data]) => {
-  renderChapters(data.chapters_meta || []);
-  selectionBar.classList.add("visible");
+  const chaptersMeta = data.chapters_meta || [];
+  renderChapters(chaptersMeta);
+  buildSearchIndex(chaptersMeta);
   openRequestedChapter();
 });

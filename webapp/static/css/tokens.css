@@ -1,7 +1,10 @@
 /* ==========================================================================
    Design tokens — NovaMath
    Source unique de vérité pour couleurs, typographie, espacements, ombres.
-   Dark mode par défaut ; [data-theme="light"] sur <html> bascule en clair.
+   V4 (Design System claude.ai) : thème CLAIR par défaut désormais (palette
+   extraite d'une image de référence fournie par l'utilisateur — vagues
+   violet/lavande) ; [data-theme="dark"] sur <html> bascule en sombre (V2/V3
+   étaient dark-first, inversion assumée par ce chantier).
    ========================================================================== */
 
 /* ── Polices auto-hébergées (Design System : Satoshi/titres, Inter/texte) ──
@@ -59,72 +62,91 @@
 }
 
 :root {
-  /* ── Échelle violette V3 — "muted premium" ──────────────────────────────
-     Désaturée volontairement par rapport aux versions précédentes : la V2
-     restait trop proche d'un violet Tailwind saturé ("néon" au sens de
-     l'audit produit). Ici la teinte est ramenée vers un violet-prune plus
-     naturel (chroma réduite ~35%, plus de gris dans le mélange), façon
-     Linear/Stripe — un violet qu'on associe à un produit mature, pas à un
-     dégradé générique. Identique dark/light (échelle de teinte pure). */
-  --violet-50: #f8f7fb;
-  --violet-100: #efedf6;
-  --violet-200: #ddd8ee;
-  --violet-300: #c2b8e0;
-  --violet-400: #a08ecc;
-  --violet-500: #8069b8;
-  --violet-600: #6b52a0;
-  --violet-700: #574287;
-  --violet-800: #45356c;
-  --violet-900: #362a54;
+  /* ── Échelle violette V4 — extraite pixel par pixel d'une image de
+     référence fournie par l'utilisateur (vagues violet/lavande) : zone la
+     plus sombre → violet-600, lavage le plus clair → violet-100, tons
+     intermédiaires → violet-400/500. Devient l'ADN visuel officiel de
+     NovaMath (remplace la V3 "muted premium" desaturée). Identique dark/light
+     (échelle de teinte pure). */
+  --violet-50: #faf8fe;
+  --violet-100: #f4eefc;
+  --violet-200: #e9def9;
+  --violet-300: #cfb1f5;
+  --violet-400: #af88ec;
+  --violet-500: #8f63e0;
+  --violet-600: #7543df;
+  --violet-700: #5f34ba;
+  --violet-800: #4a2894;
+  --violet-900: #382070;
 
-  /* Couleurs de marque — alias sur l'échelle ci-dessus, pour ne rien casser
-     dans les fichiers CSS qui consomment déjà --brand-indigo/--brand-violet. */
-  --brand-indigo: var(--violet-600);
-  --brand-violet: var(--violet-400);
+  /* Indigo — secondaire distinct (pas un simple alias violet comme en V3),
+     accents rares (bleu électrique/cyan/rose), tous accordés à la même
+     famille violet-froid que l'image de référence. */
+  --indigo-400: #8480e8;
+  --indigo-500: #5b57d6;
+  --indigo-600: #4744ad;
+  --blue-electric: #4c7ff0;
+  --blue-electric-rgb: 76, 127, 240;
+  --pink-bloom: #e6a9d6;
+  --pink-bloom-rgb: 230, 169, 214;
+
+  /* Couleurs de marque — alias sur les échelles ci-dessus. */
+  --brand-indigo: var(--indigo-500);
+  --brand-violet: var(--violet-500);
+  /* Dérivé de --brand-indigo/--brand-violet (jamais de valeur figée) pour
+     suivre la couleur d'accent choisie (Apparence → Couleur principale) —
+     voir les blocs [data-accent] plus bas, qui redéfinissent ces deux
+     variables et donc automatiquement ce dégradé. */
   --brand-gradient: linear-gradient(135deg, var(--brand-indigo), var(--brand-violet));
-  /* Triplet r,g,b de --brand-indigo, pour les rgba(var(--accent-rgb), x) —
-     une variable CSS ne peut pas être décomposée en JS/CSS pur, donc chaque
-     bloc [data-accent] ci-dessous doit redéfinir --accent-rgb en même temps
-     que --brand-indigo/--brand-violet pour rester synchronisé. */
-  --accent-rgb: 107, 82, 160;
-  --brand-violet-rgb: 160, 142, 204;
-  --accent: var(--brand-indigo);
-  --accent-soft-bg: rgba(var(--accent-rgb), 0.12);
-  --accent-text: color-mix(in srgb, var(--brand-indigo) 60%, white 25%);
+  /* Triplets r,g,b pour les rgba(var(--accent-rgb), x) — une variable CSS ne
+     peut pas être décomposée en JS/CSS pur, donc chaque bloc [data-accent]
+     ci-dessous doit redéfinir --accent-rgb en même temps que
+     --brand-indigo/--brand-violet pour rester synchronisé. */
+  --accent-rgb: 117, 67, 223;
+  --brand-violet-rgb: 143, 99, 224;
+  --accent: var(--violet-600);
+  --accent-soft-bg: rgba(var(--accent-rgb), 0.1);
+  --accent-text: color-mix(in srgb, var(--accent) 85%, black 6%);
 
-  /* ── Gris froids (chrome d'interface, thème sombre) et gris chauds (thème
-     clair, blanc cassé) — remplacent les valeurs de fond/surface "en dur"
-     par une vraie échelle nommée, réutilisable et cohérente. */
-  --gray-cool-950: #08080d;
-  --gray-cool-900: #0e0f15;
-  --gray-cool-800: #14151d;
-  --gray-cool-700: #1a1b25;
-  --gray-cool-600: #22232f;
-  --gray-cool-500: #2b2c3a;
-  --gray-warm-50: #faf9f7;
-  --gray-warm-100: #f4f2ee;
-  --gray-warm-200: #ebe8e2;
-  --gray-warm-300: #d8d4cc;
+  /* Lavage lavande — surface intermédiaire entre --bg et --surface en thème
+     clair (une carte "à part" comme la tuile Niveau & XP, ou une section
+     de landing), jamais utilisé comme fond de page principal. */
+  --lavender-wash: #efe7fb;
+  --lavender-wash-2: #f6f1fc;
+
+  /* ── Gris froids (chrome d'interface, thème sombre — désormais teinté
+     violet plutôt que neutre) et gris chauds (thème clair, défaut) — Défaut
+     issus directement de l'image de référence, pas inventés. */
+  --gray-cool-950: #211d2e;
+  --gray-cool-900: #2c2740;
+  --gray-cool-800: #372f4f;
+  --gray-cool-700: #453a63;
+  --gray-cool-600: #544878;
+  --gray-cool-500: #6a5c93;
+  --gray-warm-50: #fbfaff;
+  --gray-warm-100: #f3f0fb;
+  --gray-warm-200: #e7e1f4;
+  --gray-warm-300: #d3c9e8;
   --off-white: var(--gray-warm-50);
 
   /* Accent secondaire réservé aux moments de récompense/motivation (séries,
      badges, mise en avant ponctuelle) — jamais utilisé comme couleur de
      marque, uniquement en touche, pour ne pas diluer le violet signature. */
-  --brand-gold: #f2b74d;
-  --brand-gold-rgb: 242, 183, 77;
-  /* --brand-gold "cru" ne passe que ~1.8:1 sur une surface claire (audit
-     contraste Dashboard) — variante utilisable pour du texte/icônes,
-     recalculée par thème juste en dessous. */
-  --brand-gold-text: var(--brand-gold);
+  --brand-gold: #e0a940;
+  --brand-gold-rgb: 224, 169, 64;
+  /* --brand-gold "cru" ne passe pas l'AA sur le fond clair par défaut —
+     assombri pour le texte/icônes (formule light, voir override dark
+     plus bas qui repasse à la valeur brute). */
+  --brand-gold-text: color-mix(in srgb, var(--brand-gold) 60%, black 30%);
 
-  --success: #22c55e;
-  --success-soft: rgba(34, 197, 94, 0.15);
-  --warning: #f59e0b;
-  --warning-soft: rgba(245, 158, 11, 0.15);
-  --danger: #ef4444;
-  --danger-soft: rgba(239, 68, 68, 0.15);
-  --info: #3b82f6;
-  --info-soft: rgba(59, 130, 246, 0.15);
+  --success: #2fa66d;
+  --success-soft: rgba(47, 166, 109, 0.12);
+  --warning: #dc8f2e;
+  --warning-soft: rgba(220, 143, 46, 0.12);
+  --danger: #dd4b56;
+  --danger-soft: rgba(221, 75, 86, 0.12);
+  --info: var(--blue-electric);
+  --info-soft: rgba(var(--blue-electric-rgb), 0.12);
 
   /* Texte sur fond violet plein (boutons primaires, avatars, gradient) —
      reste blanc dans les deux thèmes, centralisé pour remplacer les
@@ -133,11 +155,11 @@
 
   /* Palette catégorielle fixe (step-icons de Cours) — non thémée par accent,
      sert uniquement à distinguer visuellement des étapes, pas la marque. */
-  --step-color-1: #3b82f6;
-  --step-color-2: #a855f7;
-  --step-color-3: #22c55e;
-  --step-color-4: #f97316;
-  --step-color-5: #ec4899;
+  --step-color-1: var(--blue-electric);
+  --step-color-2: var(--violet-500);
+  --step-color-3: #2fa66d;
+  --step-color-4: #dc8f2e;
+  --step-color-5: var(--pink-bloom);
 
   /* Rayon / ombres / transitions — échelle V2, nettement plus généreuse
      (Linear/Raycast/Arc) : les cartes premium respirent, jamais des coins
@@ -148,6 +170,14 @@
   --radius-xl: 36px;
   --radius-pill: 999px;
 
+  /* Tokens de "personnalité" (Design System claude.ai) — paires de coins
+     asymétriques + légère rotation, à réserver à UNE seule pièce de
+     référence par écran (jamais une grille répétée) pour casser la monotonie
+     "chaque carte est identique" sans devenir un tic visuel. Appliqué ici
+     uniquement à .stat-card--xp (Dashboard) — voir dashboard.css. */
+  --radius-asym-a: 28px 10px 28px 10px;
+  --tilt-sm: -1.25deg;
+
   /* Échelle d'espacement V2 — utilisée par les nouvelles sections/grilles
      pour une respiration nettement supérieure à l'ancien design. */
   --space-xs: 8px;
@@ -157,11 +187,11 @@
   --space-xl: 64px;
   --space-2xl: 96px;
 
-  /* Ombres "flottantes" — profondeur premium multi-couches, très douces et
-     majoritairement neutres (façon Stripe : le gris fait le travail, la
-     teinte violette n'est qu'un soupçon en couche basse, jamais dominante). */
-  --shadow-float: 0 1px 2px rgba(0, 0, 0, 0.08), 0 8px 24px -8px rgba(0, 0, 0, 0.28), 0 32px 64px -24px rgba(var(--accent-rgb), 0.12);
-  --shadow-float-lg: 0 2px 4px rgba(0, 0, 0, 0.1), 0 16px 40px -12px rgba(0, 0, 0, 0.32), 0 48px 96px -28px rgba(var(--accent-rgb), 0.16);
+  /* Ombres "flottantes" — profondeur premium multi-couches, teintées violet
+     (rgba(76,44,140,x), issu de l'image de référence) plutôt que neutre-noir
+     pur, cohérent avec le fond clair par défaut de la V4. */
+  --shadow-float: 0 1px 2px rgba(76, 44, 140, 0.05), 0 8px 24px -8px rgba(76, 44, 140, 0.14), 0 32px 64px -24px rgba(var(--accent-rgb), 0.10);
+  --shadow-float-lg: 0 2px 4px rgba(76, 44, 140, 0.06), 0 16px 40px -12px rgba(76, 44, 140, 0.16), 0 48px 96px -28px rgba(var(--accent-rgb), 0.14);
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -170,26 +200,24 @@
   --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Satoshi", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Dark theme (par défaut) — encre profonde et stratifiée sur l'échelle
-     --gray-cool-* : le violet reste une signature ponctuelle, jamais le
-     fond lui-même. */
-  --bg: var(--gray-cool-950);
-  --bg-secondary: var(--gray-cool-900);
-  --bg-elevated: var(--gray-cool-800);
-  --surface: var(--gray-cool-800);
-  --surface-hover: var(--gray-cool-700);
-  --surface-elevated: var(--gray-cool-600);
-  --surface-glass: rgba(255, 255, 255, 0.04);
-  --border: rgba(255, 255, 255, 0.07);
-  --border-strong: rgba(255, 255, 255, 0.13);
-  --border-hover: rgba(255, 255, 255, 0.18);
+  /* Thème clair (par défaut, V4) — fond blanc cassé/lavande très pâle,
+     cartes blanc pur, encre presque noire-violette : l'élévation se lit par
+     la chaleur (blanc → lavande), jamais par l'obscurité. */
+  --bg: var(--gray-warm-50);
+  --bg-secondary: var(--lavender-wash-2);
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: var(--gray-warm-100);
+  --surface-elevated: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.68);
+  --border: rgba(76, 44, 140, 0.10);
+  --border-strong: rgba(76, 44, 140, 0.16);
+  --border-hover: rgba(76, 44, 140, 0.24);
 
-  --text: #f2f1f5;
-  --text-muted: #9c9aa8;
-  /* #5f6270 ne passait que 3.2:1 sur --bg (audit contraste landing) —
-     éclairci pour respecter l'AA (≥4.5:1) tout en restant "discret". */
-  --text-faint: #7a7886;
-  /* Alias sémantiques (vocabulaire Design System V2) — mêmes valeurs que
+  --text: #241b38;
+  --text-muted: #6a5f85;
+  --text-faint: #8a80a3;
+  /* Alias sémantiques (vocabulaire Design System) — mêmes valeurs que
      --text-muted/--text-faint, sans renommer les usages déjà en place. */
   --text-secondary: var(--text-muted);
   --text-tertiary: var(--text-faint);
@@ -198,104 +226,99 @@
   --icon: var(--text-muted);
   --icon-active: var(--accent-text);
 
+  --shadow-sm: 0 1px 2px rgba(76, 44, 140, 0.06);
+  --shadow-md: 0 8px 24px rgba(76, 44, 140, 0.09);
+  --shadow-lg: 0 24px 60px rgba(76, 44, 140, 0.14);
+  --shadow-glow: 0 0 0 1px rgba(var(--accent-rgb), 0.16), 0 8px 28px rgba(var(--accent-rgb), 0.14);
+}
+
+:root[data-theme="dark"] {
+  /* Thème sombre (option, bascule via theme.js) — encre violet-nuit
+     stratifiée sur --gray-cool-* : le violet reste une signature ponctuelle,
+     jamais le fond lui-même. */
+  --bg: var(--gray-cool-950);
+  --bg-secondary: var(--gray-cool-900);
+  --bg-elevated: var(--gray-cool-800);
+  --surface: var(--gray-cool-800);
+  --surface-hover: var(--gray-cool-700);
+  --surface-elevated: var(--gray-cool-600);
+  --surface-glass: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-hover: rgba(255, 255, 255, 0.2);
+
+  --text: #f2f0f8;
+  --text-muted: #b2a8c9;
+  --text-faint: #8f84ac;
+  --text-secondary: var(--text-muted);
+  --text-tertiary: var(--text-faint);
+  --icon: var(--text-muted);
+  --icon-active: var(--accent-text);
+  /* Sur fond sombre, la couleur d'accent active (--accent, thémée par
+     [data-accent] ci-dessous) doit au contraire s'éclaircir pour rester
+     lisible (labels, section-tag, stat-label...) — formule générique valable
+     pour n'importe quelle teinte d'accent, pas seulement le violet par défaut. */
+  --accent-text: color-mix(in srgb, var(--accent) 65%, white 35%);
+  /* L'or brut passe déjà l'AA sur fond sombre — pas besoin de l'assombrir. */
+  --brand-gold-text: var(--brand-gold);
+
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.45);
   --shadow-glow: 0 0 0 1px rgba(var(--accent-rgb), 0.3), 0 8px 28px rgba(var(--accent-rgb), 0.18);
 }
-
-:root[data-theme="light"] {
-  /* Blanc cassé (--gray-warm-*) plutôt qu'un blanc pur clinique : plus
-     chaleureux, plus proche du papier que de l'écran d'hôpital. */
-  --bg: var(--gray-warm-50);
-  --bg-secondary: var(--gray-warm-100);
-  --bg-elevated: #ffffff;
-  --surface: #ffffff;
-  --surface-hover: var(--gray-warm-100);
-  --surface-elevated: #ffffff;
-  --surface-glass: rgba(255, 255, 255, 0.6);
-  --border: rgba(15, 15, 20, 0.08);
-  --border-strong: rgba(15, 15, 20, 0.14);
-  --border-hover: rgba(15, 15, 20, 0.20);
-
-  --text: #17161c;
-  --text-muted: #64626e;
-  /* #9798a3 ne passait que 2.7:1 sur fond clair (audit contraste landing) —
-     assombri pour respecter l'AA (≥4.5:1). */
-  --text-faint: #6b6976;
-  --text-secondary: var(--text-muted);
-  --text-tertiary: var(--text-faint);
-  --icon: var(--text-muted);
-  --icon-active: var(--accent-text);
-  /* --accent-text (formule par défaut, éclaircie vers le blanc) ne passait
-     que ~2.8:1 sur les surfaces claires : sur fond clair, le même violet
-     signature doit au contraire s'assombrir pour rester lisible (labels,
-     section-tag, stat-label...). Recalculé dynamiquement à partir de
-     --brand-indigo pour rester cohérent avec les variantes [data-accent]. */
-  --accent-text: color-mix(in srgb, var(--brand-indigo) 82%, black 18%);
-  /* Même logique pour l'Or : assombri pour rester lisible sur fond clair
-     (icônes de badges débloqués, Dashboard). */
-  --brand-gold-text: color-mix(in srgb, var(--brand-gold) 60%, black 40%);
-
-  --shadow-sm: 0 1px 2px rgba(20, 20, 30, 0.05);
-  --shadow-md: 0 8px 24px rgba(20, 20, 30, 0.08);
-  --shadow-lg: 0 24px 60px rgba(20, 20, 30, 0.12);
-  --shadow-glow: 0 0 0 1px rgba(var(--accent-rgb), 0.25), 0 8px 30px rgba(var(--accent-rgb), 0.15);
-}
-/* Dark mode reste la référence par défaut quel que soit le thème système :
-   seul le bouton de bascule (theme.js) écrit [data-theme] sur <html>. */
+/* Le thème clair reste la référence par défaut quel que soit le thème
+   système : seul le bouton de bascule (theme.js) écrit [data-theme="dark"]
+   sur <html>. */
 
 /* ── Couleur principale (Apparence → Couleur principale) ───────────────────
    [data-accent] sur <html>, écrit par theme.js à partir des préférences.
-   Nova Purple (--brand-indigo/--brand-violet ci-dessus) reste la valeur par
-   défaut : ces règles ne s'appliquent que si une autre couleur est choisie. */
+   Le violet (Nova Purple) reste la couleur par défaut (aucun bloc ci-dessous
+   ne s'applique tant que "purple" est sélectionné). Choisir une autre couleur
+   change réellement l'accent dans toute l'interface — boutons, badges,
+   switches, liens, états actifs, graphiques, barres de progression, tout ce
+   qui dérive de --brand-indigo/--brand-violet/--accent/--accent-rgb/
+   --brand-violet-rgb (--accent-soft-bg/--accent-text/--shadow-glow/
+   --brand-gradient en cascadent automatiquement, pas besoin de les redéfinir
+   ici). Les fonds (--bg/--surface/...), le texte et le thème clair/sombre ne
+   sont JAMAIS dérivés de ces variables : ils restent identiques quel que soit
+   l'accent choisi. */
 :root[data-accent="blue"] {
   --brand-indigo: #3b82f6;
   --brand-violet: #06b6d4;
+  --accent: #3b82f6;
   --accent-rgb: 59, 130, 246;
   --brand-violet-rgb: 6, 182, 212;
-  --shadow-glow: 0 0 0 1px rgba(59, 130, 246, 0.4), 0 8px 30px rgba(59, 130, 246, 0.25);
 }
 :root[data-accent="green"] {
   --brand-indigo: #16a34a;
   --brand-violet: #22c55e;
+  --accent: #16a34a;
   --accent-rgb: 22, 163, 74;
   --brand-violet-rgb: 34, 197, 94;
-  --shadow-glow: 0 0 0 1px rgba(22, 163, 74, 0.4), 0 8px 30px rgba(22, 163, 74, 0.25);
 }
 :root[data-accent="red"] {
   /* "red" est la clé interne historique (préférences déjà enregistrées) —
      la couleur affichée est désormais un rose moderne, plus "rouge". */
   --brand-indigo: #db2777;
   --brand-violet: #f472b6;
+  --accent: #db2777;
   --accent-rgb: 219, 39, 119;
   --brand-violet-rgb: 244, 114, 182;
-  --shadow-glow: 0 0 0 1px rgba(219, 39, 119, 0.4), 0 8px 30px rgba(219, 39, 119, 0.25);
 }
 :root[data-accent="orange"] {
   --brand-indigo: #ea580c;
   --brand-violet: #f59e0b;
+  --accent: #ea580c;
   --accent-rgb: 234, 88, 12;
   --brand-violet-rgb: 245, 158, 11;
-  --shadow-glow: 0 0 0 1px rgba(234, 88, 12, 0.4), 0 8px 30px rgba(234, 88, 12, 0.25);
 }
 
 /* ── Taille du texte (Apparence → Taille du texte) ─────────────────────────
    Échelle globale via la taille de police racine — tous les rem du site
    suivent, sans casser aucune mise en page (unités relatives partout). */
-:root[data-font-size="small"] { font-size: 14px; }
 :root[data-font-size="normal"] { font-size: 16px; }
 :root[data-font-size="large"] { font-size: 18px; }
-
-/* ── Coins des cartes (Apparence → Coins des cartes) ───────────────────────
-   "Très arrondis" amplifie l'échelle existante plutôt que d'introduire de
-   nouvelles valeurs, pour rester cohérent avec le reste du design system. */
-:root[data-radius="rounded"] {
-  --radius-sm: 16px;
-  --radius-md: 28px;
-  --radius-lg: 36px;
-  --radius-xl: 44px;
-}
 
 /* ── Animations (Apparence → Animations) ───────────────────────────────────
    Désactive transitions/animations CSS globalement — respecte aussi
@@ -307,18 +330,6 @@
   animation-iteration-count: 1 !important;
   transition-duration: 0.001ms !important;
   scroll-behavior: auto !important;
-}
-
-/* ── Effet de transparence (Apparence → Effet de transparence) ─────────────
-   Désactivé : les surfaces "glass" (cartes flottantes, overlays) redeviennent
-   pleinement opaques — utile aussi pour la lisibilité/l'accessibilité. */
-:root[data-glass="off"] {
-  --surface-glass: var(--surface);
-}
-:root[data-glass="off"] .glass,
-:root[data-glass="off"] .modal-card,
-:root[data-glass="off"] .card--glass {
-  backdrop-filter: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

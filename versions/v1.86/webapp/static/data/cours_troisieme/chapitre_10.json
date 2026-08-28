@@ -1,0 +1,627 @@
+{
+  "chapterId": "Chapitre_10",
+  "title": "Chapitre 10",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "construire-et-utiliser-un-arbre-de-probabilites",
+      "title": "Construire et utiliser un arbre de probabilités",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : construire et utiliser un arbre de probabilités.\n\nCette notion sert à estimer les chances qu'un événement se produise avant qu'il n'arrive, par exemple au jeu, en météo ou en médecine.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances un dé : tu ne sais pas à l'avance quel numéro va sortir, mais tu sais que chaque face a la même chance de sortir. La probabilité, c'est justement ce qui mesure cette chance, entre 0 (impossible) et 1 (certain).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Construire et utiliser un arbre de probabilités.",
+      "definition": "Calcule d'abord $P(\\text{même couleur})$ en additionnant les probabilités des chemins (rouge,rouge), (bleu,bleu) et (vert,vert), puis utilise l'évènement contraire.",
+      "definitions": {
+        "lycee": "Calcule d'abord $P(\\text{même couleur})$ en additionnant les probabilités des chemins (rouge,rouge), (bleu,bleu) et (vert,vert), puis utilise l'évènement contraire.",
+        "college": "Sans remise, le second tirage se fait parmi 8 boules restantes."
+      },
+      "intuition": "Une probabilité est toujours un nombre compris entre 0 et 1 (ou entre 0 % et 100 %). Ne confonds jamais un événement (une situation possible, comme « obtenir un nombre pair ») avec sa probabilité (le nombre qui mesure sa chance de se réaliser).",
+      "reglesImportantes": [
+        "Comme la boule est remise, les deux tirages ont exactement les mêmes probabilités : $P(\\text{rouge}) = \\dfrac{3}{5}$ à chaque tirage.",
+        "À chaque niveau, $P(\\text{blanche})=\\dfrac{7}{10}$ et $P(\\text{noire})=\\dfrac{3}{10}$ ; multiplie le long de chaque chemin.",
+        "Sans remise, le second tirage se fait parmi 19 élèves, dont une fille de moins si la première tirée était une fille.",
+        "Sans remise, il ne reste que 7 boules pour le second tirage, dont une rouge de moins si la première était rouge.",
+        "Sans remise, le second tirage se fait parmi 9 bonbons, dont une menthe de moins si le premier était à la menthe."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Construire et utiliser un arbre de probabilités",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : à chaque tirage, $P(\\text{rouge}) = \\dfrac{3}{5}$ et $P(\\text{bleu}) = \\dfrac{2}{5}$, car la boule est remise."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : la probabilité d'un chemin de l'arbre est le produit des probabilités le long de ce chemin."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $P(\\text{rouge, rouge}) = \\dfrac{3}{5} \\times \\dfrac{3}{5} = \\dfrac{9}{25}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1200",
+          "titre": "Exemple 1",
+          "enonce": "Une urne contient 3 boules rouges et 2 boules bleues, indiscernables au toucher. On tire une boule, on note sa couleur, on la remet dans l'urne, puis on tire une seconde boule. Construire l'arbre de probabilités de cette expérience et calculer la probabilité d'obtenir deux boules rouges.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : à chaque tirage, $P(\\text{rouge}) = \\dfrac{3}{5}$ et $P(\\text{bleu}) = \\dfrac{2}{5}$, car la boule est remise."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la probabilité d'un chemin de l'arbre est le produit des probabilités le long de ce chemin."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(\\text{rouge, rouge}) = \\dfrac{3}{5} \\times \\dfrac{3}{5} = \\dfrac{9}{25}$."
+            }
+          ],
+          "reponse": "$P(\\text{rouge, rouge}) = \\dfrac{9}{25}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{rouge, rouge}) = \\dfrac{9}{25}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1206",
+          "titre": "Exemple 2",
+          "enonce": "Une urne contient 10 boules indiscernables au toucher : 7 blanches et 3 noires. On tire une boule, on la remet, puis on en tire une seconde. Construire l'arbre complet à 4 chemins, donner les 4 probabilités et vérifier que leur somme vaut 1.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $P(BB) = \\dfrac{7}{10} \\times \\dfrac{7}{10} = \\dfrac{49}{100}$ et $P(NN) = \\dfrac{3}{10} \\times \\dfrac{3}{10} = \\dfrac{9}{100}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(BN) = \\dfrac{7}{10} \\times \\dfrac{3}{10} = \\dfrac{21}{100}$ et $P(NB) = \\dfrac{3}{10} \\times \\dfrac{7}{10} = \\dfrac{21}{100}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\dfrac{49+21+21+9}{100} = \\dfrac{100}{100} = 1$, la somme est bien égale à 1."
+            }
+          ],
+          "reponse": "$P(BB)=\\dfrac{49}{100}$, $P(BN)=\\dfrac{21}{100}$, $P(NB)=\\dfrac{21}{100}$, $P(NN)=\\dfrac{9}{100}$, somme $=1$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(BB)=\\dfrac{49}{100}$, $P(BN)=\\dfrac{21}{100}$, $P(NB)=\\dfrac{21}{100}$, $P(NN)=\\dfrac{9}{100}$, somme $=1$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1212",
+          "titre": "Exemple 3",
+          "enonce": "Une urne contient 10 boules indiscernables au toucher : 4 rouges, 3 vertes et 3 jaunes. On tire une boule, on la remet, puis on en tire une seconde. Construire l'arbre de probabilités (3 branches à chaque niveau) et calculer la probabilité que les deux boules tirées soient de couleurs différentes.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $P(RR) = \\dfrac{16}{100}$, $P(VV) = \\dfrac{9}{100}$, $P(JJ) = \\dfrac{9}{100}$, donc $P(\\text{même couleur}) = \\dfrac{34}{100}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(\\text{couleurs différentes}) = 1 - \\dfrac{34}{100} = \\dfrac{66}{100}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en simplifiant, $P(\\text{couleurs différentes}) = \\dfrac{33}{50}$."
+            }
+          ],
+          "reponse": "$P(\\text{couleurs différentes}) = \\dfrac{33}{50}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{couleurs différentes}) = \\dfrac{33}{50}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1218",
+          "titre": "Exemple 4",
+          "enonce": "Une urne contient 8 boules indiscernables au toucher : 5 rouges et 3 bleues. On tire une boule sans la remettre, puis on en tire une seconde. Construire l'arbre de probabilités (les probabilités du second tirage dépendent du premier) et calculer la probabilité d'obtenir deux boules rouges.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $P(\\text{1re rouge}) = \\dfrac{5}{8}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : sachant la 1re rouge, il reste 4 rouges sur 7 boules : $P(\\text{2e rouge}) = \\dfrac{4}{7}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(\\text{rouge, rouge}) = \\dfrac{5}{8} \\times \\dfrac{4}{7} = \\dfrac{20}{56} = \\dfrac{5}{14}$."
+            }
+          ],
+          "reponse": "$P(\\text{rouge, rouge}) = \\dfrac{5}{14}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{rouge, rouge}) = \\dfrac{5}{14}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "les jeux de dés, de cartes ou de pile ou face",
+        "les prévisions météorologiques (chance de pluie)",
+        "un test médical (probabilité d'être malade selon le résultat)"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour vérifier un calcul de probabilité, rappelle-toi que la somme des probabilités de tous les résultats possibles doit toujours faire exactement 1.",
+      "aRetenir": [
+        "Comme la boule est remise, les deux tirages ont exactement les mêmes probabilités : $P(\\text{rouge}) = \\dfrac{3}{5}$ à chaque tirage.",
+        "À chaque niveau, $P(\\text{blanche})=\\dfrac{7}{10}$ et $P(\\text{noire})=\\dfrac{3}{10}$ ; multiplie le long de chaque chemin.",
+        "Sans remise, le second tirage se fait parmi 19 élèves, dont une fille de moins si la première tirée était une fille.",
+        "Sans remise, il ne reste que 7 boules pour le second tirage, dont une rouge de moins si la première était rouge.",
+        "Sans remise, le second tirage se fait parmi 9 bonbons, dont une menthe de moins si le premier était à la menthe.",
+        "Repère quel(s) chemin(s) de l'arbre donnent une somme de 8 : la face maximale étant 4, un seul chemin convient."
+      ],
+      "figure": {
+        "kind": "tree",
+        "branches": [
+          {
+            "label": "Boule rouge",
+            "proba": "0,4",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          },
+          {
+            "label": "Boule bleue",
+            "proba": "0,6",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          }
+        ],
+        "alt": "Arbre pondéré à deux tirages successifs."
+      },
+      "quizExerciseIds": [
+        1201,
+        1202,
+        1203
+      ],
+      "topic_id": "construire-et-utiliser-un-arbre-de-probabilites",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Construire et utiliser un arbre de probabilités."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "construire",
+        "utiliser",
+        "arbre",
+        "probabilites"
+      ]
+    },
+    {
+      "id": "determiner-la-probabilite-d-un-evenement",
+      "title": "Déterminer la probabilité d'un évènement",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : déterminer la probabilité d'un évènement.\n\nCette notion sert à estimer les chances qu'un événement se produise avant qu'il n'arrive, par exemple au jeu, en météo ou en médecine.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances un dé : tu ne sais pas à l'avance quel numéro va sortir, mais tu sais que chaque face a la même chance de sortir. La probabilité, c'est justement ce qui mesure cette chance, entre 0 (impossible) et 1 (certain).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Déterminer la probabilité d'un évènement.",
+      "definition": "Espagnol et italien sont incompatibles ; leur réunion est justement l'évènement contraire de « allemand », puisque chaque élève suit une seule langue.",
+      "definitions": {
+        "lycee": "Espagnol et italien sont incompatibles ; leur réunion est justement l'évènement contraire de « allemand », puisque chaque élève suit une seule langue.",
+        "college": "Liste les multiples de 3 compris entre 1 et 8."
+      },
+      "intuition": "Une probabilité est toujours un nombre compris entre 0 et 1 (ou entre 0 % et 100 %). Ne confonds jamais un événement (une situation possible, comme « obtenir un nombre pair ») avec sa probabilité (le nombre qui mesure sa chance de se réaliser).",
+      "reglesImportantes": [
+        "Utilise d'abord la somme des probabilités égale à 1 pour trouver $P(\\text{jaune})$, puis additionne des probabilités d'évènements incompatibles.",
+        "Les trois activités (et « aucune activité ») sont incompatibles entre elles ; « non yoga » regroupe toutes les autres possibilités.",
+        "Les évènements « aimer A » et « aimer B » sont incompatibles ici ; « n'aimer aucun » est l'évènement contraire de leur réunion.",
+        "Utilise la somme des probabilités égale à 1 pour trouver $P(\\text{rouge})$, puis compare « non blanche » à « noire ou rouge ».",
+        "« Non production » est l'évènement contraire de « production », et regroupe logistique et autre service (incompatibles)."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Déterminer la probabilité d'un évènement",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les faces paires sont 2, 4 et 6, soit 3 issues favorables sur 6."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $P(\\text{pair}) = \\dfrac{3}{6}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $P(\\text{pair}) = \\dfrac{1}{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1170",
+          "titre": "Exemple 1",
+          "enonce": "On lance un dé équilibré à 6 faces. Quelle est la probabilité d'obtenir un nombre pair ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les faces paires sont 2, 4 et 6, soit 3 issues favorables sur 6."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(\\text{pair}) = \\dfrac{3}{6}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(\\text{pair}) = \\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$P(\\text{pair}) = \\dfrac{1}{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{pair}) = \\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1176",
+          "titre": "Exemple 2",
+          "enonce": "On lance un dé équilibré à 6 faces. Quelle est la probabilité d'obtenir un nombre supérieur ou égal à 4 ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les faces concernées sont 4, 5 et 6, soit 3 issues favorables sur 6."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(\\geqslant 4) = \\dfrac{3}{6}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(\\geqslant 4) = \\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$P(\\geqslant 4) = \\dfrac{1}{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\geqslant 4) = \\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1182",
+          "titre": "Exemple 3",
+          "enonce": "Un sac contient 25 jetons numérotés de 1 à 25. On tire un jeton au hasard. Quelle est la probabilité de ne pas tirer un multiple de 4 ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les multiples de 4 entre 1 et 25 sont 4, 8, 12, 16, 20 et 24, soit 6 jetons : $P(\\text{multiple de 4}) = \\dfrac{6}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'évènement contraire est « ne pas tirer un multiple de 4 » : $P(\\text{non multiple de 4}) = 1 - \\dfrac{6}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(\\text{non multiple de 4}) = \\dfrac{19}{25}$."
+            }
+          ],
+          "reponse": "$P(\\text{non multiple de 4}) = \\dfrac{19}{25}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{non multiple de 4}) = \\dfrac{19}{25}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1188",
+          "titre": "Exemple 4",
+          "enonce": "Lors d'un sondage auprès de 500 personnes, 220 déclarent aimer le film A et 150 déclarent aimer le film B (aucune personne n'aime les deux films). On interroge une personne au hasard. Calculer la probabilité qu'elle aime l'un des deux films, puis celle qu'elle n'aime aucun des deux.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $P(A) = \\dfrac{220}{500}$ et $P(B) = \\dfrac{150}{500}$, donc $P(\\text{A ou B}) = \\dfrac{370}{500} = \\dfrac{37}{50}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(\\text{aucun}) = 1 - \\dfrac{37}{50}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(\\text{aucun}) = \\dfrac{13}{50}$."
+            }
+          ],
+          "reponse": "$P(\\text{A ou B}) = \\dfrac{37}{50}$ et $P(\\text{aucun}) = \\dfrac{13}{50}$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{A ou B}) = \\dfrac{37}{50}$ et $P(\\text{aucun}) = \\dfrac{13}{50}$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "les jeux de dés, de cartes ou de pile ou face",
+        "les prévisions météorologiques (chance de pluie)",
+        "un test médical (probabilité d'être malade selon le résultat)"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour vérifier un calcul de probabilité, rappelle-toi que la somme des probabilités de tous les résultats possibles doit toujours faire exactement 1.",
+      "aRetenir": [
+        "Utilise d'abord la somme des probabilités égale à 1 pour trouver $P(\\text{jaune})$, puis additionne des probabilités d'évènements incompatibles.",
+        "Les trois activités (et « aucune activité ») sont incompatibles entre elles ; « non yoga » regroupe toutes les autres possibilités.",
+        "Les évènements « aimer A » et « aimer B » sont incompatibles ici ; « n'aimer aucun » est l'évènement contraire de leur réunion.",
+        "Utilise la somme des probabilités égale à 1 pour trouver $P(\\text{rouge})$, puis compare « non blanche » à « noire ou rouge ».",
+        "« Non production » est l'évènement contraire de « production », et regroupe logistique et autre service (incompatibles).",
+        "Gagner le gros lot et gagner un petit lot sont incompatibles ; perdre est l'évènement contraire de « gagner un lot »."
+      ],
+      "figure": {
+        "kind": "tree",
+        "branches": [
+          {
+            "label": "Boule rouge",
+            "proba": "0,4",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          },
+          {
+            "label": "Boule bleue",
+            "proba": "0,6",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          }
+        ],
+        "alt": "Arbre pondéré à deux tirages successifs."
+      },
+      "quizExerciseIds": [
+        1171,
+        1172,
+        1173
+      ],
+      "topic_id": "determiner-la-probabilite-d-un-evenement",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Déterminer la probabilité d'un évènement."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "determiner",
+        "probabilite",
+        "evenement"
+      ]
+    },
+    {
+      "id": "modeliser-une-experience-aleatoire-et-equiprobabilite",
+      "title": "Modéliser une expérience aléatoire et équiprobabilité",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : modéliser une expérience aléatoire et équiprobabilité.\n\nCette notion sert à estimer les chances qu'un événement se produise avant qu'il n'arrive, par exemple au jeu, en météo ou en médecine.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances un dé : tu ne sais pas à l'avance quel numéro va sortir, mais tu sais que chaque face a la même chance de sortir. La probabilité, c'est justement ce qui mesure cette chance, entre 0 (impossible) et 1 (certain).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Modéliser une expérience aléatoire et équiprobabilité.",
+      "definition": "Chaque pièce a deux résultats équiprobables ; en combinant les deux pièces, on obtient 4 issues toutes aussi probables les unes que les autres.",
+      "definitions": {
+        "lycee": "Chaque pièce a deux résultats équiprobables ; en combinant les deux pièces, on obtient 4 issues toutes aussi probables les unes que les autres.",
+        "college": "Les 12 cases sont de même taille, donc équiprobables."
+      },
+      "intuition": "Une probabilité est toujours un nombre compris entre 0 et 1 (ou entre 0 % et 100 %). Ne confonds jamais un événement (une situation possible, comme « obtenir un nombre pair ») avec sa probabilité (le nombre qui mesure sa chance de se réaliser).",
+      "reglesImportantes": [
+        "La loi des grands nombres affirme que la fréquence observée se rapproche de la probabilité théorique quand le nombre d'essais est grand.",
+        "Note $r$ le nombre de boules rouges ajoutées : le total de boules devient $6+r$, et pose l'équation $\\dfrac{6}{6+r} = \\dfrac{3}{5}$.",
+        "La somme des probabilités de toutes les issues doit être égale à 1 : additionne les quatre expressions et résous l'équation en $x$.",
+        "Construis un tableau à double entrée des résultats du dé rouge (lignes) et du dé bleu (colonnes) pour dénombrer les issues.",
+        "Compare la probabilité théorique (calculée avec l'équiprobabilité des 37 cases) à la fréquence obtenue expérimentalement."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Modéliser une expérience aléatoire et équiprobabilité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le dé possède 6 faces équiprobables."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : chaque face a donc la probabilité $\\dfrac{1}{6}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $P(\\text{« 4 »}) = \\dfrac{1}{6}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1140",
+          "titre": "Exemple 1",
+          "enonce": "On lance un dé cubique équilibré dont les faces sont numérotées de 1 à 6. Quelle est la probabilité d'obtenir la face « 4 » ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le dé possède 6 faces équiprobables."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : chaque face a donc la probabilité $\\dfrac{1}{6}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(\\text{« 4 »}) = \\dfrac{1}{6}$."
+            }
+          ],
+          "reponse": "$P(\\text{« 4 »}) = \\dfrac{1}{6}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{« 4 »}) = \\dfrac{1}{6}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1146",
+          "titre": "Exemple 2",
+          "enonce": "Une roue possède 4 secteurs. Les probabilités d'obtenir rouge, bleu et vert sont respectivement 0,3 puis 0,25 puis 0,2. Quelle est la probabilité d'obtenir jaune ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $P(\\text{rouge}) + P(\\text{bleu}) + P(\\text{vert}) = 0{,}3 + 0{,}25 + 0{,}2 = 0{,}75$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la somme des 4 probabilités doit valoir 1, donc $P(\\text{jaune}) = 1 - 0{,}75$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $P(\\text{jaune}) = 0{,}25$."
+            }
+          ],
+          "reponse": "$P(\\text{jaune}) = 0{,}25$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{jaune}) = 0{,}25$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1152",
+          "titre": "Exemple 3",
+          "enonce": "Une urne contient 3 boules rouges, 2 boules bleues et 5 boules vertes, indiscernables au toucher (10 boules en tout). Chaque boule a-t-elle la même probabilité d'être tirée que n'importe quelle autre ? Les couleurs rouge et bleue sont-elles pour autant équiprobables ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les 10 boules sont indiscernables au toucher, donc chacune a la probabilité $\\dfrac{1}{10}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $P(\\text{rouge}) = \\dfrac{3}{10}$ (3 boules rouges) et $P(\\text{bleu}) = \\dfrac{2}{10}$ (2 boules bleues)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\dfrac{3}{10} \\neq \\dfrac{2}{10}$, donc rouge et bleu ne sont pas équiprobables, même si chaque boule l'est."
+            }
+          ],
+          "reponse": "Chaque boule a la probabilité $\\dfrac{1}{10}$, mais $P(\\text{rouge}) = \\dfrac{3}{10} \\neq P(\\text{bleu}) = \\dfrac{2}{10}$ : les couleurs ne sont pas équiprobables.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Chaque boule a la probabilité $\\dfrac{1}{10}$, mais $P(\\text{rouge}) = \\dfrac{3}{10} \\neq P(\\text{bleu}) = \\dfrac{2}{10}$ : les couleurs ne sont pas équiprobables.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1158",
+          "titre": "Exemple 4",
+          "enonce": "On lance 1000 fois un dé équilibré à 6 faces et on obtient la face « 6 » avec une fréquence de 0,162. Calculer la probabilité théorique d'obtenir un « 6 » et comparer avec la fréquence observée, en citant la loi des grands nombres.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le dé est équilibré, donc $P(\\text{« 6 »}) = \\dfrac{1}{6} \\approx 0{,}167$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la fréquence observée sur 1000 lancers est 0,162, très proche de 0,167."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : conformément à la loi des grands nombres, cet écart s'explique par le hasard sur un nombre fini d'essais ; le dé semble bien équilibré."
+            }
+          ],
+          "reponse": "$P(\\text{« 6 »}) = \\dfrac{1}{6} \\approx 0{,}167$, valeur très proche de la fréquence observée 0,162.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $P(\\text{« 6 »}) = \\dfrac{1}{6} \\approx 0{,}167$, valeur très proche de la fréquence observée 0,162.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "les jeux de dés, de cartes ou de pile ou face",
+        "les prévisions météorologiques (chance de pluie)",
+        "un test médical (probabilité d'être malade selon le résultat)"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour vérifier un calcul de probabilité, rappelle-toi que la somme des probabilités de tous les résultats possibles doit toujours faire exactement 1.",
+      "aRetenir": [
+        "La loi des grands nombres affirme que la fréquence observée se rapproche de la probabilité théorique quand le nombre d'essais est grand.",
+        "Note $r$ le nombre de boules rouges ajoutées : le total de boules devient $6+r$, et pose l'équation $\\dfrac{6}{6+r} = \\dfrac{3}{5}$.",
+        "La somme des probabilités de toutes les issues doit être égale à 1 : additionne les quatre expressions et résous l'équation en $x$.",
+        "Construis un tableau à double entrée des résultats du dé rouge (lignes) et du dé bleu (colonnes) pour dénombrer les issues.",
+        "Compare la probabilité théorique (calculée avec l'équiprobabilité des 37 cases) à la fréquence obtenue expérimentalement.",
+        "Additionne les 6 probabilités $\\dfrac{1}{21}, \\dfrac{2}{21}, \\ldots, \\dfrac{6}{21}$ pour vérifier qu'elles totalisent 1."
+      ],
+      "figure": {
+        "kind": "tree",
+        "branches": [
+          {
+            "label": "Boule rouge",
+            "proba": "0,4",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          },
+          {
+            "label": "Boule bleue",
+            "proba": "0,6",
+            "branches": [
+              {
+                "label": "Rouge",
+                "proba": "0,4"
+              },
+              {
+                "label": "Bleue",
+                "proba": "0,6"
+              }
+            ]
+          }
+        ],
+        "alt": "Arbre pondéré à deux tirages successifs."
+      },
+      "quizExerciseIds": [
+        1141,
+        1142,
+        1143
+      ],
+      "topic_id": "modeliser-une-experience-aleatoire-et-equiprobabilite",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Modéliser une expérience aléatoire et équiprobabilité."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "modeliser",
+        "experience",
+        "aleatoire",
+        "equiprobabilite"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debug Runtime — NovaMath (dev only)</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px;
+    font: 13px/1.5 ui-monospace, "SF Mono", Consolas, monospace;
+    background: #0d0d12;
+    color: #d6d6e0;
+  }
+  h1 { font-size: 18px; color: #fff; margin: 0 0 4px; }
+  .subtitle { color: #8a8aa0; margin: 0 0 20px; }
+  .warning {
+    background: #3a1c1c; border: 1px solid #7a2c2c; color: #ffb4b4;
+    padding: 10px 14px; border-radius: 6px; margin-bottom: 20px; font-weight: 600;
+  }
+  .toolbar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  button {
+    font: inherit; background: #24243a; color: #d6d6e0; border: 1px solid #3a3a55;
+    padding: 8px 14px; border-radius: 6px; cursor: pointer;
+  }
+  button:hover { background: #30304a; }
+  section {
+    background: #16161f; border: 1px solid #26263a; border-radius: 8px;
+    margin-bottom: 16px; overflow: hidden;
+  }
+  section > h2 {
+    margin: 0; padding: 10px 14px; background: #1d1d2c; color: #a7b8ff;
+    font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid #26263a;
+  }
+  section > .body { padding: 14px; }
+  table { border-collapse: collapse; width: 100%; }
+  table td { padding: 3px 8px 3px 0; vertical-align: top; }
+  table td:first-child { color: #8a8aa0; white-space: nowrap; }
+  pre {
+    margin: 0; white-space: pre-wrap; word-break: break-all;
+    background: #0d0d16; padding: 8px 10px; border-radius: 4px; border: 1px solid #26263a;
+  }
+  .kv { margin-bottom: 10px; }
+  .kv-key { color: #ffcb6b; }
+  .ok { color: #7ee787; }
+  .fail { color: #ff7b72; }
+  .muted { color: #6a6a80; }
+  .api-block { margin-bottom: 14px; }
+  .api-block:last-child { margin-bottom: 0; }
+  .status-badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-weight: 700; font-size: 11px; }
+  .status-2xx { background: #103d1e; color: #7ee787; }
+  .status-4xx, .status-5xx { background: #3d1010; color: #ff7b72; }
+  .status-err { background: #3d1010; color: #ff7b72; }
+  #errors-list li { color: #ff7b72; margin-bottom: 6px; }
+  #errors-empty { color: #6a6a80; }
+</style>
+</head>
+<body>
+
+<h1>🔧 Debug Runtime</h1>
+<p class="subtitle">Outil de diagnostic temporaire — accessible uniquement quand le serveur tourne en mode développement (config.DEBUG).</p>
+<div class="warning">Page de diagnostic temporaire. Ne jamais exposer en production — protégée côté serveur par config.DEBUG (404 sinon).</div>
+
+<div class="toolbar">
+  <button id="btn-refresh">Rafraîchir tout</button>
+  <button id="btn-copy">Copier tout en JSON</button>
+  <span id="copy-feedback" class="muted"></span>
+</div>
+
+<section>
+  <h2>Authentification</h2>
+  <div class="body" id="sec-auth">Chargement…</div>
+</section>
+
+<section>
+  <h2>Local Storage (novamath:* / lumis:*)</h2>
+  <div class="body" id="sec-localstorage">Chargement…</div>
+</section>
+
+<section>
+  <h2>Session Storage</h2>
+  <div class="body" id="sec-sessionstorage">Chargement…</div>
+</section>
+
+<section>
+  <h2>Cookies</h2>
+  <div class="body" id="sec-cookies">Chargement…</div>
+</section>
+
+<section>
+  <h2>Pending Series (lumis:pending_series)</h2>
+  <div class="body" id="sec-pending">Chargement…</div>
+</section>
+
+<section>
+  <h2>Current Series (lumis:series_in_progress)</h2>
+  <div class="body" id="sec-current-series">Chargement…</div>
+</section>
+
+<section>
+  <h2>Current Exercise (dernière question connue de la série en cours)</h2>
+  <div class="body" id="sec-current-exercise">Chargement…</div>
+</section>
+
+<section>
+  <h2>API (tests en direct)</h2>
+  <div class="body" id="sec-api">Chargement…</div>
+</section>
+
+<section>
+  <h2>JS (erreurs capturées depuis l'ouverture de cette page)</h2>
+  <div class="body" id="sec-js">
+    <ul id="errors-list"></ul>
+    <p id="errors-empty">Aucune erreur capturée pour l'instant.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Navigation</h2>
+  <div class="body" id="sec-nav">Chargement…</div>
+</section>
+
+<section>
+  <h2>Environnement</h2>
+  <div class="body" id="sec-env">Chargement…</div>
+</section>
+
+<script type="module" src="js/debug-runtime.js"></script>
+</body>
+</html>

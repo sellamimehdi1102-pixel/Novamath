@@ -9,7 +9,7 @@ additifs : mastered_topics, et le resolver lui-même).
 import unittest
 from unittest.mock import patch
 
-from chatbot import context_builder, student_context_resolver as scr
+from chatbot import student_context_resolver as scr
 from chatbot.validate_student_context import validate_student_context
 
 FAKE_HISTORY = [

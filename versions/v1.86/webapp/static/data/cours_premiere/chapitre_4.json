@@ -1,0 +1,534 @@
+{
+  "chapterId": "Chapitre_4",
+  "title": "Chapitre 4",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "nombre-derive-et-extremums-locaux",
+      "title": "Nombre dérivé et extremums locaux",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : nombre dérivé et extremums locaux.\n\nCette notion sert à mesurer la vitesse à laquelle une quantité change à un instant précis, par exemple la vitesse instantanée d'une voiture.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu regardes le compteur de vitesse d'une voiture : il ne donne pas la vitesse moyenne du trajet, mais la vitesse exacte à cet instant précis. La dérivée fait exactement ça pour une fonction : elle donne sa vitesse de variation à un instant donné.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Nombre dérivé et extremums locaux.",
+      "definition": "Un extremum local correspond à une valeur où $f'$ s'annule en changeant de signe.",
+      "definitions": {
+        "lycee": "Un extremum local correspond à une valeur où $f'$ s'annule en changeant de signe."
+      },
+      "intuition": "Le nombre dérivé en un point donne la pente de la tangente à la courbe en ce point. Un extremum local (maximum ou minimum) correspond toujours à un endroit où la dérivée s'annule et change de signe — ne confonds pas « dérivée nulle » et « extremum » : les deux vont ensemble, mais il faut aussi vérifier le changement de signe.",
+      "reglesImportantes": [],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Nombre dérivé et extremums locaux",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : en posant $u = x$, $f(x) = (u^3-12u)+0$, donc $f'(x) = 3(u^2-2^2) = 3(x+2)(x-2)$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $f'(x)=0$ pour $x=-2$ ou $x=2$, et le signe de $f'$ change en chacune de ces valeurs."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : en $x=-2$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-2) = 16$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : en $x=2$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(2) = -16$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-826",
+          "titre": "Exemple 1",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = (x)^3 - 12(x) +0$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : en posant $u = x$, $f(x) = (u^3-12u)+0$, donc $f'(x) = 3(u^2-2^2) = 3(x+2)(x-2)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f'(x)=0$ pour $x=-2$ ou $x=2$, et le signe de $f'$ change en chacune de ces valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en $x=-2$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-2) = 16$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en $x=2$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(2) = -16$."
+            }
+          ],
+          "reponse": "Maximum local $16$ en $x=-2$ ; minimum local $-16$ en $x=2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Maximum local $16$ en $x=-2$ ; minimum local $-16$ en $x=2$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-838",
+          "titre": "Exemple 2",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = −\\left[(x+3)^3 - 3(x+3)\\right] +0$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : en posant $u = x+3$, $f(x) = -1(u^3-3u)+0$, donc $f'(x) = -3(u^2-1^2) = -3(x+4)(x+2)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f'(x)=0$ pour $x=-4$ ou $x=-2$, et le signe de $f'$ change en chacune de ces valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en $x=-2$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-2) = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en $x=-4$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(-4) = -2$."
+            }
+          ],
+          "reponse": "Maximum local $2$ en $x=-2$ ; minimum local $-2$ en $x=-4$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Maximum local $2$ en $x=-2$ ; minimum local $-2$ en $x=-4$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-850",
+          "titre": "Exemple 3",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = −\\left[(x-3)^3 - 147(x-3)\\right] +6$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : en posant $u = x-3$, $f(x) = -1(u^3-147u)+6$, donc $f'(x) = -3(u^2-7^2) = -3(x+4)(x-10)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f'(x)=0$ pour $x=-4$ ou $x=10$, et le signe de $f'$ change en chacune de ces valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en $x=10$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(10) = 692$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en $x=-4$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(-4) = -680$."
+            }
+          ],
+          "reponse": "Maximum local $692$ en $x=10$ ; minimum local $-680$ en $x=-4$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Maximum local $692$ en $x=10$ ; minimum local $-680$ en $x=-4$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-862",
+          "titre": "Exemple 4",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = −\\left[(x+3)^3 - 12(x+3)\\right] -5$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : en posant $u = x+3$, $f(x) = -1(u^3-12u)-5$, donc $f'(x) = -3(u^2-2^2) = -3(x+5)(x+1)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f'(x)=0$ pour $x=-5$ ou $x=-1$, et le signe de $f'$ change en chacune de ces valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en $x=-1$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-1) = 11$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en $x=-5$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(-5) = -21$."
+            }
+          ],
+          "reponse": "Maximum local $11$ en $x=-1$ ; minimum local $-21$ en $x=-5$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Maximum local $11$ en $x=-1$ ; minimum local $-21$ en $x=-5$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la vitesse instantanée affichée par le compteur d'une voiture",
+        "trouver le moment où un bénéfice est maximal",
+        "trouver la dimension qui minimise la matière utilisée pour fabriquer un objet"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir ce qu'est une dérivée, pense au compteur de vitesse : ce n'est jamais une moyenne, toujours une valeur instantanée.",
+      "aRetenir": [],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                2.0
+              ],
+              [
+                0.5,
+                2.4375
+              ],
+              [
+                1.0,
+                2.75
+              ],
+              [
+                1.5,
+                2.9375
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.9375
+              ],
+              [
+                3.0,
+                2.75
+              ],
+              [
+                3.5,
+                2.4375
+              ],
+              [
+                4.0,
+                2.0
+              ],
+              [
+                4.5,
+                1.4375
+              ],
+              [
+                5.0,
+                0.75
+              ],
+              [
+                5.5,
+                -0.0625
+              ],
+              [
+                6.0,
+                -1.0
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 3,
+            "y": 2.75,
+            "label": "point de contact"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1.2,
+              "y": 4.05
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.45
+            }
+          }
+        ],
+        "alt": "La tangente à la courbe au point de contact a pour pente le nombre dérivé en ce point."
+      },
+      "quizExerciseIds": [
+        827,
+        828,
+        829
+      ],
+      "topic_id": "nombre-derive-et-extremums-locaux",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Nombre dérivé et extremums locaux."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "nombre",
+        "derive",
+        "extremums",
+        "locaux"
+      ]
+    },
+    {
+      "id": "variations-d-une-fonction",
+      "title": "Variations d'une fonction",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : variations d'une fonction.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Variations d'une fonction.",
+      "definition": "Le signe de $f'$ (produit de deux facteurs affines) donne directement les variations de $f$.",
+      "definitions": {
+        "lycee": "Le signe de $f'$ (produit de deux facteurs affines) donne directement les variations de $f$."
+      },
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "reglesImportantes": [],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Variations d'une fonction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f'(x)$ s'annule en $x=-5$ et $x=-3$, qui partagent $\\mathbb{R}$ en trois intervalles."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : en étudiant le signe du produit $(x+5)(x+3)$ multiplié par $-2$, on obtient le signe de $f'$ sur chaque intervalle."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $f$ est donc décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -3]$, puis décroissante sur $[-3 ; +\\infty[$, car $f$ est croissante là où $f'\\geqslant 0$ et décroissante là où $f'\\leqslant 0$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-767",
+          "titre": "Exemple 1",
+          "enonce": "Soit $f$ une fonction dérivable sur $\\mathbb{R}$ telle que, pour tout réel $x$, $f'(x) = -2(x+5)(x+3)$. Étudier le signe de $f'(x)$ puis en déduire les variations de $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f'(x)$ s'annule en $x=-5$ et $x=-3$, qui partagent $\\mathbb{R}$ en trois intervalles."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en étudiant le signe du produit $(x+5)(x+3)$ multiplié par $-2$, on obtient le signe de $f'$ sur chaque intervalle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f$ est donc décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -3]$, puis décroissante sur $[-3 ; +\\infty[$, car $f$ est croissante là où $f'\\geqslant 0$ et décroissante là où $f'\\leqslant 0$."
+            }
+          ],
+          "reponse": "$f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -3]$, puis décroissante sur $[-3 ; +\\infty[$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -3]$, puis décroissante sur $[-3 ; +\\infty[$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-779",
+          "titre": "Exemple 2",
+          "enonce": "Soit $f$ une fonction dérivable sur $\\mathbb{R}$ telle que, pour tout réel $x$, $f'(x) = -4(x+5)(x+2)$. Étudier le signe de $f'(x)$ puis en déduire les variations de $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f'(x)$ s'annule en $x=-5$ et $x=-2$, qui partagent $\\mathbb{R}$ en trois intervalles."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en étudiant le signe du produit $(x+5)(x+2)$ multiplié par $-4$, on obtient le signe de $f'$ sur chaque intervalle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f$ est donc décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -2]$, puis décroissante sur $[-2 ; +\\infty[$, car $f$ est croissante là où $f'\\geqslant 0$ et décroissante là où $f'\\leqslant 0$."
+            }
+          ],
+          "reponse": "$f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -2]$, puis décroissante sur $[-2 ; +\\infty[$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -2]$, puis décroissante sur $[-2 ; +\\infty[$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-791",
+          "titre": "Exemple 3",
+          "enonce": "Soit $f$ une fonction dérivable sur $\\mathbb{R}$ telle que, pour tout réel $x$, $f'(x) = -4(x+6)(x-0)$. Étudier le signe de $f'(x)$ puis en déduire les variations de $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f'(x)$ s'annule en $x=-6$ et $x=0$, qui partagent $\\mathbb{R}$ en trois intervalles."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en étudiant le signe du produit $(x+6)(x-0)$ multiplié par $-4$, on obtient le signe de $f'$ sur chaque intervalle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f$ est donc décroissante sur $]-\\infty ; -6]$, croissante sur $[-6 ; 0]$, puis décroissante sur $[0 ; +\\infty[$, car $f$ est croissante là où $f'\\geqslant 0$ et décroissante là où $f'\\leqslant 0$."
+            }
+          ],
+          "reponse": "$f$ est décroissante sur $]-\\infty ; -6]$, croissante sur $[-6 ; 0]$, puis décroissante sur $[0 ; +\\infty[$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f$ est décroissante sur $]-\\infty ; -6]$, croissante sur $[-6 ; 0]$, puis décroissante sur $[0 ; +\\infty[$.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-803",
+          "titre": "Exemple 4",
+          "enonce": "Soit $f$ une fonction dérivable sur $\\mathbb{R}$ telle que, pour tout réel $x$, $f'(x) = -2(x+5)(x+1)$. Étudier le signe de $f'(x)$ puis en déduire les variations de $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f'(x)$ s'annule en $x=-5$ et $x=-1$, qui partagent $\\mathbb{R}$ en trois intervalles."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : en étudiant le signe du produit $(x+5)(x+1)$ multiplié par $-2$, on obtient le signe de $f'$ sur chaque intervalle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f$ est donc décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -1]$, puis décroissante sur $[-1 ; +\\infty[$, car $f$ est croissante là où $f'\\geqslant 0$ et décroissante là où $f'\\leqslant 0$."
+            }
+          ],
+          "reponse": "$f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -1]$, puis décroissante sur $[-1 ; +\\infty[$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -1]$, puis décroissante sur $[-1 ; +\\infty[$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        768,
+        769,
+        770
+      ],
+      "topic_id": "variations-d-une-fonction",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Variations d'une fonction."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "variations",
+        "fonction"
+      ]
+    }
+  ]
+}

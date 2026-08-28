@@ -15,8 +15,8 @@ import shutil
 from pathlib import Path
 
 import backup_service
-import config
 import db
+import email_service
 import stripe_service
 
 logger = logging.getLogger("health_service")
@@ -72,6 +72,20 @@ def check_disk_space(min_free_mb=MIN_FREE_DISK_MB):
         return (usage.free / (1024 * 1024)) >= min_free_mb
     except OSError as e:
         logger.error("Health check : impossible de lire l'espace disque : %s", e)
+        return False
+
+
+def check_smtp_configured():
+    """Configuration uniquement (EMAIL_SMTP_HOST + EMAIL_FROM_ADDRESS
+    présentes) — jamais de connexion SMTP réelle depuis un health check, même
+    politique que check_stripe_configured() ci-dessus. Utilisée uniquement
+    par system_health_service.py (page Santé du système) : volontairement
+    PAS ajoutée à snapshot()/GET /api/health pour ne rien changer au statut
+    déjà surveillé par un éventuel load balancer/uptime monitor externe."""
+    try:
+        return email_service.is_configured()
+    except Exception as e:
+        logger.error("Health check : impossible de vérifier la configuration SMTP : %s", e)
         return False
 
 

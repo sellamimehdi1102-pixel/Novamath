@@ -139,6 +139,15 @@ class TestEmailTemplates(unittest.TestCase):
         subject, html, text = email_service.build_policy_updated_email("Eleve")
         self.assertIn("Eleve", html)
 
+    def test_build_password_reset_email_contient_le_lien(self):
+        subject, html, text = email_service.build_password_reset_email(
+            "Eleve", "https://novamath.fr/reset-password.html?token=abc123"
+        )
+        self.assertIn("réinitialisation", subject.lower())
+        self.assertIn("https://novamath.fr/reset-password.html?token=abc123", html)
+        self.assertIn("https://novamath.fr/reset-password.html?token=abc123", text)
+        self.assertIn("Eleve", html)
+
     def test_templates_ne_contiennent_jamais_de_script(self):
         _, html, _ = email_service.build_parental_consent_request_email(
             "Eleve", "https://novamath.fr/parent/consent/abc123", "2026-12-31"

@@ -129,6 +129,35 @@ class TestAssemblageParBlocs(KnowledgeComposerTestCase):
         self.assertIsInstance(draft, krc.ResponseDraft)
         self.assertTrue(draft.text.strip())
 
+    def test_notion_introuvable_signale_notion_resolved_false(self):
+        """Audit du 2026-07-26 (épisode 2) : quand aucune notion n'a pu être
+        résolue du tout (chapter_id/topic_id absents), `notion_resolved` doit
+        être False — c'est ce signal, et non le texte lui-même, que
+        local_response_engine.py utilise pour décider si cette réponse est
+        valide ou doit être traitée comme un échec de ce moteur."""
+        strategy = rs.ResponseStrategy(
+            source=rs.SOURCE_LOCAL, engine=rs.ENGINE_KNOWLEDGE, confidence=50,
+            intent=intent_service.DEFINITION, chapter_id=None, topic_id=None,
+            quantity=None, difficulty=None, mode=None, should_use_llm=False,
+            fallback=rs.ENGINE_LLM, explanation="test",
+        )
+        draft = krc.compose(strategy, student_context=student_context())
+        self.assertFalse(draft.notion_resolved)
+        self.assertEqual(draft.blocks[0].kind, krc.BLOCK_INTROUVABLE)
+
+    def test_notion_resolue_signale_notion_resolved_true(self):
+        draft = self.compose("C'est quoi une puissance ?")
+        self.assertTrue(draft.notion_resolved)
+
+    def test_introuvable_ne_contient_jamais_lancien_message_froid(self):
+        """Garde-fou anti-régression (audit du 2026-07-26, épisode 2) :
+        l'ancienne formulation froide ("Je n'ai pas trouvé...") ne doit plus
+        jamais apparaître, même dans ce texte de repli interne."""
+        for variant in krc._INTROUVABLE_VARIANTS:
+            with self.subTest(variant=variant[:40]):
+                self.assertNotIn("Je n'ai pas trouvé", variant)
+                self.assertNotIn("je ne retrouve pas", variant.lower())
+
     def test_court_ne_contient_ni_introduction_ni_ouverture(self):
         ctx = student_context(parametres={**student_context()["parametres"], "longueur": "court"})
         draft = self.compose("C'est quoi une puissance ?", ctx=ctx)
@@ -257,6 +286,67 @@ class TestVariabiliteEtNonRepetition(KnowledgeComposerTestCase):
         self.assertIsInstance(draft, krc.ResponseDraft)
 
 
+class TestReformulationApporteUnAngleDifferent(KnowledgeComposerTestCase):
+    """Bug réel confirmé (audit "réponses répétitives", 2026-08-22) : le plan
+    de contenu de REFORMULATION était [BLOCK_DEFINITION] — EXACTEMENT le
+    même bloc, tiré du même texte fixe (`notion["definition"]`, jamais
+    randomisé), que le plan DEFINITION. Une reformulation ("explique
+    autrement", "je n'ai pas compris"...) sur une notion déjà expliquée
+    produisait donc un texte quasi identique à la première réponse. Correctif
+    : REFORMULATION mène désormais avec MÉTHODE + EXEMPLE (mécanismes déjà
+    existants, déjà randomisés) — la définition reste en dernier recours si
+    la notion n'a ni méthode ni exemple. Notion utilisée : Chapitre_1/
+    puissances-entieres-relatives (a une méthode ET des exemples, comme
+    "valeur-absolue-dun-nombre-reel" dans le cas réel rapporté)."""
+
+    def _reformulation_strategy(self, chapter_id="Chapitre_1", topic_id="puissances-entieres-relatives"):
+        return rs.ResponseStrategy(
+            source=rs.SOURCE_LOCAL, engine=rs.ENGINE_KNOWLEDGE, confidence=50,
+            intent=intent_service.REFORMULATION, chapter_id=chapter_id, topic_id=topic_id,
+            quantity=None, difficulty=None, mode=None, should_use_llm=False,
+            fallback=rs.ENGINE_LLM, explanation="test",
+        )
+
+    def _definition_strategy(self, chapter_id="Chapitre_1", topic_id="puissances-entieres-relatives"):
+        return rs.ResponseStrategy(
+            source=rs.SOURCE_LOCAL, engine=rs.ENGINE_KNOWLEDGE, confidence=50,
+            intent=intent_service.DEFINITION, chapter_id=chapter_id, topic_id=topic_id,
+            quantity=None, difficulty=None, mode=None, should_use_llm=False,
+            fallback=rs.ENGINE_LLM, explanation="test",
+        )
+
+    def test_reformulation_ne_reproduit_plus_le_meme_bloc_que_la_premiere_reponse(self):
+        premiere = krc.compose(self._definition_strategy(), student_context=student_context(), rng=random.Random(1))
+        reformulation = krc.compose(self._reformulation_strategy(), student_context=student_context(), rng=random.Random(1))
+        self.assertNotEqual(premiere.text, reformulation.text)
+
+    def test_reformulation_apporte_methode_et_exemple_quand_disponibles(self):
+        draft = krc.compose(self._reformulation_strategy(), student_context=student_context())
+        kinds = [b.kind for b in draft.blocks]
+        self.assertIn(krc.BLOCK_METHODE, kinds)
+        self.assertIn(krc.BLOCK_EXEMPLE, kinds)
+
+    def test_reformulation_garde_la_definition_en_filet_de_securite(self):
+        """La définition reste présente (dernier bloc du plan) — jamais
+        supprimée, seulement reléguée derrière un contenu plus varié."""
+        draft = krc.compose(self._reformulation_strategy(), student_context=student_context())
+        kinds = [b.kind for b in draft.blocks]
+        self.assertIn(krc.BLOCK_DEFINITION, kinds)
+
+    def test_reformulation_jamais_vide_meme_sans_methode_ni_exemple(self):
+        """Garde-fou : une notion sans méthode ni exemple doit encore
+        produire une réponse exploitable (repli sur la définition seule,
+        comportement inchangé pour ce cas limite)."""
+        strategy = rs.ResponseStrategy(
+            source=rs.SOURCE_LOCAL, engine=rs.ENGINE_KNOWLEDGE, confidence=50,
+            intent=intent_service.REFORMULATION, chapter_id=None, topic_id=None,
+            quantity=None, difficulty=None, mode=None, should_use_llm=False,
+            fallback=rs.ENGINE_LLM, explanation="test",
+        )
+        draft = krc.compose(strategy, student_context=student_context())
+        self.assertTrue(draft.text.strip())
+
+
 class TestMemoireDeStyleDefinition(KnowledgeComposerTestCase):
     """Blind spot corrigé (Phase Personality Engine) : _LEADIN_DEFINITION
     est le seul pool à contenir un placeholder ({title}) — la mémoire
@@ -366,6 +456,64 @@ class TestPerformance(KnowledgeComposerTestCase):
             krc.compose(strategy, student_context=ctx)
         avg_ms = (time.perf_counter() - t0) * 1000 / n
         self.assertLess(avg_ms, 5.0, "une composition ne doit pas dépasser quelques millisecondes")
+
+
+class TestPipelineReformulationBoutEnBout(unittest.TestCase):
+    """Rejoue la séquence réelle rapportée (audit "réponses répétitives",
+    2026-08-22) : intent_service.classify() (avec propagation du Current
+    Learning Context, comme le fait réellement conversation_manager.py) puis
+    knowledge_response_composer.compose(), sur plusieurs tours consécutifs.
+    Vérifie à la fois la STABILITÉ du routage (déjà gelé, ne doit jamais
+    dériver) et la VARIATION du contenu (le correctif de cette phase)."""
+
+    CHAPTER_ID = "Chapitre_2"
+    NOTION_ID = "valeur-absolue-dun-nombre-reel"
+
+    def _strategy(self, intent, chapter_id=CHAPTER_ID, topic_id=NOTION_ID):
+        return rs.ResponseStrategy(
+            source=rs.SOURCE_LOCAL, engine=rs.ENGINE_KNOWLEDGE, confidence=50,
+            intent=intent, chapter_id=chapter_id, topic_id=topic_id,
+            quantity=None, difficulty=None, mode=None, should_use_llm=False,
+            fallback=rs.ENGINE_LLM, explanation="test",
+        )
+
+    def test_plusieurs_reformulations_successives_notion_stable_et_contenu_varie(self):
+        from chatbot.services import intent_service as ins
+
+        r1 = ins.classify("c'est quoi une valeur absolue?", context_summary={}, class_level="seconde")
+        self.assertEqual((r1["chapter_id"], r1["notion_id"]), (self.CHAPTER_ID, self.NOTION_ID))
+        lc = {"chapter_id": r1["chapter_id"], "notion_id": r1["notion_id"]}
+
+        premiere = krc.compose(self._strategy(intent_service.DEFINITION), student_context=student_context())
+
+        for message in ["je ne comprends pas", "explique autrement", "encore une autre façon"]:
+            r = ins.classify(message, context_summary={}, class_level="seconde", learning_context=lc)
+            with self.subTest(message=message):
+                # Notion stable — jamais de dérive, quel que soit l'intent détecté.
+                self.assertEqual(r["chapter_id"], self.CHAPTER_ID)
+                self.assertEqual(r["notion_id"], self.NOTION_ID)
+            lc = {"chapter_id": r["chapter_id"], "notion_id": r["notion_id"]}
+            if r["intent"] == intent_service.REFORMULATION:
+                reformulation = krc.compose(self._strategy(r["intent"]), student_context=student_context())
+                self.assertNotEqual(reformulation.text, premiere.text)
+
+    def test_followup_normal_reste_followup_pas_reformulation(self):
+        from chatbot.services import intent_service as ins
+
+        lc = {"chapter_id": self.CHAPTER_ID, "notion_id": self.NOTION_ID}
+        for message in ["Pourquoi ?", "Continue."]:
+            with self.subTest(message=message):
+                r = ins.classify(message, context_summary={}, class_level="seconde", learning_context=lc)
+                self.assertEqual(r["intent"], intent_service.FOLLOWUP)
+                self.assertEqual(r["chapter_id"], self.CHAPTER_ID)
+                self.assertEqual(r["notion_id"], self.NOTION_ID)
+
+    def test_changement_de_sujet_explicite_toujours_possible(self):
+        from chatbot.services import intent_service as ins
+
+        lc = {"chapter_id": self.CHAPTER_ID, "notion_id": self.NOTION_ID}
+        r = ins.classify("Maintenant explique-moi les probabilités.", context_summary={}, class_level="seconde", learning_context=lc)
+        self.assertNotEqual(r["chapter_id"], self.CHAPTER_ID)
 
 
 if __name__ == "__main__":

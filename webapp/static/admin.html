@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administration — NovaMath</title>
+<meta name="application-name" content="NovaMath">
+<meta name="theme-color" content="#6366f1">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-shell">
+  <div class="admin-sidebar-overlay" id="admin-sidebar-overlay" hidden></div>
+
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="admin-sidebar-brand">
+      <span class="admin-topbar-brand">NovaMath</span>
+      <span class="admin-topbar-sep">/</span>
+      <span>Admin</span>
+    </div>
+    <nav class="admin-sidebar-nav" id="admin-sidebar-nav" aria-label="Navigation Administration">
+      <span class="admin-sidebar-skeleton admin-skeleton"></span>
+      <span class="admin-sidebar-skeleton admin-skeleton"></span>
+      <span class="admin-sidebar-skeleton admin-skeleton"></span>
+    </nav>
+  </aside>
+
+  <div class="admin-shell-main">
+    <header class="admin-header">
+      <button type="button" class="admin-sidebar-toggle" id="admin-sidebar-toggle" aria-label="Ouvrir le menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+
+      <nav class="admin-breadcrumb" id="admin-breadcrumb" aria-label="Fil d'Ariane"></nav>
+
+      <div class="admin-header-actions">
+        <a href="/dashboard.html" class="admin-back-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          <span>Retour à NovaMath</span>
+        </a>
+
+        <div class="admin-header-identity" id="admin-identity">
+          <span class="admin-identity-skeleton admin-skeleton"></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-content" id="admin-content">
+      <span class="admin-banner admin-banner--error" id="admin-global-error" hidden></span>
+      <div id="admin-content-body"></div>
+    </main>
+  </div>
+</div>
+
+<!-- Contenu du module Dashboard (voir admin-dashboard.js) — cloné dans
+     #admin-content-body uniquement quand ce module est actif. Refonte UX
+     (audit round 2) : 4 cartes réellement décisionnelles (Santé, Support,
+     IA, Utilisateurs actifs) + les alertes métier, déplacées depuis
+     /admin/analytics (seul endroit où elles existent désormais) — voir
+     admin_dashboard_service.py pour le détail des cartes retirées
+     (total utilisateurs, nouveaux 24h, répartition par plan, flux
+     d'activité brute : aucune ne permettait de décision en <30s). -->
+<template id="admin-dashboard-template">
+  <div class="admin-page-head">
+    <h1>Vue d'ensemble</h1>
+    <p class="admin-page-lead">Ce qui a besoin de ton attention aujourd'hui.</p>
+  </div>
+  <section class="admin-cards" id="admin-cards" aria-label="Indicateurs clés"></section>
+  <section class="admin-activity" aria-label="Alertes">
+    <h2>Alertes</h2>
+    <div id="admin-activity-body"></div>
+  </section>
+</template>
+
+<!-- Contenu du module Utilisateurs (voir admin-users.js) — lecture seule,
+     aucune action de modification (pas de bouton supprimer/modifier/
+     suspendre/réinitialiser/changer d'abonnement ou de rôle). -->
+<template id="admin-users-template">
+  <div class="admin-page-head">
+    <h1>Utilisateurs</h1>
+    <p class="admin-page-lead">Annuaire en lecture seule des comptes NovaMath.</p>
+  </div>
+  <div class="admin-users-toolbar">
+    <div class="admin-users-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="admin-users-search-input" placeholder="Rechercher un nom, un email…" aria-label="Rechercher un utilisateur">
+    </div>
+    <div class="admin-users-filters">
+      <select id="admin-users-filter-plan" aria-label="Filtrer par abonnement"></select>
+      <select id="admin-users-filter-role" aria-label="Filtrer par rôle"></select>
+      <select id="admin-users-filter-status" aria-label="Filtrer par statut"></select>
+      <select id="admin-users-filter-payment" aria-label="Filtrer par statut de paiement"></select>
+    </div>
+  </div>
+  <div class="admin-users-table-wrap">
+    <table class="admin-users-table" id="admin-users-table">
+      <thead><tr id="admin-users-thead-row"></tr></thead>
+      <tbody id="admin-users-tbody"></tbody>
+    </table>
+  </div>
+  <p class="admin-empty" id="admin-users-empty" hidden></p>
+  <nav class="admin-users-pagination" id="admin-users-pagination" aria-label="Pagination des utilisateurs"></nav>
+</template>
+
+<!-- Contenu du sous-chemin /admin/users/:id — pas un module du menu, une
+     sous-page du module Utilisateurs (voir admin-shell.js et
+     admin-user-profile.js pour la logique des 4 onglets à chargement
+     paresseux : Informations/Activité/Chatbot/Abonnement — Cours, Exercices
+     et Apprentissage sont repliés en sous-sections sous "Activité"). -->
+<template id="admin-user-profile-template">
+  <div class="admin-user-profile-head" id="admin-user-profile-head">
+    <span class="admin-avatar admin-avatar--lg admin-skeleton"></span>
+  </div>
+  <nav class="admin-tabs" id="admin-user-profile-tabs" aria-label="Sections de la fiche utilisateur"></nav>
+  <div class="admin-tab-panel" id="admin-user-profile-panel"></div>
+</template>
+
+<!-- Contenu du module IA (voir admin-ai.js) — panneau d'administration de la
+     CONFIGURATION TECHNIQUE des fournisseurs IA : créer/modifier/activer-
+     désactiver/supprimer un fournisseur, réordonner les priorités, tester un
+     fournisseur et lancer un health-check. 4 cartes : Fournisseurs IA (avec
+     provider_key/modèle en sous-ligne), État des fournisseurs, Consommation
+     IA, Clés API. L'assignation fournisseur ⇄ plan d'abonnement se gère
+     désormais depuis /admin/subscriptions (voir admin-subscriptions.js). -->
+<template id="admin-ai-template">
+  <div class="admin-page-head">
+    <h1>Fournisseurs IA</h1>
+    <p class="admin-page-lead">Configuration technique des fournisseurs IA réellement utilisés par le chatbot. L'assignation d'un fournisseur à un plan d'abonnement (Free/Premium/Ultra) se gère depuis la page <a href="/admin/subscriptions">Abonnements</a>.</p>
+  </div>
+
+  <section class="admin-section" aria-labelledby="admin-ai-providers-title">
+    <div class="admin-section-head-row">
+      <h2 class="admin-section-title" id="admin-ai-providers-title">Fournisseurs IA</h2>
+      <button type="button" class="admin-btn admin-btn--primary" id="admin-ai-new-provider-btn">+ Nouveau fournisseur</button>
+    </div>
+    <div class="admin-cards admin-ai-providers-grid" id="admin-ai-providers"></div>
+  </section>
+
+  <!-- Chantier Administrateur "IA" (Phase 2) : la carte "État des
+       fournisseurs" a été retirée en tant que section indépendante — elle
+       dupliquait presque intégralement l'onglet "État" de la fiche détaillée
+       (/admin/ia/:id, voir admin-ai-provider.js). Les mêmes données de santé
+       (GET /api/admin/ai/health, inchangée) alimentent désormais un badge
+       compact directement sur chaque carte de la section "Fournisseurs IA"
+       ci-dessus (voir admin-ai.js::providerHealthState/healthBadge) ; le
+       détail complet reste à un clic, sur la fiche. -->
+
+  <!-- Le graphique "Consommation journalière (tous fournisseurs)" a été
+       retiré : il dupliquait la série "tokens_per_day" déjà présente dans
+       Analytics (même table ai_provider_usage), même principe que les 6
+       graphiques IA déjà retirés de la page Santé au profit d'un lien. Lien
+       statique (même pattern que le lien "Abonnements" du paragraphe
+       d'introduction ci-dessus) plutôt qu'un bouton JS : pas de nouvelle
+       route, pas de nouveau câblage de navigation. -->
+  <section class="admin-section" aria-labelledby="admin-ai-usage-title">
+    <h2 class="admin-section-title" id="admin-ai-usage-title">Consommation IA — cumul à vie</h2>
+    <p class="admin-page-lead">Total de tous les appels enregistrés depuis toujours pour chaque fournisseur (jamais une fenêtre glissante). Pour l'évolution dans le temps et les classements par période, voir <a href="/admin/analytics">Analytics</a>.</p>
+    <h3 class="admin-analytics-subtitle">Détail par fournisseur</h3>
+    <div class="admin-ai-usage-list" id="admin-ai-usage"></div>
+  </section>
+
+  <section class="admin-section" aria-labelledby="admin-ai-keys-title">
+    <div class="admin-section-head-row">
+      <h2 class="admin-section-title" id="admin-ai-keys-title">Clés API (haute disponibilité)</h2>
+      <button type="button" class="admin-btn admin-btn--primary" id="admin-ai-new-key-btn">+ Ajouter une clé</button>
+    </div>
+    <p class="admin-form-hint">Plusieurs clés par fournisseur, essayées dans l'ordre de priorité — en cas d'échec (quota, clé invalide, erreur réseau), la clé suivante est utilisée automatiquement avant de changer de modèle ou de fournisseur.</p>
+    <div class="admin-ai-keys-list" id="admin-ai-keys"></div>
+  </section>
+</template>
+
+<!-- Modale de création d'une clé API (voir admin-ai.js::openApiKeyModal). -->
+<div class="admin-modal-overlay" id="admin-ai-key-modal" hidden>
+  <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="admin-ai-key-modal-title">
+    <div class="admin-modal-head">
+      <h2 id="admin-ai-key-modal-title">Nouvelle clé API</h2>
+      <button type="button" class="admin-modal-close" id="admin-ai-key-modal-close" aria-label="Fermer">×</button>
+    </div>
+    <div class="admin-modal-body" id="admin-ai-key-modal-body"></div>
+  </div>
+</div>
+
+<!-- Modale de création/modification d'un fournisseur IA (voir admin-ai.js::
+     openProviderModal) — un seul formulaire réutilisé pour les deux cas. -->
+<div class="admin-modal-overlay" id="admin-ai-provider-modal" hidden>
+  <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="admin-ai-provider-modal-title">
+    <div class="admin-modal-head">
+      <h2 id="admin-ai-provider-modal-title">Fournisseur IA</h2>
+      <button type="button" class="admin-modal-close" id="admin-ai-provider-modal-close" aria-label="Fermer">&times;</button>
+    </div>
+    <div id="admin-ai-provider-modal-body"></div>
+  </div>
+</div>
+
+<!-- Contenu du sous-chemin /admin/ia/:id — fiche détaillée d'un fournisseur,
+     3 onglets à chargement paresseux (même architecture que
+     admin-user-profile.js : une API par onglet, cache par onglet ;
+     Informations fusionne les anciens onglets Informations générales +
+     Configuration, strictement les mêmes champs). -->
+<template id="admin-ai-provider-template">
+  <div class="admin-user-profile-head" id="admin-ai-provider-head">
+    <span class="admin-avatar admin-avatar--lg admin-skeleton"></span>
+  </div>
+  <nav class="admin-tabs" id="admin-ai-provider-tabs" aria-label="Sections de la fiche fournisseur"></nav>
+  <div class="admin-tab-panel" id="admin-ai-provider-panel"></div>
+</template>
+
+<!-- Contenu du module Journal (voir admin-journal.js) — historique en lecture
+     seule de toutes les actions effectuées depuis le module Administration
+     IA (recherche/filtres/pagination/export), réutilise le composant table
+     déjà utilisé par le module Utilisateurs (.admin-users-table). -->
+<template id="admin-journal-template">
+  <div class="admin-page-head">
+    <h1>Journal d'activité IA</h1>
+    <p class="admin-page-lead">Historique complet des actions effectuées depuis le module Administration IA.</p>
+  </div>
+  <div class="admin-users-toolbar">
+    <div class="admin-users-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="admin-journal-search-input" placeholder="Rechercher un administrateur, un fournisseur, une erreur…" aria-label="Rechercher dans le journal">
+    </div>
+    <div class="admin-users-filters">
+      <select id="admin-journal-filter-admin" aria-label="Filtrer par administrateur"></select>
+      <select id="admin-journal-filter-provider" aria-label="Filtrer par fournisseur"></select>
+      <select id="admin-journal-filter-action" aria-label="Filtrer par action"></select>
+      <select id="admin-journal-filter-result" aria-label="Filtrer par résultat"></select>
+      <input type="date" id="admin-journal-filter-date-from" aria-label="Depuis le">
+      <input type="date" id="admin-journal-filter-date-to" aria-label="Jusqu'au">
+    </div>
+    <div class="admin-journal-export-actions">
+      <button type="button" class="admin-btn admin-btn--sm" id="admin-journal-export-csv">Exporter CSV</button>
+      <button type="button" class="admin-btn admin-btn--sm" id="admin-journal-export-json">Exporter JSON</button>
+    </div>
+  </div>
+  <div class="admin-filter-chips" id="admin-journal-filter-chips" hidden></div>
+  <div class="admin-users-table-wrap">
+    <table class="admin-users-table">
+      <thead><tr id="admin-journal-thead-row"></tr></thead>
+      <tbody id="admin-journal-tbody"></tbody>
+    </table>
+  </div>
+  <p class="admin-empty" id="admin-journal-empty" hidden></p>
+  <nav class="admin-users-pagination" id="admin-journal-pagination" aria-label="Pagination du journal"></nav>
+</template>
+
+<!-- Modale de détail d'une entrée de journal (anciennes/nouvelles valeurs). -->
+<div class="admin-modal-overlay" id="admin-journal-detail-modal" hidden>
+  <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="admin-journal-detail-modal-title">
+    <div class="admin-modal-head">
+      <h2 id="admin-journal-detail-modal-title">Détail de l'événement</h2>
+      <button type="button" class="admin-modal-close" id="admin-journal-detail-modal-close" aria-label="Fermer">&times;</button>
+    </div>
+    <div id="admin-journal-detail-modal-body"></div>
+  </div>
+</div>
+
+<!-- Contenu du module Support (voir admin-support.js) — tableau des tickets
+     (recherche/filtres/tri/pagination, réutilise .admin-users-table déjà
+     utilisé par Utilisateurs/Journal). Les vues "Vue d'ensemble" et "Tickets
+     par catégorie" ont été retirées (doublons du Dashboard/Analytics et des
+     filtres du tableau, voir chantier de simplification). -->
+<template id="admin-support-template">
+  <div class="admin-page-head">
+    <h1>Support</h1>
+    <p class="admin-page-lead">Gestion des tickets de support envoyés par les utilisateurs.</p>
+  </div>
+
+  <section class="admin-section" aria-labelledby="admin-support-tickets-title">
+    <h2 class="admin-section-title" id="admin-support-tickets-title">Tickets</h2>
+    <div class="admin-users-toolbar">
+      <div class="admin-users-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="admin-support-search-input" placeholder="Rechercher un sujet, un email…" aria-label="Rechercher un ticket">
+      </div>
+      <div class="admin-users-filters">
+        <select id="admin-support-filter-status" aria-label="Filtrer par statut"></select>
+        <select id="admin-support-filter-category" aria-label="Filtrer par catégorie"></select>
+        <select id="admin-support-filter-priority" aria-label="Filtrer par priorité"></select>
+        <select id="admin-support-filter-assigned" aria-label="Filtrer par administrateur assigné"></select>
+      </div>
+    </div>
+    <div class="admin-users-table-wrap">
+      <table class="admin-users-table">
+        <thead><tr id="admin-support-thead-row"></tr></thead>
+        <tbody id="admin-support-tbody"></tbody>
+      </table>
+    </div>
+    <p class="admin-empty" id="admin-support-empty" hidden></p>
+    <nav class="admin-users-pagination" id="admin-support-pagination" aria-label="Pagination des tickets"></nav>
+  </section>
+</template>
+
+<!-- Contenu du sous-chemin /admin/support/:id — fiche ticket complète (voir
+     admin-support-ticket.js) : conversation, pièces jointes, notes internes,
+     historique, statut, assignation, réponse rapide. -->
+<template id="admin-support-ticket-template">
+  <div class="admin-page-head" id="admin-support-ticket-head"></div>
+
+  <div class="admin-support-ticket-layout">
+    <div class="admin-support-ticket-main">
+      <section class="admin-section" aria-labelledby="admin-support-ticket-conversation-title">
+        <h2 class="admin-section-title" id="admin-support-ticket-conversation-title">Conversation</h2>
+        <div id="admin-support-ticket-messages"></div>
+        <form class="admin-form-grid" id="admin-support-ticket-reply-form">
+          <div class="admin-form-field admin-form-field--full">
+            <label class="admin-form-label" for="admin-support-ticket-reply-body">Réponse rapide</label>
+            <textarea class="admin-form-textarea" id="admin-support-ticket-reply-body" rows="3" placeholder="Écrire une réponse à l'utilisateur…"></textarea>
+          </div>
+          <div class="admin-form-field admin-form-field--full">
+            <input type="file" id="admin-support-ticket-reply-files" multiple>
+          </div>
+          <button type="submit" class="admin-btn admin-btn--primary">Envoyer la réponse</button>
+        </form>
+      </section>
+
+      <section class="admin-section" aria-labelledby="admin-support-ticket-notes-title">
+        <h2 class="admin-section-title" id="admin-support-ticket-notes-title">Notes internes</h2>
+        <p class="admin-form-hint">Visibles uniquement par l'administration, jamais par l'utilisateur.</p>
+        <ul class="admin-unavailable-list" id="admin-support-ticket-notes-list"></ul>
+        <form class="admin-form-grid" id="admin-support-ticket-note-form">
+          <div class="admin-form-field admin-form-field--full">
+            <textarea class="admin-form-textarea" id="admin-support-ticket-note-body" rows="2" placeholder="Ajouter une note interne…"></textarea>
+          </div>
+          <button type="submit" class="admin-btn admin-btn--secondary">Ajouter la note</button>
+        </form>
+      </section>
+
+      <section class="admin-section" aria-labelledby="admin-support-ticket-history-title">
+        <h2 class="admin-section-title" id="admin-support-ticket-history-title">Historique</h2>
+        <ul class="admin-unavailable-list" id="admin-support-ticket-history-list"></ul>
+      </section>
+    </div>
+
+    <aside class="admin-support-ticket-side">
+      <div class="admin-form-field">
+        <label class="admin-form-label" for="admin-support-ticket-status-select">Statut</label>
+        <select class="admin-form-select" id="admin-support-ticket-status-select"></select>
+      </div>
+      <div class="admin-form-field">
+        <label class="admin-form-label" for="admin-support-ticket-assign-select">Administrateur assigné</label>
+        <select class="admin-form-select" id="admin-support-ticket-assign-select"></select>
+      </div>
+    </aside>
+  </div>
+</template>
+
+<!-- Contenu du module Santé du système (voir admin-health.js) — centre de
+     supervision : vue d'ensemble, services, fournisseurs IA, clés API,
+     disponibilité, graphiques (Chart.js), base SQLite, stockage, serveur,
+     incidents, explorateur de logs, alertes. Réutilise .admin-cards/
+     .admin-card/.admin-ai-health-list/.admin-unavailable-list déjà utilisés
+     par les modules IA/Support — aucun nouveau composant générique. -->
+<!-- Le contenu repliable (Résumé/Services/IA/Base de données/Serveur/Alertes)
+     est entièrement généré par admin-health.js via
+     createCollapseSection()/admin-collapse.js — même composant transverse que
+     les autres modules à sections repliables — afin de restaurer l'état
+     ouvert/fermé de chaque section depuis localStorage dès le premier rendu
+     (impossible avec du HTML statique ici). -->
+<template id="admin-health-template">
+  <div class="admin-page-head admin-section-head-row">
+    <div>
+      <h1>Santé du système</h1>
+      <p class="admin-page-lead">Résumé, services, IA, base de données, serveur et alertes — tout ce qui n'est pas encore alimenté est signalé explicitement, jamais deviné.</p>
+    </div>
+    <button type="button" class="admin-btn admin-btn--primary" id="admin-health-refresh-btn">Actualiser maintenant</button>
+  </div>
+
+  <div id="admin-health-sections"></div>
+</template>
+
+<!-- Contenu du module Paramètres (voir admin-settings.js) — centre de
+     configuration : Général/Comptes/Apparence (éditables, persistés dans
+     system_settings), IA/Clés API/SMTP/Stripe/Sauvegardes/Sécurité/Logs/
+     Performance (lecture, réutilise les services déjà existants). Réutilise
+     .admin-cards/.admin-card/.admin-toggle/.admin-form-*/.admin-btn déjà
+     utilisés par IA/Abonnements/Support — aucun nouveau composant générique. -->
+<template id="admin-settings-template">
+  <div class="admin-page-head">
+    <h1>Paramètres</h1>
+    <p class="admin-page-lead">Centre de configuration de NovaMath. Tout ce qui n'est pas encore réellement appliqué par le code est signalé explicitement — jamais deviné.</p>
+    <div class="admin-settings-toolbar">
+      <div class="admin-settings-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="admin-settings-search-input" placeholder="Rechercher un paramètre…" aria-label="Rechercher un paramètre">
+      </div>
+      <button type="button" class="admin-btn admin-btn--sm admin-settings-fav-filter" id="admin-settings-fav-filter-btn" aria-pressed="false">☆ Favoris</button>
+    </div>
+  </div>
+
+  <!-- Chaque catégorie est construite en JS (admin-settings.js::buildCategories)
+       via createCollapseSection (admin-collapse.js), avec une étoile de favori
+       injectée dans le titre — jamais de <section> fixe, pour rester cohérent
+       avec la structure repliable + favoris demandée par le produit. -->
+  <div id="admin-settings-categories"></div>
+</template>
+
+<!-- Contenu du module Analytics (voir admin-analytics.js) — FONDATIONS
+     uniquement (cartes KPI filtrables par période) : graphiques/exports/
+     classements suivront dans un chantier ultérieur. Réutilise .admin-cards/
+     .admin-card/.admin-users-filters déjà utilisés par Support/Journal —
+     aucun nouveau composant générique. -->
+<template id="admin-analytics-template">
+  <div class="admin-page-head">
+    <h1>Analytics</h1>
+    <p class="admin-page-lead">Vue d'ensemble de l'utilisation de NovaMath. Ce qui n'est pas encore mesurable est signalé explicitement, jamais deviné.</p>
+  </div>
+
+  <div class="admin-users-toolbar admin-analytics-no-print">
+    <div class="admin-users-filters">
+      <select class="admin-form-select" id="admin-analytics-window-select" aria-label="Période"></select>
+      <input type="date" id="admin-analytics-date-from" aria-label="Depuis le" hidden>
+      <input type="date" id="admin-analytics-date-to" aria-label="Jusqu'au" hidden>
+      <select class="admin-form-select" id="admin-analytics-saved-views-select" aria-label="Vues favorites">
+        <option value="">Favoris…</option>
+      </select>
+      <button type="button" class="admin-btn admin-btn--sm" id="admin-analytics-save-view-btn">☆ Enregistrer la vue</button>
+    </div>
+    <div class="admin-users-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="admin-analytics-search-input" placeholder="Rechercher un utilisateur, une conversation, un ticket, un message, un fournisseur, une sauvegarde…" aria-label="Recherche globale Analytics">
+    </div>
+    <div class="admin-analytics-export-actions">
+      <a class="admin-btn admin-btn--sm" id="admin-analytics-export-csv" href="#">Exporter CSV</a>
+      <a class="admin-btn admin-btn--sm" id="admin-analytics-export-xlsx" href="#">Exporter Excel</a>
+      <a class="admin-btn admin-btn--sm" id="admin-analytics-export-pdf" href="#">Exporter PDF</a>
+      <button type="button" class="admin-btn admin-btn--sm" id="admin-analytics-print-btn">Imprimer</button>
+    </div>
+    <p class="admin-form-hint" id="admin-analytics-window-label"></p>
+  </div>
+  <p class="admin-form-error" id="admin-analytics-error" hidden></p>
+
+  <section class="admin-section admin-analytics-no-print" id="admin-analytics-search-results" hidden aria-labelledby="admin-analytics-search-title">
+    <h2 class="admin-section-title" id="admin-analytics-search-title">Résultats de recherche</h2>
+    <div id="admin-analytics-search-body"></div>
+  </section>
+
+  <section class="admin-section" id="admin-analytics-pinned-section" hidden aria-labelledby="admin-analytics-pinned-title">
+    <h2 class="admin-section-title" id="admin-analytics-pinned-title">KPI épinglés</h2>
+    <div class="admin-cards" id="admin-analytics-pinned"></div>
+  </section>
+
+  <section class="admin-section admin-analytics-no-print" aria-labelledby="admin-analytics-reports-title">
+    <h2 class="admin-section-title" id="admin-analytics-reports-title">Rapports</h2>
+    <form class="admin-form-grid" id="admin-analytics-report-form">
+      <div class="admin-form-field">
+        <label class="admin-form-label" for="admin-analytics-report-type">Type</label>
+        <select class="admin-form-select" id="admin-analytics-report-type">
+          <option value="quotidien">Quotidien</option>
+          <option value="hebdomadaire">Hebdomadaire</option>
+          <option value="mensuel" selected>Mensuel</option>
+          <option value="annuel">Annuel</option>
+          <option value="personnalise">Personnalisé</option>
+        </select>
+      </div>
+      <div class="admin-form-field">
+        <label class="admin-form-label" for="admin-analytics-report-format">Format</label>
+        <select class="admin-form-select" id="admin-analytics-report-format">
+          <option value="pdf" selected>PDF</option>
+          <option value="xlsx">Excel</option>
+          <option value="csv">CSV</option>
+        </select>
+      </div>
+      <button type="submit" class="admin-btn admin-btn--primary">Générer le rapport</button>
+    </form>
+    <div class="admin-users-table-wrap">
+      <table class="admin-users-table">
+        <thead><tr><th>Date</th><th>Administrateur</th><th>Type</th><th>Format</th><th>Taille</th><th>Durée</th><th>Résultat</th><th>Action</th></tr></thead>
+        <tbody id="admin-analytics-reports-tbody"></tbody>
+      </table>
+    </div>
+    <p class="admin-empty" id="admin-analytics-reports-empty" hidden>Aucun export/rapport n'a encore été généré.</p>
+  </section>
+
+  <section class="admin-section" aria-labelledby="admin-analytics-users-title">
+    <h2 class="admin-section-title" id="admin-analytics-users-title">Utilisateurs</h2>
+    <div class="admin-health-charts-grid" id="admin-analytics-users-charts"></div>
+  </section>
+
+  <section class="admin-section" aria-labelledby="admin-analytics-chatbot-title">
+    <h2 class="admin-section-title" id="admin-analytics-chatbot-title">Chatbot</h2>
+    <div class="admin-health-charts-grid" id="admin-analytics-chatbot-charts"></div>
+    <h3 class="admin-analytics-subtitle">Classements</h3>
+    <div class="admin-analytics-rankings-grid" id="admin-analytics-chatbot-rankings"></div>
+  </section>
+
+  <section class="admin-section" aria-labelledby="admin-analytics-ai-title">
+    <h2 class="admin-section-title" id="admin-analytics-ai-title">IA</h2>
+    <div class="admin-health-charts-grid" id="admin-analytics-ai-charts"></div>
+    <h3 class="admin-analytics-subtitle">Classements</h3>
+    <div class="admin-analytics-rankings-grid" id="admin-analytics-ai-rankings"></div>
+  </section>
+
+  <section class="admin-section" aria-labelledby="admin-analytics-support-title">
+    <h2 class="admin-section-title" id="admin-analytics-support-title">Support</h2>
+    <div class="admin-health-charts-grid" id="admin-analytics-support-charts"></div>
+    <h3 class="admin-analytics-subtitle">Classements</h3>
+    <div class="admin-analytics-rankings-grid" id="admin-analytics-support-rankings"></div>
+  </section>
+
+</template>
+
+<!-- Contenu du module Abonnements (voir admin-subscriptions.js) — les 3 plans
+     NovaMath (Free/Premium/Ultra) + statistiques réelles + l'assignation des
+     fournisseurs IA par plan (déplacée ici depuis le module IA — voir
+     admin-collapse.js pour la section repliable ci-dessous, seul endroit où
+     cette information existe désormais). -->
+<template id="admin-subscriptions-template">
+  <div class="admin-page-head">
+    <h1>Abonnements</h1>
+    <p class="admin-page-lead">Administration du catalogue des abonnements NovaMath.</p>
+  </div>
+
+  <section class="admin-section" aria-labelledby="admin-subscriptions-plans-title">
+    <h2 class="admin-section-title" id="admin-subscriptions-plans-title">Plans</h2>
+    <div class="admin-cards admin-ai-providers-grid" id="admin-subscriptions-plans"></div>
+  </section>
+
+  <section class="admin-section" aria-labelledby="admin-subscriptions-stats-title">
+    <h2 class="admin-section-title" id="admin-subscriptions-stats-title">Statistiques</h2>
+    <div class="admin-cards" id="admin-subscriptions-stats"></div>
+  </section>
+
+  <section class="admin-section" aria-labelledby="admin-subscriptions-ai-title">
+    <h2 class="admin-section-title" id="admin-subscriptions-ai-title">Fournisseurs IA par plan</h2>
+    <p class="admin-form-hint">Quels fournisseurs IA (configurés depuis la page <a href="/admin/ia">IA</a>) sont utilisés par chaque plan. L'ordre d'utilisation suit la priorité globale du fournisseur.</p>
+    <div id="admin-subscriptions-ai-assignment"></div>
+  </section>
+</template>
+
+<!-- Contenu du sous-chemin /admin/subscriptions/:plan — fiche détaillée d'un
+     abonnement, 5 onglets à chargement paresseux (même architecture que
+     admin-ai-provider.js : une API par onglet, cache par onglet). L'onglet
+     "IA" a été retiré (miroir en lecture seule de la section "Fournisseurs IA
+     par plan" de la page liste) — un lien depuis l'onglet Informations y
+     renvoie directement. Réutilise le même gabarit DOM que la fiche
+     fournisseur IA (mêmes ids #admin-ai-provider-*) : un seul jeu de
+     styles/scripts de fiche à onglets dans tout le projet, jamais un second
+     dupliqué. -->
+<template id="admin-subscription-detail-template">
+  <div class="admin-user-profile-head" id="admin-subscription-detail-head">
+    <span class="admin-avatar admin-avatar--lg admin-skeleton"></span>
+  </div>
+  <nav class="admin-tabs" id="admin-subscription-detail-tabs" aria-label="Sections de la fiche abonnement"></nav>
+  <div class="admin-tab-panel" id="admin-subscription-detail-panel"></div>
+</template>
+
+<!-- Modale de confirmation générique, réutilisable par tout le panneau admin
+     (voir admin-ui-kit.js::confirmDialog) — remplace window.confirm() natif
+     pour les actions destructrices (restaurer/supprimer une sauvegarde,
+     etc.), un seul composant partagé plutôt qu'une modale par page. -->
+<div class="admin-modal-overlay" id="admin-confirm-modal" hidden>
+  <div class="admin-modal admin-modal--sm" role="alertdialog" aria-modal="true" aria-labelledby="admin-confirm-modal-title">
+    <div class="admin-modal-head">
+      <h2 id="admin-confirm-modal-title"></h2>
+      <button type="button" class="admin-modal-close" id="admin-confirm-modal-close" aria-label="Fermer">&times;</button>
+    </div>
+    <p class="admin-modal-text" id="admin-confirm-modal-text"></p>
+    <div class="admin-modal-foot">
+      <button type="button" class="admin-btn" id="admin-confirm-modal-cancel">Annuler</button>
+      <button type="button" class="admin-btn admin-btn--danger" id="admin-confirm-modal-confirm">Confirmer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notification de succès/erreur, réutilisable par tout le panneau admin
+     (voir admin-ui-kit.js::showToast). -->
+<div class="admin-toast" id="admin-toast" hidden></div>
+
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>

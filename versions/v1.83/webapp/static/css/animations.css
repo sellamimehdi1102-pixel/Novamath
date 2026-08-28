@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Animations — utilitaires partagés d'apparition progressive.
+   Chargé après base.css sur toutes les pages. Piloté par js/scroll-reveal.js
+   (IntersectionObserver) qui ajoute la classe .is-visible. N'anime que
+   transform/opacity (perf, jamais de layout thrashing).
+   Respecte automatiquement :root[data-animations="off"] et
+   prefers-reduced-motion (tokens.css) via les durées écrasées à 0.001ms —
+   scroll-reveal.js applique .is-visible immédiatement dans ces cas pour
+   éviter un élément bloqué à opacity:0.
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Groupe d'enfants qui apparaissent en cascade (grilles de cartes, listes,
+   sections d'une page) — chaque enfant démarre légèrement décalé du
+   précédent, jusqu'à 12 enfants avant de partager le même délai plafond. */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 70ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 140ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 210ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 280ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 350ms; }
+.reveal-stagger.is-visible > *:nth-child(7) { transition-delay: 420ms; }
+.reveal-stagger.is-visible > *:nth-child(8) { transition-delay: 480ms; }
+.reveal-stagger.is-visible > *:nth-child(n+9) { transition-delay: 540ms; }
+
+/* Keyframe d'entrée partagé (ex-dupliqué entre landing.css et dashboard.css)
+   — montée + fondu, utilisable directement via la classe .nm-rise avec un
+   délai par nth-child défini localement à chaque page. */
+@keyframes nm-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.nm-rise {
+  animation: nm-rise 550ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Icônes — micro-interaction de survol partagée (boutons, sidebar, cartes). */
+.icon-pop {
+  transition: transform 220ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+:is(a, button):hover .icon-pop,
+:is(a, button):focus-visible .icon-pop {
+  transform: scale(1.08);
+}

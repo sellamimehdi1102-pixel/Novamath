@@ -17,20 +17,42 @@
   margin-left: 10px;
 }
 
-/* Dashboard verrouillé pour un invité ayant déjà consulté sa première
-   découverte : seul le contenu (#dashboard-content) est flouté et désactivé —
-   jamais la sidebar, le header, ni la navigation, qui restent pleinement
-   utilisables (voir dashboard.js::applyGuestDashboardLock). */
-.dashboard-content.is-locked {
+/* ── Verrou invité — composant unique ─────────────────────────────────────
+   Une seule implémentation pour toute zone verrouillée pour un compte
+   invité (Dashboard, Chatbot, futures pages) — voir guestLockOverlay.js,
+   seule source de vérité pour le HTML/positionnement de ce composant.
+
+   .guest-lock-target : conteneur dont le contenu doit rester ENTIÈREMENT
+   rendu et reconnaissable, juste mis à distance (flou léger, jamais un
+   voile sombre) — repris tel quel du Dashboard, la version jugée réussie.
+   Jamais la sidebar/nav, toujours pleinement utilisable. */
+.guest-lock-target > *:not(.guest-lock-overlay) {
   filter: blur(6px);
   pointer-events: none;
   user-select: none;
   transition: filter 240ms ease;
 }
 
-/* Carte de déverrouillage, affichée au-dessus du contenu flouté (jamais
-   floutée elle-même) — fermable ("Continuer en mode invité") sans lever le
-   flou, ne réapparaît plus une fois fermée pour la session en cours. */
+/* Popup flottante — reprise du Chatbot (jugée meilleure que l'ancienne
+   carte en flux du Dashboard) : `position: fixed`, bornée horizontalement
+   au conteneur cible par guestLockOverlay.js::syncOverlayBounds (jamais la
+   sidebar), toujours centrée dans le viewport VISIBLE même si le conteneur
+   est plus haut que l'écran (cas du Dashboard) — pas de fond ni de flou
+   propre à l'overlay lui-même : seul le flou du contenu ci-dessus l'assombrit
+   légèrement, le fond reste lumineux. */
+.guest-lock-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
 .guest-lock-card {
   max-width: 480px;
   margin: 0 auto 24px;
@@ -40,10 +62,24 @@
   border: 1px solid rgba(var(--brand-violet-rgb), 0.32);
   animation: guest-card-in 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
+/* Variante popup flottante (voir .guest-lock-overlay ci-dessus) : dimensions
+   et ombre reprises du Chatbot, animation d'apparition "pop" (au lieu du
+   simple fondu ci-dessous) puisqu'elle flotte au-dessus du contenu plutôt
+   que de s'insérer dans le flux de la page. */
+.guest-lock-overlay .guest-lock-card {
+  margin: 0;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  animation: guest-lock-pop 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 @keyframes guest-card-in {
   from { opacity: 0; transform: translateY(-8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+@keyframes guest-lock-pop {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .guest-lock-card .icon-wrap {
@@ -55,6 +91,9 @@
   color: var(--text-on-accent);
 }
 .guest-lock-card .icon-wrap svg { width: 24px; height: 24px; }
+/* Variante "erreur de chargement" (cours.js::renderChapterLoadError) — même
+   carte que le verrou invité, teinte danger au lieu du dégradé de marque. */
+.guest-lock-card .icon-wrap--danger { background: var(--danger-soft); color: var(--danger); }
 
 .guest-lock-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
 .guest-lock-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 12px; }

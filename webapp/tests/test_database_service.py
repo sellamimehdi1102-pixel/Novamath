@@ -11,6 +11,7 @@ import os
 import shutil
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -110,6 +111,73 @@ class TestEngineOf(_SqliteIsolatedTestCase):
     def test_connexion_postgres_simulee_reconnue(self):
         wrapper = ds._PostgresConnection(MagicMock(), MagicMock())
         self.assertEqual(ds.engine_of(wrapper), ds.ENGINE_POSTGRESQL)
+
+
+# ── Durcissement production : PRAGMA SQLite (voir audit "database is
+# locked" sous gunicorn multi-worker/thread) ────────────────────────────────
+class TestSqliteProductionPragmas(_SqliteIsolatedTestCase):
+    def test_journal_mode_wal_sur_fichier_reel(self):
+        conn = db.get_connection()
+        try:
+            mode = conn.execute("PRAGMA journal_mode").fetchone()[0]
+            self.assertEqual(mode.lower(), "wal")
+        finally:
+            conn.close()
+
+    def test_synchronous_normal(self):
+        conn = db.get_connection()
+        try:
+            # NORMAL = 1 (valeur numérique renvoyée par PRAGMA synchronous)
+            value = conn.execute("PRAGMA synchronous").fetchone()[0]
+            self.assertEqual(value, 1)
+        finally:
+            conn.close()
+
+    def test_busy_timeout_configure(self):
+        conn = db.get_connection()
+        try:
+            value = conn.execute("PRAGMA busy_timeout").fetchone()[0]
+            self.assertEqual(value, 30000)
+        finally:
+            conn.close()
+
+    def test_wal_sans_effet_sur_base_memoire(self):
+        """Une base ':memory:' n'a pas de fichier -WAL possible : SQLite doit
+        silencieusement rester en mode 'memory' plutôt que lever une erreur —
+        condition nécessaire pour que les tests qui utilisent une DB en
+        mémoire continuent de fonctionner sans changement."""
+        conn = ds._sqlite_connection(":memory:", self._tmp_dir)
+        try:
+            mode = conn.execute("PRAGMA journal_mode").fetchone()[0]
+            self.assertEqual(mode.lower(), "memory")
+        finally:
+            conn.close()
+
+    def test_ecritures_concurrentes_ne_levent_jamais_database_is_locked(self):
+        """Preuve directe du problème corrigé : sans WAL/busy_timeout, des
+        écritures concurrentes sur le même fichier SQLite peuvent lever
+        sqlite3.OperationalError('database is locked'). Ici, 20 threads
+        écrivent chacun 5 fois dans une table réelle du schéma
+        (security_events, via db.log_security_event) sans qu'aucune
+        exception ne remonte."""
+        import threading
+        db.init_db()
+        errors = []
+
+        def worker(i):
+            try:
+                for _ in range(5):
+                    db.log_security_event(f"hardening_test_{i}")
+            except Exception as e:  # noqa: BLE001 - on veut voir TOUTE exception
+                errors.append(e)
+
+        threads = [threading.Thread(target=worker, args=(i,)) for i in range(20)]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        self.assertEqual(errors, [], f"Écritures concurrentes en échec : {errors}")
 
 
 # ── Traduction SQL ────────────────────────────────────────────────────────
@@ -733,9 +801,73 @@ class TestDbPyRegressionSQLite(_SqliteIsolatedTestCase):
     def test_insert_or_ignore_mark_stripe_event_processed(self):
         db.init_db()
         self.assertFalse(db.has_processed_stripe_event("evt_1"))
-        db.mark_stripe_event_processed("evt_1", "checkout.session.completed")
-        db.mark_stripe_event_processed("evt_1", "checkout.session.completed")  # ne doit jamais lever
+        first = db.mark_stripe_event_processed("evt_1", "checkout.session.completed")
+        second = db.mark_stripe_event_processed("evt_1", "checkout.session.completed")  # ne doit jamais lever
+        self.assertTrue(first)
+        self.assertFalse(second)
         self.assertTrue(db.has_processed_stripe_event("evt_1"))
+
+    def test_unmark_stripe_event_processed_permet_une_nouvelle_reservation(self):
+        db.init_db()
+        db.mark_stripe_event_processed("evt_2", "checkout.session.completed")
+        self.assertTrue(db.has_processed_stripe_event("evt_2"))
+        db.unmark_stripe_event_processed("evt_2")
+        self.assertFalse(db.has_processed_stripe_event("evt_2"))
+        self.assertTrue(db.mark_stripe_event_processed("evt_2", "checkout.session.completed"))
+
+    def test_reclaim_refuse_si_reservation_encore_fraiche(self):
+        """Une réservation encore dans la fenêtre STRIPE_WEBHOOK_CLAIM_TIMEOUT_
+        SECONDS (traitement réellement en cours, pas de kill) reste bloquée —
+        le nouveau mécanisme de reprise sur kill ne doit jamais permettre une
+        double exécution d'un handler encore réellement en cours."""
+        db.init_db()
+        self.assertTrue(db.mark_stripe_event_processed("evt_fresh", "checkout.session.completed"))
+        self.assertFalse(db.mark_stripe_event_processed("evt_fresh", "checkout.session.completed"))
+
+    def test_reclaim_autorise_apres_expiration_si_jamais_complete(self):
+        """Simule un process tué en plein traitement (SIGKILL, restart
+        Fly.io) : la réservation existe, n'a jamais été marquée complétée, et
+        date de plus de STRIPE_WEBHOOK_CLAIM_TIMEOUT_SECONDS -> un nouveau
+        traitement doit être autorisé, sinon l'event resterait bloqué en
+        doublon fantôme pour toujours sans que sa logique métier (ex:
+        activation d'un abonnement) n'ait jamais réellement été exécutée."""
+        db.init_db()
+        self.assertTrue(db.mark_stripe_event_processed("evt_stale", "checkout.session.completed"))
+        stale_ts = (
+            datetime.now(timezone.utc) - timedelta(seconds=config.STRIPE_WEBHOOK_CLAIM_TIMEOUT_SECONDS + 60)
+        ).isoformat()
+        conn = db.get_connection()
+        try:
+            conn.execute(
+                "UPDATE stripe_webhook_events SET processed_at = ? WHERE event_id = ?", (stale_ts, "evt_stale"),
+            )
+            conn.commit()
+        finally:
+            conn.close()
+
+        self.assertTrue(db.mark_stripe_event_processed("evt_stale", "checkout.session.completed"))
+
+    def test_reclaim_toujours_refuse_si_deja_complete_meme_tres_ancien(self):
+        """Un event RÉELLEMENT traité avec succès (completed_at renseigné) ne
+        doit JAMAIS être ré-exécuté, même très longtemps après — la garantie
+        d'idempotence historique doit rester intacte malgré le nouveau
+        mécanisme de reprise sur kill (qui ne concerne QUE les réservations
+        jamais complétées)."""
+        db.init_db()
+        db.mark_stripe_event_processed("evt_done", "checkout.session.completed")
+        db.mark_stripe_event_completed("evt_done")
+
+        very_old_ts = (datetime.now(timezone.utc) - timedelta(days=365)).isoformat()
+        conn = db.get_connection()
+        try:
+            conn.execute(
+                "UPDATE stripe_webhook_events SET processed_at = ? WHERE event_id = ?", (very_old_ts, "evt_done"),
+            )
+            conn.commit()
+        finally:
+            conn.close()
+
+        self.assertFalse(db.mark_stripe_event_processed("evt_done", "checkout.session.completed"))
 
     def test_insert_or_ignore_link_oauth_account(self):
         db.init_db()

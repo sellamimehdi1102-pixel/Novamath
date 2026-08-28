@@ -1,0 +1,787 @@
+{
+  "chapterId": "Chapitre_14",
+  "title": "Théorème de Thalès",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "reciproque-du-theoreme-de-thales-:-demontrer-un-parallelisme",
+      "title": "Réciproque du théorème de Thalès : démontrer un parallélisme",
+      "schemaVersion": 2,
+      "intro": "La réciproque du théorème de Thalès permet de démontrer que deux droites sont parallèles, uniquement à partir de longueurs mesurées, sans jamais utiliser de rapporteur ni d'équerre. C'est l'outil à utiliser chaque fois qu'un énoncé demande de PROUVER un parallélisme à partir de longueurs données.",
+      "explicationSimple": "Le théorème de Thalès classique dit : « si deux droites sont parallèles, alors les longueurs sont proportionnelles ». La réciproque dit l'inverse : « si les longueurs sont proportionnelles (et les points bien alignés dans le même ordre), alors les droites sont parallèles ». C'est comme vérifier qu'une porte est bien d'aplomb seulement en mesurant des distances, sans avoir besoin de regarder si elle a l'air droite.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser la réciproque du théorème de Thalès pour démontrer que deux droites sont parallèles, en comparant deux produits en croix issus des longueurs données.",
+      "definition": "Dans une configuration de Thalès (deux droites sécantes en un point A, avec M et B alignés avec A sur l'une, N et C alignés avec A dans le même ordre sur l'autre), si les rapports $\\dfrac{AM}{AB}$ et $\\dfrac{AN}{AC}$ sont égaux, alors les droites (MN) et (BC) sont parallèles. C'est la réciproque du théorème de Thalès : elle permet de démontrer un parallélisme à partir de longueurs, alors que le théorème direct permet l'inverse (calculer des longueurs à partir d'un parallélisme connu).",
+      "definitions": {
+        "lycee": "Dans une configuration de Thalès (deux droites sécantes en un point A, avec M et B alignés avec A sur l'une, N et C alignés avec A dans le même ordre sur l'autre), si les rapports $\\dfrac{AM}{AB}$ et $\\dfrac{AN}{AC}$ sont égaux, alors les droites (MN) et (BC) sont parallèles. C'est la réciproque du théorème de Thalès : elle permet de démontrer un parallélisme à partir de longueurs, alors que le théorème direct permet l'inverse (calculer des longueurs à partir d'un parallélisme connu).",
+        "college": "Calculer d'abord AM et AN par soustraction, puis comparer les produits en croix."
+      },
+      "intuition": "Ne confonds jamais le théorème de Thalès (parallélisme connu → calcul de longueur) et sa réciproque (longueurs connues → démonstration de parallélisme) : ce sont deux sens de lecture différents. Avant de comparer les produits en croix, vérifie toujours que les points sont bien alignés dans le même ordre sur chaque droite (ou en configuration « papillon » symétrique) : sans cet alignement, la réciproque ne s'applique pas.",
+      "reglesImportantes": [
+        "Calculer d'abord AM et AN par soustraction, puis comparer les produits en croix.",
+        "Calculer d'abord AM et AN par soustraction (A entre B et M, puis A entre C et N), puis comparer les produits en croix."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Réciproque du théorème de Thalès : démontrer un parallélisme",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : a, M, B alignés dans cet ordre et A, N, C alignés dans cet ordre : les hypothèses de la réciproque du théorème de Thalès peuvent s'appliquer."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $AM \\times AC = 2,4 \\times 5 = 12$ et $AN \\times AB = 3 \\times 4 = 12$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : les produits sont égaux (12 = 12), donc $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$. D'après la réciproque du théorème de Thalès, $(MN)$ et $(BC)$ sont parallèles."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : l'artisan peut donc fixer la barre de renfort : elle est bien parallèle au bord du portail."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1800",
+          "titre": "Exemple 1",
+          "enonce": "Les points $A$, $M$, $B$ sont alignés dans cet ordre et les points $A$, $N$, $C$ sont alignés dans cet ordre. On donne $AM = 3$ cm, $AB = 5$ cm, $AN = 6$ cm et $AC = 10$ cm. Les droites $(MN)$ et $(BC)$ sont-elles parallèles ? Justifier à l'aide de la réciproque du théorème de Thalès.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les points A, M, B sont alignés dans cet ordre et les points A, N, C sont alignés dans le même ordre : on peut envisager d'appliquer la réciproque du théorème de Thalès."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on compare les produits en croix : $AM \\times AC = 3 \\times 10 = 30$ et $AN \\times AB = 6 \\times 5 = 30$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les deux produits sont égaux (30 = 30), donc $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$. Comme les points sont alignés dans le même ordre, la réciproque du théorème de Thalès permet de conclure que $(MN)$ et $(BC)$ sont parallèles."
+            }
+          ],
+          "reponse": "$(MN)$ et $(BC)$ sont parallèles.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $(MN)$ et $(BC)$ sont parallèles.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1806",
+          "titre": "Exemple 2",
+          "enonce": "Les points $A$, $M$, $B$ sont alignés dans cet ordre et les points $A$, $N$, $C$ sont alignés dans cet ordre. On donne $AM = 1,5$ cm, $AB = 2,5$ cm, $AN = 3$ cm et $AC = 5$ cm. Les droites $(MN)$ et $(BC)$ sont-elles parallèles ? Justifier à l'aide de la réciproque du théorème de Thalès.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les points A, M, B sont alignés dans cet ordre et les points A, N, C sont alignés dans le même ordre : on peut envisager d'appliquer la réciproque du théorème de Thalès."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on compare les produits en croix : $AM \\times AC = 1,5 \\times 5 = 7,5$ et $AN \\times AB = 3 \\times 2,5 = 7,5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les deux produits sont égaux (7,5 = 7,5), donc $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$. Comme les points sont alignés dans le même ordre, la réciproque du théorème de Thalès permet de conclure que $(MN)$ et $(BC)$ sont parallèles."
+            }
+          ],
+          "reponse": "$(MN)$ et $(BC)$ sont parallèles.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $(MN)$ et $(BC)$ sont parallèles.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1812",
+          "titre": "Exemple 3",
+          "enonce": "Deux droites se coupent en un point $A$. Les points $B$, $A$, $M$ sont alignés dans cet ordre et les points $C$, $A$, $N$ sont alignés dans cet ordre (configuration en papillon). On donne $AM = 6$ cm, $AB = 4$ cm, $AN = 9$ cm et $AC = 6$ cm. Les droites $(BC)$ et $(MN)$ sont-elles parallèles ? Justifier à l'aide de la réciproque du théorème de Thalès.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : b, A, M sont alignés dans cet ordre et C, A, N sont alignés dans cet ordre (A est bien situé entre les deux points dans chaque cas) : on peut envisager la réciproque du théorème de Thalès."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on compare les produits en croix : $AM \\times AC = 6 \\times 6 = 36$ et $AN \\times AB = 9 \\times 4 = 36$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les deux produits sont égaux (36 = 36), donc $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$. La réciproque du théorème de Thalès permet de conclure que $(BC)$ et $(MN)$ sont parallèles."
+            }
+          ],
+          "reponse": "$(BC)$ et $(MN)$ sont parallèles.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $(BC)$ et $(MN)$ sont parallèles.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1818",
+          "titre": "Exemple 4",
+          "enonce": "Les points $A$, $M$, $B$ sont alignés dans cet ordre et les points $A$, $N$, $C$ sont alignés dans cet ordre. On donne $AM = 3,5$ cm, $AB = 5$ cm, $AN = 4,9$ cm et $AC = 7$ cm. Les droites $(MN)$ et $(BC)$ sont-elles parallèles ? Justifier à l'aide de la réciproque du théorème de Thalès.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les points A, M, B sont alignés dans cet ordre et les points A, N, C sont alignés dans le même ordre : on peut envisager d'appliquer la réciproque du théorème de Thalès."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on compare les produits en croix : $AM \\times AC = 3,5 \\times 7 = 24,5$ et $AN \\times AB = 4,9 \\times 5 = 24,5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les deux produits sont égaux (24,5 = 24,5), donc $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$. Comme les points sont alignés dans le même ordre, la réciproque du théorème de Thalès permet de conclure que $(MN)$ et $(BC)$ sont parallèles."
+            }
+          ],
+          "reponse": "$(MN)$ et $(BC)$ sont parallèles.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $(MN)$ et $(BC)$ sont parallèles.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Utiliser la réciproque du théorème de Thalès sans avoir vérifié que les points sont bien alignés dans le même ordre sur chaque droite.",
+        "Comparer les mauvais produits en croix, par exemple AM × AB au lieu de AM × AC.",
+        "Confondre le théorème de Thalès (pour calculer une longueur) et sa réciproque (pour démontrer un parallélisme), et donc écrire une égalité de rapports sans jamais conclure sur le parallélisme."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Utiliser la réciproque du théorème de Thalès sans avoir vérifié que les points sont bien alignés dans le même ordre sur chaque droite.",
+          "pourquoi": "Cette condition d'alignement est une hypothèse indispensable du théorème, mais elle est facile à oublier car elle ne fait pas partie du calcul numérique lui-même.",
+          "comment_detecter": "La démonstration compare directement des rapports de longueurs sans qu'aucune phrase ne mentionne l'ordre des points sur les droites.",
+          "comment_eviter": "Avant tout calcul, écris explicitement une phrase du type « A, M, B sont alignés dans cet ordre et A, N, C sont alignés dans cet ordre » (ou la configuration en papillon), pour vérifier que la réciproque peut s'appliquer."
+        },
+        {
+          "description": "Comparer les mauvais produits en croix, par exemple AM × AB au lieu de AM × AC.",
+          "pourquoi": "Le produit en croix associé à l'égalité $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$ demande de multiplier en diagonale (AM par AC, et AN par AB), ce qui peut se mélanger sous la pression du calcul.",
+          "comment_detecter": "Les deux produits calculés ne portent pas chacun sur une longueur de chaque droite (une longueur « courte » et une longueur « longue » de deux droites différentes).",
+          "comment_eviter": "Écris d'abord clairement l'égalité de rapports $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$, puis multiplie en croix : le numérateur de gauche avec le dénominateur de droite, et inversement."
+        },
+        {
+          "description": "Confondre le théorème de Thalès (pour calculer une longueur) et sa réciproque (pour démontrer un parallélisme), et donc écrire une égalité de rapports sans jamais conclure sur le parallélisme.",
+          "pourquoi": "Les deux théorèmes utilisent la même configuration et les mêmes lettres, ce qui entretient la confusion sur ce que chacun permet réellement de démontrer.",
+          "comment_detecter": "La réponse finale ne contient aucune conclusion sur le parallélisme des droites, alors que c'est justement ce qui était demandé.",
+          "comment_eviter": "Relis la question posée : si l'énoncé donne un parallélisme et demande une longueur, utilise le théorème direct ; s'il donne des longueurs et demande de prouver un parallélisme, utilise la réciproque, et termine toujours par une phrase de conclusion explicite sur le parallélisme."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Calculer d'abord AM et AN par soustraction, puis comparer les produits en croix.",
+        "Calculer d'abord AM et AN par soustraction (A entre B et M, puis A entre C et N), puis comparer les produits en croix."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -6,
+          -4.5,
+          13,
+          8.5
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "A",
+            "tooltip": "Point d'intersection des deux droites"
+          },
+          {
+            "x": -4,
+            "y": 2,
+            "label": "B"
+          },
+          {
+            "x": 3,
+            "y": 2,
+            "label": "C"
+          },
+          {
+            "x": 6,
+            "y": -3,
+            "label": "M"
+          },
+          {
+            "x": -4.5,
+            "y": -3,
+            "label": "N"
+          }
+        ],
+        "segments": [
+          {
+            "from": "B",
+            "to": "M",
+            "dashed": true,
+            "tooltip": "B, A, M alignés"
+          },
+          {
+            "from": "C",
+            "to": "N",
+            "dashed": true,
+            "tooltip": "C, A, N alignés"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "variant": "hypotenuse",
+            "tooltip": "(BC)"
+          },
+          {
+            "from": "M",
+            "to": "N",
+            "variant": "hypotenuse",
+            "tooltip": "(MN)"
+          }
+        ],
+        "relation": "$\\dfrac{AM}{AB} = \\dfrac{AN}{AC} \\Rightarrow (MN) \\parallel (BC)$",
+        "alt": "Configuration en papillon : deux droites sécantes en A, avec B, A, M alignés sur l'une et C, A, N alignés sur l'autre. Les rapports AM/AB et AN/AC étant égaux, la réciproque du théorème de Thalès permet de conclure que (MN) est parallèle à (BC)."
+      },
+      "quizExerciseIds": [
+        1801,
+        1802,
+        1803
+      ],
+      "topic_id": "reciproque-du-theoreme-de-thales-:-demontrer-un-parallelisme",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Réciproque du théorème de Thalès : démontrer un parallélisme."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "reciproque",
+        "theoreme",
+        "thales",
+        "demontrer"
+      ]
+    },
+    {
+      "id": "theoreme-de-thales-:-calculer-une-longueur",
+      "title": "Théorème de Thalès : calculer une longueur",
+      "schemaVersion": 2,
+      "intro": "Le théorème de Thalès permet de calculer la longueur d'un côté d'un triangle, ou d'une droite, lorsqu'on connaît deux droites parallèles issues de droites sécantes en un même point. Il s'applique dans une configuration précise : deux droites qui se coupent en un point, coupées à leur tour par deux droites parallèles. Cette leçon montre comment repérer cette configuration et calculer une longueur manquante à l'aide de rapports de longueurs égaux.",
+      "explicationSimple": "Deux droites qui se croisent en un point A, coupées par deux droites parallèles : c'est la configuration du théorème de Thalès, un peu comme un agrandissement ou une réduction vu depuis le point A. Les longueurs mesurées sur une droite et celles mesurées sur l'autre droite sont alors proportionnelles : connaissant trois longueurs, on peut calculer la quatrième.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître une configuration de Thalès (points alignés dans le bon ordre, droites parallèles), écrire l'égalité de rapports correspondante, et calculer une longueur manquante dans un triangle ou dans une configuration en papillon.",
+      "definition": "Le théorème de Thalès s'applique lorsque deux droites sécantes en un point A sont coupées respectivement par deux droites parallèles, en des points M et B sur la première droite et N et C sur la seconde, avec (MN) parallèle à (BC) (les points M, B d'une part et N, C d'autre part étant alignés avec A, soit dans une configuration triangulaire, soit dans une configuration « en papillon »). Le théorème affirme alors que les longueurs sur les deux droites sont proportionnelles : $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$. En connaissant trois de ces longueurs, on peut calculer la quatrième.",
+      "definitions": {
+        "lycee": "Le théorème de Thalès s'applique lorsque deux droites sécantes en un point A sont coupées respectivement par deux droites parallèles, en des points M et B sur la première droite et N et C sur la seconde, avec (MN) parallèle à (BC) (les points M, B d'une part et N, C d'autre part étant alignés avec A, soit dans une configuration triangulaire, soit dans une configuration « en papillon »). Le théorème affirme alors que les longueurs sur les deux droites sont proportionnelles : $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$. En connaissant trois de ces longueurs, on peut calculer la quatrième.",
+        "college": "Utiliser $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$ dès que deux droites parallèles coupent deux droites sécantes en un même point A."
+      },
+      "intuition": "Avant d'écrire l'égalité des rapports, vérifie toujours que les trois conditions sont réunies : les points sont alignés dans le bon ordre sur chaque droite, les deux droites se coupent bien en un même point, et les deux autres droites sont parallèles. Sans ces trois conditions réunies, le théorème de Thalès ne peut pas s'appliquer.",
+      "reglesImportantes": [
+        "Repartir de $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$ et isoler $AB$.",
+        "Utiliser $\\dfrac{AM}{AB} = \\dfrac{MN}{BC}$.",
+        "Le point $O$ est le sommet commun des deux droites (le sol et le rayon lumineux) : appliquer le théorème de Thalès avec $\\dfrac{OF}{OB} = \\dfrac{FT}{BL}$.",
+        "A, M, B alignés dans cet ordre et A, N, C alignés dans cet ordre, avec (MN)//(BC) : le théorème de Thalès s'applique dans le triangle ABC.",
+        "Le théorème de Thalès donne aussi $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$ : on peut retrouver $AM$ si l'on connaît les trois autres longueurs."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Théorème de Thalès : calculer une longueur",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : sur le sol, O, F, B sont alignés dans cet ordre ; sur le rayon lumineux, O, T, L sont alignés dans cet ordre ; (FT)//(BL) car la personne et le lampadaire sont verticaux : le théorème de Thalès s'applique avec pour sommet commun O."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $OB = OF + FB = 2 + 3 = 5$ m."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : $\\dfrac{OF}{OB} = \\dfrac{FT}{BL}$, soit $\\dfrac{2}{5} = \\dfrac{1,6}{BL}$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : $BL = \\dfrac{1,6 \\times 5}{2} = 4$ m : le lampadaire mesure 4 m."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1770",
+          "titre": "Exemple 1",
+          "enonce": "Dans un triangle $ABC$, les points $A$, $M$, $B$ sont alignés dans cet ordre et les points $A$, $N$, $C$ sont alignés dans cet ordre. La droite $(MN)$ est parallèle à la droite $(BC)$. On donne $AM = 3$ cm, $AB = 5$ cm et $AC = 6$ cm. Calculer la longueur $AN$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les points A, M, B sont alignés dans cet ordre, les points A, N, C sont alignés dans cet ordre, et (MN)//(BC) : les conditions du théorème de Thalès sont réunies."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'après le théorème de Thalès, $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$, soit $\\dfrac{3}{5} = \\dfrac{AN}{6}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on isole $AN$ : $AN = \\dfrac{3 \\times 6}{5} = 3,6$ cm."
+            }
+          ],
+          "reponse": "$AN = 3,6$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $AN = 3,6$ cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1776",
+          "titre": "Exemple 2",
+          "enonce": "Dans un triangle $ABC$, les points $A$, $M$, $B$ sont alignés dans cet ordre et les points $A$, $N$, $C$ sont alignés dans cet ordre, avec $(MN)$ parallèle à $(BC)$. On donne $AM = 4,5$ cm, $AB = 7,5$ cm et $AC = 10$ cm. Calculer la longueur $AN$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : a, M, B alignés dans cet ordre, A, N, C alignés dans cet ordre, et (MN)//(BC) : le théorème de Thalès s'applique dans le triangle ABC."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$, soit $\\dfrac{4,5}{7,5} = \\dfrac{AN}{10}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $AN = \\dfrac{4,5 \\times 10}{7,5} = 6$ cm."
+            }
+          ],
+          "reponse": "$AN = 6$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $AN = 6$ cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1782",
+          "titre": "Exemple 3",
+          "enonce": "Deux droites se coupent en un point $A$. Les points $B$, $A$, $M$ sont alignés dans cet ordre et les points $C$, $A$, $N$ sont alignés dans cet ordre (les triangles $ABC$ et $AMN$ sont donc opposés par le sommet $A$ : c'est une configuration en papillon). La droite $(BC)$ est parallèle à la droite $(MN)$. On donne $AB = 4$ cm, $AM = 6$ cm et $AC = 5$ cm. Calculer la longueur $AN$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : b, A, M alignés dans cet ordre et C, A, N alignés dans cet ordre, avec (BC)//(MN) : les conditions du théorème de Thalès (configuration en papillon) sont réunies."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$, soit $\\dfrac{6}{4} = \\dfrac{AN}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $AN = \\dfrac{6 \\times 5}{4} = 7,5$ cm."
+            }
+          ],
+          "reponse": "$AN = 7,5$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $AN = 7,5$ cm",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1788",
+          "titre": "Exemple 4",
+          "enonce": "Dans un triangle $UVW$, on place $P$ sur $[UV]$ et $Q$ sur $[UW]$ tels que $U$, $P$, $V$ soient alignés dans cet ordre, $U$, $Q$, $W$ soient alignés dans cet ordre, et $(PQ)$ soit parallèle à $(VW)$. On donne $UP = 4$ cm, $UV = 6$ cm et $UQ = 9$ cm. Déterminer la longueur $UW$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : u, P, V alignés dans cet ordre, U, Q, W alignés dans cet ordre, et (PQ)//(VW) : le théorème de Thalès s'applique dans le triangle UVW."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $\\dfrac{UP}{UV} = \\dfrac{UQ}{UW}$, soit $\\dfrac{4}{6} = \\dfrac{9}{UW}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $UW = \\dfrac{9 \\times 6}{4} = 13,5$ cm."
+            }
+          ],
+          "reponse": "$UW = 13,5$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $UW = 13,5$ cm",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Ne pas confondre les noms de points : appliquer le théorème de Thalès dans le triangle $LMN$ avec les points $P$ et $Q$."
+      ],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Repartir de $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$ et isoler $AB$.",
+        "Utiliser $\\dfrac{AM}{AB} = \\dfrac{MN}{BC}$.",
+        "Le point $O$ est le sommet commun des deux droites (le sol et le rayon lumineux) : appliquer le théorème de Thalès avec $\\dfrac{OF}{OB} = \\dfrac{FT}{BL}$.",
+        "A, M, B alignés dans cet ordre et A, N, C alignés dans cet ordre, avec (MN)//(BC) : le théorème de Thalès s'applique dans le triangle ABC.",
+        "Le théorème de Thalès donne aussi $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$ : on peut retrouver $AM$ si l'on connaît les trois autres longueurs.",
+        "Les points sont alignés dans le bon ordre et $(MN)//(BC)$ : on peut appliquer le théorème de Thalès dans le triangle $ABC$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "A"
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "label": "B"
+          },
+          {
+            "x": 1,
+            "y": 4,
+            "label": "C"
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "label": "M",
+            "tooltip": "M est sur [AB]"
+          },
+          {
+            "x": 0.6,
+            "y": 2.4,
+            "label": "N",
+            "tooltip": "N est sur [AC]"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "tooltip": "Triangle ABC"
+          }
+        ],
+        "segments": [
+          {
+            "from": "M",
+            "to": "N",
+            "variant": "hypotenuse",
+            "tooltip": "(MN) parallèle à (BC)"
+          }
+        ],
+        "relation": "$\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$",
+        "alt": "Dans le triangle ABC, M est un point de [AB] et N un point de [AC], avec (MN) parallèle à (BC) : configuration du théorème de Thalès utilisée pour calculer une longueur à partir des trois autres."
+      },
+      "quizExerciseIds": [
+        1771,
+        1772,
+        1773
+      ],
+      "topic_id": "theoreme-de-thales-:-calculer-une-longueur",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Théorème de Thalès : calculer une longueur."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "theoreme",
+        "thales",
+        "calculer",
+        "longueur"
+      ]
+    },
+    {
+      "id": "theoreme-des-milieux",
+      "title": "Théorème des milieux",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre à utiliser le théorème des milieux.\n\nCette notion sert à calculer la longueur d'un segment qui relie les milieux de deux côtés d'un triangle, sans avoir à la mesurer.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Dans un triangle ABC, si I est le milieu de [AB] et J le milieu de [AC], alors le segment [IJ] est parallèle au troisième côté [BC] et mesure exactement la moitié de sa longueur. C'est un raccourci très pratique : pas besoin de connaître AB ni AC pour trouver IJ, seulement BC.",
+      "objectif": "À la fin de ce cours, tu sauras repérer les milieux de deux côtés d'un triangle et utiliser le théorème des milieux pour calculer la longueur du troisième côté ou du segment qui relie ces deux milieux, sans avoir à la mesurer.",
+      "definition": "Si, dans un triangle $ABC$, $I$ est le milieu de $[AB]$ et $J$ est le milieu de $[AC]$, alors la droite $(IJ)$ est parallèle à $(BC)$ et $IJ = \\dfrac{BC}{2}$.",
+      "definitions": {
+        "lycee": "Si, dans un triangle $ABC$, $I$ est le milieu de $[AB]$ et $J$ est le milieu de $[AC]$, alors la droite $(IJ)$ est parallèle à $(BC)$ et $IJ = \\dfrac{BC}{2}$.",
+        "college": "Le théorème des milieux donne $BC = 2 \\times IJ$."
+      },
+      "intuition": "Le théorème des milieux fonctionne dans les deux sens : si tu connais $BC$, tu obtiens $IJ$ en divisant par 2 ; si tu connais $IJ$, tu obtiens $BC$ en multipliant par 2. Il faut toujours vérifier que les deux points sont bien les milieux des deux mêmes côtés partant du même sommet.",
+      "reglesImportantes": [
+        "Chaque côté du triangle IJK est la moitié d'un côté de ABC : IJ // BC, JK // AB, IK // AC, d'après le théorème des milieux appliqué trois fois.",
+        "Calculer d'abord IJ (théorème des milieux), puis IB = AB - AI et JC = AC - AJ, avant d'additionner les quatre côtés du trapèze.",
+        "I et J étant des milieux, $AI = \\dfrac{AB}{2}$, $AJ = \\dfrac{AC}{2}$, et le théorème des milieux donne $IJ = \\dfrac{BC}{2}$.",
+        "Calculer d'abord la longueur d'une poutre IJ avec le théorème des milieux, puis multiplier par 2, puis par le prix au mètre.",
+        "Calculer d'abord la longueur d'une entretoise IJ avec le théorème des milieux, puis multiplier par le nombre de fermes."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Théorème des milieux",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : i et J sont les milieux de [AB] et [AC] donc, d'après le théorème des milieux, $IJ = \\dfrac{BC}{2} = \\dfrac{14}{2} = 7$ cm."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : i et K sont les milieux de [AB] et [BC] donc $IK = \\dfrac{AC}{2} = \\dfrac{8}{2} = 4$ cm."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : j et K sont les milieux de [AC] et [BC] donc $JK = \\dfrac{AB}{2} = \\dfrac{10}{2} = 5$ cm."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : le périmètre de $IJK$ est $IJ + IK + JK = 7 + 4 + 5 = 16$ cm."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1830",
+          "titre": "Exemple 1",
+          "enonce": "Dans un triangle $ABC$, $I$ est le milieu de $[AB]$ et $J$ est le milieu de $[AC]$. On donne $BC = 10$ cm. Calculer la longueur $IJ$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : i est le milieu de [AB] et J est le milieu de [AC] : d'après le théorème des milieux, $(IJ)$ est parallèle à $(BC)$ et $IJ = \\dfrac{BC}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $IJ = \\dfrac{10}{2} = 5$ cm."
+            }
+          ],
+          "reponse": "$IJ = 5$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $IJ = 5$ cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1836",
+          "titre": "Exemple 2",
+          "enonce": "Dans un triangle $ABC$, $I$ est le milieu de $[AB]$ et $J$ est le milieu de $[AC]$. On donne $BC = 7,4$ cm. Calculer la longueur $IJ$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : i est le milieu de [AB] et J est le milieu de [AC] : d'après le théorème des milieux, $(IJ)$ est parallèle à $(BC)$ et $IJ = \\dfrac{BC}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $IJ = \\dfrac{7,4}{2} = 3,7$ cm."
+            }
+          ],
+          "reponse": "$IJ = 3,7$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $IJ = 3,7$ cm",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1842",
+          "titre": "Exemple 3",
+          "enonce": "Dans un triangle $ABC$, $I$ est le milieu de $[AB]$ et $J$ est le milieu de $[AC]$. On donne $AB = 9$ cm, $AC = 11$ cm et $BC = 13$ cm. Calculer la longueur $IJ$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : i est le milieu de [AB] et J est le milieu de [AC] : d'après le théorème des milieux, $(IJ)$ est parallèle à $(BC)$ et $IJ = \\dfrac{BC}{2}$, quelles que soient les longueurs $AB$ et $AC$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $IJ = \\dfrac{13}{2} = 6,5$ cm."
+            }
+          ],
+          "reponse": "$IJ = 6,5$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $IJ = 6,5$ cm",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1848",
+          "titre": "Exemple 4",
+          "enonce": "Dans un triangle $ABC$, on donne $AB = 10$ cm, $BC = 14$ cm et $AC = 8$ cm. On note $I$ le milieu de $[AB]$, $J$ le milieu de $[AC]$ et $K$ le milieu de $[BC]$. Calculer le périmètre du triangle $IJK$ (appelé triangle médian).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : i et J sont les milieux de [AB] et [AC] donc, d'après le théorème des milieux, $IJ = \\dfrac{BC}{2} = \\dfrac{14}{2} = 7$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : i et K sont les milieux de [AB] et [BC] donc $IK = \\dfrac{AC}{2} = \\dfrac{8}{2} = 4$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : j et K sont les milieux de [AC] et [BC] donc $JK = \\dfrac{AB}{2} = \\dfrac{10}{2} = 5$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le périmètre de $IJK$ est $IJ + IK + JK = 7 + 4 + 5 = 16$ cm."
+            }
+          ],
+          "reponse": "Le périmètre de $IJK$ est $16$ cm",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Le périmètre de $IJK$ est $16$ cm",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "calculer la longueur d'une poutre de charpente sans la mesurer directement",
+        "vérifier un plan de construction où seuls certains milieux sont accessibles",
+        "construire le triangle médian d'un triangle donné"
+      ],
+      "erreursFrequentes": [
+        "Multiplier par 2 au lieu de diviser par 2 (ou l'inverse), en confondant la direction du calcul.",
+        "Utiliser le théorème des milieux avec un point qui n'est pas réellement le milieu d'un côté du triangle.",
+        "Se tromper de côté « miroir » et associer $IJ$ à $AB$ ou $AC$ au lieu de $BC$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Multiplier par 2 au lieu de diviser par 2 (ou l'inverse), en confondant la direction du calcul.",
+          "pourquoi": "L'élève retient la formule $IJ = \\dfrac{BC}{2}$ mais oublie si c'est $IJ$ ou $BC$ qui doit être divisé, surtout quand c'est $IJ$ qui est donné et $BC$ qui est demandé.",
+          "comment_detecter": "Le résultat obtenu pour le grand côté du triangle est plus petit que le segment des milieux, ou inversement, ce qui est impossible puisque $IJ$ doit toujours être plus petit que $BC$.",
+          "comment_eviter": "Toujours se rappeler que le segment reliant les milieux ($IJ$) est le plus petit, et que c'est donc lui qu'on obtient en divisant par 2 le grand côté ($BC$), jamais l'inverse."
+        },
+        {
+          "description": "Utiliser le théorème des milieux avec un point qui n'est pas réellement le milieu d'un côté du triangle.",
+          "pourquoi": "L'élève applique la formule dès qu'il voit un segment à l'intérieur du triangle, sans vérifier dans l'énoncé ou sur la figure que les points concernés sont bien définis comme des milieux.",
+          "comment_detecter": "L'énoncé ne dit jamais explicitement que le point est le milieu du segment, ou donne une autre information (comme une distance) qui contredit cette hypothèse.",
+          "comment_eviter": "Relire l'énoncé pour vérifier que chaque point utilisé est bien annoncé comme le milieu d'un côté avant d'appliquer le théorème des milieux."
+        },
+        {
+          "description": "Se tromper de côté « miroir » et associer $IJ$ à $AB$ ou $AC$ au lieu de $BC$.",
+          "pourquoi": "L'élève ne repère pas correctement le sommet commun aux deux segments dont $I$ et $J$ sont les milieux, et associe le segment $IJ$ à un mauvais côté du triangle de départ.",
+          "comment_detecter": "Le côté choisi comme référence passe par le même sommet que les segments des milieux, alors que le théorème des milieux relie toujours $IJ$ au côté opposé à ce sommet commun.",
+          "comment_eviter": "Identifier d'abord le sommet commun aux deux côtés dont $I$ et $J$ sont les milieux : le côté de référence pour $IJ$ est toujours celui qui ne passe pas par ce sommet."
+        }
+      ],
+      "astuce": "Pour ne pas te tromper de côté, repère d'abord le sommet commun aux deux segments dont I et J sont les milieux : le côté « miroir » (BC) est toujours celui qui ne passe pas par ce sommet.",
+      "aRetenir": [
+        "Chaque côté du triangle IJK est la moitié d'un côté de ABC : IJ // BC, JK // AB, IK // AC, d'après le théorème des milieux appliqué trois fois.",
+        "Calculer d'abord IJ (théorème des milieux), puis IB = AB - AI et JC = AC - AJ, avant d'additionner les quatre côtés du trapèze.",
+        "I et J étant des milieux, $AI = \\dfrac{AB}{2}$, $AJ = \\dfrac{AC}{2}$, et le théorème des milieux donne $IJ = \\dfrac{BC}{2}$.",
+        "Calculer d'abord la longueur d'une poutre IJ avec le théorème des milieux, puis multiplier par 2, puis par le prix au mètre.",
+        "Calculer d'abord la longueur d'une entretoise IJ avec le théorème des milieux, puis multiplier par le nombre de fermes.",
+        "Calculer d'abord IJ avec le théorème des milieux, puis additionner le périmètre du triangle ABC et la longueur IJ."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "A"
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "label": "B"
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "label": "C"
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "label": "I",
+            "reveal": 2
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "label": "J",
+            "reveal": 2
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "label": "K",
+            "reveal": 3
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "tooltip": "Triangle ABC"
+          }
+        ],
+        "segments": [
+          {
+            "from": "I",
+            "to": "J",
+            "variant": "hypotenuse",
+            "reveal": 2,
+            "tooltip": "IJ = BC / 2"
+          },
+          {
+            "from": "I",
+            "to": "K",
+            "dashed": true,
+            "reveal": 3,
+            "tooltip": "IK = AC / 2"
+          },
+          {
+            "from": "J",
+            "to": "K",
+            "dashed": true,
+            "reveal": 3,
+            "tooltip": "JK = AB / 2"
+          }
+        ],
+        "steps": [
+          {
+            "texte": "Triangle ABC de départ."
+          },
+          {
+            "texte": "I est le milieu de [AB], J le milieu de [AC] : d'après le théorème des milieux, (IJ) est parallèle à (BC) et IJ = BC / 2."
+          },
+          {
+            "texte": "En ajoutant K, milieu de [BC], on obtient le triangle médian IJK : chacun de ses côtés vaut la moitié du côté de ABC qui lui est parallèle."
+          }
+        ],
+        "relation": "$IJ = \\dfrac{BC}{2}$",
+        "alt": "Dans le triangle ABC, I, J et K sont les milieux respectifs de [AB], [AC] et [BC] : le triangle médian IJK a des côtés deux fois plus petits que ceux de ABC."
+      },
+      "quizExerciseIds": [
+        1831,
+        1832,
+        1833
+      ],
+      "topic_id": "theoreme-des-milieux",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Théorème des milieux."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "theoreme",
+        "milieux"
+      ]
+    }
+  ]
+}

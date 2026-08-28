@@ -30,7 +30,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import canonical_ids
-from chatbot.knowledge_engine import COURS_DIR, DIFFICULTE_LEVELS
+from chatbot.knowledge_engine import COURS_DIR
 from chatbot.validate_cours_schema import validate_all as validate_cours_schema
 from validate_topic_crosswalk import validate as validate_topic_crosswalk
 

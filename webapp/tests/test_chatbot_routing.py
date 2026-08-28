@@ -14,7 +14,6 @@ rapport final, pas cachés ici).
 import unittest
 from unittest.mock import patch
 
-import canonical_ids
 from chatbot import knowledge_engine
 from chatbot.services import intent_service, local_knowledge_service, mentions_service, search_service
 

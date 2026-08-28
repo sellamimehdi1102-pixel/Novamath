@@ -1,0 +1,477 @@
+/* ==========================================================================
+   Module Cours — grille de chapitres (réutilise .chapter-card/.chapters-grid
+   de chapitres.css) + lecteur de notion en page unique, conçu comme une
+   vraie leçon (héros, sections typées, méthode en timeline, exemples
+   lisibles) plutôt qu'un JSON mis en forme. Réutilise les composants de
+   exercice.css (voir cours.html) : .empty-state, .btn-verdict-yes/no,
+   .h3-icon — cohérence graphique explicitement demandée avec Exercices.
+   ========================================================================== */
+
+/* @keyframes nm-rise partagé — voir css/animations.css. */
+
+/* ── Identité de fond de la page Cours — vagues translucides très discrètes
+   en bas de la liste de chapitres, même esprit que la landing (voir
+   landing.css .hero) sans en réutiliser la même image. Couleur figée en hex
+   (un data-URI SVG ne peut pas interpoler les tokens CSS) mais choisie sur
+   --violet-500/--indigo-500 pour rester cohérente avec la palette ; opacité
+   déjà très faible donc la teinte fixe ne se remarque pas en thème sombre.
+   Étend légèrement au-delà du padding de .main-content (-48px, cf.
+   base.css) pour un effet plus ample sans casser le layout. */
+#cours-list-view { position: relative; }
+#cours-list-view::before {
+  content: "";
+  position: absolute;
+  left: -48px;
+  right: -48px;
+  bottom: -60px;
+  height: 320px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 220 Q150 160 300 210 T600 200 T900 220 T1200 190' fill='none' stroke='%238f63e0' stroke-opacity='0.12' stroke-width='2'/%3E%3Cpath d='M0 260 Q150 210 300 250 T600 245 T900 260 T1200 235' fill='none' stroke='%235b57d6' stroke-opacity='0.08' stroke-width='2'/%3E%3C/svg%3E")
+    no-repeat bottom / 100% 100%;
+}
+
+.cours-back-row { margin-bottom: 16px; }
+
+.cours-notions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+.cours-notion-card {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  animation: nm-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cours-notion-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-float); border-color: var(--border-hover); }
+.cours-notion-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-bottom: 10px;
+}
+.cours-notion-top h3 { margin: 0; font-size: 1rem; font-family: var(--font-display); }
+.cours-notion-meta {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;
+}
+
+/* ── États de chargement — silhouette proche du contenu réel plutôt qu'un
+   bloc gris plat, pour un chargement perçu plus naturel. ────────────────── */
+.cours-skeleton-grid { gap: 16px; }
+.cours-skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.cours-skeleton-card .skeleton { border-radius: var(--radius-sm); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HÉROS DE CHAPITRE / NOTION — titre + repère de progression, en haut de
+   chaque écran de lecture. Les barres réutilisent .progress-track/.progress-
+   fill (base.css), déjà utilisées partout ailleurs sur le site.
+   ══════════════════════════════════════════════════════════════════════════ */
+.cours-chapter-hero {
+  padding: 36px 40px;
+  margin-bottom: 28px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: linear-gradient(155deg, var(--surface), var(--surface-hover));
+  box-shadow: var(--shadow-float);
+  animation: nm-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cours-chapter-hero .chapter-id { margin-bottom: 4px; }
+.cours-chapter-hero h1 { margin-bottom: 14px; }
+.cours-chapter-hero-progress { display: flex; align-items: center; gap: 14px; }
+.cours-chapter-hero-progress .progress-track { flex: 1; height: 8px; }
+.cours-chapter-hero-progress-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+
+/* ── En-tête de notion ────────────────────────────────────────────────── */
+.cours-notion-title { margin-bottom: 8px; font-size: clamp(1.5rem, 3vw, 1.9rem); }
+.cours-intro-text {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin-bottom: 20px;
+  max-width: 68ch;
+}
+
+.cours-objectif-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+.cours-objectif-icon {
+  width: 34px; height: 34px; flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(var(--accent-rgb), 0.16);
+  color: var(--accent-text);
+}
+.cours-objectif-icon svg { width: 18px; height: 18px; }
+.cours-objectif-card p { margin: 0; font-size: 0.94rem; line-height: 1.55; }
+
+.cours-section-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--accent-text);
+  margin: 32px 0 14px;
+}
+.cours-section-label svg { width: 16px; height: 16px; }
+
+/* ── Boîtes de section (définition / attention / astuce) ─────────────── */
+.cours-box {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  animation: nm-rise 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cours-box-header {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 0.95rem; margin-bottom: 12px;
+}
+.cours-box-header svg { width: 18px; height: 18px; }
+.cours-box-body { font-size: 0.96rem; line-height: 1.7; white-space: pre-line; }
+
+.cours-box--definition { border-left: 3px solid var(--brand-indigo); background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06), var(--surface)); }
+.cours-box--definition .cours-box-header { color: var(--accent-text); }
+.cours-box--attention { border-left: 3px solid var(--danger); background: linear-gradient(135deg, var(--danger-soft), var(--surface)); }
+.cours-box--attention .cours-box-header { color: var(--danger); }
+.cours-box--astuce { border-left: 3px solid var(--warning); background: linear-gradient(135deg, var(--warning-soft), var(--surface)); }
+.cours-box--astuce .cours-box-header { color: var(--warning); }
+.cours-box--simple { border-left: 3px solid var(--brand-violet); background: linear-gradient(135deg, rgba(var(--brand-violet-rgb), 0.08), var(--surface)); }
+.cours-box--simple .cours-box-header { color: var(--brand-violet); }
+.cours-box--intuition { border-left: 3px solid var(--success); background: linear-gradient(135deg, var(--success-soft), var(--surface)); }
+.cours-box--intuition .cours-box-header { color: var(--success); }
+.cours-box--concret { border-left: 3px solid var(--info); background: linear-gradient(135deg, var(--info-soft), var(--surface)); }
+.cours-box--concret .cours-box-header { color: var(--info); }
+
+.cours-erreurs-list, .cours-concrets-list { margin: 0; padding-left: 20px; font-size: 0.94rem; }
+.cours-erreurs-list li, .cours-concrets-list li { margin-bottom: 8px; line-height: 1.55; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   DISPOSITION DEUX COLONNES — graphique à gauche (~45%) / explications à
+   droite (~55%), pour que le texte puisse faire référence directement au
+   repère pendant que l'élève le lit (colonne graphique "collante" au
+   scroll). Sur mobile : empilé, graphique d'abord, puis explications.
+   ══════════════════════════════════════════════════════════════════════════ */
+.cours-figure-layout {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 28px;
+  align-items: start;
+  margin-bottom: 8px;
+}
+.cours-figure-col { position: sticky; top: 20px; }
+.cours-figure-text-col { min-width: 0; }
+
+@media (max-width: 900px) {
+  .cours-figure-layout { grid-template-columns: 1fr; gap: 20px; }
+  .cours-figure-col { position: static; }
+}
+
+/* ── Figure géométrique ───────────────────────────────────────────────── */
+.cours-figure-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.geom-figure { width: 100%; max-width: 420px; height: auto; }
+/* Figures "geom" (repère mathématique) — bien plus grandes, elles portent
+   désormais une vraie partie du cours (voir cours-figure-layout). Les
+   autres types (arbre, Venn, bâtons...) sont alignés à la même échelle via
+   .geom-figure--wide plutôt que de rester au format d'origine, plus petit. */
+.geom-figure--geom, .geom-figure--wide { max-width: 100%; }
+.geom-grid-line { stroke: var(--border); stroke-width: 0.6; }
+.geom-axis { stroke: var(--text-faint); stroke-width: 1.6; }
+.geom-tick { stroke: var(--text-faint); stroke-width: 1.4; }
+.geom-tick-label { font-size: 11.5px; fill: var(--text-muted); font-weight: 600; }
+.geom-origin-label { fill: var(--text); font-weight: 700; }
+.geom-axis-label { font-size: 13px; fill: var(--text-muted); font-weight: 700; font-style: italic; }
+.geom-coord-label { font-size: 9.5px; fill: var(--text-muted); font-weight: 500; }
+.geom-segment { stroke: var(--text-muted); stroke-width: 1.8; }
+.geom-segment--dashed { stroke-dasharray: 4 3; }
+.geom-vector { stroke: var(--accent); stroke-width: 2.2; }
+.geom-arrow-head--axis { fill: var(--text-faint); }
+.geom-arrow-head--vector { fill: var(--accent); }
+.geom-polygon { fill: rgba(var(--accent-rgb), 0.12); stroke: var(--accent); stroke-width: 1.8; }
+.geom-circle { fill: none; stroke: var(--accent); stroke-width: 1.8; }
+.geom-point { fill: var(--text); }
+.geom-label { font-size: 13px; fill: var(--text); font-weight: 700; }
+.geom-label--vector { fill: var(--accent); }
+.geom-label--overlap { fill: var(--accent-text); font-weight: 700; }
+.cours-figure-caption { font-size: 0.85rem; color: var(--text-muted); text-align: center; max-width: 60ch; }
+
+/* Courbes de fonctions et arcs d'angle */
+.geom-curve { stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.geom-curve--dashed { stroke-dasharray: 4 3; }
+.geom-angle-arc { fill: rgba(var(--accent-rgb), 0.14); stroke: var(--accent); stroke-width: 1.2; }
+.geom-point--open { fill: var(--surface); stroke: var(--text); stroke-width: 1.6; }
+
+/* Arbre de probabilités */
+.geom-tree-edge { stroke: var(--text-muted); stroke-width: 1.4; }
+.geom-tree-node { fill: var(--accent); }
+.geom-tree-label { font-size: 13.5px; fill: var(--text); font-weight: 600; }
+.geom-tree-proba { font-size: 12.5px; fill: var(--accent-text); text-anchor: middle; }
+
+/* Diagramme de Venn */
+.geom-venn-circle { stroke: var(--accent); stroke-width: 1.6; fill: rgba(var(--accent-rgb), 0.12); }
+.geom-venn-circle--b { fill: rgba(var(--brand-violet-rgb), 0.14); stroke: var(--brand-violet); }
+
+/* Ensembles emboîtés */
+.geom-nested-circle { fill: none; stroke: var(--accent); stroke-width: 1.4; }
+
+/* Droite graduée */
+.geom-numberline-highlight { stroke: var(--accent); stroke-width: 4; }
+
+/* Diagramme en bâtons */
+.geom-bar { fill: var(--accent); opacity: 0.85; rx: 3; }
+
+/* Diagramme circulaire */
+.geom-pie-slice { stroke: var(--surface); stroke-width: 1.5; }
+.geom-pie-slice--0 { fill: var(--brand-indigo); }
+.geom-pie-slice--1 { fill: var(--brand-violet); }
+.geom-pie-slice--2 { fill: var(--success); }
+.geom-pie-slice--3 { fill: var(--warning); }
+.geom-pie-slice--4 { fill: var(--info); }
+
+/* Boîte à moustaches */
+.geom-boxplot-box { fill: rgba(var(--accent-rgb), 0.14); stroke: var(--accent); stroke-width: 1.4; }
+.geom-boxplot-median { stroke: var(--accent); stroke-width: 2; }
+
+/* Solides usuels (fil de fer) */
+.geom-solid-face { fill: rgba(var(--accent-rgb), 0.1); stroke: var(--accent); stroke-width: 1.4; stroke-linejoin: round; }
+.geom-solid-face--top { fill: rgba(var(--accent-rgb), 0.2); }
+.geom-solid-face--side { fill: rgba(var(--accent-rgb), 0.15); }
+.geom-solid-face--wire { fill: none; stroke: var(--text-faint); stroke-width: 1; }
+
+/* ── Règles importantes (cartes) ──────────────────────────────────────── */
+.cours-regles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.cours-regle-card {
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  border-left: 3px solid var(--brand-indigo);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.cours-regle-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MÉTHODE — timeline verticale reliant les étapes, pour qu'elle se suive
+   comme une vraie progression et non une liste de cartes indépendantes.
+   ══════════════════════════════════════════════════════════════════════════ */
+.cours-steps { position: relative; display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px; }
+.cours-steps::before {
+  content: "";
+  position: absolute;
+  left: 33px;
+  top: 29px;
+  bottom: 29px;
+  width: 2px;
+  background: var(--border-strong);
+  z-index: 0;
+}
+.cours-step {
+  position: relative;
+  z-index: 1;
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  animation: nm-rise 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cours-step:hover { transform: translateX(3px); box-shadow: var(--shadow-sm); border-color: var(--border-strong); }
+.cours-step-num {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  flex-shrink: 0;
+}
+.cours-step-icon {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-on-accent);
+  box-shadow: 0 0 0 4px var(--surface);
+}
+.cours-step-icon svg { width: 15px; height: 15px; }
+.cours-step-index { font-size: 0.68rem; font-weight: 700; color: var(--text-faint); }
+.cours-step-text { font-size: 0.94rem; line-height: 1.6; padding-top: 5px; }
+
+/* Palette catégorielle fixe (--step-color-1..5, voir tokens.css) — sert à
+   distinguer visuellement des étapes, pas la marque : non thémée par accent. */
+.cours-step--blue .cours-step-icon { background: var(--step-color-1); }
+.cours-step--purple .cours-step-icon { background: var(--step-color-2); }
+.cours-step--green .cours-step-icon { background: var(--step-color-3); }
+.cours-step--orange .cours-step-icon { background: var(--step-color-4); }
+.cours-step--pink .cours-step-icon { background: var(--step-color-5); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   EXEMPLES — chaîne de calcul très lisible, réponse finale mise en évidence
+   comme une "solution" (même langage visuel que .callout--solution côté
+   Exercices : tinte verte, jamais de néon).
+   ══════════════════════════════════════════════════════════════════════════ */
+.cours-exemple-card {
+  padding: 22px 24px;
+  margin-bottom: 16px;
+  animation: nm-rise 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cours-exemple-title {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; color: var(--accent-text);
+}
+.cours-exemple-title svg { width: 17px; height: 17px; }
+.cours-exemple-enonce { font-size: 0.96rem; margin-bottom: 16px; line-height: 1.6; }
+.cours-exemple-explication { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6; font-style: italic; }
+.cours-exemple-conclusion { font-size: 0.88rem; color: var(--text-muted); margin-top: 10px; line-height: 1.6; }
+
+.cours-calc-block {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px;
+  margin: 10px 0;
+}
+.cours-calc-row {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-hover);
+}
+.cours-calc-expr { font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
+.cours-calc-texte { font-size: 0.83rem; color: var(--text-muted); }
+.cours-calc-arrow { color: var(--accent-text); width: 16px; height: 16px; transform: rotate(90deg); }
+.cours-calc-arrow svg { width: 100%; height: 100%; }
+
+.cours-exemple-reponse {
+  margin-top: 14px; padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--success-soft);
+  color: var(--success);
+  font-weight: 700; font-size: 0.96rem;
+}
+/* --success brut sur --success-soft ne passe que 2:1 en thème clair (audit
+   contraste) — assombri uniquement là où c'est nécessaire (le thème sombre
+   passe déjà ≥6:1). */
+:root[data-theme="light"] .cours-exemple-reponse { color: color-mix(in srgb, var(--success) 60%, black 40%); }
+
+/* ── À retenir ─────────────────────────────────────────────────────────── */
+.cours-aretenir-card {
+  padding: 22px 24px;
+  margin: 24px 0;
+  border: 1px solid rgba(var(--brand-gold-rgb), 0.35);
+  background: linear-gradient(155deg, rgba(var(--brand-gold-rgb), 0.1), var(--surface));
+  animation: nm-rise 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cours-aretenir-title {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 0.98rem; margin-bottom: 12px;
+  color: var(--brand-gold-text);
+}
+.cours-aretenir-title svg { width: 18px; height: 18px; }
+.cours-aretenir-list { margin: 0; padding-left: 20px; }
+.cours-aretenir-list li { margin-bottom: 8px; font-size: 0.94rem; line-height: 1.55; }
+
+/* ── Navigation entre notions (précédente / suivante) — donne envie de
+   continuer jusqu'à la fin du chapitre plutôt que de s'arrêter là. ──────── */
+.cours-notion-nav {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+.cours-notion-nav-btn {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.cours-notion-nav-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgba(var(--accent-rgb), 0.35); }
+.cours-notion-nav-btn--next { justify-content: space-between; background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), var(--surface)); }
+.cours-notion-nav-eyebrow { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 3px; }
+.cours-notion-nav-title { font-size: 0.94rem; font-weight: 600; color: var(--text); }
+.cours-notion-nav-btn svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--accent-text); }
+
+.cours-nav-row {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-top: 20px; flex-wrap: wrap;
+}
+.cours-done-confirm {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 600; color: var(--success);
+}
+.cours-done-confirm svg { width: 18px; height: 18px; }
+/* --success brut ne passe que 2.3:1 sur fond clair (audit contraste) —
+   assombri uniquement en thème clair (le thème sombre passe déjà ≥4.5:1). */
+:root[data-theme="light"] .cours-done-confirm { color: color-mix(in srgb, var(--success) 60%, black 40%); }
+
+/* ── Mini-quiz — réutilise le langage des boutons de verdict d'Exercices. ── */
+.cours-quiz-card { padding: 22px 24px; margin-top: 24px; }
+.cours-quiz-label {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;
+}
+.cours-quiz-label-text { display: flex; align-items: center; gap: 8px; }
+.cours-quiz-label svg { width: 16px; height: 16px; }
+.cours-quiz-progress { width: 90px; height: 6px; }
+#cours-quiz-enonce { font-size: 1rem; margin-bottom: 16px; line-height: 1.6; }
+#cours-quiz-answer {
+  margin: 10px 0; padding: 14px 16px;
+  background: var(--success-soft); border-radius: var(--radius-sm);
+  white-space: pre-line; font-size: 0.92rem; line-height: 1.55;
+  animation: nm-rise 250ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cours-quiz-done { padding: 22px 24px; margin-top: 24px; display: flex; align-items: center; gap: 12px; font-size: 0.98rem; animation: nm-rise 350ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.cours-quiz-done svg { width: 22px; height: 22px; color: var(--success); flex-shrink: 0; }
+:root[data-theme="light"] .cours-quiz-done svg { color: color-mix(in srgb, var(--success) 60%, black 40%); }
+
+@media (max-width: 640px) {
+  .cours-notions-list { grid-template-columns: 1fr; }
+  .cours-regles-grid { grid-template-columns: 1fr; }
+  .cours-nav-row { flex-direction: column; align-items: stretch; }
+  .cours-nav-row .btn { width: 100%; justify-content: center; }
+  .cours-notion-nav { flex-direction: column; }
+  .cours-calc-row { flex-direction: column; gap: 4px; text-align: center; }
+  .cours-calc-expr { white-space: normal; overflow-wrap: break-word; }
+  .cours-step { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cours-steps::before { display: none; }
+  .cours-objectif-card { flex-wrap: wrap; }
+  .cours-intro-text { max-width: 100%; }
+  .cours-chapter-hero { padding: 20px; }
+}
+
+@media (max-width: 420px) {
+  /* Ne borne que les toutes petites figures isolées (solides, ensembles
+     emboîtés...) — les figures "repère" et "wide" restent pleine largeur. */
+  .geom-figure:not(.geom-figure--geom):not(.geom-figure--wide) { max-width: 260px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cours-notion-card, .cours-box, .cours-step, .cours-exemple-card,
+  .cours-aretenir-card, .cours-quiz-done, #cours-quiz-answer, .cours-chapter-hero { animation: none; }
+}

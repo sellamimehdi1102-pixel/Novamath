@@ -85,11 +85,21 @@ class TestGunicornConfigDefauts(_EnvIsolatedTestCase):
     def test_worker_class_gthread_par_defaut(self):
         self.assertEqual(_load_gunicorn_conf().worker_class, "gthread")
 
-    def test_timeout_par_defaut_soixante(self):
-        self.assertEqual(_load_gunicorn_conf().timeout, 60)
+    def test_timeout_par_defaut_couvre_le_pire_cas_de_fallback_ia(self):
+        """180s (pas 60s) : calcul précis en commentaire de gunicorn.conf.py
+        — la chaîne de fallback IA du plan "ultra" (3 candidats, 45s de
+        timeout chacun par défaut) peut légitimement prendre jusqu'à 135s
+        avant de retomber sur "fake" ; 60s tuait le worker avant ce repli,
+        voir audit Release Candidate."""
+        self.assertEqual(_load_gunicorn_conf().timeout, 180)
 
-    def test_graceful_timeout_par_defaut_trente(self):
-        self.assertEqual(_load_gunicorn_conf().graceful_timeout, 30)
+    def test_graceful_timeout_par_defaut_couvre_le_meme_pire_cas_que_timeout(self):
+        """Doit rester cohérent avec GUNICORN_TIMEOUT (180s, voir
+        test_timeout_par_defaut_couvre_le_pire_cas_de_fallback_ia ci-dessus) :
+        un déploiement Fly.io ne doit pas couper une génération IA en cours
+        (jusqu'à 135s pour un plan Ultra) avant le timeout normal, voir audit
+        Release Candidate."""
+        self.assertEqual(_load_gunicorn_conf().graceful_timeout, 180)
 
     def test_keepalive_par_defaut_cinq(self):
         self.assertEqual(_load_gunicorn_conf().keepalive, 5)
@@ -144,7 +154,7 @@ class TestGunicornConfigSurcharges(_EnvIsolatedTestCase):
 
     def test_valeur_entiere_invalide_retombe_sur_le_defaut(self):
         os.environ["GUNICORN_TIMEOUT"] = "pas-un-entier"
-        self.assertEqual(_load_gunicorn_conf().timeout, 60)
+        self.assertEqual(_load_gunicorn_conf().timeout, 180)
 
 
 class TestGunicornCheckConfig(unittest.TestCase):
@@ -217,6 +227,13 @@ class TestDockerfile(unittest.TestCase):
 
     def test_gunicorn_conf_utilise(self):
         self.assertIn("gunicorn.conf.py", self.content)
+
+    def test_postgresql_client_installe_pour_pg_dump_psql(self):
+        """webapp/backup_service.py appelle pg_dump/psql (_backup_postgresql/
+        _restore_postgresql) dès que DATABASE_URL pointe vers PostgreSQL —
+        sans postgresql-client dans l'image finale, ces binaires seraient
+        introuvables, voir audit Release Candidate."""
+        self.assertIn("postgresql-client", self.content)
 
 
 # ── docker-compose.yml ────────────────────────────────────────────────────

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abonnements — NovaMath</title>
+<meta name="application-name" content="NovaMath">
+<meta name="theme-color" content="#6366f1">
+<link rel="manifest" href="/assets/manifest.CTHT4RYn.json">
+<link rel="icon" href="/assets/logo.BrNBTSjm.svg" type="image/svg+xml">
+  <script type="module" crossorigin src="/assets/api.BbDKMC-Z.js"></script>
+  <script type="module" crossorigin src="/assets/scroll-reveal.DylWvSAA.js"></script>
+  <script type="module" crossorigin src="/assets/theme.C9IkBjKZ.js"></script>
+  <script type="module" crossorigin src="/assets/i18n.uGFp-Woa.js"></script>
+  <script type="module" crossorigin src="/assets/settingsPopup.D2O5o0bJ.js"></script>
+  <script type="module" crossorigin src="/assets/sidebar.3Kg47kBm.js"></script>
+  <script type="module" crossorigin src="/assets/abonnement.C7A3FVOq.js"></script>
+  <script type="module" crossorigin src="/assets/command-palette.lekfm-sk.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/api.Bai_hiHN.css">
+  <link rel="stylesheet" crossorigin href="/assets/scroll-reveal.L5vnTiG7.css">
+  <link rel="stylesheet" crossorigin href="/assets/sidebar.DQ0nMQhs.css">
+  <link rel="stylesheet" crossorigin href="/assets/abonnement.bXeqg5w4.css">
+  <link rel="stylesheet" crossorigin href="/assets/command-palette.CsLL9Ek2.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <a href="/" class="brand"><img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%20fill='none'%20role='img'%20aria-label='NovaMath'%3e%3cdefs%3e%3clinearGradient%20id='lumis-grad'%20x1='0'%20y1='0'%20x2='32'%20y2='32'%20gradientUnits='userSpaceOnUse'%3e%3cstop%20offset='0'%20stop-color='%236366f1'/%3e%3cstop%20offset='1'%20stop-color='%23a855f7'/%3e%3c/linearGradient%3e%3c/defs%3e%3cpath%20d='M9%206V22.5C9%2023.8807%2010.1193%2025%2011.5%2025H23'%20stroke='url(%23lumis-grad)'%20stroke-width='3.4'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M17%2019C17%2013.4772%2021.4772%209%2027%209'%20stroke='url(%23lumis-grad)'%20stroke-width='3.4'%20stroke-linecap='round'%20opacity='0.55'/%3e%3c/svg%3e" alt=""> <span class="brand-name">NovaMath</span></a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg><span data-i18n="nav.dashboard">Dashboard</span></a>
+      <a href="chapitres.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 2 2 3-3"/><path d="M11 6h10"/><path d="m3 13 2 2 3-3"/><path d="M11 13h10"/><path d="m3 20 2 2 3-3"/><path d="M11 20h10"/></svg><span data-i18n="nav.exercices">Exercices</span></a>
+      <a href="cours.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span data-i18n="nav.cours">Cours</span></a>
+      <a href="exercice.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="8" width="4" height="8" rx="1.5"/><rect x="18" y="8" width="4" height="8" rx="1.5"/><line x1="6" y1="12" x2="18" y2="12"/></svg><span data-i18n="nav.entrainement">Entraînement</span></a>
+      <a href="chatbot.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="nav.chatbot">Chatbot</span></a>
+      <a href="abonnement.html" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z"/></svg><span data-i18n="nav.abonnement">Abonnement</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="sidebar-settings-btn" id="settings-btn" aria-label="Paramètres" data-tooltip="Paramètres">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"/></svg>
+        <span data-i18n="settings.title">Paramètres</span>
+      </button>
+      <a href="profil.html" class="sidebar-user" id="sidebar-user">
+        <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
+        <span class="sidebar-user-info">
+          <span class="name" id="sidebar-user-name">Élève</span>
+          <span class="sub" id="sidebar-user-plan">Free</span>
+        </span>
+      </a>
+    </div>
+    <div class="sidebar-version" id="sidebar-version"></div>
+  </aside>
+
+  <main class="main-content" id="abonnement-main">
+    <!-- Affichée uniquement quand la page est ouverte via ?required=<feature>
+         (redirection serveur, voir server.py::_serve_protected, ou refus API
+         403 premium_required intercepté côté client) — jamais d'erreur brute,
+         toujours ce message explicatif + l'offre correspondante. -->
+    <section class="premium-required-banner card" id="premium-required-banner" hidden>
+      <span class="premium-required-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      </span>
+      <div class="premium-required-body">
+        <h2 id="premium-required-title">Cette fonctionnalité nécessite Premium.</h2>
+        <p class="premium-required-desc" id="premium-required-desc">
+          Débloque cette fonctionnalité et bien plus en passant à une formule supérieure.
+        </p>
+        <ul class="pricing-features" id="premium-required-benefits"></ul>
+        <button type="button" class="btn btn-primary" id="premium-required-cta">Passer à Premium</button>
+      </div>
+    </section>
+
+    <!-- Affichée uniquement pour un compte Premium/Ultra (voir
+         GET /api/billing/status, customer_portal_available) : statut Stripe
+         + accès direct au Portail client, jamais d'informations de
+         facturation recalculées côté client. -->
+    <section class="billing-status-card card" id="billing-status-card" hidden>
+      <div class="billing-status-head">
+        <div>
+          <span class="billing-status-plan" id="billing-status-plan">Premium</span>
+          <span class="badge badge--neutral" id="billing-status-badge">Actif</span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm" id="billing-status-manage">
+          Gérer mon abonnement
+        </button>
+      </div>
+      <div class="billing-status-dates">
+        <span id="billing-status-renew" hidden></span>
+        <span id="billing-status-cancel" hidden></span>
+      </div>
+    </section>
+
+    <div class="pricing-header reveal">
+      <span class="pricing-eyebrow">Abonnement</span>
+      <h1>Choisis la formule qui te correspond</h1>
+      <p class="pricing-subtitle">Progresse plus vite en maths avec un accès étendu au chatbot, aux exports et
+        aux outils avancés de suivi. Résiliable à tout moment.</p>
+    </div>
+
+    <div class="pricing-grid reveal-stagger" id="pricing-grid">
+      <!-- ── Gratuit ─────────────────────────────────────────────────────── -->
+      <article class="pricing-card card" data-plan="free">
+        <div class="pricing-card-head">
+          <span class="pricing-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+          </span>
+          <h2>Gratuit</h2>
+          <p class="pricing-card-desc">Pour découvrir NovaMath et progresser à ton rythme.</p>
+        </div>
+        <div class="pricing-card-price">
+          <span class="price-amount">0€</span>
+          <span class="price-period">/mois</span>
+        </div>
+        <ul class="pricing-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Accès à tous les chapitres et exercices</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Suivi de progression et statistiques de base</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot avec quota quotidien</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>1 export PDF par mois</li>
+        </ul>
+        <button type="button" class="btn btn-secondary pricing-cta" data-plan-button="free" disabled>
+          Plan actuel
+        </button>
+      </article>
+
+      <!-- ── Premium (mis en avant) ──────────────────────────────────────── -->
+      <article class="pricing-card pricing-card--popular card" data-plan="premium">
+        <span class="pricing-popular-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5 14.6 8l6.1.6-4.6 4 1.3 6-5.4-3-5.4 3 1.3-6-4.6-4L10 8z"/></svg>
+          Le plus populaire
+        </span>
+        <div class="pricing-card-head">
+          <span class="pricing-card-icon pricing-card-icon--accent" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 3 6.5 7 1-5 5 1.5 7-6.5-3.5L5 21.5 6.5 14.5l-5-5 7-1Z" stroke-linejoin="round"/></svg>
+          </span>
+          <h2>Premium</h2>
+          <p class="pricing-card-desc">Pour les élèves qui veulent progresser sans limites.</p>
+        </div>
+        <div class="pricing-card-price">
+          <span class="price-amount">6,99€</span>
+          <span class="price-period">/mois</span>
+        </div>
+        <ul class="pricing-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Tout Gratuit, en illimité</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot sans quota quotidien</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Exports PDF illimités</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Statistiques avancées et badges exclusifs</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Support prioritaire par email</li>
+        </ul>
+        <button type="button" class="btn btn-primary pricing-cta" data-plan-button="premium">
+          Passer à Premium
+        </button>
+      </article>
+
+      <!-- ── Ultra ───────────────────────────────────────────────────────── -->
+      <article class="pricing-card card" data-plan="ultra">
+        <div class="pricing-card-head">
+          <span class="pricing-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z" stroke-linejoin="round"/></svg>
+          </span>
+          <h2>Ultra</h2>
+          <p class="pricing-card-desc">L'expérience NovaMath complète, sans compromis.</p>
+        </div>
+        <div class="pricing-card-price">
+          <span class="price-amount">12,99€</span>
+          <span class="price-period">/mois</span>
+        </div>
+        <ul class="pricing-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Tout Premium, inclus</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Génération d'exercices sur mesure illimitée</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Recommandations personnalisées</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Accès anticipé aux nouvelles fonctionnalités</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Support prioritaire dédié (réponse &lt; 24h)</li>
+        </ul>
+        <button type="button" class="btn btn-secondary pricing-cta" data-plan-button="ultra">
+          Passer à Ultra
+        </button>
+      </article>
+    </div>
+
+    <p class="pricing-footnote reveal">
+      Paiement sécurisé par Stripe. Annule à tout moment depuis ton espace client, sans engagement.
+    </p>
+  </main>
+</div>
+
+<div class="toast" id="abonnement-toast" hidden></div>
+
+</body>
+</html>

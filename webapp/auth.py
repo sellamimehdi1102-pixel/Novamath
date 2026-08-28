@@ -19,7 +19,9 @@ import tempfile
 import time
 from functools import wraps
 from pathlib import Path
+from urllib.parse import urlencode, quote
 
+import requests
 from flask import Blueprint, jsonify, request, redirect, session
 from werkzeug.security import check_password_hash
 from argon2 import PasswordHasher
@@ -29,6 +31,9 @@ import config
 import consent_service
 import curriculum_registry
 import db
+import email_service
+import owner_service
+import owner_test_plan_service
 import plan_service
 import role_service
 import two_factor_service
@@ -260,51 +265,50 @@ def write_user_stats(user_id, payload):
 # donc bien temporaires, sans mécanisme séparé à maintenir.
 DEFAULT_SETTINGS = {
     "appearance": {
-        "theme": "dark",
+        "theme": "light",
         "accent": "purple",
         "fontSize": "normal",
-        "radius": "normal",
         "animations": True,
-        "transparency": True,
     },
     "training": {
         "questionsPerSeries": 10,
         "chrono": True,
-        "confirmBeforeLeave": True,
-        "autoResume": True,
-        "autoShowCorrection": False,
         "soundEffects": True,
+        "correctionDisplay": "fin",  # fin | chaque_question
     },
     "learning": {
         "dailyGoalExercises": 10,
         "dailyGoalTimeMin": 15,
-        "targetAccuracyOn20": 16,
-        "prioritizeWeakNotions": True,
-        "prioritizeUnmasteredChapters": True,
         "spacedRepetition": True,
-        "hints": "parfois",  # jamais | parfois | toujours
-        "correctionDisplay": "fin",  # fin | chaque_question
     },
     "language": "fr",
     # Chapitres "enregistrés" (favoris) sur la page Exercices — liste de
     # chapter_id (ex: "Chapitre_3"), persistée comme le reste des préférences,
     # sans nouveau point d'API ni logique de stockage parallèle.
     "favorites": [],
-    # Chatbot pédagogique (voir webapp/chatbot/) — FakeProvider (aucune API,
-    # réponses assemblées depuis les cours NovaMath) est le fournisseur par
-    # défaut aujourd'hui ; Anthropic (API officielle Claude) et Ollama (modèle
-    # local) restent disponibles en option ; provider_manager.py permet d'en
-    # ajouter d'autres sans migration de schéma.
+    # Favoris de la page Cours (chapitres ET notions) — même convention que
+    # "favorites" ci-dessus. Un chapitre favori vit dans "favorites" (partagé
+    # avec Exercices : un chapitre enregistré l'est partout). Une NOTION
+    # favorite est distincte (on peut aimer une notion sans "enregistrer" tout
+    # son chapitre) : liste de clés "chapterId|notionId", même namespacing par
+    # classe (voir cours.js::_favoriteKey) que "favorites".
+    "favoriteNotions": [],
+    # Chatbot pédagogique (voir webapp/chatbot/) — le fournisseur IA et le
+    # modèle sont une décision interne (provider_manager.py, variable
+    # d'environnement CHATBOT_PROVIDER), jamais un réglage utilisateur : aucune
+    # clé "provider"/"model"/"temperature" ici, donc même une valeur envoyée
+    # par un client est ignorée par _deep_merge_defaults (elle ne fait pas
+    # partie des clés par défaut). Seuls des réglages de COMPORTEMENT restent
+    # exposés (voir Paramètres → Chatbot) — le code qui les consomme
+    # (chatbot/prompt_builder.py, conversation_manager.py,
+    # student_context_resolver.py) les lit tous via `.get(clé, défaut)`.
     "chatbot": {
-        "provider": "fake",
-        "model": "moteur-novamath",
-        "temperature": 0.6,
+        "explanationLevel": "auto",  # auto | college | lycee
+        "mode": "professeur",  # professeur | pas_a_pas | rapide
         "responseLength": "normal",  # court | normal | detaille
-        "explanationLevel": "auto",  # auto | college | lycee | expert
-        "mode": "professeur",  # professeur | rapide | pas_a_pas | visuel | examen
-        "streaming": True,
-        "historyEnabled": True,
         "memoryEnabled": True,
+        "historyEnabled": True,
+        "streaming": True,
     },
 }
 
@@ -335,8 +339,21 @@ def read_user_settings(user_id):
     return _deep_merge_defaults(DEFAULT_SETTINGS, saved)
 
 
+# Choix réellement proposés par l'interface (Paramètres → Entraînement, voir
+# settings.js) pour "Nombre d'exercices par série" — _deep_merge_defaults ne
+# valide que la PRÉSENCE des clés, jamais leurs valeurs numériques. Un client
+# malveillant pourrait sinon poster n'importe quel entier (voire une valeur
+# non numérique) pour trainingSettings.questionsPerSeries, lu tel quel par
+# exercice.js::SERIES_TOTAL. Validation indépendante du plan de l'utilisateur
+# (voir Chantier "Limitation des exercices par abonnement") : ce garde-fou de
+# robustesse n'a rien à voir avec QuotaType.EXERCISES_DAILY.
+_ALLOWED_QUESTIONS_PER_SERIES = (5, 10, 15, 20)
+
+
 def write_user_settings(user_id, payload):
     merged = _deep_merge_defaults(DEFAULT_SETTINGS, payload)
+    if merged.get("training", {}).get("questionsPerSeries") not in _ALLOWED_QUESTIONS_PER_SERIES:
+        merged["training"]["questionsPerSeries"] = DEFAULT_SETTINGS["training"]["questionsPerSeries"]
     USER_SETTINGS_DIR.mkdir(parents=True, exist_ok=True)
     fd, tmp_path = tempfile.mkstemp(dir=USER_SETTINGS_DIR, suffix=".tmp")
     try:
@@ -477,16 +494,38 @@ GUEST_IDLE_TTL_MINUTES = 120  # "quitte le site, revient quelques heures plus ta
 
 
 def get_current_user():
+    # Instrumentation diagnostique (chasse ponctuelle d'un 401 naturel sur
+    # ensureConversation(), voir historique) — purement additive, aucune
+    # valeur de retour ni condition modifiée ci-dessous. Appelée à CHAQUE
+    # requête authentifiée : passée en DEBUG (jamais WARNING, jamais retirée
+    # totalement — voir audit production) pour ne plus générer de bruit
+    # continu en production tout en restant réactivable localement
+    # (LOG_LEVEL=DEBUG) si l'investigation doit reprendre.
     token = request.cookies.get(SESSION_COOKIE)
+    if not token:
+        logger.debug("[DEBUG GET_CURRENT_USER] cookie %s absent — url=%s", SESSION_COOKIE, request.path)
+        return None
     user = db.get_session_user(token)
     if user is None:
+        logger.debug(
+            "[DEBUG GET_CURRENT_USER] get_session_user(token) -> None (session introuvable/expiree en base) — "
+            "url=%s token_len=%s",
+            request.path, len(token),
+        )
         return None
     if user["auth_provider"] == "guest":
         # Session invité considérée terminée après trop longtemps d'inactivité :
         # on supprime immédiatement toutes ses données (compte + stats) et on
         # se comporte comme si aucune session n'existait — le prochain
         # `enterGuest()` côté client recréera un invité totalement vierge.
-        if db.is_guest_expired(user, GUEST_IDLE_TTL_MINUTES):
+        expired = db.is_guest_expired(user, GUEST_IDLE_TTL_MINUTES)
+        logger.debug(
+            "[DEBUG GET_CURRENT_USER] invite user_id=%s created_at=%s guest_last_seen_at=%s "
+            "is_guest_expired=%s ttl_minutes=%s url=%s",
+            user["id"], user.get("created_at"), user.get("guest_last_seen_at"), expired,
+            GUEST_IDLE_TTL_MINUTES, request.path,
+        )
+        if expired:
             _purge_account(user["id"])
             return None
         db.touch_guest_activity(user["id"])
@@ -499,6 +538,48 @@ def login_required(view):
         user = get_current_user()
         if user is None:
             return jsonify({"error": "Connexion requise."}), 401
+        request.current_user = user
+        return view(*args, **kwargs)
+    return wrapped
+
+
+def require_non_guest(view):
+    """À empiler APRÈS login_required (donc en dessous dans la pile de
+    décorateurs — s'applique en premier) sur toute route qui ne doit jamais
+    être utilisable par un compte invité (ex: chatbot IA, voir server.py) —
+    le blocage visuel côté frontend seul ne suffit pas, un invité pourrait
+    toujours appeler la route directement (fetch/curl)."""
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        if request.current_user["auth_provider"] == "guest":
+            return jsonify({"error": "Connexion requise.", "guest_forbidden": True}), 403
+        return view(*args, **kwargs)
+    return wrapped
+
+
+def login_required_page(view):
+    """Variante de login_required() pour une page HTML servie directement
+    (jamais une route API JSON) : un visiteur non connecté doit être
+    redirigé vers la connexion (même convention que server.py::
+    _serve_protected — `redirect(f"/?next={page}")`), pas recevoir un 401
+    JSON illisible pour un navigateur qui charge une page.
+
+    Pose `request.current_user`, exactement comme login_required, pour que
+    role_service.requires_role() puisse être empilé juste après sans aucune
+    logique supplémentaire — seule la réponse au cas "non connecté" diffère
+    entre les deux décorateurs, le cas "connecté" est strictement identique.
+
+        @app.route("/admin")
+        @login_required_page
+        @requires_role(Role.SUPPORT)
+        def serve_admin_page():
+            ...
+    """
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        user = get_current_user()
+        if user is None:
+            return redirect(f"/?next={request.path}")
         request.current_user = user
         return view(*args, **kwargs)
     return wrapped
@@ -622,17 +703,59 @@ def _public_user(user):
         # que de renvoyer la colonne brute : canonicalise toute valeur
         # inconnue/corrompue vers "free" au lieu de l'exposer telle quelle.
         "plan": plan_service.get_plan(user).value,
+        # Plan RÉELLEMENT effectif (features/quotas/routage IA) — identique à
+        # "plan" ci-dessus pour tout compte normal (owner_test_plan_service.
+        # effective_plan() délègue alors directement à plan_service.get_plan,
+        # voir owner_test_plan_service.py). Ne diverge que pour le compte
+        # Owner : Plan.ULTRA par défaut, ou le plan de test actif s'il y en a
+        # un — jamais "plan" lui-même, qui reste volontairement le plan RÉEL
+        # (voir commentaire ci-dessus). Consommé par identity.js pour que la
+        # sidebar affiche ce que l'Owner est réellement en train de vivre
+        # plutôt qu'un plan Free qui ne reflète jamais son test en cours.
+        "effective_plan": owner_test_plan_service.effective_plan(user).value,
         # Passe par role_service (source unique de vérité des rôles), même
         # canonicalisation défensive que "plan" ci-dessus — jamais la colonne
         # brute. Consommé par une future UI admin pour savoir quoi afficher ;
         # l'autorisation réelle reste toujours vérifiée côté serveur (voir
         # role_service.requires_role), ce champ n'est qu'informatif.
         "role": role_service.get_role(user).value,
+        # Le frontend ne doit jamais comparer un rôle lui-même (voir
+        # role_service.py ligne 67) — ce booléen est calculé ici, la seule
+        # source de vérité, pour que le menu utilisateur sache afficher ou
+        # non l'entrée "Administration" sans connaître la hiérarchie des
+        # rôles. Seuil identique à server.py::ADMIN_MINIMUM_ROLE (accès à la
+        # coquille /admin) — l'autorisation réelle reste vérifiée côté
+        # serveur par @requires_role sur chaque route admin, ce champ n'est
+        # qu'informatif pour l'affichage.
+        "can_access_admin": role_service.has_role_at_least(user, role_service.Role.SUPPORT),
         # État 2FA (webapp/two_factor_service.py) — jamais le secret ni les
         # recovery codes, uniquement le booléen consommé par le panneau
         # Sécurité pour afficher "Activée"/"Désactivée" et par auth.js pour
         # savoir si l'écran de saisie du code doit apparaître après connexion.
         "two_factor_enabled": two_factor_service.is_enabled(user),
+        # Owner/Developer Override (owner_service.py) : informatif uniquement
+        # (ex: badge "Owner/Dev" côté frontend) — jamais utilisé pour décider
+        # de quoi que ce soit côté client, l'enforcement réel reste toujours
+        # côté serveur (plan_service.has_feature/quota_service.get_limit).
+        "is_owner": owner_service.is_owner_account(user),
+        # Chantier 8 : expose au frontend ce que le backend a déjà décidé,
+        # pour que l'affichage (verrous, indications "Premium requis"...)
+        # n'ait plus besoin de recalculer une comparaison de plan de son
+        # côté. Calculé via has_feature() — PAS get_plan()/FEATURE_MATRIX
+        # directement — car has_feature() passe par
+        # owner_test_plan_service.effective_plan() : un Owner en train de
+        # tester un plan voit ses features suivre ce plan de test, pas son
+        # vrai plan Stripe (cohérent avec "plan" ci-dessus, qui lui reste
+        # volontairement le plan RÉEL — la facturation ne doit jamais suivre
+        # un plan de test). Construit dynamiquement depuis l'enum Feature :
+        # aucune liste de features codée en dur ici, FEATURE_MATRIX reste
+        # l'unique source de vérité (plan_service.py). Ceci reste un
+        # affichage informatif : chaque route sensible reste protégée par
+        # son propre @requires_feature côté serveur, jamais par ce champ.
+        "features": {
+            feature.value: plan_service.has_feature(user, feature)
+            for feature in plan_service.Feature
+        },
     }
 
 
@@ -780,7 +903,7 @@ def register():
         # n'a, par construction, accès à rien (voir _finish_login) — le lien
         # de consentement part directement vers l'email du parent, jamais
         # vers l'enfant.
-        token, sent = consent_service.create_consent_request(user, parent_email, ip=_client_ip())
+        token, configured = consent_service.create_consent_request(user, parent_email, ip=_client_ip())
         session.clear()
         payload = {
             "account_status": "pending_parental_consent",
@@ -790,7 +913,7 @@ def register():
                 "l'adresse fournie."
             ),
         }
-        if not sent:
+        if not configured:
             # Aucun service d'envoi d'email n'est configuré (voir
             # email_service.is_configured()) : le lien est renvoyé en clair
             # dans la réponse JSON en mode développement, jamais journalisé —
@@ -801,6 +924,7 @@ def register():
     token = db.create_session(user_id, days=REMEMBER_DAYS, user_agent=request.headers.get("User-Agent"))
     db.update_last_login(user_id)
     user = role_service.sync_admin_bootstrap(user)
+    user = role_service.sync_super_admin_bootstrap(user)
 
     # La progression d'évaluation/entraînement en cours (session Flask signée,
     # distincte de nm_session) n'est pas liée à un compte : sans ce reset, un
@@ -877,33 +1001,49 @@ def resend_parental_consent():
         return jsonify({"error": "Aucune demande de consentement parental en attente pour ce compte."}), 400
 
     try:
-        token, sent = consent_service.resend_consent_email(user, ip=_client_ip())
+        token, configured = consent_service.resend_consent_email(user, ip=_client_ip())
     except consent_service.NoPendingConsentRequest as e:
         return jsonify({"error": str(e)}), 400
 
     payload = {"ok": True}
-    if not sent:
+    if not configured:
         payload["dev_consent_link"] = f"/parent/consent/{token}"
     return jsonify(payload)
 
 
-def _finish_login(user, days):
-    """Termine une connexion entièrement authentifiée — mot de passe seul si
-    la 2FA n'est pas activée, ou mot de passe + second facteur déjà validé
-    (voir verify_2fa()/recovery_2fa() ci-dessous) : crée la vraie session,
-    met à jour last_login_at, journalise le succès. Point de sortie unique
-    partagé par login() et les deux routes de résolution du défi 2FA — la
-    séquence de création de session ne doit jamais être dupliquée."""
+def _create_authenticated_session(user, days, event_type="login_success"):
+    """Crée la vraie session (token + cookies) pour un utilisateur déjà
+    entièrement authentifié — mot de passe seul, mot de passe + second facteur
+    déjà validé, ou échange OAuth déjà vérifié (voir oauth_callback). Point de
+    sortie unique partagé par tous les chemins de connexion — la séquence de
+    création de session ne doit jamais être dupliquée."""
     token = db.create_session(user["id"], days=days, user_agent=request.headers.get("User-Agent"))
     db.update_last_login(user["id"])
     user = db.get_user_by_id(user["id"])
     user = role_service.sync_admin_bootstrap(user)
-    _log_security_event("login_success", user_id=user["id"])
+    user = role_service.sync_super_admin_bootstrap(user)
+    _log_security_event(event_type, user_id=user["id"])
 
     session.clear()  # même raison qu'à l'inscription — voir commentaire dans register()
+    return token, user
 
+
+def _finish_login(user, days):
+    token, user = _create_authenticated_session(user, days)
     resp = jsonify({"user": _public_user(user)})
     _set_session_cookie(resp, token, days)
+    _set_csrf_cookie(resp)
+    return resp
+
+
+def _finish_oauth_login(user):
+    """Termine une connexion OAuth déjà vérifiée (compte existant ou lié à la
+    volée) par une redirection vers le dashboard — factorisée car identique
+    pour les deux chemins de oauth_callback (compte OAuth existant / lié par
+    email)."""
+    token, user = _create_authenticated_session(user, REMEMBER_DAYS, event_type="oauth_login_success")
+    resp = redirect(f"{request.url_root}dashboard.html")
+    _set_session_cookie(resp, token, REMEMBER_DAYS)
     _set_csrf_cookie(resp)
     return resp
 
@@ -1310,14 +1450,20 @@ def forgot_password():
     reset_link = f"/reset-password.html?token={token}"
     _log_security_event("password_reset_requested", user_id=user["id"])
 
-    # Aucun service d'envoi d'email n'est configuré dans ce projet local : le
-    # lien est renvoyé au client en mode développement (jamais journalisé —
-    # un token de réinitialisation est un secret au même titre qu'un mot de
-    # passe, voir _log_security_event ci-dessus qui n'enregistre que l'id
-    # utilisateur). Pour brancher un vrai envoi, remplacer ce bloc par un appel
-    # à un fournisseur SMTP/API (ex: send_email(user["email"], "Réinitialisation
-    # NovaMath", reset_link)) et supprimer `dev_reset_link` de la réponse.
-    generic["dev_reset_link"] = reset_link
+    # Envoi réel via email_service (SEC-04) — même filet de secours que
+    # consent_service.create_consent_request : si le SMTP n'est pas configuré
+    # (dev local), le lien est renvoyé en clair dans la réponse JSON ; s'il
+    # est configuré (production), l'email part réellement et le lien n'est
+    # JAMAIS renvoyé dans la réponse (un token de réinitialisation est un
+    # secret au même titre qu'un mot de passe — le renvoyer dans une réponse
+    # API accessible à quiconque connaît l'email de la victime permettrait de
+    # prendre le contrôle de n'importe quel compte sans jamais toucher à sa
+    # boîte mail).
+    reset_url = f"{config.APP_BASE_URL}/reset-password.html?token={token}"
+    subject, html, text = email_service.build_password_reset_email(user["pseudo"], reset_url)
+    email_service.send_email(user["email"], subject, html, text)
+    if not email_service.is_configured():
+        generic["dev_reset_link"] = reset_link
     return jsonify(generic)
 
 
@@ -1372,6 +1518,10 @@ def _provider_configured(provider):
     return bool(os.environ.get(cfg["client_id_env"])) and bool(os.environ.get(cfg["client_secret_env"]))
 
 
+def _oauth_redirect_uri(provider):
+    return f"{request.url_root}api/auth/{provider}/callback"
+
+
 @auth_bp.route("/<provider>/start")
 def oauth_start(provider):
     if provider not in OAUTH_PROVIDERS:
@@ -1387,20 +1537,238 @@ def oauth_start(provider):
         }), 501
 
     cfg = OAUTH_PROVIDERS[provider]
-    params = (
-        f"client_id={os.environ[cfg['client_id_env']]}"
-        f"&redirect_uri={request.url_root}api/auth/{provider}/callback"
-        f"&response_type=code&scope={cfg['scope']}&access_type=offline&prompt=consent"
-    )
+    # `state` protège contre le CSRF sur le callback OAuth (RFC 6749 §10.12) —
+    # stocké dans la session Flask signée (cookie), jamais en base : sa seule
+    # fonction est de vérifier que le navigateur qui revient sur /callback est
+    # bien celui qui a initié /start, pas de survivre à la session.
+    state = secrets.token_urlsafe(32)
+    session["oauth_state"] = state
+    session["oauth_provider"] = provider
+    params = urlencode({
+        "client_id": os.environ[cfg["client_id_env"]],
+        "redirect_uri": _oauth_redirect_uri(provider),
+        "response_type": "code",
+        "scope": cfg["scope"],
+        "access_type": "offline",
+        "prompt": "consent",
+        "state": state,
+    })
     return redirect(f"{cfg['authorize_url']}?{params}")
+
+
+def _oauth_error_redirect(message):
+    """Les erreurs OAuth surviennent après une navigation top-level (retour du
+    fournisseur), jamais via fetch/XHR — impossible de renvoyer un JSON
+    exploitable par le JS déjà en place. On redirige vers l'accueil avec un
+    paramètre que la modale de connexion sait afficher (voir auth.js)."""
+    session.pop("oauth_state", None)
+    session.pop("oauth_provider", None)
+    return redirect(f"{request.url_root}?oauth_error={quote(message)}")
+
+
+def _oauth_login_gate(user):
+    """Réplique, pour une connexion OAuth déjà vérifiée (email confirmé par le
+    fournisseur), les deux garde-fous que login() applique juste après avoir
+    vérifié le mot de passe : le blocage RGPD art. 8 (account_status) et la
+    2FA (two_factor_service). OAuth ne doit jamais être un raccourci qui
+    contourne l'un ou l'autre — voir les mêmes checks dans login() ci-dessus.
+    Renvoie une Response de redirection s'il faut bloquer/interrompre la
+    connexion, sinon None (l'appelant peut créer la session)."""
+    account_status = user.get("account_status", "active")
+    if account_status != "active":
+        _log_security_event("oauth_login_blocked_account_status", user_id=user["id"])
+        return _oauth_error_redirect("Ce compte n'a pas encore accès : consentement parental requis ou refusé.")
+
+    if two_factor_service.is_enabled(user):
+        # Mot de passe implicite (email vérifié par le fournisseur) mais
+        # connexion pas encore terminée : même relais que login(), sauf que le
+        # retour se fait par navigation top-level (redirect), pas par JSON —
+        # la page d'accueil ouvre le même modal 2FA (voir auth.js).
+        challenge_token = two_factor_service.create_login_challenge(user, True)
+        _log_security_event("oauth_password_verified", user_id=user["id"])
+        return redirect(f"{request.url_root}?oauth_two_factor_required={challenge_token}")
+
+    return None
 
 
 @auth_bp.route("/<provider>/callback")
 def oauth_callback(provider):
     if provider not in OAUTH_PROVIDERS or not _provider_configured(provider):
         return jsonify({"error": "Fournisseur non configuré."}), 501
-    # L'échange code -> token -> userinfo sera implémenté ici une fois les
-    # identifiants fournis (nécessite des appels HTTP sortants ; non branché
-    # tant que GOOGLE_CLIENT_ID/SECRET ne sont pas définis, pour ne jamais
-    # exposer un flux qui semble fonctionner sans réellement authentifier).
-    return jsonify({"error": "Échange OAuth non implémenté sans identifiants configurés."}), 501
+    cfg = OAUTH_PROVIDERS[provider]
+
+    if request.args.get("error"):
+        # L'utilisateur a refusé le consentement côté Google (ou une autre
+        # erreur du fournisseur) — pas une panne NovaMath, jamais journalisé
+        # comme un échec de sécurité.
+        return _oauth_error_redirect("Connexion annulée.")
+
+    expected_state = session.get("oauth_state")
+    expected_provider = session.get("oauth_provider")
+    state = request.args.get("state")
+    if not expected_state or state != expected_state or provider != expected_provider:
+        _log_security_event("oauth_state_mismatch")
+        return _oauth_error_redirect("Requête de connexion invalide ou expirée, réessaie.")
+
+    code = request.args.get("code")
+    if not code:
+        return _oauth_error_redirect("Requête de connexion invalide, réessaie.")
+
+    try:
+        token_resp = requests.post(
+            cfg["token_url"],
+            data={
+                "client_id": os.environ[cfg["client_id_env"]],
+                "client_secret": os.environ[cfg["client_secret_env"]],
+                "code": code,
+                "redirect_uri": _oauth_redirect_uri(provider),
+                "grant_type": "authorization_code",
+            },
+            timeout=10,
+        )
+        token_resp.raise_for_status()
+        access_token = token_resp.json().get("access_token")
+    except (requests.RequestException, ValueError) as e:
+        logger.warning("Échange de code OAuth (%s) échoué : %s", provider, e)
+        return _oauth_error_redirect("Connexion impossible, réessaie dans un instant.")
+    if not access_token:
+        logger.warning("Réponse token OAuth (%s) sans access_token.", provider)
+        return _oauth_error_redirect("Connexion impossible, réessaie dans un instant.")
+
+    try:
+        info_resp = requests.get(
+            cfg["userinfo_url"],
+            headers={"Authorization": f"Bearer {access_token}"},
+            timeout=10,
+        )
+        info_resp.raise_for_status()
+        profile = info_resp.json()
+    except (requests.RequestException, ValueError) as e:
+        logger.warning("Récupération du profil OAuth (%s) échouée : %s", provider, e)
+        return _oauth_error_redirect("Connexion impossible, réessaie dans un instant.")
+
+    provider_user_id = profile.get("sub")
+    email = (profile.get("email") or "").lower()
+    email_verified = profile.get("email_verified")
+    # Google encode ce champ en booléen ou en chaîne "true" selon l'endpoint —
+    # on accepte les deux plutôt que de rejeter par excès de prudence.
+    email_verified = email_verified is True or email_verified == "true"
+    if not provider_user_id or not email or not email_verified:
+        return _oauth_error_redirect("Ton compte Google doit avoir un email vérifié.")
+
+    session.pop("oauth_state", None)
+    session.pop("oauth_provider", None)
+
+    existing = db.get_user_by_oauth(provider, provider_user_id)
+    if existing:
+        gate = _oauth_login_gate(existing)
+        if gate:
+            return gate
+        return _finish_oauth_login(existing)
+
+    by_email = db.get_user_by_email(email)
+    if by_email:
+        # Email vérifié par Google == preuve suffisante de propriété pour lier
+        # un compte local existant (jamais l'inverse : on ne crée jamais de
+        # compte local à partir d'un email non vérifié).
+        db.link_oauth_account(by_email["id"], provider, provider_user_id)
+        _log_security_event("oauth_account_linked", user_id=by_email["id"])
+        gate = _oauth_login_gate(by_email)
+        if gate:
+            return gate
+        return _finish_oauth_login(by_email)
+
+    # Nouveau compte : la date de naissance (obligation RGPD art. 8 — seuil de
+    # consentement parental, voir consent_service) n'existe pas côté Google et
+    # doit être collectée avant de créer quoi que ce soit. Profil vérifié
+    # posé en session (signée, jamais en base) le temps que le front complète
+    # l'inscription via /api/auth/<provider>/complete-signup.
+    session["pending_oauth_profile"] = {
+        "provider": provider,
+        "provider_user_id": provider_user_id,
+        "email": email,
+        "name": profile.get("name") or profile.get("given_name") or "",
+    }
+    return redirect(f"{request.url_root}?oauth_complete_signup={provider}")
+
+
+@auth_bp.route("/<provider>/complete-signup", methods=["POST"])
+@rate_limit(requests=5, per_seconds=3600)
+def oauth_complete_signup(provider):
+    """Termine une inscription Google amorcée par oauth_callback : même
+    validations que register() (nom d'utilisateur, pseudo, date de naissance,
+    CGU/confidentialité), mais email déjà vérifié par le fournisseur et aucun
+    mot de passe à choisir (password_hash reste NULL, colonne nullable conçue
+    pour ça — voir schéma users)."""
+    pending = session.get("pending_oauth_profile")
+    if not pending or pending.get("provider") != provider:
+        return jsonify({"error": "Aucune inscription Google en attente."}), 400
+
+    email = pending["email"]
+    email, err = validate_email(email)
+    if err:
+        # Compte Google valide mais hors du domaine accepté par NovaMath
+        # (voir EMAIL_RE) — même contrainte que l'inscription classique.
+        session.pop("pending_oauth_profile", None)
+        return jsonify({"error": err, "field": "email"}), 400
+
+    data = request.get_json(force=True) or {}
+    username, err = validate_username(data.get("username"))
+    if err:
+        return jsonify({"error": err, "field": "username"}), 400
+    pseudo, err = validate_pseudo(data.get("pseudo") or pending.get("name"))
+    if err:
+        return jsonify({"error": err, "field": "pseudo"}), 400
+    birth_date, err = validate_birth_date(data.get("birth_date"))
+    if err:
+        return jsonify({"error": err, "field": "birth_date"}), 400
+
+    if not data.get("accept_terms"):
+        return jsonify({"error": "Tu dois accepter les conditions d'utilisation.", "field": "accept_terms"}), 400
+    if not data.get("accept_privacy"):
+        return jsonify({"error": "Tu dois accepter la politique de confidentialité.", "field": "accept_privacy"}), 400
+
+    is_minor = consent_service.requires_parental_consent(birth_date)
+    parent_email = None
+    if is_minor:
+        parent_email, err = validate_parent_email(data.get("parent_email"))
+        if err:
+            return jsonify({"error": err, "field": "parent_email"}), 400
+
+    if db.get_user_by_email(email):
+        return jsonify({"error": "Cette adresse email est déjà utilisée.", "field": "email"}), 409
+    if db.get_user_by_username(username):
+        return jsonify({"error": "Ce nom d'utilisateur est déjà pris.", "field": "username"}), 409
+
+    account_status = "pending_parental_consent" if is_minor else "active"
+    user_id = db.create_user(
+        email, username, pseudo, password_hash=None, auth_provider=provider,
+        birth_date=birth_date, account_status=account_status,
+    )
+    db.link_oauth_account(user_id, provider, pending["provider_user_id"])
+    consent_service.record_initial_policy_acceptance(user_id, ip=_client_ip())
+    _log_security_event("account_created", user_id=user_id)
+    session.pop("pending_oauth_profile", None)
+
+    if is_minor:
+        user = db.get_user_by_id(user_id)
+        token, configured = consent_service.create_consent_request(user, parent_email, ip=_client_ip())
+        session.clear()
+        payload = {
+            "account_status": "pending_parental_consent",
+            "message": (
+                "Ton compte a été créé mais nécessite l'autorisation d'un parent "
+                "avant de pouvoir être utilisé. Un email vient d'être envoyé à "
+                "l'adresse fournie."
+            ),
+        }
+        if not configured:
+            payload["dev_consent_link"] = f"/parent/consent/{token}"
+        return jsonify(payload), 202
+
+    user = db.get_user_by_id(user_id)
+    token, user = _create_authenticated_session(user, REMEMBER_DAYS, event_type="oauth_login_success")
+    resp = jsonify({"user": _public_user(user)})
+    _set_session_cookie(resp, token, REMEMBER_DAYS)
+    _set_csrf_cookie(resp)
+    return resp, 201

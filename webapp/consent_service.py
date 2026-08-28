@@ -90,11 +90,12 @@ def requires_parental_consent(birth_date_str, on_date=None):
 def create_consent_request(user, parent_email, ip=None):
     """Crée une demande de consentement parental pour `user` (déjà en base,
     `account_status='pending_parental_consent'`), envoie l'email au parent et
-    journalise la création. Renvoie (token, sent) — `sent` indique si l'email
-    a réellement été envoyé (voir email_service.send_email) : si False,
-    l'appelant (auth.py::register) doit suivre le même filet de secours que
-    dev_reset_link (lien renvoyé en clair dans la réponse JSON, jamais
-    journalisé)."""
+    journalise la création. Renvoie (token, configured) — `configured` reflète
+    email_service.is_configured() (pas le résultat de l'envoi : un échec SMTP
+    transitoire en production ne doit jamais faire fuiter le lien de
+    consentement en clair dans la réponse JSON, contrairement à l'absence de
+    configuration qui est le filet de secours voulu pour le développement,
+    voir dev_reset_link dans auth.py::forgot_password)."""
     token = db.create_parental_consent_request(
         user["id"], parent_email, days=config.PARENTAL_CONSENT_TOKEN_TTL_DAYS
     )
@@ -103,10 +104,10 @@ def create_consent_request(user, parent_email, ip=None):
     subject, html, text = email_service.build_parental_consent_request_email(
         user["pseudo"], consent_url, request_row["expires_at"]
     )
-    sent = email_service.send_email(parent_email, subject, html, text)
+    email_service.send_email(parent_email, subject, html, text)
     db.log_security_event("parental_consent_requested", user["id"], ip)
     logger.info("Consentement parental : demande créée pour l'utilisateur %s.", user["id"])
-    return token, sent
+    return token, email_service.is_configured()
 
 
 def resend_consent_email(user, ip=None):

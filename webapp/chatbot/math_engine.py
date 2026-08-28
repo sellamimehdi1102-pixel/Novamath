@@ -17,7 +17,7 @@ import unicodedata
 
 import sympy
 from sympy import (
-    Eq, Rational, Symbol, expand, factor, latex, nsimplify, simplify, solve, sqrt, sympify,
+    Eq, Rational, Symbol, expand, factor, latex, solve, sqrt,
 )
 from sympy.parsing.sympy_parser import (
     parse_expr, standard_transformations, implicit_multiplication_application, convert_xor,

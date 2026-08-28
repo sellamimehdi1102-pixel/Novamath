@@ -32,6 +32,7 @@ Trois responsabilités :
 import json
 import logging
 import time
+import uuid
 from datetime import datetime, timezone
 
 from flask import g, has_request_context, jsonify, request
@@ -67,6 +68,17 @@ class _ContextFilter(logging.Filter):
         # écraser une valeur déjà posée explicitement par l'appelant.
         if not hasattr(record, "duration_ms"):
             record.duration_ms = "-"
+        # BLACK BOX RECORDER : identifiant unique de requête, posé sur `g` une
+        # seule fois par requête HTTP (voir _start_request_timer ci-dessous) —
+        # enrichit AUTOMATIQUEMENT chaque logger.info/warning/exception déjà
+        # existant dans tout le projet, sans modifier aucun des appels
+        # logger.*() existants. Ne jamais écraser une valeur déjà posée
+        # explicitement par l'appelant via extra= : c'est le cas des
+        # générateurs SSE (server.py/conversation_manager.py), qui exécutent
+        # APRÈS que Flask ait dépilé le contexte de requête (has_request_context()
+        # y est donc False) et doivent transmettre request_id explicitement.
+        if not hasattr(record, "request_id"):
+            record.request_id = getattr(g, "_novamath_request_id", "-") if has_request_context() else "-"
         return True
 
 
@@ -88,6 +100,7 @@ class StructuredFormatter(logging.Formatter):
             "user": getattr(record, "user", "-"),
             "ip": getattr(record, "ip", "-"),
             "request": getattr(record, "request", "-"),
+            "request_id": getattr(record, "request_id", "-"),
             "duration_ms": getattr(record, "duration_ms", "-"),
             "message": record.getMessage(),
         }
@@ -100,7 +113,7 @@ class StructuredFormatter(logging.Formatter):
         line = (
             f"{payload['timestamp']} {payload['level']:<8} {payload['module']} | "
             f"user={payload['user']} ip={payload['ip']} request={payload['request']} "
-            f"duration_ms={payload['duration_ms']} | {payload['message']}"
+            f"request_id={payload['request_id']} duration_ms={payload['duration_ms']} | {payload['message']}"
         )
         if "exception" in payload:
             line += f"\n{payload['exception']}"
@@ -191,6 +204,12 @@ def init_app(app):
     @app.before_request
     def _start_request_timer():
         g._novamath_request_start = time.perf_counter()
+        # BLACK BOX RECORDER : un seul identifiant généré une fois par requête
+        # HTTP, transporté par `g` (routes classiques, via _ContextFilter
+        # ci-dessus) et par le header de réponse X-Request-Id ci-dessous (lu
+        # par api.js côté frontend) — jamais recalculé ailleurs, jamais un
+        # second système d'identifiant.
+        g._novamath_request_id = uuid.uuid4().hex
 
     @app.after_request
     def _log_request(response):
@@ -203,6 +222,11 @@ def init_app(app):
         start = getattr(g, "_novamath_request_start", None)
         duration_ms = round((time.perf_counter() - start) * 1000, 2) if start is not None else 0.0
         metrics_service.record_request(duration_ms)
+        # BLACK BOX RECORDER : renvoyé au frontend pour que chatbot.js/api.js
+        # puissent attacher le même request_id à un rapport d'erreur éventuel
+        # (voir buildApiError() dans api.js) — un simple en-tête de réponse,
+        # aucun changement du corps ni du code HTTP de la réponse.
+        response.headers["X-Request-Id"] = getattr(g, "_novamath_request_id", "-")
         request_logger.info(
             "%s %s -> %s", request.method, request.path, response.status_code,
             extra={"duration_ms": duration_ms},

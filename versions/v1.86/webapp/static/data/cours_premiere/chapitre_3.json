@@ -1,0 +1,1032 @@
+{
+  "chapterId": "Chapitre_3",
+  "title": "Chapitre 3",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "composition-de-fonctions-et-derivation",
+      "title": "Composition de fonctions et dérivation",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : composition de fonctions et dérivation.\n\nCette notion sert à mesurer la vitesse à laquelle une quantité change à un instant précis, par exemple la vitesse instantanée d'une voiture.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu regardes le compteur de vitesse d'une voiture : il ne donne pas la vitesse moyenne du trajet, mais la vitesse exacte à cet instant précis. La dérivée fait exactement ça pour une fonction : elle donne sa vitesse de variation à un instant donné.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Composition de fonctions et dérivation.",
+      "definition": "Utiliser la formule de dérivation $(u^n)' = n\\,u'\\,u^{n-1}$.",
+      "definitions": {
+        "lycee": "Utiliser la formule de dérivation $(u^n)' = n\\,u'\\,u^{n-1}$.",
+        "college": "Utiliser $\\left(\\dfrac{1}{u}\\right)' = -\\dfrac{u'}{u^2}$."
+      },
+      "intuition": "Le nombre dérivé en un point donne la pente de la tangente à la courbe en ce point. Un extremum local (maximum ou minimum) correspond toujours à un endroit où la dérivée s'annule et change de signe — ne confonds pas « dérivée nulle » et « extremum » : les deux vont ensemble, mais il faut aussi vérifier le changement de signe.",
+      "reglesImportantes": [
+        "Utiliser $\\left(\\sqrt{u}\\right)' = \\dfrac{u'}{2\\sqrt{u}}$.",
+        "Utiliser $\\left(\\dfrac{1}{u}\\right)' = -\\dfrac{u'}{u^2}$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Composition de fonctions et dérivation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x) = 4x - 6$, avec $u'(x) = 4$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : on utilise $(u^n)' = n \\, u' \\, u^{n-1}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = 3 \\times 4 \\times (4x - 6)^{2} = 12(4x - 6)^{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-708",
+          "titre": "Exemple 1",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = (4x - 6)^{3}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x) = 4x - 6$, avec $u'(x) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on utilise $(u^n)' = n \\, u' \\, u^{n-1}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = 3 \\times 4 \\times (4x - 6)^{2} = 12(4x - 6)^{2}$."
+            }
+          ],
+          "reponse": "$f'(x) = 12(4x - 6)^{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = 12(4x - 6)^{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-720",
+          "titre": "Exemple 2",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie par $f(x) = \\sqrt{4x + 2}$ (sur son ensemble de définition).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x) = 4x + 2$, avec $u'(x) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on utilise $\\left(\\sqrt{u}\\right)' = \\dfrac{u'}{2\\sqrt{u}}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = \\dfrac{4}{2\\sqrt{4x + 2}}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{4}{2\\sqrt{4x + 2}}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = \\dfrac{4}{2\\sqrt{4x + 2}}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-732",
+          "titre": "Exemple 3",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = (-2x + 6)^{2}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x) = -2x + 6$, avec $u'(x) = -2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on utilise $(u^n)' = n \\, u' \\, u^{n-1}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = 2 \\times -2 \\times (-2x + 6)^{1} = -4(-2x + 6)^{1}$."
+            }
+          ],
+          "reponse": "$f'(x) = -4(-2x + 6)^{1}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = -4(-2x + 6)^{1}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-744",
+          "titre": "Exemple 4",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie par $f(x) = \\sqrt{x + 2}$ (sur son ensemble de définition).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x) = x + 2$, avec $u'(x) = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on utilise $\\left(\\sqrt{u}\\right)' = \\dfrac{u'}{2\\sqrt{u}}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = \\dfrac{1}{2\\sqrt{x + 2}}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{1}{2\\sqrt{x + 2}}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = \\dfrac{1}{2\\sqrt{x + 2}}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la vitesse instantanée affichée par le compteur d'une voiture",
+        "trouver le moment où un bénéfice est maximal",
+        "trouver la dimension qui minimise la matière utilisée pour fabriquer un objet"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir ce qu'est une dérivée, pense au compteur de vitesse : ce n'est jamais une moyenne, toujours une valeur instantanée.",
+      "aRetenir": [
+        "Utiliser $\\left(\\sqrt{u}\\right)' = \\dfrac{u'}{2\\sqrt{u}}$.",
+        "Utiliser $\\left(\\dfrac{1}{u}\\right)' = -\\dfrac{u'}{u^2}$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                2.0
+              ],
+              [
+                0.5,
+                2.4375
+              ],
+              [
+                1.0,
+                2.75
+              ],
+              [
+                1.5,
+                2.9375
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.9375
+              ],
+              [
+                3.0,
+                2.75
+              ],
+              [
+                3.5,
+                2.4375
+              ],
+              [
+                4.0,
+                2.0
+              ],
+              [
+                4.5,
+                1.4375
+              ],
+              [
+                5.0,
+                0.75
+              ],
+              [
+                5.5,
+                -0.0625
+              ],
+              [
+                6.0,
+                -1.0
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 3,
+            "y": 2.75,
+            "label": "point de contact"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1.2,
+              "y": 4.05
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.45
+            }
+          }
+        ],
+        "alt": "La tangente à la courbe au point de contact a pour pente le nombre dérivé en ce point."
+      },
+      "quizExerciseIds": [
+        709,
+        710,
+        711
+      ],
+      "topic_id": "composition-de-fonctions-et-derivation",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Composition de fonctions et dérivation."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "composition",
+        "fonctions",
+        "derivation"
+      ]
+    },
+    {
+      "id": "fonction-derivee",
+      "title": "Fonction dérivée",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : fonction dérivée.\n\nCette notion sert à mesurer la vitesse à laquelle une quantité change à un instant précis, par exemple la vitesse instantanée d'une voiture.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu regardes le compteur de vitesse d'une voiture : il ne donne pas la vitesse moyenne du trajet, mais la vitesse exacte à cet instant précis. La dérivée fait exactement ça pour une fonction : elle donne sa vitesse de variation à un instant donné.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Fonction dérivée.",
+      "definition": "Dériver terme à terme avec $(x^n)' = nx^{n-1}$ ; la dérivée d'une constante est nulle.",
+      "definitions": {
+        "lycee": "Dériver terme à terme avec $(x^n)' = nx^{n-1}$ ; la dérivée d'une constante est nulle.",
+        "college": "Utiliser la dérivée de référence $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$."
+      },
+      "intuition": "Le nombre dérivé en un point donne la pente de la tangente à la courbe en ce point. Un extremum local (maximum ou minimum) correspond toujours à un endroit où la dérivée s'annule et change de signe — ne confonds pas « dérivée nulle » et « extremum » : les deux vont ensemble, mais il faut aussi vérifier le changement de signe.",
+      "reglesImportantes": [
+        "Utiliser la dérivée de référence $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$.",
+        "Utiliser la dérivée de référence $\\left(\\sqrt{x}\\right)' = \\dfrac{1}{2\\sqrt{x}}$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Fonction dérivée",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(-2x^{2})' = -4x^{1}$; $(-2x)' = -2$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : la constante $3$ a une dérivée nulle."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = -4x - 2$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-590",
+          "titre": "Exemple 1",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = -2x^2 - 2x + 3$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(-2x^{2})' = -4x^{1}$; $(-2x)' = -2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la constante $3$ a une dérivée nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = -4x - 2$."
+            }
+          ],
+          "reponse": "$f'(x) = -4x - 2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = -4x - 2$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-602",
+          "titre": "Exemple 2",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = -x^2 - 5x + 2$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(-1x^{2})' = -2x^{1}$; $(-5x)' = -5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la constante $2$ a une dérivée nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = -2x - 5$."
+            }
+          ],
+          "reponse": "$f'(x) = -2x - 5$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = -2x - 5$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-614",
+          "titre": "Exemple 3",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = -3x^3 + 5x^2 + 2x - 2$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(-3x^{3})' = -9x^{2}$; $(5x^{2})' = 10x^{1}$; $(2x)' = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la constante $-2$ a une dérivée nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = -9x^2 + 10x + 2$."
+            }
+          ],
+          "reponse": "$f'(x) = -9x^2 + 10x + 2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = -9x^2 + 10x + 2$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-626",
+          "titre": "Exemple 4",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = 2x^3 - 5x^2 - 5x + 4$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(2x^{3})' = 6x^{2}$; $(-5x^{2})' = -10x^{1}$; $(-5x)' = -5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la constante $4$ a une dérivée nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = 6x^2 - 10x - 5$."
+            }
+          ],
+          "reponse": "$f'(x) = 6x^2 - 10x - 5$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = 6x^2 - 10x - 5$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la vitesse instantanée affichée par le compteur d'une voiture",
+        "trouver le moment où un bénéfice est maximal",
+        "trouver la dimension qui minimise la matière utilisée pour fabriquer un objet"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir ce qu'est une dérivée, pense au compteur de vitesse : ce n'est jamais une moyenne, toujours une valeur instantanée.",
+      "aRetenir": [
+        "Utiliser la dérivée de référence $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$.",
+        "Utiliser la dérivée de référence $\\left(\\sqrt{x}\\right)' = \\dfrac{1}{2\\sqrt{x}}$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                2.0
+              ],
+              [
+                0.5,
+                2.4375
+              ],
+              [
+                1.0,
+                2.75
+              ],
+              [
+                1.5,
+                2.9375
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.9375
+              ],
+              [
+                3.0,
+                2.75
+              ],
+              [
+                3.5,
+                2.4375
+              ],
+              [
+                4.0,
+                2.0
+              ],
+              [
+                4.5,
+                1.4375
+              ],
+              [
+                5.0,
+                0.75
+              ],
+              [
+                5.5,
+                -0.0625
+              ],
+              [
+                6.0,
+                -1.0
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 3,
+            "y": 2.75,
+            "label": "point de contact"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1.2,
+              "y": 4.05
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.45
+            }
+          }
+        ],
+        "alt": "La tangente à la courbe au point de contact a pour pente le nombre dérivé en ce point."
+      },
+      "quizExerciseIds": [
+        591,
+        592,
+        593
+      ],
+      "topic_id": "fonction-derivee",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Fonction dérivée."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "fonction",
+        "derivee"
+      ]
+    },
+    {
+      "id": "nombre-derive.-tangente",
+      "title": "Nombre dérivé. Tangente",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : nombre dérivé. tangente.\n\nCette notion sert à mesurer la vitesse à laquelle une quantité change à un instant précis, par exemple la vitesse instantanée d'une voiture.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu regardes le compteur de vitesse d'une voiture : il ne donne pas la vitesse moyenne du trajet, mais la vitesse exacte à cet instant précis. La dérivée fait exactement ça pour une fonction : elle donne sa vitesse de variation à un instant donné.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Nombre dérivé. Tangente.",
+      "definition": "Développer $f(x_0+h)-f(x_0)$, factoriser par $h$, puis faire tendre $h$ vers $0$.",
+      "definitions": {
+        "lycee": "Développer $f(x_0+h)-f(x_0)$, factoriser par $h$, puis faire tendre $h$ vers $0$.",
+        "college": "Utiliser $y = f'(x_0)(x-x_0)+f(x_0)$."
+      },
+      "intuition": "Le nombre dérivé en un point donne la pente de la tangente à la courbe en ce point. Un extremum local (maximum ou minimum) correspond toujours à un endroit où la dérivée s'annule et change de signe — ne confonds pas « dérivée nulle » et « extremum » : les deux vont ensemble, mais il faut aussi vérifier le changement de signe.",
+      "reglesImportantes": [
+        "Utiliser $y = f'(x_0)(x-x_0)+f(x_0)$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Nombre dérivé. Tangente",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-4+h) = -2(-4+h)^2 +1(-4+h) +3$, à développer."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : après développement et simplification, $\\dfrac{f(-4+h)-f(-4)}{h} = 17 + -2h$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : quand $h$ tend vers $0$, ce taux de variation tend vers $17$, donc $f'(-4) = 17$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-531",
+          "titre": "Exemple 1",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = -2x^2 + x + 3$. Exprimer le taux de variation $\\dfrac{f(-4+h)-f(-4)}{h}$ en fonction de $h$ (pour $h \\neq 0$), puis en déduire le nombre dérivé $f'(-4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-4+h) = -2(-4+h)^2 +1(-4+h) +3$, à développer."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : après développement et simplification, $\\dfrac{f(-4+h)-f(-4)}{h} = 17 + -2h$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : quand $h$ tend vers $0$, ce taux de variation tend vers $17$, donc $f'(-4) = 17$."
+            }
+          ],
+          "reponse": "$f'(-4) = 17$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(-4) = 17$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-543",
+          "titre": "Exemple 2",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = -3x^2 - 3x$. Exprimer le taux de variation $\\dfrac{f(0+h)-f(0)}{h}$ en fonction de $h$ (pour $h \\neq 0$), puis en déduire le nombre dérivé $f'(0)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(0+h) = -3(0+h)^2 -3(0+h) +0$, à développer."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : après développement et simplification, $\\dfrac{f(0+h)-f(0)}{h} = -3 + -3h$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : quand $h$ tend vers $0$, ce taux de variation tend vers $-3$, donc $f'(0) = -3$."
+            }
+          ],
+          "reponse": "$f'(0) = -3$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(0) = -3$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-555",
+          "titre": "Exemple 3",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = x^2 + 6x - 2$. Déterminer une équation de la tangente à la courbe représentative de $f$ au point d'abscisse $x_0 = -5$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f'(x) = 2x + 6$, donc $f'(-5) = -4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f(-5) = -7$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la tangente a pour équation $y = f'(-5)(x+5) + f(-5)$, soit $y = -4x - 27$."
+            }
+          ],
+          "reponse": "$y = -4x - 27$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $y = -4x - 27$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-567",
+          "titre": "Exemple 4",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 4x^2 + x - 5$. Exprimer le taux de variation $\\dfrac{f(-5+h)-f(-5)}{h}$ en fonction de $h$ (pour $h \\neq 0$), puis en déduire le nombre dérivé $f'(-5)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-5+h) = 4(-5+h)^2 +1(-5+h) -5$, à développer."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : après développement et simplification, $\\dfrac{f(-5+h)-f(-5)}{h} = -39 + 4h$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : quand $h$ tend vers $0$, ce taux de variation tend vers $-39$, donc $f'(-5) = -39$."
+            }
+          ],
+          "reponse": "$f'(-5) = -39$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(-5) = -39$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la vitesse instantanée affichée par le compteur d'une voiture",
+        "trouver le moment où un bénéfice est maximal",
+        "trouver la dimension qui minimise la matière utilisée pour fabriquer un objet"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir ce qu'est une dérivée, pense au compteur de vitesse : ce n'est jamais une moyenne, toujours une valeur instantanée.",
+      "aRetenir": [
+        "Utiliser $y = f'(x_0)(x-x_0)+f(x_0)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                2.0
+              ],
+              [
+                0.5,
+                2.4375
+              ],
+              [
+                1.0,
+                2.75
+              ],
+              [
+                1.5,
+                2.9375
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.9375
+              ],
+              [
+                3.0,
+                2.75
+              ],
+              [
+                3.5,
+                2.4375
+              ],
+              [
+                4.0,
+                2.0
+              ],
+              [
+                4.5,
+                1.4375
+              ],
+              [
+                5.0,
+                0.75
+              ],
+              [
+                5.5,
+                -0.0625
+              ],
+              [
+                6.0,
+                -1.0
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 3,
+            "y": 2.75,
+            "label": "point de contact"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1.2,
+              "y": 4.05
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.45
+            }
+          }
+        ],
+        "alt": "La tangente à la courbe au point de contact a pour pente le nombre dérivé en ce point."
+      },
+      "quizExerciseIds": [
+        532,
+        533,
+        534
+      ],
+      "topic_id": "nombre-derive.-tangente",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Nombre dérivé. Tangente."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "nombre",
+        "derive",
+        "tangente"
+      ]
+    },
+    {
+      "id": "operations-et-derivation",
+      "title": "Opérations et dérivation",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : opérations et dérivation.\n\nCette notion sert à mesurer la vitesse à laquelle une quantité change à un instant précis, par exemple la vitesse instantanée d'une voiture.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu regardes le compteur de vitesse d'une voiture : il ne donne pas la vitesse moyenne du trajet, mais la vitesse exacte à cet instant précis. La dérivée fait exactement ça pour une fonction : elle donne sa vitesse de variation à un instant donné.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Opérations et dérivation.",
+      "definition": "Utiliser $(uv)' = u'v + uv'$ puis développer et réduire.",
+      "definitions": {
+        "lycee": "Utiliser $(uv)' = u'v + uv'$ puis développer et réduire.",
+        "college": "La dérivée d'une somme est la somme des dérivées."
+      },
+      "intuition": "Le nombre dérivé en un point donne la pente de la tangente à la courbe en ce point. Un extremum local (maximum ou minimum) correspond toujours à un endroit où la dérivée s'annule et change de signe — ne confonds pas « dérivée nulle » et « extremum » : les deux vont ensemble, mais il faut aussi vérifier le changement de signe.",
+      "reglesImportantes": [
+        "Utiliser $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$ ; au numérateur, les termes en $x^2$ s'annulent toujours pour deux fonctions affines.",
+        "La dérivée d'une somme est la somme des dérivées."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Opérations et dérivation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x) = -x + 4$ et $v(x) = 5x - 2$, avec $u'(x) = -1$ et $v'(x) = 5$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : on applique la formule $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : au numérateur : $u'v - uv' = -1\\times(5x - 2) - (-x + 4)\\times5 = -18$ (les termes en $x$ s'annulent)."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = \\dfrac{-18}{(5x - 2)^2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-649",
+          "titre": "Exemple 1",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R} \\setminus \\left\\{\\dfrac{2}{5}\\right\\}$ par $f(x) = \\dfrac{-x + 4}{5x - 2}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x) = -x + 4$ et $v(x) = 5x - 2$, avec $u'(x) = -1$ et $v'(x) = 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on applique la formule $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : au numérateur : $u'v - uv' = -1\\times(5x - 2) - (-x + 4)\\times5 = -18$ (les termes en $x$ s'annulent)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = \\dfrac{-18}{(5x - 2)^2}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{-18}{(5x - 2)^2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = \\dfrac{-18}{(5x - 2)^2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-661",
+          "titre": "Exemple 2",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = (-2x^2 - 4x) + (4x + 1)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(u+v)' = u'+v'$ avec $u(x)=-2x^2 - 4x$ et $v(x)=4x + 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $u'(x) = -4x - 4$ et $v'(x) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = -4$."
+            }
+          ],
+          "reponse": "$f'(x) = -4$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = -4$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-673",
+          "titre": "Exemple 3",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = (-2x)(-2x - 1)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x)=-2x$ et $v(x)=-2x - 1$, avec $u'(x)=-2$ et $v'(x)=-2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on applique la formule $(uv)' = u'v+uv'$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : après développement et réduction, $f'(x) = 8x + 2$."
+            }
+          ],
+          "reponse": "$f'(x) = 8x + 2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = 8x + 2$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-685",
+          "titre": "Exemple 4",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R} \\setminus \\left\\{-5\\right\\}$ par $f(x) = \\dfrac{-3x - 3}{x + 5}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on pose $u(x) = -3x - 3$ et $v(x) = x + 5$, avec $u'(x) = -3$ et $v'(x) = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on applique la formule $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : au numérateur : $u'v - uv' = -3\\times(x + 5) - (-3x - 3)\\times1 = -12$ (les termes en $x$ s'annulent)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f'(x) = \\dfrac{-12}{(x + 5)^2}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{-12}{(x + 5)^2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f'(x) = \\dfrac{-12}{(x + 5)^2}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la vitesse instantanée affichée par le compteur d'une voiture",
+        "trouver le moment où un bénéfice est maximal",
+        "trouver la dimension qui minimise la matière utilisée pour fabriquer un objet"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir ce qu'est une dérivée, pense au compteur de vitesse : ce n'est jamais une moyenne, toujours une valeur instantanée.",
+      "aRetenir": [
+        "Utiliser $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$ ; au numérateur, les termes en $x^2$ s'annulent toujours pour deux fonctions affines.",
+        "La dérivée d'une somme est la somme des dérivées."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                2.0
+              ],
+              [
+                0.5,
+                2.4375
+              ],
+              [
+                1.0,
+                2.75
+              ],
+              [
+                1.5,
+                2.9375
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.9375
+              ],
+              [
+                3.0,
+                2.75
+              ],
+              [
+                3.5,
+                2.4375
+              ],
+              [
+                4.0,
+                2.0
+              ],
+              [
+                4.5,
+                1.4375
+              ],
+              [
+                5.0,
+                0.75
+              ],
+              [
+                5.5,
+                -0.0625
+              ],
+              [
+                6.0,
+                -1.0
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 3,
+            "y": 2.75,
+            "label": "point de contact"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1.2,
+              "y": 4.05
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.45
+            }
+          }
+        ],
+        "alt": "La tangente à la courbe au point de contact a pour pente le nombre dérivé en ce point."
+      },
+      "quizExerciseIds": [
+        650,
+        651,
+        652
+      ],
+      "topic_id": "operations-et-derivation",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Opérations et dérivation."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "operations",
+        "derivation"
+      ]
+    }
+  ]
+}

@@ -11,7 +11,6 @@ const mockApi = {
   chatbotCreateConversation: vi.fn(),
   chatbotQuota: vi.fn(),
   getQuota: vi.fn(),
-  chatbotContextPreview: vi.fn(),
   chatbotGreeting: vi.fn(),
   chatbotHealth: vi.fn(),
   chatbotStream: vi.fn(),
@@ -33,10 +32,6 @@ function defaultMocks() {
   Object.values(mockApi).forEach((fn) => fn.mockReset());
   mockApi.chatbotConversations.mockResolvedValue({ conversations: [] });
   mockApi.getQuota.mockResolvedValue({ chat_messages: { unlimited: true } });
-  mockApi.chatbotContextPreview.mockResolvedValue({
-    level_label: "Niveau 3", accuracy_pct: null, total_exercises: 12, daily_goals: null,
-    weak_notions: [], mastered_notions: [],
-  });
   mockApi.chatbotGreeting.mockResolvedValue({ greeting: "Bonjour !" });
   mockApi.chatbotHealth.mockResolvedValue({ ok: true });
 }
@@ -69,9 +64,19 @@ describe("chatbot.js — état initial", () => {
     expect($("chatbot-quota-value").innerHTML).toContain("Illimité");
   });
 
-  it("affiche le contexte utilisateur (niveau, exercices faits)", () => {
-    expect($("chatbot-context-content").innerHTML).toContain("Niveau 3");
-    expect($("chatbot-context-content").innerHTML).toContain("12");
+  // Le panneau contextuel de droite ("Ton profil NovaMath") a été supprimé
+  // (refonte UI/UX) : ces informations existent déjà dans le Dashboard.
+  it("ne contient plus le panneau contextuel de droite", () => {
+    expect($("chatbot-context-panel")).toBeNull();
+  });
+
+  it("affiche des suggestions de questions adaptées à la classe active", () => {
+    const chips = document.querySelectorAll(".chatbot-suggestion-chip");
+    expect(chips.length).toBeGreaterThan(0);
+    // curriculumSelector.js est mocké sur "seconde" (ligne 29) : les chips
+    // doivent correspondre au programme de Seconde, jamais à un autre niveau.
+    const texts = Array.from(chips).map((c) => c.textContent);
+    expect(texts.some((t) => /inéquation|vecteur|littérale/i.test(t))).toBe(true);
   });
 });
 

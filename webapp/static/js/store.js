@@ -228,6 +228,54 @@ export function masteryByNotion(history) {
   return out;
 }
 
+// ── Bilan de progression par notion (Premium+, voir dashboard.js) ──────────
+// Réutilise masteryByNotion (déjà défini ci-dessus, jusqu'ici jamais
+// appelé nulle part) plutôt qu'une nouvelle agrégation — ajoute uniquement
+// le temps moyen et une tendance, absents de masteryByNotion. `history`
+// n'est jamais tronqué ni modifié (nouvel objet uniquement).
+// Tendance : ne comparer 1ère moitié / 2e moitié (triées par ts) que s'il y
+// a au moins 4 tentatives sur la notion — sinon `trend: null`, jamais une
+// tendance inventée sur trop peu de données.
+const NOTION_TREND_MIN_ATTEMPTS = 4;
+
+export function notionBreakdown(history) {
+  const mastery = masteryByNotion(history);
+  const byNotion = {};
+  history.forEach((h) => {
+    const key = `${h.chapter}|${h.notion}`;
+    byNotion[key] = byNotion[key] || [];
+    byNotion[key].push(h);
+  });
+
+  return Object.entries(mastery).map(([key, m]) => {
+    const [chapter, notion] = key.split("|");
+    const attempts = (byNotion[key] || []).slice().sort((a, b) => a.ts - b.ts);
+    const totalDuration = attempts.reduce((sum, h) => sum + (h.duration_s || 0), 0);
+    const avgDurationS = attempts.length ? Math.round(totalDuration / attempts.length) : 0;
+
+    let trend = null;
+    if (attempts.length >= NOTION_TREND_MIN_ATTEMPTS) {
+      const mid = Math.floor(attempts.length / 2);
+      const firstHalf = attempts.slice(0, mid);
+      const secondHalf = attempts.slice(mid);
+      const rateOf = (list) => list.filter((h) => h.correct).length / list.length;
+      const diff = rateOf(secondHalf) - rateOf(firstHalf);
+      if (diff > 0.1) trend = "up";
+      else if (diff < -0.1) trend = "down";
+      else trend = "stable";
+    }
+
+    return {
+      chapter,
+      notion,
+      count: m.count,
+      rate: m.rate,
+      avgDurationS,
+      trend,
+    };
+  }).sort((a, b) => a.rate - b.rate);
+}
+
 export function levelFromXp(xp) {
   let level = 1;
   for (let i = 0; i < LEVEL_THRESHOLDS.length; i++) {
@@ -285,7 +333,15 @@ export function scopedStats(state, classLevel) {
   const series = (state.series || []).filter(belongsTo);
   const xp = history.reduce((sum, h) => sum + (h.xp || 0), 0);
   const badges = BADGE_DEFS.filter((b) => b.test({ history, series, xp })).map((b) => b.id);
-  return { xp, history, series, badges };
+  // suggestions_limit / notion_breakdown_enabled (GET /api/stats::server.py) :
+  // simple passthrough, non scopés par classe (plafond/flag par PLAN, pas
+  // par cursus) — jamais recalculés ici, dashboard.js les utilise tels
+  // quels pour plafonner renderSuggestions() / autoriser renderNotionBreakdown().
+  return {
+    xp, history, series, badges,
+    suggestions_limit: state.suggestions_limit,
+    notion_breakdown_enabled: state.notion_breakdown_enabled,
+  };
 }
 
 export function badgeDefs() {
@@ -387,6 +443,14 @@ export async function hydrateFromServer() {
         persist(remote);
         return remote;
       }
+      // Historique local déjà à jour (aucune nouvelle réponse depuis la
+      // dernière visite) : `persist(remote)` est sauté, mais
+      // suggestions_limit/notion_breakdown_enabled dépendent du PLAN, pas de
+      // l'historique — un changement de plan sans nouvel exercice ne doit
+      // jamais laisser ces valeurs périmées dans le state local. Reprend
+      // `local` tel quel (aucun autre champ touché), seuls ces deux champs
+      // viennent du fetch qui vient de réussir.
+      return { ...local, suggestions_limit: remote.suggestions_limit, notion_breakdown_enabled: remote.notion_breakdown_enabled };
     }
   } catch {
     /* pas grave — on reste en local si le serveur est indisponible */

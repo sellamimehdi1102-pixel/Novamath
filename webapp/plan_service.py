@@ -125,7 +125,19 @@ def list_features(plan):
 
 
 def has_feature(user, feature):
-    return feature in list_features(get_plan(user))
+    # Owner/Developer Override (voir owner_service.py) + Mode test Owner
+    # (voir owner_test_plan_service.py) : pour le compte configuré via
+    # NOVAMATH_OWNER_USER_ID UNIQUEMENT, les features suivent le plan
+    # EFFECTIF (Plan.ULTRA par défaut si aucun plan de test n'est actif —
+    # équivalent strict à l'ancien court-circuit "toujours True", puisque
+    # FEATURE_MATRIX[ULTRA] couvre la totalité des Feature ; ou le plan de
+    # test choisi sinon). Import différé pour éviter un import circulaire
+    # (owner_test_plan_service importe Plan/list_features de ce module).
+    # N'affecte jamais get_plan()/FEATURE_MATRIX ni les autres utilisateurs
+    # (fail-closed par défaut, voir owner_service/owner_test_plan_service).
+    import owner_test_plan_service
+    plan = owner_test_plan_service.effective_plan(user)
+    return feature in list_features(plan)
 
 
 def is_free(user):

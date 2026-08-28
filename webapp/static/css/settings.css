@@ -8,6 +8,19 @@
   grid-template-columns: 240px 1fr;
   gap: 24px;
   align-items: start;
+  position: relative;
+}
+/* ── Variation "landing" pour Paramètres — halo très léger derrière le
+   panneau, volontairement plus discret qu'ailleurs : c'est un formulaire,
+   la lisibilité prime sur la personnalité visuelle. */
+.settings-shell::before {
+  content: "";
+  position: absolute;
+  inset: -20px -20px auto -20px;
+  height: 220px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 460px 220px at 30% 0%, rgba(var(--accent-rgb), 0.06), transparent 72%);
 }
 
 .settings-menu {
@@ -220,7 +233,7 @@
    ([data-accent] dans tokens.css), y compris celles qui ne sont pas la
    couleur active : ne peuvent pas être des var() dynamiques par définition
    (il faut montrer le bleu même quand l'accent actif est le violet). */
-.swatch-purple { background: linear-gradient(135deg, var(--violet-600), var(--violet-400)); }
+.swatch-purple { background: linear-gradient(135deg, var(--indigo-500), var(--violet-500)); }
 .swatch-blue { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
 .swatch-green { background: linear-gradient(135deg, #16a34a, #22c55e); }
 .swatch-red { background: linear-gradient(135deg, #db2777, #f472b6); }
@@ -271,37 +284,6 @@
   margin-top: 8px;
 }
 .danger-zone .settings-section-title { color: var(--danger); }
-
-/* ── Données : statistiques rapides ─────────────────────────────────────── */
-.data-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 14px;
-  margin-bottom: 26px;
-}
-.data-stat-card {
-  background: var(--surface-glass);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  text-align: center;
-}
-.data-stat-card .value { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; background: var(--brand-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.data-stat-card .label { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
-
-/* ── Appareils connectés ─────────────────────────────────────────────────── */
-.device-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-.device-item {
-  display: flex; align-items: center; gap: 14px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-}
-.device-item .device-icon { color: var(--text-muted); flex-shrink: 0; }
-.device-item .device-icon svg { width: 22px; height: 22px; }
-.device-item-text { flex: 1; min-width: 0; }
-.device-item-text .ua { font-size: 0.85rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.device-item-text .meta { font-size: 0.78rem; color: var(--text-muted); }
 
 /* ── 2FA (authentification à deux facteurs) ─────────────────────────────────
    Réutilise exclusivement les tokens/composants déjà en place (.form-field,
@@ -459,6 +441,55 @@
 }
 
 .settings-empty { text-align: center; color: var(--text-muted); padding: 60px 20px; }
+
+/* ── Support (composant unique — voir supportTicket.js) ─────────────────── */
+.support-hub-loading, .support-hub-empty { text-align: center; color: var(--text-muted); padding: 24px 0; }
+.support-hub-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.support-hub-title { font-weight: 700; }
+
+.support-ticket-list { display: flex; flex-direction: column; gap: 8px; max-height: 50vh; overflow-y: auto; }
+.support-ticket-row {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  text-align: left; cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+.support-ticket-row:hover { border-color: var(--brand-indigo); }
+.support-ticket-row-main { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.support-ticket-row-subject { font-weight: 600; font-size: 0.88rem; }
+.support-ticket-row-meta { font-size: 0.78rem; color: var(--text-muted); }
+
+.support-ticket-detail-meta { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 14px; }
+.support-ticket-thread { display: flex; flex-direction: column; gap: 10px; max-height: 40vh; overflow-y: auto; margin-bottom: 14px; }
+.support-ticket-msg { padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-hover); }
+.support-ticket-msg--admin { background: var(--accent-soft-bg); }
+.support-ticket-msg-meta { font-size: 0.75rem; color: var(--text-faint); margin-bottom: 4px; }
+.support-ticket-msg-body { font-size: 0.88rem; white-space: pre-wrap; }
+.support-ticket-msg-attachments { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+.support-ticket-msg-attachments a { font-size: 0.8rem; color: var(--brand-indigo); display: flex; align-items: center; gap: 4px; }
+.support-ticket-attach-btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.support-ticket-satisfaction { text-align: center; padding: 12px 0; }
+.support-ticket-satisfaction p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 8px; }
+.support-ticket-stars { display: flex; justify-content: center; gap: 4px; }
+.support-ticket-star-btn { background: none; border: none; cursor: pointer; color: var(--text-faint); padding: 4px; }
+.support-ticket-star-btn:hover { color: var(--brand-gold-text, var(--warning)); }
+.support-ticket-star-btn svg { width: 22px; height: 22px; }
+.support-ticket-satisfaction-done { text-align: center; color: var(--text-muted); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+/* ── Points d'entrée discrets "Signaler un problème" (chatbot/exercices/cours) */
+.support-report-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-faint); font-size: 0.78rem;
+  padding: 4px 2px;
+  transition: color var(--transition-fast);
+}
+.support-report-link:hover { color: var(--danger); }
+.support-report-link svg, .support-report-link .btn-icon { width: 13px; height: 13px; }
+.support-report-row { display: flex; justify-content: center; margin-top: 10px; }
 
 .learning-input {
   padding: 8px 12px;

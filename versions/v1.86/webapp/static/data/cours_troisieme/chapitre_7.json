@@ -1,0 +1,1601 @@
+{
+  "chapterId": "Chapitre_7",
+  "title": "Chapitre 7",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "calculer-une-image-a-partir-de-l-expression-d-une-fonction",
+      "title": "Calculer une image à partir de l'expression d'une fonction",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : calculer une image à partir de l'expression d'une fonction.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Calculer une image à partir de l'expression d'une fonction.",
+      "definition": "Calculer $\\left(-\\dfrac{2}{3}\\right)^2 = \\dfrac{4}{9}$, puis multiplier par $3$ avant de soustraire $2$.",
+      "definitions": {
+        "lycee": "Calculer $\\left(-\\dfrac{2}{3}\\right)^2 = \\dfrac{4}{9}$, puis multiplier par $3$ avant de soustraire $2$.",
+        "college": "Ajouter $7$ à $10$."
+      },
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "reglesImportantes": [
+        "La longueur vaut $3x+2$ ; le périmètre d'un rectangle est deux fois la somme largeur + longueur.",
+        "Calculer chaque terme séparément : $2x^2$, puis $-5x$, puis additionner avec $+1$.",
+        "Attention à l'ordre des opérations : élever au carré avant de multiplier par $3$.",
+        "Calculer d'abord $f(1)$, puis réutiliser ce résultat comme nouvel antécédent.",
+        "Le produit $-5 \\times \\left(-\\dfrac{1}{5}\\right)$ se simplifie immédiatement."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Calculer une image à partir de l'expression d'une fonction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $k(-1) = 3 \\times (-1)^2 - 2$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $(-1)^2 = 1$ donc $k(-1) = 3 \\times 1 - 2$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $k(-1) = 3 - 2 = 1$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-750",
+          "titre": "Exemple 1",
+          "enonce": "On donne $f(x) = 2x + 5$. Calculer $f(3)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(3) = 2 \\times 3 + 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(3) = 6 + 5 = 11$."
+            }
+          ],
+          "reponse": "$f(3) = 11$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(3) = 11$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-756",
+          "titre": "Exemple 2",
+          "enonce": "On donne $f(x) = 3x - 4$. Calculer $f(-2)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-2) = 3 \\times (-2) - 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(-2) = -6 - 4 = -10$."
+            }
+          ],
+          "reponse": "$f(-2) = -10$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(-2) = -10$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-762",
+          "titre": "Exemple 3",
+          "enonce": "On donne $f(x) = x^2 + 3x$. Calculer $f(2)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(2) = 2^2 + 3 \\times 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(2) = 4 + 6 = 10$."
+            }
+          ],
+          "reponse": "$f(2) = 10$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(2) = 10$.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-768",
+          "titre": "Exemple 4",
+          "enonce": "Une fonction $f$ associe à un nombre $x$ le carré de $x$ diminué de $5$. Donner l'expression de $f(x)$, puis calculer $f(4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : « le carré de $x$ diminué de $5$ » se traduit par $f(x) = x^2 - 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(4) = 4^2 - 5 = 16 - 5 = 11$."
+            }
+          ],
+          "reponse": "$f(x) = x^2 - 5$ et $f(4) = 11$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = x^2 - 5$ et $f(4) = 11$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [
+        "Attention à l'ordre des opérations : élever au carré avant de multiplier par $3$.",
+        "Attention au produit de deux nombres négatifs : $-3 \\times (-1) = 3$.",
+        "Remplacer $x$ par $1$, en faisant attention au signe devant $2x$.",
+        "Remplacer $x$ par $-2$ en faisant bien attention aux signes."
+      ],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "La longueur vaut $3x+2$ ; le périmètre d'un rectangle est deux fois la somme largeur + longueur.",
+        "Calculer chaque terme séparément : $2x^2$, puis $-5x$, puis additionner avec $+1$.",
+        "Attention à l'ordre des opérations : élever au carré avant de multiplier par $3$.",
+        "Calculer d'abord $f(1)$, puis réutiliser ce résultat comme nouvel antécédent.",
+        "Le produit $-5 \\times \\left(-\\dfrac{1}{5}\\right)$ se simplifie immédiatement.",
+        "Calculer séparément $f(2)$ et $g(2)$, puis additionner les deux résultats."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        751,
+        752,
+        753
+      ],
+      "topic_id": "calculer-une-image-a-partir-de-l-expression-d-une-fonction",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Calculer une image à partir de l'expression d'une fonction."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "calculer",
+        "image",
+        "partir",
+        "expression"
+      ]
+    },
+    {
+      "id": "determiner-un-antecedent-a-partir-de-l-expression-d-une-fonction",
+      "title": "Déterminer un antécédent à partir de l'expression d'une fonction",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : déterminer un antécédent à partir de l'expression d'une fonction.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Déterminer un antécédent à partir de l'expression d'une fonction.",
+      "definition": "Calculer d'abord $g(0)$, puis se rappeler qu'une fonction affine non constante ne prend jamais deux fois la même valeur.",
+      "definitions": {
+        "lycee": "Calculer d'abord $g(0)$, puis se rappeler qu'une fonction affine non constante ne prend jamais deux fois la même valeur.",
+        "college": "Résoudre $4x = 20$."
+      },
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "reglesImportantes": [
+        "Par définition, $3$ a pour image $f(3)$ ; comme $f$ est affine non constante, cette image n'a pas d'autre antécédent.",
+        "Résoudre $3x - 6 = 6$, puis invoquer le fait qu'une fonction affine non constante est injective.",
+        "Une fonction constante donne toujours le même résultat, quel que soit le nombre de départ.",
+        "Résoudre $-2x + 3 = -5$, en faisant attention au signe du coefficient de $x$.",
+        "Résoudre $2x + 3 = 4$ ; la solution n'est pas forcément un nombre entier."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Déterminer un antécédent à partir de l'expression d'une fonction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on résout $2x + 1 = 7$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $2x = 7 - 1 = 6$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $x = 3$. L'antécédent de $7$ par $f$ est donc $3$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-780",
+          "titre": "Exemple 1",
+          "enonce": "On donne $f(x) = 2x + 1$. Déterminer l'antécédent de $7$ par $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on résout $2x + 1 = 7$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $2x = 7 - 1 = 6$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $x = 3$. L'antécédent de $7$ par $f$ est donc $3$."
+            }
+          ],
+          "reponse": "L'antécédent de $7$ par $f$ est $3$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'antécédent de $7$ par $f$ est $3$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-786",
+          "titre": "Exemple 2",
+          "enonce": "On donne $f(x) = -2x + 3$. Déterminer l'antécédent de $-5$ par $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $-2x + 3 = -5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $-2x = -5 - 3 = -8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $x = \\dfrac{-8}{-2} = 4$."
+            }
+          ],
+          "reponse": "L'antécédent de $-5$ par $f$ est $4$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'antécédent de $-5$ par $f$ est $4$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-792",
+          "titre": "Exemple 3",
+          "enonce": "On donne $f(x) = 2x + 3$. Déterminer l'antécédent de $4$ par $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $2x + 3 = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $2x = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $x = \\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "L'antécédent de $4$ par $f$ est $\\dfrac{1}{2}$ (soit $0{,}5$).",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'antécédent de $4$ par $f$ est $\\dfrac{1}{2}$ (soit $0{,}5$).",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-798",
+          "titre": "Exemple 4",
+          "enonce": "Le coût total d'une commande de $x$ articles identiques est donné par $C(x) = 3x + 5$ (en euros). Pour quel nombre d'articles le coût est-il de $26$ euros ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on résout $3x + 5 = 26$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $3x = 21$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $x = 7$."
+            }
+          ],
+          "reponse": "Il faut commander $7$ articles.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Il faut commander $7$ articles.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [
+        "Résoudre $-2x + 3 = -5$, en faisant attention au signe du coefficient de $x$."
+      ],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "Par définition, $3$ a pour image $f(3)$ ; comme $f$ est affine non constante, cette image n'a pas d'autre antécédent.",
+        "Résoudre $3x - 6 = 6$, puis invoquer le fait qu'une fonction affine non constante est injective.",
+        "Une fonction constante donne toujours le même résultat, quel que soit le nombre de départ.",
+        "Résoudre $-2x + 3 = -5$, en faisant attention au signe du coefficient de $x$.",
+        "Résoudre $2x + 3 = 4$ ; la solution n'est pas forcément un nombre entier.",
+        "Repérer que $7$ est la valeur de $g$ lorsque le terme en $x$ s'annule."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        781,
+        782,
+        783
+      ],
+      "topic_id": "determiner-un-antecedent-a-partir-de-l-expression-d-une-fonction",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Déterminer un antécédent à partir de l'expression d'une fonction."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "determiner",
+        "antecedent",
+        "partir",
+        "expression"
+      ]
+    },
+    {
+      "id": "lire-graphiquement-une-image-ou-un-antecedent",
+      "title": "Lire graphiquement une image ou un antécédent",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : lire graphiquement une image ou un antécédent.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Lire graphiquement une image ou un antécédent.",
+      "definition": "Observer que chaque augmentation de $2$ en abscisse correspond à une augmentation de $2$ en ordonnée, puis prolonger ce pas au-delà du point $E$.",
+      "definitions": {
+        "lycee": "Observer que chaque augmentation de $2$ en abscisse correspond à une augmentation de $2$ en ordonnée, puis prolonger ce pas au-delà du point $E$.",
+        "college": "Repérer le point d'abscisse $1$."
+      },
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "reglesImportantes": [
+        "Calculer de combien varie $y$ pour une variation de $3$ en $x$ entre $A$ et $B$, puis prolonger ce pas jusqu'à $x=8$.",
+        "Utiliser le fait qu'une courbe symétrique par rapport à l'axe $x=0$ donne la même image pour deux abscisses opposées.",
+        "Comparer, pour chaque abscisse commune, les valeurs de $f$ et de $g$, et repérer où l'ordre s'inverse.",
+        "Repérer, parmi les points donnés, celui dont l'abscisse est $0$, puis lire son ordonnée.",
+        "Remarquer que les deux points ont la même ordonnée mais des abscisses différentes."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Lire graphiquement une image ou un antécédent",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : d'un point au suivant, l'abscisse augmente de $2$ et l'ordonnée augmente aussi de $2$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : en prolongeant après $E(4\\,;\\,6)$, on obtient le point $(6\\,;\\,8)$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : l'image de $6$ par cette fonction est donc $8$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-870",
+          "titre": "Exemple 1",
+          "enonce": "La courbe représentative d'une fonction $f$ passe par les points $A(-2\\,;\\,3)$, $B(-1\\,;\\,1)$, $C(0\\,;\\,-1)$, $D(1\\,;\\,-3)$, $E(2\\,;\\,-5)$. Lire graphiquement l'image de $0$ par $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le point $C$ a pour abscisse $0$ et pour ordonnée $-1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'image de $0$ par $f$ est donc $-1$."
+            }
+          ],
+          "reponse": "L'image de $0$ par $f$ est $-1$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $0$ par $f$ est $-1$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-876",
+          "titre": "Exemple 2",
+          "enonce": "La courbe représentative d'une fonction $f$ (une parabole) passe par les points $A(-2\\,;\\,4)$, $B(-1\\,;\\,1)$, $C(0\\,;\\,0)$, $D(1\\,;\\,1)$, $E(2\\,;\\,4)$. Lire graphiquement tous les antécédents de $4$ par $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les points $A$ et $E$ ont tous les deux pour ordonnée $4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : leurs abscisses sont $-2$ et $2$ : ce sont les deux antécédents de $4$ par $f$."
+            }
+          ],
+          "reponse": "Les antécédents de $4$ par $f$ sont $-2$ et $2$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Les antécédents de $4$ par $f$ sont $-2$ et $2$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-882",
+          "titre": "Exemple 3",
+          "enonce": "La courbe représentative de $f$ a pour équation $y = 2x - 3$. Lire (c'est-à-dire calculer à partir de l'équation de la courbe) l'image de $4$ par $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $y = 2 \\times 4 - 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $y = 8 - 3 = 5$, donc l'image de $4$ par $f$ est $5$."
+            }
+          ],
+          "reponse": "L'image de $4$ par $f$ est $5$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $4$ par $f$ est $5$.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-888",
+          "titre": "Exemple 4",
+          "enonce": "Une courbe représentant une fonction affine passe par les points $A(-4\\,;\\,-2)$, $B(-2\\,;\\,0)$, $C(0\\,;\\,2)$, $D(2\\,;\\,4)$, $E(4\\,;\\,6)$. Lire graphiquement l'image de $-2$ par cette fonction.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le point $B$ a pour abscisse $-2$ et pour ordonnée $0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'image de $-2$ est donc $0$."
+            }
+          ],
+          "reponse": "L'image de $-2$ par cette fonction est $0$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $-2$ par cette fonction est $0$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "Calculer de combien varie $y$ pour une variation de $3$ en $x$ entre $A$ et $B$, puis prolonger ce pas jusqu'à $x=8$.",
+        "Utiliser le fait qu'une courbe symétrique par rapport à l'axe $x=0$ donne la même image pour deux abscisses opposées.",
+        "Comparer, pour chaque abscisse commune, les valeurs de $f$ et de $g$, et repérer où l'ordre s'inverse.",
+        "Repérer, parmi les points donnés, celui dont l'abscisse est $0$, puis lire son ordonnée.",
+        "Remarquer que les deux points ont la même ordonnée mais des abscisses différentes.",
+        "Vérifier si $1$ figure parmi les abscisses des points connus de la courbe."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        871,
+        872,
+        873
+      ],
+      "topic_id": "lire-graphiquement-une-image-ou-un-antecedent",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Lire graphiquement une image ou un antécédent."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "lire",
+        "graphiquement",
+        "image",
+        "antecedent"
+      ]
+    },
+    {
+      "id": "tracer-la-representation-graphique-d-une-fonction",
+      "title": "Tracer la représentation graphique d'une fonction",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : tracer la représentation graphique d'une fonction.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Tracer la représentation graphique d'une fonction.",
+      "definition": "Traduire la phrase en expression, puis calculer l'image de chaque abscisse, y compris les abscisses non entières.",
+      "definitions": {
+        "lycee": "Traduire la phrase en expression, puis calculer l'image de chaque abscisse, y compris les abscisses non entières.",
+        "college": "Soustraire $3$ à chaque abscisse."
+      },
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "reglesImportantes": [
+        "Calculer $g(1)$, $g(4)$ et $g(0)$, puis comparer chaque résultat à l'ordonnée du point correspondant.",
+        "Calculer les deux tableaux de valeurs, puis chercher les abscisses où $f(x)$ et $g(x)$ sont égales.",
+        "Calculer $f(x)$ pour chaque abscisse, en faisant attention au coefficient négatif.",
+        "Calculer $f(x)$ pour chaque abscisse, puis comparer les cinq valeurs obtenues.",
+        "Utiliser $f(2)=12$ pour déterminer $a$, puis calculer les images demandées."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Tracer la représentation graphique d'une fonction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-2)=0$, $f(-1)=1$, $f(0)=2$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $f(1)=3$, $f(2)=4$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : les points de la courbe sont $(-2\\,;\\,0)$, $(-1\\,;\\,1)$, $(0\\,;\\,2)$, $(1\\,;\\,3)$ et $(2\\,;\\,4)$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-840",
+          "titre": "Exemple 1",
+          "enonce": "On donne $f(x) = x + 2$. Calculer les coordonnées des points de la courbe de $f$ d'abscisses $-2\\ ; -1\\ ; 0\\ ; 1\\ ; 2$, en vue de tracer cette courbe.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-2)=0$, $f(-1)=1$, $f(0)=2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f(1)=3$, $f(2)=4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les points de la courbe sont $(-2\\,;\\,0)$, $(-1\\,;\\,1)$, $(0\\,;\\,2)$, $(1\\,;\\,3)$ et $(2\\,;\\,4)$."
+            }
+          ],
+          "reponse": "$(-2\\,;\\,0)$, $(-1\\,;\\,1)$, $(0\\,;\\,2)$, $(1\\,;\\,3)$, $(2\\,;\\,4)$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $(-2\\,;\\,0)$, $(-1\\,;\\,1)$, $(0\\,;\\,2)$, $(1\\,;\\,3)$, $(2\\,;\\,4)$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-846",
+          "titre": "Exemple 2",
+          "enonce": "On donne $f(x) = -2x + 5$. Calculer les coordonnées des points de la courbe de $f$ d'abscisses $-1\\ ; 0\\ ; 1\\ ; 2\\ ; 3$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-1)=7$, $f(0)=5$, $f(1)=3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f(2)=1$, $f(3)=-1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les points sont $(-1\\,;\\,7)$, $(0\\,;\\,5)$, $(1\\,;\\,3)$, $(2\\,;\\,1)$, $(3\\,;\\,-1)$."
+            }
+          ],
+          "reponse": "$(-1\\,;\\,7)$, $(0\\,;\\,5)$, $(1\\,;\\,3)$, $(2\\,;\\,1)$, $(3\\,;\\,-1)$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $(-1\\,;\\,7)$, $(0\\,;\\,5)$, $(1\\,;\\,3)$, $(2\\,;\\,1)$, $(3\\,;\\,-1)$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-852",
+          "titre": "Exemple 3",
+          "enonce": "On donne $f(x) = x^2 - 4$. Calculer les coordonnées des points de la courbe de $f$ d'abscisses $-3\\ ; -2\\ ; -1\\ ; 0\\ ; 1\\ ; 2\\ ; 3$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-3)=5$, $f(-2)=0$, $f(-1)=-3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f(0)=-4$, $f(1)=-3$, $f(2)=0$, $f(3)=5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la courbe passe par ces sept points, symétriques deux à deux par rapport à l'axe des ordonnées."
+            }
+          ],
+          "reponse": "$(-3\\,;\\,5)$, $(-2\\,;\\,0)$, $(-1\\,;\\,-3)$, $(0\\,;\\,-4)$, $(1\\,;\\,-3)$, $(2\\,;\\,0)$, $(3\\,;\\,5)$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $(-3\\,;\\,5)$, $(-2\\,;\\,0)$, $(-1\\,;\\,-3)$, $(0\\,;\\,-4)$, $(1\\,;\\,-3)$, $(2\\,;\\,0)$, $(3\\,;\\,5)$.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-858",
+          "titre": "Exemple 4",
+          "enonce": "Une fonction $f$ associe à $x$ son double diminué de $3$. Donner l'expression de $f(x)$, puis calculer les coordonnées des points de la courbe de $f$ d'abscisses $-1\\ ; 0{,}5\\ ; 2\\ ; 3{,}5$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(x) = 2x - 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f(-1)=-5$, $f(0{,}5) = 1-3 = -2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(2) = 1$, $f(3{,}5) = 7-3 = 4$."
+            }
+          ],
+          "reponse": "$f(x) = 2x - 3$ et les points sont $(-1\\,;\\,-5)$, $(0{,}5\\,;\\,-2)$, $(2\\,;\\,1)$, $(3{,}5\\,;\\,4)$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 2x - 3$ et les points sont $(-1\\,;\\,-5)$, $(0{,}5\\,;\\,-2)$, $(2\\,;\\,1)$, $(3{,}5\\,;\\,4)$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [
+        "Calculer $f(x)$ pour chaque abscisse, en faisant attention au coefficient négatif.",
+        "Attention au signe : $-x$ change le signe de l'abscisse."
+      ],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "Calculer $g(1)$, $g(4)$ et $g(0)$, puis comparer chaque résultat à l'ordonnée du point correspondant.",
+        "Calculer les deux tableaux de valeurs, puis chercher les abscisses où $f(x)$ et $g(x)$ sont égales.",
+        "Calculer $f(x)$ pour chaque abscisse, en faisant attention au coefficient négatif.",
+        "Calculer $f(x)$ pour chaque abscisse, puis comparer les cinq valeurs obtenues.",
+        "Utiliser $f(2)=12$ pour déterminer $a$, puis calculer les images demandées.",
+        "Calculer $f(x)$ pour chaque abscisse, en remarquant que $f(x) = (x+1)^2$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        841,
+        842,
+        843
+      ],
+      "topic_id": "tracer-la-representation-graphique-d-une-fonction",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Tracer la représentation graphique d'une fonction."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "tracer",
+        "representation",
+        "graphique",
+        "fonction"
+      ]
+    },
+    {
+      "id": "utiliser-un-tableau-de-valeurs-d-une-fonction",
+      "title": "Utiliser un tableau de valeurs d'une fonction",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : utiliser un tableau de valeurs d'une fonction.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Utiliser un tableau de valeurs d'une fonction.",
+      "definition": "Distinguer « ne pas apparaître dans ce tableau » et « ne pas exister du tout » : le tableau ne montre qu'un nombre limité de valeurs de $x$.",
+      "definitions": {
+        "lycee": "Distinguer « ne pas apparaître dans ce tableau » et « ne pas exister du tout » : le tableau ne montre qu'un nombre limité de valeurs de $x$.",
+        "college": "Lire la case correspondant à $x=1$."
+      },
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "reglesImportantes": [
+        "Comparer $f(1)=3$ et $f(3)=9$ : l'écart de $2$ en $x$ correspond à un écart de $6$ en $f(x)$, donc un pas de $3$ par unité de $x$.",
+        "Rappeler que pour une fonction affine, l'écart entre deux images consécutives (pour un même écart en $x$) est toujours le même.",
+        "Calculer le quotient prix $\\div$ nombre d'articles pour plusieurs colonnes du tableau et comparer les résultats.",
+        "Chercher dans la ligne $f(x)$ toutes les cases où figure le nombre $9$, puis lire les $x$ correspondants.",
+        "Calculer de combien varie $g(x)$ chaque fois que $x$ augmente de $2$, puis prolonger cette régularité."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Utiliser un tableau de valeurs d'une fonction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la ligne $m(x)$ contient les valeurs $-5, -2, 1, 4, 7$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $10$ n'y figure pas."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $10$ n'a donc pas d'antécédent parmi les nombres $x$ présentés dans ce tableau."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-810",
+          "titre": "Exemple 1",
+          "enonce": "On donne le tableau de valeurs d'une fonction $f$ : $x$ : $-3\\ ; -2\\ ; -1\\ ; 0\\ ; 1\\ ; 2\\ ; 3$ et $f(x)$ : $9\\ ; 4\\ ; 1\\ ; 0\\ ; 1\\ ; 4\\ ; 9$. Donner l'image de $2$ par $f$ en utilisant ce tableau.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans le tableau, $x = 2$ correspond à $f(x) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'image de $2$ par $f$ est donc $4$."
+            }
+          ],
+          "reponse": "L'image de $2$ par $f$ est $4$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $2$ par $f$ est $4$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-816",
+          "titre": "Exemple 2",
+          "enonce": "On donne le tableau de valeurs d'une fonction $k$ : $x$ : $-2\\ ; -1\\ ; 0\\ ; 1\\ ; 2$ et $k(x)$ : $3\\ ; 0\\ ; -1\\ ; 0\\ ; 3$. Donner l'image de $-2$ par $k$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : pour $x=-2$, le tableau donne $k(x) = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'image de $-2$ par $k$ est donc $3$."
+            }
+          ],
+          "reponse": "L'image de $-2$ par $k$ est $3$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $-2$ par $k$ est $3$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-822",
+          "titre": "Exemple 3",
+          "enonce": "On donne le tableau de valeurs d'une fonction $p$ : $x$ : $-1\\ ; 0\\ ; 1\\ ; 2\\ ; 3\\ ; 4\\ ; 5$ et $p(x)$ : $5\\ ; 0\\ ; -3\\ ; -4\\ ; -3\\ ; 0\\ ; 5$. Donner l'image de $1$ par $p$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : pour $x=1$, le tableau donne $p(x)=-3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'image de $1$ par $p$ est donc $-3$."
+            }
+          ],
+          "reponse": "L'image de $1$ par $p$ est $-3$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $1$ par $p$ est $-3$.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-828",
+          "titre": "Exemple 4",
+          "enonce": "Un tableau donne le prix total, en euros, payé en fonction du nombre d'articles achetés : nombre d'articles : $0\\ ; 1\\ ; 2\\ ; 3\\ ; 4\\ ; 5$ ; prix : $0\\ ; 4\\ ; 8\\ ; 12\\ ; 16\\ ; 20$. Lire dans ce tableau le prix payé pour $3$ articles.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans la colonne « $3$ articles », le prix indiqué est $12$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le prix payé pour $3$ articles est donc $12$ euros."
+            }
+          ],
+          "reponse": "Le prix payé pour $3$ articles est $12$ euros.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Le prix payé pour $3$ articles est $12$ euros.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "Comparer $f(1)=3$ et $f(3)=9$ : l'écart de $2$ en $x$ correspond à un écart de $6$ en $f(x)$, donc un pas de $3$ par unité de $x$.",
+        "Rappeler que pour une fonction affine, l'écart entre deux images consécutives (pour un même écart en $x$) est toujours le même.",
+        "Calculer le quotient prix $\\div$ nombre d'articles pour plusieurs colonnes du tableau et comparer les résultats.",
+        "Chercher dans la ligne $f(x)$ toutes les cases où figure le nombre $9$, puis lire les $x$ correspondants.",
+        "Calculer de combien varie $g(x)$ chaque fois que $x$ augmente de $2$, puis prolonger cette régularité.",
+        "Repérer le pas constant du tableau, puis prolonger la suite de valeurs jusqu'à atteindre $34$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        811,
+        812,
+        813
+      ],
+      "topic_id": "utiliser-un-tableau-de-valeurs-d-une-fonction",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Utiliser un tableau de valeurs d'une fonction."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "utiliser",
+        "tableau",
+        "valeurs",
+        "fonction"
+      ]
+    },
+    {
+      "id": "vocabulaire-d-une-fonction-:-image-et-antecedent",
+      "title": "Vocabulaire d'une fonction : image et antécédent",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : vocabulaire d'une fonction : image et antécédent.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Vocabulaire d'une fonction : image et antécédent.",
+      "definition": "Bien repérer le sens de l'écriture $f(a) = b$ : $a$ est l'antécédent, $b$ est l'image, jamais l'inverse sans autre information.",
+      "definitions": {
+        "lycee": "Bien repérer le sens de l'écriture $f(a) = b$ : $a$ est l'antécédent, $b$ est l'image, jamais l'inverse sans autre information.",
+        "college": "Chercher les nombres $x$ tels que $x^2 = 9$."
+      },
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "reglesImportantes": [
+        "L'image de $a$ et l'image de $b$ par une même fonction sont deux informations indépendantes, sauf précision contraire.",
+        "Rappeler qu'une fonction affine non constante est strictement croissante ou strictement décroissante, donc injective.",
+        "Dans l'écriture par flèche $x \\mapsto \\ldots$, ce qui est à droite de la flèche est l'image de ce qui est à gauche.",
+        "Il ne faut pas confondre la fonction $f$ (le procédé de calcul) et l'image $f(x)$ (le résultat, qui est un nombre).",
+        "L'écriture $g(4)=0$ donne directement l'image de $4$ ; pour l'antécédent de $0$, on cherche le nombre de départ."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Vocabulaire d'une fonction : image et antécédent",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(1)=1$ donc $1$ est un antécédent de $1$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $f(-1)=1$ donc $-1$ est aussi un antécédent de $1$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : le nombre $1$ a donc au moins deux antécédents par $f$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-720",
+          "titre": "Exemple 1",
+          "enonce": "On considère une fonction $f$. On sait que $f(3) = 7$. Parmi les nombres $3$ et $7$, lequel est l'image de l'autre par $f$ ? Quel est l'antécédent de $7$ par $f$ ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(3) = 7$ signifie que l'on part de $3$ et que l'on obtient $7$ en appliquant $f$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $7$ est donc l'image de $3$ par $f$, et $3$ est un antécédent de $7$ par $f$."
+            }
+          ],
+          "reponse": "$7$ est l'image de $3$ par $f$ ; $3$ est un antécédent de $7$ par $f$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $7$ est l'image de $3$ par $f$ ; $3$ est un antécédent de $7$ par $f$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-726",
+          "titre": "Exemple 2",
+          "enonce": "Une fonction $f$ vérifie $f(1)=1$ et $f(-1)=1$. Que peut-on dire des antécédents de $1$ par $f$ ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(1)=1$ donc $1$ est un antécédent de $1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $f(-1)=1$ donc $-1$ est aussi un antécédent de $1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le nombre $1$ a donc au moins deux antécédents par $f$."
+            }
+          ],
+          "reponse": "Le nombre $1$ possède (au moins) deux antécédents par $f$ : $1$ et $-1$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Le nombre $1$ possède (au moins) deux antécédents par $f$ : $1$ et $-1$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-732",
+          "titre": "Exemple 3",
+          "enonce": "On donne $f(x) = x^2$. Montrer que $9$ possède deux antécédents par $f$, et les donner.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on cherche $x$ tel que $x^2 = 9$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $3^2 = 9$ et $(-3)^2 = 9$, donc $3$ et $-3$ conviennent tous les deux."
+            }
+          ],
+          "reponse": "$9$ a deux antécédents par $f$ : $3$ et $-3$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $9$ a deux antécédents par $f$ : $3$ et $-3$.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-738",
+          "titre": "Exemple 4",
+          "enonce": "Une fonction $f$ vérifie $f(1) = 3$, $f(2) = 3$ et $f(3) = 8$. Donner tous les antécédents de $3$ par $f$, puis l'image de $3$ par $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(1)=3$ et $f(2)=3$, donc $1$ et $2$ sont les antécédents de $3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(3)=8$, donc l'image de $3$ par $f$ est $8$."
+            }
+          ],
+          "reponse": "Les antécédents de $3$ par $f$ sont $1$ et $2$ ; l'image de $3$ par $f$ est $8$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Les antécédents de $3$ par $f$ sont $1$ et $2$ ; l'image de $3$ par $f$ est $8$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pense à la propriété : un nombre peut avoir zéro, un ou plusieurs antécédents, mais toujours une seule image.",
+      "aRetenir": [
+        "L'image de $a$ et l'image de $b$ par une même fonction sont deux informations indépendantes, sauf précision contraire.",
+        "Rappeler qu'une fonction affine non constante est strictement croissante ou strictement décroissante, donc injective.",
+        "Dans l'écriture par flèche $x \\mapsto \\ldots$, ce qui est à droite de la flèche est l'image de ce qui est à gauche.",
+        "Il ne faut pas confondre la fonction $f$ (le procédé de calcul) et l'image $f(x)$ (le résultat, qui est un nombre).",
+        "L'écriture $g(4)=0$ donne directement l'image de $4$ ; pour l'antécédent de $0$, on cherche le nombre de départ.",
+        "Rien n'empêche qu'un même nombre joue à la fois le rôle d'antécédent et d'image, s'il est son propre antécédent."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        721,
+        722,
+        723
+      ],
+      "topic_id": "vocabulaire-d-une-fonction-:-image-et-antecedent",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Vocabulaire d'une fonction : image et antécédent."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "vocabulaire",
+        "fonction",
+        "image",
+        "antecedent"
+      ]
+    }
+  ]
+}

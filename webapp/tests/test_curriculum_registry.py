@@ -14,16 +14,23 @@ import unittest
 from pathlib import Path
 
 import curriculum_registry
-from curriculum_registry import CURRICULUM_REGISTRY, CurriculumProfile, build_registry
+from curriculum_registry import (
+    CURRICULUM_REGISTRY,
+    CurriculumIntegrityError,
+    CurriculumProfile,
+    build_registry,
+    validate_registry,
+)
 
 
 class TestRegistryContent(unittest.TestCase):
     def test_deux_profils_presents(self):
-        self.assertEqual(set(CURRICULUM_REGISTRY.keys()), {"seconde", "premiere"})
+        self.assertEqual(set(CURRICULUM_REGISTRY.keys()), {"seconde", "premiere", "troisieme"})
 
     def test_labels_affichage(self):
         self.assertEqual(CURRICULUM_REGISTRY["seconde"].label, "Seconde")
         self.assertEqual(CURRICULUM_REGISTRY["premiere"].label, "Première spécialité Mathématiques")
+        self.assertEqual(CURRICULUM_REGISTRY["troisieme"].label, "Troisième")
 
     def test_registre_immuable(self):
         with self.assertRaises(TypeError):
@@ -92,6 +99,107 @@ class TestCheminsPremiere(unittest.TestCase):
         self.assertIsNone(self.profile.models_dir)
         self.assertIsNone(self.profile.metadata_dir)
         self.assertIsNone(self.profile.assets_dir)
+
+
+class TestCheminsTroisieme(unittest.TestCase):
+    """Troisième : mêmes garanties que Première — banques existantes
+    déclarées telles quelles, ressources absentes explicitement None."""
+
+    def setUp(self):
+        self.profile = CURRICULUM_REGISTRY["troisieme"]
+
+    def test_exercise_bank_existe_et_non_modifiee(self):
+        self.assertTrue(self.profile.exercise_bank.is_file())
+        self.assertEqual(self.profile.exercise_bank.name, "exercises_bank_troisieme.json")
+
+    def test_natural_bank_existe_et_non_modifiee(self):
+        self.assertTrue(self.profile.natural_bank.is_file())
+        self.assertEqual(self.profile.natural_bank.name, "exercises_bank_troisieme_natural.json")
+
+    def test_courses_dir_genere_depuis_la_banque_existe(self):
+        """Généré par generate_cours_from_bank.py à partir de exercise_bank
+        (jamais recopié de Seconde/Première) — même schéma, dossier distinct."""
+        self.assertTrue(self.profile.courses_dir.is_dir())
+        self.assertNotEqual(self.profile.courses_dir, CURRICULUM_REGISTRY["seconde"].courses_dir)
+        self.assertNotEqual(self.profile.courses_dir, CURRICULUM_REGISTRY["premiere"].courses_dir)
+        self.assertTrue((self.profile.courses_dir / "chapitre_1.json").is_file())
+
+    def test_ressources_absentes_sont_explicitement_none(self):
+        self.assertIsNone(self.profile.program_file)
+        self.assertIsNone(self.profile.models_dir)
+        self.assertIsNone(self.profile.metadata_dir)
+        self.assertIsNone(self.profile.assets_dir)
+
+
+class TestValidationRegistreGenerique(unittest.TestCase):
+    """Régression "troisieme" : un profil ajouté à _PROFILES avec un
+    courses_dir déclaré, mais dont le contenu n'a jamais été généré, doit
+    être détecté automatiquement — pour CHAQUE programme, présent ou futur,
+    sans dupliquer une classe de test par classe scolaire (voir
+    TestCheminsSeconde/Premiere/Troisieme ci-dessus, qui restent en plus de
+    celle-ci pour les assertions fines par programme)."""
+
+    def test_chaque_profil_avec_courses_dir_a_du_contenu_genere(self):
+        for profile in CURRICULUM_REGISTRY.values():
+            if profile.courses_dir is None:
+                continue
+            with self.subTest(profile=profile.id):
+                self.assertTrue(
+                    profile.courses_dir.is_dir(),
+                    f"{profile.id!r} : courses_dir introuvable — {profile.courses_dir}",
+                )
+                chapitres = sorted(profile.courses_dir.glob("chapitre_*.json"))
+                self.assertGreater(
+                    len(chapitres), 0,
+                    f"{profile.id!r} : courses_dir vide (aucun chapitre_*.json) — {profile.courses_dir}",
+                )
+
+    def test_registre_reel_passe_validate_registry(self):
+        # Ne doit lever aucune exception : c'est exactement ce que
+        # server.py appelle au démarrage et `npm run validate:curricula`
+        # au build (voir curriculum_registry.py::validate_registry).
+        validate_registry()
+
+    def test_validate_registry_detecte_un_dossier_absent(self):
+        casse = build_registry((
+            CurriculumProfile(
+                id="fantome", label="Fantôme",
+                courses_dir=Path("/chemin/qui/n_existe_pas"),
+                exercise_bank=Path("dummy_bank.json"), natural_bank=Path("dummy_natural.json"),
+                program_file=None, models_dir=None, metadata_dir=None, assets_dir=None,
+            ),
+        ))
+        with self.assertRaises(CurriculumIntegrityError) as ctx:
+            validate_registry(casse)
+        self.assertIn("fantome", str(ctx.exception))
+
+    def test_validate_registry_detecte_un_dossier_vide(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            casse = build_registry((
+                CurriculumProfile(
+                    id="vide", label="Vide",
+                    courses_dir=Path(tmp),
+                    exercise_bank=Path("dummy_bank.json"), natural_bank=Path("dummy_natural.json"),
+                    program_file=None, models_dir=None, metadata_dir=None, assets_dir=None,
+                ),
+            ))
+            with self.assertRaises(CurriculumIntegrityError) as ctx:
+                validate_registry(casse)
+            self.assertIn("vide", str(ctx.exception))
+
+    def test_validate_registry_ignore_courses_dir_none(self):
+        # Un profil sans courses_dir (None explicite) n'est pas une erreur —
+        # c'est une ressource assumée comme absente, pas un état incohérent.
+        casse = build_registry((
+            CurriculumProfile(
+                id="sans_cours", label="Sans cours",
+                courses_dir=None,
+                exercise_bank=Path("dummy_bank.json"), natural_bank=Path("dummy_natural.json"),
+                program_file=None, models_dir=None, metadata_dir=None, assets_dir=None,
+            ),
+        ))
+        validate_registry(casse)  # ne doit pas lever
 
 
 class TestUniciteIdentifiants(unittest.TestCase):

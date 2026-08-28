@@ -6,7 +6,9 @@ Stripe valide.
 """
 import os
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
+
+import stripe
 
 import stripe_service
 from plan_service import Plan
@@ -88,6 +90,18 @@ class TestServiceCalls(unittest.TestCase):
         self.assertEqual(result["id"], "cus_123")
 
     @patch("stripe_service.stripe")
+    def test_create_customer_avec_idempotency_key(self, mock_stripe):
+        """Durcissement production : la clé, quand fournie, est transmise
+        telle quelle au SDK Stripe — c'est elle qui permet à Stripe de
+        dédupliquer deux Customer.create concurrents pour le même
+        utilisateur (voir test_stripe_checkout_concurrency.py)."""
+        mock_stripe.Customer.create.return_value = {"id": "cus_123"}
+        stripe_service.create_customer("eleve@gmail.com", name="Eleve", idempotency_key="novamath-customer-42")
+        mock_stripe.Customer.create.assert_called_once_with(
+            email="eleve@gmail.com", name="Eleve", idempotency_key="novamath-customer-42",
+        )
+
+    @patch("stripe_service.stripe")
     def test_get_customer(self, mock_stripe):
         mock_stripe.Customer.retrieve.return_value = {"id": "cus_123"}
         result = stripe_service.get_customer("cus_123")
@@ -110,6 +124,24 @@ class TestServiceCalls(unittest.TestCase):
             cancel_url="https://app/cancel",
         )
         self.assertEqual(result["url"], "https://checkout.stripe.com/x")
+
+    @patch("stripe_service.stripe")
+    def test_create_checkout_session_avec_idempotency_key(self, mock_stripe):
+        mock_stripe.checkout.Session.create.return_value = {"id": "cs_123", "url": "https://checkout.stripe.com/x"}
+        stripe_service.create_checkout_session(
+            customer_id="cus_123", plan=Plan.PREMIUM,
+            success_url="https://app/success", cancel_url="https://app/cancel",
+            idempotency_key="novamath-checkout-42-premium-1000",
+        )
+        mock_stripe.checkout.Session.create.assert_called_once_with(
+            customer="cus_123",
+            mode="subscription",
+            payment_method_types=["card"],
+            line_items=[{"price": "price_premium_abc", "quantity": 1}],
+            success_url="https://app/success",
+            cancel_url="https://app/cancel",
+            idempotency_key="novamath-checkout-42-premium-1000",
+        )
 
     @patch("stripe_service.stripe")
     def test_create_checkout_session_plan_inconnu(self, mock_stripe):
@@ -208,6 +240,82 @@ class TestServiceCalls(unittest.TestCase):
         with self.assertRaises(stripe_service.StripePlanUnknown):
             stripe_service.schedule_downgrade("sub_123", Plan.FREE)
         mock_stripe.SubscriptionSchedule.create.assert_not_called()
+
+
+class TestValidateStripePrices(unittest.TestCase):
+    """Chantier "Robustesse Stripe" (2026-08-27) : validate_stripe_prices()
+    vérifie, via un appel réel à Price.retrieve (mocké ici), que
+    STRIPE_PRICE_PREMIUM/STRIPE_PRICE_ULTRA valent bien 699/1299 centimes
+    (voir stripe_service.STRIPE_EXPECTED_AMOUNTS_CENTS). Jamais câblée au
+    démarrage ni à un health check — fonction explicite uniquement."""
+
+    def setUp(self):
+        self._env_backup = dict(os.environ)
+        os.environ["STRIPE_SECRET_KEY"] = "sk_test_123"
+        os.environ["STRIPE_PRICE_PREMIUM"] = "price_premium_abc"
+        os.environ["STRIPE_PRICE_ULTRA"] = "price_ultra_xyz"
+
+    def tearDown(self):
+        os.environ.clear()
+        os.environ.update(self._env_backup)
+
+    @patch("stripe_service.stripe")
+    def test_montants_corrects_ne_levent_rien(self, mock_stripe):
+        mock_stripe.Price.retrieve.side_effect = lambda price_id: (
+            {"id": "price_premium_abc", "unit_amount": 699}
+            if price_id == "price_premium_abc"
+            else {"id": "price_ultra_xyz", "unit_amount": 1299}
+        )
+        stripe_service.validate_stripe_prices()  # ne doit lever aucune exception
+
+    @patch("stripe_service.stripe")
+    def test_premium_montant_incorrect_leve_stripe_price_mismatch(self, mock_stripe):
+        mock_stripe.Price.retrieve.side_effect = lambda price_id: (
+            {"id": "price_premium_abc", "unit_amount": 500}
+            if price_id == "price_premium_abc"
+            else {"id": "price_ultra_xyz", "unit_amount": 1299}
+        )
+        with self.assertRaises(stripe_service.StripePriceMismatch) as ctx:
+            stripe_service.validate_stripe_prices()
+        self.assertIn("price_premium_abc", str(ctx.exception))
+        self.assertIn("699", str(ctx.exception))
+
+    @patch("stripe_service.stripe")
+    def test_ultra_montant_incorrect_leve_stripe_price_mismatch(self, mock_stripe):
+        mock_stripe.Price.retrieve.side_effect = lambda price_id: (
+            {"id": "price_premium_abc", "unit_amount": 699}
+            if price_id == "price_premium_abc"
+            else {"id": "price_ultra_xyz", "unit_amount": 999}
+        )
+        with self.assertRaises(stripe_service.StripePriceMismatch) as ctx:
+            stripe_service.validate_stripe_prices()
+        self.assertIn("price_ultra_xyz", str(ctx.exception))
+        self.assertIn("1299", str(ctx.exception))
+
+    @patch("stripe_service.stripe")
+    def test_price_inexistant_leve_une_erreur_stripe_propre(self, mock_stripe):
+        mock_stripe.Price.retrieve.side_effect = stripe.error.InvalidRequestError(
+            "No such price: 'price_premium_abc'", param="id",
+        )
+        with self.assertRaises(stripe.error.StripeError):
+            stripe_service.validate_stripe_prices()
+
+    def test_stripe_non_configure_ne_leve_rien(self):
+        os.environ.pop("STRIPE_SECRET_KEY", None)
+        stripe_service.validate_stripe_prices()  # silencieux, comportement existant conservé
+
+    @patch("stripe_service.stripe")
+    def test_aucun_secret_dans_le_message_derreur(self, mock_stripe):
+        mock_stripe.Price.retrieve.side_effect = lambda price_id: (
+            {"id": "price_premium_abc", "unit_amount": 1}
+            if price_id == "price_premium_abc"
+            else {"id": "price_ultra_xyz", "unit_amount": 1299}
+        )
+        with self.assertRaises(stripe_service.StripePriceMismatch) as ctx:
+            stripe_service.validate_stripe_prices()
+        message = str(ctx.exception)
+        self.assertNotIn("sk_test_123", message)
+        self.assertNotIn(os.environ["STRIPE_SECRET_KEY"], message)
 
 
 class TestWebhook(unittest.TestCase):

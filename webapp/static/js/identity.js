@@ -60,7 +60,11 @@ function paintSidebarUser(user) {
   userLink.setAttribute("href", "profil.html");
   userLink.removeAttribute("role");
   userLink.removeAttribute("tabindex");
-  if (subEl) subEl.textContent = planLabel(user.plan);
+  // effective_plan (auth.py::_public_user) = "plan" pour tout compte normal ;
+  // pour le compte Owner, reflète le plan de test simulé via le panneau
+  // "🧪 Mode test Owner" (owner-test-panel.js) sans jamais confondre avec le
+  // vrai plan Stripe — voir owner_test_plan_service.py::effective_plan().
+  if (subEl) subEl.textContent = planLabel(user.effective_plan ?? user.plan);
   const onProfilePage = /(^|\/)profil\.html$/.test(window.location.pathname);
   userLink.classList.toggle("is-current", onProfilePage);
 

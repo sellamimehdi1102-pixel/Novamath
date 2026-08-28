@@ -80,7 +80,10 @@
 /* ── Grille de cartes ────────────────────────────────────────────────────── */
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* auto-fit/minmax plutôt qu'un repeat(3, 1fr) fixe : passe seule aux
+     paliers intermédiaires (tablette) sans dépendre uniquement du
+     grid-template-columns: 1fr forcé à 860px dans landing.css. */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 22px;
   max-width: 1140px;
   margin: 0 auto;
@@ -91,6 +94,10 @@
   flex-direction: column;
   gap: 14px;
   position: relative;
+  /* Sans ça, une carte grid/flex ne peut jamais rétrécir sous la largeur de
+     son contenu le plus long (ex: mot ou URL sans espace dans un avis) —
+     cause classique de débordement horizontal de toute la grille. */
+  min-width: 0;
 }
 .review-card.is-pinned { border-color: rgba(var(--accent-rgb), 0.4); }
 .review-card.is-hidden { opacity: 0.55; }
@@ -131,7 +138,14 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-.review-comment { color: var(--text); font-size: 0.93rem; line-height: 1.55; flex: 1; }
+.review-comment {
+  color: var(--text);
+  font-size: 0.93rem;
+  line-height: 1.55;
+  flex: 1;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
 .review-actions { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 8px; border-top: 1px solid var(--border); }
 .review-actions .btn { padding: 6px 12px; font-size: 0.78rem; }

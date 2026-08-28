@@ -1,0 +1,535 @@
+{
+  "chapterId": "Chapitre_6",
+  "title": "Chapitre 6",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "coordonnees-d-un-point-du-cercle-trigonometrique",
+      "title": "Coordonnées d'un point du cercle trigonométrique",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à repérer un point du cercle trigonométrique par ses coordonnées, et à utiliser les symétries de ce cercle (angles associés) pour calculer rapidement des cosinus et des sinus d'angles remarquables.\n\nCette notion permet de retrouver les coordonnées d'un point sans refaire un calcul complet, en s'appuyant sur les symétries du cercle par rapport à l'axe des abscisses, à l'axe des ordonnées ou au centre $O$.",
+      "explicationSimple": "Imagine une aiguille de longueur $1$ qui pivote autour d'un point $O$ à partir de la position horizontale droite. Après une rotation d'angle $\\alpha$, la pointe de l'aiguille est le point $M$ de coordonnées $(\\cos\\alpha\\,;\\,\\sin\\alpha)$ : sa position horizontale donne le cosinus, sa position verticale donne le sinus. Grâce aux symétries du cercle, on peut retrouver les coordonnées d'un point associé à un angle $\\pi+a$, $\\pi-a$ ou $-a$ sans recalculer : il suffit de repérer quel axe (ou quel point) joue le rôle de miroir.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer les coordonnées d'un point du cercle trigonométrique associé à un angle donné, et utiliser les formules des angles associés pour calculer cosinus et sinus d'angles obtenus par symétrie.",
+      "definition": "Le cercle trigonométrique est le cercle de centre $O$ et de rayon $1$. À tout réel $\\alpha$, on associe l'unique point $M$ de ce cercle tel que l'angle orienté $(\\vec{OI},\\vec{OM})$ mesure $\\alpha$ radians. Les coordonnées de ce point sont alors $M(\\cos\\alpha\\,;\\,\\sin\\alpha)$ : l'abscisse de $M$ est $\\cos\\alpha$ et son ordonnée est $\\sin\\alpha$.",
+      "definitions": {
+        "lycee": "Le cercle trigonométrique est le cercle de centre $O$ et de rayon $1$. À tout réel $\\alpha$, on associe l'unique point $M$ de ce cercle tel que l'angle orienté $(\\vec{OI},\\vec{OM})$ mesure $\\alpha$ radians. Les coordonnées de ce point sont alors $M(\\cos\\alpha\\,;\\,\\sin\\alpha)$ : l'abscisse de $M$ est $\\cos\\alpha$ et son ordonnée est $\\sin\\alpha$."
+      },
+      "intuition": "L'erreur la plus fréquente consiste à appliquer la même règle de signe au cosinus et au sinus. Pour $\\pi-a$ : $\\cos(\\pi-a)=-\\cos(a)$ mais $\\sin(\\pi-a)=+\\sin(a)$ (le sinus ne change pas de signe). Pour ne pas te tromper, représente toujours le point sur le cercle : $\\pi+a$ correspond à la symétrie de $M$ par rapport à $O$ (les deux coordonnées changent de signe), tandis que $\\pi-a$ correspond à la symétrie par rapport à l'axe des ordonnées (seule l'abscisse change de signe).",
+      "reglesImportantes": [],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Coordonnées d'un point du cercle trigonométrique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On utilise la formule des angles associés : $\\cos(\\pi+a) = -\\cos(a)$ et $\\sin(\\pi+a) = -\\sin(a)$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Avec $a = \\dfrac{\\pi}{3}$, on obtient $\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1298",
+          "titre": "Exemple 1",
+          "enonce": "On sait que $\\cos\\left(\\dfrac{\\pi}{3}\\right) = \\dfrac{1}{2}$ et $\\sin\\left(\\dfrac{\\pi}{3}\\right) = \\dfrac{\\sqrt{3}}{2}$. En utilisant les symétries du cercle trigonométrique, déterminer $\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise la formule des angles associés : $\\cos(\\pi+a) = -\\cos(a)$ et $\\sin(\\pi+a) = -\\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Avec $a = \\dfrac{\\pi}{3}$, on obtient $\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1310",
+          "titre": "Exemple 2",
+          "enonce": "On sait que $\\cos\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$. En utilisant les symétries du cercle trigonométrique, déterminer $\\cos\\left(\\pi+\\dfrac{\\pi}{6}\\right)$ et $\\sin\\left(\\pi+\\dfrac{\\pi}{6}\\right)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise la formule des angles associés : $\\cos(\\pi+a) = -\\cos(a)$ et $\\sin(\\pi+a) = -\\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Avec $a = \\dfrac{\\pi}{6}$, on obtient $\\cos\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$\\cos\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1322",
+          "titre": "Exemple 3",
+          "enonce": "On sait que $\\cos\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$. En utilisant les symétries du cercle trigonométrique, déterminer $\\cos\\left(\\pi-\\dfrac{\\pi}{6}\\right)$ et $\\sin\\left(\\pi-\\dfrac{\\pi}{6}\\right)$, puis en déduire dans quel quadrant se situe le point du cercle trigonométrique associé à l'angle $\\pi-\\dfrac{\\pi}{6}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise la formule des angles associés : $\\cos(\\pi-a) = -\\cos(a)$ et $\\sin(\\pi-a) = \\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Avec $a = \\dfrac{\\pi}{6}$, on obtient $\\cos\\left(\\pi-\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi-\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$\\cos\\left(\\pi-\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi-\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$ ; le point est dans le deuxième quadrant (cosinus négatif, sinus positif)",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1334",
+          "titre": "Exemple 4",
+          "enonce": "On sait que $\\cos\\left(\\dfrac{\\pi}{3}\\right) = \\dfrac{1}{2}$ et $\\sin\\left(\\dfrac{\\pi}{3}\\right) = \\dfrac{\\sqrt{3}}{2}$. En utilisant les symétries du cercle trigonométrique, déterminer $\\cos\\left(\\pi-\\dfrac{\\pi}{3}\\right)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise la formule des angles associés : $\\cos(\\pi-a) = -\\cos(a)$ et $\\sin(\\pi-a) = \\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Avec $a = \\dfrac{\\pi}{3}$, on obtient $\\cos\\left(\\pi-\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$\\cos\\left(\\pi-\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Appliquer la même règle de signe à $\\cos(\\pi-a)$ et à $\\sin(\\pi-a)$ : on a $\\cos(\\pi-a)=-\\cos(a)$ mais $\\sin(\\pi-a)=+\\sin(a)$ (le sinus ne change pas de signe).",
+        "Confondre le point associé à $\\pi+a$ (symétrique de $M$ par rapport à $O$, les deux coordonnées changent de signe) avec celui associé à $-a$ (symétrique par rapport à l'axe des abscisses, seule l'ordonnée change de signe).",
+        "Inverser l'ordre des coordonnées, en écrivant $M(\\sin\\alpha\\,;\\,\\cos\\alpha)$ au lieu de $M(\\cos\\alpha\\,;\\,\\sin\\alpha)$ : l'abscisse est toujours le cosinus, l'ordonnée toujours le sinus."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Appliquer la même règle de signe à $\\cos(\\pi-a)$ et à $\\sin(\\pi-a)$ : on a $\\cos(\\pi-a)=-\\cos(a)$ mais $\\sin(\\pi-a)=+\\sin(a)$ (le sinus ne change pas de signe).",
+          "pourquoi": "On retient qu'il y a un changement de signe pour $\\pi-a$ sans distinguer que ce changement ne concerne que le cosinus, car la symétrie par rapport à l'axe des ordonnées inverse l'abscisse mais conserve l'ordonnée.",
+          "comment_detecter": "Le sinus obtenu est négatif alors que l'angle de départ correspondait à un point du demi-plan supérieur (sinus positif).",
+          "comment_eviter": "Placer le point sur un cercle trigonométrique dessiné à la main et observer visuellement quelle coordonnée change de signe avant d'écrire la formule."
+        },
+        {
+          "description": "Confondre le point associé à $\\pi+a$ (symétrique de $M$ par rapport à $O$, les deux coordonnées changent de signe) avec celui associé à $-a$ (symétrique par rapport à l'axe des abscisses, seule l'ordonnée change de signe).",
+          "pourquoi": "Les deux transformations donnent un sinus opposé, ce qui fait croire à tort qu'elles sont identiques, alors que le cosinus, lui, ne se comporte pas de la même façon dans les deux cas.",
+          "comment_detecter": "Le signe du cosinus obtenu ne correspond pas au quadrant attendu pour l'angle considéré.",
+          "comment_eviter": "Identifier d'abord la nature de la symétrie (par rapport à $O$, à un axe) avant d'appliquer une formule, plutôt que de mémoriser les formules sans les relier au dessin."
+        },
+        {
+          "description": "Inverser l'ordre des coordonnées, en écrivant $M(\\sin\\alpha\\,;\\,\\cos\\alpha)$ au lieu de $M(\\cos\\alpha\\,;\\,\\sin\\alpha)$ : l'abscisse est toujours le cosinus, l'ordonnée toujours le sinus.",
+          "pourquoi": "La ressemblance des deux mots et l'habitude de lire les coordonnées « dans l'ordre alphabétique » (sinus avant cosinus) créent une confusion.",
+          "comment_detecter": "Les coordonnées obtenues placent le point dans un quadrant incohérent avec la valeur de l'angle.",
+          "comment_eviter": "Toujours associer mentalement « cosinus = horizontal = abscisse » et « sinus = vertical = ordonnée » avant d'écrire les coordonnées."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1.4, -1.4, 2.8, 2.8],
+        "axes": true,
+        "circles": [
+          {"center": {"x": 0, "y": 0}, "radius": 1}
+        ],
+        "points": [
+          {"x": 1, "y": 0, "label": "I"},
+          {"x": 0.5, "y": 0.866, "label": "M", "showCoords": true, "tooltip": "M(cos(π/3) ; sin(π/3))"}
+        ],
+        "segments": [
+          {"from": {"x": 0, "y": 0}, "to": {"x": 0.5, "y": 0.866}, "tooltip": "rayon OM = 1"}
+        ],
+        "arcs": [
+          {"center": {"x": 0, "y": 0}, "radius": 0.35, "startDeg": 0, "endDeg": 60, "label": "α"}
+        ],
+        "alt": "Cercle trigonométrique de centre O et de rayon 1. Le point M associé à l'angle α = π/3 (60°) a pour coordonnées (cos(π/3) ; sin(π/3)) = (0,5 ; 0,87). L'arc entre l'axe des abscisses (point I) et le rayon OM représente l'angle α."
+      },
+      "quizExerciseIds": [
+        1299,
+        1300,
+        1301
+      ],
+      "topic_id": "coordonnees-d-un-point-du-cercle-trigonometrique",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras déterminer les coordonnées d'un point du cercle trigonométrique associé à un angle donné, et utiliser les formules des angles associés pour calculer cosinus et sinus d'angles obtenus par symétrie."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "coordonnees",
+        "point",
+        "cercle",
+        "trigonometrique"
+      ]
+    },
+    {
+      "id": "fonctions-cosinus-et-sinus",
+      "title": "Fonctions cosinus et sinus",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à utiliser les propriétés des fonctions cosinus et sinus (parité, périodicité) pour simplifier des expressions et résoudre des équations trigonométriques.\n\nCette notion sert à ramener n'importe quel angle à un angle « connu » (comme $\\dfrac{\\pi}{6}$, $\\dfrac{\\pi}{4}$ ou $\\dfrac{\\pi}{3}$) grâce aux régularités des fonctions cosinus et sinus, plutôt que de calculer chaque valeur séparément.",
+      "explicationSimple": "Le point du cercle trigonométrique associé à un angle $x$ tourne toujours dans le même sens : après un tour complet ($2\\pi$), il revient exactement au même endroit, donc $\\cos$ et $\\sin$ reprennent les mêmes valeurs (périodicité). Regarder dans le sens inverse ($-x$ au lieu de $x$) revient à faire une symétrie par rapport à l'axe horizontal : l'abscisse (le cosinus) ne bouge pas, mais l'ordonnée (le sinus) change de signe (parité). Résoudre $\\cos(x)=\\cos(a)$ ou $\\sin(x)=\\sin(a)$, c'est chercher tous les angles qui amènent le point exactement à la même hauteur ou à la même abscisse que le point associé à $a$.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser la parité et la périodicité des fonctions cosinus et sinus pour simplifier une expression, et résoudre des équations du type $\\cos(x)=\\cos(a)$ ou $\\sin(x)=\\sin(a)$ dans un intervalle donné.",
+      "definition": "Les fonctions cosinus et sinus sont définies sur $\\mathbb{R}$, à valeurs dans $[-1;1]$, et $2\\pi$-périodiques : $\\cos(x+2\\pi)=\\cos(x)$ et $\\sin(x+2\\pi)=\\sin(x)$ pour tout réel $x$. La fonction cosinus est paire ($\\cos(-x)=\\cos(x)$) et la fonction sinus est impaire ($\\sin(-x)=-\\sin(x)$). Pour tout réel $a$ : $\\cos(x)=\\cos(a) \\iff x=a+2k\\pi$ ou $x=-a+2k\\pi$ ($k\\in\\mathbb{Z}$), et $\\sin(x)=\\sin(a) \\iff x=a+2k\\pi$ ou $x=\\pi-a+2k\\pi$ ($k\\in\\mathbb{Z}$).",
+      "definitions": {
+        "lycee": "Les fonctions cosinus et sinus sont définies sur $\\mathbb{R}$, à valeurs dans $[-1;1]$, et $2\\pi$-périodiques : $\\cos(x+2\\pi)=\\cos(x)$ et $\\sin(x+2\\pi)=\\sin(x)$ pour tout réel $x$. La fonction cosinus est paire ($\\cos(-x)=\\cos(x)$) et la fonction sinus est impaire ($\\sin(-x)=-\\sin(x)$). Pour tout réel $a$ : $\\cos(x)=\\cos(a) \\iff x=a+2k\\pi$ ou $x=-a+2k\\pi$ ($k\\in\\mathbb{Z}$), et $\\sin(x)=\\sin(a) \\iff x=a+2k\\pi$ ou $x=\\pi-a+2k\\pi$ ($k\\in\\mathbb{Z}$).",
+        "college": "Une fonction $2\\pi$-périodique reprend les mêmes valeurs à intervalles réguliers de $2\\pi$ : ajouter $2\\pi$ (ou un multiple de $2\\pi$) à $x$ ne change ni $\\cos(x)$ ni $\\sin(x)$."
+      },
+      "intuition": "L'erreur la plus fréquente est d'utiliser la formule « $-a$ » (celle du cosinus) pour résoudre une équation en sinus, ou la formule « $\\pi-a$ » (celle du sinus) pour une équation en cosinus. Pour ne pas les confondre : le cosinus correspond à une symétrie par rapport à l'axe horizontal (d'où le « $-a$ », qui ne change que le signe de l'angle), tandis que le sinus correspond à une symétrie par rapport à l'axe vertical (d'où le « $\\pi-a$ », qui reflète l'angle autour de $\\dfrac{\\pi}{2}$).",
+      "reglesImportantes": [
+        "Utiliser $\\cos(x)=\\cos(a) \\iff x=a+2k\\pi$ ou $x=-a+2k\\pi$, puis ramener les solutions dans $]-\\pi;\\pi]$.",
+        "Utiliser la parité (cosinus pair, sinus impair) et la périodicité ($2\\pi$) des fonctions trigonométriques."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Fonctions cosinus et sinus",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : La fonction sinus est impaire : $\\sin(-a) = -\\sin(a)$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Donc $\\sin(-a)+\\sin(a) = -\\sin(a)+\\sin(a) = 0$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1357",
+          "titre": "Exemple 1",
+          "enonce": "Simplifier l'expression $\\sin(-a) + \\sin(a)$ pour tout réel $a$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La fonction sinus est impaire : $\\sin(-a) = -\\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Donc $\\sin(-a)+\\sin(a) = -\\sin(a)+\\sin(a) = 0$."
+            }
+          ],
+          "reponse": "$0$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1369",
+          "titre": "Exemple 2",
+          "enonce": "Résoudre dans $]-\\pi ; \\pi]$ l'équation $\\sin(x) = \\sin\\left(\\dfrac{6\\pi}{5}\\right)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $\\sin(x) = \\sin(a) \\iff x = a + 2k\\pi$ ou $x = \\pi - a + 2k\\pi$, $k \\in \\mathbb{Z}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : En ramenant les solutions dans $]-\\pi;\\pi]$, on obtient $x = -\\dfrac{4\\pi}{5}$ ou $x = -\\dfrac{\\pi}{5}$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left\\{-\\dfrac{4\\pi}{5} ; -\\dfrac{\\pi}{5}\\right\\}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1381",
+          "titre": "Exemple 3",
+          "enonce": "Simplifier l'expression $\\cos(a + 1\\times 2\\pi)$ pour tout réel $a$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La fonction cosinus est $2\\pi$-périodique : $\\cos(a+2\\pi)=\\cos(a)$, donc ajouter $1$ fois $2\\pi$ ne change pas la valeur."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $\\cos(a+1\\times 2\\pi) = \\cos(a)$."
+            }
+          ],
+          "reponse": "$\\cos(a)$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1393",
+          "titre": "Exemple 4",
+          "enonce": "Résoudre dans $]-\\pi ; \\pi]$ l'équation $\\cos(x) = \\cos\\left(\\dfrac{\\pi}{9}\\right)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $\\cos(x) = \\cos(a) \\iff x = a + 2k\\pi$ ou $x = -a + 2k\\pi$, $k \\in \\mathbb{Z}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : En ramenant les solutions dans $]-\\pi;\\pi]$, on obtient $x = \\dfrac{\\pi}{9}$ ou $x = -\\dfrac{\\pi}{9}$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left\\{-\\dfrac{\\pi}{9} ; \\dfrac{\\pi}{9}\\right\\}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Utiliser la formule du sinus ($x=a+2k\\pi$ ou $x=\\pi-a+2k\\pi$) pour résoudre une équation en cosinus, ou inversement utiliser la formule du cosinus ($x=a+2k\\pi$ ou $x=-a+2k\\pi$) pour une équation en sinus.",
+        "Oublier de ramener les solutions trouvées dans l'intervalle demandé (par exemple $]-\\pi;\\pi]$) en ajoutant ou retranchant $2\\pi$.",
+        "Croire que la fonction sinus est paire comme le cosinus, et écrire $\\sin(-a)=\\sin(a)$ au lieu de $\\sin(-a)=-\\sin(a)$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Utiliser la formule du sinus ($x=a+2k\\pi$ ou $x=\\pi-a+2k\\pi$) pour résoudre une équation en cosinus, ou inversement utiliser la formule du cosinus ($x=a+2k\\pi$ ou $x=-a+2k\\pi$) pour une équation en sinus.",
+          "pourquoi": "Les deux formules se ressemblent beaucoup (même première solution $x=a+2k\\pi$) et seule la deuxième solution change, ce qui favorise la confusion.",
+          "comment_detecter": "En remplaçant la solution trouvée dans l'équation de départ, l'égalité n'est pas vérifiée.",
+          "comment_eviter": "Toujours vérifier d'abord si l'équation porte sur $\\cos$ ou sur $\\sin$, et associer « cosinus $\\to$ $-a$ » et « sinus $\\to$ $\\pi-a$ » avant d'écrire la deuxième solution."
+        },
+        {
+          "description": "Oublier de ramener les solutions trouvées dans l'intervalle demandé (par exemple $]-\\pi;\\pi]$) en ajoutant ou retranchant $2\\pi$.",
+          "pourquoi": "On s'arrête dès qu'une solution est trouvée sans vérifier qu'elle appartient bien à l'intervalle imposé par l'énoncé.",
+          "comment_detecter": "La solution donnée est en dehors de l'intervalle précisé dans la question (par exemple $\\dfrac{7\\pi}{5}$ au lieu d'une valeur dans $]-\\pi;\\pi]$).",
+          "comment_eviter": "Une fois les solutions générales écrites avec $+2k\\pi$, tester successivement $k=-1, 0, 1$ pour ne garder que celles qui tombent dans l'intervalle demandé."
+        },
+        {
+          "description": "Croire que la fonction sinus est paire comme le cosinus, et écrire $\\sin(-a)=\\sin(a)$ au lieu de $\\sin(-a)=-\\sin(a)$.",
+          "pourquoi": "La parité du cosinus est intuitive (symétrie visible sur le cercle) et on l'applique par réflexe à toutes les fonctions trigonométriques.",
+          "comment_detecter": "Le résultat simplifié ne s'annule pas dans un calcul où l'on attend une compensation de signes (comme $\\sin(-a)+\\sin(a)$).",
+          "comment_eviter": "Retenir que seul le cosinus est pair (symétrie par rapport à l'axe vertical) ; le sinus est impair (symétrie par rapport au centre $O$)."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser $\\cos(x)=\\cos(a) \\iff x=a+2k\\pi$ ou $x=-a+2k\\pi$, puis ramener les solutions dans $]-\\pi;\\pi]$.",
+        "Utiliser la parité (cosinus pair, sinus impair) et la périodicité ($2\\pi$) des fonctions trigonométriques."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1.4, -1.4, 2.8, 2.8],
+        "axes": true,
+        "circles": [
+          {"center": {"x": 0, "y": 0}, "radius": 1}
+        ],
+        "points": [
+          {"x": 0.5, "y": 0.866, "label": "M(a)"},
+          {"x": 0.5, "y": -0.866, "label": "M(-a)"}
+        ],
+        "segments": [
+          {"from": {"x": 0, "y": 0}, "to": {"x": 0.5, "y": 0.866}},
+          {"from": {"x": 0, "y": 0}, "to": {"x": 0.5, "y": -0.866}},
+          {"from": {"x": 0.5, "y": 0.866}, "to": {"x": 0.5, "y": -0.866}, "dashed": true, "tooltip": "symétrie par rapport à l'axe des abscisses"}
+        ],
+        "arcs": [
+          {"center": {"x": 0, "y": 0}, "radius": 0.3, "startDeg": 0, "endDeg": 60, "label": "a"},
+          {"center": {"x": 0, "y": 0}, "radius": 0.3, "startDeg": -60, "endDeg": 0, "label": "-a"}
+        ],
+        "alt": "Cercle trigonométrique avec deux points symétriques par rapport à l'axe des abscisses : M(a), associé à l'angle a, et M(-a), associé à l'angle -a. Les deux points ont la même abscisse cos(a) mais des ordonnées opposées sin(a) et -sin(a) : cela illustre pourquoi cos(x) = cos(a) a pour solutions x = a ou x = -a (parité de la fonction cosinus)."
+      },
+      "quizExerciseIds": [
+        1358,
+        1359,
+        1360
+      ],
+      "topic_id": "fonctions-cosinus-et-sinus",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras utiliser la parité et la périodicité des fonctions cosinus et sinus pour simplifier une expression, et résoudre des équations du type $\\cos(x)=\\cos(a)$ ou $\\sin(x)=\\sin(a)$ dans un intervalle donné."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "fonctions",
+        "cosinus",
+        "sinus"
+      ]
+    },
+    {
+      "id": "reperage-sur-le-cercle-trigonometrique",
+      "title": "Repérage sur le cercle trigonométrique",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à repérer un point du cercle trigonométrique à l'aide d'un angle, et à retrouver la mesure principale d'un angle donné, c'est-à-dire son unique représentant dans $[0;2\\pi[$.\n\nCette notion est utile car un même point du cercle correspond à une infinité de mesures d'angles (on peut toujours faire un tour de plus ou de moins) : savoir réduire une mesure permet de comparer facilement deux angles ou de simplifier un calcul.",
+      "explicationSimple": "Pense à une piste circulaire de longueur $2\\pi$ sur laquelle un coureur avance d'une distance égale à la mesure de l'angle. Faire un tour complet ($2\\pi$) ramène le coureur exactement à la même position sur la piste, même si la distance totale parcourue est différente. Trouver la mesure principale d'un angle, c'est donc retirer (ou ajouter) autant de tours complets que nécessaire pour ramener cette distance dans un seul tour, c'est-à-dire dans l'intervalle $[0;2\\pi[$.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer la mesure principale d'un angle donné, c'est-à-dire l'unique mesure de cet angle appartenant à l'intervalle $[0;2\\pi[$.",
+      "definition": "Un même point du cercle trigonométrique est repéré par une infinité de mesures d'angle : si $\\alpha$ est une mesure de l'angle associé à ce point, alors toute mesure de la forme $\\alpha+2k\\pi$ (avec $k\\in\\mathbb{Z}$) repère le même point, car ajouter ou retrancher un multiple de $2\\pi$ correspond à faire un ou plusieurs tours complets du cercle. Parmi toutes ces mesures, celle qui appartient à l'intervalle $[0;2\\pi[$ est appelée la mesure principale de l'angle.",
+      "definitions": {
+        "lycee": "Un même point du cercle trigonométrique est repéré par une infinité de mesures d'angle : si $\\alpha$ est une mesure de l'angle associé à ce point, alors toute mesure de la forme $\\alpha+2k\\pi$ (avec $k\\in\\mathbb{Z}$) repère le même point, car ajouter ou retrancher un multiple de $2\\pi$ correspond à faire un ou plusieurs tours complets du cercle. Parmi toutes ces mesures, celle qui appartient à l'intervalle $[0;2\\pi[$ est appelée la mesure principale de l'angle."
+      },
+      "intuition": "L'erreur la plus fréquente est de retirer un multiple de $2\\pi$ qui n'est pas exact, par exemple en confondant $\\dfrac{5\\pi}{2}$ (qui vaut $\\dfrac{\\pi}{2}+2\\pi$) avec $\\dfrac{5\\pi}{2}-\\pi$. Pour éviter cette erreur, écris toujours l'angle sous la forme $\\alpha = \\text{mesure principale} + k\\times 2\\pi$ en isolant clairement le multiple entier de $2\\pi$, plutôt que de retrancher un multiple de $\\pi$ au hasard.",
+      "reglesImportantes": [],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Repérage sur le cercle trigonométrique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : $\\dfrac{5\\pi}{2} = \\dfrac{\\pi}{2} + 2\\pi$"
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : La mesure principale est donc $\\dfrac{\\pi}{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1239",
+          "titre": "Exemple 1",
+          "enonce": "Un angle a pour mesure $\\dfrac{5\\pi}{2}$ radians. Déterminer sa mesure principale dans $[0 ; 2\\pi[$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $\\dfrac{5\\pi}{2} = \\dfrac{\\pi}{2} + 2\\pi$"
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : La mesure principale est donc $\\dfrac{\\pi}{2}$."
+            }
+          ],
+          "reponse": "$\\dfrac{\\pi}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1251",
+          "titre": "Exemple 2",
+          "enonce": "Un angle a pour mesure $-\\dfrac{21\\pi}{4}$ radians. Déterminer sa mesure principale dans $[0 ; 2\\pi[$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $-\\dfrac{21\\pi}{4} = \\dfrac{3\\pi}{4} - 6\\pi$"
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : La mesure principale est donc $\\dfrac{3\\pi}{4}$."
+            }
+          ],
+          "reponse": "$\\dfrac{3\\pi}{4}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1263",
+          "titre": "Exemple 3",
+          "enonce": "Donner la mesure principale, c'est-à-dire l'unique mesure appartenant à $[0 ; 2\\pi[$, de l'angle de mesure $\\dfrac{26\\pi}{9}$ radians.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $\\dfrac{26\\pi}{9} = \\dfrac{8\\pi}{9} + 2\\pi$"
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : La mesure principale est donc $\\dfrac{8\\pi}{9}$."
+            }
+          ],
+          "reponse": "$\\dfrac{8\\pi}{9}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1275",
+          "titre": "Exemple 4",
+          "enonce": "Déterminer la mesure appartenant à $[0 ; 2\\pi[$ associée à l'angle de mesure $-4\\pi$ radians.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $-4\\pi = 0 - 4\\pi$"
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : La mesure principale est donc $0$."
+            }
+          ],
+          "reponse": "$0$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Retrancher ou ajouter un multiple de $\\pi$ au lieu d'un multiple de $2\\pi$ : seul un tour complet ($2\\pi$) ramène au même point du cercle, un demi-tour ($\\pi$) amène au point diamétralement opposé.",
+        "Se tromper dans le nombre de tours à retirer lorsque l'angle est très grand ou très négatif, par exemple en n'enlevant qu'un seul $2\\pi$ alors qu'il en faudrait plusieurs.",
+        "Confondre l'intervalle demandé : chercher la mesure principale dans $]-\\pi;\\pi]$ alors que l'énoncé demande $[0;2\\pi[$ (ou inversement)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Retrancher ou ajouter un multiple de $\\pi$ au lieu d'un multiple de $2\\pi$ : seul un tour complet ($2\\pi$) ramène au même point du cercle, un demi-tour ($\\pi$) amène au point diamétralement opposé.",
+          "pourquoi": "On confond la période du cercle ($2\\pi$, un tour complet) avec la valeur $\\pi$ qui apparaît très souvent dans les calculs trigonométriques.",
+          "comment_detecter": "Le point obtenu après réduction ne correspond pas au même quadrant que le point de départ, ou est son symétrique par rapport à $O$.",
+          "comment_eviter": "Toujours vérifier que la quantité retirée s'écrit sous la forme $k\\times 2\\pi$ avec $k$ entier, jamais $k\\times\\pi$."
+        },
+        {
+          "description": "Se tromper dans le nombre de tours à retirer lorsque l'angle est très grand ou très négatif, par exemple en n'enlevant qu'un seul $2\\pi$ alors qu'il en faudrait plusieurs.",
+          "pourquoi": "On procède par soustractions successives sans calculer d'abord combien de fois $2\\pi$ est contenu dans l'angle donné.",
+          "comment_detecter": "La mesure obtenue à la fin n'appartient toujours pas à l'intervalle $[0;2\\pi[$ demandé.",
+          "comment_eviter": "Diviser d'abord l'angle par $2\\pi$ pour estimer combien de tours complets il contient, avant de retrancher directement le bon multiple de $2\\pi$ en une seule fois."
+        },
+        {
+          "description": "Confondre l'intervalle demandé : chercher la mesure principale dans $]-\\pi;\\pi]$ alors que l'énoncé demande $[0;2\\pi[$ (ou inversement).",
+          "pourquoi": "Les deux intervalles servent tous les deux à définir une mesure principale et sont utilisés indifféremment dans certains exercices, ce qui entraîne une confusion sur celui à utiliser.",
+          "comment_detecter": "La réponse donnée est correcte à un multiple de $2\\pi$ près, mais n'appartient pas à l'intervalle précisé par l'énoncé.",
+          "comment_eviter": "Relire l'intervalle exigé par l'énoncé avant de conclure, et vérifier que la valeur finale y appartient bien."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1.6, -1.6, 3.2, 3.2],
+        "axes": true,
+        "circles": [
+          {"center": {"x": 0, "y": 0}, "radius": 1}
+        ],
+        "points": [
+          {"x": 1, "y": 0, "label": "I"},
+          {"x": 0, "y": 1, "label": "M", "showCoords": true}
+        ],
+        "arcs": [
+          {"center": {"x": 0, "y": 0}, "radius": 0.5, "startDeg": 0, "endDeg": 359, "label": "2π"},
+          {"center": {"x": 0, "y": 0}, "radius": 0.85, "startDeg": 0, "endDeg": 90, "label": "π/2"}
+        ],
+        "alt": "Cercle trigonométrique illustrant l'angle de mesure 5π/2 : un tour complet (2π, arc intérieur) suivi d'un quart de tour supplémentaire (π/2, arc extérieur) amènent exactement au même point M(0 ; 1) que l'angle de mesure principale π/2, ce qui montre que 5π/2 et π/2 repèrent le même point du cercle."
+      },
+      "quizExerciseIds": [
+        1240,
+        1241,
+        1242
+      ],
+      "topic_id": "reperage-sur-le-cercle-trigonometrique",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras déterminer la mesure principale d'un angle donné, c'est-à-dire l'unique mesure de cet angle appartenant à l'intervalle $[0;2\\pi[$."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "reperage",
+        "cercle",
+        "trigonometrique"
+      ]
+    }
+  ]
+}

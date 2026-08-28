@@ -132,6 +132,21 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
   align-items: stretch;
+  position: relative;
+}
+/* ── Variation "landing" pour Abonnement — halo violet/lavande derrière la
+   grille de tarifs, écho de #tarifs::before sur la landing (mêmes tokens),
+   sans accent or pour rester strictement dans la palette violet/lavande. */
+.pricing-grid::before {
+  content: "";
+  position: absolute;
+  inset: -50px -20px auto -20px;
+  height: 380px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 560px 340px at 50% 0%, rgba(var(--accent-rgb), 0.09), transparent 72%),
+    radial-gradient(ellipse 360px 280px at 50% 20%, rgba(var(--brand-violet-rgb), 0.06), transparent 70%);
 }
 
 .pricing-card {

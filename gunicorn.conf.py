@@ -59,15 +59,37 @@ workers = _int_env("WEB_CONCURRENCY", min(multiprocessing.cpu_count() * 2 + 1, 4
 threads = _int_env("GUNICORN_THREADS", 2)
 worker_class = os.environ.get("GUNICORN_WORKER_CLASS", "gthread")
 
-# ── Timeouts ─────────────────────────────────────────────────────────────
 # GUNICORN_TIMEOUT : durée max (s) avant qu'un worker jugé silencieux soit
-# tué et redémarré — généreux (60s) car certaines requêtes chatbot attendent
-# la réponse d'un fournisseur LLM externe.
-timeout = _int_env("GUNICORN_TIMEOUT", 60)
+# tué et redémarré. Valeur dérivée d'un calcul précis (Release Candidate,
+# vérifié avant modification — voir chatbot/services/llm_fallback_service.py
+# et chatbot/provider_manager.py::MODEL_CHAIN_BY_PLAN) plutôt que d'une
+# estimation : llm_fallback_service.generate() essaie séquentiellement CHAQUE
+# candidat (provider, modèle) de la chaîne du plan de l'utilisateur, sans
+# budget de temps global, jusqu'à retomber sur "fake" (instantané, dernier
+# maillon garanti). Chaque candidat réel a son propre timeout indépendant :
+# Anthropic 45s (anthropic_provider.DEFAULT_TIMEOUT_SECONDS), Gemini 45s
+# (gemini_provider.DEFAULT_TIMEOUT_MS=45000). Pire cas par plan (config par
+# défaut, sans clé API de secours configurée en base — voir ai_provider_key_
+# service.available_keys_for_rotation, qui retombe alors sur une seule
+# tentative par candidat) :
+#   free    : 1 candidat  (gemini)            = 45s
+#   premium : 2 candidats (gemini, gemini)     = 90s  -> dépassait déjà 60s
+#   ultra   : 3 candidats (anthropic, gemini x2) = 135s -> dépassait largement 60s
+# Avec l'ancien défaut (60s), un incident de LATENCE (pas une erreur franche)
+# touchant ne serait-ce que les 2 premiers candidats d'un plan premium/ultra
+# faisait tuer le worker par Gunicorn AVANT que la bascule automatique
+# n'atteigne "fake" — écran d'erreur générique côté élève au lieu du repli
+# prévu. 180s couvre le pire cas ultra (135s) avec une marge confortable pour
+# la latence Python/DB restante (rotation de clés, lecture du plan...).
+timeout = _int_env("GUNICORN_TIMEOUT", 180)
 # GUNICORN_GRACEFUL_TIMEOUT : délai laissé à un worker pour terminer les
 # requêtes en cours lors d'un redémarrage/déploiement (SIGTERM) avant d'être
 # forcé (SIGKILL) — permet un déploiement sans requête coupée en plein vol.
-graceful_timeout = _int_env("GUNICORN_GRACEFUL_TIMEOUT", 30)
+# Doit couvrir le même pire cas que GUNICORN_TIMEOUT ci-dessus (135s pour un
+# flux SSE Ultra en cours de fallback) : un déploiement Fly.io tombant
+# pendant ce pire cas ne doit pas non plus couper la génération en cours pour
+# un utilisateur payant. Même valeur que timeout par défaut (180s).
+graceful_timeout = _int_env("GUNICORN_GRACEFUL_TIMEOUT", 180)
 # GUNICORN_KEEPALIVE : durée (s) qu'une connexion HTTP keep-alive reste
 # ouverte en attendant une nouvelle requête — valeur standard derrière un
 # reverse-proxy (Nginx/Railway/Render/Cloud Run terminent déjà le keep-alive
@@ -102,3 +124,21 @@ loglevel = os.environ.get("GUNICORN_LOGLEVEL", "info").strip().lower()
 # données ni tâche de fond persistante n'est ouverte au niveau module (voir
 # webapp/db.py, chaque connexion SQLite est ouverte puis fermée par appel).
 preload_app = _bool_env("GUNICORN_PRELOAD_APP", True)
+
+
+# ── Sauvegarde automatique quotidienne (webapp/backup_scheduler.py) ────────
+# Démarrée ici (hook post_fork, appelé par Gunicorn dans CHAQUE worker
+# fraîchement forké — jamais au niveau module de webapp/server.py, voir le
+# commentaire de preload_app ci-dessus) plutôt qu'au chargement de
+# l'application : reste correct quel que soit GUNICORN_PRELOAD_APP (avec ou
+# sans préchargement, post_fork est toujours appelé après le fork, dans le
+# worker lui-même). Plusieurs workers démarrent chacun leur propre boucle de
+# vérification, mais db.claim_daily_backup() (INSERT OR IGNORE atomique)
+# garantit qu'un seul déclenche réellement la sauvegarde d'une journée
+# donnée — aucune sauvegarde concurrente possible.
+def post_fork(server, worker):
+    # Import différé (jamais au niveau module de ce fichier) : `webapp` doit
+    # d'abord être importable, ce qui n'est garanti qu'une fois le worker
+    # démarré (voir webapp/__init__.py, qui insère webapp/ dans sys.path).
+    import webapp.backup_scheduler as backup_scheduler
+    backup_scheduler.start_background_scheduler()

@@ -10,19 +10,22 @@ import os
 
 import requests
 
-from .base import ChatProvider
+from .base import ChatProvider, ProviderUnavailableError
 
 DEFAULT_BASE_URL = "http://127.0.0.1:11434"
 DEFAULT_MODEL = "mistral"
 DEFAULT_TIMEOUT = 60
 
 
-class OllamaConnectionError(RuntimeError):
-    """Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...)."""
+class OllamaConnectionError(ProviderUnavailableError):
+    """Levée quand Ollama n'est pas joignable (arrêté, mauvaise URL...) —
+    toujours transitoire (durable=False, valeur par défaut) : un serveur
+    local peut être redémarré à tout moment, jamais mis en cache
+    d'indisponibilité comme une clé API cloud invalide."""
 
 
 class OllamaProvider(ChatProvider):
-    def __init__(self, model=None):
+    def __init__(self, model=None, api_key=None):
         self._base_url = os.environ.get("OLLAMA_BASE_URL", DEFAULT_BASE_URL).rstrip("/")
         self._model = model or os.environ.get("OLLAMA_MODEL", DEFAULT_MODEL)
         self._timeout = float(os.environ.get("OLLAMA_TIMEOUT", DEFAULT_TIMEOUT))
@@ -77,17 +80,36 @@ class OllamaProvider(ChatProvider):
                 "Lance Ollama (`ollama serve`) puis réessaie."
             ) from exc
 
-        for line in resp.iter_lines(decode_unicode=True):
-            if not line:
-                continue
-            try:
-                chunk = json.loads(line)
-            except ValueError:
-                continue
-            if chunk.get("error"):
-                raise OllamaConnectionError(chunk["error"])
-            content = chunk.get("message", {}).get("content")
-            if content:
-                yield content
-            if chunk.get("done"):
-                break
+        self.last_usage = None
+        # `with resp:` (au lieu d'une simple variable locale) : garantit que
+        # la connexion HTTP sortante vers Ollama est TOUJOURS fermée — même
+        # si le client NovaMath se déconnecte en plein stream (GeneratorExit
+        # remonté par server.py à travers cette boucle) ou si une exception
+        # est levée depuis la boucle (JSON invalide, erreur applicative) —
+        # au lieu de compter sur le ramasse-miettes CPython pour libérer la
+        # socket (comportement fiable en pratique mais non garanti par le
+        # langage, voir anthropic_provider.py qui utilise déjà `with ... as
+        # stream:` pour la même raison, et l'audit production correspondant).
+        with resp:
+            for line in resp.iter_lines(decode_unicode=True):
+                if not line:
+                    continue
+                try:
+                    chunk = json.loads(line)
+                except ValueError:
+                    continue
+                if chunk.get("error"):
+                    raise OllamaConnectionError(chunk["error"])
+                content = chunk.get("message", {}).get("content")
+                if content:
+                    yield content
+                if chunk.get("done"):
+                    prompt_tokens = chunk.get("prompt_eval_count")
+                    completion_tokens = chunk.get("eval_count")
+                    if prompt_tokens is not None or completion_tokens is not None:
+                        self.last_usage = {
+                            "prompt_tokens": prompt_tokens,
+                            "completion_tokens": completion_tokens,
+                            "total_tokens": (prompt_tokens or 0) + (completion_tokens or 0),
+                        }
+                    break

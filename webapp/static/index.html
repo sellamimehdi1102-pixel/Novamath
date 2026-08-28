@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NovaMath — Mathématiques Seconde, apprentissage adaptatif</title>
-<meta name="description" content="NovaMath évalue ton niveau, t'entraîne avec des exercices adaptés par IA et te fait progresser en mathématiques de Seconde.">
+<meta name="description" content="NovaMath t'entraîne avec des exercices adaptés par IA et te fait progresser en mathématiques de Seconde.">
 <meta name="application-name" content="NovaMath">
 <meta name="apple-mobile-web-app-title" content="NovaMath">
 <meta name="theme-color" content="#6a5cf5">
@@ -14,7 +14,7 @@
 <meta property="og:image" content="assets/logo.svg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NovaMath — Apprentissage adaptatif des mathématiques">
-<meta name="twitter:description" content="NovaMath évalue ton niveau, t'entraîne avec des exercices adaptés par IA et te fait progresser en mathématiques de Seconde.">
+<meta name="twitter:description" content="NovaMath t'entraîne avec des exercices adaptés par IA et te fait progresser en mathématiques de Seconde.">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/tokens.css">
@@ -59,11 +59,11 @@
   <div class="hero-content">
     <div class="hero-eyebrow"><span class="badge badge--indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;vertical-align:-2px;margin-right:5px;"><path d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z" stroke-linejoin="round"/></svg>Apprentissage adaptatif par IA</span></div>
     <h1>Comprends les maths.<br><span class="gradient-text">Pas seulement les réponses.</span></h1>
-    <p class="lead">NovaMath évalue ton niveau réel, choisit les exercices qu'il te faut et t'explique chaque méthode en français clair — pas en code mathématique.</p>
+    <p class="lead">NovaMath choisit les exercices qu'il te faut et t'explique chaque méthode en français clair — pas en code mathématique.</p>
     <div class="hero-cta">
-      <button class="btn btn-primary btn-lg js-start-guest-eval" type="button">
+      <button class="btn btn-primary btn-lg js-start-guest" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4.5v15l13-7.5-13-7.5Z" stroke-linejoin="round"/></svg>
-        Démarrer l'évaluation
+        Commencer gratuitement
       </button>
       <a href="#comment-ca-marche" class="btn btn-secondary btn-lg">Voir comment ça marche</a>
     </div>
@@ -175,22 +175,17 @@
 <section class="section" id="comment-ca-marche">
   <div class="section-header reveal">
     <span class="section-tag">Fonctionnement</span>
-    <h2>Trois étapes, une progression continue</h2>
+    <h2>Deux étapes, une progression continue</h2>
     <p>Pas de cours magistral : NovaMath observe comment tu résous, puis ajuste.</p>
   </div>
   <div class="steps reveal-stagger">
     <div class="step-card card">
       <div class="step-number">1</div>
-      <h3>Évalue ton niveau</h3>
-      <p>Un court test adaptatif détermine ton niveau réel sur les chapitres que tu choisis — pas une note, un point de départ.</p>
-    </div>
-    <div class="step-card card">
-      <div class="step-number">2</div>
       <h3>Entraîne-toi intelligemment</h3>
       <p>L'IA sélectionne les exercices adaptés à ton niveau et à tes notions faibles, jamais au hasard.</p>
     </div>
     <div class="step-card card">
-      <div class="step-number">3</div>
+      <div class="step-number">2</div>
       <h3>Progresse, mesurablement</h3>
       <p>Ton niveau se met à jour en continu. Tu vois exactement ce que tu maîtrises et ce qu'il reste à revoir.</p>
     </div>
@@ -202,7 +197,7 @@
     <div class="showcase-visual reveal">
       <div class="showcase-window card">
         <div class="showcase-window-chrome"><span></span><span></span><span></span></div>
-        <div class="showcase-chat">
+        <div class="showcase-chat" id="showcase-chat">
           <div class="showcase-bubble assistant">Pourquoi la dérivée s'annule en x = 2 ?</div>
           <div class="showcase-bubble user">Parce que c'est un maximum</div>
           <div class="showcase-bubble assistant">Exactement — la tangente y est horizontale. On le vérifie en étudiant le signe de f' avant et après x = 2.</div>
@@ -277,6 +272,9 @@
     <p>Que tu découvres les bases ou que tu prépares les examens, NovaMath t'accompagne avec une IA adaptée à ton niveau.</p>
   </div>
 
+  <!-- Montants (0€ / 6,99€ / 12,99€) dupliqués depuis static/abonnement.html —
+       voir son commentaire pour la source de vérité réelle (Stripe) et la
+       procédure de mise à jour des deux fichiers ensemble. -->
   <div class="pricing-grid reveal-stagger">
     <!-- ── Gratuit ─────────────────────────────────────────────────────── -->
     <article class="pricing-card card" data-plan="free">
@@ -296,13 +294,12 @@
         <span class="price-period">/mois</span>
       </div>
       <ul class="pricing-features">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot IA (Gemini Flash)</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Exercices</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Cours</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Tableau de bord</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Progression</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot IA (Gemini Flash) : 15 messages/jour</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>20 exercices/jour</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Cours essentiels</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Tableau de bord et progression</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Objectifs quotidiens</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Statistiques essentielles</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>3 suggestions de révision</li>
       </ul>
       <button type="button" class="btn btn-secondary pricing-cta js-open-signup" data-plan-button="free">
         Commencer gratuitement
@@ -327,14 +324,12 @@
         <span class="price-period">/mois</span>
       </div>
       <ul class="pricing-features">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Tout Gratuit</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>IA Gemini Pro</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Réponses plus détaillées</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Conversations plus longues</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Plus de messages quotidiens</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Priorité de traitement</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Statistiques avancées</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Historique complet</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>IA Gemini Pro : 25 messages/jour</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>60 exercices/jour</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Cours complet</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Explications avancées</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>5 suggestions de révision</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Bilan de progression détaillé par notion</li>
       </ul>
       <button type="button" class="btn btn-primary pricing-cta js-open-signup" data-plan-button="premium">
         Commencer Premium
@@ -359,14 +354,13 @@
         <span class="price-period">/mois</span>
       </div>
       <ul class="pricing-features">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Tout Premium</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Claude Sonnet</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Explications les plus pédagogiques</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Analyse de PDF</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Réponses très longues</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Claude Sonnet : 40 messages/jour</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Exercices illimités</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Cours complet, avec les démonstrations</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Analyse de PDF par l'IA</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>IA la plus performante</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Limites les plus élevées</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Accès anticipé aux nouveautés</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>8 suggestions de révision</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Génération d'exercices sur mesure</li>
       </ul>
       <button type="button" class="btn btn-secondary pricing-cta js-open-signup" data-plan-button="ultra">
         Découvrir Ultra
@@ -529,10 +523,6 @@
   </div>
   <div class="faq-list reveal-stagger">
     <div class="faq-item card">
-      <div class="faq-question">Comment NovaMath détermine-t-il mon niveau ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
-      <div class="faq-answer">Un court test adaptatif de quelques questions est analysé par un modèle qui prédit ton niveau (débutant, intermédiaire, avancé) par chapitre.</div>
-    </div>
-    <div class="faq-item card">
       <div class="faq-question">Est-ce gratuit ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
       <div class="faq-answer">Oui, NovaMath est un projet pédagogique en accès libre, sans compte payant.</div>
     </div>
@@ -550,7 +540,7 @@
 <section class="section">
   <div class="cta-final reveal">
     <h2>Prêt à comprendre les maths autrement ?</h2>
-    <p>Commence ton évaluation initiale en moins de 5 minutes.</p>
+    <p>Rejoins NovaMath gratuitement, en moins de 5 minutes.</p>
     <button class="btn btn-primary btn-lg js-open-signup" type="button">Commencer gratuitement</button>
   </div>
 </section>

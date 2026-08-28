@@ -21,7 +21,7 @@ from unittest.mock import patch
 import db
 import rate_limit_service
 import server
-from rate_limit_service import RateLimitState, check, cleanup, rate_limit
+from rate_limit_service import check, cleanup, rate_limit
 
 
 class RateLimitServiceTestCase(unittest.TestCase):
@@ -180,12 +180,10 @@ class TestIdentityKey(RateLimitServiceTestCase):
             self.assertEqual(rate_limit_service._identity_key(), "user:77")
 
     def test_anonyme_utilise_lip(self):
-        from flask import request as flask_request
         with self.app.test_request_context("/fake", environ_overrides={"REMOTE_ADDR": "203.0.113.9"}):
             self.assertEqual(rate_limit_service._identity_key(), "ip:203.0.113.9")
 
     def test_x_forwarded_for_prioritaire_sur_remote_addr(self):
-        from flask import request as flask_request
         with self.app.test_request_context(
             "/fake",
             headers={"X-Forwarded-For": "198.51.100.7"},

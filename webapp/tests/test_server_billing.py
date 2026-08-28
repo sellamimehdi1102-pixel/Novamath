@@ -61,7 +61,12 @@ class TestBillingStatusRoute(unittest.TestCase):
     ):
         mock_get_customer.return_value = {"id": "cus_123", "email": "eleve@gmail.com"}
         mock_get_subscription.return_value = {
-            "id": "sub_123", "current_period_end": 1_700_000_000, "cancel_at_period_end": False,
+            "id": "sub_123",
+            # current_period_end vit sous items.data[].current_period_end
+            # depuis l'API Stripe "Basil" (2025-03-31, vérifié par un appel
+            # réel) — jamais au niveau racine de la Subscription.
+            "items": {"data": [{"current_period_end": 1_700_000_000}]},
+            "cancel_at_period_end": False,
         }
         _set_plan(self.user["id"], Plan.PREMIUM)
 

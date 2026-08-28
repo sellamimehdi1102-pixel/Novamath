@@ -1,0 +1,1003 @@
+{
+  "chapterId": "Chapitre_3",
+  "title": "Chapitre 3",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "composition-de-fonctions-et-derivation",
+      "title": "Composition de fonctions et dérivation",
+      "schemaVersion": 2,
+      "intro": "Les règles vues jusqu'ici (polynôme, produit, quotient) ne suffisent pas pour dériver une expression comme $(4x-6)^3$ ou $\\sqrt{4x+2}$ : ce sont des compositions de fonctions, une fonction affine « à l'intérieur » d'une puissance ou d'une racine. Il faut une règle spécifique pour ces cas, qui reviennent très souvent dans les exercices de Première et Terminale.",
+      "objectif": "À la fin de ce cours, tu sauras identifier une fonction $u(x)$ « cachée » dans une expression composée (puissance, racine carrée ou inverse d'une fonction affine ou plus complexe), calculer sa dérivée $u'(x)$, puis appliquer la formule de composition adaptée — $(u^n)' = n\\,u'\\,u^{n-1}$, $(\\sqrt{u})' = \\dfrac{u'}{2\\sqrt{u}}$ ou $(1/u)' = -\\dfrac{u'}{u^2}$ — pour dériver des expressions comme $(4x-6)^3$ ou $\\sqrt{4x+2}$.",
+      "definition": "Utiliser la formule de dérivation $(u^n)' = n\\,u'\\,u^{n-1}$.",
+      "definitions": {
+        "lycee": "Utiliser la formule de dérivation $(u^n)' = n\\,u'\\,u^{n-1}$.",
+        "college": "Utiliser $\\left(\\dfrac{1}{u}\\right)' = -\\dfrac{u'}{u^2}$."
+      },
+      "reglesImportantes": [
+        "Utiliser $\\left(\\sqrt{u}\\right)' = \\dfrac{u'}{2\\sqrt{u}}$.",
+        "Utiliser $\\left(\\dfrac{1}{u}\\right)' = -\\dfrac{u'}{u^2}$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Composition de fonctions et dérivation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On pose $u(x) = 4x - 6$, avec $u'(x) = 4$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : On utilise $(u^n)' = n \\, u' \\, u^{n-1}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : Donc $f'(x) = 3 \\times 4 \\times (4x - 6)^{2} = 12(4x - 6)^{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-708",
+          "titre": "Exemple 1",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = (4x - 6)^{3}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On pose $u(x) = 4x - 6$, avec $u'(x) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On utilise $(u^n)' = n \\, u' \\, u^{n-1}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = 3 \\times 4 \\times (4x - 6)^{2} = 12(4x - 6)^{2}$."
+            }
+          ],
+          "reponse": "$f'(x) = 12(4x - 6)^{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-720",
+          "titre": "Exemple 2",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie par $f(x) = \\sqrt{4x + 2}$ (sur son ensemble de définition).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On pose $u(x) = 4x + 2$, avec $u'(x) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On utilise $\\left(\\sqrt{u}\\right)' = \\dfrac{u'}{2\\sqrt{u}}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = \\dfrac{4}{2\\sqrt{4x + 2}}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{4}{2\\sqrt{4x + 2}}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-732",
+          "titre": "Exemple 3",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = (-2x + 6)^{2}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On pose $u(x) = -2x + 6$, avec $u'(x) = -2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On utilise $(u^n)' = n \\, u' \\, u^{n-1}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = 2 \\times -2 \\times (-2x + 6)^{1} = -4(-2x + 6)^{1}$."
+            }
+          ],
+          "reponse": "$f'(x) = -4(-2x + 6)^{1}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-744",
+          "titre": "Exemple 4",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie par $f(x) = \\sqrt{x + 2}$ (sur son ensemble de définition).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On pose $u(x) = x + 2$, avec $u'(x) = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On utilise $\\left(\\sqrt{u}\\right)' = \\dfrac{u'}{2\\sqrt{u}}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = \\dfrac{1}{2\\sqrt{x + 2}}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{1}{2\\sqrt{x + 2}}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de multiplier par $u'(x)$ et écrire $(u^n)' = nu^{n-1}$ au lieu de $(u^n)' = n\\,u'\\,u^{n-1}$.",
+        "Appliquer la règle de composition alors que $u(x) = x$ (composition inutile, une simple puissance de $x$ suffit)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de multiplier par $u'(x)$ et écrire $(u^n)' = nu^{n-1}$ au lieu de $(u^n)' = n\\,u'\\,u^{n-1}$.",
+          "pourquoi": "La règle de composition traite $u(x)$ comme une fonction, pas comme la variable $x$ elle-même : il faut « rendre compte » de la vitesse de variation de $u$, donc multiplier par $u'(x)$.",
+          "comment_detecter": "Si $u(x) \\neq x$ (par exemple $u(x)=4x-6$) et que le facteur $u'(x)$ n'apparaît nulle part dans le résultat, la règle a été mal appliquée.",
+          "comment_eviter": "Écris toujours explicitement $u(x)=\\dots$ et $u'(x)=\\dots$ avant d'appliquer la formule de composition."
+        },
+        {
+          "description": "Appliquer la règle de composition alors que $u(x) = x$ (composition inutile, une simple puissance de $x$ suffit).",
+          "pourquoi": "Quand $u(x)=x$, $u'(x)=1$ : la règle de composition redonne alors exactement $(x^n)'=nx^{n-1}$, mais passer par la composition sans le voir complique inutilement le calcul.",
+          "comment_detecter": "Si l'expression est un simple $x^n$ sans transformation affine à l'intérieur, la règle terme à terme suffit.",
+          "comment_eviter": "Vérifie d'abord si une composition est réellement présente (une expression affine ou plus complexe à l'intérieur de la puissance/racine) avant de choisir la méthode."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser $\\left(\\sqrt{u}\\right)' = \\dfrac{u'}{2\\sqrt{u}}$.",
+        "Utiliser $\\left(\\dfrac{1}{u}\\right)' = -\\dfrac{u'}{u^2}$."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        709,
+        710,
+        711
+      ],
+      "topic_id": "composition-de-fonctions-et-derivation",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Composition de fonctions et dérivation."
+      ],
+      "prerequis": [
+        "Fonction dérivée d'un polynôme (notion précédente de ce chapitre)",
+        "Reconnaître une expression affine $u(x) = ax+b$ à l'intérieur d'une expression plus complexe"
+      ],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "composition",
+        "fonctions",
+        "derivation"
+      ],
+      "explicationSimple": "L'idée est toujours la même : on repère la fonction $u(x)$ « cachée à l'intérieur », on calcule sa dérivée $u'(x)$, puis on applique la formule de composition adaptée ($(u^n)'$ ou $(\\sqrt{u})'$ ou $(1/u)'$) en gardant $u$ tel quel.",
+      "intuition": "C'est comme dériver « de l'extérieur vers l'intérieur » : on traite d'abord l'opération la plus extérieure (la puissance, la racine), en gardant l'intérieur $u(x)$ intact, puis on multiplie par la dérivée de cet intérieur — un peu comme si on « payait un supplément » à chaque couche de la composition."
+    },
+    {
+      "id": "fonction-derivee",
+      "title": "Fonction dérivée",
+      "schemaVersion": 2,
+      "intro": "En Première, on a appris à calculer le nombre dérivé d'une fonction en un point précis, à partir du taux de variation. Mais calculer ce taux à chaque point serait beaucoup trop long. La fonction dérivée résout ce problème : c'est une nouvelle fonction, notée $f'$, qui donne directement le nombre dérivé de $f$ en n'importe quel point $x$, sans repasser par la limite du taux de variation à chaque fois.",
+      "objectif": "À la fin de ce cours, tu sauras calculer la fonction dérivée $f'$ d'un polynôme en dérivant chaque terme avec la formule $(x^n)' = nx^{n-1}$, en tenant compte du fait que la dérivée d'une constante est nulle, et tu sauras justifier la formule $(x^2)'=2x$ à partir de la définition du nombre dérivé par un taux de variation.",
+      "definition": "Dériver terme à terme avec $(x^n)' = nx^{n-1}$ ; la dérivée d'une constante est nulle.",
+      "definitions": {
+        "lycee": "Dériver terme à terme avec $(x^n)' = nx^{n-1}$ ; la dérivée d'une constante est nulle.",
+        "college": "Utiliser la dérivée de référence $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$."
+      },
+      "reglesImportantes": [
+        "Utiliser la dérivée de référence $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$.",
+        "Utiliser la dérivée de référence $\\left(\\sqrt{x}\\right)' = \\dfrac{1}{2\\sqrt{x}}$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Fonction dérivée",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(-2x^{2})' = -4x^{1}$; $(-2x)' = -2$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : La constante $3$ a une dérivée nulle."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : Donc $f'(x) = -4x - 2$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-590",
+          "titre": "Exemple 1",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = -2x^2 - 2x + 3$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(-2x^{2})' = -4x^{1}$; $(-2x)' = -2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : La constante $3$ a une dérivée nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = -4x - 2$."
+            }
+          ],
+          "reponse": "$f'(x) = -4x - 2$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-602",
+          "titre": "Exemple 2",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = -x^2 - 5x + 2$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(-1x^{2})' = -2x^{1}$; $(-5x)' = -5$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : La constante $2$ a une dérivée nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = -2x - 5$."
+            }
+          ],
+          "reponse": "$f'(x) = -2x - 5$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-614",
+          "titre": "Exemple 3",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = -3x^3 + 5x^2 + 2x - 2$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(-3x^{3})' = -9x^{2}$; $(5x^{2})' = 10x^{1}$; $(2x)' = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : La constante $-2$ a une dérivée nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = -9x^2 + 10x + 2$."
+            }
+          ],
+          "reponse": "$f'(x) = -9x^2 + 10x + 2$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-626",
+          "titre": "Exemple 4",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = 2x^3 - 5x^2 - 5x + 4$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On dérive terme à terme à l'aide de la formule $(x^n)' = nx^{n-1}$ : $(2x^{3})' = 6x^{2}$; $(-5x^{2})' = -10x^{1}$; $(-5x)' = -5$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : La constante $4$ a une dérivée nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = 6x^2 - 10x - 5$."
+            }
+          ],
+          "reponse": "$f'(x) = 6x^2 - 10x - 5$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier qu'une constante seule a une dérivée nulle, et écrire par erreur que sa dérivée vaut la constante elle-même.",
+        "Confondre $(x^n)' = nx^{n-1}$ avec $(x^n)' = nx^n$ (oubli de la baisse de l'exposant).",
+        "Dériver un produit de deux termes en $x$ en dérivant chaque facteur séparément puis en les multipliant, au lieu d'appliquer la règle du produit."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier qu'une constante seule a une dérivée nulle, et écrire par erreur que sa dérivée vaut la constante elle-même.",
+          "pourquoi": "Une constante ne dépend pas de $x$ : elle ne varie jamais quand $x$ varie, donc son taux de variation — et sa dérivée — sont nuls.",
+          "comment_detecter": "Vérifie que chaque terme sans $x$ disparaît entièrement après dérivation, il ne doit rester aucune trace du nombre.",
+          "comment_eviter": "Avant de dériver, repère à part tous les termes sans $x$ : ils sortiront automatiquement du résultat."
+        },
+        {
+          "description": "Confondre $(x^n)' = nx^{n-1}$ avec $(x^n)' = nx^n$ (oubli de la baisse de l'exposant).",
+          "pourquoi": "La règle de dérivation d'une puissance fait baisser l'exposant de 1 en plus de le faire descendre en facteur — les deux effets sont nécessaires, pas un seul.",
+          "comment_detecter": "Compare le degré du résultat à celui du terme de départ : il doit toujours être inférieur de 1.",
+          "comment_eviter": "Écris systématiquement les deux étapes séparément : « je descends l'exposant en facteur » PUIS « je diminue l'exposant de 1 »."
+        },
+        {
+          "description": "Dériver un produit de deux termes en $x$ en dérivant chaque facteur séparément puis en les multipliant, au lieu d'appliquer la règle du produit.",
+          "pourquoi": "$(uv)' \\neq u'v'$ en général : dériver terme à terme n'est valable que pour une somme, jamais pour un produit de deux fonctions qui dépendent toutes les deux de $x$.",
+          "comment_detecter": "Si l'expression contient deux facteurs contenant chacun $x$ (ex: $(2x)(3x-1)$), la dérivation terme à terme est fausse.",
+          "comment_eviter": "Développe d'abord le produit en un polynôme (si c'est simple), ou utilise la règle $(uv)'=u'v+uv'$ (voir la notion « Opérations et dérivation » de ce chapitre)."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser la dérivée de référence $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$.",
+        "Utiliser la dérivée de référence $\\left(\\sqrt{x}\\right)' = \\dfrac{1}{2\\sqrt{x}}$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -2.5,
+          -1.5,
+          7,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -2.0,
+                3.5
+              ],
+              [
+                -1.5,
+                2.125
+              ],
+              [
+                -1.0,
+                1.0
+              ],
+              [
+                -0.5,
+                0.125
+              ],
+              [
+                0.0,
+                -0.5
+              ],
+              [
+                0.5,
+                -0.875
+              ],
+              [
+                1.0,
+                -1.0
+              ],
+              [
+                1.5,
+                -0.875
+              ],
+              [
+                2.0,
+                -0.5
+              ],
+              [
+                2.5,
+                0.125
+              ],
+              [
+                3.0,
+                1.0
+              ],
+              [
+                3.5,
+                2.125
+              ],
+              [
+                4.0,
+                3.5
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": -1,
+            "y": 1,
+            "label": "A",
+            "reveal": 2
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "label": "B",
+            "reveal": 3
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -1.8,
+              "y": 2.6
+            },
+            "to": {
+              "x": 0.2,
+              "y": -1.4
+            },
+            "reveal": 2,
+            "tooltip": "En A, la courbe descend : la pente est négative"
+          },
+          {
+            "from": {
+              "x": 2.2,
+              "y": -0.6
+            },
+            "to": {
+              "x": 3.8,
+              "y": 2.6
+            },
+            "reveal": 3,
+            "tooltip": "En B, la courbe monte : la pente est positive"
+          }
+        ],
+        "steps": [
+          "La courbe de f",
+          "Avant le sommet (point A) : la pente est négative",
+          "Après le sommet (point B) : la pente est positive"
+        ],
+        "alt": "Avant le sommet de la courbe, la pente (donc f') est négative ; après, elle est positive. Au sommet, la pente est nulle.",
+        "emphasis": true
+      },
+      "quizExerciseIds": [
+        591,
+        592,
+        593
+      ],
+      "topic_id": "fonction-derivee",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Fonction dérivée."
+      ],
+      "prerequis": [
+        "Développer et réduire une expression algébrique",
+        "Nombre dérivé et taux de variation (notion précédente de ce chapitre)"
+      ],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "fonction",
+        "derivee"
+      ],
+      "explicationSimple": "Dériver un polynôme, c'est appliquer une règle terme à terme : chaque terme $x^n$ se transforme en $nx^{n-1}$, et toute constante disparaît (sa dérivée vaut $0$, car une constante ne varie jamais). On n'a donc jamais besoin de revenir à la définition par limite pour dériver un polynôme : la règle $(x^n)' = nx^{n-1}$ suffit, terme après terme.",
+      "intuition": "Pense à $f'(x)$ comme à la pente de la courbe de $f$ au point d'abscisse $x$ : positive quand la courbe monte, négative quand elle descend, nulle à un sommet ou un creux. La fonction dérivée donne cette pente en continu, pour toutes les valeurs de $x$ à la fois.",
+      "demonstration": {
+        "titre": "Pourquoi $(x^2)' = 2x$ ? — démonstration progressive",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On revient à la définition du nombre dérivé",
+            "texte": "Pour tout $x$ fixé, le nombre dérivé de $f(x) = x^2$ en $x$ est la limite, quand $h$ tend vers $0$, du taux de variation $\\dfrac{f(x+h) - f(x)}{h}$."
+          },
+          {
+            "titre": "Étape 2 — On développe $f(x+h)$",
+            "texte": "$f(x+h) = (x+h)^2 = x^2 + 2xh + h^2$, donc $f(x+h) - f(x) = 2xh + h^2$."
+          },
+          {
+            "titre": "Étape 3 — On factorise par $h$",
+            "texte": "$\\dfrac{f(x+h) - f(x)}{h} = \\dfrac{2xh + h^2}{h} = 2x + h$ (on peut diviser par $h$ car on étudie le cas $h \\neq 0$)."
+          },
+          {
+            "titre": "Étape 4 — On fait tendre $h$ vers $0$",
+            "texte": "Quand $h$ se rapproche de $0$, l'expression $2x + h$ se rapproche de $2x$. Le nombre dérivé de $f$ en $x$ est donc $2x$, pour n'importe quel $x$ : c'est exactement la règle $(x^2)' = 2x$ (cas particulier de $(x^n)'=nx^{n-1}$ avec $n=2$)."
+          }
+        ],
+        "conclusion": "Cette même méthode (développer, factoriser par $h$, faire tendre $h$ vers $0$) permet de retrouver la règle générale $(x^n)' = nx^{n-1}$ pour tout entier $n$."
+      }
+    },
+    {
+      "id": "nombre-derive.-tangente",
+      "title": "Nombre dérivé. Tangente",
+      "schemaVersion": 2,
+      "intro": "Avant de disposer d'une fonction dérivée toute faite, il faut comprendre d'où elle vient : le nombre dérivé mesure à quelle vitesse une fonction varie en un point précis, et la tangente est la droite qui « colle » le mieux à la courbe en ce point. C'est la notion fondatrice de toute la dérivation.",
+      "objectif": "À la fin de ce cours, tu sauras exprimer le taux de variation $\\dfrac{f(x_0+h)-f(x_0)}{h}$ d'une fonction en un point $x_0$, en déduire le nombre dérivé $f'(x_0)$ en faisant tendre $h$ vers $0$, et utiliser ce résultat pour déterminer une équation de la tangente à la courbe de $f$ au point d'abscisse $x_0$ avec la formule $y = f'(x_0)(x-x_0)+f(x_0)$.",
+      "definition": "Développer $f(x_0+h)-f(x_0)$, factoriser par $h$, puis faire tendre $h$ vers $0$.",
+      "definitions": {
+        "lycee": "Développer $f(x_0+h)-f(x_0)$, factoriser par $h$, puis faire tendre $h$ vers $0$.",
+        "college": "Utiliser $y = f'(x_0)(x-x_0)+f(x_0)$."
+      },
+      "reglesImportantes": [
+        "Utiliser $y = f'(x_0)(x-x_0)+f(x_0)$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Nombre dérivé. Tangente",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : $f(-4+h) = -2(-4+h)^2 +1(-4+h) +3$, à développer."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Après développement et simplification, $\\dfrac{f(-4+h)-f(-4)}{h} = 17 + -2h$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : Quand $h$ tend vers $0$, ce taux de variation tend vers $17$, donc $f'(-4) = 17$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-531",
+          "titre": "Exemple 1",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = -2x^2 + x + 3$. Exprimer le taux de variation $\\dfrac{f(-4+h)-f(-4)}{h}$ en fonction de $h$ (pour $h \\neq 0$), puis en déduire le nombre dérivé $f'(-4)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $f(-4+h) = -2(-4+h)^2 +1(-4+h) +3$, à développer."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Après développement et simplification, $\\dfrac{f(-4+h)-f(-4)}{h} = 17 + -2h$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Quand $h$ tend vers $0$, ce taux de variation tend vers $17$, donc $f'(-4) = 17$."
+            }
+          ],
+          "reponse": "$f'(-4) = 17$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-543",
+          "titre": "Exemple 2",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = -3x^2 - 3x$. Exprimer le taux de variation $\\dfrac{f(0+h)-f(0)}{h}$ en fonction de $h$ (pour $h \\neq 0$), puis en déduire le nombre dérivé $f'(0)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $f(0+h) = -3(0+h)^2 -3(0+h) +0$, à développer."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Après développement et simplification, $\\dfrac{f(0+h)-f(0)}{h} = -3 + -3h$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Quand $h$ tend vers $0$, ce taux de variation tend vers $-3$, donc $f'(0) = -3$."
+            }
+          ],
+          "reponse": "$f'(0) = -3$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-555",
+          "titre": "Exemple 3",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = x^2 + 6x - 2$. Déterminer une équation de la tangente à la courbe représentative de $f$ au point d'abscisse $x_0 = -5$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $f'(x) = 2x + 6$, donc $f'(-5) = -4$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $f(-5) = -7$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : La tangente a pour équation $y = f'(-5)(x+5) + f(-5)$, soit $y = -4x - 27$."
+            }
+          ],
+          "reponse": "$y = -4x - 27$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-567",
+          "titre": "Exemple 4",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 4x^2 + x - 5$. Exprimer le taux de variation $\\dfrac{f(-5+h)-f(-5)}{h}$ en fonction de $h$ (pour $h \\neq 0$), puis en déduire le nombre dérivé $f'(-5)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $f(-5+h) = 4(-5+h)^2 +1(-5+h) -5$, à développer."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Après développement et simplification, $\\dfrac{f(-5+h)-f(-5)}{h} = -39 + 4h$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Quand $h$ tend vers $0$, ce taux de variation tend vers $-39$, donc $f'(-5) = -39$."
+            }
+          ],
+          "reponse": "$f'(-5) = -39$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de factoriser par $h$ avant de faire tendre $h$ vers $0$, ce qui mène à une forme $\\dfrac{0}{0}$ bloquante.",
+        "Confondre le nombre dérivé $f'(x_0)$ (un nombre) avec la fonction dérivée $f'$ (une fonction).",
+        "Se tromper de point dans l'équation de la tangente $y=f'(x_0)(x-x_0)+f(x_0)$, en utilisant $x$ à la place de $x_0$ dans les coefficients."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de factoriser par $h$ avant de faire tendre $h$ vers $0$, ce qui mène à une forme $\\dfrac{0}{0}$ bloquante.",
+          "pourquoi": "Sans factorisation, le numérateur et le dénominateur tendent tous les deux vers $0$ : la limite ne peut pas être lue directement, il faut d'abord simplifier l'écriture.",
+          "comment_detecter": "Si l'expression contient encore un $h$ au dénominateur juste avant de conclure, l'étape de factorisation a été sautée.",
+          "comment_eviter": "Développe systématiquement $f(x_0+h)-f(x_0)$, factorise ensuite le résultat par $h$, et seulement après simplifie la fraction."
+        },
+        {
+          "description": "Confondre le nombre dérivé $f'(x_0)$ (un nombre) avec la fonction dérivée $f'$ (une fonction).",
+          "pourquoi": "$f'(x_0)$ est le résultat d'un calcul en un point précis, c'est une valeur numérique fixe ; $f'$ tout court désigne la fonction qui associe à chaque $x$ son nombre dérivé.",
+          "comment_detecter": "Si la réponse contient encore la lettre $x$ alors que la question demandait $f'(x_0)$ pour un $x_0$ donné, il y a confusion.",
+          "comment_eviter": "Remplace toujours $x_0$ par sa valeur numérique dès que possible dans le calcul du nombre dérivé."
+        },
+        {
+          "description": "Se tromper de point dans l'équation de la tangente $y=f'(x_0)(x-x_0)+f(x_0)$, en utilisant $x$ à la place de $x_0$ dans les coefficients.",
+          "pourquoi": "Dans l'équation de la tangente, $x$ est la variable de la droite (elle reste une lettre), alors que $x_0$, $f(x_0)$ et $f'(x_0)$ sont des nombres déjà calculés, propres au point choisi.",
+          "comment_detecter": "Si l'équation finale contient encore le symbole $x_0$ non remplacé par sa valeur, le calcul est incomplet.",
+          "comment_eviter": "Calcule d'abord $f(x_0)$ et $f'(x_0)$ comme deux nombres, puis remplace-les dans $y=f'(x_0)(x-x_0)+f(x_0)$ en ne laissant que $x$ comme lettre."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser $y = f'(x_0)(x-x_0)+f(x_0)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3.5,
+          -1.5,
+          9,
+          9.5
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -3.0,
+                2.7
+              ],
+              [
+                -2.5,
+                1.875
+              ],
+              [
+                -2.0,
+                1.2
+              ],
+              [
+                -1.5,
+                0.675
+              ],
+              [
+                -1.0,
+                0.3
+              ],
+              [
+                -0.5,
+                0.075
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.075
+              ],
+              [
+                1.0,
+                0.3
+              ],
+              [
+                1.5,
+                0.675
+              ],
+              [
+                2.0,
+                1.2
+              ],
+              [
+                2.5,
+                1.875
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                3.675
+              ],
+              [
+                4.0,
+                4.8
+              ],
+              [
+                4.5,
+                6.075
+              ],
+              [
+                5.0,
+                7.5
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 1.2,
+            "label": "point choisi",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": -1.2
+            },
+            "to": {
+              "x": 4,
+              "y": 3.6
+            },
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "La tangente : sa pente est le nombre dérivé en ce point"
+          }
+        ],
+        "steps": [
+          "La courbe de f",
+          "Le point où l'on regarde la pente",
+          "La tangente : sa pente est f'(x)"
+        ],
+        "relation": "\\text{pente de la tangente} = f'(x)",
+        "alt": "La tangente à la courbe au point choisi a pour pente le nombre dérivé de f en ce point.",
+        "emphasis": true
+      },
+      "quizExerciseIds": [
+        532,
+        533,
+        534
+      ],
+      "topic_id": "nombre-derive.-tangente",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Nombre dérivé. Tangente."
+      ],
+      "prerequis": [
+        "Calculer l'image d'une expression littérale (développer $f(x_0+h)$)",
+        "Équation réduite d'une droite $y = ax + b$"
+      ],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "nombre",
+        "derive",
+        "tangente"
+      ],
+      "explicationSimple": "Le taux de variation $\\dfrac{f(x_0+h)-f(x_0)}{h}$ mesure la pente moyenne de la courbe entre les points d'abscisses $x_0$ et $x_0+h$. Plus $h$ est petit, plus cette pente moyenne se rapproche de la pente réelle de la courbe exactement en $x_0$. Le nombre dérivé $f'(x_0)$ est la limite de ce taux quand $h$ tend vers $0$.",
+      "intuition": "Imagine que tu zoomes de plus en plus près sur la courbe autour du point d'abscisse $x_0$ : à force de zoomer, la courbe finit par ressembler à une droite. Cette droite limite, c'est la tangente, et sa pente est précisément le nombre dérivé $f'(x_0)$."
+    },
+    {
+      "id": "operations-et-derivation",
+      "title": "Opérations et dérivation",
+      "schemaVersion": 2,
+      "intro": "Une fonction est rarement un simple polynôme : elle peut être un produit ou un quotient de deux fonctions plus simples. Il est impossible de dériver un produit ou un quotient « terme à terme » comme pour une somme — il faut des règles de calcul spécifiques, qui permettent de dériver n'importe quelle combinaison de fonctions déjà connues.",
+      "objectif": "À la fin de ce cours, tu sauras dériver un produit de deux fonctions avec la formule $(uv)' = u'v + uv'$ et un quotient avec $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$, puis développer et réduire le résultat obtenu, en distinguant ces règles de la dérivation terme à terme valable uniquement pour une somme.",
+      "definition": "Utiliser $(uv)' = u'v + uv'$ puis développer et réduire.",
+      "definitions": {
+        "lycee": "Utiliser $(uv)' = u'v + uv'$ puis développer et réduire.",
+        "college": "La dérivée d'une somme est la somme des dérivées."
+      },
+      "reglesImportantes": [
+        "Utiliser $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$ ; au numérateur, les termes en $x^2$ s'annulent toujours pour deux fonctions affines.",
+        "La dérivée d'une somme est la somme des dérivées."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Opérations et dérivation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On pose $u(x) = -x + 4$ et $v(x) = 5x - 2$, avec $u'(x) = -1$ et $v'(x) = 5$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : On applique la formule $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : Au numérateur : $u'v - uv' = -1\\times(5x - 2) - (-x + 4)\\times5 = -18$ (les termes en $x$ s'annulent)."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Étape 4 : Donc $f'(x) = \\dfrac{-18}{(5x - 2)^2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-649",
+          "titre": "Exemple 1",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R} \\setminus \\left\\{\\dfrac{2}{5}\\right\\}$ par $f(x) = \\dfrac{-x + 4}{5x - 2}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On pose $u(x) = -x + 4$ et $v(x) = 5x - 2$, avec $u'(x) = -1$ et $v'(x) = 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On applique la formule $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Au numérateur : $u'v - uv' = -1\\times(5x - 2) - (-x + 4)\\times5 = -18$ (les termes en $x$ s'annulent)."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : Donc $f'(x) = \\dfrac{-18}{(5x - 2)^2}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{-18}{(5x - 2)^2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-661",
+          "titre": "Exemple 2",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = (-2x^2 - 4x) + (4x + 1)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $(u+v)' = u'+v'$ avec $u(x)=-2x^2 - 4x$ et $v(x)=4x + 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u'(x) = -4x - 4$ et $v'(x) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = -4$."
+            }
+          ],
+          "reponse": "$f'(x) = -4$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-673",
+          "titre": "Exemple 3",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = (-2x)(-2x - 1)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On pose $u(x)=-2x$ et $v(x)=-2x - 1$, avec $u'(x)=-2$ et $v'(x)=-2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On applique la formule $(uv)' = u'v+uv'$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Après développement et réduction, $f'(x) = 8x + 2$."
+            }
+          ],
+          "reponse": "$f'(x) = 8x + 2$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-685",
+          "titre": "Exemple 4",
+          "enonce": "Calculer la dérivée de la fonction $f$ définie sur $\\mathbb{R} \\setminus \\left\\{-5\\right\\}$ par $f(x) = \\dfrac{-3x - 3}{x + 5}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On pose $u(x) = -3x - 3$ et $v(x) = x + 5$, avec $u'(x) = -3$ et $v'(x) = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On applique la formule $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Au numérateur : $u'v - uv' = -3\\times(x + 5) - (-3x - 3)\\times1 = -12$ (les termes en $x$ s'annulent)."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : Donc $f'(x) = \\dfrac{-12}{(x + 5)^2}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{-12}{(x + 5)^2}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Dériver un produit en calculant simplement $u' \\times v'$ au lieu de $u'v + uv'$.",
+        "Oublier le carré $v^2$ au dénominateur dans la règle du quotient $(u/v)' = \\dfrac{u'v-uv'}{v^2}$.",
+        "Inverser l'ordre de la soustraction au numérateur du quotient, en écrivant $uv' - u'v$ au lieu de $u'v - uv'$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Dériver un produit en calculant simplement $u' \\times v'$ au lieu de $u'v + uv'$.",
+          "pourquoi": "$u$ et $v$ varient toutes les deux simultanément quand $x$ varie : leur effet conjoint sur $uv$ ne se limite pas au produit de leurs dérivées.",
+          "comment_detecter": "Vérifie que le résultat contient bien DEUX termes ajoutés (un avec $u'$, un avec $v'$), jamais un seul produit $u' \\times v'$.",
+          "comment_eviter": "Mémorise la formule comme une phrase : « dérivée du premier fois le second, plus le premier fois dérivée du second »."
+        },
+        {
+          "description": "Oublier le carré $v^2$ au dénominateur dans la règle du quotient $(u/v)' = \\dfrac{u'v-uv'}{v^2}$.",
+          "pourquoi": "La formule du quotient provient de la combinaison de la règle du produit et de la dérivée de $1/v$ : le dénominateur $v^2$ n'est pas optionnel, il fait partie intégrante du résultat.",
+          "comment_detecter": "Si le dénominateur du résultat final est $v$ (au lieu de $v^2$), une étape a été oubliée.",
+          "comment_eviter": "Écris toujours la formule complète avant de remplacer $u$, $v$, $u'$, $v'$ par les expressions réelles de l'exercice."
+        },
+        {
+          "description": "Inverser l'ordre de la soustraction au numérateur du quotient, en écrivant $uv' - u'v$ au lieu de $u'v - uv'$.",
+          "pourquoi": "L'ordre des termes dans la soustraction n'est pas arbitraire : inverser $u'v$ et $uv'$ change le signe du résultat, donc change le sens de variation déduit.",
+          "comment_detecter": "Un résultat de signe opposé à celui attendu (ou incohérent avec un sens de variation déjà connu de la fonction) doit alerter.",
+          "comment_eviter": "Retiens l'ordre en associant toujours « dérivée du numérateur en premier » : $u'v$ avant $uv'$."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v-uv'}{v^2}$ ; au numérateur, les termes en $x^2$ s'annulent toujours pour deux fonctions affines.",
+        "La dérivée d'une somme est la somme des dérivées."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        650,
+        651,
+        652
+      ],
+      "topic_id": "operations-et-derivation",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Opérations et dérivation."
+      ],
+      "prerequis": [
+        "Fonction dérivée d'une somme et d'un polynôme (notion précédente de ce chapitre)",
+        "Réduire une expression algébrique après développement"
+      ],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "operations",
+        "derivation"
+      ],
+      "explicationSimple": "Pour un produit $u \\times v$, la dérivée n'est pas $u' \\times v'$ : il faut utiliser $(uv)' = u'v + uv'$, qui tient compte du fait que les deux facteurs varient en même temps. Pour un quotient $u/v$, on utilise de la même façon $(u/v)' = \\dfrac{u'v - uv'}{v^2}$.",
+      "intuition": "Si $u$ et $v$ varient toutes les deux en même temps, la variation totale du produit $uv$ vient de deux sources : la variation de $u$ (à $v$ fixé) plus la variation de $v$ (à $u$ fixé) — c'est exactement ce que traduit $u'v + uv'$.",
+      "demonstration": {
+        "titre": "Pourquoi $(uv)' = u'v + uv'$ ? — démonstration à partir du taux de variation",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On part du taux de variation du produit",
+            "texte": "Pour tout $x$ fixé, le nombre dérivé de $uv$ en $x$ est la limite, quand $h$ tend vers $0$, du taux de variation $\\dfrac{(uv)(x+h) - (uv)(x)}{h} = \\dfrac{u(x+h)v(x+h) - u(x)v(x)}{h}$."
+          },
+          {
+            "titre": "Étape 2 — On ajoute et on soustrait le même terme $u(x+h)v(x)$",
+            "texte": "$u(x+h)v(x+h) - u(x)v(x) = \\big[u(x+h)v(x+h) - u(x+h)v(x)\\big] + \\big[u(x+h)v(x) - u(x)v(x)\\big]$, ce qui ne change pas la valeur car on a ajouté puis retranché la même quantité $u(x+h)v(x)$."
+          },
+          {
+            "titre": "Étape 3 — On factorise chaque crochet",
+            "texte": "Le premier crochet se factorise par $u(x+h)$ et le second par $v(x)$ : $u(x+h)v(x+h) - u(x)v(x) = u(x+h)\\big[v(x+h)-v(x)\\big] + v(x)\\big[u(x+h)-u(x)\\big]$."
+          },
+          {
+            "titre": "Étape 4 — On divise par $h$",
+            "texte": "$\\dfrac{(uv)(x+h) - (uv)(x)}{h} = u(x+h)\\times\\dfrac{v(x+h)-v(x)}{h} + v(x)\\times\\dfrac{u(x+h)-u(x)}{h}$."
+          },
+          {
+            "titre": "Étape 5 — On fait tendre $h$ vers $0$",
+            "texte": "Comme $u$ est dérivable donc continue, $u(x+h) \\to u(x)$ ; de plus $\\dfrac{v(x+h)-v(x)}{h} \\to v'(x)$ et $\\dfrac{u(x+h)-u(x)}{h} \\to u'(x)$. La limite du taux de variation de $uv$ en $x$ est donc $u(x)v'(x) + v(x)u'(x)$."
+          }
+        ],
+        "conclusion": "On obtient ainsi $(uv)'(x) = u'(x)v(x) + u(x)v'(x)$, c'est-à-dire la formule $(uv)' = u'v + uv'$ utilisée dans la méthode de ce cours."
+      }
+    }
+  ]
+}

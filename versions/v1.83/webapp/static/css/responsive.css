@@ -1,0 +1,96 @@
+/* ==========================================================================
+   Responsive partagé — mobile first overrides pour app-shell et nav publique
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .main-content { padding: 28px 24px 64px; }
+}
+
+/* ── Sidebar → menu coulissant (drawer) sous 860px ──────────────────────── *
+   La sidebar sort du flux normal et se cache hors écran (transform), un
+   bouton hamburger fixe (injecté par sidebar.js) l'ouvre par-dessus le
+   contenu, avec un overlay pour la refermer au clic. Le mode "réduit"
+   desktop ne s'applique pas ici : en mobile la sidebar est soit fermée,
+   soit grande ouverte avec ses libellés. */
+@media (max-width: 860px) {
+  .app-shell { display: block; padding: 0; gap: 0; }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    max-width: 84vw;
+    height: 100vh;
+    flex-direction: column;
+    padding: 20px 16px;
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    transform: translateX(-100%);
+    opacity: 0.6;
+    transition: transform var(--transition-slow), opacity var(--transition-base), box-shadow var(--transition-base);
+    z-index: 1100;
+  }
+  .sidebar.is-open { transform: translateX(0); opacity: 1; box-shadow: 0 20px 50px -8px rgba(0, 0, 0, 0.35); }
+
+  /* Le rail (76px, icône + légende) n'a pas de sens dans le drawer mobile :
+     toujours déplié en pleine largeur avec libellés lisibles — le rail est
+     une contrainte desktop (barre fine toujours visible), le drawer mobile
+     reste un menu plein comme avant. */
+  .sidebar { width: 280px; padding-left: 16px; padding-right: 16px; }
+  .sidebar .brand-name,
+  .sidebar .sidebar-link span[data-i18n],
+  .sidebar .sidebar-user-info,
+  .sidebar .sidebar-version,
+  .sidebar #guest-header-badge { display: block; }
+  .sidebar .sidebar-user-info { display: flex; }
+  .sidebar .sidebar-link {
+    flex-direction: row; justify-content: flex-start; align-items: center;
+    gap: 12px; padding: 11px 14px; width: auto;
+  }
+  .sidebar .sidebar-link span[data-i18n] {
+    font-size: 0.85rem; font-weight: 500; text-transform: none; letter-spacing: normal; text-align: left;
+  }
+  .sidebar .sidebar-user { justify-content: flex-start; gap: 10px; padding: 10px; }
+  .sidebar .brand { justify-content: flex-start; }
+  .sidebar .sidebar-toggle-group { justify-content: flex-start; align-self: stretch; }
+  .sidebar .sidebar-link-lock { display: flex; position: static; margin-left: auto; width: 18px; height: 18px; }
+
+  .sidebar .sidebar-class-badge {
+    padding: 6px 14px 6px 6px;
+    gap: 9px;
+    justify-content: flex-start;
+  }
+  .sidebar .sidebar-class-badge .class-badge-label,
+  .sidebar .sidebar-class-badge .class-badge-chevron { display: block; }
+  .sidebar .sidebar-class-badge .class-badge-chevron { display: inline-flex; }
+  .sidebar-nav { flex-direction: column; margin-top: 26px; overflow-x: visible; align-items: stretch; }
+
+  .sidebar-mobile-trigger { display: flex; position: fixed; top: 14px; left: 16px; z-index: 1080; }
+  body.sidebar-drawer-open .sidebar-overlay { display: block; opacity: 1; pointer-events: auto; }
+  body.sidebar-drawer-open { overflow: hidden; }
+
+  .main-content { padding-top: 76px; }
+}
+
+@media (max-width: 640px) {
+  .topnav { padding: 14px 16px; }
+  .hero { padding: 64px 16px 56px; }
+  .section { padding: 56px 16px; }
+  /* padding-top: 76px (pas 20px) — même respiration que le breakpoint 860px
+     ci-dessus : ce raccourci écrasait sinon la réservation d'espace sous le
+     bouton hamburger fixe (.sidebar-mobile-trigger), qui chevauchait le H1
+     de chaque page sous 640px (bug confirmé par mesure DOM). */
+  .main-content { padding: 76px 16px 56px; }
+  .nav-actions { gap: 8px; }
+}
+
+/* ── Topnav public (landing, choisir-classe) sous 480px : badge + logo +
+   bascule thème + 2 boutons ne tiennent plus sur une ligne — le groupe
+   d'actions passe sous le reste plutôt que de déborder ou de tronquer les
+   libellés des boutons (audit responsive landing). ─────────────────────── */
+@media (max-width: 480px) {
+  .topnav { flex-wrap: wrap; row-gap: 10px; }
+  .nav-actions { flex: 1 1 100%; justify-content: flex-end; }
+}

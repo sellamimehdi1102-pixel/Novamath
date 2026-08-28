@@ -101,7 +101,17 @@ def get_billing_status(user):
         subscription_id = user.get("stripe_subscription_id")
         if subscription_id:
             subscription = stripe_service.get_subscription(subscription_id)
-            status["renew_at"] = subscription.get("current_period_end")
+            # current_period_end n'est plus exposé au niveau de la Subscription
+            # depuis l'API Stripe "Basil" (2025-03-31, support de plusieurs
+            # lignes de facturation par abonnement) — vérifié par un appel réel
+            # (le champ renvoie toujours None au niveau racine désormais) : il
+            # ne vit plus que sur chaque ligne d'abonnement
+            # (subscription["items"]["data"][i]["current_period_end"]).
+            # NovaMath n'a jamais qu'une seule ligne par abonnement (Premium OU
+            # Ultra, jamais les deux), donc la première ligne fait foi.
+            items_data = subscription.get("items", {}).get("data") or []
+            if items_data:
+                status["renew_at"] = items_data[0].get("current_period_end")
             if subscription.get("cancel_at_period_end"):
                 status["cancel_at"] = subscription.get("cancel_at")
     except stripe.error.StripeError as e:

@@ -1,0 +1,114 @@
+===== Chapitre_6 Vecteur directeur d'une droite (n=40)
+enonce: La droite D passe par A(1, 2) et B(4, 6). Donner un vecteur directeur de D.
+answer: $\vec{AB}$ = (3, 4) (ou tout vecteur colinéaire)
+hint: Un vecteur directeur d'une droite est un vecteur non nul qui est parallèle à cette droite.
+steps: ["Calculer $\\vec{AB}$ = (4−1, 6−2) = (3, 4).", "$\\vec{AB}$ est un vecteur directeur de D car il est porté par D.", "Tout vecteur k×(3,4) avec k≠0 est aussi un vecteur directeur (ex : (6,8) ou (−3,−4))."]
+difficulty: 2
+
+enonce: La droite D a pour équation y = 3x − 5. Donner un vecteur directeur et un vecteur normal à D.
+answer: Vecteur directeur : (1, 3). Vecteur normal : (3, −1).
+hint: Pour y = ax + b, un vecteur directeur est (1, a) et un vecteur normal est (a, −1).
+steps: ["La droite a un coefficient directeur a = 3.", "Vecteur directeur : $\\vec{d}$ = (1, 3) (pour un déplacement de 1 en x, on monte de 3 en y).", "Vecteur normal : $\\vec{n}$ perpendiculaire à $\\vec{d}$. On vérifie : (1,3)·(3,−1) = 3−3 = 0 ✓.", "Donc vecteur normal : $\\vec{n}$ = (3, −1)."]
+difficulty: 4
+
+enonce: D1 passe par A(2, 1) et B(5, 7). D2 passe par C(1, 3) et D(3, 7). Ces deux droites sont-elles parallèles ? Sont-elles confondues ?
+answer: D1 et D2 sont parallèles et distinctes.
+hint: Calculez les vecteurs directeurs de D1 et D2. Si ils sont colinéaires, les droites sont parallèles ou confondues. Vérifiez ensuite si un point de D1 appartient à D2.
+steps: ["Vecteur directeur de D1 : $\\vec{AB}$ = (3, 6), direction (1, 2).", "Vecteur directeur de D2 : $\\vec{CD}$ = (2, 4), direction (1, 2).", "det((1,2),(1,2)) = 0 : les vecteurs sont colinéaires → D1 // D2 (ou confondues).", "Tester si A(2,1) ∈ D2 : $\\vec{AC}$ = (−1, 2), det($\\vec{AC}$, $\\vec{CD}$) = (−1)(4)−(2)(2) = −8 ≠ 0.", "A ∉ D2, donc D1 et D2 sont parallèles et distinctes."]
+difficulty: 5
+
+===== Chapitre_6 Equation réduite d'une droite (n=40)
+enonce: Mettre l'équation 4x − 2y + 8 = 0 sous forme réduite y = ax + b.
+answer: y = 2x + 4
+hint: Isolez y en déplaçant tous les autres termes de l'autre côté, puis divisez.
+steps: ["4x − 2y + 8 = 0 → −2y = −4x − 8.", "Diviser par −2 : y = 2x + 4.", "Vérification : 4(1) − 2(6) + 8 = 4−12+8 = 0 ✓ (point (1,6) sur la droite)."]
+difficulty: 1
+
+enonce: Déterminer l'équation réduite de la droite passant par A(1, 3) et B(−2, 9).
+answer: y = −2x + 5
+hint: Calculez d'abord le coefficient directeur a = (yB − yA)/(xB − xA), puis trouvez b avec les coordonnées d'un point.
+steps: ["Coefficient directeur : a = (9−3)/(−2−1) = 6/(−3) = −2.", "Equation : y − 3 = −2(x − 1) → y = −2x + 2 + 3 → y = −2x + 5.", "Vérification avec B(−2, 9) : y = −2(−2)+5 = 4+5 = 9 ✓."]
+difficulty: 4
+
+enonce: La droite D1 a pour équation y = (2/3)x − 1. Trouver l'équation réduite de la droite D2 parallèle à D1 et passant par C(3, 2).
+answer: y = (2/3)x
+hint: Deux droites parallèles ont le même coefficient directeur. Trouvez l'ordonnée à l'origine en utilisant les coordonnées de C.
+steps: ["D2 // D1 → même coefficient directeur : a = 2/3.", "Equation de D2 : y = (2/3)x + b.", "C(3, 2) ∈ D2 : 2 = (2/3)(3) + b = 2 + b → b = 0.", "Equation : y = (2/3)x.", "Vérification : C(3,2) : y = (2/3)(3) = 2 ✓. Parallèle à D1 : même pente 2/3 ✓."]
+difficulty: 5
+
+===== Chapitre_6 Positions relatives de deux droites (n=40)
+enonce: Les droites D1 : y = 2x + 1 et D2 : y = 2x − 3 sont-elles parallèles, sécantes ou confondues ?
+answer: D1 et D2 sont parallèles (et distinctes).
+hint: Comparez les coefficients directeurs et les ordonnées à l'origine.
+steps: ["D1 a un coefficient directeur a1 = 2 et une ordonnée à l'origine b1 = 1.", "D2 a un coefficient directeur a2 = 2 et une ordonnée à l'origine b2 = −3.", "a1 = a2 et b1 ≠ b2 → D1 et D2 sont parallèles et distinctes."]
+difficulty: 1
+
+enonce: Les droites D1 : 2x + 3y − 6 = 0 et D2 : x − y + 1 = 0 se coupent-elles ? Si oui, trouver le point d'intersection.
+answer: Oui, le point d'intersection est (3/5, 8/5).
+hint: Résolvez le système formé par les deux équations.
+steps: ["Système : { 2x + 3y = 6 et x − y = −1 }.", "De D2 : x = y − 1. Substitution dans D1 : 2(y−1) + 3y = 6 → 5y = 8 → y = 8/5.", "x = 8/5 − 1 = 3/5. Point d'intersection : (3/5, 8/5).", "Vérification : D1 : 2(3/5)+3(8/5) = 6/5+24/5 = 30/5 = 6 ✓. D2 : 3/5−8/5+1 = 0 ✓."]
+difficulty: 3
+
+enonce: Les droites D1 : y = −x + 5, D2 : y = 2x − 1 et D3 : y = x + 2 sont-elles concourantes (ont-elles un point commun) ?
+answer: Non, les trois droites ne sont pas concourantes.
+hint: Trouvez d'abord l'intersection de D1 et D2, puis vérifiez si ce point appartient à D3.
+steps: ["Intersection D1 ∩ D2 : −x+5 = 2x−1 → 3x = 6 → x = 2, y = 3. Point : (2, 3).", "Vérifier si (2,3) ∈ D3 : y = 2+2 = 4 ≠ 3.", "Le point d'intersection de D1 et D2 n'appartient pas à D3.", "Les trois droites ne sont pas concourantes."]
+difficulty: 4
+
+===== Chapitre_6 Equation cartésienne d'une droite (n=41)
+enonce: Déterminer l'équation cartésienne de la droite D passant par A(2, 3) et B(5, 9).
+answer: 2x − y − 1 = 0
+hint: Calculez le vecteur directeur $\vec{AB}$, puis déduisez un vecteur normal (perpendiculaire). L'équation est ax + by + c = 0 où (a,b) est le vecteur normal.
+steps: ["Calculer $\\vec{AB}$ = (3, 6). Un vecteur normal est (6, −3), simplifié en (2, −1).", "Equation de la forme 2x − y + c = 0. Substituer A(2,3) : 2(2)−3+c = 0 → c = −1.", "Equation : 2x − y − 1 = 0.", "Vérification avec B(5,9) : 2(5)−9−1 = 10−10 = 0 ✓."]
+difficulty: 2
+
+enonce: La droite D a pour équation 3x + 2y − 12 = 0. Déterminer ses intersections avec les axes du repère.
+answer: Intersection avec l'axe des x : (4, 0). Intersection avec l'axe des y : (0, 6).
+hint: Pour l'intersection avec l'axe des x, posez y = 0. Pour l'intersection avec l'axe des y, posez x = 0.
+steps: ["Intersection avec l'axe des x (y = 0) : 3x − 12 = 0 → x = 4. Point : (4, 0).", "Intersection avec l'axe des y (x = 0) : 2y − 12 = 0 → y = 6. Point : (0, 6).", "Vérification : 3(4)+2(0)−12 = 0 ✓ et 3(0)+2(6)−12 = 0 ✓."]
+difficulty: 3
+
+enonce: Déterminer l'équation cartésienne de la droite D' passant par A(−1, 2) et perpendiculaire à la droite D : 3x − y + 2 = 0.
+answer: x + 3y − 5 = 0
+hint: D a pour vecteur directeur (1, 3). Une droite perpendiculaire à D a pour vecteur directeur le vecteur normal de D, c'est-à-dire (3, −1).
+steps: ["D : 3x − y + 2 = 0 a pour vecteur normal $\\vec{n}$ = (3, −1) et vecteur directeur $\\vec{d}$ = (1, 3).", "D' ⊥ D donc D' a pour vecteur directeur (3, −1) (le vecteur normal de D).", "Vecteur normal de D' : (1, 3) (rotation de (3,−1) de 90°, vérif : (3,−1)·(1,3) = 3−3 = 0 ✓).", "Equation de D' : 1(x−(−1)) + 3(y−2) = 0 → x+1+3y−6 = 0 → x+3y−5 = 0.", "Vérification : A(−1,2) : −1+6−5 = 0 ✓. Perp. à D : (1,3)·(3,−1) = 3−3 = 0 ✓."]
+difficulty: 5
+
+===== Chapitre_9 Inéquations (n=40)
+enonce: Résoudre l'inéquation suivante : 2x + 1 > 7.
+answer: x > 3, soit x ∈ ]3 ; +∞[.
+hint: Isolez x en soustrayant 1 à chaque membre, puis divisez par 2. Le sens de l'inégalité ne change pas car on divise par un nombre positif.
+steps: ["Soustraire 1 à chaque membre : 2x + 1 - 1 > 7 - 1.", "Simplifier : 2x > 6.", "Diviser chaque membre par 2 (nombre positif, le sens ne change pas) : x > 3.", "L'ensemble solution est ]3 ; +∞[."]
+difficulty: 1
+
+enonce: Résoudre l'inéquation suivante pour x : 2x + 7 ≥ 19
+answer: x ≥ 6
+hint: Pour résoudre une inéquation du type ax + b ≥ c, on isole x en soustrayant b des deux membres, puis en divisant par a (sans changer le sens si a > 0).
+steps: ["Soustraire 7 des deux membres de l'inéquation - 2x + 7 - 7 ≥ 19 - 7 - 2x ≥ 12", "Diviser les deux membres par 2 (le coefficient de x) - 2x / 2 ≥ 12 / 2 - x ≥ 6"]
+difficulty: 2
+
+enonce: Résoudre l'inégalité suivante : 3x - 7 > 2x + 11 et donner la solution sur les nombres réels.
+answer: x > 18
+hint: Rassemblez les termes en x d'un côté et les constantes de l'autre en ajoutant ou soustrayant les mêmes quantités des deux membres.
+steps: ["3x - 7 > 2x + 11", "Soustraire 2x de chaque côté : 3x - 2x - 7 > 11", "Simplification : x - 7 > 11", "Ajouter 7 de chaque côté : x > 11 + 7", "Résultat : x > 18"]
+difficulty: 5
+
+===== Chapitre_9 Signe d'un produit ou d'un quotient (n=41)
+enonce: Déterminer le signe du produit (x - 1)(x + 4) pour x = -5, x = -2, x = 0 et x = 2.
+answer: (x-1)(x+4) > 0 pour x = -5 et x = 2 ; (x-1)(x+4) < 0 pour x = -2 et x = 0.
+hint: Calculez la valeur de chaque facteur séparément, puis multipliez leurs signes : (-) × (-) = (+) et (-) × (+) = (-).
+steps: ["Pour x = -5 : (x-1) = -6 < 0 et (x+4) = -1 < 0. Produit = (-6)×(-1) = 6 > 0.", "Pour x = -2 : (x-1) = -3 < 0 et (x+4) = 2 > 0. Produit = (-3)×(2) = -6 < 0.", "Pour x = 0 : (x-1) = -1 < 0 et (x+4) = 4 > 0. Produit = (-1)×(4) = -4 < 0.", "Pour x = 2 : (x-1) = 1 > 0 et (x+4) = 6 > 0. Produit = (1)×(6) = 6 > 0.", "Conclusion : le produit est positif pour x = -5 et x = 2, négatif pour x = -2 et x = 0."]
+difficulty: 2
+
+enonce: Calculer le signe du produit et du quotient suivants : 1) (-4) × (-7) 2) (-3) / 5
+answer: 1 : Le produit (-4) × (-7) = 28 est positif (deux facteurs négatifs). ; 2 : Le quotient (-3) / 5 = -3/5 est négatif (un numérateur négatif et un dénominateur positif).
+hint: 1 : Le produit de deux nombres de même signe est positif. Ici les deux facteurs sont négatifs, donc le produit est positif. 2 : Le quotient d'un nombre négatif par un nombre positif est négatif.
+steps: ["1 : Écrire le produit : (-4) × (-7) ; Les deux facteurs sont négatifs, donc leur produit est positif. ; Résultat : (-4) × (-7) = 28 > 0.", "2 : Écrire le quotient : (-3) / 5 ; Le numérateur est négatif et le dénominateur est positif, donc le quotient est négatif. ; Résultat : (-3) / 5 = -3/5 < 0."]
+difficulty: 4
+
+enonce: Calculer le signe du produit et du quotient suivants : 1) (-3) × (-7) 2) (-6) / 2
+answer: produit : + ; quotient : -
+hint: Pour le produit : le produit de deux nombres négatifs est positif. Pour le quotient : le quotient d'un nombre négatif par un nombre positif est négatif.
+steps: ["produit : Les deux facteurs (-3) et (-7) sont négatifs, donc leur produit est positif : (-3) × (-7) = 21 > 0.", "quotient : Le numérateur (-6) est négatif et le dénominateur (2) est positif, donc le quotient est négatif : (-6) / 2 = -3 < 0."]
+difficulty: 4
+

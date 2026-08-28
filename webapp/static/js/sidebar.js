@@ -1,38 +1,20 @@
-// ── Sidebar rétractable + drawer mobile ─────────────────────────────────────
-// Comportement partagé par toutes les pages avec .app-shell : bouton de
-// réduction (icônes seules + tooltips) en desktop, menu coulissant en
-// mobile. Injecté en JS plutôt que dupliqué en HTML dans les 5 pages, pour
-// n'avoir qu'un seul endroit à maintenir. Préférence persistée dans
-// localStorage (clé dédiée, lue en synchrone au chargement — pas d'attente
-// réseau, pas de flash de mise en page).
+// ── Rail de navigation + drawer mobile ──────────────────────────────────────
+// Comportement partagé par toutes les pages avec .app-shell : bande fixe
+// icônes + légende (V3 "Carnet" — un seul état, plus de bascule réduit/
+// déplié) en desktop, menu coulissant plein en mobile. Injecté en JS plutôt
+// que dupliqué en HTML dans les 7 pages, pour n'avoir qu'un seul endroit à
+// maintenir.
 import { ICONS } from "./icons.js";
 import { initClassBadge } from "./curriculumSelector.js";
 import { initScrollReveal } from "./scroll-reveal.js";
 import { api } from "./api.js";
-import { PAGE_FEATURE_REQUIREMENTS, featureLabel, requiredPlanFor, planMeetsRequirement } from "./features.js";
+import { PAGE_FEATURE_REQUIREMENTS, featureLabel, hasFeature } from "./features.js";
+import { initOwnerTestPanel } from "./owner-test-panel.js";
 
-const STORAGE_KEY = "novamath:sidebarCollapsed";
 const MOBILE_BREAKPOINT = 860;
 
 function isMobile() {
   return window.innerWidth <= MOBILE_BREAKPOINT;
-}
-
-function setCollapsed(sidebar, btn, collapsed) {
-  sidebar.classList.toggle("is-collapsed", collapsed);
-  btn.setAttribute("aria-expanded", String(!collapsed));
-  btn.setAttribute("aria-label", collapsed ? "Développer la barre latérale" : "Réduire la barre latérale");
-  localStorage.setItem(STORAGE_KEY, collapsed ? "1" : "0");
-}
-
-function buildCollapseBtn() {
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.id = "sidebar-collapse-btn";
-  btn.className = "sidebar-collapse-btn";
-  btn.setAttribute("aria-label", "Réduire la barre latérale");
-  btn.innerHTML = ICONS.chevronsLeft;
-  return btn;
 }
 
 function buildMobileTrigger() {
@@ -45,9 +27,9 @@ function buildMobileTrigger() {
   return btn;
 }
 
-// Badge "classe actuelle", injecté ici plutôt que dupliqué dans le HTML des 6
-// pages à sidebar (même logique que le bouton de réduction ci-dessus) —
-// même composant que index.html, câblé via curriculumSelector.js::initClassBadge.
+// Badge "classe actuelle", injecté ici plutôt que dupliqué dans le HTML des 7
+// pages à sidebar — même composant que index.html, câblé via
+// curriculumSelector.js::initClassBadge.
 function buildClassBadge() {
   const btn = document.createElement("button");
   btn.type = "button";
@@ -61,6 +43,35 @@ function buildClassBadge() {
     <span class="class-badge-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></span>
   `;
   return btn;
+}
+
+// Entrée "Administration" du menu utilisateur (sidebar-bottom) — masquée par
+// défaut, révélée uniquement si /api/auth/me::can_access_admin est vrai (voir
+// applyAdminMenuEntry ci-dessous). Jamais de comparaison de rôle ici : le
+// backend (auth.py::_public_user) est la seule source de vérité, et chaque
+// route /admin reste de toute façon protégée par @requires_role côté serveur.
+function buildAdminLink() {
+  const link = document.createElement("a");
+  link.href = "/admin";
+  link.id = "sidebar-admin-link";
+  link.className = "sidebar-settings-btn";
+  link.setAttribute("aria-label", "Administration");
+  link.setAttribute("data-tooltip", "Administration");
+  link.hidden = true;
+  link.innerHTML = `${ICONS.shield}<span>Administrateur</span>`;
+  return link;
+}
+
+async function applyAdminMenuEntry(sidebar) {
+  const adminLink = sidebar.querySelector("#sidebar-admin-link");
+  if (!adminLink) return;
+  let user;
+  try {
+    ({ user } = await api.me());
+  } catch {
+    return; // Session expirée ou invité non résolu : reste masqué par défaut.
+  }
+  adminLink.hidden = !user?.can_access_admin;
 }
 
 function buildOverlay() {
@@ -137,13 +148,11 @@ async function applyFeatureLocks(sidebar) {
   } catch {
     return; // Session expirée ou invité non résolu : pas de verrouillage à l'aveugle.
   }
-  const plan = user?.plan || "free";
-
   sidebar.querySelectorAll(".sidebar-link[href]").forEach((link) => {
     const page = pageFromHref(link.getAttribute("href"));
     const featureValue = PAGE_FEATURE_REQUIREMENTS[page];
     if (!featureValue) return;
-    if (planMeetsRequirement(plan, requiredPlanFor(featureValue))) return;
+    if (hasFeature(user, featureValue)) return;
     lockLink(link, featureValue);
   });
 }
@@ -153,22 +162,21 @@ function init() {
   if (!sidebar) return;
 
   const brand = sidebar.querySelector(".brand");
-  const collapseBtn = buildCollapseBtn();
-  (brand || sidebar).insertAdjacentElement(brand ? "afterend" : "afterbegin", collapseBtn);
-
   const classBadge = buildClassBadge();
   (brand || sidebar).insertAdjacentElement(brand ? "afterend" : "afterbegin", classBadge);
   initClassBadge(classBadge);
 
-  if (!isMobile()) {
-    setCollapsed(sidebar, collapseBtn, localStorage.getItem(STORAGE_KEY) === "1");
+  const settingsBtn = sidebar.querySelector("#settings-btn");
+  const sidebarBottom = settingsBtn?.closest(".sidebar-bottom");
+  if (sidebarBottom && settingsBtn) {
+    const adminLink = buildAdminLink();
+    sidebarBottom.insertBefore(adminLink, settingsBtn);
+    applyAdminMenuEntry(sidebar);
   }
-  collapseBtn.addEventListener("click", () => {
-    setCollapsed(sidebar, collapseBtn, !sidebar.classList.contains("is-collapsed"));
-  });
 
   wireTooltips(sidebar);
   applyFeatureLocks(sidebar);
+  initOwnerTestPanel();
 
   const mobileTrigger = buildMobileTrigger();
   const overlay = buildOverlay();

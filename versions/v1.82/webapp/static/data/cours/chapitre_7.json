@@ -1,0 +1,1318 @@
+{
+  "chapterId": "Chapitre_7",
+  "title": "Généralités sur les fonctions, fonctions de référence",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "notion-de-fonction",
+      "title": "Qu'est-ce qu'une fonction",
+      "intro": "Aujourd'hui, nous allons apprendre : qu'est-ce qu'une fonction.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une image et trouver un antécédent.",
+      "definition": "Une fonction $f$ transforme un nombre $x$ en un autre nombre $f(x)$, appelé son image. Un nombre $x$ tel que $f(x)=y$ s'appelle un antécédent de $y$.",
+      "reglesImportantes": [
+        "Un nombre a toujours UNE seule image.",
+        "Un nombre peut avoir zéro, un, ou plusieurs antécédents.",
+        "Calculer une image : direct. Trouver un antécédent : il faut résoudre une équation."
+      ],
+      "methode": {
+        "titre": "Comment calculer une image",
+        "etapes": [
+          {
+            "icone": "target",
+            "couleur": "blue",
+            "texte": "Prends la valeur de $x$ donnée."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Remplace $x$ par cette valeur dans l'expression de $f(x)$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Calcule le résultat."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "target",
+              "couleur": "blue",
+              "texte": "Prends la valeur de $x$ donnée."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Remplace $x$ par cette valeur dans l'expression de $f(x)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Calcule le résultat."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Pour $f(x) = x^2 - 1$, calcule $f(3)$.",
+          "calcul": [
+            {
+              "expr": "f(3) = 3^2 - 1",
+              "texte": "On remplace $x$ par 3."
+            },
+            {
+              "expr": "f(3) = 9 - 1 = 8",
+              "texte": "On calcule."
+            }
+          ],
+          "reponse": "$f(3) = 8$",
+          "id": "notion-de-fonction-exemple-1",
+          "difficulte": "facile",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $f(3) = 8$"
+        },
+        {
+          "titre": "Exemple 2",
+          "enonce": "Pour $f(x) = x^2 - 1$, trouve les antécédents de 0.",
+          "calcul": [
+            {
+              "expr": "f(x) = 0",
+              "texte": "On cherche les $x$ qui donnent $0$."
+            },
+            {
+              "expr": "x^2 = 1",
+              "texte": "On isole $x^2$."
+            },
+            {
+              "expr": "x = 1 \\text{ ou } x = -1",
+              "texte": "On prend les deux racines."
+            }
+          ],
+          "reponse": "$1$ et $-1$ sont les deux antécédents de $0$",
+          "id": "notion-de-fonction-exemple-2",
+          "difficulte": "difficile",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $1$ et $-1$ sont les deux antécédents de $0$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre \"image\" et \"antécédent\" : ce n'est pas dans le même sens.",
+        "Oublier qu'un nombre peut avoir plusieurs antécédents."
+      ],
+      "astuce": "Image : tu connais $x$, tu cherches $f(x)$. Antécédent : tu connais $f(x)$, tu cherches $x$.",
+      "aRetenir": [
+        "Image : $x \\to f(x)$, toujours unique",
+        "Antécédent : résoudre $f(x)=y$"
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        117,
+        118,
+        119
+      ],
+      "schemaVersion": 2,
+      "topic_id": "notion-de-fonction",
+      "definitions": {
+        "lycee": "Une fonction $f$ transforme un nombre $x$ en un autre nombre $f(x)$, appelé son image. Un nombre $x$ tel que $f(x)=y$ s'appelle un antécédent de $y$.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "notion-de-fonction-regle-1",
+          "nom": "",
+          "expression": "Un nombre a toujours UNE seule image.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "notion-de-fonction-regle-2",
+          "nom": "",
+          "expression": "Un nombre peut avoir zéro, un, ou plusieurs antécédents.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "notion-de-fonction-regle-3",
+          "nom": "",
+          "expression": "Calculer une image : direct. Trouver un antécédent : il faut résoudre une équation.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre \"image\" et \"antécédent\" : ce n'est pas dans le même sens.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier qu'un nombre peut avoir plusieurs antécédents.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Notion de fonction"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras calculer une image et trouver un antécédent."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ]
+    },
+    {
+      "id": "courbe-representative-dune-fonction",
+      "title": "La courbe d'une fonction",
+      "intro": "Aujourd'hui, nous allons apprendre : la courbe d'une fonction.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras lire une image ou un antécédent sur un graphique.",
+      "definition": "La courbe d'une fonction $f$ est le dessin de tous les points $(x\\,;f(x))$.",
+      "reglesImportantes": [
+        "Pour lire une image : on part de $x$ en bas, on monte jusqu'à la courbe, on lit $y$.",
+        "Pour lire un antécédent : on part de $y$ à gauche, on va jusqu'à la courbe, on lit $x$.",
+        "Chaque point de la courbe correspond à un couple (antécédent, image)."
+      ],
+      "methode": {
+        "titre": "Comment lire une image sur un graphique",
+        "etapes": [
+          {
+            "icone": "target",
+            "couleur": "blue",
+            "texte": "Place $x$ sur l'axe horizontal."
+          },
+          {
+            "icone": "compass",
+            "couleur": "purple",
+            "texte": "Monte à la verticale jusqu'à toucher la courbe."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Lis la hauteur : c'est $f(x)$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "target",
+              "couleur": "blue",
+              "texte": "Place $x$ sur l'axe horizontal."
+            },
+            {
+              "icone": "compass",
+              "couleur": "purple",
+              "texte": "Monte à la verticale jusqu'à toucher la courbe."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Lis la hauteur : c'est $f(x)$."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Sur une courbe, le point $(2\\,;5)$ appartient à $\\mathcal{C}_f$. Que peux-tu dire ?",
+          "calcul": [
+            {
+              "expr": "f(2) = 5",
+              "texte": "L'image de 2 par $f$ est 5."
+            }
+          ],
+          "reponse": "$f(2) = 5$",
+          "id": "courbe-representative-dune-fonction-exemple-1",
+          "difficulte": "moyen",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $f(2) = 5$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Inverser le sens de lecture entre image et antécédent.",
+        "Lire la mauvaise valeur sur l'axe (confondre $x$ et $y$)."
+      ],
+      "astuce": "Pense \"vertical pour l'image, horizontal pour l'antécédent\".",
+      "aRetenir": [
+        "Courbe = tous les points $(x\\,;f(x))$",
+        "Lecture d'image : verticale. Lecture d'antécédent : horizontale."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        111,
+        112,
+        113
+      ],
+      "schemaVersion": 2,
+      "topic_id": "courbe-representative-dune-fonction",
+      "definitions": {
+        "lycee": "La courbe d'une fonction $f$ est le dessin de tous les points $(x\\,;f(x))$.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "courbe-representative-dune-fonction-regle-1",
+          "nom": "",
+          "expression": "Pour lire une image : on part de $x$ en bas, on monte jusqu'à la courbe, on lit $y$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "courbe-representative-dune-fonction-regle-2",
+          "nom": "",
+          "expression": "Pour lire un antécédent : on part de $y$ à gauche, on va jusqu'à la courbe, on lit $x$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "courbe-representative-dune-fonction-regle-3",
+          "nom": "",
+          "expression": "Chaque point de la courbe correspond à un couple (antécédent, image).",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Inverser le sens de lecture entre image et antécédent.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Lire la mauvaise valeur sur l'axe (confondre $x$ et $y$).",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Courbe représentative d'une fonction"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras lire une image ou un antécédent sur un graphique."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ]
+    },
+    {
+      "id": "resolutions-graphiques",
+      "title": "Résoudre avec un graphique",
+      "intro": "Aujourd'hui, nous allons apprendre : résoudre avec un graphique.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre $f(x)=k$ et $f(x) \\leq k$ graphiquement.",
+      "definition": "Résoudre $f(x)=k$ revient à trouver où la courbe croise la droite horizontale $y=k$.",
+      "reglesImportantes": [
+        "$f(x)=k$ : on cherche les points d'intersection avec la droite $y=k$.",
+        "$f(x) \\leq k$ : on cherche où la courbe est en dessous de la droite $y=k$.",
+        "$f(x) \\geq k$ : on cherche où la courbe est au-dessus."
+      ],
+      "methode": {
+        "titre": "Comment résoudre f(x) ≤ k graphiquement",
+        "etapes": [
+          {
+            "icone": "sliders",
+            "couleur": "blue",
+            "texte": "Trace la droite horizontale $y=k$."
+          },
+          {
+            "icone": "search",
+            "couleur": "purple",
+            "texte": "Repère la partie de courbe en dessous de cette droite."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Lis les abscisses de cette partie."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "sliders",
+              "couleur": "blue",
+              "texte": "Trace la droite horizontale $y=k$."
+            },
+            {
+              "icone": "search",
+              "couleur": "purple",
+              "texte": "Repère la partie de courbe en dessous de cette droite."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Lis les abscisses de cette partie."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "La courbe de $f$ croise $y=3$ en $x=1$ et $x=5$. Résous $f(x)=3$.",
+          "calcul": [
+            {
+              "expr": "x = 1 \\text{ ou } x = 5",
+              "texte": "Ce sont les deux points d'intersection."
+            }
+          ],
+          "reponse": "$x = 1$ ou $x = 5$",
+          "id": "resolutions-graphiques-exemple-1",
+          "difficulte": "moyen",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $x = 1$ ou $x = 5$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre \"au-dessus\" et \"en dessous\" de la droite.",
+        "Oublier une des solutions si la courbe croise la droite plusieurs fois."
+      ],
+      "astuce": "Imagine la zone solution comme un territoire à colorier sur le dessin : ça aide à visualiser.",
+      "aRetenir": [
+        "$f(x)=k$ : intersections avec $y=k$",
+        "$f(x)\\leq k$ : courbe sous la droite"
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        123,
+        124,
+        125
+      ],
+      "schemaVersion": 2,
+      "topic_id": "resolutions-graphiques",
+      "definitions": {
+        "lycee": "Résoudre $f(x)=k$ revient à trouver où la courbe croise la droite horizontale $y=k$.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "resolutions-graphiques-regle-1",
+          "nom": "",
+          "expression": "$f(x)=k$ : on cherche les points d'intersection avec la droite $y=k$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "resolutions-graphiques-regle-2",
+          "nom": "",
+          "expression": "$f(x) \\leq k$ : on cherche où la courbe est en dessous de la droite $y=k$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "resolutions-graphiques-regle-3",
+          "nom": "",
+          "expression": "$f(x) \\geq k$ : on cherche où la courbe est au-dessus.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre \"au-dessus\" et \"en dessous\" de la droite.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier une des solutions si la courbe croise la droite plusieurs fois.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Résolutions graphiques d'équations et d'inéquations à l'aide d'une fonction"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre $f(x)=k$ et $f(x) \\leq k$ graphiquement."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine que cette notion est un nouvel outil dans ta boîte à outils mathématique : une fois que tu sais quand et comment l'utiliser, elle te fait gagner beaucoup de temps sur des problèmes qui, sans elle, seraient très longs à résoudre.",
+      "intuition": "Avant d'appliquer une règle, prends toujours le temps de bien identifier ce que l'énoncé te donne. La plupart des erreurs viennent d'une règle appliquée trop vite, sans avoir vérifié qu'elle s'applique bien à la situation.",
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ]
+    },
+    {
+      "id": "exemples-de-fonctions-de-reference",
+      "title": "Les fonctions de référence",
+      "intro": "Aujourd'hui, nous allons apprendre : les fonctions de référence.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître l'allure de ces fonctions.",
+      "definition": "Il existe des fonctions \"de base\" à connaître par cœur, car elles reviennent souvent : carré, cube, racine carrée, inverse.",
+      "reglesImportantes": [
+        "Carré : $f(x)=x^2$, en forme de vallée (parabole).",
+        "Cube : $f(x)=x^3$, symétrique autour du centre.",
+        "Racine carrée : $f(x)=\\sqrt{x}$, définie seulement pour $x \\geq 0$.",
+        "Inverse : $f(x)=\\dfrac{1}{x}$, définie seulement pour $x \\neq 0$."
+      ],
+      "methode": {
+        "titre": "Comment reconnaître une fonction de référence",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Regarde la forme de l'expression."
+          },
+          {
+            "icone": "target",
+            "couleur": "purple",
+            "texte": "Compare-la aux quatre modèles connus."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Vérifie l'ensemble de définition (les valeurs autorisées pour $x$)."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Regarde la forme de l'expression."
+            },
+            {
+              "icone": "target",
+              "couleur": "purple",
+              "texte": "Compare-la aux quatre modèles connus."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Vérifie l'ensemble de définition (les valeurs autorisées pour $x$)."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$f(x) = \\sqrt{x}$. Quelles valeurs de $x$ sont autorisées ?",
+          "calcul": [
+            {
+              "expr": "x \\geq 0",
+              "texte": "Une racine carrée n'existe que pour un nombre positif."
+            }
+          ],
+          "reponse": "$x \\geq 0$",
+          "id": "exemples-de-fonctions-de-reference-exemple-1",
+          "difficulte": "moyen",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $x \\geq 0$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier que $\\sqrt{x}$ n'existe pas pour $x$ négatif.",
+        "Oublier que $\\dfrac{1}{x}$ n'existe pas pour $x = 0$."
+      ],
+      "astuce": "Retiens bien la forme de ces 4 courbes : elle t'aidera à comprendre des fonctions plus compliquées plus tard.",
+      "aRetenir": [
+        "$x^2$ : parabole",
+        "$x^3$ : symétrique au centre",
+        "$\\sqrt x$ : $x \\geq 0$ seulement",
+        "$1/x$ : $x \\neq 0$ seulement"
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        114,
+        115,
+        116
+      ],
+      "schemaVersion": 2,
+      "topic_id": "exemples-de-fonctions-de-reference",
+      "definitions": {
+        "lycee": "Il existe des fonctions \"de base\" à connaître par cœur, car elles reviennent souvent : carré, cube, racine carrée, inverse.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "exemples-de-fonctions-de-reference-regle-1",
+          "nom": "",
+          "expression": "Carré : $f(x)=x^2$, en forme de vallée (parabole).",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "exemples-de-fonctions-de-reference-regle-2",
+          "nom": "",
+          "expression": "Cube : $f(x)=x^3$, symétrique autour du centre.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "exemples-de-fonctions-de-reference-regle-3",
+          "nom": "",
+          "expression": "Racine carrée : $f(x)=\\sqrt{x}$, définie seulement pour $x \\geq 0$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "exemples-de-fonctions-de-reference-regle-4",
+          "nom": "",
+          "expression": "Inverse : $f(x)=\\dfrac{1}{x}$, définie seulement pour $x \\neq 0$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier que $\\sqrt{x}$ n'existe pas pour $x$ négatif.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier que $\\dfrac{1}{x}$ n'existe pas pour $x = 0$.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Exemples de fonctions de référence"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras reconnaître l'allure de ces fonctions."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ]
+    },
+    {
+      "id": "parite",
+      "title": "La parité d'une fonction",
+      "intro": "Aujourd'hui, nous allons apprendre : la parité d'une fonction.\n\nCette notion sert à décrire comment une quantité dépend d'une autre (un prix qui dépend d'une quantité, une distance qui dépend d'un temps).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras dire si une fonction est paire ou impaire.",
+      "definition": "Une fonction est paire si sa courbe est symétrique par rapport à l'axe vertical. Elle est impaire si sa courbe est symétrique par rapport au centre du repère.",
+      "reglesImportantes": [
+        "Paire : $f(-x) = f(x)$ pour tout $x$.",
+        "Impaire : $f(-x) = -f(x)$ pour tout $x$.",
+        "Beaucoup de fonctions ne sont ni paires ni impaires."
+      ],
+      "methode": {
+        "titre": "Comment tester la parité",
+        "etapes": [
+          {
+            "icone": "sliders",
+            "couleur": "blue",
+            "texte": "Calcule $f(-x)$."
+          },
+          {
+            "icone": "search",
+            "couleur": "purple",
+            "texte": "Compare le résultat à $f(x)$ et à $-f(x)$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Conclus : paire, impaire, ou ni l'un ni l'autre."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "sliders",
+              "couleur": "blue",
+              "texte": "Calcule $f(-x)$."
+            },
+            {
+              "icone": "search",
+              "couleur": "purple",
+              "texte": "Compare le résultat à $f(x)$ et à $-f(x)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Conclus : paire, impaire, ou ni l'un ni l'autre."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "$f(x) = x^2 + 1$. Est-elle paire ?",
+          "calcul": [
+            {
+              "expr": "f(-x) = (-x)^2 + 1",
+              "texte": "On remplace $x$ par $-x$."
+            },
+            {
+              "expr": "f(-x) = x^2 + 1 = f(x)",
+              "texte": "On retrouve $f(x)$."
+            }
+          ],
+          "reponse": "$f$ est paire",
+          "id": "parite-exemple-1",
+          "difficulte": "moyen",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $f$ est paire"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier de bien mettre $(-x)$ entre parenthèses avant de calculer.",
+        "Conclure trop vite sans comparer avec $-f(x)$ aussi."
+      ],
+      "astuce": "Si tous les exposants de $x$ sont pairs, la fonction est souvent paire. Si tous sont impairs, elle est souvent impaire.",
+      "aRetenir": [
+        "Paire : $f(-x)=f(x)$, symétrie verticale",
+        "Impaire : $f(-x)=-f(x)$, symétrie centrale"
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          8,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.8
+              ],
+              [
+                0.5,
+                2.325
+              ],
+              [
+                1.0,
+                2.7
+              ],
+              [
+                1.5,
+                2.925
+              ],
+              [
+                2.0,
+                3.0
+              ],
+              [
+                2.5,
+                2.925
+              ],
+              [
+                3.0,
+                2.7
+              ],
+              [
+                3.5,
+                2.325
+              ],
+              [
+                4.0,
+                1.8
+              ],
+              [
+                4.5,
+                1.125
+              ],
+              [
+                5.0,
+                0.30000000000000027
+              ],
+              [
+                5.5,
+                -0.6749999999999998
+              ],
+              [
+                6.0,
+                -1.7999999999999998
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 2,
+              "y": 3
+            },
+            "dashed": true
+          }
+        ],
+        "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
+      },
+      "quizExerciseIds": [
+        120,
+        121,
+        122
+      ],
+      "schemaVersion": 2,
+      "topic_id": "parite",
+      "definitions": {
+        "lycee": "Une fonction est paire si sa courbe est symétrique par rapport à l'axe vertical. Elle est impaire si sa courbe est symétrique par rapport au centre du repère.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "parite-regle-1",
+          "nom": "",
+          "expression": "Paire : $f(-x) = f(x)$ pour tout $x$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "parite-regle-2",
+          "nom": "",
+          "expression": "Impaire : $f(-x) = -f(x)$ pour tout $x$.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "parite-regle-3",
+          "nom": "",
+          "expression": "Beaucoup de fonctions ne sont ni paires ni impaires.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de bien mettre $(-x)$ entre parenthèses avant de calculer.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Conclure trop vite sans comparer avec $-f(x)$ aussi.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Parité"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras dire si une fonction est paire ou impaire."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine une machine : tu rentres un nombre, elle applique toujours la même règle, et elle ressort un seul résultat. C'est exactement ce qu'est une fonction : à chaque nombre de départ, elle associe un unique nombre d'arrivée.",
+      "intuition": "Une fonction associe à chaque valeur de départ (l'antécédent) une unique valeur d'arrivée (l'image). Ne confonds jamais ces deux mots : l'image est ce qu'on obtient en sortie, l'antécédent est ce qu'on a mis en entrée.",
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ]
+    }
+  ]
+}

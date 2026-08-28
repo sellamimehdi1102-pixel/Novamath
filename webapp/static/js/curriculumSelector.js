@@ -148,9 +148,21 @@ function openClassPanel(buttonEl) {
           onEnter: (classLevel) => {
             setStoredClassLevel(classLevel);
             closeClassPanel();
-            // Met à jour immédiatement le contexte de la page courante — pas
-            // de retour à l'accueil, contrairement à choisir-classe.html.
-            window.location.reload();
+            // Toute page peut écouter cet événement pour se mettre à jour sans
+            // rechargement (voir landing.js pour la conversation de démo du
+            // chatbot) — annoncé AVANT le reload ci-dessous pour rester
+            // équivalent au comportement précédent partout où rien ne
+            // l'écoute encore.
+            document.dispatchEvent(new CustomEvent("novamath:classLevelChange", { detail: { classLevel } }));
+            // `data-class-level-live` : posé uniquement par les pages qui se
+            // sont abonnées à l'événement ci-dessus et gèrent elles-mêmes la
+            // mise à jour de tout leur contenu dépendant de la classe — sans
+            // ça, on garde le reload complet (comportement historique,
+            // nécessaire tant qu'une page ne recharge ses données que via un
+            // rechargement de page).
+            if (document.body.dataset.classLevelLive !== "1") {
+              window.location.reload();
+            }
           },
         }));
       });

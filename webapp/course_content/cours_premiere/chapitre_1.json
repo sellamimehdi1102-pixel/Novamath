@@ -1,0 +1,1387 @@
+{
+  "chapterId": "Chapitre_1",
+  "title": "Chapitre 1",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "calcul-de-sommes",
+      "title": "Calcul de sommes",
+      "schemaVersion": 2,
+      "intro": "Calculer la somme des termes d'une suite arithmétique ou géométrique reviendrait, terme par terme, à un calcul très long si la suite compte de nombreux termes. Ce cours te donne des formules directes qui permettent d'obtenir cette somme en quelques étapes seulement, sans additionner un par un tous les termes.",
+      "explicationSimple": "Pour une suite arithmétique, la somme des termes se calcule comme une moyenne (premier terme + dernier terme, divisée par $2$) multipliée par le nombre de termes : c'est le même principe que pour additionner les entiers de $1$ à $100$. Pour une suite géométrique, on utilise une formule différente, basée sur les puissances de la raison $q$, car les termes ne progressent plus de façon régulière mais par multiplication.",
+      "objectif": "À la fin de ce cours, tu sauras calculer la somme des premiers termes d'une suite arithmétique ou d'une suite géométrique à l'aide des formules du cours.",
+      "definition": "Pour une suite arithmétique $(u_n)$, la somme de ses $N$ termes consécutifs est égale à $S = N \\times \\dfrac{\\text{premier terme} + \\text{dernier terme}}{2}$. Pour une suite géométrique $(u_n)$ de premier terme $u_0$ et de raison $q \\neq 1$, la somme de ses $n+1$ premiers termes (de $u_0$ à $u_n$) est égale à $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$.",
+      "definitions": {
+        "lycee": "Pour une suite arithmétique $(u_n)$, la somme de ses $N$ termes consécutifs est égale à $S = N \\times \\dfrac{\\text{premier terme} + \\text{dernier terme}}{2}$. Pour une suite géométrique $(u_n)$ de premier terme $u_0$ et de raison $q \\neq 1$, la somme de ses $n+1$ premiers termes (de $u_0$ à $u_n$) est égale à $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$.",
+        "college": "Utiliser la formule de la somme des $n$ premiers entiers."
+      },
+      "intuition": "L'erreur la plus fréquente porte sur le nombre de termes à considérer : de $u_0$ à $u_{17}$, il y a $17-0+1=18$ termes, pas $17$. Compte toujours le nombre de termes en faisant (indice final − indice initial + 1), avant d'appliquer une formule.",
+      "reglesImportantes": [
+        "Utiliser la formule $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$.",
+        "Utiliser la formule de la somme des $n$ premiers entiers."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Calcul de sommes",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : Le nombre de termes est $17+1 = 18$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $u_{17} = u_0 + 17 r = 9 + 17 \\times (1) = 26$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : $S = \\dfrac{(\\text{nombre de termes}) \\times (u_0+u_{17})}{2} = \\dfrac{18 \\times (9+(26))}{2} = 315$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-177",
+          "titre": "Exemple 1",
+          "enonce": "Soit $(u_n)$ une suite arithmétique de premier terme $u_0 = 9$ et de raison $r = 1$. Calculer la somme $S = u_0 + u_1 + \\cdots + u_{17}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Le nombre de termes est $17+1 = 18$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u_{17} = u_0 + 17 r = 9 + 17 \\times (1) = 26$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $S = \\dfrac{(\\text{nombre de termes}) \\times (u_0+u_{17})}{2} = \\dfrac{18 \\times (9+(26))}{2} = 315$."
+            }
+          ],
+          "reponse": "$S = 315$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-189",
+          "titre": "Exemple 2",
+          "enonce": "Soit $(u_n)$ une suite arithmétique de premier terme $u_0 = -10$ et de raison $r = 2$. Calculer la somme $S = u_0 + u_1 + \\cdots + u_{13}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Le nombre de termes est $13+1 = 14$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u_{13} = u_0 + 13 r = -10 + 13 \\times (2) = 16$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $S = \\dfrac{(\\text{nombre de termes}) \\times (u_0+u_{13})}{2} = \\dfrac{14 \\times (-10+(16))}{2} = 42$."
+            }
+          ],
+          "reponse": "$S = 42$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-201",
+          "titre": "Exemple 3",
+          "enonce": "Soit $(u_n)$ une suite arithmétique de premier terme $u_0 = -4$ et de raison $r = -1$. Calculer la somme $S = u_0 + u_1 + \\cdots + u_{19}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Le nombre de termes est $19+1 = 20$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u_{19} = u_0 + 19 r = -4 + 19 \\times (-1) = -23$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $S = \\dfrac{(\\text{nombre de termes}) \\times (u_0+u_{19})}{2} = \\dfrac{20 \\times (-4+(-23))}{2} = -270$."
+            }
+          ],
+          "reponse": "$S = -270$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-213",
+          "titre": "Exemple 4",
+          "enonce": "Soit $(u_n)$ une suite géométrique de premier terme $u_0 = 5$ et de raison $q = 3$. Calculer la somme $S$ des $14$ premiers termes (de $u_0$ à $u_{13}$).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $S = u_0 \\times \\dfrac{1-q^{14}}{1-q}$ car $q \\neq 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $S = 5 \\times \\dfrac{1-(3)^{14}}{1-(3)} = 11957420$."
+            }
+          ],
+          "reponse": "$S = 11957420$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Se tromper dans le nombre de termes de la somme, en oubliant le « $+1$ » (de $u_0$ à $u_{17}$, il y a $18$ termes, pas $17$).",
+        "Utiliser la formule de la somme arithmétique pour une suite géométrique, ou inversement.",
+        "Appliquer la formule géométrique $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$ alors que $q=1$, ce qui donne une division par $0$ (dans ce cas, la somme vaut simplement $(n+1) \\times u_0$)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Se tromper dans le nombre de termes de la somme, en oubliant le « $+1$ » (de $u_0$ à $u_{17}$, il y a $18$ termes, pas $17$).",
+          "pourquoi": "Le nombre de termes entre deux indices $p$ et $q$ (inclus) est $q-p+1$, et non $q-p$ : il faut compter le terme de départ lui-même.",
+          "comment_detecter": "Si le nombre de termes utilisé dans la formule est égal à l'indice final sans ajouter $1$, l'erreur est présente.",
+          "comment_eviter": "Toujours calculer explicitement le nombre de termes par (indice final − indice initial + 1) avant d'appliquer la formule de la somme."
+        },
+        {
+          "description": "Utiliser la formule de la somme arithmétique pour une suite géométrique, ou inversement.",
+          "pourquoi": "La formule de la somme arithmétique repose sur une progression par addition régulière, tandis que la formule géométrique repose sur une progression par multiplication : les deux formules ne sont pas interchangeables.",
+          "comment_detecter": "Si une formule contenant des puissances de $q$ est appliquée à une suite définie par $u_{n+1}=u_n+r$ (ou inversement), la formule ne correspond pas au type de suite.",
+          "comment_eviter": "Toujours vérifier d'abord si la suite est arithmétique ou géométrique avant de choisir la formule de somme correspondante."
+        },
+        {
+          "description": "Appliquer la formule géométrique $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$ alors que $q=1$, ce qui donne une division par $0$ (dans ce cas, la somme vaut simplement $(n+1) \\times u_0$).",
+          "pourquoi": "La formule $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$ contient une division par $1-q$, qui n'est pas définie si $q=1$.",
+          "comment_detecter": "Si $q=1$ et que la formule générale est utilisée telle quelle, un calcul par $0$ apparaît (ou une erreur de calcul est signalée).",
+          "comment_eviter": "Vérifier systématiquement si $q=1$ avant d'appliquer la formule : dans ce cas particulier, tous les termes sont égaux à $u_0$, donc $S=(n+1)\\times u_0$."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser la formule $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$.",
+        "Utiliser la formule de la somme des $n$ premiers entiers."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        178,
+        179,
+        180
+      ],
+      "topic_id": "calcul-de-sommes",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Calcul de sommes."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "calcul",
+        "sommes"
+      ],
+      "demonstration": {
+        "titre": "Pourquoi $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$ ? — démonstration par télescopage",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On pose la somme à calculer",
+            "texte": "Soit $(u_n)$ une suite géométrique de premier terme $u_0$ et de raison $q \\neq 1$. On note $S = u_0 + u_1 + \\cdots + u_n$, c'est-à-dire, en utilisant $u_k = u_0 \\times q^k$ : $S = u_0(1 + q + q^2 + \\cdots + q^n)$."
+          },
+          {
+            "titre": "Étape 2 — On multiplie toute la somme par $q$",
+            "texte": "$qS = u_0(q + q^2 + q^3 + \\cdots + q^{n+1})$ : chaque terme de $S$ est simplement décalé d'un rang."
+          },
+          {
+            "titre": "Étape 3 — On soustrait : les termes intermédiaires se télescopent",
+            "texte": "$S - qS = u_0\\big[(1 + q + \\cdots + q^n) - (q + q^2 + \\cdots + q^{n+1})\\big] = u_0(1 - q^{n+1})$, car tous les termes $q, q^2, \\ldots, q^n$ s'annulent deux à deux dans la différence."
+          },
+          {
+            "titre": "Étape 4 — On factorise puis on divise par $1-q$",
+            "texte": "$S - qS = S(1-q)$, donc $S(1-q) = u_0(1-q^{n+1})$. Comme $q \\neq 1$, on peut diviser par $1-q$ : $S = u_0 \\times \\dfrac{1-q^{n+1}}{1-q}$."
+          },
+          {
+            "titre": "Étape 5 — Vérification sur un exemple numérique",
+            "texte": "Pour $u_0=5$ et $q=3$ (somme des $14$ premiers termes, de $u_0$ à $u_{13}$, donc $n=13$) : $S = 5 \\times \\dfrac{1-3^{14}}{1-3} = 11\\,957\\,420$, ce qui correspond bien au résultat obtenu en additionnant directement les $14$ termes."
+          }
+        ],
+        "conclusion": "Cette technique — multiplier $S$ par la raison puis soustraire pour faire disparaître tous les termes communs — est la méthode générale de démonstration des formules de sommation géométrique ; elle ne fonctionne que si $q \\neq 1$ (sinon $S=(n+1)u_0$, car tous les termes valent $u_0$)."
+      }
+    },
+    {
+      "id": "generalites-sur-les-suites",
+      "title": "Généralités sur les suites",
+      "schemaVersion": 2,
+      "intro": "Une suite numérique est une liste ordonnée de nombres, un pour chaque entier naturel $n$ : $u_0$, $u_1$, $u_2$, ... On peut la définir de deux façons différentes, que tu vas apprendre à manipuler ici : de façon explicite, en donnant directement $u_n$ en fonction de $n$ (par exemple $u_n = 3n-1$), ou par récurrence, en donnant $u_0$ et une règle permettant de calculer $u_{n+1}$ à partir de $u_n$.\n\nCette distinction est essentielle : selon le mode de définition, la façon de calculer un terme donné n'est pas du tout la même.",
+      "explicationSimple": "Pense à une suite comme à une file de nombres numérotés à partir de $0$. Si la suite est définie explicitement, chaque terme est indépendant : tu remplaces $n$ par sa valeur et tu calcules directement, comme avec une fonction. Si elle est définie par récurrence, chaque terme dépend du précédent : impossible de « sauter » directement à $u_{10}$ sans être passé par $u_1$, $u_2$, ..., $u_9$.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître si une suite est définie explicitement ou par récurrence, et calculer ses termes dans chacun des deux cas.",
+      "definition": "Une suite numérique $(u_n)$ est une liste de nombres réels indexée par les entiers naturels $n$. Elle peut être définie de façon explicite, par une formule donnant directement $u_n$ en fonction de $n$, ou par récurrence, en donnant le premier terme $u_0$ et une relation permettant de calculer chaque terme $u_{n+1}$ à partir du terme précédent $u_n$.",
+      "definitions": {
+        "lycee": "Une suite numérique $(u_n)$ est une liste de nombres réels indexée par les entiers naturels $n$. Elle peut être définie de façon explicite, par une formule donnant directement $u_n$ en fonction de $n$, ou par récurrence, en donnant le premier terme $u_0$ et une relation permettant de calculer chaque terme $u_{n+1}$ à partir du terme précédent $u_n$.",
+        "college": "Remplacer $n$ par la valeur indiquée dans l'expression explicite de $u_n$."
+      },
+      "intuition": "Le piège classique : dans une suite définie par récurrence, $u_{n+1}$ dépend de $u_n$, donc pour obtenir $u_{10}$ il faut obligatoirement calculer, dans l'ordre, $u_1$ puis $u_2$ ... jusqu'à $u_9$. Contrairement à une suite explicite, il n'existe pas de raccourci qui permette de remplacer directement $n$ par $10$.",
+      "reglesImportantes": [
+        "Remplacer $n$ par la valeur indiquée dans l'expression explicite de $u_n$.",
+        "Traduire une évolution en pourcentage par une multiplication, puis ajouter la partie constante."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Généralités sur les suites",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : $u_{1} = 1 \\times 0 +0 = 0$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $u_{2} = 1 \\times 0 +0 = 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : $u_{3} = 1 \\times 0 +0 = 0$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Étape 4 : $u_{4} = 1 \\times 0 +0 = 0$."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "pink",
+            "texte": "Étape 5 : $u_{5} = 1 \\times 0 +0 = 0$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-0",
+          "titre": "Exemple 1",
+          "enonce": "Soit $(u_n)$ la suite définie par $u_0 = 0$ et, pour tout entier naturel $n$, $u_{n+1} = 3u_n +4$. Calculer $u_1$, $u_2$ et $u_{3}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $u_{1} = 3 \\times 0 +4 = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u_{2} = 3 \\times 4 +4 = 16$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{3} = 3 \\times 16 +4 = 52$."
+            }
+          ],
+          "reponse": "$u_{3} = 52$ (avec $u_1 = 4$)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-12",
+          "titre": "Exemple 2",
+          "enonce": "Soit $(u_n)$ la suite définie par $u_0 = -2$ et, pour tout entier naturel $n$, $u_{n+1} = 2u_n +5$. Calculer $u_1$, $u_2$ et $u_{3}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $u_{1} = 2 \\times -2 +5 = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u_{2} = 2 \\times 1 +5 = 7$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{3} = 2 \\times 7 +5 = 19$."
+            }
+          ],
+          "reponse": "$u_{3} = 19$ (avec $u_1 = 1$)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-24",
+          "titre": "Exemple 3",
+          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 3n - 1$. Calculer $u_{2}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On remplace $n$ par $2$ dans l'expression de $u_n$ : $u_{2} = 3n - 1$ avec $n=2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Après calcul, $u_{2} = 5$."
+            }
+          ],
+          "reponse": "$u_{2} = 5$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-36",
+          "titre": "Exemple 4",
+          "enonce": "Soit $(u_n)$ la suite définie par $u_0 = 0$ et, pour tout entier naturel $n$, $u_{n+1} = u_n +0$. Calculer $u_1$, $u_2$ et $u_{5}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $u_{1} = 1 \\times 0 +0 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u_{2} = 1 \\times 0 +0 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{3} = 1 \\times 0 +0 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : $u_{4} = 1 \\times 0 +0 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 5 : $u_{5} = 1 \\times 0 +0 = 0$."
+            }
+          ],
+          "reponse": "$u_{5} = 0$ (avec $u_1 = 0$)",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre l'indice $n$ et la valeur du terme $u_n$ : croire que $u_5$ s'obtient en multipliant simplement par $5$.",
+        "Pour une suite définie par récurrence, vouloir calculer $u_{10}$ directement sans passer par $u_1, u_2, \\ldots, u_9$.",
+        "Se tromper d'indice de départ en confondant $u_0$ et $u_1$ comme premier terme de la suite."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre l'indice $n$ et la valeur du terme $u_n$ : croire que $u_5$ s'obtient en multipliant simplement par $5$.",
+          "pourquoi": "L'indice $n$ désigne uniquement la position du terme dans la liste ; il ne s'agit pas d'un facteur multiplicatif. $u_5$ est « le terme numéro $5$ », pas « $5$ fois quelque chose ».",
+          "comment_detecter": "Si le calcul consiste à multiplier l'expression de $u_n$ par l'indice lui-même sans remplacer $n$ par sa valeur dans la formule, l'erreur est présente.",
+          "comment_eviter": "Toujours remplacer $n$ par sa valeur numérique directement dans l'expression de $u_n$, comme on le ferait pour une fonction $f(n)$."
+        },
+        {
+          "description": "Pour une suite définie par récurrence, vouloir calculer $u_{10}$ directement sans passer par $u_1, u_2, \\ldots, u_9$.",
+          "pourquoi": "Une relation de récurrence ne donne $u_{n+1}$ qu'en fonction de $u_n$ : elle ne fournit aucune formule directe reliant $u_{10}$ à $n=10$.",
+          "comment_detecter": "Si un terme lointain est annoncé sans que les termes intermédiaires n'aient été calculés, la méthode est incorrecte.",
+          "comment_eviter": "Construire un tableau ou une liste et calculer les termes un par un, dans l'ordre croissant des indices, jusqu'au terme demandé."
+        },
+        {
+          "description": "Se tromper d'indice de départ en confondant $u_0$ et $u_1$ comme premier terme de la suite.",
+          "pourquoi": "Selon l'énoncé, une suite peut être définie à partir de $u_0$ ou à partir de $u_1$ : le terme de départ n'est pas toujours le même, ce qui décale tous les indices suivants.",
+          "comment_detecter": "Si le résultat obtenu semble décalé d'un rang par rapport à l'énoncé, vérifier quel est le premier terme réellement donné.",
+          "comment_eviter": "Toujours identifier avec précision, dès la lecture de l'énoncé, quel est le premier terme fourni (indice $0$ ou indice $1$) avant de commencer les calculs."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Remplacer $n$ par la valeur indiquée dans l'expression explicite de $u_n$.",
+        "Traduire une évolution en pourcentage par une multiplication, puis ajouter la partie constante."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        1,
+        2,
+        3
+      ],
+      "topic_id": "generalites-sur-les-suites",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Généralités sur les suites."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "generalites",
+        "suites"
+      ]
+    },
+    {
+      "id": "notion-de-limite-d-une-suite",
+      "title": "Notion de limite d'une suite",
+      "schemaVersion": 2,
+      "intro": "La limite d'une suite décrit son comportement lorsque $n$ devient de plus en plus grand, sans jamais s'arrêter : les termes $u_n$ se rapprochent-ils d'un nombre fixe, ou s'éloignent-ils indéfiniment vers $+\\infty$ ou $-\\infty$ ? À ce niveau, on ne démontre pas encore rigoureusement une limite : on l'observe et on la conjecture à partir d'un tableau de valeurs, pour de grandes valeurs de $n$.",
+      "explicationSimple": "Imagine que tu calcules $u_n$ pour $n$ de plus en plus grand ($100$, puis $10\\,000$, puis $1\\,000\\,000$...). Si les valeurs se rapprochent de plus en plus d'un même nombre $L$ sans jamais vraiment s'en éloigner, on dit que la suite tend vers $L$. Si au contraire les valeurs deviennent de plus en plus grandes (ou de plus en plus négatives) sans limite, la suite tend vers $+\\infty$ (ou $-\\infty$).",
+      "objectif": "À la fin de ce cours, tu sauras conjecturer, à partir d'un tableau de valeurs, la limite d'une suite quand $n$ tend vers $+\\infty$.",
+      "definition": "On dit qu'une suite $(u_n)$ tend vers un réel $L$ (ou converge vers $L$, c'est-à-dire se rapproche indéfiniment de $L$) quand $n$ tend vers $+\\infty$ si les termes $u_n$ se rapprochent d'aussi près que l'on veut de $L$ lorsque $n$ devient très grand ; on note alors $\\lim\\limits_{n \\to +\\infty} u_n = L$. Une suite peut aussi tendre vers $+\\infty$ ou $-\\infty$ si ses termes deviennent aussi grands (ou aussi négatifs) que l'on veut. En Première, cette limite se conjecture à partir d'un tableau de valeurs, sans démonstration rigoureuse.",
+      "definitions": {
+        "lycee": "On dit qu'une suite $(u_n)$ tend vers un réel $L$ (ou converge vers $L$, c'est-à-dire se rapproche indéfiniment de $L$) quand $n$ tend vers $+\\infty$ si les termes $u_n$ se rapprochent d'aussi près que l'on veut de $L$ lorsque $n$ devient très grand ; on note alors $\\lim\\limits_{n \\to +\\infty} u_n = L$. Une suite peut aussi tendre vers $+\\infty$ ou $-\\infty$ si ses termes deviennent aussi grands (ou aussi négatifs) que l'on veut. En Première, cette limite se conjecture à partir d'un tableau de valeurs, sans démonstration rigoureuse.",
+        "college": "Comparer la raison $q$ à $1$."
+      },
+      "intuition": "Une conjecture n'est pas une preuve : observer que $u_n$ semble se rapprocher d'un nombre sur les valeurs affichées d'un tableau ne démontre rien pour toutes les valeurs de $n$ possibles. C'est pourquoi il faut toujours dire « on conjecture que... » et non « on démontre que... » à ce stade, et bien distinguer une suite géométrique de raison $q$ avec $0<q<1$ (qui tend vers $0$) de celle avec $q>1$ (qui tend vers $+\\infty$).",
+      "reglesImportantes": [
+        "Comparer la raison $q$ à $1$.",
+        "Une conjecture s'appuie sur l'observation du tableau, sans démonstration."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Notion de limite d'une suite",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On calcule quelques puissances de $\\dfrac{1}{3}$ pour de grandes valeurs de $n$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Comme $0 < \\dfrac{1}{3} < 1$, les puissances $(\\dfrac{1}{3})^n$ se rapprochent de plus en plus de $0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : On conjecture donc que $(u_n)$ converge vers $0$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-295",
+          "titre": "Exemple 1",
+          "enonce": "On donne un tableau de valeurs de la suite $(u_n)$ pour $n$ prenant les valeurs $1$, $10$, $100$, $1\\,000$ et $10\\,000$ : $u_n$ vaut successivement $-10$, $-1\\,000$, $-1\\,000\\,000$, $-10^9$, $-10^{12}$. Conjecturer la limite de $(u_n)$, si elle existe.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On observe l'évolution des valeurs de $u_n$ lorsque $n$ devient grand."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On conjecture que $\\lim\\limits_{n \\to +\\infty} u_n = -\\infty$. (Il s'agit d'une conjecture, non d'une démonstration.)"
+            }
+          ],
+          "reponse": "On conjecture que $\\lim\\limits_{n \\to +\\infty} u_n = -\\infty$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-307",
+          "titre": "Exemple 2",
+          "enonce": "Soit $(u_n)$ la suite géométrique définie par $u_n = 3 \\times (\\dfrac{1}{2})^n$. D'après le comportement observé des puissances de $\\dfrac{1}{2}$, que peut-on conjecturer sur le comportement de $(u_n)$ quand $n$ tend vers $+\\infty$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On calcule quelques puissances de $\\dfrac{1}{2}$ pour de grandes valeurs de $n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Comme $0 < \\dfrac{1}{2} < 1$, les puissances $(\\dfrac{1}{2})^n$ se rapprochent de plus en plus de $0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : On conjecture donc que $(u_n)$ converge vers $0$."
+            }
+          ],
+          "reponse": "$(u_n)$ converge vers $0$.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-319",
+          "titre": "Exemple 3",
+          "enonce": "Soit $(u_n)$ la suite définie pour tout entier naturel non nul $n$ par $u_n = 7 +5 \\times \\dfrac{1}{n}$. Quelle semble être la limite de $(u_n)$ quand $n$ tend vers $+\\infty$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Lorsque $n$ tend vers $+\\infty$, $\\dfrac{1}{n}$ se rapproche de plus en plus de $0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Donc $u_n$ se rapproche de $7 +5 \\times 0 = 7$."
+            }
+          ],
+          "reponse": "$\\lim\\limits_{n \\to +\\infty} u_n = 7$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-331",
+          "titre": "Exemple 4",
+          "enonce": "Soit $(u_n)$ la suite définie pour tout entier naturel non nul $n$ par $u_n = 1 +2 \\times \\dfrac{1}{n}$. Quelle semble être la limite de $(u_n)$ quand $n$ tend vers $+\\infty$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Lorsque $n$ tend vers $+\\infty$, $\\dfrac{1}{n}$ se rapproche de plus en plus de $0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Donc $u_n$ se rapproche de $1 +2 \\times 0 = 1$."
+            }
+          ],
+          "reponse": "$\\lim\\limits_{n \\to +\\infty} u_n = 1$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre « conjecturer » une limite, à partir d'un tableau de valeurs, et « démontrer » rigoureusement cette limite.",
+        "Croire qu'une suite qui semble stable sur les premières valeurs d'un tableau a nécessairement une limite finie, sans aller voir des valeurs de $n$ beaucoup plus grandes.",
+        "Pour une suite géométrique, ne pas comparer correctement la raison $q$ à $1$ (par exemple confondre le cas $q<0$ avec le cas $0<q<1$)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre « conjecturer » une limite, à partir d'un tableau de valeurs, et « démontrer » rigoureusement cette limite.",
+          "pourquoi": "Un tableau de valeurs, même avec de grandes valeurs de $n$, ne couvre jamais tous les entiers naturels possibles : il donne une forte indication, mais pas une preuve mathématique valable pour tout $n$.",
+          "comment_detecter": "Si la conclusion est rédigée avec « on démontre » ou « on prouve » alors que seul un tableau de valeurs a été utilisé, la formulation est incorrecte.",
+          "comment_eviter": "Toujours utiliser le vocabulaire « on conjecture que » lorsque la limite est obtenue uniquement à partir d'un tableau de valeurs."
+        },
+        {
+          "description": "Croire qu'une suite qui semble stable sur les premières valeurs d'un tableau a nécessairement une limite finie, sans aller voir des valeurs de $n$ beaucoup plus grandes.",
+          "pourquoi": "Certaines suites varient très lentement au début puis changent nettement de comportement pour de grandes valeurs de $n$ : quelques termes ne suffisent pas à garantir la tendance finale.",
+          "comment_detecter": "Si le tableau de valeurs utilisé ne contient que de petites valeurs de $n$ (par exemple $n \\leqslant 10$), la conjecture est fragile.",
+          "comment_eviter": "Toujours calculer des valeurs de $u_n$ pour $n$ très grand (par exemple $n=1000$, $n=10\\,000$) avant de conjecturer une limite."
+        },
+        {
+          "description": "Pour une suite géométrique, ne pas comparer correctement la raison $q$ à $1$ (par exemple confondre le cas $q<0$ avec le cas $0<q<1$).",
+          "pourquoi": "Le comportement d'une suite géométrique de raison $q$ dépend fortement de la position de $q$ par rapport à $-1$, $0$ et $1$ : une suite géométrique diverge, converge vers $0$, ou même alterne de signe, selon les cas.",
+          "comment_detecter": "Si la conclusion sur la limite d'une suite géométrique ne s'appuie pas explicitement sur la comparaison de $q$ à $1$ (ou à $-1$), la justification est incomplète.",
+          "comment_eviter": "Toujours préciser la valeur de $q$ et la comparer à $1$ (cas $0<q<1$ : la suite tend vers $0$ ; cas $q>1$ : elle tend vers $+\\infty$) avant de conclure."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Comparer la raison $q$ à $1$.",
+        "Une conjecture s'appuie sur l'observation du tableau, sans démonstration."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          0,
+          6.5,
+          21,
+          6
+        ],
+        "grid": true,
+        "axes": false,
+        "points": [
+          {
+            "x": 1,
+            "y": 12.0
+          },
+          {
+            "x": 2,
+            "y": 9.5
+          },
+          {
+            "x": 3,
+            "y": 8.667
+          },
+          {
+            "x": 4,
+            "y": 8.25
+          },
+          {
+            "x": 5,
+            "y": 8.0
+          },
+          {
+            "x": 6,
+            "y": 7.833
+          },
+          {
+            "x": 8,
+            "y": 7.625
+          },
+          {
+            "x": 10,
+            "y": 7.5
+          },
+          {
+            "x": 14,
+            "y": 7.357
+          },
+          {
+            "x": 20,
+            "y": 7.25
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 7
+            },
+            "to": {
+              "x": 21,
+              "y": 7
+            },
+            "dashed": true,
+            "tooltip": "Asymptote horizontale y = 7 : la suite se rapproche de 7 sans jamais l'atteindre"
+          }
+        ],
+        "texts": [
+          {
+            "x": 19.5,
+            "y": 7.45,
+            "label": "y = L = 7",
+            "anchor": "end"
+          },
+          {
+            "x": 1,
+            "y": 12.3,
+            "label": "u_1 = 12",
+            "anchor": "start"
+          }
+        ],
+        "alt": "Nuage de points (n ; u_n) pour la suite u_n = 7 + 5/n : les points, d'abord au-dessus de 7 (u_1=12, u_2=9,5...), se rapprochent visiblement de la droite horizontale en pointillés y = 7 à mesure que n augmente, illustrant la convergence de la suite vers sa limite L = 7."
+      },
+      "quizExerciseIds": [
+        296,
+        297,
+        298
+      ],
+      "topic_id": "notion-de-limite-d-une-suite",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Notion de limite d'une suite."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "notion",
+        "limite",
+        "suite"
+      ]
+    },
+    {
+      "id": "sens-de-variation-d-une-suite",
+      "title": "Sens de variation d'une suite",
+      "schemaVersion": 2,
+      "intro": "Étudier le sens de variation d'une suite $(u_n)$, c'est déterminer si elle est croissante (les termes augmentent), décroissante (ils diminuent), ou ni l'un ni l'autre, au fur et à mesure que $n$ augmente. Contrairement à une suite arithmétique ou géométrique particulière, ici la méthode doit s'adapter à n'importe quelle suite, en étudiant directement le signe de la différence entre deux termes consécutifs.",
+      "explicationSimple": "Pour savoir si une suite monte ou descend, on compare chaque terme à son voisin suivant : on calcule $u_{n+1} - u_n$. Si ce nombre est toujours positif, la suite grimpe ; s'il est toujours négatif, elle descend. Quand tous les termes sont strictement positifs, comparer le quotient $\\dfrac{u_{n+1}}{u_n}$ à $1$ donne la même information, souvent plus simplement.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer le sens de variation d'une suite en étudiant le signe de $u_{n+1}-u_n$ ou, pour une suite à termes positifs, en comparant $\\dfrac{u_{n+1}}{u_n}$ à $1$.",
+      "definition": "Une suite $(u_n)$ est croissante si, pour tout entier naturel $n$, $u_{n+1} \\geqslant u_n$ (strictement croissante si $u_{n+1} > u_n$) ; elle est décroissante si $u_{n+1} \\leqslant u_n$ (strictement décroissante si $u_{n+1} < u_n$). Le sens de variation s'obtient en étudiant le signe de la différence $u_{n+1} - u_n$ pour tout $n$, ou, lorsque tous les termes sont strictement positifs, en comparant le quotient $\\dfrac{u_{n+1}}{u_n}$ à $1$.",
+      "definitions": {
+        "lycee": "Une suite $(u_n)$ est croissante si, pour tout entier naturel $n$, $u_{n+1} \\geqslant u_n$ (strictement croissante si $u_{n+1} > u_n$) ; elle est décroissante si $u_{n+1} \\leqslant u_n$ (strictement décroissante si $u_{n+1} < u_n$). Le sens de variation s'obtient en étudiant le signe de la différence $u_{n+1} - u_n$ pour tout $n$, ou, lorsque tous les termes sont strictement positifs, en comparant le quotient $\\dfrac{u_{n+1}}{u_n}$ à $1$."
+      },
+      "intuition": "L'étude du signe de $u_{n+1}-u_n$ doit être valable pour tout entier naturel $n$, et pas seulement vérifiée sur quelques valeurs numériques : une suite peut très bien croître sur ses premiers termes puis changer de comportement plus loin. C'est pourquoi on manipule une expression littérale en $n$, jamais uniquement des exemples numériques.",
+      "reglesImportantes": [
+        "Le signe de la raison $r$ détermine le sens de variation d'une suite arithmétique.",
+        "Comparer le quotient $\\dfrac{u_{n+1}}{u_n}$ à $1$ (tous les termes sont positifs).",
+        "Utiliser la propriété du cours donnant le sens de variation selon le signe de $q-1$ et de $u_0$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Sens de variation d'une suite",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On développe $u_{n+1} - u_n = [-2(n+1)^2 -2(n+1) +0] - [-2n^2 -2n +0]$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Après simplification, $u_{n+1} - u_n = -4n - 4$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : Cette expression, affine en $n$ de coefficient directeur $-4$, garde un signe constant (celui de $-4$) à partir d'un certain rang, donc $(u_n)$ est strictement décroissante à partir d'un certain rang."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-236",
+          "titre": "Exemple 1",
+          "enonce": "Soit $(u_n)$ une suite arithmétique de raison $r = -6$ et de premier terme $u_0 = -5$. Quel est son sens de variation ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} - u_n = r = -6$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Comme $r$ est strictement négatif, la suite $(u_n)$ est strictement décroissante."
+            }
+          ],
+          "reponse": "$(u_n)$ est strictement décroissante (car $r=-6$).",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-248",
+          "titre": "Exemple 2",
+          "enonce": "Étudier le sens de variation de la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = -4n^2 + 3n$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On développe $u_{n+1} - u_n = [-4(n+1)^2 +3(n+1) +0] - [-4n^2 +3n +0]$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Après simplification, $u_{n+1} - u_n = -8n - 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Cette expression, affine en $n$ de coefficient directeur $-8$, garde un signe constant (celui de $-8$) à partir d'un certain rang, donc $(u_n)$ est strictement décroissante à partir d'un certain rang."
+            }
+          ],
+          "reponse": "La suite $(u_n)$ est strictement décroissante à partir d'un certain rang.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-260",
+          "titre": "Exemple 3",
+          "enonce": "Soit $(u_n)$ la suite définie pour tout entier naturel $n$ par $u_n = 5 \\times (2)^n$. Tous les termes sont strictement positifs. Étudier le sens de variation de $(u_n)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour tout $n$, $\\dfrac{u_{n+1}}{u_n} = 2$ (raison de la suite géométrique)."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Or $2$ >1, donc $u_{n+1} > u_n$"
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : La suite $(u_n)$ est donc strictement croissante."
+            }
+          ],
+          "reponse": "La suite $(u_n)$ est strictement croissante.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-272",
+          "titre": "Exemple 4",
+          "enonce": "Soit $(u_n)$ une suite arithmétique de raison $r = 5$ et de premier terme $u_0 = 8$. Quel est son sens de variation ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} - u_n = r = 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Comme $r$ est strictement positif, la suite $(u_n)$ est strictement croissante."
+            }
+          ],
+          "reponse": "$(u_n)$ est strictement croissante (car $r=5$).",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Étudier le signe de $u_n$ lui-même au lieu de celui de la différence $u_{n+1}-u_n$.",
+        "Utiliser le quotient $\\dfrac{u_{n+1}}{u_n}$ comparé à $1$ alors que certains termes de la suite sont négatifs ou nuls.",
+        "Conclure sur le sens de variation à partir de seulement deux ou trois valeurs calculées, sans preuve valable pour tout $n$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Étudier le signe de $u_n$ lui-même au lieu de celui de la différence $u_{n+1}-u_n$.",
+          "pourquoi": "Le signe de $u_n$ renseigne sur le fait que le terme est positif ou négatif, pas sur l'évolution de la suite d'un terme au suivant : ce sont deux questions différentes.",
+          "comment_detecter": "Si la conclusion sur la croissance ou la décroissance repose sur le signe de $u_n$ seul, sans comparaison avec $u_{n+1}$, l'erreur est présente.",
+          "comment_eviter": "Toujours former explicitement la différence $u_{n+1}-u_n$ (ou le quotient) avant de conclure sur le sens de variation."
+        },
+        {
+          "description": "Utiliser le quotient $\\dfrac{u_{n+1}}{u_n}$ comparé à $1$ alors que certains termes de la suite sont négatifs ou nuls.",
+          "pourquoi": "Diviser par un nombre négatif inverse le sens d'une inégalité : si $u_n$ change de signe, comparer $\\dfrac{u_{n+1}}{u_n}$ à $1$ peut donner une conclusion fausse.",
+          "comment_detecter": "Vérifier si l'énoncé précise que tous les termes de la suite sont strictement positifs (ou strictement négatifs) avant d'utiliser le quotient.",
+          "comment_eviter": "Utiliser la méthode du quotient uniquement lorsque le signe constant de tous les termes est garanti ; sinon, revenir systématiquement au signe de $u_{n+1}-u_n$."
+        },
+        {
+          "description": "Conclure sur le sens de variation à partir de seulement deux ou trois valeurs calculées, sans preuve valable pour tout $n$.",
+          "pourquoi": "Le comportement d'une suite peut changer de rang en rang (croissante puis décroissante, ou l'inverse), donc quelques valeurs numériques ne suffisent jamais à garantir une variation valable pour tout $n$.",
+          "comment_detecter": "Si aucune expression littérale en $n$ n'a été étudiée et que la conclusion repose uniquement sur un calcul numérique isolé, la démonstration est incomplète.",
+          "comment_eviter": "Toujours exprimer $u_{n+1}-u_n$ littéralement en fonction de $n$ et étudier son signe pour tout $n$, pas seulement pour quelques valeurs particulières."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Le signe de la raison $r$ détermine le sens de variation d'une suite arithmétique.",
+        "Comparer le quotient $\\dfrac{u_{n+1}}{u_n}$ à $1$ (tous les termes sont positifs).",
+        "Utiliser la propriété du cours donnant le sens de variation selon le signe de $q-1$ et de $u_0$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.5,
+          5,
+          6,
+          30
+        ],
+        "grid": true,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 8
+          },
+          {
+            "x": 1,
+            "y": 13
+          },
+          {
+            "x": 2,
+            "y": 18
+          },
+          {
+            "x": 3,
+            "y": 23
+          },
+          {
+            "x": 4,
+            "y": 28
+          },
+          {
+            "x": 5,
+            "y": 33
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 8
+            },
+            "to": {
+              "x": 1,
+              "y": 13
+            },
+            "tooltip": "u_1 - u_0 = 5 > 0 : la suite croît"
+          },
+          {
+            "from": {
+              "x": 1,
+              "y": 13
+            },
+            "to": {
+              "x": 2,
+              "y": 18
+            },
+            "tooltip": "u_2 - u_1 = 5 > 0 : la suite croît"
+          },
+          {
+            "from": {
+              "x": 2,
+              "y": 18
+            },
+            "to": {
+              "x": 3,
+              "y": 23
+            },
+            "tooltip": "u_3 - u_2 = 5 > 0 : la suite croît"
+          },
+          {
+            "from": {
+              "x": 3,
+              "y": 23
+            },
+            "to": {
+              "x": 4,
+              "y": 28
+            },
+            "tooltip": "u_4 - u_3 = 5 > 0 : la suite croît"
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 28
+            },
+            "to": {
+              "x": 5,
+              "y": 33
+            },
+            "tooltip": "u_5 - u_4 = 5 > 0 : la suite croît"
+          }
+        ],
+        "texts": [
+          {
+            "x": 0,
+            "y": 10,
+            "label": "u_0 = 8",
+            "anchor": "middle"
+          },
+          {
+            "x": 5,
+            "y": 35,
+            "label": "u_5 = 33",
+            "anchor": "middle"
+          }
+        ],
+        "alt": "Nuage de points (n ; u_n) pour la suite u_n = 8 + 5n, strictement croissante (u_0=8, u_1=13, ..., u_5=33) : les segments reliant deux points consécutifs montent tous, car u_{n+1} - u_n = 5 est toujours strictement positif."
+      },
+      "quizExerciseIds": [
+        237,
+        238,
+        239
+      ],
+      "topic_id": "sens-de-variation-d-une-suite",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Sens de variation d'une suite."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "sens",
+        "variation",
+        "suite"
+      ]
+    },
+    {
+      "id": "suite-arithmetique",
+      "title": "Suite arithmétique",
+      "schemaVersion": 2,
+      "intro": "Une suite arithmétique est une suite qui évolue toujours de la même façon d'un terme au suivant : on ajoute une même quantité, appelée la raison, à chaque étape. Ce cours te permet de reconnaître une suite arithmétique, de calculer n'importe lequel de ses termes, et de retrouver sa raison à partir de deux termes connus.",
+      "explicationSimple": "Pense à une suite arithmétique comme à un escalier dont chaque marche a exactement la même hauteur $r$ (la raison) : pour passer d'un terme au suivant, on ajoute toujours $r$, jamais on ne multiplie. Si $r$ est positif, la suite monte ; si $r$ est négatif, elle descend ; si $r=0$, tous les termes sont égaux.",
+      "objectif": "À la fin de ce cours, tu sauras calculer un terme d'une suite arithmétique connaissant son premier terme et sa raison, déterminer la raison à partir de deux termes, et prouver qu'une suite donnée est arithmétique.",
+      "definition": "Une suite $(u_n)$ est arithmétique s'il existe un réel $r$, appelé raison, tel que pour tout entier naturel $n$, $u_{n+1} = u_n + r$ (on passe d'un terme au suivant en ajoutant toujours la même quantité $r$). On a alors, pour tout entier naturel $n$, $u_n = u_0 + n r$, et plus généralement, pour deux indices $p$ et $q$, $u_q - u_p = (q-p) \\times r$.",
+      "definitions": {
+        "lycee": "Une suite $(u_n)$ est arithmétique s'il existe un réel $r$, appelé raison, tel que pour tout entier naturel $n$, $u_{n+1} = u_n + r$ (on passe d'un terme au suivant en ajoutant toujours la même quantité $r$). On a alors, pour tout entier naturel $n$, $u_n = u_0 + n r$, et plus généralement, pour deux indices $p$ et $q$, $u_q - u_p = (q-p) \\times r$.",
+        "college": "Utiliser $u_q - u_p = (q-p) \\times r$."
+      },
+      "intuition": "Pour prouver qu'une suite est arithmétique, il ne suffit jamais de vérifier que la différence entre deux termes particuliers est constante : il faut calculer $u_{n+1}-u_n$ de façon littérale, en fonction de $n$, et montrer que cette expression ne dépend pas de $n$.",
+      "reglesImportantes": [
+        "Utiliser $u_q - u_p = (q-p) \\times r$.",
+        "Étudier si $v_{n+1} - v_n$ est constant."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Suite arithmétique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : Pour une suite arithmétique, $u_n = u_0 + r \\times n$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Ici, $u_n = -15 -6n$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : $u_{6} = -15 -6 \\times 6 = -51$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-59",
+          "titre": "Exemple 1",
+          "enonce": "Soit $(u_n)$ une suite arithmétique de premier terme $u_0 = -15$ et de raison $r = -6$. Donner l'expression de $u_n$ en fonction de $n$, puis calculer $u_{6}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour une suite arithmétique, $u_n = u_0 + r \\times n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Ici, $u_n = -15 -6n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{6} = -15 -6 \\times 6 = -51$."
+            }
+          ],
+          "reponse": "$u_n = -15 -6n$ et $u_{6} = -51$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-71",
+          "titre": "Exemple 2",
+          "enonce": "Une suite arithmétique $(u_n)$ vérifie $u_{0} = 0$ et $u_{8} = 48$. Déterminer la raison $r$ de cette suite, puis calculer $u_0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $u_{8} - u_{0} = (8-0) \\times r$, donc $r = \\dfrac{48-(0)}{8-0} = 6$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u_0 = u_{0} - 0 \\times r = 0 - 0 \\times (6) = 0$."
+            }
+          ],
+          "reponse": "$r = 6$ et $u_0 = 0$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-83",
+          "titre": "Exemple 3",
+          "enonce": "Une suite arithmétique $(u_n)$ vérifie $u_{5} = -20$ et $u_{16} = -9$. Déterminer la raison $r$ de cette suite, puis calculer $u_0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $u_{16} - u_{5} = (16-5) \\times r$, donc $r = \\dfrac{-9-(-20)}{16-5} = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $u_0 = u_{5} - 5 \\times r = -20 - 5 \\times (1) = -25$."
+            }
+          ],
+          "reponse": "$r = 1$ et $u_0 = -25$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-95",
+          "titre": "Exemple 4",
+          "enonce": "La suite $(v_n)$ définie pour tout entier naturel $n$ par $ v_n = -3n + 3 $ est-elle arithmétique ? Justifier.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour tout $n$, $v_{n+1} - v_n = -3(n+1) +3 - (-3n +3)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : En développant, $v_{n+1} - v_n = -3$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Cette différence est constante et vaut $-3$, donc $(v_n)$ est arithmétique de raison $-3$."
+            }
+          ],
+          "reponse": "Oui, $(v_n)$ est arithmétique de raison $-3$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre suite arithmétique (on ajoute la raison $r$) et suite géométrique (on multiplie par la raison $q$).",
+        "Utiliser la formule $u_n = u_0 + n \\times r$ alors que le premier terme donné dans l'énoncé est $u_1$, ce qui décale tous les indices.",
+        "Pour prouver qu'une suite est arithmétique, ne vérifier la constance de la différence que sur un ou deux termes numériques au lieu de la démontrer pour tout $n$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre suite arithmétique (on ajoute la raison $r$) et suite géométrique (on multiplie par la raison $q$).",
+          "pourquoi": "Les deux types de suites obéissent à des lois d'évolution très différentes : addition d'une constante pour une suite arithmétique, multiplication par une constante pour une suite géométrique.",
+          "comment_detecter": "Si la formule $u_n = u_0 \\times r^n$ est utilisée pour une suite définie par $u_{n+1}=u_n+r$, la confusion est présente.",
+          "comment_eviter": "Toujours repartir de la relation de récurrence donnée dans l'énoncé ($u_{n+1}=u_n+r$ pour une suite arithmétique) avant de choisir la formule du terme général."
+        },
+        {
+          "description": "Utiliser la formule $u_n = u_0 + n \\times r$ alors que le premier terme donné dans l'énoncé est $u_1$, ce qui décale tous les indices.",
+          "pourquoi": "La formule $u_n = u_0 + nr$ suppose que $u_0$ est bien le terme d'indice $0$ ; si le premier terme donné est $u_1$, chaque terme est décalé d'un rang.",
+          "comment_detecter": "Si l'énoncé donne $u_1$ comme premier terme connu mais que la formule utilisée est $u_n=u_1+nr$ au lieu de $u_n=u_1+(n-1)r$, il y a une erreur d'indice.",
+          "comment_eviter": "Toujours identifier précisément quel indice correspond au terme de départ donné dans l'énoncé avant d'appliquer une formule."
+        },
+        {
+          "description": "Pour prouver qu'une suite est arithmétique, ne vérifier la constance de la différence que sur un ou deux termes numériques au lieu de la démontrer pour tout $n$.",
+          "pourquoi": "La différence $u_{n+1}-u_n$ peut être constante sur les premiers termes calculés puis changer plus loin : seule une expression littérale valable pour tout $n$ garantit le caractère arithmétique.",
+          "comment_detecter": "Si la conclusion « la suite est arithmétique » repose uniquement sur deux valeurs numériques comparées, sans calcul littéral, la preuve est insuffisante.",
+          "comment_eviter": "Toujours calculer $v_{n+1}-v_n$ en fonction de $n$ de façon littérale et vérifier que le résultat est une constante, indépendante de $n$."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser $u_q - u_p = (q-p) \\times r$.",
+        "Étudier si $v_{n+1} - v_n$ est constant."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.5,
+          -3,
+          7,
+          42
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                6
+              ],
+              [
+                2,
+                12
+              ],
+              [
+                3,
+                18
+              ],
+              [
+                4,
+                24
+              ],
+              [
+                5,
+                30
+              ],
+              [
+                6,
+                36
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1,
+            "y": 6
+          },
+          {
+            "x": 2,
+            "y": 12
+          },
+          {
+            "x": 3,
+            "y": 18
+          },
+          {
+            "x": 4,
+            "y": 24
+          },
+          {
+            "x": 5,
+            "y": 30
+          },
+          {
+            "x": 6,
+            "y": 36
+          }
+        ],
+        "alt": "Nuage de points (n ; u_n) pour la suite arithmétique u_n = 6n (u_0=0, raison r=6) : tous les points sont parfaitement alignés sur une droite, car on ajoute toujours la même quantité r=6 d'un terme au suivant."
+      },
+      "quizExerciseIds": [
+        60,
+        61,
+        62
+      ],
+      "topic_id": "suite-arithmetique",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Suite arithmétique."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "suite",
+        "arithmetique"
+      ]
+    },
+    {
+      "id": "suite-geometrique",
+      "title": "Suite géométrique",
+      "schemaVersion": 2,
+      "intro": "Une suite géométrique est une suite qui évolue toujours de la même façon d'un terme au suivant, mais cette fois par multiplication : on multiplie chaque terme par un même nombre, appelé la raison, pour obtenir le suivant. Ce cours te permet de reconnaître une suite géométrique, de calculer n'importe lequel de ses termes, et de retrouver sa raison à partir de deux termes connus.",
+      "explicationSimple": "Pense à une suite géométrique comme à une population qui double, triple, ou est divisée par deux à chaque étape : on multiplie toujours par le même facteur $q$ (la raison). Si $q>1$, les termes positifs grandissent de plus en plus vite ; si $0<q<1$, ils se rapprochent de $0$ ; si $q<0$, les termes alternent de signe à chaque étape.",
+      "objectif": "À la fin de ce cours, tu sauras calculer un terme d'une suite géométrique connaissant son premier terme et sa raison, déterminer la raison à partir de deux termes, et prouver qu'une suite donnée est géométrique.",
+      "definition": "Une suite $(u_n)$ est géométrique s'il existe un réel $q$, appelé raison, tel que pour tout entier naturel $n$, $u_{n+1} = u_n \\times q$ (on passe d'un terme au suivant en multipliant toujours par la même quantité $q$). On a alors, pour tout entier naturel $n$, $u_n = u_0 \\times q^n$.",
+      "definitions": {
+        "lycee": "Une suite $(u_n)$ est géométrique s'il existe un réel $q$, appelé raison, tel que pour tout entier naturel $n$, $u_{n+1} = u_n \\times q$ (on passe d'un terme au suivant en multipliant toujours par la même quantité $q$). On a alors, pour tout entier naturel $n$, $u_n = u_0 \\times q^n$.",
+        "college": "Isoler $q^n$ puis en déduire $q$."
+      },
+      "intuition": "Si la raison $q$ est négative, la suite géométrique alterne de signe à chaque terme (elle n'est donc ni croissante ni décroissante) : c'est très différent d'une suite arithmétique de raison négative, qui reste toujours décroissante. Vérifie toujours le signe de $q$ avant de conclure sur le comportement de la suite.",
+      "reglesImportantes": [
+        "Isoler $q^n$ puis en déduire $q$.",
+        "Étudier si le quotient $\\dfrac{v_{n+1}}{v_n}$ est constant."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Suite géométrique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : Pour une suite géométrique, $u_n = u_0 \\times q^n$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Ici, $u_n = 4 \\times (3)^n$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : $u_{6} = 4 \\times (3)^{6} = 2916$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-118",
+          "titre": "Exemple 1",
+          "enonce": "Soit $(u_n)$ une suite géométrique de premier terme $u_0 = 4$ et de raison $q = 3$. Donner l'expression de $u_n$ en fonction de $n$, puis calculer $u_{6}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour une suite géométrique, $u_n = u_0 \\times q^n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Ici, $u_n = 4 \\times (3)^n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{6} = 4 \\times (3)^{6} = 2916$."
+            }
+          ],
+          "reponse": "$u_n = 4 \\times (3)^n$ et $u_{6} = 2916$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-130",
+          "titre": "Exemple 2",
+          "enonce": "Soit $(u_n)$ une suite géométrique de premier terme $u_0 = 3$ et de raison $q = 2$. Donner l'expression de $u_n$ en fonction de $n$, puis calculer $u_{4}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour une suite géométrique, $u_n = u_0 \\times q^n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Ici, $u_n = 3 \\times (2)^n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{4} = 3 \\times (2)^{4} = 48$."
+            }
+          ],
+          "reponse": "$u_n = 3 \\times (2)^n$ et $u_{4} = 48$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-142",
+          "titre": "Exemple 3",
+          "enonce": "Soit $(u_n)$ une suite géométrique de premier terme $u_0 = 5$ et de raison $q = 2$. Donner l'expression de $u_n$ en fonction de $n$, puis calculer $u_{5}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour une suite géométrique, $u_n = u_0 \\times q^n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Ici, $u_n = 5 \\times (2)^n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{5} = 5 \\times (2)^{5} = 160$."
+            }
+          ],
+          "reponse": "$u_n = 5 \\times (2)^n$ et $u_{5} = 160$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-154",
+          "titre": "Exemple 4",
+          "enonce": "Une suite géométrique $(u_n)$ à termes strictement positifs vérifie $u_0 = 3$ et $u_{3} = 81$. Déterminer sa raison $q$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $u_{3} = u_0 \\times q^{3}$, donc $q^{3} = \\dfrac{81}{3} = 27$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On en déduit $q = 3$ (racine 3-ième positive)."
+            }
+          ],
+          "reponse": "$q = 3$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre suite géométrique (on multiplie par la raison $q$) et suite arithmétique (on ajoute la raison $r$).",
+        "Oublier que si la raison $q$ est négative, la suite alterne de signe et n'est donc ni croissante ni décroissante.",
+        "Lors de la détermination de $q$ à partir d'une égalité $q^n = k$, oublier de choisir la racine correspondant au signe imposé (par exemple une raison strictement positive)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre suite géométrique (on multiplie par la raison $q$) et suite arithmétique (on ajoute la raison $r$).",
+          "pourquoi": "Les deux types de suites suivent des lois d'évolution opposées : multiplication par une constante pour une suite géométrique, addition d'une constante pour une suite arithmétique.",
+          "comment_detecter": "Si la formule $u_n = u_0 + n \\times q$ est utilisée pour une suite définie par $u_{n+1}=u_n \\times q$, la confusion est présente.",
+          "comment_eviter": "Toujours repartir de la relation de récurrence donnée ($u_{n+1}=u_n\\times q$) avant de choisir la formule du terme général $u_n=u_0\\times q^n$."
+        },
+        {
+          "description": "Oublier que si la raison $q$ est négative, la suite alterne de signe et n'est donc ni croissante ni décroissante.",
+          "pourquoi": "Multiplier par un nombre négatif inverse le signe à chaque étape : les termes d'une suite géométrique de raison négative sont donc alternativement positifs et négatifs.",
+          "comment_detecter": "Si l'on affirme qu'une suite géométrique de raison négative est croissante ou décroissante sans préciser qu'elle change de signe, l'analyse est incomplète.",
+          "comment_eviter": "Toujours vérifier le signe de la raison $q$ en premier lieu : si $q<0$, la suite alterne de signe et son sens de variation global n'est pas défini."
+        },
+        {
+          "description": "Lors de la détermination de $q$ à partir d'une égalité $q^n = k$, oublier de choisir la racine correspondant au signe imposé (par exemple une raison strictement positive).",
+          "pourquoi": "L'équation $q^n = k$ peut admettre plusieurs solutions réelles selon la parité de $n$ (par exemple $q^2=4$ a pour solutions $q=2$ et $q=-2$) ; seule une information supplémentaire sur le signe permet de choisir la bonne.",
+          "comment_detecter": "Si l'énoncé précise que les termes de la suite sont strictement positifs mais que la solution négative de $q^n=k$ est retenue, l'erreur est présente.",
+          "comment_eviter": "Toujours utiliser l'information sur le signe des termes de la suite (donnée dans l'énoncé) pour sélectionner la bonne valeur de $q$."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Isoler $q^n$ puis en déduire $q$.",
+        "Étudier si le quotient $\\dfrac{v_{n+1}}{v_n}$ est constant."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.5,
+          -20,
+          5,
+          350
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0,
+                4
+              ],
+              [
+                1,
+                12
+              ],
+              [
+                2,
+                36
+              ],
+              [
+                3,
+                108
+              ],
+              [
+                4,
+                324
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 0,
+            "y": 4
+          },
+          {
+            "x": 1,
+            "y": 12
+          },
+          {
+            "x": 2,
+            "y": 36
+          },
+          {
+            "x": 3,
+            "y": 108
+          },
+          {
+            "x": 4,
+            "y": 324
+          }
+        ],
+        "alt": "Nuage de points (n ; u_n) pour la suite géométrique u_n = 4 × 3^n (u_0=4, raison q=3) : contrairement à la suite arithmétique alignée sur une droite, les points s'envolent ici de façon exponentielle (4, 12, 36, 108, 324), car on multiplie toujours par q=3 d'un terme au suivant."
+      },
+      "quizExerciseIds": [
+        119,
+        120,
+        121
+      ],
+      "topic_id": "suite-geometrique",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Suite géométrique."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "suite",
+        "geometrique"
+      ]
+    }
+  ]
+}

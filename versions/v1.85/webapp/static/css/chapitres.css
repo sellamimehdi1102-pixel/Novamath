@@ -1,0 +1,294 @@
+/* ==========================================================================
+   Page Chapitres — grille de cartes + accordéon de notions (logique Prepacode,
+   design maison)
+   ========================================================================== */
+
+/* ── Barre de filtres (Tout / En cours / Maîtrisé / Non maîtrisé / Enregistrés) */
+.chapter-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.chapter-filter-pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease, transform 150ms ease;
+}
+.chapter-filter-pill:hover { background: var(--surface-hover); color: var(--text); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.chapter-filter-pill:active { transform: scale(0.97); }
+.chapter-filter-pill.active {
+  background: rgba(var(--accent-rgb), 0.14);
+  border-color: rgba(var(--accent-rgb), 0.4);
+  color: var(--accent-text);
+  animation: chapter-filter-pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes chapter-filter-pop {
+  from { transform: scale(0.92); }
+  to { transform: scale(1); }
+}
+
+.chapters-empty-filter {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 48px 16px;
+  font-size: 0.92rem;
+}
+
+/* ── Grille de cartes premium (3 colonnes desktop / 2 tablette / 1 mobile,
+   voir les media queries en bas de fichier) — colonnes fixes en `1fr`
+   plutôt qu'un auto-fill fluide : la grille occupe toujours toute la
+   largeur disponible sans grand espace vide à droite ni colonne
+   surnuméraire sur les écrans très larges. */
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  /* Empêche la grille d'étirer toutes les cartes d'une même ligne à la hauteur
+     de la carte ouverte (bug corrigé : "toute la ligne se dépliait"). Chaque
+     carte ne prend que sa propre hauteur — sans effet sur les cartes fermées,
+     dont le contenu (icône/titre/progression/badges) produit déjà une
+     hauteur identique. */
+  align-items: start;
+  position: relative;
+}
+/* ── Identité de fond de la page (Cours/Exercices uniquement) — courbes
+   mathématiques fines derrière la grille, très discrètes, même esprit que
+   la landing. z-index:-1 sur un parent position:relative : reste sous les
+   .chapter-card (eux-mêmes position:relative, empilement par défaut
+   au-dessus). */
+.chapters-grid::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: -48px;
+  right: -48px;
+  height: 340px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.6;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='340' viewBox='0 0 1200 340'%3E%3Cpath d='M0 260 Q150 160 300 260 T600 260 T900 260 T1200 260' fill='none' stroke='%23755bcf' stroke-opacity='0.10' stroke-width='1.5'/%3E%3Cpath d='M40 40 Q400 -60 720 80 T1200 340' fill='none' stroke='%238f63e0' stroke-opacity='0.08' stroke-width='1.5'/%3E%3C/svg%3E")
+    no-repeat top / 100% 100%;
+}
+
+/* ── Carte de chapitre — coins très arrondis (--radius-md = 20px, dans la
+   fourchette 18-22px demandée), ombre douce au repos (héritée de .card),
+   élévation + ombre plus marquée au survol. */
+.chapter-card {
+  padding: 28px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  position: relative;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.chapter-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-float);
+}
+.chapter-card.selected {
+  border-color: var(--brand-indigo);
+  box-shadow: var(--shadow-glow);
+}
+
+.chapter-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.chapter-icon {
+  width: 46px; height: 46px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(150deg, rgba(var(--accent-rgb), 0.18), rgba(var(--brand-violet-rgb), 0.1));
+  color: var(--accent-text);
+  flex-shrink: 0;
+}
+.chapter-icon svg { width: 22px; height: 22px; }
+
+.chapter-card-top-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+.chapter-select-dot {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  flex-shrink: 0;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+.chapter-card.selected .chapter-select-dot {
+  background: var(--brand-gradient);
+  border-color: transparent;
+}
+
+/* ── Favoris ("Enregistrés") — étoile discrète en coin de carte ────────────── */
+.chapter-favorite-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-faint);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 200ms ease, background 200ms ease, transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.chapter-favorite-btn svg { width: 17px; height: 17px; transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.chapter-favorite-btn:hover { color: var(--text-muted); background: var(--surface-hover); }
+.chapter-favorite-btn.is-favorite { color: var(--warning); }
+.chapter-favorite-btn.is-favorite svg { fill: var(--warning); }
+.chapter-favorite-btn:active svg { transform: scale(1.25); }
+
+.chapter-card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 4px; }
+.chapter-card .chapter-id { color: var(--text-faint); font-size: 0.76rem; }
+
+.chapter-progress { margin: 14px 0 12px; }
+.chapter-progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px;
+}
+
+.chapter-meta-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.chapter-meta-row span { display: flex; align-items: center; gap: 5px; }
+.chapter-meta-row svg { width: 14px; height: 14px; }
+
+.chapter-expand-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.82rem; font-weight: 600; color: var(--text-muted);
+  background: none; border: none; cursor: pointer; padding: 0;
+  width: 100%;
+  justify-content: center;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.chapter-expand-btn svg { width: 15px; height: 15px; transition: transform 350ms ease; }
+.chapter-card.expanded .chapter-expand-btn svg { transform: rotate(180deg); }
+
+.notions-panel {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 350ms ease, opacity 300ms ease;
+}
+.chapter-card.expanded .notions-panel { max-height: 1200px; opacity: 1; }
+
+.notion-row {
+  padding: 12px 10px;
+  margin: 0 -10px;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+.notion-row:hover {
+  background: var(--surface-hover);
+}
+.notion-action-btn {
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+.notion-row:hover .notion-action-btn,
+.notion-row--resumable .notion-action-btn { opacity: 1; }
+
+.notion-row--resumable {
+  background: rgba(var(--accent-rgb), 0.08);
+}
+.notion-row--resumable:hover { background: rgba(var(--accent-rgb), 0.14); }
+.notion-row-top {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.86rem; font-weight: 500; margin-bottom: 8px;
+}
+.notion-row-label { display: flex; align-items: center; gap: 10px; }
+.notion-meta {
+  display: flex; justify-content: space-between;
+  font-size: 0.74rem; color: var(--text-faint);
+}
+
+/* ── Multi-sélection des notions (checkbox premium) ──────────────────────────
+   Une notion sélectionnée met en évidence toute la ligne (bordure + fond
+   léger), pas seulement la case, pour un état facile à repérer d'un coup
+   d'œil dans une liste dense. */
+.notion-row--selectable { border: 1px solid transparent; }
+.notion-checkbox {
+  width: 18px; height: 18px;
+  border-radius: 5px;
+  border: 2px solid var(--border-strong);
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background 200ms ease, border-color 200ms ease, transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.notion-checkbox::after {
+  content: "";
+  width: 10px; height: 6px;
+  border-left: 2px solid var(--text-on-accent);
+  border-bottom: 2px solid var(--text-on-accent);
+  transform: rotate(-45deg) scale(0);
+  transition: transform 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.notion-row--selectable.selected {
+  background: rgba(var(--accent-rgb), 0.08);
+  border-color: rgba(var(--accent-rgb), 0.3);
+}
+.notion-row--selectable.selected .notion-checkbox {
+  background: var(--brand-gradient);
+  border-color: transparent;
+  transform: scale(1.05);
+}
+.notion-row--selectable.selected .notion-checkbox::after { transform: rotate(-45deg) scale(1); }
+
+.notions-start-btn {
+  width: 100%;
+  margin-top: 12px;
+  justify-content: center;
+}
+
+.selection-bar {
+  position: fixed;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-lg);
+  z-index: 40;
+  transition: transform var(--transition-slow);
+}
+.selection-bar.visible { transform: translateX(-50%) translateY(0); }
+.selection-bar .count { font-size: 0.88rem; color: var(--text-muted); }
+
+/* Tablette : 2 cartes par ligne (le passage à 1 colonne, plus bas, ne se
+   déclenche qu'en dessous de 640px). */
+@media (max-width: 1100px) {
+  .chapters-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .chapters-grid { grid-template-columns: 1fr; }
+  .chapter-filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    margin: 0 -4px 18px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .chapter-filter-pill { flex-shrink: 0; }
+}

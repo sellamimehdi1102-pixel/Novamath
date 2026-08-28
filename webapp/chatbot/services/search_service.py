@@ -50,6 +50,18 @@ VALID_SCOPES = {SCOPE_COURS, SCOPE_EXERCICES}
 FUZZY_CUTOFF = 0.62
 DID_YOU_MEAN_CUTOFF = 0.4
 TFIDF_WEAK_THRESHOLD = 0.12
+# Seuil "fort" (chantier continuité conversationnelle, 2026-08-22) : distingue
+# un sujet FRANCHEMENT identifié (assez net pour l'emporter sur un Current
+# Learning Context déjà établi, voir intent_service._detect_chapter) d'une
+# simple correspondance faible qui ne doit servir qu'en dernier recours (pas
+# de sujet mémorisé du tout). Calibré empiriquement : une requête portant un
+# vrai mot-clé de notion ("équation cartésienne", "puissances d'un nombre
+# relatif") score entre 0.45 et 0.55 sur le corpus réel, largement au-dessus ;
+# une collision fortuite (mots génériques partagés entre deux chapitres)
+# dépasse rarement 0.15-0.18. Volontairement distinct du seuil déjà utilisé
+# par knowledge_engine.try_answer_definition (0.22, contexte différent : une
+# réponse directe sans aucun contexte conversationnel à préserver).
+TFIDF_STRONG_THRESHOLD = 0.20
 
 _exercise_index_by_class = {}  # {class_level: retrieval_engine.Index} — construit une seule fois par classe
 _exercise_by_id_by_class = {}  # {class_level: {exercise_id: document}} — lookup exact
@@ -58,10 +70,23 @@ _exercise_index_by_chapter_by_class = {}  # {class_level: {chapter_id: retrieval
 
 def _load_exercise_documents(class_level=None):
     bank_path = _bank_path_for(class_level)
-    if bank_path is None or not bank_path.exists():
-        return []
-    with open(bank_path, "r", encoding="utf-8") as f:
-        raw_bank = json.load(f)
+    raw_bank = []
+    if bank_path is not None and bank_path.exists():
+        with open(bank_path, "r", encoding="utf-8") as f:
+            raw_bank = json.load(f)
+
+    # Pool additif produit par un moteur symbolique (voir
+    # webapp/exercise_generator/) — même fichier que celui fusionné dans
+    # server.py::_class_bank(). Sans cette fusion, le chatbot ("donne-moi un
+    # exercice sur les dérivées") ne pouvait jamais proposer un exercice
+    # généré, même si le mode Exercices du site les propose déjà : deux
+    # sources de vérité auraient divergé silencieusement (Phase 4 —
+    # cohérence exercices/cours/chatbot).
+    profile = curriculum_registry.CURRICULUM_REGISTRY[_resolve_class_level(class_level)]
+    if profile.generated_exercise_bank is not None and profile.generated_exercise_bank.exists():
+        with open(profile.generated_exercise_bank, "r", encoding="utf-8") as f:
+            raw_bank = raw_bank + json.load(f)
+
     documents = []
     for i, ex in enumerate(raw_bank):
         exercise_id = ex.get("id") if ex.get("id") is not None else i

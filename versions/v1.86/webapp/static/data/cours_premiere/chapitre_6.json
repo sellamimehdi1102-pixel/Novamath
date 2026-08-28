@@ -1,0 +1,669 @@
+{
+  "chapterId": "Chapitre_6",
+  "title": "Chapitre 6",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "coordonnees-d-un-point-du-cercle-trigonometrique",
+      "title": "Coordonnées d'un point du cercle trigonométrique",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : coordonnées d'un point du cercle trigonométrique.\n\nCette notion sert à repérer un point sur un cercle (donc un angle) et faire le lien entre angles et coordonnées.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une aiguille de montre qui tourne autour du centre d'une horloge : sa position à chaque instant peut être décrite par l'angle qu'elle a parcouru. Le cercle trigonométrique fonctionne pareil, mais avec des angles mesurés en radians.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Coordonnées d'un point du cercle trigonométrique.",
+      "definition": "Utiliser les formules donnant le cosinus et le sinus d'angles associés (opposé, supplémentaire, complémentaire...).",
+      "definitions": {
+        "lycee": "Utiliser les formules donnant le cosinus et le sinus d'angles associés (opposé, supplémentaire, complémentaire...)."
+      },
+      "intuition": "Sur le cercle trigonométrique de rayon 1, l'abscisse d'un point correspond au cosinus de l'angle, l'ordonnée correspond au sinus. Ne les inverse jamais : cosinus = abscisse (horizontal), sinus = ordonnée (vertical).",
+      "reglesImportantes": [],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Coordonnées d'un point du cercle trigonométrique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise la formule des angles associés : $\\cos(\\pi+a) = -\\cos(a)$ et $\\sin(\\pi+a) = -\\sin(a)$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous arrivons ainsi au résultat : avec $a = \\dfrac{\\pi}{3}$, on obtient $\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1298",
+          "titre": "Exemple 1",
+          "enonce": "On sait que $\\cos\\left(\\dfrac{\\pi}{3}\\right) = \\dfrac{1}{2}$ et $\\sin\\left(\\dfrac{\\pi}{3}\\right) = \\dfrac{\\sqrt{3}}{2}$. En utilisant les symétries du cercle trigonométrique, déterminer $\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise la formule des angles associés : $\\cos(\\pi+a) = -\\cos(a)$ et $\\sin(\\pi+a) = -\\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : avec $a = \\dfrac{\\pi}{3}$, on obtient $\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\cos\\left(\\pi+\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1310",
+          "titre": "Exemple 2",
+          "enonce": "On sait que $\\cos\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$. En utilisant les symétries du cercle trigonométrique, déterminer $\\cos\\left(\\pi+\\dfrac{\\pi}{6}\\right)$ et $\\sin\\left(\\pi+\\dfrac{\\pi}{6}\\right)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise la formule des angles associés : $\\cos(\\pi+a) = -\\cos(a)$ et $\\sin(\\pi+a) = -\\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : avec $a = \\dfrac{\\pi}{6}$, on obtient $\\cos\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$\\cos\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{1}{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\cos\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi+\\dfrac{\\pi}{6}\\right) = -\\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1322",
+          "titre": "Exemple 3",
+          "enonce": "On sait que $\\cos\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$. En utilisant les symétries du cercle trigonométrique, déterminer $\\cos\\left(\\pi-\\dfrac{\\pi}{6}\\right)$ et $\\sin\\left(\\pi-\\dfrac{\\pi}{6}\\right)$, puis en déduire dans quel quadrant se situe le point du cercle trigonométrique associé à l'angle $\\pi-\\dfrac{\\pi}{6}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise la formule des angles associés : $\\cos(\\pi-a) = -\\cos(a)$ et $\\sin(\\pi-a) = \\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : avec $a = \\dfrac{\\pi}{6}$, on obtient $\\cos\\left(\\pi-\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi-\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$\\cos\\left(\\pi-\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi-\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$ ; le point est dans le deuxième quadrant (cosinus négatif, sinus positif)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\cos\\left(\\pi-\\dfrac{\\pi}{6}\\right) = -\\dfrac{\\sqrt{3}}{2}$ et $\\sin\\left(\\pi-\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$ ; le point est dans le deuxième quadrant (cosinus négatif, sinus positif)",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1334",
+          "titre": "Exemple 4",
+          "enonce": "On sait que $\\cos\\left(\\dfrac{\\pi}{3}\\right) = \\dfrac{1}{2}$ et $\\sin\\left(\\dfrac{\\pi}{3}\\right) = \\dfrac{\\sqrt{3}}{2}$. En utilisant les symétries du cercle trigonométrique, déterminer $\\cos\\left(\\pi-\\dfrac{\\pi}{3}\\right)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise la formule des angles associés : $\\cos(\\pi-a) = -\\cos(a)$ et $\\sin(\\pi-a) = \\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : avec $a = \\dfrac{\\pi}{3}$, on obtient $\\cos\\left(\\pi-\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$\\cos\\left(\\pi-\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\cos\\left(\\pi-\\dfrac{\\pi}{3}\\right) = -\\dfrac{1}{2}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la position d'une aiguille d'horloge ou d'une roue qui tourne",
+        "les ondes sonores et lumineuses (mouvements périodiques)",
+        "la navigation et le repérage d'un angle de direction"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas inverser cosinus et sinus, retiens que « cosinus » commence comme « côté horizontal » (l'abscisse), et sinus reste donc pour la verticale.",
+      "aRetenir": [],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.3,
+          -1.3,
+          2.6,
+          2.6
+        ],
+        "grid": false,
+        "axes": true,
+        "circles": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 1
+          }
+        ],
+        "points": [
+          {
+            "x": 0.77,
+            "y": 0.64,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 0.77,
+              "y": 0.64
+            }
+          },
+          {
+            "from": {
+              "x": 0.77,
+              "y": 0.64
+            },
+            "to": {
+              "x": 0.77,
+              "y": 0
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0.77,
+              "y": 0.64
+            },
+            "to": {
+              "x": 0,
+              "y": 0.64
+            },
+            "dashed": true
+          }
+        ],
+        "arcs": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0.35,
+            "startDeg": 0,
+            "endDeg": 40,
+            "label": "angle"
+          }
+        ],
+        "alt": "Sur le cercle trigonométrique, l'abscisse de M est cos(angle), son ordonnée est sin(angle)."
+      },
+      "quizExerciseIds": [
+        1299,
+        1300,
+        1301
+      ],
+      "topic_id": "coordonnees-d-un-point-du-cercle-trigonometrique",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Coordonnées d'un point du cercle trigonométrique."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "coordonnees",
+        "point",
+        "cercle",
+        "trigonometrique"
+      ]
+    },
+    {
+      "id": "fonctions-cosinus-et-sinus",
+      "title": "Fonctions cosinus et sinus",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : fonctions cosinus et sinus.\n\nCette notion sert à repérer un point sur un cercle (donc un angle) et faire le lien entre angles et coordonnées.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une aiguille de montre qui tourne autour du centre d'une horloge : sa position à chaque instant peut être décrite par l'angle qu'elle a parcouru. Le cercle trigonométrique fonctionne pareil, mais avec des angles mesurés en radians.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Fonctions cosinus et sinus.",
+      "definition": "Utiliser $\\sin(x)=\\sin(a) \\iff x=a+2k\\pi$ ou $x=\\pi-a+2k\\pi$, puis ramener les solutions dans $]-\\pi;\\pi]$.",
+      "definitions": {
+        "lycee": "Utiliser $\\sin(x)=\\sin(a) \\iff x=a+2k\\pi$ ou $x=\\pi-a+2k\\pi$, puis ramener les solutions dans $]-\\pi;\\pi]$.",
+        "college": "Utiliser $\\cos(x)=\\cos(a) \\iff x=a+2k\\pi$ ou $x=-a+2k\\pi$, puis ramener les solutions dans $]-\\pi;\\pi]$."
+      },
+      "intuition": "Sur le cercle trigonométrique de rayon 1, l'abscisse d'un point correspond au cosinus de l'angle, l'ordonnée correspond au sinus. Ne les inverse jamais : cosinus = abscisse (horizontal), sinus = ordonnée (vertical).",
+      "reglesImportantes": [
+        "Utiliser $\\cos(x)=\\cos(a) \\iff x=a+2k\\pi$ ou $x=-a+2k\\pi$, puis ramener les solutions dans $]-\\pi;\\pi]$.",
+        "Utiliser la parité (cosinus pair, sinus impair) et la périodicité ($2\\pi$) des fonctions trigonométriques."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Fonctions cosinus et sinus",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la fonction sinus est impaire : $\\sin(-a) = -\\sin(a)$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous arrivons ainsi au résultat : donc $\\sin(-a)+\\sin(a) = -\\sin(a)+\\sin(a) = 0$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1357",
+          "titre": "Exemple 1",
+          "enonce": "Simplifier l'expression $\\sin(-a) + \\sin(a)$ pour tout réel $a$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la fonction sinus est impaire : $\\sin(-a) = -\\sin(a)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $\\sin(-a)+\\sin(a) = -\\sin(a)+\\sin(a) = 0$."
+            }
+          ],
+          "reponse": "$0$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $0$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1369",
+          "titre": "Exemple 2",
+          "enonce": "Résoudre dans $]-\\pi ; \\pi]$ l'équation $\\sin(x) = \\sin\\left(\\dfrac{6\\pi}{5}\\right)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $\\sin(x) = \\sin(a) \\iff x = a + 2k\\pi$ ou $x = \\pi - a + 2k\\pi$, $k \\in \\mathbb{Z}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en ramenant les solutions dans $]-\\pi;\\pi]$, on obtient $x = -\\dfrac{4\\pi}{5}$ ou $x = -\\dfrac{\\pi}{5}$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left\\{-\\dfrac{4\\pi}{5} ; -\\dfrac{\\pi}{5}\\right\\}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\mathcal{S} = \\left\\{-\\dfrac{4\\pi}{5} ; -\\dfrac{\\pi}{5}\\right\\}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1381",
+          "titre": "Exemple 3",
+          "enonce": "Simplifier l'expression $\\cos(a + 1\\times 2\\pi)$ pour tout réel $a$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la fonction cosinus est $2\\pi$-périodique : $\\cos(a+2\\pi)=\\cos(a)$, donc ajouter $1$ fois $2\\pi$ ne change pas la valeur."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\cos(a+1\\times 2\\pi) = \\cos(a)$."
+            }
+          ],
+          "reponse": "$\\cos(a)$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\cos(a)$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1393",
+          "titre": "Exemple 4",
+          "enonce": "Résoudre dans $]-\\pi ; \\pi]$ l'équation $\\cos(x) = \\cos\\left(\\dfrac{\\pi}{9}\\right)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on utilise $\\cos(x) = \\cos(a) \\iff x = a + 2k\\pi$ ou $x = -a + 2k\\pi$, $k \\in \\mathbb{Z}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en ramenant les solutions dans $]-\\pi;\\pi]$, on obtient $x = \\dfrac{\\pi}{9}$ ou $x = -\\dfrac{\\pi}{9}$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left\\{-\\dfrac{\\pi}{9} ; \\dfrac{\\pi}{9}\\right\\}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\mathcal{S} = \\left\\{-\\dfrac{\\pi}{9} ; \\dfrac{\\pi}{9}\\right\\}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la position d'une aiguille d'horloge ou d'une roue qui tourne",
+        "les ondes sonores et lumineuses (mouvements périodiques)",
+        "la navigation et le repérage d'un angle de direction"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas inverser cosinus et sinus, retiens que « cosinus » commence comme « côté horizontal » (l'abscisse), et sinus reste donc pour la verticale.",
+      "aRetenir": [
+        "Utiliser $\\cos(x)=\\cos(a) \\iff x=a+2k\\pi$ ou $x=-a+2k\\pi$, puis ramener les solutions dans $]-\\pi;\\pi]$.",
+        "Utiliser la parité (cosinus pair, sinus impair) et la périodicité ($2\\pi$) des fonctions trigonométriques."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.3,
+          -1.3,
+          2.6,
+          2.6
+        ],
+        "grid": false,
+        "axes": true,
+        "circles": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 1
+          }
+        ],
+        "points": [
+          {
+            "x": 0.77,
+            "y": 0.64,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 0.77,
+              "y": 0.64
+            }
+          },
+          {
+            "from": {
+              "x": 0.77,
+              "y": 0.64
+            },
+            "to": {
+              "x": 0.77,
+              "y": 0
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0.77,
+              "y": 0.64
+            },
+            "to": {
+              "x": 0,
+              "y": 0.64
+            },
+            "dashed": true
+          }
+        ],
+        "arcs": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0.35,
+            "startDeg": 0,
+            "endDeg": 40,
+            "label": "angle"
+          }
+        ],
+        "alt": "Sur le cercle trigonométrique, l'abscisse de M est cos(angle), son ordonnée est sin(angle)."
+      },
+      "quizExerciseIds": [
+        1358,
+        1359,
+        1360
+      ],
+      "topic_id": "fonctions-cosinus-et-sinus",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Fonctions cosinus et sinus."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "fonctions",
+        "cosinus",
+        "sinus"
+      ]
+    },
+    {
+      "id": "reperage-sur-le-cercle-trigonometrique",
+      "title": "Repérage sur le cercle trigonométrique",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : repérage sur le cercle trigonométrique.\n\nCette notion sert à repérer un point sur un cercle (donc un angle) et faire le lien entre angles et coordonnées.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine une aiguille de montre qui tourne autour du centre d'une horloge : sa position à chaque instant peut être décrite par l'angle qu'elle a parcouru. Le cercle trigonométrique fonctionne pareil, mais avec des angles mesurés en radians.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Repérage sur le cercle trigonométrique.",
+      "definition": "Deux angles qui diffèrent d'un multiple de $2\\pi$ repèrent le même point du cercle trigonométrique.",
+      "definitions": {
+        "lycee": "Deux angles qui diffèrent d'un multiple de $2\\pi$ repèrent le même point du cercle trigonométrique."
+      },
+      "intuition": "Sur le cercle trigonométrique de rayon 1, l'abscisse d'un point correspond au cosinus de l'angle, l'ordonnée correspond au sinus. Ne les inverse jamais : cosinus = abscisse (horizontal), sinus = ordonnée (vertical).",
+      "reglesImportantes": [],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Repérage sur le cercle trigonométrique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\dfrac{5\\pi}{2} = \\dfrac{\\pi}{2} + 2\\pi$"
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : la mesure principale est donc $\\dfrac{\\pi}{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1239",
+          "titre": "Exemple 1",
+          "enonce": "Un angle a pour mesure $\\dfrac{5\\pi}{2}$ radians. Déterminer sa mesure principale dans $[0 ; 2\\pi[$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\dfrac{5\\pi}{2} = \\dfrac{\\pi}{2} + 2\\pi$"
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la mesure principale est donc $\\dfrac{\\pi}{2}$."
+            }
+          ],
+          "reponse": "$\\dfrac{\\pi}{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\dfrac{\\pi}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1251",
+          "titre": "Exemple 2",
+          "enonce": "Un angle a pour mesure $-\\dfrac{21\\pi}{4}$ radians. Déterminer sa mesure principale dans $[0 ; 2\\pi[$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $-\\dfrac{21\\pi}{4} = \\dfrac{3\\pi}{4} - 6\\pi$"
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la mesure principale est donc $\\dfrac{3\\pi}{4}$."
+            }
+          ],
+          "reponse": "$\\dfrac{3\\pi}{4}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\dfrac{3\\pi}{4}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1263",
+          "titre": "Exemple 3",
+          "enonce": "Donner la mesure principale, c'est-à-dire l'unique mesure appartenant à $[0 ; 2\\pi[$, de l'angle de mesure $\\dfrac{26\\pi}{9}$ radians.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\dfrac{26\\pi}{9} = \\dfrac{8\\pi}{9} + 2\\pi$"
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la mesure principale est donc $\\dfrac{8\\pi}{9}$."
+            }
+          ],
+          "reponse": "$\\dfrac{8\\pi}{9}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\dfrac{8\\pi}{9}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1275",
+          "titre": "Exemple 4",
+          "enonce": "Déterminer la mesure appartenant à $[0 ; 2\\pi[$ associée à l'angle de mesure $-4\\pi$ radians.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $-4\\pi = 0 - 4\\pi$"
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : or ajouter ou retrancher un multiple de $2\\pi$ ne change pas la position sur le cercle trigonométrique."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la mesure principale est donc $0$."
+            }
+          ],
+          "reponse": "$0$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $0$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la position d'une aiguille d'horloge ou d'une roue qui tourne",
+        "les ondes sonores et lumineuses (mouvements périodiques)",
+        "la navigation et le repérage d'un angle de direction"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas inverser cosinus et sinus, retiens que « cosinus » commence comme « côté horizontal » (l'abscisse), et sinus reste donc pour la verticale.",
+      "aRetenir": [],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.3,
+          -1.3,
+          2.6,
+          2.6
+        ],
+        "grid": false,
+        "axes": true,
+        "circles": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 1
+          }
+        ],
+        "points": [
+          {
+            "x": 0.77,
+            "y": 0.64,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 0.77,
+              "y": 0.64
+            }
+          },
+          {
+            "from": {
+              "x": 0.77,
+              "y": 0.64
+            },
+            "to": {
+              "x": 0.77,
+              "y": 0
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0.77,
+              "y": 0.64
+            },
+            "to": {
+              "x": 0,
+              "y": 0.64
+            },
+            "dashed": true
+          }
+        ],
+        "arcs": [
+          {
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "radius": 0.35,
+            "startDeg": 0,
+            "endDeg": 40,
+            "label": "angle"
+          }
+        ],
+        "alt": "Sur le cercle trigonométrique, l'abscisse de M est cos(angle), son ordonnée est sin(angle)."
+      },
+      "quizExerciseIds": [
+        1240,
+        1241,
+        1242
+      ],
+      "topic_id": "reperage-sur-le-cercle-trigonometrique",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Repérage sur le cercle trigonométrique."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "reperage",
+        "cercle",
+        "trigonometrique"
+      ]
+    }
+  ]
+}

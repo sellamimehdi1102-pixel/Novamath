@@ -5,7 +5,7 @@ import { bindLiveTranslations } from "./i18n.js";
 import {
   getState, hydrateFromServer, computeStreak, masteryByChapter,
   coverageByChapter, levelFromXp, badgeDefs, accuracyOutOf20, getChapterStatus,
-  scopedStats,
+  scopedStats, notionBreakdown,
 } from "./store.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
 import { renderResumeCard } from "./resume.js";
@@ -15,6 +15,7 @@ import { icon } from "./icons.js";
 import { badgeIconSvg } from "./badgeIcons.js";
 import { api } from "./api.js";
 import { animateCount } from "./animations.js";
+import { mountGuestLockOverlay, dismissGuestLockOverlay, unmountGuestLockOverlay } from "./guestLockOverlay.js";
 
 initSettingsManager().then(() => bindLiveTranslations());
 bindSettingsButton(document.getElementById("settings-btn"));
@@ -42,45 +43,50 @@ function initials(name) {
 // seulement la carte (le flou reste) ; ce choix ne doit pas revenir hanter
 // l'utilisateur à chaque re-rendu pendant la session en cours (sessionStorage).
 const GUEST_LOCK_CARD_DISMISS_KEY = "novamath:guest_lock_card_dismissed";
+const GUEST_LOCK_OVERLAY_ID = "dashboard-guest-lock-overlay";
 
 function applyGuestDashboardLock(locked) {
   const content = $("dashboard-content");
-  content.classList.toggle("is-locked", locked);
 
-  let card = $("guest-lock-card");
-  if (!locked || sessionStorage.getItem(GUEST_LOCK_CARD_DISMISS_KEY)) {
-    if (card) card.remove();
+  if (!locked) {
+    unmountGuestLockOverlay(content, GUEST_LOCK_OVERLAY_ID);
     return;
   }
-  if (card) return;
 
-  card = document.createElement("div");
-  card.id = "guest-lock-card";
-  card.className = "guest-lock-card card";
-  card.innerHTML = `
-    <div class="icon-wrap">${icon("star")}</div>
-    <h3>Créez votre compte NovaMath</h3>
-    <p>Vous avez découvert NovaMath en mode invité.<br>Créez gratuitement votre compte pour :</p>
-    <ul class="guest-lock-card-list">
-      <li>sauvegarder votre progression ;</li>
-      <li>retrouver vos statistiques ;</li>
-      <li>accéder à votre historique ;</li>
-      <li>personnaliser votre profil ;</li>
-      <li>débloquer un Dashboard permanent.</li>
-    </ul>
-    <div class="guest-lock-card-actions">
+  // Le flou reste posé pour le reste de la session dès que le Dashboard est
+  // verrouillé, même si la popup a déjà été fermée ("Continuer en mode
+  // invité" ne fait fermer QUE la popup, jamais lever le flou — voir
+  // dismissGuestLockOverlay).
+  content.classList.add("guest-lock-target");
+  if (sessionStorage.getItem(GUEST_LOCK_CARD_DISMISS_KEY)) {
+    dismissGuestLockOverlay(GUEST_LOCK_OVERLAY_ID);
+    return;
+  }
+
+  const overlay = mountGuestLockOverlay(content, {
+    id: GUEST_LOCK_OVERLAY_ID,
+    icon: "star",
+    title: "Créez votre compte NovaMath",
+    description: "Vous avez découvert NovaMath en mode invité.<br>Créez gratuitement votre compte pour :",
+    listItems: [
+      "sauvegarder votre progression ;",
+      "retrouver vos statistiques ;",
+      "accéder à votre historique ;",
+      "personnaliser votre profil ;",
+      "débloquer un Dashboard permanent.",
+    ],
+    actionsHtml: `
       <button type="button" class="btn btn-primary js-open-signup">Créer un compte</button>
       <button type="button" class="btn btn-secondary js-open-login">Se connecter</button>
       <button type="button" class="btn btn-ghost" id="btn-guest-lock-dismiss">Continuer en mode invité</button>
-    </div>
-  `;
-  content.insertAdjacentElement("beforebegin", card);
-  card.querySelector("#btn-guest-lock-dismiss").addEventListener("click", () => {
-    sessionStorage.setItem(GUEST_LOCK_CARD_DISMISS_KEY, "1");
-    card.remove();
+    `,
   });
-  card.querySelectorAll(".js-open-signup, .js-open-login").forEach((btn) => {
-    btn.addEventListener("click", () => card.remove());
+  overlay.querySelector("#btn-guest-lock-dismiss").addEventListener("click", () => {
+    sessionStorage.setItem(GUEST_LOCK_CARD_DISMISS_KEY, "1");
+    dismissGuestLockOverlay(GUEST_LOCK_OVERLAY_ID);
+  });
+  overlay.querySelectorAll(".js-open-signup, .js-open-login").forEach((btn) => {
+    btn.addEventListener("click", () => dismissGuestLockOverlay(GUEST_LOCK_OVERLAY_ID));
   });
 }
 
@@ -130,7 +136,8 @@ function render(state) {
   renderDailyGoal(state.history, streak);
   renderProgressChart(state.series || []);
   renderMasteryLists(state.history);
-  renderSuggestions(state.history);
+  renderSuggestions(state.history, state.suggestions_limit);
+  renderNotionBreakdown(state.history, state.notion_breakdown_enabled);
   renderSeriesTable(state.series || []);
   renderBadges(state.badges);
 }
@@ -295,8 +302,40 @@ function renderProgressChart(series) {
   });
 }
 
+// ── Répartition dashboard par plan (2026-08-26) : le backend (/api/stats)
+// limite déjà `series[]` à la fenêtre autorisée par le plan effectif — ces
+// boutons ne font qu'exposer/verrouiller visuellement les fenêtres que
+// l'utilisateur n'a pas le droit d'atteindre, jamais une deuxième logique de
+// filtrage (la donnée reçue est déjà la bonne, on ne fait qu'informer).
+const PLAN_WINDOW_ACCESS = { free: ["20"], premium: ["20", "50"], ultra: ["20", "50", "all"] };
+const WINDOW_LOCK_PLAN_LABEL = { "50": "Premium", all: "Ultra" };
+
+function applyChartWindowLocks(plan) {
+  const allowed = PLAN_WINDOW_ACCESS[plan] || PLAN_WINDOW_ACCESS.free;
+  document.querySelectorAll(".chart-zoom-btn").forEach((btn) => {
+    const w = btn.dataset.window;
+    const locked = !allowed.includes(w);
+    btn.classList.toggle("is-locked", locked);
+    btn.disabled = locked;
+    let badge = btn.querySelector(".chart-zoom-lock-badge");
+    if (locked) {
+      btn.title = `Fonctionnalité ${WINDOW_LOCK_PLAN_LABEL[w]}`;
+      if (!badge) {
+        badge = document.createElement("span");
+        badge.className = "chart-zoom-lock-badge";
+        badge.textContent = WINDOW_LOCK_PLAN_LABEL[w];
+        btn.appendChild(badge);
+      }
+    } else {
+      btn.removeAttribute("title");
+      badge?.remove();
+    }
+  });
+}
+
 document.querySelectorAll(".chart-zoom-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
+    if (btn.disabled) return;
     document.querySelectorAll(".chart-zoom-btn").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     chartWindow = btn.dataset.window === "all" ? "all" : Number(btn.dataset.window);
@@ -373,12 +412,22 @@ function renderMasteryLists(history) {
   bindGotoChapterButtons(reviewEl);
 }
 
-function renderSuggestions(history) {
+// `limit` (GET /api/stats::server.py, champ suggestions_limit) : plafond du
+// nombre de cartes affichées, différencié par plan effectif (Free 3 /
+// Premium 5 / Ultra 8, voir server.py::_SUGGESTIONS_LIMIT_BY_PLAN — SEULE
+// source de vérité de ces valeurs, jamais dupliquées ici). Le calcul du
+// classement des notions faibles reste strictement inchangé, jamais
+// recalculé/inventé côté client. Repli à 3 (comportement historique) si la
+// valeur backend est absente/invalide (ancienne réponse en cache, panne
+// réseau — voir store.js::hydrateFromServer) : jamais un crash pour un
+// champ optionnel.
+function renderSuggestions(history, limit) {
   const el = $("suggestions");
   if (!history.length) {
     el.innerHTML = `<div class="suggestion-card">Fais ta première évaluation pour recevoir des suggestions personnalisées.</div>`;
     return;
   }
+  const max = Number.isInteger(limit) && limit > 0 ? limit : 3;
   const byNotion = {};
   history.forEach((h) => {
     const key = `${h.chapter} : ${h.notion}`;
@@ -390,11 +439,65 @@ function renderSuggestions(history) {
     .map(([k, v]) => ({ key: k, rate: v.correct / v.total }))
     .filter((x) => x.rate < 0.6)
     .sort((a, b) => a.rate - b.rate)
-    .slice(0, 3);
+    .slice(0, max);
 
   el.innerHTML = weak.length
     ? weak.map((w) => `<div class="suggestion-card">Reprends <strong>${w.key}</strong> — ${Math.round(w.rate * 100)}% de réussite.</div>`).join("")
     : `<div class="suggestion-card">Belle régularité ! Continue l'entraînement pour progresser encore.</div>`;
+}
+
+// ── Bilan de progression par notion (Premium+) ──────────────────────────────
+// `enabled` (GET /api/stats::server.py, champ notion_breakdown_enabled) :
+// seule source de vérité de l'accès — jamais déduit de user.plan côté
+// client (voir applyChartWindowLocks ci-dessus pour le contre-exemple à ne
+// pas reproduire). Le calcul lui-même (notionBreakdown, store.js) reste
+// purement client à partir de history[] déjà reçu en entier, mais n'est
+// JAMAIS invoqué quand `enabled` est faux — Free ne calcule ni n'affiche
+// rien, seulement la carte verrouillée. Même convention visuelle que
+// cours.js::lockedContentCard (dashboard-locked-card, voir dashboard.css) :
+// un badge discret, jamais de popup ni de cadenas imposant.
+function renderNotionBreakdown(history, enabled) {
+  const el = $("notion-breakdown");
+  if (!enabled) {
+    el.innerHTML = `
+      <div class="dashboard-locked-card">
+        ${icon("lock")}
+        <div>
+          <div class="dashboard-locked-title">Bilan détaillé par notion — Premium</div>
+          <div class="dashboard-locked-desc">Réussite, temps moyen et tendance sur chaque notion déjà travaillée.</div>
+        </div>
+      </div>`;
+    return;
+  }
+  if (!history.length) {
+    el.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">Fais ta première évaluation pour voir ton bilan par notion.</p>`;
+    return;
+  }
+  const rows = notionBreakdown(history);
+  if (!rows.length) {
+    el.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">Rien à analyser pour l'instant.</p>`;
+    return;
+  }
+  const TREND_LABEL = { up: "↗ En progrès", down: "↘ À surveiller", stable: "→ Stable" };
+  const titleFor = (chapterId) => chaptersMeta.find((c) => c.id === chapterId)?.title || chapterId;
+
+  el.innerHTML = `
+    <table class="notion-breakdown-table">
+      <thead><tr><th>Notion</th><th>Tentatives</th><th>Réussite</th><th>Temps moyen</th><th>Tendance</th></tr></thead>
+      <tbody>
+        ${rows.map((r) => `
+          <tr>
+            <td>
+              <div class="notion-breakdown-name">${r.notion}</div>
+              <div class="notion-breakdown-chapter">${titleFor(r.chapter)}</div>
+            </td>
+            <td class="tabular">${r.count}</td>
+            <td><span class="badge ${r.rate >= 0.7 ? "badge--success" : r.rate >= 0.4 ? "badge--warning" : "badge--danger"}">${Math.round(r.rate * 100)}%</span></td>
+            <td class="tabular">${formatDuration(r.avgDurationS)}</td>
+            <td>${r.trend ? TREND_LABEL[r.trend] : "—"}</td>
+          </tr>`).join("")}
+      </tbody>
+    </table>`;
 }
 
 function renderSeriesTable(series) {
@@ -459,7 +562,11 @@ async function renderAiUsageCard() {
 async function init() {
   const { user } = await api.me();
   renderAccountCard(user);
-  window.addEventListener("novamath:account-updated", (e) => renderAccountCard(e.detail));
+  applyChartWindowLocks(user.plan);
+  window.addEventListener("novamath:account-updated", (e) => {
+    renderAccountCard(e.detail);
+    applyChartWindowLocks(e.detail.plan);
+  });
   renderAiUsageCard();
 
   if (user.is_guest) {

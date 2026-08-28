@@ -114,6 +114,30 @@ class ResponseDraft:
     topic_id: Optional[str]
     used_fallback: bool
     explanation: str
+    # Chantier "fausse mémoire d'approche" (2026-08-22) : approche RÉELLEMENT
+    # réalisée par cette composition (voir _primary_approach), jamais
+    # supposée égale à `strategy.recommended_approach` — None si le premier
+    # bloc de contenu ne correspond à aucune approche du vocabulaire
+    # d'escalade (ex: RESUME/FORMULE/PROPRIETE).
+    primary_approach: Optional[str] = None
+    # Audit "le chatbot abandonne trop vite" (2026-07-26, épisode 2) : distinct
+    # de `used_fallback` (qui couvre aussi un repli BÉNIN entre deux blocs de
+    # contenu de LA MÊME notion résolue, ex. _block_propriete retombant sur une
+    # formule — ce n'est PAS un échec). `notion_resolved=False` signale
+    # UNIQUEMENT le cas où aucune notion n'a pu être résolue du tout : ce texte
+    # n'est alors qu'un REPLI DE DERNIER RECOURS interne à ce module, jamais une
+    # réponse à considérer comme valide par l'appelant (voir
+    # local_response_engine.py::_execute_engine, qui doit continuer la
+    # cascade plutôt que d'afficher ce texte à l'élève).
+    notion_resolved: bool = True
+    # Chantier "répétition des exemples" (2026-08-23) : ids des exemples
+    # RÉELLEMENT choisis pendant CETTE composition (0, 1 ou 2 — BLOCK_EXEMPLE/
+    # BLOCK_EXEMPLE_2), à ajouter par l'appelant à la mémoire persistée de la
+    # conversation (voir conversation_manager._commit_used_exemple). Ne
+    # contient PAS les ids hérités des tours précédents (déjà dans
+    # `strategy.used_exemple_ids`, seulement lus ici pour les exclure du
+    # tirage — jamais retournés en double).
+    new_exemple_ids: tuple = ()
 
 
 # ── Correspondances de paramètres (documentées, pas de valeur devinée) ──────
@@ -224,6 +248,14 @@ _LEADIN_EXEMPLE_2 = [
     "Un autre exemple, pour être sûr d'avoir compris :",
     "Et un deuxième cas :",
 ]
+# Chantier "répétition des exemples" (2026-08-23) : utilisée UNIQUEMENT
+# quand knowledge_engine.exemple_pool_exhausted() est vrai (aucun exemple
+# inédit ne reste dans les données de cette notion) — le dit honnêtement
+# plutôt que de présenter la répétition comme si elle était nouvelle.
+_LEADIN_EXEMPLE_EPUISE = [
+    "Je t'ai déjà montré tous les exemples que j'ai sur ce point — reprenons celui-ci, ça vaut le coup de bien le fixer :",
+    "Je n'ai pas d'autre exemple différent sous la main pour cette notion précise — revoyons le même, en y prêtant bien attention :",
+]
 _LEADIN_FORMULE = [
     "Voici la formule à connaître :",
     "La formule utile ici :",
@@ -259,10 +291,16 @@ _CONSEIL_VARIANTS = [
     "Un bon réflexe : reformule cette règle avec tes propres mots pour vérifier que tu l'as comprise.",
     "N'hésite pas à t'entraîner avec un exercice sur cette notion pour bien l'ancrer.",
 ]
+# Audit «le chatbot ne doit jamais donner l'impression d'abandonner»
+# (2026-07-26, épisode 2) : ce texte n'est plus qu'un filet de sécurité
+# interne à ce module (voir ResponseDraft.notion_resolved=False plus haut) —
+# local_response_engine.py ne l'affiche JAMAIS à l'élève, il relance la
+# cascade vers un autre moteur. Reformulé quand même en dialogue naturel
+# (jamais «je n'ai pas trouvé»/ton froid), en défense en profondeur.
 _INTROUVABLE_VARIANTS = [
-    "Je n'ai pas trouvé de notion de cours correspondant précisément à ta demande. Peux-tu reformuler, ou préciser le chapitre concerné ?",
-    "Je ne retrouve pas exactement cette notion dans le programme actuel. Essaie de reformuler ou de préciser le chapitre.",
-    "Cette notion ne correspond à rien de précis dans les cours disponibles pour l'instant. Peux-tu préciser ta demande ?",
+    "Bien sûr. Peux-tu me dire de quel chapitre ou de quelle notion tu parles ?",
+    "Je veux bien t'aider. Dis-moi simplement le nom du chapitre, ou colle ton exercice.",
+    "Je ne suis pas certain du sujet dont tu parles. Peux-tu me donner un peu plus de contexte ?",
 ]
 
 
@@ -341,13 +379,21 @@ def _block_methode(rng, avoid, notion, niveau_methode, mode):
 
 
 def _block_exemple(rng, avoid, notion, difficulte_label, exclude_ids, kind=BLOCK_EXEMPLE, leadins=None, hint_only=False):
-    exemple = knowledge_engine.get_exemple(notion, difficulte=difficulte_label)
-    if exemple and exemple.get("id") in exclude_ids:
-        alternatives = [e for e in (notion.get("exemples") or []) if e.get("id") not in exclude_ids]
-        exemple = rng.choice(alternatives) if alternatives else None
+    # Chantier "répétition des exemples" (2026-08-23) : `exclude_ids` porte
+    # désormais À LA FOIS les ids déjà utilisés DANS CETTE MÊME réponse
+    # (BLOCK_EXEMPLE avant BLOCK_EXEMPLE_2, voir compose()) ET ceux déjà
+    # montrés lors des tours PRÉCÉDENTS de la conversation (voir
+    # conversation_manager._commit_used_exemple) — le tirage exclut les deux
+    # à la fois en un seul appel, jamais deux logiques séparées.
+    exhausted = knowledge_engine.exemple_pool_exhausted(notion, exclude_ids)
+    exemple = knowledge_engine.get_exemple(notion, difficulte=difficulte_label, exclude_ids=exclude_ids)
     if not exemple:
         return None, None
-    lead = _pick(rng, leadins or _LEADIN_EXEMPLE, avoid)
+    # Stock réellement épuisé (aucune alternative inédite) : le dit
+    # honnêtement plutôt que de présenter la répétition comme un exemple
+    # neuf — jamais de fausse variante fabriquée, quel que soit le bloc
+    # (premier ou second exemple de la réponse).
+    lead = _pick(rng, _LEADIN_EXEMPLE_EPUISE, avoid) if exhausted else _pick(rng, leadins or _LEADIN_EXEMPLE, avoid)
     if hint_only:
         premiere_etape = (exemple.get("calcul") or [{}])[0].get("texte", "")
         body = "\n\n".join(part for part in (exemple.get("enonce", ""), premiere_etape) if part)
@@ -466,10 +512,59 @@ def _block_introuvable(rng, avoid):
 
 
 # ── Plan de blocs par intent ─────────────────────────────────────────────────
-def _content_plan(intent, longueur, quantity):
+# Vocabulaire d'approche (chantier "escalade pédagogique", 2026-08-22) —
+# EXACTEMENT le même que conversation_manager._LOCAL_APPROACHES : seules
+# "definition"/"methode"/"exemple" correspondent à un bloc composable
+# localement à partir de données réelles. "analogie"/"question_guidee"
+# (vocabulaire LLM uniquement, voir conversation_manager._LLM_APPROACHES)
+# n'ont ICI aucune traduction — le plan par défaut de l'intent s'applique
+# alors sans réordonnancement (jamais de contenu inventé pour les simuler).
+_APPROACH_TO_BLOCK = {
+    "definition": BLOCK_DEFINITION,
+    "methode": BLOCK_METHODE,
+    "exemple": BLOCK_EXEMPLE,
+}
+_BLOCK_TO_APPROACH = {block: approach for approach, block in _APPROACH_TO_BLOCK.items()}
+
+
+def _primary_approach(blocks):
+    """Chantier "fausse mémoire d'approche" (2026-08-22) : approche
+    RÉELLEMENT réalisée par cette composition — le premier bloc de CONTENU
+    (jamais introduction/ouverture, purement cosmétiques) dont le type
+    correspond au vocabulaire d'escalade (definition/methode/exemple, voir
+    _APPROACH_TO_BLOCK). Renvoie None si le premier bloc de contenu ne
+    correspond à aucune de ces trois catégories (ex: RESUME/FORMULE/
+    PROPRIETE) — dans ce cas l'appelant (conversation_manager) ne doit rien
+    ajouter à approaches_used, jamais deviner."""
+    for block in blocks:
+        if block.kind in (BLOCK_INTRODUCTION, BLOCK_OUVERTURE):
+            continue
+        return _BLOCK_TO_APPROACH.get(block.kind)
+    return None
+
+
+def _content_plan(intent, longueur, quantity, recommended_approach=None, escalation_level=0):
     """Renvoie la liste ordonnée des blocs de CONTENU (hors introduction/
     ouverture, ajoutés systématiquement sauf en longueur "court") pour un
-    intent donné. `quantity`/`longueur` ajustent le nombre d'exemples."""
+    intent donné. `quantity`/`longueur` ajustent le nombre d'exemples.
+
+    `recommended_approach` (chantier "escalade pédagogique", 2026-08-22) :
+    si l'approche recommandée par l'état d'escalade (voir
+    conversation_manager._select_approach) correspond à un bloc DÉJÀ PRÉSENT
+    dans le plan de cet intent, ce bloc est simplement déplacé en tête —
+    aucun bloc ajouté, aucun contenu inventé, le plan par défaut de chaque
+    intent reste la seule source de vérité sur CE QUI peut être montré.
+
+    `escalation_level` (chantier "escalade réellement exécutée", 2026-08-22) :
+    audit LIVE confirmé — un intent NON mappé ici (ex. "none", produit par
+    "encore une autre façon"/"je comprends toujours pas") retombait
+    TOUJOURS sur le repli `[BLOCK_DEFINITION]` seul, quel que soit le niveau
+    d'escalade déjà atteint — un élève ayant déjà exprimé 3 incompréhensions
+    recevait alors une réponse quasi identique à sa toute première question
+    (similarité textuelle mesurée : 0,685). Correctif : si l'intent est
+    absent de `plans` (repli) ET `escalation_level >= 2`, réutilise le MÊME
+    plan enrichi que REFORMULATION — jamais un nouveau bloc, jamais une
+    invention, seulement le même repli déjà appliqué à un intent voisin."""
     deuxieme_exemple = (quantity or 1) >= 2 or longueur == "detaille"
 
     plans = {
@@ -484,10 +579,38 @@ def _content_plan(intent, longueur, quantity):
         intent_service.INDICE: [BLOCK_EXEMPLE],  # hint_only=True géré par compose()
         intent_service.RAPPEL: [BLOCK_RAPPEL],
         intent_service.REVISION: [BLOCK_RESUME, BLOCK_METHODE],
-        intent_service.REFORMULATION: [BLOCK_DEFINITION],
+        # REFORMULATION (chantier "réponses répétitives", 2026-08-22) :
+        # utilisait auparavant [BLOCK_DEFINITION] — EXACTEMENT le même bloc,
+        # tiré du même champ `notion["definition"]` (texte fixe, jamais
+        # randomisé contrairement à `_block_exemple`), que le plan DEFINITION
+        # ci-dessus. Une reformulation ("explique autrement", "je n'ai pas
+        # compris"...) obtenait donc un texte quasi identique à la toute
+        # première explication — bug réel confirmé (audit "valeur absolue").
+        # Correctif : mène avec la MÉTHODE (étapes) et un EXEMPLE (tiré au
+        # sort parmi ceux de la notion, voir _block_exemple) — deux angles
+        # pédagogiques réellement différents, RÉUTILISANT des mécanismes déjà
+        # existants (aucun nouveau contenu, aucun appel LLM supplémentaire).
+        # BLOCK_DEFINITION reste en dernier recours : si la notion n'a ni
+        # méthode ni exemple, la définition continue d'être montrée (jamais
+        # une réponse vide) — comportement inchangé pour ce cas limite.
+        intent_service.REFORMULATION: [BLOCK_METHODE, BLOCK_EXEMPLE, BLOCK_DEFINITION],
+        # RESTART_BASICS (chantier "reformulations successives", 2026-08-22) :
+        # absent d'ici, il retombait sur le plan par défaut [BLOCK_DEFINITION]
+        # — identique au plan DEFINITION — malgré son intent typiquement plus
+        # marqué ("j'ai rien compris"/"reprends depuis le début") qu'une
+        # simple demande de définition. Alignée sur REFORMULATION pour la
+        # même raison (angle méthode+exemple plutôt que redite de la
+        # définition) — même mécanisme, même garde-fou (BLOCK_DEFINITION en
+        # dernier recours si la notion n'a ni méthode ni exemple).
+        intent_service.RESTART_BASICS: [BLOCK_METHODE, BLOCK_EXEMPLE, BLOCK_DEFINITION],
         intent_service.EXPLICATION: [BLOCK_DEFINITION, BLOCK_METHODE, BLOCK_EXEMPLE],
     }
-    plan = list(plans.get(intent, [BLOCK_DEFINITION]))
+    if intent in plans:
+        plan = list(plans[intent])
+    elif (escalation_level or 0) >= 2:
+        plan = list(plans[intent_service.REFORMULATION])
+    else:
+        plan = [BLOCK_DEFINITION]
 
     if longueur == "court":
         plan = plan[:1]
@@ -498,6 +621,11 @@ def _content_plan(intent, longueur, quantity):
             plan.append(BLOCK_ERREUR_FREQUENTE)
         if BLOCK_ASTUCE not in plan:
             plan.append(BLOCK_ASTUCE)
+
+    preferred_block = _APPROACH_TO_BLOCK.get(recommended_approach)
+    if preferred_block and preferred_block in plan and plan[0] != preferred_block:
+        plan.remove(preferred_block)
+        plan.insert(0, preferred_block)
 
     return plan
 
@@ -530,17 +658,30 @@ def compose(strategy, student_context=None, chatbot_settings=None, rng=None):
             chapter_id=strategy.chapter_id, topic_id=strategy.topic_id, used_fallback=True,
             explanation="Aucune notion résolue (chapter_id/topic_id manquant ou inconnu du Knowledge "
                         "Engine) — réponse de repli générique renvoyée, jamais d'erreur.",
+            notion_resolved=False,
         )
 
     level = _resolve_definition_level(student_context, strategy.simplify)
     niveau_methode = _MODE_TO_METHODE_NIVEAU.get(mode, "normal")
     difficulte_label = knowledge_engine.INTENT_DIFFICULTY_TO_LABEL.get(strategy.difficulty)
 
-    plan = _content_plan(strategy.intent, longueur, strategy.quantity)
+    plan = _content_plan(
+        strategy.intent, longueur, strategy.quantity,
+        recommended_approach=getattr(strategy, "recommended_approach", None),
+        escalation_level=getattr(strategy, "escalation_level", 0),
+    )
 
     blocks = []
     used_fallback = False
-    used_exemple_ids = set()
+    # Amorcé avec les ids déjà montrés lors des tours PRÉCÉDENTS de la
+    # conversation (chantier "répétition des exemples", 2026-08-23) — le même
+    # set sert aussi à éviter qu'un BLOCK_EXEMPLE et un BLOCK_EXEMPLE_2 de
+    # CETTE réponse ne choisissent le même exemple (comportement préexistant,
+    # inchangé). `new_exemple_ids` isole ce qui est ajouté CE tour, pour ne
+    # persister que la nouveauté (jamais les ids déjà connus de l'appelant).
+    inherited_exemple_ids = set(getattr(strategy, "used_exemple_ids", ()) or ())
+    used_exemple_ids = set(inherited_exemple_ids)
+    new_exemple_ids = []
     trace = []
 
     for kind in plan:
@@ -557,6 +698,8 @@ def compose(strategy, student_context=None, chatbot_settings=None, rng=None):
             )
             if ex_id:
                 used_exemple_ids.add(ex_id)
+                if ex_id not in inherited_exemple_ids:
+                    new_exemple_ids.append(ex_id)
         elif kind == BLOCK_EXEMPLE_2:
             block, ex_id = _block_exemple(
                 rng, avoid, notion, difficulte_label, used_exemple_ids,
@@ -564,6 +707,8 @@ def compose(strategy, student_context=None, chatbot_settings=None, rng=None):
             )
             if ex_id:
                 used_exemple_ids.add(ex_id)
+                if ex_id not in inherited_exemple_ids:
+                    new_exemple_ids.append(ex_id)
         elif kind == BLOCK_PROPRIETE:
             block, fell_back = _block_propriete(rng, avoid, notion)
             used_fallback = used_fallback or fell_back
@@ -599,12 +744,16 @@ def compose(strategy, student_context=None, chatbot_settings=None, rng=None):
         else:
             trace.append("- ouverture (mode examen, omise délibérément)")
 
+    notion_resolved = True
     if not blocks:
         # Garde-fou ultime : la notion existe mais n'a produit aucun bloc de
         # contenu exploitable (cas limite, jamais observé dans les cours
-        # migrés à ce jour) — jamais de réponse vide.
+        # migrés à ce jour) — jamais de réponse vide. Comme pour le cas
+        # `notion is None` ci-dessus, ce n'est PAS une réponse valide :
+        # `notion_resolved=False` pour que l'appelant continue la cascade.
         blocks = [_block_introuvable(rng, avoid)]
         used_fallback = True
+        notion_resolved = False
         trace.append("(garde-fou) aucun bloc produit -> repli générique")
 
     text = "\n\n".join(b.text for b in blocks)
@@ -616,5 +765,7 @@ def compose(strategy, student_context=None, chatbot_settings=None, rng=None):
     return ResponseDraft(
         text=text, blocks=tuple(blocks), engine=ENGINE_NAME, intent=strategy.intent,
         chapter_id=strategy.chapter_id, topic_id=strategy.topic_id, used_fallback=used_fallback,
-        explanation=explanation,
+        explanation=explanation, notion_resolved=notion_resolved,
+        primary_approach=_primary_approach(blocks),
+        new_exemple_ids=tuple(new_exemple_ids),
     )

@@ -6,7 +6,8 @@ tant qu'EMAIL_SMTP_HOST n'est pas configuré, voir email_service.is_configured).
 """
 import random
 import unittest
-from datetime import date, timedelta
+from datetime import date
+from unittest.mock import patch
 
 import consent_service as cs
 import db
@@ -68,11 +69,16 @@ class TestRequiresParentalConsent(unittest.TestCase):
 
 
 class TestCreateConsentRequest(unittest.TestCase):
-    def test_cree_un_token_et_indique_si_l_email_a_ete_envoye(self):
+    def test_cree_un_token_et_indique_si_le_smtp_est_configure(self):
         user = _mk_user()
-        token, sent = cs.create_consent_request(user, "parent@example.com")
+        # Le second élément reflète email_service.is_configured() (pas le
+        # résultat de l'envoi, voir create_consent_request) — forcé ici
+        # indépendamment du .env réellement chargé dans le process de test
+        # (peut contenir de vrais identifiants SMTP).
+        with patch("email_service.is_configured", return_value=False):
+            token, configured = cs.create_consent_request(user, "parent@example.com")
         self.assertTrue(token)
-        self.assertFalse(sent)  # aucun SMTP configuré dans les tests
+        self.assertFalse(configured)
 
     def test_le_compte_reste_en_base_avec_le_bon_statut_pending(self):
         n = random.randint(1_000_000, 999_999_999)

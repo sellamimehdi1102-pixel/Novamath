@@ -240,6 +240,143 @@ class TestCache(LocalResponseEngineTestCase):
         self.assertEqual(stats["strategy_cache"]["entries"], 0)
 
 
+class TestDecouplageProbeEtResolutionNotion(LocalResponseEngineTestCase):
+    """Reproduction directe du bug d'abandon prématuré (audit du 2026-07-26,
+    épisode 2) : response_strategy._probe_knowledge_engine() peut juger
+    ENGINE_KNOWLEDGE éligible (sa propre recherche interne trouve une notion)
+    alors que chapter_id/topic_id — résolus séparément par intent_service.
+    classify()/le Student Context — restent None/None pour ce message précis.
+    Avant la correction, knowledge_response_composer.compose() renvoyait
+    alors un texte froid ("Je n'ai pas trouvé...") que local_response_engine
+    traitait comme une réponse VALIDE et définitive, empêchant tout repli
+    (mode dégradé, LLM). Ce test force ce découplage directement (sans
+    dépendre d'un cas réel fragile de TF-IDF) en injectant une ResponseStrategy
+    contrefaite via decide_strategy patché."""
+
+    def _strategy_decouplee(self, **overrides):
+        base = dict(
+            source=rs.SOURCE_LOCAL, engine=rs.ENGINE_KNOWLEDGE, confidence=50,
+            intent=intent_service.DEFINITION, chapter_id=None, topic_id=None,
+            quantity=None, difficulty=None, mode=None, should_use_llm=False,
+            fallback=rs.ENGINE_LLM, explanation="test (bug de découplage forcé)",
+        )
+        base.update(overrides)
+        return rs.ResponseStrategy(**base)
+
+    def test_engine_knowledge_sans_chapter_id_ne_renvoie_plus_le_texte_froid(self):
+        with patch(
+            "chatbot.services.local_response_engine.response_strategy.decide_strategy",
+            return_value=self._strategy_decouplee(),
+        ):
+            r = self.gen("xyzxyz1234 incompréhensible xyzxyz5678", student_context=student_context())
+        # L'ancien texte froid ne doit JAMAIS apparaître, quel que soit le
+        # moteur qui finit par répondre (cascade ou LLM).
+        if r.text:
+            self.assertNotIn("Je n'ai pas trouvé", r.text)
+
+    def test_engine_knowledge_sans_chapter_id_relance_la_cascade(self):
+        """Sans aucun autre moteur local disponible pour ce cas contrefait
+        (Dashboard/Search/Exercise tous inéligibles), le Local Response
+        Engine doit honnêtement renvoyer should_use_llm=True — jamais
+        s'arrêter sur le texte de repli interne du composer."""
+        with patch(
+            "chatbot.services.local_response_engine.response_strategy.decide_strategy",
+            return_value=self._strategy_decouplee(),
+        ):
+            r = self.gen("xyzxyz1234 incompréhensible xyzxyz5678", student_context=student_context())
+        self.assertTrue(r.should_use_llm)
+        self.assertIsNone(r.text)
+
+    def test_engine_knowledge_avec_chapter_id_resolu_repond_normalement(self):
+        """Contrôle négatif : quand chapter_id/topic_id sont bien résolus
+        (cas normal, sans découplage), la réponse du composer reste valide
+        et n'active pas ce garde-fou."""
+        r = self.gen("C'est quoi une puissance ?")
+        self.assertEqual(r.engine, rs.ENGINE_KNOWLEDGE)
+        self.assertFalse(r.should_use_llm)
+        self.assertIn("Les puissances", r.text)
+
+
+class TestLearningContextTransmisAuMoteurLocal(LocalResponseEngineTestCase):
+    """Bug confirmé (audit du 2026-08-22) : generate() n'avait aucun
+    paramètre learning_context — le moteur local reclassait donc chaque
+    message SANS le Current Learning Context déjà établi par
+    conversation_manager.py, ce qui pouvait écraser un sujet correctement
+    identifié par une notion sans rapport (ex: "encore une autre façon"
+    avec le sujet "La valeur absolue" déjà établi dérivait vers
+    "Chapitre_12/operations-sur-les-evenements", score TF-IDF brut
+    coïncidentiel de 0.1224, sans aucun recoupement de titre). Correctif :
+    generate() accepte désormais learning_context/last_assistant_message et
+    les transmet tels quels à response_strategy.decide_strategy() — aucun
+    recalcul, aucune nouvelle logique de routage."""
+
+    LEARNING_CONTEXT = {"chapter_id": "Chapitre_2", "notion_id": "valeur-absolue-dun-nombre-reel"}
+
+    def test_sans_learning_context_le_bug_historique_reste_reproductible(self):
+        """Contrôle négatif : documente le comportement AVANT transmission
+        du contexte — sans learning_context, le message dérive bien vers la
+        notion sans rapport (comportement par défaut inchangé, non régressé
+        par ce correctif : le paramètre reste optionnel)."""
+        r = self.gen("encore une autre façon", student_context=student_context(class_level="seconde"), class_level="seconde")
+        self.assertEqual(r.chapter_id, "Chapitre_12")
+        self.assertEqual(r.topic_id, "operations-sur-les-evenements")
+
+    def test_avec_learning_context_le_sujet_est_conserve(self):
+        """Le test principal du correctif : avec learning_context transmis,
+        le moteur local ne doit plus dériver."""
+        r = self.gen(
+            "encore une autre façon", student_context=student_context(class_level="seconde"), class_level="seconde",
+            learning_context=self.LEARNING_CONTEXT,
+        )
+        self.assertEqual(r.chapter_id, "Chapitre_2")
+        self.assertEqual(r.topic_id, "valeur-absolue-dun-nombre-reel")
+
+    def test_learning_context_recu_par_response_strategy_pas_seulement_le_resultat_final(self):
+        """Vérifie le contexte effectivement REÇU par response_strategy.decide_strategy
+        (pas seulement le résultat final) — instrumentation de l'appel réel
+        pour prouver que la valeur transmise à generate() est exactement
+        celle reçue par la fonction de stratégie, sans transformation ni perte."""
+        received = {}
+        original = rs.decide_strategy
+
+        def _spy(*args, **kwargs):
+            received["learning_context"] = kwargs.get("learning_context")
+            return original(*args, **kwargs)
+
+        with patch.object(rs, "decide_strategy", side_effect=_spy):
+            lre.generate(
+                "encore une autre façon", REAL_USER, student_context=student_context(class_level="seconde"),
+                use_cache=False, class_level="seconde", learning_context=self.LEARNING_CONTEXT,
+            )
+
+        self.assertIsNotNone(received["learning_context"])
+        self.assertEqual(received["learning_context"]["chapter_id"], "Chapitre_2")
+        self.assertEqual(received["learning_context"]["notion_id"], "valeur-absolue-dun-nombre-reel")
+
+    def test_plusieurs_formulations_courtes_protegees_par_le_contexte(self):
+        """Non-régression élargie : plusieurs formulations de suivi courtes,
+        confirmées dérivantes sans contexte lors de l'audit, doivent toutes
+        rester sur le sujet une fois learning_context transmis."""
+        formulations = ["encore une autre façon", "une autre façon", "explique autrement", "explique différemment"]
+        for text in formulations:
+            with self.subTest(text=text):
+                r = self.gen(
+                    text, student_context=student_context(class_level="seconde"), class_level="seconde",
+                    learning_context=self.LEARNING_CONTEXT,
+                )
+                self.assertEqual(r.chapter_id, "Chapitre_2")
+                self.assertEqual(r.topic_id, "valeur-absolue-dun-nombre-reel")
+
+    def test_changement_de_sujet_explicite_reste_possible_avec_contexte_transmis(self):
+        """Garde-fou anti-sur-correction : transmettre learning_context ne
+        doit jamais empêcher un changement de sujet explicite assumé."""
+        r = self.gen(
+            "Maintenant explique-moi les probabilités.", student_context=student_context(class_level="seconde"),
+            class_level="seconde", learning_context=self.LEARNING_CONTEXT,
+        )
+        self.assertNotEqual(r.chapter_id, "Chapitre_2")
+
+
 class TestPerformance(LocalResponseEngineTestCase):
     def test_appels_repetes_avec_cache_rapides(self):
         message = "Quelle est ma progression ?"

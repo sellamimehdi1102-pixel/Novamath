@@ -11,7 +11,23 @@
 
 /* @keyframes nm-rise partagé — voir css/animations.css. */
 
-.dashboard-content { display: flex; flex-direction: column; gap: 24px; }
+.dashboard-content { display: flex; flex-direction: column; gap: 24px; position: relative; }
+
+/* ── Variation de l'identité "landing" pour le Dashboard — grand halo
+   diffus en haut de page, au-dessus du calque global body::after
+   (base.css). Mêmes tokens/alphas que le Hero de la landing, purement
+   décoratif, jamais au-dessus du contenu (z-index négatif). */
+.dashboard-content::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 5%;
+  right: 5%;
+  height: 460px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 680px 400px at 40% 0%, rgba(var(--accent-rgb), 0.12), transparent 70%);
+}
 
 .greeting-row {
   display: flex;
@@ -99,8 +115,20 @@
   letter-spacing: 0.06em;
 }
 .daily-goal-value { font-size: 2.25rem; font-weight: 700; font-family: var(--font-display); letter-spacing: -0.02em; }
-.daily-goal-track.progress-track { height: 12px; margin: 22px 0 12px; }
-#daily-goal-card .progress-fill { transition: width var(--transition-slow); }
+/* ── Tally-marks (Design System claude.ai, "Carnet") ─────────────────────
+   La barre reste techniquement continue (dashboard.js n'écrit qu'un
+   pourcentage sur #daily-goal-fill, jamais de segments) : l'effet de
+   petits traits séparés est obtenu en CSS pur via un masque répété sur le
+   conteneur, sans toucher au JS ni dupliquer de markup. */
+.daily-goal-track.progress-track {
+  height: 22px;
+  margin: 22px 0 12px;
+  background: var(--surface-hover);
+  border-radius: var(--radius-sm);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 9px);
+  mask-image: repeating-linear-gradient(90deg, #000 0 6px, transparent 6px 9px);
+}
+#daily-goal-card .progress-fill { transition: width var(--transition-slow); border-radius: 0; }
 .daily-goal-motivation { color: var(--text-muted); font-size: 0.94rem; margin-top: 12px; line-height: 1.6; }
 
 /* Coche de réussite — masquée par défaut, révélée uniquement en CSS via la
@@ -166,41 +194,58 @@
   box-shadow: 0 4px 16px -6px rgba(var(--brand-gold-rgb), 0.35);
 }
 .streak-chip-icon { width: 17px; height: 17px; flex-shrink: 0; }
+/* Pièce de référence "personnalité" (Design System claude.ai) — rayon
+   asymétrique + léger tilt, réservés à CETTE seule tuile de tout le
+   Dashboard (jamais généralisé) : la "note collée" façon carnet, à côté
+   d'un objectif du jour qui reste sobre et rectiligne. */
 .streak-chip--lg {
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 30px 38px;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-asym-a);
+  transform: rotate(var(--tilt-sm));
   background: linear-gradient(165deg, rgba(var(--brand-gold-rgb), 0.2), rgba(var(--brand-gold-rgb), 0.06));
   border: 1px solid rgba(var(--brand-gold-rgb), 0.35);
   box-shadow: 0 14px 34px -14px rgba(var(--brand-gold-rgb), 0.6);
+  transition: transform var(--transition-base);
 }
+.streak-chip--lg:hover { transform: rotate(0deg) scale(1.02); }
 .streak-chip--lg .streak-chip-icon { width: 28px; height: 28px; color: var(--brand-gold-text); }
 .streak-chip-value { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1; text-align: center; color: var(--brand-gold-text); }
 .streak-chip-label { font-size: 0.74rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; text-align: center; margin-top: 2px; }
 
-/* ── Grille de statistiques secondaires — vrai bento : XP occupe deux
-   colonnes (ring + texte a besoin d'espace), Temps/Accuracy en colonnes
-   simples, Activité 7 jours en pleine largeur pour que chaque cellule de
-   jour respire. Rupture nette avec l'ancienne grille uniforme. ─────────── */
+/* ── Rangée de statistiques — "Carnet" (Design System claude.ai) : plus de
+   grille de tuiles en verre, un rang à filets verticaux façon relevé de
+   compte, chaque métrique séparée par un simple trait plutôt qu'un fond de
+   carte. La 4e cellule (Activité, grille des 7 jours) reste seule sur sa
+   ligne car son contenu (7 cases) a besoin de toute la largeur. ────────── */
 .stat-cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 .stat-card {
-  padding: 28px;
-  border-radius: var(--radius-lg);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  flex: 1 1 200px;
+  padding: 24px 28px;
+  background: none;
+  border: none;
+  border-left: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  transition: background var(--transition-base);
   animation: nm-rise 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.stat-card:nth-child(1) { grid-column: span 2; animation-delay: 20ms; }
+.stat-card:first-child { border-left: none; }
+.stat-card:nth-child(1) { animation-delay: 20ms; }
 .stat-card:nth-child(2) { animation-delay: 70ms; }
 .stat-card:nth-child(3) { animation-delay: 120ms; }
-.stat-card:nth-child(4) { grid-column: span 4; animation-delay: 170ms; }
-.stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-float); border-color: var(--border-hover); }
+.stat-card:nth-child(4) { flex: 1 1 100%; border-left: none; border-top: 1px solid var(--border); }
+.stat-card:hover { background: var(--surface-hover); }
 .stat-card .label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
 .stat-card .value { font-size: 1.9rem; font-weight: 700; font-family: var(--font-display); letter-spacing: -0.015em; }
 .stat-card .sub { font-size: 0.8rem; color: var(--text-faint); margin-top: 5px; }
@@ -301,6 +346,26 @@
 .chart-zoom-btn:hover { color: var(--text); border-color: var(--border-strong); }
 .chart-zoom-btn.active { background: var(--brand-gradient); color: var(--text-on-accent); border-color: transparent; }
 
+/* Répartition dashboard par plan : fenêtres 50/Tout verrouillées pour un plan
+   insuffisant — badge discret, jamais de cadenas imposant ni de popup. */
+.chart-zoom-btn.is-locked {
+  cursor: not-allowed;
+  opacity: 0.72;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.chart-zoom-btn.is-locked:hover { color: var(--text-muted); border-color: var(--border); }
+.chart-zoom-lock-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+
 .two-col-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .list-card { padding: 28px; border-radius: var(--radius-lg); }
 .list-card h3 { display: flex; align-items: center; gap: 8px; font-size: 0.98rem; margin-bottom: 18px; font-family: var(--font-display); }
@@ -324,6 +389,31 @@
 .history-table th { text-align: left; color: var(--text-muted); font-weight: 600; padding: 8px 10px; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.03em; }
 .history-table td { padding: 10px; border-top: 1px solid var(--border); }
 .history-table tbody tr:hover td { background: var(--surface-hover); }
+
+/* ── Bilan de progression par notion (Premium+) — même gabarit compact que
+   .history-table, jamais un nouveau composant de table. ── */
+.notion-breakdown-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.notion-breakdown-table th { text-align: left; color: var(--text-muted); font-weight: 600; padding: 8px 10px; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.notion-breakdown-table td { padding: 10px; border-top: 1px solid var(--border); }
+.notion-breakdown-table tbody tr:hover td { background: var(--surface-hover); }
+.notion-breakdown-name { font-weight: 600; }
+.notion-breakdown-chapter { color: var(--text-muted); font-size: 0.76rem; margin-top: 2px; }
+
+/* Carte verrouillée Free — même convention que cours.js::lockedContentCard
+   (voir css/cours.css .cours-box--locked) : badge discret, jamais de popup. */
+.dashboard-locked-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border-left: 3px dashed var(--brand-violet);
+  background: linear-gradient(135deg, rgba(var(--brand-violet-rgb), 0.06), var(--surface));
+  font-size: 0.88rem;
+}
+.dashboard-locked-card svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--brand-violet); margin-top: 2px; }
+.dashboard-locked-title { font-weight: 600; color: var(--brand-violet); margin-bottom: 4px; }
+.dashboard-locked-desc { color: var(--text-muted); font-size: 0.82rem; }
 
 /* ══════════════════════════════════════════════════════════════════════════
    VITRINE DE TROPHÉES — même grille/ids qu'avant (#badges-grid, .badge-tile,
@@ -379,17 +469,19 @@
 
 @media (max-width: 900px) {
   .dashboard-columns, .two-col-lists { grid-template-columns: 1fr; }
-  .stat-cards { grid-template-columns: repeat(2, 1fr); }
-  .stat-card:nth-child(1), .stat-card:nth-child(4) { grid-column: span 2; }
+  .stat-card:nth-child(1) { border-left: none; border-top: none; }
+  .stat-card:nth-child(2) { border-left: none; border-top: 1px solid var(--border); }
+  .stat-card:nth-child(3) { border-top: 1px solid var(--border); }
+  .stat-card:nth-child(3), .stat-card:nth-child(4) { flex: 1 1 100%; }
   .daily-goal-hero { flex-direction: column; padding: 32px; }
   .daily-goal-hero-streak { align-self: stretch; }
-  .streak-chip--lg { width: 100%; flex-direction: row; justify-content: center; padding: 16px; }
+  .streak-chip--lg { width: 100%; flex-direction: row; justify-content: center; padding: 16px; transform: none; }
   .streak-chip-value { font-size: 1.5rem; }
 }
 
 @media (max-width: 560px) {
-  .stat-cards { grid-template-columns: 1fr; }
-  .stat-card:nth-child(1), .stat-card:nth-child(4) { grid-column: span 1; }
+  .stat-card { flex: 1 1 100%; border-left: none !important; border-top: 1px solid var(--border); }
+  .stat-card:first-child { border-top: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

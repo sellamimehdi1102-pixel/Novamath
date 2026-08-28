@@ -1,0 +1,546 @@
+{
+  "chapterId": "Chapitre_9",
+  "title": "Chapitre 9",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "arbres-ponderes",
+      "title": "Arbres pondérés",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à construire un arbre pondéré pour représenter une expérience aléatoire en plusieurs étapes, et à utiliser cet arbre pour calculer la probabilité d'un événement grâce à la formule des probabilités totales.\n\nCette méthode est particulièrement utile lorsqu'un événement $B$ peut se produire de plusieurs façons différentes (par exemple, après être passé par $A$ ou par $\\overline{A}$, l'événement contraire de $A$) : l'arbre permet de visualiser tous les chemins possibles et de ne pas en oublier.",
+      "explicationSimple": "Un arbre pondéré ressemble à un arbre généalogique : chaque branche représente une étape de l'expérience, et on écrit sur chaque branche la probabilité de l'emprunter. Pour calculer la probabilité d'arriver à une feuille précise en suivant un chemin, on multiplie les probabilités rencontrées le long de ce chemin (règle du produit). Quand plusieurs chemins différents mènent au même événement $B$ (par exemple un chemin passant par $A$ et un autre passant par $\\overline{A}$), on additionne les probabilités de ces différents chemins (règle de la somme) : c'est exactement ce que dit la formule des probabilités totales.",
+      "objectif": "À la fin de ce cours, tu sauras construire un arbre pondéré à partir de probabilités données, et calculer la probabilité d'un événement à l'aide de la formule des probabilités totales $P(B)=P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$.",
+      "definition": "Un arbre pondéré est une représentation des différentes issues d'une expérience aléatoire se déroulant en plusieurs étapes : chaque branche est associée à une probabilité, et la somme des probabilités des branches issues d'un même nœud vaut toujours $1$. La probabilité d'une issue obtenue en suivant un chemin de la racine à une feuille s'obtient en multipliant les probabilités rencontrées le long de ce chemin (règle du produit). Lorsqu'un événement $B$ peut être atteint par plusieurs chemins distincts, par exemple en passant par $A$ ou par $\\overline{A}$ (l'événement contraire de $A$), sa probabilité totale s'obtient en additionnant les probabilités de chaque chemin menant à $B$ : $P(B)=P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$ (formule des probabilités totales).",
+      "definitions": {
+        "lycee": "Un arbre pondéré est une représentation des différentes issues d'une expérience aléatoire se déroulant en plusieurs étapes : chaque branche est associée à une probabilité, et la somme des probabilités des branches issues d'un même nœud vaut toujours $1$. La probabilité d'une issue obtenue en suivant un chemin de la racine à une feuille s'obtient en multipliant les probabilités rencontrées le long de ce chemin (règle du produit). Lorsqu'un événement $B$ peut être atteint par plusieurs chemins distincts, par exemple en passant par $A$ ou par $\\overline{A}$ (l'événement contraire de $A$), sa probabilité totale s'obtient en additionnant les probabilités de chaque chemin menant à $B$ : $P(B)=P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$ (formule des probabilités totales)."
+      },
+      "intuition": "L'erreur la plus fréquente est d'additionner les probabilités de deux branches issues du même nœud au lieu de les multiplier (ou inversement). Retiens la règle : le long d'un même chemin (de la racine vers une feuille), on multiplie ; pour regrouper plusieurs chemins différents menant au même événement, on additionne. Vérifie aussi toujours que la somme des probabilités sortant d'un même nœud vaut $1$, ce qui permet de repérer une erreur de calcul.",
+      "reglesImportantes": [],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Arbres pondérés",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : L'arbre a deux branches initiales : $P(A) = \\dfrac{1}{2}$ et $P(\\overline{A}) = 1-\\dfrac{1}{2} = \\dfrac{1}{2}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : Sur chaque branche, on place $P_A(B)=\\dfrac{1}{4}$, $P_A(\\overline{B})=\\dfrac{3}{4}$, $P_{\\overline{A}}(B)=\\dfrac{11}{20}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{9}{20}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : D'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Étape 4 : $P(B) = \\dfrac{1}{2}\\times\\dfrac{1}{4} + \\dfrac{1}{2}\\times\\dfrac{11}{20} = \\dfrac{2}{5}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1768",
+          "titre": "Exemple 1",
+          "enonce": "Dans un lycée avec deux filières, un événement $A$ vérifie $P(A) = \\dfrac{1}{2}$. On sait que $P_A(B) = \\dfrac{1}{4}$ et $P_{\\overline{A}}(B) = \\dfrac{11}{20}$. Construire l'arbre pondéré correspondant puis calculer $P(B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : L'arbre a deux branches initiales : $P(A) = \\dfrac{1}{2}$ et $P(\\overline{A}) = 1-\\dfrac{1}{2} = \\dfrac{1}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Sur chaque branche, on place $P_A(B)=\\dfrac{1}{4}$, $P_A(\\overline{B})=\\dfrac{3}{4}$, $P_{\\overline{A}}(B)=\\dfrac{11}{20}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{9}{20}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : D'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : $P(B) = \\dfrac{1}{2}\\times\\dfrac{1}{4} + \\dfrac{1}{2}\\times\\dfrac{11}{20} = \\dfrac{2}{5}$."
+            }
+          ],
+          "reponse": "$P(B) = \\dfrac{2}{5}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1780",
+          "titre": "Exemple 2",
+          "enonce": "Dans une loterie avec deux types de billets, un événement $A$ vérifie $P(A) = \\dfrac{9}{100}$. On sait que $P_A(B) = \\dfrac{2}{5}$ et $P_{\\overline{A}}(B) = \\dfrac{71}{100}$. Construire l'arbre pondéré correspondant puis calculer $P(B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : L'arbre a deux branches initiales : $P(A) = \\dfrac{9}{100}$ et $P(\\overline{A}) = 1-\\dfrac{9}{100} = \\dfrac{91}{100}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Sur chaque branche, on place $P_A(B)=\\dfrac{2}{5}$, $P_A(\\overline{B})=\\dfrac{3}{5}$, $P_{\\overline{A}}(B)=\\dfrac{71}{100}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{29}{100}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : D'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : $P(B) = \\dfrac{9}{100}\\times\\dfrac{2}{5} + \\dfrac{91}{100}\\times\\dfrac{71}{100} = \\dfrac{6821}{10000}$."
+            }
+          ],
+          "reponse": "$P(B) = \\dfrac{6821}{10000}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1792",
+          "titre": "Exemple 3",
+          "enonce": "Dans un lycée avec deux filières, un événement $A$ vérifie $P(A) = \\dfrac{3}{10}$. On sait que $P_A(B) = \\dfrac{3}{5}$ et $P_{\\overline{A}}(B) = \\dfrac{1}{20}$. Construire l'arbre pondéré correspondant puis calculer $P(B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : L'arbre a deux branches initiales : $P(A) = \\dfrac{3}{10}$ et $P(\\overline{A}) = 1-\\dfrac{3}{10} = \\dfrac{7}{10}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Sur chaque branche, on place $P_A(B)=\\dfrac{3}{5}$, $P_A(\\overline{B})=\\dfrac{2}{5}$, $P_{\\overline{A}}(B)=\\dfrac{1}{20}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{19}{20}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : D'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : $P(B) = \\dfrac{3}{10}\\times\\dfrac{3}{5} + \\dfrac{7}{10}\\times\\dfrac{1}{20} = \\dfrac{43}{200}$."
+            }
+          ],
+          "reponse": "$P(B) = \\dfrac{43}{200}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1804",
+          "titre": "Exemple 4",
+          "enonce": "Dans un lycée avec deux filières, un événement $A$ vérifie $P(A) = \\dfrac{13}{25}$. On sait que $P_A(B) = \\dfrac{21}{50}$ et $P_{\\overline{A}}(B) = \\dfrac{23}{50}$. Construire l'arbre pondéré correspondant puis calculer $P(B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : L'arbre a deux branches initiales : $P(A) = \\dfrac{13}{25}$ et $P(\\overline{A}) = 1-\\dfrac{13}{25} = \\dfrac{12}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Sur chaque branche, on place $P_A(B)=\\dfrac{21}{50}$, $P_A(\\overline{B})=\\dfrac{29}{50}$, $P_{\\overline{A}}(B)=\\dfrac{23}{50}$ et $P_{\\overline{A}}(\\overline{B})=\\dfrac{27}{50}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : D'après la formule des probabilités totales, $P(B) = P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : $P(B) = \\dfrac{13}{25}\\times\\dfrac{21}{50} + \\dfrac{12}{25}\\times\\dfrac{23}{50} = \\dfrac{549}{1250}$."
+            }
+          ],
+          "reponse": "$P(B) = \\dfrac{549}{1250}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Additionner les probabilités de deux branches issues du même nœud au lieu de les multiplier lorsqu'on suit un chemin complet de la racine à une feuille.",
+        "Oublier de calculer $P(\\overline{A}) = 1-P(A)$ et utiliser par erreur la même valeur que $P(A)$ pour les deux premières branches.",
+        "Confondre $P_A(B)$ (la probabilité inscrite sur la branche, sachant que $A$ est déjà réalisé) avec $P(A\\cap B)$ (la probabilité du chemin complet, obtenue après multiplication par $P(A)$)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Additionner les probabilités de deux branches issues du même nœud au lieu de les multiplier lorsqu'on suit un chemin complet de la racine à une feuille.",
+          "pourquoi": "On confond la règle du produit, valable le long d'un même chemin, avec la règle de la somme, qui ne s'applique qu'entre plusieurs chemins distincts menant à un même événement.",
+          "comment_detecter": "La probabilité obtenue pour un chemin complet est plus grande que chacune des probabilités des branches qui le composent, ce qui est impossible.",
+          "comment_eviter": "Se répéter la règle : « le long d'une branche, on multiplie ; entre deux chemins différents, on additionne » avant chaque calcul."
+        },
+        {
+          "description": "Oublier de calculer $P(\\overline{A}) = 1-P(A)$ et utiliser par erreur la même valeur que $P(A)$ pour les deux premières branches.",
+          "pourquoi": "On recopie machinalement la même probabilité sur les deux branches issues de la racine sans vérifier qu'elles doivent être complémentaires.",
+          "comment_detecter": "La somme des probabilités des deux premières branches ne vaut pas $1$.",
+          "comment_eviter": "Toujours calculer $P(\\overline{A})=1-P(A)$ explicitement avant de construire l'arbre, et vérifier que les deux valeurs s'additionnent bien à $1$."
+        },
+        {
+          "description": "Confondre $P_A(B)$ (la probabilité inscrite sur la branche, sachant que $A$ est déjà réalisé) avec $P(A\\cap B)$ (la probabilité du chemin complet, obtenue après multiplication par $P(A)$).",
+          "pourquoi": "Les deux quantités portent sur les mêmes événements $A$ et $B$, mais l'une est une probabilité conditionnelle (déjà « sur » la branche) et l'autre le résultat d'un produit.",
+          "comment_detecter": "On utilise directement la valeur inscrite sur la branche comme probabilité du chemin complet, sans la multiplier par la probabilité de la branche précédente.",
+          "comment_eviter": "Retenir que les nombres inscrits sur les branches de l'arbre sont toujours des probabilités conditionnelles, et qu'il faut les multiplier entre elles pour obtenir la probabilité d'un chemin complet."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [],
+      "figure": {
+        "kind": "tree",
+        "branches": [
+          {
+            "label": "A",
+            "proba": "1/2",
+            "branches": [
+              {"label": "B", "proba": "1/4"},
+              {"label": "non B", "proba": "3/4"}
+            ]
+          },
+          {
+            "label": "non A",
+            "proba": "1/2",
+            "branches": [
+              {"label": "B", "proba": "11/20"},
+              {"label": "non B", "proba": "9/20"}
+            ]
+          }
+        ],
+        "alt": "Arbre pondéré à deux niveaux : P(A) = 1/2 et P(non A) = 1/2 ; puis P_A(B) = 1/4, P_A(non B) = 3/4, P(non A)(B) = 11/20 et P(non A)(non B) = 9/20. Les probabilités des branches issues d'un même nœud somment à 1."
+      },
+      "quizExerciseIds": [
+        1769,
+        1770,
+        1771
+      ],
+      "topic_id": "arbres-ponderes",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras construire un arbre pondéré à partir de probabilités données, et calculer la probabilité d'un événement à l'aide de la formule des probabilités totales $P(B)=P(A)\\times P_A(B) + P(\\overline{A})\\times P_{\\overline{A}}(B)$."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "arbres",
+        "ponderes"
+      ]
+    },
+    {
+      "id": "notion-d-independance",
+      "title": "Notion d'indépendance",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à définir ce que signifie l'indépendance de deux événements en probabilités, et à démontrer que deux événements sont, ou ne sont pas, indépendants à partir de leurs probabilités.\n\nCette notion est essentielle car elle formalise une idée intuitive : deux événements sont indépendants lorsque le fait de savoir que l'un s'est réalisé ne change rien à la probabilité que l'autre se réalise (par exemple, les résultats de deux lancers de dé différents).",
+      "explicationSimple": "Dire que deux événements $A$ et $B$ sont indépendants, c'est dire qu'apprendre que $A$ s'est réalisé ne donne aucune information supplémentaire sur les chances que $B$ se réalise : la probabilité de $B$ reste la même, qu'on sache ou non que $A$ a eu lieu. Mathématiquement, cela se traduit par l'égalité $P(A\\cap B)=P(A)\\times P(B)$. C'est très différent du fait que $A$ et $B$ soient incompatibles (c'est-à-dire qu'ils ne peuvent jamais se réaliser en même temps) : deux événements incompatibles avec des probabilités non nulles ne sont en réalité jamais indépendants, puisque savoir que $A$ s'est produit garantit que $B$ ne s'est pas produit.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer si deux événements sont indépendants en comparant $P(A\\cap B)$ à $P(A)\\times P(B)$, ou en comparant $P_A(B)$ à $P(B)$.",
+      "definition": "Deux événements $A$ et $B$ sont dits indépendants lorsque la réalisation de l'un ne modifie pas la probabilité de l'autre. Cette idée se traduit mathématiquement par l'égalité $P(A\\cap B) = P(A)\\times P(B)$. De façon équivalente, lorsque $P(A)\\neq 0$, $A$ et $B$ sont indépendants si, et seulement si, $P_A(B)=P(B)$ (savoir que $A$ est réalisé ne change pas la probabilité de $B$).",
+      "definitions": {
+        "lycee": "Deux événements $A$ et $B$ sont dits indépendants lorsque la réalisation de l'un ne modifie pas la probabilité de l'autre. Cette idée se traduit mathématiquement par l'égalité $P(A\\cap B) = P(A)\\times P(B)$. De façon équivalente, lorsque $P(A)\\neq 0$, $A$ et $B$ sont indépendants si, et seulement si, $P_A(B)=P(B)$ (savoir que $A$ est réalisé ne change pas la probabilité de $B$)."
+      },
+      "intuition": "L'erreur la plus fréquente est de confondre indépendance et incompatibilité. Deux événements incompatibles (qui ne peuvent jamais se produire ensemble, $P(A\\cap B)=0$) ne sont indépendants que si l'un des deux est de probabilité nulle : en général, savoir que $A$ s'est réalisé permet justement de conclure que $B$ ne s'est pas réalisé, ce qui est une forme extrême de dépendance. Pour tester l'indépendance, ne te fie donc jamais à ton intuition : calcule toujours $P(A)\\times P(B)$ et compare-le à $P(A\\cap B)$ donné par l'énoncé.",
+      "reglesImportantes": [
+        "Comparer $P_A(B)$ à $P(B)$ : l'égalité caractérise l'indépendance."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Notion d'indépendance",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $P(A)\\times P(B) = \\dfrac{9}{20}\\times\\dfrac{4}{5} = \\dfrac{9}{25}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : Comme $P(A\\cap B) = \\dfrac{9}{25} = P(A)\\times P(B)$, $A$ et $B$ sont indépendants."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1826",
+          "titre": "Exemple 1",
+          "enonce": "On donne $P(A) = \\dfrac{9}{20}$, $P(B) = \\dfrac{4}{5}$ et $P(A \\cap B) = \\dfrac{9}{25}$. Les événements $A$ et $B$ sont-ils indépendants ? Justifier.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(A)\\times P(B) = \\dfrac{9}{20}\\times\\dfrac{4}{5} = \\dfrac{9}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Comme $P(A\\cap B) = \\dfrac{9}{25} = P(A)\\times P(B)$, $A$ et $B$ sont indépendants."
+            }
+          ],
+          "reponse": "Oui, $A$ et $B$ sont indépendants.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1838",
+          "titre": "Exemple 2",
+          "enonce": "On donne $P(A) = \\dfrac{3}{5}$, $P(B) = \\dfrac{3}{5}$ et $P(A \\cap B) = \\dfrac{1}{2}$. Les événements $A$ et $B$ sont-ils indépendants ? Justifier.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(A)\\times P(B) = \\dfrac{3}{5}\\times\\dfrac{3}{5} = \\dfrac{9}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Comme $P(A\\cap B) = \\dfrac{1}{2} \\neq P(A)\\times P(B) = \\dfrac{9}{25}$, $A$ et $B$ ne sont pas indépendants."
+            }
+          ],
+          "reponse": "Non, $A$ et $B$ ne sont pas indépendants.",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1850",
+          "titre": "Exemple 3",
+          "enonce": "On donne $P(A) = \\dfrac{87}{100}$, $P(B) = \\dfrac{1}{10}$ et $P(A \\cap B) = \\dfrac{79}{2500}$. Les événements $A$ et $B$ sont-ils indépendants ? Justifier.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(A)\\times P(B) = \\dfrac{87}{100}\\times\\dfrac{1}{10} = \\dfrac{87}{1000}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Comme $P(A\\cap B) = \\dfrac{79}{2500} \\neq P(A)\\times P(B) = \\dfrac{87}{1000}$, $A$ et $B$ ne sont pas indépendants."
+            }
+          ],
+          "reponse": "Non, $A$ et $B$ ne sont pas indépendants.",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1862",
+          "titre": "Exemple 4",
+          "enonce": "On donne $P(A) = \\dfrac{2}{5}$, $P(B) = \\dfrac{2}{5}$ et $P(A \\cap B) = \\dfrac{31}{50}$. Les événements $A$ et $B$ sont-ils indépendants ? Justifier.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $A$ et $B$ sont indépendants si, et seulement si, $P(A\\cap B) = P(A)\\times P(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(A)\\times P(B) = \\dfrac{2}{5}\\times\\dfrac{2}{5} = \\dfrac{4}{25}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Comme $P(A\\cap B) = \\dfrac{31}{50} \\neq P(A)\\times P(B) = \\dfrac{4}{25}$, $A$ et $B$ ne sont pas indépendants."
+            }
+          ],
+          "reponse": "Non, $A$ et $B$ ne sont pas indépendants.",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre indépendance et incompatibilité : croire que deux événements qui ne peuvent pas se produire en même temps sont automatiquement indépendants, alors que c'est presque toujours l'inverse.",
+        "Comparer $P(A\\cap B)$ à $P(A)+P(B)$ au lieu de $P(A)\\times P(B)$, en confondant le critère d'indépendance avec la formule d'union d'événements.",
+        "Conclure trop vite à l'indépendance dès que $P(A\\cap B)$ « semble petit », sans faire le calcul exact de $P(A)\\times P(B)$ pour comparer."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre indépendance et incompatibilité : croire que deux événements qui ne peuvent pas se produire en même temps sont automatiquement indépendants, alors que c'est presque toujours l'inverse.",
+          "pourquoi": "Les deux notions semblent proches intuitivement (« les événements n'ont rien à voir l'un avec l'autre »), alors qu'elles décrivent des situations mathématiquement opposées.",
+          "comment_detecter": "On affirme l'indépendance de deux événements sans jamais calculer $P(A)\\times P(B)$, en se basant uniquement sur le fait qu'ils semblent « séparés ».",
+          "comment_eviter": "Toujours revenir à la définition précise : l'indépendance se prouve par un calcul ($P(A\\cap B)=P(A)\\times P(B)$), jamais par une impression intuitive."
+        },
+        {
+          "description": "Comparer $P(A\\cap B)$ à $P(A)+P(B)$ au lieu de $P(A)\\times P(B)$, en confondant le critère d'indépendance avec la formule d'union d'événements.",
+          "pourquoi": "Les formules de probabilité (union, intersection, indépendance) utilisent les mêmes ingrédients ($P(A)$ et $P(B)$) mais avec des opérations différentes, ce qui entraîne une confusion.",
+          "comment_detecter": "Le nombre auquel on compare $P(A\\cap B)$ dépasse $1$, ce qui est impossible pour un produit de deux probabilités mais possible pour une somme.",
+          "comment_eviter": "Retenir que le critère d'indépendance porte sur un produit ($\\times$), jamais sur une somme ($+$)."
+        },
+        {
+          "description": "Conclure trop vite à l'indépendance dès que $P(A\\cap B)$ « semble petit », sans faire le calcul exact de $P(A)\\times P(B)$ pour comparer.",
+          "pourquoi": "On juge l'indépendance de façon approximative ou visuelle plutôt que de comparer deux valeurs numériques précises.",
+          "comment_detecter": "La conclusion (indépendants ou non) n'est pas accompagnée du calcul explicite de $P(A)\\times P(B)$.",
+          "comment_eviter": "Toujours écrire la valeur exacte de $P(A)\\times P(B)$ et la comparer chiffre pour chiffre (ou fraction pour fraction) à $P(A\\cap B)$ avant de conclure."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Comparer $P_A(B)$ à $P(B)$ : l'égalité caractérise l'indépendance."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        1827,
+        1828,
+        1829
+      ],
+      "topic_id": "notion-d-independance",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras déterminer si deux événements sont indépendants en comparant $P(A\\cap B)$ à $P(A)\\times P(B)$, ou en comparant $P_A(B)$ à $P(B)$."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "notion",
+        "independance"
+      ]
+    },
+    {
+      "id": "probabilite-conditionnelle",
+      "title": "Probabilité conditionnelle",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à calculer la probabilité qu'un événement se réalise sachant qu'un autre événement s'est déjà produit, et à utiliser la relation entre probabilité conditionnelle et probabilité de l'intersection de deux événements.\n\nCette notion permet de tenir compte d'une information supplémentaire (« on sait déjà que $A$ s'est produit ») pour réévaluer la probabilité d'un autre événement $B$, ce qui est très fréquent dans les situations concrètes (tests médicaux, sondages, jeux à plusieurs étapes).",
+      "explicationSimple": "La probabilité conditionnelle $P_A(B)$ répond à la question : « sachant que $A$ s'est déjà réalisé, quelle est la probabilité que $B$ se réalise aussi ? ». On peut se représenter cela en restreignant l'univers de départ au seul cas où $A$ est réalisé, puis en regardant, dans ce nouvel univers plus petit, quelle proportion correspond aussi à $B$. C'est pour cela que l'on divise $P(A\\cap B)$ (la probabilité que les deux se réalisent) par $P(A)$ (la probabilité du nouvel univers restreint) : $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}$.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une probabilité conditionnelle $P_A(B)$ à partir de $P(A\\cap B)$ et $P(A)$, et utiliser la formule des probabilités composées $P(A\\cap B)=P(A)\\times P_A(B)$ pour calculer une probabilité d'intersection.",
+      "definition": "La probabilité conditionnelle de $B$ sachant $A$ (avec $P(A)\\neq 0$), notée $P_A(B)$, est la probabilité que l'événement $B$ se réalise sachant que l'événement $A$ s'est déjà réalisé. Elle est définie par $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}$. Cette égalité, réécrite autrement, donne la formule des probabilités composées : $P(A\\cap B)=P(A)\\times P_A(B)$.",
+      "definitions": {
+        "lycee": "La probabilité conditionnelle de $B$ sachant $A$ (avec $P(A)\\neq 0$), notée $P_A(B)$, est la probabilité que l'événement $B$ se réalise sachant que l'événement $A$ s'est déjà réalisé. Elle est définie par $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}$. Cette égalité, réécrite autrement, donne la formule des probabilités composées : $P(A\\cap B)=P(A)\\times P_A(B)$.",
+        "college": "Utiliser $P(A\\cap B)=P(A)\\times P_A(B)$."
+      },
+      "intuition": "L'erreur la plus fréquente est d'inverser le numérateur et le dénominateur, en écrivant $P_A(B)=\\dfrac{P(A)}{P(A\\cap B)}$ au lieu de $\\dfrac{P(A\\cap B)}{P(A)}$, ou de confondre $P_A(B)$ (sachant $A$) avec $P_B(A)$ (sachant $B$), qui n'ont en général pas la même valeur. Pour t'en souvenir, retiens que l'événement qui est « déjà connu » (celui qui suit l'indice, ici $A$) se trouve toujours seul au dénominateur.",
+      "reglesImportantes": [
+        "Utiliser $P(A\\cap B)=P(A)\\times P_A(B)$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Probabilité conditionnelle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On utilise $P_A(B) = \\dfrac{P(A\\cap B)}{P(A)}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $P_A(B) = \\dfrac{\\dfrac{1}{4}}{\\dfrac{9}{20}} = \\dfrac{5}{9}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1710",
+          "titre": "Exemple 1",
+          "enonce": "On donne $P(A) = \\dfrac{9}{20}$ et $P(A \\cap B) = \\dfrac{1}{4}$. Calculer la probabilité conditionnelle $P_A(B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $P_A(B) = \\dfrac{P(A\\cap B)}{P(A)}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P_A(B) = \\dfrac{\\dfrac{1}{4}}{\\dfrac{9}{20}} = \\dfrac{5}{9}$."
+            }
+          ],
+          "reponse": "$P_A(B) = \\dfrac{5}{9}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1722",
+          "titre": "Exemple 2",
+          "enonce": "On donne $P(A) = \\dfrac{16}{25}$ et $P(A \\cap B) = \\dfrac{11}{25}$. Calculer la probabilité conditionnelle $P_A(B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $P_A(B) = \\dfrac{P(A\\cap B)}{P(A)}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P_A(B) = \\dfrac{\\dfrac{11}{25}}{\\dfrac{16}{25}} = \\dfrac{11}{16}$."
+            }
+          ],
+          "reponse": "$P_A(B) = \\dfrac{11}{16}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1734",
+          "titre": "Exemple 3",
+          "enonce": "On donne $P(A) = \\dfrac{93}{100}$ et $P(A \\cap B) = \\dfrac{33}{50}$. Calculer la probabilité conditionnelle $P_A(B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $P_A(B) = \\dfrac{P(A\\cap B)}{P(A)}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P_A(B) = \\dfrac{\\dfrac{33}{50}}{\\dfrac{93}{100}} = \\dfrac{22}{31}$."
+            }
+          ],
+          "reponse": "$P_A(B) = \\dfrac{22}{31}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1746",
+          "titre": "Exemple 4",
+          "enonce": "On donne $P(A) = \\dfrac{7}{20}$ et $P_A(B) = \\dfrac{19}{25}$. Calculer $P(A \\cap B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $P(A\\cap B) = P(A) \\times P_A(B)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(A\\cap B) = \\dfrac{7}{20} \\times \\dfrac{19}{25} = \\dfrac{133}{500}$."
+            }
+          ],
+          "reponse": "$P(A \\cap B) = \\dfrac{133}{500}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Inverser le numérateur et le dénominateur : écrire $P_A(B)=\\dfrac{P(A)}{P(A\\cap B)}$ au lieu de $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}$.",
+        "Confondre $P_A(B)$ (probabilité de $B$ sachant $A$) avec $P_B(A)$ (probabilité de $A$ sachant $B$), qui n'ont en général pas la même valeur.",
+        "Confondre $P(A\\cap B)$, la probabilité que $A$ et $B$ se réalisent tous les deux, avec $P_A(B)$, la probabilité de $B$ une fois que l'on sait déjà que $A$ est réalisé."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Inverser le numérateur et le dénominateur : écrire $P_A(B)=\\dfrac{P(A)}{P(A\\cap B)}$ au lieu de $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}$.",
+          "pourquoi": "La formule fait intervenir les mêmes trois quantités ($P(A)$, $P(B)$ ou $P(A\\cap B)$) et l'ordre de la fraction n'est pas toujours mémorisé correctement.",
+          "comment_detecter": "Le résultat obtenu pour $P_A(B)$ est supérieur à $1$, ce qui est impossible pour une probabilité.",
+          "comment_eviter": "Vérifier systématiquement que le résultat trouvé est bien compris entre $0$ et $1$ ; si ce n'est pas le cas, la fraction a probablement été inversée."
+        },
+        {
+          "description": "Confondre $P_A(B)$ (probabilité de $B$ sachant $A$) avec $P_B(A)$ (probabilité de $A$ sachant $B$), qui n'ont en général pas la même valeur.",
+          "pourquoi": "L'écriture $P_A(B)$ ressemble à celle de $P_B(A)$ et l'ordre des deux événements n'est pas toujours interprété correctement.",
+          "comment_detecter": "Le résultat utilisé dans un calcul ne correspond pas à la condition posée dans l'énoncé (par exemple, on utilise la probabilité conditionnelle dans le mauvais sens dans un arbre pondéré).",
+          "comment_eviter": "Lire attentivement l'indice de $P_A(B)$ : l'événement en indice ($A$) est toujours celui que l'on suppose déjà réalisé."
+        },
+        {
+          "description": "Confondre $P(A\\cap B)$, la probabilité que $A$ et $B$ se réalisent tous les deux, avec $P_A(B)$, la probabilité de $B$ une fois que l'on sait déjà que $A$ est réalisé.",
+          "pourquoi": "Les deux quantités portent sur les mêmes événements $A$ et $B$ et sont souvent proches numériquement, ce qui entretient la confusion entre les deux notations.",
+          "comment_detecter": "On utilise directement $P(A\\cap B)$ à la place de $P_A(B)$ dans un calcul qui demande explicitement une probabilité conditionnelle.",
+          "comment_eviter": "Retenir que $P(A\\cap B)$ ne contient pas d'indice (c'est une probabilité « brute »), alors que $P_A(B)$ porte toujours un indice indiquant la condition déjà connue."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Utiliser $P(A\\cap B)=P(A)\\times P_A(B)$."
+      ],
+      "figure": {
+        "kind": "venn",
+        "sets": ["A", "B"],
+        "overlapLabel": "A∩B",
+        "alt": "Diagramme de Venn de deux ensembles A et B avec leur intersection A∩B visible : avec P(A) = 9/20 et P(A∩B) = 1/4, la probabilité conditionnelle P_A(B) = P(A∩B) / P(A) = 5/9 se lit comme la proportion de B à l'intérieur de A."
+      },
+      "quizExerciseIds": [
+        1711,
+        1712,
+        1713
+      ],
+      "topic_id": "probabilite-conditionnelle",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras calculer une probabilité conditionnelle $P_A(B)$ à partir de $P(A\\cap B)$ et $P(A)$, et utiliser la formule des probabilités composées $P(A\\cap B)=P(A)\\times P_A(B)$ pour calculer une probabilité d'intersection."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "probabilite",
+        "conditionnelle"
+      ]
+    }
+  ]
+}

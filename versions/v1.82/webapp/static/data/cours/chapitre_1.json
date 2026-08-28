@@ -1,0 +1,888 @@
+{
+  "chapterId": "Chapitre_1",
+  "title": "Nombres et calculs",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "puissances-entieres-relatives",
+      "title": "Les puissances",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : les puissances.\n\nCette notion sert à compter très vite des quantités qui doublent ou qui se répètent (populations, calculs informatiques, intérêts composés) sans écrire une multiplication à rallonge.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras calculer et simplifier une puissance.",
+      "definition": "Une puissance, c'est une multiplication répétée. $a^n$ veut dire : on multiplie $a$ par lui-même, $n$ fois. Par exemple $2^3 = 2 \\times 2 \\times 2$.",
+      "definitions": {
+        "college": "Une puissance, c'est juste une façon plus courte d'écrire une multiplication où on répète le même nombre. $2^3$ veut dire $2 \\times 2 \\times 2$.",
+        "lycee": "Une puissance, c'est une multiplication répétée. $a^n$ veut dire : on multiplie $a$ par lui-même, $n$ fois. Par exemple $2^3 = 2 \\times 2 \\times 2$.",
+        "expert": "$(a^n)_{n \\in \\mathbb{Z}}$ définit un morphisme de groupe de $(\\mathbb{Z}, +)$ vers $(\\mathbb{R}^*, \\times)$ pour $a \\neq 0$, d'où $a^{n+m} = a^n a^m$."
+      },
+      "reglesImportantes": [
+        "$a^0 = 1$ (toujours, sauf si $a = 0$)",
+        "$a^1 = a$",
+        "$a^{-n} = \\dfrac{1}{a^n}$ (un exposant négatif donne un inverse)"
+      ],
+      "formules": [
+        {
+          "id": "produit-puissances-meme-base",
+          "nom": "Produit de puissances de même base",
+          "expression": "$a^n \\times a^m = a^{n+m}$",
+          "quand_utiliser": "Quand deux puissances à multiplier ont exactement la même base.",
+          "quand_ne_pas_utiliser": "Jamais si les bases sont différentes (ex : $2^3 \\times 3^2$ ne se simplifie pas ainsi).",
+          "erreur_frequente": "Multiplier les exposants au lieu de les additionner.",
+          "astuce": "Compte les facteurs sur un petit exemple ($2^2 \\times 2^3$) pour vérifier la règle avant de l'appliquer à un cas abstrait."
+        },
+        {
+          "id": "puissance-d-une-puissance",
+          "nom": "Puissance d'une puissance",
+          "expression": "$(a^n)^m = a^{n \\times m}$",
+          "quand_utiliser": "Quand une puissance est elle-même élevée à une puissance.",
+          "quand_ne_pas_utiliser": "Ne pas confondre avec $a^n \\times a^m$ (celle-ci s'additionne, celle-là se multiplie).",
+          "erreur_frequente": "Additionner les exposants au lieu de les multiplier.",
+          "astuce": "Retiens le mot « puissance de puissance = on multiplie »."
+        }
+      ],
+      "methode": {
+        "titre": "Comment simplifier une puissance",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Regarde si les puissances ont la même base (le même nombre en bas)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Utilise la bonne règle : on additionne les exposants si on multiplie, on les soustrait si on divise."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Calcule le résultat final."
+          }
+        ],
+        "etapesParNiveau": {
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Écris chaque puissance en toutes lettres (ex : $2^3 = 2 \\times 2 \\times 2$) si tu as un doute."
+            },
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Vérifie que les deux puissances ont bien le même nombre en bas (la même base)."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Additionne les exposants si tu multiplies, soustrais-les si tu divises."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Recalcule le résultat final et vérifie-le avec un petit nombre facile."
+            }
+          ],
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Regarde si les puissances ont la même base (le même nombre en bas)."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Utilise la bonne règle : on additionne les exposants si on multiplie, on les soustrait si on divise."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Calcule le résultat final."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Même base : additionne (produit) ou soustrais (quotient) les exposants, puis calcule."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-produit-meme-base",
+          "titre": "Exemple 1",
+          "enonce": "Calcule $2^3 \\times 2^2$.",
+          "calcul": [
+            {
+              "expr": "2^3 \\times 2^2",
+              "texte": "On a deux puissances de 2."
+            },
+            {
+              "expr": "2^{3+2}",
+              "texte": "Même base : on additionne les exposants."
+            },
+            {
+              "expr": "2^5 = 32",
+              "texte": "On calcule le résultat."
+            }
+          ],
+          "reponse": "$32$",
+          "difficulte": "facile",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $32$"
+        },
+        {
+          "id": "exemple-exposant-negatif",
+          "titre": "Exemple 2",
+          "enonce": "Calcule $5^{-2}$.",
+          "calcul": [
+            {
+              "expr": "5^{-2}",
+              "texte": "L'exposant est négatif."
+            },
+            {
+              "expr": "\\dfrac{1}{5^2}",
+              "texte": "On prend l'inverse de $5^2$."
+            },
+            {
+              "expr": "\\dfrac{1}{25}",
+              "texte": "On calcule $5^2 = 25$."
+            }
+          ],
+          "reponse": "$\\dfrac{1}{25}$",
+          "difficulte": "moyen",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $\\dfrac{1}{25}$"
+        },
+        {
+          "id": "exemple-puissance-de-puissance-combinee",
+          "titre": "Exemple 3",
+          "enonce": "Simplifie $(2^3)^{-2} \\times 2^7$.",
+          "calcul": [
+            {
+              "expr": "(2^3)^{-2} \\times 2^7",
+              "texte": "On applique d'abord la puissance de puissance."
+            },
+            {
+              "expr": "2^{-6} \\times 2^7",
+              "texte": "$(2^3)^{-2} = 2^{3 \\times (-2)} = 2^{-6}$."
+            },
+            {
+              "expr": "2^{-6+7} = 2^1 = 2",
+              "texte": "Même base : on additionne les exposants."
+            }
+          ],
+          "reponse": "$2$",
+          "difficulte": "difficile",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $2$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre $a^n \\times a^m$ (on additionne les exposants) et $(a^n)^m$ (on les multiplie).",
+        "Croire que $a^{-n}$ est un nombre négatif. C'est faux : c'est un inverse, toujours positif si $a$ est positif."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre $a^n \\times a^m$ (on additionne les exposants) et $(a^n)^m$ (on les multiplie).",
+          "pourquoi": "Les deux règles se ressemblent visuellement (deux exposants, une seule base) et l'élève applique la première règle apprise sans regarder s'il y a un produit ou une puissance de puissance.",
+          "comment_detecter": "L'élève annonce un exposant qui est une somme là où il fallait un produit (ou l'inverse).",
+          "comment_eviter": "Vérifier sur un petit exemple numérique ($2^2 \\times 2^3$ vs $(2^2)^3$) avant d'appliquer la règle à un cas littéral."
+        },
+        {
+          "description": "Croire que $a^{-n}$ est un nombre négatif. C'est faux : c'est un inverse, toujours positif si $a$ est positif.",
+          "pourquoi": "Le signe « - » devant l'exposant est intuitivement associé à un résultat négatif, comme pour un nombre.",
+          "comment_detecter": "L'élève écrit un résultat négatif pour une puissance à exposant négatif d'un nombre positif.",
+          "comment_eviter": "Rappeler que $a^{-n} = 1/a^n$ : c'est un inverse (donc positif si $a$ est positif), jamais un signe moins."
+        }
+      ],
+      "astuce": "Si tu as un doute, écris la puissance en toutes lettres avec quelques facteurs. Ça t'aide à voir ce qui se passe.",
+      "aRetenir": [
+        "$a^n \\times a^m = a^{n+m}$",
+        "$a^{-n} = \\dfrac{1}{a^n}$",
+        "$a^0 = 1$",
+        "$(a^n)^m = a^{n \\times m}$",
+        "Vérifie toujours avec un petit nombre facile."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        6,
+        7,
+        8
+      ],
+      "topic_id": "puissances-entieres-relatives",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Puissances entières relatives"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras calculer et simplifier une puissance."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine que tu dois écrire « 2 fois 2 fois 2 fois 2 fois 2 ». C'est long et on risque de se tromper en comptant les « 2 ». Une puissance, c'est juste une écriture raccourcie pour dire « ce nombre, multiplié par lui-même, un certain nombre de fois ».",
+      "intuition": "Une puissance n'est rien d'autre qu'une multiplication répétée écrite en abrégé. Le petit chiffre en haut (l'exposant) compte combien de fois on répète le nombre du bas (la base) dans la multiplication. Ne confonds jamais « multiplier par l'exposant » et « répéter la multiplication » : ce sont deux opérations complètement différentes.",
+      "exemplesConcrets": [
+        "le nombre d'octets en informatique (2, 4, 8, 16... des puissances de 2)",
+        "la croissance d'une population de bactéries qui double régulièrement",
+        "les intérêts composés d'une épargne bancaire"
+      ]
+    },
+    {
+      "id": "racine-carree",
+      "title": "La racine carrée",
+      "intro": "Aujourd'hui, nous allons apprendre : la racine carrée.\n\nCette notion sert à retrouver la longueur du côté d'un carré quand on ne connaît que son aire, ou calculer une distance dans un repère.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras calculer et simplifier une racine carrée.",
+      "definition": "La racine carrée d'un nombre positif $a$, notée $\\sqrt{a}$, c'est le nombre positif qui, multiplié par lui-même, donne $a$. Par exemple $\\sqrt{9} = 3$ car $3 \\times 3 = 9$.",
+      "reglesImportantes": [
+        "$\\sqrt{a}$ n'existe pas si $a$ est négatif.",
+        "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$",
+        "$\\sqrt{a+b}$ n'est PAS égal à $\\sqrt{a} + \\sqrt{b}$"
+      ],
+      "methode": {
+        "titre": "Comment simplifier une racine carrée",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Cherche le plus grand carré parfait qui divise le nombre (4, 9, 16, 25...)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Sépare la racine en deux racines : celle du carré parfait et celle du reste."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Calcule la racine du carré parfait."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Cherche le plus grand carré parfait qui divise le nombre (4, 9, 16, 25...)."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Sépare la racine en deux racines : celle du carré parfait et celle du reste."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Calcule la racine du carré parfait."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Simplifie $\\sqrt{75}$.",
+          "calcul": [
+            {
+              "expr": "75 = 25 \\times 3",
+              "texte": "25 est un carré parfait : $25 = 5^2$."
+            },
+            {
+              "expr": "\\sqrt{75} = \\sqrt{25} \\times \\sqrt{3}",
+              "texte": "On sépare la racine."
+            },
+            {
+              "expr": "5\\sqrt{3}",
+              "texte": "On calcule $\\sqrt{25} = 5$."
+            }
+          ],
+          "reponse": "$5\\sqrt{3}$",
+          "id": "racine-carree-exemple-1",
+          "difficulte": "moyen",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $5\\sqrt{3}$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Écrire $\\sqrt{a+b} = \\sqrt{a} + \\sqrt{b}$. C'est faux !",
+        "Essayer de calculer $\\sqrt{a}$ avec $a$ négatif : ça n'existe pas."
+      ],
+      "astuce": "Pour trouver un carré parfait caché, teste dans l'ordre : 4, 9, 16, 25, 36, 49...",
+      "aRetenir": [
+        "$\\sqrt{a}$ existe seulement si $a \\geq 0$",
+        "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$",
+        "$\\sqrt{a+b} \\neq \\sqrt{a} + \\sqrt{b}$",
+        "$\\sqrt{a^2} = a$ (si $a$ positif)"
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          6,
+          6
+        ],
+        "grid": false,
+        "axes": false,
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "A"
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "label": "B"
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "label": "C"
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "label": "D"
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.5,
+            "y": 1.5,
+            "label": "Aire = 9"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B"
+          }
+        ],
+        "alt": "Un carré d'aire 9 a un côté de longueur √9 = 3."
+      },
+      "quizExerciseIds": [
+        10,
+        11,
+        12
+      ],
+      "schemaVersion": 2,
+      "topic_id": "racine-carree",
+      "definitions": {
+        "lycee": "La racine carrée d'un nombre positif $a$, notée $\\sqrt{a}$, c'est le nombre positif qui, multiplié par lui-même, donne $a$. Par exemple $\\sqrt{9} = 3$ car $3 \\times 3 = 9$.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "racine-carree-regle-1",
+          "nom": "",
+          "expression": "$\\sqrt{a}$ n'existe pas si $a$ est négatif.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "racine-carree-regle-2",
+          "nom": "",
+          "expression": "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "racine-carree-regle-3",
+          "nom": "",
+          "expression": "$\\sqrt{a+b}$ n'est PAS égal à $\\sqrt{a} + \\sqrt{b}$",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $\\sqrt{a+b} = \\sqrt{a} + \\sqrt{b}$. C'est faux !",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Essayer de calculer $\\sqrt{a}$ avec $a$ négatif : ça n'existe pas.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Racine carrée"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras calculer et simplifier une racine carrée."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine un carré dont tu connais l'aire (par exemple 9 m²) mais pas la longueur du côté. La racine carrée est justement l'outil qui te permet de retrouver ce côté : c'est le nombre positif qui, multiplié par lui-même, redonne l'aire de départ.",
+      "intuition": "La racine carrée « défait » ce que fait la mise au carré. Il ne faut jamais oublier qu'une racine carrée est toujours un nombre positif (ou nul) : $\\sqrt{9}$ vaut $3$, jamais $-3$, même si $(-3)^2$ vaut aussi $9$.",
+      "exemplesConcrets": [
+        "calculer le côté d'un terrain carré connaissant sa surface",
+        "calculer une distance entre deux points dans un plan (GPS, cartographie)",
+        "vérifier si un nombre est un carré parfait"
+      ]
+    },
+    {
+      "id": "multiples-diviseurs-nombres-premiers",
+      "title": "Multiples, diviseurs, nombres premiers",
+      "intro": "Aujourd'hui, nous allons apprendre : multiples, diviseurs, nombres premiers.\n\nCette notion sert à répartir équitablement des objets en groupes égaux, simplifier des fractions, ou organiser un emploi du temps qui se répète.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras dire si un nombre est premier et le décomposer.",
+      "definition": "Un nombre $b$ est un multiple d'un nombre $a$ si on peut écrire $b = a \\times k$, avec $k$ un nombre entier. Dans ce cas, $a$ est un diviseur de $b$.",
+      "reglesImportantes": [
+        "Un nombre premier a exactement 2 diviseurs : 1 et lui-même.",
+        "1 n'est pas un nombre premier.",
+        "2 est le seul nombre premier pair."
+      ],
+      "methode": {
+        "titre": "Comment décomposer un nombre en facteurs premiers",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Divise le nombre par le plus petit nombre premier possible (2, puis 3, puis 5...)."
+          },
+          {
+            "icone": "rotate",
+            "couleur": "orange",
+            "texte": "Recommence avec le résultat obtenu, jusqu'à arriver à 1."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Écris le nombre de départ comme un produit de tous les nombres premiers trouvés."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Divise le nombre par le plus petit nombre premier possible (2, puis 3, puis 5...)."
+            },
+            {
+              "icone": "rotate",
+              "couleur": "orange",
+              "texte": "Recommence avec le résultat obtenu, jusqu'à arriver à 1."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Écris le nombre de départ comme un produit de tous les nombres premiers trouvés."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Décompose 60 en facteurs premiers.",
+          "calcul": [
+            {
+              "expr": "60 = 2 \\times 30",
+              "texte": "60 est pair, on divise par 2."
+            },
+            {
+              "expr": "30 = 2 \\times 15",
+              "texte": "30 est pair, on divise encore par 2."
+            },
+            {
+              "expr": "15 = 3 \\times 5",
+              "texte": "5 est un nombre premier, on s'arrête."
+            }
+          ],
+          "reponse": "$60 = 2^2 \\times 3 \\times 5$",
+          "id": "multiples-diviseurs-nombres-premiers-exemple-1",
+          "difficulte": "moyen",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $60 = 2^2 \\times 3 \\times 5$"
+        }
+      ],
+      "erreursFrequentes": [
+        "Penser que 1 est un nombre premier. C'est faux : il n'a qu'un seul diviseur.",
+        "Oublier de vérifier si un facteur peut être divisé encore une fois."
+      ],
+      "astuce": "Pour savoir si un nombre est premier, teste juste les diviseurs premiers jusqu'à sa racine carrée.",
+      "aRetenir": [
+        "Multiple de $a$ : $b = a \\times k$",
+        "Nombre premier : exactement 2 diviseurs",
+        "1 n'est pas premier, 2 est le seul nombre premier pair",
+        "Tout nombre se décompose en produit de nombres premiers"
+      ],
+      "figure": {
+        "kind": "numberline",
+        "min": 0,
+        "max": 12,
+        "marks": [
+          {
+            "value": 0,
+            "label": "0",
+            "filled": true
+          },
+          {
+            "value": 1,
+            "label": "1",
+            "filled": false
+          },
+          {
+            "value": 2,
+            "label": "2",
+            "filled": false
+          },
+          {
+            "value": 3,
+            "label": "3",
+            "filled": true
+          },
+          {
+            "value": 4,
+            "label": "4",
+            "filled": false
+          },
+          {
+            "value": 5,
+            "label": "5",
+            "filled": false
+          },
+          {
+            "value": 6,
+            "label": "6",
+            "filled": true
+          },
+          {
+            "value": 7,
+            "label": "7",
+            "filled": false
+          },
+          {
+            "value": 8,
+            "label": "8",
+            "filled": false
+          },
+          {
+            "value": 9,
+            "label": "9",
+            "filled": true
+          },
+          {
+            "value": 10,
+            "label": "10",
+            "filled": false
+          },
+          {
+            "value": 11,
+            "label": "11",
+            "filled": false
+          },
+          {
+            "value": 12,
+            "label": "12",
+            "filled": true
+          }
+        ],
+        "alt": "Les points pleins marquent les multiples de 3 entre 0 et 12."
+      },
+      "quizExerciseIds": [
+        3,
+        4,
+        5
+      ],
+      "schemaVersion": 2,
+      "topic_id": "multiples-diviseurs-nombres-premiers",
+      "definitions": {
+        "lycee": "Un nombre $b$ est un multiple d'un nombre $a$ si on peut écrire $b = a \\times k$, avec $k$ un nombre entier. Dans ce cas, $a$ est un diviseur de $b$.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "multiples-diviseurs-nombres-premiers-regle-1",
+          "nom": "",
+          "expression": "Un nombre premier a exactement 2 diviseurs : 1 et lui-même.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "multiples-diviseurs-nombres-premiers-regle-2",
+          "nom": "",
+          "expression": "1 n'est pas un nombre premier.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "multiples-diviseurs-nombres-premiers-regle-3",
+          "nom": "",
+          "expression": "2 est le seul nombre premier pair.",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Penser que 1 est un nombre premier. C'est faux : il n'a qu'un seul diviseur.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier de vérifier si un facteur peut être divisé encore une fois.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Multiples, diviseurs et nombres premiers"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras dire si un nombre est premier et le décomposer."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine que tu dois répartir des bonbons en paquets identiques, sans qu'il en reste. Les multiples et les diviseurs servent exactement à ça : savoir quels nombres de paquets sont possibles, et quels nombres ne se divisent par rien d'autre qu'eux-mêmes (les nombres premiers).",
+      "intuition": "Un multiple d'un nombre, c'est ce nombre répété un certain nombre de fois. Un diviseur, c'est au contraire un nombre qui rentre exactement dans un autre, sans reste. Un nombre premier n'a que deux diviseurs : lui-même et 1 — ne le confonds pas avec un nombre qui a juste peu de diviseurs connus.",
+      "exemplesConcrets": [
+        "organiser des équipes de taille égale pour un tournoi",
+        "simplifier une fraction au maximum",
+        "la cryptographie (codes secrets) qui utilise les nombres premiers"
+      ]
+    },
+    {
+      "id": "ensembles-de-nombres",
+      "title": "Les ensembles de nombres",
+      "intro": "Aujourd'hui, nous allons apprendre : les ensembles de nombres.\n\nCette notion sert à savoir de quel « type » de nombre on parle avant de résoudre un problème (un nombre de personnes ne peut pas être négatif ni décimal, par exemple).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître à quelle famille appartient un nombre.",
+      "definition": "Il existe plusieurs familles de nombres, appelées ensembles. Chaque famille contient la précédente, comme des poupées russes.",
+      "reglesImportantes": [
+        "$\\mathbb{N}$ : les entiers naturels (0, 1, 2, 3...)",
+        "$\\mathbb{Z}$ : les entiers relatifs (..., -2, -1, 0, 1, 2...)",
+        "$\\mathbb{Q}$ : les rationnels (les fractions d'entiers)",
+        "$\\mathbb{R}$ : les réels (tous les nombres, même $\\sqrt{2}$ et $\\pi$)"
+      ],
+      "methode": {
+        "titre": "Comment trouver la famille d'un nombre",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Regarde si le nombre est entier positif : alors il est dans $\\mathbb{N}$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "purple",
+            "texte": "Sinon, regarde s'il peut s'écrire comme une fraction de deux entiers."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Si ce n'est pas possible, il est seulement dans $\\mathbb{R}$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Regarde si le nombre est entier positif : alors il est dans $\\mathbb{N}$."
+            },
+            {
+              "icone": "compass",
+              "couleur": "purple",
+              "texte": "Sinon, regarde s'il peut s'écrire comme une fraction de deux entiers."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Si ce n'est pas possible, il est seulement dans $\\mathbb{R}$."
+            }
+          ],
+          "debutant": [],
+          "rapide": []
+        }
+      },
+      "exemples": [
+        {
+          "titre": "Exemple 1",
+          "enonce": "Dans quelle famille se trouve $-3$ ?",
+          "calcul": [
+            {
+              "expr": "-3",
+              "texte": "Ce n'est pas un entier positif, donc pas dans $\\mathbb{N}$."
+            },
+            {
+              "expr": "-3 \\in \\mathbb{Z}",
+              "texte": "C'est un entier relatif."
+            }
+          ],
+          "reponse": "$-3 \\in \\mathbb{Z}$ (et aussi dans $\\mathbb{Q}$ et $\\mathbb{R}$)",
+          "id": "ensembles-de-nombres-exemple-1",
+          "difficulte": "facile",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $-3 \\in \\mathbb{Z}$ (et aussi dans $\\mathbb{Q}$ et $\\mathbb{R}$)"
+        },
+        {
+          "titre": "Exemple 2",
+          "enonce": "Dans quelle famille se trouve $\\sqrt{2}$ ?",
+          "calcul": [
+            {
+              "expr": "\\sqrt{2} \\approx 1{,}414...",
+              "texte": "Ses chiffres après la virgule ne s'arrêtent jamais."
+            },
+            {
+              "expr": "\\sqrt{2} \\notin \\mathbb{Q}",
+              "texte": "Ce n'est pas une fraction d'entiers."
+            }
+          ],
+          "reponse": "$\\sqrt{2} \\in \\mathbb{R}$ seulement",
+          "id": "ensembles-de-nombres-exemple-2",
+          "difficulte": "difficile",
+          "explication": "Lisons d'abord attentivement l'énoncé, puis appliquons la méthode vue juste au-dessus, étape par étape.",
+          "conclusion": "Nous obtenons ainsi : $\\sqrt{2} \\in \\mathbb{R}$ seulement"
+        }
+      ],
+      "erreursFrequentes": [
+        "Croire que tous les nombres sont des fractions. $\\sqrt{2}$ et $\\pi$ ne le sont pas.",
+        "Oublier qu'un nombre entier appartient aussi à toutes les familles plus grandes."
+      ],
+      "astuce": "Pour savoir si un nombre est une fraction (rationnel), demande-toi : peut-on l'écrire comme entier divisé par entier ?",
+      "aRetenir": [
+        "$\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$",
+        "$\\sqrt{2}$ et $\\pi$ sont dans $\\mathbb{R}$ mais pas dans $\\mathbb{Q}$",
+        "Un entier appartient à toutes les familles plus grandes"
+      ],
+      "figure": {
+        "kind": "nested-sets",
+        "labels": [
+          "N",
+          "Z",
+          "D",
+          "Q",
+          "R"
+        ],
+        "alt": "Les ensembles de nombres sont emboîtés : N ⊂ Z ⊂ D ⊂ Q ⊂ R."
+      },
+      "quizExerciseIds": [
+        0,
+        1,
+        2
+      ],
+      "schemaVersion": 2,
+      "topic_id": "ensembles-de-nombres",
+      "definitions": {
+        "lycee": "Il existe plusieurs familles de nombres, appelées ensembles. Chaque famille contient la précédente, comme des poupées russes.",
+        "college": "",
+        "expert": ""
+      },
+      "formules": [
+        {
+          "id": "ensembles-de-nombres-regle-1",
+          "nom": "",
+          "expression": "$\\mathbb{N}$ : les entiers naturels (0, 1, 2, 3...)",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "ensembles-de-nombres-regle-2",
+          "nom": "",
+          "expression": "$\\mathbb{Z}$ : les entiers relatifs (..., -2, -1, 0, 1, 2...)",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "ensembles-de-nombres-regle-3",
+          "nom": "",
+          "expression": "$\\mathbb{Q}$ : les rationnels (les fractions d'entiers)",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        },
+        {
+          "id": "ensembles-de-nombres-regle-4",
+          "nom": "",
+          "expression": "$\\mathbb{R}$ : les réels (tous les nombres, même $\\sqrt{2}$ et $\\pi$)",
+          "quand_utiliser": "",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "",
+          "astuce": ""
+        }
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Croire que tous les nombres sont des fractions. $\\sqrt{2}$ et $\\pi$ ne le sont pas.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        },
+        {
+          "description": "Oublier qu'un nombre entier appartient aussi à toutes les familles plus grandes.",
+          "pourquoi": "",
+          "comment_detecter": "",
+          "comment_eviter": ""
+        }
+      ],
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [
+        "Ensembles de nombres"
+      ],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras reconnaître à quelle famille appartient un nombre."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "",
+      "tags": [],
+      "explicationSimple": "Imagine que cette notion est un nouvel outil dans ta boîte à outils mathématique : une fois que tu sais quand et comment l'utiliser, elle te fait gagner beaucoup de temps sur des problèmes qui, sans elle, seraient très longs à résoudre.",
+      "intuition": "Avant d'appliquer une règle, prends toujours le temps de bien identifier ce que l'énoncé te donne. La plupart des erreurs viennent d'une règle appliquée trop vite, sans avoir vérifié qu'elle s'applique bien à la situation.",
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ]
+    }
+  ]
+}

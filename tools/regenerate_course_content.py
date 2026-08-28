@@ -24,7 +24,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CHAPITRES_DIR = ROOT / "Chapitres"
 TEXTS_DIR = ROOT / "texts"
-COURS_DATA_DIR = ROOT / "webapp" / "static" / "data" / "cours"
+# Chantier "Répartition du contenu des cours par plan" (2026-08-26) : déplacé
+# hors de webapp/static/ (voir webapp/curriculum_registry.COURSE_CONTENT_DIR)
+# — ce script ne lit/écrit jamais ce fichier lui-même (seulement affiché à
+# l'utilisateur comme suggestion, voir plus bas), donc un chemin littéral
+# reste suffisant ici plutôt qu'un import de curriculum_registry.
+COURS_DATA_DIR = ROOT / "webapp" / "course_content" / "cours"
 
 
 def clean_text(text: str) -> str:

@@ -9,7 +9,10 @@ Base SQLite ET dossier de sauvegarde isolés dans un répertoire temporaire
 pattern que tests/test_quota_service.py : aucune interférence avec
 data/novamath.db ni backups/.
 """
+import importlib
+import os
 import shutil
+import sqlite3
 import subprocess
 import tempfile
 import unittest
@@ -239,6 +242,190 @@ class TestPermissions(BackupServiceTestCase):
     def test_parse_timestamp_renvoie_none_pour_un_nom_malforme(self):
         self.assertIsNone(backup_service._parse_timestamp("pas_une_sauvegarde.txt"))
         self.assertIsNone(backup_service._parse_timestamp("novamath_backup_pasunedate.sqlite3"))
+
+
+class TestEcritureAtomiqueSauvegarde(BackupServiceTestCase):
+    """Release Candidate : une sauvegarde tuée en cours d'écriture (SIGKILL,
+    redéploiement Fly.io) ne doit jamais apparaître comme une sauvegarde
+    valide — voir _backup_sqlite (écriture via .tmp + os.replace)."""
+
+    def test_le_fichier_final_napparait_quapres_ecriture_complete(self):
+        """Simule un kill en cours d'écriture (Connection.backup() échoue
+        avant la fin, comme le ferait un SIGKILL en plein transfert de pages)
+        -> le fichier .tmp existe, mais jamais le nom final. sqlite3.Connection
+        étant un type C immuable, on ne peut pas patcher sa méthode `backup`
+        directement : on intercepte sqlite3.connect() pour renvoyer, pour la
+        connexion SOURCE uniquement, un petit proxy dont `.backup()` échoue,
+        tout en laissant la connexion DESTINATION (le futur .tmp) bien réelle
+        — exactement le point de défaillance visé (l'écriture des pages)."""
+        class _FailingSource:
+            def __init__(self, real_conn):
+                self._real = real_conn
+
+            def backup(self, dest):
+                raise sqlite3.OperationalError("kill simulé")
+
+            def close(self):
+                self._real.close()
+
+        real_connect = sqlite3.connect
+
+        def fake_connect(path, *args, **kwargs):
+            real_conn = real_connect(path, *args, **kwargs)
+            if str(path) == str(db.DB_PATH):
+                return _FailingSource(real_conn)
+            return real_conn
+
+        with patch("backup_service.sqlite3.connect", side_effect=fake_connect):
+            with self.assertRaises(sqlite3.OperationalError):
+                backup_service._backup_sqlite()
+        self.assertEqual(backup_service.list_backups(), [])
+        tmp_files = [p for p in backup_service.backup_dir().iterdir() if p.name.endswith(".tmp")]
+        self.assertEqual(len(tmp_files), 1)
+
+    def test_aucun_fichier_tmp_ne_subsiste_apres_une_ecriture_reussie(self):
+        backup_service.backup_database()
+        tmp_files = [p for p in backup_service.backup_dir().iterdir() if p.name.endswith(".tmp")]
+        self.assertEqual(tmp_files, [])
+
+
+class TestCopiePreRestoreWalAware(BackupServiceTestCase):
+    """La copie de sécurité pre_restore_* utilise désormais Connection.backup()
+    (comme une sauvegarde normale) au lieu de shutil.copy2 — même garantie
+    d'écriture atomique, et surtout cohérente même en mode WAL sous charge."""
+
+    def test_copie_pre_restore_est_une_base_sqlite_valide_et_complete(self):
+        user_id = db.create_user("preval@gmail.com", "preval", "Test", "hash")
+        backup_path = backup_service.backup_database()
+        backup_service.restore_backup(backup_path.name)
+
+        pre_restore_files = [
+            p for p in backup_service.backup_dir().iterdir()
+            if p.name.startswith(backup_service._PRE_RESTORE_PREFIX)
+        ]
+        self.assertEqual(len(pre_restore_files), 1)
+        # La copie de sécurité contient bien l'état d'AVANT la restauration
+        # (l'utilisateur créé juste avant le backup), preuve qu'il ne s'agit
+        # pas d'un fichier tronqué/vide.
+        conn = sqlite3.connect(pre_restore_files[0])
+        try:
+            row = conn.execute("SELECT id FROM users WHERE id = ?", (user_id,)).fetchone()
+        finally:
+            conn.close()
+        self.assertIsNotNone(row)
+
+    def test_aucun_fichier_tmp_ne_subsiste_apres_une_restauration(self):
+        backup_path = backup_service.backup_database()
+        backup_service.restore_backup(backup_path.name)
+        tmp_files = [p for p in backup_service.backup_dir().iterdir() if ".tmp" in p.name]
+        self.assertEqual(tmp_files, [])
+
+
+class TestValidationIntegriteAvantRestauration(BackupServiceTestCase):
+    """Une sauvegarde corrompue (tronquée par un kill, avant ce correctif, ou
+    altérée) ne doit jamais commencer à écraser la base de production."""
+
+    def test_sauvegarde_corrompue_est_refusee_avant_toute_ecriture(self):
+        corrupted = self._touch_backup(datetime.now(timezone.utc))
+        corrupted.write_bytes(b"ceci n'est pas une base SQLite valide")
+
+        user_id = db.create_user("integrite@gmail.com", "integrite", "Test", "hash")
+
+        with self.assertRaises(backup_service.BackupCorrupted):
+            backup_service.restore_backup(corrupted.name)
+
+        # La base de production n'a jamais été touchée : l'utilisateur créé
+        # juste avant la tentative de restauration est toujours présent.
+        self.assertIsNotNone(db.get_user_by_id(user_id))
+
+    def test_sauvegarde_corrompue_najamais_ecrase_le_fichier_final(self):
+        corrupted = self._touch_backup(datetime.now(timezone.utc))
+        corrupted.write_bytes(b"contenu invalide")
+        with self.assertRaises(backup_service.BackupCorrupted):
+            backup_service.restore_backup(corrupted.name)
+        self.assertTrue(Path(db.DB_PATH).exists())
+        # La base reste une base SQLite saine.
+        conn = sqlite3.connect(db.DB_PATH)
+        try:
+            result = conn.execute("PRAGMA integrity_check").fetchone()
+        finally:
+            conn.close()
+        self.assertEqual(result[0], "ok")
+
+    def test_sauvegarde_valide_passe_la_validation_et_restaure_normalement(self):
+        backup_path = backup_service.backup_database()
+        backup_service.restore_backup(backup_path.name)  # ne doit lever aucune exception
+
+
+class TestSuppressionCopiesPreRestore(BackupServiceTestCase):
+    """Avant ce correctif, delete_backup() levait BackupNotFound pour tout
+    fichier pre_restore_*, même en connaissant son nom exact — aucune
+    suppression manuelle possible via ce point d'entrée."""
+
+    def test_delete_backup_accepte_un_nom_pre_restore_valide(self):
+        copy_path = self._touch_backup(
+            datetime.now(timezone.utc), prefix=backup_service._PRE_RESTORE_PREFIX,
+        )
+        backup_service.delete_backup(copy_path.name)
+        self.assertFalse(copy_path.exists())
+
+    def test_delete_backup_leve_backup_not_found_pour_un_pre_restore_inexistant(self):
+        with self.assertRaises(backup_service.BackupNotFound):
+            backup_service.delete_backup("pre_restore_20200101_000000_000000.sqlite3")
+
+    def test_apply_retention_purge_les_copies_pre_restore_expirees(self):
+        config.BACKUP_RETENTION_DAYS = 30
+        very_old = datetime.now(timezone.utc) - timedelta(days=45)
+        recent = datetime.now(timezone.utc) - timedelta(days=1)
+        old_copy = self._touch_backup(very_old, prefix=backup_service._PRE_RESTORE_PREFIX)
+        recent_copy = self._touch_backup(recent, prefix=backup_service._PRE_RESTORE_PREFIX)
+
+        backup_service._apply_retention()
+
+        self.assertFalse(old_copy.exists())
+        self.assertTrue(recent_copy.exists())
+
+    def test_list_pre_restore_copies_les_expose_sans_les_melanger_a_list_backups(self):
+        copy_path = self._touch_backup(
+            datetime.now(timezone.utc), prefix=backup_service._PRE_RESTORE_PREFIX,
+        )
+        copies = backup_service.list_pre_restore_copies()
+        self.assertEqual([c["filename"] for c in copies], [copy_path.name])
+        self.assertEqual(backup_service.list_backups(), [])
+
+
+class TestPlancherRetentionDays(unittest.TestCase):
+    """BACKUP_RETENTION_DAYS=0 (ou négatif, erreur de configuration
+    plausible via `fly secrets set`) ne doit plus jamais purger TOUTE
+    sauvegarde, y compris celle qui vient d'être créée dans le même appel
+    (voir backup_service._apply_retention, exécutée juste après
+    backup_database()) — un plancher à 1 jour est appliqué au chargement de
+    config.py."""
+
+    def setUp(self):
+        self._env_backup = os.environ.get("BACKUP_RETENTION_DAYS")
+
+    def tearDown(self):
+        if self._env_backup is None:
+            os.environ.pop("BACKUP_RETENTION_DAYS", None)
+        else:
+            os.environ["BACKUP_RETENTION_DAYS"] = self._env_backup
+        importlib.reload(config)
+
+    def test_zero_est_remonte_a_un_jour(self):
+        os.environ["BACKUP_RETENTION_DAYS"] = "0"
+        importlib.reload(config)
+        self.assertEqual(config.BACKUP_RETENTION_DAYS, 1)
+
+    def test_valeur_negative_est_remontee_a_un_jour(self):
+        os.environ["BACKUP_RETENTION_DAYS"] = "-5"
+        importlib.reload(config)
+        self.assertEqual(config.BACKUP_RETENTION_DAYS, 1)
+
+    def test_valeur_positive_normale_est_preservee(self):
+        os.environ["BACKUP_RETENTION_DAYS"] = "7"
+        importlib.reload(config)
+        self.assertEqual(config.BACKUP_RETENTION_DAYS, 7)
 
 
 class TestCompatibilitePostgresql(BackupServiceTestCase):

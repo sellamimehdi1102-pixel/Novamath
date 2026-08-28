@@ -169,20 +169,46 @@ def get_formules(notion):
     return notion.get("formules") or []
 
 
-def get_exemple(notion, difficulte=None):
+def get_exemple(notion, difficulte=None, exclude_ids=None):
     """Un exemple adapté à la difficulté demandée ("facile"/"moyen"/
     "difficile"), tiré au sort parmi les exemples correspondants (jamais
     toujours le même — même esprit que response_composer.compose). Repli sur
     un tirage parmi tous les exemples si aucun ne correspond à la difficulté
-    demandée, ou si la notion n'a pas encore de champ `difficulte`."""
+    demandée, ou si la notion n'a pas encore de champ `difficulte`.
+
+    `exclude_ids` (chantier "répétition des exemples", 2026-08-23) : ids
+    d'exemples déjà montrés dans la conversation (voir
+    conversation_manager._commit_used_exemple / learning_context.
+    used_exemple_ids) — exclus du tirage en priorité. Si TOUS les exemples de
+    la notion figurent déjà dans `exclude_ids` (stock épuisé), le tirage
+    retombe sur l'ensemble complet plutôt que de renvoyer None (mieux vaut
+    répéter un exemple que ne rien montrer) — voir exemple_pool_exhausted()
+    pour que l'appelant sache PRÉALABLEMENT que ce repli va se produire et le
+    dise honnêtement plutôt que de prétendre un exemple inédit."""
     exemples = notion.get("exemples") or []
     if not exemples:
         return None
+    exclude_ids = set(exclude_ids or ())
+    pool = [ex for ex in exemples if ex.get("id") not in exclude_ids] or exemples
     if difficulte:
-        matching = [ex for ex in exemples if ex.get("difficulte") == difficulte]
+        matching = [ex for ex in pool if ex.get("difficulte") == difficulte]
         if matching:
             return random.choice(matching)
-    return random.choice(exemples)
+    return random.choice(pool)
+
+
+def exemple_pool_exhausted(notion, exclude_ids):
+    """True si `notion` n'a AUCUN exemple, ou si tous ses exemples figurent
+    déjà dans `exclude_ids` — c'est-à-dire si le prochain appel à
+    get_exemple(notion, exclude_ids=exclude_ids) va nécessairement RÉPÉTER un
+    exemple déjà montré, faute d'alternative réelle dans les données. Permet
+    à l'appelant de le dire honnêtement plutôt que de prétendre un exemple
+    inédit (jamais de fausse variante fabriquée)."""
+    exemples = notion.get("exemples") or []
+    if not exemples:
+        return True
+    ids = {ex.get("id") for ex in exemples}
+    return ids.issubset(set(exclude_ids or ()))
 
 
 def get_methode_etapes(notion, niveau=None):
@@ -312,18 +338,69 @@ def try_answer_definition(user_message, class_level=None):
     return "\n".join(lines)
 
 
+def _format_notion_block(m):
+    block = [f"### {m['title']} ({m['chapter_title']})", m["definition"]]
+    if m["regles"]:
+        block.append("Règles : " + " ; ".join(m["regles"]))
+    if m["erreurs"]:
+        block.append("Erreurs fréquentes : " + " ; ".join(m["erreurs"]))
+    return "\n".join(block)
+
+
 def context_block(user_message, top_k=3, class_level=None):
-    """Bloc de contexte compact (RAG) : quelques notions pertinentes, jamais
-    le cours entier. Chaîne vide si rien de pertinent n'est trouvé."""
+    """Bloc de contexte compact (RAG) par RECHERCHE sur `user_message` :
+    quelques notions pertinentes, jamais le cours entier. Chaîne vide si rien
+    de pertinent n'est trouvé. Pour un message ambigu ("réexplique", "encore"...
+    voir intent_service.REFORMULATION_RE), préférer notion_context_block()
+    ci-dessous : une recherche ici n'a plus aucun mot-clé de sujet à exploiter
+    et peut remonter une notion sans rapport avec un score faible mais réel."""
     matches = search(user_message, top_k=top_k, class_level=class_level)
     if not matches:
         return ""
-    blocks = []
-    for m in matches:
-        block = [f"### {m['title']} ({m['chapter_title']})", m["definition"]]
-        if m["regles"]:
-            block.append("Règles : " + " ; ".join(m["regles"]))
-        if m["erreurs"]:
-            block.append("Erreurs fréquentes : " + " ; ".join(m["erreurs"]))
-        blocks.append("\n".join(block))
-    return "\n\n".join(blocks)
+    return "\n\n".join(_format_notion_block(m) for m in matches)
+
+
+def notion_context_block(chapter_id, notion_id, class_level=None):
+    """Bloc de contexte (RAG) par LOOKUP EXACT (chapter_id/notion_id déjà
+    connus — ex: Current Learning Context mémorisé par conversation_manager.py
+    pour un message ambigu), jamais une recherche floue : ne peut donc jamais
+    se tromper de notion, contrairement à context_block() sur un message qui
+    ne contient plus aucun mot permettant une recherche fiable. Chaîne vide si
+    la notion est introuvable (identifiants périmés, classe sans ce cours...)."""
+    if not notion_id:
+        return ""
+    notion = get_notion(chapter_id, notion_id, class_level=class_level)
+    if not notion:
+        return ""
+    return _format_notion_block(notion)
+
+
+def get_chapter_title(chapter_id, class_level=None):
+    """Titre du chapitre `chapter_id`, ou None si introuvable (identifiant
+    périmé, classe sans ce cours...). Utilisé quand le Current Learning
+    Context connaît le chapitre mais pas la notion précise (voir
+    conversation_manager.py::_update_learning_context) — permet quand même de
+    nommer explicitement le sujet dans l'instruction système, plutôt que de
+    l'omettre faute de notion exacte."""
+    for doc in _get_by_ids(class_level).values():
+        if doc["chapter_id"] == chapter_id:
+            return doc["chapter_title"]
+    return None
+
+
+def chapter_context_block(chapter_id, class_level=None, max_notions=3):
+    """Bloc de contexte (RAG) pour tout un CHAPITRE (pas une notion précise) —
+    utilisé quand le Current Learning Context connaît le chapitre mais pas la
+    notion exacte (ex: le tout premier message de la conversation n'a matché
+    aucune notion par recherche, voir intent_service._detect_chapter, repli
+    `context_summary["chapters_in_progress"]`). Sans ce repli, un message
+    ambigu ("réexplique"...) qui hérite d'un chapitre sans notion précise
+    retombait sur une recherche floue non fiable (context_block) sur le
+    message ambigu lui-même — souvent vide ou hors-sujet (voir audit
+    Current Learning Context). Compile jusqu'à `max_notions` notions de ce
+    chapitre (ordre du fichier source) ; chaîne vide si le chapitre est
+    introuvable ou n'a aucune notion indexée."""
+    notions = [doc for doc in _get_by_ids(class_level).values() if doc["chapter_id"] == chapter_id]
+    if not notions:
+        return ""
+    return "\n\n".join(_format_notion_block(m) for m in notions[:max_notions])

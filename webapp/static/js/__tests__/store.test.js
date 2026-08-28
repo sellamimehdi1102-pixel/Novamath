@@ -17,6 +17,7 @@ import {
   recordAnswer,
   getState,
   scopedStats,
+  notionBreakdown,
   badgeDefs,
   createSeriesDraft,
   addSeriesQuestion,
@@ -100,6 +101,74 @@ describe("store.js — coverageByChapter / coverageByNotion", () => {
   it("regroupe par chapitre|notion", () => {
     const cov = coverageByNotion([h({ id: 1, notion: "n1" }), h({ id: 2, notion: "n2" })]);
     expect(Object.keys(cov)).toEqual(["ch1|n1", "ch1|n2"]);
+  });
+});
+
+describe("store.js — notionBreakdown (bilan de progression par notion, Premium+)", () => {
+  it("renvoie un tableau vide pour un historique vide", () => {
+    expect(notionBreakdown([])).toEqual([]);
+  });
+
+  it("calcule le taux de réussite et le nombre de tentatives par notion", () => {
+    const history = [
+      h({ ts: 1, correct: true, duration_s: 10 }),
+      h({ ts: 2, correct: false, duration_s: 20 }),
+      h({ ts: 3, correct: true, duration_s: 30 }),
+    ];
+    const rows = notionBreakdown(history);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].chapter).toBe("ch1");
+    expect(rows[0].notion).toBe("n1");
+    expect(rows[0].count).toBe(3);
+    expect(rows[0].rate).toBeCloseTo(2 / 3);
+  });
+
+  it("calcule le temps moyen à partir de duration_s", () => {
+    const history = [h({ ts: 1, duration_s: 10 }), h({ ts: 2, duration_s: 30 })];
+    expect(notionBreakdown(history)[0].avgDurationS).toBe(20);
+  });
+
+  it("temps moyen à 0 si duration_s absent, jamais une valeur inventée", () => {
+    const history = [h({ ts: 1 }), h({ ts: 2 })];
+    expect(notionBreakdown(history)[0].avgDurationS).toBe(0);
+  });
+
+  it("ne calcule aucune tendance avec moins de 4 tentatives (données insuffisantes)", () => {
+    const history = [h({ ts: 1, correct: true }), h({ ts: 2, correct: false }), h({ ts: 3, correct: true })];
+    expect(notionBreakdown(history)[0].trend).toBeNull();
+  });
+
+  it("détecte une tendance à la hausse avec au moins 4 tentatives", () => {
+    const history = [
+      h({ ts: 1, correct: false }), h({ ts: 2, correct: false }),
+      h({ ts: 3, correct: true }), h({ ts: 4, correct: true }),
+    ];
+    expect(notionBreakdown(history)[0].trend).toBe("up");
+  });
+
+  it("détecte une tendance à la baisse avec au moins 4 tentatives", () => {
+    const history = [
+      h({ ts: 1, correct: true }), h({ ts: 2, correct: true }),
+      h({ ts: 3, correct: false }), h({ ts: 4, correct: false }),
+    ];
+    expect(notionBreakdown(history)[0].trend).toBe("down");
+  });
+
+  it("trie du taux de réussite le plus faible au plus fort", () => {
+    const history = [
+      h({ chapter: "chA", notion: "nA", ts: 1, correct: true }),
+      h({ chapter: "chB", notion: "nB", ts: 2, correct: false }),
+    ];
+    const rows = notionBreakdown(history);
+    expect(rows[0].chapter).toBe("chB");
+    expect(rows[1].chapter).toBe("chA");
+  });
+
+  it("ne modifie jamais le tableau history[] fourni en entrée", () => {
+    const history = [h({ ts: 1, correct: true }), h({ ts: 2, correct: false })];
+    const snapshot = JSON.parse(JSON.stringify(history));
+    notionBreakdown(history);
+    expect(history).toEqual(snapshot);
   });
 });
 
@@ -210,6 +279,26 @@ describe("store.js — scopedStats (isolation par classe)", () => {
   it("calcule l'xp uniquement sur les entrées du scope", () => {
     const state = { history: [h({ class_level: "seconde", xp: 10 }), h({ class_level: "premiere", xp: 999 })], series: [] };
     expect(scopedStats(state, "seconde").xp).toBe(10);
+  });
+
+  it("propage suggestions_limit tel quel (non scopé par classe, plafond par plan)", () => {
+    const state = { history: [], series: [], suggestions_limit: 5 };
+    expect(scopedStats(state, "seconde").suggestions_limit).toBe(5);
+  });
+
+  it("suggestions_limit absent de l'état source -> undefined, jamais une valeur fabriquée", () => {
+    const state = { history: [], series: [] };
+    expect(scopedStats(state, "seconde").suggestions_limit).toBeUndefined();
+  });
+
+  it("propage notion_breakdown_enabled tel quel (non scopé par classe, flag par plan)", () => {
+    const state = { history: [], series: [], notion_breakdown_enabled: true };
+    expect(scopedStats(state, "seconde").notion_breakdown_enabled).toBe(true);
+  });
+
+  it("notion_breakdown_enabled absent de l'état source -> undefined, jamais une valeur fabriquée", () => {
+    const state = { history: [], series: [] };
+    expect(scopedStats(state, "seconde").notion_breakdown_enabled).toBeUndefined();
   });
 });
 
@@ -326,5 +415,40 @@ describe("store.js — hydrateFromServer", () => {
     api.getStats.mockRejectedValueOnce(new Error("réseau"));
     const result = await hydrateFromServer();
     expect(result).toHaveProperty("history");
+  });
+
+  // Chantier "Différenciation des abonnements — suggestions du Dashboard" :
+  // suggestions_limit dépend du PLAN, pas de l'historique — un changement de
+  // plan sans nouvel exercice ne doit jamais laisser un plafond de
+  // suggestions périmé (voir hydrateFromServer, branche "historique local
+  // déjà à jour").
+  it("rafraîchit suggestions_limit même quand l'historique local est déjà à jour (pas de persist)", async () => {
+    recordAnswer({ id: 1, chapter: "c", notion: "n", difficulty: 1, correct: true }); // 1 entrée locale
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: [h()], suggestions_limit: 5 }); // même longueur (1)
+    const result = await hydrateFromServer();
+    expect(result.history).toHaveLength(1); // pas de persist() du remote (longueur égale)
+    expect(result.suggestions_limit).toBe(5); // mais suggestions_limit vient bien du fetch frais
+  });
+
+  it("historique distant plus long -> suggestions_limit vient du remote adopté tel quel", async () => {
+    api.getStats.mockResolvedValueOnce({ xp: 500, history: [h(), h(), h()], suggestions_limit: 8 });
+    const result = await hydrateFromServer();
+    expect(result.suggestions_limit).toBe(8);
+  });
+
+  // Même principe que suggestions_limit ci-dessus : notion_breakdown_enabled
+  // dépend du PLAN, pas de l'historique.
+  it("rafraîchit notion_breakdown_enabled même quand l'historique local est déjà à jour (pas de persist)", async () => {
+    recordAnswer({ id: 1, chapter: "c", notion: "n", difficulty: 1, correct: true }); // 1 entrée locale
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: [h()], notion_breakdown_enabled: true }); // même longueur (1)
+    const result = await hydrateFromServer();
+    expect(result.history).toHaveLength(1); // pas de persist() du remote (longueur égale)
+    expect(result.notion_breakdown_enabled).toBe(true);
+  });
+
+  it("historique distant plus long -> notion_breakdown_enabled vient du remote adopté tel quel", async () => {
+    api.getStats.mockResolvedValueOnce({ xp: 500, history: [h(), h(), h()], notion_breakdown_enabled: true });
+    const result = await hydrateFromServer();
+    expect(result.notion_breakdown_enabled).toBe(true);
   });
 });

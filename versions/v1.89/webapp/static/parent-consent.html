@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autorisation parentale — NovaMath</title>
+<meta name="application-name" content="NovaMath">
+<meta name="theme-color" content="#6366f1">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="reset-page">
+  <a href="index.html" class="brand" style="justify-content:center; margin-bottom:32px;">
+    <img src="assets/logo.svg" alt=""> NovaMath
+  </a>
+
+  <div class="card reset-card">
+    <div id="consent-loading" style="text-align:center;">
+      <p class="reset-lead">Chargement de la demande de consentement…</p>
+    </div>
+
+    <div id="consent-pending" hidden style="text-align:center;">
+      <h1>Autorisation parentale</h1>
+      <p class="reset-lead">
+        Le compte NovaMath de <strong id="consent-child-pseudo"></strong> nécessite votre
+        autorisation pour être activé, conformément à la réglementation française sur la
+        protection des mineurs (RGPD).
+      </p>
+      <p class="reset-lead">Ce lien expire le <span id="consent-expires-at"></span>.</p>
+      <span class="form-error form-error--global" id="consent-error" hidden></span>
+      <div class="verdict-row" style="margin-top:16px;">
+        <button type="button" class="btn btn-secondary" id="btn-consent-refuse">Refuser</button>
+        <button type="button" class="btn btn-primary" id="btn-consent-accept">Autoriser</button>
+      </div>
+    </div>
+
+    <div id="consent-accepted" hidden style="text-align:center;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" style="width:48px; height:48px; margin-bottom:16px;"><path d="m5 13 4 4L19 7"/></svg>
+      <h2>Compte activé</h2>
+      <p class="reset-lead">Merci : le compte peut désormais être utilisé normalement.</p>
+    </div>
+
+    <div id="consent-refused" hidden style="text-align:center;">
+      <h2>Autorisation refusée</h2>
+      <p class="reset-lead">Le compte reste inaccessible. Cette décision a été enregistrée.</p>
+    </div>
+
+    <div id="consent-invalid" hidden style="text-align:center;">
+      <h2>Lien invalide, expiré ou déjà utilisé</h2>
+      <p class="reset-lead">Cette demande de consentement parental n'est plus valable.</p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/parentConsent.js"></script>
+</body>
+</html>

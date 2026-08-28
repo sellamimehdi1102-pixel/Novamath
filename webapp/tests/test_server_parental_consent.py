@@ -6,6 +6,7 @@ accept, refuse, resend) — /api/auth/parental-consent/*, ouvertes sans session
 import random
 import unittest
 from datetime import date
+from unittest.mock import patch
 
 import consent_service as cs
 import db
@@ -19,6 +20,14 @@ def _fake_ip():
 class ParentalConsentRouteTestCase(unittest.TestCase):
     def setUp(self):
         self.client = server.app.test_client()
+        # Ces tests capturent le token via `dev_consent_link`, le filet de
+        # secours qui ne s'active que si aucun SMTP n'est configuré (voir
+        # email_service.is_configured et consent_service.create_consent_
+        # request) — forcé ici indépendamment du .env réellement chargé dans
+        # le process de test (peut contenir de vrais identifiants SMTP).
+        patcher = patch("email_service.is_configured", return_value=False)
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
     def _register_minor(self, parent_email="parent@example.com"):
         today = date.today()

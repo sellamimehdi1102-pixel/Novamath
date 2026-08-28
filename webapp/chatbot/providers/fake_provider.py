@@ -1,19 +1,31 @@
 """
-Fournisseur par défaut de NovaMath aujourd'hui : ne contacte AUCUNE API. Il
-respecte exactement le même contrat que les futurs fournisseurs IA
-(ChatProvider — stream_chat/health/available_models/current_model), si bien
-que basculer demain vers Anthropic/OpenAI/Gemini/Ollama ne change que le
-réglage "provider" (Paramètres → Chatbot ou ProviderManager), jamais le reste
-de la chaîne.
+Filet de sécurité de TOUT dernier recours de NovaMath : ne contacte AUCUNE
+API, n'est utilisé QUE si le fournisseur IA réellement actif (voir
+provider_manager.select_llm_for_user) a échoué à l'usage pour ce message
+précis — jamais un choix visible ou compris par l'élève. Respecte exactement
+le même contrat que les vrais fournisseurs IA (ChatProvider —
+stream_chat/health/available_models/current_model).
 
-Le Rule Engine et le Math Engine ont déjà répondu en amont (voir
-conversation_manager.py) pour tout ce qu'ils savent traiter sans IA. Si on
-arrive jusqu'ici, c'est qu'aucun des deux n'a pu répondre seul : ce
-fournisseur assemble alors la meilleure réponse possible à partir du
-Knowledge Engine (extraits de cours pertinents), sans jamais inventer une
-explication qu'il ne peut pas réellement produire — il est honnête sur ses
-limites plutôt que de simuler une compréhension qu'il n'a pas.
-"""
+IMPORTANT (voir audit "le chatbot abandonne trop vite" du 2026-07-26) :
+l'élève ne doit JAMAIS savoir qu'il existe plusieurs fournisseurs IA, lequel
+est actif, ni qu'un filet de sécurité local existe — aucun texte ci-dessous ne
+doit jamais nommer un fournisseur (Gemini/Claude/Ollama/...), une API, ou
+mentionner "intelligence artificielle"/"sans IA". Toute formulation reste
+naturelle et pédagogique, comme si NovaMath répondait lui-même.
+
+Audit du mode dégradé (2026-07-26) : CE fournisseur n'est plus responsable de
+construire une réponse pédagogique à partir du Current Learning Context/de
+l'historique/de la banque d'exercices — c'est désormais le rôle de
+degraded_mode_service.py (accès aux VRAIS objets notion, pas seulement au
+texte déjà figé de `system`), appelé par llm_fallback_service.generate()
+AVANT de retomber ici. Si ce module est atteint, c'est qu'absolument aucun
+sujet n'a pu être déterminé (aucun chapitre, aucune notion, aucun historique
+exploitable, aucune recherche floue, aucun exercice) — seule exception :
+une mention "@" explicite (ressource déjà résolue avec certitude, jamais une
+supposition) reste affichée ici, cas différent d'"essayer de deviner le
+sujet"."""
+import random
+
 from .base import ChatProvider
 
 MODEL_ID = "moteur-novamath"
@@ -25,19 +37,29 @@ MODEL_ID = "moteur-novamath"
 # recherche sur le message brut, rendant invisible tout le mécanisme de
 # grounding tant qu'aucun vrai fournisseur IA n'est configuré (cas par défaut).
 GROUNDING_MARKER = "RESSOURCES MENTIONNÉES PAR L'ÉLÈVE"
+# Encore utilisé pour délimiter la FIN du bloc de grounding ci-dessus (le
+# bloc RAG générique, qui peut suivre dans `system`, ne doit jamais être
+# inclus dans la ressource explicitement mentionnée) — la construction d'une
+# réponse à PARTIR de ce bloc RAG est retirée, voir degraded_mode_service.py.
 RAG_MARKER = "\n\nEXTRAITS DE COURS NOVAMATH PERTINENTS"
 
-NO_MATCH_ANSWER = (
-    "Je n'ai pas trouvé d'information assez précise dans tes cours NovaMath pour répondre "
-    "directement à cette question.\n\n"
-    "Tu peux : reformuler ta question de façon plus précise (le nom d'une notion, d'un chapitre, "
-    "ou coller l'énoncé d'un exercice), consulter l'onglet **Cours**, ou activer un fournisseur IA "
-    "(Claude, Ollama) dans **Paramètres → Chatbot** pour une explication plus poussée."
+# Plusieurs formulations pour ne jamais répéter exactement le même message
+# (même philosophie que get_exemple()/response_composer.py : jamais deux
+# fois la même réponse). Jamais de référence technique — voir docstring.
+# Audit "le chatbot ne doit jamais donner l'impression d'abandonner"
+# (2026-07-26, épisode 2) : dialogue naturel et chaleureux, jamais un ton
+# froid de type "je n'ai pas trouvé" — ce message ne doit apparaître qu'en
+# tout dernier recours, quand degraded_mode_service.py n'a lui-même rien pu
+# déterminer (aucun chapitre/notion/historique/RAG/exercice exploitable).
+NO_MATCH_ANSWERS = (
+    "Bien sûr. Peux-tu me dire de quel chapitre ou de quelle notion tu parles ?",
+    "Je veux bien t'aider. Dis-moi simplement le nom du chapitre, ou colle ton exercice.",
+    "Je ne suis pas certain du sujet dont tu parles. Peux-tu me donner un peu plus de contexte ?",
 )
 
 
 class FakeProvider(ChatProvider):
-    def __init__(self, model=None):
+    def __init__(self, model=None, api_key=None):
         self._model = model or MODEL_ID
 
     def health(self):
@@ -71,46 +93,20 @@ class FakeProvider(ChatProvider):
             "Voici la ressource que tu as demandée :",
             "",
             content,
-            "",
-            "_Réponse assemblée directement depuis cette ressource, sans intelligence artificielle. "
-            "Pour une explication pas-à-pas adaptée à ta question exacte, active Claude ou Ollama "
-            "dans Paramètres → Chatbot._",
-        ])
-
-    def _answer_from_rag(self, system):
-        """Si `system` contient le bloc RAG (knowledge_engine.context_block,
-        déjà scopé par class_level dans conversation_manager.py AVANT l'appel
-        à ce fournisseur), la réponse doit se baser dessus — jamais relancer
-        une recherche ici, qui n'a aucun moyen de connaître la classe active
-        (ChatProvider ne reçoit que `messages`/`system`, voir audit multi-
-        classe du chatbot). Une classe scopée sans aucun résultat produit un
-        `rag_block` vide côté prompt_builder (RAG_MARKER absent) : ce cas
-        retombe honnêtement sur NO_MATCH_ANSWER, jamais une seconde recherche
-        non scopée qui recontaminerait la réponse avec une autre classe."""
-        if not system or RAG_MARKER not in system:
-            return None
-        block = system.split(RAG_MARKER, 1)[1]
-        if "###" not in block:
-            return None
-        content = "### " + block.split("###", 1)[1].strip()
-        return "\n".join([
-            "Voici ce que dit ton cours sur ce sujet :",
-            "",
-            content,
-            "",
-            "_Réponse assemblée directement depuis tes cours, sans intelligence artificielle. "
-            "Pour une explication pas-à-pas adaptée à ta question exacte, active Claude ou Ollama "
-            "dans Paramètres → Chatbot._",
         ])
 
     def _assemble_answer(self, user_message, system=None):
+        # Le mode dégradé (degraded_mode_service.py, appelé par
+        # llm_fallback_service.generate() avant ce provider) a déjà tenté
+        # Current Learning Context/historique/RAG/banque d'exercices — s'il
+        # n'a rien trouvé, aucune reconstruction supplémentaire n'est
+        # possible à partir du seul texte de `system` (voir docstring du
+        # module). Seule la ressource "@" déjà résolue avec certitude
+        # (jamais une supposition) reste affichée ici.
         grounded = self._answer_from_grounding(system)
         if grounded is not None:
             return grounded
-        from_rag = self._answer_from_rag(system)
-        if from_rag is not None:
-            return from_rag
-        return NO_MATCH_ANSWER
+        return random.choice(NO_MATCH_ANSWERS)
 
     def stream_chat(self, messages, system, temperature=0.7, max_tokens=1024):
         user_message = self._last_user_message(messages)

@@ -9,19 +9,16 @@ import { currentTheme } from "./theme.js";
 import { getSettings, setSetting, onSettingsChange } from "./settingsManager.js";
 import { icon } from "./icons.js";
 import { t } from "./i18n.js";
-import { NOVAMATH_VERSION } from "./version.js";
 import { initClassBadge } from "./curriculumSelector.js";
 import { openPopup } from "./popup.js";
+import { openReportTicketPopup, openSupportHubPopup } from "./supportTicket.js";
 
 const $ = (id) => document.getElementById(id);
 let panel, menu;
 
 let user = null;
 let settings = null;
-let dataSummary = null;
-let sessions = null;
 let cookieConsentState = null;
-let consentHistory = null;
 
 function CATEGORIES() {
   return [
@@ -29,7 +26,6 @@ function CATEGORIES() {
     { id: "appearance", label: t("settings.cat.appearance"), icon: "palette" },
     { id: "training", label: t("settings.cat.training"), icon: "sliders" },
     { id: "learning", label: t("settings.cat.learning"), icon: "target" },
-    { id: "data", label: t("settings.cat.data"), icon: "database" },
     { id: "chatbot", label: t("settings.cat.chatbot"), icon: "messageSquare" },
     { id: "security", label: t("settings.cat.security"), icon: "lock" },
     { id: "language", label: t("settings.cat.language"), icon: "globe" },
@@ -164,23 +160,6 @@ function bindPillGroup(root, name, onSelect) {
   });
 }
 
-function formatDate(iso) {
-  if (!iso) return "—";
-  try {
-    return new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-  } catch {
-    return iso;
-  }
-}
-
-function formatDuration(seconds) {
-  const s = seconds || 0;
-  if (s < 60) return `${s} s`;
-  const h = Math.floor(s / 3600);
-  const m = Math.round((s % 3600) / 60);
-  return h ? `${h} h ${m} min` : `${m} min`;
-}
-
 function initials(name) {
   const parts = String(name || "").trim().split(/\s+/).slice(0, 2);
   return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
@@ -226,9 +205,6 @@ function renderAccount() {
 
     <div class="account-info-grid">
       <div class="account-info-item"><div class="label">Adresse email</div><div class="value">${user.email}</div></div>
-      <div class="account-info-item"><div class="label">Compte vérifié</div><div class="value">${user.email_verified ? icon("check") + " Vérifié" : "Non vérifié"}</div></div>
-      <div class="account-info-item"><div class="label">Date de création</div><div class="value">${formatDate(user.created_at)}</div></div>
-      <div class="account-info-item"><div class="label">Identifiant utilisateur</div><div class="value">#${user.id}</div></div>
     </div>
 
     <div class="settings-section">
@@ -238,7 +214,6 @@ function renderAccount() {
         <button class="btn btn-secondary" id="btn-edit-email">Modifier l'adresse Gmail</button>
         <button class="btn btn-secondary" id="btn-edit-password">Modifier le mot de passe</button>
         <button class="btn btn-secondary" id="btn-change-photo">Changer la photo</button>
-        <button class="btn btn-secondary" id="btn-remove-photo" ${user.avatar ? "" : "disabled"}>Supprimer la photo</button>
       </div>
     </div>
 
@@ -248,14 +223,6 @@ function renderAccount() {
         <button class="btn btn-secondary" id="btn-change-class" type="button">
           <span class="class-badge-label" id="settings-class-badge-label">Seconde</span> — Changer de classe
         </button>
-      </div>
-    </div>
-
-    <div class="settings-section danger-zone">
-      <div class="settings-section-title">Zone sensible</div>
-      <div class="settings-actions-grid">
-        <button class="btn btn-danger-outline" id="btn-logout">Déconnexion</button>
-        <button class="btn btn-danger-outline" id="btn-delete-account">Supprimer définitivement le compte</button>
       </div>
     </div>
 
@@ -360,47 +327,6 @@ function bindAccount() {
       showToast(err.message || "Échec de l'envoi de la photo.", true);
     }
   });
-
-  $("btn-remove-photo").addEventListener("click", () => {
-    openModal({
-      title: "Supprimer la photo de profil",
-      text: "Ta photo sera remplacée par tes initiales. Cette action est réversible en ajoutant une nouvelle photo.",
-      confirmLabel: "Supprimer",
-      onConfirm: async () => {
-        const { user: updated } = await api.updateMe({ avatar: null });
-        user = updated;
-        window.dispatchEvent(new CustomEvent("novamath:account-updated", { detail: user }));
-        renderPanel();
-        showToast("Photo supprimée");
-      },
-    });
-  });
-
-  $("btn-logout").addEventListener("click", () => {
-    openModal({
-      title: "Se déconnecter",
-      text: "Tu devras te reconnecter pour retrouver ta progression sur cet appareil.",
-      confirmLabel: "Déconnexion",
-      danger: false,
-      onConfirm: async () => {
-        await api.logout();
-        window.location.href = "/";
-      },
-    });
-  });
-
-  $("btn-delete-account").addEventListener("click", () => {
-    openModal({
-      title: "Supprimer définitivement le compte",
-      text: "Cette action est irréversible : toute ta progression, tes statistiques et tes préférences seront supprimées.",
-      confirmLabel: "Supprimer mon compte",
-      fields: [{ name: "password", label: "Mot de passe", type: "password" }],
-      onConfirm: async ({ password }) => {
-        await api.deleteMe({ password, confirm: true });
-        window.location.href = "/";
-      },
-    });
-  });
 }
 
 // ── 2. Apparence ─────────────────────────────────────────────────────────────
@@ -425,6 +351,7 @@ function renderAppearance() {
 
     <div class="settings-section">
       <div class="settings-section-title">Couleur principale</div>
+      <p class="settings-panel-desc" style="margin-bottom:10px;">Violet par défaut. Change la couleur d'accent dans toute l'interface (boutons, badges, liens, états actifs, graphiques...) — les fonds et le thème clair/sombre ne changent pas.</p>
       <div class="color-swatch-group">
         ${ACCENTS.map((c) => `<button type="button" class="color-swatch swatch-${c.value}${a.accent === c.value ? " active" : ""}" data-accent="${c.value}" title="${c.label}" aria-label="${c.label}"></button>`).join("")}
       </div>
@@ -432,17 +359,11 @@ function renderAppearance() {
 
     <div class="settings-section">
       <div class="settings-section-title">Taille du texte</div>
-      ${pillGroupHtml("fontSize", [{ value: "small", label: "Petit" }, { value: "normal", label: "Normal" }, { value: "large", label: "Grand" }], a.fontSize)}
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-section-title">Coins des cartes</div>
-      ${pillGroupHtml("radius", [{ value: "normal", label: "Normaux" }, { value: "rounded", label: "Très arrondis" }], a.radius)}
+      ${pillGroupHtml("fontSize", [{ value: "normal", label: "Normal" }, { value: "large", label: "Grand" }], a.fontSize)}
     </div>
 
     <div class="settings-section">
       ${settingRow("Animations", "Transitions et animations dans toute l'interface.", toggleHtml("toggle-animations", a.animations))}
-      ${settingRow("Effet de transparence", "Surfaces vitrées (cartes, fenêtres) légèrement transparentes.", toggleHtml("toggle-transparency", a.transparency))}
     </div>
   `;
 }
@@ -450,7 +371,6 @@ function renderAppearance() {
 function bindAppearance() {
   bindPillGroup(panel, "theme", (value) => updateSetting("appearance", "theme", value));
   bindPillGroup(panel, "fontSize", (value) => updateSetting("appearance", "fontSize", value));
-  bindPillGroup(panel, "radius", (value) => updateSetting("appearance", "radius", value));
 
   panel.querySelectorAll(".color-swatch").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -461,7 +381,6 @@ function bindAppearance() {
   });
 
   $("toggle-animations").addEventListener("change", (e) => updateSetting("appearance", "animations", e.target.checked));
-  $("toggle-transparency").addEventListener("change", (e) => updateSetting("appearance", "transparency", e.target.checked));
 }
 
 // ── 3. Entraînement ──────────────────────────────────────────────────────────
@@ -477,10 +396,12 @@ function renderTraining() {
     </div>
 
     <div class="settings-section">
+      <div class="settings-section-title">Mode de correction</div>
+      ${pillGroupHtml("correctionDisplay", [{ value: "chaque_question", label: "Après chaque question" }, { value: "fin", label: "À la fin de la série" }], t.correctionDisplay)}
+    </div>
+
+    <div class="settings-section">
       ${settingRow("Chronomètre", "Limite de temps par question en mode Défi chronométré.", toggleHtml("toggle-chrono", t.chrono))}
-      ${settingRow("Confirmation avant de quitter une série", "Une fenêtre te demande confirmation si tu quittes en cours de série.", toggleHtml("toggle-confirm-leave", t.confirmBeforeLeave))}
-      ${settingRow("Reprendre automatiquement une série interrompue", "Sinon, NovaMath te demande avant de reprendre.", toggleHtml("toggle-auto-resume", t.autoResume))}
-      ${settingRow("Afficher automatiquement la correction", "La méthode s'affiche juste après chaque réponse, sans clic.", toggleHtml("toggle-auto-correction", t.autoShowCorrection))}
       ${settingRow("Effets sonores", "Petits sons de confirmation en cas de bonne/mauvaise réponse.", toggleHtml("toggle-sound", t.soundEffects))}
     </div>
   `;
@@ -488,10 +409,8 @@ function renderTraining() {
 
 function bindTraining() {
   bindPillGroup(panel, "questionsPerSeries", (value) => updateSetting("training", "questionsPerSeries", Number(value)));
+  bindPillGroup(panel, "correctionDisplay", (value) => updateSetting("training", "correctionDisplay", value));
   $("toggle-chrono").addEventListener("change", (e) => updateSetting("training", "chrono", e.target.checked));
-  $("toggle-confirm-leave").addEventListener("change", (e) => updateSetting("training", "confirmBeforeLeave", e.target.checked));
-  $("toggle-auto-resume").addEventListener("change", (e) => updateSetting("training", "autoResume", e.target.checked));
-  $("toggle-auto-correction").addEventListener("change", (e) => updateSetting("training", "autoShowCorrection", e.target.checked));
   $("toggle-sound").addEventListener("change", (e) => updateSetting("training", "soundEffects", e.target.checked));
 }
 
@@ -512,26 +431,10 @@ function renderLearning() {
         <div class="setting-row-text"><span class="label">Temps quotidien (minutes)</span></div>
         <div class="setting-row-control"><input type="number" min="1" max="240" id="input-daily-time" value="${l.dailyGoalTimeMin}" style="width:80px;" class="learning-input"></div>
       </div>
-      <div class="setting-row">
-        <div class="setting-row-text"><span class="label">Accuracy cible</span><span class="desc">Sur 20, comme au dashboard (ex. 18/20)</span></div>
-        <div class="setting-row-control"><input type="number" min="0" max="20" step="0.5" id="input-target-accuracy" value="${l.targetAccuracyOn20}" style="width:80px;" class="learning-input"></div>
-      </div>
     </div>
 
     <div class="settings-section">
-      ${settingRow("Prioriser les notions faibles", "Les exercices proposés favorisent tes notions les moins maîtrisées.", toggleHtml("toggle-prioritize-weak", l.prioritizeWeakNotions))}
-      ${settingRow("Prioriser les chapitres non maîtrisés", "", toggleHtml("toggle-prioritize-chapters", l.prioritizeUnmasteredChapters))}
       ${settingRow("Révision espacée", "Refait réapparaître les exercices déjà vus au bon moment pour mémoriser durablement.", toggleHtml("toggle-spaced", l.spacedRepetition))}
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-section-title">Afficher des indices pendant les exercices</div>
-      ${pillGroupHtml("hints", [{ value: "jamais", label: "Jamais" }, { value: "parfois", label: "Parfois" }, { value: "toujours", label: "Toujours" }], l.hints)}
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-section-title">Afficher la correction</div>
-      ${pillGroupHtml("correctionDisplay", [{ value: "fin", label: "Uniquement à la fin" }, { value: "chaque_question", label: "Après chaque question" }], l.correctionDisplay)}
     </div>
   `;
 }
@@ -539,266 +442,53 @@ function renderLearning() {
 function bindLearning() {
   $("input-daily-exercises").addEventListener("change", (e) => updateSetting("learning", "dailyGoalExercises", Math.max(1, Number(e.target.value) || 1)));
   $("input-daily-time").addEventListener("change", (e) => updateSetting("learning", "dailyGoalTimeMin", Math.max(1, Number(e.target.value) || 1)));
-  $("input-target-accuracy").addEventListener("change", (e) => updateSetting("learning", "targetAccuracyOn20", Math.min(20, Math.max(0, Number(e.target.value) || 0))));
-  $("toggle-prioritize-weak").addEventListener("change", (e) => updateSetting("learning", "prioritizeWeakNotions", e.target.checked));
-  $("toggle-prioritize-chapters").addEventListener("change", (e) => updateSetting("learning", "prioritizeUnmasteredChapters", e.target.checked));
   $("toggle-spaced").addEventListener("change", (e) => updateSetting("learning", "spacedRepetition", e.target.checked));
-  bindPillGroup(panel, "hints", (value) => updateSetting("learning", "hints", value));
-  bindPillGroup(panel, "correctionDisplay", (value) => updateSetting("learning", "correctionDisplay", value));
 }
 
-// ── 5. Données ───────────────────────────────────────────────────────────────
-function renderData() {
-  if (user.is_guest) return `<h2>${icon("database")} Données</h2>${guestNotice("la gestion des données")}`;
-  // dataSummary === null tant que api.getDataSummary() n'a pas répondu (voir
-  // mountSettingsPanel) : un squelette plutôt que des "0" qui ressembleraient
-  // à une vraie progression nulle.
-  if (dataSummary === null) {
-    return `
-      <h2>${icon("database")} Données</h2>
-      <p class="settings-panel-desc">Ta progression, en chiffres.</p>
-      <div class="data-stats-grid">
-        ${Array.from({ length: 5 }).map(() => `<div class="skeleton" style="height:76px; border-radius:var(--radius-sm);"></div>`).join("")}
-      </div>`;
-  }
-  const d = dataSummary;
-  return `
-    <h2>${icon("database")} Données</h2>
-    <p class="settings-panel-desc">Ta progression, en chiffres.</p>
-
-    <div class="data-stats-grid">
-      <div class="data-stat-card"><div class="value">${d.totalExercises ?? "—"}</div><div class="label">Exercices réalisés</div></div>
-      <div class="data-stat-card"><div class="value">${d.accuracy ?? 0}%</div><div class="label">Accuracy</div></div>
-      <div class="data-stat-card"><div class="value">${formatDuration(d.totalTimeS)}</div><div class="label">Temps d'entraînement</div></div>
-      <div class="data-stat-card"><div class="value">${d.seriesCount ?? 0}</div><div class="label">Séries</div></div>
-      <div class="data-stat-card"><div class="value" style="font-size:1rem;">${formatDate(d.memberSince)}</div><div class="label">Première connexion</div></div>
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-section-title">Exporter</div>
-      <div class="settings-actions-grid">
-        <button class="btn btn-secondary" id="btn-export-pdf">${icon("fileText")} Exporter mon rapport (PDF)</button>
-        <a class="btn btn-secondary" id="btn-privacy-export" href="/api/data/export">${icon("fileText")} Télécharger toutes mes données (RGPD)</a>
-      </div>
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-section-title">Confidentialité &amp; RGPD</div>
-      ${cookieConsentState === null ? "" : `
-        ${settingRow("Cookies statistiques", "Mesure d'audience anonyme pour améliorer NovaMath.", toggleHtml("toggle-cookie-statistics", cookieConsentState.statistics))}
-        ${settingRow("Cookies marketing", "Personnalisation des communications NovaMath.", toggleHtml("toggle-cookie-marketing", cookieConsentState.marketing))}
-      `}
-      <div class="settings-actions-grid">
-        <button class="btn btn-secondary" id="btn-consent-history">${icon("fileText")} Historique de mes consentements</button>
-      </div>
-      ${consentHistory === null ? "" : `
-        <ul class="consent-history-list">
-          ${consentHistory.length === 0 ? "<li>Aucun consentement enregistré.</li>" : consentHistory.map((c) => `
-            <li><strong>${c.consent_type}</strong> — ${c.decision} (${formatDate(c.created_at)}${c.policy_version ? `, version ${c.policy_version}` : ""})</li>
-          `).join("")}
-        </ul>
-      `}
-    </div>
-
-    <div class="settings-section danger-zone">
-      <div class="settings-section-title">Zone sensible</div>
-      <div class="settings-actions-grid">
-        <button class="btn btn-danger-outline" id="btn-reset-stats">Réinitialiser les statistiques</button>
-        <button class="btn btn-danger-outline" id="btn-reset-progress">Réinitialiser entièrement ma progression</button>
-      </div>
-    </div>
-  `;
-}
-
-function bindData() {
-  if (user.is_guest || dataSummary === null) return; // squelette : rien à attacher tant que les vrais boutons ne sont pas rendus
-  $("btn-export-pdf").addEventListener("click", async () => {
-    const btn = $("btn-export-pdf");
-    btn.disabled = true;
-    btn.textContent = "Génération du PDF…";
-    try {
-      const { exportProgressPdf } = await import("./pdfExport.js");
-      await exportProgressPdf();
-      showToast("Rapport PDF téléchargé");
-    } catch {
-      showToast("Échec de l'export PDF.", true);
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML = `${icon("fileText")} Exporter mon rapport (PDF)`;
-    }
-  });
-
-  const doReset = (label) => openModal({
-    title: label,
-    text: "Cette action est irréversible : XP, historique, séries et badges seront remis à zéro.",
-    confirmLabel: "Réinitialiser",
-    onConfirm: async () => {
-      await api.resetProgress();
-      dataSummary = await api.getDataSummary().catch(() => dataSummary);
-      renderPanel();
-      showToast("Progression réinitialisée");
-    },
-  });
-  $("btn-reset-stats").addEventListener("click", () => doReset("Réinitialiser les statistiques"));
-  $("btn-reset-progress").addEventListener("click", () => doReset("Réinitialiser entièrement ma progression"));
-
-  if (cookieConsentState !== null) {
-    $("toggle-cookie-statistics").addEventListener("change", (e) => {
-      cookieConsentState = { ...cookieConsentState, statistics: e.target.checked };
-      api.setCookieConsent(cookieConsentState.statistics, cookieConsentState.marketing).catch(() => {});
-    });
-    $("toggle-cookie-marketing").addEventListener("change", (e) => {
-      cookieConsentState = { ...cookieConsentState, marketing: e.target.checked };
-      api.setCookieConsent(cookieConsentState.statistics, cookieConsentState.marketing).catch(() => {});
-    });
-  }
-  $("btn-consent-history").addEventListener("click", async () => {
-    consentHistory = await api.getConsentHistory().then((r) => r.consent_history).catch(() => []);
-    renderPanel();
-  });
-}
-
-// ── 6. Chatbot ───────────────────────────────────────────────────────────────
-const CHATBOT_PROVIDERS = [
-  { value: "fake", label: "Aucun (moteur NovaMath, par défaut)" },
-  { value: "anthropic", label: "Claude (Anthropic)" },
-  { value: "ollama", label: "Ollama (local)" },
-  { value: "openai", label: "OpenAI (bientôt disponible)", disabled: true },
-  { value: "gemini", label: "Gemini (bientôt disponible)", disabled: true },
-];
-// Catalogue de secours (utilisé tant que /api/chatbot/models n'a pas encore
-// répondu, ou si le fournisseur actif est indisponible) — la vraie liste des
-// modèles est détectée dynamiquement (voir loadChatbotModels ci-dessous).
-const CHATBOT_MODELS_FALLBACK = {
-  fake: [{ value: "moteur-novamath", label: "Moteur NovaMath (sans IA)" }],
-  ollama: [{ value: "mistral", label: "Mistral (par défaut)" }],
-  anthropic: [
-    { value: "claude-sonnet-5", label: "Claude Sonnet 5 (équilibré)" },
-    { value: "claude-opus-4-8", label: "Claude Opus 4.8 (le plus capable)" },
-    { value: "claude-haiku-4-5-20251001", label: "Claude Haiku 4.5 (le plus rapide)" },
-  ],
-};
-let chatbotModelsInfo = null; // { provider, models: {id: label} } — voir loadChatbotModels()
-
-function loadChatbotModels() {
-  api.chatbotModels().then((info) => {
-    chatbotModelsInfo = info;
-    if (activeCategory === "chatbot") renderPanel();
-  }).catch(() => {});
-}
-
-function chatbotModelsForProvider(provider) {
-  if (chatbotModelsInfo && chatbotModelsInfo.provider === provider) {
-    const entries = Object.entries(chatbotModelsInfo.models || {});
-    if (entries.length) return entries.map(([value, label]) => ({ value, label }));
-  }
-  return CHATBOT_MODELS_FALLBACK[provider] || [];
-}
-
+// ── 5. Chatbot ───────────────────────────────────────────────────────────────
+// Le fournisseur IA et le modèle sont une décision interne à NovaMath (voir
+// webapp/chatbot/provider_manager.py) — jamais un réglage utilisateur, donc
+// aucune trace ici : seuls les réglages de comportement restent exposés.
 function renderChatbot() {
   const c = settings.chatbot || {};
-  const provider = c.provider || "fake";
-  const models = chatbotModelsForProvider(provider);
   return `
     <h2>${icon("messageSquare")} Chatbot</h2>
     <p class="settings-panel-desc">Personnalise l'assistant pédagogique NovaMath — tout s'applique dès le prochain message.</p>
 
     <div class="settings-section">
-      <div class="settings-section-title">Fournisseur IA</div>
-      <p class="settings-panel-desc" style="margin-bottom:10px;">Par défaut, le chatbot répond avec le moteur interne NovaMath (règles, calcul, cours) — aucune donnée n'est envoyée à une IA. Tu peux activer Claude (Anthropic) ou Ollama (local) pour des explications plus poussées ; architecture prête pour en accueillir d'autres (OpenAI, Gemini…) sans changement du reste du site.</p>
-      <div class="choice-group" data-group="chatbotProvider">
-        ${CHATBOT_PROVIDERS.map((p) => `<button type="button" class="choice-pill${p.value === provider ? " active" : ""}" data-value="${p.value}" ${p.disabled ? "disabled" : ""}>${p.label}</button>`).join("")}
-      </div>
-      <div class="settings-section-title" style="margin-top:18px;">Modèle</div>
-      <div class="choice-group" data-group="chatbotModel">
-        ${models.map((m) => `<button type="button" class="choice-pill${m.value === c.model ? " active" : ""}" data-value="${m.value}">${m.label}</button>`).join("")}
-      </div>
-      ${provider === "ollama" ? `<p class="settings-panel-desc" style="margin-top:8px;">Modèles détectés automatiquement dans Ollama (<code>ollama list</code>). Installe-en d'autres avec <code>ollama pull &lt;modèle&gt;</code>, puis rouvre ce panneau.</p>` : ""}
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-section-title">Créativité</div>
-      <div class="setting-row">
-        <div class="setting-row-text"><span class="label">Température (${c.temperature ?? 0.6})</span><span class="desc">Plus basse = réponses plus factuelles, plus haute = plus créatives.</span></div>
-        <div class="setting-row-control"><input type="range" min="0" max="1" step="0.1" id="range-chatbot-temperature" value="${c.temperature ?? 0.6}"></div>
-      </div>
-    </div>
-
-    <div class="settings-section">
-      <div class="settings-section-title">Longueur des réponses</div>
-      ${pillGroupHtml("chatbotResponseLength", [{ value: "court", label: "Court" }, { value: "normal", label: "Normal" }, { value: "detaille", label: "Détaillé" }], c.responseLength)}
-    </div>
-
-    <div class="settings-section">
       <div class="settings-section-title">Niveau d'explication</div>
-      ${pillGroupHtml("chatbotExplanationLevel", [{ value: "auto", label: "Automatique" }, { value: "college", label: "Collège" }, { value: "lycee", label: "Lycée" }, { value: "expert", label: "Expert" }], c.explanationLevel)}
+      ${pillGroupHtml("chatbotExplanationLevel", [{ value: "auto", label: "Automatique" }, { value: "college", label: "Collège" }, { value: "lycee", label: "Lycée" }], c.explanationLevel)}
     </div>
 
     <div class="settings-section">
       <div class="settings-section-title">Mode</div>
       <p class="settings-panel-desc" style="margin-bottom:10px;">Change la façon dont le chatbot construit ses réponses.</p>
-      ${pillGroupHtml("chatbotMode", [{ value: "professeur", label: "Professeur" }, { value: "rapide", label: "Rapide" }, { value: "pas_a_pas", label: "Pas-à-pas" }, { value: "visuel", label: "Visuel" }, { value: "examen", label: "Examen" }], c.mode)}
+      ${pillGroupHtml("chatbotMode", [{ value: "professeur", label: "Professeur" }, { value: "pas_a_pas", label: "Pas-à-pas" }, { value: "rapide", label: "Rapide" }], c.mode)}
     </div>
 
     <div class="settings-section">
-      ${settingRow("Streaming", "Affiche la réponse au fur et à mesure qu'elle est générée.", toggleHtml("toggle-chatbot-streaming", c.streaming))}
-      ${settingRow("Historique", "Le chatbot garde le fil de la conversation en cours.", toggleHtml("toggle-chatbot-history", c.historyEnabled))}
-      ${settingRow("Mémoire", "Le chatbot tient compte de ta progression NovaMath (niveau, notions faibles, chapitres en cours).", toggleHtml("toggle-chatbot-memory", c.memoryEnabled))}
+      <div class="settings-section-title">Longueur des réponses</div>
+      ${pillGroupHtml("chatbotResponseLength", [{ value: "court", label: "Courtes" }, { value: "normal", label: "Normales" }, { value: "detaille", label: "Détaillées" }], c.responseLength)}
+    </div>
+
+    <div class="settings-section">
+      ${settingRow("Mémoire", "Le chatbot retient tes préférences et ta progression d'une conversation à l'autre.", toggleHtml("toggle-chatbot-memory", c.memoryEnabled !== false))}
+      ${settingRow("Historique", "Le chatbot relit les messages précédents de la conversation en cours.", toggleHtml("toggle-chatbot-history", c.historyEnabled !== false))}
+      ${settingRow("Affichage progressif", "Les réponses s'affichent au fur et à mesure plutôt que d'un coup.", toggleHtml("toggle-chatbot-streaming", c.streaming !== false))}
     </div>
   `;
 }
 
 function bindChatbot() {
-  bindPillGroup(panel, "chatbotProvider", (value) => {
-    updateSetting("chatbot", "provider", value);
-    updateSetting("chatbot", "model", chatbotModelsForProvider(value)[0]?.value || "");
-    loadChatbotModels();
-    renderPanel();
-    // Le bandeau de disponibilité (chatbot.html) reflète le fournisseur actif
-    // au chargement de la page ; le rafraîchir ici évite qu'il reste affiché
-    // pour l'ancien fournisseur après un changement dans ce panneau.
-    if (typeof window.checkChatbotProviderHealth === "function") {
-      window.checkChatbotProviderHealth(value);
-    }
-  });
-  bindPillGroup(panel, "chatbotModel", (value) => updateSetting("chatbot", "model", value));
-  $("range-chatbot-temperature").addEventListener("input", (e) => updateSetting("chatbot", "temperature", Number(e.target.value)));
-  $("range-chatbot-temperature").addEventListener("change", () => renderPanel());
-  bindPillGroup(panel, "chatbotResponseLength", (value) => updateSetting("chatbot", "responseLength", value));
   bindPillGroup(panel, "chatbotExplanationLevel", (value) => updateSetting("chatbot", "explanationLevel", value));
   bindPillGroup(panel, "chatbotMode", (value) => updateSetting("chatbot", "mode", value));
-  $("toggle-chatbot-streaming").addEventListener("change", (e) => updateSetting("chatbot", "streaming", e.target.checked));
-  $("toggle-chatbot-history").addEventListener("change", (e) => updateSetting("chatbot", "historyEnabled", e.target.checked));
+  bindPillGroup(panel, "chatbotResponseLength", (value) => updateSetting("chatbot", "responseLength", value));
   $("toggle-chatbot-memory").addEventListener("change", (e) => updateSetting("chatbot", "memoryEnabled", e.target.checked));
+  $("toggle-chatbot-history").addEventListener("change", (e) => updateSetting("chatbot", "historyEnabled", e.target.checked));
+  $("toggle-chatbot-streaming").addEventListener("change", (e) => updateSetting("chatbot", "streaming", e.target.checked));
 }
 
 // ── 7. Confidentialité & Sécurité ────────────────────────────────────────────
-function deviceLabel(ua) {
-  if (/mobile/i.test(ua)) return "Mobile";
-  if (/tablet|ipad/i.test(ua)) return "Tablette";
-  return "Ordinateur";
-}
-
-function deviceListHtml() {
-  // sessions === null : pas encore arrivé de mountSettingsPanel() (chargé en
-  // arrière-plan, cf. api.getSessions().then(...)) — ne jamais affirmer
-  // "Aucun appareil actif" tant que la vraie réponse n'est pas là, sinon on
-  // ment brièvement à l'élève à chaque ouverture du panneau Sécurité.
-  if (sessions === null) {
-    return `<div class="skeleton" style="height:52px; margin-bottom:8px; border-radius:var(--radius-sm);"></div><div class="skeleton" style="height:52px; border-radius:var(--radius-sm);"></div>`;
-  }
-  if (!sessions.length) return `<p class="settings-empty">Aucun appareil actif.</p>`;
-  return sessions.map((s) => `
-    <div class="device-item">
-      <span class="device-icon">${icon("monitor")}</span>
-      <div class="device-item-text">
-        <div class="ua">${deviceLabel(s.user_agent)}${s.current ? " · Cet appareil" : ""}</div>
-        <div class="meta">Connecté depuis le ${formatDate(s.created_at)}</div>
-      </div>
-    </div>
-  `).join("");
-}
-
 function renderSecurity() {
   if (user.is_guest) return `<h2>${icon("lock")} Confidentialité & Sécurité</h2>${guestNotice("la gestion de la sécurité")}`;
   return `
@@ -818,21 +508,18 @@ function renderSecurity() {
     </div>
 
     <div class="settings-section">
-      <div class="settings-section-title">Appareils connectés</div>
-      <div class="device-list">
-        ${deviceListHtml()}
-      </div>
+      <div class="settings-section-title">Appareils</div>
       <div class="settings-actions-grid">
         <button class="btn btn-secondary" id="btn-logout-others">Déconnecter tous les autres appareils</button>
       </div>
     </div>
 
+    ${cookieConsentState === null ? "" : `
     <div class="settings-section">
-      <div class="settings-section-title">Dernière connexion</div>
-      <div class="account-info-grid">
-        <div class="account-info-item"><div class="label">Date</div><div class="value">${formatDate(user.last_login_at)}</div></div>
-      </div>
-    </div>
+      <div class="settings-section-title">Cookies</div>
+      ${settingRow("Cookies statistiques", "Mesure d'audience anonyme pour améliorer NovaMath.", toggleHtml("toggle-cookie-statistics", cookieConsentState.statistics))}
+      ${settingRow("Cookies marketing", "Personnalisation des communications NovaMath.", toggleHtml("toggle-cookie-marketing", cookieConsentState.marketing))}
+    </div>`}
 
     <div class="settings-section">
       <div class="settings-actions-grid">
@@ -989,12 +676,21 @@ function bindSecurity() {
       confirmLabel: "Déconnecter",
       onConfirm: async () => {
         await api.logoutOtherSessions();
-        sessions = await api.getSessions().then((r) => r.sessions).catch(() => sessions);
-        renderPanel();
         showToast("Autres appareils déconnectés");
       },
     });
   });
+
+  if (cookieConsentState !== null) {
+    $("toggle-cookie-statistics").addEventListener("change", (e) => {
+      cookieConsentState = { ...cookieConsentState, statistics: e.target.checked };
+      api.setCookieConsent(cookieConsentState.statistics, cookieConsentState.marketing).catch(() => {});
+    });
+    $("toggle-cookie-marketing").addEventListener("change", (e) => {
+      cookieConsentState = { ...cookieConsentState, marketing: e.target.checked };
+      api.setCookieConsent(cookieConsentState.statistics, cookieConsentState.marketing).catch(() => {});
+    });
+  }
 
   $("btn-delete-account-sec").addEventListener("click", () => {
     openModal({
@@ -1063,27 +759,6 @@ function bindLanguage() {
 // Contenu réel de chaque sous-page (pas de placeholder) : ouvert dans un popup
 // générique (js/popup.js), donc cohérent visuellement avec le reste du site.
 const HELP_PAGES = {
-  presentation: {
-    title: "Présentation de NovaMath",
-    body: `
-      <p>NovaMath est une plateforme française d'entraînement aux mathématiques, conçue pour accompagner les élèves du secondaire dans la maîtrise progressive du programme, chapitre par chapitre et notion par notion.</p>
-      <p>La plateforme s'appuie sur une base de plus de 2000 exercices répartis sur 12 chapitres et 51 notions, avec 5 niveaux de difficulté, pour proposer un entraînement réellement adapté au niveau de chaque élève plutôt qu'un contenu générique.</p>
-      <p>Chaque série d'exercices est suivie d'une correction détaillée, d'indices contextuels et d'un suivi de progression (précision, temps, régularité) afin de transformer l'entraînement en une boucle de progrès mesurable.</p>`,
-  },
-  mission: {
-    title: "Notre mission",
-    body: `
-      <p>Rendre l'entraînement aux mathématiques aussi efficace que possible, en combinant trois principes : <strong>la répétition ciblée</strong> (travailler en priorité ce qui n'est pas encore maîtrisé), <strong>la mesure honnête</strong> (des statistiques de progression fidèles, jamais gonflées) et <strong>l'autonomie</strong> (un élève doit pouvoir comprendre pourquoi il se trompe, pas seulement le savoir).</p>
-      <p>NovaMath n'a pas vocation à remplacer un enseignant : c'est un outil d'entraînement complémentaire, pensé pour le travail personnel entre les cours.</p>`,
-  },
-  fonctionnement: {
-    title: "Comment fonctionne NovaMath",
-    body: `
-      <p><strong>1. Évaluation initiale.</strong> Un court test de positionnement estime ton niveau de départ.</p>
-      <p><strong>2. Entraînement ciblé.</strong> Depuis Exercices ou Entraînement, tu lances des séries d'exercices dont le nombre, le chronomètre et le comportement suivent tes préférences définies dans Paramètres → Entraînement — quel que soit l'endroit d'où tu les lances.</p>
-      <p><strong>3. Correction et indices.</strong> Chaque exercice propose un indice, une méthode détaillée et une solution, pour comprendre plutôt que deviner.</p>
-      <p><strong>4. Suivi de progression.</strong> Le Dashboard centralise ton niveau, ton XP, ta précision, ton objectif quotidien et ton historique récent.</p>`,
-  },
   faq: {
     title: "FAQ — Questions fréquentes",
     body: `
@@ -1091,22 +766,15 @@ const HELP_PAGES = {
       <p><strong>Pourquoi mes préférences ne sont-elles pas sauvegardées en mode invité ?</strong><br>Un compte invité est temporaire par conception : ses données sont automatiquement supprimées à la fin de la session. Crée un compte pour conserver ta progression durablement.</p>
       <p><strong>Comment changer le nombre d'exercices par série ?</strong><br>Paramètres → Entraînement → « Nombre de questions par série ». Le changement s'applique immédiatement à toutes les prochaines séries, depuis n'importe quelle page.</p>
       <p><strong>Le chronomètre reste actif alors que je l'ai désactivé, que faire ?</strong><br>Ce comportement a été corrigé : la désactivation est désormais appliquée en direct, y compris pendant une série déjà en cours d'affichage.</p>
-      <p><strong>Comment supprimer mon compte ?</strong><br>Paramètres → Compte → Zone sensible → « Supprimer définitivement le compte ». Cette action est irréversible.</p>`,
+      <p><strong>Comment supprimer mon compte ?</strong><br>Page Profil → « Supprimer définitivement le compte ». Cette action est irréversible.</p>`,
   },
   guide: {
     title: "Guide utilisateur",
     body: `
       <p><strong>Démarrer une série</strong> — depuis Entraînement, choisis un mode (Révisions, Objectif du jour, Examen blanc, Défi chronométré, Erreurs précédentes) puis lance-la. Depuis Exercices, ouvre un chapitre, sélectionne une ou plusieurs notions puis clique sur « Commencer la série ».</p>
       <p><strong>Reprendre une série interrompue</strong> — le Dashboard affiche une carte « Continuer » tant qu'une série n'est pas terminée.</p>
-      <p><strong>Personnaliser l'apparence</strong> — Paramètres → Apparence permet de changer le thème clair/sombre, la couleur d'accent, la taille du texte, la transparence et les animations ; chaque changement s'applique instantanément à tout le site.</p>
-      <p><strong>Suivre ses objectifs</strong> — Paramètres → Apprentissage définit l'objectif quotidien (nombre d'exercices, temps), visible en temps réel sur le Dashboard.</p>
-      <p><strong>Exporter ses données</strong> — Paramètres → Données → « Exporter mon rapport (PDF) » génère un rapport complet et imprimable de ta progression.</p>`,
-  },
-  contact: {
-    title: "Nous contacter",
-    body: `
-      <p>Le moyen le plus rapide de nous joindre est la section Avis de la page d'accueil, consultée en priorité par l'équipe.</p>
-      <p>Pour un bug ou une suggestion, décris précisément le contexte (page, action effectuée, comportement attendu) : cela accélère beaucoup la résolution.</p>`,
+      <p><strong>Personnaliser l'apparence</strong> — Paramètres → Apparence permet de changer le thème clair/sombre, la couleur d'accent, la taille du texte et les animations ; chaque changement s'applique instantanément à tout le site.</p>
+      <p><strong>Suivre ses objectifs</strong> — Paramètres → Apprentissage définit l'objectif quotidien (nombre d'exercices, temps), visible en temps réel sur le Dashboard.</p>`,
   },
   privacy: {
     title: "Politique de confidentialité",
@@ -1114,7 +782,7 @@ const HELP_PAGES = {
       <p>NovaMath collecte uniquement les données nécessaires au fonctionnement du service : identifiant de compte, pseudo, adresse email, préférences, et historique d'entraînement (exercices réalisés, résultats, durée).</p>
       <p>Ces données ne sont jamais vendues ni partagées avec des tiers à des fins commerciales. Elles servent exclusivement à faire fonctionner le suivi de progression et la personnalisation de l'entraînement.</p>
       <p>Un compte invité est entièrement temporaire : ses données sont supprimées automatiquement à la fin de la session, sans action nécessaire de ta part.</p>
-      <p>Tu peux à tout moment consulter, exporter (Paramètres → Données) ou supprimer définitivement (Paramètres → Compte) tes données.</p>`,
+      <p>Tu peux à tout moment demander une copie de tes données ou la suppression définitive de ton compte (Paramètres → Compte) via la page Nous contacter.</p>`,
   },
   terms: {
     title: "Conditions générales d'utilisation",
@@ -1122,39 +790,6 @@ const HELP_PAGES = {
       <p>L'utilisation de NovaMath implique l'acceptation des présentes conditions. Le service est fourni « en l'état », à des fins d'entraînement pédagogique, sans garantie d'exhaustivité du programme scolaire.</p>
       <p>Chaque utilisateur est responsable de la confidentialité de son mot de passe. Toute utilisation frauduleuse ou automatisée (scripts, bots) du service est interdite et peut entraîner la suspension du compte.</p>
       <p>NovaMath se réserve le droit de faire évoluer les fonctionnalités du service ; les préférences et la progression des utilisateurs sont préservées lors de ces évolutions dans la mesure du possible.</p>`,
-  },
-  legal: {
-    title: "Mentions légales",
-    body: `
-      <p>NovaMath est un service édité à des fins pédagogiques. Les contenus mathématiques (énoncés, corrections) sont produits ou vérifiés par l'équipe éditoriale de NovaMath.</p>
-      <p>Le nom « NovaMath » et le logo associé sont la propriété de l'éditeur du service. Toute reproduction non autorisée est interdite.</p>`,
-  },
-  cookies: {
-    title: "Gestion des cookies",
-    body: `
-      <p>NovaMath utilise un cookie de session strictement nécessaire à l'authentification (maintien de la connexion) ainsi qu'un cookie technique anti-CSRF, indispensables au fonctionnement du service — ils ne peuvent pas être désactivés sans empêcher la connexion.</p>
-      <p>Aucun cookie publicitaire ou de traçage tiers n'est utilisé. Les préférences d'interface (thème, couleur, langue…) sont stockées localement dans ton navigateur (localStorage), jamais partagées.</p>`,
-  },
-  roadmap: {
-    title: "Roadmap",
-    body: `
-      <p><strong>Récemment livré :</strong> centre de paramètres unifié en popup, thème et couleur d'accent propagés à tout le site, export PDF du rapport de progression, interface bilingue français/anglais.</p>
-      <p><strong>À venir :</strong> traduction complète de la base d'exercices, authentification à deux facteurs, rapport enseignant, certificats de progression.</p>
-      <p>Cette roadmap est indicative et peut évoluer selon les retours des utilisateurs (section Avis).</p>`,
-  },
-  credits: {
-    title: "Crédits, technologies & licences",
-    body: `
-      <p><strong>Technologies utilisées :</strong> Flask (backend Python), JavaScript vanilla en modules ES (frontend, sans framework), SQLite pour le stockage.</p>
-      <p><strong>Bibliothèques tierces :</strong></p>
-      <p>— <strong>KaTeX</strong> (rendu des formules mathématiques) — licence MIT.<br>— <strong>jsPDF</strong> (génération de l'export PDF) — licence MIT.</p>
-      <p>NovaMath n'utilise aucune dépendance propriétaire : l'ensemble des bibliothèques tierces est open source.</p>`,
-  },
-  security: {
-    title: "Sécurité",
-    body: `
-      <p>Les mots de passe sont stockés sous forme hachée (Argon2), jamais en clair. Les sessions sont protégées par cookies sécurisés et une protection CSRF par double-soumission de jeton.</p>
-      <p>Aucune donnée de paiement n'est collectée par NovaMath.</p>`,
   },
 };
 
@@ -1172,22 +807,19 @@ function renderHelp() {
     <p class="settings-panel-desc">Tout savoir sur NovaMath, comment l'utiliser, et comment nous contacter.</p>
 
     <div class="settings-section">
-      <div class="settings-section-title">NovaMath</div>
-      <div class="help-links">
-        <button class="help-link" data-help="presentation">Présentation NovaMath ${icon("arrowRight")}</button>
-        <button class="help-link" data-help="mission">Notre mission ${icon("arrowRight")}</button>
-        <button class="help-link" data-help="fonctionnement">Comment ça fonctionne ${icon("arrowRight")}</button>
-        <button class="help-link" data-help="roadmap">Roadmap ${icon("arrowRight")}</button>
-        <button class="help-link" data-help="credits">Crédits & technologies ${icon("arrowRight")}</button>
-      </div>
-    </div>
-
-    <div class="settings-section">
       <div class="settings-section-title">Aide</div>
       <div class="help-links">
         <button class="help-link" data-help="guide">Guide utilisateur ${icon("arrowRight")}</button>
         <button class="help-link" data-help="faq">FAQ ${icon("arrowRight")}</button>
-        <button class="help-link" id="help-support-link">Support & nous contacter ${icon("arrowRight")}</button>
+        <button class="help-link" id="help-support-link">Nous contacter ${icon("arrowRight")}</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-title">Support</div>
+      <div class="help-links">
+        <button class="help-link" id="help-support-my-tickets">Mes tickets ${icon("arrowRight")}</button>
+        <button class="help-link" id="help-support-new-ticket">Créer un ticket ${icon("arrowRight")}</button>
       </div>
     </div>
 
@@ -1196,18 +828,6 @@ function renderHelp() {
       <div class="help-links">
         <button class="help-link" data-help="terms">Conditions générales d'utilisation ${icon("arrowRight")}</button>
         <button class="help-link" data-help="privacy">Politique de confidentialité ${icon("arrowRight")}</button>
-        <button class="help-link" data-help="cookies">Gestion des cookies ${icon("arrowRight")}</button>
-        <button class="help-link" data-help="legal">Mentions légales ${icon("arrowRight")}</button>
-        <button class="help-link" data-help="security">Sécurité ${icon("arrowRight")}</button>
-      </div>
-    </div>
-
-    <div class="settings-section" style="margin-top:8px;">
-      <div class="account-info-grid">
-        <div class="account-info-item"><div class="label">Version actuelle</div><div class="value">NovaMath v${NOVAMATH_VERSION}</div></div>
-      </div>
-      <div class="settings-actions-grid" style="margin-top:14px;">
-        <button class="btn btn-secondary" id="btn-check-updates">${icon("refreshCcw")} Vérifier les mises à jour</button>
       </div>
     </div>
   `;
@@ -1217,8 +837,9 @@ function bindHelp() {
   panel.querySelectorAll("[data-help]").forEach((btn) => {
     btn.addEventListener("click", () => openHelpPage(btn.dataset.help));
   });
-  $("help-support-link").addEventListener("click", () => openHelpPage("contact"));
-  $("btn-check-updates").addEventListener("click", () => showToast(`Tu utilises déjà la dernière version (NovaMath v${NOVAMATH_VERSION}).`));
+  $("help-support-link").addEventListener("click", () => openReportTicketPopup({ sourceLabel: "Paramètres" }));
+  $("help-support-my-tickets").addEventListener("click", () => openSupportHubPopup());
+  $("help-support-new-ticket").addEventListener("click", () => openReportTicketPopup({ sourceLabel: "Paramètres" }));
 }
 
 // ── Dispatch ─────────────────────────────────────────────────────────────────
@@ -1227,7 +848,6 @@ const RENDERERS = {
   appearance: [renderAppearance, bindAppearance],
   training: [renderTraining, bindTraining],
   learning: [renderLearning, bindLearning],
-  data: [renderData, bindData],
   chatbot: [renderChatbot, bindChatbot],
   security: [renderSecurity, bindSecurity],
   language: [renderLanguage, bindLanguage],
@@ -1263,11 +883,8 @@ export async function mountSettingsPanel(container) {
   renderPanel();
 
   if (!user.is_guest) {
-    api.getDataSummary().then((d) => { dataSummary = d; if (activeCategory === "data") renderPanel(); }).catch(() => {});
-    api.getSessions().then((r) => { sessions = r.sessions; if (activeCategory === "security") renderPanel(); }).catch(() => {});
-    api.getCookieConsent().then((c) => { cookieConsentState = c; if (activeCategory === "data") renderPanel(); }).catch(() => {});
+    api.getCookieConsent().then((c) => { cookieConsentState = c; if (activeCategory === "security") renderPanel(); }).catch(() => {});
   }
-  loadChatbotModels();
 }
 
 // Changement de langue en direct (Paramètres → Langue) : le menu et le

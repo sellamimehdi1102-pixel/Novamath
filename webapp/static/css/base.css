@@ -15,8 +15,8 @@
    affichés en permanence au lieu de suivre l'état réel de la série. */
 [hidden] { display: none !important; }
 
-html { color-scheme: dark; }
-html[data-theme="light"] { color-scheme: light; }
+html { color-scheme: light; }
+html[data-theme="dark"] { color-scheme: dark; }
 
 body {
   position: relative;
@@ -51,25 +51,50 @@ body::before {
     linear-gradient(90deg, color-mix(in srgb, var(--border) 45%, transparent) 1px, transparent 1px);
   background-size: 56px 56px;
   opacity: 0.4;
-  /* S'estompe en bas de page pour ne jamais gêner la lecture sur les pages
-     longues (settings, chatbot) — masque radial centré en haut de l'écran. */
-  mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 35%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 35%, transparent 100%);
+  /* Masque radial élargi (65% de hauteur au lieu de 55%) : la grille reste
+     perceptible plus bas dans les pages longues (settings, chatbot,
+     historique) plutôt que de s'effacer dès le premier écran — cohérent
+     avec la demande "le fond doit rester présent même en défilant". Reste
+     fixed (ne bouge pas au scroll) et s'estompe toujours avant le bas de
+     page pour ne jamais gêner la lecture. */
+  mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 40%, transparent 100%);
 }
+/* ── Identité "landing" étendue à tout le site — RÉUTILISE littéralement les
+   mêmes éléments que le Hero de la landing (voir landing.css .hero et
+   #comment-ca-marche) plutôt que d'en recréer une version : la même image
+   webapp/static/assets/backgrounds/hero-wave.png (vagues violettes), le même
+   motif de symboles mathématiques ("+", "×"), les mêmes halos violet/lavande
+   (mêmes tokens --accent-rgb/--brand-violet-rgb). position:fixed sur les
+   deux calques (body::before/::after) : ce fond ne défile jamais, il reste
+   identique quelle que soit la page — c'est le socle unique partagé par
+   toutes les pages internes (aucune classe à ajouter dans chaque HTML).
+   Un voile color-mix(--bg) est peint au-dessus de l'image (même technique
+   que .hero) pour garder tout le texte hors-carte lisible : plus transparent
+   en haut (l'image se devine nettement) qu'en bas (elle s'efface vers --bg).
+   Les cartes (fond --surface opaque) ne sont de toute façon jamais
+   traversées par ce calque, qui vit à z-index:-1. */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(900px 560px at 12% -8%, rgba(var(--accent-rgb), 0.05), transparent 65%),
-    radial-gradient(760px 520px at 105% 12%, rgba(var(--brand-violet-rgb), 0.035), transparent 65%),
-    radial-gradient(820px 600px at 50% 115%, rgba(var(--accent-rgb), 0.03), transparent 68%),
+  background-image:
+    radial-gradient(1000px 620px at 12% -8%, rgba(var(--accent-rgb), 0.16), transparent 66%),
+    radial-gradient(820px 580px at 105% 10%, rgba(var(--brand-violet-rgb), 0.13), transparent 66%),
+    radial-gradient(900px 640px at 50% 118%, rgba(var(--accent-rgb), 0.10), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 420'%3E%3Ctext x='14' y='70' font-family='Georgia,serif' font-size='46' fill='%23875ee0' fill-opacity='0.07'%3E+%3C/text%3E%3Ctext x='300' y='150' font-family='Georgia,serif' font-size='34' fill='%23875ee0' fill-opacity='0.06'%3E%C3%97%3C/text%3E%3Ctext x='90' y='330' font-family='Georgia,serif' font-size='38' fill='%23875ee0' fill-opacity='0.065'%3E%3D%3C/text%3E%3Ctext x='330' y='380' font-family='Georgia,serif' font-size='32' fill='%23875ee0' fill-opacity='0.06'%3E%E2%88%AB%3C/text%3E%3C/svg%3E"),
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--bg) 48%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 65%, transparent) 45%,
+      color-mix(in srgb, var(--bg) 82%, transparent) 100%),
+    url("../assets/backgrounds/hero-wave.png"),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.02 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-size: auto, auto, auto, 180px 180px;
-  opacity: 0.9;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat, no-repeat, repeat;
+  background-size: auto, auto, auto, 420px 420px, auto, cover, 180px 180px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, center 30%, 0 0;
+  opacity: 0.95;
 }
 
 h1, h2, h3, h4 {
@@ -192,11 +217,14 @@ ul { margin: 0; padding: 0; list-style: none; }
 .badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 4px 12px;
+  padding: 4px 14px;
   border-radius: var(--radius-pill);
   font-size: 0.78rem;
   font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .badge--indigo { background: rgba(var(--accent-rgb), 0.15); color: var(--accent-text); }
 .badge--success { background: var(--success-soft); color: var(--success); }
@@ -281,44 +309,121 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 
-/* ── Identité utilisateur (bas de sidebar) ──────────────────────────────── */
+/* ── Bas de sidebar — carte unique (Design System ChatGPT réinterprété) ────
+   Paramètres + profil vivent désormais dans UN SEUL bloc visuel (fond
+   légèrement plus sombre que la sidebar, coins très arrondis, glassmorphism
+   léger, bordure fine, ombre douce) plutôt que deux éléments séparés par un
+   vide — voir .sidebar-bottom ci-dessous, qui les enveloppe tous les deux.
+   Avant : bouton icône seul + avatar isolé sans hiérarchie ni lien visuel. */
+.sidebar-bottom {
+  width: 100%;
+  margin-top: 14px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  background: color-mix(in srgb, var(--surface-hover) 88%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 10px 24px -14px rgba(0, 0, 0, 0.22);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.sidebar-bottom:hover { border-color: color-mix(in srgb, var(--border-strong) 80%, transparent); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 28px -14px rgba(0, 0, 0, 0.28); }
+
+/* Bouton Paramètres — même gabarit de ligne que .sidebar-link (icône +
+   légende capitale) pour rester visuellement cohérent avec la nav
+   au-dessus, mais sans fond ni ombre propres : c'est la carte qui porte le
+   style, ce bouton n'est qu'une rangée à l'intérieur. */
+.sidebar-settings-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+.sidebar-settings-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.sidebar-settings-btn:hover { background: var(--surface); color: var(--text); }
+.sidebar-settings-btn:active { transform: scale(0.97); }
+/* .sidebar-settings-btn fixe déjà display:flex, ce qui l'emporterait sur le
+   display:none du user-agent pour [hidden] (même spécificité, règle auteur
+   prioritaire) — nécessaire pour #sidebar-admin-link (sidebar.js), masqué
+   par défaut jusqu'à la réponse de /api/auth/me::can_access_admin. */
+.sidebar-settings-btn[hidden] { display: none; }
+/* Entrée "Administration" du menu utilisateur (sidebar.js) — même gabarit que
+   .sidebar-settings-btn, libellé teinté de l'accent violet NovaMath pour se
+   distinguer visuellement d'une simple action (Paramètres, Profil...). */
+#sidebar-admin-link { color: var(--accent-text); }
+#sidebar-admin-link:hover { color: var(--accent-text); background: rgba(var(--accent-rgb), 0.12); }
+
+/* Carte profil — avatar rond + nom (mis en valeur) au-dessus du type
+   d'abonnement (discret : plus petit, plus pâle). Centrée verticalement
+   sur l'avatar via align-items:center du parent .sidebar-user. */
 .sidebar-user {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 9px 10px;
-  margin-top: 14px;
-  border-radius: var(--radius-sm);
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 14px;
   border: 1px solid transparent;
-  transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-fast);
+  transition: background var(--transition-base), transform var(--transition-fast);
 }
-.sidebar-user:hover { background: var(--surface-hover); border-color: var(--border); transform: translateX(1px); }
+.sidebar-user:hover { background: var(--surface); }
 .sidebar-user:active { transform: scale(0.98); }
-.sidebar-user.is-current { background: rgba(var(--accent-rgb), 0.12); border-color: rgba(var(--accent-rgb), 0.3); }
+.sidebar-user.is-current { background: rgba(var(--accent-rgb), 0.12); }
 .sidebar-user.is-current .sidebar-user-info .name { color: var(--accent-text); }
 .sidebar-user-avatar {
-  width: 32px; height: 32px;
+  width: 34px; height: 34px;
   border-radius: 50%;
   flex-shrink: 0;
   background: var(--brand-gradient);
   display: flex; align-items: center; justify-content: center;
-  color: var(--text-on-accent); font-weight: 700; font-size: 0.78rem;
+  color: var(--text-on-accent); font-weight: 700; font-size: 0.8rem;
   overflow: hidden;
   box-shadow: 0 0 0 2px var(--bg-elevated), 0 0 0 3px var(--border);
   transition: box-shadow var(--transition-base);
 }
 .sidebar-user:hover .sidebar-user-avatar { box-shadow: 0 0 0 2px var(--bg-elevated), 0 0 0 3px rgba(var(--accent-rgb), 0.35); }
 .sidebar-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.sidebar-user-info { display: flex; flex-direction: column; min-width: 0; }
-.sidebar-user-info .name { font-size: 0.85rem; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sidebar-user-info .sub { font-size: 0.72rem; color: var(--text-faint); }
+.sidebar-user-info { display: flex; flex-direction: column; justify-content: center; min-width: 0; flex: 1; }
+.sidebar-user-info .name {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.25;
+}
+.sidebar-user-info .sub {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-faint);
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.2;
+}
 
-/* ── Version affichée discrètement (bas de sidebar) ─────────────────────── */
+/* ── Version affichée discrètement (bas de sidebar, sous la carte) ───────── */
 .sidebar-version {
   text-align: center;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   color: var(--text-faint);
-  margin-top: 10px;
+  margin-top: 8px;
   letter-spacing: 0.02em;
 }
 
@@ -359,23 +464,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .sidebar-user.sidebar-user--cta .sidebar-user-info .name { font-size: 0.83rem; font-weight: 600; color: var(--text); }
 .sidebar-user.sidebar-user--cta .sidebar-user-info .sub { font-size: 0.68rem; font-weight: 400; color: var(--text-faint); }
 
-/* ── Groupe Paramètres + thème (bas de sidebar) — rangée d'actions à part
-   entière (léger fond + séparateur au-dessus) plutôt que deux icônes qui
-   flottent entre la navigation et le compte. ────────────────────────────── */
-.sidebar-toggle-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  align-self: stretch;
-  padding-top: 18px;
-  margin-top: 14px;
-  border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-}
-.sidebar.is-collapsed .sidebar-toggle-group { justify-content: center; }
-
-/* ── Toggle thème (et bouton Paramètres, même style : icône seule) — bouton
-   "icône" premium partagé avec .sidebar-collapse-btn/.sidebar-mobile-trigger :
-   fond neutre au repos, léger relief au survol, retour élastique au clic. ── */
+/* ── Toggle thème (bouton clair/sombre, landing/choisir-classe) — bouton
+   "icône" premium partagé avec .sidebar-mobile-trigger : fond neutre au
+   repos, léger relief au survol, retour élastique au clic. ─────────────── */
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -391,8 +482,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .theme-toggle:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-hover); box-shadow: var(--shadow-sm); }
 .theme-toggle:active { transform: scale(0.93); }
 .theme-toggle svg { width: 18px; height: 18px; }
-.theme-toggle .icon-moon { display: none; }
-:root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+/* Icône affichée = thème CIBLE (celui obtenu par le clic) : clair actif
+   (défaut V4, aucun attribut posé) -> lune (bascule vers sombre) ; sombre
+   actif ([data-theme="dark"]) -> soleil (bascule vers clair). */
+.theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 :root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
 /* ── App shell (dashboard/chapitres/exercice/profil) ──────────────────────
@@ -408,51 +503,53 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: 18px;
 }
 
+/* ── Rail (Design System claude.ai, V3 "Carnet") ──────────────────────────
+   Remplace la sidebar flottante à deux états (déplié/réduit) par une bande
+   fixe unique, toujours icône + légende capitale — plus de bouton de
+   réduction, plus de préférence à persister : un rail n'a qu'un seul état,
+   lu comme le dos d'un carnet plutôt qu'un panneau de navigation SaaS. */
 .sidebar {
   position: sticky;
   top: 18px;
-  width: 264px;
+  /* 86→176→196px : 176px suffisait aux libellés de nav (voir .sidebar-link)
+     mais pas à la carte profil (voir .sidebar-bottom) — un nom "Prénom Nom"
+     dans une police plus grande/grasse que les libellés de nav a besoin de
+     quelques px de plus pour ne jamais tomber en ellipsis sur un nom normal. */
+  width: 196px;
   flex-shrink: 0;
   height: calc(100vh - 36px);
   display: flex;
   flex-direction: column;
-  padding: 22px 14px;
+  align-items: center;
+  padding: 22px 10px;
   border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   border-radius: var(--radius-xl);
   background: color-mix(in srgb, var(--surface-elevated) 92%, transparent);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 32px -16px rgba(0, 0, 0, 0.18);
-  transition: width var(--transition-base), padding var(--transition-base);
 }
+.sidebar .brand { justify-content: center; }
+.sidebar .brand-name,
+.sidebar .sidebar-version,
+.sidebar #guest-header-badge { display: none; }
 
-/* ── Mode réduit (icônes seules) ──────────────────────────────────────────
-   Déclenché par sidebar.js (bouton .sidebar-collapse-btn), préférence
-   persistée en localStorage. Uniquement width/opacity/transform animés. ── */
-.sidebar.is-collapsed { width: 84px; padding-left: 14px; padding-right: 14px; }
-.sidebar.is-collapsed .brand { justify-content: center; }
-.sidebar.is-collapsed .brand-name,
-.sidebar.is-collapsed .sidebar-link span,
-.sidebar.is-collapsed .sidebar-user-info,
-.sidebar.is-collapsed .sidebar-version,
-.sidebar.is-collapsed #guest-header-badge { display: none; }
-.sidebar.is-collapsed .sidebar-link { justify-content: center; padding: 12px; gap: 0; }
-.sidebar.is-collapsed .sidebar-toggle-group { align-self: center; }
-.sidebar.is-collapsed .sidebar-user { justify-content: center; padding: 8px; gap: 0; }
-
-/* ── Navigation — liens plus grands, icône dans son propre badge arrondi,
-   état actif en pastille pleine dégradée (plus un simple liseré) : lecture
-   immédiate façon Arc/Linear. ─────────────────────────────────────────── */
-.sidebar-nav { display: flex; flex-direction: column; gap: 4px; margin-top: 28px; flex: 1; }
+/* ── Navigation — icône + légende capitale sur une seule ligne, côte à
+   côte (jamais de texte empilé sous l'icône : c'est ce qui forçait le
+   wrap des libellés longs). ──────────────────────────────────────────── */
+.sidebar-nav { display: flex; flex-direction: column; gap: 6px; margin-top: 28px; flex: 1; align-items: stretch; }
 .sidebar-nav .sidebar-link:nth-child(2) { margin-top: 14px; }
 
 .sidebar-link {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
   gap: 12px;
-  padding: 10px 12px;
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
   border-radius: var(--radius-md);
   color: var(--text-muted);
   font-weight: 500;
-  font-size: 0.92rem;
   position: relative;
   transition: background var(--transition-base), color var(--transition-base), transform var(--transition-fast);
 }
@@ -460,13 +557,32 @@ ul { margin: 0; padding: 0; list-style: none; }
    wrapper HTML dédié) : box-sizing border-box garantit que le padding
    réduit le viewBox visible sans agrandir la zone cliquable. */
 .sidebar-link svg {
-  width: 32px; height: 32px;
-  padding: 7px;
+  width: 30px; height: 30px;
+  padding: 6px;
   box-sizing: border-box;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
   background: transparent;
   transition: background var(--transition-base), box-shadow var(--transition-base), transform 220ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+/* Légende capitale à côté de l'icône — toujours une seule ligne : la
+   sidebar est dimensionnée (voir .sidebar ci-dessus) pour que même le
+   libellé le plus long ("Entraînement") tienne sans wrapper ni être
+   coupé, conformément à la demande (pas de texte sur deux lignes, pas
+   d'ellipsis). white-space:nowrap + min-width:0 sur le parent flex sont
+   la combinaison qui empêche tout retour à la ligne. */
+.sidebar-link span[data-i18n] {
+  flex: 1;
+  min-width: 0;
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  text-align: left;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .sidebar-link:hover { background: var(--surface-hover); color: var(--text); }
 .sidebar-link:active { transform: scale(0.98); }
@@ -489,48 +605,30 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ── Lien verrouillé (Feature Flags — sidebar.js::applyFeatureLocks) ───────
    Jamais masqué (UX façon Notion AI/Copilot/Linear) : légèrement grisé,
    cadenas visible, reste cliquable — le clic ouvre la page Abonnement avec
-   le message adapté plutôt que la page réelle (voir lockLink()). */
+   le message adapté plutôt que la page réelle (voir lockLink()). Repositionné
+   en médaillon (coin haut-droit du lien) : le rail n'a plus de place en fin
+   de ligne pour un cadenas aligné à droite comme dans l'ancienne sidebar. */
 .sidebar-link.is-locked { opacity: 0.55; }
 .sidebar-link.is-locked:hover { opacity: 0.85; background: var(--surface-hover); }
 .sidebar-link-lock {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
-  margin-left: auto;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
   color: var(--text-faint);
 }
 .sidebar-link-lock svg { width: 100%; height: 100%; }
-.sidebar.is-collapsed .sidebar-link-lock { display: none; }
 
-/* ── Bouton de réduction (haut de sidebar, style ChatGPT/Notion) ─────────── */
-.sidebar-collapse-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  width: 30px;
-  height: 30px;
-  margin-top: 4px;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: background 200ms ease, color 200ms ease, border-color 200ms ease, transform 150ms ease;
-}
-.sidebar-collapse-btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--border); }
-.sidebar-collapse-btn:active { transform: scale(0.9); }
-.sidebar-collapse-btn svg { width: 18px; height: 18px; transition: transform var(--transition-base); }
-.sidebar.is-collapsed .sidebar-collapse-btn { align-self: center; }
-.sidebar.is-collapsed .sidebar-collapse-btn svg { transform: rotate(180deg); }
-
-/* ── Tooltips de la sidebar réduite — vrai composant en CSS (::after), pas
-   de title="" natif — n'apparaissent que quand la sidebar est réduite. ──── */
-.sidebar.is-collapsed [data-tooltip] { position: relative; }
-.sidebar.is-collapsed [data-tooltip]::after {
+/* ── Tooltips du rail — vrai composant en CSS (::after), pas de title=""
+   natif (utilisé par le bloc identité, dont le nom complet ne tient jamais
+   dans le rail). ──────────────────────────────────────────────────────── */
+.sidebar [data-tooltip] { position: relative; }
+.sidebar [data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
   left: calc(100% + 12px);
@@ -550,8 +648,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   transition: opacity 200ms ease, transform 200ms ease;
   z-index: 1200;
 }
-.sidebar.is-collapsed [data-tooltip]:hover::after,
-.sidebar.is-collapsed [data-tooltip]:focus-visible::after {
+.sidebar [data-tooltip]:hover::after,
+.sidebar [data-tooltip]:focus-visible::after {
   opacity: 1;
   transform: translate(0, -50%);
 }
@@ -742,6 +840,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .form-field label, .form-field > span:first-child { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
 .form-field input[type="text"],
 .form-field input[type="password"],
+.form-field input[type="email"],
+.form-field input[type="date"],
 .form-field select,
 .form-field textarea {
   background: var(--surface-hover);
@@ -752,10 +852,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 0.92rem;
   font-family: inherit;
   outline: none;
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   resize: vertical;
 }
-.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--brand-indigo); }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.15);
+}
 .form-field.has-error input, .form-field.has-error textarea { border-color: var(--danger); }
 
 .char-counter { align-self: flex-end; font-size: 0.75rem; color: var(--text-faint); }
@@ -785,8 +888,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .cookie-banner-categories { display: flex; flex-wrap: wrap; gap: 16px; }
 .cookie-banner-category { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
 .cookie-banner-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
-
-.consent-history-list { list-style: none; margin: 10px 0 0; padding: 0; font-size: 0.85rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow-y: auto; }
 
 /* ── Focus visible accessible — anneau à deux couches (trait net + halo
    doux) plutôt qu'un outline brut, cohérent avec le reste du langage

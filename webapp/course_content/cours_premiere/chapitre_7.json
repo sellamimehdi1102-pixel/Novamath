@@ -1,0 +1,602 @@
+{
+  "chapterId": "Chapitre_7",
+  "title": "Chapitre 7",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "autres-definitions-et-proprietes",
+      "title": "Autres définitions et propriétés",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à calculer un produit scalaire à partir des normes de deux vecteurs et de l'angle qu'ils forment, et à développer des expressions contenant des produits scalaires comme on développerait une identité remarquable.\n\nCette formule avec le cosinus est utile lorsque l'on connaît les longueurs des vecteurs et l'angle géométrique entre eux, mais pas leurs coordonnées : c'est souvent le cas en géométrie pure (triangles, figures) plutôt qu'en repère.",
+      "explicationSimple": "Le produit scalaire $\\vec{u}\\cdot\\vec{v}$ mesure à quel point deux vecteurs « pointent dans la même direction », en tenant compte de leur longueur. Quand l'angle entre eux est nul, $\\cos(\\vec{u},\\vec{v})=1$ et le produit scalaire vaut simplement $\\|\\vec{u}\\|\\times\\|\\vec{v}\\|$ (son maximum) ; quand ils sont perpendiculaires, $\\cos(\\vec{u},\\vec{v})=0$ et le produit scalaire s'annule. Le cas particulier $\\vec{u}\\cdot\\vec{u}=\\|\\vec{u}\\|^2$ correspond à un angle nul entre $\\vec{u}$ et lui-même, et permet de développer une expression comme $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v})$ exactement comme on développerait $(a+b)^2$ en algèbre.",
+      "objectif": "À la fin de ce cours, tu sauras calculer un produit scalaire à partir des normes de deux vecteurs et de l'angle géométrique qu'ils forment, et développer des expressions comme $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v})$ en utilisant $\\vec{u}\\cdot\\vec{u}=\\|\\vec{u}\\|^2$.",
+      "definition": "Pour deux vecteurs non nuls $\\vec{u}$ et $\\vec{v}$, le produit scalaire est défini par $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\vec{u},\\vec{v})$, où $(\\vec{u},\\vec{v})$ désigne une mesure de l'angle géométrique formé par les deux vecteurs lorsqu'ils sont placés à la même origine. En particulier, pour tout vecteur $\\vec{u}$, $\\vec{u}\\cdot\\vec{u}=\\|\\vec{u}\\|^2$ : le produit scalaire d'un vecteur par lui-même est le carré de sa norme.",
+      "definitions": {
+        "lycee": "Pour deux vecteurs non nuls $\\vec{u}$ et $\\vec{v}$, le produit scalaire est défini par $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\vec{u},\\vec{v})$, où $(\\vec{u},\\vec{v})$ désigne une mesure de l'angle géométrique formé par les deux vecteurs lorsqu'ils sont placés à la même origine. En particulier, pour tout vecteur $\\vec{u}$, $\\vec{u}\\cdot\\vec{u}=\\|\\vec{u}\\|^2$ : le produit scalaire d'un vecteur par lui-même est le carré de sa norme."
+      },
+      "intuition": "L'erreur la plus fréquente est d'oublier le double produit lorsqu'on développe $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v})$ : le résultat n'est pas $\\|\\vec{u}\\|^2+\\|\\vec{v}\\|^2$ mais $\\|\\vec{u}\\|^2 + 2\\,\\vec{u}\\cdot\\vec{v} + \\|\\vec{v}\\|^2$, exactement comme $(a+b)^2=a^2+2ab+b^2$ en algèbre. Pense toujours à développer le produit scalaire terme à terme, en n'oubliant pas le terme croisé $2\\,\\vec{u}\\cdot\\vec{v}$.",
+      "reglesImportantes": [
+        "Développer comme une identité remarquable, en utilisant $\\vec{u}\\cdot\\vec{u} = \\|\\vec{u}\\|^2$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Autres définitions et propriétés",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On utilise la formule $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\| \\times \\|\\vec{v}\\| \\times \\cos(\\vec{u},\\vec{v})$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $\\vec{u}\\cdot\\vec{v} = 9\\times5\\times\\dfrac{\\sqrt{3}}{2} = \\left(\\dfrac{45}{2}\\right)\\sqrt{3}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1475",
+          "titre": "Exemple 1",
+          "enonce": "Deux vecteurs $\\vec{u}$ et $\\vec{v}$ vérifient $\\|\\vec{u}\\| = 9$, $\\|\\vec{v}\\| = 5$ et $\\left(\\vec{u} ; \\vec{v}\\right) = \\dfrac{\\pi}{6}$ (angle géométrique). Calculer $\\vec{u}\\cdot\\vec{v}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise la formule $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\| \\times \\|\\vec{v}\\| \\times \\cos(\\vec{u},\\vec{v})$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $\\vec{u}\\cdot\\vec{v} = 9\\times5\\times\\dfrac{\\sqrt{3}}{2} = \\left(\\dfrac{45}{2}\\right)\\sqrt{3}$."
+            }
+          ],
+          "reponse": "$\\vec{u}\\cdot\\vec{v} = \\left(\\dfrac{45}{2}\\right)\\sqrt{3}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1487",
+          "titre": "Exemple 2",
+          "enonce": "Deux vecteurs $\\vec{u}$ et $\\vec{v}$ vérifient $\\|\\vec{u}\\| = 10$, $\\|\\vec{v}\\| = 10$ et $\\left(\\vec{u} ; \\vec{v}\\right) = \\dfrac{\\pi}{3}$ (angle géométrique). Calculer $\\vec{u}\\cdot\\vec{v}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise la formule $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\| \\times \\|\\vec{v}\\| \\times \\cos(\\vec{u},\\vec{v})$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $\\vec{u}\\cdot\\vec{v} = 10\\times10\\times\\dfrac{1}{2} = 50$."
+            }
+          ],
+          "reponse": "$\\vec{u}\\cdot\\vec{v} = 50$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1499",
+          "titre": "Exemple 3",
+          "enonce": "On donne $\\vec{u}\\cdot\\vec{v} = 5$, $\\|\\vec{u}\\|^2 = 4$ et $\\|\\vec{v}\\|^2 = 9$. Calculer $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v})$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On développe : $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v}) = \\|\\vec{u}\\|^2 + 2\\,\\vec{u}\\cdot\\vec{v} + \\|\\vec{v}\\|^2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $= 4 + 2\\times5 + 9 = 23$."
+            }
+          ],
+          "reponse": "$(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v}) = 23$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1511",
+          "titre": "Exemple 4",
+          "enonce": "On donne $\\vec{u}\\cdot\\vec{v} = 8$, $\\|\\vec{u}\\|^2 = 10$ et $\\|\\vec{v}\\|^2 = 9$. Calculer $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v})$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On développe : $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v}) = \\|\\vec{u}\\|^2 + 2\\,\\vec{u}\\cdot\\vec{v} + \\|\\vec{v}\\|^2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $= 10 + 2\\times8 + 9 = 35$."
+            }
+          ],
+          "reponse": "$(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v}) = 35$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier le double produit lors du développement : écrire $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v}) = \\|\\vec{u}\\|^2+\\|\\vec{v}\\|^2$ au lieu de $\\|\\vec{u}\\|^2 + 2\\,\\vec{u}\\cdot\\vec{v} + \\|\\vec{v}\\|^2$.",
+        "Confondre $(\\vec{u},\\vec{v})$, l'angle géométrique utilisé dans la formule (compris entre $0$ et $\\pi$), avec une mesure d'angle orienté qui pourrait être négative.",
+        "Écrire $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\times\\|\\vec{v}\\|$ en oubliant complètement le facteur $\\cos(\\vec{u},\\vec{v})$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier le double produit lors du développement : écrire $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v}) = \\|\\vec{u}\\|^2+\\|\\vec{v}\\|^2$ au lieu de $\\|\\vec{u}\\|^2 + 2\\,\\vec{u}\\cdot\\vec{v} + \\|\\vec{v}\\|^2$.",
+          "pourquoi": "Le produit scalaire est une notion récente et l'élève applique la formule $(a+b)^2=a^2+b^2$, qui est fausse même en algèbre classique, par simplification hâtive.",
+          "comment_detecter": "Le résultat final ne dépend pas de $\\vec{u}\\cdot\\vec{v}$ alors que l'énoncé donne sa valeur, ce qui signifie qu'une donnée n'a pas été utilisée.",
+          "comment_eviter": "Toujours développer en pensant à l'identité remarquable $(a+b)^2=a^2+2ab+b^2$ et remplacer $a$ par $\\vec{u}$, $b$ par $\\vec{v}$, $ab$ par $\\vec{u}\\cdot\\vec{v}$."
+        },
+        {
+          "description": "Confondre $(\\vec{u},\\vec{v})$, l'angle géométrique utilisé dans la formule (compris entre $0$ et $\\pi$), avec une mesure d'angle orienté qui pourrait être négative.",
+          "pourquoi": "Les chapitres précédents utilisent des angles orientés (qui peuvent être négatifs), et le réflexe est de garder cette habitude alors que la formule du produit scalaire utilise un angle géométrique.",
+          "comment_detecter": "Le cosinus calculé change de signe alors que la formule attend un angle entre $0$ et $\\pi$, pour lequel le signe du cosinus dépend uniquement de sa position par rapport à $\\dfrac{\\pi}{2}$.",
+          "comment_eviter": "Retenir que dans la formule $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\vec{u},\\vec{v})$, l'angle est toujours pris entre $0$ et $\\pi$, sans notion de sens de rotation."
+        },
+        {
+          "description": "Écrire $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\times\\|\\vec{v}\\|$ en oubliant complètement le facteur $\\cos(\\vec{u},\\vec{v})$.",
+          "pourquoi": "On retient le produit des normes mais on oublie que le produit scalaire dépend aussi de l'orientation relative des deux vecteurs.",
+          "comment_detecter": "Le résultat obtenu est toujours positif, même lorsque l'angle entre les vecteurs est obtus (ce qui devrait donner un produit scalaire négatif).",
+          "comment_eviter": "Écrire systématiquement les trois facteurs de la formule avant de calculer : norme, norme, cosinus de l'angle."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Développer comme une identité remarquable, en utilisant $\\vec{u}\\cdot\\vec{u} = \\|\\vec{u}\\|^2$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 5, 4],
+        "axes": true,
+        "vectors": [
+          {"from": {"x": 0, "y": 0}, "to": {"x": 3, "y": 0}, "label": "u"},
+          {"from": {"x": 0, "y": 0}, "to": {"x": 1.732, "y": 1}, "label": "v"}
+        ],
+        "arcs": [
+          {"center": {"x": 0, "y": 0}, "radius": 0.7, "startDeg": 0, "endDeg": 30, "label": "(u,v)"}
+        ],
+        "alt": "Deux vecteurs u et v de même origine O, formant un angle géométrique (u,v). L'arc entre les deux vecteurs représente cet angle, utilisé dans la formule u·v = ‖u‖‖v‖cos(u,v)."
+      },
+      "quizExerciseIds": [
+        1476,
+        1477,
+        1478
+      ],
+      "topic_id": "autres-definitions-et-proprietes",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras calculer un produit scalaire à partir des normes de deux vecteurs et de l'angle géométrique qu'ils forment, et développer des expressions comme $(\\vec{u}+\\vec{v})\\cdot(\\vec{u}+\\vec{v})$ en utilisant $\\vec{u}\\cdot\\vec{u}=\\|\\vec{u}\\|^2$."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "autres",
+        "definitions",
+        "proprietes"
+      ]
+    },
+    {
+      "id": "produit-scalaire,-colinearite-et-orthogonalite-de-vecteurs",
+      "title": "Produit scalaire, colinéarité et orthogonalité de vecteurs",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à calculer un produit scalaire à partir des coordonnées de deux vecteurs dans un repère orthonormé, et à utiliser ce calcul pour reconnaître si deux vecteurs sont orthogonaux (perpendiculaires) ou colinéaires (de même direction).\n\nCette formule en coordonnées est très utile en pratique : elle permet de tester l'orthogonalité ou la colinéarité de deux vecteurs par un simple calcul, sans avoir besoin de tracer une figure ni de connaître un angle.",
+      "explicationSimple": "Dans un repère orthonormé, le produit scalaire $\\vec{u}\\cdot\\vec{v}=x_ux_v+y_uy_v$ se calcule uniquement à partir des coordonnées, sans passer par un angle. Deux vecteurs sont dits orthogonaux, c'est-à-dire perpendiculaires (ils forment un angle droit), exactement quand ce produit scalaire vaut $0$. Deux vecteurs sont dits colinéaires, c'est-à-dire qu'ils ont la même direction (l'un est un agrandissement, une réduction ou un retournement de l'autre), exactement quand le déterminant $x_uy_v-x_vy_u$ vaut $0$ : ce sont deux tests numériques différents, qu'il ne faut pas confondre.",
+      "objectif": "À la fin de ce cours, tu sauras calculer un produit scalaire à partir des coordonnées de deux vecteurs, et utiliser le produit scalaire ou le déterminant pour déterminer si deux vecteurs sont orthogonaux ou colinéaires.",
+      "definition": "Dans un repère orthonormé, si $\\vec{u}(x_u\\,;\\,y_u)$ et $\\vec{v}(x_v\\,;\\,y_v)$, alors leur produit scalaire vaut $\\vec{u}\\cdot\\vec{v}=x_ux_v+y_uy_v$. Deux vecteurs sont dits orthogonaux (perpendiculaires, c'est-à-dire qu'ils forment un angle droit) lorsque leur produit scalaire est nul : $\\vec{u}\\cdot\\vec{v}=0$. Deux vecteurs non nuls sont dits colinéaires (l'un est un multiple de l'autre, donc de même direction) lorsque leur déterminant $x_uy_v-x_vy_u$ est nul.",
+      "definitions": {
+        "lycee": "Dans un repère orthonormé, si $\\vec{u}(x_u\\,;\\,y_u)$ et $\\vec{v}(x_v\\,;\\,y_v)$, alors leur produit scalaire vaut $\\vec{u}\\cdot\\vec{v}=x_ux_v+y_uy_v$. Deux vecteurs sont dits orthogonaux (perpendiculaires, c'est-à-dire qu'ils forment un angle droit) lorsque leur produit scalaire est nul : $\\vec{u}\\cdot\\vec{v}=0$. Deux vecteurs non nuls sont dits colinéaires (l'un est un multiple de l'autre, donc de même direction) lorsque leur déterminant $x_uy_v-x_vy_u$ est nul."
+      },
+      "intuition": "L'erreur la plus fréquente est d'utiliser le déterminant $x_uy_v-x_vy_u$ pour tester l'orthogonalité, ou le produit scalaire $x_ux_v+y_uy_v$ pour tester la colinéarité. Pour ne pas confondre : le produit scalaire additionne les coordonnées « dans le même ordre » ($x$ avec $x$, $y$ avec $y$) et détecte la perpendicularité, tandis que le déterminant les combine « en croix » ($x_u$ avec $y_v$, $x_v$ avec $y_u$) et détecte le parallélisme.",
+      "reglesImportantes": [
+        "Deux vecteurs sont orthogonaux si, et seulement si, $\\vec{u}\\cdot\\vec{v}=0$.",
+        "Utiliser le critère de colinéarité $x_uy_v-x_vy_u=0$ (déterminant nul)."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Produit scalaire, colinéarité et orthogonalité de vecteurs",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : Deux vecteurs sont orthogonaux si, et seulement si, leur produit scalaire est nul."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $\\vec{u}\\cdot\\vec{v} = -5\\times6 + 4\\times k = 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : $-30 + 4k = 0 \\iff k = \\dfrac{15}{2}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1416",
+          "titre": "Exemple 1",
+          "enonce": "Dans un repère orthonormé, on donne les vecteurs $\\vec{u}(-5 ; 4)$ et $\\vec{v}(6 ; k)$. Déterminer la valeur de $k$ pour laquelle $\\vec{u}$ et $\\vec{v}$ sont orthogonaux.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Deux vecteurs sont orthogonaux si, et seulement si, leur produit scalaire est nul."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $\\vec{u}\\cdot\\vec{v} = -5\\times6 + 4\\times k = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $-30 + 4k = 0 \\iff k = \\dfrac{15}{2}$."
+            }
+          ],
+          "reponse": "$k = \\dfrac{15}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1428",
+          "titre": "Exemple 2",
+          "enonce": "Dans un repère orthonormé, on donne les vecteurs $\\vec{u}(1 ; 6)$ et $\\vec{v}(3 ; k)$. Déterminer la valeur de $k$ pour laquelle $\\vec{u}$ et $\\vec{v}$ sont orthogonaux.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Deux vecteurs sont orthogonaux si, et seulement si, leur produit scalaire est nul."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $\\vec{u}\\cdot\\vec{v} = 1\\times3 + 6\\times k = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $3 + 6k = 0 \\iff k = -\\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$k = -\\dfrac{1}{2}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1440",
+          "titre": "Exemple 3",
+          "enonce": "Dans un repère orthonormé, on donne les vecteurs $\\vec{u}(-6 ; -5)$ et $\\vec{v}(-5 ; k)$. Déterminer la valeur de $k$ pour laquelle $\\vec{u}$ et $\\vec{v}$ sont orthogonaux.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Deux vecteurs sont orthogonaux si, et seulement si, leur produit scalaire est nul."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $\\vec{u}\\cdot\\vec{v} = -6\\times-5 + -5\\times k = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $30 + -5k = 0 \\iff k = 6$."
+            }
+          ],
+          "reponse": "$k = 6$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1452",
+          "titre": "Exemple 4",
+          "enonce": "Dans un repère orthonormé, on donne les vecteurs $\\vec{u}(-4 ; -5)$ et $\\vec{v}(5 ; 6)$. Calculer le produit scalaire $\\vec{u} \\cdot \\vec{v}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $\\vec{u}\\cdot\\vec{v} = x_ux_v + y_uy_v$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $\\vec{u}\\cdot\\vec{v} = -4\\times5 + -5\\times6 = -20 + -30 = -50$."
+            }
+          ],
+          "reponse": "$\\vec{u}\\cdot\\vec{v} = -50$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre les deux formules : utiliser le déterminant $x_uy_v-x_vy_u$ pour tester l'orthogonalité au lieu du produit scalaire $x_ux_v+y_uy_v$ (ou inversement pour la colinéarité).",
+        "Faire une erreur de signe en calculant le produit scalaire ou le déterminant lorsque les coordonnées sont négatives, par exemple en oubliant un signe « moins » lors d'une multiplication.",
+        "Conclure à tort qu'un vecteur $\\vec{v}(6;k)$ orthogonal à $\\vec{u}$ pour une valeur de $k$ est aussi colinéaire à $\\vec{u}$ pour cette même valeur : orthogonalité et colinéarité correspondent à deux valeurs de $k$ différentes (sauf cas particulier impossible ici, un vecteur non nul ne peut pas être à la fois orthogonal et colinéaire à un autre vecteur non nul)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre les deux formules : utiliser le déterminant $x_uy_v-x_vy_u$ pour tester l'orthogonalité au lieu du produit scalaire $x_ux_v+y_uy_v$ (ou inversement pour la colinéarité).",
+          "pourquoi": "Les deux formules utilisent les mêmes quatre nombres ($x_u$, $y_u$, $x_v$, $y_v$) et se ressemblent visuellement, ce qui entraîne une confusion sur celle à appliquer.",
+          "comment_detecter": "Le résultat trouvé pour $k$ donne des vecteurs visiblement non perpendiculaires (ou non parallèles) sur un schéma rapide.",
+          "comment_eviter": "Associer « orthogonal $\\to$ produit scalaire (termes multipliés dans le même ordre) » et « colinéaire $\\to$ déterminant (termes multipliés en croix) » avant de commencer le calcul."
+        },
+        {
+          "description": "Faire une erreur de signe en calculant le produit scalaire ou le déterminant lorsque les coordonnées sont négatives, par exemple en oubliant un signe « moins » lors d'une multiplication.",
+          "pourquoi": "La multiplication de deux nombres négatifs ou d'un nombre négatif par un positif est source d'erreurs de signe fréquentes, surtout dans un calcul à plusieurs termes.",
+          "comment_detecter": "Le résultat final ne correspond pas à celui attendu quand on refait le calcul terme par terme en isolant chaque signe.",
+          "comment_eviter": "Entourer ou surligner chaque signe négatif avant de multiplier, et réécrire chaque produit avec des parenthèses explicites, par exemple $(-6)\\times(-5)$ plutôt que $-6\\times-5$."
+        },
+        {
+          "description": "Conclure à tort qu'un vecteur $\\vec{v}(6;k)$ orthogonal à $\\vec{u}$ pour une valeur de $k$ est aussi colinéaire à $\\vec{u}$ pour cette même valeur : orthogonalité et colinéarité correspondent à deux valeurs de $k$ différentes (sauf cas particulier impossible ici, un vecteur non nul ne peut pas être à la fois orthogonal et colinéaire à un autre vecteur non nul).",
+          "pourquoi": "On mélange les deux questions (« pour quel $k$ sont-ils orthogonaux ? » et « pour quel $k$ sont-ils colinéaires ? ») en pensant qu'une seule valeur de $k$ répond aux deux à la fois.",
+          "comment_detecter": "La valeur de $k$ obtenue en résolvant l'équation du produit scalaire est utilisée par erreur pour répondre à une question sur la colinéarité, ou inversement.",
+          "comment_eviter": "Résoudre séparément les deux équations ($x_ux_v+y_uy_v=0$ pour l'orthogonalité, $x_uy_v-x_vy_u=0$ pour la colinéarité) et bien identifier laquelle correspond à la question posée."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Deux vecteurs sont orthogonaux si, et seulement si, $\\vec{u}\\cdot\\vec{v}=0$.",
+        "Utiliser le critère de colinéarité $x_uy_v-x_vy_u=0$ (déterminant nul)."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-6.5, -1, 13, 9.5],
+        "axes": true,
+        "vectors": [
+          {"from": {"x": 0, "y": 0}, "to": {"x": -5, "y": 4}, "label": "u"},
+          {"from": {"x": 0, "y": 0}, "to": {"x": 6, "y": 7.5}, "label": "v"}
+        ],
+        "segments": [
+          {"from": {"x": -0.39, "y": 0.3125}, "to": {"x": -0.0775, "y": 0.703}},
+          {"from": {"x": -0.0775, "y": 0.703}, "to": {"x": 0.3125, "y": 0.3905}}
+        ],
+        "points": [
+          {"x": 0, "y": 0, "label": "O"}
+        ],
+        "alt": "Deux vecteurs orthogonaux de même origine O dans un repère : u(-5 ; 4) et v(6 ; 15/2). Leur produit scalaire u·v = -5×6 + 4×(15/2) = -30+30 = 0, ce que traduit géométriquement le marqueur d'angle droit tracé à leur intersection en O."
+      },
+      "demonstration": {
+        "titre": "Pourquoi $\\vec{u}\\cdot\\vec{v} = \\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\vec{u},\\vec{v})$ et $\\vec{u}\\cdot\\vec{v} = x_ux_v+y_uy_v$ sont-elles la même quantité ? — démonstration par la loi des cosinus",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On construit un triangle à partir des deux vecteurs",
+            "texte": "Soit $O$ l'origine commune des vecteurs $\\vec{u}(x_u\\,;\\,y_u)$ et $\\vec{v}(x_v\\,;\\,y_v)$. On note $A$ et $B$ les points tels que $\\vec{OA}=\\vec{u}$ et $\\vec{OB}=\\vec{v}$. On a alors $OA=\\|\\vec{u}\\|$, $OB=\\|\\vec{v}\\|$, et l'angle géométrique en $O$ du triangle $OAB$ est exactement $(\\vec{u},\\vec{v})$."
+          },
+          {
+            "titre": "Étape 2 — On applique la loi des cosinus (Al-Kashi) dans le triangle $OAB$",
+            "texte": "$AB^2 = OA^2 + OB^2 - 2\\times OA\\times OB\\times\\cos(\\widehat{O}) = \\|\\vec{u}\\|^2+\\|\\vec{v}\\|^2-2\\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\vec{u},\\vec{v})$. On isole le produit cherché : $\\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\vec{u},\\vec{v}) = \\dfrac{\\|\\vec{u}\\|^2+\\|\\vec{v}\\|^2-AB^2}{2}$."
+          },
+          {
+            "titre": "Étape 3 — On calcule $AB^2$ à l'aide des coordonnées",
+            "texte": "$\\vec{AB}=\\vec{OB}-\\vec{OA}=\\vec{v}-\\vec{u}=(x_v-x_u\\,;\\,y_v-y_u)$, donc $AB^2=(x_v-x_u)^2+(y_v-y_u)^2$."
+          },
+          {
+            "titre": "Étape 4 — On développe cette expression",
+            "texte": "$AB^2 = x_u^2-2x_ux_v+x_v^2+y_u^2-2y_uy_v+y_v^2 = (x_u^2+y_u^2)+(x_v^2+y_v^2)-2(x_ux_v+y_uy_v) = \\|\\vec{u}\\|^2+\\|\\vec{v}\\|^2-2(x_ux_v+y_uy_v)$."
+          },
+          {
+            "titre": "Étape 5 — On substitue dans l'expression de l'étape 2",
+            "texte": "$\\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\vec{u},\\vec{v}) = \\dfrac{\\|\\vec{u}\\|^2+\\|\\vec{v}\\|^2-\\left[\\|\\vec{u}\\|^2+\\|\\vec{v}\\|^2-2(x_ux_v+y_uy_v)\\right]}{2} = \\dfrac{2(x_ux_v+y_uy_v)}{2} = x_ux_v+y_uy_v$."
+          }
+        ],
+        "conclusion": "Les deux écritures du produit scalaire — $\\|\\vec{u}\\|\\,\\|\\vec{v}\\|\\cos(\\vec{u},\\vec{v})$ (définition géométrique) et $x_ux_v+y_uy_v$ (formule en coordonnées dans un repère orthonormé) — désignent donc bien le même nombre. C'est cette égalité qui justifie qu'on puisse utiliser indifféremment l'une ou l'autre formule, et en particulier tester l'orthogonalité par $x_ux_v+y_uy_v=0$."
+      },
+      "quizExerciseIds": [
+        1417,
+        1418,
+        1419
+      ],
+      "topic_id": "produit-scalaire,-colinearite-et-orthogonalite-de-vecteurs",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras calculer un produit scalaire à partir des coordonnées de deux vecteurs, et utiliser le produit scalaire ou le déterminant pour déterminer si deux vecteurs sont orthogonaux ou colinéaires."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "produit",
+        "scalaire",
+        "colinearite",
+        "orthogonalite"
+      ]
+    },
+    {
+      "id": "etude-d-un-ensemble-de-points",
+      "title": "Étude d'un ensemble de points",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à reconnaître la nature géométrique (droite ou cercle) d'un ensemble de points défini par une relation de produit scalaire, et à en donner les caractéristiques (point, vecteur normal, ou centre et rayon).\n\nCette méthode permet de « traduire » une condition algébrique portant sur un produit scalaire en une figure géométrique précise, sans avoir besoin de passer par les coordonnées.",
+      "explicationSimple": "Un produit scalaire nul signifie toujours que deux vecteurs sont orthogonaux (perpendiculaires). Si $\\vec{AM}\\cdot\\vec{u}=0$, cela veut dire que le vecteur $\\vec{AM}$ est toujours perpendiculaire à un vecteur fixe $\\vec{u}$ : le point $M$ décrit alors une droite, celle qui passe par $A$ et qui est perpendiculaire à $\\vec{u}$ (on dit que $\\vec{u}$ est normal à cette droite). Si $\\vec{MA}\\cdot\\vec{MB}=0$, cela signifie que l'angle $\\widehat{AMB}$ est droit, vu depuis $M$ : un théorème connu (l'angle inscrit dans un demi-cercle est droit) montre alors que $M$ décrit le cercle de diamètre $[AB]$.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer la nature (droite ou cercle) et les caractéristiques d'un ensemble de points défini par une égalité de produit scalaire, en distinguant le cas $\\vec{AM}\\cdot\\vec{u}=0$ (droite) du cas $\\vec{MA}\\cdot\\vec{MB}=0$ (cercle).",
+      "definition": "Pour un point $A$ fixé et un vecteur non nul $\\vec{u}$, l'ensemble des points $M$ du plan vérifiant $\\vec{AM}\\cdot\\vec{u}=0$ est la droite passant par $A$ et orthogonale à $\\vec{u}$ (on dit alors que $\\vec{u}$ est un vecteur normal à cette droite). Pour deux points distincts $A$ et $B$, l'ensemble des points $M$ vérifiant $\\vec{MA}\\cdot\\vec{MB}=0$ est le cercle de diamètre $[AB]$, car cette relation signifie que les vecteurs $\\vec{MA}$ et $\\vec{MB}$ sont orthogonaux, c'est-à-dire que l'angle $\\widehat{AMB}$ est droit.",
+      "definitions": {
+        "lycee": "Pour un point $A$ fixé et un vecteur non nul $\\vec{u}$, l'ensemble des points $M$ du plan vérifiant $\\vec{AM}\\cdot\\vec{u}=0$ est la droite passant par $A$ et orthogonale à $\\vec{u}$ (on dit alors que $\\vec{u}$ est un vecteur normal à cette droite). Pour deux points distincts $A$ et $B$, l'ensemble des points $M$ vérifiant $\\vec{MA}\\cdot\\vec{MB}=0$ est le cercle de diamètre $[AB]$, car cette relation signifie que les vecteurs $\\vec{MA}$ et $\\vec{MB}$ sont orthogonaux, c'est-à-dire que l'angle $\\widehat{AMB}$ est droit.",
+        "college": "$\\vec{MA}\\cdot\\vec{MB}=0 \\iff MA \\perp MB \\iff M$ appartient au cercle de diamètre $[AB]$."
+      },
+      "intuition": "L'erreur la plus fréquente est de confondre les deux situations : $\\vec{AM}\\cdot\\vec{u}=0$ (un point fixe $A$ et un vecteur fixe $\\vec{u}$) donne une droite, tandis que $\\vec{MA}\\cdot\\vec{MB}=0$ (deux points fixes $A$ et $B$, mais aucun vecteur donné) donne un cercle. Pour ne pas te tromper, regarde bien ce qui est fixé dans l'énoncé : s'il y a un vecteur $\\vec{u}$ donné, pense « droite » ; si la relation ne fait intervenir que deux points $A$ et $B$ (sans vecteur fixe), pense « cercle de diamètre $[AB]$ ».",
+      "reglesImportantes": [
+        "Cette relation caractérise la droite passant par $A$ et de vecteur normal $\\vec{u}$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Étude d'un ensemble de points",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : $\\vec{AM}\\cdot\\vec{u}=0$ signifie que $\\vec{AM}$ est orthogonal à $\\vec{u}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : L'ensemble cherché est donc la droite passant par $A$ et de vecteur normal $\\vec{u}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : En coordonnées, $\\vec{AM}\\cdot\\vec{u} = -4(x-(5)) + 5(y-(-3)) = 0$, soit $-4x + 5y +35 = 0$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1534",
+          "titre": "Exemple 1",
+          "enonce": "On donne le point $A(5 ; -3)$ et le vecteur $\\vec{u}(-4 ; 5)$. Déterminer, en la caractérisant géométriquement, l'ensemble des points $M(x;y)$ du plan tels que $\\vec{AM} \\cdot \\vec{u} = 0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $\\vec{AM}\\cdot\\vec{u}=0$ signifie que $\\vec{AM}$ est orthogonal à $\\vec{u}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : L'ensemble cherché est donc la droite passant par $A$ et de vecteur normal $\\vec{u}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : En coordonnées, $\\vec{AM}\\cdot\\vec{u} = -4(x-(5)) + 5(y-(-3)) = 0$, soit $-4x + 5y +35 = 0$."
+            }
+          ],
+          "reponse": "La droite passant par $A$ de vecteur normal $\\vec{u}$, d'équation $-4x + 5y +35 = 0$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1546",
+          "titre": "Exemple 2",
+          "enonce": "On donne les points $A(-2 ; -2)$ et $B(5 ; 3)$. Déterminer l'ensemble des points $M$ du plan tels que $\\vec{MA} \\cdot \\vec{MB} = 0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La relation $\\vec{MA}\\cdot\\vec{MB}=0$ signifie que les vecteurs $\\vec{MA}$ et $\\vec{MB}$ sont orthogonaux, ce qui caractérise le cercle de diamètre $[AB]$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Le centre de ce cercle est le milieu de $[AB]$, soit $\\Omega\\left(\\dfrac{3}{2} ; \\dfrac{1}{2}\\right)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Le rayon est $\\dfrac{AB}{2}$, avec $AB^2 = (5-(-2))^2+(3-(-2))^2 = 74$."
+            }
+          ],
+          "reponse": "Le cercle de diamètre $[AB]$, de centre $\\Omega\\left(\\dfrac{3}{2} ; \\dfrac{1}{2}\\right)$ et de rayon $\\sqrt{\\dfrac{37}{2}}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1558",
+          "titre": "Exemple 3",
+          "enonce": "On donne les points $A(6 ; 6)$ et $B(-6 ; -6)$. Déterminer l'ensemble des points $M$ du plan tels que $\\vec{MA} \\cdot \\vec{MB} = 0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La relation $\\vec{MA}\\cdot\\vec{MB}=0$ signifie que les vecteurs $\\vec{MA}$ et $\\vec{MB}$ sont orthogonaux, ce qui caractérise le cercle de diamètre $[AB]$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Le centre de ce cercle est le milieu de $[AB]$, soit $\\Omega\\left(0 ; 0\\right)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Le rayon est $\\dfrac{AB}{2}$, avec $AB^2 = (-6-(6))^2+(-6-(6))^2 = 288$."
+            }
+          ],
+          "reponse": "Le cercle de diamètre $[AB]$, de centre $\\Omega\\left(0 ; 0\\right)$ et de rayon $\\sqrt{72}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1570",
+          "titre": "Exemple 4",
+          "enonce": "On donne les points $A(5 ; 2)$ et $B(2 ; -2)$. Déterminer l'ensemble des points $M$ du plan tels que $\\vec{MA} \\cdot \\vec{MB} = 0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La relation $\\vec{MA}\\cdot\\vec{MB}=0$ signifie que les vecteurs $\\vec{MA}$ et $\\vec{MB}$ sont orthogonaux, ce qui caractérise le cercle de diamètre $[AB]$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Le centre de ce cercle est le milieu de $[AB]$, soit $\\Omega\\left(\\dfrac{7}{2} ; 0\\right)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Le rayon est $\\dfrac{AB}{2}$, avec $AB^2 = (2-(5))^2+(-2-(2))^2 = 25$."
+            }
+          ],
+          "reponse": "Le cercle de diamètre $[AB]$, de centre $\\Omega\\left(\\dfrac{7}{2} ; 0\\right)$ et de rayon $\\sqrt{\\dfrac{25}{4}}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre les deux situations et chercher un cercle alors que l'énoncé donne un point $A$ et un vecteur $\\vec{u}$ (donc une droite), ou chercher une droite alors que l'énoncé ne donne que deux points $A$ et $B$ (donc un cercle).",
+        "Oublier de diviser par $2$ pour trouver le rayon du cercle de diamètre $[AB]$ : le rayon est $\\dfrac{AB}{2}$, pas $AB$.",
+        "Se tromper dans le calcul du milieu de $[AB]$ (centre du cercle), par exemple en oubliant de diviser la somme des coordonnées par $2$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre les deux situations et chercher un cercle alors que l'énoncé donne un point $A$ et un vecteur $\\vec{u}$ (donc une droite), ou chercher une droite alors que l'énoncé ne donne que deux points $A$ et $B$ (donc un cercle).",
+          "pourquoi": "Les deux relations ($\\vec{AM}\\cdot\\vec{u}=0$ et $\\vec{MA}\\cdot\\vec{MB}=0$) se ressemblent visuellement (un produit scalaire égal à zéro), ce qui masque la différence essentielle sur les données de l'énoncé.",
+          "comment_detecter": "La réponse donnée (droite ou cercle) ne correspond pas aux données fournies : par exemple, on donne l'équation d'une droite alors que l'énoncé ne fournit que deux points $A$ et $B$ sans vecteur.",
+          "comment_eviter": "Avant de répondre, identifier ce que l'énoncé fixe : un point et un vecteur (droite), ou seulement deux points (cercle)."
+        },
+        {
+          "description": "Oublier de diviser par $2$ pour trouver le rayon du cercle de diamètre $[AB]$ : le rayon est $\\dfrac{AB}{2}$, pas $AB$.",
+          "pourquoi": "On calcule correctement la longueur $AB$ mais on oublie que $AB$ est le diamètre du cercle, pas son rayon.",
+          "comment_detecter": "Le cercle obtenu semble deux fois trop grand par rapport à la figure attendue.",
+          "comment_eviter": "Toujours écrire explicitement « rayon $=\\dfrac{AB}{2}$ » comme étape du calcul, pour ne pas oublier la division par $2$."
+        },
+        {
+          "description": "Se tromper dans le calcul du milieu de $[AB]$ (centre du cercle), par exemple en oubliant de diviser la somme des coordonnées par $2$.",
+          "pourquoi": "La formule du milieu $\\left(\\dfrac{x_A+x_B}{2}\\,;\\,\\dfrac{y_A+y_B}{2}\\right)$ est confondue avec une simple addition des coordonnées.",
+          "comment_detecter": "Le point trouvé comme centre du cercle n'est pas équidistant de $A$ et de $B$ lorsqu'on vérifie rapidement.",
+          "comment_eviter": "Toujours vérifier, après le calcul, que le point trouvé est bien à égale distance de $A$ et de $B$."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Cette relation caractérise la droite passant par $A$ et de vecteur normal $\\vec{u}$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [0.5, -3.2, 6.5, 7],
+        "axes": true,
+        "circles": [
+          {"center": {"x": 3.5, "y": 0}, "radius": 2.5}
+        ],
+        "points": [
+          {"x": 5, "y": 2, "label": "A", "showCoords": true},
+          {"x": 2, "y": -2, "label": "B", "showCoords": true},
+          {"x": 3.5, "y": 0, "label": "Ω"},
+          {"x": 3.5, "y": 2.5, "label": "M"}
+        ],
+        "segments": [
+          {"from": {"x": 5, "y": 2}, "to": {"x": 2, "y": -2}, "dashed": true, "tooltip": "diamètre [AB]"},
+          {"from": {"x": 3.5, "y": 2.5}, "to": {"x": 5, "y": 2}, "tooltip": "vecteur MA"},
+          {"from": {"x": 3.5, "y": 2.5}, "to": {"x": 2, "y": -2}, "tooltip": "vecteur MB"},
+          {"from": {"x": 3.8795, "y": 2.3735}, "to": {"x": 3.753, "y": 1.994}},
+          {"from": {"x": 3.753, "y": 1.994}, "to": {"x": 3.3735, "y": 2.1205}}
+        ],
+        "alt": "Cercle de diamètre [AB] avec A(5 ; 2) et B(2 ; -2), de centre Ω(3,5 ; 0) et de rayon 2,5. Le point M(3,5 ; 2,5), situé sur ce cercle, est marqué d'un angle droit : les vecteurs MA et MB y sont orthogonaux, ce qui illustre que l'ensemble des points M tels que MA·MB=0 est exactement ce cercle."
+      },
+      "demonstration": {
+        "titre": "Pourquoi $\\vec{MA}\\cdot\\vec{MB}=0$ caractérise le cercle de diamètre $[AB]$ ? — démonstration",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Un point du cercle vérifie la relation",
+            "texte": "Soit $M$ un point du cercle de diamètre $[AB]$, distinct de $A$ et de $B$. D'après le théorème de l'angle inscrit dans un demi-cercle (vu en Troisième : si $M$ appartient au cercle de diamètre $[AB]$, alors le triangle $AMB$ est rectangle en $M$), l'angle géométrique $\\widehat{AMB}$ est droit."
+          },
+          {
+            "titre": "Étape 2 — Un angle droit se traduit par un produit scalaire nul",
+            "texte": "Les vecteurs $\\vec{MA}$ et $\\vec{MB}$ sont alors orthogonaux, donc $\\vec{MA}\\cdot\\vec{MB} = \\|\\vec{MA}\\|\\,\\|\\vec{MB}\\|\\cos\\left(\\vec{MA},\\vec{MB}\\right) = \\|\\vec{MA}\\|\\,\\|\\vec{MB}\\|\\cos\\left(\\dfrac{\\pi}{2}\\right) = 0$."
+          },
+          {
+            "titre": "Étape 3 — Réciproquement, un point vérifiant la relation est sur le cercle",
+            "texte": "Si $\\vec{MA}\\cdot\\vec{MB}=0$ avec $M\\neq A$ et $M\\neq B$, alors $\\vec{MA}$ et $\\vec{MB}$ sont orthogonaux, donc le triangle $AMB$ est rectangle en $M$. Or, dans un triangle rectangle, le sommet de l'angle droit appartient toujours au cercle dont l'hypoténuse est un diamètre (réciproque du théorème de l'angle inscrit dans un demi-cercle, également vue en Troisième) : ici l'hypoténuse est $[AB]$, donc $M$ appartient au cercle de diamètre $[AB]$."
+          },
+          {
+            "titre": "Étape 4 — Cas particuliers $M=A$ ou $M=B$",
+            "texte": "Si $M=A$, alors $\\vec{MA}=\\vec{0}$, donc $\\vec{MA}\\cdot\\vec{MB}=0$ automatiquement (le produit scalaire est nul dès que l'un des deux vecteurs est nul) ; et $A$ appartient bien au cercle de diamètre $[AB]$, puisque c'est l'une de ses extrémités. Le même raisonnement s'applique à $M=B$."
+          }
+        ],
+        "conclusion": "Les deux sens étant établis, l'ensemble des points $M$ du plan tels que $\\vec{MA}\\cdot\\vec{MB}=0$ est exactement le cercle de diamètre $[AB]$ : c'est le lien entre le théorème « géométrique » de l'angle inscrit dans un demi-cercle, vu en Troisième, et sa formalisation algébrique avec le produit scalaire."
+      },
+      "quizExerciseIds": [
+        1535,
+        1536,
+        1537
+      ],
+      "topic_id": "etude-d-un-ensemble-de-points",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras déterminer la nature (droite ou cercle) et les caractéristiques d'un ensemble de points défini par une égalité de produit scalaire, en distinguant le cas $\\vec{AM}\\cdot\\vec{u}=0$ (droite) du cas $\\vec{MA}\\cdot\\vec{MB}=0$ (cercle)."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "etude",
+        "ensemble",
+        "points"
+      ]
+    }
+  ]
+}

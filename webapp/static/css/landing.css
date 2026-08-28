@@ -10,61 +10,117 @@
 /* @keyframes nm-rise partagé — voir css/animations.css (chargé avant ce
    fichier), utilisé ci-dessous par les animations du hero. */
 
+/* ── Bascule thème clair/sombre sur la landing ────────────────────────────
+   Même bouton, même logique que le reste du site (js/theme.js::
+   bindThemeToggle/initTheme/initAppearance, base.css::.theme-toggle) —
+   aucun système dupliqué : la landing se contente de ne plus le masquer. */
+
 /* ── Hero V2 — split-screen (texte à gauche / illustration flottante à
    droite), comme Linear/Raycast, plutôt que la mise en page centrée
    empilée d'origine : rupture visuelle immédiate avec la V1. Repasse en
    colonne unique centrée sous 960px (voir media query plus bas). */
+/* ── Hero — image de référence (Design System claude.ai, V4) ──────────────
+   webapp/static/assets/backgrounds/hero-wave.png est la pièce d'ADN visuel
+   du produit (vagues violet/lavande) : source de toute la palette V4 (voir
+   tokens.css), utilisée ici en vrai fond photographique (jamais recréée en
+   dégradé CSS). `cover` + `center` : ne déforme jamais l'image, quel que
+   soit le ratio d'écran — recadrée plutôt qu'étirée. Un voile dégradé
+   (color-mix sur --bg, donc adapté automatiquement au thème actif) garantit
+   la lisibilité du texte à gauche sans jamais couvrir complètement l'image
+   à droite, où l'illustration flotte déjà par-dessus. */
+/* ── Full-bleed : l'image doit couvrir 100vw, jamais seulement la colonne de
+   contenu. Plutôt qu'un wrapper HTML dédié, .hero reste l'élément plein
+   largeur (aucune classe/id consommé par landing.js n'est touché) et le
+   contenu (.hero-content/.hero-illustration-wrap, toujours en grid direct)
+   est recentré via un padding calculé — équivalent visuel à l'ancien
+   max-width:1480px+margin:auto, mais l'arrière-plan, lui, s'étend sur toute
+   la largeur de l'écran, y compris au-delà de 1920/2560px. */
 .hero {
   position: relative;
   display: grid;
   grid-template-columns: 0.86fr 1.14fr;
   align-items: center;
   gap: 40px;
-  padding: 132px 48px 132px;
-  max-width: 1480px;
-  margin: 0 auto;
+  width: 100%;
+  /* Un peu plus de hauteur qu'avant (132→156px de respiration en bas) pour
+     que l'image ait davantage de place avant de se fondre dans la section
+     suivante — voir le calque de fondu ci-dessous. */
+  padding: 132px max(48px, calc((100% - 1480px) / 2)) 156px;
   overflow: hidden;
   text-align: left;
+  background:
+    /* Fondu vertical du bas du Hero — sans lui, l'image s'arrête net sur une
+       arête franche contre le padding (quasi blanc) de la section suivante,
+       ce qui se lit comme "une bande blanche sous l'image". Ce calque est
+       peint au-dessus de l'image/voile et ramène doucement vers --bg avant
+       la fin réelle de .hero, pour une transition continue plutôt qu'une
+       coupure. Le palier plat à 100% (--bg dès 90%, pas seulement à la toute
+       dernière ligne de pixels) est volontaire : le calque site-wide
+       (body::after, base.css) reprend la même image avec un cadrage propre à
+       lui — sans ce palier uni, les deux crops ne coïncident jamais
+       exactement et la jonction produit une arête visible juste sous le
+       Hero, quelle que soit la résolution. */
+    linear-gradient(to bottom,
+      transparent 0%,
+      transparent 55%,
+      var(--bg) 90%,
+      var(--bg) 100%),
+    linear-gradient(100deg,
+      color-mix(in srgb, var(--bg) 88%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 60%, transparent) 38%,
+      color-mix(in srgb, var(--bg) 30%, transparent) 60%,
+      color-mix(in srgb, var(--bg) 55%, transparent) 100%),
+    url("../assets/backgrounds/hero-wave.png") center 38% / cover no-repeat;
+  /* Les deux calques de dégradé n'ont pas de taille explicite : sans
+     `no-repeat` ils héritent du `repeat` par défaut, et sur une hauteur de
+     .hero non entière (ex. 835.578125px), le raccord de la tuile répétée
+     produit un liseré net visible pile au bas de la section, quelle que
+     soit la résolution. */
+  background-repeat: no-repeat;
+  background-color: var(--bg);
 }
 
-/* Lueur violette principale, très adoucie — une signature, pas un néon. */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: -25% -10% auto -10%;
-  height: 520px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(var(--accent-rgb), 0.16), transparent 72%);
-  pointer-events: none;
-  z-index: 0;
-}
-/* Seconde lueur (or, très discrète, décalée — profondeur sans couleur
-   dominante) + courbes mathématiques en trait fin (sinusoïde + parabole),
-   purement décoratives : SVG inline en data-URI, pas de dépendance externe,
-   couleur figée (un data-URI ne peut pas interpoler les tokens CSS — valeur
-   neutre qui fonctionne sur les deux thèmes). Scope strict à la landing. */
+/* Lueur d'appoint très légère au-dessus de l'image réelle (jamais dominante :
+   l'image hero-wave.png est déjà la source de richesse visuelle) — garde un
+   soupçon de profondeur au raccord avec le reste de la page en dessous. */
 .hero::after {
   content: "";
   position: absolute;
   inset: auto -15% -30% 55%;
   height: 420px;
-  background:
-    radial-gradient(ellipse at 50% 100%, rgba(var(--brand-gold-rgb), 0.07), transparent 70%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='420' viewBox='0 0 900 420'%3E%3Cpath d='M0 320 Q 112 220 225 320 T 450 320 T 675 320 T 900 320' fill='none' stroke='rgba(140,110,255,0.12)' stroke-width='1.5'/%3E%3Cpath d='M60 60 Q 300 -40 540 60 T 900 260' fill='none' stroke='rgba(140,110,255,0.10)' stroke-width='1.5'/%3E%3C/svg%3E")
-      no-repeat 50% 30% / cover;
+  background: radial-gradient(ellipse at 50% 100%, rgba(var(--brand-gold-rgb), 0.06), transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
 
 .hero-content { position: relative; z-index: 1; }
 
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 26px;
-  animation: nm-rise 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+/* ── Décor discret autour du titre — symboles mathématiques et formes
+   flottantes très atténués (jamais un motif dominant, juste un indice
+   visuel qui ancre "maths" avant même la lecture du titre). Statique ou
+   quasi (translation lente sur 2 éléments seulement) : aucun impact sur les
+   performances, respecte prefers-reduced-motion (voir plus bas). ───────── */
+.hero-deco { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.hero-deco-symbol {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--violet-300);
+  line-height: 1;
+  user-select: none;
+}
+.hero-deco-symbol--sigma { top: -8%; left: 1%; font-size: 3.6rem; opacity: 0.28; transform: rotate(-8deg); }
+.hero-deco-symbol--pi { top: 60%; left: -1%; font-size: 2.1rem; opacity: 0.2; transform: rotate(6deg); }
+.hero-deco-symbol--radical { top: 4%; left: 46%; font-size: 1.5rem; opacity: 0.16; }
+@media (max-width: 960px) {
+  /* Layout empilé + centré : les décors flottants distrairaient du titre
+     centré plutôt que de l'entourer élégamment — retirés sous ce seuil. */
+  .hero-deco { display: none; }
 }
 
+/* Le badge "Apprentissage adaptatif par IA" (.hero-eyebrow) a été retiré du
+   Hero — h1 est maintenant le premier élément animé (délai 0), plus de
+   margin-top compensatoire nécessaire au-dessus du titre. */
 .hero h1 {
   font-size: clamp(3rem, 4.4vw, 4.9rem);
   font-weight: 700;
@@ -72,7 +128,7 @@
   letter-spacing: -0.04em;
   margin-bottom: 26px;
   text-wrap: balance;
-  animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) 60ms both;
+  animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .hero h1 .gradient-text {
   background: var(--brand-gradient);
@@ -87,7 +143,7 @@
   color: var(--text-muted);
   max-width: 480px;
   margin: 0 0 40px;
-  animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) 130ms both;
+  animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) 70ms both;
 }
 
 .hero-cta {
@@ -95,7 +151,7 @@
   gap: 14px;
   justify-content: flex-start;
   flex-wrap: wrap;
-  animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) 190ms both;
+  animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) 130ms both;
 }
 
 /* ── Illustration flottante — composition à plusieurs plans (Stripe/Linear) :
@@ -110,7 +166,7 @@
   width: 100%;
   max-width: 640px;
   margin-left: auto;
-  animation: nm-rise 750ms cubic-bezier(0.16, 1, 0.3, 1) 260ms both,
+  animation: nm-rise 750ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both,
              hero-float 6.5s ease-in-out 1.2s infinite;
 }
 @keyframes hero-float {
@@ -170,7 +226,7 @@
   background: var(--surface-elevated);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-float);
-  animation: nm-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) 480ms both;
+  animation: nm-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
 }
 .hero-float-chip-icon {
   width: 34px; height: 34px;
@@ -254,17 +310,55 @@
   .hero-illustration,
   .hero-illustration-back { transform: none; }
   .hero-illustration-wrap:hover .hero-illustration { transform: translateY(-4px); }
-  .hero-illustration-wrap { animation: nm-rise 750ms cubic-bezier(0.16, 1, 0.3, 1) 260ms both; }
+  .hero-illustration-wrap { animation: nm-rise 750ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both; }
 }
 
-/* ── Bandeau statistiques : cartes à profondeur, pas du texte flottant ───── */
+/* ── Bandeau statistiques : cartes à profondeur, pas du texte flottant ─────
+   Bande "île" en lavande très pâle plutôt qu'un bloc blanc de plus — casse
+   la succession hero/section/section identique en couleur. Le fond est
+   full-bleed (100vw, technique "container breakout" : ::before centré sur
+   le viewport même si .stats-strip garde son max-width propre — valable
+   tant que le conteneur reste centré via margin:auto, ce qui est le cas
+   ici), et se referme sur la section suivante par une vague douce plutôt
+   qu'une arête franche. Couleurs 100% pilotées par les jetons de thème
+   (--bg-secondary/--bg) : plus aucune teinte figée, la bande et sa vague
+   suivent le clair/sombre comme le reste de la page. */
 .stats-strip {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
-  padding: 0 24px 100px;
+  padding: 72px 24px 130px;
   max-width: 1160px;
   margin: 0 auto;
+}
+.stats-strip::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: 100%;
+  transform: translateX(-50%);
+  background: var(--bg-secondary);
+}
+.stats-strip::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: -1px;
+  left: 50%;
+  width: 100vw;
+  height: 90px;
+  transform: translateX(-50%);
+  /* La vague n'est qu'un masque de forme (technique déjà utilisée pour les
+     coches ci-dessous) : la couleur réelle vient de background-color, donc
+     elle suit --bg au lieu d'un fill blanc figé dans le SVG. */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 L1440,100 L1440,30 C1080,80 720,0 360,50 C240,65 120,55 0,40 Z' fill='white'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 L1440,100 L1440,30 C1080,80 720,0 360,50 C240,65 120,55 0,40 Z' fill='white'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+  background-color: var(--bg);
 }
 .stat-item {
   position: relative;
@@ -326,8 +420,75 @@
   pointer-events: none;
   background: radial-gradient(ellipse 620px 420px at 95% 85%, rgba(var(--brand-violet-rgb), 0.07), transparent 70%);
 }
+/* ── Identités dédiées par section — remplace l'alternance générique
+   ci-dessus pour les sections où elle ne suffit pas à casser la monotonie
+   "bloc blanc + grille". Sélecteur par id : plus spécifique que
+   .section:nth-of-type(...), l'override gagne sans !important. ────────── */
+
+/* "Comment ça marche" — motif de symboles mathématiques semés en fond,
+   presque invisible, qui ancre discrètement le propos avant même le texte. */
+#comment-ca-marche::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 420'%3E%3Ctext x='14' y='70' font-family='Georgia,serif' font-size='46' fill='%23875ee0' fill-opacity='0.05'%3E+%3C/text%3E%3Ctext x='300' y='150' font-family='Georgia,serif' font-size='34' fill='%23875ee0' fill-opacity='0.045'%3E%C3%97%3C/text%3E%3Ctext x='90' y='330' font-family='Georgia,serif' font-size='38' fill='%23875ee0' fill-opacity='0.05'%3E%3D%3C/text%3E%3Ctext x='330' y='380' font-family='Georgia,serif' font-size='32' fill='%23875ee0' fill-opacity='0.045'%3E%E2%88%AB%3C/text%3E%3C/svg%3E");
+  background-size: 420px 420px;
+  background-repeat: repeat;
+  /* Le motif ne doit se deviner que dans les marges, jamais rivaliser avec
+     le contenu (titre + cartes) : estompé au centre via un masque radial. */
+  -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 45%, transparent 35%, black 85%);
+  mask-image: radial-gradient(ellipse 65% 60% at 50% 45%, transparent 35%, black 85%);
+}
+
+/* Vitrine chatbot — grand halo flou derrière la fenêtre de conversation,
+   pour lui donner la même profondeur que l'illustration du Hero plutôt
+   qu'un simple encart posé à plat sur le fond. */
+#chatbot-showcase::before { content: none; }
+.showcase-visual { position: relative; }
+.showcase-visual::before {
+  content: "";
+  position: absolute;
+  inset: -14% -10%;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 58% 55% at 24% 20%, rgba(var(--accent-rgb), 0.14), transparent 70%),
+    radial-gradient(ellipse 50% 46% at 80% 82%, rgba(var(--brand-violet-rgb), 0.12), transparent 68%);
+  filter: blur(56px);
+  pointer-events: none;
+}
+
+/* Fonctionnalités — texture pointillée très légère (grain "produit premium")
+   plutôt qu'un fond nu derrière le bento. */
+#fonctionnalites::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(var(--accent-rgb), 0.14) 1px, transparent 1.5px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 78%);
+}
+
+/* Tarifs — halo chaleureux centré derrière la grille, plus marqué au niveau
+   de l'offre Premium pour renforcer la mise en avant déjà portée par
+   .pricing-card--popular. */
+#tarifs::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 640px 420px at 50% 8%, rgba(var(--accent-rgb), 0.09), transparent 72%),
+    radial-gradient(ellipse 420px 320px at 50% 60%, rgba(var(--brand-gold-rgb), 0.05), transparent 70%);
+}
+
 .section > * { position: relative; z-index: 1; }
-.section-header { max-width: 640px; margin: 0 auto 64px; text-align: center; }
+.section-header { position: relative; z-index: 1; max-width: 640px; margin: 0 auto 64px; text-align: center; }
 .section-header h2 { font-size: clamp(1.85rem, 3.2vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; text-wrap: balance; }
 .section-header p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; }
 .section-tag {
@@ -347,7 +508,8 @@
    page reflète qu'il s'agit d'une vraie séquence à 3 temps. ────────────── */
 .steps {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* 2 étapes désormais (le test de placement initial a été retiré) */
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   max-width: 1160px;
   margin: 0 auto;
@@ -392,7 +554,37 @@
    fonctionnalités : le contraste visuel (carte mate et éteinte vs carte
    vive et signée violet) raconte la transformation avant même de lire le
    texte. Juste après le hero, avant toute mention de fonctionnalité. ───── */
+/* Cette section suit directement .hero, qui se fond jusqu'à un aplat --bg
+   (voir .hero background ci-dessus). Le calque site-wide (body::after,
+   base.css) reprend la même image hero-wave.png avec son propre cadrage —
+   sans ce voile, sa réapparition immédiate juste sous le Hero produit une
+   arête visible (deux crops différents qui ne se raccordent jamais).
+   Voile local qui prolonge le fondu du Hero avant de laisser le calque
+   site-wide réapparaître progressivement, quelle que soit la résolution
+   (la hauteur est fixe, ancrée en haut de section, indépendante de la
+   hauteur du Hero). */
+#transformation::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 340px;
+  /* Paliers progressifs plutôt qu'un fondu linéaire à deux arrêts : le
+     calque site-wide en dessous (body::after) redevient visible en douceur
+     (l'œil perçoit la moindre texture contre un aplat parfaitement uni,
+     même à faible opacité — un fondu linéaire court reste lu comme une
+     arête nette). */
+  background: linear-gradient(to bottom,
+    var(--bg) 0%,
+    var(--bg) 25%,
+    color-mix(in srgb, var(--bg) 85%, transparent) 55%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 80%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
 .transformation-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: stretch;
@@ -674,7 +866,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-eyebrow, .hero h1, .hero p.lead, .hero-cta, .hero-illustration-wrap {
+  .hero h1, .hero p.lead, .hero-cta, .hero-illustration-wrap {
     animation: none;
   }
 }
@@ -682,12 +874,45 @@
 /* Sous 960px, le split-screen n'a plus de place : retour à une colonne
    unique centrée, illustration en dessous du texte. */
 @media (max-width: 960px) {
-  .hero { grid-template-columns: 1fr; text-align: center; padding: 88px 24px 96px; }
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 88px 24px 116px;
+    /* Texte centré sur toute la largeur de l'image plutôt que calé à
+       gauche : le voile passe d'une diagonale à un dégradé vertical
+       (sombre en haut où vit le texte, image plus visible en dessous),
+       et le point focal de l'image remonte pour rester lisible même
+       recadré plus serré par `cover` sur un écran étroit et haut. Le
+       premier calque referme la bas de l'image sur --bg (même fondu que
+       desktop) pour éviter toute arête franche contre la section suivante. */
+    background:
+      linear-gradient(to bottom,
+        transparent 0%,
+        transparent 50%,
+        var(--bg) 88%,
+        var(--bg) 100%),
+      linear-gradient(180deg,
+        color-mix(in srgb, var(--bg) 82%, transparent) 0%,
+        color-mix(in srgb, var(--bg) 55%, transparent) 45%,
+        color-mix(in srgb, var(--bg) 65%, transparent) 100%),
+      url("../assets/backgrounds/hero-wave.png") center 20% / cover no-repeat;
+    /* Voir le commentaire sur la règle desktop ci-dessus : même correctif
+       (palier uni + no-repeat explicite sur tous les calques). */
+    background-repeat: no-repeat;
+    background-color: var(--bg);
+  }
   .hero p.lead { margin-left: auto; margin-right: auto; }
   .hero-cta { justify-content: center; }
   .hero-illustration-wrap { margin: 32px auto 0; max-width: 560px; }
   .hero-illustration-back { display: none; }
   .hero-float-chip { left: 50%; transform: translateX(-50%); bottom: -18px; }
+}
+
+/* Écrans très larges (1920px+) : le point focal remonte légèrement pour que
+   le motif de vagues garde une composition élégante même très étiré en
+   largeur (cover recadre alors davantage en hauteur). */
+@media (min-width: 1920px) {
+  .hero { background-position: center, center, center 30%; }
 }
 
 @media (max-width: 860px) {
@@ -701,6 +926,7 @@
 
 @media (max-width: 480px) {
   .stats-strip { grid-template-columns: 1fr; padding-bottom: 72px; }
+  .stats-strip::after { height: 56px; }
   .cta-final { padding: 48px 24px; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
 }

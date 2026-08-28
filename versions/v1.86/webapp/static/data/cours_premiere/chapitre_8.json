@@ -1,0 +1,435 @@
+{
+  "chapterId": "Chapitre_8",
+  "title": "Chapitre 8",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "vecteur-normal-a-une-droite",
+      "title": "Vecteur normal à une droite",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : vecteur normal à une droite.\n\nCette notion sert à mesurer si deux directions sont perpendiculaires, ou calculer un angle entre deux vecteurs, ce qui sert en géométrie et en physique.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine deux personnes qui tirent chacune sur une corde dans une direction différente : le produit scalaire mesure à quel point leurs efforts « vont dans le même sens ». S'il vaut zéro, les deux directions sont perpendiculaires.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Vecteur normal à une droite.",
+      "definition": "Utiliser $a(x-x_A)+b(y-y_A)=0$ avec $\\vec{n}(a;b)$ normal à $d$.",
+      "definitions": {
+        "lycee": "Utiliser $a(x-x_A)+b(y-y_A)=0$ avec $\\vec{n}(a;b)$ normal à $d$."
+      },
+      "intuition": "Le produit scalaire de deux vecteurs vaut zéro si et seulement si ces vecteurs sont orthogonaux (perpendiculaires). Ne confonds jamais le produit scalaire (un nombre) avec un vecteur : le résultat d'un produit scalaire n'est jamais une flèche, toujours un nombre.",
+      "reglesImportantes": [
+        "Les coefficients de $x$ et $y$ dans l'équation $ax+by+c=0$ forment les coordonnées d'un vecteur normal."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Vecteur normal à une droite",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : une droite de vecteur normal $\\vec{n}(a;b)$ passant par $A(x_A;y_A)$ a pour équation $a(x-x_A)+b(y-y_A)=0$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $d : 4(x-(-5)) + 2(y-(6)) = 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : en développant, $d : 4x +2y +8 = 0$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1593",
+          "titre": "Exemple 1",
+          "enonce": "La droite $d$ a pour équation $3x -1y +7 = 0$. Donner les coordonnées d'un vecteur normal à $d$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : si une droite a pour équation $ax+by+c=0$, alors le vecteur $\\vec{n}(a;b)$ est normal à cette droite."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : ici $a=3$ et $b=-1$, donc $\\vec{n}(3 ; -1)$ est normal à $d$."
+            }
+          ],
+          "reponse": "$\\vec{n}(3 ; -1)$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\vec{n}(3 ; -1)$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1605",
+          "titre": "Exemple 2",
+          "enonce": "Déterminer une équation de la droite $d$ passant par le point $A(-5 ; -4)$ et de vecteur normal $\\vec{n}(-5 ; -4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : une droite de vecteur normal $\\vec{n}(a;b)$ passant par $A(x_A;y_A)$ a pour équation $a(x-x_A)+b(y-y_A)=0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $d : -5(x-(-5)) + -4(y-(-4)) = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en développant, $d : -5x -4y -41 = 0$."
+            }
+          ],
+          "reponse": "$d : -5x -4y -41 = 0$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $d : -5x -4y -41 = 0$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1617",
+          "titre": "Exemple 3",
+          "enonce": "Déterminer une équation de la droite $d$ passant par le point $A(-6 ; -4)$ et de vecteur normal $\\vec{n}(-4 ; -3)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : une droite de vecteur normal $\\vec{n}(a;b)$ passant par $A(x_A;y_A)$ a pour équation $a(x-x_A)+b(y-y_A)=0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $d : -4(x-(-6)) + -3(y-(-4)) = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : en développant, $d : -4x -3y -36 = 0$."
+            }
+          ],
+          "reponse": "$d : -4x -3y -36 = 0$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $d : -4x -3y -36 = 0$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1629",
+          "titre": "Exemple 4",
+          "enonce": "La droite $d$ a pour équation $4x +3y -7 = 0$. Donner les coordonnées d'un vecteur normal à $d$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : si une droite a pour équation $ax+by+c=0$, alors le vecteur $\\vec{n}(a;b)$ est normal à cette droite."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : ici $a=4$ et $b=3$, donc $\\vec{n}(4 ; 3)$ est normal à $d$."
+            }
+          ],
+          "reponse": "$\\vec{n}(4 ; 3)$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\vec{n}(4 ; 3)$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "vérifier qu'un mur est perpendiculaire à un autre en architecture",
+        "calculer le travail d'une force en physique",
+        "détecter un angle droit dans un plan sans rapporteur"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir que le produit scalaire donne un nombre et non un vecteur, pense au mot « scalaire » : il vient de « échelle », donc un simple nombre sur une échelle.",
+      "aRetenir": [
+        "Les coefficients de $x$ et $y$ dans l'équation $ax+by+c=0$ forment les coordonnées d'un vecteur normal."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1,
+          7,
+          6
+        ],
+        "grid": true,
+        "axes": true,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 4,
+            "y": 1,
+            "label": "A"
+          },
+          {
+            "x": 2,
+            "y": 3,
+            "label": "B"
+          }
+        ],
+        "vectors": [
+          {
+            "from": "O",
+            "to": "A",
+            "label": "u"
+          },
+          {
+            "from": "O",
+            "to": "B",
+            "label": "v"
+          }
+        ],
+        "arcs": [
+          {
+            "center": "O",
+            "radius": 0.8,
+            "startDeg": 14,
+            "endDeg": 56,
+            "label": "angle"
+          }
+        ],
+        "alt": "L'angle entre les vecteurs u et v détermine le signe du produit scalaire."
+      },
+      "quizExerciseIds": [
+        1594,
+        1595,
+        1596
+      ],
+      "topic_id": "vecteur-normal-a-une-droite",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Vecteur normal à une droite."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "vecteur",
+        "normal",
+        "droite"
+      ]
+    },
+    {
+      "id": "equation-d-un-cercle",
+      "title": "Équation d'un cercle",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : équation d'un cercle.\n\nCette notion sert à mesurer si deux directions sont perpendiculaires, ou calculer un angle entre deux vecteurs, ce qui sert en géométrie et en physique.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine deux personnes qui tirent chacune sur une corde dans une direction différente : le produit scalaire mesure à quel point leurs efforts « vont dans le même sens ». S'il vaut zéro, les deux directions sont perpendiculaires.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Équation d'un cercle.",
+      "definition": "Le centre est le milieu de $[AB]$ et le rayon est la moitié de $AB$.",
+      "definitions": {
+        "lycee": "Le centre est le milieu de $[AB]$ et le rayon est la moitié de $AB$.",
+        "college": "Utiliser la forme $(x-a)^2+(y-b)^2=r^2$."
+      },
+      "intuition": "Le produit scalaire de deux vecteurs vaut zéro si et seulement si ces vecteurs sont orthogonaux (perpendiculaires). Ne confonds jamais le produit scalaire (un nombre) avec un vecteur : le résultat d'un produit scalaire n'est jamais une flèche, toujours un nombre.",
+      "reglesImportantes": [
+        "Utiliser la forme $(x-a)^2+(y-b)^2=r^2$.",
+        "Faire apparaître deux formes canoniques $(x-a)^2$ et $(y-b)^2$ en regroupant les termes en $x$ puis en $y$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Équation d'un cercle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on regroupe : $x^2 -6x + y^2 -10y +30 = 0$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : on met sous forme canonique chaque groupe : $(x-3)^2 - 9 + (y-5)^2 - 25 +30 = 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : d'où $(x-3)^2+(y-5)^2 = 4$ (car $9+25-30 = 4$)."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : c'est l'équation d'un cercle de centre $\\Omega(3 ; 5)$ et de rayon $2$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1652",
+          "titre": "Exemple 1",
+          "enonce": "On donne l'équation $\\mathcal{C} : x^2+y^2 -6x -10y +30 = 0$. Montrer qu'il s'agit de l'équation d'un cercle dont on précisera le centre et le rayon.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on regroupe : $x^2 -6x + y^2 -10y +30 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on met sous forme canonique chaque groupe : $(x-3)^2 - 9 + (y-5)^2 - 25 +30 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'où $(x-3)^2+(y-5)^2 = 4$ (car $9+25-30 = 4$)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : c'est l'équation d'un cercle de centre $\\Omega(3 ; 5)$ et de rayon $2$."
+            }
+          ],
+          "reponse": "Cercle de centre $\\Omega(3 ; 5)$ et de rayon $2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Cercle de centre $\\Omega(3 ; 5)$ et de rayon $2$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1664",
+          "titre": "Exemple 2",
+          "enonce": "On donne l'équation $\\mathcal{C} : x^2+y^2 -6x +0y -7 = 0$. Montrer qu'il s'agit de l'équation d'un cercle dont on précisera le centre et le rayon.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on regroupe : $x^2 -6x + y^2 +0y -7 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on met sous forme canonique chaque groupe : $(x-3)^2 - 9 + (y-0)^2 - 0 -7 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'où $(x-3)^2+(y-0)^2 = 16$ (car $9+0+7 = 16$)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : c'est l'équation d'un cercle de centre $\\Omega(3 ; 0)$ et de rayon $4$."
+            }
+          ],
+          "reponse": "Cercle de centre $\\Omega(3 ; 0)$ et de rayon $4$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Cercle de centre $\\Omega(3 ; 0)$ et de rayon $4$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1676",
+          "titre": "Exemple 3",
+          "enonce": "On donne l'équation $\\mathcal{C} : x^2+y^2 -2x +0y -35 = 0$. Montrer qu'il s'agit de l'équation d'un cercle dont on précisera le centre et le rayon.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on regroupe : $x^2 -2x + y^2 +0y -35 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on met sous forme canonique chaque groupe : $(x-1)^2 - 1 + (y-0)^2 - 0 -35 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : d'où $(x-1)^2+(y-0)^2 = 36$ (car $1+0+35 = 36$)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : c'est l'équation d'un cercle de centre $\\Omega(1 ; 0)$ et de rayon $6$."
+            }
+          ],
+          "reponse": "Cercle de centre $\\Omega(1 ; 0)$ et de rayon $6$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Cercle de centre $\\Omega(1 ; 0)$ et de rayon $6$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1688",
+          "titre": "Exemple 4",
+          "enonce": "Donner une équation du cercle $\\mathcal{C}$ de centre $\\Omega(7 ; 7)$ et de rayon $5$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : un cercle de centre $\\Omega(a;b)$ et de rayon $r$ a pour équation $(x-a)^2+(y-b)^2=r^2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : ici, $\\mathcal{C} : (x-7)^2+(y-7)^2 = 25$."
+            }
+          ],
+          "reponse": "$\\mathcal{C} : (x-7)^2+(y-7)^2 = 25$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\mathcal{C} : (x-7)^2+(y-7)^2 = 25$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "vérifier qu'un mur est perpendiculaire à un autre en architecture",
+        "calculer le travail d'une force en physique",
+        "détecter un angle droit dans un plan sans rapporteur"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir que le produit scalaire donne un nombre et non un vecteur, pense au mot « scalaire » : il vient de « échelle », donc un simple nombre sur une échelle.",
+      "aRetenir": [
+        "Utiliser la forme $(x-a)^2+(y-b)^2=r^2$.",
+        "Faire apparaître deux formes canoniques $(x-a)^2$ et $(y-b)^2$ en regroupant les termes en $x$ puis en $y$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3.5,
+          -3.5,
+          8,
+          8
+        ],
+        "grid": true,
+        "axes": true,
+        "points": [
+          {
+            "x": 1,
+            "y": 1,
+            "label": "Ω"
+          }
+        ],
+        "circles": [
+          {
+            "center": {
+              "x": 1,
+              "y": 1
+            },
+            "radius": 2.5
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1,
+              "y": 1
+            },
+            "to": {
+              "x": 3.5,
+              "y": 1
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.25,
+            "y": 0.6,
+            "label": "r"
+          }
+        ],
+        "alt": "Un cercle est défini par son centre Ω et son rayon r."
+      },
+      "quizExerciseIds": [
+        1653,
+        1654,
+        1655
+      ],
+      "topic_id": "equation-d-un-cercle",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Équation d'un cercle."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "equation",
+        "cercle"
+      ]
+    }
+  ]
+}

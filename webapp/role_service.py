@@ -120,33 +120,79 @@ def requires_role(minimum: Role) -> Callable:
     return decorator
 
 
-def _admin_emails_from_env() -> frozenset:
-    """Liste d'emails séparés par des virgules dans NOVAMATH_ADMIN_EMAILS
-    (voir .env.example) — jamais codée en dur, même convention que
+def _emails_from_env(env_name: str) -> frozenset:
+    """Liste d'emails séparés par des virgules dans la variable d'environnement
+    `env_name` — jamais codée en dur, même convention que
     NOVAMATH_ADMIN_KEY/NOVAMATH_SECRET_KEY (server.py::_get_or_create_secret).
-    Absente ou vide : aucun bootstrap, comportement par défaut inchangé."""
-    raw = os.environ.get("NOVAMATH_ADMIN_EMAILS", "")
+    Absente ou vide : ensemble vide, aucun bootstrap déclenché."""
+    raw = os.environ.get(env_name, "")
     return frozenset(e.strip().lower() for e in raw.split(",") if e.strip())
+
+
+def _admin_emails_from_env() -> frozenset:
+    """Voir NOVAMATH_ADMIN_EMAILS dans .env.example."""
+    return _emails_from_env("NOVAMATH_ADMIN_EMAILS")
+
+
+def _super_admin_emails_from_env() -> frozenset:
+    """Voir NOVAMATH_SUPER_ADMIN_EMAILS dans .env.example — même mécanisme que
+    NOVAMATH_ADMIN_EMAILS ci-dessus, pour un palier de privilège distinct
+    (SUPER_ADMIN plutôt qu'ADMIN). Variable séparée volontairement : un email
+    peut figurer dans l'une sans figurer dans l'autre, les deux listes ne
+    sont jamais fusionnées."""
+    return _emails_from_env("NOVAMATH_SUPER_ADMIN_EMAILS")
+
+
+def _bootstrap_role_from_env(user: dict, emails: frozenset, target_role: Role) -> dict:
+    """Promeut automatiquement `user` vers `target_role` si son email figure
+    dans `emails`. N'agit qu'à la hausse : ne rétrograde jamais un rôle déjà
+    égal ou supérieur à `target_role` (ex: un SUPER_ADMIN promu manuellement
+    en base, ou déjà promu par un appel précédent, n'est jamais redescendu).
+    Idempotent : sans effet une fois le rôle déjà à jour. Renvoie le `user`
+    (éventuellement mis à jour) pour que l'appelant reflète immédiatement le
+    nouveau rôle sans requête SQL supplémentaire."""
+    email = (user.get("email") or "").lower()
+    if not email or email not in emails:
+        return user
+    if has_role_at_least(user, target_role):
+        return user
+    db.set_user_role(user["id"], target_role.value)
+    return {**user, "role": target_role.value}
 
 
 def sync_admin_bootstrap(user: dict) -> dict:
     """Promeut automatiquement en Role.ADMIN tout compte dont l'email figure
     dans NOVAMATH_ADMIN_EMAILS — bootstrap du tout premier administrateur
     sans outil de gestion des rôles séparé (aucun n'existe encore dans ce
-    projet) ni valeur codée en dur. N'agit qu'à la hausse : ne rétrograde
-    jamais un rôle déjà égal ou supérieur à ADMIN (ex: un SUPER_ADMIN promu
-    manuellement en base n'est jamais redescendu). Idempotent : sans effet
-    une fois le rôle déjà à jour.
+    projet) ni valeur codée en dur.
 
-    Appelé à chaque connexion locale réussie (voir auth.py::register/login) —
-    jamais pour un compte invité (auth_provider='guest'), qui n'a par
-    construction aucune chance de figurer dans NOVAMATH_ADMIN_EMAILS.
-    Renvoie le `user` (éventuellement mis à jour) pour que l'appelant reflète
-    immédiatement le nouveau rôle sans requête SQL supplémentaire."""
-    email = (user.get("email") or "").lower()
-    if not email or email not in _admin_emails_from_env():
-        return user
-    if has_role_at_least(user, Role.ADMIN):
-        return user
-    db.set_user_role(user["id"], Role.ADMIN.value)
-    return {**user, "role": Role.ADMIN.value}
+    Appelé à chaque connexion locale réussie (voir auth.py::register/
+    _create_authenticated_session) — jamais pour un compte invité
+    (auth_provider='guest'), qui n'a par construction aucune chance de
+    figurer dans NOVAMATH_ADMIN_EMAILS."""
+    return _bootstrap_role_from_env(user, _admin_emails_from_env(), Role.ADMIN)
+
+
+def sync_super_admin_bootstrap(user: dict) -> dict:
+    """Même principe que sync_admin_bootstrap, pour NOVAMATH_SUPER_ADMIN_EMAILS
+    et Role.SUPER_ADMIN — appelé aux mêmes points d'entrée (register/
+    _create_authenticated_session), juste après sync_admin_bootstrap.
+    L'ordre entre les deux appels est sans importance : chacun ne promeut
+    qu'à la hausse et ignore silencieusement tout compte non listé dans SA
+    propre variable d'environnement."""
+    return _bootstrap_role_from_env(user, _super_admin_emails_from_env(), Role.SUPER_ADMIN)
+
+
+def sync_super_admin_bootstrap_for_configured_emails() -> None:
+    """Applique sync_super_admin_bootstrap() à chaque email de
+    NOVAMATH_SUPER_ADMIN_EMAILS qui correspond DÉJÀ à un compte existant en
+    base — couvre le cas où le compte a été créé avant que cette variable ne
+    soit configurée (ou avant un redémarrage du serveur), sans attendre sa
+    prochaine connexion. Sûre à appeler à chaque démarrage du serveur (voir
+    server.py) : no-op silencieux pour tout email absent de la table `users`
+    ou déjà au rôle SUPER_ADMIN — jamais d'exception, jamais de création de
+    compte."""
+    for email in _super_admin_emails_from_env():
+        user = db.get_user_by_email(email)
+        if user is not None:
+            sync_super_admin_bootstrap(user)

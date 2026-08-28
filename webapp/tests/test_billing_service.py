@@ -5,7 +5,6 @@ changement de plan (upgrade immédiat / downgrade programmé). Aucun appel
 réseau réel : stripe_service est entièrement mocké, comme les autres suites
 Stripe du projet.
 """
-import os
 import unittest
 from unittest.mock import patch
 
@@ -43,7 +42,12 @@ class TestGetBillingStatus(unittest.TestCase):
     ):
         mock_get_customer.return_value = {"id": "cus_123", "email": "eleve@gmail.com"}
         mock_get_subscription.return_value = {
-            "id": "sub_123", "current_period_end": 1_700_000_000, "cancel_at_period_end": False,
+            "id": "sub_123",
+            # current_period_end vit sous items.data[].current_period_end
+            # depuis l'API Stripe "Basil" (2025-03-31, vérifié par un appel
+            # réel) — jamais au niveau racine de la Subscription.
+            "items": {"data": [{"current_period_end": 1_700_000_000}]},
+            "cancel_at_period_end": False,
         }
         mock_list_pm.return_value = {"data": [{"card": {"brand": "visa", "last4": "4242", "exp_month": 8, "exp_year": 2027}}]}
         mock_list_invoices.return_value = {"data": [{
@@ -70,7 +74,8 @@ class TestGetBillingStatus(unittest.TestCase):
     def test_annulation_programmee_expose_cancel_at(self, mock_get_customer, mock_get_subscription):
         mock_get_customer.return_value = {"id": "cus_123", "email": "eleve@gmail.com"}
         mock_get_subscription.return_value = {
-            "id": "sub_123", "current_period_end": 1_700_000_000,
+            "id": "sub_123",
+            "items": {"data": [{"current_period_end": 1_700_000_000}]},
             "cancel_at_period_end": True, "cancel_at": 1_700_000_000,
         }
         with patch("billing_service.stripe_service.list_payment_methods", return_value={"data": []}), \

@@ -10,22 +10,47 @@ import os
 
 import anthropic
 
-from .base import ChatProvider
+from .base import ChatProvider, ProviderUnavailableError
 
 DEFAULT_MODEL = "claude-sonnet-5"
 
+# Sans timeout explicite, le SDK Anthropic utilise son défaut interne
+# (connect=5s, mais read/write/pool=600s chacun — vérifié sur l'environnement,
+# voir anthropic.DEFAULT_TIMEOUT) : un incident fournisseur "silencieux"
+# (connexion TCP acceptée, plus aucun octet envoyé, pas d'erreur réseau
+# franche) peut alors bloquer un thread worker gunicorn jusqu'à 10 minutes
+# (voir audit production, gunicorn.conf.py::GUNICORN_TIMEOUT=60 par défaut —
+# largement dépassé). 45s laisse largement le temps à une réponse normale de
+# démarrer/continuer à streamer tout en bornant un blocage silencieux à une
+# durée raisonnable ; ANTHROPIC_TIMEOUT permet de l'ajuster sans redéploiement
+# de code si la latence réelle du fournisseur l'exige.
+DEFAULT_TIMEOUT_SECONDS = 45
 
-class AnthropicConnectionError(RuntimeError):
+
+class AnthropicConnectionError(ProviderUnavailableError):
     """Levée quand l'API Anthropic est injoignable, la clé API est absente/
     invalide, ou que le compte n'a plus de crédit — jamais une erreur liée à
-    un abonnement Claude Pro, qui n'est jamais utilisé ici."""
+    un abonnement Claude Pro, qui n'est jamais utilisé ici. `durable=True`
+    pour clé invalide/crédit épuisé : ces cas ne se résolvent jamais tout
+    seuls, provider_manager.py les met en cache d'indisponibilité plutôt que
+    de les retenter à chaque message."""
 
 
 class AnthropicProvider(ChatProvider):
-    def __init__(self, model=None):
-        self._api_key = os.environ.get("ANTHROPIC_API_KEY")
+    def __init__(self, model=None, api_key=None):
+        # `api_key` explicite (haute disponibilité, voir
+        # ai_provider_key_service.available_keys_for_rotation) prime sur la
+        # variable d'environnement — comportement historique inchangé quand
+        # aucune clé DB n'est configurée pour ce fournisseur.
+        self._api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
         self._model = model or DEFAULT_MODEL
-        self._client = anthropic.Anthropic(api_key=self._api_key) if self._api_key else None
+        self._timeout = float(os.environ.get("ANTHROPIC_TIMEOUT", DEFAULT_TIMEOUT_SECONDS))
+        self._client = (
+            anthropic.Anthropic(api_key=self._api_key, timeout=self._timeout) if self._api_key else None
+        )
+
+    def has_credentials(self):
+        return bool(self._api_key)
 
     def _require_client(self):
         if self._client is None:
@@ -72,19 +97,37 @@ class AnthropicProvider(ChatProvider):
         return self._model
 
     def stream_chat(self, messages, system, temperature=0.7, max_tokens=1024):
+        # `temperature` fait partie du contrat commun ChatProvider (réglable
+        # par élève/admin, voir chatbot_settings/system_settings), mais
+        # claude-sonnet-5 rejette ce paramètre avec un 400 explicite
+        # ("`temperature` is deprecated for this model") quelle que soit sa
+        # valeur — vérifié par un appel réel (audit 2026-08-24). On accepte
+        # donc toujours l'argument pour respecter l'interface, sans jamais le
+        # transmettre à l'API Anthropic.
         client = self._require_client()
+        self.last_usage = None
+        self.last_finish_reason = None
         try:
             with client.messages.stream(
                 model=self._model,
                 system=system,
                 messages=messages,
-                temperature=temperature,
                 max_tokens=max_tokens,
             ) as stream:
                 for text in stream.text_stream:
                     yield text
+                final_message = stream.get_final_message()
+                usage = final_message.usage
+                self.last_usage = {
+                    "prompt_tokens": usage.input_tokens,
+                    "completion_tokens": usage.output_tokens,
+                    "total_tokens": usage.input_tokens + usage.output_tokens,
+                }
+                self.last_finish_reason = final_message.stop_reason
         except anthropic.AuthenticationError as exc:
-            raise AnthropicConnectionError("Clé API Anthropic invalide ou expirée.") from exc
+            raise AnthropicConnectionError(
+                "Clé API Anthropic invalide ou expirée.", durable=True,
+            ) from exc
         except anthropic.APIConnectionError as exc:
             raise AnthropicConnectionError(
                 "Impossible de joindre l'API Anthropic (vérifie la connexion réseau)."
@@ -94,4 +137,11 @@ class AnthropicProvider(ChatProvider):
                 "Limite de requêtes Anthropic atteinte, réessaie dans un instant."
             ) from exc
         except anthropic.APIError as exc:
-            raise AnthropicConnectionError(f"L'API Anthropic a répondu avec une erreur : {exc}") from exc
+            # Anthropic répond un compte à crédit épuisé par un 400
+            # invalid_request_error générique (pas un code dédié) — vérifié par
+            # un appel réel (voir audit provider health-check) : le message
+            # contient explicitement "credit balance is too low".
+            durable = "credit balance is too low" in str(exc).lower()
+            raise AnthropicConnectionError(
+                f"L'API Anthropic a répondu avec une erreur : {exc}", durable=durable,
+            ) from exc

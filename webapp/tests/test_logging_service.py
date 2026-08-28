@@ -14,7 +14,7 @@ import json
 import logging
 import os
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from flask import Flask, abort, jsonify
 

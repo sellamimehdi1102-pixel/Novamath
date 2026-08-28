@@ -37,7 +37,7 @@ export function renderResumeCard(container) {
           <div class="progress-fill" style="width:${progressPct}%"></div>
         </div>
       </div>
-      <a href="exercice.html" class="btn btn-primary">${icon("play")} Reprendre la série</a>
+      <a href="exercice.html?resume=1" class="btn btn-primary">${icon("play")} Reprendre la série</a>
     </div>
   `;
   return true;

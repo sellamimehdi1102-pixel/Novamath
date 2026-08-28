@@ -6,6 +6,7 @@ isolée tests/test_consent_service.py.
 """
 import random
 import unittest
+from unittest.mock import patch
 
 import db
 import server
@@ -35,6 +36,12 @@ def _register_payload(birth_date="2000-01-01", parent_email=None, **overrides):
 class RegistrationAgeTestCase(unittest.TestCase):
     def setUp(self):
         self.client = server.app.test_client()
+        # `dev_consent_link` n'apparaît que si aucun SMTP n'est configuré
+        # (voir email_service.is_configured) — forcé ici indépendamment du
+        # .env réellement chargé dans le process de test.
+        patcher = patch("email_service.is_configured", return_value=False)
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
 
 class TestBirthDateValidation(RegistrationAgeTestCase):

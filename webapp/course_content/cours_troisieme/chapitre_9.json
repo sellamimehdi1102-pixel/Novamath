@@ -1,0 +1,638 @@
+{
+  "chapterId": "Chapitre_9",
+  "title": "Représentation et traitement de données",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "moyenne-(simple-et-ponderee)",
+      "title": "Moyenne (simple et pondérée)",
+      "schemaVersion": 2,
+      "intro": "La moyenne permet de résumer une série de valeurs (notes, tailles, prix, mesures…) par un seul nombre représentatif. Quand certaines valeurs comptent plus que d'autres, parce qu'elles ont un effectif ou un coefficient, on utilise la moyenne pondérée, qui tient compte de ce poids. Cette leçon apprend à calculer une moyenne simple, une moyenne pondérée par des effectifs ou des coefficients, et à regrouper les moyennes de deux groupes différents.",
+      "explicationSimple": "Pour calculer une moyenne simple, tu additionnes toutes les valeurs puis tu divises par leur nombre. Si une valeur compte plusieurs fois, par exemple une note obtenue par plusieurs élèves ou une note affectée d'un coefficient, tu la comptes autant de fois qu'il faut avant de diviser : c'est la moyenne pondérée.",
+      "objectif": "À la fin de ce cours, tu sauras calculer la moyenne simple d'une série de valeurs, la moyenne pondérée d'une série avec effectifs ou coefficients, et regrouper les moyennes de deux groupes différents.",
+      "definition": "La moyenne simple d'une série de valeurs est la somme de toutes les valeurs divisée par leur effectif total. Lorsque certaines valeurs sont associées à un effectif ou à un coefficient (elles comptent plusieurs fois), on calcule la moyenne pondérée : on additionne les produits (valeur × effectif ou coefficient), puis on divise cette somme par la somme totale des effectifs ou des coefficients.",
+      "definitions": {
+        "lycee": "La moyenne simple d'une série de valeurs est la somme de toutes les valeurs divisée par leur effectif total. Lorsque certaines valeurs sont associées à un effectif ou à un coefficient (elles comptent plusieurs fois), on calcule la moyenne pondérée : on additionne les produits (valeur × effectif ou coefficient), puis on divise cette somme par la somme totale des effectifs ou des coefficients."
+      },
+      "intuition": "La moyenne pondérée revient à faire une moyenne simple, mais en répétant chaque valeur autant de fois que l'indique son effectif ou son coefficient. Une valeur avec un grand effectif ou un gros coefficient pèse donc plus lourd dans le résultat qu'une valeur isolée : ne divise jamais seulement par le nombre de valeurs différentes, mais bien par la somme des effectifs ou des coefficients.",
+      "reglesImportantes": [
+        "Pour une série avec effectifs, on calcule la moyenne pondérée : somme des (valeur × effectif), le tout divisé par l'effectif total.",
+        "Pour une série groupée en classes, on remplace chaque classe par son centre (moyenne des bornes), puis on calcule la moyenne pondérée par les effectifs.",
+        "Pour regrouper deux moyennes, il faut repasser par les sommes totales : on pondère chaque moyenne par l'effectif de son groupe.",
+        "Avec des coefficients, chaque note compte comme si elle était répétée autant de fois que l'indique son coefficient : on divise la somme des (note × coefficient) par la somme des coefficients.",
+        "Écris l'égalité qui donne la moyenne pondérée en fonction de $x$, puis résous l'équation obtenue."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Moyenne (simple et pondérée)",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des valeurs pour le groupe A est $18 \\times 12 = 216$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : la somme des valeurs pour le groupe B est $12 \\times 15 = 180$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : l'effectif total est $18 + 12 = 30$ et la somme totale est $216 + 180 = 396$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : la moyenne globale vaut $\\dfrac{396}{30} = 13,2$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1050",
+          "titre": "Exemple 1",
+          "enonce": "Un élève obtient les notes suivantes sur $20$ en SVT au cours d'un trimestre. On obtient la série de valeurs suivante (5 valeurs) : $12, 14, 10, 16, 13$. Calculer la moyenne de cette série.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on additionne toutes les valeurs de la série : $12 + 14 + 10 + 16 + 13 = 65$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on divise cette somme par l'effectif total, ici $5$ : $\\dfrac{65}{5} = 13$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la moyenne de la série est donc $13$."
+            }
+          ],
+          "reponse": "Moyenne $= 13$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Moyenne $= 13$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1056",
+          "titre": "Exemple 2",
+          "enonce": "Un livreur pèse $8$ colis avant de les charger dans son véhicule ; voici les masses obtenues, en kilogrammes. On obtient la série de valeurs suivante (8 valeurs) en kg : $3,2, 4,5, 2,8, 5, 3,6, 4,1, 2,9, 3,9$. Calculer la moyenne de cette série.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on additionne toutes les valeurs de la série : $3,2 + 4,5 + 2,8 + 5 + 3,6 + 4,1 + 2,9 + 3,9 = 30$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on divise cette somme par l'effectif total, ici $8$ : $\\dfrac{30}{8} = 3,75$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la moyenne de la série est donc $3,75$ kg."
+            }
+          ],
+          "reponse": "Moyenne $= 3,75$ kg",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Moyenne $= 3,75$ kg",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1062",
+          "titre": "Exemple 3",
+          "enonce": "Un professeur de mathématiques a relevé les notes obtenues sur $20$ par ses $25$ élèves à un contrôle. Voici la répartition : Les valeurs relevées et leurs effectifs sont : $8$ (effectif $3$), $10$ (effectif $5$), $12$ (effectif $8$), $14$ (effectif $6$), $16$ (effectif $3$). Calculer la moyenne de cette série.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'effectif total est $3 + 5 + 8 + 6 + 3 = 25$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on calcule la somme des produits (valeur × effectif) : $8 \\times 3 + 10 \\times 5 + 12 \\times 8 + 14 \\times 6 + 16 \\times 3 = 302$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la moyenne pondérée vaut $\\dfrac{302}{25} = 12,08$."
+            }
+          ],
+          "reponse": "Moyenne $= 12,08$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Moyenne $= 12,08$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1068",
+          "titre": "Exemple 4",
+          "enonce": "Dans un tableau statistique, les valeurs $8$, $10$, $12$ et $15$ ont respectivement pour effectifs $5$, $7$, $x$ et $3$, où $x$ est un entier inconnu. On sait que la moyenne de cette série vaut $11$. Déterminer la valeur de $x$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'effectif total est $5 + 7 + x + 3 = 15 + x$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la somme des (valeur × effectif) est $8 \\times 5 + 10 \\times 7 + 12x + 15 \\times 3 = 40 + 70 + 12x + 45 = 155 + 12x$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la moyenne étant $11$, on pose $\\dfrac{155 + 12x}{15+x} = 11$, soit $155 + 12x = 165 + 11x$, donc $x = 10$."
+            }
+          ],
+          "reponse": "$x = 10$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $x = 10$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "comparer les notes de deux classes différentes",
+        "analyser la régularité des performances d'un sportif",
+        "étudier la dispersion des salaires dans une entreprise"
+      ],
+      "erreursFrequentes": [
+        "Diviser par le nombre de valeurs différentes au lieu de diviser par la somme des effectifs (ou des coefficients) dans une moyenne pondérée.",
+        "Oublier de multiplier chaque valeur par son effectif ou son coefficient avant d'additionner, et calculer une simple moyenne des valeurs sans tenir compte de leur poids.",
+        "Pour regrouper deux moyennes de groupes différents, faire la moyenne des deux moyennes sans tenir compte de l'effectif de chaque groupe."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Diviser par le nombre de valeurs différentes au lieu de diviser par la somme des effectifs (ou des coefficients) dans une moyenne pondérée.",
+          "pourquoi": "Le réflexe de la moyenne simple (diviser par le nombre de valeurs) reste présent même quand la série comporte des effectifs.",
+          "comment_detecter": "Le résultat obtenu ne tient pas compte du fait que certaines valeurs sont beaucoup plus fréquentes que d'autres.",
+          "comment_eviter": "Additionne toujours d'abord tous les effectifs (ou coefficients) pour obtenir le diviseur, avant de calculer la somme des produits (valeur × effectif)."
+        },
+        {
+          "description": "Oublier de multiplier chaque valeur par son effectif ou son coefficient avant d'additionner, et calculer une simple moyenne des valeurs sans tenir compte de leur poids.",
+          "pourquoi": "Quand la liste de valeurs et la liste d'effectifs sont séparées dans un tableau, on peut additionner uniquement la colonne des valeurs par erreur.",
+          "comment_detecter": "Le résultat est identique à la moyenne simple des valeurs, alors que les effectifs ne sont pas tous égaux.",
+          "comment_eviter": "Pour chaque valeur, calcule d'abord le produit valeur × effectif, note-le, puis additionne tous ces produits avant de diviser."
+        },
+        {
+          "description": "Pour regrouper deux moyennes de groupes différents, faire la moyenne des deux moyennes sans tenir compte de l'effectif de chaque groupe.",
+          "pourquoi": "Faire « la moyenne des moyennes » semble naturel, mais ce calcul n'est correct que si les deux groupes ont le même effectif.",
+          "comment_detecter": "Le résultat ne change pas si l'un des deux groupes a beaucoup plus d'élèves que l'autre, ce qui n'est pas cohérent.",
+          "comment_eviter": "Repasse toujours par les sommes totales : multiplie chaque moyenne par l'effectif de son groupe, additionne, puis divise par l'effectif total des deux groupes réunis."
+        }
+      ],
+      "astuce": "Pour retenir le rôle de l'écart-type, pense à des joueurs de fléchettes : deux joueurs peuvent viser le même centre en moyenne, mais l'un est beaucoup plus régulier que l'autre.",
+      "aRetenir": [
+        "Pour une série avec effectifs, on calcule la moyenne pondérée : somme des (valeur × effectif), le tout divisé par l'effectif total.",
+        "Pour une série groupée en classes, on remplace chaque classe par son centre (moyenne des bornes), puis on calcule la moyenne pondérée par les effectifs.",
+        "Pour regrouper deux moyennes, il faut repasser par les sommes totales : on pondère chaque moyenne par l'effectif de son groupe.",
+        "Avec des coefficients, chaque note compte comme si elle était répétée autant de fois que l'indique son coefficient : on divise la somme des (note × coefficient) par la somme des coefficients.",
+        "Écris l'égalité qui donne la moyenne pondérée en fonction de $x$, puis résous l'équation obtenue."
+      ],
+      "figure": {
+        "kind": "bars",
+        "bars": [
+          {"label": "12", "value": 12},
+          {"label": "14", "value": 14},
+          {"label": "10", "value": 10},
+          {"label": "16", "value": 16},
+          {"label": "13", "value": 13}
+        ],
+        "alt": "Les 5 notes de la série (12, 14, 10, 16, 13) : leur somme divisée par 5 donne la moyenne, 13."
+      },
+      "quizExerciseIds": [
+        1051,
+        1052,
+        1053
+      ],
+      "topic_id": "moyenne-(simple-et-ponderee)",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Moyenne (simple et pondérée)."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "moyenne",
+        "simple",
+        "ponderee"
+      ]
+    },
+    {
+      "id": "mediane-et-etendue-d-une-serie-statistique",
+      "title": "Médiane et étendue d'une série statistique",
+      "schemaVersion": 2,
+      "intro": "La médiane et l'étendue sont deux indicateurs qui décrivent une série de données une fois rangées dans l'ordre. La médiane partage la série en deux groupes de même effectif, tandis que l'étendue mesure l'écart entre la plus grande et la plus petite valeur. Ensemble, elles permettent de situer une valeur « typique » et de juger si une série est plus ou moins dispersée que d'autres.",
+      "explicationSimple": "Range toutes les valeurs de la plus petite à la plus grande, comme des élèves alignés du plus petit au plus grand. La médiane, c'est la personne exactement au milieu de la file (ou la moyenne des deux personnes du milieu s'ils sont en nombre pair). L'étendue, c'est la différence entre le plus grand et le plus petit : elle dit si le groupe est homogène ou très varié.",
+      "objectif": "À la fin de ce cours, tu sauras ranger une série de valeurs pour déterminer sa médiane (effectif pair ou impair), calculer son étendue, et comparer plusieurs séries à l'aide de ces deux indicateurs.",
+      "definition": "La médiane d'une série de valeurs rangées dans l'ordre croissant est la valeur qui partage la série en deux parties de même effectif : la moitié des valeurs lui sont inférieures ou égales, l'autre moitié lui sont supérieures ou égales. Si l'effectif est impair, la médiane est la valeur centrale ; si l'effectif est pair, la médiane est la demi-somme des deux valeurs centrales. L'étendue d'une série est la différence entre sa plus grande valeur et sa plus petite valeur.",
+      "definitions": {
+        "lycee": "La médiane d'une série de valeurs rangées dans l'ordre croissant est la valeur qui partage la série en deux parties de même effectif : la moitié des valeurs lui sont inférieures ou égales, l'autre moitié lui sont supérieures ou égales. Si l'effectif est impair, la médiane est la valeur centrale ; si l'effectif est pair, la médiane est la demi-somme des deux valeurs centrales. L'étendue d'une série est la différence entre sa plus grande valeur et sa plus petite valeur.",
+        "college": "Range la série dans l'ordre croissant, puis repère la ou les valeurs du milieu pour trouver la médiane ; calcule ensuite la plus grande valeur moins la plus petite valeur pour trouver l'étendue."
+      },
+      "intuition": "La médiane ne se calcule pas avec une formule toute faite : il faut d'abord ranger toutes les valeurs dans l'ordre. L'erreur la plus fréquente est de confondre effectif pair et effectif impair, c'est-à-dire de prendre une seule valeur centrale alors qu'il en faut deux (ou l'inverse) : vérifie toujours la parité de l'effectif total avant de choisir la bonne règle.",
+      "reglesImportantes": [
+        "Il faut d'abord ranger les valeurs dans l'ordre croissant : la médiane est alors la valeur centrale (effectif impair).",
+        "Calcule séparément la médiane et l'étendue de chaque série ordonnée, puis compare les deux étendues : plus l'étendue est petite, plus la série est homogène.",
+        "Range la série complète, calcule médiane et étendue, puis retire une seule fois la plus petite et une seule fois la plus grande valeur avant de recommencer.",
+        "Range la série avant de repérer la valeur centrale, et compare le poids d'une valeur extrême sur la médiane et sur la moyenne.",
+        "Calcule les effectifs cumulés croissants pour repérer directement la position centrale, sans avoir à réécrire toute la série."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Médiane et étendue d'une série statistique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on range la série dans l'ordre croissant : $1750, 1780, 1800, 1820, 1830, 1850, 1900, 1900, 8000$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : l'effectif est impair ($9$ salariés) : la médiane est la valeur centrale, soit $1830$ €."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : l'étendue vaut $8000 - 1750 = 6250$ €."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : le salaire du patron (8 000 €) est une valeur extrême qui ferait fortement augmenter la moyenne, alors qu'elle ne modifie pas la médiane : la médiane reflète donc mieux le salaire \"typique\" des salariés."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1080",
+          "titre": "Exemple 1",
+          "enonce": "Voici les notes sur $20$ obtenues par $7$ élèves à un devoir de français. Voici la série des 7 valeurs relevées : $8, 14, 10, 16, 12, 9, 15$. Déterminer la médiane et l'étendue de cette série.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on range la série dans l'ordre croissant : $8, 9, 10, 12, 14, 15, 16$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'effectif est impair ($7$ valeurs) : la médiane est la valeur de rang $4$, soit $12$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'étendue est la différence entre la plus grande et la plus petite valeur : $16 - 8 = 8$."
+            }
+          ],
+          "reponse": "Médiane $= 12$, étendue $= 8$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Médiane $= 12$, étendue $= 8$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1086",
+          "titre": "Exemple 2",
+          "enonce": "Un randonneur pèse le contenu de $6$ sacs à dos avant un départ en excursion. Voici la série des 6 valeurs relevées en kg : $5,2, 6, 4,8, 5,5, 6,3, 5$. Déterminer la médiane et l'étendue de cette série.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on range la série dans l'ordre croissant : $4,8, 5, 5,2, 5,5, 6, 6,3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'effectif est pair ($6$ valeurs) : la médiane est la demi-somme des deux valeurs centrales, $\\dfrac{5,2 + 5,5}{2} = 5,35$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'étendue est la différence entre la plus grande et la plus petite valeur : $6,3 - 4,8 = 1,5$."
+            }
+          ],
+          "reponse": "Médiane $= 5,35$ kg, étendue $= 1,5$ kg",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Médiane $= 5,35$ kg, étendue $= 1,5$ kg",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1092",
+          "titre": "Exemple 3",
+          "enonce": "Voici les notes sur $20$ de $11$ élèves à un contrôle d'histoire, données dans le désordre. Voici la série des 11 valeurs relevées : $12, 7, 15, 9, 18, 11, 6, 14, 10, 16, 8$. Déterminer la médiane et l'étendue de cette série.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on range la série dans l'ordre croissant : $6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 18$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'effectif est impair ($11$ valeurs) : la médiane est la valeur de rang $6$, soit $11$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'étendue est la différence entre la plus grande et la plus petite valeur : $18 - 6 = 12$."
+            }
+          ],
+          "reponse": "Médiane $= 11$, étendue $= 12$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Médiane $= 11$, étendue $= 12$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1098",
+          "titre": "Exemple 4",
+          "enonce": "Un professeur a organisé les notes sur $20$ de ses $20$ élèves dans le tableau suivant : $8$ (effectif $3$), $10$ (effectif $5$), $12$ (effectif $4$), $14$ (effectif $6$), $16$ (effectif $2$). Déterminer la médiane de cette série à l'aide des effectifs cumulés croissants.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les effectifs cumulés croissants sont : $3, 8, 12, 18, 20$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'effectif total est $20$ (pair) : la médiane se situe entre les valeurs de rang $10$ et $11$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : ces deux rangs correspondent tous deux à la valeur $14$ (cumul atteignant $18$ après cette valeur), donc la médiane vaut $\\dfrac{14 + 14}{2} = 12$."
+            }
+          ],
+          "reponse": "Médiane $= 12$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Médiane $= 12$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Chercher la médiane sans avoir rangé la série dans l'ordre croissant.",
+        "Confondre effectif pair et effectif impair : prendre une seule valeur centrale alors que l'effectif est pair (il en faut deux à faire la demi-somme), ou l'inverse.",
+        "Confondre médiane et étendue, ou calculer l'étendue avec les premières et dernières valeurs lues dans l'énoncé au lieu du minimum et du maximum de la série rangée."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Chercher la médiane sans avoir rangé la série dans l'ordre croissant.",
+          "pourquoi": "Il est tentant de repérer directement la valeur « du milieu » dans l'ordre où les données sont données dans l'énoncé.",
+          "comment_detecter": "La valeur trouvée ne correspond pas à la moitié des valeurs inférieures et à la moitié des valeurs supérieures une fois la série réellement ordonnée.",
+          "comment_eviter": "Range systématiquement toutes les valeurs de la plus petite à la plus grande avant de chercher la position centrale."
+        },
+        {
+          "description": "Confondre effectif pair et effectif impair : prendre une seule valeur centrale alors que l'effectif est pair (il en faut deux à faire la demi-somme), ou l'inverse.",
+          "pourquoi": "Les deux règles (valeur centrale unique, ou demi-somme de deux valeurs centrales) se ressemblent et sont faciles à inverser.",
+          "comment_detecter": "Le rang trouvé pour la médiane n'est pas un nombre entier alors que l'effectif est impair, ou inversement une seule valeur est utilisée alors que l'effectif est pair.",
+          "comment_eviter": "Compte d'abord l'effectif total et regarde s'il est pair ou impair avant de choisir entre valeur centrale unique et demi-somme de deux valeurs centrales."
+        },
+        {
+          "description": "Confondre médiane et étendue, ou calculer l'étendue avec les premières et dernières valeurs lues dans l'énoncé au lieu du minimum et du maximum de la série rangée.",
+          "pourquoi": "Les deux indicateurs se calculent à partir de la même série rangée, ce qui peut amener à mélanger les deux méthodes.",
+          "comment_detecter": "L'étendue obtenue ne correspond pas à la différence entre la vraie plus grande et la vraie plus petite valeur de la série.",
+          "comment_eviter": "Range d'abord la série entière : la médiane se lit au centre, l'étendue se calcule avec la première et la dernière valeur de cette série rangée (maximum moins minimum)."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Il faut d'abord ranger les valeurs dans l'ordre croissant : la médiane est alors la valeur centrale (effectif impair).",
+        "Calcule séparément la médiane et l'étendue de chaque série ordonnée, puis compare les deux étendues : plus l'étendue est petite, plus la série est homogène.",
+        "Range la série complète, calcule médiane et étendue, puis retire une seule fois la plus petite et une seule fois la plus grande valeur avant de recommencer.",
+        "Range la série avant de repérer la valeur centrale, et compare le poids d'une valeur extrême sur la médiane et sur la moyenne.",
+        "Calcule les effectifs cumulés croissants pour repérer directement la position centrale, sans avoir à réécrire toute la série.",
+        "Calcule les effectifs cumulés croissants, puis repère dans quelle classe se trouvent les rangs centraux de la série."
+      ],
+      "figure": {
+        "kind": "numberline",
+        "min": 7,
+        "max": 17,
+        "marks": [
+          {"value": 8, "label": "min = 8"},
+          {"value": 12, "label": "médiane = 12"},
+          {"value": 16, "label": "max = 16"}
+        ],
+        "highlight": {"from": 8, "to": 16},
+        "alt": "Série rangée 8, 9, 10, 12, 14, 15, 16 : la médiane (12) partage la série en deux, l'étendue (16 − 8 = 8) mesure l'écart entre le minimum et le maximum."
+      },
+      "quizExerciseIds": [
+        1081,
+        1082,
+        1083
+      ],
+      "topic_id": "mediane-et-etendue-d-une-serie-statistique",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Médiane et étendue d'une série statistique."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "mediane",
+        "etendue",
+        "serie",
+        "statistique"
+      ]
+    },
+    {
+      "id": "representations-graphiques-de-donnees",
+      "title": "Représentations graphiques de données",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre à lire et construire des représentations graphiques de données.\n\nCette notion sert à choisir le bon type de graphique (diagramme en barres, diagramme circulaire, histogramme) selon la nature des données, et à en extraire l'information (effectif total, catégorie la plus fréquente, classe modale).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Un diagramme en barres compare des catégories (comme les sports préférés d'une classe), un diagramme circulaire montre comment un total se répartit en parts (comme un budget), et un histogramme regroupe des valeurs numériques par tranches (comme des tailles de plantes). Le bon choix dépend uniquement du type de données que l'on veut représenter.",
+      "objectif": "À la fin de ce cours, tu sauras choisir le graphique adapté à des données (diagramme en barres, diagramme circulaire ou histogramme), calculer un effectif total, identifier la catégorie ou la classe modale, et convertir des effectifs en angles pour construire ou lire un diagramme circulaire.",
+      "definition": "Un diagramme en barres (ou en bâtons) représente des données par des rectangles dont la hauteur est proportionnelle à l'effectif de chaque catégorie ; un diagramme circulaire répartit un total en secteurs dont l'angle est proportionnel à l'effectif ; un histogramme représente des données numériques regroupées en classes, la classe modale étant celle de plus grand effectif.",
+      "definitions": {
+        "lycee": "Un diagramme en barres (ou en bâtons) représente des données par des rectangles dont la hauteur est proportionnelle à l'effectif de chaque catégorie ; un diagramme circulaire répartit un total en secteurs dont l'angle est proportionnel à l'effectif ; un histogramme représente des données numériques regroupées en classes, la classe modale étant celle de plus grand effectif.",
+        "college": "Additionne les effectifs pour retrouver le total, puis repère le bâton (ou le secteur) le plus grand."
+      },
+      "intuition": "Avant de calculer quoi que ce soit, identifie le type de graphique et ce que représente chaque axe ou chaque secteur : un diagramme en barres compare des catégories, un diagramme circulaire montre une répartition en pourcentage d'un total, un histogramme regroupe des valeurs numériques par classes.",
+      "reglesImportantes": [
+        "L'effectif total s'obtient en additionnant tous les effectifs lus sur le diagramme.",
+        "Les années forment une suite de catégories discrètes (et non des classes numériques continues) : un diagramme en barres est adapté. L'augmentation moyenne annuelle se calcule en divisant l'augmentation totale par le nombre d'intervalles d'une année entre le début et la fin.",
+        "Utilise angle $= \\dfrac{\\text{voix}}{\\text{total}} \\times 360°$ dans un sens, et voix $= \\dfrac{\\text{angle}}{360} \\times \\text{total}$ dans l'autre, puis la somme des voix (ou des angles) pour trouver la dernière quantité.",
+        "Le sport pratiqué est une donnée catégorielle (non numérique) : un diagramme en barres convient pour une lecture directe ; pour le diagramme circulaire, chaque angle est proportionnel à l'effectif de la catégorie.",
+        "Si un pourcentage et l'effectif correspondant sont connus, on retrouve l'effectif total par une règle de trois : effectif total $= \\dfrac{\\text{effectif connu}}{\\text{pourcentage connu}} \\times 100$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Représentations graphiques de données",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : voix du candidat A $= \\dfrac{108}{360} \\times 1200 = 360$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : angle du candidat B $= \\dfrac{300}{1200} \\times 360 = 90°$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : voix du candidat C $= \\dfrac{126}{360} \\times 1200 = 420$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : voix du candidat D $= 1200 - 360 - 300 - 420 = 120$, ce qui correspond à un angle de $\\dfrac{120}{1200} \\times 360 = 36°$. On vérifie : $108 + 90 + 126 + 36 = 360°$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1110",
+          "titre": "Exemple 1",
+          "enonce": "On a demandé à $30$ élèves d'une classe de troisième quel est leur sport préféré. Les résultats sont représentés par un diagramme en barres dont on donne ici la description complète : Football : $12$, Basket-ball : $8$, Natation : $5$, Tennis : $3$, Autre : $2$. Déterminer l'effectif total de cette série, puis indiquer quelle catégorie a été la plus citée.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on additionne tous les effectifs lus sur le diagramme : $12 + 8 + 5 + 3 + 2 = 30$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la hauteur (ou la longueur) la plus grande correspond à \"Football\", avec un effectif de $12$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'effectif total de la série est donc $30$, et la catégorie la plus représentée est \"Football\"."
+            }
+          ],
+          "reponse": "Effectif total $= 30$ ; catégorie la plus citée : Football (effectif $12$)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Effectif total $= 30$ ; catégorie la plus citée : Football (effectif $12$)",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1116",
+          "titre": "Exemple 2",
+          "enonce": "Un jardinier mesure la taille (en cm) de $40$ jeunes plants en pépinière. Un histogramme représente cette série, regroupée en classes de même amplitude : $[10;20[$ (effectif $10$), $[20;30[$ (effectif $15$), $[30;40[$ (effectif $9$), $[40;50[$ (effectif $6$). Déterminer l'effectif total de cette série, puis la classe modale (celle qui a le plus grand effectif).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on additionne les effectifs de toutes les classes : $10 + 15 + 9 + 6 = 40$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le rectangle le plus haut correspond à la classe $[20;30[$, avec un effectif de $15$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'effectif total est $40$, la classe modale est $[20;30[$."
+            }
+          ],
+          "reponse": "Effectif total $= 40$ ; classe modale $= [20;30[$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Effectif total $= 40$ ; classe modale $= [20;30[$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1122",
+          "titre": "Exemple 3",
+          "enonce": "Une famille a réparti son budget mensuel de $1800$ € de la façon suivante : Logement : $720$ €, Alimentation : $450$ €, Transport : $270$ €, Loisirs : $180$ €, Autres : $180$ €. On souhaite représenter cette répartition par un diagramme circulaire. Calculer l'angle (en degrés, arrondi au dixième) correspondant à chaque poste de dépense.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le budget total est de $1800$ €."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on calcule chaque angle avec la formule angle $= \\dfrac{\\text{valeur}}{1800} \\times 360°$ : Logement : $\\dfrac{720}{1800} \\times 360 = 144°$ ; Alimentation : $\\dfrac{450}{1800} \\times 360 = 90°$ ; Transport : $\\dfrac{270}{1800} \\times 360 = 54°$ ; Loisirs : $\\dfrac{180}{1800} \\times 360 = 36°$ ; Autres : $\\dfrac{180}{1800} \\times 360 = 36°$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on vérifie que la somme des angles fait bien $360°$ : $144 + 90 + 54 + 36 + 36 = 360$."
+            }
+          ],
+          "reponse": "Logement : $144°$ ; Alimentation : $90°$ ; Transport : $54°$ ; Loisirs : $36°$ ; Autres : $36°$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Logement : $144°$ ; Alimentation : $90°$ ; Transport : $54°$ ; Loisirs : $36°$ ; Autres : $36°$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1128",
+          "titre": "Exemple 4",
+          "enonce": "Une entreprise de $200$ employés a mené une enquête sur le moyen de transport utilisé pour venir travailler : Voiture : $90$, Bus : $50$, Vélo : $30$, Marche à pied : $20$, Covoiturage : $10$. Calculer l'angle du diagramme circulaire pour chaque moyen de transport, et vérifier que la somme de tous les angles fait bien $360°$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : l'effectif total est $200$ employés."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on calcule chaque angle : Voiture : $\\dfrac{90}{200} \\times 360 = 162°$ ; Bus : $\\dfrac{50}{200} \\times 360 = 90°$ ; Vélo : $\\dfrac{30}{200} \\times 360 = 54°$ ; Marche à pied : $\\dfrac{20}{200} \\times 360 = 36°$ ; Covoiturage : $\\dfrac{10}{200} \\times 360 = 18°$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la somme des angles est $162 + 90 + 54 + 36 + 18 = 360°$, ce qui correspond bien au tour complet de $360°$."
+            }
+          ],
+          "reponse": "Voiture : $162°$ ; Bus : $90°$ ; Vélo : $54°$ ; Marche à pied : $36°$ ; Covoiturage : $18°$ ; somme $= 360°$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Voiture : $162°$ ; Bus : $90°$ ; Vélo : $54°$ ; Marche à pied : $36°$ ; Covoiturage : $18°$ ; somme $= 360°$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "comparer les notes de deux classes différentes",
+        "analyser la régularité des performances d'un sportif",
+        "étudier la dispersion des salaires dans une entreprise"
+      ],
+      "erreursFrequentes": [
+        "Confondre effectif et angle dans un diagramme circulaire, et utiliser directement l'effectif comme si c'était un angle en degrés.",
+        "Choisir un histogramme pour des données catégorielles (comme des sports) alors qu'un histogramme sert uniquement aux données numériques regroupées en classes.",
+        "Oublier de vérifier que la somme des angles calculés fait bien $360°$ avant de rendre la réponse."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre effectif et angle dans un diagramme circulaire, et utiliser directement l'effectif comme si c'était un angle en degrés.",
+          "pourquoi": "L'élève oublie qu'un diagramme circulaire répartit 360° proportionnellement aux effectifs, et pense que l'effectif lui-même est directement l'angle en degrés.",
+          "comment_detecter": "La somme des « angles » écrits par l'élève ne fait pas 360°, ou un angle dépasse 360° alors que ce n'est pas possible sur un cercle.",
+          "comment_eviter": "Toujours calculer l'angle avec la formule angle $= \\dfrac{\\text{effectif}}{\\text{total}} \\times 360°$, puis vérifier que la somme de tous les angles obtenus vaut bien $360°$."
+        },
+        {
+          "description": "Choisir un histogramme pour des données catégorielles (comme des sports) alors qu'un histogramme sert uniquement aux données numériques regroupées en classes.",
+          "pourquoi": "L'élève retient qu'un histogramme sert à représenter des effectifs sans distinguer si les données de départ sont des catégories (mots) ou des nombres regroupés en classes.",
+          "comment_detecter": "Les barres du graphique portent des étiquettes non numériques (« Football », « Basket »...) collées les unes aux autres comme dans un histogramme, ou inversement des classes numériques sont séparées comme dans un diagramme en barres.",
+          "comment_eviter": "Se demander avant de tracer si les données sont des catégories (diagramme en barres, barres séparées) ou des valeurs numériques regroupées en classes d'amplitude égale (histogramme, barres collées)."
+        },
+        {
+          "description": "Oublier de vérifier que la somme des angles calculés fait bien $360°$ avant de rendre la réponse.",
+          "pourquoi": "L'élève calcule chaque angle séparément avec la formule mais ne fait jamais l'addition finale de contrôle, ce qui laisse passer une erreur de calcul sur un des angles.",
+          "comment_detecter": "En additionnant tous les angles trouvés à la fin, le total est différent de 360° (souvent à cause d'une erreur d'arrondi ou d'un mauvais effectif utilisé).",
+          "comment_eviter": "Prendre l'habitude systématique d'additionner tous les angles calculés en fin d'exercice et de vérifier que le total est bien 360°, quitte à corriger un calcul si ce n'est pas le cas."
+        }
+      ],
+      "astuce": "Pour retenir le rôle de l'écart-type, pense à des joueurs de fléchettes : deux joueurs peuvent viser le même centre en moyenne, mais l'un est beaucoup plus régulier que l'autre.",
+      "aRetenir": [
+        "L'effectif total s'obtient en additionnant tous les effectifs lus sur le diagramme.",
+        "Les années forment une suite de catégories discrètes (et non des classes numériques continues) : un diagramme en barres est adapté. L'augmentation moyenne annuelle se calcule en divisant l'augmentation totale par le nombre d'intervalles d'une année entre le début et la fin.",
+        "Utilise angle $= \\dfrac{\\text{voix}}{\\text{total}} \\times 360°$ dans un sens, et voix $= \\dfrac{\\text{angle}}{360} \\times \\text{total}$ dans l'autre, puis la somme des voix (ou des angles) pour trouver la dernière quantité.",
+        "Le sport pratiqué est une donnée catégorielle (non numérique) : un diagramme en barres convient pour une lecture directe ; pour le diagramme circulaire, chaque angle est proportionnel à l'effectif de la catégorie.",
+        "Si un pourcentage et l'effectif correspondant sont connus, on retrouve l'effectif total par une règle de trois : effectif total $= \\dfrac{\\text{effectif connu}}{\\text{pourcentage connu}} \\times 100$.",
+        "Le diagramme en barres convient aux données non numériques (catégories), le diagramme en bâtons aux valeurs numériques isolées, et l'histogramme aux séries continues regroupées en classes."
+      ],
+      "figure": {
+        "kind": "bars",
+        "bars": [
+          {"label": "Football", "value": 12},
+          {"label": "Basket", "value": 8},
+          {"label": "Natation", "value": 5},
+          {"label": "Tennis", "value": 3},
+          {"label": "Autre", "value": 2}
+        ],
+        "alt": "Diagramme en barres des sports préférés de 30 élèves : Football est la catégorie la plus citée avec un effectif de 12."
+      },
+      "quizExerciseIds": [
+        1111,
+        1112,
+        1113
+      ],
+      "topic_id": "representations-graphiques-de-donnees",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Représentations graphiques de données."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "representations",
+        "graphiques",
+        "donnees"
+      ]
+    }
+  ]
+}

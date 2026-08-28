@@ -248,7 +248,7 @@ describe("auth.js — challenge 2FA (étape 2 de connexion)", () => {
 });
 
 // Les tests "mode invité" vivent dans auth-guest.test.js (fichier séparé) :
-// auth.js câble .js-start-guest-eval via délégation sur `document`
+// auth.js câble .js-start-guest via délégation sur `document`
 // (document.addEventListener("click", ...)) — un listener qui persiste tant
 // que `document` existe. Comme ce fichier réimporte dynamiquement auth.js à
 // CHAQUE test (`vi.resetModules()`, nécessaire pour rejouer ensureAuthModalsMounted

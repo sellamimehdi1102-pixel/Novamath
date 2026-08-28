@@ -1,0 +1,1012 @@
+{
+  "chapterId": "Chapitre_8",
+  "title": "Fonctions affines",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "determiner-une-fonction-affine-a-partir-de-deux-images",
+      "title": "Déterminer une fonction affine à partir de deux images",
+      "schemaVersion": 2,
+      "intro": "Déterminer une fonction affine à partir de deux images, c'est retrouver l'expression complète $f(x) = mx + p$ d'une fonction affine quand on connaît seulement deux couples (antécédent ; image). Cette situation est très fréquente : on ne connaît souvent que deux mesures d'une évolution, et il faut en déduire toute la fonction.\n\nDans cette leçon, tu vas apprendre à calculer le coefficient directeur $m$ à partir de deux images connues, puis à en déduire l'ordonnée à l'origine $p$.",
+      "explicationSimple": "Une fonction affine $f(x) = mx + p$ est entièrement déterminée par deux nombres : $m$ (de combien $f(x)$ change quand $x$ augmente de 1) et $p$ (la valeur de $f(0)$). Si tu connais deux images, tu peux calculer $m$ en regardant de combien varie l'image quand $x$ varie, puis retrouver $p$ en remplaçant dans l'une des deux égalités connues.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer les coefficients $m$ et $p$ d'une fonction affine à partir de deux images connues, en utilisant la formule $m = \\dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$ puis en calculant $p$ par substitution.",
+      "definition": "Déterminer une fonction affine $f(x) = mx + p$ à partir de deux images $f(x_1)$ et $f(x_2)$ connues (avec $x_1 \\neq x_2$), c'est calculer le coefficient directeur avec $m = \\dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$, puis trouver l'ordonnée à l'origine en substituant : $p = f(x_1) - m \\times x_1$.",
+      "definitions": {
+        "lycee": "Déterminer une fonction affine $f(x) = mx + p$ à partir de deux images $f(x_1)$ et $f(x_2)$ connues (avec $x_1 \\neq x_2$), c'est calculer le coefficient directeur avec $m = \\dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$, puis trouver l'ordonnée à l'origine en substituant : $p = f(x_1) - m \\times x_1$.",
+        "college": "On calcule d'abord $m$ en comparant l'évolution des deux images, puis on trouve $p$ en remplaçant dans l'une des deux égalités connues."
+      },
+      "intuition": "L'erreur la plus fréquente est de se tromper de signe en manipulant les valeurs négatives dans la formule de $m$ : prends toujours le temps d'écrire clairement le numérateur (différence des images) et le dénominateur (différence des antécédents), dans le même ordre, avant de calculer.",
+      "reglesImportantes": [
+        "On calcule d'abord $m$ à l'aide de la formule des accroissements, puis on trouve $p$ en substituant une des deux images.",
+        "On utilise la formule $m = \\dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$, puis on substitue pour trouver $p$.",
+        "Attention aux signes lors du calcul de $m$ et de $p$ avec des valeurs négatives.",
+        "Le calcul de $m$ peut donner un nombre décimal : on effectue la division avec soin.",
+        "L'image de $0$ donne directement $p$ ; on calcule ensuite $m$ à partir de la deuxième image."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Déterminer une fonction affine à partir de deux images",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{f(3) - f(1)}{3 - 1} = \\dfrac{9 - 5}{2} = 2$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $p = f(1) - m \\times 1 = 5 - 2 \\times 1 = 3$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $f(x) = 2x + 3$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-930",
+          "titre": "Exemple 1",
+          "enonce": "Une fonction affine $f$ est telle que $f(1) = 5$ et $f(3) = 9$. Déterminer l'expression de $f(x)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{f(3) - f(1)}{3 - 1} = \\dfrac{9 - 5}{2} = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $p = f(1) - m \\times 1 = 5 - 2 \\times 1 = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(x) = 2x + 3$."
+            }
+          ],
+          "reponse": "$f(x) = 2x + 3$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 2x + 3$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-936",
+          "titre": "Exemple 2",
+          "enonce": "Une fonction affine $f$ vérifie $f(-1) = 1$ et $f(2) = 10$. Déterminer l'expression de $f(x)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{10 - (1)}{2 - (-1)} = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $p = f(-1) - m \\times (-1) = 1 - (3) \\times (-1) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on obtient $f(x) = 3x + 4$."
+            }
+          ],
+          "reponse": "$f(x) = 3x + 4$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 3x + 4$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-942",
+          "titre": "Exemple 3",
+          "enonce": "On sait que $f(6) = 2$ et $f(-3) = 20$ pour une certaine fonction affine $f$. Déterminer $f(x)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{20 - (2)}{-3 - (6)} = -2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $p = f(6) - m \\times 6 = 2 - (-2) \\times (6) = 14$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f(x) = -2x + 14$."
+            }
+          ],
+          "reponse": "$f(x) = -2x + 14$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = -2x + 14$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-948",
+          "titre": "Exemple 4",
+          "enonce": "Une fonction affine $f$ est telle que $f(2) = 3$ et $f(6) = 5$. Déterminer l'expression de $f(x)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{5 - (3)}{6 - (2)} = 0,5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $p = f(2) - m \\times 2 = 3 - 0,5 \\times (2) = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $f(x) = 0,5x + 2$."
+            }
+          ],
+          "reponse": "$f(x) = 0,5x + 2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 0,5x + 2$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [
+        "Attention aux signes lors du calcul de $m$ et de $p$ avec des valeurs négatives."
+      ],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "On calcule d'abord $m$ à l'aide de la formule des accroissements, puis on trouve $p$ en substituant une des deux images.",
+        "On utilise la formule $m = \\dfrac{f(x_2) - f(x_1)}{x_2 - x_1}$, puis on substitue pour trouver $p$.",
+        "Attention aux signes lors du calcul de $m$ et de $p$ avec des valeurs négatives.",
+        "Le calcul de $m$ peut donner un nombre décimal : on effectue la division avec soin.",
+        "L'image de $0$ donne directement $p$ ; on calcule ensuite $m$ à partir de la deuxième image."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 6, 11],
+        "grid": true,
+        "axes": true,
+        "segments": [
+          {"from": {"x": 0, "y": 3}, "to": {"x": 3, "y": 9}, "variant": "a"}
+        ],
+        "points": [
+          {"x": 1, "y": 5, "label": "A", "showCoords": true},
+          {"x": 3, "y": 9, "label": "B", "showCoords": true}
+        ],
+        "alt": "La droite représentant f(x) = 2x + 3 passe par A(1 ; 5) et B(3 ; 9)."
+      },
+      "quizExerciseIds": [
+        931,
+        932,
+        933
+      ],
+      "topic_id": "determiner-une-fonction-affine-a-partir-de-deux-images",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Déterminer une fonction affine à partir de deux images."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "determiner",
+        "fonction",
+        "affine",
+        "partir"
+      ]
+    },
+    {
+      "id": "lecture-graphique-d-une-fonction-affine-ou-lineaire",
+      "title": "Lecture graphique d'une fonction affine ou linéaire",
+      "schemaVersion": 2,
+      "intro": "Faire une lecture graphique d'une fonction affine ou linéaire, c'est retrouver l'expression de la fonction $f(x) = mx + p$ directement à partir de sa représentation graphique (une droite), sans passer par un calcul algébrique de départ.\n\nDans cette leçon, tu vas apprendre à lire l'ordonnée à l'origine $p$ (là où la droite coupe l'axe vertical) et à calculer le coefficient directeur $m$ à partir des coordonnées de deux points de la droite, puis à décider si la fonction est linéaire ou seulement affine.",
+      "explicationSimple": "Sur un graphique, une droite représente toujours une fonction affine. Le nombre $p$ se lit directement : c'est la hauteur à laquelle la droite coupe l'axe vertical (l'axe des ordonnées), c'est-à-dire l'endroit où $x = 0$. Le nombre $m$ se calcule en choisissant deux points de la droite et en regardant de combien on monte ou descend pour un déplacement d'une unité vers la droite.",
+      "objectif": "À la fin de ce cours, tu sauras lire graphiquement l'ordonnée à l'origine $p$ d'une droite, calculer son coefficient directeur $m$ à partir des coordonnées de deux points, et reconnaître si la fonction représentée est linéaire (droite passant par l'origine) ou seulement affine.",
+      "definition": "Faire une lecture graphique d'une fonction affine, c'est déterminer $m$ et $p$ à partir de sa droite représentative : $p$ est l'ordonnée du point où la droite coupe l'axe des ordonnées (abscisse $0$), et $m$ s'obtient en calculant $\\dfrac{y_2 - y_1}{x_2 - x_1}$ à partir des coordonnées de deux points de la droite. La fonction est linéaire si et seulement si la droite passe par l'origine du repère, c'est-à-dire si $p = 0$.",
+      "definitions": {
+        "lycee": "Faire une lecture graphique d'une fonction affine, c'est déterminer $m$ et $p$ à partir de sa droite représentative : $p$ est l'ordonnée du point où la droite coupe l'axe des ordonnées (abscisse $0$), et $m$ s'obtient en calculant $\\dfrac{y_2 - y_1}{x_2 - x_1}$ à partir des coordonnées de deux points de la droite. La fonction est linéaire si et seulement si la droite passe par l'origine du repère, c'est-à-dire si $p = 0$.",
+        "college": "Sur le graphique, $p$ se lit là où la droite coupe l'axe vertical, et $m$ se calcule en comparant les coordonnées de deux points de la droite."
+      },
+      "intuition": "L'erreur la plus fréquente est de croire que $p$ se lit toujours facilement sur le graphique : ce n'est possible que si l'origine ($x = 0$) est visible sur la figure. Si ce n'est pas le cas, il faut calculer $m$ d'abord avec deux points connus, puis retrouver $p$ par le calcul, sans se fier uniquement à la lecture visuelle.",
+      "reglesImportantes": [
+        "On détermine $m$ et $p$ à partir des deux points donnés, puis on calcule l'image demandée.",
+        "Le coefficient directeur et l'ordonnée à l'origine peuvent être des fractions : on ne les simplifie qu'à la fin.",
+        "Comme le point d'abscisse $0$ est connu, $p$ se lit directement ; $m$ s'obtient par différence des ordonnées.",
+        "Une fonction est linéaire si et seulement si $p = 0$, c'est-à-dire si la droite passe par l'origine du repère.",
+        "Le coefficient directeur peut être décimal : on effectue soigneusement la division des accroissements."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Lecture graphique d'une fonction affine ou linéaire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $A(0\\,;\\,2)$ donne directement $p = 2$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $m = \\dfrac{5 - 2}{1 - 0} = 3$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $f(x) = 3x + 2$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1020",
+          "titre": "Exemple 1",
+          "enonce": "La droite $(d)$ représentant une fonction affine $f$ passe par les points $A(0\\,;\\,2)$ et $B(1\\,;\\,5)$. Déterminer $m$ et $p$, puis donner l'expression de $f(x)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $A(0\\,;\\,2)$ donne directement $p = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $m = \\dfrac{5 - 2}{1 - 0} = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(x) = 3x + 2$."
+            }
+          ],
+          "reponse": "$m = 3$, $p = 2$ et $f(x) = 3x + 2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $m = 3$, $p = 2$ et $f(x) = 3x + 2$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1026",
+          "titre": "Exemple 2",
+          "enonce": "La droite $(d)$ représentant une fonction affine $f$ passe par les points $A(1\\,;\\,4)$ et $B(3\\,;\\,10)$. Déterminer l'expression de $f(x)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{10 - (4)}{3 - (1)} = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $p = 4 - 3 \\times (1) = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(x) = 3x + 1$."
+            }
+          ],
+          "reponse": "$f(x) = 3x + 1$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 3x + 1$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1032",
+          "titre": "Exemple 3",
+          "enonce": "La droite $(d)$ passe par $A(-3\\,;\\,-2)$ et $B(3\\,;\\,4)$. a) La fonction $f$ représentée par $(d)$ est-elle linéaire ? Justifier. b) Donner l'expression de $f(x)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{4 - (-2)}{3 - (-3)} = 1$ et $p = -2 - 1 \\times (-3) = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : comme $p = 1 \\neq 0$, la droite ne passe pas par l'origine : $f$ n'est pas linéaire."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(x) = x + 1$."
+            }
+          ],
+          "reponse": "Non, $f$ n'est pas linéaire (car $p = 1 \\neq 0$), $f(x) = x + 1$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Non, $f$ n'est pas linéaire (car $p = 1 \\neq 0$), $f(x) = x + 1$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1038",
+          "titre": "Exemple 4",
+          "enonce": "La droite $(d)$ passe par les points $A(-2\\,;\\,5)$ et $B(4\\,;\\,2)$. Déterminer l'expression de $f(x)$ (coefficient décimal), puis calculer $f(10)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{2 - (5)}{4 - (-2)} = -0,5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $p = 5 - (-0,5) \\times (-2) = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(x) = -0,5x + 4$, donc $f(10) = -1$."
+            }
+          ],
+          "reponse": "$f(x) = -0,5x + 4$ et $f(10) = -1$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = -0,5x + 4$ et $f(10) = -1$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [
+        "Lire $p$ directement sur le graphique alors que l'origine (abscisse $0$) n'apparaît pas dans la partie visible de la figure.",
+        "Calculer $m$ en divisant l'ordonnée par l'abscisse d'un seul point, au lieu d'utiliser la différence des ordonnées divisée par la différence des abscisses entre deux points.",
+        "Conclure qu'une fonction est linéaire simplement parce que sa droite semble passer près de l'origine, sans vérifier précisément que $p = 0$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Lire $p$ directement sur le graphique alors que l'origine (abscisse $0$) n'apparaît pas dans la partie visible de la figure.",
+          "pourquoi": "On suppose à tort que la fenêtre du graphique montre toujours l'axe des ordonnées à $x = 0$, ce qui n'est pas systématique.",
+          "comment_detecter": "La valeur de $p$ annoncée ne correspond pas au calcul obtenu en utilisant la formule avec deux points connus.",
+          "comment_eviter": "Vérifier que le point d'abscisse $0$ est bien visible sur la figure avant de lire $p$ directement ; sinon, le calculer avec la formule du coefficient directeur."
+        },
+        {
+          "description": "Calculer $m$ en divisant l'ordonnée par l'abscisse d'un seul point, au lieu d'utiliser la différence des ordonnées divisée par la différence des abscisses entre deux points.",
+          "pourquoi": "Cette confusion vient du calcul du coefficient de proportionnalité (qui utilise un seul point), alors qu'une fonction affine n'est pas forcément linéaire et nécessite deux points.",
+          "comment_detecter": "Le coefficient obtenu ne redonne pas les bonnes images quand on le teste sur les deux points de la droite.",
+          "comment_eviter": "Toujours utiliser deux points distincts de la droite et la formule $m = \\dfrac{y_2 - y_1}{x_2 - x_1}$, jamais les coordonnées d'un seul point."
+        },
+        {
+          "description": "Conclure qu'une fonction est linéaire simplement parce que sa droite semble passer près de l'origine, sans vérifier précisément que $p = 0$.",
+          "pourquoi": "Une lecture graphique approximative peut donner l'impression qu'une droite passe par l'origine alors qu'elle la coupe légèrement au-dessus ou en dessous.",
+          "comment_detecter": "Le calcul précis de $p$ à partir de deux points donne une valeur proche de $0$ mais non nulle.",
+          "comment_eviter": "Toujours calculer $p$ précisément par la formule plutôt que de se fier à l'aspect visuel de la droite près de l'origine."
+        }
+      ],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "On détermine $m$ et $p$ à partir des deux points donnés, puis on calcule l'image demandée.",
+        "Le coefficient directeur et l'ordonnée à l'origine peuvent être des fractions : on ne les simplifie qu'à la fin.",
+        "Comme le point d'abscisse $0$ est connu, $p$ se lit directement ; $m$ s'obtient par différence des ordonnées.",
+        "Une fonction est linéaire si et seulement si $p = 0$, c'est-à-dire si la droite passe par l'origine du repère.",
+        "Le coefficient directeur peut être décimal : on effectue soigneusement la division des accroissements.",
+        "Une droite qui passe par l'origine du repère représente une fonction linéaire."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 4, 7],
+        "grid": true,
+        "axes": true,
+        "segments": [
+          {"from": {"x": 0, "y": 2}, "to": {"x": 1, "y": 5}, "variant": "a"}
+        ],
+        "points": [
+          {"x": 0, "y": 2, "label": "A", "showCoords": true},
+          {"x": 1, "y": 5, "label": "B", "showCoords": true}
+        ],
+        "alt": "La droite passant par A(0 ; 2) et B(1 ; 5) représente f(x) = 3x + 2 : p = 2 se lit directement à l'origine."
+      },
+      "quizExerciseIds": [
+        1021,
+        1022,
+        1023
+      ],
+      "topic_id": "lecture-graphique-d-une-fonction-affine-ou-lineaire",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Lecture graphique d'une fonction affine ou linéaire."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "lecture",
+        "graphique",
+        "fonction",
+        "affine"
+      ]
+    },
+    {
+      "id": "modeliser-une-situation-de-proportionnalite-par-une-fonction-lineaire",
+      "title": "Modéliser une situation de proportionnalité par une fonction linéaire",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre à modéliser une situation de proportionnalité par une fonction linéaire.\n\nCette notion sert à écrire, sous la forme $f(x) = mx$, une situation de la vie courante où une quantité est proportionnelle à une autre (un prix proportionnel à une masse, par exemple).\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Dès qu'une situation est proportionnelle (le prix de fruits achetés au kilo, par exemple), on peut la représenter par une fonction linéaire $f(x) = mx$ : $x$ est la quantité de départ, $f(x)$ le résultat, et $m$ le coefficient de proportionnalité que l'on retrouve à chaque fois qu'on divise le résultat par la quantité.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître une situation de proportionnalité, calculer son coefficient $m$ à partir d'une donnée connue, écrire la fonction linéaire $f(x) = mx$ qui la modélise, puis l'utiliser pour calculer un prix (une image) ou retrouver une quantité (un antécédent).",
+      "definition": "Modéliser une situation de proportionnalité par une fonction linéaire, c'est trouver le coefficient $m$ (en divisant une valeur d'arrivée connue par la valeur de départ correspondante), puis écrire $f(x) = mx$ pour décrire la situation dans son ensemble.",
+      "definitions": {
+        "lycee": "Modéliser une situation de proportionnalité par une fonction linéaire, c'est trouver le coefficient $m$ (en divisant une valeur d'arrivée connue par la valeur de départ correspondante), puis écrire $f(x) = mx$ pour décrire la situation dans son ensemble.",
+        "college": "On calcule $m$ en divisant le prix connu par la quantité connue, puis on écrit $f(x) = mx$."
+      },
+      "intuition": "Une fois que $m$ est trouvé, la fonction $f(x) = mx$ permet de répondre à n'importe quelle question sur la situation : soit on calcule une image $f(x)$ (on multiplie par $m$), soit on cherche un antécédent (on résout une équation $mx = $ valeur connue en divisant par $m$).",
+      "reglesImportantes": [
+        "Une situation de proportionnalité se modélise par une fonction linéaire $f(x) = mx$, où $m$ est le coefficient de proportionnalité.",
+        "On calcule le coefficient de proportionnalité $m$ à partir de la donnée connue, puis on utilise $f(x) = mx$.",
+        "On détermine d'abord $m$, puis on résout une équation du type $mx = $ valeur donnée pour trouver $x$.",
+        "On calcule le coefficient $m$, on l'utilise pour la récolte de 13 arbres, puis on résout une équation pour trouver le nombre d'arbres.",
+        "On convertit les kg en g pour travailler avec la même unité, puis on calcule le coefficient de proportionnalité."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Modéliser une situation de proportionnalité par une fonction linéaire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{9}{5} = 1,8$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : la situation se modélise par $f(x) = 1,8x$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $f(12) = 1,8 \\times 12 = 21,6$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-990",
+          "titre": "Exemple 1",
+          "enonce": "Le prix des pommes est proportionnel à la masse achetée : 1 kg coûte 2,80€. Exprimer le prix $f(x)$ en fonction de la masse $x$ (en kg) achetée.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le coefficient de proportionnalité est $m = 2,8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on modélise la situation par $f(x) = 2,8x$."
+            }
+          ],
+          "reponse": "$f(x) = 2,8x$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 2,8x$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-996",
+          "titre": "Exemple 2",
+          "enonce": "5 kg de riz coûtent 9€, sachant que le prix est proportionnel à la masse. a) Déterminer la fonction linéaire $f(x)$ donnant le prix en fonction de la masse $x$ (en kg). b) Calculer le prix de 12 kg de riz.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{9}{5} = 1,8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la situation se modélise par $f(x) = 1,8x$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(12) = 1,8 \\times 12 = 21,6$."
+            }
+          ],
+          "reponse": "$f(x) = 1,8x$ et le résultat demandé est 21,6",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 1,8x$ et le résultat demandé est 21,6",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1002",
+          "titre": "Exemple 3",
+          "enonce": "Le prix d'un gâteau est proportionnel au nombre de parts : 6 parts coûtent 21€. a) Déterminer la fonction linéaire $f(x)$ donnant le prix en fonction du nombre de parts $x$. b) Combien de parts peut-on acheter avec 42€ ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $m = \\dfrac{21}{6} = 3,5$, donc $f(x) = 3,5x$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on résout $ 3,5x = 42 $."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $x = \\dfrac{42}{3,5} = 12$ parts."
+            }
+          ],
+          "reponse": "$f(x) = 3,5x$ et la réponse est 12 parts",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 3,5x$ et la réponse est 12 parts",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1008",
+          "titre": "Exemple 4",
+          "enonce": "Deux fournisseurs de peinture proposent des tarifs proportionnels au volume acheté. Chez le fournisseur A, 3 L coûtent 45€. Chez le fournisseur B, le prix est donné par $f(x) = 13,5x$. Quel fournisseur est le moins cher pour l'achat de 5 L de peinture ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : chez A, $m = \\dfrac{45}{3} = 15$, donc $f_A(x) = 15x$ et $f_A(5) = 75$€."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : chez B, $f_B(x) = 13,5x$, donc $f_B(5) = 67,5$€."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $67,5 < 75$, le fournisseur B est le moins cher."
+            }
+          ],
+          "reponse": "Le fournisseur B est moins cher (67,5€ contre 75€ chez A)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Le fournisseur B est moins cher (67,5€ contre 75€ chez A)",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "les soldes et remises en magasin",
+        "l'évolution démographique d'une ville",
+        "l'inflation des prix d'une année sur l'autre"
+      ],
+      "erreursFrequentes": [
+        "Diviser dans le mauvais sens pour calculer $m$ (faire quantité ÷ prix au lieu de prix ÷ quantité).",
+        "Oublier de convertir les unités (kg et g, par exemple) avant de calculer le coefficient $m$.",
+        "Écrire $f(x) = mx + p$ avec un $p$ qui n'existe pas, alors qu'une situation de proportionnalité n'a pas de terme constant."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Diviser dans le mauvais sens pour calculer $m$ (faire quantité ÷ prix au lieu de prix ÷ quantité).",
+          "pourquoi": "L'élève confond quelle grandeur dépend de l'autre et divise machinalement le premier nombre de l'énoncé par le second, sans se demander ce que représente $m$.",
+          "comment_detecter": "Le coefficient trouvé est très petit (inférieur à 1) alors que le prix devrait augmenter vite avec la quantité, ou inversement le résultat final ne correspond pas du tout à l'ordre de grandeur attendu.",
+          "comment_eviter": "Toujours écrire $m = \\dfrac{\\text{valeur d'arrivée (prix)}}{\\text{valeur de départ (quantité)}}$ et vérifier que $m$ correspond bien au prix d'une seule unité."
+        },
+        {
+          "description": "Oublier de convertir les unités (kg et g, par exemple) avant de calculer le coefficient $m$.",
+          "pourquoi": "L'élève utilise directement les nombres de l'énoncé sans remarquer que l'une des grandeurs est donnée dans une unité différente de celle demandée pour $f(x)$.",
+          "comment_detecter": "Le coefficient $m$ obtenu est anormalement grand ou petit (par exemple 1000 fois trop grand) et les résultats calculés ensuite avec $f(x) = mx$ sont absurdes.",
+          "comment_eviter": "Repérer toutes les unités présentes dans l'énoncé avant de calculer, et convertir chaque grandeur dans la même unité que celle utilisée pour $x$ avant de diviser."
+        },
+        {
+          "description": "Écrire $f(x) = mx + p$ avec un $p$ qui n'existe pas, alors qu'une situation de proportionnalité n'a pas de terme constant.",
+          "pourquoi": "L'élève confond fonction linéaire et fonction affine, ou ajoute un nombre en pensant à un prix fixe (abonnement, frais de port) qui n'est pas mentionné dans l'énoncé.",
+          "comment_detecter": "La fonction écrite contient un terme constant alors que l'énoncé précise que le prix est proportionnel à la quantité, ou $f(0)$ n'est pas égal à 0.",
+          "comment_eviter": "Vérifier qu'une situation proportionnelle donne toujours $f(0) = 0$ (rien acheté, rien à payer), donc la fonction s'écrit uniquement $f(x) = mx$, sans terme ajouté."
+        }
+      ],
+      "astuce": "Pour ne jamais additionner deux pourcentages d'évolutions successives par erreur, retiens qu'on multiplie toujours les coefficients multiplicateurs entre eux.",
+      "aRetenir": [
+        "Une situation de proportionnalité se modélise par une fonction linéaire $f(x) = mx$, où $m$ est le coefficient de proportionnalité.",
+        "On calcule le coefficient de proportionnalité $m$ à partir de la donnée connue, puis on utilise $f(x) = mx$.",
+        "On détermine d'abord $m$, puis on résout une équation du type $mx = $ valeur donnée pour trouver $x$.",
+        "On calcule le coefficient $m$, on l'utilise pour la récolte de 13 arbres, puis on résout une équation pour trouver le nombre d'arbres.",
+        "On convertit les kg en g pour travailler avec la même unité, puis on calcule le coefficient de proportionnalité.",
+        "On calcule le coefficient de proportionnalité de chaque fournisseur, puis on compare les deux prix pour 5 L."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 7, 11],
+        "grid": true,
+        "axes": true,
+        "segments": [
+          {"from": {"x": 0, "y": 0}, "to": {"x": 5, "y": 9}, "variant": "a"},
+          {"from": {"x": 5, "y": 0}, "to": {"x": 5, "y": 9}, "dashed": true},
+          {"from": {"x": 0, "y": 9}, "to": {"x": 5, "y": 9}, "dashed": true}
+        ],
+        "points": [
+          {"x": 0, "y": 0, "label": "O"},
+          {"x": 5, "y": 9, "label": "A", "showCoords": true}
+        ],
+        "alt": "La droite $f(x) = 1,8x$ passe par l'origine : 5 kg de riz coûtent 9€, ce qui donne le coefficient m = 1,8."
+      },
+      "quizExerciseIds": [
+        991,
+        992,
+        993
+      ],
+      "topic_id": "modeliser-une-situation-de-proportionnalite-par-une-fonction-lineaire",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Modéliser une situation de proportionnalité par une fonction linéaire."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "modeliser",
+        "situation",
+        "proportionnalite",
+        "fonction"
+      ]
+    },
+    {
+      "id": "reconnaitre-et-utiliser-une-fonction-affine",
+      "title": "Reconnaître et utiliser une fonction affine",
+      "schemaVersion": 2,
+      "intro": "Reconnaître une fonction affine, c'est savoir identifier qu'une expression peut s'écrire sous la forme $f(x) = mx + p$, avec $m$ le coefficient directeur et $p$ l'ordonnée à l'origine. Utiliser une fonction affine, c'est ensuite calculer des images, vérifier si un point appartient à sa droite représentative, ou retrouver ses coefficients.\n\nDans cette leçon, tu vas apprendre à repérer les coefficients $m$ et $p$ d'une fonction affine, y compris quand l'expression doit d'abord être développée, et à les utiliser pour résoudre des exercices.",
+      "explicationSimple": "Une fonction affine s'écrit toujours $f(x) = mx + p$ : un terme en $x$ (multiplié par $m$) et un nombre tout seul (qui est $p$). Parfois l'expression est cachée sous une forme avec parenthèses, comme $f(x) = 3(x+2) - 5$ : il faut alors développer et réduire pour faire apparaître clairement $m$ et $p$.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître qu'une fonction est affine en identifiant ses coefficients $m$ et $p$ (au besoin après avoir développé son expression), calculer ses images, et vérifier si un point donné appartient à sa droite représentative.",
+      "definition": "Une fonction affine est une fonction qui peut s'écrire sous la forme $f(x) = mx + p$, où $m$ (le coefficient directeur) et $p$ (l'ordonnée à l'origine) sont deux nombres fixés. Sa représentation graphique est une droite. Un point de coordonnées $(a\\,;\\,b)$ appartient à cette droite si et seulement si $f(a) = b$.",
+      "definitions": {
+        "lycee": "Une fonction affine est une fonction qui peut s'écrire sous la forme $f(x) = mx + p$, où $m$ (le coefficient directeur) et $p$ (l'ordonnée à l'origine) sont deux nombres fixés. Sa représentation graphique est une droite. Un point de coordonnées $(a\\,;\\,b)$ appartient à cette droite si et seulement si $f(a) = b$.",
+        "college": "Une fonction affine s'écrit $f(x) = mx + p$. Pour calculer une image, on remplace $x$ par sa valeur dans cette expression."
+      },
+      "intuition": "L'erreur la plus fréquente est de ne pas reconnaître une fonction affine quand son expression contient des parenthèses non développées, comme $f(x) = 3(x+2) - 5$. Développe et réduis toujours l'expression avant de conclure : les coefficients $m$ et $p$ n'apparaissent clairement qu'une fois l'expression sous la forme $mx + p$.",
+      "reglesImportantes": [
+        "Le coefficient de $x$ est $m$, le terme constant est $p$ ; pour calculer une image, on remplace $x$ par la valeur donnée.",
+        "On développe chaque parenthèse puis on regroupe les termes en $x$ d'une part, les termes constants d'autre part.",
+        "On remplace $x$ successivement par chacune des deux valeurs demandées.",
+        "L'image de $0$ donne directement $p$ ; on utilise ensuite la variation entre les deux images pour trouver $m$.",
+        "Un point $(-3\\,;\\,11)$ appartient à la droite représentant $f$ si et seulement si $f(-3) = 11$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Reconnaître et utiliser une fonction affine",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(0) = 3$ donc $p = 3$ (l'image de $0$ est toujours l'ordonnée à l'origine)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $m = \\dfrac{f(0) - f(-2)}{0 - (-2)} = \\dfrac{3 - 7}{2} = -2$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $f(x) = -2x + 3$, donc $f(3) = -2 \\times 3 + 3 = -3$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-900",
+          "titre": "Exemple 1",
+          "enonce": "On considère la fonction affine $f(x) = 2x + 3$. a) Donner son coefficient directeur $m$ et son ordonnée à l'origine $p$. b) Calculer $f(4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : dans $f(x) = 2x + 3$, le coefficient directeur est $m = 2$ et l'ordonnée à l'origine est $p = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(4) = 2 \\times 4 + 3 = 11$."
+            }
+          ],
+          "reponse": "$m = 2$, $p = 3$ et $f(4) = 11$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $m = 2$, $p = 3$ et $f(4) = 11$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-906",
+          "titre": "Exemple 2",
+          "enonce": "On considère la fonction affine $f(x) = 3x - 4$. Calculer $f(2)$ et $f(-3)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(2) = 3 \\times (2) - 4 = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(-3) = 3 \\times (-3) - 4 = -13$."
+            }
+          ],
+          "reponse": "$f(2) = 2$ et $f(-3) = -13$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(2) = 2$ et $f(-3) = -13$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-912",
+          "titre": "Exemple 3",
+          "enonce": "On considère la fonction $f$ définie par $f(x) = 3(x+2) - 5$. Montrer que $f$ est une fonction affine dont on précisera les coefficients $m$ et $p$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on développe les parenthèses dans l'expression de $f(x)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : après réduction, $f(x) = 3x + 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f$ est donc bien une fonction affine, de coefficient directeur $m = 3$ et d'ordonnée à l'origine $p = 1$."
+            }
+          ],
+          "reponse": "$f(x) = 3x + 1$, donc $m = 3$ et $p = 1$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 3x + 1$, donc $m = 3$ et $p = 1$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-918",
+          "titre": "Exemple 4",
+          "enonce": "On considère la fonction affine $f(x) = 2x + 1$ et le point $A(3\\,;\\,7)$. Le point $A$ appartient-il à la droite représentant $f$ ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on calcule $f(3) = 2 \\times 3 + 1 = 7$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on trouve $f(3) = 7 = 7$, donc $A$ appartient bien à la droite représentant $f$."
+            }
+          ],
+          "reponse": "Oui, $A$ appartient à la droite représentant $f$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $A$ appartient à la droite représentant $f$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [
+        "Ne pas reconnaître une fonction affine quand son expression contient des parenthèses non développées, et se tromper en identifiant $m$ et $p$ trop vite.",
+        "Confondre le coefficient directeur $m$ et l'ordonnée à l'origine $p$ en les lisant dans le mauvais ordre dans l'expression $mx + p$.",
+        "Pour vérifier qu'un point appartient à la droite, oublier de comparer l'ordonnée du point au résultat exact de $f$ calculé en son abscisse."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Ne pas reconnaître une fonction affine quand son expression contient des parenthèses non développées, et se tromper en identifiant $m$ et $p$ trop vite.",
+          "pourquoi": "Les coefficients $m$ et $p$ ne sont visibles directement que lorsque l'expression est écrite sous la forme réduite $mx + p$ ; avec des parenthèses, ils sont cachés dans le calcul.",
+          "comment_detecter": "Les coefficients annoncés ne redonnent pas les bonnes images quand on les teste avec l'expression développée.",
+          "comment_eviter": "Toujours développer et réduire complètement l'expression avant d'identifier $m$ et $p$."
+        },
+        {
+          "description": "Confondre le coefficient directeur $m$ et l'ordonnée à l'origine $p$ en les lisant dans le mauvais ordre dans l'expression $mx + p$.",
+          "pourquoi": "Les deux nombres jouent des rôles différents mais apparaissent l'un à côté de l'autre dans l'écriture, ce qui peut prêter à confusion.",
+          "comment_detecter": "La valeur donnée pour $m$ est en réalité le terme constant, ou inversement.",
+          "comment_eviter": "Retenir que $m$ est toujours le nombre multiplié par $x$, et $p$ est toujours le nombre seul, obtenu aussi en calculant $f(0)$."
+        },
+        {
+          "description": "Pour vérifier qu'un point appartient à la droite, oublier de comparer l'ordonnée du point au résultat exact de $f$ calculé en son abscisse.",
+          "pourquoi": "On confond parfois « le point semble proche de la droite sur un dessin » avec la vérification algébrique exacte, qui est la seule fiable.",
+          "comment_detecter": "La conclusion sur l'appartenance du point est donnée sans avoir calculé $f$ à l'abscisse du point.",
+          "comment_eviter": "Toujours calculer $f(a)$ pour l'abscisse $a$ du point, puis comparer ce résultat à l'ordonnée $b$ du point : le point appartient à la droite seulement si $f(a) = b$."
+        }
+      ],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "Le coefficient de $x$ est $m$, le terme constant est $p$ ; pour calculer une image, on remplace $x$ par la valeur donnée.",
+        "On développe chaque parenthèse puis on regroupe les termes en $x$ d'une part, les termes constants d'autre part.",
+        "On remplace $x$ successivement par chacune des deux valeurs demandées.",
+        "L'image de $0$ donne directement $p$ ; on utilise ensuite la variation entre les deux images pour trouver $m$.",
+        "Un point $(-3\\,;\\,11)$ appartient à la droite représentant $f$ si et seulement si $f(-3) = 11$.",
+        "Un point $(-2\\,;\\,5)$ appartient à la droite représentant $f$ si et seulement si $f(-2) = 5$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 6, 13],
+        "grid": true,
+        "axes": true,
+        "segments": [
+          {"from": {"x": 0, "y": 3}, "to": {"x": 4, "y": 11}, "variant": "a"},
+          {"from": {"x": 4, "y": 0}, "to": {"x": 4, "y": 11}, "dashed": true},
+          {"from": {"x": 0, "y": 11}, "to": {"x": 4, "y": 11}, "dashed": true}
+        ],
+        "points": [
+          {"x": 0, "y": 3, "label": "p", "showCoords": false},
+          {"x": 4, "y": 11, "label": "M", "showCoords": true}
+        ],
+        "alt": "La droite représentant f(x) = 2x + 3 : elle coupe l'axe des ordonnées en p = 3, et passe par M(4 ; 11) car f(4) = 11."
+      },
+      "quizExerciseIds": [
+        901,
+        902,
+        903
+      ],
+      "topic_id": "reconnaitre-et-utiliser-une-fonction-affine",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Reconnaître et utiliser une fonction affine."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "reconnaitre",
+        "utiliser",
+        "fonction",
+        "affine"
+      ]
+    },
+    {
+      "id": "reconnaitre-et-utiliser-une-fonction-lineaire",
+      "title": "Reconnaître et utiliser une fonction linéaire",
+      "schemaVersion": 2,
+      "intro": "Reconnaître une fonction linéaire, c'est identifier qu'une expression peut s'écrire sous la forme $f(x) = mx$, sans terme constant. C'est un cas particulier de fonction affine, pour lequel $p = 0$ : sa droite représentative passe toujours par l'origine du repère.\n\nDans cette leçon, tu vas apprendre à repérer une fonction linéaire (y compris après développement d'une expression), à calculer ses images et antécédents, et à comprendre le lien entre fonction linéaire et situation de proportionnalité.",
+      "explicationSimple": "Une fonction linéaire, c'est une fonction affine toute simple, sans le petit nombre ajouté à la fin : $f(x) = mx$. Concrètement, cela veut dire que si $x$ double, $f(x)$ double aussi ; si $x$ triple, $f(x)$ triple aussi. C'est exactement le même comportement qu'une situation de proportionnalité, avec $m$ comme coefficient de proportionnalité.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître qu'une fonction est linéaire en identifiant son coefficient $m$ (au besoin après avoir développé son expression), et l'utiliser pour calculer des images, des antécédents, ou vérifier qu'un point appartient à sa droite représentative.",
+      "definition": "Une fonction linéaire est une fonction qui peut s'écrire sous la forme $f(x) = mx$, où $m$ est un nombre fixé appelé coefficient de proportionnalité. C'est le cas particulier d'une fonction affine $f(x)=mx+p$ pour lequel $p = 0$ ; sa représentation graphique est une droite qui passe par l'origine du repère.",
+      "definitions": {
+        "lycee": "Une fonction linéaire est une fonction qui peut s'écrire sous la forme $f(x) = mx$, où $m$ est un nombre fixé appelé coefficient de proportionnalité. C'est le cas particulier d'une fonction affine $f(x)=mx+p$ pour lequel $p = 0$ ; sa représentation graphique est une droite qui passe par l'origine du repère.",
+        "college": "Une fonction linéaire s'écrit $f(x) = mx$. Pour calculer une image, on multiplie $x$ par $m$."
+      },
+      "intuition": "L'erreur la plus fréquente est d'oublier de vérifier que le terme constant disparaît complètement après développement : une expression comme $f(x) = 2(x+1) - 2$ se réduit à $f(x) = 2x$, donc est bien linéaire, mais cela n'est pas visible avant d'avoir développé et réduit entièrement l'expression.",
+      "reglesImportantes": [
+        "On développe les parenthèses puis on réduit : si le terme constant disparaît, la fonction est linéaire.",
+        "Pour une fonction linéaire $f(x) = mx$, l'image de $x$ s'obtient en multipliant $x$ par $m$.",
+        "On multiplie chaque valeur de $x$ par le coefficient $m$.",
+        "Pour une fonction linéaire, $m = \\dfrac{f(x)}{x}$ pour tout $x \\neq 0$.",
+        "Un point $(-3\\,;\\,-10)$ appartient à la droite représentant $f$ si et seulement si $f(-3) = -10$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Reconnaître et utiliser une fonction linéaire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on développe chaque parenthèse dans l'expression de $f(x)$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : après réduction, tous les termes constants s'annulent et il reste $f(x) = 5x$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : $f$ est donc une fonction linéaire de coefficient $m = 5$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-960",
+          "titre": "Exemple 1",
+          "enonce": "On considère la fonction linéaire $f(x) = 3x$. a) Donner son coefficient $m$. b) Calculer $f(4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le coefficient de $f(x) = 3x$ est $m = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(4) = 3 \\times (4) = 12$."
+            }
+          ],
+          "reponse": "$m = 3$ et $f(4) = 12$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $m = 3$ et $f(4) = 12$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-966",
+          "titre": "Exemple 2",
+          "enonce": "On considère la fonction linéaire $f(x) = 2x$. Calculer $f(3)$ et $f(-4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(3) = 2 \\times (3) = 6$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(-4) = 2 \\times (-4) = -8$."
+            }
+          ],
+          "reponse": "$f(3) = 6$ et $f(-4) = -8$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(3) = 6$ et $f(-4) = -8$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-972",
+          "titre": "Exemple 3",
+          "enonce": "On considère la fonction $f$ définie par $f(x) = 3(x+4) + 2x - 12$. Montrer que $f$ est une fonction linéaire et donner son coefficient $m$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on développe chaque parenthèse dans l'expression de $f(x)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : après réduction, tous les termes constants s'annulent et il reste $f(x) = 5x$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f$ est donc une fonction linéaire de coefficient $m = 5$."
+            }
+          ],
+          "reponse": "$f(x) = 5x$, donc $f$ est linéaire de coefficient $m = 5$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 5x$, donc $f$ est linéaire de coefficient $m = 5$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-978",
+          "titre": "Exemple 4",
+          "enonce": "On considère la fonction linéaire $f(x) = 3x$ et le point $A(4\\,;\\,12)$. Le point $A$ appartient-il à la droite représentant $f$ ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on calcule $f(4) = 3 \\times (4) = 12$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on trouve $f(4) = 12$, donc $A$ appartient bien à la droite représentant $f$."
+            }
+          ],
+          "reponse": "Oui, $A$ appartient à la droite représentant $f$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $A$ appartient à la droite représentant $f$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "le prix d'un trajet en taxi selon la distance parcourue",
+        "la température d'un four selon le temps de chauffe",
+        "le salaire selon le nombre d'heures travaillées"
+      ],
+      "erreursFrequentes": [
+        "Conclure trop vite qu'une fonction n'est pas linéaire à cause d'une expression avec parenthèses, sans l'avoir développée et réduite jusqu'au bout.",
+        "Confondre une fonction linéaire avec une fonction affine quelconque, en oubliant que $p$ doit être exactement égal à $0$, pas juste petit.",
+        "Pour une fonction linéaire, calculer une image en ajoutant $m$ à $x$ au lieu de multiplier $x$ par $m$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Conclure trop vite qu'une fonction n'est pas linéaire à cause d'une expression avec parenthèses, sans l'avoir développée et réduite jusqu'au bout.",
+          "pourquoi": "Le terme constant peut être caché dans les parenthèses et disparaître seulement après développement complet, ce qui n'est pas visible au premier coup d'œil.",
+          "comment_detecter": "L'expression développée fait finalement apparaître $f(x) = mx$ sans terme constant, contrairement à la conclusion donnée trop vite.",
+          "comment_eviter": "Toujours développer et réduire complètement l'expression avant de décider si la fonction est linéaire ou non."
+        },
+        {
+          "description": "Confondre une fonction linéaire avec une fonction affine quelconque, en oubliant que $p$ doit être exactement égal à $0$, pas juste petit.",
+          "pourquoi": "Toute fonction linéaire est affine, ce qui peut faire croire à tort que toute fonction affine est linéaire.",
+          "comment_detecter": "La fonction est qualifiée de linéaire alors que son expression réduite contient un terme constant non nul, même petit.",
+          "comment_eviter": "Vérifier précisément, après réduction complète, que le terme constant est nul (et pas seulement petit) avant de conclure que la fonction est linéaire."
+        },
+        {
+          "description": "Pour une fonction linéaire, calculer une image en ajoutant $m$ à $x$ au lieu de multiplier $x$ par $m$.",
+          "pourquoi": "La confusion entre addition et multiplication est fréquente quand on manipule rapidement des expressions avec une lettre et un nombre.",
+          "comment_detecter": "Le résultat obtenu ne respecte pas la proportionnalité attendue (doubler $x$ ne double pas le résultat trouvé).",
+          "comment_eviter": "Relire l'expression $f(x) = mx$ comme « $m$ fois $x$ » et toujours multiplier, jamais additionner, pour calculer une image."
+        }
+      ],
+      "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
+      "aRetenir": [
+        "On développe les parenthèses puis on réduit : si le terme constant disparaît, la fonction est linéaire.",
+        "Pour une fonction linéaire $f(x) = mx$, l'image de $x$ s'obtient en multipliant $x$ par $m$.",
+        "On multiplie chaque valeur de $x$ par le coefficient $m$.",
+        "Pour une fonction linéaire, $m = \\dfrac{f(x)}{x}$ pour tout $x \\neq 0$.",
+        "Un point $(-3\\,;\\,-10)$ appartient à la droite représentant $f$ si et seulement si $f(-3) = -10$.",
+        "Un point $(5\\,;\\,-11)$ appartient à la droite représentant $f$ si et seulement si $f(5) = -11$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-1, -1, 6, 14],
+        "grid": true,
+        "axes": true,
+        "segments": [
+          {"from": {"x": 0, "y": 0}, "to": {"x": 4, "y": 12}, "variant": "a"},
+          {"from": {"x": 4, "y": 0}, "to": {"x": 4, "y": 12}, "dashed": true}
+        ],
+        "points": [
+          {"x": 0, "y": 0, "label": "O"},
+          {"x": 4, "y": 12, "label": "M", "showCoords": true}
+        ],
+        "alt": "La droite représentant f(x) = 3x passe par l'origine O : c'est le signe caractéristique d'une fonction linéaire."
+      },
+      "quizExerciseIds": [
+        961,
+        962,
+        963
+      ],
+      "topic_id": "reconnaitre-et-utiliser-une-fonction-lineaire",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Reconnaître et utiliser une fonction linéaire."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "reconnaitre",
+        "utiliser",
+        "fonction",
+        "lineaire"
+      ]
+    }
+  ]
+}

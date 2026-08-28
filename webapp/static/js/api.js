@@ -36,7 +36,14 @@ export function handleQuotaExceeded(payload) {
   el.innerHTML = `<span>Tu as utilisé tous tes messages d'aujourd'hui. Passe à ${planLabel} pour continuer.</span>`;
   el.hidden = false;
   quotaToastTimer = setTimeout(() => {
-    window.location.href = `/abonnement.html?reason=quota&quota=${encodeURIComponent(payload.quota)}`;
+    // required_plan transporté tel quel : calculé côté serveur par
+    // quota_service._next_plan_with_more (voir quota_service.py), qui
+    // vérifie réellement quel palier offre PLUS sur CE quota précis (Free=15
+    // < Premium=25 < Ultra=40, chacun distinct). Ne jamais recalculer cette
+    // valeur côté client (voir abonnement.js) : un calcul naïf "palier
+    // suivant" pourrait diverger si QUOTA_MATRIX changeait à nouveau.
+    const requiredPlanParam = payload.required_plan ? `&required_plan=${encodeURIComponent(payload.required_plan)}` : "";
+    window.location.href = `/abonnement.html?reason=quota&quota=${encodeURIComponent(payload.quota)}${requiredPlanParam}`;
   }, 1600);
 }
 
@@ -71,7 +78,7 @@ export function handleRateLimited(payload) {
 // brut, hors de request() car leur réponse réussie n'est pas du JSON) — un
 // seul endroit qui sait traduire un payload d'erreur serveur en Error
 // exploitable côté client, jamais dupliqué entre les deux styles d'appel.
-function buildApiError(path, status, payload) {
+function buildApiError(path, status, payload, res) {
   const err = new Error(payload.error || `Erreur API ${path}: ${status}`);
   err.status = status;
   // 403 "premium_required" (voir plan_service.requires_feature) : porte la
@@ -83,16 +90,23 @@ function buildApiError(path, status, payload) {
     err.feature = payload.feature;
     err.requiredPlan = payload.required_plan;
   }
-  // 429 "quota_exceeded" (voir quota_service.py) : redirection + toast
-  // déclenchés ici, centralement — l'appelant n'a qu'à arrêter proprement son
-  // propre état de chargement, jamais à reconstruire ce comportement.
+  // 429 "quota_exceeded" (voir quota_service.py) : les champs sont toujours
+  // exposés sur l'Error pour tout quota, mais le toast générique + la
+  // redirection automatique (handleQuotaExceeded) ne concernent QUE
+  // CHAT_MESSAGES (comportement chatbot historique, inchangé). Les autres
+  // quotas (ex: EXERCISES_DAILY, voir exercice.js) affichent leur propre
+  // message contextuel sans quitter la page en cours — une série
+  // d'entraînement en pleine progression ne doit jamais être interrompue par
+  // une redirection surprise.
   if (payload.error === "quota_exceeded") {
     err.isQuotaExceeded = true;
     err.quota = payload.quota;
     err.remaining = payload.remaining;
     err.limit = payload.limit;
     err.requiredPlan = payload.required_plan;
-    handleQuotaExceeded(payload);
+    if (payload.quota === "chat_messages") {
+      handleQuotaExceeded(payload);
+    }
   }
   // 429 "rate_limited" (voir rate_limit_service.py) : requêtes trop
   // fréquentes (login, inscription, chatbot...), distinct de quota_exceeded
@@ -119,7 +133,7 @@ async function request(path, { method = "GET", body, headers } = {}) {
     body: body ? JSON.stringify(body) : undefined,
   });
   const payload = await res.json().catch(() => ({}));
-  if (!res.ok) throw buildApiError(path, res.status, payload);
+  if (!res.ok) throw buildApiError(path, res.status, payload, res);
   return payload;
 }
 
@@ -129,15 +143,22 @@ export const api = {
   getSiteStats: (classLevel) =>
     request(`/api/site/stats${classLevel ? `?class_level=${encodeURIComponent(classLevel)}` : ""}`),
   getCurricula: () => request("/api/curricula"),
-  start: (chapters, classLevel) => request("/api/start", { method: "POST", body: { chapters, class_level: classLevel } }),
-  answer: (exerciseId, correct) => request("/api/answer", { method: "POST", body: { exercise_id: exerciseId, correct } }),
   practiceLoad: (exerciseId, classLevel) =>
     request("/api/practice/load", { method: "POST", body: { exercise_id: exerciseId, class_level: classLevel } }),
   practiceResult: (exerciseId, correct, classLevel) =>
     request("/api/practice/result", { method: "POST", body: { exercise_id: exerciseId, correct, class_level: classLevel } }),
-  restart: () => request("/api/restart", { method: "POST" }),
   exercise: (id, classLevel) =>
     request(`/api/exercise/${id}${classLevel ? `?class_level=${encodeURIComponent(classLevel)}` : ""}`),
+  // Génération d'exercices sur mesure (Ultra, Feature.CUSTOM_EXERCISES) —
+  // voir customExercise.js. Distinct de practiceLoad/practiceResult
+  // ci-dessus : un exercice généré n'est jamais posté à /api/practice/result
+  // (voir server.py::api_practice_generate, pas dans _class_bank).
+  practiceGenerateOptions: () => request("/api/practice/generate/options"),
+  practiceGenerate: ({ classLevel, chapterId, notion, familyId }) =>
+    request("/api/practice/generate", {
+      method: "POST",
+      body: { class_level: classLevel, chapter_id: chapterId, notion, family_id: familyId },
+    }),
   getStats: () => request("/api/stats"),
   saveStats: (stats) => request("/api/stats", { method: "POST", body: stats }),
 
@@ -145,12 +166,16 @@ export const api = {
     request(`/api/course-progress${classLevel ? `?class_level=${encodeURIComponent(classLevel)}` : ""}`),
   saveCourseProgress: (chapterId, notionId, patch, classLevel) =>
     request("/api/course-progress", { method: "POST", body: { chapterId, notionId, patch, class_level: classLevel } }),
+  // Contenu pédagogique filtré selon le plan (Chantier "Répartition du
+  // contenu des cours par plan") — remplace l'ancien fetch statique direct
+  // de cours.js vers data/cours*/chapitre_N.json (déplacé hors de static/,
+  // plus accessible par aucune URL directe, voir server.py::api_course_content).
+  getCourseContent: (classLevel, chapterId) =>
+    request(`/api/course-content/${encodeURIComponent(classLevel)}/${encodeURIComponent(chapterId)}`),
 
   getSettings: () => request("/api/settings"),
   saveSettings: (settings) => request("/api/settings", { method: "POST", body: settings }),
-  getDataSummary: () => request("/api/data/summary"),
   exportData: () => request("/api/data/export"),
-  resetProgress: () => request("/api/data/reset", { method: "POST" }),
 
   getReviews: (adminKey) => request("/api/reviews", { headers: adminKey ? { "X-Admin-Key": adminKey } : undefined }),
   createReview: (payload) => request("/api/reviews", { method: "POST", body: payload }),
@@ -167,6 +192,8 @@ export const api = {
 
   register: (payload) => request("/api/auth/register", { method: "POST", body: payload }),
   login: (payload) => request("/api/auth/login", { method: "POST", body: payload }),
+  oauthCompleteSignup: (provider, payload) =>
+    request(`/api/auth/${encodeURIComponent(provider)}/complete-signup`, { method: "POST", body: payload }),
   enterGuest: () => request("/api/auth/guest", { method: "POST" }),
   guestDashboardSeen: () => request("/api/auth/guest/dashboard-seen", { method: "POST" }),
   logout: () => request("/api/auth/logout", { method: "POST" }),
@@ -175,8 +202,14 @@ export const api = {
   deleteMe: (payload) => request("/api/auth/me", { method: "DELETE", body: payload }),
   forgotPassword: (email) => request("/api/auth/forgot-password", { method: "POST", body: { email } }),
   resetPassword: (payload) => request("/api/auth/reset-password", { method: "POST", body: payload }),
+
+  // Mode test Owner (owner_test_plan_service.py) — 404 pour tout compte qui
+  // n'est pas le owner (voir owner_service.owner_only), jamais appelée pour
+  // un utilisateur normal (voir owner-test-panel.js::initOwnerTestPanel qui
+  // vérifie user.is_owner avant tout appel).
+  ownerTestPlanStatus: () => request("/api/owner/test-plan"),
+  ownerTestPlanUpdate: (payload) => request("/api/owner/test-plan", { method: "PATCH", body: payload }),
   changePassword: (payload) => request("/api/auth/change-password", { method: "POST", body: payload }),
-  getSessions: () => request("/api/auth/sessions"),
   logoutOtherSessions: () => request("/api/auth/sessions/logout-others", { method: "POST" }),
 
   // ── 2FA (TOTP, voir two_factor_service.py) ────────────────────────────────
@@ -199,7 +232,6 @@ export const api = {
     request("/api/auth/parental-consent/resend", { method: "POST", body: { email, password } }),
 
   // ── RGPD (compte connecté, voir consent_service.py/privacy_service.py) ───
-  getConsentHistory: () => request("/api/privacy/consent-history"),
   getPolicyStatus: () => request("/api/privacy/policy-status"),
   acceptPolicy: () => request("/api/privacy/policy-accept", { method: "POST" }),
   getCookieConsent: () => request("/api/privacy/cookie-consent"),
@@ -220,14 +252,39 @@ export const api = {
   chatbotDeleteConversation: (id) => request(`/api/chatbot/conversations/${id}`, { method: "DELETE" }),
   chatbotMessages: (id) => request(`/api/chatbot/conversations/${id}/messages`),
   chatbotFeedback: (messageId, liked) => request(`/api/chatbot/messages/${messageId}/feedback`, { method: "POST", body: { liked } }),
+
+  // ── Support (tickets côté utilisateur, voir support_service.py) ───────────
+  supportTickets: () => request("/api/support/tickets"),
+  supportTicketCreate: (subject, category, body) =>
+    request("/api/support/tickets", { method: "POST", body: { subject, category, body } }),
+  supportTicketDetail: (id) => request(`/api/support/tickets/${id}`),
+  supportTicketSatisfaction: (id, rating) =>
+    request(`/api/support/tickets/${id}/satisfaction`, { method: "POST", body: { rating } }),
+  // Multipart (pièces jointes) : même raison que chatbotAttachPdf ci-dessous,
+  // pas de Content-Type manuel.
+  supportTicketAddMessage: async (id, body, files) => {
+    const csrfToken = readCookie("nm_csrf");
+    const form = new FormData();
+    form.set("body", body);
+    (files || []).forEach((file) => form.append("attachments", file));
+    const path = `/api/support/tickets/${id}/messages`;
+    const res = await fetch(path, {
+      method: "POST",
+      headers: { ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}) },
+      credentials: "same-origin",
+      body: form,
+    });
+    const payload = await res.json().catch(() => ({}));
+    if (!res.ok) throw buildApiError(path, res.status, payload, res);
+    return payload;
+  },
   chatbotQuota: () => request("/api/chatbot/quota"),
   getQuota: () => request("/api/quota"),
   chatbotContextPreview: (classLevel) =>
     request(`/api/chatbot/context-preview${classLevel ? `?class_level=${encodeURIComponent(classLevel)}` : ""}`),
   chatbotGreeting: (classLevel) =>
     request(`/api/chatbot/greeting${classLevel ? `?class_level=${encodeURIComponent(classLevel)}` : ""}`),
-  chatbotHealth: (provider) => request(`/api/chatbot/health${provider ? `?provider=${encodeURIComponent(provider)}` : ""}`),
-  chatbotModels: () => request("/api/chatbot/models"),
+  chatbotHealth: () => request("/api/chatbot/health"),
   chatbotMentions: (q, limit, classLevel) => request(`/api/chatbot/mentions?q=${encodeURIComponent(q || "")}${limit ? `&limit=${limit}` : ""}${classLevel ? `&class_level=${encodeURIComponent(classLevel)}` : ""}`),
 
   // ── Recherche unifiée + objectifs quotidiens ────────────────────────────
@@ -260,7 +317,7 @@ export const api = {
       }),
       signal,
     });
-    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})));
+    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})), res);
     return res;
   },
   chatbotRegenerateStream: async (conversationId, { signal, classLevel } = {}) => {
@@ -273,7 +330,7 @@ export const api = {
       body: JSON.stringify({ class_level: classLevel }),
       signal,
     });
-    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})));
+    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})), res);
     return res;
   },
   // Réessai après une erreur réseau réelle : régénère une réponse pour le
@@ -289,7 +346,7 @@ export const api = {
       body: JSON.stringify({ class_level: classLevel }),
       signal,
     });
-    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})));
+    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})), res);
     return res;
   },
   // Upload de fichier (FormData) : pas de Content-Type manuel, le navigateur
@@ -305,7 +362,7 @@ export const api = {
       body: form,
     });
     const payload = await res.json().catch(() => ({}));
-    if (!res.ok) throw buildApiError("/api/chatbot/attachments/pdf", res.status, payload);
+    if (!res.ok) throw buildApiError("/api/chatbot/attachments/pdf", res.status, payload, res);
     return payload;
   },
 };

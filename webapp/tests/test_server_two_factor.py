@@ -7,7 +7,6 @@ tests/test_two_factor_service.py et tests/test_two_factor_migration.py.
 """
 import random
 import unittest
-from unittest.mock import patch
 
 import pyotp
 from cryptography.fernet import Fernet

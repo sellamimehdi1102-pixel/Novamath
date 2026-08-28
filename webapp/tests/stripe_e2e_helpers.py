@@ -74,9 +74,25 @@ skip_unless_e2e = unittest.skipUnless(E2E_AVAILABLE, REASON)
 
 # ── Moyens de paiement de test officiels Stripe (jamais une carte réelle) ──
 CARD_VISA_SUCCESS = "pm_card_visa"
-CARD_DECLINED = "pm_card_chargeDeclined"
-CARD_DECLINED_INSUFFICIENT_FUNDS = "pm_card_chargeDeclinedInsufficientFunds"
-CARD_DECLINED_EXPIRED = "pm_card_chargeDeclinedExpiredCard"
+
+# pm_card_chargeDeclined / pm_card_chargeDeclinedInsufficientFunds /
+# pm_card_chargeDeclinedExpiredCard existent bien côté Stripe mais NE
+# PEUVENT PAS être attachées à un Customer (vérifié par un appel réel :
+# PaymentMethod.attach lève CardError "Your card was declined." immédiatement,
+# avant même la création de l'abonnement) — Stripe documente explicitement
+# "You can't attach cards that simulate issuer declines to a Customer
+# object." (https://docs.stripe.com/testing). Seule pm_card_chargeCustomerFail
+# est conçue pour ce scénario précis : l'attach réussit, mais toute tentative
+# de facturation échoue ensuite — c'est le seul moyen officiellement supporté
+# de tester un abonnement (qui exige un moyen de paiement déjà attaché) dont
+# le paiement échoue. Stripe n'offrant qu'un seul token "attach puis échec"
+# (pas de distinction insuffisant/expiré au niveau attach), les trois
+# constantes ci-dessous partagent volontairement la même valeur réelle — leurs
+# noms distincts documentent l'intention du scénario testé côté NovaMath,
+# jamais un comportement Stripe différent.
+CARD_DECLINED = "pm_card_chargeCustomerFail"
+CARD_DECLINED_INSUFFICIENT_FUNDS = "pm_card_chargeCustomerFail"
+CARD_DECLINED_EXPIRED = "pm_card_chargeCustomerFail"
 
 
 def unique_email(prefix="e2e"):
@@ -94,7 +110,12 @@ def create_test_customer(email=None, test_clock=None):
     stripe.api_key = config.STRIPE_SECRET_KEY
     email = email or unique_email()
     if test_clock:
-        return stripe.Customer.create(email=email, name="NovaMath E2E", test_clock=test_clock)
+        # Appel SDK direct (stripe_service.create_customer ne supporte pas
+        # test_clock) : converti en dict comme stripe_service._to_plain
+        # (voir sa docstring) pour que .get() se comporte comme sur le
+        # retour du cas simple ci-dessous, exactement comme un appelant
+        # passant par stripe_service.py en recevrait un.
+        return stripe_service._to_plain(stripe.Customer.create(email=email, name="NovaMath E2E", test_clock=test_clock))
     return stripe_service.create_customer(email, name="NovaMath E2E")
 
 
@@ -102,23 +123,56 @@ def attach_payment_method(customer_id, payment_method=CARD_VISA_SUCCESS):
     """Attache un moyen de paiement de test réel au client et le définit
     comme moyen de paiement par défaut pour les factures futures — reproduit
     exactement ce qu'une Checkout Session complétée avec succès fait pour
-    l'utilisateur (voir stripe_service.create_checkout_session)."""
-    stripe.PaymentMethod.attach(payment_method, customer=customer_id)
-    stripe.Customer.modify(customer_id, invoice_settings={"default_payment_method": payment_method})
-    return payment_method
+    l'utilisateur (voir stripe_service.create_checkout_session).
+
+    Renvoie l'ID RÉEL de la PaymentMethod attachée (ex: "pm_1Tvf..."), jamais
+    le jeton magique d'entrée (`pm_card_visa` etc.) : vérifié en conditions
+    réelles, Stripe crée une PaymentMethod RÉELLE DIFFÉRENTE à chaque
+    utilisation de ce jeton (deux appels avec "pm_card_visa" sur le même
+    client produisent deux pm_... distincts) — réutiliser le jeton magique
+    tel quel dans un appel ultérieur (ex: Subscription.create(
+    default_payment_method=...)) référence alors une PaymentMethod jamais
+    attachée au client et échoue avec "The payment method must be attached
+    to the customer.". Seul l'ID réellement retourné par cet attach() est
+    stable et attaché."""
+    attached = stripe.PaymentMethod.attach(payment_method, customer=customer_id)
+    stripe.Customer.modify(customer_id, invoice_settings={"default_payment_method": attached.id})
+    return attached.id
 
 
 def create_real_subscription(customer_id, price_id, payment_method=CARD_VISA_SUCCESS):
     """Abonnement Stripe RÉEL (Test Mode), avec Invoice/PaymentIntent réels
     — voir la docstring du module pour pourquoi ceci remplace un parcours
-    Checkout piloté par navigateur dans cette suite automatisée."""
-    attach_payment_method(customer_id, payment_method)
-    return stripe.Subscription.create(
+    Checkout piloté par navigateur dans cette suite automatisée.
+
+    Retour converti via stripe_service._to_plain (voir sa docstring) : un
+    appel SDK direct comme celui-ci renvoie un StripeObject réel, qui ne
+    définit AUCUNE méthode `.get()` (vérifié en conditions réelles) — cette
+    conversion est nécessaire pour que stripe_webhook_service.sync_subscription
+    (appelé directement par plusieurs tests avec cet objet, pas seulement via
+    un webhook) fonctionne exactement comme avec les données réellement
+    reçues en production, qui transitent TOUJOURS par stripe_service.py
+    (donc déjà converties) avant d'atteindre ce code métier."""
+    real_payment_method_id = attach_payment_method(customer_id, payment_method)
+    return stripe_service._to_plain(stripe.Subscription.create(
         customer=customer_id,
         items=[{"price": price_id}],
-        default_payment_method=payment_method,
-        expand=["latest_invoice.payment_intent"],
-    )
+        default_payment_method=real_payment_method_id,
+        expand=["latest_invoice.payments"],
+    ))
+
+
+def latest_payment_intent(subscription):
+    """Recupere le PaymentIntent REEL de la facture la plus recente d'un
+    abonnement cree par create_real_subscription() -- necessaire depuis la
+    suppression de invoice.payment_intent par Stripe (API "Basil",
+    2025-03-31, support des paiements partiels multiples sur une facture,
+    vecu en conditions reelles via un KeyError explicite renvoye par le SDK
+    pointant vers ce changelog) : seul l'ID est desormais present sur la
+    facture (invoice["payments"]["data"][0]["payment"]["payment_intent"]),
+    l'objet complet necessite un appel separe."""
+    payment_intent_id = subscription["latest_invoice"]["payments"]["data"][0]["payment"]["payment_intent"]
+    return stripe_service._to_plain(stripe.PaymentIntent.retrieve(payment_intent_id))
 
 
 def cleanup_customer(customer_id):
@@ -182,6 +236,18 @@ def build_real_signed_webhook_payload(event_type, data_object, api_version=None)
     (stripe_service.construct_webhook_event) est le code réellement utilisé
     en production, avec le vrai STRIPE_WEBHOOK_SECRET configuré."""
     import json
+    from decimal import Decimal
+
+    def _json_default(obj):
+        # Certains champs monétaires (ex: items.data[].plan.amount_decimal)
+        # restent des Decimal même après stripe_service._to_plain()/.to_dict()
+        # (vérifié en conditions réelles) — json.dumps ne les sérialise pas
+        # nativement. Stripe envoie toujours ces montants en entier (cents)
+        # dans un vrai payload webhook JSON, jamais en chaîne : conversion
+        # fidèle à ce que Stripe transmet réellement.
+        if isinstance(obj, Decimal):
+            return int(obj) if obj == obj.to_integral_value() else float(obj)
+        raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
     payload_str = json.dumps({
         "id": f"evt_e2e_{int(time.time() * 1000)}",
@@ -190,7 +256,7 @@ def build_real_signed_webhook_payload(event_type, data_object, api_version=None)
         "api_version": api_version,
         "created": int(time.time()),
         "data": {"object": data_object},
-    })
+    }, default=_json_default)
     timestamp = int(time.time())
     # Même construction que WebhookSignature.verify_header : "%d.%s" % (timestamp, payload)
     signed_payload = f"{timestamp}.{payload_str}"

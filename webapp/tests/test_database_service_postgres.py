@@ -412,6 +412,16 @@ class TestDbPyRegressionPostgres(PostgresTestCase):
         found = db.get_session_user(token)
         self.assertEqual(found["id"], uid)
 
+    def test_session_expiree_est_rejetee(self):
+        """Release Candidate : même vérification que tests/test_session_
+        expiration.py côté SQLite — expires_at est une comparaison de
+        chaînes ISO-8601 (colonne TEXT sur les deux moteurs, voir db.py::
+        _now()), à prouver identique sur un vrai PostgreSQL, pas seulement
+        supposée par symétrie du code."""
+        uid = db.create_user(_unique("pgsessexp") + "@example.com", _unique("user"), "Pseudo", "hash")
+        token = db.create_session(uid, days=-1)
+        self.assertIsNone(db.get_session_user(token))
+
     def test_delete_user_cascade(self):
         uid = db.create_user(_unique("pgcascade") + "@example.com", _unique("user"), "Pseudo", "hash")
         db.create_session(uid)

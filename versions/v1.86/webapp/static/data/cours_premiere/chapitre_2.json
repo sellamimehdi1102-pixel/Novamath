@@ -1,0 +1,736 @@
+{
+  "chapterId": "Chapitre_2",
+  "title": "Chapitre 2",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "fonction-polynome-de-degre-2",
+      "title": "Fonction polynôme de degré 2",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : fonction polynôme de degré 2.\n\nCette notion sert à résoudre des problèmes où une quantité dépend du carré d'une autre, comme une trajectoire ou une aire à optimiser.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances une balle en l'air : sa hauteur suit une courbe qui monte puis redescend, en forme de dôme ou de vallée. Cette forme est celle d'une fonction du second degré, et le trinôme est justement l'expression qui la décrit.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Fonction polynôme de degré 2.",
+      "definition": "Identifier terme à terme avec la forme générale $ax^2+bx+c$.",
+      "definitions": {
+        "lycee": "Identifier terme à terme avec la forme générale $ax^2+bx+c$.",
+        "college": "Utiliser $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$."
+      },
+      "intuition": "Le signe du discriminant indique combien de solutions possède l'équation : deux, une seule, ou aucune. Ne confonds jamais le sommet de la parabole (le point le plus haut ou le plus bas) avec les racines de l'équation (les points où la courbe touche l'axe horizontal).",
+      "reglesImportantes": [
+        "Utiliser $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$.",
+        "Le signe de $a$ détermine le sens de variation de part et d'autre du sommet $(\\alpha ; \\beta)$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Fonction polynôme de degré 2",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\alpha = -\\dfrac{b}{2a} = -\\dfrac{-1}{2 \\times 1} = \\dfrac{1}{2}$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $\\beta = f(\\alpha) = \\dfrac{3}{4}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : la forme canonique est $f(x) = (x-\\dfrac{1}{2})^2 +\\dfrac{3}{4}$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-354",
+          "titre": "Exemple 1",
+          "enonce": "On considère la fonction polynôme de degré 2 définie sur $\\mathbb{R}$ par $f(x) = x^2 - 7x$. Donner les coefficients $a$, $b$ et $c$, puis calculer $f(-2)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : par identification avec $ax^2+bx+c$, on a $a=1$, $b=-7$ et $c=0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $f(-2) = 1 \\times (-2)^2 -7 \\times (-2) +0 = 18$."
+            }
+          ],
+          "reponse": "$a=1$, $b=-7$, $c=0$ et $f(-2) = 18$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $a=1$, $b=-7$, $c=0$ et $f(-2) = 18$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-366",
+          "titre": "Exemple 2",
+          "enonce": "Déterminer la forme canonique de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = -2x^2 + 4x - 2$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\alpha = -\\dfrac{b}{2a} = -\\dfrac{4}{2 \\times -2} = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $\\beta = f(\\alpha) = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la forme canonique est $f(x) = -2(x-1)^2 +0$."
+            }
+          ],
+          "reponse": "$f(x) = -2(x-1)^2 +0$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = -2(x-1)^2 +0$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-378",
+          "titre": "Exemple 3",
+          "enonce": "Déterminer la forme canonique de la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = 2x^2 + 2x - 3$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\alpha = -\\dfrac{b}{2a} = -\\dfrac{2}{2 \\times 2} = -\\dfrac{1}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $\\beta = f(\\alpha) = -\\dfrac{7}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la forme canonique est $f(x) = 2(x-(-\\dfrac{1}{2}))^2 -\\dfrac{7}{2}$."
+            }
+          ],
+          "reponse": "$f(x) = 2(x-(-\\dfrac{1}{2}))^2 -\\dfrac{7}{2}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 2(x-(-\\dfrac{1}{2}))^2 -\\dfrac{7}{2}$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-390",
+          "titre": "Exemple 4",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 4x^2 + 5x - 3$. Dresser le tableau de variations de $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on calcule $\\alpha = -\\dfrac{b}{2a} = -\\dfrac{5}{8}$ et $\\beta = f(\\alpha) = -\\dfrac{73}{16}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : comme $a = 4$ est positif, $f$ est strictement décroissante sur $]-\\infty ; -\\dfrac{5}{8}]$ puis strictement croissante sur $[-\\dfrac{5}{8} ; +\\infty[$, avec un minimum égal à $-\\dfrac{73}{16}$ atteint en $x=-\\dfrac{5}{8}$."
+            }
+          ],
+          "reponse": "$f$ est strictement décroissante sur $]-\\infty ; -\\dfrac{5}{8}]$ puis strictement croissante sur $[-\\dfrac{5}{8} ; +\\infty[$, avec un minimum égal à $-\\dfrac{73}{16}$ atteint en $x=-\\dfrac{5}{8}$.",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $f$ est strictement décroissante sur $]-\\infty ; -\\dfrac{5}{8}]$ puis strictement croissante sur $[-\\dfrac{5}{8} ; +\\infty[$, avec un minimum égal à $-\\dfrac{73}{16}$ atteint en $x=-\\dfrac{5}{8}$.",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la trajectoire d'un objet en chute libre ou d'un ballon",
+        "optimiser une aire (par exemple maximiser la surface d'un enclos avec une longueur de clôture fixée)",
+        "calculer un bénéfice maximal en économie"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir la forme d'une parabole, imagine un pont suspendu (vers le bas) ou un dôme (vers le haut) selon le signe du coefficient devant le carré.",
+      "aRetenir": [
+        "Utiliser $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$.",
+        "Le signe de $a$ détermine le sens de variation de part et d'autre du sommet $(\\alpha ; \\beta)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -2,
+          8,
+          7
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.0
+              ],
+              [
+                0.5,
+                0.10000000000000009
+              ],
+              [
+                1.0,
+                -0.6
+              ],
+              [
+                1.5,
+                -1.1
+              ],
+              [
+                2.0,
+                -1.4
+              ],
+              [
+                2.5,
+                -1.5
+              ],
+              [
+                3.0,
+                -1.4
+              ],
+              [
+                3.5,
+                -1.1
+              ],
+              [
+                4.0,
+                -0.6
+              ],
+              [
+                4.5,
+                0.10000000000000009
+              ],
+              [
+                5.0,
+                1.0
+              ],
+              [
+                5.5,
+                2.1
+              ],
+              [
+                6.0,
+                3.4000000000000004
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 1.5,
+            "y": 0,
+            "label": "racine"
+          },
+          {
+            "x": 3.5,
+            "y": 0,
+            "label": "racine"
+          },
+          {
+            "x": 2.5,
+            "y": -1.5,
+            "label": "sommet"
+          }
+        ],
+        "alt": "Une parabole coupe l'axe des abscisses en ses racines ; son sommet est son minimum."
+      },
+      "quizExerciseIds": [
+        355,
+        356,
+        357
+      ],
+      "topic_id": "fonction-polynome-de-degre-2",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Fonction polynôme de degré 2."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "fonction",
+        "polynome",
+        "degre"
+      ]
+    },
+    {
+      "id": "proprietes-d-un-trinome",
+      "title": "Propriétés d'un trinôme",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : propriétés d'un trinôme.\n\nCette notion sert à résoudre des problèmes où une quantité dépend du carré d'une autre, comme une trajectoire ou une aire à optimiser.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances une balle en l'air : sa hauteur suit une courbe qui monte puis redescend, en forme de dôme ou de vallée. Cette forme est celle d'une fonction du second degré, et le trinôme est justement l'expression qui la décrit.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Propriétés d'un trinôme.",
+      "definition": "Le produit (ou la somme) des racines permet de retrouver la seconde racine sans recalculer $\\Delta$.",
+      "definitions": {
+        "lycee": "Le produit (ou la somme) des racines permet de retrouver la seconde racine sans recalculer $\\Delta$.",
+        "college": "Étudier le signe du trinôme à l'aide du discriminant et du signe de $a$."
+      },
+      "intuition": "Le signe du discriminant indique combien de solutions possède l'équation : deux, une seule, ou aucune. Ne confonds jamais le sommet de la parabole (le point le plus haut ou le plus bas) avec les racines de l'équation (les points où la courbe touche l'axe horizontal).",
+      "reglesImportantes": [
+        "Utiliser les formules $x_1+x_2 = -\\dfrac{b}{a}$ et $x_1 x_2 = \\dfrac{c}{a}$.",
+        "Étudier le signe du trinôme à l'aide du discriminant et du signe de $a$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Propriétés d'un trinôme",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-1) = -4\\times(-1)^2 +12\\times(-1) +16 = 0$, donc $-1$ est bien racine de $f$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : le produit des racines vaut $\\dfrac{c}{a} = -4$, donc l'autre racine $x_2$ vérifie $-1 \\times x_2 = -4$, d'où $x_2 = 4$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : la forme factorisée est $f(x) = -4(x-(-1))(x-4)$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-472",
+          "titre": "Exemple 1",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = -5x^2 + 2x + 3$, qui admet deux racines distinctes $x_1$ et $x_2$. Calculer $x_1+x_2$ et $x_1 \\times x_2$ sans résoudre l'équation.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on sait que $x_1+x_2 = -\\dfrac{b}{a} = -\\dfrac{2}{-5} = \\dfrac{2}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on sait que $x_1 \\times x_2 = \\dfrac{c}{a} = \\dfrac{3}{-5} = -\\dfrac{3}{5}$."
+            }
+          ],
+          "reponse": "$x_1+x_2 = \\dfrac{2}{5}$ et $x_1 \\times x_2 = -\\dfrac{3}{5}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $x_1+x_2 = \\dfrac{2}{5}$ et $x_1 \\times x_2 = -\\dfrac{3}{5}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-484",
+          "titre": "Exemple 2",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 5x^2 + 9x - 6$, qui admet deux racines distinctes $x_1$ et $x_2$. Calculer $x_1+x_2$ et $x_1 \\times x_2$ sans résoudre l'équation.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on sait que $x_1+x_2 = -\\dfrac{b}{a} = -\\dfrac{9}{5} = -\\dfrac{9}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on sait que $x_1 \\times x_2 = \\dfrac{c}{a} = \\dfrac{-6}{5} = -\\dfrac{6}{5}$."
+            }
+          ],
+          "reponse": "$x_1+x_2 = -\\dfrac{9}{5}$ et $x_1 \\times x_2 = -\\dfrac{6}{5}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $x_1+x_2 = -\\dfrac{9}{5}$ et $x_1 \\times x_2 = -\\dfrac{6}{5}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-496",
+          "titre": "Exemple 3",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'inéquation $4x^2 - 7x < 0$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\Delta = 49 > 0$, racines $x_1=0$ et $x_2=\\dfrac{7}{4}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le trinôme est du signe de $a$ (positif) à l'extérieur des racines, et négatif entre les racines."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = ]0 ; \\dfrac{7}{4}[$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\mathcal{S} = ]0 ; \\dfrac{7}{4}[$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-508",
+          "titre": "Exemple 4",
+          "enonce": "On donne la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = 2x^2 + 14x + 24$, sachant que $-4$ est une racine de $f$. 1) Vérifier que $-4$ est bien racine de $f$. 2) En utilisant la somme ou le produit des racines, déterminer l'autre racine. 3) En déduire la forme factorisée de $f$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $f(-4) = 2\\times(-4)^2 +14\\times(-4) +24 = 0$, donc $-4$ est bien racine de $f$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le produit des racines vaut $\\dfrac{c}{a} = 12$, donc l'autre racine $x_2$ vérifie $-4 \\times x_2 = 12$, d'où $x_2 = -3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : la forme factorisée est $f(x) = 2(x-(-4))(x-(-3))$."
+            }
+          ],
+          "reponse": "Autre racine $= -3$ et $f(x) = 2(x-(-4))(x-(-3))$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Autre racine $= -3$ et $f(x) = 2(x-(-4))(x-(-3))$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la trajectoire d'un objet en chute libre ou d'un ballon",
+        "optimiser une aire (par exemple maximiser la surface d'un enclos avec une longueur de clôture fixée)",
+        "calculer un bénéfice maximal en économie"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir la forme d'une parabole, imagine un pont suspendu (vers le bas) ou un dôme (vers le haut) selon le signe du coefficient devant le carré.",
+      "aRetenir": [
+        "Utiliser les formules $x_1+x_2 = -\\dfrac{b}{a}$ et $x_1 x_2 = \\dfrac{c}{a}$.",
+        "Étudier le signe du trinôme à l'aide du discriminant et du signe de $a$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -2,
+          8,
+          7
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.0
+              ],
+              [
+                0.5,
+                0.10000000000000009
+              ],
+              [
+                1.0,
+                -0.6
+              ],
+              [
+                1.5,
+                -1.1
+              ],
+              [
+                2.0,
+                -1.4
+              ],
+              [
+                2.5,
+                -1.5
+              ],
+              [
+                3.0,
+                -1.4
+              ],
+              [
+                3.5,
+                -1.1
+              ],
+              [
+                4.0,
+                -0.6
+              ],
+              [
+                4.5,
+                0.10000000000000009
+              ],
+              [
+                5.0,
+                1.0
+              ],
+              [
+                5.5,
+                2.1
+              ],
+              [
+                6.0,
+                3.4000000000000004
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 1.5,
+            "y": 0,
+            "label": "racine"
+          },
+          {
+            "x": 3.5,
+            "y": 0,
+            "label": "racine"
+          },
+          {
+            "x": 2.5,
+            "y": -1.5,
+            "label": "sommet"
+          }
+        ],
+        "alt": "Une parabole coupe l'axe des abscisses en ses racines ; son sommet est son minimum."
+      },
+      "quizExerciseIds": [
+        473,
+        474,
+        475
+      ],
+      "topic_id": "proprietes-d-un-trinome",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Propriétés d'un trinôme."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "proprietes",
+        "trinome"
+      ]
+    },
+    {
+      "id": "equations-du-second-degre",
+      "title": "Équations du second degré",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : équations du second degré.\n\nCette notion sert à résoudre des problèmes où une quantité dépend du carré d'une autre, comme une trajectoire ou une aire à optimiser.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu lances une balle en l'air : sa hauteur suit une courbe qui monte puis redescend, en forme de dôme ou de vallée. Cette forme est celle d'une fonction du second degré, et le trinôme est justement l'expression qui la décrit.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Équations du second degré.",
+      "definition": "Calculer le discriminant $\\Delta = b^2-4ac$ puis appliquer les formules du cours selon son signe.",
+      "definitions": {
+        "lycee": "Calculer le discriminant $\\Delta = b^2-4ac$ puis appliquer les formules du cours selon son signe."
+      },
+      "intuition": "Le signe du discriminant indique combien de solutions possède l'équation : deux, une seule, ou aucune. Ne confonds jamais le sommet de la parabole (le point le plus haut ou le plus bas) avec les racines de l'équation (les points où la courbe touche l'axe horizontal).",
+      "reglesImportantes": [
+        "Exprimer la longueur en fonction de $x$ à l'aide du périmètre, puis traduire l'aire en équation du second degré."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Équations du second degré",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : si $x$ est la largeur, la longueur vaut $\\dfrac{40}{2} - x = 20 - x$ (demi-périmètre moins la largeur)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : l'aire donne $x(20-x) = 91$, soit $x^2 - 20x + 91 = 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : $\\Delta = 20^2 - 4\\times91 = 36$, et $\\sqrt{\\Delta} = 6$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : les solutions sont $x_1 = 7$ et $x_2 = 13$ ; comme la largeur est la plus petite dimension, $x = 7$ m et la longueur vaut $13$ m."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-413",
+          "titre": "Exemple 1",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $x^2 - 7x - 2 = 0$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on identifie $a=1$, $b=-7$, $c=-2$, puis $\\Delta = b^2-4ac = -7^2 - 4\\times1\\times(-2) = 57$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\Delta = 57 > 0$, donc l'équation admet deux solutions réelles $x_1 = \\dfrac{-(-7)-\\sqrt{57}}{2\\times1}$ et $x_2 = \\dfrac{-(-7)+\\sqrt{57}}{2\\times1}$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left\\{\\dfrac{-(-7)-\\sqrt{57}}{2} ; \\dfrac{-(-7)+\\sqrt{57}}{2}\\right\\}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\mathcal{S} = \\left\\{\\dfrac{-(-7)-\\sqrt{57}}{2} ; \\dfrac{-(-7)+\\sqrt{57}}{2}\\right\\}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-425",
+          "titre": "Exemple 2",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $-6x^2 + 9x + 10 = 0$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on identifie $a=-6$, $b=9$, $c=10$, puis $\\Delta = b^2-4ac = 9^2 - 4\\times-6\\times(10) = 321$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\Delta = 321 > 0$, donc l'équation admet deux solutions réelles $x_1 = \\dfrac{-(9)-\\sqrt{321}}{2\\times-6}$ et $x_2 = \\dfrac{-(9)+\\sqrt{321}}{2\\times-6}$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left\\{\\dfrac{-(9)-\\sqrt{321}}{-12} ; \\dfrac{-(9)+\\sqrt{321}}{-12}\\right\\}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\mathcal{S} = \\left\\{\\dfrac{-(9)-\\sqrt{321}}{-12} ; \\dfrac{-(9)+\\sqrt{321}}{-12}\\right\\}$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-437",
+          "titre": "Exemple 3",
+          "enonce": "Un rectangle a pour périmètre $40$ m et pour aire $91$ m². On note $x$ sa largeur (en m). Montrer que $x$ vérifie une équation du second degré, puis déterminer les dimensions possibles du rectangle (on admettra que la largeur est inférieure à la longueur).",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : si $x$ est la largeur, la longueur vaut $\\dfrac{40}{2} - x = 20 - x$ (demi-périmètre moins la largeur)."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : l'aire donne $x(20-x) = 91$, soit $x^2 - 20x + 91 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $\\Delta = 20^2 - 4\\times91 = 36$, et $\\sqrt{\\Delta} = 6$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les solutions sont $x_1 = 7$ et $x_2 = 13$ ; comme la largeur est la plus petite dimension, $x = 7$ m et la longueur vaut $13$ m."
+            }
+          ],
+          "reponse": "Largeur $= 7$ m et longueur $= 13$ m",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Largeur $= 7$ m et longueur $= 13$ m",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-449",
+          "titre": "Exemple 4",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $-x^2 - 2x - 1 = 0$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on identifie $a=-1$, $b=-2$, $c=-1$, puis $\\Delta = b^2-4ac = -2^2 - 4\\times-1\\times(-1) = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $\\Delta = 0$, donc une unique solution : $x_0 = \\dfrac{-b}{2a} = \\dfrac{-(-2)}{2\\times-1} = -1$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\{-1\\}$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $\\mathcal{S} = \\{-1\\}$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "la trajectoire d'un objet en chute libre ou d'un ballon",
+        "optimiser une aire (par exemple maximiser la surface d'un enclos avec une longueur de clôture fixée)",
+        "calculer un bénéfice maximal en économie"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour retenir la forme d'une parabole, imagine un pont suspendu (vers le bas) ou un dôme (vers le haut) selon le signe du coefficient devant le carré.",
+      "aRetenir": [
+        "Exprimer la longueur en fonction de $x$ à l'aide du périmètre, puis traduire l'aire en équation du second degré."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -2,
+          8,
+          7
+        ],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                1.0
+              ],
+              [
+                0.5,
+                0.10000000000000009
+              ],
+              [
+                1.0,
+                -0.6
+              ],
+              [
+                1.5,
+                -1.1
+              ],
+              [
+                2.0,
+                -1.4
+              ],
+              [
+                2.5,
+                -1.5
+              ],
+              [
+                3.0,
+                -1.4
+              ],
+              [
+                3.5,
+                -1.1
+              ],
+              [
+                4.0,
+                -0.6
+              ],
+              [
+                4.5,
+                0.10000000000000009
+              ],
+              [
+                5.0,
+                1.0
+              ],
+              [
+                5.5,
+                2.1
+              ],
+              [
+                6.0,
+                3.4000000000000004
+              ]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": 1.5,
+            "y": 0,
+            "label": "racine"
+          },
+          {
+            "x": 3.5,
+            "y": 0,
+            "label": "racine"
+          },
+          {
+            "x": 2.5,
+            "y": -1.5,
+            "label": "sommet"
+          }
+        ],
+        "alt": "Une parabole coupe l'axe des abscisses en ses racines ; son sommet est son minimum."
+      },
+      "quizExerciseIds": [
+        414,
+        415,
+        416
+      ],
+      "topic_id": "equations-du-second-degre",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Équations du second degré."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "equations",
+        "second",
+        "degre"
+      ]
+    }
+  ]
+}

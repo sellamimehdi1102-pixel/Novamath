@@ -29,6 +29,19 @@ IS_PRODUCTION = FLASK_ENV == "production"
 # Débogueur Werkzeug + reloader (app.run) — jamais en production.
 DEBUG = _env_flag("FLASK_DEBUG", not IS_PRODUCTION)
 
+# Confiance dans les en-têtes X-Forwarded-* (X-Forwarded-Proto/-For/-Host)
+# envoyés par un reverse proxy en amont (Render/Railway/Fly.io/Cloud Run
+# terminent tous le TLS à la frontière et transmettent du HTTP en clair au
+# conteneur) — voir server.py, où ProxyFix (werkzeug) n'est appliqué que si
+# cette valeur est vraie. Sans ça, request.url_root/request.is_secure
+# restent "http://" même derrière un domaine HTTPS réel, ce qui aurait
+# généré des success_url/cancel_url Stripe et des liens d'email en http://
+# (voir webapp/server.py::api_checkout_create_session, auth.py::APP_BASE_URL).
+# Activé par défaut UNIQUEMENT en production (jamais en dev local, où il n'y
+# a par définition aucun reverse proxy devant Flask) — désactivable
+# explicitement si l'hébergeur choisi ne passe pas par un proxy de confiance.
+TRUST_PROXY_HEADERS = _env_flag("TRUST_PROXY_HEADERS", IS_PRODUCTION)
+
 # Cookie de session Flask (session["q"], etc. — état du quiz, server.py).
 SESSION_COOKIE_SECURE = _env_flag("SESSION_COOKIE_SECURE", IS_PRODUCTION)
 SESSION_COOKIE_HTTPONLY = _env_flag("SESSION_COOKIE_HTTPONLY", True)
@@ -65,7 +78,25 @@ SENTRY_DSN = os.environ.get("SENTRY_DSN") or None
 # (nombre absolu de sauvegardes) codé dans backup_service.py lui-même — pas
 # une valeur "sensible", mais centralisée ici comme le reste de la config.
 BACKUP_DIRECTORY = os.environ.get("BACKUP_DIRECTORY", str(ROOT / "backups"))
-BACKUP_RETENTION_DAYS = int(os.environ.get("BACKUP_RETENTION_DAYS", "30"))
+# Plancher à 1 jour : BACKUP_RETENTION_DAYS=0 (ou une valeur négative, par
+# erreur de configuration) supprimerait sinon TOUTE sauvegarde, y compris
+# celle qui vient d'être créée dans le même appel (voir
+# backup_service._apply_retention, exécutée juste après backup_database()).
+BACKUP_RETENTION_DAYS = max(1, int(os.environ.get("BACKUP_RETENTION_DAYS", "30")))
+
+# Sauvegarde automatique quotidienne (webapp/backup_scheduler.py) — désactivée
+# uniquement si explicitement mise à "0"/"false" (ex: environnement de test),
+# activée par défaut partout ailleurs, y compris en développement local.
+# BACKUP_AUTO_HOUR_UTC : heure (0-23, UTC) à partir de laquelle la sauvegarde
+# du jour est déclenchée si elle ne l'a pas encore été — 3h UTC par défaut,
+# creux de trafic pour un public scolaire francophone.
+BACKUP_AUTO_ENABLED = _env_flag("BACKUP_AUTO_ENABLED", True)
+BACKUP_AUTO_HOUR_UTC = int(os.environ.get("BACKUP_AUTO_HOUR_UTC", "3"))
+# Fréquence à laquelle le thread de fond vérifie s'il doit déclencher la
+# sauvegarde du jour — pas une exécution précise à l'heure pile, une simple
+# vérification périodique (suffisant pour une tâche quotidienne, évite toute
+# dépendance à un scheduler externe type cron/APScheduler).
+BACKUP_AUTO_CHECK_INTERVAL_SECONDS = int(os.environ.get("BACKUP_AUTO_CHECK_INTERVAL_SECONDS", str(30 * 60)))
 
 # Authentification à deux facteurs / TOTP (webapp/two_factor_service.py) —
 # SEC-03. TWO_FACTOR_SECRET_KEY chiffre le secret TOTP stocké en base (jamais
@@ -149,6 +180,16 @@ STRIPE_PRICE_PREMIUM = os.environ.get("STRIPE_PRICE_PREMIUM") or None
 STRIPE_PRICE_ULTRA = os.environ.get("STRIPE_PRICE_ULTRA") or None
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET") or None
 
+# Délai (secondes) au-delà duquel une réservation de webhook Stripe
+# (stripe_webhook_events, voir db.py::mark_stripe_event_processed) sans
+# completed_at est considérée abandonnée — cas d'un process tué (SIGKILL,
+# restart Fly.io) en plein traitement, qui n'a jamais pu marquer l'event
+# complété ni libérer sa réservation. Défaut 300s : largement au-dessus de la
+# durée réelle d'un handler (un ou deux appels Stripe API + quelques écritures
+# SQLite, jamais plus de quelques secondes en pratique), pour ne jamais
+# ré-exécuter un handler encore réellement en cours sur un worker lent.
+STRIPE_WEBHOOK_CLAIM_TIMEOUT_SECONDS = int(os.environ.get("STRIPE_WEBHOOK_CLAIM_TIMEOUT_SECONDS", "300"))
+
 # Envoi d'email (webapp/email_service.py) — SEC-04. Absent : aucun email n'est
 # réellement envoyé, le lien concerné (consentement parental) est renvoyé en
 # clair dans la réponse JSON, comme dev_reset_link dans auth.py::forgot_
@@ -174,3 +215,13 @@ APP_BASE_URL = os.environ.get("APP_BASE_URL", "http://localhost:5000").rstrip("/
 # validité du lien envoyé au parent avant qu'il faille en redemander un
 # nouveau (voir consent_service.resend_consent_email).
 PARENTAL_CONSENT_TOKEN_TTL_DAYS = int(os.environ.get("PARENTAL_CONSENT_TOKEN_TTL_DAYS", "30"))
+
+# Taille maximale (octets) d'une requête HTTP entrante, tous corps confondus
+# (JSON, multipart) — Flask/Werkzeug rejette le corps en 413 avant même de le
+# lire intégralement en mémoire, dès que Content-Length dépasse cette valeur
+# (ou pendant la lecture d'un corps chunké sans Content-Length). 20 Mo couvre
+# la plus grosse limite métier existante (PDF chatbot, 15 Mo — voir
+# server.py::api_chatbot_attachment_pdf) avec une marge pour l'overhead
+# multipart, sans jamais élargir aucune limite métier déjà en place (support :
+# 5 Mo par pièce jointe, voir support_attachment_service.MAX_SIZE_BYTES).
+MAX_CONTENT_LENGTH = int(os.environ.get("MAX_CONTENT_LENGTH", str(20 * 1024 * 1024)))

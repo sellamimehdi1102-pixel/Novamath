@@ -1,12 +1,5 @@
 /* ==========================================================================
-   Écrans question — évaluation initiale + entraînement (partagé)
-   Les classes génériques ci-dessous (.question-card, .question-enonce,
-   .action-row, .callout, .verdict-row, .result-panel, .mode-pills...) sont
-   utilisées à la fois par exercice.html et evaluation.html : les enrichir
-   profite aux deux flux sans qu'aucun des deux ne soit restructuré. Les
-   classes propres à la page Entraînement (.series-hero, .series-dots,
-   .btn-verdict-*, .recap-*, .empty-state, .exercise-layout...) n'existent
-   que dans exercice.html et n'affectent jamais evaluation.html.
+   Écran question — page Entraînement (exercice.html)
    ========================================================================== */
 
 /* @keyframes nm-rise partagé — voir css/animations.css. */
@@ -15,29 +8,43 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-.eval-shell {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 24px 16px 60px;
-}
-
-.eval-topbar {
-  width: 100%;
-  max-width: 720px;
+/* ── Indicateur "exercices restants aujourd'hui" (QuotaType.EXERCISES_DAILY,
+   voir quota_service.py) — même styles que .chatbot-quota-indicator
+   (css/chatbot.css), source unique GET /api/quota, jamais recalculé côté
+   client. ─────────────────────────────────────────────────────────────── */
+.exercises-quota-indicator {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-faint);
 }
-.eval-progress-track { flex: 1; }
-.eval-meta { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
-.eval-meta-icon { width: 15px; height: 15px; flex-shrink: 0; }
-.eval-chrono { font-variant-numeric: tabular-nums; font-weight: 600; }
+.exercises-quota-value { font-weight: 600; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.exercises-quota-indicator.is-low .exercises-quota-value { color: var(--warning); }
+.exercises-quota-indicator.is-exhausted .exercises-quota-value { color: var(--danger); }
+.exercises-quota-indicator.is-unlimited .exercises-quota-value { color: var(--accent-text); }
 
 /* ── Mise en page à deux colonnes de la page Entraînement ────────────────── */
-.exercise-layout { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; }
+.exercise-layout { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; position: relative; }
+/* ── Variation "landing" pour Entraînement — petites croix mathématiques en
+   trame très légère, masquées au centre (radial mask, même technique que
+   landing.css #fonctionnalites) pour ne jamais passer derrière l'énoncé ou
+   les callouts : le motif ne se devine que dans les marges. Scopé à
+   .exercise-layout, n'affecte donc que la page Entraînement. */
+.exercise-layout::before {
+  content: "";
+  position: absolute;
+  inset: -24px -48px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath d='M18 10v16M10 18h16' stroke='%23755bcf' stroke-opacity='0.14' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M96 70v16M88 78h16' stroke='%238f63e0' stroke-opacity='0.11' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  background-repeat: repeat;
+  -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 35%, transparent 30%, black 82%);
+  mask-image: radial-gradient(ellipse 65% 60% at 50% 35%, transparent 30%, black 82%);
+}
 .exercise-layout-main { flex: 2; min-width: 320px; }
 .exercise-layout-side { flex: 1; min-width: 260px; }
 
@@ -199,12 +206,12 @@
 .callout--method { border-left-color: var(--brand-indigo); }
 .callout--solution { border-left-color: var(--success); background: linear-gradient(135deg, var(--success-soft), var(--surface-hover)); }
 .callout--steps ol { padding-left: 20px; list-style: decimal; display: flex; flex-direction: column; gap: 8px; }
-.eval-inline-icon, .exercice-inline-icon {
+.exercice-inline-icon {
   display: inline-flex; vertical-align: -3px;
   width: 16px; height: 16px; margin-right: 8px;
   color: var(--accent);
 }
-.eval-inline-icon svg, .exercice-inline-icon svg { width: 100%; height: 100%; }
+.exercice-inline-icon svg { width: 100%; height: 100%; }
 
 .verdict-row { display: flex; gap: 12px; margin-top: 24px; }
 .verdict-row .btn { flex: 1; }
@@ -364,3 +371,26 @@
   .empty-state { padding: 40px 24px; }
   .series-hero { padding: 16px; }
 }
+
+/* ── Exercice sur mesure (Ultra, customExercise.js) ──────────────────────
+   Même convention visuelle que dashboard.css .dashboard-locked-card /
+   cours.css .cours-box--locked : badge discret, jamais de popup. */
+.custom-exercise-card { margin-top: 20px; }
+.custom-exercise-select { width: 100%; margin-bottom: 10px; }
+.custom-exercise-enonce { font-size: 0.92rem; margin: 10px 0; }
+.custom-exercise-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.custom-exercise-correction { margin-top: 10px; padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-hover); font-size: 0.86rem; }
+
+.dashboard-locked-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  border-left: 3px dashed var(--brand-violet);
+  background: linear-gradient(135deg, rgba(var(--brand-violet-rgb), 0.06), var(--surface));
+  font-size: 0.88rem;
+}
+.dashboard-locked-card svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--brand-violet); margin-top: 2px; }
+.dashboard-locked-title { font-weight: 600; color: var(--brand-violet); margin-bottom: 4px; }
+.dashboard-locked-desc { color: var(--text-muted); font-size: 0.82rem; }

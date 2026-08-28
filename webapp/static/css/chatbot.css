@@ -3,11 +3,22 @@
    (mêmes cartes, boutons, rayons, ombres que le reste du site).
    ========================================================================== */
 
+/* `calc(100vh - 36px)` (pas 100vh) : .app-shell (base.css) a `padding: 18px`
+   (haut+bas = 36px) et `box-sizing: border-box`, donc son espace de contenu
+   réel ne fait que 100vh - 36px de haut — exactement la même convention que
+   .sidebar (base.css:510). Utiliser 100vh directement ici forçait .app-shell
+   (min-height: 100vh) à grandir de 36px de plus que la fenêtre, ce qui
+   faisait défiler toute la PAGE (body) en plus du panneau de conversation
+   (bug remonté : "la molette fait défiler toute la page" + décor de fond qui
+   semblait "coupé" une fois la page décalée). En dessous de 860px, .app-shell
+   repasse à padding:0 (drawer mobile) : la règle plus bas restaure 100vh. */
 .chatbot-shell {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 36px);
   flex: 1;
   min-width: 0;
+  min-height: 0;
+  position: relative;
 }
 
 /* ── Sidebar conversations ────────────────────────────────────────────────── */
@@ -19,7 +30,7 @@
   flex-direction: column;
   border-right: 1px solid var(--border);
   background: var(--bg-elevated);
-  height: 100vh;
+  height: calc(100vh - 36px);
   overflow: hidden;
   transition: width var(--transition-base);
 }
@@ -93,22 +104,28 @@
 .chatbot-convos-overlay.is-visible { display: block; opacity: 1; }
 
 .chatbot-convos-header {
-  padding: 18px 16px 12px;
+  padding: 20px 16px 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   border-bottom: 1px solid var(--border);
 }
+/* Bouton "Nouvelle conversation" : hérite de .btn.btn-primary (identité
+   NovaMath, cohérent avec tout le site) — juste un peu plus compact pour
+   rester à l'aise dans les 280px du panneau. */
+#chatbot-new-btn { width: 100%; padding: 11px 20px; font-size: 0.9rem; }
 
 .chatbot-search {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
   background: var(--surface-hover);
   border: 1px solid var(--border);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
+.chatbot-search:focus-within { border-color: var(--accent); background: var(--surface); }
 .chatbot-search svg { width: 16px; height: 16px; color: var(--text-faint); flex-shrink: 0; }
 .chatbot-search input {
   background: none;
@@ -119,35 +136,47 @@
   width: 100%;
 }
 
+/* Petit repère de section — la liste se lit comme un vrai historique de
+   discussions plutôt qu'une liste anonyme (ChatGPT/Claude/Cursor). */
+.chatbot-convo-list-label {
+  padding: 12px 14px 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.chatbot-convos.is-collapsed .chatbot-convo-list-label { display: none; }
+
 .chatbot-convo-list {
   flex: 1;
   overflow-y: auto;
-  padding: 8px;
+  padding: 4px 8px 8px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .chatbot-convo-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 10px;
-  border-radius: var(--radius-sm);
+  gap: 9px;
+  padding: 11px 12px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   color: var(--text-muted);
   transition: background var(--transition-fast), color var(--transition-fast);
   position: relative;
 }
 .chatbot-convo-item:hover { background: var(--surface-hover); color: var(--text); }
-.chatbot-convo-item.active { background: rgba(var(--accent-rgb), 0.12); color: var(--accent-text); }
+.chatbot-convo-item.active { background: rgba(var(--accent-rgb), 0.13); color: var(--accent-text); font-weight: 600; }
 .chatbot-convo-title {
   flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
 }
 .chatbot-convo-item .pin-icon { width: 14px; height: 14px; flex-shrink: 0; color: var(--accent-text); }
 .chatbot-convo-actions {
@@ -157,10 +186,11 @@
 }
 .chatbot-convo-item:hover .chatbot-convo-actions { display: flex; }
 .chatbot-convo-actions button {
-  width: 24px; height: 24px;
+  width: 26px; height: 26px;
   display: inline-flex; align-items: center; justify-content: center;
   border: none; background: transparent; color: var(--text-faint);
   border-radius: var(--radius-sm); cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
 .chatbot-convo-actions button:hover { background: var(--border); color: var(--text); }
 .chatbot-convo-actions svg { width: 14px; height: 14px; }
@@ -173,7 +203,8 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 36px);
+  min-height: 0;
 }
 
 .chatbot-topbar {
@@ -208,12 +239,20 @@
 
 .chatbot-messages {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
-  padding: 24px;
+  overflow-x: hidden;
+  padding: 28px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 22px;
+  position: relative;
+  /* Halo décoratif discret, ancré au conteneur (pas de ::before ici : ce
+     conteneur défile seul, voir la correction de la chaîne de hauteurs plus
+     haut) — reste fixe par rapport à .chatbot-messages, ne "saute" jamais
+     pendant le défilement des messages. */
+  background: radial-gradient(ellipse 620px 480px at 50% 0%, rgba(var(--accent-rgb), 0.06), transparent 68%);
 }
 
 .chatbot-empty-state {
@@ -272,36 +311,80 @@
   box-shadow: var(--shadow-sm);
 }
 
-.chatbot-msg {
+/* ── Vraies bulles de conversation (ChatGPT / Claude / iMessage) ─────────────
+   Deux composants distincts dans le DOM (voir chatbot.js::appendMessageEl),
+   pas une seule structure recolorée en CSS :
+   - `.chatbot-msg-row--user`    : conteneur `justify-content: flex-end`,
+     contient UNIQUEMENT sa bulle (aucun avatar dans le DOM).
+   - `.chatbot-msg-row--assistant` : conteneur `justify-content: flex-start`,
+     contient l'avatar NovaMath puis une colonne (bulle + actions + cartes).
+   Chaque bulle porte sa propre classe de couleur (`--user`/`--assistant`),
+   jamais un sélecteur composé du type `.chatbot-msg.user .chatbot-msg-bubble`. */
+.chatbot-msg-row {
   display: flex;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 10px;
   width: 100%;
-  max-width: 780px;
+  max-width: 880px;
   animation: chatbot-msg-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 @keyframes chatbot-msg-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.chatbot-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.chatbot-msg-row--assistant { justify-content: flex-start; }
+.chatbot-msg-row--user { justify-content: flex-end; }
+
+/* Avatar NovaMath — présent uniquement dans le composant assistant (absent
+   du DOM côté utilisateur, pas seulement masqué). */
 .chatbot-msg-avatar {
-  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  width: 26px; height: 26px; border-radius: var(--radius-sm); flex-shrink: 0;
+  margin-top: 2px;
   display: flex; align-items: center; justify-content: center;
-  color: var(--text-on-accent); font-size: 0.75rem; font-weight: 700;
+  font-size: 0.68rem; font-weight: 700; color: var(--text-on-accent);
+  overflow: hidden;
+  background: var(--brand-gradient);
 }
-.chatbot-msg.assistant .chatbot-msg-avatar { background: var(--brand-gradient); box-shadow: 0 3px 12px rgba(var(--accent-rgb), 0.35); }
-.chatbot-msg.user .chatbot-msg-avatar { background: var(--surface-hover); color: var(--text-muted); border: 1px solid var(--border); }
+.chatbot-msg-col { min-width: 0; flex: 1; }
 
 .chatbot-msg-bubble {
-  padding: 16px 20px;
-  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  border-radius: 22px;
   font-size: 0.94rem;
-  line-height: 1.7;
+  line-height: 1.65;
   min-width: 0;
+  /* ~70-75% de la largeur de la conversation (convention ChatGPT/Claude/
+     Messenger/iMessage), jamais un pourcentage brut du viewport : la ligne
+     (`.chatbot-msg-row`) est déjà bornée à 880px et centrée, donc ce ratio
+     s'applique à la colonne de conversation, pas à l'écran entier. */
+  max-width: 70%;
   overflow-wrap: break-word;
+  text-align: left;
 }
-.chatbot-msg.assistant .chatbot-msg-bubble { background: var(--surface); border: 1px solid var(--border); }
-.chatbot-msg.user .chatbot-msg-bubble { background: rgba(var(--accent-rgb), 0.14); color: var(--text); }
+.chatbot-msg-bubble--assistant {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+}
+.chatbot-msg-bubble--user {
+  background: var(--brand-gradient);
+  color: var(--text-on-accent);
+  border: none;
+  box-shadow: var(--shadow-sm);
+  /* Le conteneur (`.chatbot-msg-row--user`) n'a pas de largeur max propre :
+     sans cette limite ici, une bulle utilisateur pourrait s'étirer jusqu'à
+     880px avant que `max-width: 70%` (hérité ci-dessus) ne s'applique — les
+     deux règles ciblent la même déclaration, celle-ci est juste la version
+     explicite pour ce composant précis. */
+  max-width: 70%;
+}
+/* Sur une bulle utilisateur (fond violet plein), le code inline/blocs et les
+   liens gardent une bonne lisibilité malgré le fond sombre du dégradé. */
+.chatbot-msg-bubble--user strong { color: var(--text-on-accent); }
+.chatbot-msg-bubble--user a { color: var(--text-on-accent); text-decoration-color: rgba(255, 255, 255, 0.6); }
+.chatbot-msg-bubble--user :not(pre) > code { background: rgba(255, 255, 255, 0.18); color: var(--text-on-accent); }
+.chatbot-msg-bubble--user pre { background: rgba(0, 0, 0, 0.18); border-color: rgba(255, 255, 255, 0.2); }
 .chatbot-msg-bubble p { margin: 0 0 10px; }
 .chatbot-msg-bubble p:last-child { margin-bottom: 0; }
 .chatbot-msg-bubble > *:first-child { margin-top: 0; }
@@ -369,7 +452,7 @@
 }
 .chatbot-msg-bubble th, .chatbot-msg-bubble td { border: 1px solid var(--border); padding: 7px 12px; text-align: left; }
 .chatbot-msg-bubble th { background: var(--surface-hover); font-weight: 600; color: var(--text); }
-.chatbot-msg-bubble tr:nth-child(even) td { background: rgba(255, 255, 255, 0.015); }
+.chatbot-msg-bubble tr:nth-child(even) td { background: color-mix(in srgb, var(--text) 4%, transparent); }
 
 /* ── Formules KaTeX : jamais de débordement hors bulle sur mobile ───────── */
 .chatbot-msg-bubble .katex-display { margin: 8px 0; overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
@@ -385,8 +468,8 @@
 /* Desktop : révélées au survol ET au focus clavier (jamais d'action
    invisible en Tab — l'anneau :focus-visible global, base.css:604, ne sert
    à rien si le parent reste à opacity:0). */
-.chatbot-msg.assistant:hover .chatbot-msg-actions,
-.chatbot-msg.assistant:focus-within .chatbot-msg-actions {
+.chatbot-msg-row--assistant:hover .chatbot-msg-actions,
+.chatbot-msg-row--assistant:focus-within .chatbot-msg-actions {
   opacity: 1;
 }
 .chatbot-msg-actions button {
@@ -480,18 +563,19 @@
 .chatbot-action-cards {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 10px;
+  margin-top: 14px;
+  max-width: 420px;
 }
 .chatbot-action-card {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
-  padding: 12px 14px;
-  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
   font: inherit;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text);
   text-align: left;
@@ -502,15 +586,17 @@
 .chatbot-action-cards .chatbot-action-card:nth-child(2) { animation-delay: 90ms; }
 .chatbot-action-cards .chatbot-action-card:nth-child(3) { animation-delay: 140ms; }
 .chatbot-action-card svg {
-  width: 34px; height: 34px;
-  padding: 9px;
+  width: 40px; height: 40px;
+  padding: 10px;
   box-sizing: border-box;
-  border-radius: 50%;
-  background: rgba(var(--accent-rgb), 0.14);
-  color: var(--accent-text);
+  border-radius: var(--radius-md);
+  background: var(--brand-gradient);
+  color: var(--text-on-accent);
   flex-shrink: 0;
+  transition: transform var(--transition-fast);
 }
-.chatbot-action-card span { flex: 1; min-width: 0; }
+.chatbot-action-card:hover svg { transform: scale(1.06) rotate(-4deg); }
+.chatbot-action-card span { flex: 1; min-width: 0; line-height: 1.35; }
 .chatbot-action-card::after {
   content: "";
   width: 8px; height: 8px;
@@ -567,14 +653,14 @@
   transform: translateX(-50%) translateY(0);
 }
 .chatbot-live-suggestions {
-  max-width: 780px;
+  max-width: 880px;
   margin: 0 auto 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 .chatbot-input-wrap {
-  max-width: 780px;
+  max-width: 880px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -582,26 +668,27 @@
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-pill);
-  padding: 9px 9px 9px 18px;
+  padding: 11px 11px 11px 20px;
   box-shadow: var(--shadow-float);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-fast);
 }
 .chatbot-input-wrap:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.14);
+  box-shadow: var(--shadow-float), 0 0 0 4px rgba(var(--accent-rgb), 0.15);
+  transform: translateY(-1px);
 }
-.chatbot-input-row { display: flex; align-items: flex-end; gap: 6px; }
+.chatbot-input-row { display: flex; align-items: flex-end; gap: 8px; }
 .chatbot-input-editable {
   flex: 1;
   min-width: 0;
   outline: none;
   color: var(--text);
   font-family: inherit;
-  font-size: 0.92rem;
-  line-height: 1.5;
+  font-size: 0.94rem;
+  line-height: 1.55;
   max-height: 200px;
   overflow-y: auto;
-  padding: 8px 4px;
+  padding: 9px 4px;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -767,51 +854,30 @@
 .chatbot-mentions-item .subtitle { font-size: 0.78rem; color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chatbot-mentions-empty { padding: 10px; font-size: 0.8rem; color: var(--text-faint); text-align: center; }
 
-/* ── Panneau contextuel (droite) ──────────────────────────────────────────── */
-.chatbot-context-panel {
-  width: 260px;
-  flex-shrink: 0;
-  border-left: 1px solid var(--border);
-  background: var(--bg-elevated);
-  padding: 20px 16px;
-  height: 100vh;
-  overflow-y: auto;
-}
-.chatbot-context-panel.is-hidden { display: none; }
-.chatbot-context-panel h3 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint); margin-bottom: 14px; }
-.chatbot-context-item { display: flex; justify-content: space-between; gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 0.83rem; }
-.chatbot-context-item .label { color: var(--text-muted); }
-.chatbot-context-item .value { color: var(--text); font-weight: 600; text-align: right; }
-.chatbot-context-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-/* Notions à renforcer (rouge doux) / maîtrisées (vert doux) — même langage
-   que les badges du Dashboard (badge--warning/badge--success), plutôt qu'un
-   simple tag neutre qui ne dit rien du statut de la notion en un coup d'œil. */
-.chatbot-context-tag {
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-.chatbot-context-tags--weak .chatbot-context-tag { background: var(--warning-soft); color: var(--warning); }
-.chatbot-context-tags--mastered .chatbot-context-tag { background: var(--success-soft); color: var(--success); }
-.chatbot-context-group { margin-top: 16px; }
-.chatbot-context-group-label { font-size: 0.76rem; color: var(--text-faint); font-weight: 600; }
-
-@media (max-width: 1100px) {
-  .chatbot-context-panel { display: none; }
-}
 @media (max-width: 860px) {
+  /* .app-shell repasse à padding:0 sous 860px (base.css/responsive.css) :
+     plus de 36px à soustraire ici, sous peine de laisser 36px de vide en
+     bas de l'écran. */
+  .chatbot-shell, .chatbot-main { height: 100vh; }
   .chatbot-convos {
     position: fixed; left: 0; top: 0; z-index: 80; width: 280px !important;
+    height: 100vh;
     transform: translateX(-100%);
     transition: transform var(--transition-base);
   }
   .chatbot-convos.is-open { transform: translateX(0); }
   .chatbot-convos-collapse-btn { display: none; }
   .chatbot-convos-mobile-trigger { display: inline-flex; }
+  /* Le rail principal du site a lui aussi un hamburger fixe sous 860px
+     (#sidebar-mobile-trigger, top:14px/left:16px, voir responsive.css) —
+     .main-content réserve 76px en haut pour ne jamais le chevaucher, mais
+     .chatbot-topbar n'est pas dans .main-content : sans cette même marge,
+     les deux boutons "ouvrir un tiroir" (menu principal / conversations) se
+     superposaient exactement dans le même coin (bug confirmé par capture). */
+  .chatbot-topbar { padding-top: 64px; }
 }
 @media (max-width: 560px) {
-  .chatbot-topbar { padding: 12px 14px; }
+  .chatbot-topbar { padding: 64px 14px 12px; }
   .chatbot-messages { padding: 16px 12px; gap: 16px; }
   .chatbot-msg-bubble { padding: 12px 14px; font-size: 0.9rem; }
   .chatbot-msg-avatar { width: 28px; height: 28px; font-size: 0.68rem; }
@@ -821,4 +887,28 @@
   .chatbot-suggestion-chip { padding: 7px 12px; font-size: 0.78rem; }
   .chatbot-input-area { padding: 12px 12px 16px; }
   .chatbot-action-card { padding: 10px 12px; font-size: 0.85rem; }
+  /* Le placeholder ("Pose une question sur ton cours ou ton exercice…") ne
+     doit jamais passer à la ligne (retour explicite) : sous 560px, la police
+     de la zone de saisie est réduite, le padding resserré et les boutons
+     joindre/envoyer légèrement réduits pour lui laisser assez de place sur
+     une seule ligne, même sur les très petits écrans (~360-390px). */
+  .chatbot-input-wrap { padding: 8px 8px 8px 10px; gap: 6px; }
+  .chatbot-input-row { gap: 5px; }
+  .chatbot-input-editable { font-size: 0.71rem; padding: 8px 2px; }
+  .chatbot-icon-btn { width: 30px; height: 30px; }
+  .chatbot-icon-btn svg { width: 16px; height: 16px; }
+  .chatbot-send-btn { width: 32px; height: 32px; }
+  .chatbot-send-btn svg { width: 15px; height: 15px; }
+}
+/* Téléphones étroits (iPhone SE, petits Android ≤ ~380px) : le budget
+   horizontal restant pour le texte est trop faible même avec les réglages
+   ci-dessus — resserré encore une fois pour ne jamais revenir à 2 lignes. */
+@media (max-width: 400px) {
+  .chatbot-input-wrap { padding: 7px 7px 7px 9px; gap: 4px; }
+  .chatbot-input-row { gap: 4px; }
+  .chatbot-input-editable { font-size: 0.64rem; }
+  .chatbot-icon-btn { width: 27px; height: 27px; }
+  .chatbot-icon-btn svg { width: 15px; height: 15px; }
+  .chatbot-send-btn { width: 29px; height: 29px; }
+  .chatbot-send-btn svg { width: 14px; height: 14px; }
 }

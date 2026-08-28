@@ -62,9 +62,9 @@ class TestFreeTierFeaturesAccessibleToAll(unittest.TestCase):
     def test_api_chatbot_quota_chatbot(self):
         self.assertEqual(self.client.get("/api/chatbot/quota").status_code, 200)
 
-    def test_api_start_exercises(self):
+    def test_api_practice_load_exercises(self):
         resp = self.client.post(
-            "/api/start", json={"chapters": []}, headers=self.headers,
+            "/api/practice/load", json={"exercise_id": None}, headers=self.headers,
         )
         self.assertNotEqual(resp.status_code, 403)
 

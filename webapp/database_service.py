@@ -94,13 +94,37 @@ def engine_of(conn):
     return ENGINE_SQLITE if isinstance(conn, sqlite3.Connection) else ENGINE_POSTGRESQL
 
 
-# ── SQLite (comportement historique, inchangé) ────────────────────────────
+# ── SQLite ─────────────────────────────────────────────────────────────────
 def _sqlite_connection(sqlite_path, sqlite_data_dir):
     sqlite_data_dir = Path(sqlite_data_dir)
     sqlite_data_dir.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(str(sqlite_path))
+    # timeout=30 (défaut sqlite3 : 5s) : sous gunicorn (plusieurs
+    # workers/threads, chacun avec sa propre connexion, voir audit
+    # production), un writer bloque les autres le temps de sa transaction —
+    # 5s s'épuise vite dès plusieurs élèves actifs simultanément et remonte
+    # en sqlite3.OperationalError("database is locked") non rattrapée. 30s
+    # absorbe les pics résiduels sans faire échouer la requête pour autant.
+    conn = sqlite3.connect(str(sqlite_path), timeout=30)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
+    # WAL : autorise des lecteurs concurrents pendant qu'un writer écrit (le
+    # rollback-journal par défaut bloque TOUT le monde pendant une écriture).
+    # Sans effet sur une base ":memory:" (SQLite l'ignore silencieusement,
+    # reste en mode "memory") — donc sûr aussi pour les tests qui utilisent
+    # une base en mémoire.
+    conn.execute("PRAGMA journal_mode = WAL")
+    # NORMAL (au lieu de FULL, le défaut) : en WAL, NORMAL garantit déjà la
+    # durabilité au niveau du fichier WAL à chaque commit — seul un crash de
+    # l'OS lui-même (pas juste un crash du process) entre deux checkpoints
+    # pourrait perdre les tout derniers commits, un risque jugé acceptable
+    # ici en échange d'écritures nettement moins bloquantes ; c'est le réglage
+    # officiellement recommandé par SQLite pour WAL.
+    conn.execute("PRAGMA synchronous = NORMAL")
+    # busy_timeout (millisecondes) : filet de sécurité redondant avec
+    # timeout= ci-dessus (le paramètre Python définit déjà ce PRAGMA), fixé
+    # explicitement pour ne jamais dépendre du défaut de la lib si une
+    # connexion venait à être ouverte autrement.
+    conn.execute("PRAGMA busy_timeout = 30000")
     return conn
 
 

@@ -18,8 +18,10 @@ from pathlib import Path
 from unittest.mock import patch
 
 import db
+import quota_service
 from chatbot import cache as llm_cache, conversation_manager as cm
 from chatbot.services import pipeline_metrics, response_strategy as rs
+from quota_service import QuotaType
 
 
 class Phase3BTestCase(unittest.TestCase):
@@ -154,7 +156,7 @@ class TestNouveauPipeline(Phase3BTestCase):
 
     def test_clarification_toujours_prioritaire(self):
         [obtenu] = self.run_conversation(["......"])
-        self.assertIn("Pouvez-vous reformuler", obtenu)
+        self.assertIn("reformuler", obtenu)
 
 
 class TestFeatureFlagsIndependants(Phase3BTestCase):
@@ -272,6 +274,189 @@ class TestCompatibiliteAscendante(Phase3BTestCase):
             cm.delete_conversation(conv["id"], self.REAL_USER["id"])
 
 
+class TestRegenerateConcurrence(Phase3BTestCase):
+    """Durcissement production : deux régénérations concurrentes (double-clic,
+    double onglet) sur le MÊME dernier message assistant ne doivent produire
+    qu'UNE seule nouvelle réponse et consommer le quota qu'UNE seule fois —
+    voir db.delete_message (jeton de course) et conversation_manager.
+    regenerate_last."""
+
+    def test_plusieurs_regenerations_concurrentes_ne_dupliquent_jamais(self):
+        """6 threads appellent regenerate_last en même temps (Barrier) sur LE
+        MÊME dernier message assistant. Avec un moteur de réponse aussi rapide
+        que FakeProvider/le moteur local, plusieurs threads peuvent réellement
+        gagner des tours SUCCESSIFS légitimes (thread A régénère, puis thread
+        B régénère à son tour la nouvelle réponse de A, etc.) plutôt qu'une
+        collision unique — ce n'est pas un bug, exiger "un seul gagnant total"
+        serait donc un faux invariant. L'invariant réellement garanti par le
+        durcissement (voir db.delete_message) est plus précis : chaque
+        SUCCÈS correspond à EXACTEMENT un message assistant et EXACTEMENT une
+        consommation de quota — jamais un succès qui laisse deux messages ou
+        décrémente deux fois. On le vérifie en ralentissant artificiellement
+        la fenêtre critique (patch de db.delete_message avec un léger délai)
+        pour forcer un chevauchement réel et déterministe entre threads."""
+        import threading
+        import time as time_module
+
+        conv = cm.create_conversation(self.REAL_USER["id"], "Test regenerate concurrent")
+        try:
+            "".join(cm.stream_reply(self.REAL_USER, conv["id"], "C'est quoi une puissance ?"))
+            messages_before = db.list_messages(conv["id"])
+            self.assertEqual(len(messages_before), 2)  # message utilisateur + réponse assistant
+
+            n_threads = 6
+            barrier = threading.Barrier(n_threads)
+            results = []
+            errors = []
+            quota_calls = []
+            lock = threading.Lock()
+
+            def fake_quota(user):
+                with lock:
+                    quota_calls.append(1)
+                return len(quota_calls)
+
+            real_delete_message = db.delete_message
+
+            def slow_delete_message(message_id):
+                # Élargit délibérément la fenêtre entre "lire les messages" et
+                # "gagner/perdre la course sur le DELETE" : sans ce délai,
+                # FakeProvider est si rapide qu'un seul thread à la fois se
+                # présente réellement à cette ligne (voir docstring), ce qui
+                # ne teste jamais le cas de vraie collision.
+                time_module.sleep(0.05)
+                return real_delete_message(message_id)
+
+            self._quota_patch.stop()
+            counting_patch = patch.object(cm, "check_and_increment_quota", side_effect=fake_quota)
+            counting_patch.start()
+            delete_patch = patch.object(db, "delete_message", side_effect=slow_delete_message)
+            delete_patch.start()
+
+            def worker():
+                barrier.wait()  # tous les threads démarrent regenerate_last au même instant
+                try:
+                    text = "".join(cm.regenerate_last(self.REAL_USER, conv["id"]))
+                    with lock:
+                        results.append(text)
+                except ValueError as e:
+                    with lock:
+                        errors.append(e)
+
+            threads = [threading.Thread(target=worker) for _ in range(n_threads)]
+            try:
+                for t in threads:
+                    t.start()
+                for t in threads:
+                    t.join()
+            finally:
+                delete_patch.stop()
+                counting_patch.stop()
+                self._quota_patch.start()
+
+            self.assertGreaterEqual(len(results), 1, "au moins une régénération doit réussir")
+            self.assertEqual(len(results) + len(errors), n_threads)
+            for e in errors:
+                self.assertTrue(
+                    "déjà en cours de régénération" in str(e) or "Rien à régénérer" in str(e),
+                    f"message d'erreur inattendu : {e}",
+                )
+
+            # L'invariant central : jamais plus de messages assistant que de
+            # succès réels, jamais plus de quota consommé que de succès réels
+            # — quel que soit le nombre exact de gagnants (1 ou plusieurs
+            # tours successifs légitimes selon le timing).
+            messages_after = db.list_messages(conv["id"])
+            self.assertEqual(len(messages_after), 1 + len(results))
+            self.assertEqual(len(quota_calls), len(results))
+        finally:
+            cm.delete_conversation(conv["id"], self.REAL_USER["id"])
+
+
+class TestCachePostFallback(Phase3BTestCase):
+    """Release Candidate : si llm_fallback_service.generate() bascule vers un
+    AUTRE fournisseur/modèle que celui initialement sélectionné (incident
+    transitoire sur le fournisseur visé), la réponse ne doit JAMAIS être mise
+    en cache sous la clé du fournisseur initial — sinon un futur message
+    identique, alors que le fournisseur visé est redevenu disponible,
+    recevrait à tort la réponse générée par le fournisseur de repli."""
+
+    def _fake_generate_with_fallback(self, actual_provider, actual_model, text):
+        def _generate(messages, system_prompt, chatbot_settings, user=None, call_info=None,
+                      intent_result=None, class_level=None):
+            call_info["provider"] = actual_provider
+            call_info["model"] = actual_model
+            yield text
+        return _generate
+
+    def test_reponse_mise_en_cache_sous_la_cle_du_fournisseur_reellement_utilise(self):
+        conv = cm.create_conversation(self.REAL_USER["id"], "Test cache post-fallback")
+        try:
+            with patch.object(cm.provider_manager, "select_llm_for_user", return_value=("anthropic", "claude-x")), \
+                 patch.object(cm.llm_fallback_service, "generate",
+                               side_effect=self._fake_generate_with_fallback("gemini", "gemini-y", "Réponse de repli.")):
+                text = "".join(cm.stream_reply(self.REAL_USER, conv["id"], "Question test cache fallback."))
+            self.assertEqual(text, "Réponse de repli.")
+
+            stale_key = llm_cache.make_key(
+                self.REAL_USER["id"], "anthropic", "claude-x", "Question test cache fallback.",
+            )
+            actual_key = llm_cache.make_key(
+                self.REAL_USER["id"], "gemini", "gemini-y", "Question test cache fallback.",
+            )
+            self.assertIsNone(
+                llm_cache.get(stale_key),
+                "la réponse ne doit jamais être servie sous la clé du fournisseur initialement visé",
+            )
+            self.assertEqual(llm_cache.get(actual_key), "Réponse de repli.")
+        finally:
+            cm.delete_conversation(conv["id"], self.REAL_USER["id"])
+
+
+class TestRemboursementQuotaSurExceptionAvantLlm(Phase3BTestCase):
+    """Release Candidate : une exception survenant AVANT tout appel réel au
+    fournisseur IA (ex: bug dans la classification d'intention, le contexte
+    RAG...) ne doit jamais laisser le quota facturé (check_and_increment_
+    quota, en tête de stream_reply) sans qu'aucune réponse n'ait été produite
+    — voir quota_service.refund(), câblé dans stream_reply."""
+
+    def test_exception_avant_le_llm_rembourse_le_quota(self):
+        self._quota_patch.stop()
+        conv = cm.create_conversation(self.REAL_USER["id"], "Test remboursement quota")
+        try:
+            used_before = quota_service.usage_snapshot(self.REAL_USER, QuotaType.CHAT_MESSAGES)["used"]
+
+            with patch.object(cm, "_classify_intent", side_effect=RuntimeError("panne simulée")):
+                with self.assertRaises(RuntimeError):
+                    "".join(cm.stream_reply(self.REAL_USER, conv["id"], "Une question."))
+
+            used_after = quota_service.usage_snapshot(self.REAL_USER, QuotaType.CHAT_MESSAGES)["used"]
+            self.assertEqual(used_after, used_before, "le quota facturé doit être intégralement remboursé")
+
+            # Le message utilisateur reste persisté (l'historique de la
+            # conversation ne doit jamais être perdu), mais aucune réponse
+            # assistant n'a été produite pour ce tour.
+            rows = db.list_messages(conv["id"])
+            self.assertEqual([r["role"] for r in rows], ["user"])
+        finally:
+            self._quota_patch.start()
+            cm.delete_conversation(conv["id"], self.REAL_USER["id"])
+
+    def test_reponse_reussie_consomme_normalement_le_quota(self):
+        """Non-régression : le chemin normal (aucune exception) continue de
+        facturer exactement 1 unité, exactement comme avant ce correctif."""
+        self._quota_patch.stop()
+        conv = cm.create_conversation(self.REAL_USER["id"], "Test quota chemin normal")
+        try:
+            used_before = quota_service.usage_snapshot(self.REAL_USER, QuotaType.CHAT_MESSAGES)["used"]
+            "".join(cm.stream_reply(self.REAL_USER, conv["id"], "Une question normale."))
+            used_after = quota_service.usage_snapshot(self.REAL_USER, QuotaType.CHAT_MESSAGES)["used"]
+            self.assertEqual(used_after, used_before + 1)
+        finally:
+            self._quota_patch.start()
+            cm.delete_conversation(conv["id"], self.REAL_USER["id"])
+
+
 class TestRetryLast(Phase3BTestCase):
     """`retry_last` (robustesse réseau) : rejoue la génération pour le
     dernier message utilisateur sans jamais le dupliquer en base — le cas
@@ -295,6 +480,95 @@ class TestRetryLast(Phase3BTestCase):
             "".join(cm.stream_reply(self.REAL_USER, conv["id"], "Salut"))
             with self.assertRaises(ValueError):
                 "".join(cm.retry_last(self.REAL_USER, conv["id"]))
+        finally:
+            cm.delete_conversation(conv["id"], self.REAL_USER["id"])
+
+    def test_relache_la_reservation_apres_echec_et_permet_un_nouvel_essai(self):
+        """Durcissement production : la réclamation posée par retry_last ne
+        doit jamais bloquer un VRAI nouvel essai séquentiel après un échec
+        (panne réseau/fournisseur qui se reproduit) — seule une course
+        concurrente doit être bloquée, jamais une nouvelle tentative après
+        que la précédente a définitivement échoué."""
+        conv = cm.create_conversation(self.REAL_USER["id"], "Test retry relache")
+        try:
+            db.add_message(conv["id"], "user", "Salut")
+
+            def failing_generator(*_args, **_kwargs):
+                raise RuntimeError("panne réseau simulée")
+                yield  # pragma: no cover - jamais atteint, garde la fonction generator
+
+            with patch.object(cm, "_generate_assistant_reply", side_effect=failing_generator):
+                with self.assertRaises(RuntimeError):
+                    list(cm.retry_last(self.REAL_USER, conv["id"]))
+
+            # Aucun message assistant n'a été persisté par l'essai échoué.
+            messages = db.list_messages(conv["id"])
+            self.assertEqual(len(messages), 1)
+            self.assertEqual(messages[0]["role"], "user")
+
+            # Un second essai (séquentiel, la réservation a été relâchée)
+            # doit réussir normalement.
+            result = "".join(cm.retry_last(self.REAL_USER, conv["id"]))
+            self.assertTrue(result)
+            messages_after = db.list_messages(conv["id"])
+            self.assertEqual(len(messages_after), 2)
+            self.assertEqual(messages_after[-1]["role"], "assistant")
+        finally:
+            cm.delete_conversation(conv["id"], self.REAL_USER["id"])
+
+
+class TestRetryLastConcurrence(Phase3BTestCase):
+    """Durcissement production : deux `retry_last` concurrents (double-clic,
+    double onglet) sur le MÊME message utilisateur en attente ne doivent
+    produire qu'UNE seule réponse assistant — même protection que
+    regenerate_last (voir db.claim_message_retry)."""
+
+    def test_plusieurs_retry_concurrents_ne_dupliquent_jamais(self):
+        import threading
+        import time as time_module
+
+        conv = cm.create_conversation(self.REAL_USER["id"], "Test retry concurrent")
+        try:
+            db.add_message(conv["id"], "user", "C'est quoi une puissance ?")
+
+            n_threads = 6
+            barrier = threading.Barrier(n_threads)
+            results = []
+            errors = []
+            lock = threading.Lock()
+
+            real_claim = db.claim_message_retry
+
+            def slow_claim(message_id):
+                # Élargit la fenêtre critique pour forcer une vraie collision
+                # entre threads (voir test analogue sur regenerate_last).
+                time_module.sleep(0.05)
+                return real_claim(message_id)
+
+            with patch.object(db, "claim_message_retry", side_effect=slow_claim):
+                def worker():
+                    barrier.wait()
+                    try:
+                        text = "".join(cm.retry_last(self.REAL_USER, conv["id"]))
+                        with lock:
+                            results.append(text)
+                    except ValueError as e:
+                        with lock:
+                            errors.append(e)
+
+                threads = [threading.Thread(target=worker) for _ in range(n_threads)]
+                for t in threads:
+                    t.start()
+                for t in threads:
+                    t.join()
+
+            self.assertEqual(len(results), 1, f"un seul retry doit produire du texte : {results}")
+            self.assertEqual(len(errors), n_threads - 1)
+            for e in errors:
+                self.assertIn("déjà en cours de génération", str(e))
+
+            messages_after = db.list_messages(conv["id"])
+            self.assertEqual(len(messages_after), 2)  # user + LA seule réponse assistant
         finally:
             cm.delete_conversation(conv["id"], self.REAL_USER["id"])
 

@@ -1,0 +1,170 @@
+--- alg_produit (Propriétés algébriques) ---
+Q: Simplifier l'expression $A = e^{7} \times e^{5}$.
+R: $A = e^{12}$
+Q: Simplifier l'expression $A = e^{-4} \times e^{2}$.
+R: $A = e^{-2}$
+--- alg_quotient (Propriétés algébriques) ---
+Q: Simplifier l'expression $B = \dfrac{e^{1}}{e^{5}}$.
+R: $B = e^{-4}$
+Q: Simplifier l'expression $B = \dfrac{e^{-6}}{e^{6}}$.
+R: $B = e^{-12}$
+--- alg_puissance (Propriétés algébriques) ---
+Q: Simplifier l'expression $C = \left(e^{1}\right)^{-3}$.
+R: $C = e^{-3}$
+Q: Simplifier l'expression $C = \left(e^{-3}\right)^{-2}$.
+R: $C = e^{6}$
+--- alg_inverse (Propriétés algébriques) ---
+Q: Simplifier l'expression $D = \dfrac{1}{e^{-8}}$.
+R: $D = e^{8}$
+Q: Simplifier l'expression $D = \dfrac{1}{e^{-6}}$.
+R: $D = e^{6}$
+--- alg_valeur_connue (Propriétés algébriques) ---
+Q: On pose $A = e^{6}$ et $B = e^{-2}$ (on ne connaît pas leurs valeurs numériques). Exprimer $e^{12}$ en fonction de $A$.
+R: $A^2$
+Q: On pose $A = e^{-5}$ et $B = e^{-5}$ (on ne connaît pas leurs valeurs numériques). Exprimer $e^{-5+-5}$ en fonction de $A$ et $B$.
+R: $A \times B$
+--- alg_erreur (Propriétés algébriques) ---
+Q: Un élève affirme que $e^{2} \times e^{-1} = e^{2} + e^{-1}$. Cette affirmation est-elle correcte ? Justifier et donner le bon résultat.
+R: Faux. $e^{2} \times e^{-1} = e^{1}$ (et non $e^{2} + e^{-1}$).
+Q: Un élève affirme que $e^{4} \times e^{-3} = e^{4} + e^{-3}$. Cette affirmation est-elle correcte ? Justifier et donner le bon résultat.
+R: Faux. $e^{4} \times e^{-3} = e^{1}$ (et non $e^{4} + e^{-3}$).
+--- alg_vrai_faux (Propriétés algébriques) ---
+Q: Vrai ou faux ? $e^{-1} \times e^{4} = e^{3}$. Justifier.
+R: Vrai.
+Q: Vrai ou faux ? $e^{-3} \times e^{-5} = e^{-6}$. Justifier.
+R: Faux (le bon résultat est $e^{-8}$).
+--- not_simplifier (Nouvelle notation et nombre e) ---
+Q: En utilisant la notation $e^x$, simplifier l'expression $\dfrac{e^{2}}{e^{-3}}$.
+R: $e^{5}$
+Q: En utilisant la notation $e^x$, simplifier l'expression $e^{1} \times e^{5}$.
+R: $e^{6}$
+--- not_equation_simple (Nouvelle notation et nombre e) ---
+Q: Résoudre dans $\mathbb{R}$ l'équation $e^{- 2 x - 6} = e^{7}$.
+R: $\mathcal{S} = \{- \frac{13}{2}\}$
+Q: Résoudre dans $\mathbb{R}$ l'équation $e^{6 x + 4} = e^{9}$.
+R: $\mathcal{S} = \{\frac{5}{6}\}$
+--- not_equation_double (Nouvelle notation et nombre e) ---
+Q: Résoudre dans $\mathbb{R}$ l'équation $e^{6 - 5 x} = e^{5 x - 8}$.
+R: $\mathcal{S} = \{\frac{7}{5}\}$
+Q: Résoudre dans $\mathbb{R}$ l'équation $e^{4 x - 3} = e^{3 x - 4}$.
+R: $\mathcal{S} = \{-1\}$
+--- not_valeur_particuliere (Nouvelle notation et nombre e) ---
+Q: Sans calculer $e^{-4}$, donner la valeur exacte de $e^{-4} \times e^{4}$.
+R: $1$
+Q: Sans calculatrice, donner la valeur exacte de $k \times e^{0}$ pour $k = 5$.
+R: $5$
+--- not_comparer (Nouvelle notation et nombre e) ---
+Q: Comparer $e^{-8}$ et $e^{7}$ sans calculer leurs valeurs.
+R: $e^{-8} < e^{7}$
+Q: Comparer $e^{-3}$ et $e^{7}$ sans calculer leurs valeurs.
+R: $e^{-3} < e^{7}$
+--- not_erreur (Nouvelle notation et nombre e) ---
+Q: Un élève écrit : « $e^{5} \times e^{-4} = e^{5\times-4}$ ». Corriger cette erreur en donnant le bon résultat.
+R: $e^{1}$
+Q: Un élève écrit : « $e^{6} \times e^{3} = e^{6\times3}$ ». Corriger cette erreur en donnant le bon résultat.
+R: $e^{9}$
+--- fn_derivee_simple (Fonction exponentielle) ---
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = 5 e^{x}$. Calculer $f'(x)$.
+R: $f'(x) = 5 e^{x}$
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = 8 e^{x}$. Calculer $f'(x)$.
+R: $f'(x) = 8 e^{x}$
+--- fn_derivee_composee (Fonction exponentielle) ---
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = e^{2 - 3 x}$. Calculer $f'(x)$.
+R: $f'(x) = - 3 e^{2 - 3 x}$
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = e^{- x - 3}$. Calculer $f'(x)$.
+R: $f'(x) = - e^{- x - 3}$
+--- fn_derivee_polynome_expo (Fonction exponentielle) ---
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = e^{- x^{2} + 3 x}$. Calculer $f'(x)$.
+R: $f'(x) = \left(3 - 2 x\right) e^{x \left(3 - x\right)}$
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = e^{2 x^{2}}$. Calculer $f'(x)$.
+R: $f'(x) = 4 x e^{2 x^{2}}$
+--- fn_valeur_en_0 (Fonction exponentielle) ---
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = 2 e^{x}$. Calculer $f(0)$.
+R: $f(0) = 2$
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = 6 - 3 e^{x}$. Calculer $f(0)$.
+R: $f(0) = 3$
+--- fn_signe (Fonction exponentielle) ---
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = - 4 e^{x}$. Justifier le signe de $f(x)$ pour tout réel $x$.
+R: $f(x) < 0$ pour tout réel $x$ (fonction strictement négative).
+Q: Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = - 5 e^{x}$. Justifier le signe de $f(x)$ pour tout réel $x$.
+R: $f(x) < 0$ pour tout réel $x$ (fonction strictement négative).
+--- fn_equation_differentielle (Fonction exponentielle) ---
+Q: Vérifier que la fonction $f(x) = 4 e^{x}$ vérifie l'équation différentielle $f' = f$.
+R: Oui, $f' = f$.
+Q: Vérifier que la fonction $f(x) = 3 e^{x}$ vérifie l'équation différentielle $f' = f$.
+R: Oui, $f' = f$.
+--- courbe_appartenance (Courbe représentative) ---
+Q: La courbe représentative de la fonction exponentielle passe-t-elle par le point de coordonnées $(0 ; e^{2})$ ? Justifier.
+R: Non, ce point n'appartient pas à la courbe (il faudrait $y = e^{0}$).
+Q: La courbe représentative de la fonction exponentielle passe-t-elle par le point de coordonnées $(4 ; e^{7})$ ? Justifier.
+R: Non, ce point n'appartient pas à la courbe (il faudrait $y = e^{4}$).
+--- courbe_signe_positif (Courbe représentative) ---
+Q: Justifier que le point de la courbe représentative de la fonction exponentielle d'abscisse $x=8$ est situé strictement au-dessus de l'axe des abscisses.
+R: $e^{8} > 0$, donc le point est strictement au-dessus de l'axe des abscisses.
+Q: Justifier que le point de la courbe représentative de la fonction exponentielle d'abscisse $x=-1$ est situé strictement au-dessus de l'axe des abscisses.
+R: $e^{-1} > 0$, donc le point est strictement au-dessus de l'axe des abscisses.
+--- courbe_comparaison (Courbe représentative) ---
+Q: Sans calculer $e^{0}$ ni $e^{-2}$, comparer les points de la courbe représentative de la fonction exponentielle d'abscisses $x=0$ et $x=-2$.
+R: $e^{0} > e^{-2}$
+Q: Sans calculer $e^{0}$ ni $e^{2}$, comparer les points de la courbe représentative de la fonction exponentielle d'abscisses $x=0$ et $x=2$.
+R: $e^{0} < e^{2}$
+--- courbe_tangente (Courbe représentative) ---
+Q: Déterminer une équation de la tangente à la courbe représentative de la fonction exponentielle au point d'abscisse $x = -2$.
+R: $y = \frac{x}{e^{2}} + \frac{3}{e^{2}}$
+Q: Déterminer une équation de la tangente à la courbe représentative de la fonction exponentielle au point d'abscisse $x = 3$.
+R: $y = x e^{3} - 2 e^{3}$
+--- courbe_position_asymptote (Courbe représentative) ---
+Q: Justifier que la courbe représentative de la fonction exponentielle se rapproche de l'axe des abscisses (droite d'équation $y=0$) lorsque $x$ tend vers $-\infty$, en observant la valeur en $x = -9$.
+R: L'axe des abscisses ($y=0$) est asymptote horizontale à la courbe en $-\infty$.
+Q: Justifier que la courbe représentative de la fonction exponentielle se rapproche de l'axe des abscisses (droite d'équation $y=0$) lorsque $x$ tend vers $-\infty$, en observant la valeur en $x = -4$.
+R: L'axe des abscisses ($y=0$) est asymptote horizontale à la courbe en $-\infty$.
+--- ana_limite_infini (Propriétés analytiques) ---
+Q: Donner $\lim\limits_{x \to -\infty} e^x$ et justifier à l'aide des propriétés analytiques de l'exponentielle.
+R: $\lim\limits_{x \to -\infty} e^x = 0$
+Q: Donner $\lim\limits_{x \to +\infty} e^x$ et justifier à l'aide des propriétés analytiques de l'exponentielle.
+R: $\lim\limits_{x \to +\infty} e^x = +\infty$
+--- ana_limite_composee (Propriétés analytiques) ---
+Q: Déterminer $\lim\limits_{x \to +\infty} e^{3 x}$.
+R: $\lim\limits_{x \to +\infty} e^{3 x} = \infty$
+Q: Déterminer $\lim\limits_{x \to +\infty} e^{2 x}$.
+R: $\lim\limits_{x \to +\infty} e^{2 x} = \infty$
+--- ana_variation (Propriétés analytiques) ---
+Q: Étudier les variations de la fonction $f$ définie sur $\mathbb{R}$ par $f(x) = 5 e^{x}$.
+R: $f$ est strictement croissante sur $\mathbb{R}$.
+Q: Étudier les variations de la fonction $f$ définie sur $\mathbb{R}$ par $f(x) = 6 e^{x}$.
+R: $f$ est strictement croissante sur $\mathbb{R}$.
+--- ana_inequation (Propriétés analytiques) ---
+Q: Résoudre dans $\mathbb{R}$ l'inéquation $e^{3 x + 6} < e^{6}$.
+R: $\mathcal{S} = ]-\infty ; 0[$
+Q: Résoudre dans $\mathbb{R}$ l'inéquation $e^{2 - 5 x} < e^{3}$.
+R: $\mathcal{S} = ]- \frac{1}{5} ; \infty[$
+--- ana_signe_expression (Propriétés analytiques) ---
+Q: Déterminer le signe de $g(x) = e^x - e^{5}$ selon les valeurs de $x$.
+R: $g(x) < 0$ sur $]-\infty ; 5[$, $g(5)=0$, et $g(x) > 0$ sur $]5 ; +\infty[$.
+Q: Déterminer le signe de $g(x) = e^x - e^{-4}$ selon les valeurs de $x$.
+R: $g(x) < 0$ sur $]-\infty ; -4[$, $g(-4)=0$, et $g(x) > 0$ sur $]-4 ; +\infty[$.
+--- suite_identifier (Lien avec les suites géométriques) ---
+Q: On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 1 \times e^{2n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{5}$ en fonction de $e^{2}$.
+R: $(u_n)$ est géométrique de raison $e^{2}$ et $u_{5} = 1 \times e^{10}$
+Q: On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 7 \times e^{-1n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{2}$ en fonction de $e^{-1}$.
+R: $(u_n)$ est géométrique de raison $e^{-1}$ et $u_{2} = 7 \times e^{-2}$
+--- suite_contexte_population (Lien avec les suites géométriques) ---
+Q: Une population de bactéries évolue selon $N(t) = 800 \times e^{\frac{1}{5}t}$, où $t$ est le temps en heures et $N(t)$ le nombre de bactéries. Cette évolution correspond à un taux de croissance continu de 20\,\% par heure. Montrer que la suite $(N(k))_{k \in \mathbb{N}}$ des effectifs aux instants entiers est géométrique, puis calculer $N(4)$ en fonction de $e^{\frac{1}{5}}$.
+R: $(N(k))$ est géométrique de raison $e^{\frac{1}{5}}$ et $N(4) = 800 \times e^{\frac{4}{5}}$
+Q: Une population de bactéries évolue selon $N(t) = 5000 \times e^{\frac{1}{5}t}$, où $t$ est le temps en heures et $N(t)$ le nombre de bactéries. Cette évolution correspond à un taux de croissance continu de 20\,\% par heure. Montrer que la suite $(N(k))_{k \in \mathbb{N}}$ des effectifs aux instants entiers est géométrique, puis calculer $N(3)$ en fonction de $e^{\frac{1}{5}}$.
+R: $(N(k))$ est géométrique de raison $e^{\frac{1}{5}}$ et $N(3) = 5000 \times e^{\frac{3}{5}}$
+--- suite_contexte_radioactif (Lien avec les suites géométriques) ---
+Q: La masse d'une substance radioactive suit la loi $N(t) = 400 \times e^{-\frac{1}{20}t}$, où $t$ est le temps en années. Montrer que la suite des masses aux instants entiers $(N(k))_{k\in\mathbb{N}}$ est géométrique, préciser si elle est croissante ou décroissante, puis calculer $N(3)$.
+R: $(N(k))$ est géométrique de raison $e^{-\frac{1}{20}}$ (décroissante) et $N(3) = 400 \times e^{-\frac{3}{20}}$
+Q: La masse d'une substance radioactive suit la loi $N(t) = 100 \times e^{-\frac{1}{5}t}$, où $t$ est le temps en années. Montrer que la suite des masses aux instants entiers $(N(k))_{k\in\mathbb{N}}$ est géométrique, préciser si elle est croissante ou décroissante, puis calculer $N(2)$.
+R: $(N(k))$ est géométrique de raison $e^{-\frac{1}{5}}$ (décroissante) et $N(2) = 100 \times e^{-\frac{2}{5}}$
+--- suite_contexte_capitalisation (Lien avec les suites géométriques) ---
+Q: Un capital est placé à intérêts composés en continu selon $C(t) = 5000 \times e^{\frac{3}{100}t}$, où $t$ est le temps en années et $C(t)$ le capital en euros (taux annuel continu 3\,\%). Montrer que la suite $(C(k))_{k\in\mathbb{N}}$ est géométrique et calculer $C(4)$ en fonction de $e^{\frac{3}{100}}$.
+R: $(C(k))$ est géométrique de raison $e^{\frac{3}{100}}$ et $C(4) = 5000 \times e^{\frac{3}{25}}$
+Q: Un capital est placé à intérêts composés en continu selon $C(t) = 2000 \times e^{\frac{1}{50}t}$, où $t$ est le temps en années et $C(t)$ le capital en euros (taux annuel continu 2\,\%). Montrer que la suite $(C(k))_{k\in\mathbb{N}}$ est géométrique et calculer $C(5)$ en fonction de $e^{\frac{1}{50}}$.
+R: $(C(k))$ est géométrique de raison $e^{\frac{1}{50}}$ et $C(5) = 2000 \times e^{\frac{1}{10}}$
+--- suite_sens_variation (Lien avec les suites géométriques) ---
+Q: On considère la suite géométrique $u_n = 4 \times e^{\frac{2}{5}n}$. Sans calculer sa valeur numérique, déterminer si la raison $q = e^{\frac{2}{5}}$ est supérieure ou inférieure à $1$, et en déduire le sens de variation de la suite.
+R: $q = e^{\frac{2}{5}} > 1$, donc $(u_n)$ est croissante.
+Q: On considère la suite géométrique $u_n = 1 \times e^{- \frac{2}{5}n}$. Sans calculer sa valeur numérique, déterminer si la raison $q = e^{- \frac{2}{5}}$ est supérieure ou inférieure à $1$, et en déduire le sens de variation de la suite.
+R: $q = e^{- \frac{2}{5}} < 1$, donc $(u_n)$ est décroissante.

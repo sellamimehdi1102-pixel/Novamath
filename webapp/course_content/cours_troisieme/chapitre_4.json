@@ -1,0 +1,907 @@
+{
+  "chapterId": "Chapitre_4",
+  "title": "Calcul littéral",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "developper-un-produit-avec-la-double-distributivite",
+      "title": "Développer un produit avec la double distributivité",
+      "schemaVersion": 2,
+      "intro": "La double distributivité permet de développer le produit de deux parenthèses, chacune contenant une somme ou une différence, comme $(x+2)(x+3)$. Chaque terme de la première parenthèse doit être multiplié par chaque terme de la seconde, ce qui donne quatre produits à additionner. Cette notion sert à transformer un produit de facteurs en une somme de termes, notamment pour calculer une aire décomposée en plusieurs rectangles ou pour résoudre certaines équations.\n\nDans cette leçon, tu vas apprendre à développer un produit de deux parenthèses en appliquant la double distributivité, puis à réduire l'expression obtenue.",
+      "explicationSimple": "Imagine deux équipes de personnes qui doivent toutes se serrer la main : chaque personne de la première parenthèse doit « serrer la main » à chaque personne de la seconde parenthèse, une par une, sans en oublier. Avec deux termes dans chaque parenthèse, cela fait donc quatre poignées de main, c'est-à-dire quatre produits à calculer puis à additionner.",
+      "objectif": "À la fin de ce cours, tu sauras développer le produit de deux parenthèses en appliquant la double distributivité, gérer les signes de chaque produit, puis réduire l'expression obtenue.",
+      "definition": "La double distributivité est la règle qui permet de développer le produit de deux sommes (ou différences) : $(a+b)(c+d) = ac + ad + bc + bd$. Chaque terme de la première parenthèse est multiplié successivement par chaque terme de la seconde parenthèse, et les quatre produits obtenus sont ensuite additionnés, en tenant compte de leur signe.",
+      "definitions": {
+        "lycee": "La double distributivité est la règle qui permet de développer le produit de deux sommes (ou différences) : $(a+b)(c+d) = ac + ad + bc + bd$. Chaque terme de la première parenthèse est multiplié successivement par chaque terme de la seconde parenthèse, et les quatre produits obtenus sont ensuite additionnés, en tenant compte de leur signe.",
+        "college": "Pour développer $(a+b)(c+d)$, on multiplie chaque terme de la première parenthèse par chaque terme de la seconde, ce qui donne quatre produits : $ac$, $ad$, $bc$ et $bd$, qu'on additionne ensuite."
+      },
+      "intuition": "Ne t'arrête jamais après seulement deux produits : la double distributivité en demande toujours quatre. Une bonne méthode consiste à nommer les quatre termes (premier terme de la première parenthèse avec chaque terme de la seconde, puis second terme de la première parenthèse avec chaque terme de la seconde) pour être sûr de n'en oublier aucun, avant de réduire les termes semblables.",
+      "reglesImportantes": [
+        "Développe d'abord le produit avec simple distributivité, puis celui avec double distributivité, avant d'additionner.",
+        "Développe chaque produit séparément, puis distribue le signe moins à tous les termes du second développement.",
+        "Attention aux signes : chaque produit garde le signe issu de la multiplication des deux termes concernés.",
+        "Développe l'aire du grand rectangle et celle du rectangle intérieur, puis soustrais-les en réduisant.",
+        "Multiplie chaque terme du premier facteur par chaque terme du second, puis réduis les termes en $x$."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Développer un produit avec la double distributivité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(x+3)(x-2) = x^2+x-6$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $(x+1)(x+4) = x^2+5x+4$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : on additionne : $x^2+x-6+x^2+5x+4$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : on réduit : $x^2+x^2=2x^2$, $x+5x=6x$, $-6+4=-2$, soit $2x^2+6x-2$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-480",
+          "titre": "Exemple 1",
+          "enonce": "Développer l'expression $(x+2)(x+3)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(x+2)(x+3) = x \\times x + x \\times 3 + 2 \\times x + 2 \\times 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $(x+2)(x+3) = x^2+3x+2x+6$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on réduit les termes semblables : $3x+2x=5x$, donc $(x+2)(x+3) = x^2+5x+6$."
+            }
+          ],
+          "reponse": "$x^2+5x+6$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $x^2+5x+6$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-486",
+          "titre": "Exemple 2",
+          "enonce": "Développer l'expression $(x-2)(x+4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(x-2)(x+4) = x \\times x + x \\times 4 - 2 \\times x - 2 \\times 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $(x-2)(x+4) = x^2+4x-2x-8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on réduit : $4x-2x=2x$, donc $(x-2)(x+4) = x^2+2x-8$."
+            }
+          ],
+          "reponse": "$x^2+2x-8$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $x^2+2x-8$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-492",
+          "titre": "Exemple 3",
+          "enonce": "Développer l'expression $(x-3)(x-5)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(x-3)(x-5) = x \\times x - x \\times 5 - 3 \\times x + 3 \\times 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $(x-3)(x-5) = x^2-5x-3x+15$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on réduit : $-5x-3x=-8x$, donc $(x-3)(x-5) = x^2-8x+15$."
+            }
+          ],
+          "reponse": "$x^2-8x+15$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $x^2-8x+15$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-498",
+          "titre": "Exemple 4",
+          "enonce": "Développer l'expression $(3x-7)(2x+5)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(3x-7)(2x+5) = 3x \\times 2x + 3x \\times 5 - 7 \\times 2x - 7 \\times 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $(3x-7)(2x+5) = 6x^2+15x-14x-35$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on réduit : $15x-14x=x$, donc $(3x-7)(2x+5) = 6x^2+x-35$."
+            }
+          ],
+          "reponse": "$6x^2+x-35$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $6x^2+x-35$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "calculer rapidement une aire décomposée en plusieurs rectangles",
+        "simplifier une formule utilisée en physique ou en économie",
+        "résoudre une équation en la ramenant à un produit de facteurs nuls"
+      ],
+      "erreursFrequentes": [
+        "Attention aux signes : chaque produit garde le signe issu de la multiplication des deux termes concernés.",
+        "Applique la double distributivité au produit $(x+5)(x-3)$, en faisant attention aux signes."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Attention aux signes : chaque produit garde le signe issu de la multiplication des deux termes concernés.",
+          "pourquoi": "On applique la règle des signes seulement mentalement, sans l'écrire, ce qui fait perdre un signe négatif en cours de route.",
+          "comment_detecter": "Un des quatre produits obtenus a un signe qui ne correspond pas à la règle des signes appliquée aux deux termes multipliés.",
+          "comment_eviter": "Écrire explicitement le signe de chaque produit dès qu'il est calculé, avant de passer au produit suivant."
+        },
+        {
+          "description": "Applique la double distributivité au produit $(x+5)(x-3)$, en faisant attention aux signes.",
+          "pourquoi": "La présence d'un signe moins dans une des deux parenthèses est source d'erreur si l'on ne traite pas ce terme comme « $+(-3)$ » de façon rigoureuse.",
+          "comment_detecter": "Le développement final ne comporte pas le bon nombre de termes négatifs par rapport à l'expression de départ.",
+          "comment_eviter": "Réécrire systématiquement une soustraction comme l'addition d'un terme négatif avant de distribuer, pour manipuler des signes clairs."
+        }
+      ],
+      "astuce": "Pour ne pas oublier un terme en développant, imagine que chaque terme de la première parenthèse doit « serrer la main » à chaque terme de la deuxième parenthèse, un par un.",
+      "aRetenir": [
+        "Développe d'abord le produit avec simple distributivité, puis celui avec double distributivité, avant d'additionner.",
+        "Développe chaque produit séparément, puis distribue le signe moins à tous les termes du second développement.",
+        "Attention aux signes : chaque produit garde le signe issu de la multiplication des deux termes concernés.",
+        "Développe l'aire du grand rectangle et celle du rectangle intérieur, puis soustrais-les en réduisant.",
+        "Multiplie chaque terme du premier facteur par chaque terme du second, puis réduis les termes en $x$.",
+        "Distribue chaque terme du premier facteur sur les deux termes du second, en respectant les signes."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.5,
+          -0.5,
+          8,
+          4
+        ],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 3,
+                "y": 0
+              },
+              {
+                "x": 3,
+                "y": 2
+              },
+              {
+                "x": 0,
+                "y": 2
+              }
+            ]
+          },
+          {
+            "points": [
+              {
+                "x": 3,
+                "y": 0
+              },
+              {
+                "x": 6,
+                "y": 0
+              },
+              {
+                "x": 6,
+                "y": 2
+              },
+              {
+                "x": 3,
+                "y": 2
+              }
+            ]
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 3,
+              "y": 0
+            },
+            "to": {
+              "x": 3,
+              "y": 2
+            },
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.5,
+            "y": 1,
+            "label": "a × b"
+          },
+          {
+            "x": 4.5,
+            "y": 1,
+            "label": "a × c"
+          },
+          {
+            "x": 0,
+            "y": -0.3,
+            "label": "b"
+          },
+          {
+            "x": 3,
+            "y": -0.3,
+            "label": "c"
+          },
+          {
+            "x": -0.4,
+            "y": 1,
+            "label": "a"
+          }
+        ],
+        "alt": "Le rectangle de largeur (b + c) se découpe en deux rectangles d'aires a×b et a×c."
+      },
+      "quizExerciseIds": [
+        481,
+        482,
+        483
+      ],
+      "topic_id": "developper-un-produit-avec-la-double-distributivite",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Développer un produit avec la double distributivité."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "developper",
+        "produit",
+        "double",
+        "distributivite"
+      ]
+    },
+    {
+      "id": "developper-un-produit-avec-la-simple-distributivite",
+      "title": "Développer un produit avec la simple distributivité",
+      "schemaVersion": 2,
+      "intro": "La simple distributivité permet de développer le produit d'un facteur par une somme ou une différence, comme $3(x+4)$. Elle repose sur l'idée que multiplier une somme par un nombre revient à multiplier chaque terme de cette somme par ce nombre, puis à additionner les résultats. Cette notion sert à transformer une expression contenant des parenthèses en une somme de termes plus facile à calculer ou à réduire.\n\nDans cette leçon, tu vas apprendre à développer un produit de la forme $k(a+b)$ en distribuant le facteur $k$ à chaque terme, en particulier lorsque $k$ est négatif.",
+      "explicationSimple": "Imagine que tu dois payer 3 paniers identiques, chacun contenant des pommes et des poires. Payer « 3 fois (pommes + poires) », c'est la même chose que payer « 3 fois les pommes » plus « 3 fois les poires » séparément. Distribuer un facteur devant une parenthèse, c'est exactement ça : multiplier chaque terme de la parenthèse par ce facteur, un par un.",
+      "objectif": "À la fin de ce cours, tu sauras développer un produit de la forme $k(a+b)$ en multipliant $k$ par chaque terme de la parenthèse, en particulier lorsque $k$ est négatif ou lorsque la parenthèse contient une soustraction.",
+      "definition": "La simple distributivité est la règle qui permet de développer le produit d'un facteur $k$ par une somme (ou une différence) : $k(a+b) = ka + kb$ et $k(a-b) = ka - kb$. Chaque terme situé à l'intérieur de la parenthèse est multiplié individuellement par le facteur extérieur, en respectant la règle des signes.",
+      "definitions": {
+        "lycee": "La simple distributivité est la règle qui permet de développer le produit d'un facteur $k$ par une somme (ou une différence) : $k(a+b) = ka + kb$ et $k(a-b) = ka - kb$. Chaque terme situé à l'intérieur de la parenthèse est multiplié individuellement par le facteur extérieur, en respectant la règle des signes.",
+        "college": "Pour développer $k(a+b)$, on multiplie $k$ par $a$, puis $k$ par $b$, et on additionne les deux résultats : $k(a+b) = ka + kb$."
+      },
+      "intuition": "Quand le facteur devant la parenthèse est négatif, chaque terme distribué change de signe : bien vérifier, pour chaque terme de la parenthèse, quel est le signe du produit obtenu, plutôt que de ne changer le signe que du premier terme et d'oublier le second.",
+      "reglesImportantes": [
+        "L'aire est le produit de la largeur $x$ par la longueur ; distribue $x$ à chacun des deux termes de la longueur.",
+        "Le facteur devant la parenthèse peut aussi être une lettre : la règle de distributivité reste la même.",
+        "Attention au signe : le produit d'un facteur négatif par un terme négatif donne un résultat positif.",
+        "Développe le membre de gauche avec la distributivité et compare le résultat au membre de droite.",
+        "N'oublie pas de distribuer le signe moins devant la deuxième parenthèse à chacun de ses termes."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Développer un produit avec la simple distributivité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $3(x+4) = 3x+12$ et $2(x-5) = 2x-10$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : l'expression devient $3x+12+2x-10$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : on regroupe les termes semblables : $3x+2x=5x$ et $12-10=2$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : le résultat réduit est $5x+2$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-450",
+          "titre": "Exemple 1",
+          "enonce": "Développer l'expression $3(x+2)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $3(x+2) = 3 \\times x + 3 \\times 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $3(x+2) = 3x+6$."
+            }
+          ],
+          "reponse": "$3x+6$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $3x+6$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-456",
+          "titre": "Exemple 2",
+          "enonce": "Développer l'expression $7(x-4)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $7(x-4) = 7 \\times x - 7 \\times 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $7(x-4) = 7x-28$."
+            }
+          ],
+          "reponse": "$7x-28$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $7x-28$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-462",
+          "titre": "Exemple 3",
+          "enonce": "Développer l'expression $-6(x-5)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $-6(x-5) = (-6) \\times x - (-6) \\times 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $-6(x-5) = -6x+30$."
+            }
+          ],
+          "reponse": "$-6x+30$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-6x+30$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-468",
+          "titre": "Exemple 4",
+          "enonce": "Développer l'expression $-8(x-6)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $-8(x-6) = (-8) \\times x - (-8) \\times 6$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $-8(x-6) = -8x+48$."
+            }
+          ],
+          "reponse": "$-8x+48$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-8x+48$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "calculer rapidement une aire décomposée en plusieurs rectangles",
+        "simplifier une formule utilisée en physique ou en économie",
+        "résoudre une équation en la ramenant à un produit de facteurs nuls"
+      ],
+      "erreursFrequentes": [
+        "Attention au signe : le produit d'un facteur négatif par un terme négatif donne un résultat positif.",
+        "Développe chaque parenthèse en faisant attention aux signes, puis additionne les résultats."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Attention au signe : le produit d'un facteur négatif par un terme négatif donne un résultat positif.",
+          "pourquoi": "On applique machinalement un signe négatif au résultat dès que le facteur devant la parenthèse est négatif, sans tenir compte du signe du terme distribué.",
+          "comment_detecter": "Le produit de deux termes négatifs (facteur et terme) est resté négatif dans le résultat, au lieu de devenir positif.",
+          "comment_eviter": "Appliquer la règle des signes séparément à chaque produit : facteur × premier terme, puis facteur × second terme."
+        },
+        {
+          "description": "Développe chaque parenthèse en faisant attention aux signes, puis additionne les résultats.",
+          "pourquoi": "Quand l'expression contient plusieurs parenthèses à développer, on traite la première correctement mais on relâche l'attention sur les signes de la seconde.",
+          "comment_detecter": "Une des deux parenthèses développées présente un signe incohérent par rapport au facteur qui la précédait.",
+          "comment_eviter": "Développer et vérifier chaque parenthèse une par une, séparément, avant de les additionner entre elles."
+        }
+      ],
+      "astuce": "N'oublie pas de distribuer le signe moins devant la deuxième parenthèse à chacun de ses termes.",
+      "aRetenir": [
+        "L'aire est le produit de la largeur $x$ par la longueur ; distribue $x$ à chacun des deux termes de la longueur.",
+        "Le facteur devant la parenthèse peut aussi être une lettre : la règle de distributivité reste la même.",
+        "Attention au signe : le produit d'un facteur négatif par un terme négatif donne un résultat positif.",
+        "Développe le membre de gauche avec la distributivité et compare le résultat au membre de droite.",
+        "N'oublie pas de distribuer le signe moins devant la deuxième parenthèse à chacun de ses termes.",
+        "Vérifie si le facteur $4$ a bien été multiplié par chacun des deux termes de la parenthèse."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.5,
+          -0.5,
+          8,
+          4
+        ],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 3,
+                "y": 0
+              },
+              {
+                "x": 3,
+                "y": 2
+              },
+              {
+                "x": 0,
+                "y": 2
+              }
+            ]
+          },
+          {
+            "points": [
+              {
+                "x": 3,
+                "y": 0
+              },
+              {
+                "x": 6,
+                "y": 0
+              },
+              {
+                "x": 6,
+                "y": 2
+              },
+              {
+                "x": 3,
+                "y": 2
+              }
+            ]
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 3,
+              "y": 0
+            },
+            "to": {
+              "x": 3,
+              "y": 2
+            },
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.5,
+            "y": 1,
+            "label": "a × b"
+          },
+          {
+            "x": 4.5,
+            "y": 1,
+            "label": "a × c"
+          },
+          {
+            "x": 0,
+            "y": -0.3,
+            "label": "b"
+          },
+          {
+            "x": 3,
+            "y": -0.3,
+            "label": "c"
+          },
+          {
+            "x": -0.4,
+            "y": 1,
+            "label": "a"
+          }
+        ],
+        "alt": "Le rectangle de largeur (b + c) se découpe en deux rectangles d'aires a×b et a×c."
+      },
+      "quizExerciseIds": [
+        451,
+        452,
+        453
+      ],
+      "topic_id": "developper-un-produit-avec-la-simple-distributivite",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Développer un produit avec la simple distributivité."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "developper",
+        "produit",
+        "simple",
+        "distributivite"
+      ]
+    },
+    {
+      "id": "factoriser-une-somme-ou-une-difference",
+      "title": "Factoriser une somme ou une différence",
+      "schemaVersion": 2,
+      "intro": "Factoriser une somme ou une différence, c'est l'opération inverse de développer : on transforme une expression écrite comme une addition ou une soustraction de termes (comme $6x+9$) en un produit, en faisant apparaître un facteur commun aux deux termes (ici $3(2x+3)$). Cette notion sert notamment à résoudre des équations produit nul, où l'on cherche les valeurs qui annulent un facteur.\n\nDans cette leçon, tu vas apprendre à repérer le plus grand facteur commun (numérique ou littéral) à tous les termes d'une expression, puis à le mettre en évidence sous forme de produit.",
+      "explicationSimple": "Factoriser, c'est comme repérer que plusieurs boîtes de rangement contiennent toutes des jouets de la même couleur, et regrouper cette couleur commune à l'extérieur pour ne l'écrire qu'une seule fois. Dans $6x + 9$, le nombre $3$ se cache dans les deux termes ($6x = 3 \\times 2x$ et $9 = 3 \\times 3$) : on peut donc « sortir » ce $3$ commun et écrire $3(2x+3)$.",
+      "objectif": "À la fin de ce cours, tu sauras repérer le facteur commun (numérique ou littéral) à tous les termes d'une expression, et l'utiliser pour factoriser une somme ou une différence.",
+      "definition": "Factoriser une expression, c'est l'écrire sous la forme d'un produit, en mettant en évidence un facteur commun à tous ses termes : si $k$ est un facteur commun à $a$ et à $b$, alors $ka + kb = k(a+b)$ et $ka - kb = k(a-b)$. La factorisation est l'opération inverse de la distributivité, qui elle transforme un produit en somme.",
+      "definitions": {
+        "lycee": "Factoriser une expression, c'est l'écrire sous la forme d'un produit, en mettant en évidence un facteur commun à tous ses termes : si $k$ est un facteur commun à $a$ et à $b$, alors $ka + kb = k(a+b)$ et $ka - kb = k(a-b)$. La factorisation est l'opération inverse de la distributivité, qui elle transforme un produit en somme.",
+        "college": "Factoriser, c'est transformer une somme (ou une différence) en un produit, en repérant un nombre ou une lettre qui divise chaque terme, puis en le mettant en facteur devant une parenthèse."
+      },
+      "intuition": "Pour trouver le bon facteur commun, regarde séparément les nombres (cherche leur plus grand diviseur commun) et les lettres (cherche la puissance commune la plus petite, comme $x$ dans $x^2$ et $x$). Vérifie toujours ta factorisation en redéveloppant le résultat : tu dois retomber exactement sur l'expression de départ.",
+      "reglesImportantes": [
+        "Le facteur commun négatif doit être choisi de façon à obtenir des coefficients entiers dans la parenthèse.",
+        "Cherche le plus grand facteur commun à $24$ et $16$, même si les coefficients sont à deux chiffres.",
+        "La factorisation fonctionne aussi avec une différence : cherche le facteur commun aux deux termes.",
+        "Choisis un facteur commun négatif pour que le premier terme de la parenthèse reste positif.",
+        "Vérifie en développant l'écriture de l'élève : retrouve-t-on bien l'expression de départ ?"
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Factoriser une somme ou une différence",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : en développant $x(x+6x)$, on obtiendrait $x^2+6x^2$, ce qui n'est pas égal à $x^2+6x$ : l'élève a laissé un $x$ en trop dans la parenthèse."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : dans $x^2+6x$, le second terme s'écrit $x \\times 6$, donc le facteur restant est $6$, pas $6x$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : la factorisation correcte est $x^2+6x = x(x+6)$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-510",
+          "titre": "Exemple 1",
+          "enonce": "Factoriser l'expression $6x+9$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $6$ et $9$ ont pour facteur commun $3$ : $6x = 3 \\times 2x$ et $9 = 3 \\times 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on met $3$ en facteur : $6x+9 = 3(2x+3)$."
+            }
+          ],
+          "reponse": "$3(2x+3)$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $3(2x+3)$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-516",
+          "titre": "Exemple 2",
+          "enonce": "Factoriser l'expression $5x-15$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $5$ et $15$ ont pour facteur commun $5$ : $5x = 5 \\times x$ et $15 = 5 \\times 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on met $5$ en facteur : $5x-15 = 5(x-3)$."
+            }
+          ],
+          "reponse": "$5(x-3)$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $5(x-3)$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-522",
+          "titre": "Exemple 3",
+          "enonce": "Factoriser l'expression $24x+16$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $24$ et $16$ ont pour facteur commun $8$ : $24x = 8 \\times 3x$ et $16 = 8 \\times 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on met $8$ en facteur : $24x+16 = 8(3x+2)$."
+            }
+          ],
+          "reponse": "$8(3x+2)$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $8(3x+2)$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-528",
+          "titre": "Exemple 4",
+          "enonce": "Factoriser l'expression $x^2+5x$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $x^2 = x \\times x$ et $5x = x \\times 5$ : le facteur commun est $x$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on met $x$ en facteur : $x^2+5x = x(x+5)$."
+            }
+          ],
+          "reponse": "$x(x+5)$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $x(x+5)$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "calculer rapidement une aire décomposée en plusieurs rectangles",
+        "simplifier une formule utilisée en physique ou en économie",
+        "résoudre une équation en la ramenant à un produit de facteurs nuls"
+      ],
+      "erreursFrequentes": [
+        "Ne pas prendre le plus grand facteur commun possible, ce qui laisse une factorisation incomplète.",
+        "Oublier de diviser un terme par le facteur mis en évidence, en le laissant tel quel dans la parenthèse.",
+        "Ne pas vérifier le résultat en redéveloppant la factorisation obtenue, ce qui laisse passer une erreur de signe ou de coefficient."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Ne pas prendre le plus grand facteur commun possible, ce qui laisse une factorisation incomplète.",
+          "pourquoi": "On s'arrête au premier facteur commun trouvé (souvent petit et évident) sans chercher s'il en existe un plus grand.",
+          "comment_detecter": "Les termes à l'intérieur de la parenthèse obtenue ont encore un diviseur commun entre eux.",
+          "comment_eviter": "Décomposer les coefficients en facteurs premiers pour être sûr de repérer le plus grand facteur commun possible."
+        },
+        {
+          "description": "Oublier de diviser un terme par le facteur mis en évidence, en le laissant tel quel dans la parenthèse.",
+          "pourquoi": "On traite correctement un des deux termes mais on recopie l'autre sans lui appliquer la division par le facteur commun.",
+          "comment_detecter": "En redéveloppant la factorisation, un des deux termes obtenus ne correspond pas à l'expression de départ.",
+          "comment_eviter": "Écrire explicitement, pour chaque terme, la division par le facteur commun avant de composer la parenthèse finale."
+        },
+        {
+          "description": "Ne pas vérifier le résultat en redéveloppant la factorisation obtenue, ce qui laisse passer une erreur de signe ou de coefficient.",
+          "pourquoi": "On considère l'exercice terminé dès qu'une parenthèse a été écrite, sans revenir en arrière pour contrôler.",
+          "comment_detecter": "En redéveloppant, on ne retombe pas sur l'expression de départ.",
+          "comment_eviter": "Prendre systématiquement le réflexe de redévelopper le résultat de la factorisation pour vérifier qu'on retrouve bien l'expression initiale."
+        }
+      ],
+      "astuce": "Pour ne pas oublier un terme en développant, imagine que chaque terme de la première parenthèse doit « serrer la main » à chaque terme de la deuxième parenthèse, un par un.",
+      "aRetenir": [
+        "Le facteur commun négatif doit être choisi de façon à obtenir des coefficients entiers dans la parenthèse.",
+        "Cherche le plus grand facteur commun à $24$ et $16$, même si les coefficients sont à deux chiffres.",
+        "La factorisation fonctionne aussi avec une différence : cherche le facteur commun aux deux termes.",
+        "Choisis un facteur commun négatif pour que le premier terme de la parenthèse reste positif.",
+        "Vérifie en développant l'écriture de l'élève : retrouve-t-on bien l'expression de départ ?",
+        "Cherche à la fois le plus grand facteur numérique commun et le facteur littéral commun."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        511,
+        512,
+        513
+      ],
+      "topic_id": "factoriser-une-somme-ou-une-difference",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Factoriser une somme ou une différence."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "factoriser",
+        "somme",
+        "difference"
+      ]
+    },
+    {
+      "id": "simplifier-une-expression-litterale",
+      "title": "Simplifier une expression littérale",
+      "schemaVersion": 2,
+      "intro": "Simplifier l'écriture d'une expression littérale (une expression avec des lettres), c'est l'écrire de la façon la plus courte et la plus habituelle possible, en supprimant les signes $\\times$ inutiles et en regroupant les facteurs identiques. Cette notion sert à rendre une expression plus lisible avant de la calculer, de la développer ou de la factoriser.\n\nDans cette leçon, tu vas apprendre à regrouper les facteurs numériques entre eux, à regrouper les facteurs littéraux identiques, et à écrire un produit de facteurs identiques sous forme de puissance.",
+      "explicationSimple": "Écrire $2 \\times x \\times 3$, c'est comme écrire une adresse dans le désordre : « rue, 12, de la Paix » au lieu de « 12, rue de la Paix ». Simplifier, c'est ranger les éléments dans le bon ordre habituel : d'abord le nombre, puis la lettre, sans le signe $\\times$, ce qui donne directement $6x$.",
+      "objectif": "À la fin de ce cours, tu sauras simplifier l'écriture d'un produit littéral en regroupant les facteurs numériques, en supprimant les signes $\\times$ inutiles, et en écrivant un facteur répété sous forme de puissance.",
+      "definition": "Simplifier une expression littérale, c'est réécrire un produit de facteurs numériques et littéraux sous sa forme la plus courte : on multiplie entre eux les facteurs numériques pour obtenir un seul nombre, on place ce nombre en premier, on supprime le signe $\\times$ devant une lettre, et on regroupe un même facteur littéral répété sous forme de puissance.",
+      "definitions": {
+        "lycee": "Simplifier une expression littérale, c'est réécrire un produit de facteurs numériques et littéraux sous sa forme la plus courte : on multiplie entre eux les facteurs numériques pour obtenir un seul nombre, on place ce nombre en premier, on supprime le signe $\\times$ devant une lettre, et on regroupe un même facteur littéral répété sous forme de puissance.",
+        "college": "Pour simplifier une écriture comme $2 \\times x \\times 3$, on multiplie d'abord les nombres entre eux, on place le résultat devant la lettre, et on supprime le signe $\\times$ : $2 \\times x \\times 3 = 6x$."
+      },
+      "intuition": "Avant de simplifier, sépare mentalement les facteurs numériques des facteurs littéraux : regroupe et calcule d'abord tous les nombres ensemble (en n'oubliant pas leur signe), puis occupe-toi des lettres. Un facteur littéral répété plusieurs fois se transforme en puissance : $x \\times x = x^2$, jamais $2x$.",
+      "reglesImportantes": [
+        "Simplifie l'expression de gauche en regroupant les nombres puis les facteurs identiques, et compare avec l'expression de droite.",
+        "L'aire d'un rectangle est le produit de sa largeur par sa longueur ; il suffit de simplifier ce produit.",
+        "L'aire d'un rectangle est un produit de deux longueurs ; il suffit de simplifier son écriture.",
+        "Regroupe d'abord les nombres, puis les facteurs $x$ identiques, puis les autres lettres.",
+        "Effectue d'abord la division du nombre $6$ par $2$, puis simplifie le produit restant."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Simplifier une expression littérale",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on regroupe les facteurs numériques : $2 \\times x \\times 3 = 2 \\times 3 \\times x$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $2 \\times 3 = 6$, donc l'expression devient $6 \\times x$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous arrivons ainsi au résultat : on supprime le signe $\\times$ : $6 \\times x = 6x$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-420",
+          "titre": "Exemple 1",
+          "enonce": "Simplifier l'écriture de $5 \\times x$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on supprime le signe $\\times$ entre $5$ et $x$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $5 \\times x = 5x$."
+            }
+          ],
+          "reponse": "$5x$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $5x$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-426",
+          "titre": "Exemple 2",
+          "enonce": "Simplifier l'écriture de $x \\times y$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $x \\times y$ est le produit de deux lettres distinctes."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on supprime le signe $\\times$ : $x \\times y = xy$."
+            }
+          ],
+          "reponse": "$xy$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $xy$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-432",
+          "titre": "Exemple 3",
+          "enonce": "Simplifier l'écriture de $(-3) \\times x$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $(-3) \\times x$ est le produit du nombre $-3$ par $x$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on supprime le signe $\\times$ : $(-3) \\times x = -3x$."
+            }
+          ],
+          "reponse": "$-3x$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $-3x$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-438",
+          "titre": "Exemple 4",
+          "enonce": "Simplifier l'écriture de $(-4) \\times x \\times (-3)$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on regroupe les nombres : $(-4) \\times (-3) = 12$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'expression devient $12 \\times x$, soit $12x$."
+            }
+          ],
+          "reponse": "$12x$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $12x$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [
+        "Regroupe d'abord les deux nombres, en faisant attention à leur signe."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Regroupe d'abord les deux nombres, en faisant attention à leur signe.",
+          "pourquoi": "Dans un produit de plusieurs facteurs mêlant nombres et lettres, on multiplie parfois un nombre avec une lettre par erreur, ou on oublie le signe d'un des nombres.",
+          "comment_detecter": "Le facteur numérique final ne correspond pas au produit exact des nombres présents dans l'expression de départ, ou son signe est incorrect.",
+          "comment_eviter": "Repérer d'abord tous les facteurs numériques de l'expression, les multiplier entre eux en appliquant la règle des signes, avant de s'occuper des lettres."
+        }
+      ],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Simplifie l'expression de gauche en regroupant les nombres puis les facteurs identiques, et compare avec l'expression de droite.",
+        "L'aire d'un rectangle est le produit de sa largeur par sa longueur ; il suffit de simplifier ce produit.",
+        "L'aire d'un rectangle est un produit de deux longueurs ; il suffit de simplifier son écriture.",
+        "Regroupe d'abord les nombres, puis les facteurs $x$ identiques, puis les autres lettres.",
+        "Effectue d'abord la division du nombre $6$ par $2$, puis simplifie le produit restant.",
+        "Regroupe les facteurs identiques sous forme de puissance après avoir isolé le nombre."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        421,
+        422,
+        423
+      ],
+      "topic_id": "simplifier-une-expression-litterale",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Simplifier une expression littérale."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "simplifier",
+        "expression",
+        "litterale"
+      ]
+    }
+  ]
+}

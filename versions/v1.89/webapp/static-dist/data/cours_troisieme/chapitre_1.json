@@ -1,0 +1,990 @@
+{
+  "chapterId": "Chapitre_1",
+  "title": "Nombres entiers",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "criteres-de-divisibilite",
+      "title": "Critères de divisibilité",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : critères de divisibilité.\n\nCette notion sert à résoudre des problèmes concrets qui reviennent souvent, en mathématiques comme dans la vie de tous les jours.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que cette notion est un nouvel outil dans ta boîte à outils mathématique : une fois que tu sais quand et comment l'utiliser, elle te fait gagner beaucoup de temps sur des problèmes qui, sans elle, seraient très longs à résoudre.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Critères de divisibilité.",
+      "definition": "Regarder uniquement le chiffre des unités.",
+      "definitions": {
+        "lycee": "Regarder uniquement le chiffre des unités."
+      },
+      "intuition": "Avant d'appliquer une règle, prends toujours le temps de bien identifier ce que l'énoncé te donne. La plupart des erreurs viennent d'une règle appliquée trop vite, sans avoir vérifié qu'elle s'applique bien à la situation.",
+      "reglesImportantes": [
+        "Un nombre est divisible par $12$ s'il est à la fois divisible par $3$ et par $4$.",
+        "Utiliser la somme des chiffres pour $9$, et les deux derniers chiffres pour $4$.",
+        "Vérifier séparément la divisibilité par $4$, par $9$ et par $5$, puisque ces trois nombres sont premiers entre eux deux à deux.",
+        "Un nombre divisible à la fois par $2$ et par $5$ doit avoir un chiffre des unités qui vérifie les deux critères en même temps.",
+        "Appliquer un critère différent pour chaque diviseur : chiffre des unités, somme des chiffres, deux derniers chiffres."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Critères de divisibilité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les deux derniers chiffres de $63000$ forment $00$, divisible par $4$, donc $63000$ est divisible par $4$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : la somme des chiffres est $6+3+0+0+0 = 9$, divisible par $9$, donc $63000$ est divisible par $9$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : le chiffre des unités est $0$, donc $63000$ est aussi divisible par $5$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : étant divisible par $4$, $9$ et $5$ à la fois, $63000$ est divisible par leur produit $180$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-60",
+          "titre": "Exemple 1",
+          "enonce": "Le nombre $48$ est-il divisible par $2$ ? Justifier à l'aide du critère de divisibilité.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : un nombre est divisible par $2$ si son chiffre des unités est pair."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le chiffre des unités de $48$ est $8$, qui est pair."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : donc $48$ est divisible par $2$."
+            }
+          ],
+          "reponse": "Oui, $48$ est divisible par $2$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $48$ est divisible par $2$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-66",
+          "titre": "Exemple 2",
+          "enonce": "Le nombre $312$ est-il divisible par $2$ ? Par $3$ ? Par $4$ ? Justifier chaque réponse.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le chiffre des unités de $312$ est $2$, qui est pair, donc $312$ est divisible par $2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la somme des chiffres est $3 + 1 + 2 = 6$, divisible par $3$, donc $312$ est divisible par $3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les deux derniers chiffres forment $12$, et $12 \\div 4 = 3$, donc $312$ est divisible par $4$."
+            }
+          ],
+          "reponse": "$312$ est divisible par $2$, par $3$ et par $4$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $312$ est divisible par $2$, par $3$ et par $4$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-72",
+          "titre": "Exemple 3",
+          "enonce": "Le nombre $2358$ est-il divisible par $18$ ? (On rappelle que $18 = 2 \\times 9$.)",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : le chiffre des unités de $2358$ est $8$, qui est pair, donc $2358$ est divisible par $2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la somme des chiffres est $2 + 3 + 5 + 8 = 18$, divisible par $9$, donc $2358$ est divisible par $9$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : étant divisible à la fois par $2$ et par $9$ (des nombres sans diviseur commun autre que $1$), $2358$ est divisible par $18$."
+            }
+          ],
+          "reponse": "Oui, $2358$ est divisible par $18$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $2358$ est divisible par $18$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-78",
+          "titre": "Exemple 4",
+          "enonce": "Expliquer pourquoi un nombre divisible par $4$ est toujours divisible par $2$. La réciproque est-elle vraie ? Donner un contre-exemple si nécessaire.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : comme $4 = 2 \\times 2$, tout multiple de $4$ s'écrit $4k = 2 \\times (2k)$, donc c'est aussi un multiple de $2$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la réciproque n'est pas vraie : il existe des multiples de $2$ qui ne sont pas multiples de $4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : par exemple, $6$ est divisible par $2$ (chiffre des unités pair) mais $6 \\div 4 = 1{,}5$ n'est pas entier, donc $6$ n'est pas divisible par $4$."
+            }
+          ],
+          "reponse": "Oui pour le sens direct ; la réciproque est fausse, par exemple $6$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui pour le sens direct ; la réciproque est fausse, par exemple $6$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Un nombre est divisible par $12$ s'il est à la fois divisible par $3$ et par $4$.",
+        "Utiliser la somme des chiffres pour $9$, et les deux derniers chiffres pour $4$.",
+        "Vérifier séparément la divisibilité par $4$, par $9$ et par $5$, puisque ces trois nombres sont premiers entre eux deux à deux.",
+        "Un nombre divisible à la fois par $2$ et par $5$ doit avoir un chiffre des unités qui vérifie les deux critères en même temps.",
+        "Appliquer un critère différent pour chaque diviseur : chiffre des unités, somme des chiffres, deux derniers chiffres.",
+        "Exprimer la somme des chiffres en fonction de $y$, puis chercher les valeurs qui la rendent divisible par $3$."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        61,
+        62,
+        63
+      ],
+      "topic_id": "criteres-de-divisibilite",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Critères de divisibilité."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "criteres",
+        "divisibilite"
+      ]
+    },
+    {
+      "id": "diviseurs-et-multiples-d-un-entier",
+      "title": "Diviseurs et multiples d'un entier",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : diviseurs et multiples d'un entier.\n\nCette notion sert à répartir équitablement des objets en groupes égaux, simplifier des fractions, ou organiser un emploi du temps qui se répète.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que tu dois répartir des bonbons en paquets identiques, sans qu'il en reste. Les multiples et les diviseurs servent exactement à ça : savoir quels nombres de paquets sont possibles, et quels nombres ne se divisent par rien d'autre qu'eux-mêmes (les nombres premiers).",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Diviseurs et multiples d'un entier.",
+      "definition": "Écrire $9$ comme un produit faisant intervenir $3$, puis en déduire une relation entre les multiples de $9$ et ceux de $3$.",
+      "definitions": {
+        "lycee": "Écrire $9$ comme un produit faisant intervenir $3$, puis en déduire une relation entre les multiples de $9$ et ceux de $3$.",
+        "college": "Chercher un entier $k$ tel que $45 = 3 \\times k$."
+      },
+      "intuition": "Un multiple d'un nombre, c'est ce nombre répété un certain nombre de fois. Un diviseur, c'est au contraire un nombre qui rentre exactement dans un autre, sans reste. Un nombre premier n'a que deux diviseurs : lui-même et 1 — ne le confonds pas avec un nombre qui a juste peu de diviseurs connus.",
+      "reglesImportantes": [
+        "Le plus grand diviseur d'un nombre autre que lui-même est obtenu en le divisant par son plus petit facteur premier.",
+        "Lister d'abord tous les diviseurs de chaque nombre, puis repérer ceux qui apparaissent dans les deux listes.",
+        "Tester les entiers de $1$ à $24$, en s'arrêtant dès que les diviseurs commencent à se répéter par symétrie.",
+        "Tester méthodiquement les entiers de $1$ jusqu'à la racine carrée de $36$, puis compléter par symétrie.",
+        "Lister tous les diviseurs des deux nombres, repérer les diviseurs communs, puis prendre le plus grand."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Diviseurs et multiples d'un entier",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on teste les entiers un par un : $12 \\div 1 = 12$, $12 \\div 2 = 6$, $12 \\div 3 = 4$, $12 \\div 4 = 3$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $12 \\div 5$ n'est pas entier, $12 \\div 6 = 2$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : au-delà de $6$, seul $12$ lui-même divise encore $12$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : les diviseurs de $12$ sont donc $1, 2, 3, 4, 6, 12$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-30",
+          "titre": "Exemple 1",
+          "enonce": "$4$ est-il un diviseur de $20$ ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on cherche un entier $k$ tel que $20 = 4 \\times k$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $4 \\times 5 = 20$, donc $k = 5$ convient."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : le reste de la division de $20$ par $4$ est nul, donc $4$ est bien un diviseur de $20$."
+            }
+          ],
+          "reponse": "Oui, $4$ est un diviseur de $20$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $4$ est un diviseur de $20$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-36",
+          "titre": "Exemple 2",
+          "enonce": "Trouver tous les diviseurs de $24$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $24 \\div 1 = 24$, $24 \\div 2 = 12$, $24 \\div 3 = 8$, $24 \\div 4 = 6$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $24 \\div 5$ n'est pas entier."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $24 \\div 6 = 4$, ce qui redonne un diviseur déjà trouvé ($4$) : on a fait le tour."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les diviseurs de $24$ sont $1, 2, 3, 4, 6, 8, 12, 24$."
+            }
+          ],
+          "reponse": "$1, 2, 3, 4, 6, 8, 12, 24$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $1, 2, 3, 4, 6, 8, 12, 24$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-42",
+          "titre": "Exemple 3",
+          "enonce": "Trouver tous les diviseurs de $84$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $84 \\div 1 = 84$, $84 \\div 2 = 42$, $84 \\div 3 = 28$, $84 \\div 4 = 21$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $84 \\div 5$ n'est pas entier, $84 \\div 6 = 14$, $84 \\div 7 = 12$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $84 \\div 8$ n'est pas entier, $84 \\div 9$ n'est pas entier non plus ; comme $9 < \\sqrt{84} < 10$, la recherche est terminée."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : les diviseurs de $84$ sont $1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84$."
+            }
+          ],
+          "reponse": "$1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-48",
+          "titre": "Exemple 4",
+          "enonce": "Trouver un entier compris entre $60$ et $70$ qui soit un multiple de $8$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les multiples de $8$ autour de cette zone sont $56, 64, 72$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : parmi eux, seul $64$ est compris strictement entre $60$ et $70$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : l'entier cherché est donc $64$."
+            }
+          ],
+          "reponse": "$64$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $64$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "organiser des équipes de taille égale pour un tournoi",
+        "simplifier une fraction au maximum",
+        "la cryptographie (codes secrets) qui utilise les nombres premiers"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour tester si un petit nombre est premier, essaie de le diviser seulement par 2, 3, 5, 7 : s'il ne se divise par aucun d'eux et qu'il est inférieur à leur carré, il est premier.",
+      "aRetenir": [
+        "Le plus grand diviseur d'un nombre autre que lui-même est obtenu en le divisant par son plus petit facteur premier.",
+        "Lister d'abord tous les diviseurs de chaque nombre, puis repérer ceux qui apparaissent dans les deux listes.",
+        "Tester les entiers de $1$ à $24$, en s'arrêtant dès que les diviseurs commencent à se répéter par symétrie.",
+        "Tester méthodiquement les entiers de $1$ jusqu'à la racine carrée de $36$, puis compléter par symétrie.",
+        "Lister tous les diviseurs des deux nombres, repérer les diviseurs communs, puis prendre le plus grand.",
+        "Revenir à la définition : $b$ est un diviseur de $a$ si $a$ s'écrit $b \\times k$ pour un entier $k$."
+      ],
+      "figure": {
+        "kind": "numberline",
+        "min": 0,
+        "max": 12,
+        "marks": [
+          {
+            "value": 0,
+            "label": "0",
+            "filled": true
+          },
+          {
+            "value": 1,
+            "label": "1",
+            "filled": false
+          },
+          {
+            "value": 2,
+            "label": "2",
+            "filled": false
+          },
+          {
+            "value": 3,
+            "label": "3",
+            "filled": true
+          },
+          {
+            "value": 4,
+            "label": "4",
+            "filled": false
+          },
+          {
+            "value": 5,
+            "label": "5",
+            "filled": false
+          },
+          {
+            "value": 6,
+            "label": "6",
+            "filled": true
+          },
+          {
+            "value": 7,
+            "label": "7",
+            "filled": false
+          },
+          {
+            "value": 8,
+            "label": "8",
+            "filled": false
+          },
+          {
+            "value": 9,
+            "label": "9",
+            "filled": true
+          },
+          {
+            "value": 10,
+            "label": "10",
+            "filled": false
+          },
+          {
+            "value": 11,
+            "label": "11",
+            "filled": false
+          },
+          {
+            "value": 12,
+            "label": "12",
+            "filled": true
+          }
+        ],
+        "alt": "Les points pleins marquent les multiples de 3 entre 0 et 12."
+      },
+      "quizExerciseIds": [
+        31,
+        32,
+        33
+      ],
+      "topic_id": "diviseurs-et-multiples-d-un-entier",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Diviseurs et multiples d'un entier."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "diviseurs",
+        "multiples",
+        "entier"
+      ]
+    },
+    {
+      "id": "division-euclidienne",
+      "title": "Division euclidienne",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : division euclidienne.\n\nCette notion sert à résoudre des problèmes concrets qui reviennent souvent, en mathématiques comme dans la vie de tous les jours.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que cette notion est un nouvel outil dans ta boîte à outils mathématique : une fois que tu sais quand et comment l'utiliser, elle te fait gagner beaucoup de temps sur des problèmes qui, sans elle, seraient très longs à résoudre.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Division euclidienne.",
+      "definition": "Le reste de la division de $100$ par $7$ indique de combien de jours on avance dans le cycle de la semaine à partir d'aujourd'hui.",
+      "definitions": {
+        "lycee": "Le reste de la division de $100$ par $7$ indique de combien de jours on avance dans le cycle de la semaine à partir d'aujourd'hui.",
+        "college": "Effectuer la division euclidienne de $152$ par $15$."
+      },
+      "intuition": "Avant d'appliquer une règle, prends toujours le temps de bien identifier ce que l'énoncé te donne. La plupart des erreurs viennent d'une règle appliquée trop vite, sans avoir vérifié qu'elle s'applique bien à la situation.",
+      "reglesImportantes": [
+        "C'est une division euclidienne : le quotient donne le nombre de piles complètes, le reste donne ce qui n'a pas pu être placé.",
+        "Il s'agit de la division euclidienne de $44$ par $9$ : le quotient compte les équipes, le reste compte les élèves non placés.",
+        "Le nombre de caisses complètes est le quotient de la division euclidienne de $61$ par $8$, le reste donne les colis restants.",
+        "Calculer d'abord la division euclidienne de $674$ par $25$, puis réfléchir à ce qu'il faut faire du reste s'il n'est pas nul.",
+        "Encadrer $48765$ entre deux multiples consécutifs de $73$ ; on peut procéder par approximations successives."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Division euclidienne",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on effectue la division euclidienne de $37$ par $6$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $6 \\times 6 = 36 \\leq 37$, donc le quotient est $q = 6$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : le reste est $r = 37 - 36 = 1$."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : on obtient $6$ piles complètes et $1$ image restante."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-0",
+          "titre": "Exemple 1",
+          "enonce": "Effectuer la division euclidienne de $29$ par $4$ : donner le quotient $q$ et le reste $r$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $4 \\times 7 = 28$, qui est le plus grand multiple de $4$ inférieur ou égal à $29$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le reste est $r = 29 - 28 = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on obtient donc $q = 7$ et $r = 1$, avec $29 = 4 \\times 7 + 1$."
+            }
+          ],
+          "reponse": "$q = 7$ et $r = 1$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $q = 7$ et $r = 1$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-6",
+          "titre": "Exemple 2",
+          "enonce": "Effectuer la division euclidienne de $128$ par $11$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $11 \\times 11 = 121 \\leq 128$ et $11 \\times 12 = 132 > 128$, donc $q = 11$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le reste est $r = 128 - 121 = 7$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on vérifie que $128 = 11 \\times 11 + 7$."
+            }
+          ],
+          "reponse": "$q = 11$ et $r = 7$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $q = 11$ et $r = 7$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-12",
+          "titre": "Exemple 3",
+          "enonce": "Effectuer la division euclidienne de $1234$ par $27$, en détaillant la recherche du quotient.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on cherche $q$ tel que $27 \\times q \\leq 1234 < 27 \\times (q+1)$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $27 \\times 45 = 1215 \\leq 1234$ et $27 \\times 46 = 1242 > 1234$, donc $q = 45$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : le reste est $r = 1234 - 1215 = 19$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : on vérifie $1234 = 27 \\times 45 + 19$."
+            }
+          ],
+          "reponse": "$q = 45$ et $r = 19$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $q = 45$ et $r = 19$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-18",
+          "titre": "Exemple 4",
+          "enonce": "Trouver l'entier $a$ dont la division euclidienne par $15$ donne pour quotient $23$ et pour reste $8$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on applique la formule $a = b \\times q + r$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $a = 15 \\times 23 + 8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $15 \\times 23 = 345$, donc $a = 345 + 8 = 353$."
+            }
+          ],
+          "reponse": "$a = 353$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $a = 353$",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "C'est une division euclidienne : le quotient donne le nombre de piles complètes, le reste donne ce qui n'a pas pu être placé.",
+        "Il s'agit de la division euclidienne de $44$ par $9$ : le quotient compte les équipes, le reste compte les élèves non placés.",
+        "Le nombre de caisses complètes est le quotient de la division euclidienne de $61$ par $8$, le reste donne les colis restants.",
+        "Calculer d'abord la division euclidienne de $674$ par $25$, puis réfléchir à ce qu'il faut faire du reste s'il n'est pas nul.",
+        "Encadrer $48765$ entre deux multiples consécutifs de $73$ ; on peut procéder par approximations successives.",
+        "Vérifier non seulement l'égalité numérique, mais aussi la condition sur le reste par rapport au diviseur."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        1,
+        2,
+        3
+      ],
+      "topic_id": "division-euclidienne",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Division euclidienne."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "division",
+        "euclidienne"
+      ]
+    },
+    {
+      "id": "decomposition-en-produit-de-facteurs-premiers",
+      "title": "Décomposition en produit de facteurs premiers",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : décomposition en produit de facteurs premiers.\n\nCette notion sert à résoudre des problèmes concrets qui reviennent souvent, en mathématiques comme dans la vie de tous les jours.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que cette notion est un nouvel outil dans ta boîte à outils mathématique : une fois que tu sais quand et comment l'utiliser, elle te fait gagner beaucoup de temps sur des problèmes qui, sans elle, seraient très longs à résoudre.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Décomposition en produit de facteurs premiers.",
+      "definition": "Diviser le nombre par le plus petit nombre premier possible, et répéter l'opération sur le quotient obtenu.",
+      "definitions": {
+        "lycee": "Diviser le nombre par le plus petit nombre premier possible, et répéter l'opération sur le quotient obtenu.",
+        "college": "Diviser autant de fois que possible par $2$."
+      },
+      "intuition": "Avant d'appliquer une règle, prends toujours le temps de bien identifier ce que l'énoncé te donne. La plupart des erreurs viennent d'une règle appliquée trop vite, sans avoir vérifié qu'elle s'applique bien à la situation.",
+      "reglesImportantes": [
+        "Diviser d'abord par $2$ tant que c'est possible, puis continuer avec les nombres premiers suivants.",
+        "Le nombre de diviseurs s'obtient en ajoutant $1$ à chaque exposant de la décomposition, puis en multipliant ces résultats entre eux.",
+        "Décomposer aussi $12$ et $18$, puis comparer les facteurs premiers nécessaires à ceux disponibles dans $396$.",
+        "Diviser successivement par $2$, puis par les nombres premiers suivants jusqu'à obtenir un nombre premier.",
+        "Un nombre est un carré parfait si tous les exposants de sa décomposition en facteurs premiers sont pairs."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Décomposition en produit de facteurs premiers",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $12 \\div 2 = 6$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $6 \\div 2 = 3$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : $3$ est premier, on s'arrête."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : $12 = 2 \\times 2 \\times 3 = 2^2 \\times 3$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-120",
+          "titre": "Exemple 1",
+          "enonce": "Donner la décomposition en produit de facteurs premiers de $12$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $12 \\div 2 = 6$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $6 \\div 2 = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $3$ est premier, on s'arrête."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $12 = 2 \\times 2 \\times 3 = 2^2 \\times 3$."
+            }
+          ],
+          "reponse": "$12 = 2^2 \\times 3$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $12 = 2^2 \\times 3$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-126",
+          "titre": "Exemple 2",
+          "enonce": "Décomposer le nombre $60$ en produit de facteurs premiers, en détaillant chaque étape.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $60 \\div 2 = 30$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $30 \\div 2 = 15$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $15 \\div 3 = 5$, et $5$ est premier."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $60 = 2 \\times 2 \\times 3 \\times 5 = 2^2 \\times 3 \\times 5$."
+            }
+          ],
+          "reponse": "$60 = 2^2 \\times 3 \\times 5$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $60 = 2^2 \\times 3 \\times 5$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-132",
+          "titre": "Exemple 3",
+          "enonce": "Trouver la décomposition en facteurs premiers de $210$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $210 \\div 2 = 105$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $105 \\div 3 = 35$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $35 \\div 5 = 7$, et $7$ est premier."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $210 = 2 \\times 3 \\times 5 \\times 7$."
+            }
+          ],
+          "reponse": "$210 = 2 \\times 3 \\times 5 \\times 7$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $210 = 2 \\times 3 \\times 5 \\times 7$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-138",
+          "titre": "Exemple 4",
+          "enonce": "Décomposer $256$ en produit de facteurs premiers. Que remarque-t-on ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $256 \\div 2 = 128$, $128 \\div 2 = 64$, $64 \\div 2 = 32$, $32 \\div 2 = 16$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $16 \\div 2 = 8$, $8 \\div 2 = 4$, $4 \\div 2 = 2$, $2 \\div 2 = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : on a divisé $8$ fois de suite par $2$, donc $256 = 2^8$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : aucun autre facteur premier n'intervient : $256$ est une puissance pure de $2$."
+            }
+          ],
+          "reponse": "$256 = 2^8$ ; on remarque que seul le nombre premier $2$ intervient",
+          "conclusion": "Nous avons ainsi obtenu le résultat : $256 = 2^8$ ; on remarque que seul le nombre premier $2$ intervient",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Diviser d'abord par $2$ tant que c'est possible, puis continuer avec les nombres premiers suivants.",
+        "Le nombre de diviseurs s'obtient en ajoutant $1$ à chaque exposant de la décomposition, puis en multipliant ces résultats entre eux.",
+        "Décomposer aussi $12$ et $18$, puis comparer les facteurs premiers nécessaires à ceux disponibles dans $396$.",
+        "Diviser successivement par $2$, puis par les nombres premiers suivants jusqu'à obtenir un nombre premier.",
+        "Un nombre est un carré parfait si tous les exposants de sa décomposition en facteurs premiers sont pairs.",
+        "Diviser successivement par les nombres premiers dans l'ordre croissant : $2$, puis $3$, puis $5$, etc."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        121,
+        122,
+        123
+      ],
+      "topic_id": "decomposition-en-produit-de-facteurs-premiers",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Décomposition en produit de facteurs premiers."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "decomposition",
+        "produit",
+        "facteurs",
+        "premiers"
+      ]
+    },
+    {
+      "id": "nombres-premiers",
+      "title": "Nombres premiers",
+      "schemaVersion": 2,
+      "intro": "Aujourd'hui, nous allons apprendre : nombres premiers.\n\nCette notion sert à résoudre des problèmes concrets qui reviennent souvent, en mathématiques comme dans la vie de tous les jours.\n\nTout au long de cette leçon, nous allons apprendre à l'utiliser pas à pas, avec des exemples expliqués en détail.",
+      "explicationSimple": "Imagine que cette notion est un nouvel outil dans ta boîte à outils mathématique : une fois que tu sais quand et comment l'utiliser, elle te fait gagner beaucoup de temps sur des problèmes qui, sans elle, seraient très longs à résoudre.",
+      "objectif": "À la fin de ce cours, tu sauras résoudre des exercices sur Nombres premiers.",
+      "definition": "Réfléchir à ce qui se passerait si $n = a \\times b$ avec $a$ et $b$ tous les deux strictement supérieurs à $\\sqrt{n}$.",
+      "definitions": {
+        "lycee": "Réfléchir à ce qui se passerait si $n = a \\times b$ avec $a$ et $b$ tous les deux strictement supérieurs à $\\sqrt{n}$.",
+        "college": "Vérifier d'abord le critère de divisibilité par $3$."
+      },
+      "intuition": "Avant d'appliquer une règle, prends toujours le temps de bien identifier ce que l'énoncé te donne. La plupart des erreurs viennent d'une règle appliquée trop vite, sans avoir vérifié qu'elle s'applique bien à la situation.",
+      "reglesImportantes": [
+        "Revenir à la définition exacte d'un nombre premier : il doit avoir exactement deux diviseurs distincts.",
+        "Tout autre nombre pair que $2$ est divisible par $2$ et par lui-même, donc par plus de deux nombres.",
+        "Chercher un couple de nombres premiers dont la somme donne $100$, puis vérifier chacun séparément.",
+        "Repartir de la liste des entiers à partir de $2$ et éliminer ceux qui ont plus de deux diviseurs.",
+        "Passer en revue chaque entier entre $90$ et $100$ et éliminer ceux qui ont un diviseur évident."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Nombres premiers",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $2$ est premier (diviseurs $1$ et $2$), $3$ est premier (diviseurs $1$ et $3$)."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Nous poursuivons le calcul : $4$ n'est pas premier ($4 = 2 \\times 2$), $5$ est premier."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Nous poursuivons le calcul : $6$ n'est pas premier ($6 = 2 \\times 3$), $7$ est premier."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Nous arrivons ainsi au résultat : $8, 9, 10$ ne sont pas premiers, $11$ est premier. Les cinq premiers nombres premiers sont donc $2, 3, 5, 7, 11$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-90",
+          "titre": "Exemple 1",
+          "enonce": "$7$ est-il un nombre premier ? Justifier la réponse.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : on cherche les diviseurs de $7$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : seuls $1$ et $7$ divisent $7$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $7$ possède donc exactement deux diviseurs : il est premier."
+            }
+          ],
+          "reponse": "Oui, $7$ est premier",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $7$ est premier",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-96",
+          "titre": "Exemple 2",
+          "enonce": "Un élève affirme que $51$ est un nombre premier. A-t-il raison ? Justifier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : la somme des chiffres de $51$ est $5+1=6$, divisible par $3$, donc $51$ est divisible par $3$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $51 = 3 \\times 17$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $51$ possède donc au moins les diviseurs $1, 3, 17, 51$ : il n'est pas premier."
+            }
+          ],
+          "reponse": "Non, $51$ n'est pas premier",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Non, $51$ n'est pas premier",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-102",
+          "titre": "Exemple 3",
+          "enonce": "Le nombre $97$ est-il premier ? Justifier en testant les diviseurs premiers inférieurs à $\\sqrt{97}$.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\sqrt{97} \\approx 9{,}85$, il suffit de tester les nombres premiers $2, 3, 5, 7$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $97$ est impair, sa somme des chiffres est $16$ (non divisible par $3$), il ne finit pas par $0$ ou $5$, et $97 \\div 7 \\approx 13{,}9$ n'est pas entier."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : aucun de ces nombres premiers ne divise $97$ : $97$ est donc premier."
+            }
+          ],
+          "reponse": "Oui, $97$ est premier",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $97$ est premier",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-108",
+          "titre": "Exemple 4",
+          "enonce": "Expliquer pourquoi il suffit de tester les diviseurs premiers inférieurs ou égaux à $\\sqrt{n}$ pour savoir si un entier $n$ est premier.",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : si $n$ n'est pas premier, il s'écrit $n = a \\times b$ avec $1 < a \\leq b < n$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : si $a$ et $b$ étaient tous les deux strictement supérieurs à $\\sqrt{n}$, alors $a \\times b$ serait strictement supérieur à $n$, ce qui est impossible."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : donc au moins l'un des deux facteurs, $a$, vérifie $a \\leq \\sqrt{n}$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : si aucun nombre premier inférieur ou égal à $\\sqrt{n}$ ne divise $n$, alors $n$ ne peut pas avoir de diviseur $a \\leq \\sqrt{n}$, donc $n$ est premier."
+            }
+          ],
+          "reponse": "Si $n$ n'a aucun diviseur premier inférieur ou égal à $\\sqrt{n}$, alors $n$ est premier",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Si $n$ n'a aucun diviseur premier inférieur ou égal à $\\sqrt{n}$, alors $n$ est premier",
+          "difficulte": "difficile"
+        }
+      ],
+      "exemplesConcrets": [
+        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
+      ],
+      "erreursFrequentes": [],
+      "erreursFrequentesDetail": [],
+      "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
+      "aRetenir": [
+        "Revenir à la définition exacte d'un nombre premier : il doit avoir exactement deux diviseurs distincts.",
+        "Tout autre nombre pair que $2$ est divisible par $2$ et par lui-même, donc par plus de deux nombres.",
+        "Chercher un couple de nombres premiers dont la somme donne $100$, puis vérifier chacun séparément.",
+        "Repartir de la liste des entiers à partir de $2$ et éliminer ceux qui ont plus de deux diviseurs.",
+        "Passer en revue chaque entier entre $90$ et $100$ et éliminer ceux qui ont un diviseur évident.",
+        "Passer en revue chaque entier de la plage et éliminer ceux qui ont un diviseur évident."
+      ],
+      "figure": null,
+      "quizExerciseIds": [
+        91,
+        92,
+        93
+      ],
+      "topic_id": "nombres-premiers",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Nombres premiers."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "nombres",
+        "premiers"
+      ]
+    }
+  ]
+}

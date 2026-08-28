@@ -21,8 +21,10 @@ valeurs numériques — ne jamais coder une limite ailleurs dans le projet.
 
 Branché sur le chatbot (QuotaType.CHAT_MESSAGES — voir
 chatbot/conversation_manager.py::check_and_increment_quota, seul point
-d'envoi d'un message réel au moteur IA) et exposé en lecture via
-GET /api/quota (usage_snapshot_all, voir server.py). Les autres QuotaType
+d'envoi d'un message réel au moteur IA) et sur l'entraînement (QuotaType.
+EXERCISES_DAILY — voir server.py::api_practice_load, seul point de
+chargement réel d'un exercice classique), exposé en lecture via GET
+/api/quota (usage_snapshot_all, voir server.py). Les autres QuotaType
 (PDF_ANALYSIS, AI_GENERATIONS, CUSTOM_EXERCISES, EXPORTS) restent prêts mais
 non consommés par aucune route à ce jour — les brancher se fait à l'identique
 (consume() + peek_exceeded() au point d'entrée concerné), sans toucher à ce
@@ -33,6 +35,8 @@ from datetime import datetime, timezone
 from enum import Enum
 
 import db
+import owner_service
+import owner_test_plan_service
 from plan_service import Plan, get_plan
 
 logger = logging.getLogger("quota_service")
@@ -44,6 +48,23 @@ class QuotaType(Enum):
     AI_GENERATIONS = "ai_generations"
     CUSTOM_EXERCISES = "custom_exercises"
     EXPORTS = "exports"
+    # Chantier 5 (protection de la marge) : budget INDÉPENDANT de
+    # CHAT_MESSAGES, qui ne compte que les vrais appels réseau vers un
+    # fournisseur LLM (Gemini/Anthropic), jamais les messages traités par un
+    # moteur local — voir chatbot/services/llm_fallback_service.py::generate(),
+    # seul point d'incrémentation. Un message qui déclenche 3 tentatives
+    # réseau (Ultra : Claude échoue, Pro échoue, Flash réussit) consomme
+    # +1 CHAT_MESSAGES et +3 LLM_CALLS.
+    LLM_CALLS = "llm_calls"
+    # Chantier "Limitation des exercices par abonnement" (2026-08-26) :
+    # nombre d'exercices CLASSIQUES (banque statique) réellement chargés par
+    # l'élève en une journée — voir server.py::api_practice_load, seul point
+    # d'incrémentation. Volontairement DISTINCT de AI_GENERATIONS/
+    # CUSTOM_EXERCISES ci-dessus : ces deux quotas correspondent à une
+    # génération/personnalisation par IA qui n'existe pas dans le produit
+    # (voir leur commentaire), alors qu'EXERCISES_DAILY ne représente qu'un
+    # volume de consultation d'exercices déjà écrits, sans aucun coût IA.
+    EXERCISES_DAILY = "exercises_daily"
 
 
 # None = illimité (palier Ultra). Jamais 0 pour signifier "illimité" — 0 est
@@ -55,27 +76,71 @@ UNLIMITED = None
 # Unique endroit du projet qui connaît la limite quotidienne d'un quota pour
 # un palier donné. Ne jamais dupliquer ces valeurs ailleurs (routes, chatbot,
 # frontend) — toujours lire via get_limit()/QUOTA_MATRIX.
+#
+# CHAT_MESSAGES (Premium/Ultra) et LLM_CALLS (Chantier 6, 2026-08-24) :
+# LIMITES COMMERCIALES PRUDENTES, remplaçant les valeurs d'observation trop
+# larges du Chantier 5 (Premium 300/j, Ultra 500/j) une fois le principe
+# CHAT_MESSAGES ≠ LLM_CALLS validé en conditions réelles. LLM_CALLS reste
+# calculé à partir des seuils de rentabilité "coût API seul" du Chantier 4
+# (Premium ≈ 19,3 appels/jour, Ultra ≈ 41,9 appels/jour), arrondis PAR
+# PRUDENCE au chiffre entier immédiatement supérieur (20 / 40) plutôt
+# qu'inférieur. Ces seuils N'INTÈGRENT PAS les coûts hors API (Stripe,
+# hébergement, DB, stockage, monitoring, email, support — voir l'audit
+# Chantier 6, aucune valeur fiable disponible pour ces postes à ce jour) :
+# ils protègent uniquement contre un dépassement incontrôlé du coût API
+# selon les hypothèses actuellement disponibles, PAS une marge nette
+# positive garantie. La marge nette réelle devra être recalculée dès que
+# ces coûts hors API seront connus, sans attendre pour autant pour poser
+# ce premier filet de protection. CHAT_MESSAGES suit une logique commerciale
+# distincte (volume d'usage perçu par l'élève, pas le coût), fixée par
+# décision produit plutôt que par un calcul de coût — LLM_CALLS reste la
+# seule protection directement liée au coût API.
+#
+# Free=15 (Chantier "Réduction quota Free", 2026-08-25 — remplace la valeur
+# 25 du Chantier 6, qui plaçait Free et Premium à la même limite) : Free
+# CHAT_MESSAGES est désormais STRICTEMENT INFÉRIEUR à Premium (25), pour que
+# le palier suivant recommandé par _next_plan_with_more() à un Free qui
+# épuise son quota redevienne Premium (et non Ultra, comme quand Free==Premium).
+# Premium/Ultra restent inchangés par ce chantier.
+#
+# Free n'a volontairement AUCUNE limite LLM_CALLS distincte : sa chaîne n'a
+# qu'un seul candidat réel (Gemini Flash) avant "fake", donc CHAT_MESSAGES
+# plafonne déjà indirectement son nombre d'appels réels — ajouter une limite
+# ici n'apporterait aucune protection supplémentaire.
+#
+# EXERCISES_DAILY (Chantier "Limitation des exercices par abonnement",
+# 2026-08-26) : Free=20/Premium=60/Ultra=illimité — décision produit issue de
+# l'audit exhaustif du système d'exercices (aucune limite n'existait
+# auparavant, ni AI_GENERATIONS/CUSTOM_EXERCISES ni aucun autre QuotaType
+# n'étaient réellement consommés par /api/practice/load). Ne touche à aucune
+# autre valeur de cette matrice.
 QUOTA_MATRIX = {
     Plan.FREE: {
-        QuotaType.CHAT_MESSAGES: 25,
+        QuotaType.CHAT_MESSAGES: 15,
         QuotaType.PDF_ANALYSIS: 0,
         QuotaType.AI_GENERATIONS: 20,
         QuotaType.CUSTOM_EXERCISES: 0,
         QuotaType.EXPORTS: 0,
+        QuotaType.LLM_CALLS: UNLIMITED,
+        QuotaType.EXERCISES_DAILY: 20,
     },
     Plan.PREMIUM: {
-        QuotaType.CHAT_MESSAGES: 250,
+        QuotaType.CHAT_MESSAGES: 25,
         QuotaType.PDF_ANALYSIS: 25,
         QuotaType.AI_GENERATIONS: 500,
         QuotaType.CUSTOM_EXERCISES: 100,
         QuotaType.EXPORTS: 20,
+        QuotaType.LLM_CALLS: 20,
+        QuotaType.EXERCISES_DAILY: 60,
     },
     Plan.ULTRA: {
-        QuotaType.CHAT_MESSAGES: UNLIMITED,
+        QuotaType.CHAT_MESSAGES: 40,
         QuotaType.PDF_ANALYSIS: UNLIMITED,
         QuotaType.AI_GENERATIONS: UNLIMITED,
         QuotaType.CUSTOM_EXERCISES: UNLIMITED,
         QuotaType.EXPORTS: UNLIMITED,
+        QuotaType.LLM_CALLS: 40,
+        QuotaType.EXERCISES_DAILY: UNLIMITED,
     },
 }
 
@@ -135,9 +200,24 @@ def _next_plan_with_more(current_plan, quota):
 
 
 def get_limit(user, quota):
-    """Limite quotidienne de `quota` pour le palier de `user`, ou None si
-    illimité (palier Ultra)."""
-    plan = get_plan(user)
+    """Limite quotidienne de `quota` pour le palier EFFECTIF de `user`, ou
+    None si illimité.
+
+    Owner/Developer Override (voir owner_service.py) + Mode test Owner (voir
+    owner_test_plan_service.py) : pour le compte configuré via
+    NOVAMATH_OWNER_USER_ID UNIQUEMENT, deux réglages séparés s'appliquent,
+    jamais mélangés :
+    - owner_test_plan_service.get_unlimited_quotas(user) (True par défaut,
+      préserve le comportement Owner/Developer Override historique) : si
+      True, illimité ici, quel que soit le plan de test actif ;
+    - sinon, la limite suit owner_test_plan_service.effective_plan(user)
+      (plan de test choisi, ou Plan.ULTRA si aucun) — jamais QUOTA_MATRIX
+      indexée par le plan réel en base dans ce cas.
+    Aucun de ces réglages n'affecte QUOTA_MATRIX ni les autres utilisateurs
+    (fail-closed par défaut, voir owner_service/owner_test_plan_service)."""
+    if owner_service.is_owner_account(user) and owner_test_plan_service.get_unlimited_quotas(user):
+        return UNLIMITED
+    plan = owner_test_plan_service.effective_plan(user)
     return QUOTA_MATRIX[plan][quota]
 
 
@@ -223,6 +303,20 @@ def consume(user, quota, amount=1):
         )
         raise err
     return new_count
+
+
+def refund(user, quota, amount=1):
+    """Annule `amount` unités précédemment consommées via consume() — même
+    opération atomique (db.increment_daily_usage avec un montant négatif) que
+    celle déjà utilisée en interne par consume() pour annuler un incrément
+    ayant dépassé la limite. Décrémente inconditionnellement, y compris pour
+    un utilisateur illimité (consume() incrémente aussi dans ce cas, voir
+    ci-dessus — la comptabilisation reste symétrique). Réservé aux cas où le
+    message a été facturé (consume() a réussi) mais n'a produit AUCUNE
+    réponse (exception avant tout envoi au fournisseur IA, voir
+    chatbot/conversation_manager.py) — jamais appelé après une réponse (même
+    partielle) réellement délivrée."""
+    db.increment_daily_usage(user["id"], quota.value, _today(), -amount)
 
 
 def _build_exceeded_error(user, quota):

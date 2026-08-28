@@ -66,7 +66,28 @@ export function setMathContent(el, text) {
 // jamais de prettify ni de conversion \n→<br> ici — ce texte est déjà
 // structuré en balises de bloc (<p>, <ul>, <table>, <code>...) et le modifier
 // corromprait le rendu (cf. audit chatbot). Seul le rendu KaTeX s'applique.
+//
+// Durcissement production : marked.parse() ne neutralise PAS le HTML brut
+// présent dans son entrée (comportement documenté du projet) — un message
+// chatbot (utilisateur, ou assistant répétant du HTML lu dans un PDF joint,
+// prompt injection classique) contenant p.ex. <img onerror=...> s'exécuterait
+// sinon tel quel dans la session de qui le reçoit. sanitizeChatHtml neutralise
+// ce HTML AVANT injection dans le DOM, en exportant la logique séparément
+// (plutôt qu'inline dans setRenderedHtmlContent) pour rester unitairement
+// testable sans dépendre du DOM ni de KaTeX. Fail-safe : DOMPurify absent
+// (CDN indisponible) => repli sur un simple retrait de toutes les balises
+// (texte brut conservé, lisible, juste non mis en forme) — jamais fail-open
+// (jamais le HTML de marked injecté tel quel sans aucune neutralisation).
+export function sanitizeChatHtml(html) {
+  if (!html) return "";
+  if (window.DOMPurify) return window.DOMPurify.sanitize(html);
+  return html.replace(/<[^>]*>/g, "");
+}
+
+// Les délimiteurs KaTeX ($...$) sont du texte brut au moment du sanitize —
+// jamais des balises — donc jamais affectés par sanitizeChatHtml ; le rendu
+// LaTeX (renderMathIn, ci-dessous) s'applique ensuite à l'identique.
 export function setRenderedHtmlContent(el, html) {
-  el.innerHTML = html || "";
+  el.innerHTML = sanitizeChatHtml(html);
   renderMathIn(el);
 }

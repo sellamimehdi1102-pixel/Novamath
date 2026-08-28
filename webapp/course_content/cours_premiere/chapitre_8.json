@@ -1,0 +1,397 @@
+{
+  "chapterId": "Chapitre_8",
+  "title": "Chapitre 8",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "vecteur-normal-a-une-droite",
+      "title": "Vecteur normal à une droite",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à utiliser un vecteur normal (perpendiculaire) pour écrire l'équation d'une droite, et à lire directement les coordonnées d'un vecteur normal à partir de l'équation d'une droite.\n\nCette méthode complète celle du vecteur directeur : elle permet notamment de tester rapidement si deux droites sont perpendiculaires, en comparant leurs vecteurs normaux ou en utilisant le produit scalaire.",
+      "explicationSimple": "Un vecteur normal à une droite $d$ est un vecteur perpendiculaire à cette droite (perpendiculaire à toute sa direction). Si on connaît un point $A$ de la droite et un vecteur normal $\\vec{n}(a;b)$, alors un point $M(x;y)$ appartient à $d$ exactement quand $\\vec{AM}$ est orthogonal à $\\vec{n}$, c'est-à-dire quand $\\vec{AM}\\cdot\\vec{n}=0$, ce qui donne l'équation $a(x-x_A)+b(y-y_A)=0$. Une fois développée, cette équation prend la forme $ax+by+c=0$ : les coefficients $a$ et $b$ devant $x$ et $y$ sont alors directement les coordonnées d'un vecteur normal à la droite, ce qui permet de le lire sans calcul.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer l'équation d'une droite connaissant un point et un vecteur normal, et lire les coordonnées d'un vecteur normal à partir de l'équation $ax+by+c=0$ d'une droite.",
+      "definition": "Un vecteur $\\vec{n}(a;b)$ non nul est dit normal à une droite $d$ lorsqu'il est orthogonal (perpendiculaire) à tout vecteur directeur de $d$, c'est-à-dire perpendiculaire à la droite elle-même. Une droite de vecteur normal $\\vec{n}(a;b)$ passant par un point $A(x_A;y_A)$ a pour équation $a(x-x_A)+b(y-y_A)=0$, qui se développe en une équation de la forme $ax+by+c=0$. Réciproquement, si une droite a pour équation $ax+by+c=0$, alors le vecteur $\\vec{n}(a;b)$, formé des coefficients de $x$ et de $y$, est normal à cette droite.",
+      "definitions": {
+        "lycee": "Un vecteur $\\vec{n}(a;b)$ non nul est dit normal à une droite $d$ lorsqu'il est orthogonal (perpendiculaire) à tout vecteur directeur de $d$, c'est-à-dire perpendiculaire à la droite elle-même. Une droite de vecteur normal $\\vec{n}(a;b)$ passant par un point $A(x_A;y_A)$ a pour équation $a(x-x_A)+b(y-y_A)=0$, qui se développe en une équation de la forme $ax+by+c=0$. Réciproquement, si une droite a pour équation $ax+by+c=0$, alors le vecteur $\\vec{n}(a;b)$, formé des coefficients de $x$ et de $y$, est normal à cette droite."
+      },
+      "intuition": "L'erreur la plus fréquente est de confondre vecteur normal et vecteur directeur : si une droite a pour équation $ax+by+c=0$, le vecteur $\\vec{n}(a;b)$ (les coefficients) est normal à la droite (perpendiculaire), tandis qu'un vecteur directeur (parallèle à la droite) a pour coordonnées $(-b;a)$. Pour ne pas te tromper, retiens que le vecteur normal se lit directement dans l'équation, alors que le vecteur directeur s'obtient en échangeant les coefficients et en changeant un signe.",
+      "reglesImportantes": [
+        "Les coefficients de $x$ et $y$ dans l'équation $ax+by+c=0$ forment les coordonnées d'un vecteur normal."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Vecteur normal à une droite",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : Une droite de vecteur normal $\\vec{n}(a;b)$ passant par $A(x_A;y_A)$ a pour équation $a(x-x_A)+b(y-y_A)=0$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : $d : 4(x-(-5)) + 2(y-(6)) = 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : En développant, $d : 4x +2y +8 = 0$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1593",
+          "titre": "Exemple 1",
+          "enonce": "La droite $d$ a pour équation $3x -1y +7 = 0$. Donner les coordonnées d'un vecteur normal à $d$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Si une droite a pour équation $ax+by+c=0$, alors le vecteur $\\vec{n}(a;b)$ est normal à cette droite."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Ici $a=3$ et $b=-1$, donc $\\vec{n}(3 ; -1)$ est normal à $d$."
+            }
+          ],
+          "reponse": "$\\vec{n}(3 ; -1)$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1605",
+          "titre": "Exemple 2",
+          "enonce": "Déterminer une équation de la droite $d$ passant par le point $A(-5 ; -4)$ et de vecteur normal $\\vec{n}(-5 ; -4)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Une droite de vecteur normal $\\vec{n}(a;b)$ passant par $A(x_A;y_A)$ a pour équation $a(x-x_A)+b(y-y_A)=0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $d : -5(x-(-5)) + -4(y-(-4)) = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : En développant, $d : -5x -4y -41 = 0$."
+            }
+          ],
+          "reponse": "$d : -5x -4y -41 = 0$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1617",
+          "titre": "Exemple 3",
+          "enonce": "Déterminer une équation de la droite $d$ passant par le point $A(-6 ; -4)$ et de vecteur normal $\\vec{n}(-4 ; -3)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Une droite de vecteur normal $\\vec{n}(a;b)$ passant par $A(x_A;y_A)$ a pour équation $a(x-x_A)+b(y-y_A)=0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $d : -4(x-(-6)) + -3(y-(-4)) = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : En développant, $d : -4x -3y -36 = 0$."
+            }
+          ],
+          "reponse": "$d : -4x -3y -36 = 0$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1629",
+          "titre": "Exemple 4",
+          "enonce": "La droite $d$ a pour équation $4x +3y -7 = 0$. Donner les coordonnées d'un vecteur normal à $d$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Si une droite a pour équation $ax+by+c=0$, alors le vecteur $\\vec{n}(a;b)$ est normal à cette droite."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Ici $a=4$ et $b=3$, donc $\\vec{n}(4 ; 3)$ est normal à $d$."
+            }
+          ],
+          "reponse": "$\\vec{n}(4 ; 3)$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Confondre vecteur normal $(a;b)$ et vecteur directeur $(-b;a)$ d'une même droite d'équation $ax+by+c=0$.",
+        "Se tromper de signe en développant $a(x-x_A)+b(y-y_A)=0$, en particulier lorsque les coordonnées de $A$ sont négatives.",
+        "Oublier que le vecteur normal n'est défini qu'à un facteur multiplicatif non nul près : $\\vec{n}(a;b)$ et $\\vec{n}'(2a;2b)$ sont tous les deux normaux à la même droite."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre vecteur normal $(a;b)$ et vecteur directeur $(-b;a)$ d'une même droite d'équation $ax+by+c=0$.",
+          "pourquoi": "Les deux vecteurs se lisent à partir des mêmes coefficients $a$ et $b$ de l'équation, ce qui entraîne une confusion sur celui qui est perpendiculaire et celui qui est parallèle à la droite.",
+          "comment_detecter": "Le vecteur utilisé pour tracer la droite ou pour tester une perpendicularité donne une figure visiblement incohérente avec l'équation.",
+          "comment_eviter": "Retenir que le vecteur normal se lit directement (coefficients de $x$ et $y$ dans l'ordre), tandis que le vecteur directeur s'obtient en échangeant ces deux coefficients et en changeant le signe de l'un d'eux."
+        },
+        {
+          "description": "Se tromper de signe en développant $a(x-x_A)+b(y-y_A)=0$, en particulier lorsque les coordonnées de $A$ sont négatives.",
+          "pourquoi": "La double négation (par exemple $x-(-5)$) est source d'erreurs si elle n'est pas traitée avec soin.",
+          "comment_detecter": "Le point $A$ donné dans l'énoncé, une fois remplacé dans l'équation obtenue, ne vérifie pas cette équation.",
+          "comment_eviter": "Toujours vérifier à la fin que les coordonnées de $A$ satisfont bien l'équation trouvée."
+        },
+        {
+          "description": "Oublier que le vecteur normal n'est défini qu'à un facteur multiplicatif non nul près : $\\vec{n}(a;b)$ et $\\vec{n}'(2a;2b)$ sont tous les deux normaux à la même droite.",
+          "pourquoi": "On croit qu'il n'existe qu'un seul vecteur normal « correct » pour une droite donnée, alors qu'une infinité de vecteurs colinéaires à $\\vec{n}$ conviennent aussi.",
+          "comment_detecter": "Une réponse jugée « fausse » par comparaison avec une autre réponse alors que les deux vecteurs sont en réalité colinéaires.",
+          "comment_eviter": "Vérifier si deux vecteurs proposés comme normaux sont colinéaires (l'un est un multiple de l'autre) avant de conclure qu'une réponse est incorrecte."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "Les coefficients de $x$ et $y$ dans l'équation $ax+by+c=0$ forment les coordonnées d'un vecteur normal."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-7, -5, 10, 14],
+        "grid": true,
+        "axes": true,
+        "segments": [
+          {"from": {"x": -6, "y": 8}, "to": {"x": 0, "y": -4}}
+        ],
+        "points": [
+          {"x": -5, "y": 6, "label": "A", "showCoords": true}
+        ],
+        "vectors": [
+          {"from": {"x": -5, "y": 6}, "to": {"x": -1, "y": 8}, "label": "n"}
+        ],
+        "texts": [
+          {"x": -6.3, "y": 8.3, "label": "d"}
+        ],
+        "alt": "La droite d, de vecteur normal n(4 ; 2) passant par le point A(-5 ; 6), a pour équation 4x + 2y + 8 = 0. Le vecteur n est tracé depuis A, perpendiculairement à la droite d."
+      },
+      "quizExerciseIds": [
+        1594,
+        1595,
+        1596
+      ],
+      "topic_id": "vecteur-normal-a-une-droite",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras déterminer l'équation d'une droite connaissant un point et un vecteur normal, et lire les coordonnées d'un vecteur normal à partir de l'équation $ax+by+c=0$ d'une droite."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "vecteur",
+        "normal",
+        "droite"
+      ]
+    },
+    {
+      "id": "equation-d-un-cercle",
+      "title": "Équation d'un cercle",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre à reconnaître et écrire l'équation d'un cercle.\n\nCette notion sert à décrire un cercle du plan par une seule équation reliant $x$ et $y$, à partir de son centre et de son rayon (ou inversement, à retrouver le centre et le rayon à partir d'une équation développée).",
+      "explicationSimple": "Un point $M(x\\,;\\,y)$ appartient au cercle de centre $\\Omega(a\\,;\\,b)$ et de rayon $r$ exactement quand sa distance à $\\Omega$ vaut $r$, c'est-à-dire quand $(x-a)^2+(y-b)^2=r^2$ (une version du théorème de Pythagore). Si l'équation est donnée sous une forme développée, on utilise une mise sous forme canonique (comme pour un trinôme) pour retrouver cette écriture et lire directement le centre et le rayon.",
+      "objectif": "À la fin de ce cours, tu sauras écrire l'équation $(x-a)^2+(y-b)^2=r^2$ d'un cercle connaissant son centre $\\Omega(a\\,;\\,b)$ et son rayon $r$, et, à partir d'une équation développée $x^2+y^2+\\alpha x+\\beta y+\\gamma=0$, la mettre sous forme canonique pour déterminer si c'est bien l'équation d'un cercle et en préciser le centre et le rayon.",
+      "definition": "Le cercle de centre $\\Omega(a\\,;\\,b)$ et de rayon $r$ a pour équation $(x-a)^2+(y-b)^2=r^2$. Réciproquement, une équation développée $x^2+y^2+\\alpha x+\\beta y+\\gamma=0$ est celle d'un cercle si, après mise sous forme canonique des termes en $x$ et en $y$, on obtient une expression $(x-a)^2+(y-b)^2=r^2$ avec $r^2>0$.",
+      "definitions": {
+        "lycee": "Le cercle de centre $\\Omega(a\\,;\\,b)$ et de rayon $r$ a pour équation $(x-a)^2+(y-b)^2=r^2$. Réciproquement, une équation développée $x^2+y^2+\\alpha x+\\beta y+\\gamma=0$ est celle d'un cercle si, après mise sous forme canonique des termes en $x$ et en $y$, on obtient une expression $(x-a)^2+(y-b)^2=r^2$ avec $r^2>0$.",
+        "college": "Utiliser la forme $(x-a)^2+(y-b)^2=r^2$."
+      },
+      "intuition": "Face à une équation développée, regroupe d'abord les termes en $x$ ensemble et les termes en $y$ ensemble, puis mets chaque groupe sous forme canonique (comme pour un trinôme du second degré) pour faire apparaître $(x-a)^2$ et $(y-b)^2$.",
+      "reglesImportantes": [
+        "Un cercle de centre $\\Omega(a;b)$ et de rayon $r$ a pour équation $(x-a)^2+(y-b)^2=r^2$.",
+        "Faire apparaître deux formes canoniques $(x-a)^2$ et $(y-b)^2$ en regroupant les termes en $x$ puis en $y$.",
+        "Si le nombre obtenu à droite de l'égalité est négatif ou nul, ce n'est pas l'équation d'un cercle."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Équation d'un cercle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On regroupe : $x^2 -6x + y^2 -10y +30 = 0$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : On met sous forme canonique chaque groupe : $(x-3)^2 - 9 + (y-5)^2 - 25 +30 = 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : D'où $(x-3)^2+(y-5)^2 = 4$ (car $9+25-30 = 4$)."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Étape 4 : C'est l'équation d'un cercle de centre $\\Omega(3 ; 5)$ et de rayon $2$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1652",
+          "titre": "Exemple 1",
+          "enonce": "On donne l'équation $\\mathcal{C} : x^2+y^2 -6x -10y +30 = 0$. Montrer qu'il s'agit de l'équation d'un cercle dont on précisera le centre et le rayon.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On regroupe : $x^2 -6x + y^2 -10y +30 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On met sous forme canonique chaque groupe : $(x-3)^2 - 9 + (y-5)^2 - 25 +30 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : D'où $(x-3)^2+(y-5)^2 = 4$ (car $9+25-30 = 4$)."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : C'est l'équation d'un cercle de centre $\\Omega(3 ; 5)$ et de rayon $2$."
+            }
+          ],
+          "reponse": "Cercle de centre $\\Omega(3 ; 5)$ et de rayon $2$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1664",
+          "titre": "Exemple 2",
+          "enonce": "On donne l'équation $\\mathcal{C} : x^2+y^2 -6x +0y -7 = 0$. Montrer qu'il s'agit de l'équation d'un cercle dont on précisera le centre et le rayon.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On regroupe : $x^2 -6x + y^2 +0y -7 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On met sous forme canonique chaque groupe : $(x-3)^2 - 9 + (y-0)^2 - 0 -7 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : D'où $(x-3)^2+(y-0)^2 = 16$ (car $9+0+7 = 16$)."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : C'est l'équation d'un cercle de centre $\\Omega(3 ; 0)$ et de rayon $4$."
+            }
+          ],
+          "reponse": "Cercle de centre $\\Omega(3 ; 0)$ et de rayon $4$",
+          "difficulte": "facile"
+        },
+        {
+          "id": "exemple-1676",
+          "titre": "Exemple 3",
+          "enonce": "On donne l'équation $\\mathcal{C} : x^2+y^2 -2x +0y -35 = 0$. Montrer qu'il s'agit de l'équation d'un cercle dont on précisera le centre et le rayon.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On regroupe : $x^2 -2x + y^2 +0y -35 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On met sous forme canonique chaque groupe : $(x-1)^2 - 1 + (y-0)^2 - 0 -35 = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : D'où $(x-1)^2+(y-0)^2 = 36$ (car $1+0+35 = 36$)."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : C'est l'équation d'un cercle de centre $\\Omega(1 ; 0)$ et de rayon $6$."
+            }
+          ],
+          "reponse": "Cercle de centre $\\Omega(1 ; 0)$ et de rayon $6$",
+          "difficulte": "moyen"
+        },
+        {
+          "id": "exemple-1688",
+          "titre": "Exemple 4",
+          "enonce": "Donner une équation du cercle $\\mathcal{C}$ de centre $\\Omega(7 ; 7)$ et de rayon $5$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Un cercle de centre $\\Omega(a;b)$ et de rayon $r$ a pour équation $(x-a)^2+(y-b)^2=r^2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Ici, $\\mathcal{C} : (x-7)^2+(y-7)^2 = 25$."
+            }
+          ],
+          "reponse": "$\\mathcal{C} : (x-7)^2+(y-7)^2 = 25$",
+          "difficulte": "difficile"
+        }
+      ],
+      "erreursFrequentes": [
+        "Lire directement le centre comme $\\Omega(-a\\,;\\,-b)$ à partir de $(x-a)^2+(y-b)^2=r^2$, en oubliant que les coordonnées du centre sont les opposées des nombres soustraits à $x$ et $y$.",
+        "Oublier de vérifier que le nombre à droite de l'égalité est strictement positif, et affirmer qu'une équation est celle d'un cercle alors que $r^2 \\leqslant 0$.",
+        "Prendre le nombre à droite de l'égalité comme rayon directement, en écrivant $r = 4$ au lieu de $r = \\sqrt{4} = 2$ (oubli de la racine carrée)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Lire directement le centre comme $\\Omega(-a\\,;\\,-b)$ à partir de $(x-a)^2+(y-b)^2=r^2$, en oubliant que les coordonnées du centre sont les opposées des nombres soustraits à $x$ et $y$.",
+          "pourquoi": "Dans l'écriture $(x-a)^2$, le centre a pour abscisse $a$ et non $-a$ : c'est la valeur qui, soustraite à $x$, annule le carré, donc il faut changer le signe du nombre qui apparaît après le signe moins pour retrouver $a$.",
+          "comment_detecter": "Si le centre annoncé a des coordonnées de même signe que les nombres soustraits dans l'équation développée (par exemple centre $(-3;-5)$ pour $(x-3)^2+(y-5)^2=4$), il y a une erreur de signe.",
+          "comment_eviter": "Réécris systématiquement $(x-a)^2$ sous la forme $(x-(\\text{coordonnée}))^2$ avant de conclure, pour bien repérer le signe correct de $a$ et $b$."
+        },
+        {
+          "description": "Oublier de vérifier que le nombre à droite de l'égalité est strictement positif, et affirmer qu'une équation est celle d'un cercle alors que $r^2 \\leqslant 0$.",
+          "pourquoi": "Un rayon est une longueur, donc un nombre strictement positif ; si $r^2$ est négatif ou nul après mise sous forme canonique, aucun point réel du plan ne peut vérifier l'équation (ou un seul point si $r^2=0$), ce n'est donc pas un cercle au sens usuel.",
+          "comment_detecter": "Si le nombre obtenu à droite de l'égalité après simplification est négatif ou nul, la conclusion « c'est un cercle » est incorrecte.",
+          "comment_eviter": "Termine toujours la mise sous forme canonique en calculant explicitement le nombre à droite de l'égalité, et vérifie qu'il est strictement positif avant de conclure."
+        },
+        {
+          "description": "Prendre le nombre à droite de l'égalité comme rayon directement, en écrivant $r = 4$ au lieu de $r = \\sqrt{4} = 2$ (oubli de la racine carrée).",
+          "pourquoi": "L'équation du cercle s'écrit avec $r^2$ à droite de l'égalité, pas $r$ : il faut donc prendre la racine carrée du nombre obtenu pour retrouver le rayon lui-même.",
+          "comment_detecter": "Si le rayon annoncé est égal au nombre à droite de l'égalité sans qu'aucune racine carrée n'ait été calculée, l'étape finale a été oubliée.",
+          "comment_eviter": "Note toujours explicitement l'étape « $r^2 = \\dots$ donc $r = \\sqrt{\\dots}$ » avant de donner la valeur finale du rayon."
+        }
+      ],
+      "astuce": "Une fois l'équation mise sous la forme $(x-a)^2+(y-b)^2=r^2$, le centre se lit directement $\\Omega(a\\,;\\,b)$ (attention aux signes opposés) et le rayon est la racine carrée du nombre à droite.",
+      "aRetenir": [
+        "Un cercle de centre $\\Omega(a;b)$ et de rayon $r$ a pour équation $(x-a)^2+(y-b)^2=r^2$.",
+        "Faire apparaître deux formes canoniques $(x-a)^2$ et $(y-b)^2$ en regroupant les termes en $x$ puis en $y$.",
+        "Si le nombre obtenu à droite de l'égalité est négatif ou nul, ce n'est pas l'équation d'un cercle."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [0, 2, 7, 7],
+        "grid": true,
+        "axes": true,
+        "circles": [
+          {"center": {"x": 3, "y": 5}, "radius": 2}
+        ],
+        "points": [
+          {"x": 3, "y": 5, "label": "Ω", "showCoords": true},
+          {"x": 5, "y": 5, "label": "M"}
+        ],
+        "segments": [
+          {"from": {"x": 3, "y": 5}, "to": {"x": 5, "y": 5}, "dashed": true, "tooltip": "rayon r = 2"}
+        ],
+        "relation": "$(x-3)^2+(y-5)^2=4$",
+        "alt": "Le cercle de centre Ω(3 ; 5) et de rayon 2 a pour équation (x-3)² + (y-5)² = 4."
+      },
+      "quizExerciseIds": [
+        1653,
+        1654,
+        1655
+      ],
+      "topic_id": "equation-d-un-cercle",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Équation d'un cercle."
+      ],
+      "prerequis": [],
+      "notions_liees": [],
+      "difficulte": "facile",
+      "tags": [
+        "equation",
+        "cercle"
+      ]
+    }
+  ]
+}
