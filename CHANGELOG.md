@@ -16,6 +16,437 @@ Le produit s'appelait auparavant **Lumis** (voir plus bas). Cette lignée reste 
 du nouveau schéma NovaMath, jamais renumérotée ni modifiée, conservée telle quelle pour
 l'historique (`versions/Lumis_V1` à `Lumis_V6`, intacts).
 
+## v1.93
+
+**Date** : 2026-07-26
+
+**Nom de la mise à jour** : Refonte structurelle des messages chatbot — deux composants DOM distincts
+
+### Nouveautés
+- Aucune (refonte structurelle demandée explicitement par l'utilisateur).
+
+### Corrections
+- Remplacement de l'ancienne structure partagée (`.chatbot-msg.user|assistant` + `flex-direction: row-reverse`) par deux composants HTML réellement distincts : `.chatbot-msg-row--user` (conteneur `justify-content:flex-end`, bulle seule, aucun avatar dans le DOM) et `.chatbot-msg-row--assistant` (conteneur `justify-content:flex-start`, avatar + colonne bulle/actions/cartes).
+- Largeur maximale des bulles fixée à 70% (au lieu de 73%).
+- Re-vérifié intégralement (DOM, plusieurs messages, clair/sombre/mobile) après restructuration.
+
+### Optimisations
+- Aucune.
+
+### Fichiers modifiés
+- `webapp/static/js/chatbot.js`, `webapp/static/css/chatbot.css`
+- `webapp/static-dist/` reconstruit
+
+### Bugs connus
+- Les 4 échecs préexistants déjà documentés.
+- NovaMath n'utilise pas React/Vue (HTML/CSS/JS vanilla) — la vérification a porté sur le DOM généré par chatbot.js.
+
+### Temps estimé de développement
+- Environ 45 min.
+
+## v1.92
+
+**Date** : 2026-07-26
+
+**Nom de la mise à jour** : Bulles chatbot — largeur 70-75% et coins uniformément arrondis
+
+### Nouveautés
+- Aucune (ajustement d'une fonctionnalité déjà livrée en v1.91).
+
+### Corrections
+- Disposition des bulles (utilisateur à droite/violet, assistant à gauche/clair) re-vérifiée visuellement : déjà correcte depuis v1.91, aucune régression trouvée.
+- Largeur maximale des bulles ajustée à `73%` (littéralement dans la fourchette 70-75% demandée) au lieu d'une limite basée sur les caractères.
+- Coins des bulles uniformément très arrondis (22px sur les 4 coins) : suppression du coin "pointe" façon iMessage qui n'était pas demandé.
+
+### Optimisations
+- Aucune.
+
+### Fichiers modifiés
+- `webapp/static/css/chatbot.css`
+- `webapp/static-dist/` reconstruit
+
+### Bugs connus
+- Aucun nouveau.
+
+### Temps estimé de développement
+- Environ 30 min.
+
+## v1.91
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Refonte UI/UX du Chatbot — bulles, sidebar, suggestions par classe
+
+### Nouveautés
+- Suggestions de questions personnalisées par classe (Troisième/Seconde/Première, vraies questions rattachées au programme officiel) ; le message d'accueil et les cartes "Voir le cours" étaient déjà personnalisés côté serveur.
+- Vraies bulles de conversation façon ChatGPT/Claude/iMessage (utilisateur en bulle violette à droite, assistant en bulle claire bordée/ombrée à gauche), vérifiées en mode sombre.
+- Panneau de droite "Ton profil NovaMath" supprimé (déjà présent dans le Dashboard) : la conversation récupère l'espace libéré (780px → 880px).
+- Sidebar des conversations, barre de saisie et cartes "Voir le cours" redessinées (espacement, hover, ombres, coins, icônes).
+
+### Corrections
+- Cause racine du bug "la molette fait défiler toute la page" ET du décor de fond qui semblait coupé : `.chatbot-shell`/`.chatbot-convos`/`.chatbot-main` utilisaient `height:100vh` sans tenir compte du padding de `.app-shell` (36px), forçant la page entière à défiler. Corrigé en `calc(100vh - 36px)` (repli à `100vh` sous 860px, mode tiroir mobile).
+- Chevauchement du bouton menu principal et du bouton conversations sur mobile (même coin de l'écran) : `.chatbot-topbar` réserve désormais la même marge que `.main-content`.
+- Placeholder de la zone de saisie repassé sur une seule ligne (testé 360-390px et au-delà).
+
+### Optimisations
+- Aucune.
+
+### Fichiers modifiés
+- `webapp/static/chatbot.html`, `webapp/static/js/chatbot.js`, `webapp/static/css/chatbot.css`
+- `webapp/static/js/__tests__/chatbot.test.js`
+- `webapp/static-dist/` reconstruit
+
+### Bugs connus
+- Les 4 échecs préexistants déjà documentés (sans rapport avec ce chantier).
+- "Terminale" (mentionnée en exemple dans la demande) n'existe pas encore comme classe dans NovaMath — aucun contenu inventé pour cette classe.
+- Sous ~320px (téléphones très anciens), le placeholder repasse sur 2 lignes ; parfait de 360px à la 4K.
+
+### Temps estimé de développement
+- Environ 3h.
+
+## v1.90
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Vrais intitulés des 15 chapitres de Troisième (chapters_meta corrigé)
+
+### Nouveautés
+- 5 des 15 chapitres de Troisième renommés avec un intitulé plus précis et fidèle au contenu réel : `Nombres entiers` → `Arithmétique`, `Représentation et traitement de données` → `Statistiques`, `Construction et transformation de figures` → `Transformations du plan`, `Triangles rectangles : trigonométrie` → `Théorème de Pythagore et trigonométrie`, `Solides de l'espace` → `Géométrie dans l'espace`. Les 10 autres avaient déjà un intitulé correct.
+
+### Corrections
+- Cause racine du bug "Chapitre 1", "Chapitre 2"... affiché dans l'application : `/api/chapters` ne peuplait `chapter_meta` que pour les classes avec `program_file` (Seconde) ; Première et Troisième retombaient sur `chapter_id.replace("_", " ")`. Corrigé génériquement en lisant le `title` déjà présent dans `courses_dir/chapitre_N.json` quand aucun `program_file` n'existe — propage automatiquement le bon titre à la grille de chapitres, au dashboard, à la recherche, aux favoris, à l'historique/séries et aux breadcrumbs du lecteur de cours.
+- Aucun ID, lien notion↔exercice, favori, progression, moteur adaptatif, JSON d'exercices ni route API modifié.
+
+### Optimisations
+- Aucune.
+
+### Fichiers modifiés
+- `webapp/server.py` (`_class_bank`)
+- `webapp/static/data/cours_troisieme/chapitre_1.json`, `chapitre_9.json`, `chapitre_11.json`, `chapitre_13.json`, `chapitre_15.json` (champ `title` uniquement)
+- `webapp/static-dist/` reconstruit
+
+### Bugs connus
+- Les 4 échecs préexistants déjà documentés (sans rapport avec ce chantier) : `test_accesseur_exemple_par_difficulte`, `test_validate_cours_schema`, `test_formules_scaffoldees_depuis_reglesimportantes`, `test_oauth_callback_accessible_avec_headers`.
+- 1 test de quota chatbot flaky (passe en isolation) : `test_ultra_reste_illimite_apres_grosse_consommation`.
+- Première non concernée par cette tâche : ses fichiers de cours contiennent eux-mêmes des titres génériques, comportement inchangé.
+
+### Temps estimé de développement
+- Environ 1h30.
+
+## v1.89
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Moteur pédagogique v2.1 — interactions, questions éclair, exemples interactifs (notion pilote Pythagore)
+
+### Nouveautés
+Perfectionnement du moteur de cours v2 (introduit en v1.88), toujours entièrement rétrocompatible — chaque ajout est gardé par un champ optionnel absent partout ailleurs, donc sans aucun effet sur les autres notions tant qu'il n'est pas explicitement activé.
+
+- **Le graphique raconte l'explication** :
+  - `geomSvg.js` : infobulles natives au survol (`<title>`) sur les points, segments, polygones et arcs (`tooltip`, optionnel) — expliquent le rôle de chaque élément sans surcharger la figure.
+  - Segments et arcs supportent désormais `variant`/`reveal`, comme les polygones (mise en évidence colorée d'un côté précis, ex. l'hypoténuse, et apparition progressive synchronisée aux étapes).
+  - Nouveaux boutons **Précédent / Rejouer l'animation / Suivant** sous les pastilles d'étapes (`figure.steps`) — navigation explicite en plus du clic direct sur une pastille, avec désactivation automatique aux bornes.
+  - Survol des points/segments/arcs avec léger agrandissement et halo — volontairement limité aux figures "mises en avant" (`figure.emphasis`), donc sans effet sur les figures existantes du reste du site.
+- **Questions éclair** (`notion.questionsEclair`, nouveau champ) : très courtes questions de réflexion insérées entre les sections du cours, avec un bouton "Voir une piste" pour révéler un indice au clic — jamais la réponse directement.
+- **Exemples interactifs** (`exemple.interactif`, nouveau champ) : le calcul se révèle étape par étape via "Voir l'étape suivante", puis la correction complète au dernier clic, au lieu d'être affiché en une fois.
+- **Animations discrètes** (`notion.uxAnimations`, nouveau champ) : légère apparition en fondu + translation au défilement, désactivée si `prefers-reduced-motion: reduce`.
+- **Ton plus humain** sur la notion pilote "Théorème de Pythagore" (Troisième, Chapitre 13) : phrases de transition ("Regardons ensemble...", "Tu remarques que...", "Attention à ce détail...", "C'est ici que beaucoup d'élèves se trompent.") dans l'intro, le "pourquoi", l'intuition, la méthode, l'astuce et le résumé.
+
+### Corrections
+- Aucune (aucun comportement existant modifié pour les 66 autres notions de Troisième ni pour Seconde/Première).
+
+### Optimisations
+- Aucune.
+
+### Fichiers modifiés
+- `webapp/static/js/geomSvg.js`, `webapp/static/js/cours.js`, `webapp/static/css/cours.css`
+- `webapp/static/data/cours_troisieme/chapitre_13.json` (uniquement la notion `theoreme-de-pythagore`)
+- `webapp/static-dist/` reconstruit (`npm run build`)
+
+### Bugs connus
+- Les 4 échecs préexistants déjà documentés en v1.88 (sans rapport avec ce chantier) : `test_accesseur_exemple_par_difficulte`, `test_validate_cours_schema`, `test_formules_scaffoldees_depuis_reglesimportantes`, `test_oauth_callback_accessible_avec_headers`.
+- 2 tests supplémentaires flaky/dépendants de l'ordre d'exécution (passent en isolation, quota partagé entre tests) : `test_retry_fonctionne_meme_quota_epuise`, `test_ultra_chat_messages_illimite`.
+
+### Temps estimé de développement
+- Environ 2h.
+
+## v1.88
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Nouveau moteur pédagogique v2 — notion pilote Théorème de Pythagore (Troisième)
+
+### Nouveautés
+- Nouveau moteur de rendu de cours, entièrement rétrocompatible (activé uniquement quand les nouveaux champs sont présents — aucun autre cours n'est affecté) :
+  - Section **« Pourquoi apprend-on cela ? »** (`notion.pourquoi`) et section de fermeture **« Résumé de la leçon »** (`notion.resume`, carte dédiée `.cours-resume-card`).
+  - Figures **agrandies et interactives** (`figure.emphasis`, colonne graphique 56/44 au lieu de 44/56) avec **révélation progressive par étapes** (`figure.steps` + pastilles cliquables, `reveal: 2/3` sur les éléments SVG via `geomSvg.js`) et **formule de synthèse** révélée en dernier (`figure.relation`, rendue en KaTeX).
+  - `geomSvg.js` : support additif de `variant` (couleur par polygone) et `reveal` sur polygones/textes, `anchor`/`weight` sur les textes — aucune figure existante n'est affectée (champs optionnels).
+  - Exemples **entièrement guidés** : `exemple.analyse` (lecture de l'énoncé), `exemple.choixMethode` (pourquoi cette méthode), `exemple.interpretation` (sens du résultat), en plus du calcul détaillé déjà existant.
+  - `generate_cours_from_bank.py` : les chapitres reprennent désormais le vrai nom déclaré dans la banque (champ `chapter`) au lieu d'un titre générique "Chapitre N" — sans impact sur Seconde/Première qui n'ont pas ce champ (déjà livré en v1.87, documenté ici pour mémoire).
+- **Notion pilote** : "Théorème de Pythagore" (Troisième, Chapitre 13) entièrement réécrite avec ce nouveau moteur — introduction, pourquoi, intuition, définition, figure interactive (triangle 3-4-5 avec démonstration par les aires des 3 carrés), 3 exemples guidés, pièges détaillés, astuce, à retenir, résumé, mini-quiz. Aucune autre notion (des 67 de Troisième, ni de Seconde/Première) n'a été touchée.
+
+### Corrections
+- Aucune (aucun comportement existant modifié pour les 66 autres notions de Troisième ni pour Seconde/Première).
+
+### Optimisations
+- Aucune.
+
+### Fichiers modifiés
+- `webapp/static/js/cours.js`, `webapp/static/js/geomSvg.js`, `webapp/static/css/cours.css`
+- `webapp/static/data/cours_troisieme/chapitre_13.json` (uniquement la notion `theoreme-de-pythagore`)
+- `webapp/tests/test_server_api_site_stats.py` (test `test_liste_les_deux_programmes_actuels` mis à jour pour inclure "troisieme", oublié lors de l'intégration de la classe en v1.86)
+- `webapp/static-dist/` reconstruit (`npm run build`), en préservant explicitement le contenu déjà présent de `cours_premiere` dans le build (non régénéré depuis la source, voir "Bugs connus" v1.87)
+
+### Bugs connus
+- Les 4 échecs de tests suivants sont préexistants et sans rapport avec ce chantier (confirmés via `git stash`, contenu de `Chapitre_1` de Seconde modifié hors de toute session de travail) : `test_accesseur_exemple_par_difficulte`, `test_validate_cours_schema`, `test_formules_scaffoldees_depuis_reglesimportantes`, `test_oauth_callback_accessible_avec_headers`.
+
+### Temps estimé de développement
+- Environ 2h30 (cartographie du rendu existant, conception du schéma additif rétrocompatible, extension geomSvg.js/cours.js/cours.css, rédaction du contenu pilote, vérification visuelle via Playwright headless desktop/mobile, correction d'un chevauchement de labels, tests de non-régression).
+
+### Temps estimé de développement
+- (à compléter)
+
+## v1.87
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Personnalisation UX de la classe Troisième : vrais noms de chapitres + correctifs de catégorisation des figures
+
+### Nouveautés
+- `generate_cours_from_bank.py` utilise désormais le champ `chapter` (nom réel, ex. "Nombres entiers", "Théorème de Thalès") déjà présent dans `exercises_bank_troisieme.json` pour titrer les chapitres, au lieu du générique `chapter_id.replace("_", " ")` ("Chapitre 1") — comportement inchangé pour Seconde/Première dont la banque n'a pas ce champ.
+- Audit complet et vérification bout-en-bout (via API réelle, session invité) de Troisième : structure des 15 chapitres/67 notions (ordre, ids, doublons), 2010 exercices (champs requis, orphelins), recherche (30 requêtes dont Pythagore/Thalès/fonctions/probabilités), dashboard/favoris/historique/progression (isolation confirmée vs Seconde), évaluation initiale (exercices exclusivement Troisième), reconnaissance chatbot des notions.
+
+### Corrections
+- `pedagogy_templates.py::_CATEGORY_RULES` : trois faux-positifs de catégorisation lexicale, révélés par le vocabulaire propre à Troisième (absent de Seconde/Première), corrigés sans changer le comportement des deux autres classes :
+  - "Somme des angles d'un triangle et inégalité triangulaire" matchait à tort la catégorie `suites` via le motif générique `somme de` (substring de "somme des") → figure de suite numérique affichée sur une notion de géométrie. Motif resserré à `somme des termes|somme des n premiers|calcul de sommes`.
+  - La même notion matchait ensuite `intervalles` via `inegalite` (substring de "inégalité triangulaire", y compris dans le slug avec tiret) → figure de droite graduée incohérente. Exclusion ajoutée : `inegalite(?![ -]triangulaire)`.
+  - "Représentations graphiques de données" matchait à tort `fonctions_generalites` via le mot `graphique` → figure de courbe/fonction affichée sur une notion de statistiques. Catégorie `statistiques` désormais prioritaire via `representation.*donnees|diagramme`.
+
+### Optimisations
+- Aucune.
+
+### Fichiers modifiés
+- `webapp/generate_cours_from_bank.py`, `webapp/pedagogy_templates.py`
+- Régénéré : `webapp/static/data/cours_troisieme/chapitre_1.json` à `chapitre_15.json` (titres réels + figures corrigées)
+- `webapp/static-dist/data/cours_troisieme/` synchronisé manuellement (dossier ciblé uniquement, sans reconstruire tout `static-dist/` afin de ne pas toucher au contenu de Première déjà buildé)
+
+### Bugs connus
+- Recherche "échantillonnage" renvoie 0 résultat : ce mot n'apparaît littéralement dans aucun exercice de la banque Troisième (pas une régression de la recherche — comportement identique pour tout mot absent du contenu source).
+- Dérive préexistante et sans rapport avec ce chantier, découverte en marge : `webapp/static-dist/data/cours_premiere/` contient un contenu plus riche (templates pédagogiques plus récents) que `webapp/static/data/cours_premiere/` actuellement suivi par git — signalé pour information, non corrigé (hors périmètre "ne pas toucher aux autres classes").
+
+### Temps estimé de développement
+- Environ 1h30 (audit structurel + fonctionnel complet, découverte et correction de 2 bugs de regex de catégorisation partagés avec Première, vérification bout-en-bout via API, tests de non-régression Python/JS).
+
+### Temps estimé de développement
+- (à compléter)
+
+## v1.86
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Intégration de la classe Troisième dans toute l'architecture
+
+### Nouveautés
+- La classe **Troisième** est désormais un programme natif de NovaMath, au même titre que Seconde et Première : nouvelle entrée `CurriculumProfile(id="troisieme", ...)` dans `curriculum_registry.py`, seule source de vérité déjà consommée par tous les endpoints (`server.py`), le moteur de connaissances/chatbot (`canonical_ids.py`, `curriculum_stats.py`, `chatbot/*`) et le frontend (dashboard, cours, exercices, recherche, favoris, progression, évaluation initiale, moteur adaptatif) — aucune branche spécifique ajoutée ailleurs, tout est piloté par `class_level`.
+- `static/data/cours_troisieme/` généré automatiquement par `generate_cours_from_bank.py` depuis les banques déjà fournies `exercises_bank_troisieme.json` / `exercises_bank_troisieme_natural.json` : 15 chapitres, 67 notions, 2010 exercices.
+- "Troisième" ajoutée au formulaire d'avis utilisateurs (`server.py::CLASSE_CHOICES`, `static/index.html`) et à la meta description de `choisir-classe.html`.
+
+### Corrections
+- Aucune (étape d'intégration pure, aucun comportement existant modifié pour Seconde/Première).
+
+### Optimisations
+- Aucune.
+
+### Fichiers modifiés
+- `webapp/curriculum_registry.py`, `webapp/server.py`, `webapp/static/index.html`, `webapp/static/choisir-classe.html`, `webapp/tests/test_curriculum_registry.py`
+- Créé : `webapp/static/data/cours_troisieme/chapitre_1.json` à `chapitre_15.json`
+- `webapp/static-dist/` reconstruit via `npm run build` (Vite)
+
+### Bugs connus
+- Aucun. Note sans rapport avec ce chantier : `test_non_regression.py` a 2 échecs préexistants (contenu `chapitre_1.json` de Seconde modifié hors de ce chantier, mismatch `erreursFrequentesDetail`/`erreursFrequentes` et scaffolding des formules) — confirmés antérieurs à cette mise à jour via `git stash`.
+
+### Temps estimé de développement
+- Environ 1h (exploration de l'architecture existante via le patron "Première", ajout du registre, génération des cours, tests de non-régression, vérification bout-en-bout via API).
+
+## v1.85
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Repli automatique de la fiche graphique : colonne de droite reconstruite depuis le contenu réel de la notion (comprendre, observations, astuce, pièges) sur TOUTES les figures du site, plus seulement les 7 pilotes
+
+### Nouveautés
+- `cours.js::deriveFigureExplicationFromNotion` : quand une figure n'a pas de `figure.explication` rédigée à la main, la colonne de droite du bloc figure n'affiche plus une seule phrase (`figure.alt`) mais une fiche de plusieurs cartes reconstruite à partir du contenu déjà écrit pour la notion — `explicationSimple`/`intuition` (Ce qu'il faut comprendre), `figure.alt` (Ce que montre ce graphique), `astuce` (Astuce NovaMath), `erreursFrequentes` (À ne pas confondre). Comme ce contenu est présent sur la quasi-totalité des notions déjà en base, cette bascule s'applique immédiatement à TOUTES les figures du site, pas seulement aux 7 notions enrichies à la main en v1.83/v1.84.
+- Pour éviter toute duplication visuelle, les sections "Pour bien comprendre", "Astuce NovaMath" et "Erreurs fréquentes" ne sont plus affichées une seconde fois en colonne unique quand leur contenu a été déplacé dans la fiche du graphique (nouveau flag `usesFallbackFigureCards`). La Méthode reste toujours affichée séparément, juste au-dessus des exemples qui s'y réfèrent.
+
+### Corrections
+- Colonne de droite du bloc figure quasi vide (une phrase) sur la quasi-totalité des notions du site — seules 7 notions avaient un contenu `figure.explication` rédigé à la main jusqu'ici.
+
+### Optimisations
+- (aucune)
+
+### Fichiers modifiés
+- `webapp/static/js/cours.js`
+
+### Bugs connus
+- Le repli automatique réutilise du texte déjà écrit pour la notion (pas de contenu inédit spécifique au graphique) ; le rendu reste donc moins riche que sur les 7 notions dotées d'une `figure.explication` rédigée à la main. L'enrichissement manuel du reste du contenu (au-delà de Chapitre_1) reste à faire.
+
+### Temps estimé de développement
+- (à compléter)
+
+## v1.84
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Refonte du contenu pédagogique (Chapitre 1 pilote, mini-cours complets) et des cartes de notion (badges niveau/temps/exemples/graphiques, description, progression) ; correction du badge À lire sur une ligne
+
+### Nouveautés
+- Chapitre_1 (Nombres et calculs, Seconde) intégralement réécrit : les 4 notions (puissances, racine carrée, multiples/diviseurs/nombres premiers, ensembles de nombres) passent de textes d'une ou deux phrases à de vrais mini-cours — intro étoffée, nouveau champ `remarques[]`, méthode enrichie (étapes par niveau complétées), passage à 3-4 exemples par notion avec une explication rédigée spécifiquement pour chaque exemple (suppression du texte générique répété "Lisons d'abord attentivement l'énoncé..."), `erreursFrequentesDetail` entièrement rempli (pourquoi/comment détecter/comment éviter), astuce et résumé étoffés.
+- Figure ajoutée pour "Les puissances" (diagramme en bâtons illustrant $2^1$ à $2^5$, absente jusqu'ici) et `figure.explication` complète ajoutée pour "Multiples, diviseurs, nombres premiers" et "Les ensembles de nombres" (déjà fait pour "La racine carrée" en v1.83) — les 4 notions du chapitre ont maintenant un graphique avec sa fiche pédagogique complète.
+- Nouvelle section "Remarques" dans le lecteur de notion (`cours.js`, `.cours-box--remarque`), rendue quand `notion.remarques[]` est présent.
+- Refonte des cartes de notion (grille de chapitre) : icône adaptée au sujet (heuristique par mots-clés), badge de niveau (Facile/Moyen/Difficile), temps de lecture estimé (comptage de mots réel, ≈180 mots/min), nombre d'exemples, nombre de graphiques, description (2 lignes, clamp CSS), barre de progression affichée uniquement si la notion est "en cours".
+- En-tête "Astuce" renommé "Astuce NovaMath" ; "À retenir" renommé "Résumé — à retenir".
+
+### Corrections
+- Badge de statut ("À lire"/"En cours"/"Terminée") et badges en général : ajout de `white-space: nowrap` + `flex-shrink: 0` (`base.css` `.badge`) pour qu'ils ne se coupent plus jamais sur deux lignes, quelle que soit la largeur de la carte ou la longueur du titre voisin.
+
+### Optimisations
+- (aucune)
+
+### Fichiers modifiés
+- `webapp/static/js/cours.js`
+- `webapp/static/css/cours.css`
+- `webapp/static/css/base.css`
+- `webapp/static/data/cours/chapitre_1.json`
+
+### Bugs connus
+- Seul Chapitre_1 (Seconde) a le contenu entièrement réécrit ; tous les autres chapitres/classes gardent l'ancien contenu (plus court) en attendant la suite du volet contenu.
+
+### Temps estimé de développement
+- (à compléter)
+
+## v1.83
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Fiche pédagogique riche pour les graphiques : la colonne d'explication devient une suite de cartes typées (comprendre, lire le graphique, observations, calcul étape par étape, astuce, pièges, à retenir)
+
+### Nouveautés
+- Nouveau schéma `figure.explication` (optionnel) : `resume`, `comprendre`, `lecture[]`, `observations[]`, `etapes[{titre,texte}]`, `astuce`, `pieges[]`, `aRetenir[]` — remplace l'ancien champ `figure.details` (jamais utilisé en contenu réel) par une structure permettant de rendre la colonne du bloc figure comme une vraie fiche pédagogique multi-cartes plutôt qu'une légende d'une phrase.
+- `cours.js::buildFigureExplicationHtml` : génère une carte typée par section présente (icône + titre coloré, cohérent avec la palette `.cours-box--*` déjà utilisée ailleurs dans le cours), avec repli sur `figure.alt` si `explication` est absent.
+- Nouvelles variantes de carte `.cours-box--lecture` (bleu info), `.cours-box--observations` (vert succès), `.cours-box--etapes` (indigo, liste numérotée dédiée `.cours-figure-etapes`), `.cours-box--aretenir` (or).
+- Contenu pilote : 4 figures enrichies avec `explication` complète pour valider visuellement le rendu — `racine-carree` (Chapitre_1), `courbe-representative-dune-fonction` (Chapitre_7), `somme-et-difference-de-deux-vecteurs` (Chapitre_4), `loi-de-probabilite` (Chapitre_12).
+
+### Corrections
+- (aucune)
+
+### Optimisations
+- (à compléter)
+
+### Fichiers modifiés
+- `webapp/static/js/cours.js`
+- `webapp/static/css/cours.css`
+- `webapp/static/data/cours/chapitre_1.json`, `chapitre_4.json`, `chapitre_7.json`, `chapitre_12.json`
+
+### Bugs connus
+- Seules 4 figures sur l'ensemble des chapitres ont le nouveau champ `explication` ; les autres retombent sur `figure.alt` (légende courte) en attendant l'enrichissement complet du contenu (volet B).
+
+### Temps estimé de développement
+- (à compléter)
+
+## v1.82
+
+**Date** : 2026-07-25
+
+**Nom de la mise à jour** : Correction du moteur des cours : disposition deux colonnes réservée au seul bloc graphique, reste du cours en une colonne fluide
+
+### Nouveautés
+- `buildFigureBlockHtml` (cours.js) : nouveau composant de figure autonome, encapsulant le graphique et sa colonne d'explication dédiée (`figure.details[]` si présent, sinon `figure.alt` en repli).
+- Schéma de figure étendu avec un champ optionnel `details` (liste de points qui font directement référence au graphique, ex. "Le point A est ici...") — support pour l'enrichissement de contenu à venir.
+
+### Corrections
+- Le lecteur de notion (v1.81) plaçait TOUT le corps du cours (définition, méthode, exemples, erreurs fréquentes...) en deux colonnes dès qu'une figure était présente, cassant la lecture verticale naturelle. Revert vers une seule colonne pour l'ensemble du cours ; seul le bloc contenant la figure (juste après la Définition) devient un mini-layout deux colonnes (graphique ~44% / explication ~56%).
+- Suppression du `position: sticky` sur la colonne graphique (inutile hors du contexte pleine largeur, pouvait sembler incohérent si l'explication dépasse largement la hauteur du graphique).
+
+### Optimisations
+- Graphique legèrement agrandi (`max-width: 480px` contre 420px).
+
+### Fichiers modifiés
+- `webapp/static/js/cours.js`
+- `webapp/static/css/cours.css`
+
+### Bugs connus
+- (à compléter)
+
+### Temps estimé de développement
+- (à compléter)
+
+## v1.81
+
+**Date** : 2026-07-24
+
+**Nom de la mise à jour** : Refonte du moteur d'affichage des cours : graphiques SVG agrandis (axes fléchés, graduations, grille, points annotés) et disposition deux colonnes graphique/explications
+
+### Nouveautés
+- Nouveau moteur de figures SVG (`geomSvg.js`) : canevas dimensionné dynamiquement (fini le carré forcé), axes fléchés, graduations chiffrées sur x/y, repère de l'origine "O", grille légère activée par défaut dès qu'un repère est affiché, coordonnées optionnelles sous les points remarquables (`showCoords`).
+- Toutes les figures non-"geom" (arbre de probabilités, Venn, ensembles emboîtés, droite graduée, bâtons, camembert, boîte à moustaches, solides) mises à l'échelle ×1.6 pour rester au même niveau visuel que les repères mathématiques.
+- Lecteur de notion (`cours.js`/`cours.css`) : disposition en deux colonnes dès qu'une notion a une figure — graphique à gauche (~45%, collant au scroll), explications à droite (~55% : définition, méthode, exemples, erreurs fréquentes, astuces...). Empilement graphique puis texte en dessous de 900px.
+
+### Corrections
+- (aucune — chantier purement additif sur le moteur d'affichage)
+
+### Optimisations
+- (à compléter)
+
+### Fichiers modifiés
+- `webapp/static/js/geomSvg.js`
+- `webapp/static/js/cours.js`
+- `webapp/static/css/cours.css`
+
+### Bugs connus
+- (à compléter)
+
+### Temps estimé de développement
+- (à compléter)
+
+## v1.80
+
+**Date** : 2026-07-20
+
+**Nom de la mise à jour** : OAuth Google réel, audit des intégrations externes, correctifs critiques
+
+### Nouveautés
+- **OAuth Google entièrement implémenté** (`webapp/auth.py`) : l'architecture était prête depuis v1.70 mais le callback renvoyait toujours 501. Échange réel code → token → userinfo (`requests` vers `oauth2.googleapis.com`), protection CSRF par `state` signé en session, email vérifié par Google exigé avant toute liaison/création de compte.
+  - Compte Google déjà lié → connexion directe.
+  - Email vérifié correspondant à un compte local existant → liaison automatique (`oauth_accounts`) puis connexion, jamais l'inverse.
+  - Email inconnu → nouvelle route `POST /api/auth/<provider>/complete-signup` : collecte obligatoire de la date de naissance et déclenchement du consentement parental si mineur (même logique que `register()`, RGPD art. 8 non contournable via OAuth).
+- Refactor `_finish_login` → `_create_authenticated_session` (session/cookies) pour être réutilisable par le flux OAuth (redirection navigateur) sans dupliquer la logique déjà utilisée par `login()`/`verify_2fa()`.
+- 3 nouvelles suites de tests (41 tests) : `test_server_oauth_google.py` (18, dont RGPD mineur et cas de course), `test_ollama_provider.py` (13, dont 2 d'intégration réelle si un serveur Ollama tourne), `test_anthropic_provider.py` (10, dont 1 de connectivité réelle contre `api.anthropic.com`).
+
+### Corrections
+- **Incident critique** : 1617 fichiers du dépôt supprimés du disque en cours d'audit (hors git, très probablement par un agent d'exploration à accès Bash non restreint) — détecté avant toute autre action, restauré intégralement via `git checkout` ciblé (fichiers suivis par git) sans toucher aux fichiers légitimement en cours de modification.
+- **`webapp/static/assets/backgrounds/hero-wave.png` perdue** lors du même incident (fichier jamais suivi par git, donc non récupérable via `git checkout`) — retrouvée intacte dans l'ancien dossier de build `webapp/static-dist.bak-20260718170644/` et restaurée à l'identique (même taille, 1 495 962 octets) ; le design V4 (fond violet/lavande) s'affiche de nouveau correctement sur toutes les pages.
+- Décalage de version `esbuild` dans `node_modules` (suite au même incident) résolu par réinstallation propre (`npm ci`).
+- URL d'autorisation OAuth mal encodée (`scope` contenant des espaces, jamais échappé) — resté dormant tant que la route renvoyait 501, corrigé avec l'implémentation réelle (`urlencode`).
+- 23 imports morts supprimés dans `webapp/` (fix automatique sûr `ruff --fix --select F401`, aucun changement de comportement — confirmé par la suite de tests inchangée avant/après).
+
+### Optimisations
+- `.dockerignore` : exclusion de `webapp/static-dist.bak-*/` (dossier de sauvegarde de build, ~2,3 Mo inutiles dans le contexte Docker).
+
+### Fichiers modifiés
+- `webapp/auth.py` (OAuth réel + refactor session), `.dockerignore`, 23 fichiers avec import mort supprimé (voir `git diff` pour la liste exacte).
+
+### Fichiers créés
+- `webapp/tests/test_server_oauth_google.py`, `webapp/tests/test_ollama_provider.py`, `webapp/tests/test_anthropic_provider.py`.
+
+### Bugs connus / limitations
+- Suite e2e Stripe (92 tests) toujours désactivée : `STRIPE_WEBHOOK_SECRET` reste un placeholder — clé secrète et Price ID Premium/Ultra confirmés valides et actifs (appel réel `Balance.retrieve`/`Price.retrieve`).
+- Provider Anthropic non testé en génération réelle (aucune clé `ANTHROPIC_API_KEY` valide fournie — une clé `GEMINI_API_KEY` a été ajoutée à `.env` mais aucun provider Gemini n'existe dans le code).
+- SMTP réel non testé (aucun identifiant fourni) ; le filet de secours dev (lien en clair) reste actif et vérifié.
+- Root cause de l'incident de suppression de masse non formellement identifiée (impossible de rejouer la transcription exacte de l'agent en cause).
+
+### Temps estimé de développement
+- Session unique, ~3h (cartographie, incident critique + récupération, implémentation OAuth, tests, audit multi-intégrations, versioning).
+
 ## v1.70
 
 **Date** : 2026-07-17

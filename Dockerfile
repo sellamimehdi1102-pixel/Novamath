@@ -51,12 +51,16 @@ RUN npm run build
 # ── Étape 3 : image finale ───────────────────────────────────────────────
 FROM python:3.12-slim AS final
 
-# curl : seule dépendance système conservée dans l'image finale, utilisée
-# uniquement par HEALTHCHECK ci-dessous (interroge /api/health, déjà exposé
-# par webapp/health_service.py — aucune route ajoutée pour ce besoin).
-# Utilisateur non-root dédié (jamais root en production).
+# curl : utilisé uniquement par HEALTHCHECK ci-dessous (interroge
+# /api/health, déjà exposé par webapp/health_service.py — aucune route
+# ajoutée pour ce besoin). postgresql-client : fournit pg_dump/psql, utilisés
+# par webapp/backup_service.py (_backup_postgresql/_restore_postgresql) dès
+# que DATABASE_URL pointe vers PostgreSQL — sans ce paquet, toute sauvegarde/
+# restauration échouerait silencieusement (binaire introuvable) le jour d'une
+# migration SQLite -> PostgreSQL, alors que le code applicatif les suppose
+# déjà présents. Utilisateur non-root dédié (jamais root en production).
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl \
+    && apt-get install -y --no-install-recommends curl postgresql-client \
     && rm -rf /var/lib/apt/lists/* \
     && useradd --create-home --uid 1000 --shell /usr/sbin/nologin novamath
 

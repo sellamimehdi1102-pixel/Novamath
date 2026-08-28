@@ -6,6 +6,15 @@ data/novamath.db
 .admin_key
 backups/
 
+# Données réelles générées à l'exécution (recréées automatiquement par
+# l'app si absentes, voir auth.py/server.py) — jamais des données
+# d'exemple/développement, jamais à versionner (audit production, ÉTAPE 4).
+data/user_stats/
+data/user_settings/
+data/user_course_progress/
+data/reviews.json
+data/stats_store.legacy.json
+
 # Ajouts SEC-07 (infrastructure de déploiement) — voir DEPLOYMENT.md.
 *.pyo
 .pytest_cache/
@@ -32,3 +41,11 @@ docker-compose.override.yml
 node_modules/
 webapp/static-dist/
 coverage/
+
+# Cache AST de graphify (voir graphify-out/) — régénéré automatiquement par
+# `graphify update .` (AST-only, sans coût API), jamais à versionner : 148 Mo
+# de cache par fichier source, sans valeur hors de la machine qui l'a généré.
+# `**/` pour couvrir aussi bien graphify-out/ à la racine qu'une exécution
+# scoped à un sous-dossier (ex. webapp/graphify-out/).
+**/graphify-out/cache/ast/
+**/graphify-out/cache/*.tmp

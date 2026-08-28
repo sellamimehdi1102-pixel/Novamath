@@ -1669,15 +1669,14 @@
     "id": 112
   },
   {
-    "enonce": "Soit f(x) = x² - 2x - 3. 1) Mettre f(x) sous forme canonique. 2) En déduire les coordonnées du sommet de la parabole. 3) Déterminer les intersections de la courbe avec les axes. 4) Dresser le tableau de variations de f sur ℝ.",
-    "answer": "Forme canonique : f(x) = (x-1)² - 4. Sommet : S(1 ; -4). Intersections avec l'axe des x : (-1 ; 0) et (3 ; 0). Intersection avec l'axe des y : (0 ; -3). f est décroissante sur ]-∞ ; 1] et croissante sur [1 ; +∞[.",
-    "hint": "Pour la forme canonique, complétez le carré en factorisant autour du terme en x. Le sommet est le point de coordonnées (α ; β) où f(x) = (x - α)² + β.",
+    "enonce": "Soit $f(x) = \\sqrt{x+2}$. 1) Déterminer l'ensemble de définition de $f$. 2) Le point $A(2;2)$ appartient-il à la courbe de $f$ ? 3) Résoudre $f(x)=3$. 4) La courbe de $f$ coupe-t-elle l'axe des abscisses ? Si oui, en quel point ?",
+    "answer": "$D_f=[-2;+\\infty[$. $A(2;2)$ appartient à la courbe. $f(x)=3 \\iff x=7$. La courbe coupe l'axe des abscisses en $(-2;0)$.",
+    "hint": "Une racine carrée n'est définie que si son contenu est positif ou nul. Pour vérifier qu'un point appartient à la courbe, calculez l'image de son abscisse.",
     "solution_steps": [
-      "Forme canonique : f(x) = x² - 2x - 3 = (x² - 2x + 1) - 1 - 3 = (x-1)² - 4.",
-      "Sommet : S(1 ; -4) — c'est le minimum de f.",
-      "Intersections avec l'axe des x : f(x) = 0 → (x-1)² = 4 → x-1 = ±2 → x = 3 ou x = -1. Points : (-1 ; 0) et (3 ; 0).",
-      "Intersection avec l'axe des y : f(0) = 0 - 0 - 3 = -3. Point : (0 ; -3).",
-      "Tableau de variations : f décroissante sur ]-∞ ; 1] (minimum -4 en x=1) et croissante sur [1 ; +∞[."
+      "Étape 1 : $x+2\\geq0 \\iff x\\geq-2$, donc $D_f=[-2;+\\infty[$.",
+      "Étape 2 : $f(2)=\\sqrt{2+2}=\\sqrt{4}=2$, donc $A(2;2)$ est bien sur la courbe.",
+      "Étape 3 : $f(x)=3 \\iff \\sqrt{x+2}=3 \\iff x+2=9 \\iff x=7$.",
+      "Étape 4 : La courbe coupe l'axe des abscisses quand $f(x)=0$, soit $x+2=0 \\iff x=-2$ : point $(-2;0)$."
     ],
     "chapter_id": "Chapitre_7",
     "notion": "Courbe représentative d'une fonction",
@@ -1877,14 +1876,13 @@
     "id": 126
   },
   {
-    "enonce": "Soit la fonction f définie par f(x) = 2x² - 3x + 4 sur l'intervalle [0, 5]. Calculer le maximum et le minimum de cette fonction.",
-    "answer": "maximum : Le maximum de la fonction sur [0, 5] est atteint en x = 5, avec f(5) = 39. ; minimum : Le minimum de la fonction est atteint en x = 3/4, avec f(3/4) = 23/8 = 2,875.",
-    "hint": "La fonction est un trinôme du second degré avec coefficient dominant positif (a = 2 > 0), donc elle admet un minimum en son sommet. Sur un intervalle, comparez les valeurs aux bornes et au sommet.",
+    "enonce": "Soit $f(x)=\\sqrt{x}$ définie sur $[1;9]$. Déterminer le maximum et le minimum de $f$ sur cet intervalle.",
+    "answer": "Minimum $f(1)=1$, maximum $f(9)=3$.",
+    "hint": "La fonction racine carrée est croissante sur $[0;+\\infty[$ : comparez directement les valeurs aux bornes.",
     "solution_steps": [
-      "Identifier le sens de variation : a = 2 > 0, donc la parabole est tournée vers le haut. - Le minimum global est atteint au sommet de la parabole.",
-      "Calculer l'abscisse du sommet : xs = -b/(2a) = 3/(2×2) = 3/4. - xs = 3/4 est dans [0, 5].",
-      "Calculer f(3/4) = 2×(3/4)² - 3×(3/4) + 4 = 2×(9/16) - 9/4 + 4 = 9/8 - 18/8 + 32/8 = 23/8. - f(3/4) = 23/8 ≈ 2,875 : c'est le minimum sur [0, 5].",
-      "Calculer les valeurs aux bornes : f(0) = 4 et f(5) = 2×25 - 15 + 4 = 50 - 15 + 4 = 39. - Le maximum sur [0, 5] est f(5) = 39."
+      "Étape 1 : $f$ est croissante sur $[0;+\\infty[$, donc sur $[1;9]$.",
+      "Étape 2 : Le minimum est donc atteint à la borne gauche : $f(1)=\\sqrt{1}=1$.",
+      "Étape 3 : Le maximum est atteint à la borne droite : $f(9)=\\sqrt{9}=3$."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -1892,14 +1890,13 @@
     "id": 127
   },
   {
-    "enonce": "Soit la fonction f définie par f(x) = 3x² - 4x + 7 sur l'intervalle [0, 4]. Calculer le maximum et le minimum de cette fonction.",
-    "answer": "maximum : {'value': 39, 'point': 4} ; minimum : {'value': 17, 'point': '2/3'}",
-    "hint": "La fonction est un trinôme du second degré avec coefficient dominant positif (a = 3 > 0), donc la parabole est tournée vers le haut. Le minimum est au sommet de la parabole, le maximum est à l'une des bornes de l'intervalle.",
+    "enonce": "Soit $f(x)=\\dfrac{1}{x}$ définie sur $[2;5]$. Déterminer le maximum et le minimum de $f$ sur cet intervalle.",
+    "answer": "Maximum $f(2)=\\frac{1}{2}$, minimum $f(5)=\\frac{1}{5}$.",
+    "hint": "La fonction inverse est décroissante sur $]0;+\\infty[$ : comparez directement les valeurs aux bornes.",
     "solution_steps": [
-      "Identifier le sens de variation : a = 3 > 0, donc la parabole est tournée vers le haut. - La fonction admet un minimum en son sommet.",
-      "Calculer l'abscisse du sommet : xs = -b/(2a) = 4/(2×3) = 2/3. - xs = 2/3 est dans [0, 4].",
-      "Calculer f(2/3) = 3×(4/9) - 4×(2/3) + 7 = 4/3 - 8/3 + 21/3 = 17/3 ≈ 5,67. - f(2/3) = 17/3 : c'est le minimum sur [0, 4].",
-      "Calculer les valeurs aux bornes : f(0) = 7 et f(4) = 3×16 - 16 + 7 = 48 - 16 + 7 = 39. - Le maximum sur [0, 4] est f(4) = 39."
+      "Étape 1 : $f$ est décroissante sur $]0;+\\infty[$, donc sur $[2;5]$.",
+      "Étape 2 : Le maximum est atteint à la borne gauche : $f(2)=\\frac{1}{2}$.",
+      "Étape 3 : Le minimum est atteint à la borne droite : $f(5)=\\frac{1}{5}$."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -2210,14 +2207,13 @@
     "id": 148
   },
   {
-    "enonce": "Soit la fonction f définie par f(x) = -3x² + 4x - 7. Calculer le signe de la fonction pour x ∈ ℝ.",
-    "answer": "La fonction f(x) = -3x² + 4x - 7 est strictement négative pour tout réel x.",
-    "hint": "Calculez le discriminant Δ = b² - 4ac. Si Δ < 0 et que le coefficient dominant a est négatif, alors la fonction est strictement négative sur ℝ.",
+    "enonce": "Soit $f(x) = (2x-3)(x+4)$. Étudier le signe de $f(x)$ sur $\\mathbb{R}$.",
+    "answer": "$f(x) < 0$ sur $]-4 ; \\frac{3}{2}[$, $f(x) > 0$ sur $]-\\infty;-4[\\cup]\\frac{3}{2};+\\infty[$, $f(x)=0$ en $x=-4$ et $x=\\frac{3}{2}$.",
+    "hint": "Étudiez le signe de chaque facteur séparément, puis appliquez la règle des signes d'un produit.",
     "solution_steps": [
-      "Identifier les coefficients : a = -3, b = 4, c = -7.",
-      "Calculer le discriminant : Δ = b² - 4ac = 16 - 4×(-3)×(-7) = 16 - 84 = -68.",
-      "Comme Δ < 0 et a = -3 < 0, la parabole est tournée vers le bas et ne coupe pas l'axe des abscisses.",
-      "La fonction est donc strictement négative pour tout x ∈ ℝ."
+      "Étape 1 : $2x-3=0 \\iff x=\\frac{3}{2}$ ; $2x-3>0$ pour $x>\\frac{3}{2}$.",
+      "Étape 2 : $x+4=0 \\iff x=-4$ ; $x+4>0$ pour $x>-4$.",
+      "Étape 3 : Tableau de signes du produit : $f(x)>0$ à l'extérieur des racines, $f(x)<0$ entre les racines (les deux facteurs sont de signe opposé sur $]-4;\\frac{3}{2}[$)."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'une fonction",
@@ -2643,13 +2639,13 @@
     "id": 176
   },
   {
-    "enonce": "Un livre pèse 800 grammes. Un autre livre pèse 300 grammes de moins que le premier. Quel est le poids du deuxième livre ?",
-    "answer": "500",
-    "hint": "Le deuxième livre pèse 300 grammes de moins que le premier. Il faut donc soustraire 300 grammes au poids du premier livre.",
+    "enonce": "Dans un club sportif de $200$ adhérents, $118$ se déclarent satisfaits des nouveaux horaires d'entraînement lors d'une enquête interne. Calculer la fréquence de satisfaction observée, puis l'intervalle de confiance au niveau $95\\%$.",
+    "answer": "$f=0,59$ ; intervalle de confiance $[0,5192893219;0,6607106781]$.",
+    "hint": "Calculez d'abord $f$, puis appliquez la formule $\\left[f-\\dfrac{1}{\\sqrt{n}};f+\\dfrac{1}{\\sqrt{n}}\\right]$.",
     "solution_steps": [
-      "Le premier livre pèse 800 grammes.",
-      "Le deuxième livre pèse 300 grammes de moins : 800 - 300 = 500 grammes.",
-      "Le deuxième livre pèse donc 500 grammes."
+      "Étape 1 : $f=\\dfrac{118}{200}=0,59$.",
+      "Étape 2 : $\\dfrac{1}{\\sqrt{200}}=0,0707106781$.",
+      "Étape 3 : Intervalle de confiance : $[0,5192893219;0,6607106781]$."
     ],
     "chapter_id": "Chapitre_12",
     "notion": "Fluctuation et estimation",
@@ -9230,13 +9226,13 @@
     "id": 643
   },
   {
-    "enonce": "ABC est un triangle tel que AB=7 cm, BC=9 cm et $\\widehat{ABC}$=60°. Calculer AC à l'aide de la loi des cosinus, arrondi au dixième.",
-    "answer": "AC≈8,2 cm",
-    "hint": "Loi des cosinus : AC²=AB²+BC²-2× AB× BC×cos($\\widehat{ABC}$).",
+    "enonce": "$ABC$ est un triangle rectangle en $B$ tel que $AB=7$ cm et $BC=9$ cm. Calculer $AC$ (arrondi au dixième), ainsi que la mesure de l'angle $\\widehat{BAC}$ (arrondi au degré).",
+    "answer": "$AC \\approx 11{,}4$ cm ; $\\widehat{BAC} \\approx 52°$.",
+    "hint": "Utilisez le théorème de Pythagore pour $AC$, puis la trigonométrie du triangle rectangle ($\\tan$) pour l'angle.",
     "solution_steps": [
-      "Étape 1 : AC²=7²+9²-2×7×9×cos(60°).",
-      "Étape 2 : cos(60°)=0,5, donc AC²=49+81-63=67.",
-      "Étape 3 : AC=√67≈8,2 cm."
+      "Étape 1 : Pythagore : $AC^2=AB^2+BC^2=7^2+9^2=49+81=130$, donc $AC=\\sqrt{130}\\approx11{,}4$ cm.",
+      "Étape 2 : Dans le triangle rectangle en $B$, $\\tan(\\widehat{BAC})=\\dfrac{BC}{AB}=\\dfrac{9}{7}$.",
+      "Étape 3 : $\\widehat{BAC}=\\arctan\\left(\\dfrac{9}{7}\\right)\\approx52°$."
     ],
     "chapter_id": "Chapitre_4",
     "notion": "Géométrie sans repère",
@@ -15830,13 +15826,13 @@
     "id": 1127
   },
   {
-    "enonce": "Soit f(x)=x²-4x+5. Le point D(2;1) est-il le point le plus bas de la courbe de f (minimum) ? Vérifier à l'aide de la forme canonique.",
-    "answer": "Oui, D(2;1) est le minimum.",
-    "hint": "Mettez f(x) sous forme canonique (x-a)²+b.",
+    "enonce": "Soit $f(x)=\\sqrt{x-1}$. Le point $D(5;2)$ appartient-il à la courbe représentative de $f$ ? Justifier par le calcul.",
+    "answer": "Oui : $f(5)=2$, donc $D(5;2)$ appartient bien à la courbe de $f$.",
+    "hint": "Calculez $f(5)$ et comparez au résultat attendu.",
     "solution_steps": [
-      "Étape 1 : f(x)=x²-4x+5=(x-2)²+1 (en développant : (x-2)²=x²-4x+4, donc +1 donne bien 5).",
-      "Étape 2 : (x-2)²≥0, donc f(x)≥1, avec égalité pour x=2.",
-      "Étape 3 : Le minimum de f est donc bien atteint en (2;1)."
+      "Étape 1 : $f(5)=\\sqrt{5-1}=\\sqrt{4}=2$.",
+      "Étape 2 : L'ordonnée obtenue ($2$) est bien celle du point $D$.",
+      "Étape 3 : Donc $D(5;2)$ appartient à la courbe de $f$."
     ],
     "chapter_id": "Chapitre_7",
     "notion": "Courbe représentative d'une fonction",
@@ -15968,12 +15964,14 @@
     "id": 1137
   },
   {
-    "enonce": "Soit f(x)=x²-6x+11. Déterminer les coordonnées du sommet de la parabole représentant f, en utilisant la forme canonique.",
-    "answer": "Sommet (3;2)",
-    "hint": "Mettez f(x) sous la forme (x-a)²+b.",
+    "enonce": "La droite d'équation $y=3x-2$ et la courbe de la fonction carré $f(x)=x^2$ se coupent en deux points. Déterminer leurs coordonnées.",
+    "answer": "Les deux points d'intersection sont $(1;1)$ et $(2;4)$.",
+    "hint": "Posez $x^2=3x-2$, ramenez à une équation de la forme $x^2-3x+2=0$, puis factorisez en cherchant deux nombres dont le produit est $2$ et la somme est $3$.",
     "solution_steps": [
-      "Étape 1 : f(x)=x²-6x+11=(x-3)²-9+11=(x-3)²+2.",
-      "Étape 2 : Le sommet de la parabole y=(x-3)²+2 est le point (3;2) (minimum de la fonction)."
+      "Étape 1 : $x^2=3x-2 \\iff x^2-3x+2=0$.",
+      "Étape 2 : On remarque que $x^2-3x+2=(x-1)(x-2)$ (car $1\\times2=2$ et $1+2=3$).",
+      "Étape 3 : $(x-1)(x-2)=0 \\iff x=1$ ou $x=2$. On calcule les images : $f(1)=1$ et $f(2)=4$.",
+      "Étape 4 : Les points d'intersection sont donc $(1;1)$ et $(2;4)$."
     ],
     "chapter_id": "Chapitre_7",
     "notion": "Courbe représentative d'une fonction",
@@ -16129,13 +16127,14 @@
     "id": 1149
   },
   {
-    "enonce": "Soit f(x)=2x²-8x+3. Déterminer les coordonnées du sommet de la parabole représentant f, en utilisant la forme canonique.",
-    "answer": "Sommet (2;-5)",
-    "hint": "Factorisez d'abord par 2, puis complétez le carré à l'intérieur.",
+    "enonce": "La droite d'équation $y=-2x+8$ et la courbe de la fonction carré $f(x)=x^2$ se coupent en deux points. Déterminer leurs coordonnées.",
+    "answer": "Les deux points d'intersection sont $(-4;16)$ et $(2;4)$.",
+    "hint": "Posez $x^2=-2x+8$, ramenez à une équation $x^2+2x-8=0$, puis factorisez.",
     "solution_steps": [
-      "Étape 1 : f(x)=2(x²-4x)+3=2[(x-2)²-4]+3=2(x-2)²-8+3.",
-      "Étape 2 : f(x)=2(x-2)²-5.",
-      "Étape 3 : Le sommet de la parabole est (2;-5)."
+      "Étape 1 : $x^2=-2x+8 \\iff x^2+2x-8=0$.",
+      "Étape 2 : On remarque que $x^2+2x-8=(x+4)(x-2)$ (car $4\\times(-2)=-8$ et $4+(-2)=2$).",
+      "Étape 3 : $(x+4)(x-2)=0 \\iff x=-4$ ou $x=2$. On calcule les images : $f(-4)=16$ et $f(2)=4$.",
+      "Étape 4 : Les points d'intersection sont donc $(-4;16)$ et $(2;4)$."
     ],
     "chapter_id": "Chapitre_7",
     "notion": "Courbe représentative d'une fonction",
@@ -18798,12 +18797,13 @@
     "id": 1347
   },
   {
-    "enonce": "Soit f(x)=x²-4x. Mettre f sous forme canonique pour déterminer son minimum.",
-    "answer": "Minimum -4, atteint en x=2.",
-    "hint": "Complétez le carré : x²-4x=(x-2)²-4.",
+    "enonce": "Soit $f(x)=x^3$ définie sur $[-2;1]$. Déterminer le maximum et le minimum de $f$ sur cet intervalle.",
+    "answer": "Minimum $f(-2)=-8$, maximum $f(1)=1$.",
+    "hint": "La fonction cube est croissante sur $\\mathbb{R}$ : comparez directement les valeurs aux bornes.",
     "solution_steps": [
-      "Étape 1 : f(x)=x²-4x=(x-2)²-4.",
-      "Étape 2 : (x-2)²≥0, donc f(x)≥-4, minimum atteint en x=2."
+      "Étape 1 : $f$ est croissante sur $\\mathbb{R}$, donc sur $[-2;1]$.",
+      "Étape 2 : Le minimum est atteint à la borne gauche : $f(-2)=(-2)^3=-8$.",
+      "Étape 3 : Le maximum est atteint à la borne droite : $f(1)=1^3=1$."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -18837,13 +18837,13 @@
     "id": 1350
   },
   {
-    "enonce": "Soit f(x)=-2x²+8x-3. Mettre f sous forme canonique pour déterminer son maximum.",
-    "answer": "Maximum 5, atteint en x=2.",
-    "hint": "Factorisez d'abord par -2, puis complétez le carré.",
+    "enonce": "On donne le tableau de variations d'une fonction $f$ sur $[-3;5]$ : $f$ est croissante sur $[-3;1]$, puis décroissante sur $[1;5]$, avec $f(-3)=-2$, $f(1)=6$ et $f(5)=0$. Déterminer le maximum et le minimum de $f$ sur $[-3;5]$.",
+    "answer": "Maximum $f(1)=6$, minimum $f(-3)=-2$.",
+    "hint": "Le maximum et le minimum d'une fonction se lisent directement sur son tableau de variations : ce sont les plus grande et plus petite valeurs qui y apparaissent.",
     "solution_steps": [
-      "Étape 1 : f(x)=-2(x²-4x)-3=-2[(x-2)²-4]-3=-2(x-2)²+8-3.",
-      "Étape 2 : f(x)=-2(x-2)²+5.",
-      "Étape 3 : -2(x-2)²≤0, donc f(x)≤5, maximum atteint en x=2."
+      "Étape 1 : Les valeurs qui apparaissent dans le tableau de variations sont $-2$, $6$ et $0$.",
+      "Étape 2 : La plus grande de ces valeurs est $6$, atteinte en $x=1$ : c'est le maximum de $f$ sur $[-3;5]$.",
+      "Étape 3 : La plus petite est $-2$, atteinte en $x=-3$ : c'est le minimum de $f$ sur $[-3;5]$."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -18851,12 +18851,13 @@
     "id": 1351
   },
   {
-    "enonce": "Un fermier dispose de 40 m de clôture pour un enclos rectangulaire de largeur x. L'aire est A(x)=x(20-x). Déterminer la largeur x qui maximise l'aire, sous forme canonique.",
-    "answer": "x=10 m, aire maximale 100 m^2.",
-    "hint": "Développez puis mettez A(x) sous forme canonique.",
+    "enonce": "Un fermier dispose de $24$ m de clôture pour un enclos rectangulaire. On note $x$ la longueur d'un côté ($0<x<12$) : l'autre côté mesure alors $12-x$, et l'aire est $A(x)=x(12-x)$. 1) Compléter : $A(2)=\\dots$, $A(4)=\\dots$, $A(6)=\\dots$, $A(8)=\\dots$, $A(10)=\\dots$. 2) Que remarque-t-on sur les valeurs de $A(2)$ et $A(10)$, puis $A(4)$ et $A(8)$ ? 3) Conjecturer la valeur de $x$ qui semble maximiser l'aire.",
+    "answer": "$A(2)=20$, $A(4)=32$, $A(6)=36$, $A(8)=32$, $A(10)=20$. Les valeurs sont égales deux à deux ($A(2)=A(10)$, $A(4)=A(8)$) par symétrie autour de $x=6$ : l'aire semble maximale en $x=6$ (aire $36$ m²).",
+    "hint": "Comparez les valeurs de $A$ pour des $x$ symétriques par rapport à $6$ (le milieu de $0$ et $12$).",
     "solution_steps": [
-      "Étape 1 : A(x)=20x-x²=-(x²-20x)=-[(x-10)²-100]=-(x-10)²+100.",
-      "Étape 2 : -(x-10)²≤0, donc A(x)≤100, maximum atteint en x=10."
+      "Étape 1 : $A(2)=2\\times10=20$, $A(4)=4\\times8=32$, $A(6)=6\\times6=36$, $A(8)=8\\times4=32$, $A(10)=10\\times2=20$.",
+      "Étape 2 : $A(2)=A(10)=20$ et $A(4)=A(8)=32$ : les valeurs se répètent symétriquement autour de $x=6$, milieu de l'intervalle $]0;12[$.",
+      "Étape 3 : Cette symétrie suggère que l'aire est maximale exactement au centre, en $x=6$, avec $A(6)=36$ m² : un carré donne la plus grande aire pour un périmètre donné."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -18919,13 +18920,13 @@
     "id": 1356
   },
   {
-    "enonce": "Soit f(x)=x²-2x+5 définie sur [2;6] (le sommet de la parabole est hors de cet intervalle). Déterminer le minimum et le maximum de f sur [2;6].",
-    "answer": "Minimum f(2)=5, maximum f(6)=29.",
-    "hint": "Vérifiez d'abord si le sommet appartient à l'intervalle ; sinon, étudiez le sens de variation sur l'intervalle.",
+    "enonce": "Soit $f(x)=\\sqrt{x}$ définie sur $[4;16]$. Déterminer le maximum et le minimum de $f$ sur cet intervalle.",
+    "answer": "Minimum $f(4)=2$, maximum $f(16)=4$.",
+    "hint": "La fonction racine carrée est croissante : comparez les valeurs aux bornes.",
     "solution_steps": [
-      "Étape 1 : f(x)=(x-1)²+4, sommet en x=1, hors de [2;6].",
-      "Étape 2 : Sur [2;6] (à droite du sommet), f est croissante.",
-      "Étape 3 : Minimum en x=2 : f(2)=4-4+5=5. Maximum en x=6 : f(6)=36-12+5=29."
+      "Étape 1 : $f$ est croissante sur $[0;+\\infty[$, donc sur $[4;16]$.",
+      "Étape 2 : Minimum à la borne gauche : $f(4)=\\sqrt{4}=2$.",
+      "Étape 3 : Maximum à la borne droite : $f(16)=\\sqrt{16}=4$."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -19040,12 +19041,13 @@
     "id": 1365
   },
   {
-    "enonce": "Soit f(x)=x²+8x. Mettre f sous forme canonique pour déterminer son minimum.",
-    "answer": "Minimum -16, atteint en x=-4.",
-    "hint": "Complétez le carré : x²+8x=(x+4)²-16.",
+    "enonce": "Soit $f(x)=x^3$ définie sur $[-1;3]$. Déterminer le maximum et le minimum de $f$ sur cet intervalle.",
+    "answer": "Minimum $f(-1)=-1$, maximum $f(3)=27$.",
+    "hint": "La fonction cube est croissante sur $\\mathbb{R}$.",
     "solution_steps": [
-      "Étape 1 : f(x)=x²+8x=(x+4)²-16.",
-      "Étape 2 : (x+4)²≥0, donc f(x)≥-16, minimum atteint en x=-4."
+      "Étape 1 : $f$ est croissante sur $\\mathbb{R}$, donc sur $[-1;3]$.",
+      "Étape 2 : Minimum à la borne gauche : $f(-1)=(-1)^3=-1$.",
+      "Étape 3 : Maximum à la borne droite : $f(3)=3^3=27$."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -19066,13 +19068,13 @@
     "id": 1367
   },
   {
-    "enonce": "Soit f(x)=-x²+6x-5. Mettre f sous forme canonique pour déterminer son maximum.",
-    "answer": "Maximum 4, atteint en x=3.",
-    "hint": "Factorisez par -1, puis complétez le carré.",
+    "enonce": "On donne le tableau de variations d'une fonction $g$ sur $[-4;6]$ : $g$ est décroissante sur $[-4;0]$, puis croissante sur $[0;6]$, avec $g(-4)=9$, $g(0)=-3$ et $g(6)=5$. Déterminer le maximum et le minimum de $g$ sur $[-4;6]$.",
+    "answer": "Maximum $g(-4)=9$, minimum $g(0)=-3$.",
+    "hint": "Comparez les valeurs qui apparaissent dans le tableau de variations.",
     "solution_steps": [
-      "Étape 1 : f(x)=-(x²-6x)-5=-[(x-3)²-9]-5=-(x-3)²+9-5.",
-      "Étape 2 : f(x)=-(x-3)²+4.",
-      "Étape 3 : Maximum 4 atteint en x=3."
+      "Étape 1 : Les valeurs du tableau sont $9$, $-3$ et $5$.",
+      "Étape 2 : La plus grande est $9$, atteinte en $x=-4$ : c'est le maximum de $g$ sur $[-4;6]$.",
+      "Étape 3 : La plus petite est $-3$, atteinte en $x=0$ : c'est le minimum de $g$ sur $[-4;6]$."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -19121,13 +19123,13 @@
     "id": 1371
   },
   {
-    "enonce": "Soit f(x)=x²-8x+20 définie sur [5;9]. Déterminer le minimum et le maximum de f sur cet intervalle.",
-    "answer": "Minimum f(5)=5, maximum f(9)=29.",
-    "hint": "Trouvez d'abord le sommet, puis étudiez le sens de variation sur l'intervalle donné.",
+    "enonce": "Soit $f(x)=\\dfrac{1}{x}$ définie sur $[1;6]$. Déterminer le maximum et le minimum de $f$ sur cet intervalle.",
+    "answer": "Maximum $f(1)=1$, minimum $f(6)=\\frac{1}{6}$.",
+    "hint": "La fonction inverse est décroissante sur $]0;+\\infty[$.",
     "solution_steps": [
-      "Étape 1 : f(x)=(x-4)²+4, sommet en x=4, hors de [5;9].",
-      "Étape 2 : Sur [5;9] (à droite du sommet), f est croissante.",
-      "Étape 3 : Minimum en x=5 : f(5)=25-40+20=5. Maximum en x=9 : f(9)=81-72+20=29."
+      "Étape 1 : $f$ est décroissante sur $]0;+\\infty[$, donc sur $[1;6]$.",
+      "Étape 2 : Maximum à la borne gauche : $f(1)=1$.",
+      "Étape 3 : Minimum à la borne droite : $f(6)=\\frac{1}{6}$."
     ],
     "chapter_id": "Chapitre_8",
     "notion": "Maximum et minimum d'une fonction",
@@ -19944,13 +19946,13 @@
     "id": 1432
   },
   {
-    "enonce": "Démontrer que pour tout réel x, f(x)=x²+x+1 est strictement positive, en calculant le discriminant du trinôme.",
-    "answer": "Δ=-3<0, donc f(x)>0 pour tout x.",
-    "hint": "Calculez Δ=b²-4ac pour a=1,b=1,c=1.",
+    "enonce": "Soit $f(x) = 3x(x-4)$. Factoriser (déjà fait), puis étudier le signe de $f(x)$ sur $\\mathbb{R}$ à l'aide d'un tableau de signes.",
+    "answer": "$f(x) < 0$ sur $]0;4[$, $f(x) > 0$ sur $]-\\infty;0[\\cup]4;+\\infty[$, $f(x)=0$ en $x=0$ et $x=4$.",
+    "hint": "$f$ est déjà écrite sous forme d'un produit de deux facteurs : étudiez le signe de chacun.",
     "solution_steps": [
-      "Étape 1 : Δ=1²-4×1×1=1-4=-3.",
-      "Étape 2 : Δ<0 signifie que le trinôme n'a pas de racine réelle.",
-      "Étape 3 : Un trinôme sans racine réelle garde un signe constant, celui de a (ici a=1>0) : f(x)>0 pour tout x."
+      "Étape 1 : $3x=0 \\iff x=0$ ; $3x>0$ pour $x>0$.",
+      "Étape 2 : $x-4=0 \\iff x=4$ ; $x-4>0$ pour $x>4$.",
+      "Étape 3 : Le produit est négatif entre les racines ($0$ et $4$), positif à l'extérieur."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'une fonction",
@@ -19958,13 +19960,13 @@
     "id": 1433
   },
   {
-    "enonce": "Soit f(x)=2x²-4x+2. Calculer le discriminant, puis en déduire le signe de f(x) sur ℝ.",
-    "answer": "Δ=0, racine double x=1 ; f(x)≥0 pour tout x.",
-    "hint": "Calculez Δ=b²-4ac.",
+    "enonce": "Soit $f(x) = \\dfrac{5-2x}{x+1}$. Déterminer l'ensemble de définition de $f$, puis étudier son signe sur cet ensemble.",
+    "answer": "$D_f = \\mathbb{R}\\setminus\\{-1\\}$. $f(x) > 0$ sur $]-1;\\frac{5}{2}[$, $f(x) < 0$ sur $]-\\infty;-1[\\cup]\\frac{5}{2};+\\infty[$.",
+    "hint": "Un quotient est défini si son dénominateur est non nul ; son signe dépend du signe du numérateur ET du dénominateur.",
     "solution_steps": [
-      "Étape 1 : Δ=(-4)²-4×2×2=16-16=0.",
-      "Étape 2 : Δ=0 signifie une racine double : x=4/4=1.",
-      "Étape 3 : Le coefficient a=2>0 et Δ=0 : f(x)≥0 pour tout x, avec égalité uniquement en x=1."
+      "Étape 1 : $x+1=0 \\iff x=-1$, valeur exclue : $D_f=\\mathbb{R}\\setminus\\{-1\\}$.",
+      "Étape 2 : $5-2x=0 \\iff x=\\frac{5}{2}$ ; $5-2x>0$ pour $x<\\frac{5}{2}$.",
+      "Étape 3 : Tableau de signes du quotient : le quotient est positif quand numérateur et dénominateur ont le même signe, c'est-à-dire sur $]-1;\\frac{5}{2}[$."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'une fonction",
@@ -19972,13 +19974,13 @@
     "id": 1434
   },
   {
-    "enonce": "Soit f(x)=-x²+4x-3. Calculer le discriminant, en déduire les racines, puis dresser le tableau de signes complet.",
-    "answer": "Δ=4, racines 1 et 3 ; f(x)≤0 sur ]-∞;1]∪[3;+∞[, f(x)≥0 sur [1;3].",
-    "hint": "Calculez Δ, puis les racines avec la formule x=(-b±√Δ)/2a.",
+    "enonce": "Soit $f(x) = (x+1)(2-x)(x+4)$. Dresser le tableau de signes complet de $f$ sur $\\mathbb{R}$.",
+    "answer": "$f(x)>0$ sur $]-4;-1[\\cup]2;+\\infty[$, $f(x)<0$ sur $]-\\infty;-4[\\cup]-1;2[$, racines en $x=-4,-1,2$.",
+    "hint": "Placez les trois racines dans l'ordre croissant, puis testez le signe de chaque facteur sur chaque intervalle.",
     "solution_steps": [
-      "Étape 1 : Δ=4²-4×(-1)×(-3)=16-12=4.",
-      "Étape 2 : √Δ=2 ; racines x=(-4+2)/-2=1 et x=(-4-2)/-2=3.",
-      "Étape 3 : Coefficient a=-1<0 : f positive entre les racines, négative à l'extérieur."
+      "Étape 1 : Les trois racines, dans l'ordre croissant, sont $-4$, $-1$ et $2$.",
+      "Étape 2 : Sur chacun des quatre intervalles délimités, on teste le signe de chaque facteur (par exemple en $x=0$ : $(0+1)(2-0)(0+4)=1\\times2\\times4=8>0$).",
+      "Étape 3 : En comptant le nombre de facteurs négatifs sur chaque intervalle, on obtient le tableau de signes ci-dessus."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'une fonction",
@@ -19986,13 +19988,13 @@
     "id": 1435
   },
   {
-    "enonce": "Démontrer que le trinôme f(x)=ax²+bx+c (avec a≠0) garde un signe constant sur ℝ si et seulement si son discriminant Δ=b²-4ac est strictement négatif.",
-    "answer": "Démonstration à l'aide de la forme canonique.",
-    "hint": "Mettez f(x) sous forme canonique et étudiez le signe selon Δ.",
+    "enonce": "Léa affirme : « Le signe de $f(x)=(x-2)(5-x)$ est positif pour $x>2$, car le premier facteur $x-2$ est positif. » A-t-elle raison ? Justifier.",
+    "answer": "Faux : Léa oublie le second facteur. Pour $x>5$, $5-x<0$, donc $f(x)<0$ malgré $x-2>0$. $f(x)>0$ seulement sur $]2;5[$.",
+    "hint": "Le signe d'un produit dépend des DEUX facteurs, pas d'un seul.",
     "solution_steps": [
-      "Étape 1 : f(x)=a[(x+b/2a)²-(Δ)/4a²].",
-      "Étape 2 : Si Δ<0, le terme -(Δ)/4a²>0, donc l'expression entre crochets est toujours strictement positive : f(x) garde le signe de a, constant.",
-      "Étape 3 : Si Δ≥0, f s'annule (une ou deux fois), donc change de signe (ou touche 0) : le signe n'est pas constant au sens strict."
+      "Étape 1 : $x-2>0$ dès que $x>2$, c'est correct — mais ce n'est qu'un des deux facteurs.",
+      "Étape 2 : $5-x>0$ seulement pour $x<5$ : au-delà de $x=5$, ce facteur devient négatif.",
+      "Étape 3 : Le produit n'est donc positif que sur $]2;5[$ (les deux facteurs positifs en même temps), pas sur tout $]2;+\\infty[$."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'une fonction",
@@ -20149,13 +20151,13 @@
     "id": 1447
   },
   {
-    "enonce": "Démontrer que pour tout réel x, f(x)=2x²+x+3 est strictement positive, en calculant le discriminant.",
-    "answer": "Δ=-23<0, donc f(x)>0 pour tout x.",
-    "hint": "Calculez Δ=b²-4ac avec a=2,b=1,c=3.",
+    "enonce": "Soit $f(x) = -(x-2)(x+5)$. Étudier le signe de $f(x)$ sur $\\mathbb{R}$.",
+    "answer": "$f(x) > 0$ sur $]-5;2[$, $f(x) < 0$ sur $]-\\infty;-5[\\cup]2;+\\infty[$.",
+    "hint": "Étudiez d'abord le signe de $(x-2)(x+5)$, puis appliquez le signe « $-$ » devant.",
     "solution_steps": [
-      "Étape 1 : Δ=1²-4×2×3=1-24=-23.",
-      "Étape 2 : Δ<0 : pas de racine réelle.",
-      "Étape 3 : a=2>0 et Δ<0 : f(x)>0 pour tout x."
+      "Étape 1 : $(x-2)(x+5)$ s'annule en $x=2$ et $x=-5$ ; ce produit est négatif entre les racines, positif à l'extérieur.",
+      "Étape 2 : $f(x)=-(x-2)(x+5)$ a donc le signe opposé : positif entre les racines, négatif à l'extérieur.",
+      "Étape 3 : Conclusion : $f(x)>0$ sur $]-5;2[$, $f(x)<0$ ailleurs."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'une fonction",
@@ -20163,13 +20165,13 @@
     "id": 1448
   },
   {
-    "enonce": "Soit f(x)=-3x²+6x-3. Calculer le discriminant, puis en déduire le signe de f(x) sur ℝ.",
-    "answer": "Δ=0, racine double x=1 ; f(x)≤0 pour tout x.",
-    "hint": "Calculez Δ=b²-4ac.",
+    "enonce": "Vrai ou faux : la fonction $f(x)=(x+3)^2$ ne peut jamais être strictement négative. Justifier.",
+    "answer": "Vrai : $(x+3)^2 \\geq 0$ pour tout réel $x$ (un carré n'est jamais négatif), avec égalité seulement en $x=-3$.",
+    "hint": "Un carré est toujours positif ou nul, quel que soit le nombre élevé au carré.",
     "solution_steps": [
-      "Étape 1 : Δ=6²-4×(-3)×(-3)=36-36=0.",
-      "Étape 2 : Racine double : x=-6/-6=1.",
-      "Étape 3 : a=-3<0 et Δ=0 : f(x)≤0 pour tout x, égalité en x=1."
+      "Étape 1 : Pour tout réel $a$, $a^2 \\geq 0$ (produit de deux facteurs de même signe, ou nul).",
+      "Étape 2 : Ici $a=x+3$, donc $(x+3)^2 \\geq 0$ pour tout réel $x$.",
+      "Étape 3 : $f(x)=0$ uniquement quand $x+3=0$, soit $x=-3$ ; $f(x)>0$ pour tout autre $x$."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'une fonction",
@@ -28653,5 +28655,253 @@
     "notion": "Résolution d'équation quotient",
     "difficulty": 5,
     "id": 2084
+  },
+  {
+    "enonce": "Sur $400$ personnes interrogées, $184$ se déclarent favorables à une réforme. Calculer la fréquence observée $f$, puis l'intervalle de confiance au niveau de confiance $95\\%$.",
+    "hint": "Calculez d'abord $f=\\dfrac{\\text{effectif favorable}}{\\text{effectif total}}$, puis appliquez la formule $\\left[f-\\dfrac{1}{\\sqrt{n}};f+\\dfrac{1}{\\sqrt{n}}\\right]$.",
+    "answer": "$f=0,46$ ; intervalle de confiance $[0,41;0,51]$.",
+    "solution_steps": [
+      "Étape 1 : $f=\\dfrac{184}{400}=0,46$.",
+      "Étape 2 : $\\dfrac{1}{\\sqrt{400}}=0,05$.",
+      "Étape 3 : Intervalle de confiance : $[0,46-0,05;0,46+0,05]=[0,41;0,51]$."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Fluctuation et estimation",
+    "difficulty": 2,
+    "id": 2085
+  },
+  {
+    "enonce": "Un contrôle qualité porte sur $1600$ pièces produites dans une usine, dont $112$ sont détectées défectueuses. Calculer le taux de pièces défectueuses observé, puis l'intervalle de confiance au niveau $95\\%$ pour le taux réel de défauts.",
+    "hint": "Calculez d'abord la fréquence observée, puis appliquez la formule de l'intervalle de confiance.",
+    "answer": "$f=0,07$ ; intervalle de confiance $[0,045;0,095]$.",
+    "solution_steps": [
+      "Étape 1 : $f=\\dfrac{112}{1600}=0,07$.",
+      "Étape 2 : $\\dfrac{1}{\\sqrt{1600}}=0,025$.",
+      "Étape 3 : Intervalle de confiance : $[0,045;0,095]$."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Fluctuation et estimation",
+    "difficulty": 2,
+    "id": 2086
+  },
+  {
+    "enonce": "Un agriculteur sème $625$ graines d'une nouvelle variété, dont $550$ germent effectivement. Estimer, par un intervalle de confiance au niveau $95\\%$, le taux de germination réel de cette variété.",
+    "hint": "Calculez la fréquence de germination observée, puis appliquez la formule de l'intervalle de confiance.",
+    "answer": "$f=0,88$ ; intervalle de confiance $[0,84;0,92]$.",
+    "solution_steps": [
+      "Étape 1 : $f=\\dfrac{550}{625}=0,88$.",
+      "Étape 2 : $\\dfrac{1}{\\sqrt{625}}=0,04$.",
+      "Étape 3 : Intervalle de confiance : $[0,84;0,92]$."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Fluctuation et estimation",
+    "difficulty": 2,
+    "id": 2087
+  },
+  {
+    "enonce": "Un fournisseur affirme que $95\\%$ de ses pièces sont conformes. Un contrôle sur un échantillon de $400$ pièces en trouve $368$ conformes. L'affirmation du fournisseur est-elle compatible avec ce contrôle, au niveau de confiance $95\\%$ ?",
+    "hint": "Calculez l'intervalle de confiance de la fréquence observée, puis vérifiez si la proportion annoncée (0,95) appartient à cet intervalle.",
+    "answer": "$f=0,92$, intervalle de confiance $[0,87;0,97]$. Comme $0{,}95$ appartient à cet intervalle, l'affirmation du fournisseur est compatible avec le contrôle.",
+    "solution_steps": [
+      "Étape 1 : $f=\\dfrac{368}{400}=0,92$.",
+      "Étape 2 : Intervalle de confiance : $[0,87;0,97]$.",
+      "Étape 3 : On compare la proportion annoncée $0{,}95$ à cet intervalle : elle en fait partie, l'affirmation n'est pas contredite."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Fluctuation et estimation",
+    "difficulty": 3,
+    "id": 2088
+  },
+  {
+    "enonce": "Un intervalle de confiance à $95\\%$ est représenté sur un axe gradué : sa borne gauche est en $0{,}42$ et sa borne droite en $0{,}50$. 1) Lire le centre de cet intervalle (c'est la fréquence observée $f$). 2) Lire son amplitude. 3) Le candidat peut-il être déclaré en tête, sachant qu'il faudrait dépasser $50\\%$ ?",
+    "hint": "Le centre d'un intervalle $[a;b]$ est $\\dfrac{a+b}{2}$, son amplitude est $b-a$.",
+    "answer": "$f=0{,}46$ (centre), amplitude $=0{,}08$. Non : même la borne droite ($0{,}50$) n'atteint pas strictement $50\\%$, on ne peut pas conclure que le candidat est en tête.",
+    "solution_steps": [
+      "Étape 1 : Centre $=\\dfrac{0{,}42+0{,}50}{2}=0{,}46$ : c'est la fréquence observée $f$.",
+      "Étape 2 : Amplitude $=0{,}50-0{,}42=0{,}08$.",
+      "Étape 3 : La borne supérieure de l'intervalle est $0{,}50$, qui n'est pas strictement supérieure à $50\\%$ : on ne peut pas conclure que le candidat est en tête au niveau de confiance $95\\%$."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Fluctuation et estimation",
+    "difficulty": 3,
+    "id": 2089
+  },
+  {
+    "enonce": "Un sondage donne l'intervalle de confiance $[0,58;0,62]$ au niveau $95\\%$. En déduire la fréquence observée $f$, puis la taille $n$ de l'échantillon (on suppose $n$ entier).",
+    "hint": "$f$ est le centre de l'intervalle ; l'amplitude de l'intervalle vaut $\\dfrac{2}{\\sqrt{n}}$.",
+    "answer": "$f=0,6$ et $n=2500$.",
+    "solution_steps": [
+      "Étape 1 : $f=\\dfrac{0,58+0,62}{2}=0,6$.",
+      "Étape 2 : L'amplitude de l'intervalle est $0,04$, or elle vaut $\\dfrac{2}{\\sqrt{n}}$, donc $\\sqrt{n}=\\dfrac{2}{0,04}=50$.",
+      "Étape 3 : $n=50^2=2500$."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Fluctuation et estimation",
+    "difficulty": 4,
+    "id": 2090
+  },
+  {
+    "enonce": "Un sondage est réalisé sur un échantillon de seulement $n=16$ personnes, donnant une fréquence $f=0,75$. Peut-on lui appliquer la formule usuelle de l'intervalle de confiance $\\left[f-\\dfrac{1}{\\sqrt{n}};f+\\dfrac{1}{\\sqrt{n}}\\right]$ ? Justifier.",
+    "hint": "Cette formule n'est valable que sous certaines conditions sur $n$ et sur $f$ (ou $p$) : lesquelles ?",
+    "answer": "Non : les conditions usuelles de validité ($n\\geq25$) ne sont pas vérifiées ici ($n=16<25$), la formule ne peut donc pas être appliquée de façon fiable.",
+    "solution_steps": [
+      "Étape 1 : La formule de l'intervalle de confiance n'est fiable que si $n\\geq25$ et $0{,}2\\leq f\\leq0{,}8$.",
+      "Étape 2 : Ici $n=16$, qui est strictement inférieur à $25$.",
+      "Étape 3 : La condition sur $n$ n'est pas remplie : on ne peut pas appliquer la formule usuelle avec un niveau de confiance fiable, même si $f$ respecte la seconde condition."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Fluctuation et estimation",
+    "difficulty": 3,
+    "id": 2091
+  },
+  {
+    "enonce": "On considère $a=5$ (un entier) et $b=\\sqrt{7}$ (un irrationnel). Dans quel plus petit ensemble usuel ($\\mathbb{N}$, $\\mathbb{Z}$, $\\mathbb{D}$, $\\mathbb{Q}$, $\\mathbb{R}$) se trouve $a+b$ ? Justifier.",
+    "hint": "La somme d'un rationnel et d'un irrationnel est toujours irrationnelle.",
+    "answer": "$a+b=5+\\sqrt{7}$ est irrationnel, donc le plus petit ensemble usuel le contenant est $\\mathbb{R}$.",
+    "solution_steps": [
+      "Étape 1 : $a=5$ est rationnel, $b=\\sqrt{7}$ est irrationnel.",
+      "Étape 2 : La somme d'un nombre rationnel et d'un nombre irrationnel est toujours irrationnelle (si elle était rationnelle, $b$ le serait aussi par différence, contradiction).",
+      "Étape 3 : $5+\\sqrt{7}$ n'appartient donc pas à $\\mathbb{Q}$ : le plus petit ensemble usuel est $\\mathbb{R}$."
+    ],
+    "chapter_id": "Chapitre_1",
+    "notion": "Ensembles de nombres",
+    "difficulty": 3,
+    "id": 2092
+  },
+  {
+    "enonce": "On considère $a=\\sqrt{12}$ et $b=\\sqrt{3}$. Calculer $a-b$, puis déterminer le plus petit ensemble usuel contenant ce résultat.",
+    "hint": "Simplifiez d'abord $\\sqrt{12}$ en faisant apparaître un facteur carré parfait.",
+    "answer": "$a-b=\\sqrt{3}$, qui est irrationnel : le plus petit ensemble usuel est $\\mathbb{R}$.",
+    "solution_steps": [
+      "Étape 1 : $\\sqrt{12}=\\sqrt{4\\times3}=2\\sqrt{3}$.",
+      "Étape 2 : $a-b=2\\sqrt{3}-\\sqrt{3}=\\sqrt{3}$.",
+      "Étape 3 : $\\sqrt{3}$ est irrationnel, donc le plus petit ensemble usuel est $\\mathbb{R}$."
+    ],
+    "chapter_id": "Chapitre_1",
+    "notion": "Ensembles de nombres",
+    "difficulty": 3,
+    "id": 2093
+  },
+  {
+    "enonce": "On considère $a=\\sqrt{2}$ et $b=4-\\sqrt{2}$ (deux nombres irrationnels). Calculer $a+b$, puis déterminer le plus petit ensemble usuel contenant ce résultat. Que remarque-t-on ?",
+    "hint": "La somme de deux irrationnels n'est pas toujours irrationnelle : calculez et observez.",
+    "answer": "$a+b=4$, qui est un entier naturel : le plus petit ensemble usuel est $\\mathbb{N}$. On remarque que la somme de deux irrationnels peut être un nombre entier.",
+    "solution_steps": [
+      "Étape 1 : $a+b=\\sqrt{2}+4-\\sqrt{2}=4$.",
+      "Étape 2 : $4$ est un entier naturel, donc le plus petit ensemble usuel est $\\mathbb{N}$.",
+      "Étape 3 : Contrairement à l'exemple précédent, la somme de deux irrationnels peut donc parfaitement être rationnelle (ici même entière) : il ne faut jamais généraliser trop vite."
+    ],
+    "chapter_id": "Chapitre_1",
+    "notion": "Ensembles de nombres",
+    "difficulty": 4,
+    "id": 2094
+  },
+  {
+    "enonce": "On considère $a=\\sqrt{5}$ et $b=\\sqrt{5}$ (deux nombres irrationnels égaux). Calculer $a\\times b$, puis déterminer le plus petit ensemble usuel contenant ce résultat.",
+    "hint": "$\\sqrt{5}\\times\\sqrt{5}=(\\sqrt{5})^2$.",
+    "answer": "$a\\times b=5$, qui est un entier naturel : le plus petit ensemble usuel est $\\mathbb{N}$.",
+    "solution_steps": [
+      "Étape 1 : $a\\times b=\\sqrt{5}\\times\\sqrt{5}=(\\sqrt{5})^2=5$.",
+      "Étape 2 : $5$ est un entier naturel : le produit de deux irrationnels peut donc aussi être rationnel."
+    ],
+    "chapter_id": "Chapitre_1",
+    "notion": "Ensembles de nombres",
+    "difficulty": 3,
+    "id": 2095
+  },
+  {
+    "enonce": "On choisit un nombre $x$, on le multiplie par $3$, puis on ajoute $5$ au résultat. On note $f(x)$ le nombre obtenu. 1) Exprimer $f(x)$ en fonction de $x$. 2) Calculer $f(2)$.",
+    "hint": "Traduisez chaque étape du programme de calcul par une opération algébrique, dans l'ordre.",
+    "answer": "$f(x)=3x+5$ ; $f(2)=11$.",
+    "solution_steps": [
+      "Étape 1 : « multiplier par 3 » donne $3x$, puis « ajouter 5 » donne $3x+5$ : $f(x)=3x+5$.",
+      "Étape 2 : $f(2)=3\\times2+5=11$."
+    ],
+    "chapter_id": "Chapitre_7",
+    "notion": "Notion de fonction",
+    "difficulty": 1,
+    "id": 2096
+  },
+  {
+    "enonce": "On choisit un nombre $x$, on lui ajoute $4$, puis on multiplie le résultat par $2$. On note $g(x)$ le nombre obtenu. 1) Exprimer $g(x)$ sous forme développée. 2) Calculer $g(-3)$.",
+    "hint": "L'ordre des opérations du programme de calcul doit être respecté : d'abord l'addition, puis la multiplication.",
+    "answer": "$g(x)=2x+8$ ; $g(-3)=2$.",
+    "solution_steps": [
+      "Étape 1 : « ajouter 4 » donne $x+4$, puis « multiplier par 2 » donne $2(x+4)=2x+8$ : $g(x)=2x+8$.",
+      "Étape 2 : $g(-3)=2\\times(-3)+8=2$."
+    ],
+    "chapter_id": "Chapitre_7",
+    "notion": "Notion de fonction",
+    "difficulty": 2,
+    "id": 2097
+  },
+  {
+    "enonce": "Le tableau suivant donne quelques valeurs d'une fonction $h$ : $h(0)=1$, $h(1)=3$, $h(2)=5$, $h(3)=7$. En observant la régularité de ces valeurs, conjecturer une expression de $h(x)$, puis vérifier que $h(2)$ correspond bien à la valeur donnée.",
+    "hint": "Observez de combien augmente $h(x)$ à chaque fois que $x$ augmente de $1$.",
+    "answer": "$h(x)=2x+1$ ; vérification : $h(2)=2\\times2+1=5$, ce qui correspond bien à la valeur donnée.",
+    "solution_steps": [
+      "Étape 1 : D'une valeur à la suivante, $h(x)$ augmente toujours de $2$ : on conjecture une expression affine $h(x)=2x+b$.",
+      "Étape 2 : $h(0)=1$ donne $b=1$, donc $h(x)=2x+1$.",
+      "Étape 3 : Vérification sur une autre valeur : $h(2)=2\\times2+1=5$, ce qui correspond à la valeur donnée dans le tableau."
+    ],
+    "chapter_id": "Chapitre_7",
+    "notion": "Notion de fonction",
+    "difficulty": 3,
+    "id": 2098
+  },
+  {
+    "enonce": "Le tableau suivant donne quelques valeurs d'une fonction $p$ : $p(0)=2$, $p(1)=4$, $p(2)=8$, $p(3)=16$. En observant la régularité (sans chercher une formule algébrique), prévoir la valeur de $p(4)$.",
+    "hint": "Observez comment on passe d'une valeur à la suivante : addition ou multiplication ?",
+    "answer": "$p(4)=32$ (chaque valeur est le double de la précédente).",
+    "solution_steps": [
+      "Étape 1 : $4=2\\times2$, $8=4\\times2$, $16=8\\times2$ : chaque valeur est le double de la précédente.",
+      "Étape 2 : En poursuivant cette régularité, $p(4)=16\\times2=32$."
+    ],
+    "chapter_id": "Chapitre_7",
+    "notion": "Notion de fonction",
+    "difficulty": 2,
+    "id": 2099
+  },
+  {
+    "enonce": "Un tableau croise le sexe et la pratique d'un sport chez $200$ élèves d'un lycée : garçons pratiquant un sport : $60$, garçons n'en pratiquant pas : $30$, filles pratiquant un sport : $70$, filles n'en pratiquant pas : $40$. On choisit un élève au hasard. On note $A$ : « l'élève est une fille » et $B$ : « l'élève pratique un sport ». Calculer $P(A)$, $P(B)$ et $P(A\\cap B)$.",
+    "hint": "Utilisez les effectifs du tableau pour calculer chaque probabilité comme un quotient d'effectifs sur l'effectif total (200).",
+    "answer": "$P(A)=0{,}55$, $P(B)=0{,}65$, $P(A\\cap B)=0{,}35$.",
+    "solution_steps": [
+      "Étape 1 : Effectif total de filles $=70+40=110$, donc $P(A)=\\dfrac{110}{200}=0{,}55$.",
+      "Étape 2 : Effectif total pratiquant un sport $=60+70=130$, donc $P(B)=\\dfrac{130}{200}=0{,}65$.",
+      "Étape 3 : Effectif filles ET sport $=70$, donc $P(A\\cap B)=\\dfrac{70}{200}=0{,}35$."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Opérations sur les évènements",
+    "difficulty": 3,
+    "id": 2100
+  },
+  {
+    "enonce": "Avec les mêmes données que l'exercice précédent ($200$ élèves, $A$ : « être une fille », $B$ : « pratiquer un sport », avec $P(A)=0{,}55$, $P(B)=0{,}65$ et $P(A\\cap B)=0{,}35$), calculer $P(A\\cup B)$ de deux façons différentes : 1) directement à partir des effectifs du tableau ; 2) avec la formule $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$. Vérifier que les deux méthodes donnent le même résultat.",
+    "hint": "L'effectif de $A\\cup B$ est le nombre d'élèves qui sont une fille OU qui pratiquent un sport (sans compter deux fois ceux qui vérifient les deux).",
+    "answer": "$P(A\\cup B)=0{,}85$ par les deux méthodes.",
+    "solution_steps": [
+      "Étape 1 (méthode directe) : Effectif de $A\\cup B=60+70+40=170$ (tous sauf les garçons sans sport), donc $P(A\\cup B)=\\dfrac{170}{200}=0{,}85$.",
+      "Étape 2 (méthode formule) : $P(A\\cup B)=0{,}55+0{,}65-0{,}35=0{,}85$.",
+      "Étape 3 : Les deux méthodes donnent bien $0{,}85$."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Opérations sur les évènements",
+    "difficulty": 3,
+    "id": 2101
+  },
+  {
+    "enonce": "Toujours avec le même tableau ($200$ élèves), les évènements $A$ (« être une fille ») et $B$ (« pratiquer un sport ») sont-ils indépendants ? Justifier en comparant $P(A\\cap B)$ et $P(A)\\times P(B)$.",
+    "hint": "Deux évènements sont indépendants si et seulement si $P(A\\cap B)=P(A)\\times P(B)$.",
+    "answer": "$P(A)\\times P(B)=0{,}3575\\neq0{,}35=P(A\\cap B)$ : les évènements ne sont pas indépendants (mais très proches de l'être).",
+    "solution_steps": [
+      "Étape 1 : $P(A)\\times P(B)=0{,}55\\times0{,}65=0{,}3575$.",
+      "Étape 2 : $P(A\\cap B)=0{,}35$, valeur lue dans le tableau.",
+      "Étape 3 : Comme $0{,}3575\\neq0{,}35$, les évènements $A$ et $B$ ne sont pas indépendants, même si l'écart est faible."
+    ],
+    "chapter_id": "Chapitre_12",
+    "notion": "Opérations sur les évènements",
+    "difficulty": 4,
+    "id": 2102
   }
 ]

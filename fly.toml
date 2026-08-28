@@ -25,6 +25,19 @@ primary_region = "cdg"
   method = "GET"
   path = "/api/health"
 
-[mounts]
+[[mounts]]
   source = "novamath_data"
   destination = "/app/data"
+
+# Sans ce volume, /app/backups vit sur le disque éphémère de la machine Fly :
+# perdu à chaque redeploy et à chaque arrêt/redémarrage (auto_stop_machines /
+# min_machines_running = 0 ci-dessus), alors que docker-compose.yml persiste
+# déjà ce même dossier (voir novamath-backups). La base de données elle-même
+# (data/novamath.db) reste protégée par le volume novamath_data ci-dessus,
+# donc ceci ne couvre que les fichiers de sauvegarde/rollback créés via
+# Administration -> Paramètres (voir webapp/backup_service.py).
+# Volume à créer une seule fois avant le premier déploiement avec ce mount :
+#   fly volumes create novamath_backups --region cdg --size 1
+[[mounts]]
+  source = "novamath_backups"
+  destination = "/app/backups"
