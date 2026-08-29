@@ -17,8 +17,18 @@
 .admin_key
 
 # Données runtime (persistées via un volume Docker, jamais figées dans
-# l'image — voir docker-compose.yml) et sauvegardes.
-data/novamath.db
+# l'image — voir docker-compose.yml) et sauvegardes. Tout data/, pas
+# seulement novamath.db : audit pré-production (2026-08-29) a trouvé que
+# data/.admin_key, data/.flask_secret_key, data/user_stats/,
+# data/user_settings/, data/user_course_progress/, data/support_attachments/
+# et data/reviews.json — tous générés/écrits en local, jamais suivis par Git
+# (voir .gitignore) — n'étaient PAS exclus du contexte Docker (seul
+# data/novamath.db l'était), donc copiés tels quels dans l'image par
+# `COPY --chown=novamath:novamath . .` (Dockerfile) si présents au moment du
+# build local. L'image finale recrée data/ vide (voir Dockerfile,
+# `RUN mkdir -p /app/data`), donc exclure tout le dossier ne change rien au
+# runtime — seulement au contenu embarqué dans l'image.
+data/
 backups/
 
 # Frontend — jamais copié tel quel dans le contexte : reconstruit à neuf par
@@ -36,8 +46,11 @@ __pycache__/
 *.pyo
 *.pyd
 .pytest_cache/
+**/.pytest_cache/
 .mypy_cache/
+**/.mypy_cache/
 .ruff_cache/
+**/.ruff_cache/
 
 # Tests — inutiles au runtime, exécutés par la CI directement sur le dépôt
 # (voir .github/workflows/ci.yml), jamais à l'intérieur de l'image finale.

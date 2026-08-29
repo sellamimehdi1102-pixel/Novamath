@@ -41,11 +41,21 @@ FROM node:22-slim AS frontend-builder
 
 WORKDIR /app
 
+# python3 : requis par `npm run build` (validate:curricula exécute
+# webapp/curriculum_registry.py, voir package.json) — python-is-python3
+# fournit le binaire `python` attendu par ce script sans le modifier.
+# N'existe que dans cette étape, jamais dans l'image finale (voir en-tête).
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends python3 python-is-python3 \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY package.json package-lock.json* ./
 RUN npm ci
 
 COPY vite.config.js ./
 COPY webapp/static ./webapp/static
+COPY webapp/curriculum_registry.py ./webapp/curriculum_registry.py
+COPY webapp/course_content ./webapp/course_content
 RUN npm run build
 
 # ── Étape 3 : image finale ───────────────────────────────────────────────

@@ -14,6 +14,14 @@ data/user_settings/
 data/user_course_progress/
 data/reviews.json
 data/stats_store.legacy.json
+# Manquait à cette liste (audit pré-production 2026-08-29) : pièces jointes
+# réelles uploadées via le support (support_service.py/support_attachment_
+# service.py) — même statut que les autres dossiers ci-dessus (données
+# utilisateur réelles, jamais d'exemple). Note : cette règle empêche
+# seulement les FUTURS ajouts ; des fichiers déjà suivis par Git avant cette
+# règle nécessitent `git rm --cached` (action distincte, jamais automatique
+# — voir rapport d'audit).
+data/support_attachments/
 
 # Ajouts SEC-07 (infrastructure de déploiement) — voir DEPLOYMENT.md.
 *.pyo
@@ -30,6 +38,7 @@ docker-compose.override.yml
 # Variables d'environnement par plateforme/environnement, jamais l'exemple.
 .env.*
 !.env.example
+!.env.production.example
 
 # Éditeurs/IDE courants (le projet ne dépend d'aucun réglage spécifique).
 .idea/
