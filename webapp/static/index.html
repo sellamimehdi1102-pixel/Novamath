@@ -8,13 +8,32 @@
 <meta name="application-name" content="NovaMath">
 <meta name="apple-mobile-web-app-title" content="NovaMath">
 <meta name="theme-color" content="#6a5cf5">
+<!-- Phase 6 (SEO) : domaine réel pas encore connu (projet non déployé) — même
+     placeholder documentaire que sitemap.xml, à remplacer une seule fois pour
+     canonical/og:image ensemble (voir RENDER_SETUP.md/PRODUCTION_CHECKLIST.md). -->
+<link rel="canonical" href="https://<DOMAIN_MATHADAP>/">
 <meta property="og:title" content="NovaMath — Apprentissage adaptatif des mathématiques">
 <meta property="og:description" content="NovaMath est une plateforme intelligente d'apprentissage des mathématiques utilisant l'intelligence artificielle pour adapter les exercices au niveau de chaque élève.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/logo.svg">
-<meta name="twitter:card" content="summary">
+<!-- Image dédiée au partage social (webapp/static/public/og-image.png, 1200x630,
+     PNG réel) — jamais assets/logo.svg : ce fichier est trop petit pour le seuil
+     d'inlining de Vite et se retrouvait réécrit en `data:image/svg+xml,...`,
+     une URI invalide pour Facebook/X/LinkedIn (aucune image de prévisualisation
+     ne s'affichait). Vit dans static/public/ (racine du site après build,
+     JAMAIS hashé/transformé par Vite, voir vite.config.js). -->
+<meta property="og:image" content="https://<DOMAIN_MATHADAP>/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="NovaMath — Apprentissage adaptatif des mathématiques">
 <meta name="twitter:description" content="NovaMath t'entraîne avec des exercices adaptés par IA et te fait progresser en mathématiques de Seconde.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Mathadap",
+  "url": "https://<DOMAIN_MATHADAP>/",
+  "inLanguage": "fr"
+}
+</script>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/tokens.css">
@@ -224,7 +243,7 @@
     <p>Tout ce qu'il faut pour progresser, rien de superflu.</p>
   </div>
   <div class="feature-grid reveal-stagger">
-    <div class="feature-card feature-card--wide card card--interactive">
+    <div class="feature-card feature-card--wide feature-card--primary card card--interactive">
       <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-4 12.7V18a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-3.3A7 7 0 0 0 12 2Z"/><path d="M9 22h6"/></svg></div>
       <h3>IA adaptative</h3>
       <p>Un modèle prédit ton niveau à partir de tes réponses et ajuste la difficulté en temps réel — chaque exercice est choisi pour toi, pas pioché au hasard.</p>
