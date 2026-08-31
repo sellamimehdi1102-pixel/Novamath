@@ -1,5 +1,5 @@
 """
-Configuration Gunicorn pour NovaMath — lue automatiquement par :
+Configuration Gunicorn pour Mathadap — lue automatiquement par :
 
     gunicorn -c gunicorn.conf.py webapp.server:app
 

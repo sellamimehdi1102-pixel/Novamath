@@ -1,4 +1,4 @@
-# RENDER_SETUP.md — Déploiement NovaMath sur Render
+# RENDER_SETUP.md — Déploiement Mathadap sur Render
 
 Instructions pour VOUS (aucune action ici n'est automatisable depuis le
 dépôt : compte Render, GitHub, domaine et secrets vous appartiennent).

@@ -125,7 +125,13 @@
 .cours-chapter-hero-progress-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
 
 /* ── En-tête de notion ────────────────────────────────────────────────── */
-.cours-notion-title { margin-bottom: 8px; font-size: clamp(1.5rem, 3vw, 1.9rem); }
+.cours-notion-header { margin-bottom: 8px; }
+.cours-notion-title-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.cours-notion-title { margin: 0; font-size: clamp(1.5rem, 3vw, 1.9rem); }
+/* Le badge réutilise .badge (base.css, mêmes variantes success/warning/neutral
+   que notionStatusBadge() ailleurs sur le site) — juste un peu d'air pour ne
+   jamais coller au titre ni perturber sa lisibilité. */
+.cours-progress-badge { display: inline-flex; }
 .cours-intro-text {
   color: var(--text-muted);
   font-size: 1.05rem;
@@ -133,6 +139,52 @@
   margin-bottom: 20px;
   max-width: 68ch;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SOMMAIRE — navigation interne discrète entre les 8 grandes sections de la
+   leçon (voir cours.js::section/sommaireHtml). Liens texte simples plutôt
+   que des pastilles/cartes, pour rester dans l'esprit "fiche pédagogique"
+   plutôt que "barre d'outils SaaS". Absent du DOM si moins de 2 sections.
+   ══════════════════════════════════════════════════════════════════════════ */
+.cours-sommaire {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  padding: 14px 0 22px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.cours-sommaire-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 2px 0;
+  transition: color var(--transition-base);
+}
+.cours-sommaire-link:hover { color: var(--accent-text); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SECTIONS ÉDITORIALES — les 8 grandes étapes de la leçon (Comprendre →
+   L'essentiel → ... → Passer à la pratique). Volontairement SANS bordure ni
+   fond propre (contrairement à .cours-box) : l'espacement et le libellé
+   suffisent à séparer les sections, pour éviter l'effet "carte sur carte"
+   dénoncé dans l'audit. Les .cours-box existantes à l'intérieur gardent leur
+   propre traitement, juste avec un peu moins de poids visuel (voir plus
+   bas). .cours-subsection-label/-intro servent aux sous-titres internes à
+   une section (ex. "Règles importantes", le titre propre d'une méthode) —
+   plus discrets que .cours-section-label, qui reste réservé aux 8 titres
+   de haut niveau. ═══════════════════════════════════════════════════════ */
+.cours-page-section { margin: 40px 0; }
+.cours-page-section:first-of-type { margin-top: 28px; }
+.cours-subsection-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin: 24px 0 12px;
+}
+.cours-subsection-label svg { width: 15px; height: 15px; }
+.cours-subsection-intro { font-size: 0.94rem; color: var(--text-muted); margin: 0 0 14px; line-height: 1.6; }
 
 .cours-objectif-card {
   display: flex; align-items: center; gap: 14px;
@@ -175,17 +227,24 @@
 .cours-box-header svg { width: 18px; height: 18px; }
 .cours-box-body { font-size: 0.96rem; line-height: 1.7; white-space: pre-line; }
 
+/* Densité réduite (audit refonte Phase 3) : les boîtes de contenu courant
+   gardent leur repère de couleur (bordure gauche + teinte du header) mais
+   perdent leur fond en dégradé — un aplat sur --surface suffit à les
+   distinguer sans empiler gradient sur gradient à chaque section. Les
+   boîtes "bookend" (aretenir/resume, définition ci-dessous) gardent un
+   traitement plus marqué, réservé aux 1-2 éléments forts par page voulus
+   par la direction artistique. */
 .cours-box--definition { border-left: 3px solid var(--brand-indigo); background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06), var(--surface)); }
 .cours-box--definition .cours-box-header { color: var(--accent-text); }
-.cours-box--attention { border-left: 3px solid var(--danger); background: linear-gradient(135deg, var(--danger-soft), var(--surface)); }
+.cours-box--attention { border-left: 3px solid var(--danger); background: var(--surface); }
 .cours-box--attention .cours-box-header { color: var(--danger); }
-.cours-box--astuce { border-left: 3px solid var(--warning); background: linear-gradient(135deg, var(--warning-soft), var(--surface)); }
+.cours-box--astuce { border-left: 3px solid var(--warning); background: var(--surface); }
 .cours-box--astuce .cours-box-header { color: var(--warning); }
-.cours-box--simple { border-left: 3px solid var(--brand-violet); background: linear-gradient(135deg, rgba(var(--brand-violet-rgb), 0.08), var(--surface)); }
+.cours-box--simple { border-left: 3px solid var(--brand-violet); background: var(--surface); }
 .cours-box--simple .cours-box-header { color: var(--brand-violet); }
-.cours-box--intuition { border-left: 3px solid var(--success); background: linear-gradient(135deg, var(--success-soft), var(--surface)); }
+.cours-box--intuition { border-left: 3px solid var(--success); background: var(--surface); }
 .cours-box--intuition .cours-box-header { color: var(--success); }
-.cours-box--concret { border-left: 3px solid var(--info); background: linear-gradient(135deg, var(--info-soft), var(--surface)); }
+.cours-box--concret { border-left: 3px solid var(--info); background: var(--surface); }
 .cours-box--concret .cours-box-header { color: var(--info); }
 .cours-box--remarque { border-left: 3px solid var(--text-faint); background: var(--surface); }
 .cours-box--remarque .cours-box-header { color: var(--text-muted); }
@@ -195,7 +254,7 @@
 .cours-box--pourquoi .cours-box-header { color: var(--pink-bloom); }
 :root[data-theme="light"] .cours-box--pourquoi .cours-box-header { color: color-mix(in srgb, var(--pink-bloom) 55%, black 30%); }
 /* Deux variantes dédiées à la fiche d'explication du graphique (voir plus
-   bas) — mêmes teintes de la palette NovaMath que les autres cartes, non
+   bas) — mêmes teintes de la palette Mathadap que les autres cartes, non
    encore utilisées ailleurs dans cette colonne pour rester distinguables. */
 .cours-box--lecture { border-left: 3px solid var(--info); background: linear-gradient(135deg, var(--info-soft), var(--surface)); }
 .cours-box--lecture .cours-box-header { color: var(--info); }
@@ -719,6 +778,68 @@
 .cours-quiz-done svg { width: 22px; height: 22px; color: var(--success); flex-shrink: 0; }
 :root[data-theme="light"] .cours-quiz-done svg { color: color-mix(in srgb, var(--success) 60%, black 40%); }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   FORMULES (notion.formules) — fiche pédagogique sobre : l'expression est
+   l'élément fort (typographie, pas de carte glass), les métadonnées
+   (quand l'utiliser / erreur fréquente / astuce) en liste discrète sous une
+   séparation fine. Plusieurs formules dans une même section se distinguent
+   par un simple diviseur horizontal, jamais une carte par formule.
+   ══════════════════════════════════════════════════════════════════════════ */
+.cours-formules { margin: 18px 0 8px; }
+.cours-formule { padding: 16px 0; border-top: 1px solid var(--border); }
+.cours-formule:first-child { border-top: none; padding-top: 0; }
+.cours-formule-nom { font-size: 0.86rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+.cours-formule-expr {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(var(--accent-rgb), 0.07);
+  display: inline-block;
+}
+.cours-formule-meta { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.cours-formule-meta-row { display: flex; gap: 8px; font-size: 0.86rem; line-height: 1.55; }
+.cours-formule-meta-row dt { flex-shrink: 0; font-weight: 600; color: var(--text-muted); }
+.cours-formule-meta-row dt::after { content: " :"; }
+.cours-formule-meta-row dd { margin: 0; color: var(--text); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ERREURS FRÉQUENTES DÉTAILLÉES (notion.erreursFrequentesDetail) — reprend
+   le conteneur .cours-box--attention existant (pas de nouvelle boîte),
+   chaque erreur est un item de liste avec sa description en gras et ses
+   sous-champs (souvent absents/vides dans le contenu actuel) en liste
+   discrète, jamais un label affiché sans valeur.
+   ══════════════════════════════════════════════════════════════════════════ */
+.cours-erreurs-detail-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.cours-erreur-detail { padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.cours-erreur-detail:last-child { border-bottom: none; padding-bottom: 0; }
+.cours-erreur-detail-desc { font-size: 0.94rem; font-weight: 600; line-height: 1.55; margin-bottom: 8px; }
+.cours-erreur-detail-meta { margin: 0; display: flex; flex-direction: column; gap: 5px; }
+.cours-erreur-detail-row { display: flex; gap: 8px; font-size: 0.86rem; line-height: 1.55; }
+.cours-erreur-detail-row dt { flex-shrink: 0; font-weight: 600; color: var(--text-muted); }
+.cours-erreur-detail-row dt::after { content: " :"; }
+.cours-erreur-detail-row dd { margin: 0; color: var(--text); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CTA "Passer à la pratique" — un seul élément visuel fort en fin de leçon,
+   distinct des .cours-box de contenu (fond accent doux, pas d'ombre
+   excessive), pour signaler clairement la transition cours -> exercices
+   sans devenir un bandeau marketing. ═══════════════════════════════════════
+   */
+.cours-cta-pratique {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  flex-wrap: wrap;
+  padding: 24px 28px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), var(--surface));
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+}
+.cours-cta-pratique-title { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1rem; margin-bottom: 4px; color: var(--accent-text); }
+.cours-cta-pratique-text p { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
+.cours-cta-pratique-btn { flex-shrink: 0; }
+
 @media (max-width: 640px) {
   .cours-notions-list { grid-template-columns: 1fr; }
   .cours-regles-grid { grid-template-columns: 1fr; }
@@ -732,6 +853,10 @@
   .cours-objectif-card { flex-wrap: wrap; }
   .cours-intro-text { max-width: 100%; }
   .cours-chapter-hero { padding: 20px; }
+  .cours-cta-pratique { flex-direction: column; align-items: stretch; padding: 20px; }
+  .cours-cta-pratique-btn { width: 100%; justify-content: center; }
+  .cours-formule-expr { font-size: 1.05rem; white-space: normal; overflow-wrap: break-word; }
+  .cours-erreur-detail-row, .cours-formule-meta-row { flex-direction: column; gap: 2px; }
 }
 
 @media (max-width: 420px) {

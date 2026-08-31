@@ -1,4 +1,4 @@
-// ── Export PDF premium du rapport de progression NovaMath ───────────────────
+// ── Export PDF premium du rapport de progression Mathadap ───────────────────
 // jsPDF est chargé à la demande (jamais au chargement de page) via un
 // <script> injecté au clic — voir loadJsPDF(). Le PDF est volontairement en
 // thème clair fixe (fond blanc, texte noir) même si le site est en mode
@@ -74,7 +74,7 @@ function drawHeader(doc, ctx) {
   doc.setTextColor(PALETTE.text);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(15);
-  doc.text("NovaMath — Rapport de progression", margin + 44, 42);
+  doc.text("Mathadap — Rapport de progression", margin + 44, 42);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
@@ -95,7 +95,7 @@ function drawFooter(doc, pageNum) {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
   doc.setTextColor(PALETTE.faint);
-  doc.text("NovaMath — Rapport généré automatiquement", margin, PAGE.h - 24);
+  doc.text("Mathadap — Rapport généré automatiquement", margin, PAGE.h - 24);
   doc.text(`Page ${pageNum}`, PAGE.w - margin, PAGE.h - 24, { align: "right" });
 }
 
@@ -376,5 +376,5 @@ export async function exportProgressPdf() {
   buildAdviceSection(doc, ctx, y);
   drawFooter(doc, ctx.pageNum);
 
-  doc.save(`novamath_rapport_${user.username || user.id}.pdf`);
+  doc.save(`mathadap_rapport_${user.username || user.id}.pdf`);
 }

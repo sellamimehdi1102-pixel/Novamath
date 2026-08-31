@@ -73,48 +73,171 @@
 #resume-card:hover, #course-resume-card:hover { box-shadow: var(--shadow-float); }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   OBJECTIF DU JOUR — panneau central du Dashboard (objectif + série réunis).
-   #daily-goal-card / #daily-goal-value / #daily-goal-fill / #daily-goal-sub /
-   #streak-value : ids inchangés, dashboard.js les écrit sans savoir où ils
-   vivent dans le DOM. #daily-goal-motivation est le seul id nouveau, écrit
-   par une fonction pure ajoutée à dashboard.js (aucune nouvelle donnée).
+   HERO "À TRAVAILLER MAINTENANT" (Phase 2 — refonte Dashboard, centre de
+   pilotage) — SEUL élément à porter le traitement visuel dominant du
+   Dashboard (grand halo radial, radius-xl, ombre float) : ce traitement
+   vivait auparavant sur .daily-goal-hero, déplacé ici car la priorité #1 de
+   la page est désormais "que dois-je travailler", pas l'objectif du jour.
+   Rempli par renderHeroPriority() (dashboard.js) à partir de history[] déjà
+   chargé — aucune nouvelle donnée.
    ══════════════════════════════════════════════════════════════════════════ */
-.daily-goal-hero {
-  display: flex;
-  align-items: stretch;
-  gap: 40px;
-  padding: 44px 48px;
+.hero-priority {
   position: relative;
   overflow: hidden;
+  padding: 48px 52px;
   border-radius: var(--radius-xl);
-  border-color: rgba(var(--accent-rgb), 0.22);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
   background: linear-gradient(155deg, var(--surface), var(--surface-hover));
   box-shadow: var(--shadow-float);
-  transition: border-color 400ms ease, box-shadow 400ms ease;
 }
-.daily-goal-hero::before {
+.hero-priority::before {
   content: "";
   position: absolute;
   inset: -50% 20% auto -15%;
-  height: 340px;
-  background: radial-gradient(ellipse at 30% 0%, rgba(var(--accent-rgb), 0.2), transparent 70%);
+  height: 380px;
+  background: radial-gradient(ellipse at 30% 0%, rgba(var(--accent-rgb), 0.22), transparent 70%);
   pointer-events: none;
 }
-.daily-goal-hero-main { position: relative; z-index: 1; flex: 1; min-width: 0; }
-.daily-goal-hero-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.daily-goal-hero-label {
+.hero-priority-eyebrow {
+  position: relative; z-index: 1;
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--accent-text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  margin-bottom: 14px;
 }
-.daily-goal-value { font-size: 2.25rem; font-weight: 700; font-family: var(--font-display); letter-spacing: -0.02em; }
+.hero-priority-title {
+  position: relative; z-index: 1;
+  font-size: 2.1rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.hero-priority-reason {
+  position: relative; z-index: 1;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 640px;
+  margin-bottom: 26px;
+}
+.hero-priority .btn { position: relative; z-index: 1; }
+.hero-priority .btn svg { width: 16px; height: 16px; vertical-align: -3px; margin-left: 4px; }
+
+/* ── Reprise / objectif / assistant : trois entrées secondaires de poids
+   égal, volontairement discrètes (aucune glass, ombres légères) pour ne
+   jamais concurrencer le hero ci-dessus. ─────────────────────────────────── */
+.dashboard-secondary-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+.secondary-card-group { display: flex; flex-direction: column; gap: 16px; }
+.secondary-card-group #resume-card,
+.secondary-card-group #course-resume-card {
+  padding: 20px 22px;
+  border-radius: var(--radius-md);
+}
+
+.chatbot-entry-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-base), transform var(--transition-base);
+}
+.chatbot-entry-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.chatbot-entry-icon {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-sm);
+  background: rgba(var(--accent-rgb), 0.14);
+  color: var(--accent-text);
+  flex-shrink: 0;
+}
+.chatbot-entry-icon svg { width: 17px; height: 17px; }
+.chatbot-entry-text { display: flex; flex-direction: column; gap: 2px; }
+.chatbot-entry-title { font-weight: 600; font-size: 0.95rem; font-family: var(--font-display); }
+.chatbot-entry-desc { color: var(--text-muted); font-size: 0.82rem; }
+.chatbot-entry-cta {
+  margin-top: auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--accent-text); font-weight: 600; font-size: 0.85rem;
+}
+.chatbot-entry-cta svg { width: 14px; height: 14px; }
+
+/* ── Ta progression — trois listes de poids égal (maîtrisé / à renforcer /
+   à revoir), remplacent l'ancien tandem "graphique + suggestions". ──────── */
+.progress-section { display: flex; flex-direction: column; gap: 16px; }
+.section-title { font-size: 1.2rem; font-weight: 700; font-family: var(--font-display); letter-spacing: -0.01em; }
+.progress-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+/* ── Statistiques secondaires — accordéon natif (clavier/aria gratuits),
+   ouvert par défaut : rien n'est masqué, seulement déprioritisé visuellement
+   par sa position et l'absence de glassmorphism. ─────────────────────────── */
+.dashboard-secondary-details { border-top: 1px solid var(--border); padding-top: 20px; }
+.dashboard-secondary-details summary {
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+.dashboard-secondary-details summary::-webkit-details-marker { display: none; }
+.dashboard-secondary-details summary::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--transition-fast);
+}
+.dashboard-secondary-details[open] summary::before { transform: rotate(45deg); }
+.dashboard-secondary-content { display: flex; flex-direction: column; gap: 24px; margin-top: 20px; }
+
+@media (max-width: 900px) {
+  .dashboard-secondary-row, .progress-trio { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   OBJECTIF DU JOUR — désormais une carte secondaire compacte (Phase 2), plus
+   le panneau central de la page. #daily-goal-card / #daily-goal-value /
+   #daily-goal-fill / #daily-goal-sub / #streak-value : ids inchangés,
+   dashboard.js les écrit sans savoir où ils vivent dans le DOM.
+   ══════════════════════════════════════════════════════════════════════════ */
+.daily-goal-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 24px;
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base);
+}
+.daily-goal-hero-main { min-width: 0; }
+.daily-goal-hero-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.daily-goal-hero-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.daily-goal-value { font-size: 1.5rem; font-weight: 700; font-family: var(--font-display); letter-spacing: -0.02em; }
 /* ── Tally-marks (Design System claude.ai, "Carnet") ─────────────────────
    La barre reste techniquement continue (dashboard.js n'écrit qu'un
    pourcentage sur #daily-goal-fill, jamais de segments) : l'effet de
@@ -199,21 +322,22 @@
    Dashboard (jamais généralisé) : la "note collée" façon carnet, à côté
    d'un objectif du jour qui reste sobre et rectiligne. */
 .streak-chip--lg {
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 30px 38px;
+  gap: 12px;
+  padding: 14px 20px;
+  align-self: flex-start;
   border-radius: var(--radius-asym-a);
   transform: rotate(var(--tilt-sm));
   background: linear-gradient(165deg, rgba(var(--brand-gold-rgb), 0.2), rgba(var(--brand-gold-rgb), 0.06));
   border: 1px solid rgba(var(--brand-gold-rgb), 0.35);
-  box-shadow: 0 14px 34px -14px rgba(var(--brand-gold-rgb), 0.6);
+  box-shadow: 0 10px 24px -14px rgba(var(--brand-gold-rgb), 0.6);
   transition: transform var(--transition-base);
 }
 .streak-chip--lg:hover { transform: rotate(0deg) scale(1.02); }
-.streak-chip--lg .streak-chip-icon { width: 28px; height: 28px; color: var(--brand-gold-text); }
-.streak-chip-value { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1; text-align: center; color: var(--brand-gold-text); }
+.streak-chip--lg .streak-chip-icon { width: 22px; height: 22px; color: var(--brand-gold-text); }
+.streak-chip-value { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; line-height: 1; text-align: center; color: var(--brand-gold-text); }
 .streak-chip-label { font-size: 0.74rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; text-align: center; margin-top: 2px; }
 
 /* ── Rangée de statistiques — "Carnet" (Design System claude.ai) : plus de

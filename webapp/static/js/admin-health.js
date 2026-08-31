@@ -203,7 +203,7 @@ function formatUptime(seconds) {
 
 // "Mémoire disponible" (redondant avec RAM%), "Charge (load average)"
 // (n'existe pas sous Windows, toujours indisponible sur ce déploiement) et
-// "Nombre de processus" (process OS entier, non spécifique à NovaMath, non
+// "Nombre de processus" (process OS entier, non spécifique à Mathadap, non
 // actionnable) ont été retirés — chantier de simplification de la page Santé.
 function renderServer(container, server, storage) {
   container.innerHTML = "";

@@ -117,7 +117,7 @@ export const AUTH_MODALS_HTML = `
   <div class="modal-card modal-card--wide card">
     <form id="oauth-signup-form" novalidate>
       <h3>Finaliser ton inscription</h3>
-      <p class="form-hint">Ton compte Google est vérifié — il ne manque que ces quelques informations pour créer ton compte NovaMath.</p>
+      <p class="form-hint">Ton compte Google est vérifié — il ne manque que ces quelques informations pour créer ton compte Mathadap.</p>
 
       <div class="form-row">
         <div class="form-field">
@@ -264,7 +264,7 @@ export const AUTH_MODALS_HTML = `
   <div class="modal-card modal-card--wide card">
     <h3>Mentions légales</h3>
     <div class="legal-text">
-      <p>NovaMath est un projet pédagogique développé à titre personnel, sans finalité commerciale. Il n'est pas
+      <p>Mathadap est un projet pédagogique développé à titre personnel, sans finalité commerciale. Il n'est pas
       édité par une société immatriculée.</p>
       <p><strong>Hébergement</strong> : dans sa version actuelle, l'application s'exécute en local sur la machine
       de l'utilisateur (aucun hébergeur tiers).</p>
@@ -303,7 +303,7 @@ export const AUTH_MODALS_HTML = `
   <div class="modal-card card">
     <h3>Mise à jour de nos conditions</h3>
     <p>Nos conditions d'utilisation et/ou notre politique de confidentialité ont été mises à jour. Merci de les
-    accepter à nouveau pour continuer à utiliser NovaMath.</p>
+    accepter à nouveau pour continuer à utiliser Mathadap.</p>
     <label class="checkbox-row">
       <input type="checkbox" id="policy-update-accept-terms">
       <span>J'accepte les <button type="button" class="link-inline js-open-legal">conditions d'utilisation</button></span>

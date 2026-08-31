@@ -182,7 +182,7 @@ export function openSupportHubPopup() {
 function renderThread(container, messages) {
   container.innerHTML = messages.map((m) => `
     <div class="support-ticket-msg support-ticket-msg--${m.author_type}">
-      <div class="support-ticket-msg-meta">${m.author_type === "admin" ? "Équipe NovaMath" : "Toi"} · ${formatDateTime(m.created_at)}</div>
+      <div class="support-ticket-msg-meta">${m.author_type === "admin" ? "Équipe Mathadap" : "Toi"} · ${formatDateTime(m.created_at)}</div>
       <p class="support-ticket-msg-body">${escapeHtml(m.body)}</p>
       ${m.attachments.length ? `<div class="support-ticket-msg-attachments">${m.attachments.map((a) =>
         `<a href="/api/support/attachments/${a.id}" target="_blank" rel="noopener">${icon("paperclip")} ${escapeHtml(a.filename)}</a>`).join("")}</div>` : ""}

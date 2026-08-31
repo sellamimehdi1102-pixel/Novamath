@@ -1,4 +1,4 @@
-# Déploiement de NovaMath
+# Déploiement de Mathadap
 
 Ce document couvre tout ce qui n'est pas déjà dans [README.md](README.md) :
 installation détaillée, environnements, Docker, production, variables
@@ -55,7 +55,7 @@ valeurs dérivées de `FLASK_ENV`.
 
 ## Docker
 
-Un nouveau développeur peut lancer NovaMath avec **une seule commande** :
+Un nouveau développeur peut lancer Mathadap avec **une seule commande** :
 
 ```bash
 cp .env.example .env   # une seule fois
@@ -356,7 +356,7 @@ reste seul responsable du code Python — aucun conflit possible).
   boutons réels (jamais un `<div onclick>`), `aria-label`/`role=dialog`,
   gestion du focus (`openPromptPopup` déplace le focus sur le champ),
   navigation clavier (Échap ferme les popups, Entrée valide/bascule).
-- **Toasts** : NovaMath n'a jamais eu de module `toast.js` dédié — les
+- **Toasts** : Mathadap n'a jamais eu de module `toast.js` dédié — les
   notifications toast vivent dans `api.js` (`handleQuotaExceeded`,
   `handleRateLimited`, réutilisées par tout appel API) et localement dans
   `abonnement.js`/`settings.js`. Couverts dans `api.test.js` et
@@ -368,7 +368,7 @@ CI distincts.
 
 ## Production
 
-Deux façons équivalentes de lancer NovaMath en production — même code,
+Deux façons équivalentes de lancer Mathadap en production — même code,
 même comportement (`FLASK_ENV=production` pilote tout, voir
 `webapp/config.py`) :
 
@@ -387,7 +387,7 @@ même comportement (`FLASK_ENV=production` pilote tout, voir
    `GUNICORN_MAX_REQUESTS`, `GUNICORN_MAX_REQUESTS_JITTER`,
    `GUNICORN_LOGLEVEL`, ...).
 
-En production, placer NovaMath derrière un reverse-proxy TLS (Nginx,
+En production, placer Mathadap derrière un reverse-proxy TLS (Nginx,
 Caddy, Traefik, ou le load balancer géré de la plateforme d'hébergement)
 qui transmet l'en-tête `X-Forwarded-Proto: https` — nécessaire pour que
 HSTS s'active (voir `webapp/security_headers_service.py::_is_https`, qui
@@ -406,7 +406,7 @@ lit cet en-tête faute de middleware `ProxyFix` dans ce projet).
 | Base de données | fichier SQLite local | SQLite ou PostgreSQL dédié (recommandé) | SQLite ou PostgreSQL dédié |
 | `SENTRY_DSN` | absent (optionnel) | recommandé | recommandé |
 
-NovaMath ne définit pas de troisième valeur `FLASK_ENV=staging` distincte :
+Mathadap ne définit pas de troisième valeur `FLASK_ENV=staging` distincte :
 un environnement de "staging" est simplement un second déploiement
 `FLASK_ENV=production` (mêmes garanties de sécurité), pointant vers ses
 propres secrets/base de données/domaine — jamais les mêmes que la

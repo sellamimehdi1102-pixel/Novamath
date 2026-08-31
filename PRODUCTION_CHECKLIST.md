@@ -1,4 +1,4 @@
-# PRODUCTION_CHECKLIST.md — Mise en production NovaMath (coût minimal)
+# PRODUCTION_CHECKLIST.md — Mise en production Mathadap (coût minimal)
 
 Stratégie : Docker local (gratuit) → GitHub (gratuit) → Render Free/Starter
 → Resend (gratuit au départ) → un seul domaine (~10-20 €/an) → HTTPS

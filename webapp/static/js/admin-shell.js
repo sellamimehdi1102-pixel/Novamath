@@ -298,7 +298,7 @@ export async function initAdminShell() {
       }
       setActiveLink(sub.parentPath);
       renderBreadcrumb(parentModule, sub.extraLabel);
-      document.title = `${sub.extraLabel} — Administration NovaMath`;
+      document.title = `${sub.extraLabel} — Administration Mathadap`;
       if (isMobile()) closeMobileDrawer();
       await sub.render(sub.textParam ? match[1] : Number(match[1]));
       return;
@@ -311,7 +311,7 @@ export async function initAdminShell() {
     }
     setActiveLink(path);
     renderBreadcrumb(module);
-    document.title = `${module.label} — Administration NovaMath`;
+    document.title = `${module.label} — Administration Mathadap`;
     if (isMobile()) closeMobileDrawer();
     await renderModuleContent(module, navigateTo);
   }

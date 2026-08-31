@@ -45,7 +45,7 @@ function ensureGuestCoursModal() {
   overlay.innerHTML = `
     <div class="modal-card card">
       <h3>Débloquez tous les cours</h3>
-      <p>Créez gratuitement votre compte NovaMath pour accéder à tous les cours et sauvegarder votre progression de lecture.</p>
+      <p>Créez gratuitement votre compte Mathadap pour accéder à tous les cours et sauvegarder votre progression de lecture.</p>
       <div class="verdict-row" style="flex-direction:column; gap:10px;">
         <button type="button" class="btn btn-primary js-open-signup">Créer un compte</button>
         <button type="button" class="btn btn-secondary js-open-login">Se connecter</button>
@@ -521,6 +521,68 @@ function buildLockedUltraHtml(locked) {
   return lockedContentCard("ultra", "Contenu Ultra", "Accède à l'explication complète et aux approfondissements de cette notion.");
 }
 
+// ── Formules (notion.formules, optionnel) — fiche pédagogique sobre plutôt
+// qu'une carte glass par formule : typographie mise en valeur pour
+// l'expression (rendue via KaTeX comme le reste du cours, voir data-text/
+// renderMathAttrs), métadonnées en liste discrète. Chaque champ est
+// optionnel et déjà filtré par plan côté backend (course_content_service.py,
+// formules[1:] retirées hors Premium+) — jamais recalculé ici. ────────────
+function buildFormulesHtml(formules) {
+  if (!formules?.length) return "";
+  const cards = formules.map((f) => {
+    if (!f) return "";
+    const nom = f.nom ? `<div class="cours-formule-nom" data-text="${encodeURIComponent(f.nom)}"></div>` : "";
+    const expr = f.expression ? `<div class="cours-formule-expr" data-text="${encodeURIComponent(f.expression)}"></div>` : "";
+    const meta = [
+      f.quand_utiliser ? { label: "À utiliser quand", value: f.quand_utiliser } : null,
+      f.erreur_frequente ? { label: "Erreur fréquente", value: f.erreur_frequente } : null,
+      f.astuce ? { label: "Astuce", value: f.astuce } : null,
+    ].filter(Boolean);
+    if (!nom && !expr && !meta.length) return "";
+    return `
+      <div class="cours-formule">
+        ${nom}
+        ${expr}
+        ${meta.length ? `
+        <dl class="cours-formule-meta">
+          ${meta.map((m) => `<div class="cours-formule-meta-row"><dt>${m.label}</dt><dd data-text="${encodeURIComponent(m.value)}"></dd></div>`).join("")}
+        </dl>` : ""}
+      </div>
+    `;
+  }).join("");
+  if (!cards.trim()) return "";
+  return `<div class="cours-formules">${cards}</div>`;
+}
+
+// ── Erreurs fréquentes détaillées (notion.erreursFrequentesDetail, optionnel)
+// — remplace la simple liste erreursFrequentes quand présent et non vide,
+// sans jamais supprimer cette dernière (repli automatique dans le template
+// si absent/vide). Les sous-champs pourquoi/comment_detecter/comment_eviter
+// sont souvent présents mais vides dans le contenu existant : chacun n'est
+// affiché que s'il contient réellement du texte, jamais un label vide. ────
+function buildErreursDetailHtml(detail) {
+  if (!detail?.length) return "";
+  const items = detail.map((e) => {
+    if (!e?.description) return "";
+    const rows = [
+      e.pourquoi ? { label: "Pourquoi", value: e.pourquoi } : null,
+      e.comment_detecter ? { label: "Comment la détecter", value: e.comment_detecter } : null,
+      e.comment_eviter ? { label: "Comment l'éviter", value: e.comment_eviter } : null,
+    ].filter(Boolean);
+    return `
+      <li class="cours-erreur-detail">
+        <div class="cours-erreur-detail-desc" data-text="${encodeURIComponent(e.description)}"></div>
+        ${rows.length ? `
+        <dl class="cours-erreur-detail-meta">
+          ${rows.map((r) => `<div class="cours-erreur-detail-row"><dt>${r.label}</dt><dd data-text="${encodeURIComponent(r.value)}"></dd></div>`).join("")}
+        </dl>` : ""}
+      </li>
+    `;
+  }).join("");
+  if (!items.trim()) return "";
+  return `<ul class="cours-erreurs-detail-list">${items}</ul>`;
+}
+
 // ── Navigation notion précédente / suivante — présentation pure à partir de
 // content.notions, déjà chargé en mémoire (aucune requête, aucun calcul). ──
 function notionNavHtml(content, notion) {
@@ -609,7 +671,7 @@ function openNotionReader(chapterId, content, notion) {
       `));
     }
     if (exp.astuce) {
-      cards.push(figureCard("astuce", "lightbulb", "Astuce NovaMath",
+      cards.push(figureCard("astuce", "lightbulb", "Astuce Mathadap",
         `<div class="cours-box-body" data-text="${encodeURIComponent(exp.astuce)}"></div>`));
     }
     if (exp.pieges?.length) {
@@ -705,19 +767,36 @@ function openNotionReader(chapterId, content, notion) {
   // propre au graphique, différent du reste du cours), rien n'est masqué.
   const usesFallbackFigureCards = !!(notion.figure && !notion.figure.explication);
 
-  readerView.innerHTML = `
-    <div class="cours-back-row">
-      <button class="btn btn-ghost btn-sm" id="cours-back-to-chapter" type="button">${icon("arrowLeft")} ${resolveChapterTitle(content.title, content.notions.map((n) => n.title)) || chapterId.replace(/_/g, " ")}</button>
-    </div>
+  // ── Repère de progression du header — même donnée/mêmes états que la
+  // liste des notions du chapitre (notionStatusBadge, déjà utilisée par
+  // renderChapterDetail), jamais recalculée : "todo" par défaut si aucune
+  // entrée de progression n'existe encore pour cette notion (même repli que
+  // partout ailleurs dans ce fichier, ex. renderChapterDetail::status). ────
+  const notionStatus = courseProgress[chapterId]?.[notion.id]?.status || "todo";
+  const progressBadgeHtml = `<span class="cours-progress-badge">${notionStatusBadge(notionStatus)}</span>`;
 
-    <h1 class="cours-notion-title">${notion.title}</h1>
-    <p class="cours-intro-text" data-text="${encodeURIComponent(notion.intro || "")}"></p>
+  // ── 8 grandes sections éditoriales (Comprendre → L'essentiel → La méthode
+  // → Exemple guidé → Erreurs à éviter → À retenir → Vérifier ma
+  // compréhension → Passer à la pratique) — réorganisation de rendu
+  // uniquement : chaque bloc ci-dessous reprend exactement le HTML/les
+  // conditions déjà utilisés avant cette refonte, aucun contenu retiré.
+  // `sections` est peuplé par effet de bord dans l'ordre d'évaluation des
+  // template literals ci-dessous, pour construire ensuite un sommaire qui ne
+  // pointe jamais vers une section vide. ──────────────────────────────────
+  const sections = [];
+  function section(id, label, iconName, innerHtml) {
+    const content = (innerHtml || "").trim();
+    if (!content) return "";
+    sections.push({ id, label });
+    return `
+      <section class="cours-page-section" id="${id}">
+        <div class="cours-section-label">${icon(iconName)} <span>${label}</span></div>
+        ${content}
+      </section>
+    `;
+  }
 
-    <div class="card cours-objectif-card">
-      <div class="cours-objectif-icon">${icon("target")}</div>
-      <p data-text="${encodeURIComponent(notion.objectif || "")}"></p>
-    </div>
-
+  const comprendreHtml = section("section-comprendre", "Comprendre", "lightbulb", `
     ${notion.pourquoi ? `
     <div class="cours-box cours-box--pourquoi">
       <div class="cours-box-header">${icon("sparkles")} <span>Pourquoi apprend-on cela ?</span></div>
@@ -731,21 +810,6 @@ function openNotionReader(chapterId, content, notion) {
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.explicationSimple)}"></div>
     </div>` : ""}
 
-    <div class="cours-box cours-box--definition">
-      <div class="cours-box-header">${icon("bookOpen")} <span>Définition</span></div>
-      <div class="cours-box-body" data-text="${encodeURIComponent(notion.definition || "")}"></div>
-    </div>
-
-    ${buildFigureBlockHtml(notion.figure, notion)}
-    ${questionsEclairHtml(notion, "figure")}
-
-    ${notion.intuition ? `
-    <div class="cours-box cours-box--intuition">
-      <div class="cours-box-header">${icon("target")} <span>À retenir</span></div>
-      <div class="cours-box-body" data-text="${encodeURIComponent(notion.intuition)}"></div>
-    </div>` : ""}
-    ${questionsEclairHtml(notion, "intuition")}
-
     ${notion.exemplesConcrets?.length ? `
     <div class="cours-box cours-box--concret">
       <div class="cours-box-header">${icon("compass")} <span>Dans la vraie vie</span></div>
@@ -754,11 +818,30 @@ function openNotionReader(chapterId, content, notion) {
       </ul>
     </div>` : ""}
 
+    ${notion.intuition ? `
+    <div class="cours-box cours-box--intuition">
+      <div class="cours-box-header">${icon("target")} <span>À retenir</span></div>
+      <div class="cours-box-body" data-text="${encodeURIComponent(notion.intuition)}"></div>
+    </div>` : ""}
+    ${questionsEclairHtml(notion, "intuition")}
+  `);
+
+  const essentielHtml = section("section-essentiel", "L'essentiel", "bookOpen", `
+    <div class="cours-box cours-box--definition">
+      <div class="cours-box-header">${icon("bookOpen")} <span>Définition</span></div>
+      <div class="cours-box-body" data-text="${encodeURIComponent(notion.definition || "")}"></div>
+    </div>
+
+    ${buildFigureBlockHtml(notion.figure, notion)}
+    ${questionsEclairHtml(notion, "figure")}
+
     ${notion.reglesImportantes?.length ? `
-    <div class="cours-section-label">${icon("scale")} Règles importantes</div>
+    <div class="cours-subsection-label">${icon("scale")} Règles importantes</div>
     <div class="cours-regles-grid">
       ${notion.reglesImportantes.map((r) => `<div class="card cours-regle-card" data-text="${encodeURIComponent(r)}"></div>`).join("")}
     </div>` : ""}
+
+    ${buildFormulesHtml(notion.formules)}
 
     ${notion.remarques?.length ? `
     <div class="cours-box cours-box--remarque">
@@ -767,19 +850,20 @@ function openNotionReader(chapterId, content, notion) {
         ${notion.remarques.map((r) => `<li data-text="${encodeURIComponent(r)}"></li>`).join("")}
       </ul>
     </div>` : ""}
+  `);
 
-    ${notion.methode?.etapes?.length ? `
-    <div class="cours-section-label">${icon("compass")} <span data-text="${encodeURIComponent(notion.methode.titre || "Méthode")}"></span></div>
-    ${buildStepsHtml(notion.methode.etapes)}` : ""}
+  const methodeHtml = section("section-methode", "La méthode", "compass", notion.methode?.etapes?.length ? `
+    ${notion.methode.titre ? `<p class="cours-subsection-intro" data-text="${encodeURIComponent(notion.methode.titre)}"></p>` : ""}
+    ${buildStepsHtml(notion.methode.etapes)}
     ${questionsEclairHtml(notion, "methode")}
+  ` : "");
 
-    ${notion.exemples?.length ? `
-    <div class="cours-section-label">${icon("penSquare")} Exemples</div>
-    ${notion.exemples.map((ex) => buildExempleHtml(ex) + questionsEclairHtml(notion, `exemple:${ex.id}`)).join("")}` : ""}
+  const exempleHtml = section("section-exemple", "Exemple guidé", "penSquare", `
+    ${notion.exemples?.length ? notion.exemples.map((ex) => buildExempleHtml(ex) + questionsEclairHtml(notion, `exemple:${ex.id}`)).join("") : ""}
     ${buildLockedPremiumHtml(notion.locked_content)}
 
     ${notion.demonstration?.etapes?.length ? `
-    <div class="cours-section-label">${icon("compass")} <span data-text="${encodeURIComponent(notion.demonstration.titre || "Démonstration")}"></span></div>
+    <div class="cours-subsection-label">${icon("compass")} <span data-text="${encodeURIComponent(notion.demonstration.titre || "Démonstration")}"></span></div>
     ${buildStepsHtml(notion.demonstration.etapes.map((e) => ({
       texte: e.titre ? `${e.titre} — ${e.texte}` : e.texte,
     })))}
@@ -788,8 +872,19 @@ function openNotionReader(chapterId, content, notion) {
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.demonstration.conclusion)}"></div>
     </div>` : ""}` : ""}
     ${buildLockedUltraHtml(notion.locked_content)}
+  `);
 
-    ${notion.erreursFrequentes?.length && !usesFallbackFigureCards ? `
+  // ── Erreurs fréquentes : erreursFrequentesDetail n'est utilisé que s'il
+  // produit RÉELLEMENT du contenu (au moins une entrée avec `description`,
+  // voir buildErreursDetailHtml) — sinon repli sur erreursFrequentes, jamais
+  // une boîte affichée avec un en-tête et un corps vide. ───────────────────
+  const erreursDetailHtml = buildErreursDetailHtml(notion.erreursFrequentesDetail);
+  const erreursHtml = section("section-erreurs", "Erreurs à éviter", "x", !usesFallbackFigureCards ? `
+    ${erreursDetailHtml ? `
+    <div class="cours-box cours-box--attention">
+      <div class="cours-box-header">${icon("x")} <span>Erreurs fréquentes</span></div>
+      ${erreursDetailHtml}
+    </div>` : notion.erreursFrequentes?.length ? `
     <div class="cours-box cours-box--attention">
       <div class="cours-box-header">${icon("x")} <span>Erreurs fréquentes</span></div>
       <ul class="cours-erreurs-list">
@@ -797,12 +892,14 @@ function openNotionReader(chapterId, content, notion) {
       </ul>
     </div>` : ""}
 
-    ${notion.astuce && !usesFallbackFigureCards ? `
+    ${notion.astuce ? `
     <div class="cours-box cours-box--astuce">
-      <div class="cours-box-header">${icon("lightbulb")} <span>Astuce NovaMath</span></div>
+      <div class="cours-box-header">${icon("lightbulb")} <span>Astuce Mathadap</span></div>
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.astuce)}"></div>
     </div>` : ""}
+  ` : "");
 
+  const aretenirHtml = section("section-aretenir", "À retenir", "star", `
     ${notion.aRetenir?.length ? `
     <div class="card cours-aretenir-card">
       <div class="cours-aretenir-title">${icon("star")} ${notion.resume ? "À retenir" : "Résumé — à retenir"}</div>
@@ -816,12 +913,69 @@ function openNotionReader(chapterId, content, notion) {
       <div class="cours-resume-title">${icon("trophy")} Résumé de la leçon</div>
       <p class="cours-resume-text" data-text="${encodeURIComponent(notion.resume)}"></p>
     </div>` : ""}
+  `);
 
+  const verifierHtml = section("section-verifier", "Vérifier ma compréhension", "helpCircle", `
     <div id="cours-quiz-zone"></div>
     <div class="cours-nav-row" id="cours-done-row" ${notion.quizExerciseIds?.length ? "hidden" : ""}>
       <span></span>
       <button class="btn btn-primary" id="cours-mark-done-btn" type="button">${icon("check")} J'ai terminé cette leçon</button>
     </div>
+  `);
+
+  // ── CTA "Passer à la pratique" — pointe vers le mini-quiz déjà associé à
+  // la notion (notion.quizExerciseIds, déjà résolu par renderQuiz ci-
+  // dessous) : aucune nouvelle récupération d'exercice, aucune nouvelle
+  // logique de quota/consommation, juste un point d'entrée UX plus visible
+  // vers un contenu déjà rendu plus bas sur la page. Absent si la notion n'a
+  // aucun exercice associé (jamais un bouton qui ne mène nulle part). ──────
+  const pratiqueHtml = section("section-pratique", "Passer à la pratique", "arrowRight", notion.quizExerciseIds?.length ? `
+    <div class="cours-cta-pratique">
+      <div class="cours-cta-pratique-text">
+        <div class="cours-cta-pratique-title">${icon("penSquare")} Mets cette notion en pratique</div>
+        <p>Réponds au mini-quiz associé pour vérifier que tu as bien compris.</p>
+      </div>
+      <button type="button" class="btn btn-primary cours-cta-pratique-btn" id="cours-cta-pratique-btn">Commencer les exercices ${icon("arrowRight")}</button>
+    </div>
+  ` : "");
+
+  // ── Sommaire interne — uniquement si au moins 2 sections ont réellement
+  // du contenu (jamais un sommaire à un seul lien) ; chaque lien pointe vers
+  // une section qui existe forcément dans le DOM (voir `sections`, peuplé
+  // uniquement par les sections non vides ci-dessus). ─────────────────────
+  const sommaireHtml = sections.length > 1 ? `
+    <nav class="cours-sommaire" aria-label="Sommaire de la leçon">
+      ${sections.map((s) => `<a href="#${s.id}" class="cours-sommaire-link" data-target="${s.id}">${s.label}</a>`).join("")}
+    </nav>
+  ` : "";
+
+  readerView.innerHTML = `
+    <div class="cours-back-row">
+      <button class="btn btn-ghost btn-sm" id="cours-back-to-chapter" type="button">${icon("arrowLeft")} ${resolveChapterTitle(content.title, content.notions.map((n) => n.title)) || chapterId.replace(/_/g, " ")}</button>
+    </div>
+
+    <div class="cours-notion-header">
+      <div class="cours-notion-title-row">
+        <h1 class="cours-notion-title">${notion.title}</h1>
+        ${progressBadgeHtml}
+      </div>
+      <p class="cours-intro-text" data-text="${encodeURIComponent(notion.intro || "")}"></p>
+      <div class="card cours-objectif-card">
+        <div class="cours-objectif-icon">${icon("target")}</div>
+        <p data-text="${encodeURIComponent(notion.objectif || "")}"></p>
+      </div>
+    </div>
+
+    ${sommaireHtml}
+
+    ${comprendreHtml}
+    ${essentielHtml}
+    ${methodeHtml}
+    ${exempleHtml}
+    ${erreursHtml}
+    ${aretenirHtml}
+    ${verifierHtml}
+    ${pratiqueHtml}
 
     <div class="support-report-row">
       <button id="cours-report-btn" class="support-report-link" type="button">
@@ -834,6 +988,22 @@ function openNotionReader(chapterId, content, notion) {
 
   renderMathAttrs(readerView);
   fadeInTransition(readerView);
+
+  // ── Sommaire + CTA pratique : scroll fluide, respecte prefers-reduced-
+  // motion (même mécanique que scroll-reveal.js) — aucun effet si l'un ou
+  // l'autre est absent du DOM (notion sans assez de sections/sans exercice).
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  readerView.querySelectorAll(".cours-sommaire-link").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = readerView.querySelector(`#${CSS.escape(link.dataset.target)}`);
+      target?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    });
+  });
+  readerView.querySelector("#cours-cta-pratique-btn")?.addEventListener("click", () => {
+    const zone = readerView.querySelector("#cours-quiz-zone");
+    zone?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+  });
 
   readerView.querySelector("#cours-back-to-chapter").addEventListener("click", () => renderChapterDetail(chapterId, content));
   readerView.querySelector("#cours-report-btn").addEventListener("click", () => {

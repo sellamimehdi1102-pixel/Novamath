@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 #
-# Image de production pour NovaMath — build multi-étapes :
+# Image de production pour Mathadap — build multi-étapes :
 #   1. "builder" compile/installe les dépendances Python (nécessite gcc, absent
 #      de l'image finale) ;
 #   2. "frontend-builder" exécute le pipeline Vite (npm ci && npm run build,

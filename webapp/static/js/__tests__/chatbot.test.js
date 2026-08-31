@@ -64,7 +64,7 @@ describe("chatbot.js — état initial", () => {
     expect($("chatbot-quota-value").innerHTML).toContain("Illimité");
   });
 
-  // Le panneau contextuel de droite ("Ton profil NovaMath") a été supprimé
+  // Le panneau contextuel de droite ("Ton profil Mathadap") a été supprimé
   // (refonte UI/UX) : ces informations existent déjà dans le Dashboard.
   it("ne contient plus le panneau contextuel de droite", () => {
     expect($("chatbot-context-panel")).toBeNull();

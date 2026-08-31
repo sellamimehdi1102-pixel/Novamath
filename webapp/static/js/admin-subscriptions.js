@@ -1,5 +1,5 @@
 // Module "Abonnements" (/admin/subscriptions) — panneau d'administration
-// complet des 3 plans NovaMath (Free/Premium/Ultra) : catalogue (nom/
+// complet des 3 plans Mathadap (Free/Premium/Ultra) : catalogue (nom/
 // description/prix/durée/avantages/limites/quotas), statistiques réelles
 // (nombre d'utilisateurs, nouveaux abonnés, résiliations), activation/
 // désactivation, ET assignation des fournisseurs IA par plan (section

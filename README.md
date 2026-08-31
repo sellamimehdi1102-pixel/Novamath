@@ -1,8 +1,8 @@
-# NovaMath
+# Mathadap
 
 Plateforme intelligente d'apprentissage adaptatif des mathématiques.
 
-NovaMath est une plateforme intelligente d'apprentissage des mathématiques utilisant
+Mathadap est une plateforme intelligente d'apprentissage des mathématiques utilisant
 l'intelligence artificielle pour adapter les exercices au niveau de chaque élève.
 
 ## Démarrage
@@ -81,7 +81,7 @@ Cross-Origin-Resource-Policy. Piloté par `.env.example`
 
 ## Organisation du projet
 
-Depuis le 2026-07-13, NovaMath n'est plus qu'une application web qui exploite des
+Depuis le 2026-07-13, Mathadap n'est plus qu'une application web qui exploite des
 banques d'exercices et des modèles déjà finalisés (générés sur une autre machine,
 puis copiés dans le projet) — aucun script de génération/entraînement ne tourne
 plus ici.

@@ -67,7 +67,7 @@ const OVERVIEW_PAYLOAD = {
   smtp: {
     configured: true, encryption: { available: true, value: "STARTTLS" }, env_controlled: true,
     env_controlled_reason: "Piloté par variables d'environnement.",
-    from_address: { available: true, value: "NovaMath <novamath.contact@gmail.com>" },
+    from_address: { available: true, value: "Mathadap <novamath.contact@gmail.com>" },
     host: { available: true, value: "smtp-relay.brevo.com" },
     last_test_at: { available: true, value: "2026-08-25T17:52:22.901580+00:00" },
     last_test_error: { available: true, value: "SMTP non configuré (EMAIL_SMTP_HOST absente)." },

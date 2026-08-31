@@ -339,7 +339,7 @@ function ensureGuestReviewModal() {
   overlay.innerHTML = `
     <div class="modal-card card">
       <h3>Créez votre compte pour continuer</h3>
-      <p>Vous utilisez actuellement NovaMath en mode invité.</p>
+      <p>Vous utilisez actuellement Mathadap en mode invité.</p>
       <p>Publier un avis nécessite un compte — créez-en un gratuitement pour partager votre expérience.</p>
       <div class="verdict-row" style="flex-direction:column; gap:10px;">
         <button type="button" class="btn btn-primary js-open-signup">Créer un compte</button>

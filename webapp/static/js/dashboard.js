@@ -5,7 +5,7 @@ import { bindLiveTranslations } from "./i18n.js";
 import {
   getState, hydrateFromServer, computeStreak, masteryByChapter,
   coverageByChapter, levelFromXp, badgeDefs, accuracyOutOf20, getChapterStatus,
-  scopedStats, notionBreakdown,
+  scopedStats, notionBreakdown, getInProgressSeries,
 } from "./store.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
 import { renderResumeCard } from "./resume.js";
@@ -66,8 +66,8 @@ function applyGuestDashboardLock(locked) {
   const overlay = mountGuestLockOverlay(content, {
     id: GUEST_LOCK_OVERLAY_ID,
     icon: "star",
-    title: "Créez votre compte NovaMath",
-    description: "Vous avez découvert NovaMath en mode invité.<br>Créez gratuitement votre compte pour :",
+    title: "Créez votre compte Mathadap",
+    description: "Vous avez découvert Mathadap en mode invité.<br>Créez gratuitement votre compte pour :",
     listItems: [
       "sauvegarder votre progression ;",
       "retrouver vos statistiques ;",
@@ -135,6 +135,10 @@ function render(state) {
   renderWeekGrid(state.history);
   renderDailyGoal(state.history, streak);
   renderProgressChart(state.series || []);
+  renderHeroPriority(state.history);
+  // La carte "Série en cours" (resume.js) ne doit jamais dupliquer la
+  // recommandation déjà promue dans le hero ci-dessus (priorité 1).
+  if (getInProgressSeries()) $("resume-card").hidden = true;
   renderMasteryLists(state.history);
   renderSuggestions(state.history, state.suggestions_limit);
   renderNotionBreakdown(state.history, state.notion_breakdown_enabled);
@@ -412,6 +416,24 @@ function renderMasteryLists(history) {
   bindGotoChapterButtons(reviewEl);
 }
 
+// ── Notions faibles — source de vérité PARTAGÉE entre le hero "À travailler
+// maintenant" (renderHeroPriority) et la liste "À renforcer" (renderSuggestions
+// ci-dessous) : un seul calcul, jamais deux formules qui pourraient diverger.
+// Seuil de 60% inchangé (comportement historique de renderSuggestions).
+function computeWeakNotions(history) {
+  const byKey = {};
+  history.forEach((h) => {
+    const key = `${h.chapter}|${h.notion}`;
+    byKey[key] = byKey[key] || { chapter: h.chapter, notion: h.notion, total: 0, correct: 0 };
+    byKey[key].total += 1;
+    if (h.correct) byKey[key].correct += 1;
+  });
+  return Object.values(byKey)
+    .map((v) => ({ chapter: v.chapter, notion: v.notion, rate: v.correct / v.total }))
+    .filter((x) => x.rate < 0.6)
+    .sort((a, b) => a.rate - b.rate);
+}
+
 // `limit` (GET /api/stats::server.py, champ suggestions_limit) : plafond du
 // nombre de cartes affichées, différencié par plan effectif (Free 3 /
 // Premium 5 / Ultra 8, voir server.py::_SUGGESTIONS_LIMIT_BY_PLAN — SEULE
@@ -428,22 +450,75 @@ function renderSuggestions(history, limit) {
     return;
   }
   const max = Number.isInteger(limit) && limit > 0 ? limit : 3;
-  const byNotion = {};
-  history.forEach((h) => {
-    const key = `${h.chapter} : ${h.notion}`;
-    byNotion[key] = byNotion[key] || { total: 0, correct: 0 };
-    byNotion[key].total += 1;
-    if (h.correct) byNotion[key].correct += 1;
-  });
-  const weak = Object.entries(byNotion)
-    .map(([k, v]) => ({ key: k, rate: v.correct / v.total }))
-    .filter((x) => x.rate < 0.6)
-    .sort((a, b) => a.rate - b.rate)
-    .slice(0, max);
+  const weak = computeWeakNotions(history).slice(0, max);
 
   el.innerHTML = weak.length
-    ? weak.map((w) => `<div class="suggestion-card">Reprends <strong>${w.key}</strong> — ${Math.round(w.rate * 100)}% de réussite.</div>`).join("")
+    ? weak.map((w) => `<div class="suggestion-card">Reprends <strong>${w.chapter} : ${w.notion}</strong> — ${Math.round(w.rate * 100)}% de réussite.</div>`).join("")
     : `<div class="suggestion-card">Belle régularité ! Continue l'entraînement pour progresser encore.</div>`;
+}
+
+// ── HERO "À travailler maintenant" (Phase 2 refonte Dashboard) ─────────────
+// Ordre de priorité (audit Dashboard) : (1) une activité réellement
+// interrompue — série d'exercices en cours, via store.js::getInProgressSeries
+// (même donnée que resume.js, aucun nouveau calcul) — prime sur toute
+// suggestion ; (2) sinon la notion la plus faible (computeWeakNotions, même
+// donnée que "À renforcer", jamais une deuxième formule) ; (3) sinon une
+// invitation à explorer la suite du programme ; (4) sinon, sans historique du
+// tout, le tout premier contenu pertinent. Aucun pourcentage inventé —
+// toujours le taux réel calculé depuis history[]. Le CTA réutilise
+// bindGotoChapterButtons (déjà utilisé par les listes maîtrise/à revoir),
+// donc le même comportement de navigation (localStorage lumis:open_chapter
+// -> chapitres.html).
+function renderHeroPriority(history) {
+  const el = $("hero-priority");
+
+  // Priorité 1 : reprendre une série d'exercices réellement interrompue.
+  // Quand ce cas s'applique, la carte secondaire "Série en cours" (resume.js)
+  // est masquée (voir render()) pour ne jamais dupliquer la même
+  // recommandation à deux endroits de la page.
+  const inProgress = getInProgressSeries();
+  if (inProgress) {
+    const chapter = inProgress.seriesConfig?.chapterId || "Entraînement mixte";
+    const notion = inProgress.seriesConfig?.notion || null;
+    const total = inProgress.total || 10;
+    const seriesIndex = inProgress.seriesIndex || 0;
+    el.innerHTML = `
+      <div class="hero-priority-eyebrow">Reprendre</div>
+      <h2 class="hero-priority-title">${notion || chapter}</h2>
+      <p class="hero-priority-reason">Tu t'étais arrêté à la question <strong>${seriesIndex + 1}/${total}</strong> de ta série sur « ${chapter} ». Termine-la pour ne pas perdre ta progression.</p>
+      <a href="exercice.html?resume=1" class="btn btn-primary btn-lg">Reprendre ${icon("arrowRight")}</a>
+    `;
+    return;
+  }
+
+  if (!history.length) {
+    el.innerHTML = `
+      <div class="hero-priority-eyebrow">Ton prochain objectif</div>
+      <h2 class="hero-priority-title">Bienvenue sur Mathadap</h2>
+      <p class="hero-priority-reason">Choisis un chapitre pour faire ta première série d'exercices — tes recommandations personnalisées apparaîtront ici dès que tu auras commencé.</p>
+      <a href="chapitres.html" class="btn btn-primary btn-lg">Choisir un chapitre ${icon("arrowRight")}</a>
+    `;
+    return;
+  }
+  const [weakest] = computeWeakNotions(history);
+  if (!weakest) {
+    el.innerHTML = `
+      <div class="hero-priority-eyebrow">Ton prochain objectif</div>
+      <h2 class="hero-priority-title">Tu as bien avancé !</h2>
+      <p class="hero-priority-reason">Aucune notion à renforcer pour l'instant — découvre une nouvelle notion pour continuer à progresser.</p>
+      <a href="cours.html" class="btn btn-primary btn-lg">Explorer mes cours ${icon("arrowRight")}</a>
+    `;
+    return;
+  }
+  const pct = Math.round(weakest.rate * 100);
+  const chapterTitle = chaptersMeta.find((c) => c.id === weakest.chapter)?.title || weakest.chapter;
+  el.innerHTML = `
+    <div class="hero-priority-eyebrow">À travailler maintenant</div>
+    <h2 class="hero-priority-title">${weakest.notion}</h2>
+    <p class="hero-priority-reason">${chapterTitle} — tu réussis actuellement <strong>${pct}%</strong> des exercices sur cette notion. Elle fait partie des points à renforcer.</p>
+    <button type="button" class="btn btn-primary btn-lg btn-goto-chapter" data-chapter="${weakest.chapter}" data-notion="${weakest.notion}">Travailler cette notion ${icon("arrowRight")}</button>
+  `;
+  bindGotoChapterButtons(el);
 }
 
 // ── Bilan de progression par notion (Premium+) ──────────────────────────────

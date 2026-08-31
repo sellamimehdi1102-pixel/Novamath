@@ -35,7 +35,7 @@ function mountBanner() {
   el.className = "card cookie-banner";
   el.innerHTML = `
     <p>
-      NovaMath utilise des cookies nécessaires au fonctionnement du site, ainsi que
+      Mathadap utilise des cookies nécessaires au fonctionnement du site, ainsi que
       (avec ton accord) des cookies de mesure d'audience et marketing.
       <button type="button" class="link-inline" id="cookie-banner-customize-link">Personnaliser</button>
     </p>

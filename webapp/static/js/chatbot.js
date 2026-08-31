@@ -413,7 +413,7 @@ function bindMessageActions(row, msg) {
     const blob = new Blob([msg.content || ""], { type: "text/markdown" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "reponse-novamath.md";
+    a.download = "reponse-mathadap.md";
     a.click();
   });
   row.querySelector('[data-action="export-pdf"]')?.addEventListener("click", () => window.print());
@@ -572,7 +572,7 @@ async function ensureConversation() {
   return activeConversationId;
 }
 
-const THINKING_HTML = '<div class="chatbot-thinking"><span class="chatbot-thinking-orb"></span><span class="chatbot-thinking-label">NovaMath réfléchit…</span></div>';
+const THINKING_HTML = '<div class="chatbot-thinking"><span class="chatbot-thinking-orb"></span><span class="chatbot-thinking-label">Mathadap réfléchit…</span></div>';
 
 // ── Robustesse réseau (façon ChatGPT/Claude) ────────────────────────────────
 // Une erreur réseau réelle (fetch/lecture du flux qui lève, pas un payload
@@ -854,12 +854,12 @@ pdfFileInput.addEventListener("change", async () => {
 });
 $("chatbot-attach-pdf").addEventListener("click", () => pdfFileInput.click());
 
-// Image : NovaMath utilise par défaut un modèle local texte (Ollama/Mistral),
+// Image : Mathadap utilise par défaut un modèle local texte (Ollama/Mistral),
 // sans capacité de vision, et aucun OCR n'est installé — on le dit clairement
 // plutôt que de laisser croire à une analyse qui n'a pas lieu.
 $("chatbot-attach-image").addEventListener("click", () => {
   insertIntoInput(
-    "[Image jointe — NovaMath ne peut pas encore analyser automatiquement une image. Décris ce qu'elle contient (énoncé, figure...) pour que je puisse t'aider.]"
+    "[Image jointe — Mathadap ne peut pas encore analyser automatiquement une image. Décris ce qu'elle contient (énoncé, figure...) pour que je puisse t'aider.]"
   );
 });
 

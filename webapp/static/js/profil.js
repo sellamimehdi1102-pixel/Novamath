@@ -64,7 +64,7 @@ function renderAccount(user) {
   // n'existe que temporairement — remplacé par une invitation à créer un
   // vrai compte. La photo générique/le nom "Invité" s'affichent déjà
   // naturellement (valeurs par défaut du compte invité côté serveur).
-  $("profile-subtitle").textContent = user.is_guest ? "Mode invité" : "Élève NovaMath";
+  $("profile-subtitle").textContent = user.is_guest ? "Mode invité" : "Élève Mathadap";
   $("btn-delete-account").hidden = user.is_guest;
   let hint = $("profile-guest-hint");
   if (user.is_guest) {
@@ -423,7 +423,7 @@ $("btn-delete-account").addEventListener("click", () => {
   $("error-delete-account-password").hidden = true;
   $("error-delete-account-global").hidden = true;
   // Un compte relié uniquement à un fournisseur OAuth n'a pas de mot de passe
-  // NovaMath — dans ce cas, la case à cocher suffit comme confirmation.
+  // Mathadap — dans ce cas, la case à cocher suffit comme confirmation.
   $("delete-account-password-field").hidden = currentUser?.auth_provider !== "local";
   $("delete-account-modal-overlay").hidden = false;
 });

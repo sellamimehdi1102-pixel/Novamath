@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Chatbot — style ChatGPT réinterprété avec les tokens NovaMath existants
+   Chatbot — style ChatGPT réinterprété avec les tokens Mathadap existants
    (mêmes cartes, boutons, rayons, ombres que le reste du site).
    ========================================================================== */
 
@@ -111,7 +111,7 @@
   border-bottom: 1px solid var(--border);
 }
 /* Bouton "Nouvelle conversation" : hérite de .btn.btn-primary (identité
-   NovaMath, cohérent avec tout le site) — juste un peu plus compact pour
+   Mathadap, cohérent avec tout le site) — juste un peu plus compact pour
    rester à l'aise dans les 280px du panneau. */
 #chatbot-new-btn { width: 100%; padding: 11px 20px; font-size: 0.9rem; }
 
@@ -317,7 +317,7 @@
    - `.chatbot-msg-row--user`    : conteneur `justify-content: flex-end`,
      contient UNIQUEMENT sa bulle (aucun avatar dans le DOM).
    - `.chatbot-msg-row--assistant` : conteneur `justify-content: flex-start`,
-     contient l'avatar NovaMath puis une colonne (bulle + actions + cartes).
+     contient l'avatar Mathadap puis une colonne (bulle + actions + cartes).
    Chaque bulle porte sa propre classe de couleur (`--user`/`--assistant`),
    jamais un sélecteur composé du type `.chatbot-msg.user .chatbot-msg-bubble`. */
 .chatbot-msg-row {
@@ -335,7 +335,7 @@
 .chatbot-msg-row--assistant { justify-content: flex-start; }
 .chatbot-msg-row--user { justify-content: flex-end; }
 
-/* Avatar NovaMath — présent uniquement dans le composant assistant (absent
+/* Avatar Mathadap — présent uniquement dans le composant assistant (absent
    du DOM côté utilisateur, pas seulement masqué). */
 .chatbot-msg-avatar {
   width: 26px; height: 26px; border-radius: var(--radius-sm); flex-shrink: 0;

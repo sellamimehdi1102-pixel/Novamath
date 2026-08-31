@@ -1,4 +1,4 @@
-// ── SettingsManager — source de vérité unique des préférences NovaMath ─────
+// ── SettingsManager — source de vérité unique des préférences Mathadap ─────
 // Façade au-dessus de api.getSettings/saveSettings (backend) et du cache
 // localStorage novamath:settings (déjà géré historiquement par theme.js pour
 // la seule sous-clé "appearance" — ce module généralise à toutes les
@@ -51,7 +51,7 @@ export async function initSettingsManager(themeToggleEl) {
   else bindThemeToggle(document.getElementById("theme-toggle"));
 
   const versionEl = document.getElementById("sidebar-version");
-  if (versionEl) versionEl.textContent = `NovaMath v${NOVAMATH_VERSION}`;
+  if (versionEl) versionEl.textContent = `Mathadap v${NOVAMATH_VERSION}`;
 
   try {
     const server = await api.getSettings();

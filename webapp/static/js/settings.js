@@ -1,4 +1,4 @@
-// ── Centre de personnalisation NovaMath ─────────────────────────────────────
+// ── Centre de personnalisation Mathadap ─────────────────────────────────────
 // Deux colonnes (catégories à gauche, contenu à droite), tout est mis à jour
 // sans recharger la page. Chaque catégorie a une fonction render() qui
 // retourne du HTML et une fonction bind() qui attache les événements après
@@ -193,7 +193,7 @@ function renderAccount() {
 
   return `
     <h2>${icon("user")} Compte</h2>
-    <p class="settings-panel-desc">Gère ton identité et la sécurité de ton compte NovaMath.</p>
+    <p class="settings-panel-desc">Gère ton identité et la sécurité de ton compte Mathadap.</p>
 
     <div class="account-summary">
       <div class="account-summary-avatar" id="acc-avatar">${user.avatar ? `<img src="${user.avatar}" alt="">` : initials(user.pseudo)}</div>
@@ -342,7 +342,7 @@ function renderAppearance() {
   const a = settings.appearance;
   return `
     <h2>${icon("palette")} Apparence</h2>
-    <p class="settings-panel-desc">Personnalise l'apparence de NovaMath — tout s'applique immédiatement.</p>
+    <p class="settings-panel-desc">Personnalise l'apparence de Mathadap — tout s'applique immédiatement.</p>
 
     <div class="settings-section">
       <div class="settings-section-title">Thème</div>
@@ -419,7 +419,7 @@ function renderLearning() {
   const l = settings.learning;
   return `
     <h2>${icon("target")} Apprentissage</h2>
-    <p class="settings-panel-desc">Rends NovaMath plus intelligent en précisant tes objectifs.</p>
+    <p class="settings-panel-desc">Rends Mathadap plus intelligent en précisant tes objectifs.</p>
 
     <div class="settings-section">
       <div class="settings-section-title">Objectif quotidien</div>
@@ -446,14 +446,14 @@ function bindLearning() {
 }
 
 // ── 5. Chatbot ───────────────────────────────────────────────────────────────
-// Le fournisseur IA et le modèle sont une décision interne à NovaMath (voir
+// Le fournisseur IA et le modèle sont une décision interne à Mathadap (voir
 // webapp/chatbot/provider_manager.py) — jamais un réglage utilisateur, donc
 // aucune trace ici : seuls les réglages de comportement restent exposés.
 function renderChatbot() {
   const c = settings.chatbot || {};
   return `
     <h2>${icon("messageSquare")} Chatbot</h2>
-    <p class="settings-panel-desc">Personnalise l'assistant pédagogique NovaMath — tout s'applique dès le prochain message.</p>
+    <p class="settings-panel-desc">Personnalise l'assistant pédagogique Mathadap — tout s'applique dès le prochain message.</p>
 
     <div class="settings-section">
       <div class="settings-section-title">Niveau d'explication</div>
@@ -517,8 +517,8 @@ function renderSecurity() {
     ${cookieConsentState === null ? "" : `
     <div class="settings-section">
       <div class="settings-section-title">Cookies</div>
-      ${settingRow("Cookies statistiques", "Mesure d'audience anonyme pour améliorer NovaMath.", toggleHtml("toggle-cookie-statistics", cookieConsentState.statistics))}
-      ${settingRow("Cookies marketing", "Personnalisation des communications NovaMath.", toggleHtml("toggle-cookie-marketing", cookieConsentState.marketing))}
+      ${settingRow("Cookies statistiques", "Mesure d'audience anonyme pour améliorer Mathadap.", toggleHtml("toggle-cookie-statistics", cookieConsentState.statistics))}
+      ${settingRow("Cookies marketing", "Personnalisation des communications Mathadap.", toggleHtml("toggle-cookie-marketing", cookieConsentState.marketing))}
     </div>`}
 
     <div class="settings-section">
@@ -637,7 +637,7 @@ function showRecoveryCodesPopup(codes) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "novamath-recovery-codes.txt";
+    a.download = "mathadap-recovery-codes.txt";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -727,7 +727,7 @@ const LANGUAGES_SOON = [
 function renderLanguage() {
   return `
     <h2>${icon("globe")} Langue</h2>
-    <p class="settings-panel-desc">Choisis la langue de NovaMath.</p>
+    <p class="settings-panel-desc">Choisis la langue de Mathadap.</p>
     <div class="language-grid">
       ${LANGUAGES.map((l) => `
         <button type="button" class="language-card${settings.language === l.code ? " active" : ""}" data-lang="${l.code}">
@@ -779,7 +779,7 @@ const HELP_PAGES = {
   privacy: {
     title: "Politique de confidentialité",
     body: `
-      <p>NovaMath collecte uniquement les données nécessaires au fonctionnement du service : identifiant de compte, pseudo, adresse email, préférences, et historique d'entraînement (exercices réalisés, résultats, durée).</p>
+      <p>Mathadap collecte uniquement les données nécessaires au fonctionnement du service : identifiant de compte, pseudo, adresse email, préférences, et historique d'entraînement (exercices réalisés, résultats, durée).</p>
       <p>Ces données ne sont jamais vendues ni partagées avec des tiers à des fins commerciales. Elles servent exclusivement à faire fonctionner le suivi de progression et la personnalisation de l'entraînement.</p>
       <p>Un compte invité est entièrement temporaire : ses données sont supprimées automatiquement à la fin de la session, sans action nécessaire de ta part.</p>
       <p>Tu peux à tout moment demander une copie de tes données ou la suppression définitive de ton compte (Paramètres → Compte) via la page Nous contacter.</p>`,
@@ -787,9 +787,9 @@ const HELP_PAGES = {
   terms: {
     title: "Conditions générales d'utilisation",
     body: `
-      <p>L'utilisation de NovaMath implique l'acceptation des présentes conditions. Le service est fourni « en l'état », à des fins d'entraînement pédagogique, sans garantie d'exhaustivité du programme scolaire.</p>
+      <p>L'utilisation de Mathadap implique l'acceptation des présentes conditions. Le service est fourni « en l'état », à des fins d'entraînement pédagogique, sans garantie d'exhaustivité du programme scolaire.</p>
       <p>Chaque utilisateur est responsable de la confidentialité de son mot de passe. Toute utilisation frauduleuse ou automatisée (scripts, bots) du service est interdite et peut entraîner la suspension du compte.</p>
-      <p>NovaMath se réserve le droit de faire évoluer les fonctionnalités du service ; les préférences et la progression des utilisateurs sont préservées lors de ces évolutions dans la mesure du possible.</p>`,
+      <p>Mathadap se réserve le droit de faire évoluer les fonctionnalités du service ; les préférences et la progression des utilisateurs sont préservées lors de ces évolutions dans la mesure du possible.</p>`,
   },
 };
 
@@ -804,7 +804,7 @@ function openHelpPage(key) {
 function renderHelp() {
   return `
     <h2>${icon("helpCircle")} Aide & À propos</h2>
-    <p class="settings-panel-desc">Tout savoir sur NovaMath, comment l'utiliser, et comment nous contacter.</p>
+    <p class="settings-panel-desc">Tout savoir sur Mathadap, comment l'utiliser, et comment nous contacter.</p>
 
     <div class="settings-section">
       <div class="settings-section-title">Aide</div>

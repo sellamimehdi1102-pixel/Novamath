@@ -80,10 +80,40 @@ function paintSidebarUser(user) {
   }
 }
 
+// ── Garde de sortie invité ───────────────────────────────────────────────────
+// Le clic sur le logo/brand (href="/") mène à _serve_landing (server.py), qui
+// termine DÉFINITIVEMENT toute session invité active (correctif volontaire
+// d'un bug de sécurité documenté — voir sa docstring). Ce comportement serveur
+// reste intact et n'est pas modifié ici : on ajoute seulement une confirmation
+// avant le clic, pour qu'un invité ne perde jamais sa progression sans le
+// savoir. Un compte réel n'est jamais concerné (aucun risque de perte).
+let guestExitGuardWired = false;
+function guardGuestExit(user) {
+  if (!user.is_guest || guestExitGuardWired) return;
+  guestExitGuardWired = true;
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest('a.brand, a[href="/"], a[href="index.html"]');
+    if (!link) return;
+    if (link.dataset.guestExitConfirmed) {
+      delete link.dataset.guestExitConfirmed;
+      return;
+    }
+    e.preventDefault();
+    const leave = window.confirm(
+      "Tu es en mode invité : quitter cette page effacera ta progression actuelle (elle n'est pas sauvegardée). Continuer quand même ?"
+    );
+    if (leave) {
+      link.dataset.guestExitConfirmed = "1";
+      link.click();
+    }
+  });
+}
+
 function paint(user) {
   if (!user) return;
   paintGuestBadge(user);
   paintSidebarUser(user);
+  guardGuestExit(user);
 }
 
 async function render() {
