@@ -9,6 +9,8 @@ import {
   getStoredClassLevel,
   setStoredClassLevel,
   renderCurriculumCard,
+  hasExplicitClassLevel,
+  ALLOWED_NEXT_PAGES,
 } from "../curriculumSelector.js";
 
 const CURRICULA = [
@@ -25,6 +27,26 @@ describe("curriculumSelector.js — getStoredClassLevel / setStoredClassLevel", 
     setStoredClassLevel("premiere");
     expect(getStoredClassLevel()).toBe("premiere");
     expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("premiere");
+  });
+});
+
+describe("curriculumSelector.js — hasExplicitClassLevel (Phase 5, onboarding)", () => {
+  it("false si la clé n'a jamais été écrite, même si getStoredClassLevel() retombe sur 'seconde'", () => {
+    localStorage.removeItem(CLASS_LEVEL_KEY);
+    expect(hasExplicitClassLevel()).toBe(false);
+    expect(getStoredClassLevel()).toBe("seconde");
+  });
+
+  it("true après un choix explicite via setStoredClassLevel", () => {
+    localStorage.removeItem(CLASS_LEVEL_KEY);
+    setStoredClassLevel("seconde");
+    expect(hasExplicitClassLevel()).toBe(true);
+  });
+});
+
+describe("curriculumSelector.js — ALLOWED_NEXT_PAGES (Phase 5, onboarding)", () => {
+  it("liste exactement les 4 destinations internes historiques", () => {
+    expect(ALLOWED_NEXT_PAGES).toEqual(["dashboard.html", "chapitres.html", "exercice.html", "profil.html"]);
   });
 });
 

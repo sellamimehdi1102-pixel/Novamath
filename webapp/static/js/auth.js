@@ -7,6 +7,7 @@
 import { api } from "./api.js";
 import { AUTH_MODALS_HTML } from "./authModalsTemplate.js";
 import { resetGuestLocalState } from "./store.js";
+import { hasExplicitClassLevel, ALLOWED_NEXT_PAGES } from "./curriculumSelector.js";
 import "./cookieConsent.js";
 
 const $ = (id) => document.getElementById(id);
@@ -274,11 +275,35 @@ function validateSignupClientSide() {
   return ok;
 }
 
-function redirectAfterAuth() {
+function resolveAuthDestination() {
   const params = new URLSearchParams(window.location.search);
   const next = params.get("next");
-  const allowed = ["dashboard.html", "chapitres.html", "exercice.html", "profil.html"];
-  window.location.href = next && allowed.includes(next) ? `/${next}` : "/dashboard.html";
+  return next && ALLOWED_NEXT_PAGES.includes(next) ? next : "dashboard.html";
+}
+
+function redirectAfterAuth() {
+  window.location.href = `/${resolveAuthDestination()}`;
+}
+
+// ── Phase 5 (onboarding) — uniquement pour une INSCRIPTION (jamais une
+// connexion à un compte existant, voir les appels ci-dessous) : si aucune
+// classe n'a encore été choisie explicitement dans ce navigateur
+// (curriculumSelector.js::hasExplicitClassLevel — jamais le simple défaut
+// silencieux "seconde"), on détoure une seule fois par /choisir-classe.html
+// avant de continuer vers la destination habituelle (next ou dashboard),
+// jamais perdue en route (?next= repropagé). Un compte déjà existant qui se
+// connecte pour la première fois sur un navigateur sans classe choisie n'est
+// PAS concerné : seule la création de compte déclenche ce détour, pour rester
+// strictement dans le périmètre de cette phase. Aucune donnée de compte,
+// aucune règle métier : `class_level` reste une préférence 100% client,
+// exactement comme avant.
+function redirectAfterSignup() {
+  const destination = resolveAuthDestination();
+  if (!hasExplicitClassLevel()) {
+    window.location.href = `/choisir-classe.html?next=${encodeURIComponent(destination)}`;
+    return;
+  }
+  window.location.href = `/${destination}`;
 }
 
 $("signup-form").addEventListener("submit", async (e) => {
@@ -308,7 +333,7 @@ $("signup-form").addEventListener("submit", async (e) => {
       $("signup-error-global").classList.add("form-error--info");
       return;
     }
-    redirectAfterAuth();
+    redirectAfterSignup();
   } catch (err) {
     if (err.field) setFieldError("signup", err.field, err.message);
     else setFieldError("signup", "global", err.message || "Une erreur est survenue.");
@@ -377,7 +402,7 @@ $("oauth-signup-form").addEventListener("submit", async (e) => {
       $("oauth-signup-error-global").classList.add("form-error--info");
       return;
     }
-    redirectAfterAuth();
+    redirectAfterSignup();
   } catch (err) {
     if (err.field) setFieldError("oauth-signup", err.field, err.message);
     else setFieldError("oauth-signup", "global", err.message || "Une erreur est survenue.");

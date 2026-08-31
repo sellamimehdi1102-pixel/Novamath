@@ -370,6 +370,13 @@
   .question-enonce { padding: 18px; font-size: 1.12rem; }
   .empty-state { padding: 40px 24px; }
   .series-hero { padding: 16px; }
+  /* Phase 7 (responsive) : .exercise-layout-main garde min-width:320px pour
+     le calcul flex desktop (ligne 48) — sur un écran de 320px de large,
+     .main-content retire déjà 32px de padding (16px de chaque côté, voir
+     responsive.css), ne laissant que 288px disponibles : ce plancher dépassait
+     la largeur réelle et provoquait un débordement horizontal (bug confirmé
+     par calcul des dimensions, cf. audit Phase 7). */
+  .exercise-layout-main, .exercise-layout-side { min-width: 0; }
 }
 
 /* ── Exercice sur mesure (Ultra, customExercise.js) ──────────────────────

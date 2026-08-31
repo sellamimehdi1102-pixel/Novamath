@@ -235,4 +235,11 @@
 @media (max-width: 640px) {
   .cursus-select { padding: 56px 16px 80px; }
   .cursus-card { padding: 28px 24px; }
+  /* Phase 7 (responsive) : .cursus-grid utilise minmax(300px, 1fr) pour son
+     auto-fit desktop — sur un écran de 320px avec le padding ci-dessus
+     (16px de chaque côté), il ne reste que 288px disponibles : ce plancher
+     dépassait la largeur réelle et provoquait un débordement horizontal des
+     cartes de cursus (bug confirmé par calcul des dimensions, choisir-classe.html
+     et le panneau flottant du badge de classe, cf. audit Phase 7). */
+  .cursus-grid, .cursus-grid.is-loading { grid-template-columns: 1fr; }
 }

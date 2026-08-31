@@ -30,6 +30,35 @@ export function setStoredClassLevel(classLevel) {
   }
 }
 
+// ── Phase 5 (onboarding) — "classe choisie explicitement ?" ─────────────────
+// CLASS_LEVEL_KEY n'est écrit QUE par un geste explicite de l'utilisateur :
+// choisirClasse.js::enterCurriculum (page dédiée) ou le panneau flottant du
+// badge d'en-tête (openClassPanel::onEnter ci-dessous) — jamais par un défaut
+// silencieux (getStoredClassLevel() ne persiste rien, il retombe juste sur
+// DEFAULT_CLASS_LEVEL en mémoire). La simple présence brute de la clé dans
+// localStorage est donc déjà un signal fiable, sans introduire de deuxième
+// clé/flag : on lit ici volontairement SANS le repli `|| DEFAULT_CLASS_LEVEL`
+// de getStoredClassLevel() pour distinguer "jamais choisi" de "a choisi
+// Seconde". Si localStorage est inaccessible (mode privé strict), on
+// considère prudemment qu'aucun choix n'a été fait (même repli que partout
+// ailleurs dans ce fichier) : au pire un détour ponctuel et inoffensif par
+// choisir-classe.html, jamais une boucle (voir auth.js::redirectAfterSignup,
+// appelé une seule fois après inscription).
+export function hasExplicitClassLevel() {
+  try {
+    return localStorage.getItem(CLASS_LEVEL_KEY) !== null;
+  } catch {
+    return false;
+  }
+}
+
+// ── Phase 5 (onboarding) — destinations internes autorisées après le choix de
+// classe ou l'authentification. Source unique partagée par auth.js
+// (redirectAfterAuth/redirectAfterSignup) ET choisirClasse.js : dupliquer
+// cette liste dans les deux fichiers risquerait un jour une divergence qui
+// affaiblirait la protection contre l'open redirect (?next=...). ───────────
+export const ALLOWED_NEXT_PAGES = ["dashboard.html", "chapitres.html", "exercice.html", "profil.html"];
+
 let _curriculaPromise = null;
 /** Un seul appel réseau par chargement de page, même si plusieurs composants
  * (badge d'en-tête + grille de cartes) en ont besoin en même temps. */

@@ -3,10 +3,13 @@
   Domaine provisoire (le projet n'est pas encore déployé) : à remplacer par le domaine
   définitif choisi (novamath.fr / novamath.app / novamath.ai) avant mise en production.
 -->
+<!--
+  Phase 6 (SEO) : les autres URLs listées précédemment ici (dashboard.html,
+  chapitres.html, exercice.html, profil.html) sont des pages personnelles
+  protégées par authentification (voir server.py::PROTECTED_PAGES) — elles
+  n'ont jamais eu leur place dans un sitemap public et ont été retirées.
+  Seule la landing est aujourd'hui une page publique à contenu unique.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://novamath.app/</loc></url>
-  <url><loc>https://novamath.app/dashboard.html</loc></url>
-  <url><loc>https://novamath.app/chapitres.html</loc></url>
-  <url><loc>https://novamath.app/exercice.html</loc></url>
-  <url><loc>https://novamath.app/profil.html</loc></url>
 </urlset>

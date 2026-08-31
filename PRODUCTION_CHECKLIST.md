@@ -63,6 +63,14 @@ attendu + risque éventuel.
   attendu** : propagation DNS effective (quelques minutes à quelques
   heures), domaine résolu vers Render. **Risque** : action DNS — à vous de
   la réaliser, cette session ne peut pas y accéder.
+- [ ] **Action** : remplacer le placeholder `<DOMAIN_MATHADAP>` par le
+  domaine réel acheté ci-dessus. **Où** : `webapp/static/sitemap.xml`
+  (balise `<loc>`) et `webapp/static/index.html` (canonical, og:image,
+  JSON-LD — voir audit SEO Phase 6). **Résultat attendu** : sitemap,
+  canonical, image de partage social et JSON-LD pointent vers le vrai
+  domaine au lieu du placeholder documentaire. **Risque** : si oublié, le
+  site est mis en ligne avec un canonical/og:image/sitemap invalides
+  (partage social cassé, sitemap inexploitable par les moteurs).
 
 ## PHASE 4 — Resend
 

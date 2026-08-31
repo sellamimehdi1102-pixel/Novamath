@@ -6,6 +6,15 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { loadPageBody, withMockedLocation, flushPromises } from "./testUtils.js";
 
+// Dupliqué en connaissance de cause (voir customExercise.test.js pour le même
+// choix) : un import statique de curriculumSelector.js ici évaluerait ce
+// module (donc son `import { api } from "./api.js"` mocké ci-dessous) AVANT
+// que `const mockApi` n'existe encore (imports ES toujours hoistés avant le
+// reste du corps du fichier) — `Cannot access 'mockApi' before
+// initialization`. curriculumSelector.js n'est de toute façon jamais mocké
+// dans ce fichier (localStorage réel utilisé tel quel).
+const CLASS_LEVEL_KEY = "novamath:class_level";
+
 const mockApi = {
   me: vi.fn(),
   register: vi.fn(),
@@ -17,7 +26,12 @@ const mockApi = {
 };
 vi.mock("../api.js", () => ({ api: mockApi }));
 
-async function mountAuth({ meResolves = null } = {}) {
+// `url` : window.location persiste entre tests d'un même fichier (un seul
+// jsdom par fichier) — toujours la réassigner explicitement ici (même
+// convention que abonnement.test.js::mountAbonnement) pour qu'un `?next=`
+// posé par un test ne reste jamais collé au test suivant.
+async function mountAuth({ meResolves = null, url = "/index.html" } = {}) {
+  window.history.pushState({}, "", url);
   document.body.innerHTML = loadPageBody("index.html");
   Object.values(mockApi).forEach((fn) => fn.mockReset());
   mockApi.me.mockImplementation(() =>
@@ -101,6 +115,9 @@ describe("auth.js — indicateur de force du mot de passe", () => {
 
 describe("auth.js — validation et soumission du formulaire d'inscription", () => {
   beforeEach(async () => {
+    // Point de départ déterministe : aucune classe choisie dans ce jsdom
+    // partagé entre tests du fichier, sauf si un test la pose lui-même.
+    localStorage.removeItem(CLASS_LEVEL_KEY);
     await mountAuth();
   });
 
@@ -119,7 +136,11 @@ describe("auth.js — validation et soumission du formulaire d'inscription", () 
     expect(mockApi.register).not.toHaveBeenCalled();
   });
 
-  it("soumet avec succès quand tous les champs sont valides", async () => {
+  it("soumet avec succès quand tous les champs sont valides (classe déjà choisie : va droit au dashboard)", async () => {
+    // Simule une classe déjà choisie explicitement dans ce navigateur (Phase 5) :
+    // ce test vérifie le chemin d'inscription "classique", pas le détour
+    // d'onboarding — voir le describe dédié ci-dessous pour ce cas.
+    localStorage.setItem(CLASS_LEVEL_KEY, "seconde");
     mockApi.register.mockResolvedValue({});
     $("signup-email").value = "eleve@gmail.com";
     $("signup-username").value = "eleve_2026";
@@ -156,6 +177,74 @@ describe("auth.js — validation et soumission du formulaire d'inscription", () 
     await flushPromises();
     expect($("signup-error-username").hidden).toBe(false);
     expect($("signup-error-username").textContent).toBe("Nom déjà pris.");
+  });
+});
+
+// ── Phase 5 (onboarding) : détour par choisir-classe.html après une
+// INSCRIPTION quand aucune classe n'a jamais été choisie explicitement dans
+// ce navigateur (curriculumSelector.js::hasExplicitClassLevel). ────────────
+describe("auth.js — inscription : détour onboarding vers choisir-classe.html", () => {
+  function fillValidSignupForm($) {
+    $("signup-email").value = "eleve@gmail.com";
+    $("signup-username").value = "eleve_2026";
+    $("signup-pseudo").value = "Eleve";
+    $("signup-birth-date").value = "2000-01-01";
+    $("signup-password").value = "Abcdef1!gh";
+    $("signup-password-confirm").value = "Abcdef1!gh";
+    $("signup-accept-terms").checked = true;
+    $("signup-accept-privacy").checked = true;
+  }
+
+  it("aucune classe choisie, pas de ?next= : redirige vers choisir-classe.html?next=dashboard.html", async () => {
+    localStorage.removeItem(CLASS_LEVEL_KEY);
+    await mountAuth();
+    mockApi.register.mockResolvedValue({});
+    fillValidSignupForm($);
+
+    await withMockedLocation(async () => {
+      $("signup-form").dispatchEvent(new Event("submit", { cancelable: true }));
+      await flushPromises();
+      expect(window.location.href).toBe("/choisir-classe.html?next=dashboard.html");
+    });
+  });
+
+  it("aucune classe choisie, ?next=chapitres.html : le paramètre est repropagé", async () => {
+    localStorage.removeItem(CLASS_LEVEL_KEY);
+    await mountAuth({ url: "/index.html?next=chapitres.html" });
+    mockApi.register.mockResolvedValue({});
+    fillValidSignupForm($);
+
+    await withMockedLocation(async () => {
+      $("signup-form").dispatchEvent(new Event("submit", { cancelable: true }));
+      await flushPromises();
+      expect(window.location.href).toBe("/choisir-classe.html?next=chapitres.html");
+    });
+  });
+
+  it("?next= externe/invalide : jamais propagé, retombe sur dashboard.html (pas d'open redirect)", async () => {
+    localStorage.removeItem(CLASS_LEVEL_KEY);
+    await mountAuth({ url: "/index.html?next=https://evil.example.com" });
+    mockApi.register.mockResolvedValue({});
+    fillValidSignupForm($);
+
+    await withMockedLocation(async () => {
+      $("signup-form").dispatchEvent(new Event("submit", { cancelable: true }));
+      await flushPromises();
+      expect(window.location.href).toBe("/choisir-classe.html?next=dashboard.html");
+    });
+  });
+
+  it("classe déjà choisie explicitement : aucun détour, va droit à la destination", async () => {
+    localStorage.setItem(CLASS_LEVEL_KEY, "premiere");
+    await mountAuth({ url: "/index.html?next=chapitres.html" });
+    mockApi.register.mockResolvedValue({});
+    fillValidSignupForm($);
+
+    await withMockedLocation(async () => {
+      $("signup-form").dispatchEvent(new Event("submit", { cancelable: true }));
+      await flushPromises();
+      expect(window.location.href).toBe("/chapitres.html");
+    });
   });
 });
 

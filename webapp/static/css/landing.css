@@ -519,12 +519,17 @@
   padding: 40px 34px;
   border-radius: var(--radius-lg);
   position: relative;
+  /* Plus plat qu'une carte produit : ce sont des étapes d'un même
+     processus, pas des offres à comparer visuellement (Phase 1 UX/UI). */
+  background: var(--bg-secondary);
+  border-color: transparent;
+  box-shadow: none;
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
 .step-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-float);
+  transform: translateY(-2px);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
 }
 .step-number {
   width: 44px; height: 44px;
@@ -699,6 +704,16 @@
   border-bottom: 1px solid var(--border);
 }
 .showcase-window-chrome span { width: 9px; height: 9px; border-radius: 50%; background: var(--border-strong); }
+.showcase-window-label {
+  /* Renforcé (Phase 1 UX/UI) : doit se voir clairement comme un badge de
+     démo, pas se fondre dans le chrome de fenêtre — évite de laisser croire
+     à une conversation live. */
+  width: auto; height: auto; border-radius: var(--radius-pill);
+  margin-left: auto; padding: 4px 12px; font-size: 0.76rem; font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--accent-text); background: rgba(var(--accent-rgb), 0.12);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+}
 .showcase-chat { display: flex; flex-direction: column; gap: 12px; padding: 28px; background: var(--bg); min-height: 280px; justify-content: center; }
 .showcase-bubble {
   max-width: 78%;
@@ -741,11 +756,27 @@
   max-width: 1160px;
   margin: 0 auto;
 }
-.feature-card { padding: 32px 30px; border-radius: var(--radius-lg); }
+.feature-card {
+  padding: 32px 30px;
+  border-radius: var(--radius-lg);
+  /* Allégé (Phase 1 UX/UI) mais pas totalement plat : en thème clair,
+     --surface (#fff) est quasi identique à --bg (#fbfaff) et --border seul
+     (10% d'opacité) ne suffit pas à délimiter la carte du fond — sans cette
+     ombre minimale, les cartes deviennent quasi invisibles au repos plutôt
+     que hiérarchisées. --shadow-sm reste nettement plus discret que
+     l'ancien --shadow-float utilisé avant cette passe. */
+  box-shadow: var(--shadow-sm);
+}
 .feature-card--wide {
   grid-column: span 2;
   padding: 38px 36px;
   background: linear-gradient(155deg, var(--surface), var(--surface-hover));
+}
+.feature-card--primary {
+  /* Seule la fonctionnalité IA adaptative reçoit ce traitement : c'est le
+     cœur différenciant du produit, le reste de la grille reste informatif. */
+  border-color: rgba(var(--accent-rgb), 0.3);
+  box-shadow: var(--shadow-sm);
 }
 .feature-icon {
   width: 50px; height: 50px;
@@ -766,16 +797,40 @@
 .feature-card p { color: var(--text-muted); font-size: 0.94rem; line-height: 1.6; }
 .feature-card--wide p { font-size: 0.98rem; max-width: 46ch; }
 
-/* ── Avis : voir css/reviews.css ────────────────────────────────────────── */
+/* ── Avis — bandeau résumé aplati (Phase 1 UX/UI) : une statistique de
+   confiance, pas une offre produit, ne doit pas porter le même relief carte
+   que les sections tarifs/fonctionnalités. Le reste (css/reviews.css, cartes
+   d'avis individuelles) n'est pas concerné par cette Phase. ───────────────── */
+#avis .reviews-summary {
+  background: var(--bg-secondary);
+  border-color: transparent;
+  box-shadow: none;
+}
 
-/* ── FAQ ────────────────────────────────────────────────────────────────── */
-.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
-.faq-item { padding: 4px 24px; transition: border-color var(--transition-base); }
+/* ── FAQ — liste à séparateurs plutôt qu'une grille de cartes (Phase 1
+   UX/UI) : contenu de référence, pas des offres à comparer visuellement. ── */
+.faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+.faq-item {
+  padding: 4px 4px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+  transition: border-color var(--transition-base);
+}
 .faq-item.open { border-color: var(--border-strong); }
 .faq-question {
   display: flex; align-items: center; justify-content: space-between;
   gap: 16px;
-  padding: 18px 0;
+  padding: 18px 4px;
   cursor: pointer;
   font-weight: 600;
   font-size: 0.98rem;

@@ -1,7 +1,7 @@
 import { api } from "./api.js";
 import { initSettingsManager } from "./settingsManager.js";
 import { bindSettingsButton } from "./settingsPopup.js";
-import { getState, masteryByChapter, masteryByNotion, coverageByChapter, coverageByNotion, getInProgressSeries, getChapterStatus, scopedStats } from "./store.js";
+import { getState, masteryByChapter, masteryByNotion, coverageByChapter, coverageByNotion, getInProgressSeries, getChapterStatus, scopedStats, MASTERY_ACCURACY_THRESHOLD, MASTERY_MIN_ATTEMPTS } from "./store.js";
 import { renderResumeCard } from "./resume.js";
 import { icon } from "./icons.js";
 import { bindLiveTranslations } from "./i18n.js";
@@ -65,11 +65,55 @@ function chapterIcon() {
   return icon("checklist");
 }
 
-function masteryLabel(coveragePct, accuracyPct, count) {
+// ── Accueil éditorial léger pour un invité sans historique (Phase 5 —
+// onboarding) — réutilise `state.history` déjà calculé par renderChapters
+// (scopedStats/store.js), exactement le même signal "zéro historique" que
+// dashboard.js::renderHeroPriority, jamais une deuxième logique de
+// progression. Un compte réel, ou un invité qui a déjà une progression
+// pertinente, ne voit aucun changement (texte historique de la page
+// conservé). Aucune nouvelle carte/composant : seul le texte du sous-titre
+// déjà présent est adapté. ─────────────────────────────────────────────────
+const GUEST_WELCOME_TEXT = "Choisis un chapitre ci-dessous pour commencer ta toute première série d'exercices.";
+let defaultSubtitleText = null;
+
+function updateGuestWelcome(isGuest, hasHistory) {
+  const subtitleEl = document.getElementById("chapters-page-subtitle");
+  if (!subtitleEl) return;
+  if (defaultSubtitleText === null) defaultSubtitleText = subtitleEl.textContent;
+  subtitleEl.textContent = isGuest && !hasHistory ? GUEST_WELCOME_TEXT : defaultSubtitleText;
+}
+
+// ── Statut de maîtrise d'une notion — Phase 4 (cohérence de la progression) :
+// reprend EXACTEMENT les seuils déjà canoniques ailleurs dans l'app, jamais
+// de seuil réinventé propre à cette page : MASTERY_ACCURACY_THRESHOLD/
+// MASTERY_MIN_ATTEMPTS (store.js — mêmes valeurs que store.js::getChapterStatus,
+// seule fonction habilitée à décider un statut "maîtrisé") pour l'état
+// "Maîtrisé", et le seuil 0.6 déjà utilisé par dashboard.js::renderMasteryLists
+// (liste "Chapitres à revoir") pour l'état "À renforcer". La couverture
+// (nCoveragePct) n'entre plus dans le calcul du statut — elle reste affichée
+// séparément (barre de progression), mais ce n'est pas une donnée de maîtrise.
+// Vocabulaire aligné sur cours.js::notionStatusBadge ("En cours") et le
+// Dashboard ("À renforcer"/"Maîtrisé"), pour qu'un même mot désigne toujours
+// le même état d'une page à l'autre.
+function masteryLabel(rate, count) {
   if (count === 0) return { text: "À faire", cls: "badge--neutral" };
-  if (coveragePct >= 70 && accuracyPct >= 70) return { text: "Maîtrisé", cls: "badge--success" };
-  if (coveragePct >= 30 || accuracyPct >= 50) return { text: "En progrès", cls: "badge--warning" };
-  return { text: "À renforcer", cls: "badge--danger" };
+  if (rate >= MASTERY_ACCURACY_THRESHOLD && count >= MASTERY_MIN_ATTEMPTS) return { text: "Maîtrisé", cls: "badge--success" };
+  if (rate < 0.6) return { text: "À renforcer", cls: "badge--danger" };
+  return { text: "En cours", cls: "badge--warning" };
+}
+
+// ── Statut d'un CHAPITRE entier (Phase 4) — même vocabulaire canonique que
+// masteryLabel() ci-dessus et que Dashboard (renderMasteryLists), à partir de
+// store.js::getChapterStatus (seule source de vérité, déjà utilisée pour le
+// filtre "Maîtrisé"/"Non maîtrisé" ci-dessous, jamais un second calcul).
+// Affiché sur la carte fermée à la place de l'ancien badge "Réussite X%" :
+// un mot d'état est plus lisible qu'un pourcentage brut sans seuil de
+// référence, et le détail par notion (accuracy réelle) reste visible une
+// fois la carte dépliée — aucune information perdue.
+function chapterStatusLabel(status) {
+  if (status === "mastered") return { text: "Maîtrisé", cls: "badge--success" };
+  if (status === "in_progress") return { text: "En cours", cls: "badge--warning" };
+  return { text: "À faire", cls: "badge--neutral" };
 }
 
 // ── Favoris ("Enregistrés") — voir favorites.js pour la persistance (partagée
@@ -152,7 +196,8 @@ function renderChapters(chaptersMeta) {
 
   grid.innerHTML = "";
   visible.forEach((ch) => {
-    const { coveredIds, progressPct, accuracyPct } = metaFor(ch);
+    const { coveredIds, progressPct } = metaFor(ch);
+    const statusBadge = chapterStatusLabel(getChapterStatus(ch.id, state.history));
     const remaining = Math.max(0, ch.n_exercises - coveredIds.size);
     const estMinutes = remaining * 3;
     const isFavorite = favorites.has(ch.id);
@@ -181,7 +226,7 @@ function renderChapters(chaptersMeta) {
         const nCoveragePct = n.n_exercises ? Math.round((covered / n.n_exercises) * 100) : 0;
         const nm = notionMastery[key] || { count: 0, rate: 0, last: null };
         const nAccuracyPct = Math.round(nm.rate * 100);
-        const mastery = masteryLabel(nCoveragePct, nAccuracyPct, nm.count);
+        const mastery = masteryLabel(nm.rate, nm.count);
         const isResumable = resumableLabels.has(n.notion);
         const isSelected = !isResumable && selectedSetFor(ch.id).has(n.notion);
         return `
@@ -232,7 +277,7 @@ function renderChapters(chaptersMeta) {
       </div>
       <div style="display:flex; gap:8px; margin-bottom:12px;">
         <span class="badge ${DIFF_BADGE[ch.difficulty_dominant]}">${DIFF_LABEL[ch.difficulty_dominant]} dominant</span>
-        <span class="badge badge--neutral">Réussite ${accuracyPct}%</span>
+        <span class="badge ${statusBadge.cls}">${statusBadge.text}</span>
       </div>
       <button class="chapter-expand-btn" type="button">
         Voir les notions
@@ -668,9 +713,15 @@ if (searchInput) {
   });
 }
 
-Promise.all([settingsReady, api.chapters(getStoredClassLevel())]).then(([, data]) => {
+Promise.all([
+  settingsReady,
+  api.chapters(getStoredClassLevel()),
+  api.me().catch(() => ({ user: { is_guest: false } })),
+]).then(([, data, meResult]) => {
   const chaptersMeta = data.chapters_meta || [];
   renderChapters(chaptersMeta);
   buildSearchIndex(chaptersMeta);
   openRequestedChapter();
+  const state = scopedStats(getState(), getStoredClassLevel());
+  updateGuestWelcome(!!meResult.user?.is_guest, state.history.length > 0);
 });

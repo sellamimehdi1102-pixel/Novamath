@@ -20,15 +20,20 @@ vi.mock("../favorites.js", () => ({
   toggleFavoriteChapter: vi.fn(),
   favoriteIconSvg: () => "",
 }));
+// `mock` prefix requis par Vitest pour être référencée depuis la factory
+// vi.mock ci-dessous (hoisting) — voir mockApi plus haut pour le même besoin.
+const mockScopedStats = vi.fn(() => ({ history: [] }));
 vi.mock("../store.js", () => ({
   getState: () => ({}),
-  scopedStats: () => ({ history: [] }),
+  scopedStats: (...args) => mockScopedStats(...args),
   coverageByChapter: () => ({}),
   coverageByNotion: () => ({}),
   masteryByChapter: () => ({}),
   masteryByNotion: () => ({}),
   getInProgressSeries: () => null,
   getChapterStatus: () => "todo",
+  MASTERY_ACCURACY_THRESHOLD: 0.70,
+  MASTERY_MIN_ATTEMPTS: 10,
 }));
 
 function makeChapter(id, notionLabels) {
@@ -58,13 +63,22 @@ const CHAPTERS = [
 function defaultMocks() {
   mockApi.chapters.mockReset();
   mockApi.me.mockReset();
+  mockScopedStats.mockReset();
   mockApi.chapters.mockResolvedValue({ chapters_meta: CHAPTERS });
   mockApi.me.mockResolvedValue({ user: { is_guest: false } });
+  mockScopedStats.mockReturnValue({ history: [] });
 }
 
-async function mountChapitres() {
+// `overrides` (optionnel) : appelé APRÈS defaultMocks() mais AVANT l'import
+// du module, pour personnaliser un mock (ex: mockApi.me, mockScopedStats)
+// sans qu'il soit écrasé par les valeurs par défaut — nécessaire pour les
+// tests d'accueil invité ci-dessous (Phase 5), qui doivent contrôler
+// is_guest/history AVANT que le Promise.all() top-level de chapitres.js ne
+// s'exécute.
+async function mountChapitres(overrides) {
   document.body.innerHTML = loadPageBody("chapitres.html");
   defaultMocks();
+  if (overrides) overrides();
   vi.resetModules();
   await import("../chapitres.js");
   await flushPromises();
@@ -178,5 +192,33 @@ describe("chapitres.js — sélection multiple à travers plusieurs chapitres + 
         expect(window.location.href).toBe("exercice.html");
       })
     );
+  });
+});
+
+describe("chapitres.js — accueil éditorial invité (Phase 5, onboarding)", () => {
+  const $subtitle = () => document.getElementById("chapters-page-subtitle");
+
+  it("invité sans historique : le sous-titre invite à commencer la première série", async () => {
+    await mountChapitres(() => {
+      mockApi.me.mockResolvedValue({ user: { is_guest: true } });
+      mockScopedStats.mockReturnValue({ history: [] });
+    });
+    expect($subtitle().textContent).toBe("Choisis un chapitre ci-dessous pour commencer ta toute première série d'exercices.");
+  });
+
+  it("invité avec un historique déjà pertinent : le sous-titre par défaut est conservé", async () => {
+    await mountChapitres(() => {
+      mockApi.me.mockResolvedValue({ user: { is_guest: true } });
+      mockScopedStats.mockReturnValue({ history: [{ chapter: "Chapitre_1", notion: "Notion A", correct: true }] });
+    });
+    expect($subtitle().textContent).toBe("Choisis les chapitres à évaluer, ou explore ta progression par notion.");
+  });
+
+  it("compte réel sans historique : le sous-titre par défaut est conservé (pas de message invité)", async () => {
+    await mountChapitres(() => {
+      mockApi.me.mockResolvedValue({ user: { is_guest: false } });
+      mockScopedStats.mockReturnValue({ history: [] });
+    });
+    expect($subtitle().textContent).toBe("Choisis les chapitres à évaluer, ou explore ta progression par notion.");
   });
 });
