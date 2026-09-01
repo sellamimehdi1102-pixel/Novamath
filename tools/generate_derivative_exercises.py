@@ -1,51 +1,45 @@
 """Régénère exercises_generated_premiere.json à partir de TOUS les moteurs
 symboliques déclarés dans webapp/exercise_generator/ (derivatives, suites,
-exponentielle, variations, second_degre, tangente).
+exponentielle, variations, second_degre, tangente, et les 5 nouveaux modules
+trigonometrie/produit_scalaire/geometrie_reperee/
+probabilites_conditionnelles/variables_aleatoires — chapitres 6 à 10).
 
-Contrairement à tools/legacy-pipeline/ (LLM, mort, contenu figé une fois
-pour toutes), ces moteurs sont de vrais générateurs re-régénérables : relancer
-produit un pool structurellement diversifié et mathématiquement correct par
-construction (sympy). Le résultat reste un fichier JSON statique unique,
-consommé additivement par curriculum_registry.py + server.py, pour ne changer
-aucun contrat d'API existant (mêmes champs qu'un exercice de banque classique
-: enonce/answer/hint/solution_steps/chapter_id/notion/difficulty).
+Chaque module a un GENERATED_ID_OFFSET distinct (900_000 à 1_000_000 par pas
+de 10_000) fixé dans son propre fichier — jamais de collision d'id entre
+pools, même après concaténation.
 
-Chaque module a un GENERATED_ID_OFFSET distinct (900_000/910_000/920_000/
-930_000/940_000/950_000) fixé dans son propre fichier — jamais de collision
-d'id entre pools, même après concaténation. Les familles compo_* de
-derivatives.py (Phase 5, notion "Composition de fonctions et dérivation")
-restent dans l'offset 900_000 du module derivatives : elles n'ont pas leur
-propre offset, generate_pool() les inclut déjà dans son pool combiné.
+── RÈGLE ABSOLUE — mission "rééquilibrage additif" (2026-09-01) ────────────
+Ce script ne DOIT JAMAIS faire disparaître un exercice déjà généré
+précédemment (ancienne règle violée par une mission antérieure, qui avait
+réduit --per-family pour "équilibrer" et fait chuter le total Première de
+2217 à 1547 — explicitement interdit désormais). Le seul mode d'équilibrage
+autorisé est ADDITIF :
 
-── Rééquilibrage inter-chapitres (mission "rééquilibrage global", 2026-09-01)
-────────────────────────────────────────────────────────────────────────────
-Avant ce chantier, --per-family s'appliquait uniformément à TOUS les modules
-(défaut 12), sans tenir compte du nombre de familles par module ni du volume
-déjà présent dans exercises_bank_premiere.json (banque curée, jamais
-modifiée). Or Chapitre_3 (derivatives: 24 familles + tangente: 9 familles =
-33) et Chapitre_1/5 (suites: 30, exponentielle: 34) ont beaucoup plus de
-familles que Chapitre_2/4 (second_degre/variations : 11 chacun) : à
-per_family égal, ils recevaient mécaniquement 2 à 3× plus d'exercices
-générés, ce qui, cumulé à une banque curée elle-même déjà inégale par
-chapitre, produisait un écart extrême (jusqu'à ratio 12,6 entre Chapitre_3 et
-Chapitre_10 en Première — voir rapport de mission).
-Chapitre_6 à Chapitre_10 (trigonométrie, vecteurs, géométrie repère,
-probabilités) n'ont ENCORE aucun module générateur : leur volume reste donc
-plafonné à ce que contient exercises_bank_premiere.json (banque curée),
-impossible à augmenter sans écrire de nouveaux générateurs symboliques —
-hors périmètre de cette correction (voir rapport de mission, anomalie
-documentée). PER_FAMILY_BY_MODULE ci-dessous a été calibré (voir
-tools/audit_exercise_taxonomy.py, invoqué sans écriture, pour les comptages)
-pour que Chapitre_1 à Chapitre_5 (les seuls que ce script peut influencer)
-convergent vers un total proche les uns des autres (~223-245 exercices
-chacun, banque curée incluse) plutôt que de laisser un chapitre dépasser les
-autres d'un facteur 2 à 4 comme avant. --per-family (CLI) reste disponible
-pour forcer une valeur UNIFORME (utile en test/débogage) ; par défaut, chaque
-module utilise sa propre valeur calibrée.
+1. BASELINE (`_BASELINE_MODULES`) — les 6 modules historiques (Chapitre_1 à
+   5) sont TOUJOURS régénérés avec leur per_family ORIGINAL (12, seed
+   d'origine) : reproduit bit pour bit le pool historique (1402 exercices,
+   vérifié par tests/test_exercise_regeneration_additive.py), jamais réduit.
 
-Usage : python -m tools.generate_derivative_exercises [--per-family N]
+2. EXTENSION (`_EXTENSION_MODULES`) — pour les chapitres dont la baseline
+   seule reste sous la cible d'équilibrage (Chapitre_2/second_degre,
+   Chapitre_4/variations), on génère un pool supplémentaire avec un SEED
+   DIFFÉRENT, on écarte tout exercice dont l'énoncé existe déjà dans la
+   baseline (déduplication stricte), puis on numérote les survivants à
+   partir de GENERATED_ID_OFFSET + 5000 (jamais dans la plage 0-999 déjà
+   utilisée par la baseline du même module) — donc toujours un AJOUT, jamais
+   un remplacement.
+
+3. NOUVEAUX MODULES (`_NEW_MODULES`) — trigonometrie/produit_scalaire/
+   geometrie_reperee/probabilites_conditionnelles/variables_aleatoires
+   couvrent Chapitre_6 à Chapitre_10, qui n'avaient AUCUN générateur avant
+   cette mission : leur pool entier est nouveau, aucune notion de baseline à
+   préserver.
+
+Usage : python -m tools.generate_derivative_exercises
+(le flag --per-family historique a été retiré : le calibrage par module est
+désormais un contrat figé, voir ci-dessus — le forcer uniformément
+réintroduirait le bug de la mission précédente.)
 """
-import argparse
 import json
 import sys
 from collections import Counter
@@ -56,22 +50,42 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "webapp"))
 
 from exercise_generator import (  # noqa: E402
-    derivatives, exponentielle, second_degre, suites, tangente, variations,
+    derivatives, exponentielle, geometrie_reperee, probabilites_conditionnelles,
+    produit_scalaire, second_degre, suites, tangente, trigonometrie, variables_aleatoires,
+    variations,
 )
 
 OUTPUT_PATH = ROOT / "exercises_generated_premiere.json"
 
-# Chaque module expose generate_pool(per_family=..., seed=...) — même contrat,
-# seed distincte par module pour ne jamais partager le même flux aléatoire.
-# Le 4e élément (per_family calibré) remplace l'ancien défaut uniforme (12) —
-# voir le commentaire de rééquilibrage ci-dessus pour la méthode de calcul.
-MODULES = (
-    ("derivatives", derivatives, 20260818, 2),
-    ("suites", suites, 20260820, 6),
-    ("exponentielle", exponentielle, 20260821, 6),
-    ("variations", variations, 20260822, 19),
-    ("second_degre", second_degre, 20260823, 7),
-    ("tangente", tangente, 20260824, 2),
+# Chapitre_1 à Chapitre_5 : per_family ORIGINAL (12), seeds d'origine —
+# jamais modifié, reproduit exactement le pool historique. Voir règle 1.
+_BASELINE_MODULES = (
+    ("derivatives", derivatives, 20260818, 12),
+    ("suites", suites, 20260820, 12),
+    ("exponentielle", exponentielle, 20260821, 12),
+    ("variations", variations, 20260822, 12),
+    ("second_degre", second_degre, 20260823, 12),
+    ("tangente", tangente, 20260824, 12),
+)
+
+# Chapitre_2 (second_degre) et Chapitre_4 (variations) restent sous la cible
+# d'équilibrage (~300) même avec leur banque curée + baseline ci-dessus —
+# extension ADDITIVE : nouveau seed, dédupliquée contre la baseline, jamais
+# de remplacement. Voir règle 2. (module, seed_extension, per_family_large,
+# n_extra_cible)
+_EXTENSION_MODULES = (
+    ("second_degre", second_degre, 920260823, 40, 22),
+    ("variations", variations, 920260822, 60, 154),
+)
+
+# Chapitre_6 à Chapitre_10 : générateurs entièrement nouveaux (mission
+# "rééquilibrage additif", 2026-09-01) — voir règle 3.
+_NEW_MODULES = (
+    ("trigonometrie", trigonometrie, 20260901, 205),
+    ("produit_scalaire", produit_scalaire, 20260902, 38),
+    ("geometrie_reperee", geometrie_reperee, 20260903, 35),
+    ("probabilites_conditionnelles", probabilites_conditionnelles, 20260904, 45),
+    ("variables_aleatoires", variables_aleatoires, 20260905, 60),
 )
 
 
@@ -94,21 +108,50 @@ def _check_family_calibration(pool: list[dict], module_name: str) -> list[str]:
     return problems
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--per-family", type=int, default=None,
-                         help="Force un nombre UNIFORME d'exercices générés par famille pour "
-                              "tous les modules (débogage/test) ; par défaut, chaque module "
-                              "utilise sa propre valeur calibrée dans MODULES pour équilibrer "
-                              "le nombre d'exercices entre chapitres (voir docstring).")
-    args = parser.parse_args()
+def _build_extension(module, seed_extension: int, per_family_large: int, n_extra: int,
+                      baseline_enonces: set[str]) -> list[dict]:
+    """Génère un pool supplémentaire (seed distinct de la baseline), écarte
+    tout exercice dont l'énoncé existe déjà dans la baseline (même module),
+    puis renumérote les survivants à partir de
+    GENERATED_ID_OFFSET + 5000 — jamais dans la plage déjà utilisée par la
+    baseline (0 à per_family_baseline*n_familles-1), donc toujours un AJOUT."""
+    raw = module.generate_pool(per_family=per_family_large, seed=seed_extension)
+    seen = set(baseline_enonces)
+    survivors = []
+    for ex in raw:
+        if ex["enonce"] in seen:
+            continue
+        seen.add(ex["enonce"])
+        survivors.append(ex)
+        if len(survivors) >= n_extra:
+            break
+    offset = module.GENERATED_ID_OFFSET + 5000
+    for i, ex in enumerate(survivors):
+        ex["id"] = offset + i
+    return survivors
 
+
+def main() -> None:
     combined: list[dict] = []
     all_problems: list[str] = []
     per_module_counts: dict[str, int] = {}
+    baseline_enonces_by_module: dict[str, set[str]] = {}
 
-    for name, module, seed, calibrated_per_family in MODULES:
-        per_family = args.per_family if args.per_family is not None else calibrated_per_family
+    for name, module, seed, per_family in _BASELINE_MODULES:
+        pool = module.generate_pool(per_family=per_family, seed=seed)
+        all_problems.extend(_check_family_calibration(pool, name))
+        per_module_counts[name] = len(pool)
+        baseline_enonces_by_module.setdefault(name, set()).update(e["enonce"] for e in pool)
+        combined.extend(pool)
+
+    for name, module, seed_ext, per_family_large, n_extra in _EXTENSION_MODULES:
+        extra_pool = _build_extension(module, seed_ext, per_family_large, n_extra,
+                                       baseline_enonces_by_module.get(name, set()))
+        all_problems.extend(_check_family_calibration(extra_pool, f"{name} (extension)"))
+        per_module_counts[f"{name} (extension)"] = len(extra_pool)
+        combined.extend(extra_pool)
+
+    for name, module, seed, per_family in _NEW_MODULES:
         pool = module.generate_pool(per_family=per_family, seed=seed)
         all_problems.extend(_check_family_calibration(pool, name))
         per_module_counts[name] = len(pool)
@@ -121,6 +164,16 @@ def main() -> None:
     if len(ids) != len(set(ids)):
         dupes = sorted({i for i in ids if ids.count(i) > 1})
         print(f"ERREUR — collision d'id entre pools générés : {dupes[:10]}", file=sys.stderr)
+        sys.exit(1)
+
+    # Doublon d'énoncé entre pools distincts (garde-fou global, en plus de la
+    # déduplication déjà faite à l'intérieur de chaque generate_pool et de
+    # _build_extension) : ne devrait jamais se déclencher, mais bloque
+    # l'écriture plutôt que de laisser passer un doublon silencieux.
+    enonces = [ex["enonce"] for ex in combined]
+    if len(enonces) != len(set(enonces)):
+        dup_enonces = len(enonces) - len(set(enonces))
+        print(f"ERREUR — {dup_enonces} doublon(s) d'énoncé détecté(s) entre pools", file=sys.stderr)
         sys.exit(1)
 
     if all_problems:

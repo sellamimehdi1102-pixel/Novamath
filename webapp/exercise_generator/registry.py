@@ -38,7 +38,11 @@ exige donc TOUJOURS (class_level, chapter_id, notion, family_id) — exactement
 le tuple déjà renvoyé par available_notions(), que le frontend doit
 reproduire tel quel plutôt que d'envoyer family_id seul.
 """
-from exercise_generator import derivatives, exponentielle, second_degre, suites, tangente, variations
+from exercise_generator import (
+    derivatives, exponentielle, geometrie_reperee, probabilites_conditionnelles,
+    produit_scalaire, second_degre, suites, tangente, trigonometrie, variables_aleatoires,
+    variations,
+)
 from exercise_generator_seconde import droites, signes
 from exercise_generator_troisieme import (
     developper_distributivite, divisibilite, equation_premier_degre, factoriser_somme,
@@ -51,7 +55,15 @@ _MODULES_BY_CLASS_LEVEL = {
         fonction_affine_deux_points, fractions_addition, fractions_simplification, image_fonction,
     ),
     "seconde": (droites, signes),
-    "premiere": (derivatives, exponentielle, second_degre, suites, tangente, variations),
+    # Chapitre_6 à Chapitre_10 (trigonometrie/produit_scalaire/geometrie_reperee/
+    # probabilites_conditionnelles/variables_aleatoires) : nouveaux générateurs
+    # créés par la mission "rééquilibrage additif" (2026-09-01) — voir
+    # tools/generate_derivative_exercises.py pour le contexte complet.
+    "premiere": (
+        derivatives, exponentielle, second_degre, suites, tangente, variations,
+        trigonometrie, produit_scalaire, geometrie_reperee, probabilites_conditionnelles,
+        variables_aleatoires,
+    ),
 }
 
 

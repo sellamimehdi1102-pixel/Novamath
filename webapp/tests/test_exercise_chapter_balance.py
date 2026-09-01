@@ -1,22 +1,28 @@
-"""Verrous de non-régression issus de la mission "rééquilibrage global du
-nombre d'exercices par chapitre" (2026-09-01).
+"""Verrous de non-régression issus de deux missions successives :
 
-Constat de départ (audité, pas supposé) : en Première, --per-family
-s'appliquait uniformément (12) à tous les modules de
-webapp/exercise_generator/, sans tenir compte du nombre de familles par
-module ni du contenu déjà présent dans exercises_bank_premiere.json — d'où
-un ratio Chapitre_3/Chapitre_10 de 12,6 (567 vs 45). tools/
-generate_derivative_exercises.py a été recalibré (MODULES porte désormais un
-per_family propre à chaque module) pour que Chapitre_1 à Chapitre_5 (les
-seuls chapitres avec un générateur symbolique) convergent vers un volume
-proche les uns des autres. Chapitre_6 à Chapitre_10 n'ont AUCUN générateur :
-leur volume reste plafonné à exercises_bank_premiere.json (banque curée,
-jamais modifiée par cette mission) — documenté comme limite architecturale,
-pas comme un oubli.
+1. "rééquilibrage global du nombre d'exercices par chapitre" (2026-09-01) :
+   constat initial que --per-family s'appliquait uniformément (12) à tous
+   les modules de webapp/exercise_generator/, produisant un ratio
+   Chapitre_3/Chapitre_10 de 12,6 en Première (567 vs 45).
+
+2. "rééquilibrage ADDITIF" (même jour, correction de la mission 1) : la
+   mission 1 avait réduit le pool généré de certains chapitres pour
+   équilibrer (total Première 2217 → 1547), ce qui est explicitement
+   interdit — AUCUN exercice existant ne doit jamais disparaître. La
+   mission 2 restaure le pool historique intégral (tools/
+   generate_derivative_exercises.py::_BASELINE_MODULES, per_family=12
+   d'origine) et n'ajoute QUE du contenu nouveau : extensions dédupliquées
+   pour Chapitre_2/4 (déjà générables), et 5 NOUVEAUX générateurs pour
+   Chapitre_6 à Chapitre_10 (trigonometrie/produit_scalaire/
+   geometrie_reperee/probabilites_conditionnelles/variables_aleatoires),
+   qui n'avaient auparavant aucun module. Résultat : 3715 exercices
+   (815 curés + 2900 générés), ratio max/min 1,89 (contre 12,6 avant).
 
 Ces tests portent sur la CAUSE (répartition réelle par chapitre, cohérence
-des chapter_id, absence de doublon/perte) plutôt que sur un total exact, qui
-évoluera à chaque régénération volontaire du pool généré.
+des chapter_id, absence de doublon/perte, non-régression du volume) plutôt
+que sur un total exact, qui évoluera à chaque régénération volontaire du
+pool généré (mais ne doit JAMAIS diminuer en dessous du plancher historique
+verrouillé ci-dessous).
 """
 import json
 import unittest
@@ -101,49 +107,93 @@ class TestAucunDoublonNiPerte(unittest.TestCase):
                     self.assertEqual(len(ids), len(set(ids)))
 
 
-class TestRepartitionPremiereChapitresGenerables(unittest.TestCase):
-    """Chapitre_1 à Chapitre_5 (Première) sont les seuls dotés d'un générateur
-    symbolique (webapp/exercise_generator/) — ce sont donc les seuls que
-    cette mission peut réellement rapprocher les uns des autres sans toucher
-    à la banque curée ni fabriquer de contenu hors sujet. Avant recalibrage :
-    425/281/567/146/423 (ratio max/min 3,9 rien qu'entre eux). Verrou : ne
-    doit plus jamais s'écarter de plus de ±25 % de leur propre moyenne."""
+class TestRepartitionPremiereTousChapitres(unittest.TestCase):
+    """Les 5 nouveaux générateurs (Chapitre_6 à 10) permettent désormais de
+    rapprocher TOUS les chapitres de Première les uns des autres (avant ces
+    générateurs, seuls Chapitre_1-5 pouvaient être rapprochés — voir
+    l'ancienne version de ce test). Verrou large (ratio ≤ 3) : bien au-dessus
+    de ce qui est réellement atteint (1,89 au moment d'écrire ce test), pour
+    tolérer une marge si le pool est régénéré avec des paramètres légèrement
+    différents, tout en interdisant un retour au ratio extrême (12,6) d'avant
+    ces générateurs."""
 
-    GENERABLE_CHAPTERS = [f"Chapitre_{i}" for i in range(1, 6)]
-
-    def test_chapitres_1_a_5_restent_proches_de_leur_moyenne(self):
+    def test_ratio_max_min_reste_maitrise(self):
         profile = CURRICULUM_REGISTRY["premiere"]
         combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
         counts = {}
-        for ch in self.GENERABLE_CHAPTERS:
-            counts[ch] = sum(1 for e in combined if e.get("chapter_id") == ch)
-        moyenne = sum(counts.values()) / len(counts)
+        for ex in combined:
+            ch = ex.get("chapter_id")
+            if ch:
+                counts[ch] = counts.get(ch, 0) + 1
+        self.assertEqual(len(counts), 10)
+        ratio = max(counts.values()) / min(counts.values())
+        self.assertLessEqual(ratio, 3.0, f"Répartition par chapitre : {counts} (ratio {ratio:.2f})")
+
+    def test_chaque_chapitre_a_desormais_au_moins_250_exercices(self):
+        """Avant les 5 nouveaux générateurs, Chapitre_10 (Variables
+        aléatoires) ne comptait que 45 exercices — c'est exactement ce que ce
+        verrou empêche de se reproduire silencieusement."""
+        profile = CURRICULUM_REGISTRY["premiere"]
+        combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
+        counts = {}
+        for ex in combined:
+            ch = ex.get("chapter_id")
+            if ch:
+                counts[ch] = counts.get(ch, 0) + 1
         for ch, n in counts.items():
             with self.subTest(chapter=ch):
-                ecart = abs(n - moyenne) / moyenne
-                self.assertLessEqual(ecart, 0.25, f"{ch} : {n} exercices, écart de {ecart:.0%} à la moyenne ({moyenne:.0f})")
+                self.assertGreaterEqual(n, 250, f"{ch} : seulement {n} exercices")
 
 
-class TestChapitresSansGenerateurInchanges(unittest.TestCase):
-    """Chapitre_6 à Chapitre_10 (Première) n'ont aucun module dans
-    webapp/exercise_generator/ (voir registry.py) : cette mission ne peut
-    donc PAS les enrichir sans fabriquer du contenu hors sujet ou en écrire
-    de nouveaux générateurs (hors périmètre, documenté dans le rapport de
-    mission). Verrou : leur volume doit rester EXACTEMENT celui de la banque
-    curée (aucune perte, aucun ajout artificiel)."""
+class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
+    """Plancher historique VERROUILLÉ (état committé juste avant la mission
+    "rééquilibrage additif", voir git show 5acb6cb:exercises_generated_premiere.json
+    + exercises_bank_premiere.json) : aucun chapitre ne doit plus jamais
+    repasser sous ces valeurs, quelle que soit une future régénération —
+    exactement la garde-fou "TOTAL APRÈS >= TOTAL AVANT" exigée par la
+    mission, mais vérifiée chapitre par chapitre plutôt que sur le seul
+    total (un total global stable pourrait sinon masquer un chapitre vidé
+    compensé par un autre gonflé)."""
 
-    UNGENERABLE_CHAPTERS = {"Chapitre_6": 136, "Chapitre_7": 75, "Chapitre_8": 56, "Chapitre_9": 63, "Chapitre_10": 45}
+    PLANCHER_HISTORIQUE = {
+        "Chapitre_1": 425, "Chapitre_2": 281, "Chapitre_3": 567, "Chapitre_4": 146,
+        "Chapitre_5": 423, "Chapitre_6": 136, "Chapitre_7": 75, "Chapitre_8": 56,
+        "Chapitre_9": 63, "Chapitre_10": 45,
+    }
 
-    def test_volume_inchange_pour_les_chapitres_sans_generateur(self):
+    def test_aucun_chapitre_sous_son_plancher_historique(self):
         profile = CURRICULUM_REGISTRY["premiere"]
-        bank = _load(profile.exercise_bank)
-        generated = _load(profile.generated_exercise_bank)
-        for ch, expected in self.UNGENERABLE_CHAPTERS.items():
+        combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
+        counts = {}
+        for ex in combined:
+            ch = ex.get("chapter_id")
+            if ch:
+                counts[ch] = counts.get(ch, 0) + 1
+        for ch, plancher in self.PLANCHER_HISTORIQUE.items():
             with self.subTest(chapter=ch):
-                n_bank = sum(1 for e in bank if e.get("chapter_id") == ch)
-                n_generated = sum(1 for e in generated if e.get("chapter_id") == ch)
-                self.assertEqual(n_generated, 0, f"{ch} n'a aucun générateur déclaré : un exercice généré y apparaît de façon inattendue")
-                self.assertEqual(n_bank, expected)
+                self.assertGreaterEqual(counts.get(ch, 0), plancher,
+                                         f"{ch} : {counts.get(ch, 0)} < plancher historique {plancher}")
+
+    def test_total_premiere_jamais_sous_2217(self):
+        profile = CURRICULUM_REGISTRY["premiere"]
+        combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
+        self.assertGreaterEqual(len(combined), 2217)
+
+
+class TestVolumeMinimumParClasse(unittest.TestCase):
+    """Mission "rééquilibrage additif" : chaque classe doit servir au moins
+    2000 exercices réellement disponibles (exercise_bank + generated_exercise_bank
+    quand fusionné en service réel — voir _CLASS_LEVELS_WITHOUT_GENERATED_MERGE
+    dans curriculum_stats.py pour le cas particulier de "seconde")."""
+
+    def test_chaque_classe_atteint_2000_exercices_reellement_servis(self):
+        import curriculum_stats
+        curriculum_stats.clear_cache()
+        for class_level in CURRICULUM_REGISTRY:
+            with self.subTest(class_level=class_level):
+                stats = curriculum_stats.compute_stats(class_level)
+                self.assertGreaterEqual(stats["totalExercises"], 2000,
+                                         f"{class_level} : seulement {stats['totalExercises']} exercices servis")
 
 
 class TestSchemaExercicesGeneres(unittest.TestCase):
