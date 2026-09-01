@@ -47,12 +47,17 @@ from exercise_generator_seconde import droites, signes
 from exercise_generator_troisieme import (
     developper_distributivite, divisibilite, equation_premier_degre, factoriser_somme,
     fonction_affine_deux_points, fractions_addition, fractions_simplification, image_fonction,
+    nombres_relatifs, probabilites_troisieme, proportionnalite, statistiques, thales,
 )
 
 _MODULES_BY_CLASS_LEVEL = {
+    # nombres_relatifs/proportionnalite/statistiques/probabilites_troisieme/
+    # thales (Chapitre_2/6/9/10/14) : nouveaux générateurs créés par la
+    # mission "rééquilibrage global de toutes les classes" (2026-09-01).
     "troisieme": (
         developper_distributivite, divisibilite, equation_premier_degre, factoriser_somme,
         fonction_affine_deux_points, fractions_addition, fractions_simplification, image_fonction,
+        nombres_relatifs, proportionnalite, statistiques, probabilites_troisieme, thales,
     ),
     "seconde": (droites, signes),
     # Chapitre_6 à Chapitre_10 (trigonometrie/produit_scalaire/geometrie_reperee/

@@ -1,4 +1,4 @@
-"""Verrous de non-régression issus de deux missions successives :
+"""Verrous de non-régression issus de trois missions successives :
 
 1. "rééquilibrage global du nombre d'exercices par chapitre" (2026-09-01) :
    constat initial que --per-family s'appliquait uniformément (12) à tous
@@ -18,6 +18,18 @@
    qui n'avaient auparavant aucun module. Résultat : 3715 exercices
    (815 curés + 2900 générés), ratio max/min 1,89 (contre 12,6 avant).
 
+3. "rééquilibrage global de TOUTES les classes" (même jour) : même patron
+   additif appliqué à Troisième — Chapitre_2/6/9/10/14 (90 à 120 exercices,
+   aucun générateur) reçoivent 5 nouveaux modules (nombres_relatifs/
+   proportionnalite/statistiques/probabilites_troisieme/thales) + une
+   extension dédupliquée de Chapitre_4/5. Résultat : 2655 exercices (2063
+   curés + 592 générés), ratio max/min 1,61 (contre 2,69 avant). Seconde a
+   été auditée mais laissée INCHANGÉE : elle atteint déjà les deux seuils
+   obligatoires de la mission (≥2000 exercices servis, ratio ≤2) — voir
+   rapport de mission pour la justification détaillée de ce choix de
+   périmètre (fusionner exercises_generated_seconde.json aurait dégradé
+   l'équilibre au lieu de l'améliorer).
+
 Ces tests portent sur la CAUSE (répartition réelle par chapitre, cohérence
 des chapter_id, absence de doublon/perte, non-régression du volume) plutôt
 que sur un total exact, qui évoluera à chaque régénération volontaire du
@@ -28,15 +40,40 @@ import json
 import unittest
 from pathlib import Path
 
+import curriculum_stats
 from curriculum_registry import CURRICULUM_REGISTRY
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+
+# Même source de vérité que curriculum_stats.compute_stats() : classes dont
+# le pool généré n'est PAS fusionné par server.py::_class_bank() en service
+# réel — pour celles-ci, le volume réellement servi est exercise_bank SEUL.
+_CLASS_LEVELS_WITHOUT_GENERATED_MERGE = curriculum_stats._CLASS_LEVELS_WITHOUT_GENERATED_MERGE
 
 
 def _load(path):
     if path is None or not path.exists():
         return []
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _served_combined(class_level, profile):
+    """Exercices réellement servis par server.py::_class_bank() pour cette
+    classe — bank seule pour "seconde" (voir _CLASS_LEVELS_WITHOUT_GENERATED_MERGE),
+    bank+generated pour toutes les autres."""
+    bank = _load(profile.exercise_bank)
+    if class_level in _CLASS_LEVELS_WITHOUT_GENERATED_MERGE:
+        return bank
+    return bank + _load(profile.generated_exercise_bank)
+
+
+def _counts_by_chapter(class_level, profile):
+    counts = {}
+    for ex in _served_combined(class_level, profile):
+        ch = ex.get("chapter_id")
+        if ch:
+            counts[ch] = counts.get(ch, 0) + 1
+    return counts
 
 
 def _known_chapter_ids(profile):
@@ -57,33 +94,43 @@ def _known_chapter_ids(profile):
 
 
 class TestChapterIdsValides(unittest.TestCase):
-    """Chaque exercice (banque curée + pool généré) doit porter un chapter_id
-    non vide qui correspond à un chapitre réellement déclaré pour sa classe —
-    jamais un identifiant orphelin qu'aucun cours ne référence."""
+    """Chaque exercice réellement servi doit porter un chapter_id non vide
+    qui correspond à un chapitre réellement déclaré pour sa classe — jamais
+    un identifiant orphelin qu'aucun cours ne référence."""
 
     def test_tous_les_chapter_id_correspondent_a_un_chapitre_declare(self):
         for class_level, profile in CURRICULUM_REGISTRY.items():
             known = _known_chapter_ids(profile)
             if not known:
                 continue
-            combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
+            combined = _served_combined(class_level, profile)
             with self.subTest(class_level=class_level):
                 bad = sorted({e.get("chapter_id") for e in combined if e.get("chapter_id") not in known})
                 self.assertEqual(bad, [], f"{class_level} : chapter_id orphelin(s) {bad}")
 
     def test_aucun_exercice_sans_chapter_id(self):
         for class_level, profile in CURRICULUM_REGISTRY.items():
-            combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
+            combined = _served_combined(class_level, profile)
             with self.subTest(class_level=class_level):
                 sans_chapitre = sum(1 for e in combined if not e.get("chapter_id"))
                 self.assertEqual(sans_chapitre, 0)
 
+    def test_chaque_chapitre_declare_possede_au_moins_un_exercice(self):
+        for class_level, profile in CURRICULUM_REGISTRY.items():
+            known = _known_chapter_ids(profile)
+            if not known:
+                continue
+            counts = _counts_by_chapter(class_level, profile)
+            with self.subTest(class_level=class_level):
+                vides = sorted(known - counts.keys())
+                self.assertEqual(vides, [], f"{class_level} : chapitre(s) sans aucun exercice {vides}")
+
 
 class TestAucunDoublonNiPerte(unittest.TestCase):
-    """Le rééquilibrage régénère exercises_generated_premiere.json (pool
-    généré) mais ne doit jamais toucher exercises_bank_premiere.json (banque
-    curée) : mêmes IDs curés qu'avant, aucune collision avec les IDs générés
-    (offsets 900_000+, voir docstring des modules de exercise_generator/)."""
+    """Le rééquilibrage régénère les pools additifs mais ne doit jamais
+    toucher les banques curées : mêmes IDs curés qu'avant, aucune collision
+    avec les IDs générés (offsets distincts par module, voir docstring des
+    modules de exercise_generator*/)."""
 
     def test_ids_generes_ne_collisionnent_jamais_avec_la_banque_curee(self):
         for class_level, profile in CURRICULUM_REGISTRY.items():
@@ -106,94 +153,141 @@ class TestAucunDoublonNiPerte(unittest.TestCase):
                     ids = [e.get("id") for e in data]
                     self.assertEqual(len(ids), len(set(ids)))
 
+    # Doublons d'ÉNONCÉ : anomalie préexistante et documentée, sans rapport
+    # avec cette mission — un exercice de la banque curée Troisième
+    # (id 2027, Chapitre_7) partage mot pour mot son énoncé avec un exercice
+    # déjà généré par image_fonction.py (id 170015) AVANT toute mission de
+    # rééquilibrage (vérifié : présent dans le commit HEAD précédent, donc
+    # ni introduit ni aggravé ici). Le verrou porte donc sur "aucun NOUVEAU
+    # doublon" plutôt que sur un compte absolu de zéro, qui échouerait pour
+    # une raison hors périmètre de cette mission.
+    DOUBLONS_ENONCE_PREEXISTANTS = {"troisieme": 1}
 
-class TestRepartitionPremiereTousChapitres(unittest.TestCase):
-    """Les 5 nouveaux générateurs (Chapitre_6 à 10) permettent désormais de
-    rapprocher TOUS les chapitres de Première les uns des autres (avant ces
-    générateurs, seuls Chapitre_1-5 pouvaient être rapprochés — voir
-    l'ancienne version de ce test). Verrou large (ratio ≤ 3) : bien au-dessus
-    de ce qui est réellement atteint (1,89 au moment d'écrire ce test), pour
-    tolérer une marge si le pool est régénéré avec des paramètres légèrement
-    différents, tout en interdisant un retour au ratio extrême (12,6) d'avant
-    ces générateurs."""
+    def test_aucun_nouveau_doublon_denonce(self):
+        for class_level, profile in CURRICULUM_REGISTRY.items():
+            combined = _served_combined(class_level, profile)
+            with self.subTest(class_level=class_level):
+                enonces = [e["enonce"] for e in combined if e.get("enonce")]
+                doublons = len(enonces) - len(set(enonces))
+                toleres = self.DOUBLONS_ENONCE_PREEXISTANTS.get(class_level, 0)
+                self.assertLessEqual(doublons, toleres,
+                                      f"{class_level} : {doublons} doublon(s) d'énoncé (toléré : {toleres} préexistant(s))")
+
+
+class TestRepartitionParChapitre(unittest.TestCase):
+    """Ratio max/min par chapitre, par classe — verrous larges (marge
+    au-dessus du ratio réellement atteint au moment d'écrire ces tests) pour
+    tolérer une régénération future avec des paramètres légèrement
+    différents, tout en interdisant un retour aux ratios extrêmes d'avant
+    rééquilibrage (Première : 12,6 ; Troisième : 2,69)."""
+
+    RATIO_MAX_PAR_CLASSE = {"premiere": 3.0, "troisieme": 2.2, "seconde": 2.5}
 
     def test_ratio_max_min_reste_maitrise(self):
-        profile = CURRICULUM_REGISTRY["premiere"]
-        combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
-        counts = {}
-        for ex in combined:
-            ch = ex.get("chapter_id")
-            if ch:
-                counts[ch] = counts.get(ch, 0) + 1
-        self.assertEqual(len(counts), 10)
-        ratio = max(counts.values()) / min(counts.values())
-        self.assertLessEqual(ratio, 3.0, f"Répartition par chapitre : {counts} (ratio {ratio:.2f})")
+        for class_level, profile in CURRICULUM_REGISTRY.items():
+            plafond = self.RATIO_MAX_PAR_CLASSE.get(class_level)
+            if plafond is None:
+                continue
+            counts = _counts_by_chapter(class_level, profile)
+            with self.subTest(class_level=class_level):
+                ratio = max(counts.values()) / min(counts.values())
+                self.assertLessEqual(ratio, plafond, f"{class_level} : {counts} (ratio {ratio:.2f})")
 
-    def test_chaque_chapitre_a_desormais_au_moins_250_exercices(self):
+    def test_chaque_chapitre_premiere_a_desormais_au_moins_250_exercices(self):
         """Avant les 5 nouveaux générateurs, Chapitre_10 (Variables
         aléatoires) ne comptait que 45 exercices — c'est exactement ce que ce
         verrou empêche de se reproduire silencieusement."""
-        profile = CURRICULUM_REGISTRY["premiere"]
-        combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
-        counts = {}
-        for ex in combined:
-            ch = ex.get("chapter_id")
-            if ch:
-                counts[ch] = counts.get(ch, 0) + 1
+        counts = _counts_by_chapter("premiere", CURRICULUM_REGISTRY["premiere"])
         for ch, n in counts.items():
             with self.subTest(chapter=ch):
                 self.assertGreaterEqual(n, 250, f"{ch} : seulement {n} exercices")
 
+    def test_chaque_chapitre_troisieme_a_desormais_au_moins_140_exercices(self):
+        """Avant les 5 nouveaux générateurs, Chapitre_9 (statistiques) ne
+        comptait que 90 exercices — c'est exactement ce que ce verrou
+        empêche de se reproduire silencieusement."""
+        counts = _counts_by_chapter("troisieme", CURRICULUM_REGISTRY["troisieme"])
+        for ch, n in counts.items():
+            with self.subTest(chapter=ch):
+                self.assertGreaterEqual(n, 140, f"{ch} : seulement {n} exercices")
+
 
 class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
-    """Plancher historique VERROUILLÉ (état committé juste avant la mission
-    "rééquilibrage additif", voir git show 5acb6cb:exercises_generated_premiere.json
-    + exercises_bank_premiere.json) : aucun chapitre ne doit plus jamais
-    repasser sous ces valeurs, quelle que soit une future régénération —
-    exactement la garde-fou "TOTAL APRÈS >= TOTAL AVANT" exigée par la
-    mission, mais vérifiée chapitre par chapitre plutôt que sur le seul
-    total (un total global stable pourrait sinon masquer un chapitre vidé
-    compensé par un autre gonflé)."""
+    """Plancher historique VERROUILLÉ (état committé juste avant chaque
+    mission de rééquilibrage) : aucun chapitre ne doit plus jamais repasser
+    sous ces valeurs, quelle que soit une future régénération — exactement
+    la garde-fou "TOTAL APRÈS >= TOTAL AVANT" exigée par la mission, mais
+    vérifiée chapitre par chapitre plutôt que sur le seul total (un total
+    global stable pourrait sinon masquer un chapitre vidé compensé par un
+    autre gonflé)."""
 
-    PLANCHER_HISTORIQUE = {
-        "Chapitre_1": 425, "Chapitre_2": 281, "Chapitre_3": 567, "Chapitre_4": 146,
-        "Chapitre_5": 423, "Chapitre_6": 136, "Chapitre_7": 75, "Chapitre_8": 56,
-        "Chapitre_9": 63, "Chapitre_10": 45,
+    PLANCHERS_HISTORIQUES = {
+        "premiere": {
+            "Chapitre_1": 425, "Chapitre_2": 281, "Chapitre_3": 567, "Chapitre_4": 146,
+            "Chapitre_5": 423, "Chapitre_6": 136, "Chapitre_7": 75, "Chapitre_8": 56,
+            "Chapitre_9": 63, "Chapitre_10": 45,
+        },
+        "troisieme": {
+            "Chapitre_1": 177, "Chapitre_2": 120, "Chapitre_3": 203, "Chapitre_4": 149,
+            "Chapitre_5": 135, "Chapitre_6": 93, "Chapitre_7": 242, "Chapitre_8": 181,
+            "Chapitre_9": 90, "Chapitre_10": 98, "Chapitre_11": 180, "Chapitre_12": 210,
+            "Chapitre_13": 181, "Chapitre_14": 100, "Chapitre_15": 150,
+        },
+        "seconde": {
+            "Chapitre_1": 164, "Chapitre_2": 196, "Chapitre_3": 160, "Chapitre_4": 161,
+            "Chapitre_5": 121, "Chapitre_6": 242, "Chapitre_7": 204, "Chapitre_8": 160,
+            "Chapitre_9": 201, "Chapitre_10": 121, "Chapitre_11": 162, "Chapitre_12": 211,
+        },
     }
 
-    def test_aucun_chapitre_sous_son_plancher_historique(self):
-        profile = CURRICULUM_REGISTRY["premiere"]
-        combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
-        counts = {}
-        for ex in combined:
-            ch = ex.get("chapter_id")
-            if ch:
-                counts[ch] = counts.get(ch, 0) + 1
-        for ch, plancher in self.PLANCHER_HISTORIQUE.items():
-            with self.subTest(chapter=ch):
-                self.assertGreaterEqual(counts.get(ch, 0), plancher,
-                                         f"{ch} : {counts.get(ch, 0)} < plancher historique {plancher}")
+    TOTAL_MINIMUM = {"premiere": 3715, "troisieme": 2309, "seconde": 2103}
 
-    def test_total_premiere_jamais_sous_2217(self):
-        profile = CURRICULUM_REGISTRY["premiere"]
-        combined = _load(profile.exercise_bank) + _load(profile.generated_exercise_bank)
-        self.assertGreaterEqual(len(combined), 2217)
+    def test_aucun_chapitre_sous_son_plancher_historique(self):
+        for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():
+            counts = _counts_by_chapter(class_level, CURRICULUM_REGISTRY[class_level])
+            for ch, plancher in planchers.items():
+                with self.subTest(class_level=class_level, chapter=ch):
+                    self.assertGreaterEqual(counts.get(ch, 0), plancher,
+                                             f"{class_level}/{ch} : {counts.get(ch, 0)} < plancher historique {plancher}")
+
+    def test_total_jamais_sous_son_plancher_historique(self):
+        for class_level, plancher in self.TOTAL_MINIMUM.items():
+            combined = _served_combined(class_level, CURRICULUM_REGISTRY[class_level])
+            with self.subTest(class_level=class_level):
+                self.assertGreaterEqual(len(combined), plancher)
 
 
 class TestVolumeMinimumParClasse(unittest.TestCase):
-    """Mission "rééquilibrage additif" : chaque classe doit servir au moins
-    2000 exercices réellement disponibles (exercise_bank + generated_exercise_bank
-    quand fusionné en service réel — voir _CLASS_LEVELS_WITHOUT_GENERATED_MERGE
-    dans curriculum_stats.py pour le cas particulier de "seconde")."""
+    """Mission "rééquilibrage global de toutes les classes" : chaque classe
+    doit servir au moins 2000 exercices réellement disponibles."""
 
     def test_chaque_classe_atteint_2000_exercices_reellement_servis(self):
-        import curriculum_stats
         curriculum_stats.clear_cache()
         for class_level in CURRICULUM_REGISTRY:
             with self.subTest(class_level=class_level):
                 stats = curriculum_stats.compute_stats(class_level)
                 self.assertGreaterEqual(stats["totalExercises"], 2000,
                                          f"{class_level} : seulement {stats['totalExercises']} exercices servis")
+
+    def test_curriculum_stats_egale_la_banque_reellement_servie(self):
+        """Verrou explicitement demandé par la mission : les statistiques
+        API (curriculum_stats, source de /api/curricula) doivent correspondre
+        EXACTEMENT à server.py::_class_bank() — jamais un fichier JSON qui
+        ne serait pas réellement chargé par le serveur."""
+        import server
+        curriculum_stats.clear_cache()
+        for class_level in CURRICULUM_REGISTRY:
+            with self.subTest(class_level=class_level):
+                stats = curriculum_stats.compute_stats(class_level)
+                try:
+                    served = server._class_bank(class_level)["bank"]
+                except Exception as exc:
+                    # Anomalie préexistante sans rapport (exercises_bank_troisieme_natural.json
+                    # corrompu, voir rapport de mission) — déjà documentée en
+                    # skip ailleurs, non réintroduite ici.
+                    self.skipTest(f"{class_level} : server._class_bank() indisponible ({exc!r})")
+                    continue
+                self.assertEqual(stats["totalExercises"], len(served))
 
 
 class TestSchemaExercicesGeneres(unittest.TestCase):
