@@ -103,6 +103,34 @@
 
 .legal-back-link { margin-top: 40px; }
 
+/* ── Pied de page — cohérence avec .site-footer (landing.css) sans en
+   dépendre : ces pages ne chargent pas landing.css (pas de hero/marketing),
+   un pied léger réutilisant uniquement les tokens partagés suffit. ────────── */
+.legal-footer {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.legal-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.92rem;
+}
+.legal-footer-brand img { width: 22px; height: 22px; }
+.legal-footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.legal-footer-links a { color: var(--text-muted); font-size: 0.85rem; }
+.legal-footer-links a:hover { color: var(--text); }
+.legal-footer-copy { color: var(--text-faint); font-size: 0.82rem; }
+
 @media (max-width: 860px) {
   .legal-shell { grid-template-columns: 1fr; gap: 20px; }
   .legal-toc {
@@ -112,4 +140,5 @@
     gap: 6px;
   }
   .legal-toc-title { display: none; }
+  .legal-footer { flex-direction: column; align-items: flex-start; text-align: left; }
 }

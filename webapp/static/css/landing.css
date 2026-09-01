@@ -306,6 +306,22 @@
 }
 .hero-mockup-chart svg { display: block; width: 100%; height: 100%; }
 
+/* .hero-mockup-body garde un min-height desktop (460px) pensé pour une
+   largeur ~640px (voir .hero-illustration-wrap) ; sous 640px de large,
+   .hero-illustration-wrap se limite à max-width:560px (mobile, media query
+   plus bas) puis rétrécit encore avec le viewport — la hauteur, elle,
+   restait figée à 460px, donnant une fenêtre étroite et anormalement haute
+   (rapport largeur/hauteur inversé) plutôt qu'une miniature de Dashboard
+   proportionnée. Réduite ici pour rester proche de la hauteur réellement
+   occupée par son contenu (sidebar + objectif + stats + graphique) à cette
+   largeur. Placée APRÈS la règle desktop (même spécificité : sinon la règle
+   non conditionnelle, plus bas dans la cascade, l'emporterait toujours). */
+@media (max-width: 640px) {
+  .hero-mockup-body { min-height: 320px; }
+  .hero-mockup-sidebar { width: 56px; padding: 12px 8px; }
+  .hero-mockup-nav-item { width: 26px; height: 26px; }
+}
+
 @media (max-width: 960px) {
   .hero-illustration,
   .hero-illustration-back { transform: none; }
