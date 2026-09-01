@@ -266,8 +266,16 @@
    structure des .history-dot inchangés).
    ══════════════════════════════════════════════════════════════════════════ */
 .history-card { padding: 20px; }
-.history-card h3 { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; margin-bottom: 14px; font-family: var(--font-display); }
-.history-card .h3-icon { width: 16px; height: 16px; color: var(--accent-text); }
+.history-card h3, .custom-exercise-card h3 { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; margin-bottom: 14px; font-family: var(--font-display); }
+/* .custom-exercise-card partage le même balisage <h3><svg class="h3-icon">
+   (voir exercice.html) mais exercice.html ne charge pas dashboard.css, seul
+   fichier définissant .h3-icon sans le scoper à .history-card — sans cette
+   règle, le SVG (viewBox 24x24, aucune taille explicite) n'avait aucune
+   règle CSS correspondante sur cette page et se rendait à sa taille de
+   remplacement par défaut du navigateur (confirmé en audit navigateur réel,
+   Playwright : 352×352px), un bloc "Exercice sur mesure" à l'aspect
+   totalement disproportionné. */
+.history-card .h3-icon, .custom-exercise-card .h3-icon { width: 16px; height: 16px; color: var(--accent-text); }
 
 .history-strip {
   width: 100%;
@@ -377,6 +385,16 @@
      la largeur réelle et provoquait un débordement horizontal (bug confirmé
      par calcul des dimensions, cf. audit Phase 7). */
   .exercise-layout-main, .exercise-layout-side { min-width: 0; }
+  /* min-width:0 (ci-dessus) empêchait le débordement horizontal, mais
+     .exercise-layout-main (flex:2) et .exercise-layout-side (flex:1)
+     restaient côte à côte en se partageant la largeur réduite au lieu de
+     s'empiler — confirmé en audit navigateur réel (Playwright, 390px de
+     large) : .exercise-layout-side ne faisait plus que ~108px de large,
+     texte compressé caractère par caractère ("Historique récent",
+     "Exercice sur mesure"). flex-basis:100% force chaque colonne sur sa
+     propre ligne (le conteneur a déjà flex-wrap:wrap, voir .exercise-layout
+     plus haut). */
+  .exercise-layout-main, .exercise-layout-side { flex-basis: 100%; }
 }
 
 /* ── Exercice sur mesure (Ultra, customExercise.js) ──────────────────────

@@ -460,8 +460,17 @@
 
 /* Vitrine chatbot — grand halo flou derrière la fenêtre de conversation,
    pour lui donner la même profondeur que l'illustration du Hero plutôt
-   qu'un simple encart posé à plat sur le fond. */
+   qu'un simple encart posé à plat sur le fond. `overflow-x: hidden` sur la
+   section (pas sur .showcase-visual, ce qui rognerait le halo pile sur son
+   bord) : `.showcase-visual::before` déborde volontairement de ±10/14% pour
+   son flou, ce qui reste dans le padding desktop (.showcase-grid), mais sous
+   860px .showcase-grid repasse en une seule colonne et .showcase-visual
+   occupe alors presque toute la largeur de la section — le débord du halo
+   dépasse le padding de section (24px) et provoquait un scroll horizontal
+   de toute la page (confirmé : body.scrollWidth > viewport en audit
+   navigateur réel, Playwright, à 768/430/390px de large). */
 #chatbot-showcase::before { content: none; }
+#chatbot-showcase { overflow-x: hidden; }
 .showcase-visual { position: relative; }
 .showcase-visual::before {
   content: "";

@@ -688,7 +688,16 @@ ul { margin: 0; padding: 0; list-style: none; }
   z-index: 1090;
 }
 
-.main-content { padding: 40px 48px 96px; max-width: 1320px; flex: 1; min-width: 0; }
+/* overflow-x:hidden : plusieurs pages (chapitres.html::.chapters-grid::before,
+   exercice.html::.exercise-layout::before) posent un motif décoratif en
+   arrière-plan avec un débord horizontal volontaire (ex. left:-48px;
+   right:-48px), jamais clippé par un ancêtre — confirmé en audit navigateur
+   réel (Playwright) : scroll horizontal de toute la page sur chapitres.html/
+   cours.html/exercice.html sous ~1024px de large. Aucun position:sticky ni
+   élément devant visuellement déborder de .main-content (le sidebar, seul
+   sticky proche, est un frère de .main-content, pas un descendant) : sans
+   risque pour le reste du site. */
+.main-content { padding: 40px 48px 96px; max-width: 1320px; flex: 1; min-width: 0; overflow-x: hidden; }
 
 .page-header {
   display: flex;
@@ -876,7 +885,13 @@ ul { margin: 0; padding: 0; list-style: none; }
   left: 16px;
   right: 16px;
   bottom: 16px;
-  z-index: 1000;
+  /* Doit rester au-dessus du contenu normal, mais jamais au-dessus d'une
+     modale (.modal-overlay, z-index:100) ou d'un popup (.popup-overlay,
+     z-index:200) : à 1000, la bannière s'affichait par-dessus toute modale
+     ouverte (ex. inscription) au premier chargement, recouvrant les cases à
+     cocher CGU/confidentialité et le bouton de validation — confirmé en
+     audit navigateur réel (Playwright, capture d'écran). */
+  z-index: 90;
   max-width: 640px;
   margin: 0 auto;
   padding: 20px 22px;
