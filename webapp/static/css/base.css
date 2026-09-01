@@ -806,7 +806,19 @@ ul { margin: 0; padding: 0; list-style: none; }
 .popup-card--sm { max-width: 420px; }
 .popup-card--md { max-width: 560px; }
 .popup-card--lg { max-width: 780px; }
-.popup-card--xl { max-width: 980px; }
+/* Hauteur FIXE (pas seulement max-height, voir .popup-card ci-dessus) —
+   uniquement pour "xl" (Paramètres, seul popup à ce jour à composer un menu
+   de catégories + un panneau de contenu, voir settingsPopup.js). Bug
+   corrigé : .popup-overlay centre verticalement (align-items: center) une
+   carte à hauteur intrinsèque ; comme chaque catégorie de Paramètres a un
+   contenu de hauteur différente (ex. "Compte" vs "Aide & à propos"), la
+   carte changeait de hauteur à chaque clic sur une catégorie, donc de
+   position verticale (recentrage). Une hauteur fixe rend la position de la
+   carte indépendante du contenu affiché — seul .popup-body (flex: 1 1 auto
+   ci-dessus) défile en interne désormais.
+   Volontairement PAS étendu à sm/md/lg (confirmation/prompt/autres popups
+   ponctuels) qui doivent rester compacts, ajustés à leur contenu. */
+.popup-card--xl { max-width: 980px; height: 88vh; }
 
 .popup-header {
   display: flex;
@@ -838,6 +850,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: 24px;
   overflow-y: auto;
   min-height: 0;
+  /* flex-grow sans effet tant que .popup-card garde une hauteur intrinsèque
+     (sm/md/lg, dialogues courts type confirmation/prompt) : n'entre en jeu
+     que si le conteneur a une hauteur fixe (voir .popup-card--xl) — voir sa
+     docstring pour la raison. */
+  flex: 1 1 auto;
 }
 
 /* ── Popups prompt/confirm génériques (js/popup.js::openPromptPopup/openConfirmPopup) */

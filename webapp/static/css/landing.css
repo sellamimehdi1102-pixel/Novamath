@@ -728,7 +728,19 @@
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);
 }
-.showcase-window-chrome span { width: 9px; height: 9px; border-radius: 50%; background: var(--border-strong); }
+/* :not(.showcase-window-label) — la règle générique des 3 points du faux
+   navigateur cible tout <span> enfant de .showcase-window-chrome, ce qui
+   incluait aussi le badge <span class="showcase-window-label"> (lui aussi un
+   span) : à spécificité égale de classe, ".showcase-window-chrome span"
+   (classe + élément) l'emportait sur ".showcase-window-label" (classe seule)
+   pour width/height, écrasant son width:auto/height:auto à 9px/9px. Le badge
+   se retrouvait alors compressé à la taille de son seul padding+bordure
+   (26×10px, mesuré), tandis que son texte "Exemple de conversation"
+   (~87×59px nécessaires) débordait visuellement hors de cette boîte,
+   produisant les fragments "Exem.../de.../conv..." visibles hors de la
+   fenêtre du mockup — confirmé en audit navigateur réel (Playwright,
+   getBoundingClientRect + getComputedStyle). */
+.showcase-window-chrome span:not(.showcase-window-label) { width: 9px; height: 9px; border-radius: 50%; background: var(--border-strong); }
 .showcase-window-label {
   /* Renforcé (Phase 1 UX/UI) : doit se voir clairement comme un badge de
      démo, pas se fondre dans le chrome de fenêtre — évite de laisser croire

@@ -128,5 +128,56 @@ class TestExerciceLayoutSempileSurMobile(unittest.TestCase):
         self.assertTrue(found, "flex-basis:100% pour .exercise-layout-main/.exercise-layout-side introuvable sous 640px")
 
 
+class TestPopupSettingsHauteurFixeReellementEnDur(unittest.TestCase):
+    """Mesuré en navigateur réel (Playwright, 1920/1440/1280/1024/768/430px,
+    compte de test réel, clics successifs sur les 8 catégories + retour) :
+    la bounding box de la popup Paramètres (#settings-popup-overlay
+    .popup-card) est restée STRICTEMENT identique (x/y/largeur/hauteur)
+    quelle que soit la catégorie affichée, à chaque résolution testée — la
+    correction .popup-card--xl { height: 88vh } + .popup-body { flex: 1 1
+    auto } fonctionne bel et bien. Ce test fige uniquement qu'elle reste bien
+    committée : dans une mission précédente, ce correctif existait déjà dans
+    l'arbre de travail local mais n'avait jamais été commité (HEAD ne
+    contenait encore que `.popup-card--xl { max-width: 980px; }`, sans
+    hauteur) — la version réellement livrée (dépôt distant/déploiement)
+    conservait donc le bug malgré la correction locale."""
+
+    def setUp(self):
+        self.css = _read("webapp/static/css/base.css")
+
+    def test_popup_card_xl_a_une_hauteur_fixe_committee(self):
+        body = _rule_body(self.css, ".popup-card--xl")
+        self.assertRegex(body, r"(?<!max-)height\s*:")
+
+    def test_popup_body_extensible_committe(self):
+        body = _rule_body(self.css, ".popup-body")
+        self.assertIn("flex:", body)
+
+
+class TestShowcaseWindowLabelNonEcraseParLesPointsDeChrome(unittest.TestCase):
+    """Mesuré en navigateur réel (Playwright, getBoundingClientRect +
+    getComputedStyle, 7 résolutions) : <span class="showcase-window-label">
+    (badge "Exemple de conversation") est aussi un <span> enfant de
+    .showcase-window-chrome ; la règle générique des 3 points du faux
+    navigateur (.showcase-window-chrome span, spécificité classe+élément)
+    écrasait son width/height (auto → 9px), le badge se retrouvant compressé
+    à 26×10px (son seul padding+bordure) pendant que son texte
+    "Exemple de conversation" (~87×59px) débordait visuellement hors de la
+    fenêtre du mockup ("Exem.../de.../conv..." visibles à l'extérieur).
+    Après correction : label mesuré à 171×28px, entièrement contenu dans la
+    fenêtre, à toutes les résolutions testées."""
+
+    def test_regle_des_points_exclut_le_badge_label(self):
+        css = _read("webapp/static/css/landing.css")
+        body = _rule_body(css, ".showcase-window-chrome span:not(.showcase-window-label)")
+        self.assertIn("width: 9px", body)
+
+    def test_le_badge_garde_sa_propre_regle_de_taille_auto(self):
+        css = _read("webapp/static/css/landing.css")
+        body = _rule_body(css, ".showcase-window-label")
+        self.assertIn("width: auto", body)
+        self.assertIn("height: auto", body)
+
+
 if __name__ == "__main__":
     unittest.main()
