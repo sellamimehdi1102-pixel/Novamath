@@ -22,6 +22,9 @@ const PAGES = [
   "reset-password.html",
   "parent-consent.html",
   "admin.html",
+  "mentions-legales.html",
+  "confidentialite.html",
+  "cgu.html",
   // Outil de diagnostic temporaire (voir server.py::_serve_debug_runtime),
   // gardé par config.DEBUG côté serveur — jamais accessible en production
   // même si le fichier est présent dans static-dist/.

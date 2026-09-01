@@ -8,8 +8,16 @@
   chapitres.html, exercice.html, profil.html) sont des pages personnelles
   protégées par authentification (voir server.py::PROTECTED_PAGES) — elles
   n'ont jamais eu leur place dans un sitemap public et ont été retirées.
-  Seule la landing est aujourd'hui une page publique à contenu unique.
+-->
+<!--
+  Mentions légales / confidentialité / CGU (webapp/static/mentions-legales.html,
+  confidentialite.html, cgu.html) : ajoutées ici car ce sont, comme la landing,
+  des pages publiques accessibles sans authentification et à contenu unique
+  (pas de doublon avec une autre URL) — mêmes critères que ci-dessus.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://mathadap.com/</loc></url>
+  <url><loc>https://mathadap.com/mentions-legales.html</loc></url>
+  <url><loc>https://mathadap.com/confidentialite.html</loc></url>
+  <url><loc>https://mathadap.com/cgu.html</loc></url>
 </urlset>

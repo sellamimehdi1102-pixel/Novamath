@@ -29,7 +29,7 @@ function closeModal(overlay) {
 function closeAllAuthModals() {
   [
     "signup-modal-overlay", "oauth-signup-modal-overlay", "login-modal-overlay", "login-2fa-modal-overlay",
-    "forgot-modal-overlay", "legal-modal-overlay", "privacy-modal-overlay",
+    "forgot-modal-overlay",
   ].forEach((id) => { $(id).hidden = true; });
 }
 
@@ -97,8 +97,6 @@ $("oauth-signup-birth-date").addEventListener("change", () => {
   $("oauth-signup-parent-email-row").hidden = !isMinorSignup("oauth-signup-birth-date");
 });
 wireOpeners(".js-open-login", "login-modal-overlay");
-wireOpeners(".js-open-legal", "legal-modal-overlay");
-wireOpeners(".js-open-privacy", "privacy-modal-overlay");
 wireOpeners(".js-open-forgot", "forgot-modal-overlay", () => {
   $("forgot-email").value = $("login-email").value || "";
   $("forgot-result").hidden = true;
@@ -115,8 +113,6 @@ document.addEventListener("click", (e) => {
   if (e.target.closest("#btn-oauth-signup-cancel")) closeModal($("oauth-signup-modal-overlay"));
   if (e.target.closest("#btn-login-cancel")) closeModal($("login-modal-overlay"));
   if (e.target.closest("#btn-forgot-cancel")) closeModal($("forgot-modal-overlay"));
-  if (e.target.closest("#btn-legal-close")) closeModal($("legal-modal-overlay"));
-  if (e.target.closest("#btn-privacy-close")) closeModal($("privacy-modal-overlay"));
 });
 
 // ── Mode invité ──────────────────────────────────────────────────────────────

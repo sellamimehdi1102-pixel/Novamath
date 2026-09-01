@@ -59,9 +59,11 @@ describe("auth.js — ouverture des modales", () => {
     expect($("login-modal-overlay").hidden).toBe(false);
   });
 
-  it("clic sur .js-open-legal ouvre la modale des mentions légales", () => {
-    document.querySelector(".js-open-legal").click();
-    expect($("legal-modal-overlay").hidden).toBe(false);
+  it("le footer pointe vers les vraies pages légales publiques (plus de popup)", () => {
+    const legalLinks = Array.from(document.querySelectorAll(".footer-col a")).filter((a) =>
+      ["mentions-legales.html", "confidentialite.html", "cgu.html"].includes(a.getAttribute("href")),
+    );
+    expect(legalLinks).toHaveLength(3);
   });
 
   it("le clic sur l'overlay lui-même ferme la modale ouverte", () => {

@@ -776,21 +776,6 @@ const HELP_PAGES = {
       <p><strong>Personnaliser l'apparence</strong> — Paramètres → Apparence permet de changer le thème clair/sombre, la couleur d'accent, la taille du texte et les animations ; chaque changement s'applique instantanément à tout le site.</p>
       <p><strong>Suivre ses objectifs</strong> — Paramètres → Apprentissage définit l'objectif quotidien (nombre d'exercices, temps), visible en temps réel sur le Dashboard.</p>`,
   },
-  privacy: {
-    title: "Politique de confidentialité",
-    body: `
-      <p>Mathadap collecte uniquement les données nécessaires au fonctionnement du service : identifiant de compte, pseudo, adresse email, préférences, et historique d'entraînement (exercices réalisés, résultats, durée).</p>
-      <p>Ces données ne sont jamais vendues ni partagées avec des tiers à des fins commerciales. Elles servent exclusivement à faire fonctionner le suivi de progression et la personnalisation de l'entraînement.</p>
-      <p>Un compte invité est entièrement temporaire : ses données sont supprimées automatiquement à la fin de la session, sans action nécessaire de ta part.</p>
-      <p>Tu peux à tout moment demander une copie de tes données ou la suppression définitive de ton compte (Paramètres → Compte) via la page Nous contacter.</p>`,
-  },
-  terms: {
-    title: "Conditions générales d'utilisation",
-    body: `
-      <p>L'utilisation de Mathadap implique l'acceptation des présentes conditions. Le service est fourni « en l'état », à des fins d'entraînement pédagogique, sans garantie d'exhaustivité du programme scolaire.</p>
-      <p>Chaque utilisateur est responsable de la confidentialité de son mot de passe. Toute utilisation frauduleuse ou automatisée (scripts, bots) du service est interdite et peut entraîner la suspension du compte.</p>
-      <p>Mathadap se réserve le droit de faire évoluer les fonctionnalités du service ; les préférences et la progression des utilisateurs sont préservées lors de ces évolutions dans la mesure du possible.</p>`,
-  },
 };
 
 function openHelpPage(key) {
@@ -826,8 +811,9 @@ function renderHelp() {
     <div class="settings-section">
       <div class="settings-section-title">Légal</div>
       <div class="help-links">
-        <button class="help-link" data-help="terms">Conditions générales d'utilisation ${icon("arrowRight")}</button>
-        <button class="help-link" data-help="privacy">Politique de confidentialité ${icon("arrowRight")}</button>
+        <a class="help-link" href="cgu.html" target="_blank" rel="noopener">Conditions générales d'utilisation ${icon("arrowRight")}</a>
+        <a class="help-link" href="confidentialite.html" target="_blank" rel="noopener">Politique de confidentialité ${icon("arrowRight")}</a>
+        <a class="help-link" href="mentions-legales.html" target="_blank" rel="noopener">Mentions légales ${icon("arrowRight")}</a>
       </div>
     </div>
   `;

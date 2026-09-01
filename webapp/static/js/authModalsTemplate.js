@@ -92,12 +92,12 @@ export const AUTH_MODALS_HTML = `
 
       <label class="checkbox-row">
         <input type="checkbox" id="signup-accept-terms">
-        <span>J'accepte les <button type="button" class="link-inline js-open-legal">conditions d'utilisation</button></span>
+        <span>J'accepte les <a class="link-inline" href="cgu.html" target="_blank" rel="noopener">conditions d'utilisation</a></span>
       </label>
       <span class="form-error" id="signup-error-terms" hidden></span>
       <label class="checkbox-row">
         <input type="checkbox" id="signup-accept-privacy">
-        <span>J'accepte la <button type="button" class="link-inline js-open-privacy">politique de confidentialité</button></span>
+        <span>J'accepte la <a class="link-inline" href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a></span>
       </label>
       <span class="form-error" id="signup-error-privacy" hidden></span>
 
@@ -146,12 +146,12 @@ export const AUTH_MODALS_HTML = `
 
       <label class="checkbox-row">
         <input type="checkbox" id="oauth-signup-accept-terms">
-        <span>J'accepte les <button type="button" class="link-inline js-open-legal">conditions d'utilisation</button></span>
+        <span>J'accepte les <a class="link-inline" href="cgu.html" target="_blank" rel="noopener">conditions d'utilisation</a></span>
       </label>
       <span class="form-error" id="oauth-signup-error-accept_terms" hidden></span>
       <label class="checkbox-row">
         <input type="checkbox" id="oauth-signup-accept-privacy">
-        <span>J'accepte la <button type="button" class="link-inline js-open-privacy">politique de confidentialité</button></span>
+        <span>J'accepte la <a class="link-inline" href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a></span>
       </label>
       <span class="form-error" id="oauth-signup-error-accept_privacy" hidden></span>
 
@@ -260,45 +260,6 @@ export const AUTH_MODALS_HTML = `
   </div>
 </div>
 
-<div class="modal-overlay" id="legal-modal-overlay" hidden>
-  <div class="modal-card modal-card--wide card">
-    <h3>Mentions légales</h3>
-    <div class="legal-text">
-      <p>Mathadap est un projet pédagogique développé à titre personnel, sans finalité commerciale. Il n'est pas
-      édité par une société immatriculée.</p>
-      <p><strong>Hébergement</strong> : dans sa version actuelle, l'application s'exécute en local sur la machine
-      de l'utilisateur (aucun hébergeur tiers).</p>
-      <p><strong>Contenu pédagogique</strong> : les exercices couvrent le programme de mathématiques de Seconde ;
-      les corrections sont générées à partir d'une banque d'exercices contrôlée, jamais par génération de texte
-      libre, pour garantir l'exactitude mathématique.</p>
-      <p><strong>Comptes utilisateurs</strong> : la création d'un compte est gratuite et sert uniquement à
-      sauvegarder ta progression personnelle (niveau, exercices, séries, avis).</p>
-    </div>
-    <div class="verdict-row"><button type="button" class="btn btn-primary" id="btn-legal-close">Fermer</button></div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="privacy-modal-overlay" hidden>
-  <div class="modal-card modal-card--wide card">
-    <h3>Politique de confidentialité</h3>
-    <div class="legal-text">
-      <p><strong>Données collectées</strong> : adresse email, nom d'utilisateur, pseudo, mot de passe (jamais
-      stocké en clair — haché avec un algorithme sécurisé), photo de profil optionnelle, et ta progression
-      d'apprentissage (réponses, séries, temps passé).</p>
-      <p><strong>Utilisation</strong> : ces données servent exclusivement à faire fonctionner ton compte et à
-      personnaliser ton expérience (niveau, recommandations d'exercices). Elles ne sont ni vendues, ni partagées
-      avec des tiers, ni utilisées à des fins publicitaires.</p>
-      <p><strong>Stockage</strong> : les comptes sont stockés dans une base de données locale au serveur
-      (SQLite) ; ta progression détaillée dans des fichiers associés à ton compte.</p>
-      <p><strong>Cookies</strong> : un unique cookie technique (session de connexion), nécessaire au
-      fonctionnement du compte — aucun cookie publicitaire ou de tracking tiers.</p>
-      <p><strong>Tes droits</strong> : tu peux modifier ton pseudo/photo depuis ton profil à tout moment, et
-      demander la suppression de ton compte et de tes données.</p>
-    </div>
-    <div class="verdict-row"><button type="button" class="btn btn-primary" id="btn-privacy-close">Fermer</button></div>
-  </div>
-</div>
-
 <div class="modal-overlay" id="policy-update-modal-overlay" hidden>
   <div class="modal-card card">
     <h3>Mise à jour de nos conditions</h3>
@@ -306,11 +267,11 @@ export const AUTH_MODALS_HTML = `
     accepter à nouveau pour continuer à utiliser Mathadap.</p>
     <label class="checkbox-row">
       <input type="checkbox" id="policy-update-accept-terms">
-      <span>J'accepte les <button type="button" class="link-inline js-open-legal">conditions d'utilisation</button></span>
+      <span>J'accepte les <a class="link-inline" href="cgu.html" target="_blank" rel="noopener">conditions d'utilisation</a></span>
     </label>
     <label class="checkbox-row">
       <input type="checkbox" id="policy-update-accept-privacy">
-      <span>J'accepte la <button type="button" class="link-inline js-open-privacy">politique de confidentialité</button></span>
+      <span>J'accepte la <a class="link-inline" href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a></span>
     </label>
     <span class="form-error form-error--global" id="policy-update-error" hidden></span>
     <div class="verdict-row">
