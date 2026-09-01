@@ -1,8 +1,8 @@
 # TODO — Prochaines améliorations possibles
 
-> Le produit s'appelle désormais **NovaMath** (anciennement Lumis). Les repères "Depuis Lumis V2/V3"
-> ci-dessous sont des jalons historiques réels et ne sont pas renommés, pour rester fidèles à quand
-> chaque point a été identifié.
+> Le produit s'appelle désormais **Mathadap** (anciennement NovaMath, elle-même anciennement Lumis).
+> Les repères "Depuis Lumis V2/V3" / "Depuis NovaMath vX.YY" ci-dessous sont des jalons historiques
+> réels et ne sont pas renommés, pour rester fidèles à quand chaque point a été identifié.
 
 ## Mode invité (depuis NovaMath v1.12)
 - [ ] Pas de navigateur headless disponible pour vérifier visuellement le nouveau composant sidebar
