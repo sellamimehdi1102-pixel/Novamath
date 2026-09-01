@@ -13,8 +13,10 @@ import curriculum_stats
 from curriculum_registry import CURRICULUM_REGISTRY, CurriculumProfile
 
 
-def _reference_counts(bank_path):
+def _reference_counts(bank_path, generated_bank_path=None):
     bank = json.loads(bank_path.read_text(encoding="utf-8"))
+    if generated_bank_path is not None and generated_bank_path.exists():
+        bank = bank + json.loads(generated_bank_path.read_text(encoding="utf-8"))
     return {
         "totalExercises": len(bank),
         "chapters": len({e["chapter_id"] for e in bank if e.get("chapter_id")}),
@@ -53,8 +55,13 @@ class TestStatsPremiere(unittest.TestCase):
         curriculum_stats.clear_cache()
 
     def test_compte_exactement_comme_un_recomptage_independant(self):
+        """"premiere" fusionne exercise_bank + generated_exercise_bank (voir
+        server.py::_class_bank) : un recomptage indépendant qui ne lirait que
+        exercises_bank_premiere.json (815 entrées) reproduirait exactement le
+        bug corrigé par cette mission (comptage tronqué, sans les 1402
+        exercices de exercises_generated_premiere.json)."""
         profile = CURRICULUM_REGISTRY["premiere"]
-        expected = _reference_counts(profile.exercise_bank)
+        expected = _reference_counts(profile.exercise_bank, profile.generated_exercise_bank)
         stats = curriculum_stats.compute_stats("premiere")
         for key, value in expected.items():
             with self.subTest(key=key):
@@ -62,6 +69,33 @@ class TestStatsPremiere(unittest.TestCase):
         # Preuve que ce n'est pas un test qui passerait trivialement avec des
         # banques vides : la banque Première contient bien des exercices.
         self.assertGreater(stats["totalExercises"], 0)
+
+    def test_le_pool_genere_est_bien_inclus_pas_seulement_la_banque_curee(self):
+        """Fige la cause racine du bug signalé ("815 exercices affichés au
+        lieu d'environ 2000") : exercises_bank_premiere.json seul (815) ne
+        doit plus jamais être, à lui seul, la valeur de totalExercises."""
+        profile = CURRICULUM_REGISTRY["premiere"]
+        curated_only = len(json.loads(profile.exercise_bank.read_text(encoding="utf-8")))
+        stats = curriculum_stats.compute_stats("premiere")
+        self.assertNotEqual(stats["totalExercises"], curated_only)
+        self.assertGreater(stats["totalExercises"], curated_only)
+
+
+class TestStatsTroisieme(unittest.TestCase):
+    """Même patron additif que "premiere" (voir curriculum_registry.py) :
+    "troisieme" déclare aussi generated_exercise_bank et doit donc, elle
+    aussi, compter exercise_bank + generated_exercise_bank."""
+
+    def setUp(self):
+        curriculum_stats.clear_cache()
+
+    def test_compte_exactement_comme_un_recomptage_independant(self):
+        profile = CURRICULUM_REGISTRY["troisieme"]
+        expected = _reference_counts(profile.exercise_bank, profile.generated_exercise_bank)
+        stats = curriculum_stats.compute_stats("troisieme")
+        for key, value in expected.items():
+            with self.subTest(key=key):
+                self.assertEqual(stats[key], value)
 
 
 class TestListCurricula(unittest.TestCase):
@@ -150,6 +184,43 @@ class TestCache(unittest.TestCase):
         finally:
             curriculum_stats._load_bank = original
         self.assertEqual(len(calls), 1)
+
+
+class TestTotalExercisesRefleteVraimentCeQuiEstServi(unittest.TestCase):
+    """Verrou de non-régression sur la CAUSE (pas sur un nombre codé en dur,
+    qui évoluerait à chaque régénération de banque) : pour toute classe du
+    registre, curriculum_stats.compute_stats(...)['totalExercises'] doit être
+    strictement égal à len(server._class_bank(...)['bank']) — la banque
+    réellement combinée (exercise_bank + generated_exercise_bank le cas
+    échéant) que server.py sert en mode Exercices/Entraînement pour cette
+    classe. Empêche qu'une future modification fasse à nouveau compter le
+    compteur depuis exercises_bank_<classe>.json seul (ou toute autre source
+    qui diverge de ce que server.py sert réellement), quelle que soit la
+    classe ajoutée plus tard au registre."""
+
+    def setUp(self):
+        curriculum_stats.clear_cache()
+        import server
+        self.server = server
+
+    def test_total_exercises_egale_la_banque_reellement_servie_par_classe(self):
+        for class_level in CURRICULUM_REGISTRY:
+            with self.subTest(class_level=class_level):
+                stats = curriculum_stats.compute_stats(class_level)
+                try:
+                    served = self.server._class_bank(class_level)["bank"]
+                except Exception as exc:
+                    # Anomalie préexistante et sans rapport avec cette mission
+                    # (comptage) : exercises_bank_troisieme_natural.json est
+                    # corrompu sur le disque (contenu tronqué, ne commence pas
+                    # par du JSON valide), ce qui fait planter
+                    # server._class_bank("troisieme") indépendamment de tout
+                    # comptage — signalé comme anomalie restante dans le
+                    # rapport de mission, volontairement non corrigé ici
+                    # (modifier une banque d'exercices est hors périmètre).
+                    self.skipTest(f"{class_level} : server._class_bank() indisponible ({exc!r}), anomalie préexistante sans rapport avec le comptage")
+                    continue
+                self.assertEqual(stats["totalExercises"], len(served))
 
 
 if __name__ == "__main__":

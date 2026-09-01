@@ -31,6 +31,20 @@ def _load_bank(exercise_bank_path):
     return json.loads(exercise_bank_path.read_text(encoding="utf-8"))
 
 
+# "seconde" est la seule classe dont server.py::_class_bank() NE fusionne PAS
+# generated_exercise_bank dans la banque réellement proposée en mode Exercices
+# (BANK y est chargé une fois au démarrage, via un chemin historique antérieur
+# à l'existence du pool généré — contrairement à "premiere"/"troisieme", qui
+# passent par la branche générique de _class_bank() et fusionnent bien
+# exercise_bank + generated_exercise_bank). Ce compteur doit refléter ce qui
+# est RÉELLEMENT servi à l'utilisateur, pas seulement ce que le registre
+# déclare comme additif : combler ce fossé nécessiterait de modifier le
+# chargement des exercices de Seconde dans server.py, hors périmètre de cette
+# correction (qui ne touche à aucune route de service d'exercices) — voir le
+# rapport de mission pour ce point signalé comme anomalie restante.
+_CLASS_LEVELS_WITHOUT_GENERATED_MERGE = frozenset({"seconde"})
+
+
 def compute_stats(class_level):
     """Statistiques d'un programme, mises en cache après le premier calcul
     (voir clear_cache() pour les tests). Une classe déclarée mais sans banque
@@ -39,6 +53,14 @@ def compute_stats(class_level):
     if class_level not in _cache:
         profile = CURRICULUM_REGISTRY[class_level]
         bank = _load_bank(profile.exercise_bank)
+        # Pool additif réellement fusionné par server.py::_class_bank() avant
+        # d'être proposé en mode Exercices (voir generated_exercise_bank dans
+        # curriculum_registry.py) — l'ignorer sous-comptait le nombre réel
+        # d'exercices disponibles pour "premiere" (815 affichés, alors que
+        # 815 + 1402 = 2217 sont réellement proposés une fois
+        # exercises_generated_premiere.json inclus) et pour "troisieme".
+        if class_level not in _CLASS_LEVELS_WITHOUT_GENERATED_MERGE:
+            bank = bank + _load_bank(profile.generated_exercise_bank)
         _cache[class_level] = {
             "classLevel": profile.id,
             "label": profile.label,
