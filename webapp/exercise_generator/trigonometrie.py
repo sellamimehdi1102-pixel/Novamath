@@ -388,3 +388,129 @@ def generate_pool(per_family: int = 12, seed: int = 20260901) -> list[dict]:
     for i, ex in enumerate(pool):
         ex["id"] = GENERATED_ID_OFFSET + i
     return pool
+
+
+# ── Familles supplémentaires — mission "diversification structurelle"
+# (2026-09-02) : combinaison_lineaire représentait à elle seule 47% du
+# chapitre (205/438) avec une seule structure ("A = a·cos(θ)+b·sin(θ) pour
+# UN angle", 98% de quasi-doublon). Nouvelles familles : deux angles
+# distincts combinés (recall de deux valeurs différentes) et une expression
+# quadratique liée à l'identité de Pythagore — jamais mélangées à
+# FAMILIES/generate_pool (baseline figée).
+
+def _gen_combinaison_deux_angles(rng: random.Random) -> Optional[dict]:
+    """A = a·cos(θ1) + b·cos(θ2) pour DEUX angles remarquables DIFFÉRENTS —
+    structure différente de _gen_combinaison_lineaire (un seul angle, cos et
+    sin du MÊME angle)."""
+    (label1, theta1, c1, s1), (label2, theta2, c2, s2) = rng.sample(_ANGLES[1:], 2)
+    a = _nz(rng, -4, 4)
+    b = _nz(rng, -4, 4)
+    valeur = sympy.simplify(a * c1 + b * s2)
+    a_txt = "-" if a == -1 else ("" if a == 1 else str(a))
+    b_txt = str(abs(b)) if abs(b) != 1 else ""
+    signe_b = "+" if b > 0 else "-"
+    expr_latex = f"{a_txt}\\cos\\left({label1}\\right) {signe_b} {b_txt}\\sin\\left({label2}\\right)"
+    enonce = f"Calculer $A = {expr_latex}$ (valeur exacte)."
+    answer = f"$A = {latex(valeur)}$"
+    steps = [
+        f"Étape 1 — On utilise $\\cos\\left({label1}\\right) = {latex(c1)}$ et $\\sin\\left({label2}\\right) = {latex(s2)}$ "
+        "(deux angles différents, donc deux valeurs à retenir séparément).",
+        f"Étape 2 — $A = {a} \\times {latex(c1)} {signe_b} {abs(b)} \\times {latex(s2)}$.",
+        f"Étape 3 — Après réduction au même dénominateur si besoin, {answer}.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_FONCTIONS}
+
+
+def _gen_expression_carre(rng: random.Random) -> Optional[dict]:
+    """Expression quadratique $\\cos^2(\\theta) - \\sin^2(\\theta)$ — utilise
+    une identité (liée à $\\cos(2\\theta)$), structure différente de
+    _gen_combinaison_lineaire (linéaire, pas de carré)."""
+    label, theta, c, s = rng.choice(_ANGLES[1:])
+    valeur = sympy.simplify(c ** 2 - s ** 2)
+    enonce = f"Calculer $B = \\cos^2\\left({label}\\right) - \\sin^2\\left({label}\\right)$ (valeur exacte)."
+    answer = f"$B = {latex(valeur)}$"
+    steps = [
+        f"Étape 1 — On utilise $\\cos\\left({label}\\right) = {latex(c)}$ et $\\sin\\left({label}\\right) = {latex(s)}$.",
+        f"Étape 2 — $B = \\left({latex(c)}\\right)^2 - \\left({latex(s)}\\right)^2$.",
+        f"Étape 3 — Après simplification, {answer} (cette quantité est égale à $\\cos(2\\times{label})$).",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_FONCTIONS}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "combinaison_deux_angles": 2.8,
+    "expression_carre": 3.2,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("combinaison_deux_angles", 3, "Combinaison de deux angles différents", NOTION_FONCTIONS,
+           _gen_combinaison_deux_angles, "deux angles remarquables distincts dans la même expression",
+           "remplacer chaque cos/sin par la valeur exacte de SON angle avant de combiner"),
+    Family("expression_carre", 3, "Expression quadratique cos²−sin²", NOTION_FONCTIONS, _gen_expression_carre,
+           "une différence de carrés de cosinus et sinus du même angle",
+           "élever au carré chaque valeur exacte puis soustraire"),
+)
+
+EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": f"Reconnais {family.structure_hint} : {family.rule_hint}.",
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": notes["notion"],
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 20260945) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool

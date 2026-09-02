@@ -160,6 +160,107 @@ class Family:
     rule_hint: str
 
 
+# ── Famille supplémentaire — mission "diversification structurelle"
+# (2026-09-02) : facteur_commun_simple (90%) reposait sur UNE SEULE
+# structure ("ax+b" avec un facteur NUMÉRIQUE commun). Nouvelle famille :
+# facteur commun VARIABLE ($x$ lui-même), $ax^2+bx = x(ax+b)$ — jamais
+# mélangée à FAMILIES/generate_pool (baseline figée).
+
+def _gen_facteur_commun_variable(rng):
+    a = _nz(rng, 1, 9)
+    b = _nz(rng, -9, 9)
+    if b == 0:
+        return None
+    enonce = f"Factoriser l'expression ${a}x^2 {'+' if b > 0 else '-'} {abs(b)}x$."
+    factored = f"x({_cx(a)}x {'+' if b > 0 else '-'} {abs(b)})"
+    check = expand(x * (a * x + b))
+    original = expand(a * x**2 + b * x)
+    if check != original:
+        return None
+    steps = [
+        f"Étape 1 — Les deux termes ${a}x^2$ et ${b}x$ contiennent tous les deux le facteur $x$.",
+        f"Étape 2 — On met $x$ en facteur : ${factored}$.",
+    ]
+    answer = f"${factored}$"
+    hint = "Repérer le facteur commun x (pas un nombre) présent dans les deux termes, puis le mettre en évidence."
+    return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "facteur_commun_variable": 1.8,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("facteur_commun_variable", 2, "Facteur commun variable (x)", _gen_facteur_commun_variable,
+           "une somme ax²+bx dont x est facteur commun", "mettre x en évidence : ax²+bx = x(ax+b)"),
+)
+
+EXTRA_FAMILIES_BY_ID = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    hint = notes.get("hint") or f"Reconnais {family.structure_hint} : {family.rule_hint}."
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": hint,
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": NOTION,
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 30260350) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool
+
+
 FAMILY_BASE_SCORE: dict[str, float] = {
     "facteur_commun_simple": 1.0,
     "verifier": 2.2,

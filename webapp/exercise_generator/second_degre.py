@@ -582,3 +582,117 @@ def generate_pool(per_family: int = 12, seed: int = 20260823) -> list[dict]:
     for i, ex in enumerate(pool):
         ex["id"] = GENERATED_ID_OFFSET + i
     return pool
+
+
+# ── Famille supplémentaire — mission "diversification structurelle"
+# (2026-09-02) : equation_depuis_racines était auditée à 96% de quasi-doublon
+# (toujours "a donné directement, b et c à reconstruire via S et P"). Nouvelle
+# structure : $a$ n'est PAS donné, il faut le retrouver via une valeur de $f$
+# en un point tiers — jamais mélangée à FAMILIES/generate_pool (baseline
+# figée).
+
+def _gen_equation_depuis_racines_et_point(rng):
+    r1 = _small(rng, -6, 6)
+    r2 = r1
+    while r2 == r1:
+        r2 = _small(rng, -6, 6)
+    a = rng.choice([1, 1, 2, 3, -1, -2])
+    x0 = _small(rng, -6, 6)
+    if x0 == r1 or x0 == r2:
+        return None
+    valeur = a * (x0 - r1) * (x0 - r2)
+    if valeur == 0:
+        return None
+    b, c = -a * (r1 + r2), a * r1 * r2
+    check = _roots_via_sympy(a, b, c)
+    if sorted(check, key=str) != sorted([S(r1), S(r2)], key=str):
+        return None
+    enonce = (
+        f"Une fonction $f$ du second degré admet pour racines $x_1={r1}$ et $x_2={r2}$, et vérifie "
+        f"$f({x0})={valeur}$. Déterminer l'expression de $f(x) = ax^2+bx+c$."
+    )
+    steps = [
+        f"Étape 1 — $f$ s'écrit sous forme factorisée $f(x) = a(x-{r1})(x-{r2})$.",
+        f"Étape 2 — $f({x0}) = a \\times ({x0-r1}) \\times ({x0-r2}) = {valeur}$, donc $a = "
+        f"\\dfrac{{{valeur}}}{{{(x0-r1)*(x0-r2)}}} = {a}$.",
+        f"Étape 3 — On développe : $b = -a(x_1+x_2) = {b}$ et $c = a\\,x_1x_2 = {c}$.",
+    ]
+    answer = f"$f(x) = {_fmt_eq(a, b, c).replace(' = 0', '')}$"
+    hint = "Utiliser la forme factorisée a(x-x1)(x-x2), évaluer en x0 pour trouver a, puis développer."
+    return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "equation_depuis_racines_et_point": 3.4,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("equation_depuis_racines_et_point", 4, "Retrouver une équation depuis ses racines et un point",
+           _gen_equation_depuis_racines_et_point, "deux racines et une valeur en un point tiers",
+           "évaluer la forme factorisée au point donné pour retrouver a, puis développer"),
+)
+
+EXTRA_FAMILIES_BY_ID = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    hint = notes.get("hint") or f"Reconnais {family.structure_hint} : {family.rule_hint}."
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": hint,
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": NOTION,
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 20260946) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool

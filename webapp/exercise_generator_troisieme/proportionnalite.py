@@ -176,6 +176,144 @@ def _gen_retrouver_taux(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_POURCENTAGE}
 
 
+# ── Familles supplémentaires — mission "diversification structurelle"
+# (2026-09-02) : pourcentage (94%) et retrouver_taux (97%) reposaient sur UN
+# SEUL scénario chacune (prix qui évolue une fois ; deux prix dont on
+# déduit le taux). Nouvelles familles : problème INVERSE (retrouver le prix
+# initial) et comparaison de deux évolutions — jamais mélangées à
+# FAMILIES/generate_pool (baseline figée).
+
+def _gen_pourcentage_prix_initial(rng: random.Random) -> Optional[dict]:
+    """Problème INVERSE : le prix FINAL est donné, il faut retrouver le prix
+    initial (division par le coefficient, pas multiplication) — structure
+    différente de _gen_pourcentage."""
+    prix_initial = rng.randint(20, 300)
+    taux = rng.choice([5, 10, 20, 25, 50])
+    sens = rng.choice(["augmentation", "diminution"])
+    if sens == "augmentation":
+        numerateur = prix_initial * (100 + taux)
+    else:
+        numerateur = prix_initial * (100 - taux)
+    if numerateur % 100 != 0:
+        return None
+    prix_final = numerateur // 100
+    coefficient_latex = _fmt_centimes(100 + taux) if sens == "augmentation" else _fmt_centimes(100 - taux)
+    enonce = (
+        f"Après une {sens} de {taux} %, un article coûte {prix_final} €. Quel était son prix initial ?"
+    )
+    answer = f"Prix initial $= {prix_initial}$ €"
+    steps = [
+        f"Étape 1 — Le coefficient multiplicateur de cette {sens} est ${coefficient_latex}$.",
+        f"Étape 2 — Le prix initial vérifie $\\text{{prix initial}} \\times {coefficient_latex} = {prix_final}$, "
+        f"donc $\\text{{prix initial}} = \\dfrac{{{prix_final}}}{{{coefficient_latex}}} = {prix_initial}$ €.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_POURCENTAGE}
+
+
+def _gen_comparer_taux(rng: random.Random) -> Optional[dict]:
+    """Comparaison de DEUX évolutions distinctes — tâche de comparaison, pas
+    seulement un calcul isolé (structure différente de _gen_retrouver_taux)."""
+    v1_init = rng.randint(20, 40) * 5
+    v1_final = v1_init + rng.choice([-1, 1]) * rng.randint(1, 8) * (v1_init // 20)
+    v2_init = rng.randint(20, 40) * 5
+    v2_final = v2_init + rng.choice([-1, 1]) * rng.randint(1, 8) * (v2_init // 20)
+    t1 = Rational((v1_final - v1_init) * 100, v1_init)
+    t2 = Rational((v2_final - v2_init) * 100, v2_init)
+    if t1 == t2:
+        return None
+    plus_forte = "A" if abs(t1) > abs(t2) else "B"
+    enonce = (
+        f"Le prix d'un article A passe de {v1_init} € à {v1_final} €, et le prix d'un article B passe de "
+        f"{v2_init} € à {v2_final} €. Quel article a subi l'évolution la plus importante en valeur relative ?"
+    )
+    answer = f"L'article {plus_forte} (taux de ${latex(t1)}\\%$ pour A contre ${latex(t2)}\\%$ pour B)."
+    steps = [
+        f"Étape 1 — Taux d'évolution de A : $\\dfrac{{{v1_final}-{v1_init}}}{{{v1_init}}} \\times 100 = {latex(t1)}\\%$.",
+        f"Étape 2 — Taux d'évolution de B : $\\dfrac{{{v2_final}-{v2_init}}}{{{v2_init}}} \\times 100 = {latex(t2)}\\%$.",
+        f"Étape 3 — On compare les valeurs ABSOLUES des deux taux : {answer}",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_POURCENTAGE}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "pourcentage_prix_initial": 2.6,
+    "comparer_taux": 3.8,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("pourcentage_prix_initial", 3, "Retrouver le prix initial", NOTION_POURCENTAGE,
+           _gen_pourcentage_prix_initial, "un prix final et un taux d'évolution donnés",
+           "diviser le prix final par le coefficient multiplicateur"),
+    Family("comparer_taux", 4, "Comparer deux évolutions de pourcentage", NOTION_POURCENTAGE,
+           _gen_comparer_taux, "deux évolutions de prix distinctes à comparer",
+           "calculer les deux taux puis comparer leurs valeurs absolues"),
+)
+
+EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": f"Reconnais {family.structure_hint} : {family.rule_hint}.",
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": notes["notion"],
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 30260250) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool
+
+
 FAMILY_BASE_SCORE: dict[str, float] = {
     "quatrieme_proportionnelle": 1.0,
     "reconnaitre": 1.6,

@@ -101,6 +101,21 @@ _BASELINE_MODULES = _BASELINE_MODULES + (
     ("volumes_espace", volumes_espace, 18, 30260306),
 )
 
+# ── Mission "diversification structurelle" (2026-09-02) ────────────────────
+# Modules dotés d'un generate_extra_pool() (nouvelles FAMILLES à structure
+# réellement différente) — voir l'audit de diversité (40 familles à
+# quasi-doublon ≥90% détectées, une seule structure malgré des coefficients
+# variés). (nom, module, seed, per_family)
+_DIVERSITY_MODULES = (
+    ("factoriser_somme", factoriser_somme, 30260350, 12),
+    ("nombres_relatifs", nombres_relatifs, 30260150, 12),
+    ("proportionnalite", proportionnalite, 30260250, 12),
+    ("statistiques", statistiques, 30260250, 12),
+    ("probabilites_troisieme", probabilites_troisieme, 30260450, 12),
+    ("thales", thales, 30260350, 12),
+    ("volumes_espace", volumes_espace, 30260350, 12),
+)
+
 
 def _check_family_calibration(pool: list[dict], module_name: str) -> list[str]:
     problems = []
@@ -164,6 +179,15 @@ def main() -> None:
         per_module_counts[label] = len(extra_pool)
         combined.extend(extra_pool)
         baseline_enonces_by_module.setdefault(name, set()).update(e["enonce"] for e in extra_pool)
+
+    # ── Mission "diversification structurelle" (2026-09-02) ────────────────
+    for name, module, seed_div, per_family_div in _DIVERSITY_MODULES:
+        diversity_pool = module.generate_extra_pool(per_family=per_family_div, seed=seed_div)
+        seen = baseline_enonces_by_module.get(name, set())
+        diversity_pool = [ex for ex in diversity_pool if ex["enonce"] not in seen]
+        all_problems.extend(_check_family_calibration(diversity_pool, f"{name} (diversité)"))
+        per_module_counts[f"{name} (diversité)"] = len(diversity_pool)
+        combined.extend(diversity_pool)
 
     ids = [ex["id"] for ex in combined]
     if len(ids) != len(set(ids)):

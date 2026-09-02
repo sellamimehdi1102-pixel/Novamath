@@ -126,6 +126,150 @@ def _gen_etendue(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_MEDIANE}
 
 
+# ── Familles supplémentaires — mission "diversification structurelle"
+# (2026-09-02) : mediane_pair (93%) et moyenne_ponderee (93%) reposaient
+# chacune sur UNE SEULE structure (liste de valeurs triées ; moyenne
+# directe). Nouvelles familles : tableau d'EFFECTIFS (pas une simple liste)
+# et problème INVERSE (retrouver une note manquante) — jamais mélangées à
+# FAMILIES/generate_pool (baseline figée).
+
+def _gen_mediane_tableau_effectifs(rng: random.Random) -> Optional[dict]:
+    """Médiane à partir d'un TABLEAU D'EFFECTIFS (valeur → nombre
+    d'occurrences), pas d'une simple liste déjà énumérée — il faut d'abord
+    reconstituer l'effectif total et la position centrale, structure
+    différente de _gen_mediane_pair/_gen_mediane_impair."""
+    n_valeurs = rng.choice([3, 4])
+    valeurs = sorted(rng.sample(range(0, 20), n_valeurs))
+    effectifs = [rng.randint(2, 8) for _ in range(n_valeurs)]
+    total = sum(effectifs)
+    serie = []
+    for v, e in zip(valeurs, effectifs):
+        serie.extend([v] * e)
+    serie.sort()
+    if total % 2 == 0:
+        mediane = Rational(serie[total // 2 - 1] + serie[total // 2], 2)
+    else:
+        mediane = serie[total // 2]
+    table = ", ".join(f"{v} (effectif {e})" for v, e in zip(valeurs, effectifs))
+    enonce = (
+        f"Une série statistique est donnée par le tableau d'effectifs suivant : {table}. "
+        f"Déterminer la médiane de cette série."
+    )
+    answer = f"Médiane $= {latex(mediane)}$"
+    steps = [
+        f"Étape 1 — L'effectif total est ${total}$ (somme des effectifs).",
+        "Étape 2 — On reconstitue la série triée à partir des effectifs, puis on repère la ou les valeurs centrales.",
+        f"Étape 3 — Médiane $= {latex(mediane)}$.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_MEDIANE}
+
+
+def _gen_moyenne_ponderee_inverse(rng: random.Random) -> Optional[dict]:
+    """Problème INVERSE : la moyenne pondérée finale est donnée, une note
+    est inconnue — il faut résoudre une équation, pas seulement appliquer la
+    formule (structure différente de _gen_moyenne_ponderee)."""
+    n = rng.randint(3, 4)
+    valeurs_connues = [rng.randint(4, 18) for _ in range(n - 1)]
+    poids = [rng.randint(1, 4) for _ in range(n)]
+    note_inconnue = rng.randint(4, 18)
+    total_poids = sum(poids)
+    somme_ponderee = sum(v * p for v, p in zip(valeurs_connues, poids[:-1])) + note_inconnue * poids[-1]
+    moyenne = Rational(somme_ponderee, total_poids)
+    table = ", ".join(f"{v} (coefficient {p})" for v, p in zip(valeurs_connues, poids[:-1]))
+    enonce = (
+        f"Un élève a obtenu les notes suivantes : {table}, et une dernière note $x$ inconnue "
+        f"(coefficient {poids[-1]}). Sachant que sa moyenne pondérée générale est ${latex(moyenne)}$, "
+        f"déterminer $x$."
+    )
+    answer = f"$x = {note_inconnue}$"
+    connu_latex = " + ".join(f"{v} \\times {p}" for v, p in zip(valeurs_connues, poids[:-1]))
+    steps = [
+        f"Étape 1 — La moyenne pondérée s'écrit $\\dfrac{{{connu_latex} + x \\times {poids[-1]}}}{{{total_poids}}} = {latex(moyenne)}$.",
+        f"Étape 2 — En multipliant par ${total_poids}$ : ${sum(v*p for v,p in zip(valeurs_connues, poids[:-1]))} + {poids[-1]}x = {somme_ponderee}$.",
+        f"Étape 3 — $x = \\dfrac{{{somme_ponderee} - {sum(v*p for v,p in zip(valeurs_connues, poids[:-1]))}}}{{{poids[-1]}}} = {note_inconnue}$.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_MOYENNE}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "mediane_tableau_effectifs": 2.0,
+    "moyenne_ponderee_inverse": 3.6,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("mediane_tableau_effectifs", 2, "Médiane à partir d'un tableau d'effectifs", NOTION_MEDIANE,
+           _gen_mediane_tableau_effectifs, "un tableau d'effectifs (valeur, effectif) à reconstituer",
+           "reconstituer la série triée à partir des effectifs avant de repérer le centre"),
+    Family("moyenne_ponderee_inverse", 4, "Retrouver une note connaissant la moyenne", NOTION_MOYENNE,
+           _gen_moyenne_ponderee_inverse, "une moyenne pondérée finale connue, une note inconnue",
+           "poser l'équation de la moyenne pondérée et résoudre en la note inconnue"),
+)
+
+EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": f"Reconnais {family.structure_hint} : {family.rule_hint}.",
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": notes["notion"],
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 30260250) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool
+
+
 FAMILY_BASE_SCORE: dict[str, float] = {
     "etendue": 1.0,
     "moyenne_simple": 1.4,

@@ -202,6 +202,235 @@ def _gen_ensemble_points_distance(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_ENSEMBLE_POINTS}
 
 
+# ── Familles supplémentaires — mission "diversification structurelle"
+# (2026-09-02) : ces 5 familles (equation_cercle, centre_rayon_reduite,
+# point_appartient_cercle, ensemble_points_distance, equation_depuis_normal)
+# étaient auditées à 92-98% de quasi-doublon (une seule structure, malgré
+# des coefficients variés). Nouvelles familles : tâches et objets
+# géométriques réellement différents — jamais mélangées à
+# FAMILIES/generate_pool (baseline figée).
+
+def _gen_equation_cercle_diametre(rng: random.Random) -> Optional[dict]:
+    """Cercle de diamètre [AB] : il faut calculer le centre (milieu de AB)
+    ET le rayon (moitié de AB, avec racine carrée si besoin) avant d'écrire
+    l'équation — structure différente de _gen_equation_cercle (centre/rayon
+    donnés directement)."""
+    xa, ya = _nz(rng, -6, 6), _nz(rng, -6, 6)
+    xb, yb = xa + rng.choice([-8, -6, -4, 4, 6, 8]), ya + rng.choice([-8, -6, -4, 4, 6, 8])
+    xc, yc = Rational(xa + xb, 2), Rational(ya + yb, 2)
+    r2 = Rational((xb - xa) ** 2 + (yb - ya) ** 2, 4)
+    xterm = f"(x - {latex(xc)})" if xc > 0 else f"(x + {latex(-xc)})"
+    yterm = f"(y - {latex(yc)})" if yc > 0 else f"(y + {latex(-yc)})"
+    enonce = (
+        f"On donne $A({xa}\\,;\\,{ya})$ et $B({xb}\\,;\\,{yb})$. Déterminer l'équation cartésienne du cercle "
+        f"de diamètre $[AB]$."
+    )
+    answer = f"${xterm}^2 + {yterm}^2 = {latex(r2)}$"
+    steps = [
+        f"Étape 1 — Le centre du cercle est le milieu de $[AB]$ : $\\Omega\\left({latex(xc)}\\,;\\,{latex(yc)}\\right)$.",
+        f"Étape 2 — Le rayon vaut $r = \\dfrac{{AB}}{{2}}$, donc $r^2 = \\dfrac{{AB^2}}{{4}} = "
+        f"\\dfrac{{({xb - xa})^2 + ({yb - ya})^2}}{{4}} = {latex(r2)}$.",
+        f"Étape 3 — {answer}",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_EQUATION_CERCLE}
+
+
+def _gen_centre_rayon_irrationnel(rng: random.Random) -> Optional[dict]:
+    """Équation réduite dont le rayon n'est PAS un entier (r² non carré
+    parfait) : il faut simplifier une racine carrée, pas seulement lire un
+    entier — structure différente de _gen_centre_rayon_reduite."""
+    a, b = _nz(rng, -8, 8), _nz(rng, -8, 8)
+    r2 = rng.choice([8, 12, 18, 20, 24, 27, 45, 50, 75])
+    rayon = sympy.simplify(sqrt(r2))
+    xa = f"(x - {a})" if a > 0 else f"(x + {-a})"
+    yb = f"(y - {b})" if b > 0 else f"(y + {-b})"
+    enonce = f"Le cercle $\\mathcal{{C}}$ a pour équation ${xa}^2 + {yb}^2 = {r2}$. Donner son centre et son rayon (valeur exacte simplifiée)."
+    answer = f"Centre $\\Omega({a}\\,;\\,{b})$, rayon $r = {latex(rayon)}$."
+    steps = [
+        "Étape 1 — Par identification avec $(x-a)^2+(y-b)^2=r^2$, on a $a = " + str(a) + "$ et $b = " + str(b) + "$.",
+        f"Étape 2 — $r^2 = {r2}$, donc $r = \\sqrt{{{r2}}} = {latex(rayon)}$ (racine simplifiée).",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_EQUATION_CERCLE}
+
+
+def _gen_position_point_cercle(rng: random.Random) -> Optional[dict]:
+    """Classification TERNAIRE (intérieur / sur / extérieur), pas une simple
+    réponse oui/non — structure différente de _gen_point_appartient_cercle."""
+    a, b = _nz(rng, -7, 7), _nz(rng, -7, 7)
+    r = rng.randint(3, 9)
+    r2 = r * r
+    choix = rng.choice(["interieur", "sur", "exterieur"])
+    if choix == "sur":
+        mx, my = a + r, b
+    elif choix == "interieur":
+        mx, my = a + rng.randint(0, r - 1), b
+    else:
+        mx, my = a + r + rng.randint(1, 6), b
+    dist2 = (mx - a) ** 2 + (my - b) ** 2
+    if dist2 < r2:
+        position = "à l'intérieur du cercle"
+    elif dist2 == r2:
+        position = "sur le cercle"
+    else:
+        position = "à l'extérieur du cercle"
+    xa = f"(x - {a})" if a > 0 else f"(x + {-a})"
+    yb = f"(y - {b})" if b > 0 else f"(y + {-b})"
+    enonce = (
+        f"Le cercle $\\mathcal{{C}}$ a pour équation ${xa}^2 + {yb}^2 = {r2}$. "
+        f"Le point $M({mx}\\,;\\,{my})$ est-il à l'intérieur, sur, ou à l'extérieur de $\\mathcal{{C}}$ ?"
+    )
+    answer = f"$M$ est {position} (car $\\Omega M^2 = {dist2}$ à comparer à $r^2 = {r2}$)."
+    steps = [
+        f"Étape 1 — On calcule $\\Omega M^2 = ({mx}-({a}))^2 + ({my}-({b}))^2 = {dist2}$.",
+        "Étape 2 — Si $\\Omega M^2 < r^2$, $M$ est à l'intérieur ; si $\\Omega M^2 = r^2$, $M$ est sur le cercle ; sinon $M$ est à l'extérieur.",
+        f"Étape 3 — {answer}",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_EQUATION_CERCLE}
+
+
+def _gen_mediatrice(rng: random.Random) -> Optional[dict]:
+    """Ensemble des points équidistants de deux points A et B : c'est une
+    DROITE (la médiatrice), pas un cercle — objet géométrique différent de
+    _gen_ensemble_points_distance, même notion du chapitre."""
+    xa, ya = _nz(rng, -6, 6), _nz(rng, -6, 6)
+    xb, yb = xa + _nz(rng, -8, 8), ya + _nz(rng, -8, 8)
+    if (xa, ya) == (xb, yb):
+        return None
+    # AM²=BM² développé donne une équation affine en x,y.
+    d = 2 * (xb - xa)
+    e = 2 * (yb - ya)
+    f_const = (xa ** 2 + ya ** 2) - (xb ** 2 + yb ** 2)
+    droite_latex = f"{d}x{_fmt_signed(e, 'y')}{_fmt_signed(f_const, '')} = 0"
+    enonce = (
+        f"Déterminer l'ensemble des points $M(x\\,;\\,y)$ du plan tels que $AM = BM$, où "
+        f"$A({xa}\\,;\\,{ya})$ et $B({xb}\\,;\\,{yb})$."
+    )
+    answer = f"C'est la médiatrice de $[AB]$, d'équation ${droite_latex}$."
+    steps = [
+        f"Étape 1 — $AM = BM \\iff AM^2 = BM^2 \\iff (x-{xa})^2+(y-{ya})^2 = (x-{xb})^2+(y-{yb})^2$.",
+        "Étape 2 — En développant, les termes en $x^2$ et $y^2$ s'éliminent : il reste une équation du premier degré.",
+        f"Étape 3 — {answer} C'est la médiatrice de $[AB]$ (droite perpendiculaire à $[AB]$ en son milieu).",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_ENSEMBLE_POINTS}
+
+
+def _gen_droite_parallele_par_point(rng: random.Random) -> Optional[dict]:
+    """Droite parallèle à une droite DONNÉE (par son équation), passant par
+    un point — structure différente de _gen_equation_depuis_normal (qui part
+    d'un vecteur normal donné isolément, pas d'une droite déjà existante)."""
+    a, b = _nz(rng, -8, 8), _nz(rng, -8, 8)
+    c0 = rng.randint(-10, 10)
+    px, py = _nz(rng, -7, 7), _nz(rng, -7, 7)
+    if a * px + b * py + c0 == 0:
+        return None
+    c = -(a * px + b * py)
+    droite_d_latex = f"{a}x{_fmt_signed(b, 'y')}{_fmt_signed(c0, '')} = 0"
+    droite_parallele_latex = f"{a}x{_fmt_signed(b, 'y')}{_fmt_signed(c, '')} = 0"
+    enonce = (
+        f"On donne la droite $\\mathcal{{D}} : {droite_d_latex}$ et le point $A({px}\\,;\\,{py})$, "
+        f"n'appartenant pas à $\\mathcal{{D}}$. Déterminer une équation cartésienne de la droite "
+        f"$\\mathcal{{D}}'$ parallèle à $\\mathcal{{D}}$ passant par $A$."
+    )
+    answer = f"$\\mathcal{{D}}' : {droite_parallele_latex}$"
+    steps = [
+        f"Étape 1 — Deux droites parallèles ont le même vecteur normal : $\\vec{{n}}\\begin{{pmatrix}} {a} \\\\ {b} \\end{{pmatrix}}$ convient encore.",
+        f"Étape 2 — $\\mathcal{{D}}'$ a donc une équation de la forme ${a}x{_fmt_signed(b,'y')}+c=0$, et $A \\in \\mathcal{{D}}'$ donne "
+        f"${a} \\times {px} + {b} \\times {py} + c = 0$, soit $c = {c}$.",
+        f"Étape 3 — {answer}",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VECTEUR_NORMAL}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "equation_cercle_diametre": 1.8,
+    "position_point_cercle": 2.0,
+    "mediatrice": 2.4,
+    "centre_rayon_irrationnel": 2.8,
+    "droite_parallele_par_point": 3.4,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("equation_cercle_diametre", 2, "Cercle de diamètre [AB]", NOTION_EQUATION_CERCLE,
+           _gen_equation_cercle_diametre, "deux points définissant un diamètre",
+           "centre = milieu de [AB], rayon = AB/2"),
+    Family("position_point_cercle", 2, "Position d'un point par rapport à un cercle", NOTION_EQUATION_CERCLE,
+           _gen_position_point_cercle, "un point à classer par rapport à un cercle",
+           "comparer ΩM² à r² (intérieur, sur, ou extérieur)"),
+    Family("mediatrice", 3, "Médiatrice de deux points", NOTION_ENSEMBLE_POINTS, _gen_mediatrice,
+           "deux points équidistants d'un point M cherché", "AM=BM se traduit par une équation de droite après développement"),
+    Family("centre_rayon_irrationnel", 3, "Cercle de rayon irrationnel", NOTION_EQUATION_CERCLE,
+           _gen_centre_rayon_irrationnel, "une équation dont le rayon carré n'est pas un carré parfait",
+           "simplifier √(r²) sous la forme k√n"),
+    Family("droite_parallele_par_point", 4, "Droite parallèle passant par un point", NOTION_VECTEUR_NORMAL,
+           _gen_droite_parallele_par_point, "une droite existante et un point extérieur",
+           "conserver le même vecteur normal, ajuster c avec le point"),
+)
+
+EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 20260948) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": f"Reconnais {family.structure_hint} : {family.rule_hint}.",
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": notes["notion"],
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
 FAMILY_BASE_SCORE: dict[str, float] = {
     "equation_cercle": 1.0,
     "centre_rayon_reduite": 1.2,

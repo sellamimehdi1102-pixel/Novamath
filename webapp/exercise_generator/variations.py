@@ -708,3 +708,135 @@ def generate_pool(per_family: int = 12, seed: int = 20260819) -> list[dict]:
     for i, ex in enumerate(pool):
         ex["id"] = GENERATED_ID_OFFSET + i
     return pool
+
+
+# ── Familles supplémentaires — mission "diversification structurelle"
+# (2026-09-02) : extremum_inverse (toujours "f(x)=x³+px+q, extremum en x0
+# donné, retrouver p") et optimisation (toujours "boîte sans couvercle
+# découpée dans un carré") étaient auditées à 91-93% de quasi-doublon malgré
+# la diversité déjà réelle du reste du module — un seul scénario chacune.
+# Nouvelles familles : un scénario d'optimisation géométrique différent
+# (quadratique, pas cubique) et un problème inversé sur une parabole (pas un
+# cube) — jamais mélangées à FAMILIES/generate_pool (baseline figée).
+
+def _build_optimisation_enclos(rng: random.Random) -> Optional[dict]:
+    """Aire maximale d'un enclos rectangulaire adossé à un mur, périmètre de
+    clôture fixé : $A(x) = x(P-2x)$, une fonction du SECOND degré — structure
+    différente de _build_optimisation (cubique, découpe de carrés)."""
+    P = rng.randint(20, 80)
+    if P % 2 != 0:
+        P += 1
+    A_expr = x * (P - 2 * x)
+    Aprime = sympy.expand(diff(A_expr, x))
+    x0 = solve(sympy.Eq(Aprime, 0), x)
+    if len(x0) != 1 or x0[0] <= 0 or x0[0] >= Rational(P, 2):
+        return None
+    x0 = x0[0]
+    a_max = simplify(A_expr.subs(x, x0))
+    fam = EXTRA_FAMILIES_BY_ID["optimisation_enclos"]
+    interval_latex = _interval_latex(S(0), Rational(P, 2))
+    answer = f"L'aire est maximale pour $x = {latex(x0)}$ m, et vaut alors $A({latex(x0)}) = {latex(a_max)}$ m²."
+    steps = [
+        f"Étape 1 — Un enclos adossé à un mur, de longueur de clôture totale ${P}$ m et de largeur $x$, a pour "
+        f"longueur ${P}-2x$ et pour aire $A(x) = x({P}-2x)$, pour $x \\in {interval_latex}$.",
+        f"Étape 2 — $A'(x) = {latex(Aprime)}$.",
+        f"Étape 3 — $A'(x) = 0$ pour $x = {latex(x0)}$, et $A$ est croissante puis décroissante sur ${interval_latex}$.",
+        f"Étape 4 — Conclusion : {answer}",
+    ]
+    return _make_result(
+        enonce=(
+            f"On dispose de ${P}$ m de clôture pour délimiter un enclos rectangulaire adossé à un mur (le mur "
+            f"ne nécessite pas de clôture). En notant $x$ la largeur de l'enclos (les deux côtés perpendiculaires "
+            f"au mur), l'aire de l'enclos est $A(x) = x({P}-2x)$ pour $x \\in {interval_latex}$. Étudier les "
+            "variations de $A$ et déterminer la largeur $x$ qui maximise l'aire, ainsi que cette aire maximale."
+        ),
+        answer=answer, hint=fam.rule_hint, steps=steps,
+        notion=NOTION_EXTREMUMS, family=fam, score=_score(A_expr, bonus=3.0),
+    )
+
+
+def _build_extremum_parabole_cible(rng: random.Random) -> Optional[dict]:
+    """Problème inversé sur une PARABOLE (f(x)=x²+bx+c), avec pour donnée le
+    MINIMUM ATTEINT (pas l'abscisse) — structure différente de
+    _build_extremum_inverse (cubique, abscisse imposée)."""
+    b_secret = rng.choice([n for n in range(-10, 11) if n != 0])
+    c = rng.randint(-5, 15)
+    f_expr = x**2 + b_secret * x + c
+    x0 = -Rational(b_secret, 2)
+    minimum = simplify(f_expr.subs(x, x0))
+    b_sym = symbols("b")
+    f_param = x**2 + b_sym * x + c
+    x0_param = -b_sym / 2
+    minimum_param = simplify(f_param.subs(x, x0_param))
+    solutions = solve(sympy.Eq(minimum_param, minimum), b_sym)
+    solutions = [s for s in solutions if s != 0]
+    if not solutions:
+        return None
+    fam = EXTRA_FAMILIES_BY_ID["extremum_parabole_cible"]
+    f_latex_param = latex(x**2 + b_sym * x + c)
+    enonce = (
+        f"Soit $f$ la fonction définie sur $\\mathbb{{R}}$ par $f(x) = {f_latex_param}$, où $b$ est un réel "
+        f"inconnu non nul. Sachant que le minimum de $f$ vaut ${latex(minimum)}$, déterminer les valeurs "
+        f"possibles de $b$."
+    )
+    answer = "$b \\in \\{" + ", ".join(latex(s) for s in sorted(solutions, key=lambda s: float(s))) + "\\}$"
+    steps = [
+        f"Étape 1 — $f'(x) = 2x + b$, qui s'annule en $x_0 = -\\dfrac{{b}}{{2}}$ : c'est là que se situe le minimum "
+        "(la parabole est tournée vers le haut).",
+        f"Étape 2 — Le minimum vaut $f(x_0) = {latex(minimum_param)}$.",
+        f"Étape 3 — On résout ${latex(minimum_param)} = {latex(minimum)}$ d'inconnue $b$ : {answer}.",
+    ]
+    return _make_result(
+        enonce=enonce, answer=answer, hint=fam.rule_hint, steps=steps,
+        notion=NOTION_EXTREMUMS, family=fam, score=_score(f_expr, bonus=3.6),
+    )
+
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("optimisation_enclos", 4, "Optimisation géométrique — enclos adossé à un mur", NOTION_EXTREMUMS,
+           _build_optimisation_enclos, "un problème d'optimisation d'aire sous contrainte de périmètre",
+           "modéliser l'aire par une fonction du second degré, dériver, puis conclure sur le maximum"),
+    Family("extremum_parabole_cible", 4, "Problème inversé sur une parabole (minimum imposé)", NOTION_EXTREMUMS,
+           _build_extremum_parabole_cible, "un coefficient inconnu à retrouver à partir de la VALEUR du minimum",
+           "exprimer le minimum en fonction du paramètre puis résoudre une équation"),
+)
+
+EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 20260930) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = build_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 100000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool

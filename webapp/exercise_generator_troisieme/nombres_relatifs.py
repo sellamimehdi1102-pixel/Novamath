@@ -157,6 +157,153 @@ def _gen_ecriture_scientifique(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_SCIENTIFIQUE}
 
 
+# ── Familles supplémentaires — mission "diversification structurelle"
+# (2026-09-02) : puissance (96%) et ecriture_scientifique (93%) reposaient
+# chacune sur UNE SEULE structure (calcul direct d'une puissance ; conversion
+# d'UN nombre). Nouvelles familles : règle du produit de puissances de même
+# base, et produit de deux nombres en écriture scientifique (avec
+# renormalisation de la mantisse) — jamais mélangées à
+# FAMILIES/generate_pool (baseline figée).
+
+def _gen_puissance_produit(rng: random.Random) -> Optional[dict]:
+    """Produit de deux puissances de MÊME BASE : $a^m \\times a^n = a^{m+n}$ —
+    utilise une règle de calcul (addition des exposants), structure
+    différente de _gen_puissance (calcul direct d'une seule puissance)."""
+    base = _nz(rng, -5, 5)
+    if abs(base) == 1:
+        return None
+    m = rng.randint(1, 3)
+    n = rng.randint(1, 3)
+    somme = m + n
+    resultat = base ** somme
+    enonce = f"Écrire $A = ({base})^{{{m}}} \\times ({base})^{{{n}}}$ sous la forme $({base})^{{p}}$, puis calculer $A$."
+    answer = f"$A = ({base})^{{{somme}}} = {resultat}$"
+    steps = [
+        f"Étape 1 — Pour multiplier deux puissances de même base, on ADDITIONNE les exposants : "
+        f"$({base})^{{{m}}} \\times ({base})^{{{n}}} = ({base})^{{{m}+{n}}} = ({base})^{{{somme}}}$.",
+        f"Étape 2 — $A = ({base})^{{{somme}}} = {resultat}$.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PUISSANCE}
+
+
+def _gen_ecriture_scientifique_produit(rng: random.Random) -> Optional[dict]:
+    """Produit de DEUX nombres donnés en écriture scientifique : il faut
+    multiplier les mantisses ET additionner les exposants, puis parfois
+    renormaliser si le produit des mantisses dépasse 10 — structure
+    différente de _gen_ecriture_scientifique (conversion d'un seul nombre)."""
+    m1 = rng.choice([1.5, 2, 2.5, 3, 4, 5])
+    m2 = rng.choice([1.5, 2, 2.5, 3, 4])
+    produit_mantisses = m1 * m2
+    e1 = rng.randint(-4, 5)
+    e2 = rng.randint(-4, 5)
+    exposant_brut = e1 + e2
+    if produit_mantisses >= 10:
+        mantisse_finale = produit_mantisses / 10
+        exposant_final = exposant_brut + 1
+    else:
+        mantisse_finale = produit_mantisses
+        exposant_final = exposant_brut
+
+    def _fmt(v):
+        return str(int(v)) if float(v).is_integer() else str(v)
+
+    m1_txt, m2_txt = _fmt(m1), _fmt(m2)
+    enonce = (
+        f"Calculer $A = ({m1_txt} \\times 10^{{{e1}}}) \\times ({m2_txt} \\times 10^{{{e2}}})$ et donner le "
+        f"résultat en écriture scientifique."
+    )
+    answer = f"$A = {_fmt(mantisse_finale)} \\times 10^{{{exposant_final}}}$"
+    steps = [
+        f"Étape 1 — On multiplie les mantisses entre elles et on additionne les exposants : "
+        f"${m1_txt} \\times {m2_txt} = {_fmt(produit_mantisses)}$ et $10^{{{e1}}} \\times 10^{{{e2}}} = 10^{{{exposant_brut}}}$.",
+    ] + (
+        [f"Étape 2 — La mantisse ${_fmt(produit_mantisses)}$ n'est pas comprise entre 1 et 10 : on la réécrit "
+         f"${_fmt(produit_mantisses)} = {_fmt(mantisse_finale)} \\times 10^{{1}}$, donc $A = {_fmt(mantisse_finale)} \\times 10^{{{exposant_final}}}$."]
+        if produit_mantisses >= 10 else
+        [f"Étape 2 — $A = {_fmt(mantisse_finale)} \\times 10^{{{exposant_final}}}$."]
+    )
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_SCIENTIFIQUE}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "puissance_produit": 2.8,
+    "ecriture_scientifique_produit": 3.6,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("puissance_produit", 3, "Produit de puissances de même base", NOTION_PUISSANCE,
+           _gen_puissance_produit, "un produit de deux puissances partageant la même base",
+           "additionner les exposants : a^m × a^n = a^(m+n)"),
+    Family("ecriture_scientifique_produit", 4, "Produit de deux écritures scientifiques", NOTION_SCIENTIFIQUE,
+           _gen_ecriture_scientifique_produit, "un produit de deux nombres donnés en écriture scientifique",
+           "multiplier les mantisses, additionner les exposants, renormaliser si besoin"),
+)
+
+EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": f"Reconnais {family.structure_hint} : {family.rule_hint}.",
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": notes["notion"],
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 30260150) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool
+
+
 FAMILY_BASE_SCORE: dict[str, float] = {
     "addition": 1.0,
     "mult_div": 1.6,

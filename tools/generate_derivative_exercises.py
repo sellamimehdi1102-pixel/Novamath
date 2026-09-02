@@ -99,6 +99,22 @@ _EXTENSION_MODULES = (
     ("variables_aleatoires", variables_aleatoires, 921260905, 90, 75, 5000),
 )
 
+# ── Mission "diversification structurelle" (2026-09-02) ────────────────────
+# Modules dotés d'un generate_extra_pool() (nouvelles FAMILLES à structure
+# réellement différente, pas des extensions numériques d'une famille
+# existante) — voir l'audit de diversité qui a identifié 40 familles à
+# quasi-doublon ≥90% (une seule structure malgré des coefficients variés).
+# (nom, module, seed, per_family)
+_DIVERSITY_MODULES = (
+    ("second_degre", second_degre, 20260946, 12),
+    ("variations", variations, 20260930, 12),
+    ("trigonometrie", trigonometrie, 20260945, 12),
+    ("produit_scalaire", produit_scalaire, 20260947, 12),
+    ("geometrie_reperee", geometrie_reperee, 20260948, 12),
+    ("probabilites_conditionnelles", probabilites_conditionnelles, 20260949, 12),
+    ("variables_aleatoires", variables_aleatoires, 20260950, 12),
+)
+
 
 def _check_family_calibration(pool: list[dict], module_name: str) -> list[str]:
     """Vérifie que la difficulté réelle moyenne croît avec le niveau déclaré
@@ -174,6 +190,20 @@ def main() -> None:
         # seulement contre la baseline — sinon risque de doublon d'énoncé
         # entre deux extensions successives.
         baseline_enonces_by_module.setdefault(name, set()).update(e["enonce"] for e in extra_pool)
+
+    # ── Mission "diversification structurelle" (2026-09-02) ────────────────
+    # Pools de nouvelles FAMILLES (structures de raisonnement réellement
+    # différentes, pas des variantes numériques d'une famille existante) —
+    # voir generate_extra_pool() dans chaque module. IDs dans un bloc dédié
+    # (GENERATED_ID_OFFSET + 8000) au sein de chaque module, jamais mélangés
+    # à generate_pool()/FAMILIES (baseline figée).
+    for name, module, seed_div, per_family_div in _DIVERSITY_MODULES:
+        diversity_pool = module.generate_extra_pool(per_family=per_family_div, seed=seed_div)
+        seen = baseline_enonces_by_module.get(name, set())
+        diversity_pool = [ex for ex in diversity_pool if ex["enonce"] not in seen]
+        all_problems.extend(_check_family_calibration(diversity_pool, f"{name} (diversité)"))
+        per_module_counts[f"{name} (diversité)"] = len(diversity_pool)
+        combined.extend(diversity_pool)
 
     # Collision d'id : garde-fou explicite (ne devrait jamais se déclencher
     # tant que les GENERATED_ID_OFFSET restent distincts et suffisamment

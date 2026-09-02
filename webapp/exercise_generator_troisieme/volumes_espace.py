@@ -137,6 +137,151 @@ def _gen_effet_volume(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_AGRANDISSEMENT}
 
 
+# ── Familles supplémentaires — mission "diversification structurelle"
+# (2026-09-02) : volume_pave, volume_prisme et volume_cylindre (94% chacune)
+# ne proposaient que le calcul DIRECT du volume. Nouvelles familles :
+# problèmes INVERSES (retrouver une dimension connaissant le volume) —
+# jamais mélangées à FAMILIES/generate_pool (baseline figée).
+
+def _gen_pave_retrouver_hauteur(rng: random.Random) -> Optional[dict]:
+    """Problème INVERSE : le volume et deux dimensions sont donnés, il faut
+    retrouver la troisième (division, pas multiplication) — structure
+    différente de _gen_volume_pave."""
+    L, l, h = rng.randint(3, 15), rng.randint(2, 12), rng.randint(2, 10)
+    volume = L * l * h
+    enonce = (
+        f"Un pavé droit a pour dimensions $L = {L}$ cm et $l = {l}$ cm, et pour volume $V = {volume}$ cm$^3$. "
+        f"Calculer sa hauteur $h$."
+    )
+    answer = f"$h = {h}$ cm"
+    steps = [
+        f"Étape 1 — Le volume d'un pavé droit est $V = L \\times l \\times h$, donc $h = \\dfrac{{V}}{{L \\times l}}$.",
+        f"Étape 2 — $h = \\dfrac{{{volume}}}{{{L} \\times {l}}} = \\dfrac{{{volume}}}{{{L*l}}} = {h}$ cm.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VOLUME}
+
+
+def _gen_prisme_retrouver_hauteur(rng: random.Random) -> Optional[dict]:
+    """Problème INVERSE : le volume et l'aire de la base sont donnés, il
+    faut retrouver la hauteur du prisme — structure différente de
+    _gen_volume_prisme."""
+    base, hauteur_triangle = rng.randint(4, 12), rng.randint(3, 10)
+    hauteur_prisme = rng.randint(3, 12)
+    aire_base = Rational(base * hauteur_triangle, 2)
+    volume = aire_base * hauteur_prisme
+    enonce = (
+        f"Un prisme droit a pour base un triangle d'aire ${latex(aire_base)}$ cm$^2$, et pour volume "
+        f"$V = {latex(volume)}$ cm$^3$. Calculer la hauteur du prisme."
+    )
+    answer = f"Hauteur $= {hauteur_prisme}$ cm"
+    steps = [
+        f"Étape 1 — $V = \\text{{aire de la base}} \\times \\text{{hauteur}}$, donc "
+        f"$\\text{{hauteur}} = \\dfrac{{V}}{{\\text{{aire de la base}}}}$.",
+        f"Étape 2 — Hauteur $= \\dfrac{{{latex(volume)}}}{{{latex(aire_base)}}} = {hauteur_prisme}$ cm.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VOLUME}
+
+
+def _gen_cylindre_retrouver_rayon(rng: random.Random) -> Optional[dict]:
+    """Problème INVERSE : le volume et la hauteur sont donnés, il faut
+    retrouver le RAYON (racine carrée), pas simplement appliquer la formule
+    directement — structure différente de _gen_volume_cylindre."""
+    r, h = rng.randint(2, 8), rng.randint(3, 15)
+    enonce = (
+        f"Un cylindre a pour hauteur $h = {h}$ cm et pour volume $V = {r**2 * h}\\pi$ cm$^3$. "
+        f"Calculer son rayon $r$."
+    )
+    answer = f"$r = {r}$ cm"
+    steps = [
+        f"Étape 1 — $V = \\pi r^2 h$, donc $r^2 = \\dfrac{{V}}{{\\pi h}} = \\dfrac{{{r**2*h}\\pi}}{{\\pi \\times {h}}} = {r**2}$.",
+        f"Étape 2 — $r = \\sqrt{{{r**2}}} = {r}$ cm (on garde la racine positive, une longueur étant positive).",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VOLUME}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "pave_retrouver_hauteur": 1.6,
+    "prisme_retrouver_hauteur": 2.4,
+    "cylindre_retrouver_rayon": 3.2,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("pave_retrouver_hauteur", 2, "Retrouver la hauteur d'un pavé droit", NOTION_VOLUME,
+           _gen_pave_retrouver_hauteur, "un volume et deux dimensions connues",
+           "h = V / (L × l)"),
+    Family("prisme_retrouver_hauteur", 3, "Retrouver la hauteur d'un prisme", NOTION_VOLUME,
+           _gen_prisme_retrouver_hauteur, "un volume et une aire de base connus",
+           "hauteur = V / aire de la base"),
+    Family("cylindre_retrouver_rayon", 4, "Retrouver le rayon d'un cylindre", NOTION_VOLUME,
+           _gen_cylindre_retrouver_rayon, "un volume et une hauteur connus",
+           "r² = V / (π×h), puis racine carrée"),
+)
+
+EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": f"Reconnais {family.structure_hint} : {family.rule_hint}.",
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": notes["notion"],
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 30260350) -> list[dict]:
+    """Pool de diversification structurelle (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool
+
+
 FAMILY_BASE_SCORE: dict[str, float] = {
     "volume_pave": 1.0,
     "volume_prisme": 1.8,

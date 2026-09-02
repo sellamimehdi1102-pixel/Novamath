@@ -51,6 +51,21 @@
      (2 nouveaux modules vecteurs_seconde/pourcentages_evolutions) →
      2275 exercices, ratio 1,51 (contre 2,0).
 
+5. "audit et maximisation de la diversité des exercices" (2026-09-02) :
+   un audit de diversité structurelle (voir webapp/tests/
+   test_diversite_structurelle.py) a détecté 40 familles génératrices
+   (≥15 exercices, ≥90% de "quasi-doublon" — un exercice avec l'énoncé
+   réduit à sa structure, tous les nombres remplacés par #) réduites à UNE
+   SEULE structure mathématique malgré des coefficients variés (ex.
+   "x²-5x+6=0" et "x²-7x+12=0" : même moule). Pour chacune, une ou
+   plusieurs familles SOEURS à structure réellement différente (problème
+   inverse, configuration géométrique alternative, représentation par
+   effectifs plutôt que probabilités, etc.) ont été ajoutées dans
+   generate_extra_pool() (jamais mélangées à generate_pool()/FAMILIES,
+   toujours figées) — Première 4373 → 4698 exercices, Troisième 3248 →
+   3434 exercices, Seconde inchangée (aucune famille Seconde n'était
+   CRITIQUE à l'audit).
+
 Ces tests portent sur la CAUSE (répartition réelle par chapitre, cohérence
 des chapter_id, absence de doublon/perte, non-régression du volume) plutôt
 que sur un total exact, qui évoluera à chaque régénération volontaire du
@@ -257,15 +272,15 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
 
     PLANCHERS_HISTORIQUES = {
         "premiere": {
-            "Chapitre_1": 425, "Chapitre_2": 420, "Chapitre_3": 567, "Chapitre_4": 420,
-            "Chapitre_5": 423, "Chapitre_6": 438, "Chapitre_7": 420, "Chapitre_8": 420,
-            "Chapitre_9": 420, "Chapitre_10": 420,
+            "Chapitre_1": 425, "Chapitre_2": 432, "Chapitre_3": 567, "Chapitre_4": 444,
+            "Chapitre_5": 423, "Chapitre_6": 457, "Chapitre_7": 486, "Chapitre_8": 480,
+            "Chapitre_9": 492, "Chapitre_10": 492,
         },
         "troisieme": {
-            "Chapitre_1": 177, "Chapitre_2": 230, "Chapitre_3": 203, "Chapitre_4": 254,
-            "Chapitre_5": 230, "Chapitre_6": 230, "Chapitre_7": 242, "Chapitre_8": 181,
-            "Chapitre_9": 230, "Chapitre_10": 230, "Chapitre_11": 180, "Chapitre_12": 210,
-            "Chapitre_13": 181, "Chapitre_14": 230, "Chapitre_15": 240,
+            "Chapitre_1": 177, "Chapitre_2": 254, "Chapitre_3": 203, "Chapitre_4": 266,
+            "Chapitre_5": 230, "Chapitre_6": 254, "Chapitre_7": 242, "Chapitre_8": 181,
+            "Chapitre_9": 254, "Chapitre_10": 260, "Chapitre_11": 180, "Chapitre_12": 210,
+            "Chapitre_13": 181, "Chapitre_14": 266, "Chapitre_15": 276,
         },
         "seconde": {
             "Chapitre_1": 164, "Chapitre_2": 196, "Chapitre_3": 160, "Chapitre_4": 161,
@@ -274,7 +289,7 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
         },
     }
 
-    TOTAL_MINIMUM = {"premiere": 4373, "troisieme": 3248, "seconde": 2275}
+    TOTAL_MINIMUM = {"premiere": 4698, "troisieme": 3434, "seconde": 2275}
 
     def test_aucun_chapitre_sous_son_plancher_historique(self):
         for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():
