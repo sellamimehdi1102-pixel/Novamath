@@ -84,6 +84,28 @@
    avait le même défaut — taux toujours entier — que son homologue
    Troisième `proportionnalite.py`).
 
+7. "chantier final : diversification numérique maximale" (2026-09-02) :
+   audit par notion (pas seulement par famille, pour éviter l'effet de
+   dilution déjà documenté à la mission 6) sur les banques réellement
+   servies. Deux gaps volumineux confirmés par lecture du code : Première
+   `geometrie_reperee.py` notion "Vecteur normal à une droite" (141
+   exercices, 0% de racine/fraction — `_gen_vecteur_normal`/
+   `_gen_equation_depuis_normal` ne font que LIRE des coefficients, aucun
+   calcul) et Troisième `developper_distributivite.py` (99 exercices, 0%
+   de fraction — coefficients toujours entiers). Nouvelle famille
+   `vecteur_normal_unitaire` (normalisation d'un vecteur normal, introduit
+   √(a²+b²) au dénominateur, rationalisé exactement par sympy) ajoutée EN
+   DERNIER dans `EXTRA_FAMILIES` de geometrie_reperee.py (jamais en tête,
+   pour ne pas décaler la séquence rng des 5 familles déjà committées) +
+   un pool complémentaire dédié (seed et bloc d'ID séparés) pour atteindre
+   52 exemplaires. Nouvelle famille `calcul_direct_fractionnaire`
+   (facteur fractionnaire devant la parenthèse) ajoutée à
+   developper_distributivite.py, qui n'avait pas encore de
+   generate_extra_pool() — volume plafonné à 20 (pas 36) pour respecter
+   RATIO_MAX_PAR_CLASSE["troisieme"]=1.7 déjà verrouillé (Chapitre_4 ne
+   doit jamais dépasser 1,7 × min = 1,7 × 177 ≈ 300). Première 4734 → 4786
+   (Ch8 480→532), Troisième 3470 → 3490 (Ch4 278→298), Seconde inchangée.
+
 Ces tests portent sur la CAUSE (répartition réelle par chapitre, cohérence
 des chapter_id, absence de doublon/perte, non-régression du volume) plutôt
 que sur un total exact, qui évoluera à chaque régénération volontaire du
@@ -291,11 +313,11 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
     PLANCHERS_HISTORIQUES = {
         "premiere": {
             "Chapitre_1": 425, "Chapitre_2": 444, "Chapitre_3": 567, "Chapitre_4": 456,
-            "Chapitre_5": 423, "Chapitre_6": 457, "Chapitre_7": 498, "Chapitre_8": 480,
+            "Chapitre_5": 423, "Chapitre_6": 457, "Chapitre_7": 498, "Chapitre_8": 532,
             "Chapitre_9": 492, "Chapitre_10": 492,
         },
         "troisieme": {
-            "Chapitre_1": 177, "Chapitre_2": 254, "Chapitre_3": 203, "Chapitre_4": 278,
+            "Chapitre_1": 177, "Chapitre_2": 254, "Chapitre_3": 203, "Chapitre_4": 298,
             "Chapitre_5": 230, "Chapitre_6": 266, "Chapitre_7": 242, "Chapitre_8": 181,
             "Chapitre_9": 254, "Chapitre_10": 260, "Chapitre_11": 180, "Chapitre_12": 210,
             "Chapitre_13": 181, "Chapitre_14": 266, "Chapitre_15": 288,
@@ -307,7 +329,7 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
         },
     }
 
-    TOTAL_MINIMUM = {"premiere": 4734, "troisieme": 3470, "seconde": 2290}
+    TOTAL_MINIMUM = {"premiere": 4786, "troisieme": 3490, "seconde": 2290}
 
     def test_aucun_chapitre_sous_son_plancher_historique(self):
         for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():

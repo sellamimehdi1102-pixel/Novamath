@@ -65,6 +65,9 @@ _NUMERIC_TARGETS = [
     ("exercise_generator_troisieme", "proportionnalite", "pourcentage_taux_decimal", "enonce", _DECIMAL_RE, 0.95),
     ("exercise_generator_troisieme", "volumes_espace", "volume_pave_dimension_decimale", "enonce", _DECIMAL_RE, 0.95),
     ("exercise_generator_seconde", "pourcentages_evolutions", "evolution_taux_decimal", "enonce", _DECIMAL_RE, 0.95),
+    # Mission "chantier final : diversification numérique maximale" (2026-09-02)
+    ("exercise_generator", "geometrie_reperee", "vecteur_normal_unitaire", "answer", _SQRT_RE, 0.90),
+    ("exercise_generator_troisieme", "developper_distributivite", "calcul_direct_fractionnaire", "enonce", _FRAC_RE, 0.95),
 ]
 
 
@@ -155,7 +158,7 @@ class TestNonRegressionApresDiversiteNumerique(unittest.TestCase):
     # Plancher = total juste après cette mission (voir rapport). Seconde
     # inclus cette fois (exercises_bank.json, pas de fichier "generated"
     # fusionné pour cette classe — voir tools/generate_seconde_curated_additions.py).
-    PLANCHER_GENERES = {"premiere": 3919, "troisieme": 1407}
+    PLANCHER_GENERES = {"premiere": 3971, "troisieme": 1427}
     PLANCHER_SECONDE_BANK = 2275
 
     def test_pool_genere_jamais_sous_son_plancher_post_diversite_numerique(self):

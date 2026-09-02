@@ -114,6 +114,14 @@ _DIVERSITY_MODULES = (
     ("probabilites_troisieme", probabilites_troisieme, 30260450, 12),
     ("thales", thales, 30260350, 12),
     ("volumes_espace", volumes_espace, 30260350, 12),
+    # Mission "chantier final : diversification numérique maximale"
+    # (2026-09-02) — per_family=20 : ce module n'avait AUCUNE famille dans
+    # EXTRA_FAMILIES avant cette mission, donc rien n'est décalé (voir
+    # geometrie_reperee.py pour le cas inverse). Volume plafonné à 20 (pas
+    # 36-50) pour respecter RATIO_MAX_PAR_CLASSE["troisieme"]=1.7 déjà
+    # verrouillé par test_exercise_chapter_balance.py — Chapitre_4 ne doit
+    # jamais dépasser 1,7 × min(chapitres) = 1,7 × 177 ≈ 300.
+    ("developper_distributivite", developper_distributivite, 30260550, 20),
 )
 
 

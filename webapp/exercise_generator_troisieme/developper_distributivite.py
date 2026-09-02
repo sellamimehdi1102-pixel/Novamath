@@ -10,7 +10,7 @@ import random
 from dataclasses import dataclass
 from typing import Callable, Optional
 
-from sympy import expand, latex, symbols
+from sympy import Rational, expand, latex, symbols
 
 x = symbols("x")
 
@@ -186,6 +186,113 @@ FAMILIES: tuple[Family, ...] = (
 )
 
 FAMILIES_BY_ID = {f.id: f for f in FAMILIES}
+
+
+# ── Famille supplémentaire — mission "chantier final : diversification
+# numérique maximale" (2026-09-02) : vérification par lecture du code —
+# k, b, c sont TOUJOURS des entiers (`_nz`/`randint`) dans les 5 familles de
+# ce module (99 exercices servis pour cette notion, 0% de fraction dans
+# l'audit). Nouvelle famille dédiée : facteur devant la parenthèse
+# FRACTIONNAIRE (ex. 1/2), vérifiée par sympy.expand avec Rational — jamais
+# mélangée à FAMILIES/generate_pool (baseline figée, déjà servie).
+
+def _gen_calcul_direct_fractionnaire(rng):
+    denom = rng.choice([2, 3, 4, 5])
+    k = Rational(_nz(rng, 1, 6), denom)
+    if k.q == 1:
+        return None  # simplifié en entier (ex. 4/2=2) : ne démontre plus un facteur fractionnaire
+    b = _nz(rng, 1, 9)
+    c = rng.randint(-9, 9)
+    expr = k * (b * x + c)
+    dev = expand(expr)
+    check = k * b * x + k * c
+    if expand(check) != dev:
+        return None
+    enonce = f"Développer l'expression ${latex(k)}{_fmt_parenthese(b, c)}$."
+    steps = [
+        f"Étape 1 — On distribue ${latex(k)}$ (une fraction, pas un entier) sur chaque terme : "
+        f"${latex(k)}\\times {b}x = {latex(k * b)}x$ et ${latex(k)}\\times({c}) = {latex(k * c)}$.",
+        f"Étape 2 — On obtient ${latex(dev)}$.",
+    ]
+    answer = f"${latex(dev)}$"
+    hint = "Le facteur devant la parenthèse peut être une fraction : on distribue exactement comme avec un entier."
+    return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "calcul_direct_fractionnaire": 2.4,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("calcul_direct_fractionnaire", 3, "Facteur fractionnaire devant la parenthèse",
+           _gen_calcul_direct_fractionnaire, "un produit d'une fraction par une somme",
+           "distribuer la fraction sur chaque terme comme on le ferait avec un entier"),
+)
+
+EXTRA_FAMILIES_BY_ID = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    hint = notes.get("hint") or f"Reconnais {family.structure_hint} : {family.rule_hint}."
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": hint,
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": NOTION,
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 30260450) -> list[dict]:
+    """Pool de diversification NUMÉRIQUE (mission 2026-09-02) — jamais
+    mélangé à generate_pool()/FAMILIES (baseline figée, déjà servie). IDs à
+    partir de GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool
 
 
 def _difficulty_bucket_from_score(score: float) -> int:

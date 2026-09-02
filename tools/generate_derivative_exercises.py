@@ -205,6 +205,36 @@ def main() -> None:
         per_module_counts[f"{name} (diversité)"] = len(diversity_pool)
         combined.extend(diversity_pool)
 
+    # ── Mission "chantier final : diversification numérique maximale"
+    # (2026-09-02) ── La famille vecteur_normal_unitaire (geometrie_reperee)
+    # est volontairement placée EN DERNIER dans EXTRA_FAMILIES (voir sa
+    # docstring) pour ne jamais décaler la séquence rng des 5 autres familles
+    # déjà committées. Pour la même raison, on ne peut PAS simplement monter
+    # le per_family PARTAGÉ de l'appel ci-dessus à 36 (cela décalerait aussi
+    # la séquence rng des 5 autres familles, qui consommeraient plus
+    # d'essais avant de s'arrêter) : un second appel 100% indépendant
+    # (seed dédié) sert uniquement à compléter CETTE famille au-delà des 12
+    # déjà produites, avec un bloc d'ID dédié (+8500) et une déduplication
+    # contre tout ce qui existe déjà dans `combined`.
+    _existing_enonces_global = {ex["enonce"] for ex in combined}
+    _vnu_top_up = geometrie_reperee.generate_extra_pool(per_family=40, seed=920260951)
+    _vnu_top_up = [
+        ex for ex in _vnu_top_up
+        if ex["family"] == "vecteur_normal_unitaire" and ex["enonce"] not in _existing_enonces_global
+    ]
+    _seen_vnu = set()
+    _vnu_dedup = []
+    for ex in _vnu_top_up:
+        if ex["enonce"] in _seen_vnu:
+            continue
+        _seen_vnu.add(ex["enonce"])
+        _vnu_dedup.append(ex)
+    _vnu_offset = geometrie_reperee.GENERATED_ID_OFFSET + 8500
+    for i, ex in enumerate(_vnu_dedup):
+        ex["id"] = _vnu_offset + i
+    per_module_counts["geometrie_reperee (vecteur_normal_unitaire, complément)"] = len(_vnu_dedup)
+    combined.extend(_vnu_dedup)
+
     # Collision d'id : garde-fou explicite (ne devrait jamais se déclencher
     # tant que les GENERATED_ID_OFFSET restent distincts et suffisamment
     # espacés — voir docstring de chaque module).

@@ -341,12 +341,57 @@ def _gen_droite_parallele_par_point(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VECTEUR_NORMAL}
 
 
+# ── Famille supplémentaire — mission "chantier final : diversification
+# numérique maximale" (2026-09-02) : vérification par lecture du code —
+# `_gen_vecteur_normal` et `_gen_equation_depuis_normal` (NOTION_VECTEUR_NORMAL,
+# n=141 exercices servis) se contentent de LIRE les coefficients (a,b) d'une
+# équation cartésienne, sans aucun calcul — jamais de racine ni de fraction
+# dans toute cette notion (0% des deux dans l'audit). Nouvelle famille
+# dédiée, pédagogiquement standard (normaliser un vecteur normal, programme
+# de 1ère spé) : introduit naturellement √(a²+b²) au dénominateur, vérifiée
+# exactement par sympy (‖n‖=1 recalculé, jamais supposé).
+
+def _gen_vecteur_normal_unitaire(rng: random.Random) -> Optional[dict]:
+    a, b = _nz(rng, -9, 9), _nz(rng, -9, 9)
+    c = rng.randint(-10, 10)
+    norme_carre = a * a + b * b
+    norme = sqrt(norme_carre)
+    if norme.is_rational:
+        return None  # norme entière : aucune diversité irrationnelle introduite, on retire ce tirage
+    ux = sympy.simplify(Rational(a) / norme)
+    uy = sympy.simplify(Rational(b) / norme)
+    if sympy.simplify(ux**2 + uy**2 - 1) != 0:
+        return None
+    # _fmt_signed(c, '') masquerait "1"/"-1" (conçu pour un terme en variable,
+    # pas une constante) -- ex. c=1 produirait "+  = 0" (bug déjà présent sur
+    # 3 exercices déjà committés de _gen_vecteur_normal, jamais corrigé ici
+    # pour ne pas y toucher : voir règle "ne modifie pas l'existant"). Cette
+    # famille NOUVELLE utilise un formatage correct dédié à la constante.
+    c_terme = "" if c == 0 else (f" + {c}" if c > 0 else f" - {abs(c)}")
+    droite_latex = f"{a}x{_fmt_signed(b, 'y')}{c_terme} = 0"
+    enonce = (
+        f"La droite $\\mathcal{{D}}$ a pour équation cartésienne ${droite_latex}$. "
+        f"Donner un vecteur normal UNITAIRE (de norme 1) à $\\mathcal{{D}}$."
+    )
+    answer = f"$\\vec{{n}}\\begin{{pmatrix}} {latex(ux)} \\\\ {latex(uy)} \\end{{pmatrix}}$"
+    a_sq = f"({a})" if a < 0 else str(a)
+    b_sq = f"({b})" if b < 0 else str(b)
+    steps = [
+        f"Étape 1 — Un vecteur normal à $\\mathcal{{D}}$ est $\\vec{{u}}\\begin{{pmatrix}} {a} \\\\ {b} \\end{{pmatrix}}$, "
+        f"de norme $\\|\\vec{{u}}\\| = \\sqrt{{{a_sq}^2+{b_sq}^2}} = \\sqrt{{{norme_carre}}} = {latex(norme)}$.",
+        f"Étape 2 — On divise chaque coordonnée par la norme (pas un carré parfait, elle reste irrationnelle) : "
+        f"{answer}.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VECTEUR_NORMAL}
+
+
 EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "equation_cercle_diametre": 1.8,
     "position_point_cercle": 2.0,
     "mediatrice": 2.4,
     "centre_rayon_irrationnel": 2.8,
     "droite_parallele_par_point": 3.4,
+    "vecteur_normal_unitaire": 3.0,
 }
 
 EXTRA_FAMILIES: tuple[Family, ...] = (
@@ -364,6 +409,14 @@ EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("droite_parallele_par_point", 4, "Droite parallèle passant par un point", NOTION_VECTEUR_NORMAL,
            _gen_droite_parallele_par_point, "une droite existante et un point extérieur",
            "conserver le même vecteur normal, ajuster c avec le point"),
+    # Ajoutée EN DERNIER (mission "chantier final", 2026-09-02) : une famille
+    # insérée plus tôt dans ce tuple décalerait la séquence de tirages rng
+    # (consommée séquentiellement, une famille après l'autre) pour TOUTES les
+    # familles suivantes, changeant leur contenu déjà généré/committé — voir
+    # generate_extra_pool() ci-dessous, qui traite EXTRA_FAMILIES dans l'ordre.
+    Family("vecteur_normal_unitaire", 3, "Vecteur normal unitaire", NOTION_VECTEUR_NORMAL,
+           _gen_vecteur_normal_unitaire, "un vecteur normal à normaliser (diviser par sa norme)",
+           "diviser chaque coordonnée par ‖n‖ = √(a²+b²)"),
 )
 
 EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
