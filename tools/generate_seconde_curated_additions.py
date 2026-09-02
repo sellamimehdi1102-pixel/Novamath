@@ -44,7 +44,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "webapp"))
 
-from exercise_generator_seconde import pourcentages_evolutions, vecteurs_seconde  # noqa: E402
+from exercise_generator_seconde import (  # noqa: E402
+    calcul_litteral_seconde, nombres_seconde, pourcentages_evolutions, statistiques_seconde,
+    variations_seconde, vecteurs_seconde, vecteurs_sans_repere,
+)
 
 BANK_PATH = ROOT / "exercises_bank.json"
 
@@ -53,6 +56,14 @@ BANK_PATH = ROOT / "exercises_bank.json"
 _NEW_POOLS = (
     (vecteurs_seconde, 18, 20260910),
     (pourcentages_evolutions, 18, 20260911),
+    # Mission "audit final et rééquilibrage additif global" (2026-09-02) :
+    # Chapitre_1/3/4/8/11 n'avaient AUCUN générateur (banques purement
+    # curées) — 5 nouveaux modules pour atteindre la cible de ratio ≤1,5.
+    (nombres_seconde, 8, 940520101),
+    (calcul_litteral_seconde, 8, 940530101),
+    (vecteurs_sans_repere, 10, 940540101),
+    (variations_seconde, 8, 940550101),
+    (statistiques_seconde, 8, 940560101),
 )
 
 # (module, per_family, seed) — pools de diversification NUMÉRIQUE

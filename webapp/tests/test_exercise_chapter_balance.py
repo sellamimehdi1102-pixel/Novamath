@@ -138,6 +138,23 @@
    444→468, Chapitre_6 457→549, ratio global inchangé à 1,34, bien sous le
    plafond 1,6).
 
+10. "audit final et rééquilibrage additif global" (2026-09-02) : audit
+   exhaustif confirmant que Troisième Chapitre_11 (transformations)/
+   Chapitre_12 (triangles/parallélogrammes)/Chapitre_13 (Pythagore/
+   trigonométrie) et Seconde Chapitre_1 (nombres)/Chapitre_3 (calcul
+   littéral)/Chapitre_4 (vecteurs sans repère)/Chapitre_8 (variations)/
+   Chapitre_11 (statistiques) n'avaient AUCUN générateur — banques
+   purement curées, chapitres les plus faibles de chaque classe. 8
+   nouveaux modules créés (voir webapp/exercise_generator_troisieme/ et
+   webapp/exercise_generator_seconde/), plus 3 extensions ADDITIVES
+   (divisibilite/fractions_addition/fonction_affine_deux_points, Troisième
+   Chapitre_1/3/8). Seconde/Chapitre_6 (droites.py, 126 exercices)
+   RESTE VOLONTAIREMENT NON FUSIONNÉ (voir server.py) : l'intégrer
+   pousserait le ratio Seconde de 1,44 à plus de 2 (déjà le chapitre le
+   plus fourni). Troisième 3490 → 3713 (ratio 1,68 → 1,37), Seconde 2362 →
+   2517 (ratio 1,71 → 1,44), Première inchangée (déjà 1,34, sous la
+   cible).
+
 Ces tests portent sur la CAUSE (répartition réelle par chapitre, cohérence
 des chapter_id, absence de doublon/perte, non-régression du volume) plutôt
 que sur un total exact, qui évoluera à chaque régénération volontaire du
@@ -296,11 +313,14 @@ class TestRepartitionParChapitre(unittest.TestCase):
     tolérer une régénération future avec des paramètres légèrement
     différents, tout en interdisant un retour aux ratios extrêmes d'avant
     rééquilibrage (Première : 12,6 ; Troisième : 2,69 ; Seconde : 2,0).
-    Resserrés par la mission "équilibrage définitif de toutes les classes"
-    (2026-09-01), objectif ratio ≤1,5 : Première 1,35, Troisième 1,44,
-    Seconde 1,51 au moment d'écrire ces tests."""
+    Resserrés une première fois par la mission "équilibrage définitif de
+    toutes les classes" (2026-09-01), objectif ratio ≤1,5. Resserrés à
+    nouveau par la mission "audit final et rééquilibrage additif global"
+    (2026-09-02, Troisième Chapitre_11/12/13 + Seconde Chapitre_1/3/4/8/11 —
+    tous sans générateur auparavant) : Première 1,34, Troisième 1,37,
+    Seconde 1,44 au moment d'écrire ces tests."""
 
-    RATIO_MAX_PAR_CLASSE = {"premiere": 1.6, "troisieme": 1.7, "seconde": 1.8}
+    RATIO_MAX_PAR_CLASSE = {"premiere": 1.45, "troisieme": 1.5, "seconde": 1.55}
 
     def test_ratio_max_min_reste_maitrise(self):
         for class_level, profile in CURRICULUM_REGISTRY.items():
@@ -321,24 +341,23 @@ class TestRepartitionParChapitre(unittest.TestCase):
             with self.subTest(chapter=ch):
                 self.assertGreaterEqual(n, 400, f"{ch} : seulement {n} exercices")
 
-    def test_chaque_chapitre_troisieme_a_desormais_au_moins_170_exercices(self):
-        """Avant la mission "équilibrage définitif", Chapitre_9
-        (statistiques) ne comptait que 155 exercices — c'est exactement ce
-        que ce verrou empêche de se reproduire silencieusement."""
+    def test_chaque_chapitre_troisieme_a_desormais_au_moins_215_exercices(self):
+        """Avant la mission "audit final et rééquilibrage additif global"
+        (2026-09-02), Chapitre_1/8 ne comptaient que 177/181 exercices — ce
+        verrou empêche de repasser sous le plancher fixé par cette mission."""
         counts = _counts_by_chapter("troisieme", CURRICULUM_REGISTRY["troisieme"])
         for ch, n in counts.items():
             with self.subTest(chapter=ch):
-                self.assertGreaterEqual(n, 170, f"{ch} : seulement {n} exercices")
+                self.assertGreaterEqual(n, 215, f"{ch} : seulement {n} exercices")
 
-    def test_chaque_chapitre_seconde_a_desormais_au_moins_160_exercices(self):
-        """Avant la mission "équilibrage définitif", Chapitre_5 (vecteurs) et
-        Chapitre_10 (pourcentages/évolutions) ne comptaient que 121
-        exercices chacun — c'est exactement ce que ce verrou empêche de se
-        reproduire silencieusement."""
+    def test_chaque_chapitre_seconde_a_desormais_au_moins_185_exercices(self):
+        """Avant la mission "audit final et rééquilibrage additif global"
+        (2026-09-02), Chapitre_8 ne comptait que 160 exercices — ce verrou
+        empêche de repasser sous le plancher fixé par cette mission."""
         counts = _counts_by_chapter("seconde", CURRICULUM_REGISTRY["seconde"])
         for ch, n in counts.items():
             with self.subTest(chapter=ch):
-                self.assertGreaterEqual(n, 160, f"{ch} : seulement {n} exercices")
+                self.assertGreaterEqual(n, 185, f"{ch} : seulement {n} exercices")
 
 
 class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
@@ -357,19 +376,19 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
             "Chapitre_9": 492, "Chapitre_10": 492,
         },
         "troisieme": {
-            "Chapitre_1": 177, "Chapitre_2": 254, "Chapitre_3": 203, "Chapitre_4": 298,
-            "Chapitre_5": 230, "Chapitre_6": 266, "Chapitre_7": 242, "Chapitre_8": 181,
-            "Chapitre_9": 254, "Chapitre_10": 260, "Chapitre_11": 180, "Chapitre_12": 210,
-            "Chapitre_13": 181, "Chapitre_14": 266, "Chapitre_15": 288,
+            "Chapitre_1": 217, "Chapitre_2": 254, "Chapitre_3": 218, "Chapitre_4": 298,
+            "Chapitre_5": 230, "Chapitre_6": 266, "Chapitre_7": 242, "Chapitre_8": 217,
+            "Chapitre_9": 254, "Chapitre_10": 260, "Chapitre_11": 240, "Chapitre_12": 242,
+            "Chapitre_13": 221, "Chapitre_14": 266, "Chapitre_15": 288,
         },
         "seconde": {
-            "Chapitre_1": 164, "Chapitre_2": 196, "Chapitre_3": 160, "Chapitre_4": 161,
-            "Chapitre_5": 211, "Chapitre_6": 242, "Chapitre_7": 204, "Chapitre_8": 160,
-            "Chapitre_9": 273, "Chapitre_10": 218, "Chapitre_11": 162, "Chapitre_12": 211,
+            "Chapitre_1": 196, "Chapitre_2": 196, "Chapitre_3": 192, "Chapitre_4": 191,
+            "Chapitre_5": 211, "Chapitre_6": 242, "Chapitre_7": 204, "Chapitre_8": 189,
+            "Chapitre_9": 273, "Chapitre_10": 218, "Chapitre_11": 194, "Chapitre_12": 211,
         },
     }
 
-    TOTAL_MINIMUM = {"premiere": 4902, "troisieme": 3490, "seconde": 2362}
+    TOTAL_MINIMUM = {"premiere": 4902, "troisieme": 3713, "seconde": 2517}
 
     def test_aucun_chapitre_sous_son_plancher_historique(self):
         for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():

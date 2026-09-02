@@ -27,9 +27,15 @@ Ce script ne doit JAMAIS faire disparaître un exercice déjà généré :
    AUCUN générateur avant la mission "équilibrage définitif" (150
    exercices, le plus faible de Troisième) ; son pool entier est nouveau.
 
-Chapitre_1/3/7/8/11/12/13 restent au niveau de leur banque curée + baseline
-(déjà ≥161, ratio cible respecté sans générateur supplémentaire — voir
-rapport de mission).
+Chapitre_7 reste au niveau de sa banque curée + baseline (déjà ≥242, ratio
+cible respecté sans générateur supplémentaire — voir rapport de mission).
+
+4. "audit final et rééquilibrage additif global" (2026-09-02) : Chapitre_11/
+   12/13 n'avaient AUCUN générateur (banques purement curées) — 3 nouveaux
+   modules (geometrie_transformations, geometrie_triangles,
+   pythagore_trigonometrie) rejoignent la baseline. Chapitre_1/3/8 reçoivent
+   en plus une extension (divisibilite/fractions_addition/
+   fonction_affine_deux_points) pour atteindre la cible de ratio ≤1,5.
 
 Usage : python -m tools.generate_troisieme_exercises
 """
@@ -44,8 +50,9 @@ sys.path.insert(0, str(ROOT / "webapp"))
 
 from exercise_generator_troisieme import (  # noqa: E402
     developper_distributivite, divisibilite, equation_premier_degre, factoriser_somme,
-    fonction_affine_deux_points, fractions_addition, fractions_simplification, image_fonction,
-    nombres_relatifs, probabilites_troisieme, proportionnalite, statistiques, thales, volumes_espace,
+    fonction_affine_deux_points, fractions_addition, fractions_simplification, geometrie_transformations,
+    geometrie_triangles, image_fonction, nombres_relatifs, probabilites_troisieme, proportionnalite,
+    pythagore_trigonometrie, statistiques, thales, volumes_espace,
 )
 
 OUTPUT_PATH = ROOT / "exercises_generated_troisieme.json"
@@ -92,6 +99,12 @@ _EXTENSION_MODULES = (
     ("statistiques", statistiques, 931260303, 60, 75, 5000),
     ("probabilites_troisieme", probabilites_troisieme, 931260304, 60, 77, 5000),
     ("thales", thales, 931260305, 60, 75, 5000),
+    # Mission "audit final et rééquilibrage additif global" (2026-09-02) :
+    # Chapitre_1/3/8 sous la cible d'équilibrage (ratio ≤1,5 par rapport à
+    # Chapitre_4=298) même après les 3 nouveaux modules ci-dessus.
+    ("divisibilite", divisibilite, 932260102, 60, 40, 6000),
+    ("fractions_addition", fractions_addition, 932260103, 60, 15, 6000),
+    ("fonction_affine_deux_points", fonction_affine_deux_points, 932260105, 60, 36, 6000),
 )
 
 # Chapitre_15 : aucun générateur n'existait avant cette mission (150
@@ -99,6 +112,16 @@ _EXTENSION_MODULES = (
 # nouveau, rejoint la baseline dès sa création.
 _BASELINE_MODULES = _BASELINE_MODULES + (
     ("volumes_espace", volumes_espace, 18, 30260306),
+)
+
+# ── Mission "audit final et rééquilibrage additif global" (2026-09-02) ─────
+# Chapitre_11/12/13 n'avaient AUCUN générateur (banques purement curées,
+# 180/210/181 exercices) — 3 nouveaux modules entièrement nouveaux, rejoignent
+# la baseline dès leur création (même patron que volumes_espace ci-dessus).
+_BASELINE_MODULES = _BASELINE_MODULES + (
+    ("geometrie_transformations", geometrie_transformations, 10, 30260111),
+    ("geometrie_triangles", geometrie_triangles, 8, 30260112),
+    ("pythagore_trigonometrie", pythagore_trigonometrie, 10, 30260113),
 )
 
 # ── Mission "diversification structurelle" (2026-09-02) ────────────────────
