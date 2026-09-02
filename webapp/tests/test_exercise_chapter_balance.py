@@ -320,7 +320,12 @@ class TestRepartitionParChapitre(unittest.TestCase):
     tous sans générateur auparavant) : Première 1,34, Troisième 1,37,
     Seconde 1,44 au moment d'écrire ces tests."""
 
-    RATIO_MAX_PAR_CLASSE = {"premiere": 1.45, "troisieme": 1.5, "seconde": 1.55}
+    # Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
+    # Troisième (tous les chapitres portés à 320) et Seconde (min 318, max
+    # 368 — Chapitre_6 rejoint désormais le calcul, voir curriculum_stats.py)
+    # atteignent des ratios bien plus bas qu'avant (1,00 et 1,16). Plafonds
+    # resserrés en conséquence, avec une marge raisonnable.
+    RATIO_MAX_PAR_CLASSE = {"premiere": 1.45, "troisieme": 1.2, "seconde": 1.3}
 
     def test_ratio_max_min_reste_maitrise(self):
         for class_level, profile in CURRICULUM_REGISTRY.items():
@@ -341,23 +346,23 @@ class TestRepartitionParChapitre(unittest.TestCase):
             with self.subTest(chapter=ch):
                 self.assertGreaterEqual(n, 400, f"{ch} : seulement {n} exercices")
 
-    def test_chaque_chapitre_troisieme_a_desormais_au_moins_215_exercices(self):
-        """Avant la mission "audit final et rééquilibrage additif global"
-        (2026-09-02), Chapitre_1/8 ne comptaient que 177/181 exercices — ce
-        verrou empêche de repasser sous le plancher fixé par cette mission."""
+    def test_chaque_chapitre_troisieme_a_desormais_au_moins_300_exercices(self):
+        """Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
+        avant cette mission, aucun chapitre de Troisième n'atteignait 300
+        (max 298) — ce verrou empêche de repasser sous ce plancher."""
         counts = _counts_by_chapter("troisieme", CURRICULUM_REGISTRY["troisieme"])
         for ch, n in counts.items():
             with self.subTest(chapter=ch):
-                self.assertGreaterEqual(n, 215, f"{ch} : seulement {n} exercices")
+                self.assertGreaterEqual(n, 300, f"{ch} : seulement {n} exercices")
 
-    def test_chaque_chapitre_seconde_a_desormais_au_moins_185_exercices(self):
-        """Avant la mission "audit final et rééquilibrage additif global"
-        (2026-09-02), Chapitre_8 ne comptait que 160 exercices — ce verrou
-        empêche de repasser sous le plancher fixé par cette mission."""
+    def test_chaque_chapitre_seconde_a_desormais_au_moins_300_exercices(self):
+        """Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
+        avant cette mission, aucun chapitre de Seconde n'atteignait 300 (hors
+        Chapitre_9) — ce verrou empêche de repasser sous ce plancher."""
         counts = _counts_by_chapter("seconde", CURRICULUM_REGISTRY["seconde"])
         for ch, n in counts.items():
             with self.subTest(chapter=ch):
-                self.assertGreaterEqual(n, 185, f"{ch} : seulement {n} exercices")
+                self.assertGreaterEqual(n, 300, f"{ch} : seulement {n} exercices")
 
 
 class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
@@ -375,20 +380,25 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
             "Chapitre_5": 423, "Chapitre_6": 549, "Chapitre_7": 498, "Chapitre_8": 532,
             "Chapitre_9": 492, "Chapitre_10": 492,
         },
+        # Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
+        # tous les chapitres de Troisième portés à 320 (extension additive,
+        # voir tools/generate_troisieme_exercises.py::_EXTENSION_MODULES) ;
+        # Seconde entre 318 et 368 (Chapitre_6/droites.py désormais fusionné
+        # par server.py — voir curriculum_stats._SECONDE_MERGED_CHAPTERS).
         "troisieme": {
-            "Chapitre_1": 217, "Chapitre_2": 254, "Chapitre_3": 218, "Chapitre_4": 298,
-            "Chapitre_5": 230, "Chapitre_6": 266, "Chapitre_7": 242, "Chapitre_8": 217,
-            "Chapitre_9": 254, "Chapitre_10": 260, "Chapitre_11": 240, "Chapitre_12": 242,
-            "Chapitre_13": 221, "Chapitre_14": 266, "Chapitre_15": 288,
+            "Chapitre_1": 320, "Chapitre_2": 320, "Chapitre_3": 320, "Chapitre_4": 320,
+            "Chapitre_5": 320, "Chapitre_6": 320, "Chapitre_7": 320, "Chapitre_8": 320,
+            "Chapitre_9": 320, "Chapitre_10": 320, "Chapitre_11": 320, "Chapitre_12": 320,
+            "Chapitre_13": 320, "Chapitre_14": 320, "Chapitre_15": 320,
         },
         "seconde": {
-            "Chapitre_1": 196, "Chapitre_2": 196, "Chapitre_3": 192, "Chapitre_4": 191,
-            "Chapitre_5": 211, "Chapitre_6": 242, "Chapitre_7": 204, "Chapitre_8": 189,
-            "Chapitre_9": 273, "Chapitre_10": 218, "Chapitre_11": 194, "Chapitre_12": 211,
+            "Chapitre_1": 318, "Chapitre_2": 324, "Chapitre_3": 331, "Chapitre_4": 325,
+            "Chapitre_5": 335, "Chapitre_6": 368, "Chapitre_7": 324, "Chapitre_8": 321,
+            "Chapitre_9": 349, "Chapitre_10": 325, "Chapitre_11": 334, "Chapitre_12": 331,
         },
     }
 
-    TOTAL_MINIMUM = {"premiere": 4902, "troisieme": 3713, "seconde": 2517}
+    TOTAL_MINIMUM = {"premiere": 4902, "troisieme": 4800, "seconde": 3985}
 
     def test_aucun_chapitre_sous_son_plancher_historique(self):
         for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():
@@ -403,6 +413,80 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
             combined = _served_combined(class_level, CURRICULUM_REGISTRY[class_level])
             with self.subTest(class_level=class_level):
                 self.assertGreaterEqual(len(combined), plancher)
+
+
+class TestPlancher300ExercicesParChapitre(unittest.TestCase):
+    """Mission "porter à 300 exercices minimum par chapitre + diversité
+    mathématique réelle" (2026-09-02) — verrou PUREMENT DYNAMIQUE (aucun
+    nombre codé en dur par chapitre, contrairement à
+    TestAucuneRegressionDeVolumeParChapitre ci-dessus qui verrouille un
+    plancher historique précis) : quelle que soit une régénération future,
+    AUCUN chapitre d'AUCUNE classe déclarée dans CURRICULUM_REGISTRY ne doit
+    jamais servir moins de 300 exercices. Couvre automatiquement toute
+    nouvelle classe ajoutée au registre, sans modification de ce test."""
+
+    PLANCHER_ABSOLU = 300
+
+    def test_minimum_absolu_300_par_chapitre_toutes_classes(self):
+        for class_level, profile in CURRICULUM_REGISTRY.items():
+            counts = _counts_by_chapter(class_level, profile)
+            if not counts:
+                continue
+            for ch, n in counts.items():
+                with self.subTest(class_level=class_level, chapter=ch):
+                    self.assertGreaterEqual(
+                        n, self.PLANCHER_ABSOLU,
+                        f"{class_level}/{ch} : {n} exercices servis < plancher absolu {self.PLANCHER_ABSOLU}",
+                    )
+
+    def test_le_minimum_global_toutes_classes_confondues_atteint_300(self):
+        """Formulation directe de la règle de mission :
+        MIN(chapitres de toutes les classes) >= 300."""
+        tous_les_comptes = []
+        for class_level, profile in CURRICULUM_REGISTRY.items():
+            tous_les_comptes.extend(_counts_by_chapter(class_level, profile).values())
+        self.assertTrue(tous_les_comptes)
+        self.assertGreaterEqual(min(tous_les_comptes), self.PLANCHER_ABSOLU)
+
+
+class TestDiversiteFamilleDominante(unittest.TestCase):
+    """Mission "porter à 300 exercices minimum par chapitre + diversité
+    mathématique réelle" (2026-09-02), phase 14 : un chapitre qui atteint
+    300 exercices en écrasante majorité via UNE SEULE famille de générateur
+    (gabarit de raisonnement identique, seuls les nombres changent) ne
+    respecte pas l'esprit de la mission. Ce verrou porte uniquement sur les
+    exercices GÉNÉRÉS (champ "family" présent) — les exercices curés n'ont
+    jamais ce champ et sont donc, à raison, hors de portée de ce contrôle
+    (on ne peut pas mesurer une "famille" sur du contenu écrit à la main).
+    Seuil documenté à 92% (large mais réel) plutôt qu'un seuil universel
+    arbitraire : certaines familles ont un espace combinatoire naturellement
+    limité (voir docstrings de variations_seconde.py::fonction_reference) et
+    peuvent légitimement dominer un petit pool généré isolé."""
+
+    SEUIL_DOMINANCE_MAX = 0.92
+
+    def test_aucune_famille_generee_ne_domine_excessivement_un_chapitre(self):
+        for class_level, profile in CURRICULUM_REGISTRY.items():
+            generated = _load(profile.generated_exercise_bank)
+            by_chapter = {}
+            for ex in generated:
+                fam = ex.get("family")
+                ch = ex.get("chapter_id")
+                if not fam or not ch:
+                    continue
+                by_chapter.setdefault(ch, {}).setdefault(fam, 0)
+                by_chapter[ch][fam] += 1
+            for ch, fam_counts in by_chapter.items():
+                total = sum(fam_counts.values())
+                if total < 20:
+                    continue  # échantillon trop petit pour être significatif
+                dominante = max(fam_counts.values())
+                with self.subTest(class_level=class_level, chapter=ch):
+                    self.assertLessEqual(
+                        dominante / total, self.SEUIL_DOMINANCE_MAX,
+                        f"{class_level}/{ch} : une famille représente {dominante}/{total} "
+                        f"({dominante/total:.0%}) des exercices générés — {fam_counts}",
+                    )
 
 
 class TestVolumeMinimumParClasse(unittest.TestCase):

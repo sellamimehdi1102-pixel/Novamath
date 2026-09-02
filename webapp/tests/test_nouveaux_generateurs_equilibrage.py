@@ -33,6 +33,12 @@ _NOUVEAUX_MODULES = [
     ("exercise_generator_seconde", "vecteurs_sans_repere", "seconde"),
     ("exercise_generator_seconde", "variations_seconde", "seconde"),
     ("exercise_generator_seconde", "statistiques_seconde", "seconde"),
+    # Mission "porter à 300 exercices minimum par chapitre + diversité
+    # mathématique réelle" (2026-09-02) : Seconde Chapitre_2/7/12 restaient
+    # purement curés (aucun générateur) — 3 nouveaux modules.
+    ("exercise_generator_seconde", "intervalles_seconde", "seconde"),
+    ("exercise_generator_seconde", "fonctions_generalites_seconde", "seconde"),
+    ("exercise_generator_seconde", "probabilites_seconde", "seconde"),
 ]
 
 

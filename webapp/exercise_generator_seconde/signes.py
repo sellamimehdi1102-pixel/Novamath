@@ -358,7 +358,7 @@ def generate_one(family_id: str, seed: Optional[int] = None, max_attempts: int =
     raise RuntimeError(f"Impossible de générer un exercice valide pour la famille {family_id!r}")
 
 
-def generate_pool(per_family: int = 9, seed: int = 20260831) -> list[dict]:
+def generate_pool(per_family: int = 9, seed: int = 20260831, id_offset: int = None) -> list[dict]:
     rng = random.Random(seed)
     per_family_pool: dict[str, list[dict]] = {}
     for family in FAMILIES:
@@ -388,5 +388,6 @@ def generate_pool(per_family: int = 9, seed: int = 20260831) -> list[dict]:
         if idx > 200000:
             break
     for i, ex in enumerate(pool):
-        ex["id"] = GENERATED_ID_OFFSET + i
+        base_offset = GENERATED_ID_OFFSET if id_offset is None else id_offset
+        ex["id"] = base_offset + i
     return pool

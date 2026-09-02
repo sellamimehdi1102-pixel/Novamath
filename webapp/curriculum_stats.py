@@ -36,13 +36,15 @@ def _load_bank(exercise_bank_path):
 # démarrage, via un chemin historique antérieur à l'existence du pool généré
 # — contrairement à "premiere"/"troisieme", qui passent par la branche
 # générique de _class_bank() et fusionnent tout exercise_bank + generated).
-# Depuis l'audit du 2026-09-02 (fusion complète = ratio max/min 1,51 -> 2,3,
-# hors plafond), seul Chapitre_9 de generated_exercise_bank (72 exercices,
-# signes.py) est effectivement fusionné dans server.py — voir le filtre
-# identique juste après le chargement de BANK dans server.py. Ce compteur
-# doit refléter ce qui est RÉELLEMENT servi, donc applique le même filtre.
+# Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
+# Chapitre_6 (droites.py, 126 exercices) rejoint Chapitre_9 (signes.py, déjà
+# fusionné depuis l'audit du 2026-09-01) — le plancher absolu de 300
+# exercices SERVIS par chapitre prime désormais sur le plafond de ratio qui
+# avait initialement exclu Chapitre_6. Voir le filtre identique juste après
+# le chargement de BANK dans server.py. Ce compteur doit refléter ce qui est
+# RÉELLEMENT servi, donc applique le même filtre.
 _CLASS_LEVELS_WITHOUT_GENERATED_MERGE = frozenset({"seconde"})
-_SECONDE_MERGED_CHAPTERS = frozenset({"Chapitre_9"})
+_SECONDE_MERGED_CHAPTERS = frozenset({"Chapitre_6", "Chapitre_9"})
 
 
 def compute_stats(class_level):

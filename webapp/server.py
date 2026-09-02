@@ -132,17 +132,20 @@ for i, ex in enumerate(raw_bank):
 # "seconde" ne fusionne normalement jamais generated_exercise_bank (voir
 # _class_bank() plus bas) — les 198 exercices de exercises_generated_seconde.json
 # (droites.py/Chapitre_6 + signes.py/Chapitre_9) étaient donc entièrement
-# orphelins côté élève. Audit (2026-09-02) : fusionner les 198 pousse le
-# ratio max/min de 1,51 à 2,3 (Chapitre_6 étant déjà le plus fourni de
-# Seconde), au-delà du plafond verrouillé. Seul Chapitre_9 (72 exercices,
-# signes.py) est donc intégré ici — ratio résultant ≈1,73, sous le plafond ;
-# Chapitre_6/droites.py reste en attente d'un futur rééquilibrage. IDs
-# (810000+) et énoncés vérifiés sans collision avec exercises_bank.json.
+# orphelins côté élève. Audit (2026-09-01) : fusionner les 198 poussait alors
+# le ratio max/min de 1,51 à 2,3, au-delà du plafond verrouillé à l'époque —
+# seul Chapitre_9 avait donc été intégré, Chapitre_6/droites.py restant en
+# attente. Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
+# le plancher absolu de 300 exercices SERVIS par chapitre prime désormais sur
+# ce plafond de ratio — Chapitre_6 (242 exercices curés) est sous 300 sans
+# ce pool généré (242+126=368 avec). Les 126 exercices de droites.py
+# (Chapitre_6) rejoignent donc ici Chapitre_9 (signes.py) : mêmes IDs
+# (800000+/810000+), énoncés vérifiés sans collision avec exercises_bank.json.
 if _SECONDE.generated_exercise_bank is not None and _SECONDE.generated_exercise_bank.exists():
     with open(_SECONDE.generated_exercise_bank, "r", encoding="utf-8") as f:
         _seconde_generated_raw = json.load(f)
     for ex in _seconde_generated_raw:
-        if ex.get("chapter_id") != "Chapitre_9":
+        if ex.get("chapter_id") not in ("Chapitre_6", "Chapitre_9"):
             continue
         ex = dict(ex)
         for field in ["enonce", "answer", "hint"]:

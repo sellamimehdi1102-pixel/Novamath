@@ -105,6 +105,26 @@ _EXTENSION_MODULES = (
     ("divisibilite", divisibilite, 932260102, 60, 40, 6000),
     ("fractions_addition", fractions_addition, 932260103, 60, 15, 6000),
     ("fonction_affine_deux_points", fonction_affine_deux_points, 932260105, 60, 36, 6000),
+    # Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
+    # tous les chapitres de Troisième restaient sous 300 même après les
+    # extensions ci-dessus — nouveau bloc d'extension par chapitre (seed et
+    # id_block encore jamais utilisés pour le module concerné), dimensionné
+    # avec une marge de +20 au-delà du plancher strict de 300.
+    ("divisibilite", divisibilite, 933260102, 80, 103, 7000),
+    ("nombres_relatifs", nombres_relatifs, 933260301, 60, 66, 6000),
+    ("fractions_simplification", fractions_simplification, 933260104, 80, 102, 5000),
+    ("factoriser_somme", factoriser_somme, 933260107, 30, 22, 6000),
+    ("equation_premier_degre", equation_premier_degre, 933260101, 80, 90, 6000),
+    ("proportionnalite", proportionnalite, 933260302, 60, 54, 6000),
+    ("image_fonction", image_fonction, 933260108, 70, 78, 5000),
+    ("fonction_affine_deux_points", fonction_affine_deux_points, 933260105, 90, 103, 7000),
+    ("statistiques", statistiques, 933260303, 60, 66, 6000),
+    ("probabilites_troisieme", probabilites_troisieme, 933260304, 55, 60, 6000),
+    ("geometrie_transformations", geometrie_transformations, 933260111, 70, 80, 5000),
+    ("geometrie_triangles", geometrie_triangles, 933260112, 70, 78, 5000),
+    ("pythagore_trigonometrie", pythagore_trigonometrie, 933260113, 90, 99, 5000),
+    ("thales", thales, 933260305, 55, 54, 6000),
+    ("volumes_espace", volumes_espace, 933260306, 40, 32, 5000),
 )
 
 # Chapitre_15 : aucun générateur n'existait avant cette mission (150
@@ -191,6 +211,18 @@ def main() -> None:
     combined: list[dict] = []
     all_problems: list[str] = []
     per_module_counts: dict[str, int] = {}
+    # Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) : une
+    # extension peut, par hasard, retomber sur un énoncé déjà présent dans la
+    # banque CURÉE (exercises_bank_troisieme.json) — jamais vérifié avant
+    # cette mission, découvert car image_fonction/antecedent régénère parfois
+    # "f(x) = x^2, antécédent de 81" mot pour mot. La baseline (déjà
+    # committée/servie, reproduite bit pour bit) n'est PAS filtrée ici ;
+    # seules les extensions/diversité (ajoutées par cette mission ou une
+    # mission future) sont vérifiées contre la banque curée.
+    curated_path = ROOT / "exercises_bank_troisieme.json"
+    curated_enonces = {
+        e["enonce"] for e in json.loads(curated_path.read_text(encoding="utf-8"))
+    } if curated_path.exists() else set()
     baseline_enonces_by_module: dict[str, set[str]] = {}
 
     for name, module, per_family, seed in _BASELINE_MODULES:
@@ -203,7 +235,7 @@ def main() -> None:
     extension_counter: dict[str, int] = {}
     for name, module, seed_ext, per_family_large, n_extra, id_block in _EXTENSION_MODULES:
         extra_pool = _build_extension(module, seed_ext, per_family_large, n_extra,
-                                       baseline_enonces_by_module.get(name, set()), id_block)
+                                       baseline_enonces_by_module.get(name, set()) | curated_enonces, id_block)
         all_problems.extend(_check_family_calibration(extra_pool, f"{name} (extension)"))
         extension_counter[name] = extension_counter.get(name, 0) + 1
         label = f"{name} (extension {extension_counter[name]})" if extension_counter[name] > 1 else f"{name} (extension)"
@@ -214,7 +246,7 @@ def main() -> None:
     # ── Mission "diversification structurelle" (2026-09-02) ────────────────
     for name, module, seed_div, per_family_div in _DIVERSITY_MODULES:
         diversity_pool = module.generate_extra_pool(per_family=per_family_div, seed=seed_div)
-        seen = baseline_enonces_by_module.get(name, set())
+        seen = baseline_enonces_by_module.get(name, set()) | curated_enonces
         diversity_pool = [ex for ex in diversity_pool if ex["enonce"] not in seen]
         all_problems.extend(_check_family_calibration(diversity_pool, f"{name} (diversité)"))
         per_module_counts[f"{name} (diversité)"] = len(diversity_pool)

@@ -167,8 +167,8 @@ class TestNonRegressionApresDiversiteNumerique(unittest.TestCase):
     # Plancher = total juste après cette mission (voir rapport). Seconde
     # inclus cette fois (exercises_bank.json, pas de fichier "generated"
     # fusionné pour cette classe — voir tools/generate_seconde_curated_additions.py).
-    PLANCHER_GENERES = {"premiere": 4087, "troisieme": 1650}
-    PLANCHER_SECONDE_BANK = 2445
+    PLANCHER_GENERES = {"premiere": 4087, "troisieme": 2737}
+    PLANCHER_SECONDE_BANK = 3787
 
     def test_pool_genere_jamais_sous_son_plancher_post_diversite_numerique(self):
         for class_level, plancher in self.PLANCHER_GENERES.items():
