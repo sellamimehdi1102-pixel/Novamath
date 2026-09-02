@@ -1,39 +1,37 @@
 """Régénère exercises_generated_premiere.json à partir de TOUS les moteurs
 symboliques déclarés dans webapp/exercise_generator/ (derivatives, suites,
-exponentielle, variations, second_degre, tangente, et les 5 nouveaux modules
-trigonometrie/produit_scalaire/geometrie_reperee/
-probabilites_conditionnelles/variables_aleatoires — chapitres 6 à 10).
+exponentielle, variations, second_degre, tangente, trigonometrie,
+produit_scalaire, geometrie_reperee, probabilites_conditionnelles,
+variables_aleatoires — chapitres 1 à 10).
 
 Chaque module a un GENERATED_ID_OFFSET distinct (900_000 à 1_000_000 par pas
 de 10_000) fixé dans son propre fichier — jamais de collision d'id entre
 pools, même après concaténation.
 
-── RÈGLE ABSOLUE — mission "rééquilibrage additif" (2026-09-01) ────────────
+── RÈGLE ABSOLUE — missions "rééquilibrage additif" (2026-09-01) et
+"équilibrage définitif de toutes les classes" (2026-09-01) ────────────────
 Ce script ne DOIT JAMAIS faire disparaître un exercice déjà généré
 précédemment (ancienne règle violée par une mission antérieure, qui avait
 réduit --per-family pour "équilibrer" et fait chuter le total Première de
 2217 à 1547 — explicitement interdit désormais). Le seul mode d'équilibrage
 autorisé est ADDITIF :
 
-1. BASELINE (`_BASELINE_MODULES`) — les 6 modules historiques (Chapitre_1 à
-   5) sont TOUJOURS régénérés avec leur per_family ORIGINAL (12, seed
-   d'origine) : reproduit bit pour bit le pool historique (1402 exercices,
-   vérifié par tests/test_exercise_regeneration_additive.py), jamais réduit.
+1. BASELINE (`_BASELINE_MODULES`) — les 11 modules déjà COMMITTÉS/SERVIS en
+   production (6 historiques Chapitre_1-5 + 5 issus de la mission
+   "rééquilibrage additif" pour Chapitre_6-10) sont TOUJOURS régénérés avec
+   leur per_family/seed ORIGINAL, figé pour toujours : reproduit bit pour
+   bit le pool actuellement en production (2900 exercices, vérifié avant
+   toute modification de ce fichier), jamais réduit.
 
 2. EXTENSION (`_EXTENSION_MODULES`) — pour les chapitres dont la baseline
-   seule reste sous la cible d'équilibrage (Chapitre_2/second_degre,
-   Chapitre_4/variations), on génère un pool supplémentaire avec un SEED
-   DIFFÉRENT, on écarte tout exercice dont l'énoncé existe déjà dans la
-   baseline (déduplication stricte), puis on numérote les survivants à
-   partir de GENERATED_ID_OFFSET + 5000 (jamais dans la plage 0-999 déjà
-   utilisée par la baseline du même module) — donc toujours un AJOUT, jamais
-   un remplacement.
-
-3. NOUVEAUX MODULES (`_NEW_MODULES`) — trigonometrie/produit_scalaire/
-   geometrie_reperee/probabilites_conditionnelles/variables_aleatoires
-   couvrent Chapitre_6 à Chapitre_10, qui n'avaient AUCUN générateur avant
-   cette mission : leur pool entier est nouveau, aucune notion de baseline à
-   préserver.
+   seule reste sous la cible d'équilibrage (ratio ≤1,5 par rapport au
+   chapitre le plus fourni), on génère un pool supplémentaire avec un SEED
+   DIFFÉRENT (distinct de la baseline ET de toute extension précédente du
+   même module — `main()` cumule les énoncés déjà produits par module au fil
+   des extensions), on écarte tout exercice dont l'énoncé existe déjà,
+   puis on numérote les survivants à partir de GENERATED_ID_OFFSET +
+   id_block (bloc dédié et jamais réutilisé pour une extension différente du
+   même module) — donc toujours un AJOUT, jamais un remplacement.
 
 Usage : python -m tools.generate_derivative_exercises
 (le flag --per-family historique a été retiré : le calibrage par module est
@@ -68,24 +66,37 @@ _BASELINE_MODULES = (
     ("tangente", tangente, 20260824, 12),
 )
 
-# Chapitre_2 (second_degre) et Chapitre_4 (variations) restent sous la cible
-# d'équilibrage (~300) même avec leur banque curée + baseline ci-dessus —
-# extension ADDITIVE : nouveau seed, dédupliquée contre la baseline, jamais
-# de remplacement. Voir règle 2. (module, seed_extension, per_family_large,
-# n_extra_cible)
-_EXTENSION_MODULES = (
-    ("second_degre", second_degre, 920260823, 40, 22),
-    ("variations", variations, 920260822, 60, 154),
-)
-
-# Chapitre_6 à Chapitre_10 : générateurs entièrement nouveaux (mission
-# "rééquilibrage additif", 2026-09-01) — voir règle 3.
-_NEW_MODULES = (
+# Chapitre_6 à Chapitre_10 (trigonometrie/produit_scalaire/geometrie_reperee/
+# probabilites_conditionnelles/variables_aleatoires) : générateurs créés par
+# la mission "rééquilibrage additif" (2026-09-01) et déjà COMMITTÉS/SERVIS —
+# ils rejoignent donc la BASELINE au même titre que les 6 modules historiques
+# ci-dessus : per_family/seed figés pour toujours reproduire bit pour bit le
+# pool actuellement en production, jamais réduits. Toute croissance
+# ultérieure de ces chapitres passe exclusivement par _EXTENSION_MODULES
+# (mission "équilibrage définitif de toutes les classes", 2026-09-01).
+_BASELINE_MODULES = _BASELINE_MODULES + (
     ("trigonometrie", trigonometrie, 20260901, 205),
     ("produit_scalaire", produit_scalaire, 20260902, 38),
     ("geometrie_reperee", geometrie_reperee, 20260903, 35),
     ("probabilites_conditionnelles", probabilites_conditionnelles, 20260904, 45),
     ("variables_aleatoires", variables_aleatoires, 20260905, 60),
+)
+
+# Chapitre_2/4/7/8/9/10 restent sous la cible d'équilibrage (ratio ≤1,5 par
+# rapport à Chapitre_3=567) même avec la baseline ci-dessus — extension
+# ADDITIVE : nouveau seed (distinct de la baseline ET, pour second_degre/
+# variations, de leur extension déjà existante), dédupliquée contre TOUT ce
+# qui a déjà été généré pour le même module, jamais de remplacement. Voir
+# règle 2. (module, seed_extension, per_family_large, n_extra_cible)
+_EXTENSION_MODULES = (
+    ("second_degre", second_degre, 920260823, 40, 22, 5000),
+    ("variations", variations, 920260822, 60, 154, 5000),
+    ("second_degre", second_degre, 921260823, 90, 117, 5200),
+    ("variations", variations, 921260822, 90, 120, 5200),
+    ("produit_scalaire", produit_scalaire, 921260902, 90, 117, 5000),
+    ("geometrie_reperee", geometrie_reperee, 921260903, 90, 119, 5000),
+    ("probabilites_conditionnelles", probabilites_conditionnelles, 921260904, 90, 110, 5000),
+    ("variables_aleatoires", variables_aleatoires, 921260905, 90, 75, 5000),
 )
 
 
@@ -109,12 +120,17 @@ def _check_family_calibration(pool: list[dict], module_name: str) -> list[str]:
 
 
 def _build_extension(module, seed_extension: int, per_family_large: int, n_extra: int,
-                      baseline_enonces: set[str]) -> list[dict]:
+                      baseline_enonces: set[str], id_block: int = 5000) -> list[dict]:
     """Génère un pool supplémentaire (seed distinct de la baseline), écarte
-    tout exercice dont l'énoncé existe déjà dans la baseline (même module),
-    puis renumérote les survivants à partir de
-    GENERATED_ID_OFFSET + 5000 — jamais dans la plage déjà utilisée par la
-    baseline (0 à per_family_baseline*n_familles-1), donc toujours un AJOUT."""
+    tout exercice dont l'énoncé existe déjà dans `baseline_enonces` (baseline
+    du module + toute extension déjà traitée pour ce même module — voir
+    main(), qui met à jour cet ensemble après chaque extension), puis
+    renumérote les survivants à partir de GENERATED_ID_OFFSET + id_block.
+    `id_block` doit être distinct pour chaque extension d'un même module
+    (jamais dans une plage déjà utilisée par la baseline ou une extension
+    précédente) — voir les valeurs choisies dans _EXTENSION_MODULES, chacune
+    espacée de 200 pour ne jamais chevaucher la suivante, donc toujours un
+    AJOUT, jamais un remplacement."""
     raw = module.generate_pool(per_family=per_family_large, seed=seed_extension)
     seen = set(baseline_enonces)
     survivors = []
@@ -125,7 +141,7 @@ def _build_extension(module, seed_extension: int, per_family_large: int, n_extra
         survivors.append(ex)
         if len(survivors) >= n_extra:
             break
-    offset = module.GENERATED_ID_OFFSET + 5000
+    offset = module.GENERATED_ID_OFFSET + id_block
     for i, ex in enumerate(survivors):
         ex["id"] = offset + i
     return survivors
@@ -144,18 +160,20 @@ def main() -> None:
         baseline_enonces_by_module.setdefault(name, set()).update(e["enonce"] for e in pool)
         combined.extend(pool)
 
-    for name, module, seed_ext, per_family_large, n_extra in _EXTENSION_MODULES:
+    extension_counter: dict[str, int] = {}
+    for name, module, seed_ext, per_family_large, n_extra, id_block in _EXTENSION_MODULES:
         extra_pool = _build_extension(module, seed_ext, per_family_large, n_extra,
-                                       baseline_enonces_by_module.get(name, set()))
+                                       baseline_enonces_by_module.get(name, set()), id_block)
         all_problems.extend(_check_family_calibration(extra_pool, f"{name} (extension)"))
-        per_module_counts[f"{name} (extension)"] = len(extra_pool)
+        extension_counter[name] = extension_counter.get(name, 0) + 1
+        label = f"{name} (extension {extension_counter[name]})" if extension_counter[name] > 1 else f"{name} (extension)"
+        per_module_counts[label] = len(extra_pool)
         combined.extend(extra_pool)
-
-    for name, module, seed, per_family in _NEW_MODULES:
-        pool = module.generate_pool(per_family=per_family, seed=seed)
-        all_problems.extend(_check_family_calibration(pool, name))
-        per_module_counts[name] = len(pool)
-        combined.extend(pool)
+        # Cumule pour que l'extension SUIVANTE du même module (ex. la 2e
+        # extension de second_degre) déduplique aussi contre celle-ci, pas
+        # seulement contre la baseline — sinon risque de doublon d'énoncé
+        # entre deux extensions successives.
+        baseline_enonces_by_module.setdefault(name, set()).update(e["enonce"] for e in extra_pool)
 
     # Collision d'id : garde-fou explicite (ne devrait jamais se déclencher
     # tant que les GENERATED_ID_OFFSET restent distincts et suffisamment

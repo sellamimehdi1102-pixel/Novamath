@@ -2,29 +2,34 @@
 symboliques déclarés dans webapp/exercise_generator_troisieme/ (pendant de
 tools/generate_derivative_exercises.py pour Première).
 
-── RÈGLE ABSOLUE — mission "rééquilibrage global de toutes les classes"
-(2026-09-01), même contrat que tools/generate_derivative_exercises.py ────
-Ce script ne doit JAMAIS faire disparaître un exercice déjà généré. Trois
-niveaux :
+── RÈGLE ABSOLUE — missions "rééquilibrage global de toutes les classes"
+(2026-09-01) et "équilibrage définitif de toutes les classes" (2026-09-01),
+même contrat que tools/generate_derivative_exercises.py ──────────────────
+Ce script ne doit JAMAIS faire disparaître un exercice déjà généré :
 
 1. BASELINE (`_BASELINE_MODULES`) — les 8 modules historiques (Chapitre_1/3/
-   4/5/7/8) sont TOUJOURS régénérés avec leurs per_family/seed d'origine :
-   reproduit bit pour bit le pool historique (246 exercices, vérifié).
+   4/5/7/8) ET les 5 modules créés par la mission "rééquilibrage global"
+   (nombres_relatifs/Chapitre_2, proportionnalite/Chapitre_6,
+   statistiques/Chapitre_9, probabilites_troisieme/Chapitre_10,
+   thales/Chapitre_14, déjà COMMITTÉS/SERVIS) sont TOUJOURS régénérés avec
+   leurs per_family/seed d'origine : reproduit bit pour bit le pool en
+   production (592 exercices, vérifié avant toute modification). Rejoint
+   également volumes_espace (Chapitre_15, nouveau — voir point 3).
 
-2. EXTENSION (`_EXTENSION_MODULES`) — Chapitre_4 (developper_distributivite,
-   factoriser_somme) et Chapitre_5 (equation_premier_degre) restent sous la
-   cible d'équilibrage même avec la baseline : extension ADDITIVE (seed
-   distinct, dédupliquée contre la baseline, IDs à partir de
-   GENERATED_ID_OFFSET + 5000).
+2. EXTENSION (`_EXTENSION_MODULES`) — Chapitre_2/4/5/6/9/10/14 restent sous
+   la cible d'équilibrage (ratio ≤1,5 par rapport à Chapitre_7=242) même
+   avec la baseline : extension ADDITIVE (seed distinct de la baseline ET
+   de toute extension précédente du même module, dédupliquée contre tout ce
+   qui a déjà été généré, IDs à partir de GENERATED_ID_OFFSET + id_block,
+   bloc dédié par extension).
 
-3. NOUVEAUX MODULES (`_NEW_MODULES`) — nombres_relatifs (Chapitre_2),
-   proportionnalite (Chapitre_6), statistiques (Chapitre_9),
-   probabilites_troisieme (Chapitre_10), thales (Chapitre_14) : ces 5
-   chapitres n'avaient AUCUN générateur avant cette mission.
+3. NOUVEAU MODULE — volumes_espace (Chapitre_15) : ce chapitre n'avait
+   AUCUN générateur avant la mission "équilibrage définitif" (150
+   exercices, le plus faible de Troisième) ; son pool entier est nouveau.
 
-Chapitre_1/3/7/8/11/12/13/15 restent au niveau de leur banque curée +
-baseline (déjà ≥150, pas de générateur nécessaire pour respecter le ratio
-cible — voir rapport de mission).
+Chapitre_1/3/7/8/11/12/13 restent au niveau de leur banque curée + baseline
+(déjà ≥161, ratio cible respecté sans générateur supplémentaire — voir
+rapport de mission).
 
 Usage : python -m tools.generate_troisieme_exercises
 """
@@ -40,12 +45,18 @@ sys.path.insert(0, str(ROOT / "webapp"))
 from exercise_generator_troisieme import (  # noqa: E402
     developper_distributivite, divisibilite, equation_premier_degre, factoriser_somme,
     fonction_affine_deux_points, fractions_addition, fractions_simplification, image_fonction,
-    nombres_relatifs, probabilites_troisieme, proportionnalite, statistiques, thales,
+    nombres_relatifs, probabilites_troisieme, proportionnalite, statistiques, thales, volumes_espace,
 )
 
 OUTPUT_PATH = ROOT / "exercises_generated_troisieme.json"
 
-# (nom, module, per_family_origine, seed_origine) — jamais modifié.
+# (nom, module, per_family_origine, seed_origine) — jamais modifié : les 8
+# modules historiques ET les 5 modules créés par la mission "rééquilibrage
+# global de toutes les classes" (2026-09-01, Chapitre_2/6/9/10/14) sont tous
+# déjà COMMITTÉS/SERVIS en production, donc figés au même titre — voir
+# tools/generate_derivative_exercises.py pour le même principe côté
+# Première. Reproduit bit pour bit le pool actuellement en production (592
+# exercices générés, vérifié avant toute modification de ce fichier).
 _BASELINE_MODULES = (
     ("equation_premier_degre", equation_premier_degre, 6, 30260101),
     ("divisibilite", divisibilite, 6, 30260102),
@@ -55,22 +66,39 @@ _BASELINE_MODULES = (
     ("developper_distributivite", developper_distributivite, 6, 30260106),
     ("factoriser_somme", factoriser_somme, 7, 30260107),
     ("image_fonction", image_fonction, 6, 30260108),
+    ("nombres_relatifs", nombres_relatifs, 9, 30260301),
+    ("proportionnalite", proportionnalite, 15, 30260302),
+    ("statistiques", statistiques, 13, 30260303),
+    ("probabilites_troisieme", probabilites_troisieme, 11, 30260304),
+    ("thales", thales, 15, 30260305),
 )
 
-# (nom, module, seed_extension, per_family_large, n_extra_cible)
+# ── Mission "équilibrage définitif de toutes les classes" (2026-09-01) ─────
+# Chapitre_2/4/5/6/9/10/14 restent sous la cible d'équilibrage (ratio ≤1,5
+# par rapport à Chapitre_7=242) même avec la baseline ci-dessus — extension
+# ADDITIVE : nouveau seed (distinct de la baseline ET de toute extension
+# précédente du même module), dédupliquée contre TOUT ce qui a déjà été
+# généré pour le même module, jamais de remplacement.
+# (nom, module, seed_extension, per_family_large, n_extra_cible, id_block)
 _EXTENSION_MODULES = (
-    ("equation_premier_degre", equation_premier_degre, 930260101, 30, 45),
-    ("developper_distributivite", developper_distributivite, 930260106, 20, 15),
-    ("factoriser_somme", factoriser_somme, 930260107, 20, 15),
+    ("equation_premier_degre", equation_premier_degre, 930260101, 30, 45, 5000),
+    ("developper_distributivite", developper_distributivite, 930260106, 20, 15, 5000),
+    ("factoriser_somme", factoriser_somme, 930260107, 20, 15, 5000),
+    ("equation_premier_degre", equation_premier_degre, 931260101, 60, 50, 5200),
+    ("developper_distributivite", developper_distributivite, 931260106, 60, 40, 5200),
+    ("factoriser_somme", factoriser_somme, 931260107, 60, 35, 5200),
+    ("nombres_relatifs", nombres_relatifs, 931260301, 60, 74, 5000),
+    ("proportionnalite", proportionnalite, 931260302, 60, 77, 5000),
+    ("statistiques", statistiques, 931260303, 60, 75, 5000),
+    ("probabilites_troisieme", probabilites_troisieme, 931260304, 60, 77, 5000),
+    ("thales", thales, 931260305, 60, 75, 5000),
 )
 
-# Chapitre_2/6/9/10/14 : générateurs entièrement nouveaux.
-_NEW_MODULES = (
-    ("nombres_relatifs", nombres_relatifs, 30260301, 9),
-    ("proportionnalite", proportionnalite, 30260302, 15),
-    ("statistiques", statistiques, 30260303, 13),
-    ("probabilites_troisieme", probabilites_troisieme, 30260304, 11),
-    ("thales", thales, 30260305, 15),
+# Chapitre_15 : aucun générateur n'existait avant cette mission (150
+# exercices, chapitre le plus faible de Troisième) — pool entièrement
+# nouveau, rejoint la baseline dès sa création.
+_BASELINE_MODULES = _BASELINE_MODULES + (
+    ("volumes_espace", volumes_espace, 18, 30260306),
 )
 
 
@@ -91,10 +119,12 @@ def _check_family_calibration(pool: list[dict], module_name: str) -> list[str]:
 
 
 def _build_extension(module, seed_extension: int, per_family_large: int, n_extra: int,
-                      baseline_enonces: set[str]) -> list[dict]:
+                      baseline_enonces: set[str], id_block: int = 5000) -> list[dict]:
     """Voir tools/generate_derivative_exercises.py::_build_extension — même
-    contrat : seed distinct, dédupliqué contre la baseline, IDs à partir de
-    GENERATED_ID_OFFSET + 5000 (jamais dans la plage déjà utilisée)."""
+    contrat : seed distinct, dédupliqué contre TOUT ce qui a déjà été généré
+    pour ce module (baseline + extensions précédentes, cumulées par
+    main()), IDs à partir de GENERATED_ID_OFFSET + id_block (bloc dédié et
+    jamais réutilisé pour une extension différente du même module)."""
     raw = module.generate_pool(per_family=per_family_large, seed=seed_extension)
     seen = set(baseline_enonces)
     survivors = []
@@ -105,7 +135,7 @@ def _build_extension(module, seed_extension: int, per_family_large: int, n_extra
         survivors.append(ex)
         if len(survivors) >= n_extra:
             break
-    offset = module.GENERATED_ID_OFFSET + 5000
+    offset = module.GENERATED_ID_OFFSET + id_block
     for i, ex in enumerate(survivors):
         ex["id"] = offset + i
     return survivors
@@ -124,18 +154,16 @@ def main() -> None:
         baseline_enonces_by_module.setdefault(name, set()).update(e["enonce"] for e in pool)
         combined.extend(pool)
 
-    for name, module, seed_ext, per_family_large, n_extra in _EXTENSION_MODULES:
+    extension_counter: dict[str, int] = {}
+    for name, module, seed_ext, per_family_large, n_extra, id_block in _EXTENSION_MODULES:
         extra_pool = _build_extension(module, seed_ext, per_family_large, n_extra,
-                                       baseline_enonces_by_module.get(name, set()))
+                                       baseline_enonces_by_module.get(name, set()), id_block)
         all_problems.extend(_check_family_calibration(extra_pool, f"{name} (extension)"))
-        per_module_counts[f"{name} (extension)"] = len(extra_pool)
+        extension_counter[name] = extension_counter.get(name, 0) + 1
+        label = f"{name} (extension {extension_counter[name]})" if extension_counter[name] > 1 else f"{name} (extension)"
+        per_module_counts[label] = len(extra_pool)
         combined.extend(extra_pool)
-
-    for name, module, seed, per_family in _NEW_MODULES:
-        pool = module.generate_pool(per_family=per_family, seed=seed)
-        all_problems.extend(_check_family_calibration(pool, name))
-        per_module_counts[name] = len(pool)
-        combined.extend(pool)
+        baseline_enonces_by_module.setdefault(name, set()).update(e["enonce"] for e in extra_pool)
 
     ids = [ex["id"] for ex in combined]
     if len(ids) != len(set(ids)):

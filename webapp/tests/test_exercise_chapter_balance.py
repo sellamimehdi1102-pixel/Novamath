@@ -24,11 +24,32 @@
    proportionnalite/statistiques/probabilites_troisieme/thales) + une
    extension dédupliquée de Chapitre_4/5. Résultat : 2655 exercices (2063
    curés + 592 générés), ratio max/min 1,61 (contre 2,69 avant). Seconde a
-   été auditée mais laissée INCHANGÉE : elle atteint déjà les deux seuils
-   obligatoires de la mission (≥2000 exercices servis, ratio ≤2) — voir
-   rapport de mission pour la justification détaillée de ce choix de
-   périmètre (fusionner exercises_generated_seconde.json aurait dégradé
-   l'équilibre au lieu de l'améliorer).
+   été auditée mais laissée INCHANGÉE à ce stade : elle atteignait déjà les
+   deux seuils obligatoires de cette mission (≥2000 exercices servis, ratio
+   ≤2) — fusionner exercises_generated_seconde.json (droites/signes,
+   Chapitre_6/9, déjà les deux chapitres les plus fournis) aurait dégradé
+   l'équilibre au lieu de l'améliorer.
+
+4. "équilibrage définitif de toutes les classes" (2026-09-01, objectif
+   ratio ≤1,5) : les trois classes sont désormais rapprochées de cet
+   objectif, toujours par pur AJOUT — aucun exercice des missions 1 à 3
+   n'est supprimé ni déplacé :
+   - Première : baseline gelée (les 11 modules déjà en production, y
+     compris les 5 de la mission 2), extensions supplémentaires sur
+     Chapitre_2/4/7/8/9/10 → 4373 exercices (815 curés + 3558 générés),
+     ratio 1,35 (contre 1,89).
+   - Troisième : baseline gelée (les 13 modules déjà en production, y
+     compris les 5 de la mission 3), extensions sur Chapitre_2/4/5/6/9/10/14
+     + un nouveau module volumes_espace pour Chapitre_15 (150 exercices,
+     seul chapitre sans générateur et le plus faible) — voir le total exact
+     dans le rapport de mission, ratio ≤1,5 visé.
+   - Seconde : server.py::_class_bank("seconde") ne fusionnant toujours pas
+     generated_exercise_bank (voir _CLASS_LEVELS_WITHOUT_GENERATED_MERGE),
+     le contenu des deux chapitres les plus faibles (Chapitre_5/10, 121
+     exercices chacun, aucun générateur) est ajouté DIRECTEMENT dans
+     exercises_bank.json par tools/generate_seconde_curated_additions.py
+     (2 nouveaux modules vecteurs_seconde/pourcentages_evolutions) →
+     2275 exercices, ratio 1,51 (contre 2,0).
 
 Ces tests portent sur la CAUSE (répartition réelle par chapitre, cohérence
 des chapter_id, absence de doublon/perte, non-régression du volume) plutôt
@@ -179,9 +200,12 @@ class TestRepartitionParChapitre(unittest.TestCase):
     au-dessus du ratio réellement atteint au moment d'écrire ces tests) pour
     tolérer une régénération future avec des paramètres légèrement
     différents, tout en interdisant un retour aux ratios extrêmes d'avant
-    rééquilibrage (Première : 12,6 ; Troisième : 2,69)."""
+    rééquilibrage (Première : 12,6 ; Troisième : 2,69 ; Seconde : 2,0).
+    Resserrés par la mission "équilibrage définitif de toutes les classes"
+    (2026-09-01), objectif ratio ≤1,5 : Première 1,35, Troisième 1,44,
+    Seconde 1,51 au moment d'écrire ces tests."""
 
-    RATIO_MAX_PAR_CLASSE = {"premiere": 3.0, "troisieme": 2.2, "seconde": 2.5}
+    RATIO_MAX_PAR_CLASSE = {"premiere": 1.6, "troisieme": 1.7, "seconde": 1.8}
 
     def test_ratio_max_min_reste_maitrise(self):
         for class_level, profile in CURRICULUM_REGISTRY.items():
@@ -193,23 +217,33 @@ class TestRepartitionParChapitre(unittest.TestCase):
                 ratio = max(counts.values()) / min(counts.values())
                 self.assertLessEqual(ratio, plafond, f"{class_level} : {counts} (ratio {ratio:.2f})")
 
-    def test_chaque_chapitre_premiere_a_desormais_au_moins_250_exercices(self):
-        """Avant les 5 nouveaux générateurs, Chapitre_10 (Variables
-        aléatoires) ne comptait que 45 exercices — c'est exactement ce que ce
-        verrou empêche de se reproduire silencieusement."""
+    def test_chaque_chapitre_premiere_a_desormais_au_moins_400_exercices(self):
+        """Avant la mission "équilibrage définitif", Chapitre_4 (variations)
+        ne comptait que 300 exercices — c'est exactement ce que ce verrou
+        empêche de se reproduire silencieusement."""
         counts = _counts_by_chapter("premiere", CURRICULUM_REGISTRY["premiere"])
         for ch, n in counts.items():
             with self.subTest(chapter=ch):
-                self.assertGreaterEqual(n, 250, f"{ch} : seulement {n} exercices")
+                self.assertGreaterEqual(n, 400, f"{ch} : seulement {n} exercices")
 
-    def test_chaque_chapitre_troisieme_a_desormais_au_moins_140_exercices(self):
-        """Avant les 5 nouveaux générateurs, Chapitre_9 (statistiques) ne
-        comptait que 90 exercices — c'est exactement ce que ce verrou
-        empêche de se reproduire silencieusement."""
+    def test_chaque_chapitre_troisieme_a_desormais_au_moins_170_exercices(self):
+        """Avant la mission "équilibrage définitif", Chapitre_9
+        (statistiques) ne comptait que 155 exercices — c'est exactement ce
+        que ce verrou empêche de se reproduire silencieusement."""
         counts = _counts_by_chapter("troisieme", CURRICULUM_REGISTRY["troisieme"])
         for ch, n in counts.items():
             with self.subTest(chapter=ch):
-                self.assertGreaterEqual(n, 140, f"{ch} : seulement {n} exercices")
+                self.assertGreaterEqual(n, 170, f"{ch} : seulement {n} exercices")
+
+    def test_chaque_chapitre_seconde_a_desormais_au_moins_160_exercices(self):
+        """Avant la mission "équilibrage définitif", Chapitre_5 (vecteurs) et
+        Chapitre_10 (pourcentages/évolutions) ne comptaient que 121
+        exercices chacun — c'est exactement ce que ce verrou empêche de se
+        reproduire silencieusement."""
+        counts = _counts_by_chapter("seconde", CURRICULUM_REGISTRY["seconde"])
+        for ch, n in counts.items():
+            with self.subTest(chapter=ch):
+                self.assertGreaterEqual(n, 160, f"{ch} : seulement {n} exercices")
 
 
 class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
@@ -223,24 +257,24 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
 
     PLANCHERS_HISTORIQUES = {
         "premiere": {
-            "Chapitre_1": 425, "Chapitre_2": 281, "Chapitre_3": 567, "Chapitre_4": 146,
-            "Chapitre_5": 423, "Chapitre_6": 136, "Chapitre_7": 75, "Chapitre_8": 56,
-            "Chapitre_9": 63, "Chapitre_10": 45,
+            "Chapitre_1": 425, "Chapitre_2": 420, "Chapitre_3": 567, "Chapitre_4": 420,
+            "Chapitre_5": 423, "Chapitre_6": 438, "Chapitre_7": 420, "Chapitre_8": 420,
+            "Chapitre_9": 420, "Chapitre_10": 420,
         },
         "troisieme": {
-            "Chapitre_1": 177, "Chapitre_2": 120, "Chapitre_3": 203, "Chapitre_4": 149,
-            "Chapitre_5": 135, "Chapitre_6": 93, "Chapitre_7": 242, "Chapitre_8": 181,
-            "Chapitre_9": 90, "Chapitre_10": 98, "Chapitre_11": 180, "Chapitre_12": 210,
-            "Chapitre_13": 181, "Chapitre_14": 100, "Chapitre_15": 150,
+            "Chapitre_1": 177, "Chapitre_2": 230, "Chapitre_3": 203, "Chapitre_4": 254,
+            "Chapitre_5": 230, "Chapitre_6": 230, "Chapitre_7": 242, "Chapitre_8": 181,
+            "Chapitre_9": 230, "Chapitre_10": 230, "Chapitre_11": 180, "Chapitre_12": 210,
+            "Chapitre_13": 181, "Chapitre_14": 230, "Chapitre_15": 240,
         },
         "seconde": {
             "Chapitre_1": 164, "Chapitre_2": 196, "Chapitre_3": 160, "Chapitre_4": 161,
-            "Chapitre_5": 121, "Chapitre_6": 242, "Chapitre_7": 204, "Chapitre_8": 160,
-            "Chapitre_9": 201, "Chapitre_10": 121, "Chapitre_11": 162, "Chapitre_12": 211,
+            "Chapitre_5": 211, "Chapitre_6": 242, "Chapitre_7": 204, "Chapitre_8": 160,
+            "Chapitre_9": 201, "Chapitre_10": 203, "Chapitre_11": 162, "Chapitre_12": 211,
         },
     }
 
-    TOTAL_MINIMUM = {"premiere": 3715, "troisieme": 2309, "seconde": 2103}
+    TOTAL_MINIMUM = {"premiere": 4373, "troisieme": 3248, "seconde": 2275}
 
     def test_aucun_chapitre_sous_son_plancher_historique(self):
         for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():

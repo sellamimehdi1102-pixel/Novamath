@@ -5,16 +5,24 @@ POST /api/practice/generate (Chantier "Différenciateurs Premium/Ultra",
 
 Cartographie EXACTE de ce qui existe — vérifiée en lisant chaque module
 avant d'écrire ce fichier, jamais supposée. Trois packages, un par classe
-(curriculum_registry.CURRICULUM_REGISTRY : "troisieme"/"seconde"/"premiere") :
-    - exercise_generator_troisieme/ : 8 modules, un par notion
+(curriculum_registry.CURRICULUM_REGISTRY : "troisieme"/"seconde"/"premiere"),
+enrichis au fil des missions "rééquilibrage additif" / "rééquilibrage global
+de toutes les classes" / "équilibrage définitif de toutes les classes"
+(2026-09-01) :
+    - exercise_generator_troisieme/ : 14 modules, un par notion
       (developper_distributivite, divisibilite, equation_premier_degre,
       factoriser_somme, fonction_affine_deux_points, fractions_addition,
-      fractions_simplification, image_fonction) ;
-    - exercise_generator_seconde/ : 2 modules (droites, signes) ;
-    - exercise_generator/ (Première) : 6 modules (derivatives, exponentielle,
-      second_degre, suites, tangente, variations).
+      fractions_simplification, image_fonction, nombres_relatifs,
+      proportionnalite, statistiques, probabilites_troisieme, thales,
+      volumes_espace) ;
+    - exercise_generator_seconde/ : 4 modules (droites, signes,
+      vecteurs_seconde, pourcentages_evolutions) ;
+    - exercise_generator/ (Première) : 11 modules (derivatives,
+      exponentielle, second_degre, suites, tangente, variations,
+      trigonometrie, produit_scalaire, geometrie_reperee,
+      probabilites_conditionnelles, variables_aleatoires).
 
-Les 16 modules suivent tous le même contrat :
+Les 29 modules suivent tous le même contrat :
     - `FAMILIES` : liste de Family(id, level, label, ...) ;
     - `CHAPTER_ID` : chapitre couvert par le module ;
     - `generate_one(family_id, seed=None) -> dict` avec les clés enonce/
@@ -43,11 +51,11 @@ from exercise_generator import (
     produit_scalaire, second_degre, suites, tangente, trigonometrie, variables_aleatoires,
     variations,
 )
-from exercise_generator_seconde import droites, signes
+from exercise_generator_seconde import droites, pourcentages_evolutions, signes, vecteurs_seconde
 from exercise_generator_troisieme import (
     developper_distributivite, divisibilite, equation_premier_degre, factoriser_somme,
     fonction_affine_deux_points, fractions_addition, fractions_simplification, image_fonction,
-    nombres_relatifs, probabilites_troisieme, proportionnalite, statistiques, thales,
+    nombres_relatifs, probabilites_troisieme, proportionnalite, statistiques, thales, volumes_espace,
 )
 
 _MODULES_BY_CLASS_LEVEL = {
@@ -58,8 +66,18 @@ _MODULES_BY_CLASS_LEVEL = {
         developper_distributivite, divisibilite, equation_premier_degre, factoriser_somme,
         fonction_affine_deux_points, fractions_addition, fractions_simplification, image_fonction,
         nombres_relatifs, proportionnalite, statistiques, probabilites_troisieme, thales,
+        volumes_espace,
     ),
-    "seconde": (droites, signes),
+    # vecteurs_seconde/pourcentages_evolutions (Chapitre_5/10) : nouveaux
+    # générateurs créés par la mission "équilibrage définitif de toutes les
+    # classes" (2026-09-01) — leur pool n'est PAS dans
+    # exercises_generated_seconde.json (voir tools/
+    # generate_seconde_curated_additions.py : Seconde ne fusionne pas de
+    # generated_exercise_bank, donc ce contenu est distribué directement
+    # dans exercises_bank.json), mais ils suivent le même contrat Family/
+    # generate_one que droites/signes et sont donc éligibles à la
+    # génération à la demande au même titre.
+    "seconde": (droites, signes, vecteurs_seconde, pourcentages_evolutions),
     # Chapitre_6 à Chapitre_10 (trigonometrie/produit_scalaire/geometrie_reperee/
     # probabilites_conditionnelles/variables_aleatoires) : nouveaux générateurs
     # créés par la mission "rééquilibrage additif" (2026-09-01) — voir
