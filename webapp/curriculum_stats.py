@@ -31,18 +31,18 @@ def _load_bank(exercise_bank_path):
     return json.loads(exercise_bank_path.read_text(encoding="utf-8"))
 
 
-# "seconde" est la seule classe dont server.py::_class_bank() NE fusionne PAS
-# generated_exercise_bank dans la banque réellement proposée en mode Exercices
-# (BANK y est chargé une fois au démarrage, via un chemin historique antérieur
-# à l'existence du pool généré — contrairement à "premiere"/"troisieme", qui
-# passent par la branche générique de _class_bank() et fusionnent bien
-# exercise_bank + generated_exercise_bank). Ce compteur doit refléter ce qui
-# est RÉELLEMENT servi à l'utilisateur, pas seulement ce que le registre
-# déclare comme additif : combler ce fossé nécessiterait de modifier le
-# chargement des exercices de Seconde dans server.py, hors périmètre de cette
-# correction (qui ne touche à aucune route de service d'exercices) — voir le
-# rapport de mission pour ce point signalé comme anomalie restante.
+# "seconde" ne fusionne PAS l'intégralité de generated_exercise_bank dans la
+# banque réellement proposée en mode Exercices (BANK y est chargé une fois au
+# démarrage, via un chemin historique antérieur à l'existence du pool généré
+# — contrairement à "premiere"/"troisieme", qui passent par la branche
+# générique de _class_bank() et fusionnent tout exercise_bank + generated).
+# Depuis l'audit du 2026-09-02 (fusion complète = ratio max/min 1,51 -> 2,3,
+# hors plafond), seul Chapitre_9 de generated_exercise_bank (72 exercices,
+# signes.py) est effectivement fusionné dans server.py — voir le filtre
+# identique juste après le chargement de BANK dans server.py. Ce compteur
+# doit refléter ce qui est RÉELLEMENT servi, donc applique le même filtre.
 _CLASS_LEVELS_WITHOUT_GENERATED_MERGE = frozenset({"seconde"})
+_SECONDE_MERGED_CHAPTERS = frozenset({"Chapitre_9"})
 
 
 def compute_stats(class_level):
@@ -61,6 +61,11 @@ def compute_stats(class_level):
         # exercises_generated_premiere.json inclus) et pour "troisieme".
         if class_level not in _CLASS_LEVELS_WITHOUT_GENERATED_MERGE:
             bank = bank + _load_bank(profile.generated_exercise_bank)
+        elif class_level == "seconde":
+            bank = bank + [
+                ex for ex in _load_bank(profile.generated_exercise_bank)
+                if ex.get("chapter_id") in _SECONDE_MERGED_CHAPTERS
+            ]
         _cache[class_level] = {
             "classLevel": profile.id,
             "label": profile.label,

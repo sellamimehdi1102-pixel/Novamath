@@ -106,6 +106,38 @@
    doit jamais dépasser 1,7 × min = 1,7 × 177 ≈ 300). Première 4734 → 4786
    (Ch8 480→532), Troisième 3470 → 3490 (Ch4 278→298), Seconde inchangée.
 
+8. "audit et renforcement de l'accès Seconde" (2026-09-02) : audit de
+   server.py::_class_bank("seconde") a confirmé qu'il ne fusionnait jamais
+   generated_exercise_bank (198 exercices droites.py/Chapitre_6 +
+   signes.py/Chapitre_9, jamais servis). Fusionner l'intégralité aurait
+   porté le ratio max/min de 1,51 à 2,3 (Chapitre_6 déjà le plus fourni) —
+   hors plafond. Seul Chapitre_9 (72 exercices, signes.py) est donc
+   effectivement fusionné dans server.py (voir le filtre juste après le
+   chargement de BANK) : ratio 1,51 -> 1,71, Seconde 2290 -> 2362.
+   Chapitre_6/droites.py reste orphelin, en attente d'un futur
+   rééquilibrage des chapitres faibles avant intégration.
+
+9. "audit final et exhaustif de la diversité mathématique" (2026-09-02) :
+   deux gaps de raisonnement (pas seulement numériques) confirmés par
+   lecture de code et exécution directe des générateurs — `second_degre.py`
+   (Chapitre_2) : ~8 familles sur 9 partent toutes de racines entières
+   choisies a priori (discriminant systématiquement carré parfait) ;
+   `resolution_irrationnelle` (mission précédente) n'en comblait qu'une
+   seule. Deux nouvelles familles à raisonnement réellement différent (pas
+   une simple redite de la résolution) : `equation_depuis_racines_irrationnelles`
+   (reconstruire l'équation depuis deux racines conjuguées p±√q — Vieta à
+   l'envers) et `verifier_resolution_irrationnelle` (juger vrai/faux une
+   résolution radicale proposée). `trigonometrie.py` (Chapitre_6) :
+   `combinaison_lineaire` (baseline figée) pèse 205/438 avec un seul
+   gabarit ("lire cos/sin d'un angle dans la table") ; nouvelle famille
+   `formule_duplication` (calculer cos(2θ)/sin(2θ) en appliquant une
+   IDENTITÉ, pas en lisant une valeur) + complément dédié (80 exemplaires
+   de plus) pour `combinaison_deux_angles` (espace combinatoire large,
+   2688 combinaisons possibles, jamais artificiellement gonflé au-delà de
+   ce qui est réellement distinct). Première 4786 → 4902 (Chapitre_2
+   444→468, Chapitre_6 457→549, ratio global inchangé à 1,34, bien sous le
+   plafond 1,6).
+
 Ces tests portent sur la CAUSE (répartition réelle par chapitre, cohérence
 des chapter_id, absence de doublon/perte, non-régression du volume) plutôt
 que sur un total exact, qui évoluera à chaque régénération volontaire du
@@ -135,10 +167,18 @@ def _load(path):
 
 def _served_combined(class_level, profile):
     """Exercices réellement servis par server.py::_class_bank() pour cette
-    classe — bank seule pour "seconde" (voir _CLASS_LEVELS_WITHOUT_GENERATED_MERGE),
-    bank+generated pour toutes les autres."""
+    classe — bank + generated pour "premiere"/"troisieme" ; pour "seconde"
+    (voir _CLASS_LEVELS_WITHOUT_GENERATED_MERGE), bank + le seul sous-ensemble
+    de generated_exercise_bank réellement fusionné dans server.py (Chapitre_9,
+    voir curriculum_stats._SECONDE_MERGED_CHAPTERS)."""
     bank = _load(profile.exercise_bank)
     if class_level in _CLASS_LEVELS_WITHOUT_GENERATED_MERGE:
+        if class_level == "seconde":
+            merged = [
+                ex for ex in _load(profile.generated_exercise_bank)
+                if ex.get("chapter_id") in curriculum_stats._SECONDE_MERGED_CHAPTERS
+            ]
+            return bank + merged
         return bank
     return bank + _load(profile.generated_exercise_bank)
 
@@ -312,8 +352,8 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
 
     PLANCHERS_HISTORIQUES = {
         "premiere": {
-            "Chapitre_1": 425, "Chapitre_2": 444, "Chapitre_3": 567, "Chapitre_4": 456,
-            "Chapitre_5": 423, "Chapitre_6": 457, "Chapitre_7": 498, "Chapitre_8": 532,
+            "Chapitre_1": 425, "Chapitre_2": 468, "Chapitre_3": 567, "Chapitre_4": 456,
+            "Chapitre_5": 423, "Chapitre_6": 549, "Chapitre_7": 498, "Chapitre_8": 532,
             "Chapitre_9": 492, "Chapitre_10": 492,
         },
         "troisieme": {
@@ -325,11 +365,11 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
         "seconde": {
             "Chapitre_1": 164, "Chapitre_2": 196, "Chapitre_3": 160, "Chapitre_4": 161,
             "Chapitre_5": 211, "Chapitre_6": 242, "Chapitre_7": 204, "Chapitre_8": 160,
-            "Chapitre_9": 201, "Chapitre_10": 218, "Chapitre_11": 162, "Chapitre_12": 211,
+            "Chapitre_9": 273, "Chapitre_10": 218, "Chapitre_11": 162, "Chapitre_12": 211,
         },
     }
 
-    TOTAL_MINIMUM = {"premiere": 4786, "troisieme": 3490, "seconde": 2290}
+    TOTAL_MINIMUM = {"premiere": 4902, "troisieme": 3490, "seconde": 2362}
 
     def test_aucun_chapitre_sous_son_plancher_historique(self):
         for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():

@@ -235,6 +235,39 @@ def main() -> None:
     per_module_counts["geometrie_reperee (vecteur_normal_unitaire, complément)"] = len(_vnu_dedup)
     combined.extend(_vnu_dedup)
 
+    # ── Mission "audit final et exhaustif de la diversité mathématique"
+    # (2026-09-02) ── `combinaison_lineaire` (baseline figée, FAMILIES)
+    # représente 205/438 de Chapitre_6 avec un raisonnement unique (lire
+    # cos/sin d'un angle dans la table). `combinaison_deux_angles` (12
+    # exemplaires) a un espace combinatoire large (42 paires ordonnées
+    # d'angles × 8 × 8 coefficients = 2688 combinaisons possibles) et une
+    # structure réellement différente — on l'enrichit donc pour réduire le
+    # poids relatif de combinaison_lineaire sans jamais y toucher. Même
+    # patron que le complément vecteur_normal_unitaire ci-dessus : appel
+    # indépendant (seed dédié), bloc d'ID séparé, dédupliqué contre tout ce
+    # qui existe déjà. `expression_carre` (7/7 angles déjà couverts) et
+    # `formule_duplication` (14 combinaisons déterministes max, angle×type)
+    # sont structurellement plafonnées : les gonfler produirait des doublons
+    # ou une fausse diversité, donc aucun complément ne leur est appliqué.
+    _existing_enonces_global = {ex["enonce"] for ex in combined}
+    _cda_top_up = trigonometrie.generate_extra_pool(per_family=80, seed=920260952)
+    _cda_top_up = [
+        ex for ex in _cda_top_up
+        if ex["family"] == "combinaison_deux_angles" and ex["enonce"] not in _existing_enonces_global
+    ]
+    _seen_cda = set()
+    _cda_dedup = []
+    for ex in _cda_top_up:
+        if ex["enonce"] in _seen_cda:
+            continue
+        _seen_cda.add(ex["enonce"])
+        _cda_dedup.append(ex)
+    _cda_offset = trigonometrie.GENERATED_ID_OFFSET + 8500
+    for i, ex in enumerate(_cda_dedup):
+        ex["id"] = _cda_offset + i
+    per_module_counts["trigonometrie (combinaison_deux_angles, complément)"] = len(_cda_dedup)
+    combined.extend(_cda_dedup)
+
     # Collision d'id : garde-fou explicite (ne devrait jamais se déclencher
     # tant que les GENERATED_ID_OFFSET restent distincts et suffisamment
     # espacés — voir docstring de chaque module).

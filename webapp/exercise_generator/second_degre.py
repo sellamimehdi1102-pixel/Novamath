@@ -665,9 +665,125 @@ def _gen_resolution_irrationnelle(rng):
     return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
 
 
+# ── Familles supplémentaires — mission "audit final et exhaustif de la
+# diversité mathématique" (2026-09-02) : `resolution_irrationnelle` (ci-
+# dessus) a comblé UNE SEULE famille sur les ~9 construites à partir de
+# racines entières (audit confirmé par lecture de code : `resolution`,
+# `somme_produit`, `factorisation`, `equation_depuis_racines`,
+# `comparer_methodes`, `verifier_resolution`, `corriger_erreur`,
+# `equation_depuis_racines_et_point`, `contexte_rectangle` partent toutes de
+# r1/r2 entiers choisis a priori). Deux nouvelles familles, à deux
+# raisonnements réellement différents de `resolution_irrationnelle` (qui ne
+# fait que résoudre) :
+# - `equation_depuis_racines_irrationnelles` : reconstruire l'équation à
+#   PARTIR de deux racines conjuguées p±√q (raisonnement inverse — utiliser
+#   somme/produit d'irrationnels conjugués, jamais testé nulle part dans le
+#   chapitre) ;
+# - `verifier_resolution_irrationnelle` : juger une résolution proposée
+#   (vrai/faux justifié) dont le discriminant n'est pas un carré parfait —
+#   `verifier_resolution` existant ne teste ce raisonnement que sur des
+#   racines entières.
+# (`contexte_projectile` n'est volontairement pas dupliquée : vérifié par
+# exécution, elle produit déjà ~94% de résultats irrationnels par
+# construction — v0,h0 y sont tirés indépendamment, pas dérivés de racines
+# entières — donc aucun gap réel à combler pour cette famille.)
+
+def _gen_equation_depuis_racines_irrationnelles(rng):
+    from sympy import sqrt as _sqrt
+    p = _small(rng, -6, 6)
+    q = rng.choice([2, 3, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15])
+    a = rng.choice([1, 1, 1, 2, 3, -1])
+    b = -a * 2 * p
+    c = a * (p * p - q)
+    check = _roots_via_sympy(a, b, c)
+    expected = sorted([S(p) + _sqrt(S(q)), S(p) - _sqrt(S(q))], key=str)
+    if sorted(check, key=str) != expected:
+        return None
+    r1_s, r2_s = latex(expected[1]), latex(expected[0])
+    enonce = (
+        f"Une fonction du second degré, de la forme $ax^2+bx+c=0$ avec $a={a}$, admet pour "
+        f"solutions $x_1={r1_s}$ et $x_2={r2_s}$. Déterminer $b$ et $c$."
+    )
+    steps = [
+        f"Étape 1 — $x_1+x_2 = ({r1_s})+({r2_s}) = {2*p}$ (les termes en $\\sqrt{{{q}}}$ s'annulent) "
+        f"et $x_1x_2 = ({r1_s})({r2_s}) = {p}^2-{q} = {p*p-q}$ (identité $(u+v)(u-v)=u^2-v^2$).",
+        f"Étape 2 — $b=-a(x_1+x_2) = -{a}\\times{2*p} = {b}$ et $c=a\\,x_1x_2 = {a}\\times({p*p-q}) = {c}$.",
+    ]
+    answer = f"$b = {b}$ et $c = {c}$ (soit ${_fmt_eq(a, b, c)}$)"
+    hint = "Même deux racines irrationnelles conjuguées se traitent avec les relations S=-b/a, P=c/a — les radicaux s'annulent dans la somme et se simplifient dans le produit via (u+v)(u-v)=u²-v²."
+    return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
+
+
+def _gen_verifier_resolution_irrationnelle(rng):
+    a = 1
+    b = c = None
+    for _ in range(300):
+        bb = _small(rng, -8, 8)
+        cc = _small(rng, -8, 8)
+        delta = bb**2 - 4 * a * cc
+        if delta <= 0:
+            continue
+        roots = _roots_via_sympy(a, bb, cc)
+        if len(roots) != 2 or all(r.is_rational for r in roots):
+            continue
+        b, c = bb, cc
+        break
+    if b is None:
+        return None
+    delta = b**2 - 4 * a * c
+    correct_sols = sorted(_roots_via_sympy(a, b, c), key=str)
+    is_correct = rng.random() < 0.5
+    if is_correct:
+        proposed_delta = delta
+        proposed = correct_sols
+    else:
+        from sympy import sqrt as _sqrt
+        erreur = rng.choice(["signe_delta_faux", "oubli_2a", "delta_errone"])
+        if erreur == "signe_delta_faux":
+            proposed_delta = delta
+            root_delta = _sqrt(S(delta))
+            proposed = sorted({b - root_delta, b + root_delta}, key=str)  # oubli du signe "-" devant b
+        elif erreur == "oubli_2a":
+            proposed_delta = delta
+            root_delta = _sqrt(S(delta))
+            proposed = sorted({-b - root_delta, -b + root_delta}, key=str)  # division par 2a oubliée
+        else:
+            proposed_delta = delta + 3
+            proposed = correct_sols
+        if sorted(proposed, key=str) == sorted(correct_sols, key=str) and proposed_delta == delta:
+            return None
+    prop_str = ", ".join(f"$x={latex(s)}$" for s in proposed)
+    enonce = (
+        f"Un élève affirme, pour l'équation ${_fmt_eq(a, b, c)}$ : \"$\\Delta={proposed_delta}$ et "
+        f"les solutions sont {prop_str}\" (le discriminant n'est pas un carré parfait ici). "
+        "Cette résolution est-elle correcte ? Justifier."
+    )
+    if is_correct:
+        answer = f"Vrai : $\\Delta={delta}$ (non carré parfait) et les solutions annoncées sous forme radicale sont bien correctes."
+        steps = [
+            f"Étape 1 — On recalcule : $\\Delta=b^2-4ac={delta}$, ce qui correspond à ce qui est annoncé.",
+            "Étape 2 — $\\Delta$ n'étant pas le carré d'un entier, les solutions restent sous forme radicale ; "
+            "on vérifie qu'elles correspondent bien à la formule $x=\\dfrac{-b\\pm\\sqrt{\\Delta}}{2a}$.",
+        ]
+    else:
+        answer = (
+            f"Faux : en réalité $\\Delta={delta}$ et les solutions sont "
+            f"{', '.join(f'$x={latex(s)}$' for s in correct_sols)}."
+        )
+        steps = [
+            f"Étape 1 — On recalcule indépendamment : $\\Delta=b^2-4ac={delta}$.",
+            "Étape 2 — La formule $x=\\dfrac{-b\\pm\\sqrt{\\Delta}}{2a}$ appliquée correctement ne redonne pas "
+            "ce qu'affirme l'élève : l'affirmation est fausse.",
+        ]
+    hint = "Ne pas se laisser impressionner par la présence d'un radical : recalculer Δ et réappliquer la formule (-b±√Δ)/(2a) terme à terme avant de juger."
+    return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
+
+
 EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "equation_depuis_racines_et_point": 3.4,
     "resolution_irrationnelle": 3.6,
+    "equation_depuis_racines_irrationnelles": 3.8,
+    "verifier_resolution_irrationnelle": 3.9,
 }
 
 EXTRA_FAMILIES: tuple[Family, ...] = (
@@ -677,6 +793,12 @@ EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("resolution_irrationnelle", 4, "Résoudre une équation à discriminant non carré parfait",
            _gen_resolution_irrationnelle, "discriminant positif mais non carré parfait, solutions radicales",
            "appliquer la formule des racines et laisser le résultat sous forme radicale exacte"),
+    Family("equation_depuis_racines_irrationnelles", 4, "Retrouver une équation depuis deux racines conjuguées irrationnelles",
+           _gen_equation_depuis_racines_irrationnelles, "deux racines de la forme p±√q",
+           "utiliser S=-b/a et P=c/a : les radicaux s'annulent dans la somme et se simplifient dans le produit"),
+    Family("verifier_resolution_irrationnelle", 4, "Vérifier une résolution à discriminant non carré parfait",
+           _gen_verifier_resolution_irrationnelle, "une résolution radicale proposée, correcte ou non",
+           "recalculer Δ et réappliquer (-b±√Δ)/(2a) avant de juger, même en présence d'un radical"),
 )
 
 EXTRA_FAMILIES_BY_ID = {f.id: f for f in EXTRA_FAMILIES}

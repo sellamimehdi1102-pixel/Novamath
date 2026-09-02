@@ -437,9 +437,54 @@ def _gen_expression_carre(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_FONCTIONS}
 
 
+# ── Famille supplémentaire — mission "audit final et exhaustif de la
+# diversité mathématique" (2026-09-02) : `combinaison_lineaire` (FAMILIES,
+# baseline figée) représente 205/438 du chapitre avec un raisonnement unique
+# ("lire cos/sin d'un angle connu dans la table puis combiner") — les deux
+# familles sœurs `combinaison_deux_angles`/`expression_carre` ci-dessus
+# combinent déjà les mêmes valeurs de table autrement, mais aucune ne
+# demande d'appliquer une FORMULE (raisonnement structurellement différent :
+# ne pas lire une valeur, la RECALCULER via une identité). Vérifiée par
+# sympy contre le calcul direct cos(2θ)/sin(2θ) (jamais seulement affirmée).
+
+def _gen_formule_duplication(rng: random.Random) -> Optional[dict]:
+    label, theta, c, s = rng.choice(_ANGLES[1:])
+    kind = rng.choice(["cos2", "sin2"])
+    if kind == "cos2":
+        valeur = sympy.simplify(2 * c ** 2 - 1)
+        if sympy.simplify(valeur - sympy.simplify(cos(2 * theta))) != 0:
+            return None
+        enonce = (
+            f"En utilisant la formule de duplication $\\cos(2\\theta)=2\\cos^2(\\theta)-1$, "
+            f"calculer $\\cos\\left(2\\times {label}\\right)$ (valeur exacte)."
+        )
+        steps = [
+            f"Étape 1 — $\\cos\\left({label}\\right) = {latex(c)}$.",
+            f"Étape 2 — $\\cos(2\\theta) = 2\\cos^2(\\theta)-1 = 2\\times\\left({latex(c)}\\right)^2-1$.",
+            f"Étape 3 — Après simplification, $\\cos\\left(2\\times {label}\\right) = {latex(valeur)}$.",
+        ]
+        answer = f"$\\cos\\left(2\\times {label}\\right) = {latex(valeur)}$"
+    else:
+        valeur = sympy.simplify(2 * s * c)
+        if sympy.simplify(valeur - sympy.simplify(sin(2 * theta))) != 0:
+            return None
+        enonce = (
+            f"En utilisant la formule de duplication $\\sin(2\\theta)=2\\sin(\\theta)\\cos(\\theta)$, "
+            f"calculer $\\sin\\left(2\\times {label}\\right)$ (valeur exacte)."
+        )
+        steps = [
+            f"Étape 1 — $\\cos\\left({label}\\right) = {latex(c)}$ et $\\sin\\left({label}\\right) = {latex(s)}$.",
+            f"Étape 2 — $\\sin(2\\theta) = 2\\sin(\\theta)\\cos(\\theta) = 2\\times {latex(s)}\\times {latex(c)}$.",
+            f"Étape 3 — Après simplification, $\\sin\\left(2\\times {label}\\right) = {latex(valeur)}$.",
+        ]
+        answer = f"$\\sin\\left(2\\times {label}\\right) = {latex(valeur)}$"
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_FONCTIONS}
+
+
 EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "combinaison_deux_angles": 2.8,
     "expression_carre": 3.2,
+    "formule_duplication": 3.4,
 }
 
 EXTRA_FAMILIES: tuple[Family, ...] = (
@@ -449,6 +494,9 @@ EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("expression_carre", 3, "Expression quadratique cos²−sin²", NOTION_FONCTIONS, _gen_expression_carre,
            "une différence de carrés de cosinus et sinus du même angle",
            "élever au carré chaque valeur exacte puis soustraire"),
+    Family("formule_duplication", 4, "Formule de duplication cos(2θ)/sin(2θ)", NOTION_FONCTIONS,
+           _gen_formule_duplication, "un angle double dont la valeur n'est pas directement dans la table",
+           "appliquer la formule de duplication à partir des valeurs exactes de l'angle simple"),
 )
 
 EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}

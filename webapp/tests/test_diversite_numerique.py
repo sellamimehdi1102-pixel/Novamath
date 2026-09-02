@@ -68,6 +68,15 @@ _NUMERIC_TARGETS = [
     # Mission "chantier final : diversification numérique maximale" (2026-09-02)
     ("exercise_generator", "geometrie_reperee", "vecteur_normal_unitaire", "answer", _SQRT_RE, 0.90),
     ("exercise_generator_troisieme", "developper_distributivite", "calcul_direct_fractionnaire", "enonce", _FRAC_RE, 0.95),
+    # Mission "audit final et exhaustif de la diversité mathématique" (2026-09-02) :
+    # deux familles supplémentaires comblant le même gap numérique que
+    # resolution_irrationnelle (discriminant non carré parfait), mais avec un
+    # raisonnement différent (reconstruire l'équation / juger une résolution
+    # proposée, plutôt que résoudre). Le radical apparaît systématiquement
+    # dans l'énoncé lui-même ici (racines ou solution proposée données en
+    # toutes lettres), pas seulement dans la réponse.
+    ("exercise_generator", "second_degre", "equation_depuis_racines_irrationnelles", "enonce", _SQRT_RE, 0.95),
+    ("exercise_generator", "second_degre", "verifier_resolution_irrationnelle", "enonce", _SQRT_RE, 0.95),
 ]
 
 
@@ -158,7 +167,7 @@ class TestNonRegressionApresDiversiteNumerique(unittest.TestCase):
     # Plancher = total juste après cette mission (voir rapport). Seconde
     # inclus cette fois (exercises_bank.json, pas de fichier "generated"
     # fusionné pour cette classe — voir tools/generate_seconde_curated_additions.py).
-    PLANCHER_GENERES = {"premiere": 3971, "troisieme": 1427}
+    PLANCHER_GENERES = {"premiere": 4087, "troisieme": 1427}
     PLANCHER_SECONDE_BANK = 2275
 
     def test_pool_genere_jamais_sous_son_plancher_post_diversite_numerique(self):

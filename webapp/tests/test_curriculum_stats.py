@@ -34,8 +34,26 @@ class TestStatsSeconde(unittest.TestCase):
         curriculum_stats.clear_cache()
 
     def test_compte_exactement_comme_un_recomptage_independant(self):
+        # Depuis l'audit "audit et renforcement de l'accès Seconde"
+        # (2026-09-02), server.py fusionne le sous-ensemble Chapitre_9 de
+        # generated_exercise_bank (voir curriculum_stats._SECONDE_MERGED_CHAPTERS) —
+        # le recomptage de référence doit inclure exactement ce même
+        # sous-ensemble, pas la banque generated entière (Chapitre_6 reste
+        # orphelin, non fusionné).
         profile = CURRICULUM_REGISTRY["seconde"]
-        expected = _reference_counts(profile.exercise_bank)
+        bank = json.loads(profile.exercise_bank.read_text(encoding="utf-8"))
+        generated = json.loads(profile.generated_exercise_bank.read_text(encoding="utf-8"))
+        bank = bank + [
+            ex for ex in generated
+            if ex.get("chapter_id") in curriculum_stats._SECONDE_MERGED_CHAPTERS
+        ]
+        expected = {
+            "totalExercises": len(bank),
+            "chapters": len({e["chapter_id"] for e in bank if e.get("chapter_id")}),
+            "notions": len({e["notion"] for e in bank if e.get("notion")}),
+            "difficultyLevels": len({e["difficulty"] for e in bank if e.get("difficulty") is not None}),
+            "exercisesWithSolution": sum(1 for e in bank if e.get("solution_steps")),
+        }
         stats = curriculum_stats.compute_stats("seconde")
         for key, value in expected.items():
             with self.subTest(key=key):
@@ -183,7 +201,12 @@ class TestCache(unittest.TestCase):
             curriculum_stats.compute_stats("seconde")
         finally:
             curriculum_stats._load_bank = original
-        self.assertEqual(len(calls), 1)
+        # Depuis l'audit "audit et renforcement de l'accès Seconde"
+        # (2026-09-02), le premier appel lit exercise_bank ET le
+        # sous-ensemble fusionné de generated_exercise_bank (2 lectures) ;
+        # le second appel doit rester servi entièrement par le cache (0
+        # lecture supplémentaire).
+        self.assertEqual(len(calls), 2)
 
 
 class TestTotalExercisesRefleteVraimentCeQuiEstServi(unittest.TestCase):

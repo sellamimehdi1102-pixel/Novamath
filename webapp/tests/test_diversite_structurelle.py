@@ -50,9 +50,16 @@ def _signature(enonce: str) -> str:
 # (celle identifiée par l'audit avec ≥90% de quasi-doublon) — voir le
 # rapport de mission pour le détail complet de l'audit.
 _DIVERSITY_TARGETS = [
-    ("exercise_generator", "second_degre", {"equation_depuis_racines_et_point": "equation_depuis_racines"}),
+    ("exercise_generator", "second_degre", {
+        "equation_depuis_racines_et_point": "equation_depuis_racines",
+        "equation_depuis_racines_irrationnelles": "equation_depuis_racines",
+        "verifier_resolution_irrationnelle": "verifier_resolution",
+    }),
     ("exercise_generator", "variations", {"optimisation_enclos": "optimisation", "extremum_parabole_cible": "extremum_inverse"}),
-    ("exercise_generator", "trigonometrie", {"combinaison_deux_angles": "combinaison_lineaire", "expression_carre": "combinaison_lineaire"}),
+    ("exercise_generator", "trigonometrie", {
+        "combinaison_deux_angles": "combinaison_lineaire", "expression_carre": "combinaison_lineaire",
+        "formule_duplication": "combinaison_lineaire",
+    }),
     ("exercise_generator", "produit_scalaire", {
         "produit_points": "produit_coordonnees", "norme_somme": "norme",
         "coordonnee_norme_donnee": "trouver_coordonnee_orthogonale", "alignement_points": "colinearite",
