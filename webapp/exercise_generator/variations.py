@@ -792,6 +792,50 @@ def _build_extremum_parabole_cible(rng: random.Random) -> Optional[dict]:
     )
 
 
+# ── Famille supplémentaire — mission "audit et renforcement de la diversité
+# NUMÉRIQUE" (2026-09-02) : vérification par lecture du code de `_build_calcul_deg3`
+# — ligne "if len(roots) != 2 or not all(r.is_rational for r in roots): return
+# None" exclut EXPLICITEMENT toute racine irrationnelle de f'. Nouvelle famille
+# dédiée, jamais mélangée à FAMILIES/generate_pool (baseline figée) : on
+# construit f(x)=x³+px+q avec p=-3k (k non carré parfait), donc f'(x)=3(x²-k)
+# s'annule en x=±√k, exactement ce que l'ancienne famille interdisait.
+
+def _build_calcul_deg3_irrationnel(rng: random.Random) -> Optional[dict]:
+    k = rng.choice([2, 3, 5, 6, 7, 8, 10, 11])
+    p = -3 * k
+    q = rng.randint(-6, 6)
+    f_expr = x**3 + p * x + q
+    fprime = simplify(diff(f_expr, x))
+    segments, roots = _sign_segments(fprime)
+    if len(roots) != 2 or all(r.is_rational for r in roots):
+        return None
+    extrema = _extrema_from_segments(segments, f_expr)
+    if len(extrema) != 2:
+        return None
+
+    fam = EXTRA_FAMILIES_BY_ID["calcul_deg3_irrationnel"]
+    f_latex = latex(f_expr)
+    fprime_latex = latex(fprime)
+    fprime_factored = sympy.factor(fprime)
+    extrema_text = " ; ".join(
+        f"{kind} ${latex(val)}$ en $x={latex(r)}$" for kind, r, val in extrema
+    )
+    steps = [
+        f"Étape 1 — On calcule $f'(x)$ pour $f(x) = {f_latex}$ : $f'(x) = {fprime_latex} = {latex(fprime_factored)}$.",
+        f"Étape 2 — On résout $f'(x) = 0$ : $x = {latex(roots[0])}$ ou $x = {latex(roots[1])}$ "
+        f"(racines irrationnelles, laissées sous forme radicale exacte).",
+        "Étape 3 — On étudie le signe de $f'$ sur les trois intervalles délimités par ces deux racines.",
+        f"Étape 4 — On en déduit les extremums locaux : {extrema_text}.",
+    ]
+    return _make_result(
+        enonce=f"Soit $f$ la fonction définie sur $\\mathbb{{R}}$ par $f(x) = {f_latex}$. "
+                "1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les "
+                "extremums locaux de $f$ (abscisses et valeurs), sous forme exacte.",
+        answer=extrema_text, hint=fam.rule_hint, steps=steps,
+        notion=NOTION_EXTREMUMS, family=fam, score=_score(f_expr, bonus=0.8),
+    )
+
+
 EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("optimisation_enclos", 4, "Optimisation géométrique — enclos adossé à un mur", NOTION_EXTREMUMS,
            _build_optimisation_enclos, "un problème d'optimisation d'aire sous contrainte de périmètre",
@@ -799,6 +843,10 @@ EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("extremum_parabole_cible", 4, "Problème inversé sur une parabole (minimum imposé)", NOTION_EXTREMUMS,
            _build_extremum_parabole_cible, "un coefficient inconnu à retrouver à partir de la VALEUR du minimum",
            "exprimer le minimum en fonction du paramètre puis résoudre une équation"),
+    Family("calcul_deg3_irrationnel", 4, "Calcul à étapes — polynôme de degré 3, extremums irrationnels",
+           NOTION_EXTREMUMS, _build_calcul_deg3_irrationnel,
+           "un polynôme de degré 3 dont les racines de la dérivée sont irrationnelles",
+           "dériver, résoudre f'(x)=0 sous forme radicale exacte, puis étudier le signe"),
 )
 
 EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}

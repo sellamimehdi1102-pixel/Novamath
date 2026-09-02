@@ -352,6 +352,34 @@ def _gen_coordonnee_norme_donnee(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
 
 
+# ── Famille supplémentaire — mission "audit et renforcement de la diversité
+# NUMÉRIQUE" (2026-09-02) : vérification par lecture du code — TOUTES les
+# familles de ce module tirent des coordonnées via `_nz` (entiers relatifs
+# uniquement) : aucune coordonnée fractionnaire/décimale n'existe nulle part
+# dans Chapitre_7. Nouvelle famille dédiée : coordonnées demi-entières
+# (n/2 avec n impair, donc réellement non entières), produit scalaire calculé
+# exactement via sympy.Rational — jamais mélangée à FAMILIES/generate_pool.
+
+def _half(rng: random.Random, lo: int, hi: int) -> Rational:
+    n = rng.choice([n for n in range(2 * lo, 2 * hi + 1) if n % 2 != 0])
+    return Rational(n, 2)
+
+
+def _gen_produit_coordonnees_fractionnaires(rng: random.Random) -> Optional[dict]:
+    x1, y1, x2, y2 = (_half(rng, -6, 6) for _ in range(4))
+    resultat = x1 * x2 + y1 * y2
+    enonce = (
+        f"Dans un repère orthonormé, on donne $\\vec{{u}}{_vec_latex(latex(x1), latex(y1))}$ et "
+        f"$\\vec{{v}}{_vec_latex(latex(x2), latex(y2))}$. Calculer $\\vec{{u}} \\cdot \\vec{{v}}$."
+    )
+    answer = f"$\\vec{{u}} \\cdot \\vec{{v}} = {latex(x1)} \\times {latex(x2)} + {latex(y1)} \\times {latex(y2)} = {latex(resultat)}$"
+    steps = [
+        f"Étape 1 — $\\vec{{u}} \\cdot \\vec{{v}} = x_u x_v + y_u y_v$.",
+        f"Étape 2 — ${latex(x1)} \\times {latex(x2)} + {latex(y1)} \\times {latex(y2)} = {latex(x1*x2)} + {latex(y1*y2)} = {latex(resultat)}$.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
+
+
 EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "produit_points": 1.8,
     "norme_somme": 2.0,
@@ -359,6 +387,7 @@ EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "alignement_points": 2.8,
     "orthogonalite_triangle": 3.2,
     "angle_inverse": 3.6,
+    "produit_coordonnees_fractionnaires": 2.0,
 }
 
 EXTRA_FAMILIES: tuple[Family, ...] = (
@@ -378,6 +407,9 @@ EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("angle_inverse", 4, "Retrouver un angle connaissant le produit scalaire", NOTION_AUTRES,
            _gen_angle_inverse, "un produit scalaire et deux normes donnés",
            "cos(u,v) = u·v / (||u||×||v||), puis identifier l'angle remarquable"),
+    Family("produit_coordonnees_fractionnaires", 2, "Produit scalaire avec coordonnées fractionnaires",
+           NOTION_PRODUIT_SCALAIRE, _gen_produit_coordonnees_fractionnaires,
+           "des coordonnées demi-entières (non entières)", "appliquer u·v = x_u x_v + y_u y_v avec des fractions exactes"),
 )
 
 EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}

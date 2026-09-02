@@ -111,7 +111,15 @@ class TestNouvellesFamillesDeDiversite(unittest.TestCase):
                 pool = module.generate_extra_pool(per_family=10, seed=1)
                 self.assertTrue(pool, f"{module_name} : generate_extra_pool ne produit aucun exercice")
                 familles_presentes = {e["family"] for e in pool}
-                self.assertEqual(familles_presentes, set(family_map), module_name)
+                # <= et non == : la mission "audit et renforcement de la
+                # diversité NUMÉRIQUE" (2026-09-02, voir
+                # test_diversite_numerique.py) a ajouté d'AUTRES familles au
+                # même generate_extra_pool() de certains de ces modules
+                # (second_degre, variations, produit_scalaire,
+                # factoriser_somme, proportionnalite, volumes_espace) — ce
+                # test ne vérifie que la présence des familles STRUCTURELLES
+                # de CETTE mission-ci, pas l'absence de toute autre famille.
+                self.assertTrue(set(family_map) <= familles_presentes, module_name)
 
     def test_chaque_nouvelle_famille_a_une_structure_differente_de_loriginale(self):
         """Une famille EST par nature un moule unique (numériquement variable)

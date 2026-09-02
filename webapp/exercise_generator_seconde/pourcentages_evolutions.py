@@ -225,6 +225,119 @@ def generate_one(family_id: str, seed: Optional[int] = None, max_attempts: int =
     raise RuntimeError(f"Impossible de générer un exercice valide pour la famille {family_id!r}")
 
 
+# ── Famille supplémentaire — mission "audit et renforcement de la diversité
+# NUMÉRIQUE" (2026-09-02) : vérification par lecture du code — `taux` est
+# TOUJOURS choisi dans une liste fixe de valeurs entières (ex. [5,10,15,20,
+# 25,30,40,50]) dans toutes les familles de ce module : aucun taux décimal
+# n'existe nulle part dans Chapitre_10. Nouvelle famille dédiée, jamais
+# mélangée à FAMILIES/generate_pool (baseline figée, déjà servie) : IDs à
+# partir de GENERATED_ID_OFFSET + 8000, ajoutée à la banque curée par
+# tools/generate_seconde_curated_additions.py (pas de fusion automatique de
+# generated_exercise_bank pour Seconde — voir docstring de ce module).
+
+def _decimal_str(r: Rational) -> str:
+    from decimal import Decimal, getcontext
+    getcontext().prec = 30
+    d = Decimal(int(r.p)) / Decimal(int(r.q))
+    return format(d.normalize(), "f").replace(".", ",")
+
+
+def _gen_evolution_taux_decimal(rng: random.Random) -> Optional[dict]:
+    valeur_initiale = rng.randrange(20, 401, 2)  # paire : voir _decimal_str, évite 3 décimales
+    taux = Rational(rng.choice([5, 15, 25, 35, 45]), 2)
+    hausse = rng.choice([True, False])
+    coeff = 1 + taux / 100 if hausse else 1 - taux / 100
+    valeur_finale = Rational(valeur_initiale) * coeff
+    sens = "augmentée" if hausse else "diminuée"
+    taux_str, coeff_str, finale_str = _decimal_str(taux), _decimal_str(coeff), _decimal_str(valeur_finale)
+    enonce = (
+        f"Une quantité vaut initialement ${valeur_initiale}$. Elle est {sens} de ${taux_str}\\%$. "
+        f"Calculer sa nouvelle valeur exacte."
+    )
+    answer = f"Nouvelle valeur $= {finale_str}$"
+    steps = [
+        f"Étape 1 — Le coefficient multiplicateur d'une {'hausse' if hausse else 'baisse'} de ${taux_str}\\%$ est "
+        f"${coeff_str}$.",
+        f"Étape 2 — Nouvelle valeur $= {valeur_initiale} \\times {coeff_str} = {finale_str}$.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_EVOLUTION}
+
+
+EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
+    "evolution_taux_decimal": 1.6,
+}
+
+EXTRA_FAMILIES: tuple[Family, ...] = (
+    Family("evolution_taux_decimal", 2, "Évolution avec un taux décimal", NOTION_EVOLUTION,
+           _gen_evolution_taux_decimal, "un taux d'évolution qui n'est pas un nombre entier de %",
+           "appliquer le coefficient multiplicateur même si le taux a une décimale"),
+)
+
+EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
+
+
+def _build_extra_exercise(family: Family, rng: random.Random) -> Optional[dict]:
+    notes = family.generate(rng)
+    if notes is None:
+        return None
+    score = EXTRA_FAMILY_BASE_SCORE[family.id]
+    real_level = _difficulty_bucket_from_score(score)
+    return {
+        "enonce": notes["enonce"],
+        "answer": notes["answer"],
+        "hint": f"Reconnais {family.structure_hint} : {family.rule_hint}.",
+        "solution_steps": notes["steps"],
+        "chapter_id": CHAPTER_ID,
+        "notion": notes["notion"],
+        "difficulty": real_level,
+        "difficulty_label": LEVEL_META[real_level]["label"],
+        "difficulty_emoji": LEVEL_META[real_level]["emoji"],
+        "family": family.id,
+        "family_label": family.label,
+        "declared_level": family.level,
+        "complexity_score": score,
+        "source": "generated",
+    }
+
+
+def generate_extra_pool(per_family: int = 12, seed: int = 20260950) -> list[dict]:
+    """Pool de diversification NUMÉRIQUE (mission 2026-09-02) — jamais mélangé
+    à generate_pool()/FAMILIES (baseline figée, déjà servie). IDs à partir de
+    GENERATED_ID_OFFSET + 8000."""
+    rng = random.Random(seed)
+    per_family_pool: dict[str, list[dict]] = {}
+    for family in EXTRA_FAMILIES:
+        seen_signatures = set()
+        items = []
+        attempts = 0
+        while len(items) < per_family and attempts < per_family * 60:
+            attempts += 1
+            ex = _build_extra_exercise(family, rng)
+            if ex is None:
+                continue
+            signature = (ex["family"], ex["enonce"])
+            if signature in seen_signatures:
+                continue
+            seen_signatures.add(signature)
+            items.append(ex)
+        per_family_pool[family.id] = items
+
+    pool: list[dict] = []
+    idx = 0
+    while any(per_family_pool.values()):
+        family = EXTRA_FAMILIES[idx % len(EXTRA_FAMILIES)]
+        bucket = per_family_pool.get(family.id) or []
+        if bucket:
+            pool.append(bucket.pop(0))
+        idx += 1
+        if idx > 200000:
+            break
+    offset = GENERATED_ID_OFFSET + 8000
+    for i, ex in enumerate(pool):
+        ex["id"] = offset + i
+    return pool
+
+
 def generate_pool(per_family: int = 12, seed: int = 20260911) -> list[dict]:
     rng = random.Random(seed)
     per_family_pool: dict[str, list[dict]] = {}

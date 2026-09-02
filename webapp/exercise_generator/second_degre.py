@@ -622,14 +622,61 @@ def _gen_equation_depuis_racines_et_point(rng):
     return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
 
 
+# ── Famille supplémentaire — mission "audit et renforcement de la diversité
+# NUMÉRIQUE" (2026-09-02) : vérification par lecture du code de `_gen_resolution`
+# (et de toutes les familles dérivées de r1/r2 entiers) — le discriminant y est
+# TOUJOURS un carré parfait par construction (b,c calculés à partir de racines
+# entières choisies au départ), donc jamais de racine irrationnelle nulle part
+# dans Chapitre_2. Nouvelle famille dédiée : a,b,c tirés directement (pas de
+# racines entières imposées a priori), on ne garde le tirage QUE si Δ>0 et
+# n'est PAS un carré parfait — les solutions exactes viennent de
+# `_roots_via_sympy`, seule source de vérité (jamais recalculées à la main).
+
+def _gen_resolution_irrationnelle(rng):
+    a = 1
+    b = c = None
+    for _ in range(300):
+        bb = _small(rng, -8, 8)
+        cc = _small(rng, -8, 8)
+        delta = bb**2 - 4 * a * cc
+        if delta <= 0:
+            continue
+        roots = _roots_via_sympy(a, bb, cc)
+        if len(roots) != 2 or all(r.is_rational for r in roots):
+            continue
+        b, c = bb, cc
+        break
+    if b is None:
+        return None
+    roots = _roots_via_sympy(a, b, c)
+    delta = b**2 - 4 * a * c
+    enonce = (
+        f"Résoudre dans $\\mathbb{{R}}$ l'équation ${_fmt_eq(a, b, c)}$. "
+        f"Donner les solutions sous forme exacte (radicaux non simplifiables en entiers)."
+    )
+    steps = [
+        f"Étape 1 — Discriminant : $\\Delta = {b}^2 - 4\\times{a}\\times({c}) = {delta}$.",
+        f"Étape 2 — $\\Delta = {delta}$ n'est pas le carré d'un entier : les solutions restent sous forme "
+        f"radicale, $x = \\dfrac{{-b \\pm \\sqrt{{\\Delta}}}}{{2a}}$.",
+        f"Étape 3 — $x_1 = {latex(roots[0])}$ et $x_2 = {latex(roots[1])}$.",
+    ]
+    answer = f"$x_1 = {latex(roots[0])}$ ou $x_2 = {latex(roots[1])}$"
+    hint = "Calculer le discriminant puis appliquer la formule des racines, même si Δ n'est pas un carré parfait."
+    return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
+
+
 EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "equation_depuis_racines_et_point": 3.4,
+    "resolution_irrationnelle": 3.6,
 }
 
 EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("equation_depuis_racines_et_point", 4, "Retrouver une équation depuis ses racines et un point",
            _gen_equation_depuis_racines_et_point, "deux racines et une valeur en un point tiers",
            "évaluer la forme factorisée au point donné pour retrouver a, puis développer"),
+    Family("resolution_irrationnelle", 4, "Résoudre une équation à discriminant non carré parfait",
+           _gen_resolution_irrationnelle, "discriminant positif mais non carré parfait, solutions radicales",
+           "appliquer la formule des racines et laisser le résultat sous forme radicale exacte"),
 )
 
 EXTRA_FAMILIES_BY_ID = {f.id: f for f in EXTRA_FAMILIES}

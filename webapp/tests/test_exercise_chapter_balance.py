@@ -66,6 +66,24 @@
    3434 exercices, Seconde inchangée (aucune famille Seconde n'était
    CRITIQUE à l'audit).
 
+6. "audit et renforcement de la diversité NUMÉRIQUE des exercices"
+   (2026-09-02) : un second audit — cette fois sur les TYPES DE NOMBRES
+   (négatifs, décimaux, fractions, puissances, racines), pas sur les
+   structures de raisonnement déjà traitées par la mission 5 — a vérifié
+   directement le CODE SOURCE de chaque générateur suspect (le texte des
+   énoncés seul sous-compte massivement : un résultat irrationnel ou
+   fractionnaire apparaît dans la réponse, rarement dans l'énoncé). 7 gaps
+   réels confirmés par une ligne de code prouvant l'impossibilité
+   structurelle (ex. `second_degre.py::resolution` construit toujours les
+   racines comme des entiers AVANT de calculer b,c, donc le discriminant
+   est toujours un carré parfait — jamais de racine irrationnelle dans tout
+   Chapitre_2 de Première). Une nouvelle famille sœur ajoutée pour chacun
+   (voir webapp/tests/test_diversite_numerique.py) : Première 4698 → 4734,
+   Troisième 3434 → 3470, Seconde 2275 → 2290 (première mission à modifier
+   Seconde depuis "équilibrage définitif" : `pourcentages_evolutions.py`
+   avait le même défaut — taux toujours entier — que son homologue
+   Troisième `proportionnalite.py`).
+
 Ces tests portent sur la CAUSE (répartition réelle par chapitre, cohérence
 des chapter_id, absence de doublon/perte, non-régression du volume) plutôt
 que sur un total exact, qui évoluera à chaque régénération volontaire du
@@ -272,24 +290,24 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
 
     PLANCHERS_HISTORIQUES = {
         "premiere": {
-            "Chapitre_1": 425, "Chapitre_2": 432, "Chapitre_3": 567, "Chapitre_4": 444,
-            "Chapitre_5": 423, "Chapitre_6": 457, "Chapitre_7": 486, "Chapitre_8": 480,
+            "Chapitre_1": 425, "Chapitre_2": 444, "Chapitre_3": 567, "Chapitre_4": 456,
+            "Chapitre_5": 423, "Chapitre_6": 457, "Chapitre_7": 498, "Chapitre_8": 480,
             "Chapitre_9": 492, "Chapitre_10": 492,
         },
         "troisieme": {
-            "Chapitre_1": 177, "Chapitre_2": 254, "Chapitre_3": 203, "Chapitre_4": 266,
-            "Chapitre_5": 230, "Chapitre_6": 254, "Chapitre_7": 242, "Chapitre_8": 181,
+            "Chapitre_1": 177, "Chapitre_2": 254, "Chapitre_3": 203, "Chapitre_4": 278,
+            "Chapitre_5": 230, "Chapitre_6": 266, "Chapitre_7": 242, "Chapitre_8": 181,
             "Chapitre_9": 254, "Chapitre_10": 260, "Chapitre_11": 180, "Chapitre_12": 210,
-            "Chapitre_13": 181, "Chapitre_14": 266, "Chapitre_15": 276,
+            "Chapitre_13": 181, "Chapitre_14": 266, "Chapitre_15": 288,
         },
         "seconde": {
             "Chapitre_1": 164, "Chapitre_2": 196, "Chapitre_3": 160, "Chapitre_4": 161,
             "Chapitre_5": 211, "Chapitre_6": 242, "Chapitre_7": 204, "Chapitre_8": 160,
-            "Chapitre_9": 201, "Chapitre_10": 203, "Chapitre_11": 162, "Chapitre_12": 211,
+            "Chapitre_9": 201, "Chapitre_10": 218, "Chapitre_11": 162, "Chapitre_12": 211,
         },
     }
 
-    TOTAL_MINIMUM = {"premiere": 4698, "troisieme": 3434, "seconde": 2275}
+    TOTAL_MINIMUM = {"premiere": 4734, "troisieme": 3470, "seconde": 2290}
 
     def test_aucun_chapitre_sous_son_plancher_historique(self):
         for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():

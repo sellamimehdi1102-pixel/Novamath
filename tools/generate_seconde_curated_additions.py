@@ -26,6 +26,15 @@ existante — il charge exercises_bank.json, vérifie qu'aucun id généré ne
 collisionne, puis ÉCRIT LA CONCATÉNATION (existant + nouveau), jamais un
 remplacement.
 
+── Mission "audit et renforcement de la diversité NUMÉRIQUE" (2026-09-02) ──
+`pourcentages_evolutions.generate_extra_pool()` (nouvelle famille
+evolution_taux_decimal, IDs à GENERATED_ID_OFFSET+8000, jamais mélangée à
+generate_pool()/FAMILIES) comble un vrai manque vérifié dans le code : le
+taux d'évolution y était TOUJOURS un entier de %, jamais un taux décimal
+(7,5% par ex.). Ajoutée à `_NEW_EXTRA_POOLS` ci-dessous, avec le même
+contrat additif que `_NEW_POOLS` (dédupliquée par énoncé, jamais un
+remplacement).
+
 Usage : python -m tools.generate_seconde_curated_additions
 """
 import json
@@ -46,6 +55,12 @@ _NEW_POOLS = (
     (pourcentages_evolutions, 18, 20260911),
 )
 
+# (module, per_family, seed) — pools de diversification NUMÉRIQUE
+# (generate_extra_pool(), jamais generate_pool()) : mission 2026-09-02.
+_NEW_EXTRA_POOLS = (
+    (pourcentages_evolutions, 15, 20260950),
+)
+
 # Champs du schéma curé Seconde (voir exercises_bank.json) — les champs
 # internes au générateur (family, family_label, declared_level,
 # complexity_score, source) ne font pas partie de ce schéma et sont retirés
@@ -64,6 +79,33 @@ def main() -> None:
         pool = module.generate_pool(per_family=per_family, seed=seed)
         for ex in pool:
             if ex["id"] in existing_ids:
+                # Script rejouable : si un run précédent a déjà écrit CE MÊME
+                # exercice (id et énoncé identiques), ce n'est pas une
+                # collision réelle -- seule une divergence id/énoncé est une
+                # vraie erreur d'intégrité.
+                already = next((e for e in existing if e["id"] == ex["id"]), None)
+                if already is not None and already.get("enonce") == ex["enonce"]:
+                    continue
+                print(f"ERREUR — collision d'id avec la banque existante : {ex['id']}", file=sys.stderr)
+                sys.exit(1)
+            if ex["enonce"] in existing_enonces:
+                continue  # doublon avec un exercice curé déjà présent : ignoré, jamais écrasé
+            curated = {field: ex[field] for field in _CURATED_FIELDS}
+            additions.append(curated)
+            existing_ids.add(curated["id"])
+            existing_enonces.add(curated["enonce"])
+
+    for module, per_family, seed in _NEW_EXTRA_POOLS:
+        pool = module.generate_extra_pool(per_family=per_family, seed=seed)
+        for ex in pool:
+            if ex["id"] in existing_ids:
+                # Script rejouable : si un run précédent a déjà écrit CE MÊME
+                # exercice (id et énoncé identiques), ce n'est pas une
+                # collision réelle -- seule une divergence id/énoncé est une
+                # vraie erreur d'intégrité.
+                already = next((e for e in existing if e["id"] == ex["id"]), None)
+                if already is not None and already.get("enonce") == ex["enonce"]:
+                    continue
                 print(f"ERREUR — collision d'id avec la banque existante : {ex['id']}", file=sys.stderr)
                 sys.exit(1)
             if ex["enonce"] in existing_enonces:

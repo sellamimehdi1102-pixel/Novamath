@@ -199,10 +199,44 @@ def _gen_cylindre_retrouver_rayon(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VOLUME}
 
 
+# ── Famille supplémentaire — mission "audit et renforcement de la diversité
+# NUMÉRIQUE" (2026-09-02) : vérification par lecture du code — `_gen_volume_pave`
+# tire ses 3 dimensions via `rng.randint` (entiers uniquement) : aucune
+# dimension décimale n'existe nulle part dans Chapitre_15. Nouvelle famille
+# dédiée : une dimension décimale (pas de centimes ronds), volume calculé
+# exactement via sympy.Rational (jamais une valeur flottante approximée).
+
+def _decimal_str(r: Rational) -> str:
+    from decimal import Decimal, getcontext
+    getcontext().prec = 30
+    d = Decimal(int(r.p)) / Decimal(int(r.q))
+    return format(d.normalize(), "f").replace(".", ",")
+
+
+def _gen_volume_pave_dimension_decimale(rng: random.Random) -> Optional[dict]:
+    demi_entiers = [n for n in range(7, 30) if n % 2 != 0]  # numérateurs impairs -> /2 = X,5 (jamais un entier)
+    L = Rational(rng.choice(demi_entiers), 2)
+    l = rng.randint(2, 12)
+    h = rng.randint(2, 10)
+    volume = L * l * h
+    L_str, volume_str = _decimal_str(L), _decimal_str(volume)
+    enonce = (
+        f"Un pavé droit a pour dimensions $L = {L_str}$ cm, $l = {l}$ cm et $h = {h}$ cm. "
+        f"Calculer son volume exact."
+    )
+    answer = f"$V = {volume_str}$ cm$^3$"
+    steps = [
+        "Étape 1 — Le volume d'un pavé droit est $V = L \\times l \\times h$, même si une dimension n'est pas entière.",
+        f"Étape 2 — $V = {L_str} \\times {l} \\times {h} = {volume_str}$ cm$^3$.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VOLUME}
+
+
 EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "pave_retrouver_hauteur": 1.6,
     "prisme_retrouver_hauteur": 2.4,
     "cylindre_retrouver_rayon": 3.2,
+    "volume_pave_dimension_decimale": 1.4,
 }
 
 EXTRA_FAMILIES: tuple[Family, ...] = (
@@ -215,6 +249,10 @@ EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("cylindre_retrouver_rayon", 4, "Retrouver le rayon d'un cylindre", NOTION_VOLUME,
            _gen_cylindre_retrouver_rayon, "un volume et une hauteur connus",
            "r² = V / (π×h), puis racine carrée"),
+    Family("volume_pave_dimension_decimale", 1, "Volume d'un pavé droit avec une dimension décimale",
+           NOTION_VOLUME, _gen_volume_pave_dimension_decimale,
+           "une dimension non entière (ex. 3,5 cm)",
+           "appliquer V = L × l × h même quand une longueur a une décimale"),
 )
 
 EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}

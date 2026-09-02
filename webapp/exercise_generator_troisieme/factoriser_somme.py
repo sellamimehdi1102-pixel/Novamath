@@ -10,7 +10,7 @@ import random
 from dataclasses import dataclass
 from typing import Callable, Optional
 
-from sympy import expand, gcd, latex, symbols
+from sympy import Rational, expand, gcd, latex, symbols
 
 x = symbols("x")
 
@@ -186,13 +186,49 @@ def _gen_facteur_commun_variable(rng):
     return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
 
 
+# ── Famille supplémentaire — mission "audit et renforcement de la diversité
+# NUMÉRIQUE" (2026-09-02) : vérification par lecture du code — toutes les
+# familles de ce module (FAMILIES et facteur_commun_variable) tirent des
+# coefficients entiers (`_nz`/`rng.randint`) : aucun coefficient fractionnaire
+# n'existe nulle part dans Chapitre_4 (développement/factorisation). Nouvelle
+# famille dédiée : facteur commun FRACTIONNAIRE (ex. 1/2), vérifiée via
+# sympy.expand avec Rational — jamais mélangée à FAMILIES/generate_pool.
+
+def _gen_facteur_commun_fractionnaire(rng):
+    denom = rng.choice([2, 3, 4, 5])
+    a = _nz(rng, 1, 6)
+    b = _nz(rng, -6, 6)
+    if b == 0:
+        return None
+    facteur = Rational(1, denom)
+    expr_a, expr_b = facteur * a, facteur * b
+    enonce_expr = expand(expr_a * x + expr_b)
+    check = expand(facteur * (a * x + b))
+    if check != enonce_expr:
+        return None
+    factored_inner = f"{_cx(a)}x {'+' if b > 0 else '-'} {abs(b)}"
+    factored = f"{latex(facteur)}({factored_inner})"
+    enonce = f"Factoriser l'expression ${latex(enonce_expr)}$ en mettant ${latex(facteur)}$ en facteur."
+    steps = [
+        f"Étape 1 — Chaque terme de ${latex(enonce_expr)}$ est un multiple de ${latex(facteur)}$.",
+        f"Étape 2 — On met ${latex(facteur)}$ en facteur : ${factored}$.",
+    ]
+    answer = f"${factored}$"
+    hint = "Le facteur commun n'est pas forcément un entier : ici c'est une fraction, à mettre en évidence comme un nombre normal."
+    return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
+
+
 EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "facteur_commun_variable": 1.8,
+    "facteur_commun_fractionnaire": 2.4,
 }
 
 EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("facteur_commun_variable", 2, "Facteur commun variable (x)", _gen_facteur_commun_variable,
            "une somme ax²+bx dont x est facteur commun", "mettre x en évidence : ax²+bx = x(ax+b)"),
+    Family("facteur_commun_fractionnaire", 3, "Facteur commun fractionnaire", _gen_facteur_commun_fractionnaire,
+           "un facteur commun qui est une fraction (pas un entier)",
+           "mettre la fraction en évidence comme on le ferait avec un entier"),
 )
 
 EXTRA_FAMILIES_BY_ID = {f.id: f for f in EXTRA_FAMILIES}

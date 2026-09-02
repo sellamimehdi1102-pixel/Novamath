@@ -235,9 +235,55 @@ def _gen_comparer_taux(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_POURCENTAGE}
 
 
+# ── Famille supplémentaire — mission "audit et renforcement de la diversité
+# NUMÉRIQUE" (2026-09-02) : vérification par lecture du code — `taux` est
+# TOUJOURS choisi dans une liste fixe de valeurs rondes ([5,10,15,20,25,30,
+# 40,50] ou [5,10,20,25,50]) : aucun taux décimal (7,5 %, 12,5 %...) n'existe
+# nulle part dans Chapitre_6. Nouvelle famille dédiée : taux décimal exact
+# (dénominateur 2, donc toujours un pourcentage à une décimale), résultat
+# calculé exactement via `decimal.Decimal` (jamais une valeur flottante
+# approximée) puisque 100×2=200 ne contient que des facteurs 2 et 5, donc le
+# résultat est TOUJOURS un décimal exact, jamais une troncature.
+
+def _rational_to_decimal_str(r: Rational) -> str:
+    from decimal import Decimal, getcontext
+    getcontext().prec = 30
+    d = Decimal(int(r.p)) / Decimal(int(r.q))
+    s = format(d.normalize(), "f")
+    return s.replace(".", ",")
+
+
+def _gen_pourcentage_taux_decimal(rng: random.Random) -> Optional[dict]:
+    # valeur_initiale PAIRE : le taux a un dénominateur 2 (ex. 7,5% = 15/2),
+    # donc 100+taux a un dénominateur 200 = 2^3*5^2 -- sans ce facteur 2 en
+    # plus au numérateur, le prix final aurait 3 décimales (ex. "58,125 €"),
+    # ce qu'aucun prix réel n'affiche (jamais moins qu'un centime).
+    valeur_initiale = rng.randrange(20, 301, 2)
+    taux = Rational(rng.choice([5, 15, 25, 35, 45]), 2)
+    sens = rng.choice(["augmentation", "diminution"])
+    coefficient = 1 + taux / 100 if sens == "augmentation" else 1 - taux / 100
+    valeur_finale = Rational(valeur_initiale) * coefficient
+    taux_str = _rational_to_decimal_str(taux)
+    coefficient_str = _rational_to_decimal_str(coefficient)
+    valeur_finale_str = _rational_to_decimal_str(valeur_finale)
+    enonce = (
+        f"Un article coûte {valeur_initiale} €. Son prix {'augmente' if sens == 'augmentation' else 'diminue'} "
+        f"de {taux_str} %. Calculer le nouveau prix (donner le résultat exact, en euros)."
+    )
+    signe = "+" if sens == "augmentation" else "-"
+    answer = f"Nouveau prix $= {valeur_finale_str}$ €"
+    steps = [
+        f"Étape 1 — Une {sens} de {taux_str} % correspond à un coefficient multiplicateur de "
+        f"$1 {signe} \\dfrac{{{taux_str.replace(',', '{,}')}}}{{100}} = {coefficient_str}$.",
+        f"Étape 2 — Nouveau prix $= {valeur_initiale} \\times {coefficient_str} = {valeur_finale_str}$ €.",
+    ]
+    return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_POURCENTAGE}
+
+
 EXTRA_FAMILY_BASE_SCORE: dict[str, float] = {
     "pourcentage_prix_initial": 2.6,
     "comparer_taux": 3.8,
+    "pourcentage_taux_decimal": 2.2,
 }
 
 EXTRA_FAMILIES: tuple[Family, ...] = (
@@ -247,6 +293,9 @@ EXTRA_FAMILIES: tuple[Family, ...] = (
     Family("comparer_taux", 4, "Comparer deux évolutions de pourcentage", NOTION_POURCENTAGE,
            _gen_comparer_taux, "deux évolutions de prix distinctes à comparer",
            "calculer les deux taux puis comparer leurs valeurs absolues"),
+    Family("pourcentage_taux_decimal", 2, "Évolution avec un taux décimal", NOTION_POURCENTAGE,
+           _gen_pourcentage_taux_decimal, "un taux d'évolution qui n'est pas un nombre entier de %",
+           "appliquer le coefficient multiplicateur même si le taux a une décimale"),
 )
 
 EXTRA_FAMILIES_BY_ID: dict[str, Family] = {f.id: f for f in EXTRA_FAMILIES}
