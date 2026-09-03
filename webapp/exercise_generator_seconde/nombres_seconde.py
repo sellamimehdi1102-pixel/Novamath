@@ -136,11 +136,11 @@ def _gen_nombre_premier(rng: random.Random) -> Optional[dict]:
 def _gen_puissance_relative(rng: random.Random) -> Optional[dict]:
     base = rng.choice([2, 3, 4, 5, 10, -2, -3])
     exposant = rng.choice([-1, -2, -3, -4])
-    valeur = Fraction(1, base ** (-exposant)) if base > 0 else Fraction(1, base ** (-exposant))
+    valeur = Fraction(1, base ** (-exposant))
     enonce = f"Calculer ${base}^{{{exposant}}}$ et donner le résultat sous forme de fraction irréductible."
     steps = [
         f"Étape 1 — Pour un exposant négatif, $a^{{-n}} = \\dfrac{{1}}{{a^n}}$ (avec $a \\neq 0$).",
-        f"Étape 2 — ${base}^{{{exposant}}} = \\dfrac{{1}}{{{base}^{{{-exposant}}}}} = \\dfrac{{1}}{{{base ** (-exposant)}}}$.",
+        f"Étape 2 — ${base}^{{{exposant}}} = \\dfrac{{1}}{{{base}^{{{-exposant}}}}} = {_fmt_frac(valeur)}$.",
     ]
     answer = f"${base}^{{{exposant}}} = {_fmt_frac(valeur)}$"
     hint = "Un exposant négatif transforme la puissance en inverse : a^(-n) = 1/(a^n)."
