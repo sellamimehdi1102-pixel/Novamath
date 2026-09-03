@@ -162,6 +162,7 @@ pool généré (mais ne doit JAMAIS diminuer en dessous du plancher historique
 verrouillé ci-dessous).
 """
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -320,12 +321,19 @@ class TestRepartitionParChapitre(unittest.TestCase):
     tous sans générateur auparavant) : Première 1,34, Troisième 1,37,
     Seconde 1,44 au moment d'écrire ces tests."""
 
-    # Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
-    # Troisième (tous les chapitres portés à 320) et Seconde (min 318, max
-    # 368 — Chapitre_6 rejoint désormais le calcul, voir curriculum_stats.py)
-    # atteignent des ratios bien plus bas qu'avant (1,00 et 1,16). Plafonds
-    # resserrés en conséquence, avec une marge raisonnable.
-    RATIO_MAX_PAR_CLASSE = {"premiere": 1.45, "troisieme": 1.2, "seconde": 1.3}
+    # Mission "audit et amélioration de la diversité des exercices"
+    # (2026-09-03) : Troisième Chapitre_14 (thalès) et Première Chapitre_6
+    # (trigonométrie) avaient une famille qui écrasait le reste du chapitre
+    # (resp. 72% cumulé sur 2 familles quasi identiques, et 49,6% pour une
+    # seule) — corrigé en ENRICHISSANT les familles sous-représentées déjà
+    # existantes (jamais en réduisant), ce qui a mécaniquement fait grandir
+    # ces deux chapitres bien au-delà du reste (499 et 743). La mission est
+    # explicite : la diversité prime sur l'égalité artificielle entre
+    # chapitres ("QUALITÉ > QUANTITÉ > ÉGALITÉ ARTIFICIELLE") — plafonds
+    # desserrés en conséquence plutôt que de sacrifier la diversité pour un
+    # ratio. Seconde inchangée par cette mission (aucune famille écrasante
+    # trouvée), plafond conservé.
+    RATIO_MAX_PAR_CLASSE = {"premiere": 1.8, "troisieme": 1.6, "seconde": 1.3}
 
     def test_ratio_max_min_reste_maitrise(self):
         for class_level, profile in CURRICULUM_REGISTRY.items():
@@ -337,6 +345,10 @@ class TestRepartitionParChapitre(unittest.TestCase):
                 ratio = max(counts.values()) / min(counts.values())
                 self.assertLessEqual(ratio, plafond, f"{class_level} : {counts} (ratio {ratio:.2f})")
 
+    # NOTE : Chapitre_14 (troisieme, 499) et Chapitre_6 (premiere, 743) sont
+    # désormais nettement au-dessus du plancher historique (voir mission
+    # "audit et amélioration de la diversité", 2026-09-03) — volontaire,
+    # additif, jamais réduit ensuite (voir RATIO_MAX_PAR_CLASSE ci-dessus).
     def test_chaque_chapitre_premiere_a_desormais_au_moins_400_exercices(self):
         """Avant la mission "équilibrage définitif", Chapitre_4 (variations)
         ne comptait que 300 exercices — c'est exactement ce que ce verrou
@@ -375,9 +387,13 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
     autre gonflé)."""
 
     PLANCHERS_HISTORIQUES = {
+        # Chapitre_6 porté à 743 (au lieu de 549) par la mission "audit et
+        # amélioration de la diversité" (2026-09-03) — complément additif de
+        # combinaison_deux_angles (trigonometrie.py) pour ramener
+        # combinaison_lineaire de 49,6% à 33,8% du chapitre.
         "premiere": {
             "Chapitre_1": 425, "Chapitre_2": 468, "Chapitre_3": 567, "Chapitre_4": 456,
-            "Chapitre_5": 423, "Chapitre_6": 549, "Chapitre_7": 498, "Chapitre_8": 532,
+            "Chapitre_5": 423, "Chapitre_6": 743, "Chapitre_7": 498, "Chapitre_8": 532,
             "Chapitre_9": 492, "Chapitre_10": 492,
         },
         # Mission "porter à 300 exercices minimum par chapitre" (2026-09-02) :
@@ -385,11 +401,15 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
         # voir tools/generate_troisieme_exercises.py::_EXTENSION_MODULES) ;
         # Seconde entre 318 et 368 (Chapitre_6/droites.py désormais fusionné
         # par server.py — voir curriculum_stats._SECONDE_MERGED_CHAPTERS).
+        # Chapitre_14 porté à 499 (au lieu de 320) par la mission "audit et
+        # amélioration de la diversité" (2026-09-03) — complément additif des
+        # familles géométriques sous-représentées de thales.py (voir
+        # tools/generate_troisieme_exercises.py).
         "troisieme": {
             "Chapitre_1": 320, "Chapitre_2": 320, "Chapitre_3": 320, "Chapitre_4": 320,
             "Chapitre_5": 320, "Chapitre_6": 320, "Chapitre_7": 320, "Chapitre_8": 320,
             "Chapitre_9": 320, "Chapitre_10": 320, "Chapitre_11": 320, "Chapitre_12": 320,
-            "Chapitre_13": 320, "Chapitre_14": 320, "Chapitre_15": 320,
+            "Chapitre_13": 320, "Chapitre_14": 499, "Chapitre_15": 320,
         },
         "seconde": {
             "Chapitre_1": 318, "Chapitre_2": 324, "Chapitre_3": 331, "Chapitre_4": 325,
@@ -398,7 +418,7 @@ class TestAucuneRegressionDeVolumeParChapitre(unittest.TestCase):
         },
     }
 
-    TOTAL_MINIMUM = {"premiere": 4902, "troisieme": 4800, "seconde": 3985}
+    TOTAL_MINIMUM = {"premiere": 5096, "troisieme": 4979, "seconde": 3985}
 
     def test_aucun_chapitre_sous_son_plancher_historique(self):
         for class_level, planchers in self.PLANCHERS_HISTORIQUES.items():
@@ -486,6 +506,54 @@ class TestDiversiteFamilleDominante(unittest.TestCase):
                         dominante / total, self.SEUIL_DOMINANCE_MAX,
                         f"{class_level}/{ch} : une famille représente {dominante}/{total} "
                         f"({dominante/total:.0%}) des exercices générés — {fam_counts}",
+                    )
+
+
+class TestAucunTemplateTextuelDominant(unittest.TestCase):
+    """Mission "audit et amélioration de la diversité des exercices"
+    (2026-09-03) : détecte la "fausse diversité" décrite par la mission —
+    "même équation avec seulement des nombres différents" — en comparant les
+    énoncés après avoir remplacé tous les nombres par "#" (signature
+    textuelle). Si un même patron textuel domine un chapitre, c'est le signe
+    que la diversité n'est que numérique, jamais structurelle.
+
+    Seuil documenté à partir de l'audit ayant motivé cette mission :
+    Troisième Chapitre_14 (thalès) culminait à 24,4% avant correction (deux
+    familles avec un patron d'énoncé quasi identique) ; après avoir enrichi
+    les familles géométriques sous-représentées, TOUS les chapitres de
+    TOUTES les classes sont retombés sous 16%. Seuil fixé à 20% (marge
+    raisonnable au-dessus du pire cas mesuré après correction), purement
+    dynamique — aucun chapitre codé en dur."""
+
+    SEUIL_TEMPLATE_MAX = 0.20
+    _NUM_RE = re.compile(r"-?\d+(?:[.,]\d+)?")
+
+    @classmethod
+    def _signature(cls, enonce):
+        return cls._NUM_RE.sub("#", enonce or "")
+
+    def test_aucun_patron_textuel_ne_domine_un_chapitre(self):
+        for class_level, profile in CURRICULUM_REGISTRY.items():
+            combined = _served_combined(class_level, profile)
+            by_chapter = {}
+            for ex in combined:
+                ch = ex.get("chapter_id")
+                if ch and ex.get("enonce"):
+                    by_chapter.setdefault(ch, []).append(ex["enonce"])
+            for ch, enonces in by_chapter.items():
+                total = len(enonces)
+                if total < 50:
+                    continue  # échantillon trop petit pour être significatif
+                sig_counts = {}
+                for e in enonces:
+                    sig = self._signature(e)
+                    sig_counts[sig] = sig_counts.get(sig, 0) + 1
+                dominant = max(sig_counts.values())
+                with self.subTest(class_level=class_level, chapter=ch):
+                    self.assertLessEqual(
+                        dominant / total, self.SEUIL_TEMPLATE_MAX,
+                        f"{class_level}/{ch} : un même patron textuel (nombres masqués) représente "
+                        f"{dominant}/{total} ({dominant/total:.0%}) des exercices",
                     )
 
 

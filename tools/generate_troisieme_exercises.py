@@ -252,6 +252,31 @@ def main() -> None:
         per_module_counts[f"{name} (diversité)"] = len(diversity_pool)
         combined.extend(diversity_pool)
 
+    # ── Mission "audit et amélioration de la diversité des exercices"
+    # (2026-09-03) ── Chapitre_14 (thales.py) : calculer_longueur (81) +
+    # reciproque (78) représentent à eux seuls 159/220 (72%) du pool généré,
+    # avec une structure d'énoncé quasi identique modulo les nombres (audit :
+    # 24,4% du chapitre entier partage un seul patron textuel). Les 3
+    # familles de generate_extra_pool() (calculer_longueur_papillon,
+    # calculer_longueur_somme, reciproque_somme — configurations
+    # géométriques réellement différentes) n'avaient reçu que 12 exemplaires
+    # chacune. Complément dédié : seed distinct, bloc d'ID +9000 (jamais
+    # utilisé pour thales), dédupliqué contre tout ce qui existe déjà.
+    _existing_enonces_global = {ex["enonce"] for ex in combined}
+    _thales_top_up = thales.generate_extra_pool(per_family=60, seed=933260350)
+    _seen_thales = set()
+    _thales_dedup = []
+    for ex in _thales_top_up:
+        if ex["enonce"] in _existing_enonces_global or ex["enonce"] in _seen_thales:
+            continue
+        _seen_thales.add(ex["enonce"])
+        _thales_dedup.append(ex)
+    _thales_offset = thales.GENERATED_ID_OFFSET + 9000
+    for i, ex in enumerate(_thales_dedup):
+        ex["id"] = _thales_offset + i
+    per_module_counts["thales (complément familles géométriques)"] = len(_thales_dedup)
+    combined.extend(_thales_dedup)
+
     ids = [ex["id"] for ex in combined]
     if len(ids) != len(set(ids)):
         dupes = sorted({i for i in ids if ids.count(i) > 1})

@@ -268,6 +268,34 @@ def main() -> None:
     per_module_counts["trigonometrie (combinaison_deux_angles, complément)"] = len(_cda_dedup)
     combined.extend(_cda_dedup)
 
+    # ── Mission "audit et amélioration de la diversité des exercices"
+    # (2026-09-03) ── malgré le complément ci-dessus, combinaison_lineaire
+    # (205, baseline figée) représentait encore 49,6% de Chapitre_6
+    # (205/413) : le complément précédent (seed 920260952, bloc +8500) n'a
+    # ajouté que 92 exemplaires avant dédoublonnage. combinaison_deux_angles
+    # reste très loin de sa capacité combinatoire (2688 combinaisons
+    # possibles, voir commentaire ci-dessus) — second complément, même
+    # patron (seed dédié, bloc d'ID dédié +9000, dédupliqué contre TOUT ce
+    # qui existe déjà y compris le premier complément).
+    _existing_enonces_global = {ex["enonce"] for ex in combined}
+    _cda_top_up_2 = trigonometrie.generate_extra_pool(per_family=200, seed=920260953)
+    _cda_top_up_2 = [
+        ex for ex in _cda_top_up_2
+        if ex["family"] == "combinaison_deux_angles" and ex["enonce"] not in _existing_enonces_global
+    ]
+    _seen_cda2 = set()
+    _cda_dedup_2 = []
+    for ex in _cda_top_up_2:
+        if ex["enonce"] in _seen_cda2:
+            continue
+        _seen_cda2.add(ex["enonce"])
+        _cda_dedup_2.append(ex)
+    _cda_offset_2 = trigonometrie.GENERATED_ID_OFFSET + 9000
+    for i, ex in enumerate(_cda_dedup_2):
+        ex["id"] = _cda_offset_2 + i
+    per_module_counts["trigonometrie (combinaison_deux_angles, complément 2)"] = len(_cda_dedup_2)
+    combined.extend(_cda_dedup_2)
+
     # Collision d'id : garde-fou explicite (ne devrait jamais se déclencher
     # tant que les GENERATED_ID_OFFSET restent distincts et suffisamment
     # espacés — voir docstring de chaque module).
