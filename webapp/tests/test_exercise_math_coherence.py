@@ -270,5 +270,52 @@ class TestPuissanceNegativeDeBaseNegativeSigneCorrect(unittest.TestCase):
         self.assertGreater(checked, 0, "aucun exercice ne correspond au patron '-N^{-M}' — test à revoir")
 
 
+class TestTangenteExponentielleCoherente(unittest.TestCase):
+    """Détecte le bug id 1185 (exercises_bank_premiere.json, "Courbe
+    représentative" : tangente à $\\exp$ au point d'abscisse $x_0=-3$,
+    answer="$y = e^{-3} x +4$" — terme constant faux, oublié le facteur
+    $e^{-3}$). Pour toute réponse de la forme "$y = e^{N}x + Me^{N}$" dont
+    l'énoncé précise un point d'abscisse "x_0 = N" pour une tangente à
+    l'exponentielle, la relation M = 1 - N doit être vérifiée (tangente à
+    exp en x0 : y = e^{x0}(x-x0)+e^{x0} = e^{x0}x + (1-x0)e^{x0})."""
+
+    # Le terme constant peut être écrit "Me^{N}" (forme correcte attendue) ou
+    # un simple entier "K" sans facteur exponentiel (c'était exactement la
+    # forme du bug id 1185 avant correction : "$y = e^{-3} x +4$", terme
+    # constant = 4, sans e^{-3}) — les deux formes doivent être détectées.
+    _X0_RE = re.compile(r"x_0\s*=\s*(-?\d+)")
+    _ANSWER_RE = re.compile(r"\$y = e\^\{(-?\d+)\}\s*x\s*\+\s*(-?\d+)(e\^\{-?\d+\})?\$")
+
+    def test_tangente_exponentielle_terme_constant_correct(self):
+        checked = 0
+        for class_level, ex in _all_curated_exercises():
+            enonce = ex.get("enonce") or ""
+            if "tangente" not in enonce.lower() or "exponentielle" not in enonce.lower():
+                continue
+            m_x0 = self._X0_RE.search(enonce)
+            m_ans = self._ANSWER_RE.search(ex.get("answer") or "")
+            if not m_x0 or not m_ans:
+                continue
+            x0 = int(m_x0.group(1))
+            n_in_answer, coef, has_exp_factor = int(m_ans.group(1)), int(m_ans.group(2)), m_ans.group(3) is not None
+            with self.subTest(class_level=class_level, id=ex.get("id")):
+                self.assertEqual(
+                    n_in_answer, x0,
+                    f"{class_level}/id {ex.get('id')} : l'exposant de e dans answer ({n_in_answer}) "
+                    f"ne correspond pas à x_0={x0} de l'énoncé",
+                )
+                # Valeur exacte attendue du terme constant : (1-x0)*e^{x0}.
+                expected = (1 - x0) * sympy.exp(x0)
+                stored = coef * (sympy.exp(x0) if has_exp_factor else 1)
+                self.assertEqual(
+                    sympy.simplify(stored - expected), 0,
+                    f"{class_level}/id {ex.get('id')} : terme constant stocké = {stored}, "
+                    f"attendu (1-x_0)e^{{x_0}} = {expected} (tangente y=e^x0(x-x0)+e^x0) — "
+                    f"{'un facteur e^{x0} est manquant' if not has_exp_factor and x0 != 0 else ''}",
+                )
+                checked += 1
+        self.assertGreater(checked, 0, "aucun exercice ne correspond au patron tangente-exponentielle — test à revoir")
+
+
 if __name__ == "__main__":
     unittest.main()
