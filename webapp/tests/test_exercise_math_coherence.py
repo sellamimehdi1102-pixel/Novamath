@@ -25,7 +25,27 @@ valeurs intermédiaires (déjà correctement calculées et affichées) était
 fausse. Les tests ci-dessous détectent GÉNÉRIQUEMENT ce type d'erreur — ils
 scannent TOUTE la banque curée à la recherche du patron textuel concerné (pas
 un ID particulier) et recalculent indépendamment, de sorte qu'ils s'appliquent
-aussi à tout exercice futur qui reproduirait le même patron."""
+aussi à tout exercice futur qui reproduirait le même patron.
+
+Mission "audit exhaustif des exercices curés restants" (2026-09-04) : les
+~5 500 exercices curés qui n'avaient pas encore été vérifiés individuellement
+l'ont été (couverture 100% des 3 banques), révélant 22 anomalies supplémentaires
+(19 critiques, 1 majeure, 2 mineures), toutes corrigées. Deux classes
+supplémentaires, génériques, ont été ajoutées ici :
+
+  - `TestReductionAlgebriqueConclusionCoherente` : détecte le bug id 523
+    (exercises_bank.json, "A = (x+2)(x-3)-(x-1)^2" : answer="-x-7" alors que
+    la dernière étape concluait elle-même "A = x - 7") — et a également
+    attrapé un second cas du même patron (id 597) lors de sa vérification
+    contre les données pré-correction, confirmant sa généralité.
+  - `TestPuissanceNegativeDeBaseNegativeSigneCorrect` : détecte le bug ids
+    920002/920030/920082/920106 ("-N^{-M}" affiché comme +1/P au lieu de
+    -1/P — l'exposant négatif ne s'applique qu'à N, pas au signe qui précède).
+
+Ce fichier ne couvre PAS l'intégralité des types de calcul possibles (voir le
+rapport de mission pour le détail exact de ce qui est/n'est pas couvert) : il
+s'agit de verrous anti-régression ciblés sur les patrons de bugs réellement
+trouvés, pas d'un vérificateur mathématique universel."""
 import json
 import re
 import unittest
@@ -157,6 +177,97 @@ class TestVariationDeFonctionCoherente(unittest.TestCase):
                 )
                 checked += 1
         self.assertGreater(checked, 0, "aucun exercice ne correspond au patron variation f(b)-f(a) — test à revoir")
+
+
+def _latex_to_sympy_text(latex):
+    """Convertisseur LaTeX -> texte analysable par sympy, volontairement
+    limité aux constructions rencontrées dans les banques curées (pas de
+    nesting profond) : \\dfrac{a}{b} et \\frac{a}{b} -> (a)/(b), \\times/\\cdot
+    -> *, ^{n} -> **n, suppression de \\left/\\right/$."""
+    s = latex.strip().strip("$").strip()
+    s = s.replace("\\left", "").replace("\\right", "")
+    s = re.sub(r"\\d?frac\{([^{}]+)\}\{([^{}]+)\}", r"((\1)/(\2))", s)
+    s = s.replace("\\times", "*").replace("\\cdot", "*")
+    s = re.sub(r"\^\{(-?\d+)\}", r"**(\1)", s)
+    s = s.replace("^", "**")
+    s = re.sub(r"(\d),(\d)", r"\1.\2", s)  # virgule décimale française -> point
+    return s
+
+
+class TestReductionAlgebriqueConclusionCoherente(unittest.TestCase):
+    """Détecte le bug id 523 (exercises_bank.json, "Distributivité et identités
+    remarquables" : A=(x+2)(x-3)-(x-1)^2, answer="-x-7" alors que la dernière
+    étape calcule et affirme elle-même "A = x - 7") : pour tout exercice curé
+    dont le `answer` est de la forme "$X = <expr>$" (X = un identifiant simple :
+    A, B, y, f(x)...), si la DERNIÈRE étape de `solution_steps` affiche aussi
+    une assignation "$X = <expr2>$" pour ce même X, les deux expressions
+    doivent être algébriquement identiques (recalcul sympy), pas seulement
+    textuellement proches. Beaucoup d'exercices n'ont pas ce format (réponses
+    "Oui"/"Non"/prose) : ils sont simplement ignorés (pas de faux positif),
+    voir test_aucun_faux_positif_sur_reponses_non_algebriques ci-dessous."""
+
+    _ANSWER_ASSIGN_RE = re.compile(r"^\$([A-Za-z](?:\([^)$]*\))?'?) = (.+)\$$")
+
+    def test_derniere_etape_coherente_avec_answer(self):
+        checked = 0
+        for class_level, ex in _all_curated_exercises():
+            answer = (ex.get("answer") or "").strip()
+            m = self._ANSWER_ASSIGN_RE.match(answer)
+            if not m:
+                continue
+            ident, expr_answer = m.group(1), m.group(2)
+            steps = ex.get("solution_steps") or []
+            if not steps:
+                continue
+            last_step = steps[-1]
+            m_step = re.search(
+                r"\$" + re.escape(ident) + r" = (.+?)\$(?!.*\$" + re.escape(ident) + r" = )",
+                last_step,
+            )
+            if not m_step:
+                continue
+            try:
+                left = parse_expr(_latex_to_sympy_text(expr_answer), transformations=_TRANSFORMATIONS)
+                right = parse_expr(_latex_to_sympy_text(m_step.group(1)), transformations=_TRANSFORMATIONS)
+            except Exception:
+                continue  # expression non-algébrique (texte, ensembles...) : hors périmètre de ce test
+            with self.subTest(class_level=class_level, id=ex.get("id")):
+                self.assertEqual(
+                    sympy.simplify(left - right), 0,
+                    f"{class_level}/id {ex.get('id')} : answer donne {ident} = {left}, "
+                    f"mais la dernière étape conclut {ident} = {right}",
+                )
+                checked += 1
+        self.assertGreater(checked, 0, "aucun exercice ne correspond au patron 'X = expr' — test à revoir")
+
+
+class TestPuissanceNegativeDeBaseNegativeSigneCorrect(unittest.TestCase):
+    """Détecte le bug ids 920002/920030/920082/920106 (exercises_bank.json,
+    "Puissances entières relatives") : pour toute réponse de la forme
+    "$-N^{-M} = \\dfrac{1}{P}$" (M pair rendant le piège invisible), le signe
+    doit être respecté : -N^{-M} = -(N**(-M)), jamais +(N**(-M)) — l'exposant
+    ne s'applique qu'à N, pas au signe qui le précède."""
+
+    _RE = re.compile(r"\$-(\d+)\^\{(-\d+)\} = (-?)\\dfrac\{1\}\{(\d+)\}\$")
+
+    def test_signe_de_moins_n_puissance_m_correct(self):
+        checked = 0
+        for class_level, ex in _all_curated_exercises():
+            answer = ex.get("answer") or ""
+            m = self._RE.search(answer)
+            if not m:
+                continue
+            n, exp, sign, denom = int(m.group(1)), int(m.group(2)), m.group(3), int(m.group(4))
+            expected = sympy.Rational(-1, n ** (-exp))
+            with self.subTest(class_level=class_level, id=ex.get("id")):
+                stored = sympy.Rational(-1 if sign == "-" else 1, denom)
+                self.assertEqual(
+                    stored, expected,
+                    f"{class_level}/id {ex.get('id')} : answer={answer!r} donne {sign or '+'}1/{denom}, "
+                    f"attendu -{n}^{{{exp}}} = {expected}",
+                )
+                checked += 1
+        self.assertGreater(checked, 0, "aucun exercice ne correspond au patron '-N^{-M}' — test à revoir")
 
 
 if __name__ == "__main__":
