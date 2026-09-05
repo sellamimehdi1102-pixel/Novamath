@@ -1544,13 +1544,18 @@ def oauth_start(provider):
     state = secrets.token_urlsafe(32)
     session["oauth_state"] = state
     session["oauth_provider"] = provider
+    # Ni access_type=offline ni prompt=consent : Mathadap ne fait qu'une
+    # lecture ponctuelle du profil à la connexion (openid/email/profile),
+    # jamais d'appel différé à l'API Google au nom de l'utilisateur — un
+    # refresh_token serait demandé puis jamais stocké ni utilisé (aucune
+    # trace dans db.py). Forcer le consentement à chaque connexion était une
+    # sur-demande sans usage réel ; Google affiche l'écran de consentement de
+    # lui-même au premier octroi (et si le scope change), jamais ensuite.
     params = urlencode({
         "client_id": os.environ[cfg["client_id_env"]],
         "redirect_uri": _oauth_redirect_uri(provider),
         "response_type": "code",
         "scope": cfg["scope"],
-        "access_type": "offline",
-        "prompt": "consent",
         "state": state,
     })
     return redirect(f"{cfg['authorize_url']}?{params}")
