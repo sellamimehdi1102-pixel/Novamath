@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { cpSync, existsSync } from "node:fs";
+import { cpSync, existsSync, readdirSync } from "node:fs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const staticRoot = resolve(__dirname, "webapp/static");
@@ -44,6 +44,15 @@ function copyUnbundledAssets() {
       for (const entry of ["robots.txt", "sitemap.xml", "data"]) {
         const src = resolve(staticRoot, entry);
         if (existsSync(src)) cpSync(src, resolve(outDir, entry), { recursive: true });
+      }
+      // Fichier de vérification de propriété de domaine Google Search Console
+      // (méthode "fichier HTML", ex. google1234567890abcdef.html) : doit être
+      // servi tel quel à la racine, avec un nom de fichier stable — absent du
+      // graphe de pages Vite (PAGES ci-dessus), donc jamais copié sans ceci.
+      for (const name of readdirSync(staticRoot)) {
+        if (/^google[a-f0-9]+\.html$/i.test(name)) {
+          cpSync(resolve(staticRoot, name), resolve(outDir, name));
+        }
       }
     },
   };
