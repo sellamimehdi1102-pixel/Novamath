@@ -706,7 +706,16 @@ ul { margin: 0; padding: 0; list-style: none; }
    élément devant visuellement déborder de .main-content (le sidebar, seul
    sticky proche, est un frère de .main-content, pas un descendant) : sans
    risque pour le reste du site. */
-.main-content { padding: 40px 48px 96px; max-width: 1320px; flex: 1; min-width: 0; overflow-x: hidden; }
+/* margin-left/right:auto — sans effet tant que flex:1 fait grandir
+   .main-content jusqu'à combler tout l'espace disponible (l'écrasante
+   majorité des largeurs) ; ne joue qu'une fois max-width:1320px atteint
+   (≈ ≥1570px de large avec le rail 196px), où .main-content restait sinon
+   épinglé à gauche et laissait une bande vide non centrée à droite (mesurée :
+   368px de vide à 1920px, cause du "espace disproportionné à droite" /
+   "largeur qui ne semble pas utiliser l'espace disponible" constaté). Marge
+   auto sur un flex item est le mécanisme standard pour absorber l'espace
+   libre restant dans sa ligne flex une fois sa taille plafonnée. */
+.main-content { padding: 40px 48px 96px; max-width: 1320px; margin-left: auto; margin-right: auto; flex: 1; min-width: 0; overflow-x: hidden; }
 
 .page-header {
   display: flex;
