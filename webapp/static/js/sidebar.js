@@ -186,6 +186,13 @@ function init() {
   sidebar.querySelectorAll(".sidebar-link").forEach((a) => {
     a.addEventListener("click", () => closeDrawer(sidebar));
   });
+  // #settings-btn a la classe .sidebar-settings-btn (pas .sidebar-link) et
+  // n'était donc jamais couvert par la boucle ci-dessus : sur mobile, ouvrir
+  // le popup Paramètres depuis le drawer laissait celui-ci ouvert par-dessus
+  // (sidebar en z-index:1100 > popup-overlay en z-index:200), le popup
+  // apparaissant à moitié masqué derrière le tiroir (repro confirmée 430 à
+  // 860px). Le popup lui-même reste géré par son propre gestionnaire de clic.
+  if (settingsBtn) settingsBtn.addEventListener("click", () => closeDrawer(sidebar));
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeDrawer(sidebar);
   });

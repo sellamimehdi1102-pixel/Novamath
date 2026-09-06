@@ -255,6 +255,15 @@ ul { margin: 0; padding: 0; list-style: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* flex-wrap:wrap (au lieu du nowrap implicite) — sans ça, .nav-links +
+     .nav-actions débordent silencieusement le viewport (scroll horizontal
+     global) sur toute largeur intermédiaire où ni le breakpoint ≤480px
+     (nav-actions en pleine largeur, responsive.css) ni le breakpoint
+     ≤860px (nav-links masqué, landing.css) ne s'appliquent encore — repro
+     mesurée à 568px et 932px de large. Sans effet quand tout tient sur
+     une ligne (le cas normal desktop). */
+  flex-wrap: wrap;
+  row-gap: 10px;
   padding: 16px 24px;
   background: color-mix(in srgb, var(--bg) 68%, transparent);
   backdrop-filter: blur(18px) saturate(1.4);
