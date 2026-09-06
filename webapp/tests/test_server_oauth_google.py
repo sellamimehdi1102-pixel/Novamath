@@ -111,6 +111,28 @@ class TestOAuthStart(OAuthGoogleTestCase):
             self.assertEqual(qs["scope"][0], "openid email profile")
             self.assertTrue(len(qs["state"][0]) > 20)
 
+    def test_redirect_uri_correspond_exactement_a_la_route_callback(self):
+        """Régression : la valeur de redirect_uri envoyée à Google doit être
+        un match caractère pour caractère avec ce qui est enregistré dans
+        Google Cloud Console (Authorized redirect URIs), sinon Google renvoie
+        redirect_uri_mismatch. Ici en environnement de test (scheme http),
+        et séparément avec un contexte simulant explicitement un reverse
+        proxy HTTPS (Render) pour couvrir la reconstruction faite par
+        ProxyFix en production (voir server.py::TRUST_PROXY_HEADERS)."""
+        with _fake_google_env():
+            resp = self.client.get("/api/auth/google/start")
+            qs = parse_qs(urlparse(resp.headers["Location"]).query)
+            self.assertTrue(qs["redirect_uri"][0].endswith("/api/auth/google/callback"))
+
+        with server.app.test_request_context(
+            "/api/auth/google/start",
+            environ_overrides={"wsgi.url_scheme": "https", "HTTP_HOST": "mathadap.com"},
+        ):
+            self.assertEqual(
+                auth._oauth_redirect_uri("google"),
+                "https://mathadap.com/api/auth/google/callback",
+            )
+
     def test_deux_appels_generent_des_state_differents(self):
         with _fake_google_env():
             state1 = self._start_and_get_state()
