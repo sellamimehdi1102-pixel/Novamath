@@ -389,14 +389,13 @@
 
 @media (max-width: 640px) {
   .chapters-grid { grid-template-columns: 1fr; }
-  .chapter-filter-bar {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    margin: 0 -4px 18px;
-    padding-left: 4px;
-    padding-right: 4px;
-  }
+  /* Le mode "défilement horizontal" (flex-wrap:nowrap + overflow-x:auto)
+     coupait silencieusement le dernier filtre ("Non maîtrisé") sans aucune
+     indication qu'il restait du contenu à faire défiler — confirmé par
+     capture d'écran (audit responsive, 375px de large). Ce ne sont que 4
+     boutons discrets, pas un contenu intrinsèquement horizontal (formule,
+     tableau) : ils repassent simplement à la ligne, comme au-dessus de
+     640px, plutôt que de dépendre d'un scroll non signalé. */
   .chapter-filter-pill { flex-shrink: 0; }
 }
 

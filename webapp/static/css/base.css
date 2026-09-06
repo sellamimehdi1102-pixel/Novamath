@@ -861,7 +861,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 .popup-confirm-message { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin: 0 0 4px; }
 
 /* ── Champs de formulaire réutilisables (modales) ───────────────────────── */
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; min-width: 0; }
+.form-row > * { min-width: 0; }
+/* Sous 480px (iPhone SE/petits Android), 2 colonnes de ~1fr laissent trop peu
+   de place à un champ + son libellé (ex. "Pseudo (nom affiché)") : le
+   contenu déborde du champ, lui-même débordant de la modale (confirmé par
+   capture d'écran, audit responsive 320-375px, modale d'inscription). Une
+   seule colonne à cette largeur, cohérente avec le comportement déjà utilisé
+   pour la modale d'avis (reviews.css, sous 860px). */
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+}
 .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
 .form-field label, .form-field > span:first-child { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
 .form-field input[type="text"],

@@ -74,6 +74,7 @@ from auth import (
     auth_bp, get_current_user, login_required, login_required_page, require_non_guest,
     read_user_stats, write_user_stats,
     csrf_protect, read_user_settings, write_user_settings, read_user_course_progress, write_user_course_progress,
+    USER_STATS_DIR,
 )
 
 from chatbot import conversation_manager, provider_manager
@@ -604,6 +605,20 @@ else:
     logger.info(
         "Persistance : %s utilisateur(s) trouvé(s) dans la base existante au démarrage (%s).",
         db.count_users(), "SQLite" if _sqlite_mode else "PostgreSQL",
+    )
+# La progression (XP/historique/séries/badges — auth.py::read_user_stats/
+# write_user_stats), la lecture de cours et les préférences vivent dans des
+# fichiers JSON séparés de la base (voir USER_STATS_DIR/USER_COURSE_DIR/
+# USER_SETTINGS_DIR, auth.py), sous le même DATA_DIR que la base — donc sur
+# le même disque, mais PAS couverts par backup_service.py (qui ne sauvegarde
+# que la base SQLite, voir sa docstring). Compté séparément pour rendre visible
+# dans les logs Render un scénario où la base survit (comptes) mais où ces
+# fichiers, eux, auraient disparu (progression perdue malgré un compte intact).
+if _sqlite_mode:
+    _user_stats_count = sum(1 for _ in USER_STATS_DIR.glob("*.json")) if USER_STATS_DIR.is_dir() else 0
+    logger.info(
+        "Persistance : %s fichier(s) de progression utilisateur trouvé(s) au démarrage (%s).",
+        _user_stats_count, USER_STATS_DIR,
     )
 # En-têtes de sécurité HTTP (CSP, HSTS, X-Frame-Options, etc.) — toute la
 # logique vit dans security_headers_service.py, voir sa docstring.
