@@ -10,12 +10,14 @@ pattern que tests/test_quota_service.py : aucune interférence avec
 data/novamath.db ni backups/.
 """
 import importlib
+import json
 import os
 import shutil
 import sqlite3
 import subprocess
 import tempfile
 import unittest
+import zipfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
@@ -167,7 +169,13 @@ class TestRestoreBackup(BackupServiceTestCase):
         backup_service.restore_backup(backup_path.name)
         after_files = list(backup_service.backup_dir().iterdir())
         pre_restore_files = [p for p in after_files if p.name.startswith(backup_service._PRE_RESTORE_PREFIX)]
-        self.assertEqual(len(pre_restore_files), 1)
+        # 2 copies de sécurité désormais : la base SQLite ET la progression
+        # utilisateur (voir backup_service._pre_restore_userdata_safety_copy,
+        # ajoutée pour ne jamais perdre l'une sans l'autre lors d'une
+        # restauration — audit "diagnostic définitif" 2026-09-06).
+        self.assertEqual(len(pre_restore_files), 2)
+        self.assertTrue(any(p.name.endswith(backup_service._SQLITE_SUFFIX) for p in pre_restore_files))
+        self.assertTrue(any(p.name.endswith(backup_service._USERDATA_SUFFIX) for p in pre_restore_files))
 
 
 class TestRotationParDate(BackupServiceTestCase):
@@ -303,11 +311,15 @@ class TestCopiePreRestoreWalAware(BackupServiceTestCase):
             p for p in backup_service.backup_dir().iterdir()
             if p.name.startswith(backup_service._PRE_RESTORE_PREFIX)
         ]
-        self.assertEqual(len(pre_restore_files), 1)
+        # 2 copies désormais (SQLite + progression utilisateur), voir
+        # test_cree_une_copie_de_securite_avant_ecrasement ci-dessus.
+        self.assertEqual(len(pre_restore_files), 2)
+        sqlite_pre_restore = [p for p in pre_restore_files if p.name.endswith(backup_service._SQLITE_SUFFIX)]
+        self.assertEqual(len(sqlite_pre_restore), 1)
         # La copie de sécurité contient bien l'état d'AVANT la restauration
         # (l'utilisateur créé juste avant le backup), preuve qu'il ne s'agit
         # pas d'un fichier tronqué/vide.
-        conn = sqlite3.connect(pre_restore_files[0])
+        conn = sqlite3.connect(sqlite_pre_restore[0])
         try:
             row = conn.execute("SELECT id FROM users WHERE id = ?", (user_id,)).fetchone()
         finally:
@@ -479,6 +491,113 @@ class TestCompatibilitePostgresql(BackupServiceTestCase):
         ):
             with self.assertRaises(RuntimeError):
                 backup_service.restore_backup(source.name)
+
+
+class TestSauvegardeProgressionUtilisateur(BackupServiceTestCase):
+    """Audit "diagnostic définitif" 2026-09-06 : la progression détaillée
+    (XP/historique/séries/badges — auth.py::USER_STATS_DIR — ainsi que
+    USER_COURSE_DIR/USER_SETTINGS_DIR) vit en JSON hors de SQLite. Avant ce
+    correctif, backup_database()/restore_backup() ne géraient QUE la base :
+    une restauration pouvait donc conserver un compte tout en laissant sa
+    progression irrécupérable — démontré par reproduction manuelle avant
+    d'écrire ces tests (créer un utilisateur + user_stats/<id>.json, sauvegarder,
+    supprimer le JSON, restaurer : compte revenu, JSON toujours absent)."""
+
+    def _write_user_stats(self, user_id, payload):
+        stats_dir = db.DATA_DIR / "user_stats"
+        stats_dir.mkdir(parents=True, exist_ok=True)
+        path = stats_dir / f"{user_id}.json"
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return path
+
+    def test_backup_database_cree_un_zip_de_progression_jumeau(self):
+        self._write_user_stats(1, {"xp": 50, "history": [], "badges": [], "series": []})
+        backup_path = backup_service.backup_database()
+        sibling_name = backup_service._sibling_userdata_filename(backup_path.name)
+        self.assertTrue((backup_service.backup_dir() / sibling_name).is_file())
+
+    def test_restore_backup_recupere_la_progression_supprimee(self):
+        """Le scénario concret démontré : progression supprimée après la
+        sauvegarde (disque non persistant, suppression accidentelle...) —
+        restaurer la base doit aussi restaurer la progression, pas la laisser
+        perdue alors que le compte revient."""
+        stats_path = self._write_user_stats(42, {"xp": 250, "history": [{"ts": 1}], "badges": ["b1"], "series": []})
+        backup_path = backup_service.backup_database()
+
+        stats_path.unlink()
+        self.assertFalse(stats_path.exists())
+
+        backup_service.restore_backup(backup_path.name)
+
+        self.assertTrue(stats_path.exists())
+        self.assertEqual(json.loads(stats_path.read_text(encoding="utf-8"))["xp"], 250)
+
+    def test_restore_backup_sans_zip_jumeau_ne_plante_pas(self):
+        """Compatibilité ascendante : une sauvegarde créée avant ce correctif
+        (donc sans .userdata.zip jumeau) doit rester restaurable — seule la
+        base est alors restaurée, avec un avertissement, jamais une erreur."""
+        backup_path = backup_service.backup_database()
+        sibling_name = backup_service._sibling_userdata_filename(backup_path.name)
+        (backup_service.backup_dir() / sibling_name).unlink()  # simule une sauvegarde antérieure à ce correctif
+        backup_service.restore_backup(backup_path.name)  # ne doit lever aucune exception
+
+    def test_restore_backup_prend_une_copie_de_securite_de_la_progression(self):
+        """Symétrique de test_cree_une_copie_de_securite_avant_ecrasement :
+        la progression ACTUELLE (avant restauration) doit elle aussi être
+        récupérable si la restauration remplace par un état plus ancien."""
+        self._write_user_stats(7, {"xp": 10, "history": [], "badges": [], "series": []})
+        backup_path = backup_service.backup_database()
+
+        # Nouvelle progression après la sauvegarde (sera écrasée par la restauration).
+        self._write_user_stats(7, {"xp": 999, "history": [], "badges": [], "series": []})
+
+        backup_service.restore_backup(backup_path.name)
+
+        pre_restore_userdata = [
+            p for p in backup_service.backup_dir().iterdir()
+            if p.name.startswith(backup_service._PRE_RESTORE_PREFIX) and p.name.endswith(backup_service._USERDATA_SUFFIX)
+        ]
+        self.assertEqual(len(pre_restore_userdata), 1)
+        with zipfile.ZipFile(pre_restore_userdata[0]) as zf:
+            saved = json.loads(zf.read("user_stats/7.json"))
+        self.assertEqual(saved["xp"], 999)  # l'état d'avant restauration, pas perdu
+
+    def test_restore_backup_avec_zip_jumeau_corrompu_restaure_quand_meme_la_base(self):
+        """Un zip de progression corrompu ne doit jamais faire échouer toute
+        la restauration : la base (action critique) est déjà restaurée à ce
+        stade, l'échec du zip est seulement journalisé."""
+        user_id = db.create_user("corrompu@gmail.com", "corrompu", "Test", "hash")
+        backup_path = backup_service.backup_database()
+        sibling_name = backup_service._sibling_userdata_filename(backup_path.name)
+        (backup_service.backup_dir() / sibling_name).write_text("pas un zip valide", encoding="utf-8")
+
+        backup_service.restore_backup(backup_path.name)  # ne doit lever aucune exception
+
+        self.assertIsNotNone(db.get_user_by_id(user_id))
+
+    def test_delete_backup_supprime_aussi_le_zip_jumeau(self):
+        self._write_user_stats(3, {"xp": 1, "history": [], "badges": [], "series": []})
+        backup_path = backup_service.backup_database()
+        sibling_name = backup_service._sibling_userdata_filename(backup_path.name)
+        backup_service.delete_backup(backup_path.name)
+        self.assertFalse((backup_service.backup_dir() / sibling_name).is_file())
+
+    def test_rotation_purge_aussi_les_zips_de_progression_expires(self):
+        old_backup = self._touch_backup("20200101")
+        self._write_userdata_for(old_backup.name)
+        config.BACKUP_RETENTION_DAYS = 30
+
+        backup_service._apply_retention()
+
+        sibling_name = backup_service._sibling_userdata_filename(old_backup.name)
+        self.assertFalse((backup_service.backup_dir() / sibling_name).is_file())
+
+    def _write_userdata_for(self, backup_filename):
+        sibling_name = backup_service._sibling_userdata_filename(backup_filename)
+        path = backup_service.backup_dir() / sibling_name
+        with zipfile.ZipFile(path, "w") as zf:
+            zf.writestr("user_stats/1.json", "{}")
+        return path
 
 
 if __name__ == "__main__":
