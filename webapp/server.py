@@ -546,6 +546,23 @@ def _request_entity_too_large(_error):
 # n'importe quel avis) — jamais en dur dans le code (voir _get_or_create_secret).
 ADMIN_KEY = _get_or_create_secret("NOVAMATH_ADMIN_KEY", ".admin_key")
 
+# Diagnostic de persistance (audit "les données ne survivent pas à un
+# redémarrage", 2026-09-06) : la cause la plus fréquente en production est un
+# disque non réellement monté sur DATA_DIR (voir RENDER_SETUP.md §6/
+# PRODUCTION_CHECKLIST.md Phase 5) — invisible depuis le code (un volume
+# monté est indiscernable d'un dossier éphémère vu de l'intérieur), mais son
+# EFFET (une base vidée à chaque démarrage) est détectable en comparant l'état
+# juste avant/après db.init_db(). Ce log ne corrige rien lui-même : il rend
+# le symptôme immédiatement visible dans les logs Render à chaque déploiement,
+# plutôt que découvert a posteriori par un utilisateur qui a perdu son compte.
+# Capturé ICI (avant init_db(), qui peut créer le fichier) mais journalisé
+# seulement après logging_service.init_app(app) plus bas : aucun handler
+# n'est encore attaché à ce point, un logger.info() serait ici silencieusement
+# perdu (seul logger.warning()+ atteindrait la sortie standard, via le
+# handler de secours de la stdlib) — voir provider_manager.log_startup_banner(),
+# qui journalise pour la même raison après cette même ligne.
+_sqlite_mode = config.DATABASE_URL is None
+_db_existed_before_init = _sqlite_mode and db.DB_PATH.exists()
 db.init_db()
 # Infrastructure de préparation (ai_providers/subscription_ai_mapping,
 # webapp/ai_provider_service.py) — n'insère les fournisseurs par défaut que
@@ -574,6 +591,20 @@ rate_limit_service.cleanup()
 # métriques, capture des exceptions non gérées) — toute la logique vit dans
 # logging_service.py, voir sa docstring.
 logging_service.init_app(app)
+if _sqlite_mode and not _db_existed_before_init:
+    logger.warning(
+        "Persistance : data/novamath.db n'existait pas avant ce démarrage "
+        "(chemin résolu : %s) — nouvelle base vide créée. Si ceci apparaît à "
+        "CHAQUE démarrage en production, le disque persistant n'est pas monté "
+        "sur %s (voir RENDER_SETUP.md §6) : toutes les données utilisateur "
+        "sont perdues à chaque redéploiement/réveil.",
+        db.DB_PATH, db.DATA_DIR,
+    )
+else:
+    logger.info(
+        "Persistance : %s utilisateur(s) trouvé(s) dans la base existante au démarrage (%s).",
+        db.count_users(), "SQLite" if _sqlite_mode else "PostgreSQL",
+    )
 # En-têtes de sécurité HTTP (CSP, HSTS, X-Frame-Options, etc.) — toute la
 # logique vit dans security_headers_service.py, voir sa docstring.
 security_headers_service.init_app(app)
