@@ -946,6 +946,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ── Bannière de consentement cookies (RGPD) — SEC-04, static/js/
    cookieConsent.js. Réutilise .card/.btn (tokens.css/base.css), jamais un
    nouveau système de composants. ─────────────────────────────────────────── */
+/* body.has-cookie-banner : espace réservé en bas du document pendant que
+   .cookie-banner (position:fixed, ci-dessous) est affiché — hauteur réelle
+   mesurée et pilotée par cookieConsent.js::reserveSpaceForBanner, jamais
+   une valeur devinée. Sans cette réservation, le bandeau se pose par-dessus
+   la dernière carte visible dès que le contenu de la page s'arrête à peu
+   près à sa hauteur (bug confirmé, ex. carte "Exercice sur mesure" sur
+   exercice.html en mobile). */
+body.has-cookie-banner { padding-bottom: var(--cookie-banner-space, 0px); }
+
 .cookie-banner {
   position: fixed;
   left: 16px;
