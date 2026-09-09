@@ -31,6 +31,10 @@
     opacity: 0.6;
     transition: transform var(--transition-slow), opacity var(--transition-base), box-shadow var(--transition-base);
     z-index: 1100;
+    /* overflow-y:auto hérité de la règle .sidebar de base.css (voir son
+       commentaire) — nécessaire ici aussi : le drawer peut dépasser 100vh
+       en paysage mobile (844×390), rendant .sidebar-bottom (Paramètres,
+       Admin) inatteignable sans défilement interne. */
   }
   .sidebar.is-open { transform: translateX(0); opacity: 1; box-shadow: 0 20px 50px -8px rgba(0, 0, 0, 0.35); }
 
