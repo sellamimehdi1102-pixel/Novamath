@@ -1001,8 +1001,15 @@ function openNotionReader(chapterId, content, notion) {
     });
   });
   readerView.querySelector("#cours-cta-pratique-btn")?.addEventListener("click", () => {
+    // block:"center" (pas "start") : la zone quiz est proche du bas de page,
+    // donc la cible d'alignement "start" dépasse la hauteur scrollable du
+    // document — le navigateur la clampe à la position déjà atteinte, et le
+    // clic ne produit alors aucun mouvement visible une fois l'utilisateur
+    // réellement descendu jusqu'à ce bouton (bug confirmé : scrollY identique
+    // avant/après clic dans ce cas précis). "center" reste sous cette limite
+    // et fait donc réellement défiler la page.
     const zone = readerView.querySelector("#cours-quiz-zone");
-    zone?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    zone?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
   });
 
   readerView.querySelector("#cours-back-to-chapter").addEventListener("click", () => renderChapterDetail(chapterId, content));

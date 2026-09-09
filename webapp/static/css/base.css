@@ -542,8 +542,20 @@ ul { margin: 0; padding: 0; list-style: none; }
      viewport de 430px de haut, aucun overflow visible signalé car
      position:sticky + overflow visible par défaut ne provoquent aucun
      scroll de page). Hérité par le mode drawer mobile (responsive.css) qui
-     ne redéfinit pas overflow-y — un seul correctif pour les deux modes. */
+     ne redéfinit pas overflow-y — un seul correctif pour les deux modes.
+     overflow-x:hidden est nécessaire en complément : sans valeur explicite,
+     la spec CSS (11.1.1) force le calcul d'overflow-x à "auto" dès qu'un
+     axe passe à une valeur non-visible — et les tooltips ::after du rail
+     (voir plus bas, position:absolute hors du cadre) sont alors comptés
+     dans le scrollWidth, créant une barre de défilement horizontale même
+     sans aucun vrai débordement de contenu visible (mesuré : jusqu'à 121px
+     d'écart entre scrollWidth et clientWidth, présent sur toutes les
+     largeurs, pas seulement en paysage). Ce n'est pas une perte : ces
+     tooltips étaient déjà rendus invisibles par ce même overflow-x:auto
+     (clippés au scroll courant), donc aucun comportement visible n'est
+     retiré ici. */
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .sidebar .brand { justify-content: center; }
 .sidebar .brand-name,
