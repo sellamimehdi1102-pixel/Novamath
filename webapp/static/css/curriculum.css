@@ -106,10 +106,19 @@
 /* ── Panneau flottant du badge (toutes pages) ───────────────────────────────
    Réutilise .cursus-card tel quel (renderCurriculumCard) — même composant que
    la page "Choisissez votre classe" ci-dessous, affiché ici dans un panneau
-   flottant ancré sous le badge plutôt qu'en pleine page. */
+   flottant ancré sous le badge plutôt qu'en pleine page. Ajouté à document.body
+   (curriculumSelector.js::openClassPanel), donc jamais coupé par un overflow
+   du drawer — mais z-index:260 restait sous le drawer mobile (.sidebar,
+   z-index:1100, responsive.css) et son overlay (.sidebar-overlay,
+   z-index:1090, base.css) : sur mobile, le panneau existait bien dans le DOM
+   et était positionné au bon endroit, mais rendu derrière eux (mesuré,
+   Playwright, Chromium + Firefox : elementFromPoint() au centre du panneau
+   résolvait un .sidebar-link, pas le panneau). z-index:1150 le place juste
+   au-dessus du drawer/overlay, sous le tooltip de sidebar (1200, seul
+   z-index plus élevé de l'app). */
 .class-badge-panel {
   position: fixed;
-  z-index: 260;
+  z-index: 1150;
   width: min(320px, calc(100vw - 32px));
   max-height: 70vh;
   overflow-y: auto;

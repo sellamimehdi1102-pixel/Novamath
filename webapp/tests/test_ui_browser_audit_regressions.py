@@ -229,5 +229,43 @@ class TestQuestionCardNeRogneuPlusLesFormulesLarges(unittest.TestCase):
         self.assertIn("overflow-x: auto", body)
 
 
+class TestPanneauClasseAuDessusDuDrawerMobile(unittest.TestCase):
+    """Mesuré en navigateur réel (Playwright, Chromium + Firefox, sidebar
+    mobile ouverte, dashboard.html servi en HTTP local, 320px->1920px) :
+    .class-badge-panel (menu de changement de classe, curriculumSelector.js
+    ::openClassPanel) est ajouté à document.body — jamais coupé par un
+    overflow du drawer — mais avec z-index:260 il restait rendu SOUS le
+    drawer mobile (.sidebar, z-index:1100 sous 860px, responsive.css) et son
+    overlay (.sidebar-overlay, z-index:1090, base.css) : document.
+    elementFromPoint() au centre du panneau résolvait un .sidebar-link, pas
+    le panneau (menu inaccessible au clic/tap). Après passage à
+    z-index:1150, elementFromPoint() résout bien un élément du panneau, aux
+    16 combinaisons largeur x navigateur testées. Ce test fige la relation
+    (panel au-dessus du drawer ET de son overlay), pas une valeur magique."""
+
+    def setUp(self):
+        self.curriculum_css = _read("webapp/static/css/curriculum.css")
+        self.base_css = _read("webapp/static/css/base.css")
+        self.responsive_css = _read("webapp/static/css/responsive.css")
+
+    def _z_index(self, body):
+        match = re.search(r"z-index:\s*(-?\d+)", body)
+        assert match, "z-index introuvable dans la règle"
+        return int(match.group(1))
+
+    def test_panneau_classe_au_dessus_du_drawer_et_de_son_overlay(self):
+        panel_z = self._z_index(_rule_body(self.curriculum_css, ".class-badge-panel"))
+        overlay_z = self._z_index(_rule_body(self.base_css, ".sidebar-overlay"))
+
+        media_blocks = re.findall(r"@media \(max-width:\s*860px\)\s*\{(.*?)\n\}", _strip_comments(self.responsive_css), re.DOTALL)
+        self.assertTrue(media_blocks, "media query max-width:860px introuvable dans responsive.css")
+        sidebar_drawer_match = re.search(r"\.sidebar\s*\{([^}]*)\}", media_blocks[0])
+        self.assertIsNotNone(sidebar_drawer_match, ".sidebar (drawer mobile) introuvable sous 860px")
+        drawer_z = self._z_index(sidebar_drawer_match.group(1))
+
+        self.assertGreater(panel_z, drawer_z, ".class-badge-panel doit rester au-dessus du drawer mobile (.sidebar)")
+        self.assertGreater(panel_z, overlay_z, ".class-badge-panel doit rester au-dessus de .sidebar-overlay")
+
+
 if __name__ == "__main__":
     unittest.main()
