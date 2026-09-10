@@ -179,5 +179,55 @@ class TestShowcaseWindowLabelNonEcraseParLesPointsDeChrome(unittest.TestCase):
         self.assertIn("height: auto", body)
 
 
+class TestCarteExerciceSurMesureEstPaddee(unittest.TestCase):
+    """Mesuré en navigateur réel (Playwright, DOM Ultra réel injecté dans
+    exercice.html, 16 résolutions 320px→1920px, Chromium + Firefox) : avant
+    correction, .custom-exercise-card (contrat "Exercice sur mesure — Ultra",
+    customExercise.js) n'avait aucun padding propre — seul .card (base.css)
+    la stylait, or .card ne définit ni padding ni box-sizing. Le titre, les
+    deux <select> et le bouton "Générer un exercice" touchaient donc
+    directement les bords de la carte (mesuré : label à 0px du bord gauche).
+    Après ajout de padding:20px (même convention que .history-card, carte
+    sœur du même aside), plus aucun élément ne touche le bord et aucun débordement
+    horizontal n'a été mesuré à aucune des 16 résolutions testées."""
+
+    def setUp(self):
+        self.css = _read("webapp/static/css/exercice.css")
+
+    def test_custom_exercise_card_a_un_padding(self):
+        body = _rule_body(self.css, ".custom-exercise-card")
+        self.assertIn("padding: 20px", body)
+
+
+class TestQuestionCardNeRogneuPlusLesFormulesLarges(unittest.TestCase):
+    """Mesuré en navigateur réel (Playwright, formule synthétique très large
+    injectée dans .question-enonce, 1024px de large) : avec
+    .question-card { overflow: hidden }, une formule dépassant la largeur de
+    la carte n'était PAS rendue scrollable — elle était silencieusement
+    rognée par le overflow:hidden du parent (seuls ~9,5% de la formule
+    restaient visibles, le reste invisible, ni scroll ni troncature
+    signalée). Après retrait de ce overflow:hidden et ajout de
+    overflow-x:auto sur .question-enonce (et .callout, même risque pour les
+    corrections), la formule reste intégralement accessible via un défilement
+    horizontal scopé à l'énoncé, sans jamais élargir .question-card ni
+    provoquer de scroll horizontal de la page (body.scrollWidth mesuré = 1024
+    = viewport, inchangé)."""
+
+    def setUp(self):
+        self.css = _read("webapp/static/css/exercice.css")
+
+    def test_question_card_na_plus_de_overflow_hidden(self):
+        body = _rule_body(self.css, ".question-card")
+        self.assertNotIn("overflow: hidden", body)
+
+    def test_question_enonce_defile_horizontalement(self):
+        body = _rule_body(self.css, ".question-enonce")
+        self.assertIn("overflow-x: auto", body)
+
+    def test_callout_defile_horizontalement(self):
+        body = _rule_body(self.css, ".callout")
+        self.assertIn("overflow-x: auto", body)
+
+
 if __name__ == "__main__":
     unittest.main()
