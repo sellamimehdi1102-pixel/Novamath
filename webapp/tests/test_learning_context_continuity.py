@@ -121,7 +121,7 @@ class TestRepliChapitreSansNotionPrecise(unittest.TestCase):
     conversation_manager._resolve_rag_context et knowledge_engine.
     chapter_context_block/get_chapter_title."""
 
-    CHAPITRE_SEUL_CONTEXT = {"chapter_id": "Chapitre_13", "notion_id": None, "topic_label": "Théorème de Pythagore et trigonométrie"}
+    CHAPITRE_SEUL_CONTEXT = {"chapter_id": "Chapitre_13", "notion_id": None, "topic_label": "Triangles rectangles : trigonométrie"}
 
     def test_chapter_context_block_contient_le_contenu_du_chapitre(self):
         block = knowledge_engine.chapter_context_block("Chapitre_13", class_level="troisieme")
@@ -131,8 +131,16 @@ class TestRepliChapitreSansNotionPrecise(unittest.TestCase):
         self.assertEqual(knowledge_engine.chapter_context_block("Chapitre_Inconnu", class_level="troisieme"), "")
 
     def test_get_chapter_title_renvoie_le_vrai_titre(self):
+        """Titre réel du contenu curriculum (webapp/course_content/cours_
+        troisieme/chapitre_13.json::title) — mis à jour (2026-10-17) après
+        vérification : le chapitre a été renommé "Triangles rectangles :
+        trigonométrie" (couvre toujours la notion "Théorème de Pythagore",
+        l'une des 5 notions du chapitre — voir test_chapter_context_block_
+        contient_le_contenu_du_chapitre ci-dessus, qui reste inchangé et
+        continue de vérifier sa présence). Pas une incohérence fonctionnelle,
+        juste un ancien titre de chapitre encore attendu par ce test."""
         title = knowledge_engine.get_chapter_title("Chapitre_13", class_level="troisieme")
-        self.assertEqual(title, "Théorème de Pythagore et trigonométrie")
+        self.assertEqual(title, "Triangles rectangles : trigonométrie")
 
     def test_get_chapter_title_none_si_introuvable(self):
         self.assertIsNone(knowledge_engine.get_chapter_title("Chapitre_Inconnu", class_level="troisieme"))
@@ -175,7 +183,8 @@ class TestRepliChapitreSansNotionPrecise(unittest.TestCase):
         conv_id = db.create_conversation(user["id"])
         intent_result = {"intent": intent_service.REFORMULATION, "chapter_id": "Chapitre_13", "notion_id": None}
         topic_label = conversation_manager._update_learning_context(conv_id, intent_result, class_level="troisieme")
-        self.assertEqual(topic_label, "Théorème de Pythagore et trigonométrie")
+        # Titre réel du chapitre (voir test_get_chapter_title_renvoie_le_vrai_titre).
+        self.assertEqual(topic_label, "Triangles rectangles : trigonométrie")
 
 
 class TestConversationLearningContextPersistance(unittest.TestCase):
