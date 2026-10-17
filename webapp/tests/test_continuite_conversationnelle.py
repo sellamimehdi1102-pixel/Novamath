@@ -190,12 +190,109 @@ class TestPromptMethodeConditionnelleAlIntention(unittest.TestCase):
         prompt = self._prompt_for(intent_service.METHODE)
         self.assertIn("ARRÊTE-toi après chaque étape", prompt)
 
-    def test_aucune_intention_connue_garde_le_comportement_par_defaut(self):
-        """NONE_INTENT (question libre non classifiée) garde l'ancien
-        comportement mixte (le LLM tranche lui-même factuel/exercice) —
-        aucune régression pour les cas déjà ambigus avant ce chantier."""
+    def test_revision_recoit_une_instruction_de_synthese_priorisee(self):
+        """Chantier "pertinence contextuelle" (2026-10-17) : une demande de
+        révision/préparation d'examen ne doit ni être forcée en parcours
+        guidé, ni recevoir seulement l'instruction directe générique — elle
+        doit recevoir l'instruction dédiée (pedagogy_templates.REVISION)
+        demandant une synthèse priorisée plutôt qu'une explication linéaire."""
+        prompt = self._prompt_for(intent_service.REVISION)
+        self.assertNotIn("ARRÊTE-toi après chaque étape", prompt)
+        self.assertIn("synthèse de révision priorisée".lower(), prompt.lower())
+        self.assertIn("pièges fréquents", prompt.lower())
+
+    def test_generalisation_formulations_inedites_non_classifiees(self):
+        """Formulations NEUVES (non utilisées pour concevoir la correction,
+        ni dans intent_service.py ni dans ses tests) : qu'elles soient ou non
+        reconnues par une regex d'intention, le prompt final ne doit jamais
+        forcer un parcours guidé pas-à-pas pour une question qui n'en est
+        manifestement pas une — c'est la garantie apportée par le nouveau
+        défaut DIRECT de NONE_INTENT, indépendamment de la couverture des
+        regex (qui ne pourra jamais être exhaustive)."""
+        inedites = [
+            "On a interro de maths jeudi sur les probabilités, qu'est-ce que je dois absolument maîtriser ?",
+            "Je suis un peu perdu entre toutes ces notions sur les suites, tu peux m'aider à y voir plus clair ?",
+            "Entre la loi binomiale et la loi normale, laquelle je dois utiliser ici ?",
+        ]
+        for text in inedites:
+            intent_result = intent_service.classify(text)
+            with self.subTest(text=text, intent=intent_result["intent"]):
+                prompt = prompt_builder.build_system_prompt(
+                    user={"id": 1}, chatbot_settings={}, chapters_summary=None, rag_context=None,
+                    mentions_block=None, intent_result=intent_result, class_level="terminale",
+                )
+                self.assertNotIn("ARRÊTE-toi après chaque étape", prompt)
+
+    def test_aucune_intention_connue_repond_directement(self):
+        """Chantier "pertinence contextuelle" (2026-10-17) : NONE_INTENT
+        (question libre non classifiée par aucune regex) ne doit plus
+        recevoir la consigne ambiguë ("factuel ou exercice ?") qui laissait
+        le LLM trancher lui-même — c'est exactement le mécanisme déjà
+        identifié comme peu fiable pour les intentions classifiées
+        (test_definition_ne_force_pas_les_six_etapes ci-dessus), laissé par
+        erreur en place pour le seul cas NONE_INTENT. Preuve concrète :
+        "J'ai un examen demain sur les polynômes du second degré, dis-moi ce
+        qu'il faut savoir pour avoir une excellente note" ne correspond à
+        aucune regex d'intention et recevait cette consigne ambiguë, résolue
+        à tort par le modèle en parcours guidé pas-à-pas."""
         prompt = self._prompt_for(intent_service.NONE_INTENT)
-        self.assertIn("purement factuelle ou hors exercice", prompt)
+        self.assertNotIn("ARRÊTE-toi après chaque étape", prompt)
+        self.assertNotIn("purement factuelle ou hors exercice", prompt)
+        self.assertIn("réponds-y clairement et directement".lower(), prompt.lower())
+
+
+class TestMathEngineRespecteLIndice(unittest.TestCase):
+    """Chantier "respect des contraintes explicites" (2026-10-17) : preuve
+    bout en bout que le moteur legacy (_try_internal_answer, celui réellement
+    utilisé en conversation aujourd'hui) ne court-circuite plus le LLM avec
+    une solution complète quand l'élève a explicitement demandé un indice."""
+
+    CAS_INDICE = [
+        "Aide-moi à résoudre x² - 5x + 6 = 0 sans me donner la réponse.",
+        "Donne-moi un indice pour résoudre 2x + 4 = 10.",
+        "Aide-moi un peu avec x² = 9.",
+    ]
+
+    def test_try_internal_answer_ne_resout_pas_si_intent_indice(self):
+        for text in self.CAS_INDICE:
+            intent = intent_service.classify(text)["intent"]
+            with self.subTest(text=text, intent=intent):
+                self.assertEqual(intent, intent_service.INDICE)
+                answer = conversation_manager._try_internal_answer(text, intent=intent)
+                self.assertIsNone(answer, "Math Engine ne doit pas répondre à la place du LLM pour une demande d'indice")
+
+    def test_try_internal_answer_resout_toujours_sans_demande_dindice(self):
+        """Non-régression : sans consigne d'indice, Math Engine doit
+        continuer à répondre directement, pour plusieurs formulations et
+        plusieurs types d'équation."""
+        cas = [
+            "Résous complètement x² - 5x + 6 = 0.",
+            "Explique-moi toutes les étapes pour résoudre 2x + 4 = 10.",
+            "Résous 3x - 9 = 0",
+        ]
+        for text in cas:
+            intent = intent_service.classify(text)["intent"]
+            with self.subTest(text=text, intent=intent):
+                answer = conversation_manager._try_internal_answer(text, intent=intent)
+                self.assertIsNotNone(answer)
+                self.assertIn("Résolution", answer)
+
+    def test_try_internal_answer_sans_intent_garde_lancien_comportement(self):
+        """`intent` est optionnel (défaut None, != INDICE) — un appelant qui
+        ne le fournit pas (aucun dans le code actuel, mais robustesse de
+        signature) ne doit pas perdre le calcul déterministe."""
+        answer = conversation_manager._try_internal_answer("Résous 2x + 4 = 10")
+        self.assertIsNotNone(answer)
+
+    def test_indice_recoit_une_instruction_de_piste_sans_solution(self):
+        """Le prompt système construit pour INDICE doit porter la nouvelle
+        consigne dédiée (pedagogy_templates), jamais le résultat final."""
+        prompt = prompt_builder.build_system_prompt(
+            user={"id": 1}, chatbot_settings={}, chapters_summary=None, rag_context=None,
+            mentions_block=None, intent_result={"intent": intent_service.INDICE}, class_level="troisieme",
+        )
+        self.assertNotIn("ARRÊTE-toi après chaque étape", prompt)
+        self.assertIn("ne donne jamais le résultat final".lower(), prompt.lower())
 
 
 if __name__ == "__main__":

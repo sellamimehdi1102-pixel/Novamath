@@ -29,15 +29,51 @@ _INTENT_INSTRUCTIONS = {
         "L'élève veut être interrogé. Pose UNE seule question à la fois sur la notion concernée, "
         "attends sa réponse avant de donner la correction ou la question suivante."
     ),
+    # Chantier "correction finale des consignes pédagogiques" (2026-10-17) :
+    # l'ancienne instruction ("corrige pas à pas... sans donner d'emblée la
+    # solution complète") a été écrite pour un seul cas (l'élève ne sait pas
+    # encore s'il a une erreur) et s'appliquait aussi, à tort, à une
+    # vérification explicite d'une réponse déjà trouvée ("j'ai trouvé x = 7,
+    # est-ce correct ?") — confirmé par l'audit : le chatbot refusait de
+    # donner la bonne réponse même après avoir dit que celle de l'élève était
+    # fausse. Remplacée par une instruction générale couvrant les trois
+    # situations réelles que CORRECTION peut recouvrir, sans nouvelle regex :
+    # le LLM lit le message et détermine lui-même laquelle s'applique.
     intent_service.CORRECTION: (
-        "L'élève demande une correction. Corrige pas à pas, indique précisément où se situe "
-        "l'erreur, sans donner d'emblée la solution complète s'il n'a pas encore réessayé."
+        "L'élève demande une correction ou une vérification. Si son message contient une réponse "
+        "ou un raisonnement qu'il propose lui-même, vérifie-la explicitement : indique clairement "
+        "si elle est correcte ou non, explique pourquoi, et donne la correction nécessaire s'il y "
+        "a une erreur — ne te contente jamais de dire que c'est faux sans fournir la bonne réponse. "
+        "Si l'élève demande une correction complète sans avoir proposé de réponse personnelle, "
+        "fournis-la directement avec les explications utiles. Si l'élève précise par ailleurs qu'il "
+        "veut seulement un indice ou réessayer lui-même, respecte ce choix : ne révèle pas la "
+        "solution complète tout de suite."
     ),
     intent_service.REFORMULATION: (
         "L'élève demande une nouvelle explication de la même notion, formulée différemment "
         "(reformulation, simplification, nouvel exemple, incompréhension exprimée...). Ne change "
         "surtout pas de sujet : explique cette même notion avec une approche différente (autre "
         "angle, autre exemple, vocabulaire plus simple si besoin), jamais une autre notion."
+    ),
+    intent_service.INDICE: (
+        "L'élève demande un indice ou une aide SANS la solution complète — respecte cette "
+        "consigne à la lettre. Donne UNE piste utile ou une première étape qui l'aide à avancer "
+        "seul (rappel de la méthode à utiliser, question qui l'oriente, premier petit pas du "
+        "raisonnement), adaptée à son niveau. Ne donne JAMAIS le résultat final, la solution "
+        "complète, ni même une solution partielle qui permettrait de la déduire directement — "
+        "même si tu la connais. Reste bref : une consigne d'indice n'appelle pas une explication "
+        "longue. Si l'élève redemande explicitement la solution complète par la suite, tu pourras "
+        "la donner à ce moment-là, pas avant."
+    ),
+    intent_service.REVISION: (
+        "L'élève prépare un contrôle/examen ou souhaite réviser. Structure ta réponse comme une "
+        "synthèse de révision PRIORISÉE : les notions et méthodes vraiment essentielles d'abord, "
+        "les pièges fréquents et erreurs classiques à éviter — pas une explication linéaire "
+        "exhaustive de tout le chapitre. Si l'élève précise une contrainte (temps disponible, "
+        "notions déjà maîtrisées, nombre de points à couvrir), organise ta réponse en fonction de "
+        "cette contrainte plutôt que de tout traiter au même niveau de détail. Si le message pose "
+        "en réalité une question précise sur un point particulier, réponds à cette question "
+        "précise plutôt que d'imposer une fiche complète non demandée."
     ),
     intent_service.FOLLOWUP: (
         "L'élève poursuit directement l'échange qui précède (« continue », « pourquoi ? », "
@@ -195,3 +231,22 @@ def build_intent_instruction(intent_result, topic_label=None):
 
 def build_mode_instruction(mode):
     return _MODE_INSTRUCTIONS.get(mode, "")
+
+
+# Chantier "priorité intention vs mode pédagogique" (2026-10-17) : "rapide" et
+# "examen" affirment déjà, dans leur propre texte, qu'ils priment sur les
+# instructions précédentes (voir ci-dessus) — c'est un choix délibéré et déjà
+# correct (ex: mode examen qui doit bloquer une solution même si l'intention
+# EXERCICE en suggère une). Les autres modes ("professeur", "pas_a_pas",
+# "visuel") n'ont aucune clause de précédence : rien n'indique au LLM lequel
+# doit céder quand la demande explicite de l'élève (instruction d'intention,
+# ex: REVISION "synthèse priorisée... pas une explication exhaustive") entre
+# en contradiction avec la préférence générale du mode (ex: "professeur" =
+# "sois très détaillé... prends le temps d'expliquer"). Confirmé par l'audit
+# du test C : c'est exactement ce conflit, sans arbitrage, qui transformait
+# une demande de planning de révision en cours détaillé imposé.
+MODES_WITH_OWN_PRECEDENCE_CLAUSE = {"rapide", "examen"}
+
+
+def mode_has_own_precedence_clause(mode):
+    return mode in MODES_WITH_OWN_PRECEDENCE_CLAUSE
