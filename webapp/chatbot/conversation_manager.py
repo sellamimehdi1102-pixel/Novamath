@@ -536,10 +536,39 @@ def _resolve_rag_context(intent_result, user_message, class_level=None):
        trop vite" (voir audit du 2026-07-26).
     3. Recherche floue sur le message lui-même (context_block), en tout
        dernier recours — seulement si aucun chapitre n'est connu du tout, ou
-       si les deux paliers précédents n'ont rien trouvé."""
+       si les deux paliers précédents n'ont rien trouvé.
+
+    Chantier "cohérence du RAG" (2026-10-17, correction du bug confirmé
+    "tableau de signes") : hors sujet hérité, le chapitre/la notion déjà
+    résolus par intent_service (search_service + reranking de titre) n'est
+    PLUS utilisé automatiquement, même à confiance "explicit" — cette
+    confiance seule n'est pas une preuve suffisante (search_service peut se
+    tromper, preuve : un message presque entièrement symbolique comme
+    "x²-5x+6=0" matche fortement des notions dont le TITRE commence par
+    "Résoudre...", par le seul mot générique "résoudre", pas par le contenu
+    réel de l'équation). Il n'est réutilisé QUE s'il est CORROBORÉ par une
+    seconde recherche, totalement indépendante (knowledge_engine.search —
+    autre implémentation, aucune logique de correspondance partagée) : si
+    les deux s'accordent sur le même chapitre, c'est un signal bien plus
+    fiable que l'un ou l'autre pris isolément. Sans corroboration, on ne se
+    rabat sur la recherche indépendante elle-même que si son MEILLEUR
+    résultat est net (seuil fort déjà calibré pour le même usage ailleurs,
+    search_service.TFIDF_STRONG_THRESHOLD) — en dessous, mieux vaut ne
+    renvoyer AUCUN contexte qu'un cours potentiellement hors sujet."""
     chapter_id = intent_result.get("chapter_id")
     notion_id = intent_result.get("notion_id")
+
     if intent_result.get("topic_inherited") and chapter_id:
+        if notion_id:
+            rag_context = knowledge_engine.notion_context_block(chapter_id, notion_id, class_level=class_level)
+            if rag_context:
+                return rag_context
+        return knowledge_engine.chapter_context_block(chapter_id, class_level=class_level)
+
+    fuzzy_matches = knowledge_engine.search(user_message, top_k=5, class_level=class_level)
+    fuzzy_chapter_ids = {m.get("chapter_id") for m in fuzzy_matches}
+
+    if chapter_id and chapter_id in fuzzy_chapter_ids:
         if notion_id:
             rag_context = knowledge_engine.notion_context_block(chapter_id, notion_id, class_level=class_level)
             if rag_context:
@@ -547,7 +576,10 @@ def _resolve_rag_context(intent_result, user_message, class_level=None):
         rag_context = knowledge_engine.chapter_context_block(chapter_id, class_level=class_level)
         if rag_context:
             return rag_context
-    return knowledge_engine.context_block(user_message, class_level=class_level)
+
+    if fuzzy_matches and fuzzy_matches[0]["score"] >= search_service.TFIDF_STRONG_THRESHOLD:
+        return knowledge_engine.context_block(user_message, class_level=class_level)
+    return ""
 
 
 def _resolve_student_context(user, chapters_summary, chatbot_settings, mentions, history_rows, class_level=None):
@@ -770,17 +802,38 @@ def get_messages(user_id, conversation_id):
 
 
 # ── Pipeline hybride (court-circuite le LLM quand la logique interne suffit) ─
-def _try_internal_answer(user_message, class_level=None):
+def _try_internal_answer(user_message, class_level=None, intent=None, wants_detail=False):
     """Rule Engine (salutations/identité) -> Math Engine (calcul déterministe)
     -> Knowledge Engine (définition retrouvée avec une correspondance nette
     dans les cours). Renvoie une réponse toute faite, ou None si seul le LLM
-    peut répondre (question ouverte, méthode à expliquer pas à pas...)."""
+    peut répondre (question ouverte, méthode à expliquer pas à pas...).
+
+    `intent` (chantier "respect des contraintes explicites", 2026-10-17) :
+    SEUL Math Engine est court-circuité quand `intent == intent_service.INDICE`
+    — c'est le seul des 3 moteurs ici à produire une réponse COMPLÈTE et
+    déterministe à un calcul (solution d'équation, développement...), donc le
+    seul capable de contredire une consigne explicite "sans me donner la
+    réponse"/"un indice seulement" (preuve : "Aide-moi à résoudre x²-5x+6=0
+    sans me donner la réponse" matche à la fois INDICE_RE et SOLVE_RE). Rule
+    Engine (salutations) et Knowledge Engine (définition) restent actifs :
+    aucun des deux n'a de mécanisme de calcul déterministe comparable à
+    contredire, les désactiver n'aurait aucune justification technique.
+
+    `wants_detail` (chantier "routage réel", 2026-10-17, test C) : Math
+    Engine est le SEUL moteur réellement exécuté ici pour un calcul (voir
+    response_strategy.py — Knowledge/Search ne savent pas résoudre une
+    équation dynamiquement, donc ne peuvent pas davantage combler ce
+    manque) ; quand l'élève demande explicitement le détail des étapes
+    (intent_service.DETAIL_RE), le gabarit court de Math Engine ne peut pas
+    le satisfaire — on le court-circuite pour laisser le LLM prendre le
+    relais, plutôt que de renvoyer une réponse correcte mais incomplète."""
     answer = rule_engine.try_handle(user_message)
     if answer is not None:
         return answer
-    answer = math_engine.try_solve(user_message)
-    if answer is not None:
-        return answer
+    if intent != intent_service.INDICE and not wants_detail:
+        answer = math_engine.try_solve(user_message)
+        if answer is not None:
+            return answer
     return knowledge_engine.try_answer_definition(user_message, class_level=class_level)
 
 
@@ -977,7 +1030,10 @@ def _generate_assistant_reply(user, conversation_id, user_message, chapters_summ
         yield local_result.text
         return
 
-    internal_answer = _try_internal_answer(user_message, class_level=(student_context or {}).get("class_level"))
+    internal_answer = _try_internal_answer(
+        user_message, class_level=(student_context or {}).get("class_level"), intent=intent_result.get("intent"),
+        wants_detail=intent_result.get("wants_detail", False),
+    )
     if internal_answer is not None:
         db.add_message(conversation_id, "assistant", internal_answer, engine="legacy_internal")
         db.touch_conversation(conversation_id)
@@ -1324,9 +1380,18 @@ def attach_action_cards(user, conversation_id, chapters_summary=None, class_leve
     )
 
     search_results = search_service.search(last_user["content"], limit=8, class_level=class_level)
-    intent_chapter_id = (
-        intent_result["chapter_id"] if intent_result["intent"] == intent_service.EXERCICE else None
-    )
+    # Chantier "routage réel" (2026-10-17, test D) : ce garde-fou était
+    # réservé à l'intent EXERCICE, alors que `search_results` ci-dessus est
+    # une recherche générique indépendante (même limite que celle déjà
+    # identifiée dans response_strategy._probe_search_service) — elle peut
+    # renvoyer un chapitre sans rapport avec le sujet réellement discuté
+    # (preuve : "réviser les probabilités" faisait remonter en tête un
+    # exercice de "Notion de fonction", score 0.47, sans rapport). Dès
+    # qu'intent_service a résolu un chapitre pour CE message, les cartes
+    # "exercices" doivent s'y limiter, quelle que soit l'intention — jamais
+    # une nouvelle recherche/corroboration, seulement l'élargissement de ce
+    # garde-fou déjà écrit.
+    intent_chapter_id = intent_result.get("chapter_id")
     # Phase S : quand la réponse portait sur la progression/les statistiques,
     # propose de revoir le chapitre le plus faible de l'élève (même donnée
     # réelle que celle utilisée pour composer la réponse, variable_resolver.py).

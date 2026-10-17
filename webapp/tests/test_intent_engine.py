@@ -40,12 +40,70 @@ class TestNouvellesIntentionsRegex(unittest.TestCase):
         ("Explique-moi autrement les puissances", ins.REFORMULATION),
         ("Reformule ça", ins.REFORMULATION),
         ("Explique moi autrement", ins.REFORMULATION),  # espace, pas tiret — bug de regex corrigé
+        # Chantier "pertinence contextuelle" (2026-10-17) : formulations
+        # naturelles de révision/préparation d'examen jusqu'ici non reconnues
+        # (ni par regex, ni par le repli flou) et donc classées NONE_INTENT —
+        # preuve de l'audit ayant motivé ce chantier.
+        (
+            "J'ai un examen demain sur les polynômes du second degré. Dis-moi ce "
+            "qu'il faut que je sache impérativement pour avoir une excellente note.",
+            ins.REVISION,
+        ),
+        ("J'ai 20 minutes pour réviser les probabilités. Organise-moi un programme efficace.", ins.REVISION),
+        ("J'ai un contrôle lundi sur les fractions", ins.REVISION),
+        # Formulations d'aide guidée implicite, jusqu'ici non reconnues par
+        # METHODE_RE (ni "méthode" ni "étapes" ni "comment résoudre") et donc
+        # classées NONE_INTENT, perdant le droit à la progression pas-à-pas.
+        ("Aide-moi à résoudre cet exercice sur les fractions", ins.METHODE),
+        ("Comment je fais pour résoudre cette équation ?", ins.METHODE),
+        ("Comment dois-je faire pour factoriser cette expression ?", ins.METHODE),
     ]
 
     def test_toutes_les_formulations_directes(self):
         for text, expected in self.CASES:
             with self.subTest(text=text):
                 self.assertEqual(ins.classify(text)["intent"], expected)
+
+
+class TestPertinenceContextuelleNonRegression(unittest.TestCase):
+    """Chantier "pertinence contextuelle" (2026-10-17) : vérifie que
+    l'élargissement de REVISION_RE/METHODE_RE ne dégrade ni les priorités
+    déjà en place (INDICE avant METHODE, DEFINITION avant REVISION), ni les
+    questions réellement ouvertes qui doivent rester NONE_INTENT (traitées
+    normalement par le LLM, sans mot-clé pédagogique à leur attribuer)."""
+
+    def test_question_ouverte_sans_mot_cle_reste_none_intent(self):
+        cases = [
+            "Quels sont les pièges les plus difficiles sur le second degré ?",
+            "Compare la forme canonique et la forme factorisée.",
+        ]
+        for text in cases:
+            with self.subTest(text=text):
+                self.assertEqual(ins.classify(text)["intent"], ins.NONE_INTENT)
+
+    def test_verification_dune_reponse_devient_correction(self):
+        """Chantier "fiabilité mathématique" (2026-10-17) : CORRECTION_RE
+        élargie pour reconnaître les formulations naturelles de vérification
+        ("est-ce correct ?", pas seulement "est-ce QUE C'EST juste" au mot
+        près) — ce cas, auparavant NONE_INTENT (aucune instruction
+        pédagogique dédiée, et vulnérable à une interception locale hors
+        sujet via Knowledge/Search, voir response_strategy._requires_real_
+        computation), reçoit maintenant l'intention CORRECTION existante."""
+        text = "J'ai trouvé que x² = 9 donne uniquement x = 3. Est-ce correct ?"
+        self.assertEqual(ins.classify(text)["intent"], ins.CORRECTION)
+
+    def test_indice_explicite_garde_la_priorite_sur_methode(self):
+        """"sans me donner la réponse" (INDICE_RE, priorité plus haute) doit
+        continuer à l'emporter même si le message contient aussi "aide-moi à
+        résoudre" (désormais capté par METHODE_RE)."""
+        text = "Aide-moi à résoudre x² - 5x + 6 = 0 sans me donner la réponse."
+        self.assertEqual(ins.classify(text)["intent"], ins.INDICE)
+
+    def test_definition_classique_ne_devient_pas_revision(self):
+        """La nouvelle branche REVISION ("ce qu'il faut savoir/retenir") ne
+        doit pas capter une définition classique par ailleurs non concernée."""
+        text = "Qu'est-ce qu'une fonction affine ?"
+        self.assertEqual(ins.classify(text)["intent"], ins.DEFINITION)
 
 
 class TestQuantite(unittest.TestCase):

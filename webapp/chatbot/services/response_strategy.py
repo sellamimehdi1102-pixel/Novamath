@@ -77,6 +77,7 @@ mémoire process-local (LRU, même esprit que `chatbot/cache.py`) évite de
 recalculer une décision déjà connue. Voir `clear_cache()`/`cache_stats()`.
 """
 import logging
+import re
 import time
 from dataclasses import dataclass
 from typing import Optional
@@ -112,6 +113,60 @@ PRIORITY_ORDER = [
 
 # Moteurs pas encore implémentés (interface prête, toujours indisponible).
 RESERVED_FUTURE_ENGINES = {ENGINE_EXERCISE, ENGINE_COMPOSER, ENGINE_QUIZ, ENGINE_RECOMMENDATION}
+
+# Chantier "routage réel" (audit du 2026-10-17, tests A et B confirmés) :
+# Knowledge/Search Engine composent une réponse via knowledge_response_
+# composer.py — un gabarit déterministe (une notion, un exemple fixe), sans
+# AUCUNE notion de contrainte explicite ("sans me donner la réponse", "en 20
+# minutes", synthèse priorisée...). INDICE et REVISION sont les deux
+# intentions où respecter la demande EXIGE une adaptation que ce gabarit ne
+# fait pas (voir pedagogy_templates._INTENT_INSTRUCTIONS, déjà écrit pour le
+# LLM mais jamais atteint quand ce gabarit répond avant lui). Même principe
+# déjà appliqué à Math Engine pour INDICE ci-dessous.
+_NO_LOCAL_COMPOSER_INTENTS = {intent_service.INDICE, intent_service.REVISION}
+
+# Chantier "fiabilité mathématique" (audit du 2026-10-17, routage Phase B) :
+# Knowledge/Search ne peuvent QUE présenter une notion de cours déjà écrite —
+# jamais calculer ni vérifier une instance concrète. Confirmé par l'audit :
+# des demandes de dérivée/limite/probabilité/vérification de raisonnement/
+# géométrie appliquée (intent NONE, aucune intention théorique reconnue)
+# étaient interceptées par ce gabarit, parfois même sur un chapitre au score
+# fort et "corroboré" (ex: "limite de 1/x en 0" matchait avec confiance
+# "Notion de limite d'une SUITE", un score élevé ne garantissant PAS la
+# pertinence). CORRECTION est désormais détecté par CORRECTION_RE élargie
+# (voir intent_service.py) ; NONE_INTENT combiné à un verbe d'opération
+# mathématique (même vocabulaire que math_engine.py, plus dérivée/limite/
+# probabilité — aucune formule locale pour ces trois, jamais implémentées
+# ici) ou à une formulation de vérification sur une donnée numérique
+# concrète est traité comme une demande d'application, jamais de
+# connaissance théorique. Toute intention théorique déjà reconnue
+# (DEFINITION/COURS/FICHE/EXEMPLE/METHODE/PROPRIETE/REFORMULATION/RESUME/
+# DEMONSTRATION...) n'est JAMAIS concernée ici — seul NONE_INTENT l'est,
+# volontairement : ces intentions ont déjà démontré qu'un contenu de cours
+# répond à la demande, aucune raison de les exclure a posteriori.
+_APPLICATION_VERB_RE = re.compile(
+    r"\b(r[ée]sous|r[ée]soudre|r[ée]solution|calcul(?:e|er)?|[ée]value|[ée]valuer|"
+    r"d[ée]veloppe(?:r)?|factorise(?:r)?|simplifie(?:r)?|"
+    r"d[ée]riv[ée]?e?s?|d[ée]rivation|limites?|probabilit[ée]s?)\b",
+    re.IGNORECASE,
+)
+_VERIFICATION_RE = re.compile(r"(est[- ]ce (?:que |qu'il |qu'elle )?|est[- ]il\b|est[- ]elle\b)", re.IGNORECASE)
+_HAS_DIGIT_RE = re.compile(r"\d")
+
+
+def _requires_real_computation(user_message, intent):
+    """True si la demande exige un calcul/une vérification d'une instance
+    concrète — jamais satisfaite par une notion de cours statique, quel que
+    soit son score de pertinence. Ne s'applique qu'à NONE_INTENT et
+    CORRECTION (voir docstring ci-dessus) : une intention théorique déjà
+    reconnue n'est jamais réévaluée ici."""
+    if intent == intent_service.CORRECTION:
+        return True
+    if intent != intent_service.NONE_INTENT:
+        return False
+    if _APPLICATION_VERB_RE.search(user_message):
+        return True
+    return bool(_VERIFICATION_RE.search(user_message) and _HAS_DIGIT_RE.search(user_message))
 
 SOURCE_LOCAL = "LOCAL"
 SOURCE_LLM = "LLM"
@@ -318,10 +373,14 @@ def probe_engine_availability(engine, strategy, user_message):
     if engine == ENGINE_RULE:
         return _probe_rule_engine(user_message)
     if engine == ENGINE_KNOWLEDGE:
+        if strategy.intent in _NO_LOCAL_COMPOSER_INTENTS or _requires_real_computation(user_message, strategy.intent):
+            return False
         return _probe_knowledge_engine(user_message, class_level=strategy.class_level)
     if engine == ENGINE_DASHBOARD:
         return _probe_dashboard(strategy.intent)
     if engine == ENGINE_SEARCH:
+        if strategy.intent in _NO_LOCAL_COMPOSER_INTENTS or _requires_real_computation(user_message, strategy.intent):
+            return False
         found, _match = _probe_search_service(user_message, strategy.intent, class_level=strategy.class_level)
         return found
     if engine == ENGINE_EXERCISE:
@@ -502,8 +561,31 @@ def decide_strategy(
     if intent == intent_service.UNCLEAR:
         return finalize(_clarification_strategy(mode))
 
-    # 1. Math Engine
-    if _probe_math_engine(user_message):
+    # 1. Math Engine — jamais pour INDICE (chantier "respect des contraintes
+    #    explicites", 2026-10-17) : Math Engine renvoie toujours une réponse
+    #    COMPLÈTE et déterministe (solution d'équation, développement...),
+    #    ce qui contredirait une consigne explicite "sans me donner la
+    #    réponse"/"un indice seulement" (ex: "aide-moi à résoudre x²-5x+6=0
+    #    sans me donner la réponse" matche à la fois INDICE_RE et SOLVE_RE).
+    #    Même logique que _probe_dashboard(strategy.intent)/_probe_search_
+    #    service(..., strategy.intent) juste en dessous, qui consultent déjà
+    #    l'intent — Math Engine ne le faisait pas, c'était l'oubli.
+    # Chantier "routage réel" (2026-10-17, test C) : Math Engine ne renvoie
+    # qu'une ligne de méthode + le résultat (voir math_engine._solve_equation),
+    # jamais le détail algébrique demandé explicitement (intent_result.
+    # wants_detail, voir intent_service.DETAIL_RE) — et aucun autre moteur
+    # local ne sait résoudre une équation dynamiquement pour combler ce
+    # manque (Knowledge/Search composeraient une fiche de cours générique
+    # SANS la solution numérique, pire que le gabarit court actuel). On route
+    # directement au LLM dans ce seul cas, avant même d'essayer les moteurs
+    # suivants.
+    math_capable = _probe_math_engine(user_message)
+    if math_capable and intent_result.get("wants_detail"):
+        return finalize(_build_strategy(
+            ENGINE_LLM, intent, chapter_id, topic_id, quantity, difficulty, mode,
+            student_context, chatbot_settings,
+        ))
+    if intent != intent_service.INDICE and math_capable:
         return finalize(_build_strategy(
             ENGINE_MATH, intent, chapter_id, topic_id, quantity, difficulty, mode,
             student_context, chatbot_settings, simplify=intent_result.get("simplify", False),
@@ -516,8 +598,15 @@ def decide_strategy(
             student_context, chatbot_settings, simplify=intent_result.get("simplify", False),
         ))
 
-    # 3. Knowledge Engine
-    if _probe_knowledge_engine(user_message, class_level=student_context.get("class_level")):
+    # 3. Knowledge Engine — jamais pour INDICE/REVISION (voir
+    #    _NO_LOCAL_COMPOSER_INTENTS ci-dessus), ni quand la demande exige un
+    #    calcul/une vérification qu'aucune notion de cours ne peut satisfaire
+    #    (voir _requires_real_computation, calculé une seule fois et réutilisé
+    #    à l'étape 5 ci-dessous).
+    knowledge_search_blocked = intent in _NO_LOCAL_COMPOSER_INTENTS or _requires_real_computation(user_message, intent)
+    if not knowledge_search_blocked and _probe_knowledge_engine(
+        user_message, class_level=student_context.get("class_level"),
+    ):
         return finalize(_build_strategy(
             ENGINE_KNOWLEDGE, intent, chapter_id, topic_id, quantity, difficulty, mode,
             student_context, chatbot_settings, simplify=intent_result.get("simplify", False),
@@ -545,7 +634,10 @@ def decide_strategy(
     #    tranché "inherited" (audit du 2026-08-22). Ne PAS écraser chapter_id/
     #    topic_id dans ce seul cas : intent_service reste l'UNIQUE source de
     #    vérité du routage quand il a déjà décidé de protéger le contexte.
-    found, match = _probe_search_service(user_message, intent, class_level=student_context.get("class_level"))
+    found, match = (
+        (False, None) if knowledge_search_blocked
+        else _probe_search_service(user_message, intent, class_level=student_context.get("class_level"))
+    )
     if found:
         if intent_result.get("topic_confidence") != "inherited":
             topic_id = match.get("notion_id") or topic_id
