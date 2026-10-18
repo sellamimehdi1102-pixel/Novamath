@@ -302,12 +302,24 @@ const ACTION_CARD_ICONS = {
   target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
 };
 
+// Chantier "routage réel" (2026-10-17, test D) : t() ne fait jamais
+// d'interpolation (voir i18n.js::t — `fallback` n'est utilisé QUE si la clé
+// est absente du dictionnaire) — deux cartes "notion_series" sur des notions
+// différentes affichaient donc un texte strictement identique. `c.title`
+// (déjà transmis par le backend, voir action_cards_service.py) nomme le
+// sujet réel de la carte ; on l'ajoute ici au libellé générique plutôt que
+// de dupliquer les clés i18n par notion.
+function actionCardLabel(c) {
+  const base = t(c.label_key, "");
+  return c.title ? `${base} — ${c.title}` : base;
+}
+
 function actionCardsHtml(cards) {
   if (!cards || !cards.length) return "";
   return `<div class="chatbot-action-cards">${cards.map((c, i) => `
     <button type="button" class="chatbot-action-card card card--interactive" data-card-index="${i}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${ACTION_CARD_ICONS[c.icon] || ACTION_CARD_ICONS.book}</svg>
-      <span>${escapeHtml(t(c.label_key, c.title || ""))}</span>
+      <span>${escapeHtml(actionCardLabel(c))}</span>
     </button>
   `).join("")}</div>`;
 }

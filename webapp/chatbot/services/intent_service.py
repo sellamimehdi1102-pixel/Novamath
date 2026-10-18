@@ -98,7 +98,19 @@ QUIZ_RE = re.compile(
     re.IGNORECASE,
 )
 CORRECTION_RE = re.compile(
-    r"(corrige (mon|cet|ce)|correction de|est[- ]ce que c'est juste|v[ée]rifie ma r[ée]ponse)",
+    r"(corrige (mon|cet|ce)|correction de|"
+    # Chantier "routage mathématique robuste" (2026-10-17) : élargi pour
+    # couvrir les formulations naturelles de vérification d'une réponse déjà
+    # trouvée par l'élève ("est-ce juste ?", "c'est correct ?", "ai-je bien
+    # fait ?") — l'ancienne regex n'acceptait que "est-ce QUE C'EST juste"
+    # au mot près, manquant la plupart des formulations réelles (confirmé
+    # par l'audit de fiabilité mathématique : ces messages retombaient en
+    # NONE_INTENT, sans jamais recevoir l'instruction pédagogique CORRECTION
+    # déjà écrite dans pedagogy_templates).
+    r"est[- ]ce (?:que c'est |)(?:juste|correct|bon|vrai)|"
+    r"c'est (?:juste|correct|bon|vrai)\s*\?|"
+    r"v[ée]rifie (?:ma|cette) r[ée]ponse|"
+    r"ai[- ]je (?:bien |juste )?(?:fait|r[ée]pondu|raison|trouv[ée]))",
     re.IGNORECASE,
 )
 FICHE_RE = re.compile(
@@ -239,7 +251,15 @@ RESUME_RE = re.compile(
 )
 METHODE_RE = re.compile(
     r"(quelle (?:est la )?m[ée]thode|comment (?:faire pour )?r[ée]sou(?:s|dre)|comment on fait|"
-    r"quelle est la d[ée]marche|quelles sont les [ée]tapes|comment proc[ée]der)",
+    r"quelle est la d[ée]marche|quelles sont les [ée]tapes|comment proc[ée]der|"
+    # Formulations d'aide guidée implicite sans mot-clé "méthode"/"étapes"
+    # (chantier "pertinence contextuelle", 2026-10-17) : sans cet ajout, "aide-moi
+    # à résoudre..."/"comment je fais pour..." ne correspondaient à aucune
+    # regex (NONE_INTENT) et perdaient le droit à la progression pas-à-pas
+    # (_GUIDED_INTENTS, prompt_builder.py) alors qu'il s'agit bien d'une
+    # demande d'accompagnement sur un exercice/une méthode à dérouler.
+    r"aide[- ]moi [aà] (?:r[ée]soudre|faire)|"
+    r"comment (?:je dois|dois[- ]je|puis[- ]je|je peux) faire)",
     re.IGNORECASE,
 )
 PROPRIETE_RE = re.compile(r"(quelle est la propri[ée]t[ée]|propri[ée]t[ée]s? de)", re.IGNORECASE)
@@ -251,8 +271,21 @@ INDICE_RE = re.compile(
 )
 RAPPEL_RE = re.compile(r"(rappelle[- ]moi|petit rappel sur|rappel de cours)", re.IGNORECASE)
 REVISION_RE = re.compile(
-    r"(je veux r[ée]viser|r[ée]vision de|aide[- ]moi [aà] r[ée]viser|"
-    r"pr[ée]pare[- ]moi (?:pour|au) (?:le |un )?(?:contr[ôo]le|examen|brevet|bac))",
+    r"(je veux r[ée]viser|r[ée]vision de|aide[- ]moi [aà] r[ée]viser|\br[ée]viser\b|"
+    r"pr[ée]pare[- ]moi (?:pour|au) (?:le |un )?(?:contr[ôo]le|examen|brevet|bac)|"
+    # Contexte d'examen proche (chantier "pertinence contextuelle",
+    # 2026-10-17) : "j'ai un examen demain sur les polynômes du second
+    # degré" ne contenait jusqu'ici ni "je veux réviser" ni "prépare-moi
+    # pour/au" et tombait en NONE_INTENT — ancré sur un mot d'échéance
+    # proche pour rester spécifique (pas juste "j'ai un examen" seul, qui
+    # pourrait n'être qu'un contexte autour d'une question précise).
+    r"j'ai (?:un |mon |le )?(?:examen|contr[ôo]le|interro(?:gation)?|devoir|bac|brevet|partiel)\b"
+    r"(?:[^.?!]{0,40})?(?:demain|bient[ôo]t|cette semaine|la semaine prochaine|"
+    r"lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)|"
+    # "dis-moi/qu'est-ce qu'il faut (que je) sache/savoir/retenir/maîtriser" :
+    # demande explicite de synthèse priorisée, indépendante de toute mention
+    # d'examen (couvre aussi une révision sans échéance précisée).
+    r"(?:qu'est[- ]ce qu'il faut|ce qu'il faut)(?: que je)? (?:sache|savoir|retenir|ma[iî]triser))",
     re.IGNORECASE,
 )
 
@@ -280,7 +313,7 @@ _FUZZY_TRIGGER_PHRASES = {
     INDICE: ["donne-moi un indice", "aide-moi un peu"],
     QUIZ: ["interroge-moi", "pose-moi des questions", "teste-moi"],
     RAPPEL: ["rappelle-moi", "petit rappel sur"],
-    REVISION: ["je veux réviser", "aide-moi à réviser"],
+    REVISION: ["je veux réviser", "aide-moi à réviser", "j'ai un examen demain", "qu'est-ce qu'il faut savoir"],
     REFORMULATION: [
         "explique autrement", "reformule", "dis-le autrement", "réexplique",
         "je n'ai pas compris", "peux-tu recommencer", "peux-tu détailler",
@@ -322,6 +355,19 @@ SERIE_RE = re.compile(r"(mes s[ée]ries|s[ée]rie en cours|s[ée]rie actuelle)",
 
 SIMPLIFY_RE = re.compile(
     r"(comme [aà] un [ée]l[eè]ve en difficult[ée]|explique(?:-moi)? simplement|plus simplement|vulgarise)",
+    re.IGNORECASE,
+)
+
+# Chantier "routage réel" (2026-10-17, test C) : FLAG (même mécanisme que
+# SIMPLIFY_RE ci-dessus, jamais un nouvel intent) détectant une demande
+# EXPLICITE du détail des étapes/du raisonnement — plusieurs formulations
+# génériques, pas une phrase de test précise. Sert à écarter Math Engine
+# (gabarit court par conception, voir math_engine._solve_equation) au profit
+# du LLM quand l'élève veut explicitement le détail, jamais l'inverse.
+DETAIL_RE = re.compile(
+    r"(explique(?:-moi)? (?:toutes? les [ée]tapes|en d[ée]tail|le d[ée]tail)|"
+    r"d[ée]taille(?:-moi)?(?: toutes)? les [ée]tapes|toutes les [ée]tapes|[ée]tape par [ée]tape|"
+    r"avec (?:le|tout le) d[ée]tail|montre(?:-moi)? (?:le |tout le )?d[ée]tail|d[ée]monstration compl[eè]te)",
     re.IGNORECASE,
 )
 DIFFICULT_RE = re.compile(r"\b(difficile|dur|cors[ée]|compliqu[ée])\b", re.IGNORECASE)
@@ -678,6 +724,7 @@ def classify(user_message, context_summary=None, class_level=None, learning_cont
         return {
             "intent": UNCLEAR, "chapter_id": None, "notion_id": None, "topic_inherited": False,
             "topic_confidence": "none", "difficulty": None, "simplify": False, "quantity": None,
+            "wants_detail": False,
         }
 
     intent = NONE_INTENT
@@ -735,4 +782,5 @@ def classify(user_message, context_summary=None, class_level=None, learning_cont
         "difficulty": _detect_difficulty(text),
         "simplify": bool(SIMPLIFY_RE.search(text)),
         "quantity": _detect_quantity(text),
+        "wants_detail": bool(DETAIL_RE.search(text)),
     }

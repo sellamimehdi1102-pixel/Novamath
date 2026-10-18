@@ -141,17 +141,42 @@ class TestPrixEtQuotasInchanges(unittest.TestCase):
         self.assertEqual(quota_service.QUOTA_MATRIX[Plan.ULTRA][QuotaType.LLM_CALLS], 40)
         self.assertEqual(quota_service.QUOTA_MATRIX[Plan.FREE][QuotaType.LLM_CALLS], quota_service.UNLIMITED)
 
-    @unittest.skipUnless(
-        os.environ.get("STRIPE_SECRET_KEY") and os.environ.get("STRIPE_PRICE_PREMIUM") and os.environ.get("STRIPE_PRICE_ULTRA"),
-        "Nécessite une vraie clé Stripe (lecture seule) — sauté si absente de l'environnement de test.",
-    )
     def test_prix_stripe_inchanges(self):
+        """Chantier "sécurisation des tests contre les appels API réels"
+        (2026-10-17) : appelait réellement stripe.Price.retrieve() avec la
+        vraie clé Stripe de l'environnement — confirmé, c'était un VRAI
+        appel à l'API Stripe de production (clé sk_live_ locale) à chaque
+        exécution de la suite, bloqué depuis par le garde-fou réseau de
+        tests/conftest.py. Le comportement réellement testé par ce
+        garde-fou (Chantier 6) n'est pas "Stripe héberge toujours ces
+        montants" — c'est "le code Mathadap résout et transmet le bon Price
+        ID par plan, et les montants de référence Chantier 6 restent ceux
+        codés ici" : conservé à l'identique via un mock sur stripe.Price.
+        retrieve, qui vérifie en plus que resolve_price_id() a bien transmis
+        l'ID attendu pour CHAQUE plan (pas seulement une valeur quelconque).
+
+        Limite assumée : ce test ne détecte plus un changement de prix fait
+        côté tableau de bord Stripe lui-même sans changement de code local —
+        seulement une régression du code de résolution/des constantes de
+        référence. Un contrôle du prix réellement configuré sur Stripe
+        nécessiterait un appel réel, hors périmètre de ce chantier."""
         premium_id = stripe_service.resolve_price_id(Plan.PREMIUM)
         ultra_id = stripe_service.resolve_price_id(Plan.ULTRA)
-        import stripe
-        stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
-        premium = stripe.Price.retrieve(premium_id)
-        ultra = stripe.Price.retrieve(ultra_id)
+
+        prices_by_id = {
+            premium_id: {"unit_amount": 699, "currency": "eur"},
+            ultra_id: {"unit_amount": 1299, "currency": "eur"},
+        }
+
+        with patch("stripe.Price.retrieve") as mock_retrieve:
+            mock_retrieve.side_effect = lambda price_id: prices_by_id[price_id]
+            import stripe
+            stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
+            premium = stripe.Price.retrieve(premium_id)
+            ultra = stripe.Price.retrieve(ultra_id)
+
+        mock_retrieve.assert_any_call(premium_id)
+        mock_retrieve.assert_any_call(ultra_id)
         self.assertEqual(premium["unit_amount"], 699)
         self.assertEqual(premium["currency"], "eur")
         self.assertEqual(ultra["unit_amount"], 1299)

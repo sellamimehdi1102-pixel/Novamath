@@ -148,6 +148,52 @@ class TestPrioriteDesMoteurs(ResponseStrategyTestCase):
             self.assertEqual(strategy.engine, rs.ENGINE_RULE, "Rule Engine doit gagner sur Knowledge Engine si Math est indisponible")
 
 
+class TestMathEngineRespecteLIndice(ResponseStrategyTestCase):
+    """Chantier "respect des contraintes explicites" (2026-10-17) : Math
+    Engine renvoie toujours une réponse COMPLÈTE et déterministe — il ne doit
+    jamais être choisi quand l'élève demande explicitement un indice/une
+    aide sans la solution (intent INDICE), quel que soit le type d'équation."""
+
+    def test_indice_sur_second_degre_necarte_pas_math_engine_mais_ne_le_choisit_pas(self):
+        strategy = self.decide("Aide-moi à résoudre x² - 5x + 6 = 0 sans me donner la réponse.")
+        self.assertEqual(strategy.intent, intent_service.INDICE)
+        self.assertNotEqual(strategy.engine, rs.ENGINE_MATH)
+
+    def test_indice_sur_premier_degre(self):
+        strategy = self.decide("Donne-moi un indice pour résoudre 2x + 4 = 10.")
+        self.assertEqual(strategy.intent, intent_service.INDICE)
+        self.assertNotEqual(strategy.engine, rs.ENGINE_MATH)
+
+    def test_aide_un_peu_sur_une_equation_carree(self):
+        strategy = self.decide("Aide-moi un peu avec x² = 9.")
+        self.assertEqual(strategy.intent, intent_service.INDICE)
+        self.assertNotEqual(strategy.engine, rs.ENGINE_MATH)
+
+    def test_resolution_complete_explicite_garde_math_engine(self):
+        """Non-régression : une demande de résolution COMPLÈTE (pas d'indice)
+        doit toujours obtenir Math Engine."""
+        strategy = self.decide("Résous complètement x² - 5x + 6 = 0.")
+        self.assertEqual(strategy.engine, rs.ENGINE_MATH)
+
+    def test_demande_detapes_route_vers_le_llm_pas_math_engine(self):
+        """Chantier "routage réel" (2026-10-17, test C) : hypothèse de ce
+        test AVANT ce chantier — "la pédagogie des étapes relève du prompt,
+        pas d'un refus de calculer" — INVALIDÉE par l'audit : Math Engine
+        répond en LOCAL, sans jamais passer par aucun prompt LLM (voir
+        math_engine._solve_equation, une ligne de méthode fixe + le
+        résultat, confirmé par les vrais logs de production). Une demande
+        EXPLICITE du détail des étapes (intent_service.DETAIL_RE) doit donc
+        router vers le LLM, seul capable de les fournir."""
+        strategy = self.decide("Explique-moi toutes les étapes pour résoudre 2x + 4 = 10.")
+        self.assertEqual(strategy.engine, rs.ENGINE_LLM)
+
+    def test_resolution_simple_sans_demande_de_detail_garde_math_engine(self):
+        """Non-régression : sans demande explicite du détail, une résolution
+        reste locale (Math Engine), même avec "complètement"."""
+        strategy = self.decide("Résous complètement x² - 5x + 6 = 0.")
+        self.assertEqual(strategy.engine, rs.ENGINE_MATH)
+
+
 class TestClarification(ResponseStrategyTestCase):
     def test_message_incomprehensible_prime_sur_tout(self):
         for message in ["......", "aaaa", ""]:
@@ -517,16 +563,20 @@ class TestSecondRoutageNecrasePasLeContexteFiable(ResponseStrategyTestCase):
                 self.assertEqual(strategy.topic_id, "fonction-derivee")
 
     def test_sans_contexte_la_recherche_fonctionne_normalement(self):
-        """Sans Current Learning Context fiable, le correctif ne doit rien
-        changer au comportement existant du moteur de recherche."""
+        """Sans Current Learning Context fiable, le correctif d'août 2026 ne
+        change rien — mais ce message ("dérivé") est désormais lui-même
+        écarté de Knowledge/Search par le chantier "fiabilité mathématique"
+        (2026-10-17, response_strategy._requires_real_computation) : router
+        vers "Fonction exponentielle" (Chapitre_5) était précisément le bug
+        confirmé par l'audit — "dériver une fonction" n'est pas une question
+        de cours, c'est une demande d'application, désormais envoyée au LLM
+        plutôt que de perpétuer un mauvais routage local."""
         strategy = self.decide(
             "comment dérivé une fonction?",
             ctx=student_context(class_level="premiere"),
             learning_context=None,
         )
-        self.assertEqual(strategy.engine, rs.ENGINE_SEARCH)
-        self.assertEqual(strategy.chapter_id, "Chapitre_5")
-        self.assertEqual(strategy.topic_id, "fonction-exponentielle")
+        self.assertEqual(strategy.engine, rs.ENGINE_LLM)
 
     def test_valeur_absolue_seconde_reste_correcte(self):
         """Cas réel supplémentaire signalé — vérifié en Seconde, seul niveau

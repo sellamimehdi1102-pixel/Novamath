@@ -58,6 +58,12 @@ def _notion_series_card(chapter_id, notion, exercise_ids, label_key="chatbot_car
         "type": "notion_series",
         "chapter_id": chapter_id,
         "notion": notion,
+        # Chantier "routage réel" (2026-10-17, test D) : `notion` est déjà un
+        # libellé humain (ex: "Loi de probabilité") — exposé aussi sous
+        # `title`, même clé que _course_card ci-dessus, pour que le frontend
+        # distingue deux cartes "Commencer un entraînement" sur des notions
+        # différentes sans dupliquer cette donnée sous un autre nom.
+        "title": notion,
         "exercise_ids": exercise_ids[:5],
         "url": None,
     }

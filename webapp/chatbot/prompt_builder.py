@@ -1,6 +1,6 @@
 """
 Assemble le prompt système envoyé au fournisseur IA : méthode pédagogique,
-règles de notation mathématique, contexte NovaMath compact (context_builder.py),
+règles de notation mathématique, contexte Mathadap compact (context_builder.py),
 contexte RAG (knowledge_engine.py — quelques notions de cours pertinentes,
 jamais les cours entiers) et préférences utilisateur (longueur de réponse,
 niveau d'explication). Le Rule Engine et le Math Engine court-circuitent déjà
@@ -27,6 +27,21 @@ Adapte le vocabulaire, la longueur et le niveau de détail au profil de l'élèv
 # à tort en parcours guidé, voir audit du 2026-08-22). Désormais choisie par
 # le CODE à partir de l'intention déjà classifiée (intent_service.classify),
 # jamais laissée à l'appréciation du modèle.
+#
+# Chantier "pertinence contextuelle" (2026-10-17) : l'ancienne 3e branche
+# (_DEFAULT_METHOD_INSTRUCTION, appliquée à NONE_INTENT) redonnait exactement
+# ce choix "factuel vs exercice" au modèle — le même mécanisme déjà identifié
+# ci-dessus comme peu fiable, laissé par erreur en place pour le seul cas des
+# messages non classifiés. Preuve concrète : "J'ai un examen demain sur les
+# polynômes du second degré, dis-moi ce qu'il faut savoir pour avoir une
+# excellente note" ne correspond à AUCUNE regex d'intention (NONE_INTENT) et
+# recevait cette consigne ambiguë, que le modèle a résolue à tort en parcours
+# guidé pas-à-pas plutôt qu'en synthèse directe. NONE_INTENT rejoint donc
+# _DIRECT_INTENTS : une question non classifiée reste par défaut une question
+# qu'on traite directement (voir intent_service.METHODE_RE, élargie dans le
+# même chantier pour capter davantage de formulations d'aide guidée implicite
+# — "aide-moi à résoudre", "comment je fais pour" — qui doivent rester dans
+# _GUIDED_INTENTS plutôt que de retomber sur ce défaut direct).
 _GUIDED_METHOD_INSTRUCTION = """MÉTHODE PÉDAGOGIQUE (obligatoire) :
 Tu n'es jamais un simple générateur de réponse finale. Face à cet exercice ou cette méthode à dérouler, progresse dans cet ordre, et ARRÊTE-toi après chaque étape pour laisser l'élève réagir (sauf s'il demande explicitement la solution complète) :
 1. Une question qui aide l'élève à identifier ce qu'il doit chercher.
@@ -37,34 +52,54 @@ Tu n'es jamais un simple générateur de réponse finale. Face à cet exercice o
 6. Un conseil pour éviter l'erreur la prochaine fois."""
 
 _DIRECT_METHOD_INSTRUCTION = """MÉTHODE PÉDAGOGIQUE (obligatoire) :
-L'élève pose une question directe (définition, explication, "pourquoi ?", propriété, méthode générale, reformulation...). Réponds-y clairement et directement — ne transforme PAS cette question en exercice guidé et n'impose aucune étape artificielle ni pause d'attente si l'élève n'en a pas demandé une. Tu peux structurer ta réponse (courte explication puis exemple si utile), mais réponds réellement à ce qui est demandé."""
+L'élève pose une question directe (définition, explication, "pourquoi ?", propriété, méthode générale, reformulation, synthèse de révision...). Réponds-y clairement et directement — ne transforme PAS cette question en exercice guidé et n'impose aucune étape artificielle ni pause d'attente si l'élève n'en a pas demandé une. Tu peux structurer ta réponse (courte explication puis exemple si utile), mais réponds réellement à ce qui est demandé, en respectant le contexte, les contraintes et le format attendu exprimés dans le message (ex: temps disponible, niveau déjà acquis, longueur ou format demandé)."""
 
-_DEFAULT_METHOD_INSTRUCTION = """MÉTHODE PÉDAGOGIQUE (obligatoire) :
-Si la question est purement factuelle ou hors exercice, réponds directement et clairement. Si l'élève travaille sur un exercice ou une méthode à dérouler, progresse pas à pas (une question, un indice, la méthode, la solution, un conseil), en t'arrêtant après chaque étape sauf demande explicite de la solution complète."""
+# Chantier "correction finale des consignes pédagogiques" (2026-10-17) :
+# _DIRECT_METHOD_INSTRUCTION interdisait déjà de transformer la question en
+# exercice guidé, mais ne demandait jamais explicitement d'aller jusqu'au
+# résultat final — confirmé par l'audit (triangle rectangle 3/4/6 : le
+# chatbot explique la méthode puis s'arrête avant le calcul et la conclusion
+# pour demander à l'élève de continuer, sans qu'aucune instruction ne le lui
+# impose ni ne l'interdise). Cette clause positive comble ce vide. Elle
+# porte en elle-même l'exception (indice/accompagnement interactif) en plus
+# de l'exclusion par intention ci-dessous, pour rester robuste même sur un
+# NONE_INTENT qui mélangerait une demande de résolution et un souhait
+# d'indice dans le même message.
+_COMPLETION_CLAUSE = (
+    " Si l'élève demande explicitement de résoudre, calculer, vérifier, justifier ou expliquer un "
+    "résultat — et qu'il ne demande pas un indice, une démarche interactive ou un accompagnement "
+    "étape par étape — va jusqu'au résultat final et à la conclusion, avec les étapes nécessaires. "
+    "N'interromps jamais spontanément une résolution en cours pour demander l'autorisation de "
+    "continuer."
+)
 
 # Intents qui expriment un exercice/une méthode à dérouler pas à pas — seuls
 # ceux-ci déclenchent la progression en 6 étapes par défaut.
 _GUIDED_INTENTS = {
     intent_service.EXERCICE, intent_service.METHODE, intent_service.DEMONSTRATION, intent_service.QUIZ,
 }
-# Intents qui expriment une question directe — réponse franche, sans étapes
-# imposées (voir aussi pedagogy_templates._INTENT_INSTRUCTIONS pour la nuance
-# fine par intent, ceci ne fixe que le cadre général du prompt de base).
-_DIRECT_INTENTS = {
-    intent_service.DEFINITION, intent_service.EXPLICATION, intent_service.COURS, intent_service.RESUME,
-    intent_service.PROPRIETE, intent_service.FORMULE, intent_service.RAPPEL, intent_service.REVISION,
-    intent_service.REFORMULATION, intent_service.FOLLOWUP, intent_service.INDICE, intent_service.CORRECTION,
-    intent_service.FICHE, intent_service.RESTART_BASICS,
-}
+
+# INDICE reçoit déjà la méthode directe (pas le parcours en 6 étapes), mais
+# ne doit jamais recevoir la clause de complétion : il demande explicitement
+# un indice, pas la solution complète (voir pedagogy_templates._INTENT_
+# INSTRUCTIONS[INDICE]) — lui ajouter _COMPLETION_CLAUSE la contredirait.
+_NO_COMPLETION_INTENTS = {intent_service.INDICE}
 
 
 def _method_instruction(intent_result):
+    """Tout ce qui n'est pas explicitement un exercice/une méthode à dérouler
+    (_GUIDED_INTENTS) reçoit la méthode directe — y compris NONE_INTENT
+    (question ouverte non classifiée) : voir le commentaire ci-dessus, ce
+    n'est plus un troisième cas laissé au jugement du modèle. Parmi les
+    réponses directes, toutes sauf INDICE reçoivent en plus la clause de
+    complétion (_COMPLETION_CLAUSE) : aller jusqu'au résultat sans
+    s'interrompre spontanément."""
     intent = (intent_result or {}).get("intent")
     if intent in _GUIDED_INTENTS:
         return _GUIDED_METHOD_INSTRUCTION
-    if intent in _DIRECT_INTENTS:
+    if intent in _NO_COMPLETION_INTENTS:
         return _DIRECT_METHOD_INSTRUCTION
-    return _DEFAULT_METHOD_INSTRUCTION
+    return _DIRECT_METHOD_INSTRUCTION + _COMPLETION_CLAUSE
 
 
 def _length_instruction(response_length):
@@ -73,6 +108,27 @@ def _length_instruction(response_length):
         "normal": "Réponds de façon claire et structurée, sans être trop long.",
         "detaille": "Développe tes réponses en détail, avec des exemples si utile.",
     }.get(response_length, "Réponds de façon claire et structurée.")
+
+
+# Chantier "priorité intention vs mode pédagogique" (2026-10-17, test C) :
+# aucune clause n'arbitrait un conflit entre l'instruction d'intention
+# (pedagogy_templates._INTENT_INSTRUCTIONS, ce que l'élève demande dans CE
+# message) et l'instruction de mode (pedagogy_templates._MODE_INSTRUCTIONS,
+# une préférence générale enregistrée) quand elles se contredisent — ex:
+# REVISION demande une synthèse priorisée, "professeur" demande un cours
+# détaillé exhaustif. Les modes "rapide"/"examen" ont déjà leur propre clause
+# de précédence (dans l'autre sens, délibérément : voir
+# pedagogy_templates.MODES_WITH_OWN_PRECEDENCE_CLAUSE) — cette règle
+# générique ne s'applique donc qu'aux autres modes, pour ne jamais les
+# contredire.
+_EXPLICIT_REQUEST_PRIORITY_INSTRUCTION = (
+    "RÈGLE DE PRIORITÉ : si la préférence générale du mode pédagogique ci-dessous entre en "
+    "contradiction avec la demande explicite de l'élève exprimée ci-dessus (ex : une synthèse "
+    "priorisée ne doit pas devenir un cours exhaustif, une demande d'indice ne doit pas devenir une "
+    "solution complète, une contrainte de temps, de longueur ou de format doit être respectée), "
+    "c'est cette demande explicite qui l'emporte. Le mode reste pleinement applicable pour tout le "
+    "reste (ton, style, niveau de détail général)."
+)
 
 
 def _explanation_instruction(level):
@@ -93,7 +149,7 @@ def build_system_prompt(
 
     # `memoryEnabled` (paramètres du chatbot) : jusqu'ici ce réglage n'avait
     # aucun effet — le profil élève était toujours injecté. Désormais,
-    # désactivé, la conversation n'a plus accès au profil NovaMath réel.
+    # désactivé, la conversation n'a plus accès au profil Mathadap réel.
     if chatbot_settings.get("memoryEnabled", True):
         summary = build_context_summary(user, chapters_summary, class_level=class_level)
         context_text = summary_to_text(summary)
@@ -109,9 +165,15 @@ def build_system_prompt(
     # explicite de l'élève, la ressource résolue doit primer.
     mentions_prompt_block = f"\n\n{mentions_block}" if mentions_block else ""
 
+    mode = chatbot_settings.get("mode")
     intent_instruction = pedagogy_templates.build_intent_instruction(intent_result, topic_label=topic_label)
-    mode_instruction = pedagogy_templates.build_mode_instruction(chatbot_settings.get("mode"))
-    extra_instructions = "\n".join(filter(None, [intent_instruction, mode_instruction]))
+    mode_instruction = pedagogy_templates.build_mode_instruction(mode)
+    needs_priority_rule = (
+        bool(intent_instruction) and bool(mode_instruction)
+        and not pedagogy_templates.mode_has_own_precedence_clause(mode)
+    )
+    priority_instruction = _EXPLICIT_REQUEST_PRIORITY_INSTRUCTION if needs_priority_rule else ""
+    extra_instructions = "\n".join(filter(None, [intent_instruction, priority_instruction, mode_instruction]))
     extra_block = f"\n{extra_instructions}" if extra_instructions else ""
 
     return (
