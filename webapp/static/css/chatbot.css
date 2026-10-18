@@ -68,17 +68,25 @@
   width: 64px;
 }
 .chatbot-convos.is-collapsed .chatbot-convos-header { padding: 18px 10px 12px; }
-.chatbot-convos.is-collapsed .btn-label,
-.chatbot-convos.is-collapsed .chatbot-search input,
-.chatbot-convos.is-collapsed .chatbot-convo-title,
-.chatbot-convos.is-collapsed .chatbot-convo-actions,
-.chatbot-convos.is-collapsed .pin-icon,
-.chatbot-convos.is-collapsed .chatbot-convo-empty {
+.chatbot-convos.is-collapsed .btn-label {
+  display: none;
+}
+/* Mode réduit = façon ChatGPT : l'historique des anciennes conversations
+   n'est plus accessible du tout (pas seulement "moins visible") — tout le
+   conteneur disparaît, ce qui retire en même temps son titre ("Conversations"),
+   le clic ET le focus clavier sur chaque conversation (comportement natif de
+   display:none, jamais une simple transparence qui laisserait une zone
+   cliquable invisible). Avant ce correctif, seuls le titre/les actions de
+   CHAQUE item étaient masqués : la ligne elle-même restait dans le flux,
+   cliquable et focusable, vide visuellement mais toujours fonctionnelle —
+   exactement le bug remonté ("certaines anciennes conversations restent
+   visibles ou cliquables"). */
+.chatbot-convos.is-collapsed .chatbot-convo-list-label,
+.chatbot-convos.is-collapsed .chatbot-convo-list {
   display: none;
 }
 .chatbot-convos.is-collapsed .chatbot-search { justify-content: center; padding: 8px; }
 .chatbot-convos.is-collapsed #chatbot-new-btn { width: 34px; height: 34px; padding: 0; border-radius: 50%; margin: 0 auto; }
-.chatbot-convos.is-collapsed .chatbot-convo-item { justify-content: center; padding: 10px 0; }
 
 .chatbot-convos-mobile-trigger {
   display: none;
@@ -115,26 +123,30 @@
    rester à l'aise dans les 280px du panneau. */
 #chatbot-new-btn { width: 100%; padding: 11px 20px; font-size: 0.9rem; }
 
+/* Déclenche désormais la vraie vue de recherche (.chatbot-search-view) au
+   lieu d'un champ filtrant la liste en place — voir chatbot.js::openSearchView.
+   Reste un <button>, pas un <div> : toujours accessible/cliquable même
+   réduit (icône seule, .btn-label masqué par la règle déjà existante
+   ci-dessus). */
 .chatbot-search {
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
   padding: 9px 12px;
   border-radius: var(--radius-md);
   background: var(--surface-hover);
   border: 1px solid var(--border);
-  transition: border-color var(--transition-fast), background var(--transition-fast);
-}
-.chatbot-search:focus-within { border-color: var(--accent); background: var(--surface); }
-.chatbot-search svg { width: 16px; height: 16px; color: var(--text-faint); flex-shrink: 0; }
-.chatbot-search input {
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--text);
+  color: var(--text-muted);
+  font: inherit;
   font-size: 0.85rem;
-  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
 }
+.chatbot-search:hover,
+.chatbot-search:focus-visible { border-color: var(--accent); background: var(--surface); color: var(--text); }
+.chatbot-search svg { width: 16px; height: 16px; color: var(--text-faint); flex-shrink: 0; }
 
 /* Petit repère de section — la liste se lit comme un vrai historique de
    discussions plutôt qu'une liste anonyme (ChatGPT/Claude/Cursor). */
@@ -237,6 +249,127 @@
 .chatbot-provider-banner .msg { flex: 1; }
 .chatbot-provider-banner .actions { display: flex; gap: 8px; flex-shrink: 0; }
 
+/* ── Vue "Rechercher une conversation" ───────────────────────────────────────
+   Occupe toute la zone principale (remplace topbar/messages/input-area tant
+   qu'elle est ouverte, voir chatbot.js::openSearchView/closeSearchView),
+   jamais un popover ni un petit champ coincé dans la sidebar. Réutilise le
+   LANGAGE visuel de la page Paramètres (halo radial très léger, cf.
+   settings.css::.settings-shell::before, typographie de .settings-header,
+   lignes de résultat au style de .settings-menu-item) sans dépendre d'aucune
+   classe de settings.css — ce chantier ne doit jamais changer si Paramètres
+   change de forme. */
+.chatbot-search-view {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 48px 32px;
+  position: relative;
+}
+.chatbot-search-view::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 220px;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 620px 320px at 50% 0%, rgba(var(--accent-rgb), 0.07), transparent 70%);
+}
+.chatbot-search-view-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.chatbot-search-view-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding: 6px 10px 6px 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.chatbot-search-view-back:hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-search-view-back svg { width: 16px; height: 16px; }
+.chatbot-search-view-header { margin-bottom: 24px; }
+.chatbot-search-view-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.chatbot-search-view-header p { color: var(--text-muted); font-size: 0.92rem; }
+.chatbot-search-view-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  margin-bottom: 24px;
+}
+.chatbot-search-view-field:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.15); }
+.chatbot-search-view-field svg { width: 18px; height: 18px; color: var(--text-faint); flex-shrink: 0; }
+.chatbot-search-view-field input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 0.96rem;
+}
+.chatbot-search-view-clear {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px;
+  border: none; background: transparent; color: var(--text-faint);
+  border-radius: 50%; cursor: pointer; flex-shrink: 0;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.chatbot-search-view-clear:hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-search-view-clear svg { width: 14px; height: 14px; }
+.chatbot-search-view-results { display: flex; flex-direction: column; gap: 2px; }
+.chatbot-search-result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.chatbot-search-result:hover,
+.chatbot-search-result:focus-visible { background: var(--surface-hover); }
+.chatbot-search-result-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+.chatbot-search-result-date { flex-shrink: 0; color: var(--text-faint); font-size: 0.78rem; }
+.chatbot-search-view-status {
+  padding: 32px 14px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 0.88rem;
+}
+
 .chatbot-messages {
   flex: 1;
   min-height: 0;
@@ -333,7 +466,17 @@
   to { opacity: 1; transform: translateY(0); }
 }
 .chatbot-msg-row--assistant { justify-content: flex-start; }
-.chatbot-msg-row--user { justify-content: flex-end; }
+/* Le message utilisateur n'a pas d'avatar : la bulle ET sa barre d'actions
+   (Copier/Modifier, ajoutées ci-dessous) sont les deux seuls enfants directs
+   de la ligne, empilés verticalement (flex-direction: column) et alignés à
+   droite (align-items: flex-end plutôt que `stretch`, pour que chacun garde
+   sa propre largeur — pas d'étirement sur toute la largeur de la ligne). */
+.chatbot-msg-row--user {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 6px;
+}
 
 /* Avatar Mathadap — présent uniquement dans le composant assistant (absent
    du DOM côté utilisateur, pas seulement masqué). */
@@ -472,28 +615,218 @@
 .chatbot-msg-row--assistant:focus-within .chatbot-msg-actions {
   opacity: 1;
 }
-.chatbot-msg-actions button {
+/* `:not(.btn)` : exclut explicitement les boutons Annuler/Envoyer de
+   l'éditeur inline (ajoutés plus bas, classes `.btn.btn-ghost`/`.btn.btn-
+   primary`), qui doivent rester régis par le système de boutons global
+   (base.css) — PAS par cette boîte icône 28×28 pensée pour Copier/Régénérer/
+   Plus. Avant cette exclusion, cette règle (plus spécifique que `.btn-ghost`/
+   `.btn-primary`) écrasait leur largeur, leur `border-radius` et leur
+   `border`, provoquant le chevauchement de texte signalé (chantier
+   "correction design édition", 2026-10-18). Comportement des boutons icône
+   existants strictement inchangé.
+   `>` (enfant direct) plutôt qu'un descendant quelconque — chantier "menu
+   Plus" (2026-10-18) : "Bonne réponse"/"Mauvaise réponse"/"Signaler un
+   problème" (dans `.chatbot-msg-more-menu`, lui-même imbriqué dans
+   `.chatbot-msg-more-wrap`) SONT des `button` descendants de
+   `.chatbot-msg-actions` sans classe `.btn` — l'ancienne règle, plus
+   spécifique (0,2,1) que `.chatbot-msg-more-menu button` (0,1,1), les
+   forçait donc aussi en boîte 28×28 centrée, écrasant leur texte+icône
+   (cause exacte du chevauchement signalé). Le sélecteur `>` cible
+   précisément Copier/Régénérer (enfants directs) ET le bouton "Plus" lui-
+   même (enfant direct de `.chatbot-msg-more-wrap`), sans jamais atteindre
+   les boutons du menu déroulant, qui gardent leurs propres règles plus bas
+   (`.chatbot-msg-more-menu button`). */
+.chatbot-msg-actions > button:not(.btn),
+.chatbot-msg-more-wrap > button:not(.btn) {
   width: 28px; height: 28px;
   display: inline-flex; align-items: center; justify-content: center;
   border: none; background: transparent; color: var(--text-faint);
   border-radius: var(--radius-sm); cursor: pointer;
   transition: background var(--transition-fast), color var(--transition-fast);
 }
-.chatbot-msg-actions button:hover { background: var(--surface-hover); color: var(--text); }
-.chatbot-msg-actions button.active { color: var(--accent-text); }
-.chatbot-msg-actions button.is-copied { color: var(--success); }
-.chatbot-msg-actions button:disabled { opacity: 0.4; cursor: not-allowed; }
-.chatbot-msg-actions button:disabled:hover { background: transparent; color: var(--text-faint); }
-.chatbot-msg-actions svg { width: 15px; height: 15px; }
+.chatbot-msg-actions > button:not(.btn):hover,
+.chatbot-msg-more-wrap > button:not(.btn):hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-msg-actions > button:not(.btn).active,
+.chatbot-msg-more-wrap > button:not(.btn).active { color: var(--accent-text); }
+.chatbot-msg-actions > button:not(.btn).is-copied,
+.chatbot-msg-more-wrap > button:not(.btn).is-copied { color: var(--success); }
+.chatbot-msg-actions > button:not(.btn):disabled,
+.chatbot-msg-more-wrap > button:not(.btn):disabled { opacity: 0.4; cursor: not-allowed; }
+.chatbot-msg-actions > button:not(.btn):disabled:hover,
+.chatbot-msg-more-wrap > button:not(.btn):disabled:hover { background: transparent; color: var(--text-faint); }
+.chatbot-msg-actions > button:not(.btn) svg,
+.chatbot-msg-more-wrap > button:not(.btn) svg { width: 15px; height: 15px; }
 
 /* Tactile (mobile/tablette) : toujours visibles (pas de hover sur ces
    appareils — une action cachée derrière un survol qui n'existe pas est
    invisible pour de bon) et cible d'au moins 44px (WCAG 2.5.5), comme
-   ChatGPT/Claude sur mobile. */
+   ChatGPT/Claude sur mobile. Même scoping `>` que ci-dessus (même cause,
+   même correctif) : sans lui, le menu déroulant serait aussi écrasé en
+   44×44 sur mobile — exactement le bug signalé, encore plus visible sur
+   petit écran. */
 @media (hover: none), (pointer: coarse) {
   .chatbot-msg-actions { opacity: 1; gap: 6px; }
-  .chatbot-msg-actions button { width: 44px; height: 44px; }
-  .chatbot-msg-actions svg { width: 18px; height: 18px; }
+  .chatbot-msg-actions > button:not(.btn),
+  .chatbot-msg-more-wrap > button:not(.btn) { width: 44px; height: 44px; }
+  .chatbot-msg-actions > button:not(.btn) svg { width: 18px; height: 18px; }
+}
+
+/* ── Actions sous un message UTILISATEUR (Copier/Modifier) ─────────────────
+   Réutilise exactement les règles ci-dessus (`.chatbot-msg-actions`, même
+   taille de bouton, même révélation au survol/focus, même cible tactile
+   44px) — seul l'alignement et le déclencheur de révélation changent
+   (ligne `--user`, pas `--assistant`). Ne touche à aucune règle des actions
+   assistant. */
+.chatbot-msg-row--user:hover .chatbot-msg-actions,
+.chatbot-msg-row--user:focus-within .chatbot-msg-actions {
+  opacity: 1;
+}
+/* Pendant l'édition, les boutons (devenus Annuler/Envoyer) restent visibles
+   même sans survol — les faire disparaître dès que la souris s'éloigne
+   serait déroutant en plein milieu d'une modification. */
+.chatbot-msg-row--user.is-editing .chatbot-msg-actions { opacity: 1; }
+/* Annuler/Envoyer restent sur leur ligne (jamais de chevauchement : repli en
+   `flex-wrap` uniquement si l'espace manque vraiment, par ex. 320px avec un
+   agrandissement de police) ; le message d'attente de validation backend
+   (ajouté dynamiquement) passe à la ligne suivante plutôt que de compresser
+   les boutons (voir `.chatbot-msg-edit-notice`, width: 100%). `:has(.btn)`
+   détecte le mode édition SANS classe JS dédiée : seuls Annuler/Envoyer
+   portent `.btn` dans ce conteneur — un espacement plus confortable que les
+   icônes Copier/Modifier (4px) est alors nécessaire pour deux boutons texte. */
+.chatbot-msg-actions--user {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.chatbot-msg-actions--user:has(.btn) {
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* ── Édition inline d'un message utilisateur (style ChatGPT) ────────────────
+   La bulle elle-même devient la zone de saisie (pas de nouveau composant
+   ajouté à côté) ; sa largeur est fixée pendant l'édition (au lieu de suivre
+   un <textarea> dont la largeur intrinsèque par défaut n'a rien à voir avec
+   le texte d'origine), plafonnée par le `max-width: 70%` déjà existant sur
+   `.chatbot-msg-bubble` — donc jamais de débordement, y compris sur mobile.
+   Fond neutre (tokens déjà utilisés par la bulle ASSISTANT, pas une nouvelle
+   couleur) plutôt que le dégradé violet habituel de la bulle utilisateur :
+   le bouton "Envoyer" ci-dessous est lui-même violet (`.btn-primary`) — le
+   garder sur un fond déjà violet aurait superposé deux aplats de la même
+   teinte et cassé son contraste (cause du rendu "mal réalisé" signalé). */
+.chatbot-msg-bubble--editing {
+  width: min(480px, 70vw);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: text;
+}
+.chatbot-msg-edit-textarea {
+  display: block;
+  width: 100%;
+  min-height: 1.65em;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  padding: 0;
+}
+.chatbot-msg-edit-textarea.is-invalid {
+  animation: chatbot-edit-shake 240ms ease-in-out;
+}
+@keyframes chatbot-edit-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+.chatbot-msg-edit-notice {
+  width: 100%;
+  max-width: min(480px, 70vw);
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* ── Menu "Plus" (chantier UX : regroupe les actions secondaires pour que
+   chaque message n'affiche plus que Copier/Régénérer/Plus) ───────────────
+   Chantier "menu Plus" (2026-10-18) : `position: fixed` (plus `absolute`) —
+   `.chatbot-messages` défile avec `overflow-y:auto; overflow-x:hidden`
+   (voir plus haut), qui tronquait ce menu près des bords/du bas de la zone
+   de messages ; `fixed` échappe à cet `overflow` (aucun ancêtre ici n'a de
+   `transform`/`filter`/`will-change` qui recréerait un bloc englobant local
+   — vérifié). `top`/`left` ne sont plus fixés en CSS : calculés en JS à
+   chaque ouverture (chatbot.js::positionMoreMenu), qui bascule vers le haut
+   si la place manque en dessous et recale horizontalement pour rester
+   entièrement visible, y compris près des bords de l'écran. Fond opaque
+   (`--surface-elevated`, plus `--surface-glass` + `backdrop-filter`) : les
+   cartes d'entraînement ne doivent plus jamais transparaître derrière
+   (cause du fond translucide signalé). */
+.chatbot-msg-more-wrap { position: relative; }
+.chatbot-msg-more-menu {
+  position: fixed;
+  min-width: 220px;
+  max-width: calc(100vw - 16px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  z-index: 60;
+  animation: chatbot-menu-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chatbot-msg-more-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 38px;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.chatbot-msg-more-menu button:hover { background: var(--surface-hover); color: var(--text); }
+.chatbot-msg-more-menu button.active { color: var(--accent-text); }
+.chatbot-msg-more-menu button:disabled { opacity: 0.4; cursor: not-allowed; }
+.chatbot-msg-more-menu button:disabled:hover { background: transparent; color: var(--text-muted); }
+.chatbot-msg-more-menu button span { white-space: nowrap; }
+.chatbot-msg-more-menu svg { width: 16px; height: 16px; flex-shrink: 0; }
+/* Séparation visuelle discrète avant "Signaler un problème" (vote vs
+   signalement = deux familles d'actions différentes). */
+.chatbot-msg-more-sep {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--border);
+}
+/* Tactile : la cible 44px de .chatbot-msg-actions ne s'applique qu'aux
+   boutons visibles directement, pas à ceux déjà dans ce menu déroulant
+   (qui n'a pas besoin d'être agrandi, ses lignes sont déjà bien espacées). */
+@media (hover: none), (pointer: coarse) {
+  .chatbot-msg-more-menu button { width: auto; height: auto; padding: 10px; }
+}
+
+/* Bulle compacte pendant la réflexion — n'entoure que les 3 points. Sans ce
+   correctif, `.chatbot-msg-bubble` (display:block par défaut, max-width:70%)
+   prend toute la largeur disponible de `.chatbot-msg-col` (flex:1) même sans
+   contenu à afficher, car un bloc "auto" remplit son conteneur — on la fait
+   ici épouser la largeur réelle de son contenu, sans jamais toucher à
+   `.chatbot-msg-bubble` de base (réponses réelles inchangées). */
+.chatbot-msg-bubble--thinking {
+  width: fit-content;
+  max-width: fit-content;
 }
 
 /* ── Indicateur "réflexion" premium ──────────────────────────────────────── */
@@ -503,16 +836,46 @@
   gap: 10px;
   padding: 2px 0;
 }
-.chatbot-thinking-orb {
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  background: var(--brand-gradient);
-  flex-shrink: 0;
-  animation: chatbot-thinking-pulse 1.6s ease-in-out infinite;
-}
+/* chatbot-thinking-pulse (ci-dessous) est partagé avec .chatbot-empty-state
+   .icon-wrap (plus haut dans ce fichier) : ne jamais le retirer même si cet
+   indicateur n'utilise plus un seul "orbe" pulsé. */
 @keyframes chatbot-thinking-pulse {
   0%, 100% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4); }
   50% { transform: scale(1); box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0); }
+}
+/* Trois points animés en cascade — pattern "en train d'écrire" classique,
+   violet, très discret (6px, translateY < 2px). Chantier "fluidité"
+   (2026-10-18) : l'ancienne version (3 étapes "0%,60%,100%" + un seul pic à
+   30%) marquait un plateau immobile de 40% du cycle (60%→100%) avant de
+   repartir brusquement — perçu comme une succession de petits "rebonds"
+   séparés plutôt qu'un mouvement continu. Remplacée par un cycle à DEUX
+   étapes symétriques (0%→50%→100%) : `ease-in-out` produit alors une
+   vraie courbe sinusoïdale sans aucun palier plat, et 0%/100% étant
+   STRICTEMENT identiques, un cycle s'enchaîne dans l'autre sans rupture
+   visible (condition nécessaire pour une boucle `infinite` perçue comme
+   continue). */
+.chatbot-thinking-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.chatbot-thinking-dots span {
+  /* display explicite (plutôt que de compter uniquement sur la
+     "blockification" implicite des éléments flex, cf. audit du
+     2026-10-18) : width/height sont ignorés par la spec CSS sur une boîte
+     inline "nue" — ce point n'a de box que PARCE QUE `.chatbot-thinking-dots`
+     est flex, le rendre explicite retire toute ambiguïté. */
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: chatbot-thinking-dot 1.8s ease-in-out infinite;
+}
+.chatbot-thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.chatbot-thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes chatbot-thinking-dot {
+  0%, 100% { transform: translateY(0) scale(0.85); opacity: 0.3; }
+  50% { transform: translateY(-1.8px) scale(1.15); opacity: 1; }
 }
 .chatbot-thinking-label {
   font-size: 0.85rem;
@@ -563,19 +926,25 @@
 .chatbot-action-cards {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 14px;
-  max-width: 420px;
+  gap: 8px;
+  margin-top: 12px;
+  max-width: 380px;
 }
+/* Carte compacte, bien intégrée au message (pas un second bloc qui domine
+   la réponse) : fond violet très léger pour se distinguer de la bulle sans
+   rivaliser avec elle, bordure et ombre à peine perceptibles. */
 .chatbot-action-card {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
-  padding: 14px 16px;
-  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(var(--accent-rgb), 0.06);
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  box-shadow: none;
   font: inherit;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   font-weight: 600;
   color: var(--text);
   text-align: left;
@@ -585,21 +954,31 @@
 .chatbot-action-cards .chatbot-action-card:nth-child(1) { animation-delay: 40ms; }
 .chatbot-action-cards .chatbot-action-card:nth-child(2) { animation-delay: 90ms; }
 .chatbot-action-cards .chatbot-action-card:nth-child(3) { animation-delay: 140ms; }
-.chatbot-action-card svg {
-  width: 40px; height: 40px;
-  padding: 10px;
+/* Lift discret plutôt que le `translateY(-4px)` par défaut de
+   `.card--interactive` (base.css) — trop marqué pour une carte de cette
+   taille, intégrée au fil de la conversation. */
+.chatbot-action-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(var(--accent-rgb), 0.32);
+  background: rgba(var(--accent-rgb), 0.1);
+  box-shadow: var(--shadow-sm);
+}
+.chatbot-action-card:active { transform: translateY(0) scale(0.995); }
+.chatbot-action-card-icon {
+  width: 32px; height: 32px;
+  padding: 7px;
   box-sizing: border-box;
-  border-radius: var(--radius-md);
+  display: inline-flex;
+  border-radius: var(--radius-sm);
   background: var(--brand-gradient);
   color: var(--text-on-accent);
   flex-shrink: 0;
-  transition: transform var(--transition-fast);
 }
-.chatbot-action-card:hover svg { transform: scale(1.06) rotate(-4deg); }
-.chatbot-action-card span { flex: 1; min-width: 0; line-height: 1.35; }
+.chatbot-action-card-icon svg { width: 100%; height: 100%; }
+.chatbot-action-card span:not(.chatbot-action-card-icon) { flex: 1; min-width: 0; line-height: 1.3; }
 .chatbot-action-card::after {
   content: "";
-  width: 8px; height: 8px;
+  width: 7px; height: 7px;
   flex-shrink: 0;
   border-right: 2px solid var(--text-faint);
   border-bottom: 2px solid var(--text-faint);

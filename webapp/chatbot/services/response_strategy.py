@@ -159,9 +159,30 @@ def _requires_real_computation(user_message, intent):
     concrète — jamais satisfaite par une notion de cours statique, quel que
     soit son score de pertinence. Ne s'applique qu'à NONE_INTENT et
     CORRECTION (voir docstring ci-dessus) : une intention théorique déjà
-    reconnue n'est jamais réévaluée ici."""
+    reconnue n'est jamais réévaluée ici.
+
+    EXCEPTION ajoutée (chantier "formules brutes et réponses hors demande",
+    2026-10-18) : REFORMULATION. `intent_service.REFORMULATION_RE` matche
+    "détaille"/"détaille-moi" seul — déclencheur pensé pour un VRAI suivi
+    ("détaille-moi ça", après une explication déjà donnée), mais qui matche
+    tout aussi bien une demande fraîche et autonome contenant un verbe de
+    calcul et des données numériques concrètes (ex: "Soient A(1;2) et
+    B(4;6). Calcule le vecteur AB... Détaille les calculs avec les formules
+    mathématiques.") — confirmé en reproduisant le bug réel signalé : cette
+    phrase classe REFORMULATION, le plan [BLOCK_METHODE, BLOCK_EXEMPLE,
+    BLOCK_DEFINITION] de knowledge_response_composer.py répond alors avec la
+    notion de cours "Milieu et distance" (son exemple JSON "A(1;2), B(4;6)"
+    correspond À L'IDENTIQUE à la capture fournie) au lieu de calculer la
+    réponse réelle — d'où le "milieu d'un segment" non demandé ET les
+    commandes LaTeX du JSON de cours jamais délimitées (`calcul[].expr`, voir
+    knowledge_response_composer._ensure_math_delimited, corrigé séparément).
+    Un VRAI suivi ("détaille-moi ça", "détaille cette méthode") ne contient
+    ni verbe d'opération mathématique ni chiffre : il reste donc traité par
+    le Knowledge Engine comme avant, aucune régression sur ce cas."""
     if intent == intent_service.CORRECTION:
         return True
+    if intent == intent_service.REFORMULATION:
+        return bool(_APPLICATION_VERB_RE.search(user_message) and _HAS_DIGIT_RE.search(user_message))
     if intent != intent_service.NONE_INTENT:
         return False
     if _APPLICATION_VERB_RE.search(user_message):

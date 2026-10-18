@@ -578,6 +578,40 @@ class TestSecondRoutageNecrasePasLeContexteFiable(ResponseStrategyTestCase):
         )
         self.assertEqual(strategy.engine, rs.ENGINE_LLM)
 
+    def test_detaille_les_calculs_avec_donnees_concretes_route_vers_le_llm(self):
+        """Bug réel signalé (2026-10-18) : "Soient A(1;2) et B(4;6). Calcule
+        les coordonnées du vecteur AB, puis la distance AB. Détaille les
+        calculs avec les formules mathématiques." matche REFORMULATION_RE
+        ("détaille" seul) alors que ce n'est pas un suivi ("détaille-moi ça")
+        mais une demande fraîche de calcul sur des données concrètes.
+        Knowledge Engine répondait alors avec la notion de cours "Milieu et
+        distance" (chapitre_5.json) au lieu de calculer la réponse réelle —
+        d'où le "milieu d'un segment" non demandé et les commandes LaTeX du
+        JSON jamais délimitées affichées littéralement. Doit désormais être
+        écarté de Knowledge/Search comme CORRECTION/NONE_INTENT+verbe
+        d'application (voir _requires_real_computation)."""
+        strategy = self.decide(
+            "Soient A(1 ; 2) et B(4 ; 6). Calcule les coordonnées du vecteur "
+            "AB, puis la distance AB. Détaille les calculs avec les formules "
+            "mathématiques.",
+            ctx=student_context(class_level="seconde"),
+        )
+        self.assertEqual(strategy.intent, intent_service.REFORMULATION)
+        self.assertEqual(strategy.engine, rs.ENGINE_LLM)
+
+    def test_detaille_sans_verbe_de_calcul_ni_chiffre_reste_local(self):
+        """Non-régression : un VRAI suivi de reformulation ("détaille la
+        méthode...", sans verbe de calcul type "calcule"/"résous" NI chiffre)
+        doit continuer à être traité localement (Knowledge/Search) comme
+        avant ce correctif — seule la combinaison verbe+chiffre doit écarter
+        REFORMULATION du routage local."""
+        strategy = self.decide(
+            "détaille la méthode du milieu et de la distance",
+            ctx=student_context(class_level="seconde"),
+        )
+        self.assertEqual(strategy.intent, intent_service.REFORMULATION)
+        self.assertNotEqual(strategy.engine, rs.ENGINE_LLM)
+
     def test_valeur_absolue_seconde_reste_correcte(self):
         """Cas réel supplémentaire signalé — vérifié en Seconde, seul niveau
         où la notion "Valeur absolue" existe réellement dans le corpus."""

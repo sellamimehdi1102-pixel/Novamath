@@ -68,6 +68,17 @@ REFORMULATION = "reformulation"
 FOLLOWUP = "followup"
 NONE_INTENT = "none"
 UNCLEAR = "unclear"
+# OFF_TOPIC (chantier "périmètre pédagogique", 2026-10-18) : message dont le
+# SUJET relève explicitement d'un domaine hors mathématiques (histoire,
+# géographie générale, politique, actualité, divertissement sans lien,
+# rédaction sans rapport) — à ne jamais confondre avec NONE_INTENT (question
+# ouverte SANS mot-clé d'intention reconnu, mais qui peut très bien être une
+# vraie question de maths formulée autrement : "pourquoi ça fait ça ?") ni
+# avec UNCLEAR (charabia). Voir _looks_off_topic plus bas : signal déclenché
+# uniquement sur une forte spécificité thématique ET en l'absence de tout
+# signal mathématique dans le même message — conçu pour ne JAMAIS refuser une
+# question ambiguë (elle reste NONE_INTENT, traitée normalement par le LLM).
+OFF_TOPIC = "off_topic"
 
 # Intents entièrement répondables localement (variable_resolver.py +
 # response_composer.py, Phase O/P/Q) — aucune donnée nécessaire ne dépend
@@ -82,6 +93,90 @@ CLARIFICATION_MESSAGE = (
     "- de corriger un exercice ;\n"
     "- de créer une série d'entraînement."
 )
+
+# Message constant (jamais généré par le LLM, jamais paraphrasé) — court,
+# neutre, sans justification ni ton moralisateur, conformément à la consigne.
+OFF_TOPIC_MESSAGE = (
+    "Je suis spécialisé dans l'apprentissage des mathématiques. Cette question "
+    "sort de mon domaine, mais je peux t'aider à comprendre une notion, "
+    "résoudre un exercice ou réviser un chapitre de maths."
+)
+
+# ── Périmètre pédagogique : détection hors-sujet (voir _looks_off_topic) ────
+# Volontairement restreinte aux domaines ÉNUMÉRÉS par la consigne (histoire,
+# géographie générale, politique, actualité, divertissement sans lien,
+# rédaction sans rapport) — pas une liste générique de "tout ce qui n'est pas
+# des maths" : une question de sciences, de logique ou de culture générale
+# ambiguë (ex. "pourquoi le ciel est bleu") ne doit JAMAIS être refusée
+# automatiquement (voir test_conversation_libre_reste_none, déjà existant,
+# qui fixe ce cas comme NONE_INTENT — comportement volontairement inchangé).
+_OFF_TOPIC_HISTOIRE_RE = re.compile(
+    r"\b(napoléon|révolution\s+françai\w*|seconde\s+guerre\s+mondiale|première\s+guerre\s+mondiale|"
+    r"moyen[\s-]âge|empire\s+romain|charlemagne|louis\s+x?iv|histoire\s+de\s+france|"
+    r"guerre\s+mondiale|colonisation|monarchie\s+absolue|révolution\s+industrielle)\b",
+    re.IGNORECASE,
+)
+_OFF_TOPIC_GEOGRAPHIE_RE = re.compile(
+    r"\b(capitale\s+de|plus\s+grand\s+pays|continent\s+le\s+plus|"
+    r"carte\s+du\s+monde|fleuve\s+le\s+plus\s+long|montagne\s+la\s+plus\s+haute|"
+    r"population\s+de\s+(?:la\s+)?(?:france|chine|inde|europe))\b",
+    re.IGNORECASE,
+)
+_OFF_TOPIC_POLITIQUE_RE = re.compile(
+    r"\b(président\s+de\s+la\s+républiqu\w*|élections?\s+présidentielles?|"
+    r"gouvernement\s+(?:français|actuel)|premier\s+ministre|parti\s+politique|"
+    r"sénat|assemblée\s+nationale)\b",
+    re.IGNORECASE,
+)
+_OFF_TOPIC_ACTUALITE_RE = re.compile(
+    r"\b(actualités?|dernières\s+nouvelles|infos?\s+du\s+jour|journal\s+télévisé)\b",
+    re.IGNORECASE,
+)
+_OFF_TOPIC_DIVERTISSEMENT_RE = re.compile(
+    r"\b(ton\s+film\s+préféré|série\s+(?:tv|télé)\s+préférée|dernier\s+album\s+de|"
+    r"résultat\s+du\s+match|qui\s+a\s+gagné\s+le\s+match|jeu\s+vidéo\s+préféré|"
+    r"raconte(?:-moi)?\s+une\s+blague|recette\s+de\s+cuisine)\b",
+    re.IGNORECASE,
+)
+_OFF_TOPIC_REDACTION_RE = re.compile(
+    r"\b(écris(?:-moi)?\s+(?:un\s+poème|une\s+lettre|une\s+histoire\s+d['’]amour|un\s+essai\s+sur)|"
+    r"rédige(?:-moi)?\s+(?:une\s+dissertation|un\s+essai|une\s+lettre)\s+sur)\b",
+    re.IGNORECASE,
+)
+_OFF_TOPIC_PATTERNS = (
+    _OFF_TOPIC_HISTOIRE_RE, _OFF_TOPIC_GEOGRAPHIE_RE, _OFF_TOPIC_POLITIQUE_RE,
+    _OFF_TOPIC_ACTUALITE_RE, _OFF_TOPIC_DIVERTISSEMENT_RE, _OFF_TOPIC_REDACTION_RE,
+)
+
+# Présence d'un signal mathématique quelconque dans le MÊME message : annule
+# TOUJOURS le repli hors-sujet ci-dessus, même si un mot d'un domaine exclu
+# apparaît aussi ("explique les probabilités avec un jeu de cartes" reste
+# autorisé — section 4 de la consigne). Volontairement large (vocabulaire du
+# programme + opérateurs/chiffres) : une simple liste de mots-clés n'est
+# JAMAIS le seul mécanisme (elle est combinée à ce signal positif et, plus
+# bas, à l'absence de contexte de suivi) — voir consigne section 5.
+_MATH_SIGNAL_RE = re.compile(
+    r"\d+\s*[\+\-\*/×÷=]\s*\d+"
+    r"|\b(équations?|fonctions?|dérivées?|intégrales?|probabilités?|géométrie|algèbre|"
+    r"calculs?|calculer?|calcule|résous|résoudre|simplifie|factorise|développe|"
+    r"nombres?\s+premiers?|pourcentages?|statistiques?|vecteurs?|matrices?|triangle|"
+    r"cercle|polynômes?|racine\s+carrée|logarithmes?|exponentielles?|théorèmes?|"
+    r"démonstrations?|démontre|exercices?\s+de\s+maths?|mathématiques?|chapitres?|"
+    r"notions?|série\s+d['’]exercices?|ma\s+réponse\s+précédente|vitesse|distance\s+parcourue)\b",
+    re.IGNORECASE,
+)
+
+
+def _looks_off_topic(text):
+    """Vrai seulement si un domaine EXPLICITEMENT hors périmètre est détecté
+    ET qu'aucun signal mathématique n'est présent dans le même message. Haute
+    précision délibérée (quitte à laisser passer des cas limites vers
+    NONE_INTENT) plutôt qu'un rappel exhaustif — un faux refus coûte plus
+    cher pédagogiquement qu'un cas hors-sujet occasionnellement non détecté
+    (consigne section 4 : "éviter les faux refus")."""
+    if _MATH_SIGNAL_RE.search(text):
+        return False
+    return any(pattern.search(text) for pattern in _OFF_TOPIC_PATTERNS)
 
 _GIBBERISH_PUNCT_RE = re.compile(r"^[^a-zàâäéèêëïîôöùûüç0-9]+$", re.IGNORECASE)
 _REPEATED_CHAR_RE = re.compile(r"^(.)\1{3,}$")
@@ -723,6 +818,22 @@ def classify(user_message, context_summary=None, class_level=None, learning_cont
     if _is_gibberish(text):
         return {
             "intent": UNCLEAR, "chapter_id": None, "notion_id": None, "topic_inherited": False,
+            "topic_confidence": "none", "difficulty": None, "simplify": False, "quantity": None,
+            "wants_detail": False,
+        }
+
+    # Périmètre pédagogique (chantier 2026-10-18) : vérifié EN PREMIER, avant
+    # la détection d'intention — pas seulement en repli sur NONE_INTENT.
+    # Raison : "explique-moi la Révolution française" ou "donne-moi un
+    # exercice sur Napoléon" matchent d'abord EXPLICATION_RE/EXERCICE_RE (le
+    # verbe), qui n'a aucune idée du sujet réel — un rattachement hors-sujet
+    # glisserait alors sous ce filtre s'il était placé après, exactement le
+    # comportement que ce chantier corrige. `_looks_off_topic` reste sans
+    # effet sur un message qui contient un signal mathématique, quel que
+    # soit par ailleurs le verbe employé (voir sa docstring).
+    if _looks_off_topic(text):
+        return {
+            "intent": OFF_TOPIC, "chapter_id": None, "notion_id": None, "topic_inherited": False,
             "topic_confidence": "none", "difficulty": None, "simplify": False, "quantity": None,
             "wants_detail": False,
         }

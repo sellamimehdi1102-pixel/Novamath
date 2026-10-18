@@ -20,6 +20,16 @@ let user = null;
 let settings = null;
 let cookieConsentState = null;
 
+// Chantier "simplification page Paramètres" (2026-10-18) : catégorie
+// "Langue" retirée de l'interface — seules ~25 clés d'i18n.js sont traduites
+// (nav/menu Paramètres/cartes du chatbot), le reste de l'application
+// (comptes, exercices, cours, aide...) reste intégralement en français même
+// en "English" : une traduction partielle présentée comme un vrai choix de
+// langue est trompeuse (voir consigne, section 3). Le mécanisme i18n.js (t(),
+// applyTranslations, dictionnaires fr/en) n'est PAS supprimé — seul le
+// contrôle qui permettait de le déclencher depuis l'interface disparaît ; une
+// préférence déjà enregistrée à "en" continue de s'appliquer tel quel (voir
+// auth.DEFAULT_SETTINGS, non modifié).
 function CATEGORIES() {
   return [
     { id: "account", label: t("settings.cat.account"), icon: "user" },
@@ -28,7 +38,6 @@ function CATEGORIES() {
     { id: "learning", label: t("settings.cat.learning"), icon: "target" },
     { id: "chatbot", label: t("settings.cat.chatbot"), icon: "messageSquare" },
     { id: "security", label: t("settings.cat.security"), icon: "lock" },
-    { id: "language", label: t("settings.cat.language"), icon: "globe" },
     { id: "help", label: t("settings.cat.help"), icon: "helpCircle" },
   ];
 }
@@ -108,10 +117,6 @@ function openModal({ title, text, confirmLabel = "Confirmer", danger = true, fie
 // arrière-plan avec debounce — plus de logique de sauvegarde dupliquée ici.
 function updateSetting(category, key, value) {
   settings = setSetting(category, key, value);
-}
-
-function updateFlatSetting(category, value) {
-  settings = setSetting(category, null, value);
 }
 
 // ── Rendu : menu de gauche ───────────────────────────────────────────────────
@@ -396,20 +401,22 @@ function renderTraining() {
     </div>
 
     <div class="settings-section">
-      <div class="settings-section-title">Mode de correction</div>
-      ${pillGroupHtml("correctionDisplay", [{ value: "chaque_question", label: "Après chaque question" }, { value: "fin", label: "À la fin de la série" }], t.correctionDisplay)}
-    </div>
-
-    <div class="settings-section">
       ${settingRow("Chronomètre", "Limite de temps par question en mode Défi chronométré.", toggleHtml("toggle-chrono", t.chrono))}
       ${settingRow("Effets sonores", "Petits sons de confirmation en cas de bonne/mauvaise réponse.", toggleHtml("toggle-sound", t.soundEffects))}
     </div>
   `;
 }
 
+// "Mode de correction" (correctionDisplay) a été retiré (chantier
+// "simplification page Paramètres", 2026-10-18) : audit confirmé (re-grep
+// exhaustif de tout le projet) — aucun fichier ne lit jamais cette clé pour
+// réellement changer le moment d'affichage de la correction, ni dans
+// exercice.js ni ailleurs. Un réglage sans aucun effet réel (section 2 de la
+// consigne). La clé/valeur par défaut reste inchangée côté backend (voir
+// auth.DEFAULT_SETTINGS) — suppression du code mort proposée, pas exécutée,
+// voir le rapport final.
 function bindTraining() {
   bindPillGroup(panel, "questionsPerSeries", (value) => updateSetting("training", "questionsPerSeries", Number(value)));
-  bindPillGroup(panel, "correctionDisplay", (value) => updateSetting("training", "correctionDisplay", value));
   $("toggle-chrono").addEventListener("change", (e) => updateSetting("training", "chrono", e.target.checked));
   $("toggle-sound").addEventListener("change", (e) => updateSetting("training", "soundEffects", e.target.checked));
 }
@@ -427,22 +434,23 @@ function renderLearning() {
         <div class="setting-row-text"><span class="label">Nombre d'exercices souhaités</span></div>
         <div class="setting-row-control"><input type="number" min="1" max="100" id="input-daily-exercises" value="${l.dailyGoalExercises}" style="width:80px;" class="learning-input"></div>
       </div>
-      <div class="setting-row">
-        <div class="setting-row-text"><span class="label">Temps quotidien (minutes)</span></div>
-        <div class="setting-row-control"><input type="number" min="1" max="240" id="input-daily-time" value="${l.dailyGoalTimeMin}" style="width:80px;" class="learning-input"></div>
-      </div>
-    </div>
-
-    <div class="settings-section">
-      ${settingRow("Révision espacée", "Refait réapparaître les exercices déjà vus au bon moment pour mémoriser durablement.", toggleHtml("toggle-spaced", l.spacedRepetition))}
     </div>
   `;
 }
 
+// "Temps quotidien (minutes)" (dailyGoalTimeMin) et "Révision espacée"
+// (spacedRepetition) ont été retirés (chantier "simplification page
+// Paramètres", 2026-10-18) : audit confirmé — ni l'un ni l'autre n'a le
+// moindre consommateur ailleurs dans le projet (seul `dailyGoalExercises`
+// est réellement lu, voir dashboard.js/goals_service.py/pdfExport.js). Un
+// temps quotidien jamais chronométré ni affiché nulle part, et un bascule
+// "révision espacée" sans aucun moteur de répétition espacée câblé derrière
+// — deux réglages sans effet réel (section 2 de la consigne). Les clés/
+// valeurs par défaut restent inchangées côté backend (voir
+// auth.DEFAULT_SETTINGS) — suppression du code mort proposée, pas exécutée,
+// voir le rapport final.
 function bindLearning() {
   $("input-daily-exercises").addEventListener("change", (e) => updateSetting("learning", "dailyGoalExercises", Math.max(1, Number(e.target.value) || 1)));
-  $("input-daily-time").addEventListener("change", (e) => updateSetting("learning", "dailyGoalTimeMin", Math.max(1, Number(e.target.value) || 1)));
-  $("toggle-spaced").addEventListener("change", (e) => updateSetting("learning", "spacedRepetition", e.target.checked));
 }
 
 // ── 5. Chatbot ───────────────────────────────────────────────────────────────
@@ -479,6 +487,14 @@ function renderChatbot() {
   `;
 }
 
+// "Historique" (historyEnabled) : restauré dans l'interface (chantier "audit
+// fonctionnel des paramètres du chatbot", 2026-10-18) — un chantier précédent
+// l'avait retiré au motif qu'il serait "redondant"/"sans valeur pédagogique",
+// mais son effet réel est démontré (chatbot/conversation_manager.py::
+// stream_reply : `history_enabled = chatbot_settings.get("historyEnabled",
+// True)` conditionne directement les messages transmis au fournisseur IA) —
+// un fonctionnement avéré n'est jamais retiré au seul motif qu'il serait
+// redondant ou peu utile (voir consigne de ce chantier).
 function bindChatbot() {
   bindPillGroup(panel, "chatbotExplanationLevel", (value) => updateSetting("chatbot", "explanationLevel", value));
   bindPillGroup(panel, "chatbotMode", (value) => updateSetting("chatbot", "mode", value));
@@ -706,55 +722,6 @@ function bindSecurity() {
   });
 }
 
-// ── 7. Langue ────────────────────────────────────────────────────────────────
-// L'interface (menus, boutons, dashboard, paramètres, popups, messages) est
-// intégralement traduite via js/i18n.js. Les énoncés des exercices restent en
-// français dans tous les cas (base de contenu non traduite) — voir mention
-// affichée ci-dessous en mode English.
-const LANGUAGES = [
-  { code: "fr", name: "Français", native: "Français" },
-  { code: "en", name: "English", native: "English" },
-];
-// Langues prévues sur la roadmap mais pas encore traduites : affichées à
-// titre indicatif, grisées et non cliquables (point 12 du cahier des
-// charges), plutôt que simplement absentes.
-const LANGUAGES_SOON = [
-  { name: "العربية", native: "Arabe" },
-  { name: "Español", native: "Espagnol" },
-  { name: "Deutsch", native: "Allemand" },
-];
-
-function renderLanguage() {
-  return `
-    <h2>${icon("globe")} Langue</h2>
-    <p class="settings-panel-desc">Choisis la langue de Mathadap.</p>
-    <div class="language-grid">
-      ${LANGUAGES.map((l) => `
-        <button type="button" class="language-card${settings.language === l.code ? " active" : ""}" data-lang="${l.code}">
-          <div class="lang-name">${l.name}</div>
-          <div class="lang-native">${l.native}</div>
-        </button>
-      `).join("")}
-      ${LANGUAGES_SOON.map((l) => `
-        <button type="button" class="language-card is-disabled" disabled title="Bientôt disponible">
-          <div class="lang-name">${l.name}</div>
-          <div class="lang-native">${l.native} · Bientôt disponible</div>
-        </button>
-      `).join("")}
-    </div>
-    <p class="settings-panel-desc" style="margin-top:18px;">${settings.language === "en" ? "Exercise content stays in French regardless of the interface language — only the interface itself is translated." : "Le contenu des exercices reste en français quelle que soit la langue de l'interface — seule l'interface elle-même est traduite."}</p>
-  `;
-}
-
-function bindLanguage() {
-  panel.querySelectorAll(".language-card").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      updateFlatSetting("language", btn.dataset.lang);
-      renderPanel();
-    });
-  });
-}
-
 // ── 9. Aide & À propos ───────────────────────────────────────────────────────
 // Contenu réel de chaque sous-page (pas de placeholder) : ouvert dans un popup
 // générique (js/popup.js), donc cohérent visuellement avec le reste du site.
@@ -836,7 +803,6 @@ const RENDERERS = {
   learning: [renderLearning, bindLearning],
   chatbot: [renderChatbot, bindChatbot],
   security: [renderSecurity, bindSecurity],
-  language: [renderLanguage, bindLanguage],
   help: [renderHelp, bindHelp],
 };
 
@@ -878,11 +844,15 @@ export async function mountSettingsPanel(container) {
 // une seule fois au chargement du module (pas à chaque mountSettingsPanel)
 // pour ne jamais accumuler de listeners au fil des ouvertures/fermetures du
 // popup — panel/menu sont lus à l'exécution, donc toujours à jour tant que le
-// popup est ouvert ; un no-op sans effet visible s'il est fermé (renderPanel
-// écrirait dans un DOM détaché, sans conséquence).
+// popup est ouvert ; un no-op si le popup est fermé — `isConnected` (pas
+// seulement `panel`/`menu` non nuls) : un `<div>` retiré du DOM reste un
+// objet JS valide mais n'est plus trouvable par `$()`/`getElementById`, donc
+// `bind()` plantait réellement sur un élément introuvable (bug latent
+// confirmé par les tests, chantier "simplification page Paramètres",
+// 2026-10-18) plutôt que d'être le no-op inoffensif annoncé ci-dessus.
 onSettingsChange((e) => {
   if (e.detail.category !== "language" && e.detail.category !== "*") return;
-  if (!panel || !menu) return;
+  if (!panel || !menu || !panel.isConnected || !menu.isConnected) return;
   settings = getSettings();
   renderMenu();
   renderPanel();

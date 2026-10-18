@@ -61,10 +61,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
           <span class="btn-label">Nouvelle conversation</span>
         </button>
-        <div class="chatbot-search">
+        <button type="button" class="chatbot-search" id="chatbot-search-trigger" aria-label="Rechercher une conversation">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" id="chatbot-search-input" placeholder="Rechercher une conversation…">
-        </div>
+          <span class="btn-label">Rechercher</span>
+        </button>
       </div>
       <div class="chatbot-convo-list-label">Conversations</div>
       <div class="chatbot-convo-list" id="chatbot-convo-list">
@@ -103,6 +103,29 @@
             <button class="chatbot-suggestion-chip" type="button">Donne-moi un exercice</button>
             <button class="chatbot-suggestion-chip" type="button">Prépare-moi pour mon contrôle</button>
           </div>
+        </div>
+      </div>
+
+      <!-- Vue plein cadre (remplace topbar/messages/input-area tant qu'elle
+           est ouverte, voir chatbot.js::openSearchView) — jamais un popover. -->
+      <div class="chatbot-search-view" id="chatbot-search-view" hidden>
+        <div class="chatbot-search-view-inner">
+          <button type="button" class="chatbot-search-view-back" id="chatbot-search-view-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+            <span>Retour</span>
+          </button>
+          <div class="chatbot-search-view-header">
+            <h1>Rechercher une conversation</h1>
+            <p>Retrouve une discussion passée par son titre.</p>
+          </div>
+          <div class="chatbot-search-view-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="chatbot-search-view-input" placeholder="Rechercher parmi mes conversations…" autocomplete="off">
+            <button type="button" class="chatbot-search-view-clear" id="chatbot-search-view-clear" aria-label="Effacer la recherche" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div class="chatbot-search-view-results" id="chatbot-search-view-results"></div>
         </div>
       </div>
 

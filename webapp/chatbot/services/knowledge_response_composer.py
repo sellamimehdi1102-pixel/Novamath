@@ -67,6 +67,7 @@ absents ou inconnus), une réponse de repli générique est renvoyée — jamais
 une erreur, jamais un texte vide.
 """
 import random
+import re
 from dataclasses import dataclass
 from typing import Optional, Tuple
 
@@ -378,6 +379,31 @@ def _block_methode(rng, avoid, notion, niveau_methode, mode):
     return ResponseBlock(BLOCK_METHODE, f"{lead}\n\n{_fmt_steps(etapes)}")
 
 
+# Chantier "formules brutes et réponses hors demande" (2026-10-18) : le
+# champ `calcul[].expr` de la banque de cours (course_content/**/*.json) est
+# TOUJOURS une expression mathématique — jamais du texte libre — mais
+# plusieurs chapitres le stockent SANS délimiteur ($...$/\(...\)), à la
+# différence de `enonce`/`reponse` qui en ont toujours un (ex: chapitre_5.json,
+# notion "milieu-et-norme" : `"reponse": "$AB = 5$"` mais
+# `"expr": "AB = \\sqrt{3^2+4^2}"`). Sans délimiteur, ni le frontend (KaTeX,
+# voir mathrender.js) ni la protection anti-échappement Markdown ajoutée au
+# même chantier ne peuvent reconnaître l'expression : elle s'affichait donc
+# littéralement ("\vec{AB}(3;4)" tel quel), bug confirmé en retrouvant
+# l'exemple EXACT signalé dans chapitre_5.json. Correction À LA SOURCE,
+# scopée au seul champ structuré `expr` (jamais un remplacement global sur du
+# texte ordinaire, voir consigne) : on l'enveloppe de \( ... \) s'il ne l'est
+# pas déjà (garde contre un double délimiteur si un chapitre futur le fait
+# correctement dès la donnée).
+_ALREADY_DELIMITED_RE = re.compile(r"^\s*(\$|\\\(|\\\[)")
+
+
+def _ensure_math_delimited(expr):
+    expr = (expr or "").strip()
+    if not expr or _ALREADY_DELIMITED_RE.match(expr):
+        return expr
+    return f"\\({expr}\\)"
+
+
 def _block_exemple(rng, avoid, notion, difficulte_label, exclude_ids, kind=BLOCK_EXEMPLE, leadins=None, hint_only=False):
     # Chantier "répétition des exemples" (2026-08-23) : `exclude_ids` porte
     # désormais À LA FOIS les ids déjà utilisés DANS CETTE MÊME réponse
@@ -398,7 +424,10 @@ def _block_exemple(rng, avoid, notion, difficulte_label, exclude_ids, kind=BLOCK
         premiere_etape = (exemple.get("calcul") or [{}])[0].get("texte", "")
         body = "\n\n".join(part for part in (exemple.get("enonce", ""), premiere_etape) if part)
     else:
-        calcul = "\n".join(f"- {c.get('expr', '')} — {c.get('texte', '')}" for c in (exemple.get("calcul") or []))
+        calcul = "\n".join(
+            f"- {_ensure_math_delimited(c.get('expr', ''))} — {c.get('texte', '')}"
+            for c in (exemple.get("calcul") or [])
+        )
         body = "\n\n".join(part for part in (
             exemple.get("enonce", ""), calcul, f"**Résultat :** {exemple.get('reponse', '')}" if exemple.get("reponse") else "",
         ) if part)
