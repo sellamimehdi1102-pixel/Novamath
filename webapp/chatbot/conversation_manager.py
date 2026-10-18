@@ -966,6 +966,29 @@ def _generate_assistant_reply(user, conversation_id, user_message, chapters_summ
         yield intent_service.CLARIFICATION_MESSAGE
         return
 
+    # Périmètre pédagogique (chantier 2026-10-18) : même emplacement et même
+    # principe qu'UNCLEAR ci-dessus — court-circuite AVANT le Strategy/Local
+    # Response Engine, les moteurs internes, le cache ET l'appel LLM (donc
+    # aucun coût fournisseur IA). Le quota du nombre de questions posées est
+    # déjà consommé plus haut (check_and_increment_quota, ligne ~861) pour
+    # TOUT message réel, y compris UNCLEAR — comportement préexistant
+    # volontairement inchangé (une question hors sujet reste une question
+    # posée). Aucune carte d'action (attach_action_cards réévalue le tag
+    # d'engine persisté et renvoie [] pour ce cas, voir plus bas dans ce
+    # fichier). Message strictement constant, jamais reformulé par le LLM
+    # (qui n'est jamais appelé dans ce chemin).
+    if intent_result["intent"] == intent_service.OFF_TOPIC:
+        db.add_message(conversation_id, "assistant", intent_service.OFF_TOPIC_MESSAGE, engine="off_topic")
+        db.touch_conversation(conversation_id)
+        elapsed_ms = (time.perf_counter() - t0) * 1000
+        pipeline_metrics.record_response("off_topic", local=True, elapsed_ms=elapsed_ms)
+        ai_request_log_service.record_local_response(
+            user["id"], conversation_id, "off_topic", "off_topic", "off_topic",
+            user_text=user_message, response_text=intent_service.OFF_TOPIC_MESSAGE, response_time_ms=elapsed_ms,
+        )
+        yield intent_service.OFF_TOPIC_MESSAGE
+        return
+
     if _detect_repeated_incomprehension(intent_result, conversation_id, context_summary, class_level, learning_context):
         intent_result = {**intent_result, "repeated_incomprehension": True}
 
@@ -1364,6 +1387,15 @@ def attach_action_cards(user, conversation_id, chapters_summary=None, class_leve
     if not rows or rows[-1]["role"] != "assistant":
         return []
     last_assistant = rows[-1]
+    # Un refus hors-sujet (stream_reply, voir plus haut) ne doit jamais se
+    # voir attacher de carte d'action ("Revoir cette notion"/"Reprendre une
+    # série") — ces cartes viennent du profil de l'élève (notions faibles),
+    # pas du contenu du message courant (voir action_cards_service.build_cards
+    # : la branche `weak_topics` ne vérifie aucun rapport avec la question).
+    # Vérifie le tag d'engine persisté directement (fiable, déjà écrit par
+    # stream_reply) plutôt que de reclassifier une seconde fois le message.
+    if last_assistant.get("engine") == "off_topic":
+        return []
     last_user = next((m for m in reversed(rows[:-1]) if m["role"] == "user"), None)
     if last_user is None:
         return []

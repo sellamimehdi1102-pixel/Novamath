@@ -212,8 +212,14 @@ class TestFeatureFlagsIndependants(Phase3BTestCase):
         self.assertEqual(result["intent"], intent_service.RESUME)
 
     def test_llm_fallback_desactive_renvoie_le_message_fixe(self):
+        # Message volontairement absurde (jamais couvert par un moteur
+        # local), mais plus "une blague" : depuis le chantier "périmètre
+        # pédagogique" (2026-10-18), une demande de blague est à juste titre
+        # interceptée comme hors-sujet (divertissement) AVANT même d'arriver
+        # ici — ce test doit continuer à exercer le chemin LLM désactivé, pas
+        # le refus hors-sujet (déjà couvert par tests/test_perimetre_pedagogique.py).
         cm.ENABLE_LLM_FALLBACK = False
-        [obtenu] = self.run_conversation(["Raconte-moi une blague sur les licornes qui font du velo"])
+        [obtenu] = self.run_conversation(["Décris la vie quotidienne d'un hippopotame astronaute qui collectionne les parapluies"])
         self.assertEqual(obtenu, cm.LLM_DISABLED_MESSAGE)
         stats = pipeline_metrics.snapshot()
         self.assertIn("llm_disabled", stats["by_engine"])

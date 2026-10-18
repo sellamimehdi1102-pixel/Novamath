@@ -42,16 +42,83 @@ function prettify(text) {
 // Rendu KaTeX seul, partagé par les deux modes ci-dessous. auto-render
 // parcourt le DOM et ignore nativement <code>/<pre>/<script> (option
 // ignoredTags intégrée) : jamais de regex sur du texte, toujours DOM-aware.
+// \[...\]/\( ... \) (chantier "rendu des formules", 2026-10-18) : convention
+// désormais demandée au modèle (prompt_builder.py) — $...$/$$...$$ restent
+// reconnus pour ne jamais casser l'affichage des conversations déjà
+// persistées avec l'ancienne convention (et la banque d'exercices, voir
+// setMathContent ci-dessous).
 function renderMathIn(el) {
   if (window.renderMathInElement) {
     window.renderMathInElement(el, {
       delimiters: [
         { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false },
         { left: "$", right: "$", display: false },
       ],
       throwOnError: false,
     });
   }
+}
+
+// ── Protection des formules LaTeX contre l'échappement Markdown ────────────
+// CommonMark (donc marked.js, chatbot.js) échappe tout antislash suivi d'un
+// caractère de ponctuation ASCII — `(`, `)`, `[`, `]` en font partie. Une
+// formule "\(x^2\)" tapée par le modèle perdait donc ses DEUX antislashs dès
+// marked.parse(), AVANT même que KaTeX ne voie le texte : il ne restait que
+// "(x^2)", sans aucun délimiteur reconnaissable, qui apparaissait alors tel
+// quel à l'écran (cause identifiée du LaTeX brut visible, chantier
+// "rendu des formules", 2026-10-18 — $...$/$$...$$ n'ont pas ce problème,
+// `$` n'étant pas un caractère d'échappement Markdown).
+// Solution standard "protéger / parser / restaurer" : chaque segment
+// \(...\)/\[...\]/$...$/$$...$$ est extrait du texte brut AVANT
+// marked.parse() et remplacé par un jeton inerte qu'aucune règle Markdown ne
+// peut altérer (ni échappement, ni emphase, ni liste...), puis réinjecté
+// (en texte échappé, jamais en HTML vivant) une fois le HTML produit — voir
+// extractMathSegments/restoreMathSegments, utilisées par
+// chatbot.js::renderMessageBody. N'affecte jamais le texte ordinaire : un
+// antislash hors de ces 4 formes de délimiteurs n'est jamais touché.
+const MATH_SEGMENT_RE = /\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$\$[\s\S]*?\$\$|\$[^$\n]*?\$/g;
+
+function _escapeMathText(s) {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+/** Extrait chaque formule délimitée du texte brut et la remplace par un
+ * jeton inerte (texte simple, jamais une syntaxe Markdown/HTML), pour que
+ * marked.parse() ne puisse jamais en manger les antislashs ni la mettre en
+ * forme par erreur. Renvoie {text, segments} — `segments` est la liste des
+ * {placeholder, original} à passer à restoreMathSegments() une fois le
+ * Markdown transformé en HTML. Jeton basé sur un nonce aléatoire (différent
+ * à chaque appel) : aucun texte réel ne peut le produire par coïncidence, et
+ * deux rendus qui se chevauchent (rare, mais déjà vu pendant le streaming)
+ * ne peuvent jamais se mélanger. */
+export function extractMathSegments(text) {
+  if (!text) return { text: text || "", segments: [] };
+  const nonce = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+  const segments = [];
+  const protectedText = text.replace(MATH_SEGMENT_RE, (match) => {
+    const placeholder = ` MATHSEG-${nonce}-${segments.length} `;
+    segments.push({ placeholder, original: match });
+    return placeholder;
+  });
+  return { text: protectedText, segments };
+}
+
+/** Réinjecte les formules extraites par extractMathSegments() dans le HTML
+ * déjà produit par marked.parse() — toujours en texte échappé (jamais du
+ * HTML vivant), donc sans risque même si une formule contenait par accident
+ * des caractères `<`/`>`/`&`. Remplacement par découpage de chaîne littéral
+ * (pas une regex) : le jeton n'est jamais réinterprété. */
+export function restoreMathSegments(html, segments) {
+  if (!segments || !segments.length) return html;
+  let out = html;
+  for (const { placeholder, original } of segments) {
+    out = out.split(placeholder).join(_escapeMathText(original));
+  }
+  return out;
 }
 
 // Texte brut (banque d'exercices : énoncés, indices, réponses) — jamais du

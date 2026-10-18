@@ -446,6 +446,44 @@ class TestCompatibiliteKnowledgeEngine(KnowledgeComposerTestCase):
         self.assertEqual(draft.intent, intent_service.FORMULE)
 
 
+class TestFormulesCalculDelimitees(KnowledgeComposerTestCase):
+    """Chantier "formules brutes et réponses hors demande" (2026-10-18) :
+    `calcul[].expr` de la banque de cours (course_content/**/*.json) n'a
+    jamais de délimiteur $...$/\\(...\\) dans les données elles-mêmes (vérifié
+    : 1191 occurrences sur tout le corpus) — contrairement à `enonce`/
+    `reponse`, toujours délimités. Reproduit le cas réel signalé (notion
+    "Milieu et distance", chapitre_5.json, exemple "A(1;2), B(4;6)" —
+    identique à la capture fournie) : avant correction, `\\vec{AB}(3;4)` et
+    `AB = \\sqrt{3^2+4^2}` apparaissaient SANS aucun délimiteur dans le texte
+    composé, donc jamais reconnus par KaTeX côté frontend."""
+
+    def test_calcul_expr_toujours_delimite_dans_le_texte_compose(self):
+        draft = self.compose(
+            "Donne-moi un exemple sur le milieu et la distance entre deux points",
+            ctx=student_context(class_level="seconde"),
+        )
+        self.assertEqual(draft.topic_id, "milieu-et-norme")
+        # Chaque expression de calcul complète ("\vec{AB}(3;4)",
+        # "AB = \sqrt{3^2+4^2}") doit être intégralement délimitée — jamais
+        # une commande LaTeX nue affichée littéralement dans le navigateur.
+        self.assertIn("\\(\\vec{AB}(3\\,;4)\\)", draft.text)
+        self.assertIn("\\(AB = \\sqrt{3^2+4^2}\\)", draft.text)
+        self.assertNotIn("- \\vec{AB}", draft.text)
+        self.assertNotIn("- AB = \\sqrt", draft.text)
+
+    def test_ensure_math_delimited_ne_double_jamais_un_delimiteur_existant(self):
+        self.assertEqual(krc._ensure_math_delimited("\\(x^2\\)"), "\\(x^2\\)")
+        self.assertEqual(krc._ensure_math_delimited("$x^2$"), "$x^2$")
+        self.assertEqual(krc._ensure_math_delimited("\\[x^2\\]"), "\\[x^2\\]")
+
+    def test_ensure_math_delimited_enveloppe_une_expression_brute(self):
+        self.assertEqual(krc._ensure_math_delimited("\\vec{AB}(3;4)"), "\\(\\vec{AB}(3;4)\\)")
+
+    def test_ensure_math_delimited_chaine_vide(self):
+        self.assertEqual(krc._ensure_math_delimited(""), "")
+        self.assertEqual(krc._ensure_math_delimited(None), "")
+
+
 class TestPerformance(KnowledgeComposerTestCase):
     def test_composition_rapide(self):
         strategy = strategy_for("Explique-moi les puissances")
