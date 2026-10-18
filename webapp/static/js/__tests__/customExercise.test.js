@@ -3,7 +3,7 @@
 // aucune dépendance sur exercice.js (non importé ici) — vérifie
 // exclusivement le gating par Feature.custom_exercises et le flux
 // génération -> affichage -> correction différée.
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { loadPageBody, flushPromises } from "./testUtils.js";
 
 // Pas d'import statique de curriculumSelector.js ici : il importe api.js
@@ -29,11 +29,18 @@ function user(overrides = {}) {
 function notionsFixture() {
   return [
     {
-      class_level: "seconde", chapter_id: "Chapitre_6", notion: "Droites",
-      families: [{ family_id: "fam_a", label: "Type A", level: 1 }, { family_id: "fam_b", label: "Type B", level: 2 }],
+      class_level: "seconde",
+      chapter_id: "Chapitre_6",
+      notion: "Droites",
+      families: [
+        { family_id: "fam_a", label: "Type A", level: 1 },
+        { family_id: "fam_b", label: "Type B", level: 2 },
+      ],
     },
     {
-      class_level: "premiere", chapter_id: "Chapitre_2", notion: "Second degré",
+      class_level: "premiere",
+      chapter_id: "Chapitre_2",
+      notion: "Second degré",
       families: [{ family_id: "fam_c", label: "Type C", level: 1 }],
     },
   ];
@@ -41,15 +48,27 @@ function notionsFixture() {
 
 function exerciseFixture(overrides = {}) {
   return {
-    id: "generated:fam_a:abc123", chapter_id: "Chapitre_6", notion: "Droites",
-    difficulty: 1, difficulty_label: "Facile", difficulty_emoji: "🟢",
-    enonce: "Calculer $2+2$.", answer: "$4$", hint: "Additionne.",
-    solution_steps: ["Étape 1 — on additionne."], source: "generated",
+    id: "generated:fam_a:abc123",
+    chapter_id: "Chapitre_6",
+    notion: "Droites",
+    difficulty: 1,
+    difficulty_label: "Facile",
+    difficulty_emoji: "🟢",
+    enonce: "Calculer $2+2$.",
+    answer: "$4$",
+    hint: "Additionne.",
+    solution_steps: ["Étape 1 — on additionne."],
+    source: "generated",
     ...overrides,
   };
 }
 
-async function mount({ planUser = {}, notions = notionsFixture(), classLevel = "seconde", optionsRejects = false } = {}) {
+async function mount({
+  planUser = {},
+  notions = notionsFixture(),
+  classLevel = "seconde",
+  optionsRejects = false,
+} = {}) {
   localStorage.setItem(CLASS_LEVEL_KEY, classLevel);
   document.body.innerHTML = loadPageBody("exercice.html");
   mockApi.me.mockReset().mockResolvedValue({ user: user(planUser) });
@@ -116,7 +135,10 @@ describe("customExercise.js — sélection et génération", () => {
     document.getElementById("custom-ex-generate").click();
     await flushPromises();
     expect(mockApi.practiceGenerate).toHaveBeenCalledWith({
-      classLevel: "seconde", chapterId: "Chapitre_6", notion: "Droites", familyId: "fam_a",
+      classLevel: "seconde",
+      chapterId: "Chapitre_6",
+      notion: "Droites",
+      familyId: "fam_a",
     });
   });
 

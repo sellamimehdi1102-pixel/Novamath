@@ -18,8 +18,12 @@ const DEFAULT_SETTINGS = {
   favorites: [],
   favoriteNotions: [],
   chatbot: {
-    explanationLevel: "auto", mode: "professeur", responseLength: "normal",
-    memoryEnabled: true, historyEnabled: true, streaming: true,
+    explanationLevel: "auto",
+    mode: "professeur",
+    responseLength: "normal",
+    memoryEnabled: true,
+    historyEnabled: true,
+    streaming: true,
   },
 };
 

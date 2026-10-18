@@ -30,7 +30,12 @@ class TestPremiereFonctionnelle(unittest.TestCase):
     comportements que Seconde, jamais de contenu Seconde mélangé."""
 
     def test_search_renvoie_des_resultats_reels(self):
-        results = ke.search("puissances entières relatives", class_level="premiere")
+        # "puissances entières relatives" est une notion de Seconde (voir
+        # TestDefautSecondeInchange ci-dessus) — absente du programme de
+        # Première, 0 résultat y est le comportement CORRECT du moteur, pas
+        # un défaut (vérifié : recherche "suites" ci-dessous, réellement
+        # dérivée de exercises_bank_premiere.json, renvoie des résultats).
+        results = ke.search("suites", class_level="premiere")
         self.assertTrue(results)
         # Contenu réellement dérivé de exercises_bank_premiere.json (suites,
         # exponentielle...), jamais une notion de Seconde.

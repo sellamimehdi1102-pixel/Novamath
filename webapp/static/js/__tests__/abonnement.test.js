@@ -16,7 +16,11 @@ vi.mock("../settingsManager.js", () => ({ initSettingsManager: () => Promise.res
 vi.mock("../settingsPopup.js", () => ({ bindSettingsButton: vi.fn() }));
 vi.mock("../i18n.js", () => ({ bindLiveTranslations: vi.fn() }));
 
-async function mountAbonnement(plan = "free", billingStatus = { customer_portal_available: false }, url = "/abonnement.html") {
+async function mountAbonnement(
+  plan = "free",
+  billingStatus = { customer_portal_available: false },
+  url = "/abonnement.html",
+) {
   // Fixe l'URL AVANT l'import (handleCheckoutReturn/handleUpgradeParams la
   // lisent au chargement du module) : window.location/history persiste entre
   // tests d'un même fichier (un seul jsdom par fichier), donc toujours la
@@ -194,8 +198,22 @@ describe("abonnement.js — bannière de mise à niveau (?required=feature / ?re
 });
 
 describe("abonnement.js — mode test Owner (Chantier 6)", () => {
-  const statusFree = { is_owner: true, real_plan: "free", test_plan: null, effective_plan: "free", provider: "gemini", model: "gemini-3-flash-preview" };
-  const statusPremium = { is_owner: true, real_plan: "free", test_plan: "premium", effective_plan: "premium", provider: "gemini", model: "gemini-3.1-pro-preview" };
+  const statusFree = {
+    is_owner: true,
+    real_plan: "free",
+    test_plan: null,
+    effective_plan: "free",
+    provider: "gemini",
+    model: "gemini-3-flash-preview",
+  };
+  const statusPremium = {
+    is_owner: true,
+    real_plan: "free",
+    test_plan: "premium",
+    effective_plan: "premium",
+    provider: "gemini",
+    model: "gemini-3.1-pro-preview",
+  };
 
   it("affiche la bannière mode test et jamais le parcours Stripe", async () => {
     await mountAbonnementOwner(statusFree);

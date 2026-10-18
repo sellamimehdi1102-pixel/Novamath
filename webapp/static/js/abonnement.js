@@ -32,7 +32,13 @@ function showToast(message, isError = false) {
   el.hidden = false;
   toastTimer = setTimeout(() => {
     el.classList.add("is-leaving");
-    el.addEventListener("animationend", () => { el.hidden = true; }, { once: true });
+    el.addEventListener(
+      "animationend",
+      () => {
+        el.hidden = true;
+      },
+      { once: true },
+    );
   }, 3200);
 }
 
@@ -147,8 +153,13 @@ function formatDateFR(unixSeconds) {
 }
 
 const SUBSCRIPTION_STATUS_LABELS = {
-  active: "Actif", trialing: "Période d'essai", past_due: "Paiement en retard",
-  canceled: "Résilié", unpaid: "Impayé", incomplete: "Incomplet", incomplete_expired: "Expiré",
+  active: "Actif",
+  trialing: "Période d'essai",
+  past_due: "Paiement en retard",
+  canceled: "Résilié",
+  unpaid: "Impayé",
+  incomplete: "Incomplet",
+  incomplete_expired: "Expiré",
 };
 
 async function openCustomerPortal(btn) {

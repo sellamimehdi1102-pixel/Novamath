@@ -83,7 +83,11 @@ describe("api.js — request() / gestion d'erreurs", () => {
 
   it("marque isQuotaExceeded + quota/remaining/limit/requiredPlan sur un 429 quota_exceeded (n'importe quel quota)", async () => {
     mockFetchOnce(429, {
-      error: "quota_exceeded", quota: "exercises_daily", remaining: 0, limit: 20, required_plan: "premium",
+      error: "quota_exceeded",
+      quota: "exercises_daily",
+      remaining: 0,
+      limit: 20,
+      required_plan: "premium",
     });
     try {
       await api.practiceLoad("ex1", "seconde");
@@ -99,7 +103,11 @@ describe("api.js — request() / gestion d'erreurs", () => {
 
   it("un 429 quota_exceeded sur exercises_daily NE déclenche PAS le toast/la redirection chatbot (contrairement à chat_messages)", async () => {
     mockFetchOnce(429, {
-      error: "quota_exceeded", quota: "exercises_daily", remaining: 0, limit: 20, required_plan: "premium",
+      error: "quota_exceeded",
+      quota: "exercises_daily",
+      remaining: 0,
+      limit: 20,
+      required_plan: "premium",
     });
     await expect(api.practiceLoad("ex1", "seconde")).rejects.toThrow();
     expect(document.getElementById("novamath-quota-toast")).toBeNull();
@@ -107,7 +115,11 @@ describe("api.js — request() / gestion d'erreurs", () => {
 
   it("un 429 quota_exceeded sur chat_messages déclenche toujours le toast (comportement chatbot historique inchangé)", async () => {
     mockFetchOnce(429, {
-      error: "quota_exceeded", quota: "chat_messages", remaining: 0, limit: 15, required_plan: "premium",
+      error: "quota_exceeded",
+      quota: "chat_messages",
+      remaining: 0,
+      limit: 15,
+      required_plan: "premium",
     });
     await expect(api.getStats()).rejects.toThrow();
     expect(document.getElementById("novamath-quota-toast")).not.toBeNull();

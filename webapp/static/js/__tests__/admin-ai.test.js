@@ -24,13 +24,21 @@ const NAV_WITH_AI = [
 
 function provider(overrides = {}) {
   return {
-    id: 1, name: "Gemini Flash", provider_key: "gemini", model_name: "gemini-3-flash-preview",
-    enabled: true, priority: 0,
+    id: 1,
+    name: "Gemini Flash",
+    provider_key: "gemini",
+    model_name: "gemini-3-flash-preview",
+    enabled: true,
+    priority: 0,
     badge: { available: true, value: "Rapide" },
     icon: { available: true, value: "zap" },
     color: { available: true, value: "#22C55E" },
     description: { available: true, value: "Modèle rapide." },
-    fallback_provider: { available: false, value: null, reason: "Aucun fournisseur de secours configuré pour celui-ci." },
+    fallback_provider: {
+      available: false,
+      value: null,
+      reason: "Aucun fournisseur de secours configuré pour celui-ci.",
+    },
     created_at: { available: true, value: "2026-01-01T08:00:00+00:00" },
     updated_at: { available: true, value: "2026-01-01T08:00:00+00:00" },
     ...overrides,
@@ -41,8 +49,21 @@ function providersPayload(overrides = {}) {
   return {
     providers: [
       provider(),
-      provider({ id: 2, name: "Gemini Pro", model_name: "gemini-3-pro-preview", priority: 1, badge: { available: true, value: "Avancé" } }),
-      provider({ id: 3, name: "Claude", provider_key: "anthropic", model_name: "claude-sonnet-5", priority: 2, badge: { available: true, value: "Premium" } }),
+      provider({
+        id: 2,
+        name: "Gemini Pro",
+        model_name: "gemini-3-pro-preview",
+        priority: 1,
+        badge: { available: true, value: "Avancé" },
+      }),
+      provider({
+        id: 3,
+        name: "Claude",
+        provider_key: "anthropic",
+        model_name: "claude-sonnet-5",
+        priority: 2,
+        badge: { available: true, value: "Premium" },
+      }),
     ],
     reason: null,
     ...overrides,
@@ -51,7 +72,15 @@ function providersPayload(overrides = {}) {
 
 const HEALTH_PAYLOAD = {
   items: [
-    { provider_id: 1, name: "Gemini Flash", health: { available: false, value: null, reason: "Ce fournisseur n'a jamais été testé (aucun health-check n'a encore été exécuté)." } },
+    {
+      provider_id: 1,
+      name: "Gemini Flash",
+      health: {
+        available: false,
+        value: null,
+        reason: "Ce fournisseur n'a jamais été testé (aucun health-check n'a encore été exécuté).",
+      },
+    },
   ],
   reason: null,
 };
@@ -76,22 +105,45 @@ function healthValue(overrides = {}) {
 
 const USAGE_PAYLOAD = {
   items: [
-    { provider_id: 1, name: "Gemini Flash", usage: { available: false, value: null, reason: "Aucun appel réel n'a encore été comptabilisé pour ce fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot)." } },
+    {
+      provider_id: 1,
+      name: "Gemini Flash",
+      usage: {
+        available: false,
+        value: null,
+        reason:
+          "Aucun appel réel n'a encore été comptabilisé pour ce fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot).",
+      },
+    },
   ],
   reason: null,
-  chart: { available: false, value: null, reason: "Aucun appel réel n'a encore été comptabilisé pour ce fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot)." },
+  chart: {
+    available: false,
+    value: null,
+    reason:
+      "Aucun appel réel n'a encore été comptabilisé pour ce fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot).",
+  },
 };
 
 let fetchLog;
 let extraHandlers;
 
-function mockFetchWith({ providers = providersPayload(), health = HEALTH_PAYLOAD, usage = USAGE_PAYLOAD, fail = [], handlers = {} } = {}) {
+function mockFetchWith({
+  providers = providersPayload(),
+  health = HEALTH_PAYLOAD,
+  usage = USAGE_PAYLOAD,
+  fail = [],
+  handlers = {},
+} = {}) {
   fetchLog = [];
   extraHandlers = handlers;
   global.fetch = vi.fn((url, options = {}) => {
     fetchLog.push(`${options.method || "GET"} ${url}`);
     if (url === "/api/admin/me") {
-      return Promise.resolve({ ok: true, json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }) });
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }),
+      });
     }
     if (url === "/api/admin/nav") {
       return Promise.resolve({ ok: true, json: () => Promise.resolve({ modules: NAV_WITH_AI }) });
@@ -163,19 +215,30 @@ describe("admin-ai.js — rendu des cartes (Fournisseurs, Consommation)", () => 
 describe("admin-ai.js — carte Consommation : champ « Tokens total »", () => {
   function usagePayloadWithValue(overrides = {}) {
     return {
-      items: [{
-        provider_id: 1, name: "Gemini Flash",
-        usage: {
-          available: true,
-          value: {
-            input_tokens: 256782, output_tokens: 72300, total_tokens: 329082,
-            requests: 289, estimated_cost: 0.5697,
-            ...overrides,
+      items: [
+        {
+          provider_id: 1,
+          name: "Gemini Flash",
+          usage: {
+            available: true,
+            value: {
+              input_tokens: 256782,
+              output_tokens: 72300,
+              total_tokens: 329082,
+              requests: 289,
+              estimated_cost: 0.5697,
+              ...overrides,
+            },
           },
         },
-      }],
+      ],
       reason: null,
-      chart: { available: false, value: null, reason: "Aucun appel réel n'a encore été comptabilisé pour ce fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot)." },
+      chart: {
+        available: false,
+        value: null,
+        reason:
+          "Aucun appel réel n'a encore été comptabilisé pour ce fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot).",
+      },
     };
   }
 
@@ -236,16 +299,29 @@ describe("admin-ai.js — carte 'État des fournisseurs' retirée, remplacée pa
 
   it("badge 'Opérationnel' : succès récent, aucun échec, taux de succès 100%", async () => {
     await mount("/admin/ia", {
-      health: { items: [{ provider_id: 1, name: "Gemini Flash", health: { available: true, value: healthValue() } }], reason: null },
+      health: {
+        items: [{ provider_id: 1, name: "Gemini Flash", health: { available: true, value: healthValue() } }],
+        reason: null,
+      },
     });
-    const healthDots = [...providerCard("Gemini Flash").querySelectorAll(".admin-status-dot--ok")]
-      .filter((d) => d.textContent === "Opérationnel");
+    const healthDots = [...providerCard("Gemini Flash").querySelectorAll(".admin-status-dot--ok")].filter(
+      (d) => d.textContent === "Opérationnel",
+    );
     expect(healthDots.length).toBe(1);
   });
 
   it("badge 'Dégradé' : taux de succès < 100%, aucun échec plus récent que le dernier succès", async () => {
     await mount("/admin/ia", {
-      health: { items: [{ provider_id: 1, name: "Gemini Flash", health: { available: true, value: healthValue({ success_rate: { available: true, value: 80 } }) } }], reason: null },
+      health: {
+        items: [
+          {
+            provider_id: 1,
+            name: "Gemini Flash",
+            health: { available: true, value: healthValue({ success_rate: { available: true, value: 80 } }) },
+          },
+        ],
+        reason: null,
+      },
     });
     const badge = providerCard("Gemini Flash").querySelector(".admin-status-dot--warning");
     expect(badge).not.toBeNull();
@@ -255,10 +331,16 @@ describe("admin-ai.js — carte 'État des fournisseurs' retirée, remplacée pa
   it("badge 'Indisponible' : dernier échec plus récent que le dernier succès", async () => {
     await mount("/admin/ia", {
       health: {
-        items: [{
-          provider_id: 1, name: "Gemini Flash",
-          health: { available: true, value: healthValue({ last_failure: { available: true, value: "2026-08-21T10:00:00+00:00" } }) },
-        }],
+        items: [
+          {
+            provider_id: 1,
+            name: "Gemini Flash",
+            health: {
+              available: true,
+              value: healthValue({ last_failure: { available: true, value: "2026-08-21T10:00:00+00:00" } }),
+            },
+          },
+        ],
         reason: null,
       },
     });
@@ -298,7 +380,9 @@ describe("admin-ai.js — carte 'État des fournisseurs' retirée, remplacée pa
 
 describe("admin-ai.js — état vide et gestion des erreurs", () => {
   it("aucun fournisseur configuré -> état vide avec raison", async () => {
-    await mount("/admin/ia", { providers: { providers: null, reason: "Aucun fournisseur IA n'est configuré dans ai_providers." } });
+    await mount("/admin/ia", {
+      providers: { providers: null, reason: "Aucun fournisseur IA n'est configuré dans ai_providers." },
+    });
     expect(document.getElementById("admin-ai-providers").textContent).toContain("Aucun fournisseur IA n'est configuré");
   });
 
@@ -381,12 +465,17 @@ describe("admin-ai.js — suppression d'un fournisseur", () => {
     vi.spyOn(window, "alert").mockImplementation(() => {});
     await mount("/admin/ia", {
       handlers: {
-        "DELETE /api/admin/ai/providers/1": () => Promise.resolve({
-          ok: false, status: 409, json: () => Promise.resolve({ error: "Impossible de supprimer : encore utilisé par l'abonnement free." }),
-        }),
+        "DELETE /api/admin/ai/providers/1": () =>
+          Promise.resolve({
+            ok: false,
+            status: 409,
+            json: () => Promise.resolve({ error: "Impossible de supprimer : encore utilisé par l'abonnement free." }),
+          }),
       },
     });
-    const deleteBtn = [...providerCard("Gemini Flash").querySelectorAll(".admin-btn")].find((b) => b.textContent === "Supprimer");
+    const deleteBtn = [...providerCard("Gemini Flash").querySelectorAll(".admin-btn")].find(
+      (b) => b.textContent === "Supprimer",
+    );
     deleteBtn.click();
     await flushPromises();
     expect(fetchLog).toContain("DELETE /api/admin/ai/providers/1");
@@ -398,12 +487,22 @@ describe("admin-ai.js — tester un fournisseur / health-check", () => {
   it("bouton Tester la connexion affiche le résultat réel (succès)", async () => {
     await mount("/admin/ia", {
       handlers: {
-        "POST /api/admin/ai/providers/1/test-connection": () => Promise.resolve({
-          ok: true, json: () => Promise.resolve({ ok: true, latency_ms: 234, model: "gemini-3-flash-preview", tokens: { prompt_tokens: 12, completion_tokens: 3 } }),
-        }),
+        "POST /api/admin/ai/providers/1/test-connection": () =>
+          Promise.resolve({
+            ok: true,
+            json: () =>
+              Promise.resolve({
+                ok: true,
+                latency_ms: 234,
+                model: "gemini-3-flash-preview",
+                tokens: { prompt_tokens: 12, completion_tokens: 3 },
+              }),
+          }),
       },
     });
-    const testBtn = [...providerCard("Gemini Flash").querySelectorAll(".admin-btn")].find((b) => b.textContent === "Tester la connexion");
+    const testBtn = [...providerCard("Gemini Flash").querySelectorAll(".admin-btn")].find(
+      (b) => b.textContent === "Tester la connexion",
+    );
     testBtn.click();
     await flushPromises();
     expect(providerCard("Gemini Flash").textContent).toContain("234 ms");
@@ -412,12 +511,16 @@ describe("admin-ai.js — tester un fournisseur / health-check", () => {
   it("bouton Health-check écrit et affiche le résultat (échec)", async () => {
     await mount("/admin/ia", {
       handlers: {
-        "POST /api/admin/ai/providers/1/health-check": () => Promise.resolve({
-          ok: true, json: () => Promise.resolve({ ok: false, detail: "Clé API invalide.", latency_ms: 12 }),
-        }),
+        "POST /api/admin/ai/providers/1/health-check": () =>
+          Promise.resolve({
+            ok: true,
+            json: () => Promise.resolve({ ok: false, detail: "Clé API invalide.", latency_ms: 12 }),
+          }),
       },
     });
-    const healthBtn = [...providerCard("Gemini Flash").querySelectorAll(".admin-btn")].find((b) => b.textContent === "Health-check");
+    const healthBtn = [...providerCard("Gemini Flash").querySelectorAll(".admin-btn")].find(
+      (b) => b.textContent === "Health-check",
+    );
     healthBtn.click();
     await flushPromises();
     expect(providerCard("Gemini Flash").textContent).toContain("Clé API invalide");
@@ -428,10 +531,16 @@ describe("admin-ai.js — création d'un fournisseur (modale)", () => {
   it("ouvre la modale, affiche les erreurs de validation renvoyées par le serveur", async () => {
     await mount("/admin/ia", {
       handlers: {
-        "POST /api/admin/ai/providers": () => Promise.resolve({
-          ok: false, status: 400,
-          json: () => Promise.resolve({ error: "Configuration invalide.", fields: { model_name: "model_name est obligatoire." } }),
-        }),
+        "POST /api/admin/ai/providers": () =>
+          Promise.resolve({
+            ok: false,
+            status: 400,
+            json: () =>
+              Promise.resolve({
+                error: "Configuration invalide.",
+                fields: { model_name: "model_name est obligatoire." },
+              }),
+          }),
       },
     });
     document.getElementById("admin-ai-new-provider-btn").click();
@@ -449,7 +558,8 @@ describe("admin-ai.js — création d'un fournisseur (modale)", () => {
   it("sauvegarde réussie -> ferme la modale et recharge la liste", async () => {
     await mount("/admin/ia", {
       handlers: {
-        "POST /api/admin/ai/providers": () => Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ id: 4 }) }),
+        "POST /api/admin/ai/providers": () =>
+          Promise.resolve({ ok: true, status: 201, json: () => Promise.resolve({ id: 4 }) }),
       },
     });
     document.getElementById("admin-ai-new-provider-btn").click();

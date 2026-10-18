@@ -37,41 +37,48 @@ function roundedMarketingLabel(value) {
 }
 
 function refreshClassLabels(classLevel) {
-  fetchCurricula().then((curricula) => {
-    const current = curricula.find((c) => c.classLevel === classLevel);
-    if (!current) return;
-    document.querySelectorAll("#stats-class-label, #faq-class-label").forEach((el) => {
-      el.textContent = current.label;
-    });
-  }).catch(() => {});
+  fetchCurricula()
+    .then((curricula) => {
+      const current = curricula.find((c) => c.classLevel === classLevel);
+      if (!current) return;
+      document.querySelectorAll("#stats-class-label, #faq-class-label").forEach((el) => {
+        el.textContent = current.label;
+      });
+    })
+    .catch(() => {});
 }
 
 function refreshSiteStats(classLevel) {
-  api.getSiteStats(classLevel).then((stats) => {
-    const faqEl = document.getElementById("faq-chapter-count");
-    if (faqEl && stats.chapters) faqEl.textContent = stats.chapters;
+  api
+    .getSiteStats(classLevel)
+    .then((stats) => {
+      const faqEl = document.getElementById("faq-chapter-count");
+      if (faqEl && stats.chapters) faqEl.textContent = stats.chapters;
 
-    document.querySelectorAll(".stat-item[data-stat]").forEach((item) => {
-      const key = item.dataset.stat;
-      const value = stats[key];
-      if (typeof value !== "number") return;
+      document.querySelectorAll(".stat-item[data-stat]").forEach((item) => {
+        const key = item.dataset.stat;
+        const value = stats[key];
+        if (typeof value !== "number") return;
 
-      const valueEl = item.querySelector(".stat-value");
-      const labelEl = item.querySelector(".stat-label");
+        const valueEl = item.querySelector(".stat-value");
+        const labelEl = item.querySelector(".stat-label");
 
-      if (item.dataset.format === "exercises") {
-        labelEl.textContent = "exercices";
-        valueEl.dataset.prefix = "Plus de ";
-      }
+        if (item.dataset.format === "exercises") {
+          labelEl.textContent = "exercices";
+          valueEl.dataset.prefix = "Plus de ";
+        }
 
-      animateCount(valueEl, value);
-      if (item.dataset.format === "exercises") {
-        // Ré-habille le compteur en formulation marketing une fois l'animation
-        // terminée (évite un texte qui "saute" pendant le comptage).
-        setTimeout(() => { valueEl.textContent = roundedMarketingLabel(value); }, 1250);
-      }
-    });
-  }).catch(() => {});
+        animateCount(valueEl, value);
+        if (item.dataset.format === "exercises") {
+          // Ré-habille le compteur en formulation marketing une fois l'animation
+          // terminée (évite un texte qui "saute" pendant le comptage).
+          setTimeout(() => {
+            valueEl.textContent = roundedMarketingLabel(value);
+          }, 1250);
+        }
+      });
+    })
+    .catch(() => {});
 }
 
 // ── Conversation de démo du chatbot (section #chatbot-showcase) ────────────

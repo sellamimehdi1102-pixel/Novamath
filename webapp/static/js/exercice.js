@@ -4,8 +4,15 @@ import { bindSettingsButton } from "./settingsPopup.js";
 import { setMathContent } from "./mathrender.js";
 import { fireConfetti, shakeElement, fadeInTransition } from "./animations.js";
 import {
-  recordAnswer, getState, createSeriesDraft, addSeriesQuestion, finalizeSeries,
-  saveInProgressSeries, getInProgressSeries, clearInProgressSeries, scopedStats,
+  recordAnswer,
+  getState,
+  createSeriesDraft,
+  addSeriesQuestion,
+  finalizeSeries,
+  saveInProgressSeries,
+  getInProgressSeries,
+  clearInProgressSeries,
+  scopedStats,
 } from "./store.js";
 import { ActivityTimer } from "./timetrack.js";
 import { bindLiveTranslations } from "./i18n.js";
@@ -35,10 +42,18 @@ const CHRONO_SECONDS = 45;
 // reprendre automatiquement.
 const TAB_ACTIVE_KEY = "lumis:exercice_tab_active";
 function markTabActive() {
-  try { sessionStorage.setItem(TAB_ACTIVE_KEY, "1"); } catch { /* stockage indisponible (navigation privée...) : tant pis, pas bloquant */ }
+  try {
+    sessionStorage.setItem(TAB_ACTIVE_KEY, "1");
+  } catch {
+    /* stockage indisponible (navigation privée...) : tant pis, pas bloquant */
+  }
 }
 function clearTabActive() {
-  try { sessionStorage.removeItem(TAB_ACTIVE_KEY); } catch { /* ignore */ }
+  try {
+    sessionStorage.removeItem(TAB_ACTIVE_KEY);
+  } catch {
+    /* ignore */
+  }
 }
 function isTabActive() {
   try {
@@ -150,7 +165,9 @@ function setExerciseActionButtonsDisabled(disabled) {
     const el = $(id);
     if (el) el.disabled = disabled;
   });
-  document.querySelectorAll(".mode-pill").forEach((b) => { b.disabled = disabled; });
+  document.querySelectorAll(".mode-pill").forEach((b) => {
+    b.disabled = disabled;
+  });
 }
 
 // `lumis:practice_choices` : entrées historiques laissées par l'ancien test
@@ -165,7 +182,7 @@ function pool() {
     const raw = JSON.parse(localStorage.getItem("lumis:practice_choices"));
     if (!raw) return [];
     const stored = Array.isArray(raw) ? { classLevel: "seconde", choices: raw } : raw;
-    return (stored.classLevel || "seconde") === getStoredClassLevel() ? (stored.choices || []) : [];
+    return (stored.classLevel || "seconde") === getStoredClassLevel() ? stored.choices || [] : [];
   } catch {
     return [];
   }
@@ -187,7 +204,9 @@ function updateLevelLine() {
       $("level-line").textContent = `${lvl.icon} Niveau ${lvl.label}`;
       return;
     }
-  } catch { /* pas de niveau connu */ }
+  } catch {
+    /* pas de niveau connu */
+  }
   $("level-line").textContent = "Choisis un chapitre pour commencer à t'entraîner.";
 }
 
@@ -289,52 +308,52 @@ async function resumeSeries(snapshot) {
   exerciseActionInFlight = true;
   setExerciseActionButtonsDisabled(true);
   try {
-  mode = snapshot.mode;
-  seriesConfig = snapshot.seriesConfig || {};
-  seriesQueue = snapshot.seriesQueue;
-  seriesIndex = snapshot.seriesIndex;
-  // Une série déjà en cours a été construite avec le nombre de questions en
-  // vigueur au moment de son lancement (snapshot.total) : si la préférence
-  // "Nombre d'exercices" a changé depuis (ex. 10 → 20) pendant qu'elle était
-  // en pause, on NE redimensionne PAS seriesQueue (déjà figée) — on réaligne
-  // au contraire SERIES_TOTAL sur la taille réelle de la série reprise, pour
-  // que "Question X/Y" et la condition de fin restent cohérents avec son
-  // contenu réel. La nouvelle préférence s'appliquera à la prochaine série
-  // démarrée depuis zéro (buildSeriesPool() lit SERIES_TOTAL à cet instant-là).
-  SERIES_TOTAL = snapshot.total || seriesQueue.length || SERIES_TOTAL;
-  draft = {
-    id: snapshot.draftId,
-    startedAt: snapshot.draftStartedAt,
-    mode,
-    chapterId: seriesConfig.chapterId || null,
-    notion: seriesConfig.notion || null,
-    total: SERIES_TOTAL,
-    questions: snapshot.draftQuestions || [],
-  };
-  document.querySelectorAll(".mode-pill").forEach((b) => {
-    b.classList.toggle("active", b.dataset.mode === mode);
-  });
-  $("series-topbar").hidden = false;
-  $("screen-recap").hidden = true;
-  markTabActive();
+    mode = snapshot.mode;
+    seriesConfig = snapshot.seriesConfig || {};
+    seriesQueue = snapshot.seriesQueue;
+    seriesIndex = snapshot.seriesIndex;
+    // Une série déjà en cours a été construite avec le nombre de questions en
+    // vigueur au moment de son lancement (snapshot.total) : si la préférence
+    // "Nombre d'exercices" a changé depuis (ex. 10 → 20) pendant qu'elle était
+    // en pause, on NE redimensionne PAS seriesQueue (déjà figée) — on réaligne
+    // au contraire SERIES_TOTAL sur la taille réelle de la série reprise, pour
+    // que "Question X/Y" et la condition de fin restent cohérents avec son
+    // contenu réel. La nouvelle préférence s'appliquera à la prochaine série
+    // démarrée depuis zéro (buildSeriesPool() lit SERIES_TOTAL à cet instant-là).
+    SERIES_TOTAL = snapshot.total || seriesQueue.length || SERIES_TOTAL;
+    draft = {
+      id: snapshot.draftId,
+      startedAt: snapshot.draftStartedAt,
+      mode,
+      chapterId: seriesConfig.chapterId || null,
+      notion: seriesConfig.notion || null,
+      total: SERIES_TOTAL,
+      questions: snapshot.draftQuestions || [],
+    };
+    document.querySelectorAll(".mode-pill").forEach((b) => {
+      b.classList.toggle("active", b.dataset.mode === mode);
+    });
+    $("series-topbar").hidden = false;
+    $("screen-recap").hidden = true;
+    markTabActive();
 
-  // Anti double-consommation (F5 / retour sur une série / "Reprendre la
-  // série") : si l'exercice actuellement dû (seriesQueue[seriesIndex]) est
-  // exactement celui déjà persisté par le dernier loadCurrent() réussi, on le
-  // réaffiche depuis le snapshot SANS rappeler /api/practice/load — cet
-  // exercice a déjà été consommé une fois, le backend reste la seule source
-  // de vérité de ce qui a réellement été facturé (voir loadCurrent/
-  // persistProgress). Toute incertitude (snapshot absent, id différent)
-  // retombe sur un vrai appel réseau, jamais sur une supposition côté client.
-  const cached = snapshot.currentExercise;
-  if (cached && cached.id === seriesQueue[seriesIndex]) {
-    current = cached;
-    lastVerdictLabel = null;
-    renderExercise();
-    refreshExercisesQuota();
-    return;
-  }
-  await loadCurrent();
+    // Anti double-consommation (F5 / retour sur une série / "Reprendre la
+    // série") : si l'exercice actuellement dû (seriesQueue[seriesIndex]) est
+    // exactement celui déjà persisté par le dernier loadCurrent() réussi, on le
+    // réaffiche depuis le snapshot SANS rappeler /api/practice/load — cet
+    // exercice a déjà été consommé une fois, le backend reste la seule source
+    // de vérité de ce qui a réellement été facturé (voir loadCurrent/
+    // persistProgress). Toute incertitude (snapshot absent, id différent)
+    // retombe sur un vrai appel réseau, jamais sur une supposition côté client.
+    const cached = snapshot.currentExercise;
+    if (cached && cached.id === seriesQueue[seriesIndex]) {
+      current = cached;
+      lastVerdictLabel = null;
+      renderExercise();
+      refreshExercisesQuota();
+      return;
+    }
+    await loadCurrent();
   } finally {
     exerciseActionInFlight = false;
     setExerciseActionButtonsDisabled(false);
@@ -397,11 +416,16 @@ async function refreshExercisesQuota() {
     quotaIndicator.hidden = false;
     quotaIndicator.classList.toggle("is-unlimited", q.unlimited);
     quotaIndicator.classList.toggle("is-exhausted", !q.unlimited && q.remaining === 0);
-    quotaIndicator.classList.toggle("is-low", !q.unlimited && q.remaining > 0 && q.remaining <= Math.ceil(q.limit * 0.15));
+    quotaIndicator.classList.toggle(
+      "is-low",
+      !q.unlimited && q.remaining > 0 && q.remaining <= Math.ceil(q.limit * 0.15),
+    );
     quotaValue.textContent = q.unlimited
       ? "Exercices illimités"
       : `${q.remaining} exercice${q.remaining === 1 ? "" : "s"} restant${q.remaining === 1 ? "" : "s"} aujourd'hui`;
-  } catch { /* silencieux : l'indicateur reste dans son dernier état connu */ }
+  } catch {
+    /* silencieux : l'indicateur reste dans son dernier état connu */
+  }
 }
 
 // Message affiché quand /api/practice/load répond 429 (QuotaExceededError,
@@ -437,7 +461,8 @@ function renderExercise() {
   $("ex-notion-badge").textContent = current.notion || "";
   $("ex-xp-badge").textContent = `+${DIFF_XP[current.difficulty] || 10} XP`;
   const diffBadge = $("ex-difficulty-badge");
-  diffBadge.textContent = `${DIFF_EMOJI[current.difficulty] || ""} ${DIFF_LABEL_SHORT[current.difficulty] || ""}`.trim();
+  diffBadge.textContent =
+    `${DIFF_EMOJI[current.difficulty] || ""} ${DIFF_LABEL_SHORT[current.difficulty] || ""}`.trim();
   diffBadge.className = `badge ${DIFF_BADGE[current.difficulty] || "badge--neutral"}`;
   setMathContent($("ex-enonce"), current.enonce);
   $("ex-hint").hidden = true;
@@ -571,8 +596,13 @@ async function handleVerdict(isCorrect) {
 
     await api.practiceResult(current.id, isCorrect, getStoredClassLevel());
 
-    if (isCorrect) { fireConfetti(); playTone(880); }
-    else { shakeElement($("screen-ex")); playTone(220, 0.25); }
+    if (isCorrect) {
+      fireConfetti();
+      playTone(880);
+    } else {
+      shakeElement($("screen-ex"));
+      playTone(220, 0.25);
+    }
 
     renderHistory();
     updateLevelLine();
@@ -603,7 +633,9 @@ function finishSeries() {
   try {
     const lvl = JSON.parse(localStorage.getItem("lumis:last_level"));
     levelAtTime = lvl?.label || null;
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
 
   const record = finalizeSeries(draft, { levelAtTime });
   clearInProgressSeries();
@@ -633,7 +665,8 @@ function showRecap(record) {
   $("screen-ex").hidden = true;
   renderRecapIcon(record);
   $("recap-title").textContent = record.score >= record.total * 0.7 ? "Belle série !" : "Série terminée";
-  $("recap-sub").textContent = `Mode : ${record.mode}${record.chapterId ? " · " + record.chapterId : ""}${record.notion ? " · " + record.notion : ""}`;
+  $("recap-sub").textContent =
+    `Mode : ${record.mode}${record.chapterId ? " · " + record.chapterId : ""}${record.notion ? " · " + record.notion : ""}`;
   $("recap-score").textContent = `${record.score}/${record.total}`;
   $("recap-accuracy").textContent = `${record.accuracy}%`;
   const minutes = Math.round(record.durationTotal_s / 60);
@@ -774,9 +807,8 @@ async function loadTrainingSettings() {
 // du SettingsManager pour appliquer tout changement "training" en direct,
 // y compris couper un chrono déjà en cours de décompte.
 onSettingsChange((e) => {
-  const t = e.detail.category === "training" ? e.detail.patch
-    : e.detail.category === "*" ? e.detail.settings?.training
-    : null;
+  const t =
+    e.detail.category === "training" ? e.detail.patch : e.detail.category === "*" ? e.detail.settings?.training : null;
   if (!t) return;
   trainingSettings = { ...trainingSettings, ...t };
   SERIES_TOTAL = trainingSettings.questionsPerSeries || 10;

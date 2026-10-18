@@ -19,7 +19,12 @@ vi.mock("../api.js", () => ({ api: mockApi }));
 vi.mock("../settingsManager.js", () => ({ initSettingsManager: () => Promise.resolve(), onSettingsChange: vi.fn() }));
 vi.mock("../settingsPopup.js", () => ({ bindSettingsButton: vi.fn() }));
 vi.mock("../i18n.js", () => ({ bindLiveTranslations: vi.fn() }));
-vi.mock("../mathrender.js", () => ({ setMathContent: vi.fn(), setRenderedHtmlContent: (el, text) => { el.textContent = text; } }));
+vi.mock("../mathrender.js", () => ({
+  setMathContent: vi.fn(),
+  setRenderedHtmlContent: (el, text) => {
+    el.textContent = text;
+  },
+}));
 // geomSvg.js réel (pas mocké) : on veut vérifier le vrai rendu SVG.
 vi.mock("../curriculumSelector.js", () => ({
   getStoredClassLevel: () => "seconde",
@@ -43,17 +48,33 @@ vi.mock("../supportTicket.js", () => ({ openReportTicketPopup: vi.fn() }));
 const CHAPTER = { id: "Chapitre_1", title: "Nombres et calculs", notions_cours: [], n_notions: 3, notions_detail: [] };
 
 const NOTION_SANS_FIGURE = {
-  id: "notion-sans-figure", title: "Notion sans figure", schemaVersion: 2,
-  definition: "Définition.", figure: null, exemples: [], erreursFrequentes: [], aRetenir: [],
+  id: "notion-sans-figure",
+  title: "Notion sans figure",
+  schemaVersion: 2,
+  definition: "Définition.",
+  figure: null,
+  exemples: [],
+  erreursFrequentes: [],
+  aRetenir: [],
 };
 const NOTION_AVEC_FIGURE = {
-  id: "notion-avec-figure", title: "Notion avec figure", schemaVersion: 2,
-  definition: "Définition.", exemples: [], erreursFrequentes: [], aRetenir: [],
+  id: "notion-avec-figure",
+  title: "Notion avec figure",
+  schemaVersion: 2,
+  definition: "Définition.",
+  exemples: [],
+  erreursFrequentes: [],
+  aRetenir: [],
   figure: { viewBox: [-1, -1, 8, 8], axes: true, points: [{ x: 2, y: 2, label: "A" }], alt: "Point A" },
 };
 const NOTION_FIGURE_MALFORMEE = {
-  id: "notion-figure-malformee", title: "Notion avec figure cassée", schemaVersion: 2,
-  definition: "Définition.", exemples: [], erreursFrequentes: [], aRetenir: [],
+  id: "notion-figure-malformee",
+  title: "Notion avec figure cassée",
+  schemaVersion: 2,
+  definition: "Définition.",
+  exemples: [],
+  erreursFrequentes: [],
+  aRetenir: [],
   figure: { kind: "type-inconnu-invente" },
 };
 

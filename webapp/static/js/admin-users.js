@@ -11,8 +11,11 @@ const SEARCH_DEBOUNCE_MS = 300;
 
 const PLAN_LABELS = { free: "Gratuit", premium: "Premium", ultra: "Ultra" };
 const ROLE_LABELS = {
-  user: "Utilisateur", support: "Support", moderator: "Modérateur",
-  admin: "Admin", super_admin: "Super admin",
+  user: "Utilisateur",
+  support: "Support",
+  moderator: "Modérateur",
+  admin: "Admin",
+  super_admin: "Super admin",
 };
 // 3 valeurs réelles de users.account_status (Chantier Administrateur
 // "Utilisateurs", Phase 2 — remplace l'ancien bucket "Suspendu" qui les
@@ -62,7 +65,13 @@ function formatDateTime(iso) {
   if (!iso) return "Jamais connecté";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatDate(iso) {
@@ -98,9 +107,15 @@ function avatarNode(user) {
 // ── État du module (réinitialisé à chaque montage du module Utilisateurs) ──
 function initialState() {
   return {
-    search: "", role: "", plan: "", account_status: "", payment_status: "",
-    sort_by: "created_at", sort_dir: "desc",
-    page: 1, page_size: 25,
+    search: "",
+    role: "",
+    plan: "",
+    account_status: "",
+    payment_status: "",
+    sort_by: "created_at",
+    sort_dir: "desc",
+    page: 1,
+    page_size: 25,
   };
 }
 
@@ -154,7 +169,10 @@ function renderRows(tbody, users, onRowClick) {
     tr.setAttribute("role", "button");
     tr.addEventListener("click", () => onRowClick(user.id));
     tr.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onRowClick(user.id); }
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onRowClick(user.id);
+      }
     });
 
     const avatarTd = el("td", "admin-users-td");
@@ -181,8 +199,11 @@ function renderPagination(container, snapshot, onPageChange) {
   container.innerHTML = "";
   if (snapshot.total === 0) return;
 
-  const info = el("span", "admin-users-pagination-info",
-    `Page ${snapshot.page} / ${snapshot.total_pages} · ${new Intl.NumberFormat("fr-FR").format(snapshot.total)} utilisateur(s)`);
+  const info = el(
+    "span",
+    "admin-users-pagination-info",
+    `Page ${snapshot.page} / ${snapshot.total_pages} · ${new Intl.NumberFormat("fr-FR").format(snapshot.total)} utilisateur(s)`,
+  );
   container.appendChild(info);
 
   const prev = el("button", "admin-icon-btn admin-users-page-btn", "‹");
@@ -261,7 +282,10 @@ export async function loadUsers(onRowClick) {
       return;
     }
     renderRows(tbody, snapshot.items, onRowClick);
-    renderPagination(paginationEl, snapshot, (page) => { state.page = page; refresh(); });
+    renderPagination(paginationEl, snapshot, (page) => {
+      state.page = page;
+      refresh();
+    });
   }
 
   const debouncedSearch = debounce((value) => {
@@ -271,10 +295,26 @@ export async function loadUsers(onRowClick) {
   }, SEARCH_DEBOUNCE_MS);
 
   searchInput.addEventListener("input", (e) => debouncedSearch(e.target.value));
-  planSelect.addEventListener("change", (e) => { state.plan = e.target.value; state.page = 1; refresh(); });
-  roleSelect.addEventListener("change", (e) => { state.role = e.target.value; state.page = 1; refresh(); });
-  statusSelect.addEventListener("change", (e) => { state.account_status = e.target.value; state.page = 1; refresh(); });
-  paymentSelect.addEventListener("change", (e) => { state.payment_status = e.target.value; state.page = 1; refresh(); });
+  planSelect.addEventListener("change", (e) => {
+    state.plan = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  roleSelect.addEventListener("change", (e) => {
+    state.role = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  statusSelect.addEventListener("change", (e) => {
+    state.account_status = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  paymentSelect.addEventListener("change", (e) => {
+    state.payment_status = e.target.value;
+    state.page = 1;
+    refresh();
+  });
 
   await refresh();
 }

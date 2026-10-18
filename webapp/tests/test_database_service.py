@@ -8,6 +8,7 @@ par défaut, comportement historique).
 """
 import importlib
 import os
+import re
 import shutil
 import tempfile
 import unittest
@@ -312,10 +313,15 @@ class TestTranslateSchemaForPostgres(unittest.TestCase):
     def test_schema_reel_du_projet(self):
         translated = ds._translate_schema_for_postgres(db.SCHEMA)
         self.assertNotIn("AUTOINCREMENT", translated.upper())
-        # SEC-04 a ajouté consent_records (id INTEGER PRIMARY KEY AUTOINCREMENT) :
-        # 9 tables historiques + 1 nouvelle = 10 (voir TestAutoincrementTables
-        # ci-dessous pour la liste complète).
-        self.assertEqual(translated.count("SERIAL PRIMARY KEY"), 10)
+        # Compte indépendant de l'implémentation testée : chaque occurrence
+        # littérale du motif SQLite dans le schéma SOURCE doit devenir
+        # "SERIAL PRIMARY KEY" après traduction. Pas de valeur figée — le
+        # nombre de tables auto-incrémentées grandit avec le projet (SEC-04,
+        # support tickets, fournisseurs IA...), voir TestAutoincrementTables
+        # ci-dessous pour la liste complète à un instant donné.
+        occurrences = db.SCHEMA.upper().count("INTEGER PRIMARY KEY AUTOINCREMENT")
+        self.assertGreater(occurrences, 0)
+        self.assertEqual(translated.count("SERIAL PRIMARY KEY"), occurrences)
 
     def test_insensible_a_la_casse(self):
         translated = ds._translate_schema_for_postgres("id integer primary key autoincrement,")
@@ -349,13 +355,25 @@ class TestSplitStatements(unittest.TestCase):
 class TestAutoincrementTables(unittest.TestCase):
     def test_tables_reelles_du_schema(self):
         tables = ds._autoincrement_tables(db.SCHEMA)
-        expected = {
-            "users", "oauth_accounts", "login_attempts", "security_events", "conversations",
-            "chatbot_messages", "user_daily_usage", "rate_limit_events", "two_factor_recovery_codes",
-            # SEC-04 : preuve RGPD immuable (voir consent_service.py/db.py::SCHEMA).
-            "consent_records",
-        }
+        # Vérification INDÉPENDANTE de la regex de database_service.py (pas de
+        # liste figée qui diverge à chaque table ajoutée, voir git blame sur
+        # cette classe — hardcodée à 10 alors que le schéma en a 23 au
+        # 2026-10-18) : on découpe nous-mêmes le schéma en blocs de table et on
+        # vérifie que chaque bloc dont la première colonne littérale est "id
+        # INTEGER PRIMARY KEY AUTOINCREMENT" est bien, et seulement lui, dans
+        # le résultat de la fonction testée.
+        expected = set()
+        for name, body in re.findall(r"CREATE TABLE IF NOT EXISTS (\w+) \(([^;]*?)\);", db.SCHEMA, re.DOTALL):
+            first_column = body.strip().splitlines()[0].strip().rstrip(",")
+            if first_column.upper() == "ID INTEGER PRIMARY KEY AUTOINCREMENT":
+                expected.add(name)
+        self.assertGreater(len(expected), 0)
         self.assertEqual(tables, expected)
+        # Propriété structurelle : chaque table détectée existe réellement
+        # dans le schéma (jamais un faux positif issu d'un commentaire ou
+        # d'une chaîne de caractères).
+        for table in tables:
+            self.assertIn(f"CREATE TABLE IF NOT EXISTS {table} (", db.SCHEMA)
 
     def test_tables_sans_id_absentes(self):
         tables = ds._autoincrement_tables(db.SCHEMA)

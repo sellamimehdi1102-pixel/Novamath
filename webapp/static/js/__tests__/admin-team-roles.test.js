@@ -33,8 +33,19 @@ describe("admin-team-roles.js — fetchTeamMembers", () => {
 
   it("fusionne et déduplique par id à travers les 4 rôles", async () => {
     global.fetch = vi.fn((url) => {
-      if (url.includes("role=support")) return Promise.resolve({ ok: true, json: () => Promise.resolve({ items: [{ id: 1, name: "Alice" }] }) });
-      if (url.includes("role=admin&")) return Promise.resolve({ ok: true, json: () => Promise.resolve({ items: [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }] }) });
+      if (url.includes("role=support"))
+        return Promise.resolve({ ok: true, json: () => Promise.resolve({ items: [{ id: 1, name: "Alice" }] }) });
+      if (url.includes("role=admin&"))
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              items: [
+                { id: 1, name: "Alice" },
+                { id: 2, name: "Bob" },
+              ],
+            }),
+        });
       return Promise.resolve({ ok: true, json: () => Promise.resolve({ items: [] }) });
     });
     const admins = await fetchTeamMembers();

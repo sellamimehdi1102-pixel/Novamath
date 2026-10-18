@@ -21,9 +21,14 @@
 // pas déformer cercles/angles), puis on dimensionne le SVG exactement à la
 // taille du viewBox mis à l'échelle. Résultat : des figures bien plus
 // grandes et lisibles, sans espace perdu quand le repère n'est pas carré.
-const TARGET_W = 620, TARGET_H = 460;
-const UNIT_MIN = 34, UNIT_MAX = 120;
-const PAD_L = 50, PAD_R = 30, PAD_T = 30, PAD_B = 50;
+const TARGET_W = 620,
+  TARGET_H = 460;
+const UNIT_MIN = 34,
+  UNIT_MAX = 120;
+const PAD_L = 50,
+  PAD_R = 30,
+  PAD_T = 30,
+  PAD_B = 50;
 
 // ── Rendu mathématique réel (KaTeX) pour les labels de figures ─────────────
 // Les labels de points/vecteurs/arcs ("x₁ = 0", "S(α ; β)", "x₂ = 7/4"...)
@@ -33,10 +38,24 @@ const PAD_L = 50, PAD_R = 30, PAD_T = 30, PAD_B = 50;
 // mathrender.js) via un <foreignObject>, avec un repli silencieux vers du
 // texte SVG brut si KaTeX est indisponible (tests, environnements sans DOM
 // complet) — jamais de LaTeX brut affiché, jamais d'exception.
-const SUBSCRIPT_DIGITS = { "₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", "₆": "6", "₇": "7", "₈": "8", "₉": "9" };
+const SUBSCRIPT_DIGITS = {
+  "₀": "0",
+  "₁": "1",
+  "₂": "2",
+  "₃": "3",
+  "₄": "4",
+  "₅": "5",
+  "₆": "6",
+  "₇": "7",
+  "₈": "8",
+  "₉": "9",
+};
 
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+  );
 }
 
 // Convertit une chaîne de label "à la française" (unicode indices/fractions
@@ -44,12 +63,12 @@ function escapeHtml(s) {
 // — ne change jamais la valeur mathématique ni la formulation pédagogique,
 // seulement la façon dont elle est dessinée (vraie fraction au lieu de "7/4").
 function toKatexSource(label) {
-  let s = String(label)
-    .replace(/−/g, "-")
-    .replace(/×/g, "\\times ")
-    .replace(/±/g, "\\pm ");
+  let s = String(label).replace(/−/g, "-").replace(/×/g, "\\times ").replace(/±/g, "\\pm ");
   s = s.replace(/([A-Za-z])([₀-₉]+)/g, (_, letter, subs) => {
-    const digits = subs.split("").map((c) => SUBSCRIPT_DIGITS[c] ?? c).join("");
+    const digits = subs
+      .split("")
+      .map((c) => SUBSCRIPT_DIGITS[c] ?? c)
+      .join("");
     return `${letter}_{${digits}}`;
   });
   s = s.replace(/(-?\d+)\s*\/\s*(\d+)/g, "\\dfrac{$1}{$2}");
@@ -88,7 +107,8 @@ function measureHtml(html, plainLength, className) {
   if (typeof document === "undefined") return { width: plainLength * 7 + 4, height: 16 };
   if (!_measureHost) {
     _measureHost = document.createElement("div");
-    _measureHost.style.cssText = "position:absolute;visibility:hidden;pointer-events:none;left:-9999px;top:-9999px;white-space:nowrap;";
+    _measureHost.style.cssText =
+      "position:absolute;visibility:hidden;pointer-events:none;left:-9999px;top:-9999px;white-space:nowrap;";
     document.body.appendChild(_measureHost);
   }
   _measureHost.className = className;
@@ -131,8 +151,14 @@ const CANDIDATE_OFFSETS = [
 // qu'un recouvrement complet, sinon le moteur ne peut pas distinguer un bon
 // candidat d'un mauvais quand aucun n'est parfaitement libre.
 function overlapFraction(a, b, margin = 4) {
-  const ax0 = a.x - margin, ay0 = a.y - margin, ax1 = a.x + a.w + margin, ay1 = a.y + a.h + margin;
-  const bx0 = b.x, by0 = b.y, bx1 = b.x + b.w, by1 = b.y + b.h;
+  const ax0 = a.x - margin,
+    ay0 = a.y - margin,
+    ax1 = a.x + a.w + margin,
+    ay1 = a.y + a.h + margin;
+  const bx0 = b.x,
+    by0 = b.y,
+    bx1 = b.x + b.w,
+    by1 = b.y + b.h;
   const ix = Math.max(0, Math.min(ax1, bx1) - Math.max(ax0, bx0));
   const iy = Math.max(0, Math.min(ay1, by1) - Math.max(ay0, by0));
   const inter = ix * iy;
@@ -182,7 +208,8 @@ function inPlaceCandidates(anchor) {
 // labels d'une même figure (créé dans renderGeom, réinitialisé à chaque
 // appel : aucun état global entre deux figures).
 function placeLabel(state, anchorPx, size, candidates = CANDIDATE_OFFSETS) {
-  let best = null, bestScore = Infinity;
+  let best = null,
+    bestScore = Infinity;
   for (const off of candidates) {
     const box = boxFromCandidate(anchorPx, size, off);
     // Score = somme des fractions de recouvrement avec tout ce qui est déjà
@@ -229,11 +256,17 @@ function emitAnchoredLabel(state, anchorPx, rawLabel, extraClass = "", candidate
   const size = measureHtml(mathHtml ?? escapeHtml(rawLabel), rawLabel.length, className);
   const { off, box } = placeLabel(state, anchorPx, size, candidates);
   if (mathHtml) {
-    return { svg: `<foreignObject x="${box.x}" y="${box.y}" width="${size.width}" height="${size.height}" class="geom-math-fo"><div xmlns="http://www.w3.org/1999/xhtml" class="${className}">${mathHtml}</div></foreignObject>`, box };
+    return {
+      svg: `<foreignObject x="${box.x}" y="${box.y}" width="${size.width}" height="${size.height}" class="geom-math-fo"><div xmlns="http://www.w3.org/1999/xhtml" class="${className}">${mathHtml}</div></foreignObject>`,
+      box,
+    };
   }
   const tx = off.ax === "start" ? box.x : off.ax === "end" ? box.x + box.w : box.x + box.w / 2;
   const ty = box.y + size.height * 0.78;
-  return { svg: `<text x="${tx}" y="${ty}" text-anchor="${off.ax}" class="geom-label${extraClass ? " " + extraClass : ""}">${escapeHtml(rawLabel)}</text>`, box };
+  return {
+    svg: `<text x="${tx}" y="${ty}" text-anchor="${off.ax}" class="geom-label${extraClass ? " " + extraClass : ""}">${escapeHtml(rawLabel)}</text>`,
+    box,
+  };
 }
 
 // Émet un label directement rattaché sous une boîte déjà placée (ex. les
@@ -265,15 +298,20 @@ function occupy(state, px, py, r = 8) {
 // axes...) — garantit qu'aucune annotation n'est jamais coupée, quelle que
 // soit sa longueur, au lieu de la clamper arbitrairement à l'intérieur.
 function finalizeCanvas(layout, state, content) {
-  let minX = 0, minY = 0, maxX = layout.width, maxY = layout.height;
+  let minX = 0,
+    minY = 0,
+    maxX = layout.width,
+    maxY = layout.height;
   for (const b of state.placed) {
     minX = Math.min(minX, b.x);
     minY = Math.min(minY, b.y);
     maxX = Math.max(maxX, b.x + b.w);
     maxY = Math.max(maxY, b.y + b.h);
   }
-  const dx = -minX, dy = -minY;
-  const width = maxX - minX, height = maxY - minY;
+  const dx = -minX,
+    dy = -minY;
+  const width = maxX - minX,
+    height = maxY - minY;
   const wrapped = dx || dy ? `<g transform="translate(${dx},${dy})">${content}</g>` : content;
   return { width, height, content: wrapped };
 }
@@ -287,7 +325,11 @@ function computeLayout(spec) {
   let unit = Math.min((TARGET_W - PAD_L - PAD_R) / w, (TARGET_H - PAD_T - PAD_B) / h);
   unit = Math.max(UNIT_MIN, Math.min(UNIT_MAX, unit));
   return {
-    xmin, ymin, w, h, unit,
+    xmin,
+    ymin,
+    w,
+    h,
+    unit,
     width: w * unit + PAD_L + PAD_R,
     height: h * unit + PAD_T + PAD_B,
   };
@@ -329,7 +371,8 @@ function buildGrid(layout) {
 // chevaucher avec la pointe de la flèche.
 function buildTicks(layout, skipOrigin) {
   const { xmin, ymin, w, h } = layout;
-  const edgeGuardX = w * 0.05, edgeGuardY = h * 0.05;
+  const edgeGuardX = w * 0.05,
+    edgeGuardY = h * 0.05;
   let ticks = "";
   for (let x = Math.ceil(xmin); x <= xmin + w; x++) {
     if (x === 0) continue;
@@ -419,7 +462,8 @@ function renderGeom(spec) {
     // laisserait sinon de grands espaces non couverts entre deux points
     // consécutifs pourtant proches sur le tracé réel.
     for (let i = 0; i < projected.length - 1; i++) {
-      const [ax, ay] = projected[i], [bx, by] = projected[i + 1];
+      const [ax, ay] = projected[i],
+        [bx, by] = projected[i + 1];
       const steps = Math.max(1, Math.round(Math.hypot(bx - ax, by - ay) / 10));
       for (let k = 0; k <= steps; k++) occupy(state, ax + ((bx - ax) * k) / steps, ay + ((by - ay) * k) / steps, 8);
     }
@@ -448,8 +492,10 @@ function renderGeom(spec) {
     const r = a.radius * layout.unit;
     const startRad = (a.startDeg * Math.PI) / 180;
     const endRad = (a.endDeg * Math.PI) / 180;
-    const x1 = pcx + r * Math.cos(startRad), y1 = pcy - r * Math.sin(startRad);
-    const x2 = pcx + r * Math.cos(endRad), y2 = pcy - r * Math.sin(endRad);
+    const x1 = pcx + r * Math.cos(startRad),
+      y1 = pcy - r * Math.sin(startRad);
+    const x2 = pcx + r * Math.cos(endRad),
+      y2 = pcy - r * Math.sin(endRad);
     const large = Math.abs(a.endDeg - a.startDeg) > 180 ? 1 : 0;
     // `reveal`/`tooltip` (optionnels) : mêmes conventions que polygones et
     // segments — un arc peut apparaître à une étape donnée et porter une
@@ -487,7 +533,8 @@ function renderGeom(spec) {
     const [x2, y2] = project(layout, ...resolvePoint(spec, v.to));
     content += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="geom-vector" marker-end="url(#${vectorMarkerId})"/>`;
     if (v.label) {
-      const lx = (x1 + x2) / 2, ly = (y1 + y2) / 2;
+      const lx = (x1 + x2) / 2,
+        ly = (y1 + y2) / 2;
       content += emitAnchoredLabel(state, [lx, ly], v.label, "geom-label--vector").svg;
     }
   });
@@ -584,9 +631,12 @@ function renderTree(spec) {
   // Toutes les figures non-"geom" sont mises à l'échelle ×1.6 (SCALE) par
   // rapport à leurs dimensions d'origine, pour rester visuellement au même
   // niveau que les repères mathématiques dans la colonne graphique agrandie.
-  const W = 672, H = 384;
-  const rootX = 48, rootY = H / 2;
-  const level1X = 264, level2X = 528;
+  const W = 672,
+    H = 384;
+  const rootX = 48,
+    rootY = H / 2;
+  const level1X = 264,
+    level2X = 528;
   const branches = spec.branches || [];
   const n1 = branches.length || 1;
   const gap1 = (H - 64) / n1;
@@ -617,8 +667,12 @@ function renderTree(spec) {
 
 // ── kind: "venn" — diagramme de Venn à deux ensembles ───────────────────────
 function renderVenn(spec) {
-  const W = 416, H = 288;
-  const r = 109, cx1 = 173, cx2 = 269, cy = 147;
+  const W = 416,
+    H = 288;
+  const r = 109,
+    cx1 = 173,
+    cx2 = 269,
+    cy = 147;
   const [labelA, labelB] = spec.sets || ["A", "B"];
   let content = `
     <circle cx="${cx1}" cy="${cy}" r="${r}" class="geom-venn-circle geom-venn-circle--a"/>
@@ -626,13 +680,17 @@ function renderVenn(spec) {
     <text x="${cx1 - 67}" y="${cy}" class="geom-label">${labelA}</text>
     <text x="${cx2 + 67}" y="${cy}" class="geom-label">${labelB}</text>
   `;
-  if (spec.overlapLabel) content += `<text x="${(cx1 + cx2) / 2}" y="${cy + 6}" class="geom-label geom-label--overlap" text-anchor="middle">${spec.overlapLabel}</text>`;
+  if (spec.overlapLabel)
+    content += `<text x="${(cx1 + cx2) / 2}" y="${cy + 6}" class="geom-label geom-label--overlap" text-anchor="middle">${spec.overlapLabel}</text>`;
   return `<svg viewBox="0 0 ${W} ${H}" class="geom-figure geom-figure--wide" role="img" aria-label="${spec.alt || "Diagramme de Venn"}">${content}</svg>`;
 }
 
 // ── kind: "nested-sets" — ensembles emboîtés (N ⊂ Z ⊂ D ⊂ Q ⊂ R) ───────────
 function renderNestedSets(spec) {
-  const W = 416, H = 416, cx = 208, cy = 224;
+  const W = 416,
+    H = 416,
+    cx = 208,
+    cy = 224;
   const labels = spec.labels || [];
   const n = Math.max(labels.length, 1);
   let content = "";
@@ -646,9 +704,11 @@ function renderNestedSets(spec) {
 
 // ── kind: "numberline" — droite graduée (intervalles, multiples...) ────────
 function renderNumberline(spec) {
-  const W = 448, H = 144;
+  const W = 448,
+    H = 144;
   const { min, max } = spec;
-  const x0 = 32, x1 = W - 32;
+  const x0 = 32,
+    x1 = W - 32;
   const scale = (x1 - x0) / (max - min || 1);
   const toX = (v) => x0 + (v - min) * scale;
   const axisY = 72;
@@ -667,10 +727,12 @@ function renderNumberline(spec) {
 
 // ── kind: "bars" — diagramme en bâtons / histogramme ────────────────────────
 function renderBars(spec) {
-  const W = 448, H = 288;
+  const W = 448,
+    H = 288;
   const bars = spec.bars || [];
   const max = spec.maxValue || Math.max(...bars.map((b) => b.value), 1);
-  const baseY = H - 48, top = 32;
+  const baseY = H - 48,
+    top = 32;
   const gap = (W - 64) / Math.max(bars.length, 1);
   const barW = gap * 0.6;
   let content = `<line x1="32" y1="${baseY}" x2="${W - 32}" y2="${baseY}" class="geom-axis"/>`;
@@ -686,16 +748,23 @@ function renderBars(spec) {
 
 // ── kind: "pie" — diagramme circulaire ──────────────────────────────────────
 function renderPie(spec) {
-  const W = 384, H = 352, cx = 176, cy = 160, r = 112;
+  const W = 384,
+    H = 352,
+    cx = 176,
+    cy = 160,
+    r = 112;
   const slices = spec.slices || [];
   const total = slices.reduce((s, x) => s + x.value, 0) || 1;
   let angle = -90;
   let content = "";
   slices.forEach((s, i) => {
     const sweep = (s.value / total) * 360;
-    const a0 = (angle * Math.PI) / 180, a1 = ((angle + sweep) * Math.PI) / 180;
-    const x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0);
-    const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+    const a0 = (angle * Math.PI) / 180,
+      a1 = ((angle + sweep) * Math.PI) / 180;
+    const x0 = cx + r * Math.cos(a0),
+      y0 = cy + r * Math.sin(a0);
+    const x1 = cx + r * Math.cos(a1),
+      y1 = cy + r * Math.sin(a1);
     const large = sweep > 180 ? 1 : 0;
     content += `<path d="M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} Z" class="geom-pie-slice geom-pie-slice--${i % 5}"/>`;
     const midA = ((angle + sweep / 2) * Math.PI) / 180;
@@ -707,12 +776,15 @@ function renderPie(spec) {
 
 // ── kind: "boxplot" — boîte à moustaches ────────────────────────────────────
 function renderBoxplot(spec) {
-  const W = 448, H = 160;
+  const W = 448,
+    H = 160;
   const { min, q1, median, q3, max } = spec;
-  const x0 = 32, x1 = W - 32;
+  const x0 = 32,
+    x1 = W - 32;
   const scale = (x1 - x0) / (max - min || 1);
   const toX = (v) => x0 + (v - min) * scale;
-  const midY = 74, boxH = 48;
+  const midY = 74,
+    boxH = 48;
   let content = `
     <line x1="${toX(min)}" y1="${midY}" x2="${toX(q1)}" y2="${midY}" class="geom-segment"/>
     <line x1="${toX(q3)}" y1="${midY}" x2="${toX(max)}" y2="${midY}" class="geom-segment"/>
@@ -769,8 +841,13 @@ const SOLID_PATHS = {
   `,
 };
 const SOLID_LABELS = {
-  cube: "Cube", pave: "Pavé droit", cylindre: "Cylindre", cone: "Cône",
-  sphere: "Sphère", pyramide: "Pyramide", prisme: "Prisme",
+  cube: "Cube",
+  pave: "Pavé droit",
+  cylindre: "Cylindre",
+  cone: "Cône",
+  sphere: "Sphère",
+  pyramide: "Pyramide",
+  prisme: "Prisme",
 };
 
 function renderSolid(spec) {

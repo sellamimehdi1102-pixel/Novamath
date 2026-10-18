@@ -55,7 +55,13 @@ function showToast(message, isError = false) {
   el.hidden = false;
   toastTimer = setTimeout(() => {
     el.classList.add("is-leaving");
-    el.addEventListener("animationend", () => { el.hidden = true; }, { once: true });
+    el.addEventListener(
+      "animationend",
+      () => {
+        el.hidden = true;
+      },
+      { once: true },
+    );
   }, 2600);
 }
 
@@ -68,18 +74,25 @@ function openModal({ title, text, confirmLabel = "Confirmer", danger = true, fie
   $("confirm-modal-error").textContent = "";
 
   const extra = $("confirm-modal-extra");
-  extra.innerHTML = fields.map((f) => `
+  extra.innerHTML = fields
+    .map(
+      (f) => `
     <div class="form-field">
       <label for="modal-field-${f.name}">${f.label}</label>
       <input type="${f.type || "text"}" id="modal-field-${f.name}" placeholder="${f.placeholder || ""}" autocomplete="${f.autocomplete || "off"}">
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 
   const confirmBtn = $("confirm-modal-confirm");
   confirmBtn.textContent = confirmLabel;
   confirmBtn.className = `btn ${danger ? "btn-danger-outline" : "btn-primary"}`;
 
-  const close = () => { overlay.hidden = true; cleanup(); };
+  const close = () => {
+    overlay.hidden = true;
+    cleanup();
+  };
   const onConfirmClick = async () => {
     const values = {};
     for (const f of fields) values[f.name] = $(`modal-field-${f.name}`)?.value ?? "";
@@ -95,7 +108,9 @@ function openModal({ title, text, confirmLabel = "Confirmer", danger = true, fie
     }
   };
   const onCancelClick = () => close();
-  const onOverlayClick = (e) => { if (e.target === overlay) close(); };
+  const onOverlayClick = (e) => {
+    if (e.target === overlay) close();
+  };
 
   function cleanup() {
     confirmBtn.removeEventListener("click", onConfirmClick);
@@ -121,11 +136,15 @@ function updateSetting(category, key, value) {
 
 // ── Rendu : menu de gauche ───────────────────────────────────────────────────
 function renderMenu() {
-  menu.innerHTML = CATEGORIES().map((c) => `
+  menu.innerHTML = CATEGORIES()
+    .map(
+      (c) => `
     <button type="button" class="settings-menu-item${c.id === activeCategory ? " active" : ""}" data-cat="${c.id}">
       ${icon(c.icon)}<span>${c.label}</span>
     </button>
-  `).join("");
+  `,
+    )
+    .join("");
   menu.querySelectorAll(".settings-menu-item").forEach((btn) => {
     btn.addEventListener("click", () => {
       activeCategory = btn.dataset.cat;
@@ -150,9 +169,13 @@ function settingRow(label, desc, controlHtml) {
 }
 
 function pillGroupHtml(name, options, activeValue) {
-  return `<div class="choice-group" data-group="${name}">${options.map((o) => `
+  return `<div class="choice-group" data-group="${name}">${options
+    .map(
+      (o) => `
     <button type="button" class="choice-pill${String(o.value) === String(activeValue) ? " active" : ""}" data-value="${o.value}">${o.label}</button>
-  `).join("")}</div>`;
+  `,
+    )
+    .join("")}</div>`;
 }
 
 function bindPillGroup(root, name, onSelect) {
@@ -166,7 +189,10 @@ function bindPillGroup(root, name, onSelect) {
 }
 
 function initials(name) {
-  const parts = String(name || "").trim().split(/\s+/).slice(0, 2);
+  const parts = String(name || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2);
   return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
 }
 
@@ -351,7 +377,14 @@ function renderAppearance() {
 
     <div class="settings-section">
       <div class="settings-section-title">Thème</div>
-      ${pillGroupHtml("theme", [{ value: "dark", label: "Mode sombre" }, { value: "light", label: "Mode clair" }], currentTheme())}
+      ${pillGroupHtml(
+        "theme",
+        [
+          { value: "dark", label: "Mode sombre" },
+          { value: "light", label: "Mode clair" },
+        ],
+        currentTheme(),
+      )}
     </div>
 
     <div class="settings-section">
@@ -364,7 +397,14 @@ function renderAppearance() {
 
     <div class="settings-section">
       <div class="settings-section-title">Taille du texte</div>
-      ${pillGroupHtml("fontSize", [{ value: "normal", label: "Normal" }, { value: "large", label: "Grand" }], a.fontSize)}
+      ${pillGroupHtml(
+        "fontSize",
+        [
+          { value: "normal", label: "Normal" },
+          { value: "large", label: "Grand" },
+        ],
+        a.fontSize,
+      )}
     </div>
 
     <div class="settings-section">
@@ -397,7 +437,11 @@ function renderTraining() {
 
     <div class="settings-section">
       <div class="settings-section-title">Nombre de questions par série</div>
-      ${pillGroupHtml("questionsPerSeries", [5, 10, 15, 20].map((n) => ({ value: n, label: String(n) })), t.questionsPerSeries)}
+      ${pillGroupHtml(
+        "questionsPerSeries",
+        [5, 10, 15, 20].map((n) => ({ value: n, label: String(n) })),
+        t.questionsPerSeries,
+      )}
     </div>
 
     <div class="settings-section">
@@ -450,7 +494,9 @@ function renderLearning() {
 // auth.DEFAULT_SETTINGS) — suppression du code mort proposée, pas exécutée,
 // voir le rapport final.
 function bindLearning() {
-  $("input-daily-exercises").addEventListener("change", (e) => updateSetting("learning", "dailyGoalExercises", Math.max(1, Number(e.target.value) || 1)));
+  $("input-daily-exercises").addEventListener("change", (e) =>
+    updateSetting("learning", "dailyGoalExercises", Math.max(1, Number(e.target.value) || 1)),
+  );
 }
 
 // ── 5. Chatbot ───────────────────────────────────────────────────────────────
@@ -465,18 +511,42 @@ function renderChatbot() {
 
     <div class="settings-section">
       <div class="settings-section-title">Niveau d'explication</div>
-      ${pillGroupHtml("chatbotExplanationLevel", [{ value: "auto", label: "Automatique" }, { value: "college", label: "Collège" }, { value: "lycee", label: "Lycée" }], c.explanationLevel)}
+      ${pillGroupHtml(
+        "chatbotExplanationLevel",
+        [
+          { value: "auto", label: "Automatique" },
+          { value: "college", label: "Collège" },
+          { value: "lycee", label: "Lycée" },
+        ],
+        c.explanationLevel,
+      )}
     </div>
 
     <div class="settings-section">
       <div class="settings-section-title">Mode</div>
       <p class="settings-panel-desc" style="margin-bottom:10px;">Change la façon dont le chatbot construit ses réponses.</p>
-      ${pillGroupHtml("chatbotMode", [{ value: "professeur", label: "Professeur" }, { value: "pas_a_pas", label: "Pas-à-pas" }, { value: "rapide", label: "Rapide" }], c.mode)}
+      ${pillGroupHtml(
+        "chatbotMode",
+        [
+          { value: "professeur", label: "Professeur" },
+          { value: "pas_a_pas", label: "Pas-à-pas" },
+          { value: "rapide", label: "Rapide" },
+        ],
+        c.mode,
+      )}
     </div>
 
     <div class="settings-section">
       <div class="settings-section-title">Longueur des réponses</div>
-      ${pillGroupHtml("chatbotResponseLength", [{ value: "court", label: "Courtes" }, { value: "normal", label: "Normales" }, { value: "detaille", label: "Détaillées" }], c.responseLength)}
+      ${pillGroupHtml(
+        "chatbotResponseLength",
+        [
+          { value: "court", label: "Courtes" },
+          { value: "normal", label: "Normales" },
+          { value: "detaille", label: "Détaillées" },
+        ],
+        c.responseLength,
+      )}
     </div>
 
     <div class="settings-section">
@@ -499,14 +569,21 @@ function bindChatbot() {
   bindPillGroup(panel, "chatbotExplanationLevel", (value) => updateSetting("chatbot", "explanationLevel", value));
   bindPillGroup(panel, "chatbotMode", (value) => updateSetting("chatbot", "mode", value));
   bindPillGroup(panel, "chatbotResponseLength", (value) => updateSetting("chatbot", "responseLength", value));
-  $("toggle-chatbot-memory").addEventListener("change", (e) => updateSetting("chatbot", "memoryEnabled", e.target.checked));
-  $("toggle-chatbot-history").addEventListener("change", (e) => updateSetting("chatbot", "historyEnabled", e.target.checked));
-  $("toggle-chatbot-streaming").addEventListener("change", (e) => updateSetting("chatbot", "streaming", e.target.checked));
+  $("toggle-chatbot-memory").addEventListener("change", (e) =>
+    updateSetting("chatbot", "memoryEnabled", e.target.checked),
+  );
+  $("toggle-chatbot-history").addEventListener("change", (e) =>
+    updateSetting("chatbot", "historyEnabled", e.target.checked),
+  );
+  $("toggle-chatbot-streaming").addEventListener("change", (e) =>
+    updateSetting("chatbot", "streaming", e.target.checked),
+  );
 }
 
 // ── 7. Confidentialité & Sécurité ────────────────────────────────────────────
 function renderSecurity() {
-  if (user.is_guest) return `<h2>${icon("lock")} Confidentialité & Sécurité</h2>${guestNotice("la gestion de la sécurité")}`;
+  if (user.is_guest)
+    return `<h2>${icon("lock")} Confidentialité & Sécurité</h2>${guestNotice("la gestion de la sécurité")}`;
   return `
     <h2>${icon("lock")} Confidentialité & Sécurité</h2>
     <p class="settings-panel-desc">Garde le contrôle de l'accès à ton compte.</p>
@@ -519,7 +596,7 @@ function renderSecurity() {
           : "Protège ton compte avec un code généré par Google Authenticator, Microsoft Authenticator, Authy, 1Password ou Bitwarden.",
         user.two_factor_enabled
           ? `<button type="button" class="btn btn-danger-outline btn-sm" id="btn-2fa-disable">Désactiver</button>`
-          : `<button type="button" class="btn btn-primary btn-sm" id="btn-2fa-enable">Activer</button>`
+          : `<button type="button" class="btn btn-primary btn-sm" id="btn-2fa-enable">Activer</button>`,
       )}
     </div>
 
@@ -530,12 +607,16 @@ function renderSecurity() {
       </div>
     </div>
 
-    ${cookieConsentState === null ? "" : `
+    ${
+      cookieConsentState === null
+        ? ""
+        : `
     <div class="settings-section">
       <div class="settings-section-title">Cookies</div>
       ${settingRow("Cookies statistiques", "Mesure d'audience anonyme pour améliorer Mathadap.", toggleHtml("toggle-cookie-statistics", cookieConsentState.statistics))}
       ${settingRow("Cookies marketing", "Personnalisation des communications Mathadap.", toggleHtml("toggle-cookie-marketing", cookieConsentState.marketing))}
-    </div>`}
+    </div>`
+    }
 
     <div class="settings-section">
       <div class="settings-actions-grid">
@@ -620,7 +701,12 @@ async function open2FASetupFlow() {
     }
   }
   bodyEl.querySelector('[data-action="confirm"]').addEventListener("click", confirmSetup);
-  codeInput.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); confirmSetup(); } });
+  codeInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      confirmSetup();
+    }
+  });
 
   requestAnimationFrame(() => codeInput.focus());
 }
@@ -835,7 +921,13 @@ export async function mountSettingsPanel(container) {
   renderPanel();
 
   if (!user.is_guest) {
-    api.getCookieConsent().then((c) => { cookieConsentState = c; if (activeCategory === "security") renderPanel(); }).catch(() => {});
+    api
+      .getCookieConsent()
+      .then((c) => {
+        cookieConsentState = c;
+        if (activeCategory === "security") renderPanel();
+      })
+      .catch(() => {});
   }
 }
 

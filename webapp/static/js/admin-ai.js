@@ -38,7 +38,12 @@ const EMPTY_LABEL = "Aucune donnée disponible";
 //     tout) -> "down" ;
 //   - taux de succès < 100% -> "degraded" ;
 //   - sinon -> "ok".
-const HEALTH_STATE_LABELS = { ok: "Opérationnel", degraded: "Dégradé", down: "Indisponible", non_teste: "Jamais testé" };
+const HEALTH_STATE_LABELS = {
+  ok: "Opérationnel",
+  degraded: "Dégradé",
+  down: "Indisponible",
+  non_teste: "Jamais testé",
+};
 const HEALTH_STATE_DOT_CLASS = { ok: "ok", degraded: "warning", down: "down", non_teste: "unknown" };
 
 function providerHealthState(healthEntry) {
@@ -67,7 +72,13 @@ function formatDateTime(iso) {
   if (!iso) return null;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatInt(value) {
@@ -137,14 +148,26 @@ export function testResultBox(result) {
     // "Tester la connexion" : test + health-check en une seule action, voir
     // admin_ai_service.test_connection — seul résultat qui expose de vrais
     // tokens (prompt/completion réels renvoyés par le fournisseur).
-    box.appendChild(el("span", null, result.ok
-      ? `✓ Connexion OK — ${result.latency_ms} ms — modèle : ${result.model}`
-        + (result.tokens ? ` — tokens : ${result.tokens.prompt_tokens ?? "?"} entrée / ${result.tokens.completion_tokens ?? "?"} sortie` : "")
-      : `✗ Connexion en échec — ${result.detail}`));
+    box.appendChild(
+      el(
+        "span",
+        null,
+        result.ok
+          ? `✓ Connexion OK — ${result.latency_ms} ms — modèle : ${result.model}` +
+              (result.tokens
+                ? ` — tokens : ${result.tokens.prompt_tokens ?? "?"} entrée / ${result.tokens.completion_tokens ?? "?"} sortie`
+                : "")
+          : `✗ Connexion en échec — ${result.detail}`,
+      ),
+    );
   } else {
-    box.appendChild(el("span", null, result.ok
-      ? `✓ Health-check OK — ${result.latency_ms} ms`
-      : `✗ Health-check en échec — ${result.detail}`));
+    box.appendChild(
+      el(
+        "span",
+        null,
+        result.ok ? `✓ Health-check OK — ${result.latency_ms} ms` : `✗ Health-check en échec — ${result.detail}`,
+      ),
+    );
   }
   return box;
 }
@@ -156,15 +179,23 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
   card.setAttribute("role", "button");
   card.addEventListener("click", () => onProviderClick(provider.id));
   card.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onProviderClick(provider.id); }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onProviderClick(provider.id);
+    }
   });
 
   const head = el("div", "admin-ai-provider-card-head");
   head.appendChild(colorDot(provider.color));
   head.appendChild(el("span", "admin-ai-provider-card-name", provider.name));
   if (provider.badge.available) head.appendChild(el("span", "admin-badge admin-badge--neutral", provider.badge.value));
-  head.appendChild(el("span", `admin-status-dot admin-status-dot--${provider.enabled ? "ok" : "down"}`,
-    provider.enabled ? "Activé" : "Désactivé"));
+  head.appendChild(
+    el(
+      "span",
+      `admin-status-dot admin-status-dot--${provider.enabled ? "ok" : "down"}`,
+      provider.enabled ? "Activé" : "Désactivé",
+    ),
+  );
   card.appendChild(head);
 
   // Badge de santé compact (ex-carte "État des fournisseurs", voir en-tête du
@@ -186,7 +217,10 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
   // ── Actions — chaque bouton stoppe la propagation pour ne jamais déclencher
   // la navigation vers la fiche détaillée portée par la carte elle-même.
   const actions = el("div", "admin-ai-provider-card-actions");
-  const stop = (fn) => (e) => { e.stopPropagation(); fn(e); };
+  const stop = (fn) => (e) => {
+    e.stopPropagation();
+    fn(e);
+  };
 
   const toggleLabel = el("label", "admin-toggle");
   toggleLabel.title = provider.enabled ? "Désactiver" : "Activer";
@@ -195,16 +229,24 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
   toggleInput.checked = provider.enabled;
   toggleInput.addEventListener("click", (e) => e.stopPropagation());
   toggleInput.addEventListener("change", async () => {
-    if (!toggleInput.checked && !confirm(`Désactiver le fournisseur « ${provider.name} » ? Le chatbot ne l'utilisera plus.`)) {
+    if (
+      !toggleInput.checked &&
+      !confirm(`Désactiver le fournisseur « ${provider.name} » ? Le chatbot ne l'utilisera plus.`)
+    ) {
       toggleInput.checked = true;
       return;
     }
     toggleInput.disabled = true;
     const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/enabled`, {
-      method: "PATCH", body: { enabled: toggleInput.checked },
+      method: "PATCH",
+      body: { enabled: toggleInput.checked },
     });
     toggleInput.disabled = false;
-    if (!ok) { window.alert(payload.error || "Action impossible."); toggleInput.checked = !toggleInput.checked; return; }
+    if (!ok) {
+      window.alert(payload.error || "Action impossible.");
+      toggleInput.checked = !toggleInput.checked;
+      return;
+    }
     onChanged();
   });
   toggleLabel.appendChild(toggleInput);
@@ -213,28 +255,43 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
 
   const editBtn = el("button", "admin-btn admin-btn--sm", "Modifier");
   editBtn.type = "button";
-  editBtn.addEventListener("click", stop(() => openProviderModal({ mode: "edit", provider, onSaved: onChanged })));
+  editBtn.addEventListener(
+    "click",
+    stop(() => openProviderModal({ mode: "edit", provider, onSaved: onChanged })),
+  );
   actions.appendChild(editBtn);
 
   if (providersCount > 1) {
     const upBtn = el("button", "admin-btn admin-btn--sm", "↑");
     upBtn.type = "button";
     upBtn.title = "Monter la priorité";
-    upBtn.addEventListener("click", stop(async () => {
-      const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/move-up`, { method: "POST" });
-      if (!ok) { window.alert(payload.error || "Action impossible."); return; }
-      onChanged();
-    }));
+    upBtn.addEventListener(
+      "click",
+      stop(async () => {
+        const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/move-up`, { method: "POST" });
+        if (!ok) {
+          window.alert(payload.error || "Action impossible.");
+          return;
+        }
+        onChanged();
+      }),
+    );
     actions.appendChild(upBtn);
 
     const downBtn = el("button", "admin-btn admin-btn--sm", "↓");
     downBtn.type = "button";
     downBtn.title = "Descendre la priorité";
-    downBtn.addEventListener("click", stop(async () => {
-      const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/move-down`, { method: "POST" });
-      if (!ok) { window.alert(payload.error || "Action impossible."); return; }
-      onChanged();
-    }));
+    downBtn.addEventListener(
+      "click",
+      stop(async () => {
+        const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/move-down`, { method: "POST" });
+        if (!ok) {
+          window.alert(payload.error || "Action impossible.");
+          return;
+        }
+        onChanged();
+      }),
+    );
     actions.appendChild(downBtn);
   }
 
@@ -242,40 +299,62 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
 
   const healthBtn = el("button", "admin-btn admin-btn--sm", "Health-check");
   healthBtn.type = "button";
-  healthBtn.addEventListener("click", stop(async () => {
-    healthBtn.disabled = true;
-    resultSlot.innerHTML = "";
-    resultSlot.appendChild(el("p", "admin-test-result admin-test-result--pending", "Health-check en cours…"));
-    const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/health-check`, { method: "POST" });
-    healthBtn.disabled = false;
-    resultSlot.innerHTML = "";
-    resultSlot.appendChild(ok ? testResultBox(payload) : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."));
-  }));
+  healthBtn.addEventListener(
+    "click",
+    stop(async () => {
+      healthBtn.disabled = true;
+      resultSlot.innerHTML = "";
+      resultSlot.appendChild(el("p", "admin-test-result admin-test-result--pending", "Health-check en cours…"));
+      const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/health-check`, { method: "POST" });
+      healthBtn.disabled = false;
+      resultSlot.innerHTML = "";
+      resultSlot.appendChild(
+        ok
+          ? testResultBox(payload)
+          : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."),
+      );
+    }),
+  );
   actions.appendChild(healthBtn);
 
   const testConnectionBtn = el("button", "admin-btn admin-btn--sm admin-btn--primary", "Tester la connexion");
   testConnectionBtn.type = "button";
-  testConnectionBtn.addEventListener("click", stop(async () => {
-    testConnectionBtn.disabled = true;
-    resultSlot.innerHTML = "";
-    resultSlot.appendChild(el("p", "admin-test-result admin-test-result--pending", "Test de connexion en cours…"));
-    const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/test-connection`, { method: "POST" });
-    testConnectionBtn.disabled = false;
-    resultSlot.innerHTML = "";
-    resultSlot.appendChild(ok ? testResultBox(payload) : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."));
-  }));
+  testConnectionBtn.addEventListener(
+    "click",
+    stop(async () => {
+      testConnectionBtn.disabled = true;
+      resultSlot.innerHTML = "";
+      resultSlot.appendChild(el("p", "admin-test-result admin-test-result--pending", "Test de connexion en cours…"));
+      const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/test-connection`, {
+        method: "POST",
+      });
+      testConnectionBtn.disabled = false;
+      resultSlot.innerHTML = "";
+      resultSlot.appendChild(
+        ok
+          ? testResultBox(payload)
+          : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."),
+      );
+    }),
+  );
   actions.appendChild(testConnectionBtn);
 
   const deleteBtn = el("button", "admin-btn admin-btn--sm admin-btn--danger", "Supprimer");
   deleteBtn.type = "button";
-  deleteBtn.addEventListener("click", stop(async () => {
-    if (!window.confirm(`Supprimer définitivement "${provider.name}" ?`)) return;
-    deleteBtn.disabled = true;
-    const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}`, { method: "DELETE" });
-    deleteBtn.disabled = false;
-    if (!ok) { window.alert(payload.error || "Suppression impossible."); return; }
-    onChanged();
-  }));
+  deleteBtn.addEventListener(
+    "click",
+    stop(async () => {
+      if (!window.confirm(`Supprimer définitivement "${provider.name}" ?`)) return;
+      deleteBtn.disabled = true;
+      const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}`, { method: "DELETE" });
+      deleteBtn.disabled = false;
+      if (!ok) {
+        window.alert(payload.error || "Suppression impossible.");
+        return;
+      }
+      onChanged();
+    }),
+  );
   actions.appendChild(deleteBtn);
 
   card.appendChild(actions);
@@ -291,14 +370,17 @@ function renderProvidersCard(container, data, ctx) {
     return;
   }
   const healthByProvider = ctx.healthByProvider || {};
-  data.providers.forEach((provider) => container.appendChild(
-    renderProviderCard(provider, {
-      ...ctx, providersCount: data.providers.length,
-      // Absent (fetch en échec, ou fournisseur créé après le chargement de la
-      // santé) -> traité comme "jamais testé", jamais un état fabriqué.
-      healthEntry: healthByProvider[provider.id],
-    }),
-  ));
+  data.providers.forEach((provider) =>
+    container.appendChild(
+      renderProviderCard(provider, {
+        ...ctx,
+        providersCount: data.providers.length,
+        // Absent (fetch en échec, ou fournisseur créé après le chargement de la
+        // santé) -> traité comme "jamais testé", jamais un état fabriqué.
+        healthEntry: healthByProvider[provider.id],
+      }),
+    ),
+  );
 }
 
 function renderProvidersSkeleton(container) {
@@ -357,10 +439,14 @@ export function openProviderModal({ mode, provider, allProviders, onSaved }) {
   keySelect.value = provider?.provider_key || PROVIDER_KEY_OPTIONS[0];
   const modelInput = field("Modèle", "model_name", { value: provider?.model_name || "" });
   const priorityInput = field("Priorité", "priority", { type: "number", value: provider?.priority ?? 0 });
-  const codeInput = field("Code", "code", { value: provider?.code?.available ? provider.code.value : (provider?.code || "") });
+  const codeInput = field("Code", "code", {
+    value: provider?.code?.available ? provider.code.value : provider?.code || "",
+  });
   const badgeInput = field("Badge", "badge", { value: provider?.badge?.available ? provider.badge.value : "" });
   const iconInput = field("Icône", "icon", { value: provider?.icon?.available ? provider.icon.value : "" });
-  const colorInput = field("Couleur", "color", { value: provider?.color?.available ? provider.color.value : "#3B82F6" });
+  const colorInput = field("Couleur", "color", {
+    value: provider?.color?.available ? provider.color.value : "#3B82F6",
+  });
   colorInput.type = "color";
 
   const fallbackSelect = field("Fournisseur de secours", "fallback_provider_id", { type: "select" });
@@ -404,10 +490,14 @@ export function openProviderModal({ mode, provider, allProviders, onSaved }) {
   actions.appendChild(saveBtn);
   form.appendChild(actions);
 
-  function closeModal() { overlay.hidden = true; }
+  function closeModal() {
+    overlay.hidden = true;
+  }
   cancelBtn.addEventListener("click", closeModal);
   closeBtn.onclick = closeModal;
-  overlay.onclick = (e) => { if (e.target === overlay) closeModal(); };
+  overlay.onclick = (e) => {
+    if (e.target === overlay) closeModal();
+  };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -489,10 +579,14 @@ function renderUsageItem(item) {
   // recalculé ici) mais déjà inclus dans le coût affiché ci-dessous. Sans ce
   // champ, un admin qui recalcule "input×prix + output×prix" obtient un
   // montant inférieur au coût réel, sans explication visible.
-  fields.appendChild(fieldRow(
-    "Tokens total", { available: true, value: u.total_tokens }, formatInt,
-    "Total des tokens comptabilisés par le fournisseur, incluant les tokens de réflexion (thinking) lorsqu'ils sont fournis — peut dépasser input + output. Déjà inclus dans le coût estimé ci-dessous.",
-  ));
+  fields.appendChild(
+    fieldRow(
+      "Tokens total",
+      { available: true, value: u.total_tokens },
+      formatInt,
+      "Total des tokens comptabilisés par le fournisseur, incluant les tokens de réflexion (thinking) lorsqu'ils sont fournis — peut dépasser input + output. Déjà inclus dans le coût estimé ci-dessous.",
+    ),
+  );
   fields.appendChild(fieldRow("Requêtes", { available: true, value: u.requests }, formatInt));
   fields.appendChild(fieldRow("Coût estimé", { available: true, value: u.estimated_cost }, formatCost));
   card.appendChild(fields);
@@ -563,8 +657,10 @@ export function openApiKeyModal({ onSaved }) {
     const { ok, payload } = await apiCall("/api/admin/ai/keys", {
       method: "POST",
       body: {
-        provider_key: providerSelect.value, label: labelInput.value,
-        api_key: apiKeyInput.value, priority: Number(priorityInput.value) || 0,
+        provider_key: providerSelect.value,
+        label: labelInput.value,
+        api_key: apiKeyInput.value,
+        priority: Number(priorityInput.value) || 0,
       },
     });
     if (!ok) {
@@ -578,7 +674,9 @@ export function openApiKeyModal({ onSaved }) {
 
   body.appendChild(form);
   overlay.hidden = false;
-  closeBtn.onclick = () => { overlay.hidden = true; };
+  closeBtn.onclick = () => {
+    overlay.hidden = true;
+  };
 }
 
 // ── Point d'entrée ────────────────────────────────────────────────────────
@@ -608,14 +706,18 @@ export async function loadAiOverview(onProviderClick) {
   async function renderOrError(settled, renderer, container) {
     if (settled.status !== "fulfilled" || !settled.value.ok) {
       container.innerHTML = "";
-      container.appendChild(el("p", "admin-empty admin-card-error", "Impossible de charger cette section. Réessaie dans un instant."));
+      container.appendChild(
+        el("p", "admin-empty admin-card-error", "Impossible de charger cette section. Réessaie dans un instant."),
+      );
       anyError = true;
       return null;
     }
     const payload = await settled.value.json().catch(() => null);
     if (payload === null) {
       container.innerHTML = "";
-      container.appendChild(el("p", "admin-empty admin-card-error", "Impossible de charger cette section. Réessaie dans un instant."));
+      container.appendChild(
+        el("p", "admin-empty admin-card-error", "Impossible de charger cette section. Réessaie dans un instant."),
+      );
       anyError = true;
       return null;
     }
@@ -633,7 +735,9 @@ export async function loadAiOverview(onProviderClick) {
   if (healthRes.status === "fulfilled" && healthRes.value.ok) {
     const healthPayload = await healthRes.value.json().catch(() => null);
     if (healthPayload && healthPayload.items) {
-      healthPayload.items.forEach((item) => { healthByProvider[item.provider_id] = item.health; });
+      healthPayload.items.forEach((item) => {
+        healthByProvider[item.provider_id] = item.health;
+      });
     } else {
       anyError = true;
     }
@@ -657,11 +761,14 @@ export async function loadAiOverview(onProviderClick) {
       renderApiKeysTable(keysEl, keys, {
         onChanged: refresh,
         allowEdit: false,
-        emptyMessage: "Aucune clé API configurée — le fournisseur utilise la variable d'environnement historique (une seule clé, sans rotation).",
+        emptyMessage:
+          "Aucune clé API configurée — le fournisseur utilise la variable d'environnement historique (une seule clé, sans rotation).",
       });
     } catch {
       keysEl.innerHTML = "";
-      keysEl.appendChild(el("p", "admin-empty admin-card-error", "Impossible de charger les clés API. Réessaie dans un instant."));
+      keysEl.appendChild(
+        el("p", "admin-empty admin-card-error", "Impossible de charger les clés API. Réessaie dans un instant."),
+      );
     }
   }
 
@@ -673,5 +780,6 @@ export async function loadAiOverview(onProviderClick) {
   }
 
   errorEl.hidden = !anyError;
-  if (anyError) errorEl.textContent = "Certaines sections du module IA n'ont pas pu être chargées. Réessaie dans un instant.";
+  if (anyError)
+    errorEl.textContent = "Certaines sections du module IA n'ont pas pu être chargées. Réessaie dans un instant.";
 }

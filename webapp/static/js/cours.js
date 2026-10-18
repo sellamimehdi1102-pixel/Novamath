@@ -8,7 +8,13 @@ import { renderFigure } from "./geomSvg.js";
 import { getStoredClassLevel, fetchCurricula } from "./curriculumSelector.js";
 import { fadeInTransition } from "./animations.js";
 import { resolveChapterTitle } from "./chapterTitleByNotions.js";
-import { getFavoriteChapters, toggleFavoriteChapter, getFavoriteNotions, toggleFavoriteNotion, favoriteIconSvg } from "./favorites.js";
+import {
+  getFavoriteChapters,
+  toggleFavoriteChapter,
+  getFavoriteNotions,
+  toggleFavoriteNotion,
+  favoriteIconSvg,
+} from "./favorites.js";
 import { normalizeText, debounce } from "./searchUtils.js";
 import { openReportTicketPopup } from "./supportTicket.js";
 
@@ -24,7 +30,12 @@ const grid = document.getElementById("cours-grid");
 // moment que ses stats/paramètres, voir auth.py::_purge_account). ────────────
 const GUEST_MAX_CHAPTERS = 2;
 let isGuest = false;
-api.me().then(({ user }) => { isGuest = !!user.is_guest; }).catch(() => {});
+api
+  .me()
+  .then(({ user }) => {
+    isGuest = !!user.is_guest;
+  })
+  .catch(() => {});
 const openedChapters = new Set();
 
 let chaptersMeta = [];
@@ -54,10 +65,16 @@ function ensureGuestCoursModal() {
     </div>
   `;
   document.body.appendChild(overlay);
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.hidden = true; });
-  overlay.querySelector("#btn-guest-cours-dismiss").addEventListener("click", () => { overlay.hidden = true; });
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) overlay.hidden = true;
+  });
+  overlay.querySelector("#btn-guest-cours-dismiss").addEventListener("click", () => {
+    overlay.hidden = true;
+  });
   overlay.querySelectorAll(".js-open-signup, .js-open-login").forEach((btn) => {
-    btn.addEventListener("click", () => { overlay.hidden = true; });
+    btn.addEventListener("click", () => {
+      overlay.hidden = true;
+    });
   });
 }
 
@@ -287,10 +304,21 @@ function notionIcon(n) {
 // réaliste même sur une notion courte). ─────────────────────────────────
 function estimateReadingMinutes(n) {
   const chunks = [
-    n.intro, n.definition, n.explicationSimple, n.intuition, n.astuce,
-    ...(n.exemples || []).flatMap((e) => [e.enonce, e.explication, e.conclusion, ...(e.calcul || []).map((c) => c.texte)]),
-    ...(n.reglesImportantes || []), ...(n.remarques || []),
-    ...(n.erreursFrequentes || []), ...(n.aRetenir || []),
+    n.intro,
+    n.definition,
+    n.explicationSimple,
+    n.intuition,
+    n.astuce,
+    ...(n.exemples || []).flatMap((e) => [
+      e.enonce,
+      e.explication,
+      e.conclusion,
+      ...(e.calcul || []).map((c) => c.texte),
+    ]),
+    ...(n.reglesImportantes || []),
+    ...(n.remarques || []),
+    ...(n.erreursFrequentes || []),
+    ...(n.aRetenir || []),
   ].filter(Boolean);
   const words = chunks.join(" ").trim().split(/\s+/).filter(Boolean).length;
   return Math.max(3, Math.round(words / 180));
@@ -301,7 +329,9 @@ function estimateReadingMinutes(n) {
 function notionLevel(n) {
   if (n.difficulte) return n.difficulte;
   const counts = {};
-  (n.exemples || []).forEach((e) => { if (e.difficulte) counts[e.difficulte] = (counts[e.difficulte] || 0) + 1; });
+  (n.exemples || []).forEach((e) => {
+    if (e.difficulte) counts[e.difficulte] = (counts[e.difficulte] || 0) + 1;
+  });
   const top = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
   return top || "moyen";
 }
@@ -326,23 +356,33 @@ function renderChapterDetail(chapterId, content) {
     </div>
     <div class="cours-chapter-hero">
       <div class="chapter-id">${chapterId.replace("_", " ")}</div>
-      <h1>${resolveChapterTitle(content.title, content.notions.map((n) => n.title)) || chapterId.replace(/_/g, " ")}</h1>
-      ${stats ? `
+      <h1>${
+        resolveChapterTitle(
+          content.title,
+          content.notions.map((n) => n.title),
+        ) || chapterId.replace(/_/g, " ")
+      }</h1>
+      ${
+        stats
+          ? `
       <div class="cours-chapter-hero-progress">
         <div class="progress-track"><div class="progress-fill" style="width:${stats.pct}%"></div></div>
         <span class="cours-chapter-hero-progress-label">${stats.doneCount}/${stats.total} notions terminées</span>
-      </div>` : ""}
+      </div>`
+          : ""
+      }
     </div>
     <div class="cours-notions-list">
-      ${content.notions.map((n) => {
-        const cpn = cp[n.id];
-        const status = cpn?.status || "todo";
-        const nEx = (n.exemples || []).length;
-        const nGraph = n.figure ? 1 : 0;
-        const desc = n.objectif || (n.intro || "").split("\n")[0] || "";
-        const progressPct = cpn?.quizTotal ? Math.round((cpn.quizScore / cpn.quizTotal) * 100) : 50;
-        const isNotionFav = favNotions.has(`${chapterId}|${n.id}`);
-        return `
+      ${content.notions
+        .map((n) => {
+          const cpn = cp[n.id];
+          const status = cpn?.status || "todo";
+          const nEx = (n.exemples || []).length;
+          const nGraph = n.figure ? 1 : 0;
+          const desc = n.objectif || (n.intro || "").split("\n")[0] || "";
+          const progressPct = cpn?.quizTotal ? Math.round((cpn.quizScore / cpn.quizTotal) * 100) : 50;
+          const isNotionFav = favNotions.has(`${chapterId}|${n.id}`);
+          return `
         <div class="card cours-notion-card" data-notion="${n.id}">
           <div class="cours-notion-top">
             <div class="cours-notion-card-icon">${icon(notionIcon(n))}</div>
@@ -358,15 +398,20 @@ function renderChapterDetail(chapterId, content) {
             <span>${icon("penSquare")} ${nEx} exemple${nEx > 1 ? "s" : ""}</span>
             ${nGraph ? `<span>${icon("barChart")} ${nGraph} graphique</span>` : ""}
           </div>
-          ${status === "in_progress" ? `
+          ${
+            status === "in_progress"
+              ? `
           <div class="cours-notion-card-progress">
             <div class="progress-track"><div class="progress-fill" style="width:${progressPct}%"></div></div>
-          </div>` : ""}
+          </div>`
+              : ""
+          }
           <button class="btn btn-secondary btn-sm cours-read-btn" type="button">
             ${icon("play")} ${status === "todo" ? "Commencer" : status === "done" ? "Relire" : "Continuer"}
           </button>
         </div>`;
-      }).join("")}
+        })
+        .join("")}
     </div>
   `;
   renderMathAttrs(readerView);
@@ -398,7 +443,9 @@ function renderChapterDetail(chapterId, content) {
 const STEP_COLORS = ["blue", "purple", "green", "orange", "pink"];
 
 function buildStepsHtml(etapes) {
-  return `<div class="cours-steps">${(etapes || []).map((e, i) => `
+  return `<div class="cours-steps">${(etapes || [])
+    .map(
+      (e, i) => `
     <div class="cours-step cours-step--${e.couleur || STEP_COLORS[i % STEP_COLORS.length]}">
       <div class="cours-step-num">
         <span class="cours-step-icon">${icon(e.icone || "check")}</span>
@@ -406,7 +453,9 @@ function buildStepsHtml(etapes) {
       </div>
       <div class="cours-step-text" data-text="${encodeURIComponent(e.texte)}"></div>
     </div>
-  `).join("")}</div>`;
+  `,
+    )
+    .join("")}</div>`;
 }
 
 // ── Exemples détaillés : calcul étape par étape avec flèches ────────────────
@@ -425,42 +474,64 @@ function buildStepsHtml(etapes) {
 function buildExempleHtml(ex) {
   const interactif = !!ex.interactif;
   const totalSteps = (ex.calcul || []).length;
-  const calcHtml = (ex.calcul || []).map((c, i, arr) => `
+  const calcHtml = (ex.calcul || [])
+    .map(
+      (c, i, arr) => `
     <div class="cours-calc-row${interactif ? " cours-calc-row--hidden" : ""}" data-calc-index="${i}">
       ${c.expr ? `<div class="cours-calc-expr" data-text="${encodeURIComponent(`$${c.expr}$`)}"></div>` : ""}
       <div class="cours-calc-texte" data-text="${encodeURIComponent(c.texte)}"></div>
     </div>
     ${i < arr.length - 1 ? `<div class="cours-calc-arrow${interactif ? " cours-calc-row--hidden" : ""}" data-calc-index="${i}">${ICONS.arrowRight}</div>` : ""}
-  `).join("");
+  `,
+    )
+    .join("");
   const correctionHtml = `
     <div class="cours-exemple-correction${interactif ? " cours-exemple-correction--hidden" : ""}">
       <div class="cours-exemple-reponse" data-text="${encodeURIComponent("Réponse : " + ex.reponse)}"></div>
-      ${ex.interpretation ? `
+      ${
+        ex.interpretation
+          ? `
       <div class="cours-exemple-subblock cours-exemple-interpretation">
         <span class="cours-exemple-subblock-label">${icon("lightbulb")} Interprétation</span>
         <div data-text="${encodeURIComponent(ex.interpretation)}"></div>
-      </div>` : ex.conclusion ? `<div class="cours-exemple-conclusion" data-text="${encodeURIComponent(ex.conclusion)}"></div>` : ""}
+      </div>`
+          : ex.conclusion
+            ? `<div class="cours-exemple-conclusion" data-text="${encodeURIComponent(ex.conclusion)}"></div>`
+            : ""
+      }
     </div>`;
   return `
     <div class="card cours-exemple-card" data-total-steps="${totalSteps}" data-revealed="0">
       <div class="cours-exemple-title">${icon("penSquare")} <span data-text="${encodeURIComponent(ex.titre || "Exemple")}"></span></div>
       <div class="cours-exemple-enonce" data-text="${encodeURIComponent(ex.enonce)}"></div>
-      ${ex.analyse ? `
+      ${
+        ex.analyse
+          ? `
       <div class="cours-exemple-subblock">
         <span class="cours-exemple-subblock-label">${icon("eye")} Analyse</span>
         <div data-text="${encodeURIComponent(ex.analyse)}"></div>
-      </div>` : ""}
-      ${ex.choixMethode ? `
+      </div>`
+          : ""
+      }
+      ${
+        ex.choixMethode
+          ? `
       <div class="cours-exemple-subblock">
         <span class="cours-exemple-subblock-label">${icon("compass")} Méthode choisie</span>
         <div data-text="${encodeURIComponent(ex.choixMethode)}"></div>
-      </div>` : ""}
+      </div>`
+          : ""
+      }
       ${ex.explication ? `<div class="cours-exemple-explication" data-text="${encodeURIComponent(ex.explication)}"></div>` : ""}
       <div class="cours-calc-block">${calcHtml}</div>
-      ${interactif && totalSteps ? `
+      ${
+        interactif && totalSteps
+          ? `
       <div class="cours-exemple-controls">
         <button type="button" class="btn btn-ghost btn-sm cours-exemple-next-btn">${icon("eye")} Voir l'étape suivante</button>
-      </div>` : ""}
+      </div>`
+          : ""
+      }
       ${correctionHtml}
     </div>
   `;
@@ -475,14 +546,22 @@ function buildExempleHtml(ex) {
 function questionsEclairHtml(notion, apres) {
   const items = (notion.questionsEclair || []).filter((q) => q.apres === apres);
   if (!items.length) return "";
-  return items.map((q) => `
+  return items
+    .map(
+      (q) => `
     <div class="cours-question-eclair">
       <div class="cours-question-eclair-label">${icon("helpCircle")} <span data-text="${encodeURIComponent(q.question)}"></span></div>
-      ${q.piste ? `
+      ${
+        q.piste
+          ? `
       <button type="button" class="cours-question-eclair-btn" data-piste="${encodeURIComponent(q.piste)}">${icon("eye")} Voir une piste</button>
-      <div class="cours-question-eclair-piste" hidden></div>` : ""}
+      <div class="cours-question-eclair-piste" hidden></div>`
+          : ""
+      }
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function renderMathAttrs(root) {
@@ -510,15 +589,20 @@ function lockedContentCard(tier, title, body) {
 function buildLockedPremiumHtml(locked) {
   if (!locked?.premium) return "";
   const extra = locked.premium_extra_examples || 0;
-  const body = extra > 0
-    ? `Approfondis cette notion avec ${extra} exemple${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""} et des explications détaillées.`
-    : "Approfondis cette notion avec des explications et un contenu supplémentaires.";
+  const body =
+    extra > 0
+      ? `Approfondis cette notion avec ${extra} exemple${extra > 1 ? "s" : ""} supplémentaire${extra > 1 ? "s" : ""} et des explications détaillées.`
+      : "Approfondis cette notion avec des explications et un contenu supplémentaires.";
   return lockedContentCard("premium", "Contenu Premium", body);
 }
 
 function buildLockedUltraHtml(locked) {
   if (!locked?.ultra) return "";
-  return lockedContentCard("ultra", "Contenu Ultra", "Accède à l'explication complète et aux approfondissements de cette notion.");
+  return lockedContentCard(
+    "ultra",
+    "Contenu Ultra",
+    "Accède à l'explication complète et aux approfondissements de cette notion.",
+  );
 }
 
 // ── Formules (notion.formules, optionnel) — fiche pédagogique sobre plutôt
@@ -529,27 +613,35 @@ function buildLockedUltraHtml(locked) {
 // formules[1:] retirées hors Premium+) — jamais recalculé ici. ────────────
 function buildFormulesHtml(formules) {
   if (!formules?.length) return "";
-  const cards = formules.map((f) => {
-    if (!f) return "";
-    const nom = f.nom ? `<div class="cours-formule-nom" data-text="${encodeURIComponent(f.nom)}"></div>` : "";
-    const expr = f.expression ? `<div class="cours-formule-expr" data-text="${encodeURIComponent(f.expression)}"></div>` : "";
-    const meta = [
-      f.quand_utiliser ? { label: "À utiliser quand", value: f.quand_utiliser } : null,
-      f.erreur_frequente ? { label: "Erreur fréquente", value: f.erreur_frequente } : null,
-      f.astuce ? { label: "Astuce", value: f.astuce } : null,
-    ].filter(Boolean);
-    if (!nom && !expr && !meta.length) return "";
-    return `
+  const cards = formules
+    .map((f) => {
+      if (!f) return "";
+      const nom = f.nom ? `<div class="cours-formule-nom" data-text="${encodeURIComponent(f.nom)}"></div>` : "";
+      const expr = f.expression
+        ? `<div class="cours-formule-expr" data-text="${encodeURIComponent(f.expression)}"></div>`
+        : "";
+      const meta = [
+        f.quand_utiliser ? { label: "À utiliser quand", value: f.quand_utiliser } : null,
+        f.erreur_frequente ? { label: "Erreur fréquente", value: f.erreur_frequente } : null,
+        f.astuce ? { label: "Astuce", value: f.astuce } : null,
+      ].filter(Boolean);
+      if (!nom && !expr && !meta.length) return "";
+      return `
       <div class="cours-formule">
         ${nom}
         ${expr}
-        ${meta.length ? `
+        ${
+          meta.length
+            ? `
         <dl class="cours-formule-meta">
           ${meta.map((m) => `<div class="cours-formule-meta-row"><dt>${m.label}</dt><dd data-text="${encodeURIComponent(m.value)}"></dd></div>`).join("")}
-        </dl>` : ""}
+        </dl>`
+            : ""
+        }
       </div>
     `;
-  }).join("");
+    })
+    .join("");
   if (!cards.trim()) return "";
   return `<div class="cours-formules">${cards}</div>`;
 }
@@ -562,23 +654,29 @@ function buildFormulesHtml(formules) {
 // affiché que s'il contient réellement du texte, jamais un label vide. ────
 function buildErreursDetailHtml(detail) {
   if (!detail?.length) return "";
-  const items = detail.map((e) => {
-    if (!e?.description) return "";
-    const rows = [
-      e.pourquoi ? { label: "Pourquoi", value: e.pourquoi } : null,
-      e.comment_detecter ? { label: "Comment la détecter", value: e.comment_detecter } : null,
-      e.comment_eviter ? { label: "Comment l'éviter", value: e.comment_eviter } : null,
-    ].filter(Boolean);
-    return `
+  const items = detail
+    .map((e) => {
+      if (!e?.description) return "";
+      const rows = [
+        e.pourquoi ? { label: "Pourquoi", value: e.pourquoi } : null,
+        e.comment_detecter ? { label: "Comment la détecter", value: e.comment_detecter } : null,
+        e.comment_eviter ? { label: "Comment l'éviter", value: e.comment_eviter } : null,
+      ].filter(Boolean);
+      return `
       <li class="cours-erreur-detail">
         <div class="cours-erreur-detail-desc" data-text="${encodeURIComponent(e.description)}"></div>
-        ${rows.length ? `
+        ${
+          rows.length
+            ? `
         <dl class="cours-erreur-detail-meta">
           ${rows.map((r) => `<div class="cours-erreur-detail-row"><dt>${r.label}</dt><dd data-text="${encodeURIComponent(r.value)}"></dd></div>`).join("")}
-        </dl>` : ""}
+        </dl>`
+            : ""
+        }
       </li>
     `;
-  }).join("");
+    })
+    .join("");
   if (!items.trim()) return "";
   return `<ul class="cours-erreurs-detail-list">${items}</ul>`;
 }
@@ -592,16 +690,24 @@ function notionNavHtml(content, notion) {
   if (!prev && !next) return "";
   return `
     <div class="cours-notion-nav">
-      ${prev ? `
+      ${
+        prev
+          ? `
       <button type="button" class="cours-notion-nav-btn" data-notion="${prev.id}">
         ${icon("arrowLeft")}
         <span><span class="cours-notion-nav-eyebrow">Notion précédente</span><span class="cours-notion-nav-title">${prev.title}</span></span>
-      </button>` : "<span></span>"}
-      ${next ? `
+      </button>`
+          : "<span></span>"
+      }
+      ${
+        next
+          ? `
       <button type="button" class="cours-notion-nav-btn cours-notion-nav-btn--next" data-notion="${next.id}">
         <span><span class="cours-notion-nav-eyebrow">Notion suivante</span><span class="cours-notion-nav-title">${next.title}</span></span>
         ${icon("arrowRight")}
-      </button>` : ""}
+      </button>`
+          : ""
+      }
     </div>
   `;
 }
@@ -646,19 +752,34 @@ function openNotionReader(chapterId, content, notion) {
   function buildFigureExplicationHtml(exp) {
     const cards = [];
     if (exp.comprendre) {
-      cards.push(figureCard("simple", "lightbulb", "Ce qu'il faut comprendre",
-        `<div class="cours-box-body" data-text="${encodeURIComponent(exp.comprendre)}"></div>`));
+      cards.push(
+        figureCard(
+          "simple",
+          "lightbulb",
+          "Ce qu'il faut comprendre",
+          `<div class="cours-box-body" data-text="${encodeURIComponent(exp.comprendre)}"></div>`,
+        ),
+      );
     }
     if (exp.lecture?.length) {
       cards.push(figureCard("lecture", "eye", "Comment lire le graphique ?", figureCardList(exp.lecture)));
     }
     if (exp.observations?.length) {
-      cards.push(figureCard("observations", "penSquare", "Ce que montre ce graphique", figureCardList(exp.observations)));
+      cards.push(
+        figureCard("observations", "penSquare", "Ce que montre ce graphique", figureCardList(exp.observations)),
+      );
     }
     if (exp.etapes?.length) {
-      cards.push(figureCard("etapes", "compass", "Comment faire le calcul ?", `
+      cards.push(
+        figureCard(
+          "etapes",
+          "compass",
+          "Comment faire le calcul ?",
+          `
         <div class="cours-figure-etapes">
-          ${exp.etapes.map((e, i) => `
+          ${exp.etapes
+            .map(
+              (e, i) => `
             <div class="cours-figure-etape">
               <span class="cours-figure-etape-num">${i + 1}</span>
               <div>
@@ -666,13 +787,23 @@ function openNotionReader(chapterId, content, notion) {
                 <div class="cours-figure-etape-texte" data-text="${encodeURIComponent(e.texte)}"></div>
               </div>
             </div>
-          `).join("")}
+          `,
+            )
+            .join("")}
         </div>
-      `));
+      `,
+        ),
+      );
     }
     if (exp.astuce) {
-      cards.push(figureCard("astuce", "lightbulb", "Astuce Mathadap",
-        `<div class="cours-box-body" data-text="${encodeURIComponent(exp.astuce)}"></div>`));
+      cards.push(
+        figureCard(
+          "astuce",
+          "lightbulb",
+          "Astuce Mathadap",
+          `<div class="cours-box-body" data-text="${encodeURIComponent(exp.astuce)}"></div>`,
+        ),
+      );
     }
     if (exp.pieges?.length) {
       cards.push(figureCard("attention", "x", "À ne pas confondre", figureCardList(exp.pieges)));
@@ -729,9 +860,13 @@ function openNotionReader(chapterId, content, notion) {
     }
     const explication = figure.explication || deriveFigureExplicationFromNotion(notion, figure);
     const hasContent = Object.keys(explication).length > 0;
-    const rightCol = hasContent ? buildFigureExplicationHtml(explication)
-      : figure.alt ? `<p class="cours-figure-caption-text" data-text="${encodeURIComponent(figure.alt)}"></p>` : "";
-    const stepsHtml = figure.steps?.length ? `
+    const rightCol = hasContent
+      ? buildFigureExplicationHtml(explication)
+      : figure.alt
+        ? `<p class="cours-figure-caption-text" data-text="${encodeURIComponent(figure.alt)}"></p>`
+        : "";
+    const stepsHtml = figure.steps?.length
+      ? `
       <div class="cours-figure-steps" role="tablist" aria-label="Étapes de la figure">
         ${figure.steps.map((s, i) => `<button type="button" class="cours-figure-step-btn${i === 0 ? " is-active" : ""}" data-step="${i + 1}" role="tab" aria-selected="${i === 0}">${i + 1}. ${s}</button>`).join("")}
       </div>
@@ -739,11 +874,14 @@ function openNotionReader(chapterId, content, notion) {
         <button type="button" class="btn btn-ghost btn-sm cours-figure-prev-btn" data-total-steps="${figure.steps.length}" disabled>${icon("arrowLeft")} Précédent</button>
         <button type="button" class="btn btn-ghost btn-sm cours-figure-replay-btn">${icon("rotate")} Rejouer l'animation</button>
         <button type="button" class="btn btn-ghost btn-sm cours-figure-next-btn" data-total-steps="${figure.steps.length}">Suivant ${icon("arrowRight")}</button>
-      </div>` : "";
+      </div>`
+      : "";
     // `figure.relation` (optionnel) : formule finale (ex. "a²+b²=c²"), révélée
     // en même temps que la dernière étape (`reveal-3`) — rendue en HTML/KaTeX
     // plutôt que dans le SVG pour une meilleure qualité typographique.
-    const relationHtml = figure.relation ? `<div class="cours-figure-relation reveal-3" data-text="${encodeURIComponent(figure.relation)}"></div>` : "";
+    const relationHtml = figure.relation
+      ? `<div class="cours-figure-relation reveal-3" data-text="${encodeURIComponent(figure.relation)}"></div>`
+      : "";
     return `
       <div class="cours-figure-layout${figure.emphasis ? " cours-figure-layout--xl" : ""}">
         <div class="cours-figure-col">
@@ -796,37 +934,62 @@ function openNotionReader(chapterId, content, notion) {
     `;
   }
 
-  const comprendreHtml = section("section-comprendre", "Comprendre", "lightbulb", `
-    ${notion.pourquoi ? `
+  const comprendreHtml = section(
+    "section-comprendre",
+    "Comprendre",
+    "lightbulb",
+    `
+    ${
+      notion.pourquoi
+        ? `
     <div class="cours-box cours-box--pourquoi">
       <div class="cours-box-header">${icon("sparkles")} <span>Pourquoi apprend-on cela ?</span></div>
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.pourquoi)}"></div>
-    </div>` : ""}
+    </div>`
+        : ""
+    }
     ${questionsEclairHtml(notion, "pourquoi")}
 
-    ${notion.explicationSimple && !usesFallbackFigureCards ? `
+    ${
+      notion.explicationSimple && !usesFallbackFigureCards
+        ? `
     <div class="cours-box cours-box--simple">
       <div class="cours-box-header">${icon("lightbulb")} <span>Pour bien comprendre</span></div>
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.explicationSimple)}"></div>
-    </div>` : ""}
+    </div>`
+        : ""
+    }
 
-    ${notion.exemplesConcrets?.length ? `
+    ${
+      notion.exemplesConcrets?.length
+        ? `
     <div class="cours-box cours-box--concret">
       <div class="cours-box-header">${icon("compass")} <span>Dans la vraie vie</span></div>
       <ul class="cours-concrets-list">
         ${notion.exemplesConcrets.map((c) => `<li data-text="${encodeURIComponent(c)}"></li>`).join("")}
       </ul>
-    </div>` : ""}
+    </div>`
+        : ""
+    }
 
-    ${notion.intuition ? `
+    ${
+      notion.intuition
+        ? `
     <div class="cours-box cours-box--intuition">
       <div class="cours-box-header">${icon("target")} <span>À retenir</span></div>
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.intuition)}"></div>
-    </div>` : ""}
+    </div>`
+        : ""
+    }
     ${questionsEclairHtml(notion, "intuition")}
-  `);
+  `,
+  );
 
-  const essentielHtml = section("section-essentiel", "L'essentiel", "bookOpen", `
+  const essentielHtml = section(
+    "section-essentiel",
+    "L'essentiel",
+    "bookOpen",
+    `
     <div class="cours-box cours-box--definition">
       <div class="cours-box-header">${icon("bookOpen")} <span>Définition</span></div>
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.definition || "")}"></div>
@@ -835,93 +998,162 @@ function openNotionReader(chapterId, content, notion) {
     ${buildFigureBlockHtml(notion.figure, notion)}
     ${questionsEclairHtml(notion, "figure")}
 
-    ${notion.reglesImportantes?.length ? `
+    ${
+      notion.reglesImportantes?.length
+        ? `
     <div class="cours-subsection-label">${icon("scale")} Règles importantes</div>
     <div class="cours-regles-grid">
       ${notion.reglesImportantes.map((r) => `<div class="card cours-regle-card" data-text="${encodeURIComponent(r)}"></div>`).join("")}
-    </div>` : ""}
+    </div>`
+        : ""
+    }
 
     ${buildFormulesHtml(notion.formules)}
 
-    ${notion.remarques?.length ? `
+    ${
+      notion.remarques?.length
+        ? `
     <div class="cours-box cours-box--remarque">
       <div class="cours-box-header">${icon("info")} <span>Remarques</span></div>
       <ul class="cours-box-list">
         ${notion.remarques.map((r) => `<li data-text="${encodeURIComponent(r)}"></li>`).join("")}
       </ul>
-    </div>` : ""}
-  `);
+    </div>`
+        : ""
+    }
+  `,
+  );
 
-  const methodeHtml = section("section-methode", "La méthode", "compass", notion.methode?.etapes?.length ? `
+  const methodeHtml = section(
+    "section-methode",
+    "La méthode",
+    "compass",
+    notion.methode?.etapes?.length
+      ? `
     ${notion.methode.titre ? `<p class="cours-subsection-intro" data-text="${encodeURIComponent(notion.methode.titre)}"></p>` : ""}
     ${buildStepsHtml(notion.methode.etapes)}
     ${questionsEclairHtml(notion, "methode")}
-  ` : "");
+  `
+      : "",
+  );
 
-  const exempleHtml = section("section-exemple", "Exemple guidé", "penSquare", `
+  const exempleHtml = section(
+    "section-exemple",
+    "Exemple guidé",
+    "penSquare",
+    `
     ${notion.exemples?.length ? notion.exemples.map((ex) => buildExempleHtml(ex) + questionsEclairHtml(notion, `exemple:${ex.id}`)).join("") : ""}
     ${buildLockedPremiumHtml(notion.locked_content)}
 
-    ${notion.demonstration?.etapes?.length ? `
+    ${
+      notion.demonstration?.etapes?.length
+        ? `
     <div class="cours-subsection-label">${icon("compass")} <span data-text="${encodeURIComponent(notion.demonstration.titre || "Démonstration")}"></span></div>
-    ${buildStepsHtml(notion.demonstration.etapes.map((e) => ({
-      texte: e.titre ? `${e.titre} — ${e.texte}` : e.texte,
-    })))}
-    ${notion.demonstration.conclusion ? `
+    ${buildStepsHtml(
+      notion.demonstration.etapes.map((e) => ({
+        texte: e.titre ? `${e.titre} — ${e.texte}` : e.texte,
+      })),
+    )}
+    ${
+      notion.demonstration.conclusion
+        ? `
     <div class="cours-box cours-box--simple">
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.demonstration.conclusion)}"></div>
-    </div>` : ""}` : ""}
+    </div>`
+        : ""
+    }`
+        : ""
+    }
     ${buildLockedUltraHtml(notion.locked_content)}
-  `);
+  `,
+  );
 
   // ── Erreurs fréquentes : erreursFrequentesDetail n'est utilisé que s'il
   // produit RÉELLEMENT du contenu (au moins une entrée avec `description`,
   // voir buildErreursDetailHtml) — sinon repli sur erreursFrequentes, jamais
   // une boîte affichée avec un en-tête et un corps vide. ───────────────────
   const erreursDetailHtml = buildErreursDetailHtml(notion.erreursFrequentesDetail);
-  const erreursHtml = section("section-erreurs", "Erreurs à éviter", "x", !usesFallbackFigureCards ? `
-    ${erreursDetailHtml ? `
+  const erreursHtml = section(
+    "section-erreurs",
+    "Erreurs à éviter",
+    "x",
+    !usesFallbackFigureCards
+      ? `
+    ${
+      erreursDetailHtml
+        ? `
     <div class="cours-box cours-box--attention">
       <div class="cours-box-header">${icon("x")} <span>Erreurs fréquentes</span></div>
       ${erreursDetailHtml}
-    </div>` : notion.erreursFrequentes?.length ? `
+    </div>`
+        : notion.erreursFrequentes?.length
+          ? `
     <div class="cours-box cours-box--attention">
       <div class="cours-box-header">${icon("x")} <span>Erreurs fréquentes</span></div>
       <ul class="cours-erreurs-list">
         ${notion.erreursFrequentes.map((e) => `<li data-text="${encodeURIComponent(e)}"></li>`).join("")}
       </ul>
-    </div>` : ""}
+    </div>`
+          : ""
+    }
 
-    ${notion.astuce ? `
+    ${
+      notion.astuce
+        ? `
     <div class="cours-box cours-box--astuce">
       <div class="cours-box-header">${icon("lightbulb")} <span>Astuce Mathadap</span></div>
       <div class="cours-box-body" data-text="${encodeURIComponent(notion.astuce)}"></div>
-    </div>` : ""}
-  ` : "");
+    </div>`
+        : ""
+    }
+  `
+      : "",
+  );
 
-  const aretenirHtml = section("section-aretenir", "À retenir", "star", `
-    ${notion.aRetenir?.length ? `
+  const aretenirHtml = section(
+    "section-aretenir",
+    "À retenir",
+    "star",
+    `
+    ${
+      notion.aRetenir?.length
+        ? `
     <div class="card cours-aretenir-card">
       <div class="cours-aretenir-title">${icon("star")} ${notion.resume ? "À retenir" : "Résumé — à retenir"}</div>
       <ul class="cours-aretenir-list">
-        ${notion.aRetenir.slice(0, 6).map((r) => `<li data-text="${encodeURIComponent(r)}"></li>`).join("")}
+        ${notion.aRetenir
+          .slice(0, 6)
+          .map((r) => `<li data-text="${encodeURIComponent(r)}"></li>`)
+          .join("")}
       </ul>
-    </div>` : ""}
+    </div>`
+        : ""
+    }
 
-    ${notion.resume ? `
+    ${
+      notion.resume
+        ? `
     <div class="card cours-resume-card">
       <div class="cours-resume-title">${icon("trophy")} Résumé de la leçon</div>
       <p class="cours-resume-text" data-text="${encodeURIComponent(notion.resume)}"></p>
-    </div>` : ""}
-  `);
+    </div>`
+        : ""
+    }
+  `,
+  );
 
-  const verifierHtml = section("section-verifier", "Vérifier ma compréhension", "helpCircle", `
+  const verifierHtml = section(
+    "section-verifier",
+    "Vérifier ma compréhension",
+    "helpCircle",
+    `
     <div id="cours-quiz-zone"></div>
     <div class="cours-nav-row" id="cours-done-row" ${notion.quizExerciseIds?.length ? "hidden" : ""}>
       <span></span>
       <button class="btn btn-primary" id="cours-mark-done-btn" type="button">${icon("check")} J'ai terminé cette leçon</button>
     </div>
-  `);
+  `,
+  );
 
   // ── CTA "Passer à la pratique" — pointe vers le mini-quiz déjà associé à
   // la notion (notion.quizExerciseIds, déjà résolu par renderQuiz ci-
@@ -929,7 +1161,12 @@ function openNotionReader(chapterId, content, notion) {
   // logique de quota/consommation, juste un point d'entrée UX plus visible
   // vers un contenu déjà rendu plus bas sur la page. Absent si la notion n'a
   // aucun exercice associé (jamais un bouton qui ne mène nulle part). ──────
-  const pratiqueHtml = section("section-pratique", "Passer à la pratique", "arrowRight", notion.quizExerciseIds?.length ? `
+  const pratiqueHtml = section(
+    "section-pratique",
+    "Passer à la pratique",
+    "arrowRight",
+    notion.quizExerciseIds?.length
+      ? `
     <div class="cours-cta-pratique">
       <div class="cours-cta-pratique-text">
         <div class="cours-cta-pratique-title">${icon("penSquare")} Mets cette notion en pratique</div>
@@ -937,21 +1174,31 @@ function openNotionReader(chapterId, content, notion) {
       </div>
       <button type="button" class="btn btn-primary cours-cta-pratique-btn" id="cours-cta-pratique-btn">Commencer les exercices ${icon("arrowRight")}</button>
     </div>
-  ` : "");
+  `
+      : "",
+  );
 
   // ── Sommaire interne — uniquement si au moins 2 sections ont réellement
   // du contenu (jamais un sommaire à un seul lien) ; chaque lien pointe vers
   // une section qui existe forcément dans le DOM (voir `sections`, peuplé
   // uniquement par les sections non vides ci-dessus). ─────────────────────
-  const sommaireHtml = sections.length > 1 ? `
+  const sommaireHtml =
+    sections.length > 1
+      ? `
     <nav class="cours-sommaire" aria-label="Sommaire de la leçon">
       ${sections.map((s) => `<a href="#${s.id}" class="cours-sommaire-link" data-target="${s.id}">${s.label}</a>`).join("")}
     </nav>
-  ` : "";
+  `
+      : "";
 
   readerView.innerHTML = `
     <div class="cours-back-row">
-      <button class="btn btn-ghost btn-sm" id="cours-back-to-chapter" type="button">${icon("arrowLeft")} ${resolveChapterTitle(content.title, content.notions.map((n) => n.title)) || chapterId.replace(/_/g, " ")}</button>
+      <button class="btn btn-ghost btn-sm" id="cours-back-to-chapter" type="button">${icon("arrowLeft")} ${
+        resolveChapterTitle(
+          content.title,
+          content.notions.map((n) => n.title),
+        ) || chapterId.replace(/_/g, " ")
+      }</button>
     </div>
 
     <div class="cours-notion-header">
@@ -1012,7 +1259,9 @@ function openNotionReader(chapterId, content, notion) {
     zone?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
   });
 
-  readerView.querySelector("#cours-back-to-chapter").addEventListener("click", () => renderChapterDetail(chapterId, content));
+  readerView
+    .querySelector("#cours-back-to-chapter")
+    .addEventListener("click", () => renderChapterDetail(chapterId, content));
   readerView.querySelector("#cours-report-btn").addEventListener("click", () => {
     openReportTicketPopup({
       sourceLabel: "Cours",
@@ -1073,11 +1322,16 @@ function openNotionReader(chapterId, content, notion) {
       if (revealed < total) {
         revealed += 1;
         card.dataset.revealed = revealed;
-        card.querySelector(`.cours-calc-row[data-calc-index="${revealed - 1}"]`)?.classList.remove("cours-calc-row--hidden");
-        card.querySelector(`.cours-calc-arrow[data-calc-index="${revealed - 1}"]`)?.classList.remove("cours-calc-row--hidden");
-        btn.innerHTML = revealed === total
-          ? `${icon("check")} Voir la correction complète`
-          : `${icon("eye")} Voir l'étape suivante (${revealed}/${total})`;
+        card
+          .querySelector(`.cours-calc-row[data-calc-index="${revealed - 1}"]`)
+          ?.classList.remove("cours-calc-row--hidden");
+        card
+          .querySelector(`.cours-calc-arrow[data-calc-index="${revealed - 1}"]`)
+          ?.classList.remove("cours-calc-row--hidden");
+        btn.innerHTML =
+          revealed === total
+            ? `${icon("check")} Voir la correction complète`
+            : `${icon("eye")} Voir l'étape suivante (${revealed}/${total})`;
       } else {
         card.querySelector(".cours-exemple-correction")?.classList.remove("cours-exemple-correction--hidden");
         btn.remove();
@@ -1088,13 +1342,17 @@ function openNotionReader(chapterId, content, notion) {
   // piste" qui affiche l'indice au clic — aucune notion existante n'a ce
   // champ, donc aucun bouton n'est rendu ailleurs.
   readerView.querySelectorAll(".cours-question-eclair-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const piste = decodeURIComponent(btn.dataset.piste);
-      const box = btn.nextElementSibling;
-      setMathContent(box, piste);
-      box.hidden = false;
-      btn.remove();
-    }, { once: true });
+    btn.addEventListener(
+      "click",
+      () => {
+        const piste = decodeURIComponent(btn.dataset.piste);
+        const box = btn.nextElementSibling;
+        setMathContent(box, piste);
+        box.hidden = false;
+        btn.remove();
+      },
+      { once: true },
+    );
   });
   // `notion.uxAnimations` (optionnel, réservé pour l'instant à la notion
   // pilote) : légère apparition en fondu + translation des cartes au
@@ -1103,14 +1361,17 @@ function openNotionReader(chapterId, content, notion) {
   if (notion.uxAnimations && "IntersectionObserver" in window) {
     const animatedEls = readerView.querySelectorAll(".cours-box, .card, .cours-regle-card, .cours-question-eclair");
     animatedEls.forEach((el) => el.classList.add("cours-anim"));
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
     animatedEls.forEach((el) => observer.observe(el));
   }
   readerView.querySelectorAll(".cours-notion-nav-btn").forEach((btn) => {
@@ -1127,7 +1388,8 @@ function openNotionReader(chapterId, content, notion) {
   } else {
     readerView.querySelector("#cours-mark-done-btn")?.addEventListener("click", () => {
       saveProgress({ status: "done" });
-      readerView.querySelector("#cours-done-row").innerHTML = `<span class="cours-done-confirm">${icon("check")} Leçon terminée !</span>`;
+      readerView.querySelector("#cours-done-row").innerHTML =
+        `<span class="cours-done-confirm">${icon("check")} Leçon terminée !</span>`;
     });
   }
 
@@ -1179,8 +1441,15 @@ function openNotionReader(chapterId, content, notion) {
         zone.querySelector("#cours-quiz-reveal").hidden = true;
         zone.querySelector("#cours-quiz-verdict").hidden = false;
       });
-      zone.querySelector("#cours-quiz-fail").addEventListener("click", () => { qIndex += 1; renderQuestion(); });
-      zone.querySelector("#cours-quiz-success").addEventListener("click", () => { score += 1; qIndex += 1; renderQuestion(); });
+      zone.querySelector("#cours-quiz-fail").addEventListener("click", () => {
+        qIndex += 1;
+        renderQuestion();
+      });
+      zone.querySelector("#cours-quiz-success").addEventListener("click", () => {
+        score += 1;
+        qIndex += 1;
+        renderQuestion();
+      });
     }
     renderQuestion();
   }
@@ -1220,9 +1489,18 @@ let searchIndex = [];
 function buildSearchIndex() {
   searchIndex = chaptersMeta.flatMap((ch) => {
     const chapterTitle = resolveChapterTitle(ch.title, ch.notions_cours) || ch.id.replace(/_/g, " ");
-    const chapterEntry = { type: "chapter", chapterId: ch.id, chapterTitle, notionTitle: null, norm: normalizeText(chapterTitle) };
+    const chapterEntry = {
+      type: "chapter",
+      chapterId: ch.id,
+      chapterTitle,
+      notionTitle: null,
+      norm: normalizeText(chapterTitle),
+    };
     const notionEntries = (ch.notions_cours || []).map((notionTitle) => ({
-      type: "notion", chapterId: ch.id, chapterTitle, notionTitle,
+      type: "notion",
+      chapterId: ch.id,
+      chapterTitle,
+      notionTitle,
       norm: normalizeText(`${chapterTitle} ${notionTitle}`),
       notionNorm: normalizeText(notionTitle),
     }));
@@ -1252,11 +1530,14 @@ const searchResultsEl = document.getElementById("cours-search-results");
 function applySearchDim(query) {
   const q = normalizeText(query);
   grid.querySelectorAll(".chapter-card").forEach((card) => {
-    if (!q) { card.classList.remove("is-search-dimmed"); return; }
+    if (!q) {
+      card.classList.remove("is-search-dimmed");
+      return;
+    }
     const ch = chaptersMeta.find((c) => c.id === card.dataset.id);
-    const chapterTitle = ch ? (resolveChapterTitle(ch.title, ch.notions_cours) || ch.id) : "";
-    const matches = normalizeText(chapterTitle).includes(q)
-      || (ch?.notions_cours || []).some((t) => normalizeText(t).includes(q));
+    const chapterTitle = ch ? resolveChapterTitle(ch.title, ch.notions_cours) || ch.id : "";
+    const matches =
+      normalizeText(chapterTitle).includes(q) || (ch?.notions_cours || []).some((t) => normalizeText(t).includes(q));
     card.classList.toggle("is-search-dimmed", !matches);
   });
 }
@@ -1275,12 +1556,16 @@ function renderSearchResults(query) {
     searchResultsEl.innerHTML = `<div class="page-search-empty">Aucun résultat pour « ${query} ».</div>`;
     return;
   }
-  searchResultsEl.innerHTML = results.map((r, i) => `
+  searchResultsEl.innerHTML = results
+    .map(
+      (r, i) => `
     <button type="button" class="page-search-item${i === 0 ? " is-active" : ""}" role="option">
       <span class="title">${icon(r.type === "chapter" ? "bookOpen" : "layers")}${r.type === "chapter" ? r.chapterTitle : r.notionTitle}</span>
       <span class="subtitle">${r.type === "chapter" ? "Chapitre" : `${r.chapterTitle} — Notion`}</span>
     </button>
-  `).join("");
+  `,
+    )
+    .join("");
   results.forEach((r, i) => {
     searchResultsEl.children[i].addEventListener("click", () => pickSearchResult(r));
   });
@@ -1311,12 +1596,16 @@ if (searchInput) {
   searchInput.addEventListener("input", () => debouncedSearch(searchInput.value));
   searchInput.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if (searchInput.value) { searchInput.value = ""; renderSearchResults(""); }
-      else searchInput.blur();
+      if (searchInput.value) {
+        searchInput.value = "";
+        renderSearchResults("");
+      } else searchInput.blur();
       return;
     }
     if (e.key === "Enter") {
-      const active = searchResultsEl.querySelector(".page-search-item.is-active") || searchResultsEl.querySelector(".page-search-item");
+      const active =
+        searchResultsEl.querySelector(".page-search-item.is-active") ||
+        searchResultsEl.querySelector(".page-search-item");
       active?.click();
       return;
     }
@@ -1360,7 +1649,8 @@ async function init() {
   }
 
   const [chaptersData, progress] = await Promise.all([
-    api.chapters(classLevel), api.getCourseProgress(classLevel).catch(() => ({})),
+    api.chapters(classLevel),
+    api.getCourseProgress(classLevel).catch(() => ({})),
   ]);
   chaptersMeta = chaptersData.chapters_meta || [];
   courseProgress = progress || {};

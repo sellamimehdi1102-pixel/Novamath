@@ -280,12 +280,33 @@ export async function initAdminShell() {
   // rattachées visuellement au module parent (lien actif + fil d'Ariane).
   // Un seul endroit à étendre pour une future fiche détaillée (ex: Analytics).
   const DETAIL_SUBROUTES = [
-    { re: USER_PROFILE_PATH_RE, parentPath: "/admin/users", extraLabel: "Profil utilisateur", render: renderUserProfileContent },
-    { re: AI_PROVIDER_PATH_RE, parentPath: "/admin/ia", extraLabel: "Fiche fournisseur", render: renderAiProviderContent },
+    {
+      re: USER_PROFILE_PATH_RE,
+      parentPath: "/admin/users",
+      extraLabel: "Profil utilisateur",
+      render: renderUserProfileContent,
+    },
+    {
+      re: AI_PROVIDER_PATH_RE,
+      parentPath: "/admin/ia",
+      extraLabel: "Fiche fournisseur",
+      render: renderAiProviderContent,
+    },
     // param textuel (plan free/premium/ultra), jamais un id numérique —
     // voir SUBSCRIPTION_DETAIL_PATH_RE.
-    { re: SUBSCRIPTION_DETAIL_PATH_RE, parentPath: "/admin/subscriptions", extraLabel: "Fiche abonnement", render: renderSubscriptionDetailContent, textParam: true },
-    { re: SUPPORT_TICKET_PATH_RE, parentPath: "/admin/support", extraLabel: "Fiche ticket", render: renderSupportTicketContent },
+    {
+      re: SUBSCRIPTION_DETAIL_PATH_RE,
+      parentPath: "/admin/subscriptions",
+      extraLabel: "Fiche abonnement",
+      render: renderSubscriptionDetailContent,
+      textParam: true,
+    },
+    {
+      re: SUPPORT_TICKET_PATH_RE,
+      parentPath: "/admin/support",
+      extraLabel: "Fiche ticket",
+      render: renderSupportTicketContent,
+    },
   ];
 
   async function navigateTo(path, { pushState }) {

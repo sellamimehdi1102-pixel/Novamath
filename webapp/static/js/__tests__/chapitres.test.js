@@ -32,7 +32,7 @@ vi.mock("../store.js", () => ({
   masteryByNotion: () => ({}),
   getInProgressSeries: () => null,
   getChapterStatus: () => "todo",
-  MASTERY_ACCURACY_THRESHOLD: 0.70,
+  MASTERY_ACCURACY_THRESHOLD: 0.7,
   MASTERY_MIN_ATTEMPTS: 10,
 }));
 
@@ -190,7 +190,7 @@ describe("chapitres.js — sélection multiple à travers plusieurs chapitres + 
         expect(payload.exerciseIds.length).toBe(30); // 20 (chapitre 1 entier) + 10 (1 notion chapitre 2)
         expect(new Set(payload.exerciseIds).size).toBe(30); // pas de doublon
         expect(window.location.href).toBe("exercice.html");
-      })
+      }),
     );
   });
 });
@@ -203,7 +203,9 @@ describe("chapitres.js — accueil éditorial invité (Phase 5, onboarding)", ()
       mockApi.me.mockResolvedValue({ user: { is_guest: true } });
       mockScopedStats.mockReturnValue({ history: [] });
     });
-    expect($subtitle().textContent).toBe("Choisis un chapitre ci-dessous pour commencer ta toute première série d'exercices.");
+    expect($subtitle().textContent).toBe(
+      "Choisis un chapitre ci-dessous pour commencer ta toute première série d'exercices.",
+    );
   });
 
   it("invité avec un historique déjà pertinent : le sous-titre par défaut est conservé", async () => {
@@ -211,7 +213,9 @@ describe("chapitres.js — accueil éditorial invité (Phase 5, onboarding)", ()
       mockApi.me.mockResolvedValue({ user: { is_guest: true } });
       mockScopedStats.mockReturnValue({ history: [{ chapter: "Chapitre_1", notion: "Notion A", correct: true }] });
     });
-    expect($subtitle().textContent).toBe("Choisis les chapitres à évaluer, ou explore ta progression par notion.");
+    expect($subtitle().textContent.trim()).toBe(
+      "Choisis les chapitres à évaluer, ou explore ta progression par notion.",
+    );
   });
 
   it("compte réel sans historique : le sous-titre par défaut est conservé (pas de message invité)", async () => {
@@ -219,6 +223,8 @@ describe("chapitres.js — accueil éditorial invité (Phase 5, onboarding)", ()
       mockApi.me.mockResolvedValue({ user: { is_guest: false } });
       mockScopedStats.mockReturnValue({ history: [] });
     });
-    expect($subtitle().textContent).toBe("Choisis les chapitres à évaluer, ou explore ta progression par notion.");
+    expect($subtitle().textContent.trim()).toBe(
+      "Choisis les chapitres à évaluer, ou explore ta progression par notion.",
+    );
   });
 });

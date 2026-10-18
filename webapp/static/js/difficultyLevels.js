@@ -14,5 +14,9 @@ export const DIFF_LABEL = {
 };
 export const DIFF_LABEL_SHORT = { 1: "Fondamental", 2: "Intermédiaire", 3: "Avancé", 4: "Difficile", 5: "Défi" };
 export const DIFF_BADGE = {
-  1: "badge--success", 2: "badge--success", 3: "badge--warning", 4: "badge--danger", 5: "badge--danger",
+  1: "badge--success",
+  2: "badge--success",
+  3: "badge--warning",
+  4: "badge--danger",
+  5: "badge--danger",
 };

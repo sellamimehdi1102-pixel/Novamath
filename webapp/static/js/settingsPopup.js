@@ -37,7 +37,9 @@ export function openSettingsPopup() {
     title: t("settings.title"),
     bodyEl: body,
     size: "xl",
-    onClose: () => { activeHandle = null; },
+    onClose: () => {
+      activeHandle = null;
+    },
   });
   activeHandle = handle;
   mountSettingsPanel(body);

@@ -66,7 +66,11 @@ class TestStructureSeoAccessibilite(unittest.TestCase):
         for page in PAGES:
             with self.subTest(page=page):
                 html = self.contents[page]
-                self.assertIn(f'<link rel="canonical" href="https://mathadap.com/{page}">', html)
+                # `/>` optionnel : Prettier ferme les éléments vides en
+                # auto-fermeture (voir .prettierrc), équivalent HTML strict.
+                self.assertRegex(
+                    html, rf'<link rel="canonical" href="https://mathadap\.com/{re.escape(page)}"\s*/?>',
+                )
 
     def test_un_seul_h1_par_page(self):
         for page, html in self.contents.items():

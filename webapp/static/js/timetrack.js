@@ -9,9 +9,11 @@ export class ActivityTimer {
     this.activeMs = 0;
     this.lastActivity = Date.now();
     this.tickHandle = null;
-    this._onActivity = () => { this.lastActivity = Date.now(); };
+    this._onActivity = () => {
+      this.lastActivity = Date.now();
+    };
     ["mousemove", "keydown", "click", "touchstart", "scroll"].forEach((evt) =>
-      window.addEventListener(evt, this._onActivity, { passive: true })
+      window.addEventListener(evt, this._onActivity, { passive: true }),
     );
   }
 
@@ -41,7 +43,7 @@ export class ActivityTimer {
   destroy() {
     clearInterval(this.tickHandle);
     ["mousemove", "keydown", "click", "touchstart", "scroll"].forEach((evt) =>
-      window.removeEventListener(evt, this._onActivity)
+      window.removeEventListener(evt, this._onActivity),
     );
   }
 }

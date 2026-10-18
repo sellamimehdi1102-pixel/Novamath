@@ -28,9 +28,11 @@ const LABELS = {
 // technique brut, toujours une explication en une ligne (partie 6 du
 // chantier de refonte de la page Paramètres).
 const FIELD_DESCRIPTIONS = {
-  ai_temperature_default: "Contrôle la créativité des réponses IA : une valeur basse privilégie des réponses prévisibles, une valeur haute des réponses plus variées.",
+  ai_temperature_default:
+    "Contrôle la créativité des réponses IA : une valeur basse privilégie des réponses prévisibles, une valeur haute des réponses plus variées.",
   ai_max_response_tokens_default: "Longueur maximale d'une réponse générée par l'IA.",
-  ai_fallback_enabled: "Active le basculement automatique vers un autre fournisseur IA si le fournisseur principal échoue.",
+  ai_fallback_enabled:
+    "Active le basculement automatique vers un autre fournisseur IA si le fournisseur principal échoue.",
 };
 
 const SAVED_LABEL = "✓ Enregistré";
@@ -65,7 +67,13 @@ function formatDateTime(iso) {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatBytes(bytes) {
@@ -131,7 +139,9 @@ function providersList(order) {
     const right = el("span", "admin-actions-right");
     right.appendChild(el("span", "admin-badge admin-badge--neutral", `Priorité ${p.priority}`));
     const active = i === 0 && p.enabled;
-    right.appendChild(el("span", `admin-status-dot admin-status-dot--${active ? "ok" : "unknown"}`, active ? "Actif" : "Secours"));
+    right.appendChild(
+      el("span", `admin-status-dot admin-status-dot--${active ? "ok" : "unknown"}`, active ? "Actif" : "Secours"),
+    );
     row.appendChild(right);
     list.appendChild(row);
   });
@@ -141,7 +151,10 @@ function providersList(order) {
 
 // ── Section éditable "Général" (restreinte à `language`) ────────────────────
 function settingField(setting) {
-  const field = el("div", "admin-form-field" + (setting.type === "str" && setting.max_len > 100 ? " admin-form-field--full" : ""));
+  const field = el(
+    "div",
+    "admin-form-field" + (setting.type === "str" && setting.max_len > 100 ? " admin-form-field--full" : ""),
+  );
   const label = el("label", "admin-form-label", LABELS[setting.key] || setting.key);
   label.htmlFor = `admin-settings-field-${setting.key}`;
   field.appendChild(label);
@@ -231,7 +244,9 @@ function renderSettingsForm(form, settingsMap, patchPath) {
     errorEl.hidden = true;
     savedEl.hidden = true;
     const data = {};
-    form.querySelectorAll("[data-key]").forEach((input) => { data[input.dataset.key] = readFieldValue(input); });
+    form.querySelectorAll("[data-key]").forEach((input) => {
+      data[input.dataset.key] = readFieldValue(input);
+    });
     submitBtn.disabled = true;
     const { ok, payload } = await apiCall(patchPath, { method: "PATCH", body: data });
     submitBtn.disabled = false;
@@ -246,7 +261,9 @@ function renderSettingsForm(form, settingsMap, patchPath) {
     const refreshedSaved = form.querySelector(".admin-badge--ok");
     if (refreshedSaved) {
       refreshedSaved.hidden = false;
-      setTimeout(() => { refreshedSaved.hidden = true; }, 2500);
+      setTimeout(() => {
+        refreshedSaved.hidden = true;
+      }, 2500);
     }
   });
 }
@@ -285,11 +302,19 @@ function renderSmtp(container, smtp) {
   const connectionCard = el("article", "admin-card");
   connectionCard.appendChild(el("div", "admin-card-label", "Connexion SMTP"));
   const configured = smtp.configured;
-  connectionCard.appendChild(el("span", `admin-status-dot admin-status-dot--${configured ? "ok" : "down"}`, configured ? "Configuré" : "Non configuré"));
+  connectionCard.appendChild(
+    el(
+      "span",
+      `admin-status-dot admin-status-dot--${configured ? "ok" : "down"}`,
+      configured ? "Configuré" : "Non configuré",
+    ),
+  );
   const kv = el("div", "admin-kv-list");
   [
-    ["Serveur", metricValue(smtp.host)], ["Port", metricValue(smtp.port)],
-    ["Utilisateur", metricValue(smtp.username)], ["Chiffrement", metricValue(smtp.encryption)],
+    ["Serveur", metricValue(smtp.host)],
+    ["Port", metricValue(smtp.port)],
+    ["Utilisateur", metricValue(smtp.username)],
+    ["Chiffrement", metricValue(smtp.encryption)],
     ["Expéditeur", metricValue(smtp.from_address)],
   ].forEach(([k, v]) => {
     const row = el("div", "admin-kv-row");
@@ -305,10 +330,13 @@ function renderSmtp(container, smtp) {
   testCard.appendChild(el("div", "admin-card-label", "Dernier test d'envoi"));
   const lastTestOk = smtp.last_test_ok && smtp.last_test_ok.available ? smtp.last_test_ok.value : null;
   const hasTest = smtp.last_test_at && smtp.last_test_at.available;
-  testCard.appendChild(el(
-    "span", `admin-status-dot admin-status-dot--${hasTest ? (lastTestOk ? "ok" : "down") : "unknown"}`,
-    hasTest ? (lastTestOk ? "Succès" : "Échec") : "Aucun test",
-  ));
+  testCard.appendChild(
+    el(
+      "span",
+      `admin-status-dot admin-status-dot--${hasTest ? (lastTestOk ? "ok" : "down") : "unknown"}`,
+      hasTest ? (lastTestOk ? "Succès" : "Échec") : "Aucun test",
+    ),
+  );
   if (hasTest) testCard.appendChild(el("div", "admin-card-sub", formatDateTime(smtp.last_test_at.value)));
   if (!lastTestOk && smtp.last_test_error && smtp.last_test_error.available) {
     testCard.appendChild(el("div", "admin-card-sub", smtp.last_test_error.value));
@@ -323,10 +351,13 @@ function renderStripe(container, stripe) {
 
   const card = el("article", "admin-card");
   card.appendChild(el("div", "admin-card-label", "Stripe"));
-  card.appendChild(el(
-    "span", `admin-status-dot admin-status-dot--${keysConfigured ? "ok" : "down"}`,
-    keysConfigured ? "Configuré" : "Non configuré",
-  ));
+  card.appendChild(
+    el(
+      "span",
+      `admin-status-dot admin-status-dot--${keysConfigured ? "ok" : "down"}`,
+      keysConfigured ? "Configuré" : "Non configuré",
+    ),
+  );
   const kv = el("div", "admin-kv-list");
   [
     ["Mode", metricValue(stripe.mode)],
@@ -369,13 +400,17 @@ function renderBackupsStats(container, backups) {
     lines.appendChild(el("div", "admin-card-sub", formatBytes(lastBackup.value.size_bytes)));
     if (backups.last_backup_successful.available) {
       const ok = backups.last_backup_successful.value;
-      lines.appendChild(el("span", `admin-status-dot admin-status-dot--${ok ? "ok" : "down"}`, ok ? "Réussie" : "Échec depuis"));
+      lines.appendChild(
+        el("span", `admin-status-dot admin-status-dot--${ok ? "ok" : "down"}`, ok ? "Réussie" : "Échec depuis"),
+      );
     }
     lastCard.appendChild(lines);
   }
   container.appendChild(lastCard);
 
-  container.appendChild(metricCard("Taille totale des sauvegardes", { available: true, value: backups.total_size_bytes }, formatBytes));
+  container.appendChild(
+    metricCard("Taille totale des sauvegardes", { available: true, value: backups.total_size_bytes }, formatBytes),
+  );
 
   const diskCard = el("article", "admin-card");
   diskCard.appendChild(el("div", "admin-card-label", "Espace disque utilisé"));
@@ -399,8 +434,11 @@ function renderBackupsStats(container, backups) {
 function renderBackupsBanner(container, backups) {
   container.innerHTML = "";
   if (!backups.last_error_at.available) return;
-  const banner = el("div", "admin-banner admin-banner--error",
-    `Dernier échec de sauvegarde le ${formatDateTime(backups.last_error_at.value)}${backups.last_error.available ? ` — ${backups.last_error.value}` : ""}`);
+  const banner = el(
+    "div",
+    "admin-banner admin-banner--error",
+    `Dernier échec de sauvegarde le ${formatDateTime(backups.last_error_at.value)}${backups.last_error.available ? ` — ${backups.last_error.value}` : ""}`,
+  );
   container.appendChild(banner);
 }
 
@@ -452,10 +490,14 @@ function buildKebabMenu(actions) {
   });
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    document.querySelectorAll(".admin-kebab-menu").forEach((m) => { if (m !== menu) m.hidden = true; });
+    document.querySelectorAll(".admin-kebab-menu").forEach((m) => {
+      if (m !== menu) m.hidden = true;
+    });
     menu.hidden = !menu.hidden;
   });
-  document.addEventListener("click", () => { menu.hidden = true; });
+  document.addEventListener("click", () => {
+    menu.hidden = true;
+  });
   wrap.appendChild(btn);
   wrap.appendChild(menu);
   return wrap;
@@ -471,53 +513,69 @@ function buildBackupRow(b, isCurrent, onChanged) {
 
   const statusTd = document.createElement("td");
   statusTd.className = "admin-users-td";
-  statusTd.appendChild(el(
-    "span", `admin-badge ${isCurrent ? "admin-badge--ok" : "admin-badge--neutral"}`,
-    isCurrent ? "Actuelle" : "Archivée",
-  ));
+  statusTd.appendChild(
+    el(
+      "span",
+      `admin-badge ${isCurrent ? "admin-badge--ok" : "admin-badge--neutral"}`,
+      isCurrent ? "Actuelle" : "Archivée",
+    ),
+  );
   tr.appendChild(statusTd);
 
   const actionsTd = document.createElement("td");
   actionsTd.className = "admin-users-td";
-  actionsTd.appendChild(buildKebabMenu([
-    {
-      label: "Télécharger",
-      href: `/api/admin/settings/backups/${encodeURIComponent(b.filename)}/download`,
-      download: b.filename,
-    },
-    {
-      label: "Restaurer",
-      danger: true,
-      onClick: async () => {
-        const confirmed = await confirmDialog({
-          title: "Restaurer cette sauvegarde ?",
-          text: `La base de données actuelle sera écrasée par « ${b.filename} ». Une copie de sécurité de l'état actuel est prise automatiquement avant l'opération.`,
-          confirmLabel: "Restaurer",
-        });
-        if (!confirmed) return;
-        const { ok, payload } = await apiCall(`/api/admin/settings/backups/${encodeURIComponent(b.filename)}/restore`, { method: "POST" });
-        if (!ok) { showToast(payload.error || "Restauration impossible.", true); return; }
-        showToast("Restauration effectuée avec succès.");
-        onChanged();
+  actionsTd.appendChild(
+    buildKebabMenu([
+      {
+        label: "Télécharger",
+        href: `/api/admin/settings/backups/${encodeURIComponent(b.filename)}/download`,
+        download: b.filename,
       },
-    },
-    {
-      label: "Supprimer",
-      danger: true,
-      onClick: async () => {
-        const confirmed = await confirmDialog({
-          title: "Supprimer cette sauvegarde ?",
-          text: `« ${b.filename} » sera définitivement supprimée. Cette action est irréversible.`,
-          confirmLabel: "Supprimer",
-        });
-        if (!confirmed) return;
-        const { ok, payload } = await apiCall(`/api/admin/settings/backups/${encodeURIComponent(b.filename)}`, { method: "DELETE" });
-        if (!ok) { showToast(payload.error || "Suppression impossible.", true); return; }
-        showToast("Sauvegarde supprimée avec succès.");
-        onChanged();
+      {
+        label: "Restaurer",
+        danger: true,
+        onClick: async () => {
+          const confirmed = await confirmDialog({
+            title: "Restaurer cette sauvegarde ?",
+            text: `La base de données actuelle sera écrasée par « ${b.filename} ». Une copie de sécurité de l'état actuel est prise automatiquement avant l'opération.`,
+            confirmLabel: "Restaurer",
+          });
+          if (!confirmed) return;
+          const { ok, payload } = await apiCall(
+            `/api/admin/settings/backups/${encodeURIComponent(b.filename)}/restore`,
+            { method: "POST" },
+          );
+          if (!ok) {
+            showToast(payload.error || "Restauration impossible.", true);
+            return;
+          }
+          showToast("Restauration effectuée avec succès.");
+          onChanged();
+        },
       },
-    },
-  ]));
+      {
+        label: "Supprimer",
+        danger: true,
+        onClick: async () => {
+          const confirmed = await confirmDialog({
+            title: "Supprimer cette sauvegarde ?",
+            text: `« ${b.filename} » sera définitivement supprimée. Cette action est irréversible.`,
+            confirmLabel: "Supprimer",
+          });
+          if (!confirmed) return;
+          const { ok, payload } = await apiCall(`/api/admin/settings/backups/${encodeURIComponent(b.filename)}`, {
+            method: "DELETE",
+          });
+          if (!ok) {
+            showToast(payload.error || "Suppression impossible.", true);
+            return;
+          }
+          showToast("Sauvegarde supprimée avec succès.");
+          onChanged();
+        },
+      },
+    ]),
+  );
   tr.appendChild(actionsTd);
   return tr;
 }
@@ -525,7 +583,9 @@ function buildBackupRow(b, isCurrent, onChanged) {
 function renderBackupsPagination(container, page, totalPages, totalCount, onPageChange) {
   container.innerHTML = "";
   if (totalCount === 0) return;
-  container.appendChild(el("span", "admin-users-pagination-info", `Page ${page} / ${totalPages} · ${totalCount} sauvegarde(s)`));
+  container.appendChild(
+    el("span", "admin-users-pagination-info", `Page ${page} / ${totalPages} · ${totalCount} sauvegarde(s)`),
+  );
   const prev = el("button", "admin-icon-btn admin-users-page-btn", "‹");
   prev.type = "button";
   prev.disabled = page <= 1;
@@ -565,11 +625,15 @@ function createBackupsController({ tbody, emptyEl, paginationEl, theadRow, searc
 
     emptyEl.hidden = filtered.length > 0;
     if (filtered.length === 0) {
-      emptyEl.textContent = state.raw.length === 0
-        ? "Aucune sauvegarde n'existe. Cliquez sur « Créer une sauvegarde » ci-dessus pour en générer une."
-        : "Aucune sauvegarde ne correspond à la recherche ou au filtre sélectionné.";
+      emptyEl.textContent =
+        state.raw.length === 0
+          ? "Aucune sauvegarde n'existe. Cliquez sur « Créer une sauvegarde » ci-dessus pour en générer une."
+          : "Aucune sauvegarde ne correspond à la recherche ou au filtre sélectionné.";
     }
-    renderBackupsPagination(paginationEl, state.page, totalPages, filtered.length, (page) => { state.page = page; render(); });
+    renderBackupsPagination(paginationEl, state.page, totalPages, filtered.length, (page) => {
+      state.page = page;
+      render();
+    });
   }
 
   theadRow.querySelectorAll("th[data-sort]").forEach((th) => {
@@ -616,19 +680,28 @@ function createBackupsController({ tbody, emptyEl, paginationEl, theadRow, searc
 // ── Sécurité / Logs (lecture seule) ──────────────────────────────────────────
 function renderSecurity(container, security) {
   container.innerHTML = "";
-  container.appendChild(metricCard(
-    "2FA administrateurs (actifs / total)", security.two_factor_admins,
-    (v) => `${v.enabled} / ${v.total}`,
-  ));
-  container.appendChild(kvCard("CSP", security.csp, (v) => [
-    ["Activée", v.enabled ? "Oui" : "Non"], ["Mode rapport seul", v.report_only ? "Oui" : "Non"],
-  ]));
-  container.appendChild(kvCard("Durée des sessions", security.session_durations, (v) => [
-    ["Par défaut", `${v.default_days} j`], ["Se souvenir de moi", `${v.remember_me_days} j`], ["Invité", `${v.guest_days} j`],
-  ]));
-  container.appendChild(kvCard("Connexions", security.login_attempts, (v) => [
-    ["Tentatives max", v.max_attempts], ["Verrouillage", `${v.lockout_minutes} min`],
-  ]));
+  container.appendChild(
+    metricCard("2FA administrateurs (actifs / total)", security.two_factor_admins, (v) => `${v.enabled} / ${v.total}`),
+  );
+  container.appendChild(
+    kvCard("CSP", security.csp, (v) => [
+      ["Activée", v.enabled ? "Oui" : "Non"],
+      ["Mode rapport seul", v.report_only ? "Oui" : "Non"],
+    ]),
+  );
+  container.appendChild(
+    kvCard("Durée des sessions", security.session_durations, (v) => [
+      ["Par défaut", `${v.default_days} j`],
+      ["Se souvenir de moi", `${v.remember_me_days} j`],
+      ["Invité", `${v.guest_days} j`],
+    ]),
+  );
+  container.appendChild(
+    kvCard("Connexions", security.login_attempts, (v) => [
+      ["Tentatives max", v.max_attempts],
+      ["Verrouillage", `${v.lockout_minutes} min`],
+    ]),
+  );
   container.appendChild(metricCard("HSTS", security.hsts_enabled, (v) => (v ? "Activé" : "Désactivé")));
 }
 
@@ -646,7 +719,9 @@ function renderLogs(container, logs) {
 // identique à l'ancienne structure statique — seule l'enveloppe change.
 const CATEGORIES = [
   {
-    id: "ai", title: "IA & Clés API", open: true,
+    id: "ai",
+    title: "IA & Clés API",
+    open: true,
     bodyHtml: `
       <form class="admin-settings-rows" id="admin-settings-ai-form"></form>
       <div class="admin-settings-grid" id="admin-settings-ai-info"></div>
@@ -680,7 +755,8 @@ const CATEGORIES = [
     `,
   },
   {
-    id: "smtp", title: "Intégrations",
+    id: "smtp",
+    title: "Intégrations",
     bodyHtml: `
       <h3 class="admin-settings-subtitle">Email (SMTP)</h3>
       <div class="admin-section-head-row">
@@ -693,7 +769,8 @@ const CATEGORIES = [
     `,
   },
   {
-    id: "backups", title: "Sauvegardes",
+    id: "backups",
+    title: "Sauvegardes",
     bodyHtml: `
       <div class="admin-backups-top">
         <div class="admin-settings-grid" id="admin-settings-backups-stats"></div>
@@ -729,7 +806,8 @@ const CATEGORIES = [
     `,
   },
   {
-    id: "security", title: "Sécurité / Logs",
+    id: "security",
+    title: "Sécurité / Logs",
     bodyHtml: `
       <h3 class="admin-settings-subtitle">Sécurité</h3>
       <div class="admin-settings-grid" id="admin-settings-security"></div>
@@ -780,7 +858,8 @@ function wireFavorites(root) {
       const favorites = readFavorites();
       const idx = favorites.indexOf(id);
       const nowFav = idx === -1;
-      if (nowFav) favorites.push(id); else favorites.splice(idx, 1);
+      if (nowFav) favorites.push(id);
+      else favorites.splice(idx, 1);
       writeFavorites(favorites);
       btn.textContent = starGlyph(nowFav);
       btn.setAttribute("aria-pressed", String(nowFav));
@@ -828,10 +907,16 @@ export async function loadSettings() {
   const backupsPaginationEl = document.getElementById("admin-settings-backups-pagination");
   const backupsTheadRow = document.getElementById("admin-settings-backups-thead-row");
   const backupsSearchInput = document.getElementById("admin-settings-backups-search");
-  const backupsPeriodButtons = Array.from(document.querySelectorAll("#admin-settings-backups-period .admin-segmented-btn"));
+  const backupsPeriodButtons = Array.from(
+    document.querySelectorAll("#admin-settings-backups-period .admin-segmented-btn"),
+  );
   const backupsController = createBackupsController({
-    tbody: backupsTbody, emptyEl: backupsEmptyEl, paginationEl: backupsPaginationEl,
-    theadRow: backupsTheadRow, searchInput: backupsSearchInput, periodButtons: backupsPeriodButtons,
+    tbody: backupsTbody,
+    emptyEl: backupsEmptyEl,
+    paginationEl: backupsPaginationEl,
+    theadRow: backupsTheadRow,
+    searchInput: backupsSearchInput,
+    periodButtons: backupsPeriodButtons,
   });
   const securityEl = document.getElementById("admin-settings-security");
   const logsEl = document.getElementById("admin-settings-logs");
@@ -867,7 +952,9 @@ export async function loadSettings() {
     renderLogs(logsEl, data.logs);
   }
 
-  newKeyBtn.addEventListener("click", () => { newKeyForm.hidden = !newKeyForm.hidden; });
+  newKeyBtn.addEventListener("click", () => {
+    newKeyForm.hidden = !newKeyForm.hidden;
+  });
   newKeyForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const body = {
@@ -877,7 +964,10 @@ export async function loadSettings() {
       api_key: document.getElementById("admin-settings-new-key-secret").value,
     };
     const { ok, payload } = await apiCall("/api/admin/ai/keys", { method: "POST", body });
-    if (!ok) { alert(payload.error || "Création impossible."); return; }
+    if (!ok) {
+      alert(payload.error || "Création impossible.");
+      return;
+    }
     newKeyForm.reset();
     newKeyForm.hidden = true;
     await refresh();
@@ -904,7 +994,10 @@ export async function loadSettings() {
     const { ok, payload } = await apiCall("/api/admin/settings/backups", { method: "POST", body: {} });
     backupCreateBtn.disabled = false;
     backupCreateBtn.textContent = originalLabel;
-    if (!ok) { showToast(payload.error || "Création impossible.", true); return; }
+    if (!ok) {
+      showToast(payload.error || "Création impossible.", true);
+      return;
+    }
     showToast("Sauvegarde créée avec succès.");
     await refresh();
   });

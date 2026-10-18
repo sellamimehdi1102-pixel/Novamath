@@ -7,8 +7,11 @@ const $ = (id) => document.getElementById(id);
 const token = window.location.pathname.split("/").filter(Boolean).pop();
 
 function showOnly(id) {
-  ["consent-loading", "consent-pending", "consent-accepted", "consent-refused", "consent-invalid"]
-    .forEach((sectionId) => { $(sectionId).hidden = sectionId !== id; });
+  ["consent-loading", "consent-pending", "consent-accepted", "consent-refused", "consent-invalid"].forEach(
+    (sectionId) => {
+      $(sectionId).hidden = sectionId !== id;
+    },
+  );
 }
 
 async function loadStatus() {

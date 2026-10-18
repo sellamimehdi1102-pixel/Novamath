@@ -36,11 +36,15 @@ const TAB_ENDPOINTS = {
 
 const PLAN_LABELS = { free: "Gratuit", premium: "Premium", ultra: "Ultra" };
 const ROLE_LABELS = {
-  user: "Utilisateur", support: "Support", moderator: "Modérateur",
-  admin: "Admin", super_admin: "Super admin",
+  user: "Utilisateur",
+  support: "Support",
+  moderator: "Modérateur",
+  admin: "Admin",
+  super_admin: "Super admin",
 };
 const ACCOUNT_STATUS_LABELS = {
-  active: "Actif", pending_parental_consent: "Consentement parental en attente",
+  active: "Actif",
+  pending_parental_consent: "Consentement parental en attente",
   parental_consent_refused: "Consentement parental refusé",
 };
 // auth_provider réel (users.auth_provider) — seul "google" est un
@@ -63,14 +67,26 @@ function formatDateTime(iso) {
   if (!iso) return null;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatTimestampMs(ms) {
   if (!ms) return null;
   const d = new Date(ms);
   if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatDuration(seconds) {
@@ -144,8 +160,13 @@ function renderHeader(profile) {
   badges.appendChild(badge(PLAN_LABELS[profile.plan.value] || profile.plan.value, profile.plan.value));
   badges.appendChild(badge(ROLE_LABELS[profile.role.value] || profile.role.value, "role"));
   const statusOk = profile.account_status.value === "active";
-  badges.appendChild(el("span", `admin-status-dot admin-status-dot--${statusOk ? "ok" : "down"}`,
-    ACCOUNT_STATUS_LABELS[profile.account_status.value] || profile.account_status.value));
+  badges.appendChild(
+    el(
+      "span",
+      `admin-status-dot admin-status-dot--${statusOk ? "ok" : "down"}`,
+      ACCOUNT_STATUS_LABELS[profile.account_status.value] || profile.account_status.value,
+    ),
+  );
   meta.appendChild(badges);
   head.appendChild(meta);
 }
@@ -160,11 +181,11 @@ function renderProfileTab(data) {
   grid.appendChild(fieldRow("Date de création", data.created_at, formatDateTime));
   grid.appendChild(fieldRow("Dernière connexion", data.last_login_at, formatDateTime));
   grid.appendChild(fieldRow("Temps passé", data.total_time_s, formatDuration));
-  grid.appendChild(fieldRow("Adresse IP récente", data.recent_ip,
-    (v) => `${v.ip} (${formatDateTime(v.recorded_at)})`));
+  grid.appendChild(fieldRow("Adresse IP récente", data.recent_ip, (v) => `${v.ip} (${formatDateTime(v.recorded_at)})`));
   grid.appendChild(fieldRow("Méthode de connexion", data.auth_provider, authProviderLabel));
-  grid.appendChild(fieldRow("Authentification à deux facteurs (2FA)", data.two_factor_enabled,
-    (v) => (v ? "Activée" : "Désactivée")));
+  grid.appendChild(
+    fieldRow("Authentification à deux facteurs (2FA)", data.two_factor_enabled, (v) => (v ? "Activée" : "Désactivée")),
+  );
   grid.appendChild(fieldRow("Email vérifié", data.email_verified, (v) => (v ? "Vérifié" : "Non vérifié")));
   return grid;
 }
@@ -192,7 +213,13 @@ function renderCoursesLearningBody(courses, learning) {
       fill.style.width = `${c.progress_pct}%`;
       bar.appendChild(fill);
       card.appendChild(bar);
-      card.appendChild(el("div", "admin-card-sub", `${c.notions_done}/${c.notions_total} notions · dernière mise à jour : ${formatTimestampMs(c.last_updated_at) || EMPTY_LABEL}`));
+      card.appendChild(
+        el(
+          "div",
+          "admin-card-sub",
+          `${c.notions_done}/${c.notions_total} notions · dernière mise à jour : ${formatTimestampMs(c.last_updated_at) || EMPTY_LABEL}`,
+        ),
+      );
       grid.appendChild(card);
     });
     wrap.appendChild(grid);
@@ -206,7 +233,9 @@ function renderCoursesLearningBody(courses, learning) {
 
   const table = el("table", "admin-users-table admin-learning-table");
   const theadRow = el("tr");
-  ["Chapitre", "Notion", "Classe", "Statut", "Date"].forEach((label) => theadRow.appendChild(el("th", "admin-users-th", label)));
+  ["Chapitre", "Notion", "Classe", "Statut", "Date"].forEach((label) =>
+    theadRow.appendChild(el("th", "admin-users-th", label)),
+  );
   const thead = document.createElement("thead");
   thead.appendChild(theadRow);
   table.appendChild(thead);
@@ -241,8 +270,13 @@ function renderExercisesBody(data) {
 
   const successCard = el("article", "admin-card");
   successCard.appendChild(el("div", "admin-card-label", "Taux de réussite"));
-  successCard.appendChild(el("div", data.success_rate === null ? "admin-card-value--empty" : "admin-card-value",
-    data.success_rate === null ? EMPTY_LABEL : `${data.success_rate}%`));
+  successCard.appendChild(
+    el(
+      "div",
+      data.success_rate === null ? "admin-card-value--empty" : "admin-card-value",
+      data.success_rate === null ? EMPTY_LABEL : `${data.success_rate}%`,
+    ),
+  );
   cards.appendChild(successCard);
 
   const timeCard = el("article", "admin-card");
@@ -254,8 +288,14 @@ function renderExercisesBody(data) {
   const fields = el("div", "admin-fields-grid");
   if (data.last_exercise.available) {
     const v = data.last_exercise.value;
-    fields.appendChild(fieldRow("Dernier exercice", { available: true, value: v },
-      (val) => `${val.chapter || EMPTY_LABEL} · ${val.correct ? "réussi" : "échoué"} · ${formatDuration(val.duration_s)} · ${formatTimestampMs(val.date) || EMPTY_LABEL}`));
+    fields.appendChild(
+      fieldRow(
+        "Dernier exercice",
+        { available: true, value: v },
+        (val) =>
+          `${val.chapter || EMPTY_LABEL} · ${val.correct ? "réussi" : "échoué"} · ${formatDuration(val.duration_s)} · ${formatTimestampMs(val.date) || EMPTY_LABEL}`,
+      ),
+    );
   } else {
     fields.appendChild(fieldRow("Dernier exercice", data.last_exercise));
   }
@@ -294,19 +334,23 @@ function renderActivityTab(data) {
     wrap.appendChild(timeline);
   }
 
-  wrap.appendChild(collapseSection({
-    id: "user-profile-courses-learning",
-    title: "Cours & apprentissage",
-    hint: "Progression par chapitre et notions étudiées",
-    bodyNode: renderCoursesLearningBody(data.courses, data.learning),
-  }));
+  wrap.appendChild(
+    collapseSection({
+      id: "user-profile-courses-learning",
+      title: "Cours & apprentissage",
+      hint: "Progression par chapitre et notions étudiées",
+      bodyNode: renderCoursesLearningBody(data.courses, data.learning),
+    }),
+  );
 
-  wrap.appendChild(collapseSection({
-    id: "user-profile-exercises",
-    title: "Exercices",
-    hint: "Total, taux de réussite, chapitres à erreurs",
-    bodyNode: renderExercisesBody(data.exercises),
-  }));
+  wrap.appendChild(
+    collapseSection({
+      id: "user-profile-exercises",
+      title: "Exercices",
+      hint: "Total, taux de réussite, chapitres à erreurs",
+      bodyNode: renderExercisesBody(data.exercises),
+    }),
+  );
 
   wireCollapsePersistence(wrap);
   return wrap;
@@ -384,10 +428,20 @@ function renderAiConsumptionBody(data) {
     const note = el("div", "admin-unavailable-note");
     note.appendChild(el("h3", "admin-unavailable-note-title", "Réel vs estimé"));
     const list = el("ul", "admin-unavailable-list");
-    list.appendChild(el("li", "admin-unavailable-item",
-      `${data.ai_real_requests.value} requête(s) réelle(s) (Gemini/Claude) — ${data.ai_real_tokens.value} tokens réels`));
-    list.appendChild(el("li", "admin-unavailable-item",
-      `${data.ai_estimated_requests.value} requête(s) moteur local/cache/clarification — ${data.ai_estimated_tokens.value} tokens estimés (aucun coût réel)`));
+    list.appendChild(
+      el(
+        "li",
+        "admin-unavailable-item",
+        `${data.ai_real_requests.value} requête(s) réelle(s) (Gemini/Claude) — ${data.ai_real_tokens.value} tokens réels`,
+      ),
+    );
+    list.appendChild(
+      el(
+        "li",
+        "admin-unavailable-item",
+        `${data.ai_estimated_requests.value} requête(s) moteur local/cache/clarification — ${data.ai_estimated_tokens.value} tokens estimés (aucun coût réel)`,
+      ),
+    );
     note.appendChild(list);
     wrap.appendChild(note);
   }
@@ -399,8 +453,13 @@ function renderAiConsumptionBody(data) {
       section.appendChild(el("h3", "admin-unavailable-note-title", "Répartition par moteur"));
       const list = el("ul", "admin-unavailable-list");
       entries.forEach(([bucket, v]) => {
-        list.appendChild(el("li", "admin-unavailable-item",
-          `${engineBucketLabel(bucket)} — ${v.requests} requête(s), ${v.tokens} tokens, ${formatCost(v.cost)}`));
+        list.appendChild(
+          el(
+            "li",
+            "admin-unavailable-item",
+            `${engineBucketLabel(bucket)} — ${v.requests} requête(s), ${v.tokens} tokens, ${formatCost(v.cost)}`,
+          ),
+        );
       });
       section.appendChild(list);
       wrap.appendChild(section);
@@ -416,8 +475,9 @@ function renderAiConsumptionBody(data) {
   } else {
     const table = el("table", "admin-users-table admin-learning-table");
     const theadRow = el("tr");
-    ["Moteur", "Fournisseur", "Modèle", "Tokens (in/out)", "Coût", "Durée", "Résultat", "Date"]
-      .forEach((label) => theadRow.appendChild(el("th", "admin-users-th", label)));
+    ["Moteur", "Fournisseur", "Modèle", "Tokens (in/out)", "Coût", "Durée", "Résultat", "Date"].forEach((label) =>
+      theadRow.appendChild(el("th", "admin-users-th", label)),
+    );
     const thead = document.createElement("thead");
     thead.appendChild(theadRow);
     table.appendChild(thead);
@@ -425,7 +485,7 @@ function renderAiConsumptionBody(data) {
     const tbody = document.createElement("tbody");
     data.ai_call_history.forEach((call) => {
       const tr = el("tr", "admin-users-row");
-      const engineLabel = call.estimated ? `${call.engine || call.provider} (estimé)` : (call.engine || "llm");
+      const engineLabel = call.estimated ? `${call.engine || call.provider} (estimé)` : call.engine || "llm";
       tr.appendChild(el("td", "admin-users-td", engineLabel));
       tr.appendChild(el("td", "admin-users-td", call.provider));
       tr.appendChild(el("td", "admin-users-td", call.model));
@@ -467,8 +527,9 @@ function renderChatbotTab(data) {
   wrap.appendChild(cards);
 
   const fields = el("div", "admin-fields-grid");
-  fields.appendChild(fieldRow("Dernière conversation", data.last_conversation,
-    (v) => `${v.title} (${formatDateTime(v.updated_at)})`));
+  fields.appendChild(
+    fieldRow("Dernière conversation", data.last_conversation, (v) => `${v.title} (${formatDateTime(v.updated_at)})`),
+  );
   fields.appendChild(fieldRow("Temps passé", data.time_spent_s, formatDuration));
   wrap.appendChild(fields);
 
@@ -501,12 +562,14 @@ function renderChatbotTab(data) {
   // ── Consommation IA repliée : allège l'affichage principal, doublon
   // partiel avec le module IA global (admin-ai.js) — vue par utilisateur
   // volontairement conservée, juste moins proéminente. ────────────────────
-  wrap.appendChild(collapseSection({
-    id: "user-profile-ai-consumption",
-    title: "Consommation IA",
-    hint: "Requêtes, tokens, coût, fournisseur, historique des appels",
-    bodyNode: renderAiConsumptionBody(data),
-  }));
+  wrap.appendChild(
+    collapseSection({
+      id: "user-profile-ai-consumption",
+      title: "Consommation IA",
+      hint: "Requêtes, tokens, coût, fournisseur, historique des appels",
+      bodyNode: renderAiConsumptionBody(data),
+    }),
+  );
 
   wireCollapsePersistence(wrap);
   return wrap;
@@ -520,8 +583,9 @@ function renderSupportTab(data) {
 
   const table = el("table", "admin-users-table admin-learning-table");
   const theadRow = el("tr");
-  ["Sujet", "Catégorie", "Priorité", "Statut", "Créé le", "Mis à jour le"]
-    .forEach((label) => theadRow.appendChild(el("th", "admin-users-th", label)));
+  ["Sujet", "Catégorie", "Priorité", "Statut", "Créé le", "Mis à jour le"].forEach((label) =>
+    theadRow.appendChild(el("th", "admin-users-th", label)),
+  );
   const thead = document.createElement("thead");
   thead.appendChild(theadRow);
   table.appendChild(thead);
@@ -598,7 +662,7 @@ export async function loadUserProfile(userId) {
   async function fetchTabData(tabId) {
     const endpoints = TAB_ENDPOINTS[tabId];
     const responses = await Promise.all(
-      endpoints.map((ep) => fetch(`/api/admin/users/${userId}/${ep}`, { credentials: "same-origin" }))
+      endpoints.map((ep) => fetch(`/api/admin/users/${userId}/${ep}`, { credentials: "same-origin" })),
     );
     if (responses.some((res) => res.status === 404)) {
       return { notFound: true };
@@ -610,7 +674,9 @@ export async function loadUserProfile(userId) {
     }
     if (endpoints.length === 1) return payloads[0];
     const combined = {};
-    endpoints.forEach((ep, i) => { combined[ep] = payloads[i]; });
+    endpoints.forEach((ep, i) => {
+      combined[ep] = payloads[i];
+    });
     return combined;
   }
 
@@ -639,7 +705,11 @@ export async function loadUserProfile(userId) {
       renderTabContent(tabId, payload);
     } catch {
       panel.innerHTML = "";
-      const errorBox = el("p", "admin-empty admin-card-error", "Impossible de charger cet onglet. Réessaie dans un instant.");
+      const errorBox = el(
+        "p",
+        "admin-empty admin-card-error",
+        "Impossible de charger cet onglet. Réessaie dans un instant.",
+      );
       panel.appendChild(errorBox);
     }
   }

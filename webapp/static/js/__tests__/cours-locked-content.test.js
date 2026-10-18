@@ -20,7 +20,14 @@ vi.mock("../api.js", () => ({ api: mockApi }));
 vi.mock("../settingsManager.js", () => ({ initSettingsManager: () => Promise.resolve(), onSettingsChange: vi.fn() }));
 vi.mock("../settingsPopup.js", () => ({ bindSettingsButton: vi.fn() }));
 vi.mock("../i18n.js", () => ({ bindLiveTranslations: vi.fn() }));
-vi.mock("../mathrender.js", () => ({ setMathContent: (el, text) => { el.textContent = text; }, setRenderedHtmlContent: (el, text) => { el.textContent = text; } }));
+vi.mock("../mathrender.js", () => ({
+  setMathContent: (el, text) => {
+    el.textContent = text;
+  },
+  setRenderedHtmlContent: (el, text) => {
+    el.textContent = text;
+  },
+}));
 vi.mock("../geomSvg.js", () => ({ renderFigure: vi.fn(() => "<svg></svg>") }));
 vi.mock("../curriculumSelector.js", () => ({
   getStoredClassLevel: () => "seconde",
@@ -45,10 +52,18 @@ const CHAPTER = { id: "Chapitre_1", title: "Nombres et calculs", notions_cours: 
 
 function baseNotion(overrides = {}) {
   return {
-    id: "notion-test", title: "Notion test", schemaVersion: 2,
-    intro: "Intro", objectif: "Objectif", definition: "Définition.",
-    reglesImportantes: ["Règle 1"], exemples: [{ id: "ex1", titre: "Exemple 1", enonce: "Énoncé.", reponse: "Réponse." }],
-    erreursFrequentes: [], astuce: "", figure: null, quizExerciseIds: [1, 2],
+    id: "notion-test",
+    title: "Notion test",
+    schemaVersion: 2,
+    intro: "Intro",
+    objectif: "Objectif",
+    definition: "Définition.",
+    reglesImportantes: ["Règle 1"],
+    exemples: [{ id: "ex1", titre: "Exemple 1", enonce: "Énoncé.", reponse: "Réponse." }],
+    erreursFrequentes: [],
+    astuce: "",
+    figure: null,
+    quizExerciseIds: [1, 2],
     locked_content: { premium: false, premium_extra_examples: 0, premium_extra_formulas: 0, ultra: false },
     ...overrides,
   };
@@ -87,9 +102,11 @@ describe("cours.js — indicateurs de contenu verrouillé", () => {
   });
 
   it("affiche l'indicateur Premium quand locked_content.premium est vrai", async () => {
-    const readerView = await openNotion(baseNotion({
-      locked_content: { premium: true, premium_extra_examples: 2, premium_extra_formulas: 0, ultra: false },
-    }));
+    const readerView = await openNotion(
+      baseNotion({
+        locked_content: { premium: true, premium_extra_examples: 2, premium_extra_formulas: 0, ultra: false },
+      }),
+    );
     const card = readerView.querySelector(".cours-box--locked-premium");
     expect(card).not.toBeNull();
     expect(card.textContent).toContain("Contenu Premium");
@@ -97,18 +114,22 @@ describe("cours.js — indicateurs de contenu verrouillé", () => {
   });
 
   it("affiche l'indicateur Ultra quand locked_content.ultra est vrai", async () => {
-    const readerView = await openNotion(baseNotion({
-      locked_content: { premium: false, premium_extra_examples: 0, premium_extra_formulas: 0, ultra: true },
-    }));
+    const readerView = await openNotion(
+      baseNotion({
+        locked_content: { premium: false, premium_extra_examples: 0, premium_extra_formulas: 0, ultra: true },
+      }),
+    );
     const card = readerView.querySelector(".cours-box--locked-ultra");
     expect(card).not.toBeNull();
     expect(card.textContent).toContain("Contenu Ultra");
   });
 
   it("affiche les deux indicateurs si premium ET ultra sont tous les deux verrouillés", async () => {
-    const readerView = await openNotion(baseNotion({
-      locked_content: { premium: true, premium_extra_examples: 1, premium_extra_formulas: 0, ultra: true },
-    }));
+    const readerView = await openNotion(
+      baseNotion({
+        locked_content: { premium: true, premium_extra_examples: 1, premium_extra_formulas: 0, ultra: true },
+      }),
+    );
     expect(readerView.querySelectorAll(".cours-box--locked").length).toBe(2);
   });
 
@@ -120,18 +141,22 @@ describe("cours.js — indicateurs de contenu verrouillé", () => {
   });
 
   it("le contenu Free normal (définition, règles, premier exemple) reste affiché même avec du contenu verrouillé", async () => {
-    const readerView = await openNotion(baseNotion({
-      locked_content: { premium: true, premium_extra_examples: 1, premium_extra_formulas: 0, ultra: true },
-    }));
+    const readerView = await openNotion(
+      baseNotion({
+        locked_content: { premium: true, premium_extra_examples: 1, premium_extra_formulas: 0, ultra: true },
+      }),
+    );
     expect(readerView.textContent).toContain("Définition.");
     expect(readerView.textContent).toContain("Règle 1");
     expect(readerView.textContent).toContain("Énoncé.");
   });
 
   it("le mini-quiz continue de fonctionner sur une notion avec du contenu verrouillé", async () => {
-    const readerView = await openNotion(baseNotion({
-      locked_content: { premium: true, premium_extra_examples: 1, premium_extra_formulas: 0, ultra: false },
-    }));
+    await openNotion(
+      baseNotion({
+        locked_content: { premium: true, premium_extra_examples: 1, premium_extra_formulas: 0, ultra: false },
+      }),
+    );
     await flushPromises();
     expect(mockApi.exercise).toHaveBeenCalled();
   });

@@ -29,7 +29,9 @@ function formatInt(value) {
 
 function formatPrice(cents, currency) {
   if (cents === 0) return "Gratuit";
-  const amount = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(cents / 100);
+  const amount = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
+    cents / 100,
+  );
   const symbol = (currency || "").toLowerCase() === "eur" ? "€" : (currency || "").toUpperCase();
   return `${amount} ${symbol}`;
 }
@@ -89,19 +91,28 @@ function renderPlanCard(plan, { onPlanClick, onChanged }) {
   card.setAttribute("role", "button");
   card.addEventListener("click", () => onPlanClick(plan.plan));
   card.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onPlanClick(plan.plan); }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onPlanClick(plan.plan);
+    }
   });
 
   const head = el("div", "admin-ai-provider-card-head");
   head.appendChild(el("span", "admin-ai-provider-card-name", plan.name));
-  head.appendChild(el("span", `admin-status-dot admin-status-dot--${plan.active ? "ok" : "down"}`,
-    plan.active ? "Actif" : "Inactif"));
+  head.appendChild(
+    el("span", `admin-status-dot admin-status-dot--${plan.active ? "ok" : "down"}`, plan.active ? "Actif" : "Inactif"),
+  );
   card.appendChild(head);
 
   card.appendChild(el("div", "admin-card-sub", fieldValue(plan.description)));
   const currency = plan.currency.available ? plan.currency.value : null;
-  card.appendChild(el("div", "admin-card-sub",
-    `${fieldValue(plan.price_amount_cents, (v) => formatPrice(v, currency))} / ${fieldValue(plan.duration_label)}`));
+  card.appendChild(
+    el(
+      "div",
+      "admin-card-sub",
+      `${fieldValue(plan.price_amount_cents, (v) => formatPrice(v, currency))} / ${fieldValue(plan.duration_label)}`,
+    ),
+  );
   card.appendChild(el("div", "admin-card-value", `${formatInt(plan.user_count.value)} utilisateur(s)`));
 
   const actions = el("div", "admin-ai-provider-card-actions");
@@ -113,9 +124,14 @@ function renderPlanCard(plan, { onPlanClick, onChanged }) {
   toggleInput.addEventListener("click", (e) => e.stopPropagation());
   toggleInput.addEventListener("change", async () => {
     const { ok, payload } = await apiCall(`/api/admin/subscriptions/${plan.plan}/active`, {
-      method: "PATCH", body: { active: toggleInput.checked },
+      method: "PATCH",
+      body: { active: toggleInput.checked },
     });
-    if (!ok) { window.alert(payload.error || "Action impossible."); toggleInput.checked = !toggleInput.checked; return; }
+    if (!ok) {
+      window.alert(payload.error || "Action impossible.");
+      toggleInput.checked = !toggleInput.checked;
+      return;
+    }
     onChanged();
   });
   toggleLabel.appendChild(toggleInput);
@@ -183,7 +199,8 @@ function renderAiAssignmentEditor(container, subscriptionsData, allProviders, on
       const providerIds = checkboxes.filter((c) => c.checked).map((c) => Number(c.value));
       saveBtn.disabled = true;
       const { ok, payload } = await apiCall(`/api/admin/ai/subscriptions/${planKey}`, {
-        method: "PUT", body: { provider_ids: providerIds },
+        method: "PUT",
+        body: { provider_ids: providerIds },
       });
       saveBtn.disabled = false;
       if (!ok) {
@@ -216,13 +233,19 @@ async function loadAiAssignment(container, onChanged) {
   wireCollapsePersistence(container);
   const editorEl = container.querySelector("#admin-subscriptions-ai-editor");
 
-  const providersPayload = providersRes.status === "fulfilled" && providersRes.value.ok
-    ? await providersRes.value.json().catch(() => null) : null;
-  const subscriptionsPayload = subscriptionsRes.status === "fulfilled" && subscriptionsRes.value.ok
-    ? await subscriptionsRes.value.json().catch(() => null) : null;
+  const providersPayload =
+    providersRes.status === "fulfilled" && providersRes.value.ok
+      ? await providersRes.value.json().catch(() => null)
+      : null;
+  const subscriptionsPayload =
+    subscriptionsRes.status === "fulfilled" && subscriptionsRes.value.ok
+      ? await subscriptionsRes.value.json().catch(() => null)
+      : null;
 
   if (providersPayload === null || subscriptionsPayload === null) {
-    editorEl.appendChild(el("p", "admin-empty admin-card-error", "Impossible de charger les fournisseurs IA. Réessaie dans un instant."));
+    editorEl.appendChild(
+      el("p", "admin-empty admin-card-error", "Impossible de charger les fournisseurs IA. Réessaie dans un instant."),
+    );
     return;
   }
 
@@ -252,7 +275,9 @@ export async function loadSubscriptionsOverview(onPlanClick) {
     res = payload;
   } catch {
     plansEl.innerHTML = "";
-    plansEl.appendChild(el("p", "admin-empty admin-card-error", "Impossible de charger les abonnements. Réessaie dans un instant."));
+    plansEl.appendChild(
+      el("p", "admin-empty admin-card-error", "Impossible de charger les abonnements. Réessaie dans un instant."),
+    );
     errorEl.hidden = false;
     errorEl.textContent = "Le module Abonnements n'a pas pu être chargé. Réessaie dans un instant.";
     return;

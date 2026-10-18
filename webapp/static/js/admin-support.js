@@ -9,7 +9,12 @@ const SEARCH_DEBOUNCE_MS = 300;
 
 const STATUS_LABELS = { open: "Ouvert", in_progress: "En cours", closed: "Fermé" };
 const CATEGORY_LABELS = {
-  bug: "Bug", paiement: "Paiement", ia: "IA", compte: "Compte", technique: "Technique", autre: "Autre",
+  bug: "Bug",
+  paiement: "Paiement",
+  ia: "IA",
+  compte: "Compte",
+  technique: "Technique",
+  autre: "Autre",
 };
 const PRIORITY_LABELS = { faible: "Faible", normale: "Normale", haute: "Haute", urgente: "Urgente" };
 
@@ -37,14 +42,26 @@ function formatDateTime(iso) {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function initialState() {
   return {
-    search: "", status: "", category: "", priority: "", assigned_admin_id: "",
-    sort_by: "created_at", sort_dir: "desc",
-    page: 1, page_size: 25,
+    search: "",
+    status: "",
+    category: "",
+    priority: "",
+    assigned_admin_id: "",
+    sort_by: "created_at",
+    sort_dir: "desc",
+    page: 1,
+    page_size: 25,
   };
 }
 
@@ -92,14 +109,18 @@ function renderSkeletonRows(tbody, count = 8) {
 
 export function priorityBadge(priority) {
   const modifier = priority === "urgente" || priority === "haute" ? "error" : "muted";
-  return el("span", `admin-badge admin-badge--${priority === "normale" || priority === "faible" ? "muted" : modifier}`, PRIORITY_LABELS[priority] || priority);
+  return el(
+    "span",
+    `admin-badge admin-badge--${priority === "normale" || priority === "faible" ? "muted" : modifier}`,
+    PRIORITY_LABELS[priority] || priority,
+  );
 }
 
 // Exportée pour réutilisation par admin-user-profile.js (onglet Support de
 // la fiche utilisateur, Chantier Administrateur "Utilisateurs" Phase 2) —
 // même wording/couleurs que ce module, jamais un second badge de statut.
 export function statusBadge(status) {
-  const modifier = status === "closed" ? "muted" : (status === "open" ? "error" : "ok");
+  const modifier = status === "closed" ? "muted" : status === "open" ? "error" : "ok";
   return el("span", `admin-badge admin-badge--${modifier}`, STATUS_LABELS[status] || status);
 }
 
@@ -111,7 +132,10 @@ function renderRows(tbody, tickets, onRowClick) {
     tr.setAttribute("role", "button");
     tr.addEventListener("click", () => onRowClick(ticket.id));
     tr.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onRowClick(ticket.id); }
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onRowClick(ticket.id);
+      }
     });
 
     tr.appendChild(el("td", "admin-users-td", `#${ticket.id}`));
@@ -140,8 +164,11 @@ function renderPagination(container, snapshot, onPageChange) {
   container.innerHTML = "";
   if (snapshot.total === 0) return;
 
-  const info = el("span", "admin-users-pagination-info",
-    `Page ${snapshot.page} / ${snapshot.total_pages} · ${new Intl.NumberFormat("fr-FR").format(snapshot.total)} ticket(s)`);
+  const info = el(
+    "span",
+    "admin-users-pagination-info",
+    `Page ${snapshot.page} / ${snapshot.total_pages} · ${new Intl.NumberFormat("fr-FR").format(snapshot.total)} ticket(s)`,
+  );
   container.appendChild(info);
 
   const prev = el("button", "admin-icon-btn admin-users-page-btn", "‹");
@@ -187,7 +214,11 @@ export async function loadSupport(onRowClick) {
   // admin-team-roles.js (partagée avec admin-support-ticket.js).
   try {
     const admins = await fetchTeamMembers();
-    populateSelect(assignedSelect, [...admins].map(([id, name]) => [String(id), name]), "Tous les assignataires");
+    populateSelect(
+      assignedSelect,
+      [...admins].map(([id, name]) => [String(id), name]),
+      "Tous les assignataires",
+    );
   } catch {
     populateSelect(assignedSelect, [], "Tous les assignataires");
   }
@@ -228,7 +259,10 @@ export async function loadSupport(onRowClick) {
       return;
     }
     renderRows(tbody, snapshot.items, onRowClick);
-    renderPagination(paginationEl, snapshot, (page) => { state.page = page; refresh(); });
+    renderPagination(paginationEl, snapshot, (page) => {
+      state.page = page;
+      refresh();
+    });
   }
 
   const debouncedSearch = debounce((value) => {
@@ -238,10 +272,26 @@ export async function loadSupport(onRowClick) {
   }, SEARCH_DEBOUNCE_MS);
 
   searchInput.addEventListener("input", (e) => debouncedSearch(e.target.value));
-  statusSelect.addEventListener("change", (e) => { state.status = e.target.value; state.page = 1; refresh(); });
-  categorySelect.addEventListener("change", (e) => { state.category = e.target.value; state.page = 1; refresh(); });
-  prioritySelect.addEventListener("change", (e) => { state.priority = e.target.value; state.page = 1; refresh(); });
-  assignedSelect.addEventListener("change", (e) => { state.assigned_admin_id = e.target.value; state.page = 1; refresh(); });
+  statusSelect.addEventListener("change", (e) => {
+    state.status = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  categorySelect.addEventListener("change", (e) => {
+    state.category = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  prioritySelect.addEventListener("change", (e) => {
+    state.priority = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  assignedSelect.addEventListener("change", (e) => {
+    state.assigned_admin_id = e.target.value;
+    state.page = 1;
+    refresh();
+  });
 
   await refresh();
 }

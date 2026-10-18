@@ -68,8 +68,12 @@ jobs:
       - name: Installation des dépendances (runtime + dev)
         run: python -m pip install --upgrade pip && pip install -r requirements-dev.txt
 
+      # odysseus/ est un projet tiers vendoré par erreur dans ce dépôt (espace
+      # de travail IA auto-hébergé indépendant, son propre pyproject.toml/CI) —
+      # aucune relation avec Mathadap. Exclusion ciblée pour ne jamais masquer
+      # une erreur bloquante du reste du projet.
       - name: Lint (erreurs bloquantes uniquement — syntaxe, noms non définis)
-        run: ruff check --select=E9,F63,F7,F82 .
+        run: ruff check --select=E9,F63,F7,F82 --exclude=odysseus .
 
       - name: Vérification des imports (webapp.server et modules critiques)
         working-directory: webapp
@@ -117,8 +121,11 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: "pip"
 
-      - name: Installation des dépendances
-        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+      # Même cause que le job "stripe-e2e-tests" : pytest est déclaré dans
+      # requirements-dev.txt (qui inclut déjà requirements.txt), jamais
+      # dupliqué dans requirements.txt (dépendance de test, pas de prod).
+      - name: Installation des dépendances (runtime + test)
+        run: python -m pip install --upgrade pip && pip install -r requirements-dev.txt
 
       - name: Suite de tests — PostgreSQL réel
         working-directory: webapp
@@ -140,8 +147,12 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: "pip"
 
-      - name: Installation des dépendances
-        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+      # requirements-dev.txt inclut déjà `-r requirements.txt` (voir ce
+      # fichier) et ajoute pytest, nécessaire pour exécuter cette suite —
+      # jamais ajouté séparément à requirements.txt (dépendance de test, pas
+      # de production, voir Dockerfile qui n'installe que requirements.txt).
+      - name: Installation des dépendances (runtime + test)
+        run: python -m pip install --upgrade pip && pip install -r requirements-dev.txt
 
       # Secrets absents du dépôt (Settings > Secrets and variables >
       # Actions) : chaque test se désactive proprement (skip) — voir

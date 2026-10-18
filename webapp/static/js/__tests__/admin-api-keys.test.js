@@ -44,9 +44,13 @@ describe("admin-api-keys.js — keyState (dérivation d'état)", () => {
     expect(keyState(apiKey({ enabled: false })).label).toBe("Désactivée");
   });
   it("erreur si le dernier échec est plus récent que le dernier succès", () => {
-    const state = keyState(apiKey({
-      last_error: "boom", last_success_at: "2026-08-20T10:00:00+00:00", last_failure_at: "2026-08-20T11:00:00+00:00",
-    }));
+    const state = keyState(
+      apiKey({
+        last_error: "boom",
+        last_success_at: "2026-08-20T10:00:00+00:00",
+        last_failure_at: "2026-08-20T11:00:00+00:00",
+      }),
+    );
     expect(state.label).toBe("Erreur");
   });
   it("active si enabled et pas d'échec plus récent qu'un succès", () => {

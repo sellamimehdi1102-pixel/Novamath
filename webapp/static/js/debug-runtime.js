@@ -28,12 +28,17 @@ console.error = (...args) => {
 function renderErrors() {
   const list = $("errors-list");
   const empty = $("errors-empty");
-  list.innerHTML = capturedErrors.map((e) => `<li><strong>[${e.at}] ${e.label}</strong><br>${escapeHtml(e.detail)}</li>`).join("");
+  list.innerHTML = capturedErrors
+    .map((e) => `<li><strong>[${e.at}] ${e.label}</strong><br>${escapeHtml(e.detail)}</li>`)
+    .join("");
   empty.style.display = capturedErrors.length ? "none" : "block";
 }
 
 function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  return String(s).replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+  );
 }
 
 function prettyJson(raw) {
@@ -111,13 +116,17 @@ function renderPendingSeries() {
   // Lecture pure (getItem), jamais consumePendingSeries() : cette page ne
   // doit JAMAIS modifier l'état qu'elle observe.
   const raw = localStorage.getItem("lumis:pending_series");
-  $("sec-pending").innerHTML = raw ? `<pre>${escapeHtml(prettyJson(raw))}</pre>` : '<p class="muted">Aucune série en attente.</p>';
+  $("sec-pending").innerHTML = raw
+    ? `<pre>${escapeHtml(prettyJson(raw))}</pre>`
+    : '<p class="muted">Aucune série en attente.</p>';
   return raw;
 }
 
 function renderCurrentSeries() {
   const raw = localStorage.getItem("lumis:series_in_progress");
-  $("sec-current-series").innerHTML = raw ? `<pre>${escapeHtml(prettyJson(raw))}</pre>` : '<p class="muted">Aucune série en cours.</p>';
+  $("sec-current-series").innerHTML = raw
+    ? `<pre>${escapeHtml(prettyJson(raw))}</pre>`
+    : '<p class="muted">Aucune série en cours.</p>';
   return raw;
 }
 
@@ -136,7 +145,12 @@ function renderCurrentExercise(currentSeriesRaw) {
       ["chapterId (seriesConfig)", escapeHtml(snap.seriesConfig?.chapterId ?? "—")],
       ["notion (seriesConfig)", escapeHtml(snap.seriesConfig?.notion ?? "—")],
       ["seriesIndex / total", `${snap.seriesIndex ?? "—"} / ${snap.total ?? "—"}`],
-      ["dernière question connue", last ? `<pre>${escapeHtml(JSON.stringify(last, null, 2))}</pre>` : '<span class="muted">aucune (série pas encore commencée)</span>'],
+      [
+        "dernière question connue",
+        last
+          ? `<pre>${escapeHtml(JSON.stringify(last, null, 2))}</pre>`
+          : '<span class="muted">aucune (série pas encore commencée)</span>',
+      ],
     ]);
   } catch (err) {
     el.innerHTML = `<span class="fail">Impossible de parser lumis:series_in_progress</span><pre>${escapeHtml(err.stack || String(err))}</pre>`;
@@ -145,7 +159,8 @@ function renderCurrentExercise(currentSeriesRaw) {
 
 // ── API : tests en direct ────────────────────────────────────────────────
 function apiBlockHtml(label, method, url, status, ok, body) {
-  const cls = status === "réseau" ? "status-err" : status >= 500 ? "status-5xx" : status >= 400 ? "status-4xx" : "status-2xx";
+  const cls =
+    status === "réseau" ? "status-err" : status >= 500 ? "status-5xx" : status >= 400 ? "status-4xx" : "status-2xx";
   return `
     <div class="api-block">
       <strong>${escapeHtml(label)}</strong> — <span class="muted">${method} ${escapeHtml(url)}</span>
@@ -189,29 +204,38 @@ async function renderApiTests(classLevel, pendingRaw) {
       const pending = JSON.parse(pendingRaw);
       exerciseId = (pending.exerciseIds || [])[0] ?? null;
     }
-  } catch { /* ignore */ }
+  } catch {
+    /* ignore */
+  }
   if (exerciseId == null) {
     try {
       const res = await fetch(chaptersUrl, { credentials: "same-origin" });
       const json = await res.json();
       for (const ch of json.chapters_meta || []) {
         for (const n of ch.notions_detail || []) {
-          if (n.exercise_ids?.length) { exerciseId = n.exercise_ids[0]; break; }
+          if (n.exercise_ids?.length) {
+            exerciseId = n.exercise_ids[0];
+            break;
+          }
         }
         if (exerciseId != null) break;
       }
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
   }
 
   if (exerciseId != null) {
-    blocks.push(await testEndpoint(
-      `POST /api/practice/load (exercise_id=${exerciseId})`,
-      "POST",
-      "/api/practice/load",
-      { exercise_id: exerciseId, class_level: classLevel || "seconde" },
-    ));
+    blocks.push(
+      await testEndpoint(`POST /api/practice/load (exercise_id=${exerciseId})`, "POST", "/api/practice/load", {
+        exercise_id: exerciseId,
+        class_level: classLevel || "seconde",
+      }),
+    );
   } else {
-    blocks.push(`<div class="api-block"><strong>POST /api/practice/load</strong> — <span class="fail">aucun exercise_id trouvé pour tester (ni dans pending_series, ni dans /api/chapters)</span></div>`);
+    blocks.push(
+      `<div class="api-block"><strong>POST /api/practice/load</strong> — <span class="fail">aucun exercise_id trouvé pour tester (ni dans pending_series, ni dans /api/chapters)</span></div>`,
+    );
   }
 
   el.innerHTML = blocks.join("");
@@ -229,7 +253,11 @@ function renderNav() {
 // ── Environnement ────────────────────────────────────────────────────────
 function renderEnv() {
   let tz = "—";
-  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch { /* ignore */ }
+  try {
+    tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  } catch {
+    /* ignore */
+  }
   $("sec-env").innerHTML = kvTable([
     ["navigator.userAgent", escapeHtml(navigator.userAgent)],
     ["navigator.language", escapeHtml(navigator.language)],
@@ -245,7 +273,11 @@ let lastSnapshot = {};
 
 async function refreshAll() {
   const authInfo = await renderAuth();
-  const localPairs = renderStorage(localStorage, "sec-localstorage", (k) => k.startsWith("novamath:") || k.startsWith("lumis:"));
+  const localPairs = renderStorage(
+    localStorage,
+    "sec-localstorage",
+    (k) => k.startsWith("novamath:") || k.startsWith("lumis:"),
+  );
   const sessionPairs = renderStorage(sessionStorage, "sec-sessionstorage", () => true);
   const cookiePairs = renderCookies();
   const pendingRaw = renderPendingSeries();
@@ -260,7 +292,7 @@ async function refreshAll() {
   lastSnapshot = {
     capturedAt: new Date().toISOString(),
     auth: authInfo.user,
-    localStorage: Object.fromEntries(localPairs.map(([k], i) => [k, localStorage.getItem(k)])),
+    localStorage: Object.fromEntries(localPairs.map(([k]) => [k, localStorage.getItem(k)])),
     sessionStorage: Object.fromEntries(sessionPairs.map(([k]) => [k, sessionStorage.getItem(k)])),
     cookies: Object.fromEntries(cookiePairs.map(([k, v]) => [k, v])),
     pendingSeries: pendingRaw,
@@ -270,7 +302,13 @@ async function refreshAll() {
       userAgent: navigator.userAgent,
       language: navigator.language,
       languages: navigator.languages,
-      timezone: (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone; } catch { return null; } })(),
+      timezone: (() => {
+        try {
+          return Intl.DateTimeFormat().resolvedOptions().timeZone;
+        } catch {
+          return null;
+        }
+      })(),
     },
     jsErrors: capturedErrors,
   };
@@ -280,7 +318,9 @@ $("btn-refresh").addEventListener("click", refreshAll);
 $("btn-copy").addEventListener("click", async () => {
   await navigator.clipboard.writeText(JSON.stringify(lastSnapshot, null, 2));
   $("copy-feedback").textContent = "Copié !";
-  setTimeout(() => { $("copy-feedback").textContent = ""; }, 2000);
+  setTimeout(() => {
+    $("copy-feedback").textContent = "";
+  }, 2000);
 });
 
 refreshAll();

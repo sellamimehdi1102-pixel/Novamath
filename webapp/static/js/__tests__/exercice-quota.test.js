@@ -43,7 +43,16 @@ const IN_PROGRESS_KEY = "lumis:series_in_progress";
 const TAB_ACTIVE_KEY = "lumis:exercice_tab_active";
 
 function exerciseFixture(id = "ex1") {
-  return { id, chapter_id: "Chapitre_8", notion: "Dérivées", difficulty: 2, enonce: "Question ?", hint: "", answer: "", solution_steps: [] };
+  return {
+    id,
+    chapter_id: "Chapitre_8",
+    notion: "Dérivées",
+    difficulty: 2,
+    enonce: "Question ?",
+    hint: "",
+    answer: "",
+    solution_steps: [],
+  };
 }
 
 function quotaExceededError(limit = 20) {
@@ -166,7 +175,12 @@ describe("exercice.js — gestion du HTTP 429 (quota épuisé)", () => {
       return { exercise: exerciseFixture(id) };
     });
     mockApi.practiceResult.mockResolvedValue({
-      level: 1, level_icon: "🌱", level_label: "Débutant", level_updated: false, history: [], practice_choices: [],
+      level: 1,
+      level_icon: "🌱",
+      level_label: "Débutant",
+      level_updated: false,
+      history: [],
+      practice_choices: [],
     });
     vi.resetModules();
     await import("../exercice.js");
@@ -201,23 +215,26 @@ describe("exercice.js — absence de double-consommation lors d'une reprise", ()
   });
 
   function seedInProgressWithCachedExercise() {
-    localStorage.setItem(IN_PROGRESS_KEY, JSON.stringify({
-      mode: "revisions",
-      seriesConfig: { chapterId: "Chapitre_8", notion: null },
-      seriesQueue: ["ex1", "ex2", "ex3"],
-      seriesIndex: 0,
-      draftId: "draft-1",
-      draftStartedAt: Date.now() - 60_000,
-      startDate: new Date().toISOString().slice(0, 10),
-      draftQuestions: [],
-      total: 3,
-      score: 0,
-      wrong: 0,
-      progressPct: 0,
-      currentExercise: exerciseFixture("ex1"),
-      class_level: "seconde",
-      savedAt: Date.now() - 60_000,
-    }));
+    localStorage.setItem(
+      IN_PROGRESS_KEY,
+      JSON.stringify({
+        mode: "revisions",
+        seriesConfig: { chapterId: "Chapitre_8", notion: null },
+        seriesQueue: ["ex1", "ex2", "ex3"],
+        seriesIndex: 0,
+        draftId: "draft-1",
+        draftStartedAt: Date.now() - 60_000,
+        startDate: new Date().toISOString().slice(0, 10),
+        draftQuestions: [],
+        total: 3,
+        score: 0,
+        wrong: 0,
+        progressPct: 0,
+        currentExercise: exerciseFixture("ex1"),
+        class_level: "seconde",
+        savedAt: Date.now() - 60_000,
+      }),
+    );
   }
 
   it("F5 en cours de série (exercice déjà chargé et persisté) : ne rappelle PAS /api/practice/load", async () => {
@@ -236,23 +253,26 @@ describe("exercice.js — absence de double-consommation lors d'une reprise", ()
   });
 
   it("reprise avec un exercice persisté qui ne correspond plus à seriesQueue[seriesIndex] : retombe sur un vrai appel réseau", async () => {
-    localStorage.setItem(IN_PROGRESS_KEY, JSON.stringify({
-      mode: "revisions",
-      seriesConfig: { chapterId: "Chapitre_8", notion: null },
-      seriesQueue: ["ex1", "ex2", "ex3"],
-      seriesIndex: 1, // pointe sur ex2, mais currentExercise ci-dessous est ex1 (désynchronisé)
-      draftId: "draft-1",
-      draftStartedAt: Date.now() - 60_000,
-      startDate: new Date().toISOString().slice(0, 10),
-      draftQuestions: [{ exercise_id: "ex1", chapter: "Chapitre_8", correct: true }],
-      total: 3,
-      score: 1,
-      wrong: 0,
-      progressPct: 33,
-      currentExercise: exerciseFixture("ex1"),
-      class_level: "seconde",
-      savedAt: Date.now() - 60_000,
-    }));
+    localStorage.setItem(
+      IN_PROGRESS_KEY,
+      JSON.stringify({
+        mode: "revisions",
+        seriesConfig: { chapterId: "Chapitre_8", notion: null },
+        seriesQueue: ["ex1", "ex2", "ex3"],
+        seriesIndex: 1, // pointe sur ex2, mais currentExercise ci-dessous est ex1 (désynchronisé)
+        draftId: "draft-1",
+        draftStartedAt: Date.now() - 60_000,
+        startDate: new Date().toISOString().slice(0, 10),
+        draftQuestions: [{ exercise_id: "ex1", chapter: "Chapitre_8", correct: true }],
+        total: 3,
+        score: 1,
+        wrong: 0,
+        progressPct: 33,
+        currentExercise: exerciseFixture("ex1"),
+        class_level: "seconde",
+        savedAt: Date.now() - 60_000,
+      }),
+    );
     sessionStorage.setItem(TAB_ACTIVE_KEY, "1");
     document.body.innerHTML = loadPageBody("exercice.html");
     mockApi.getQuota.mockResolvedValue({ exercises_daily: { used: 1, remaining: 19, limit: 20, unlimited: false } });
@@ -329,7 +349,12 @@ describe("exercice.js — verrou anti double-clic (exerciseActionInFlight)", () 
       .mockResolvedValue({ exercise: exerciseFixture("ex2") });
     mockApi.practiceResult.mockReset();
     mockApi.practiceResult.mockResolvedValue({
-      level: 1, level_icon: "🌱", level_label: "Débutant", level_updated: false, history: [], practice_choices: [],
+      level: 1,
+      level_icon: "🌱",
+      level_label: "Débutant",
+      level_updated: false,
+      history: [],
+      practice_choices: [],
     });
     vi.resetModules();
     await import("../exercice.js");
@@ -373,7 +398,12 @@ describe("exercice.js — verrou anti double-clic (exerciseActionInFlight)", () 
       .mockResolvedValue({ exercise: exerciseFixture("ex2") });
     mockApi.practiceResult.mockReset();
     mockApi.practiceResult.mockResolvedValue({
-      level: 1, level_icon: "🌱", level_label: "Débutant", level_updated: false, history: [], practice_choices: [],
+      level: 1,
+      level_icon: "🌱",
+      level_label: "Débutant",
+      level_updated: false,
+      history: [],
+      practice_choices: [],
     });
     vi.resetModules();
     await import("../exercice.js");

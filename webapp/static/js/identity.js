@@ -7,7 +7,10 @@ import { api } from "./api.js";
 import { ICONS } from "./icons.js";
 
 function initials(name) {
-  const parts = String(name || "").trim().split(/\s+/).slice(0, 2);
+  const parts = String(name || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2);
   return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
 }
 
@@ -100,7 +103,7 @@ function guardGuestExit(user) {
     }
     e.preventDefault();
     const leave = window.confirm(
-      "Tu es en mode invité : quitter cette page effacera ta progression actuelle (elle n'est pas sauvegardée). Continuer quand même ?"
+      "Tu es en mode invité : quitter cette page effacera ta progression actuelle (elle n'est pas sauvegardée). Continuer quand même ?",
     );
     if (leave) {
       link.dataset.guestExitConfirmed = "1";

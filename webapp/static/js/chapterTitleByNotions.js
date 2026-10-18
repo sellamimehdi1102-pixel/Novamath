@@ -49,9 +49,13 @@ export function resolveChapterTitle(rawTitle, notionLabels) {
     const theme = NOTION_THEME[label];
     if (theme) counts[theme] = (counts[theme] || 0) + 1;
   }
-  let best = null, bestCount = 0;
+  let best = null,
+    bestCount = 0;
   for (const theme in counts) {
-    if (counts[theme] > bestCount) { best = theme; bestCount = counts[theme]; }
+    if (counts[theme] > bestCount) {
+      best = theme;
+      bestCount = counts[theme];
+    }
   }
   return best || rawTitle;
 }

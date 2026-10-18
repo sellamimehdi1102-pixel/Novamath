@@ -13,22 +13,34 @@ import { icon } from "./icons.js";
 // admin-support.js/admin-support-ticket.js, qui dupliquent déjà ces libellés
 // côté admin) : aucune route n'expose la liste des catégories/statuts.
 const CATEGORY_LABELS = {
-  bug: "Bug", paiement: "Paiement", ia: "IA", compte: "Compte", technique: "Technique", autre: "Autre",
+  bug: "Bug",
+  paiement: "Paiement",
+  ia: "IA",
+  compte: "Compte",
+  technique: "Technique",
+  autre: "Autre",
 };
 const STATUS_LABELS = { open: "Ouvert", in_progress: "En cours", closed: "Fermé" };
 const STATUS_BADGE = { open: "badge--indigo", in_progress: "badge--warning", closed: "badge--neutral" };
 
 function escapeHtml(s) {
-  return String(s ?? "").replace(/[&<>"']/g, (c) => (
-    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
-  ));
+  return String(s ?? "").replace(
+    /[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+  );
 }
 
 function formatDateTime(iso) {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 // Toast autonome (page-agnostique, voir api.js::handleQuotaExceeded pour le
@@ -46,7 +58,9 @@ function toast(message, isError = false) {
   el.className = `toast${isError ? " toast--error" : ""}`;
   el.innerHTML = `${icon(isError ? "x" : "check")}<span>${escapeHtml(message)}</span>`;
   el.hidden = false;
-  toastTimer = setTimeout(() => { el.hidden = true; }, 2600);
+  toastTimer = setTimeout(() => {
+    el.hidden = true;
+  }, 2600);
 }
 
 // Le contexte technique (conversation, exercice, cours...) est toujours
@@ -71,14 +85,23 @@ function buildBody(description, contextLines) {
  * @param {{label: string, value: string}[]} [opts.contextLines] - contexte technique joint automatiquement.
  * @param {() => void} [opts.onCreated] - callback après création réussie (ex. rafraîchir "Mes tickets").
  */
-export function openReportTicketPopup({ sourceLabel = "Support", defaultCategory = "autre", contextLines = [], onCreated } = {}) {
+export function openReportTicketPopup({
+  sourceLabel = "Support",
+  defaultCategory = "autre",
+  contextLines = [],
+  onCreated,
+} = {}) {
   const bodyEl = document.createElement("div");
   bodyEl.innerHTML = `
     <div class="form-field">
       <label for="support-ticket-category">Catégorie</label>
       <select id="support-ticket-category">
-        ${Object.entries(CATEGORY_LABELS).map(([value, label]) =>
-          `<option value="${value}" ${value === defaultCategory ? "selected" : ""}>${label}</option>`).join("")}
+        ${Object.entries(CATEGORY_LABELS)
+          .map(
+            ([value, label]) =>
+              `<option value="${value}" ${value === defaultCategory ? "selected" : ""}>${label}</option>`,
+          )
+          .join("")}
       </select>
     </div>
     <div class="form-field">
@@ -163,9 +186,11 @@ export function openSupportHubPopup() {
         <span class="support-hub-title">Mes tickets</span>
         <button type="button" class="btn btn-primary btn-sm" data-action="new-ticket">${icon("flag")} Créer un ticket</button>
       </div>
-      ${tickets.length
-        ? `<div class="support-ticket-list">${tickets.map(ticketRowHtml).join("")}</div>`
-        : `<p class="support-hub-empty">Tu n'as encore créé aucun ticket.</p>`}
+      ${
+        tickets.length
+          ? `<div class="support-ticket-list">${tickets.map(ticketRowHtml).join("")}</div>`
+          : `<p class="support-hub-empty">Tu n'as encore créé aucun ticket.</p>`
+      }
     `;
     bodyEl.querySelector('[data-action="new-ticket"]').addEventListener("click", () => {
       openReportTicketPopup({ sourceLabel: "Paramètres", onCreated: render });
@@ -180,14 +205,26 @@ export function openSupportHubPopup() {
 }
 
 function renderThread(container, messages) {
-  container.innerHTML = messages.map((m) => `
+  container.innerHTML = messages
+    .map(
+      (m) => `
     <div class="support-ticket-msg support-ticket-msg--${m.author_type}">
       <div class="support-ticket-msg-meta">${m.author_type === "admin" ? "Équipe Mathadap" : "Toi"} · ${formatDateTime(m.created_at)}</div>
       <p class="support-ticket-msg-body">${escapeHtml(m.body)}</p>
-      ${m.attachments.length ? `<div class="support-ticket-msg-attachments">${m.attachments.map((a) =>
-        `<a href="/api/support/attachments/${a.id}" target="_blank" rel="noopener">${icon("paperclip")} ${escapeHtml(a.filename)}</a>`).join("")}</div>` : ""}
+      ${
+        m.attachments.length
+          ? `<div class="support-ticket-msg-attachments">${m.attachments
+              .map(
+                (a) =>
+                  `<a href="/api/support/attachments/${a.id}" target="_blank" rel="noopener">${icon("paperclip")} ${escapeHtml(a.filename)}</a>`,
+              )
+              .join("")}</div>`
+          : ""
+      }
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function satisfactionHtml() {
@@ -225,7 +262,9 @@ export function openTicketDetailPopup(ticketId, onChange) {
         ${CATEGORY_LABELS[ticket.category] || ticket.category} · créé le ${formatDateTime(ticket.created_at)}
       </p>
       <div class="support-ticket-thread" id="support-ticket-thread"></div>
-      ${ticket.status !== "closed" ? `
+      ${
+        ticket.status !== "closed"
+          ? `
         <form class="support-ticket-reply-form" id="support-ticket-reply-form">
           <div class="form-field">
             <label for="support-ticket-reply-body">Répondre</label>
@@ -239,9 +278,11 @@ export function openTicketDetailPopup(ticketId, onChange) {
             <button type="submit" class="btn btn-primary btn-sm">Envoyer</button>
           </div>
         </form>
-      ` : ticket.satisfaction_rating
-        ? `<p class="support-ticket-satisfaction-done">${icon("starFilled")} Tu as noté ce ticket ${ticket.satisfaction_rating}/5.</p>`
-        : satisfactionHtml()}
+      `
+          : ticket.satisfaction_rating
+            ? `<p class="support-ticket-satisfaction-done">${icon("starFilled")} Tu as noté ce ticket ${ticket.satisfaction_rating}/5.</p>`
+            : satisfactionHtml()
+      }
     `;
     renderThread(bodyEl.querySelector("#support-ticket-thread"), ticket.messages);
 

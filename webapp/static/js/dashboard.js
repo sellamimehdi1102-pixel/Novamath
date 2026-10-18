@@ -3,9 +3,18 @@ import { bindSettingsButton } from "./settingsPopup.js";
 import { getAccentColor, getAccentColorSecondary } from "./theme.js";
 import { bindLiveTranslations } from "./i18n.js";
 import {
-  getState, hydrateFromServer, computeStreak, masteryByChapter,
-  coverageByChapter, levelFromXp, badgeDefs, accuracyOutOf20, getChapterStatus,
-  scopedStats, notionBreakdown, getInProgressSeries,
+  getState,
+  hydrateFromServer,
+  computeStreak,
+  masteryByChapter,
+  coverageByChapter,
+  levelFromXp,
+  badgeDefs,
+  accuracyOutOf20,
+  getChapterStatus,
+  scopedStats,
+  notionBreakdown,
+  getInProgressSeries,
 } from "./store.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
 import { renderResumeCard } from "./resume.js";
@@ -30,7 +39,10 @@ let chaptersMeta = [];
 let currentUser = null;
 
 function initials(name) {
-  const parts = String(name || "").trim().split(/\s+/).slice(0, 2);
+  const parts = String(name || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2);
   return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
 }
 
@@ -197,8 +209,7 @@ function renderRealTime(history) {
   const now = Date.now();
   const weekMs = 7 * 86400000;
 
-  const sumDuration = (predicate) =>
-    history.filter(predicate).reduce((sum, h) => sum + (h.duration_s || 0), 0);
+  const sumDuration = (predicate) => history.filter(predicate).reduce((sum, h) => sum + (h.duration_s || 0), 0);
 
   const todaySeconds = sumDuration((h) => h.date === today);
   const weekSeconds = sumDuration((h) => now - h.ts < weekMs);
@@ -274,10 +285,16 @@ function renderProgressChart(series) {
   const accent2 = getAccentColorSecondary();
   const path = points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
   const dots = points
-    .map((p, i) => `<circle data-idx="${i}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${accent2}" class="chart-dot"/>`)
+    .map(
+      (p, i) =>
+        `<circle data-idx="${i}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${accent2}" class="chart-dot"/>`,
+    )
     .join("");
   const hitAreas = points
-    .map((p, i) => `<circle data-idx="${i}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="12" fill="transparent" class="chart-hit"/>`)
+    .map(
+      (p, i) =>
+        `<circle data-idx="${i}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="12" fill="transparent" class="chart-hit"/>`,
+    )
     .join("");
 
   svg.innerHTML = `
@@ -302,7 +319,9 @@ function renderProgressChart(series) {
       const label = d.notion ? `${d.chapterId || ""} · ${d.notion}` : d.chapterId || "Mixte";
       tooltip.innerHTML = `<strong>${d.accuracy}%</strong> (${d.score}/${d.total})<br>${label}<br>${d.date}`;
     });
-    hit.addEventListener("mouseleave", () => { tooltip.style.display = "none"; });
+    hit.addEventListener("mouseleave", () => {
+      tooltip.style.display = "none";
+    });
   });
 }
 
@@ -312,7 +331,7 @@ function renderProgressChart(series) {
 // l'utilisateur n'a pas le droit d'atteindre, jamais une deuxième logique de
 // filtrage (la donnée reçue est déjà la bonne, on ne fait qu'informer).
 const PLAN_WINDOW_ACCESS = { free: ["20"], premium: ["20", "50"], ultra: ["20", "50", "all"] };
-const WINDOW_LOCK_PLAN_LABEL = { "50": "Premium", all: "Ultra" };
+const WINDOW_LOCK_PLAN_LABEL = { 50: "Premium", all: "Ultra" };
 
 function applyChartWindowLocks(plan) {
   const allowed = PLAN_WINDOW_ACCESS[plan] || PLAN_WINDOW_ACCESS.free;
@@ -371,11 +390,13 @@ function chapterBubbleHtml(chapterId, m, badgeClass, weakestNotion) {
 
 function weakestNotionOf(history, chapterId) {
   const byNotion = {};
-  history.filter((h) => h.chapter === chapterId).forEach((h) => {
-    byNotion[h.notion] = byNotion[h.notion] || { total: 0, correct: 0 };
-    byNotion[h.notion].total += 1;
-    if (h.correct) byNotion[h.notion].correct += 1;
-  });
+  history
+    .filter((h) => h.chapter === chapterId)
+    .forEach((h) => {
+      byNotion[h.notion] = byNotion[h.notion] || { total: 0, correct: 0 };
+      byNotion[h.notion].total += 1;
+      if (h.correct) byNotion[h.notion].correct += 1;
+    });
   const entries = Object.entries(byNotion).map(([n, v]) => ({ n, rate: v.correct / v.total }));
   entries.sort((a, b) => a.rate - b.rate);
   return entries[0]?.n || "";
@@ -386,7 +407,7 @@ function bindGotoChapterButtons(container) {
     btn.addEventListener("click", () => {
       localStorage.setItem(
         "lumis:open_chapter",
-        JSON.stringify({ chapterId: btn.dataset.chapter, notion: btn.dataset.notion || null })
+        JSON.stringify({ chapterId: btn.dataset.chapter, notion: btn.dataset.notion || null }),
       );
       window.location.href = "chapitres.html";
     });
@@ -453,7 +474,12 @@ function renderSuggestions(history, limit) {
   const weak = computeWeakNotions(history).slice(0, max);
 
   el.innerHTML = weak.length
-    ? weak.map((w) => `<div class="suggestion-card">Reprends <strong>${w.chapter} : ${w.notion}</strong> — ${Math.round(w.rate * 100)}% de réussite.</div>`).join("")
+    ? weak
+        .map(
+          (w) =>
+            `<div class="suggestion-card">Reprends <strong>${w.chapter} : ${w.notion}</strong> — ${Math.round(w.rate * 100)}% de réussite.</div>`,
+        )
+        .join("")
     : `<div class="suggestion-card">Belle régularité ! Continue l'entraînement pour progresser encore.</div>`;
 }
 
@@ -560,7 +586,9 @@ function renderNotionBreakdown(history, enabled) {
     <table class="notion-breakdown-table">
       <thead><tr><th>Notion</th><th>Tentatives</th><th>Réussite</th><th>Temps moyen</th><th>Tendance</th></tr></thead>
       <tbody>
-        ${rows.map((r) => `
+        ${rows
+          .map(
+            (r) => `
           <tr>
             <td>
               <div class="notion-breakdown-name">${r.notion}</div>
@@ -570,7 +598,9 @@ function renderNotionBreakdown(history, enabled) {
             <td><span class="badge ${r.rate >= 0.7 ? "badge--success" : r.rate >= 0.4 ? "badge--warning" : "badge--danger"}">${Math.round(r.rate * 100)}%</span></td>
             <td class="tabular">${formatDuration(r.avgDurationS)}</td>
             <td>${r.trend ? TREND_LABEL[r.trend] : "—"}</td>
-          </tr>`).join("")}
+          </tr>`,
+          )
+          .join("")}
       </tbody>
     </table>`;
 }
@@ -584,7 +614,9 @@ function renderSeriesTable(series) {
     return;
   }
   const titles = {};
-  chaptersMeta.forEach((ch) => { titles[ch.id] = ch.title; });
+  chaptersMeta.forEach((ch) => {
+    titles[ch.id] = ch.title;
+  });
   recent.forEach((s) => body.appendChild(buildSeriesRow(s, titles)));
 }
 
@@ -596,12 +628,16 @@ function renderBadges(unlocked) {
   // Vitrine de trophées : les badges débloqués sont mis en avant en premier,
   // ordre d'affichage uniquement (badgeDefs()/unlockedSet inchangés).
   const ordered = [...defs].sort((a, b) => Number(unlockedSet.has(b.id)) - Number(unlockedSet.has(a.id)));
-  grid.innerHTML = ordered.map((b) => `
+  grid.innerHTML = ordered
+    .map(
+      (b) => `
     <div class="badge-tile${unlockedSet.has(b.id) ? " unlocked" : ""}">
       <div class="icon">${badgeIconSvg(b.id)}</div>
       <div class="name">${b.label}</div>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 // ── Utilisation IA du jour (quota_service.py::QuotaType.CHAT_MESSAGES) ──────
@@ -616,18 +652,22 @@ async function renderAiUsageCard() {
     card.hidden = false;
     card.classList.toggle("is-unlimited", chat.unlimited);
     card.classList.toggle("is-exhausted", !chat.unlimited && chat.remaining === 0);
-    card.classList.toggle("is-low", !chat.unlimited && chat.remaining > 0 && chat.remaining <= Math.ceil(chat.limit * 0.15));
+    card.classList.toggle(
+      "is-low",
+      !chat.unlimited && chat.remaining > 0 && chat.remaining <= Math.ceil(chat.limit * 0.15),
+    );
 
     if (chat.unlimited) {
-      $("ai-usage-value").innerHTML = "Illimité <span aria-hidden=\"true\">∞</span>";
+      $("ai-usage-value").innerHTML = 'Illimité <span aria-hidden="true">∞</span>';
       $("ai-usage-fill").style.width = "100%";
       $("ai-usage-sub").textContent = "Aucune limite sur ton plan Ultra";
     } else {
       $("ai-usage-value").textContent = `${chat.used} / ${chat.limit} messages`;
       $("ai-usage-fill").style.width = `${Math.min(100, Math.round((chat.used / chat.limit) * 100))}%`;
-      $("ai-usage-sub").textContent = chat.remaining > 0
-        ? `${chat.remaining} message${chat.remaining > 1 ? "s" : ""} restant${chat.remaining > 1 ? "s" : ""} aujourd'hui`
-        : "Limite atteinte — réinitialisée demain";
+      $("ai-usage-sub").textContent =
+        chat.remaining > 0
+          ? `${chat.remaining} message${chat.remaining > 1 ? "s" : ""} restant${chat.remaining > 1 ? "s" : ""} aujourd'hui`
+          : "Limite atteinte — réinitialisée demain";
     }
   } catch {
     /* silencieux : la carte reste masquée plutôt que d'afficher un état cassé */

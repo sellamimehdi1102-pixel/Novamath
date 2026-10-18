@@ -118,7 +118,8 @@ async function notifySidebarOfPlanChange() {
 
 function render(panel, status) {
   panel.querySelector('[data-field="real_plan"]').textContent = PLAN_LABELS[status.real_plan] || status.real_plan;
-  panel.querySelector('[data-field="effective_plan"]').textContent = PLAN_LABELS[status.effective_plan] || status.effective_plan;
+  panel.querySelector('[data-field="effective_plan"]').textContent =
+    PLAN_LABELS[status.effective_plan] || status.effective_plan;
   panel.querySelector('[data-field="provider"]').textContent = status.provider || "—";
   panel.querySelector('[data-field="model"]').textContent = status.model || "—";
   panel.querySelector('[data-field="unlimited_quotas"]').checked = !!status.owner_unlimited_quotas;

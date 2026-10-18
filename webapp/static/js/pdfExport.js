@@ -9,10 +9,7 @@
 // toucher aux sections existantes.
 import { api } from "./api.js";
 import { getSettings } from "./settingsManager.js";
-import {
-  getState, masteryByChapter, masteryByNotion,
-  levelFromXp, accuracyOutOf20, computeStreak,
-} from "./store.js";
+import { getState, masteryByChapter, masteryByNotion, levelFromXp, accuracyOutOf20, computeStreak } from "./store.js";
 
 const JSPDF_CDN = "https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js";
 
@@ -213,7 +210,9 @@ function buildNotionProgressSection(doc, ctx, y) {
   y = sectionTitle(doc, ctx, y, "Progression par notion");
   const { history } = ctx.state;
   const mastery = masteryByNotion(history);
-  const entries = Object.entries(mastery).sort((a, b) => a[1].rate - b[1].rate).slice(0, 12);
+  const entries = Object.entries(mastery)
+    .sort((a, b) => a[1].rate - b[1].rate)
+    .slice(0, 12);
   if (!entries.length) return emptyNotice(doc, y, "Pas encore de notion travaillée.");
 
   entries.forEach(([key, v]) => {
@@ -245,7 +244,9 @@ function buildLevelStatsSection(doc, ctx, y) {
     byDiff[d].total += 1;
     if (h.correct) byDiff[d].correct += 1;
   });
-  const diffs = Object.keys(byDiff).map(Number).sort((a, b) => a - b);
+  const diffs = Object.keys(byDiff)
+    .map(Number)
+    .sort((a, b) => a - b);
   if (!diffs.length) return emptyNotice(doc, y, "Pas encore de données par niveau.");
 
   const labels = { 1: "Facile", 2: "Moyen", 3: "Confirmé", 4: "Difficile", 5: "Expert" };
@@ -326,12 +327,16 @@ function buildAdviceSection(doc, ctx, y) {
   const weakest = Object.entries(mastery).sort((a, b) => a[1].rate - b[1].rate)[0];
   const advices = [];
   if (weakest && weakest[1].total >= 3) {
-    advices.push(`Concentre-toi sur ${chapterLabel(weakest[0])} (${Math.round(weakest[1].rate * 100)}% de réussite) pour progresser rapidement.`);
+    advices.push(
+      `Concentre-toi sur ${chapterLabel(weakest[0])} (${Math.round(weakest[1].rate * 100)}% de réussite) pour progresser rapidement.`,
+    );
   }
   const streak = computeStreak(ctx.state.history);
-  advices.push(streak > 0
-    ? `Belle régularité : ${streak} jour(s) de série en cours — continue sur cette lancée !`
-    : "Reprends une série aujourd'hui pour relancer ta série de jours actifs.");
+  advices.push(
+    streak > 0
+      ? `Belle régularité : ${streak} jour(s) de série en cours — continue sur cette lancée !`
+      : "Reprends une série aujourd'hui pour relancer ta série de jours actifs.",
+  );
   advices.push("La révision espacée (Paramètres → Apprentissage) aide à mémoriser durablement les notions déjà vues.");
 
   advices.forEach((text) => {

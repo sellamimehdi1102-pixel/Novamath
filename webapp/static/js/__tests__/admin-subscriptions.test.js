@@ -17,12 +17,14 @@ const NAV_WITH_SUBS = [
 
 function plan(overrides = {}) {
   return {
-    plan: "premium", name: "Premium",
+    plan: "premium",
+    name: "Premium",
     description: { available: true, value: "Pour les élèves qui veulent progresser sans limites." },
     price_amount_cents: { available: true, value: 699 },
     currency: { available: true, value: "eur" },
     duration_label: { available: true, value: "mois" },
-    display_order: 1, active: true,
+    display_order: 1,
+    active: true,
     user_count: { available: true, value: 42 },
     ...overrides,
   };
@@ -31,9 +33,21 @@ function plan(overrides = {}) {
 function overviewPayload(overrides = {}) {
   return {
     plans: [
-      plan({ plan: "free", name: "Gratuit", price_amount_cents: { available: true, value: 0 }, display_order: 0, user_count: { available: true, value: 100 } }),
+      plan({
+        plan: "free",
+        name: "Gratuit",
+        price_amount_cents: { available: true, value: 0 },
+        display_order: 0,
+        user_count: { available: true, value: 100 },
+      }),
       plan(),
-      plan({ plan: "ultra", name: "Ultra", price_amount_cents: { available: true, value: 1299 }, display_order: 2, user_count: { available: true, value: 7 } }),
+      plan({
+        plan: "ultra",
+        name: "Ultra",
+        price_amount_cents: { available: true, value: 1299 },
+        display_order: 2,
+        user_count: { available: true, value: 7 },
+      }),
     ],
     reason: null,
     stats: {
@@ -46,9 +60,11 @@ function overviewPayload(overrides = {}) {
 }
 
 const INFO_PAYLOAD = {
-  plan: "premium", name: "Premium",
+  plan: "premium",
+  name: "Premium",
   description: { available: true, value: "Pour les élèves qui veulent progresser sans limites." },
-  active: true, display_order: 1,
+  active: true,
+  display_order: 1,
   user_count: { available: true, value: 42 },
   created_at: { available: true, value: "2026-01-01T08:00:00+00:00" },
   updated_at: { available: true, value: "2026-01-01T08:00:00+00:00" },
@@ -60,7 +76,8 @@ const PRICING_PAYLOAD = {
   note: "Prix affiché à titre de catalogue pour ce panneau d'administration.",
 };
 const FEATURES_PAYLOAD = {
-  advantages: ["Chatbot sans quota quotidien"], limits: [],
+  advantages: ["Chatbot sans quota quotidien"],
+  limits: [],
   quota_daily: { available: true, value: 500 },
   quota_chatbot: { available: true, value: 250 },
   real_features: [{ key: "chatbot_unlimited", label: "Chatbot sans quota quotidien" }],
@@ -68,13 +85,22 @@ const FEATURES_PAYLOAD = {
   real_note: "Reflète ce qui est réellement appliqué aujourd'hui.",
 };
 const USERS_PAYLOAD = {
-  items: [{ id: 1, name: "Alice", email: "alice@test.local", role: "user", last_login_at: "2026-01-01T08:00:00+00:00" }],
-  page: 1, page_size: 25, total: 1, total_pages: 1,
+  items: [
+    { id: 1, name: "Alice", email: "alice@test.local", role: "user", last_login_at: "2026-01-01T08:00:00+00:00" },
+  ],
+  page: 1,
+  page_size: 25,
+  total: 1,
+  total_pages: 1,
 };
 function provider(overrides = {}) {
   return {
-    id: 1, name: "Gemini Flash", provider_key: "gemini", model_name: "gemini-3-flash-preview",
-    enabled: true, priority: 0,
+    id: 1,
+    name: "Gemini Flash",
+    provider_key: "gemini",
+    model_name: "gemini-3-flash-preview",
+    enabled: true,
+    priority: 0,
     ...overrides,
   };
 }
@@ -97,39 +123,67 @@ const AI_SUBSCRIPTIONS_PAYLOAD = {
   },
 };
 const HISTORY_PAYLOAD = {
-  items: [{
-    id: 1, created_at: "2026-01-02T08:00:00+00:00", admin: { id: 10, name: "Mehdi", role: "super_admin" },
-    action: "update_plan", action_label: "Modification d'un abonnement", provider: { id: null, name: "Abonnement premium" },
-    old_values: { name: "Premium" }, new_values: { name: "Premium Plus" }, result: "success", error_message: null,
-  }],
-  page: 1, page_size: 25, total: 1, total_pages: 1,
+  items: [
+    {
+      id: 1,
+      created_at: "2026-01-02T08:00:00+00:00",
+      admin: { id: 10, name: "Mehdi", role: "super_admin" },
+      action: "update_plan",
+      action_label: "Modification d'un abonnement",
+      provider: { id: null, name: "Abonnement premium" },
+      old_values: { name: "Premium" },
+      new_values: { name: "Premium Plus" },
+      result: "success",
+      error_message: null,
+    },
+  ],
+  page: 1,
+  page_size: 25,
+  total: 1,
+  total_pages: 1,
 };
 
 let fetchLog;
 
-function mockFetchWith({ overview = overviewPayload(), aiProviders = AI_PROVIDERS_PAYLOAD, aiSubscriptions = AI_SUBSCRIPTIONS_PAYLOAD, fail = [], handlers = {} } = {}) {
+function mockFetchWith({
+  overview = overviewPayload(),
+  aiProviders = AI_PROVIDERS_PAYLOAD,
+  aiSubscriptions = AI_SUBSCRIPTIONS_PAYLOAD,
+  fail = [],
+  handlers = {},
+} = {}) {
   fetchLog = [];
   global.fetch = vi.fn((url, options = {}) => {
     fetchLog.push(`${options.method || "GET"} ${url}`);
     if (url === "/api/admin/me") {
-      return Promise.resolve({ ok: true, json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }) });
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }),
+      });
     }
     if (url === "/api/admin/nav") {
       return Promise.resolve({ ok: true, json: () => Promise.resolve({ modules: NAV_WITH_SUBS }) });
     }
-    if (fail.includes(url)) return Promise.resolve({ ok: false, status: 500, json: () => Promise.resolve({ error: "boom" }) });
+    if (fail.includes(url))
+      return Promise.resolve({ ok: false, status: 500, json: () => Promise.resolve({ error: "boom" }) });
     const key = `${options.method || "GET"} ${url}`;
     if (handlers[key]) return Promise.resolve(handlers[key](options));
     if (url === "/api/admin/subscriptions") return Promise.resolve({ ok: true, json: () => Promise.resolve(overview) });
     if (url === "/api/admin/ai/providers" && (!options.method || options.method === "GET")) {
       return Promise.resolve({ ok: true, json: () => Promise.resolve(aiProviders) });
     }
-    if (url === "/api/admin/ai/subscriptions") return Promise.resolve({ ok: true, json: () => Promise.resolve(aiSubscriptions) });
-    if (url.includes("/api/admin/subscriptions/premium/info")) return Promise.resolve({ ok: true, json: () => Promise.resolve(INFO_PAYLOAD) });
-    if (url.includes("/api/admin/subscriptions/premium/pricing")) return Promise.resolve({ ok: true, json: () => Promise.resolve(PRICING_PAYLOAD) });
-    if (url.includes("/api/admin/subscriptions/premium/features")) return Promise.resolve({ ok: true, json: () => Promise.resolve(FEATURES_PAYLOAD) });
-    if (url.includes("/api/admin/subscriptions/premium/users")) return Promise.resolve({ ok: true, json: () => Promise.resolve(USERS_PAYLOAD) });
-    if (url.includes("/api/admin/subscriptions/premium/history")) return Promise.resolve({ ok: true, json: () => Promise.resolve(HISTORY_PAYLOAD) });
+    if (url === "/api/admin/ai/subscriptions")
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(aiSubscriptions) });
+    if (url.includes("/api/admin/subscriptions/premium/info"))
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(INFO_PAYLOAD) });
+    if (url.includes("/api/admin/subscriptions/premium/pricing"))
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(PRICING_PAYLOAD) });
+    if (url.includes("/api/admin/subscriptions/premium/features"))
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(FEATURES_PAYLOAD) });
+    if (url.includes("/api/admin/subscriptions/premium/users"))
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(USERS_PAYLOAD) });
+    if (url.includes("/api/admin/subscriptions/premium/history"))
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(HISTORY_PAYLOAD) });
     return Promise.resolve({ ok: false, status: 404, json: () => Promise.resolve({ error: "not found" }) });
   });
 }
@@ -180,7 +234,9 @@ describe("admin-subscriptions.js — vue d'ensemble", () => {
         },
       },
     });
-    const freeCard = [...document.querySelectorAll(".admin-ai-provider-card")].find((c) => c.textContent.includes("Gratuit"));
+    const freeCard = [...document.querySelectorAll(".admin-ai-provider-card")].find((c) =>
+      c.textContent.includes("Gratuit"),
+    );
     const toggle = freeCard.querySelector(".admin-toggle input");
     toggle.checked = false;
     toggle.dispatchEvent(new Event("change"));
@@ -192,7 +248,9 @@ describe("admin-subscriptions.js — vue d'ensemble", () => {
   it("cliquer sur un plan navigue vers /admin/subscriptions/:plan via pushState", async () => {
     await mount("/admin/subscriptions");
     const pushStateSpy = vi.spyOn(window.history, "pushState");
-    const premiumCard = [...document.querySelectorAll(".admin-ai-provider-card")].find((c) => c.textContent.includes("Premium"));
+    const premiumCard = [...document.querySelectorAll(".admin-ai-provider-card")].find((c) =>
+      c.textContent.includes("Premium"),
+    );
     premiumCard.click();
     await flushPromises();
     expect(pushStateSpy).toHaveBeenCalledWith(expect.anything(), "", "/admin/subscriptions/premium");
@@ -214,8 +272,9 @@ describe("admin-subscriptions.js — assignation des fournisseurs IA par plan", 
     // Un bouton "Enregistrer" par plan.
     expect(editorEl.querySelectorAll("button").length).toBe(3);
     // La checkbox du fournisseur mappé au plan Free (id 1) est cochée.
-    const freeCard = [...editorEl.querySelectorAll(".admin-ai-subscription-edit-card")]
-      .find((c) => c.textContent.includes("Free"));
+    const freeCard = [...editorEl.querySelectorAll(".admin-ai-subscription-edit-card")].find((c) =>
+      c.textContent.includes("Free"),
+    );
     const checkedBoxes = [...freeCard.querySelectorAll("input[type=checkbox]")].filter((c) => c.checked);
     expect(checkedBoxes.length).toBe(1);
     expect(checkedBoxes[0].value).toBe("1");
@@ -232,8 +291,9 @@ describe("admin-subscriptions.js — assignation des fournisseurs IA par plan", 
       },
     });
     const editorEl = document.getElementById("admin-subscriptions-ai-assignment");
-    const freeCard = [...editorEl.querySelectorAll(".admin-ai-subscription-edit-card")]
-      .find((c) => c.textContent.includes("Free"));
+    const freeCard = [...editorEl.querySelectorAll(".admin-ai-subscription-edit-card")].find((c) =>
+      c.textContent.includes("Free"),
+    );
     const proCheckbox = [...freeCard.querySelectorAll("input[type=checkbox]")].find((c) => c.value === "2");
     proCheckbox.checked = true;
     freeCard.querySelector("button").click();
@@ -244,7 +304,9 @@ describe("admin-subscriptions.js — assignation des fournisseurs IA par plan", 
   });
 
   it("aucun fournisseur IA configuré -> état vide, jamais une checklist vide silencieuse", async () => {
-    await mount("/admin/subscriptions", { aiProviders: { providers: null, reason: "Aucun fournisseur IA n'est configuré." } });
+    await mount("/admin/subscriptions", {
+      aiProviders: { providers: null, reason: "Aucun fournisseur IA n'est configuré." },
+    });
     const editorEl = document.getElementById("admin-subscriptions-ai-assignment");
     expect(editorEl.textContent).toContain("Aucun fournisseur IA n'est configuré");
   });
@@ -252,8 +314,12 @@ describe("admin-subscriptions.js — assignation des fournisseurs IA par plan", 
 
 describe("admin-subscriptions.js — état vide et erreurs", () => {
   it("aucun plan configuré -> état vide avec raison", async () => {
-    await mount("/admin/subscriptions", { overview: overviewPayload({ plans: null, reason: "Aucun abonnement n'est configuré dans subscription_plans." }) });
-    expect(document.getElementById("admin-subscriptions-plans").textContent).toContain("Aucun abonnement n'est configuré");
+    await mount("/admin/subscriptions", {
+      overview: overviewPayload({ plans: null, reason: "Aucun abonnement n'est configuré dans subscription_plans." }),
+    });
+    expect(document.getElementById("admin-subscriptions-plans").textContent).toContain(
+      "Aucun abonnement n'est configuré",
+    );
   });
 
   it("échec réseau -> message d'erreur, sans planter la page", async () => {
@@ -337,8 +403,9 @@ describe("admin-subscription-detail.js — fiche détaillée (5 onglets)", () =>
         },
       },
     });
-    const editBtn = [...document.getElementById("admin-subscription-detail-head").querySelectorAll(".admin-btn")]
-      .find((b) => b.textContent === "Modifier");
+    const editBtn = [...document.getElementById("admin-subscription-detail-head").querySelectorAll(".admin-btn")].find(
+      (b) => b.textContent === "Modifier",
+    );
     editBtn.click();
     await flushPromises();
 

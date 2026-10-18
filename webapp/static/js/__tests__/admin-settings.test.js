@@ -23,30 +23,97 @@ const NAV_WITH_SETTINGS = [
 
 const OVERVIEW_PAYLOAD = {
   ai: {
-    fallback_enabled: { enforced: true, enforced_reason: null, key: "ai_fallback_enabled", source: "database", type: "bool", updated_at: "2026-08-25T17:52:22.349002+00:00", value: true },
-    max_response_tokens_default: { enforced: true, enforced_reason: null, key: "ai_max_response_tokens_default", max: 4096, min: 128, source: "database", type: "int", updated_at: "2026-08-25T17:52:22.336574+00:00", value: 1024 },
-    provider_order: { available: true, value: [
-      { enabled: true, id: 1, model_name: "gemini-3-flash-preview", name: "Gemini Flash", priority: 0, provider_key: "gemini" },
-    ] },
-    temperature_default: { enforced: true, enforced_reason: null, key: "ai_temperature_default", max: 1.0, min: 0.0, source: "database", type: "float", updated_at: "2026-08-25T17:52:22.328505+00:00", value: 0.6 },
+    fallback_enabled: {
+      enforced: true,
+      enforced_reason: null,
+      key: "ai_fallback_enabled",
+      source: "database",
+      type: "bool",
+      updated_at: "2026-08-25T17:52:22.349002+00:00",
+      value: true,
+    },
+    max_response_tokens_default: {
+      enforced: true,
+      enforced_reason: null,
+      key: "ai_max_response_tokens_default",
+      max: 4096,
+      min: 128,
+      source: "database",
+      type: "int",
+      updated_at: "2026-08-25T17:52:22.336574+00:00",
+      value: 1024,
+    },
+    provider_order: {
+      available: true,
+      value: [
+        {
+          enabled: true,
+          id: 1,
+          model_name: "gemini-3-flash-preview",
+          name: "Gemini Flash",
+          priority: 0,
+          provider_key: "gemini",
+        },
+      ],
+    },
+    temperature_default: {
+      enforced: true,
+      enforced_reason: null,
+      key: "ai_temperature_default",
+      max: 1.0,
+      min: 0.0,
+      source: "database",
+      type: "float",
+      updated_at: "2026-08-25T17:52:22.328505+00:00",
+      value: 0.6,
+    },
   },
   api_keys: [
     {
-      avg_response_time_ms: 14, created_at: "2026-07-30T14:35:41.957651+00:00", enabled: false,
-      failure_count: 51, fallback_count: 51, id: 6, in_cooldown: false, label: "x",
-      last_error: "Clé API Gemini invalide ou expirée.", last_failure_at: "2026-08-22T12:38:51.481514+00:00",
-      last_success_at: null, last_used_at: "2026-08-22T12:38:51.481514+00:00",
-      model_name: "gemini-3-flash-preview", priority: 0, provider_key: "gemini",
-      quota_exceeded_until: "2026-08-23T12:38:51.479166+00:00", request_count: 51,
+      avg_response_time_ms: 14,
+      created_at: "2026-07-30T14:35:41.957651+00:00",
+      enabled: false,
+      failure_count: 51,
+      fallback_count: 51,
+      id: 6,
+      in_cooldown: false,
+      label: "x",
+      last_error: "Clé API Gemini invalide ou expirée.",
+      last_failure_at: "2026-08-22T12:38:51.481514+00:00",
+      last_success_at: null,
+      last_used_at: "2026-08-22T12:38:51.481514+00:00",
+      model_name: "gemini-3-flash-preview",
+      priority: 0,
+      provider_key: "gemini",
+      quota_exceeded_until: "2026-08-23T12:38:51.479166+00:00",
+      request_count: 51,
     },
   ],
   backups: {
-    disk_total_bytes: { available: false, reason: "Cette donnée n'est plus calculée par system_health_service.storage_info() (retirée comme non actionnable lors du nettoyage de la page Santé).", value: null },
+    disk_total_bytes: {
+      available: false,
+      reason:
+        "Cette donnée n'est plus calculée par system_health_service.storage_info() (retirée comme non actionnable lors du nettoyage de la page Santé).",
+      value: null,
+    },
     disk_used_bytes: { available: true, value: 464548782080 },
     items: [
-      { created_at: "2026-07-30T21:59:42.407430+00:00", filename: "novamath_backup_20260730_215942_407430.sqlite3", path: "C:\\backups\\novamath_backup_20260730_215942_407430.sqlite3", size_bytes: 26722304 },
+      {
+        created_at: "2026-07-30T21:59:42.407430+00:00",
+        filename: "novamath_backup_20260730_215942_407430.sqlite3",
+        path: "C:\\backups\\novamath_backup_20260730_215942_407430.sqlite3",
+        size_bytes: 26722304,
+      },
     ],
-    last_backup: { available: true, value: { created_at: "2026-07-30T21:59:42.407430+00:00", filename: "novamath_backup_20260730_215942_407430.sqlite3", path: "C:\\backups\\novamath_backup_20260730_215942_407430.sqlite3", size_bytes: 26722304 } },
+    last_backup: {
+      available: true,
+      value: {
+        created_at: "2026-07-30T21:59:42.407430+00:00",
+        filename: "novamath_backup_20260730_215942_407430.sqlite3",
+        path: "C:\\backups\\novamath_backup_20260730_215942_407430.sqlite3",
+        size_bytes: 26722304,
+      },
+    },
     last_backup_successful: { available: true, value: true },
     last_error: { available: false, reason: "Aucun échec enregistré.", value: null },
     last_error_at: { available: false, reason: "Aucun échec enregistré.", value: null },
@@ -65,7 +132,9 @@ const OVERVIEW_PAYLOAD = {
     two_factor_admins: { available: true, value: { enabled: 0, total: 10 } },
   },
   smtp: {
-    configured: true, encryption: { available: true, value: "STARTTLS" }, env_controlled: true,
+    configured: true,
+    encryption: { available: true, value: "STARTTLS" },
+    env_controlled: true,
     env_controlled_reason: "Piloté par variables d'environnement.",
     from_address: { available: true, value: "Mathadap <novamath.contact@gmail.com>" },
     host: { available: true, value: "smtp-relay.brevo.com" },
@@ -83,15 +152,19 @@ const OVERVIEW_PAYLOAD = {
 };
 
 function mockFetchWith({ overview = OVERVIEW_PAYLOAD, failOverview = false } = {}) {
-  global.fetch = vi.fn((url, options = {}) => {
+  global.fetch = vi.fn((url, _options = {}) => {
     if (url === "/api/admin/me") {
-      return Promise.resolve({ ok: true, json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }) });
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }),
+      });
     }
     if (url === "/api/admin/nav") {
       return Promise.resolve({ ok: true, json: () => Promise.resolve({ modules: NAV_WITH_SETTINGS }) });
     }
     if (url === "/api/admin/settings/overview") {
-      if (failOverview) return Promise.resolve({ ok: false, status: 500, json: () => Promise.resolve({ error: "boom" }) });
+      if (failOverview)
+        return Promise.resolve({ ok: false, status: 500, json: () => Promise.resolve({ error: "boom" }) });
       return Promise.resolve({ ok: true, json: () => Promise.resolve(overview) });
     }
     return Promise.resolve({ ok: false, status: 404, json: () => Promise.resolve({ error: "not found" }) });

@@ -116,7 +116,8 @@ async function handleGenerate(classLevel, notionsForClass) {
     renderExercise(exercise);
   } catch {
     const resultEl = $("custom-ex-result");
-    if (resultEl) resultEl.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">Impossible de générer un exercice pour l'instant.</p>`;
+    if (resultEl)
+      resultEl.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">Impossible de générer un exercice pour l'instant.</p>`;
   } finally {
     btn.disabled = false;
   }

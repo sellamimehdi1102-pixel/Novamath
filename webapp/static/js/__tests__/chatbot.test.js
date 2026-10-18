@@ -65,7 +65,9 @@ vi.mock("../i18n.js", () => ({ bindLiveTranslations: vi.fn(), t: (key, fallback)
 // voir le describe dédié "rendu des formules mathématiques" plus bas, qui
 // démonte ce mock pour exercer les VRAIES fonctions de mathrender.js.
 vi.mock("../mathrender.js", () => ({
-  setRenderedHtmlContent: vi.fn((el, text) => { el.textContent = text; }),
+  setRenderedHtmlContent: vi.fn((el, text) => {
+    el.textContent = text;
+  }),
   extractMathSegments: vi.fn((text) => ({ text, segments: [] })),
   restoreMathSegments: vi.fn((html) => html),
 }));
@@ -168,7 +170,10 @@ describe("chatbot.js — liste des conversations", () => {
     document.body.innerHTML = loadPageBody("chatbot.html");
     defaultMocks();
     mockApi.chatbotConversations.mockResolvedValue({
-      conversations: [{ id: 1, title: "Dérivées", pinned: false }, { id: 2, title: "Suites", pinned: true }],
+      conversations: [
+        { id: 1, title: "Dérivées", pinned: false },
+        { id: 2, title: "Suites", pinned: true },
+      ],
     });
     vi.resetModules();
     await import("../chatbot.js");
@@ -313,13 +318,16 @@ describe("chatbot.js — indicateur de réflexion", () => {
     // interrompue avant même l'arrivée du premier delta (cf. correctif
     // chatbot.js::runAssistantTurn — avant lui, l'indicateur restait affiché
     // indéfiniment dans ce cas précis).
-    mockApi.chatbotStream.mockImplementation((convId, text, mentions, { signal } = {}) => new Promise((_resolve, reject) => {
-      signal.addEventListener("abort", () => {
-        const err = new Error("aborted");
-        err.name = "AbortError";
-        reject(err);
-      });
-    }));
+    mockApi.chatbotStream.mockImplementation(
+      (convId, text, mentions, { signal } = {}) =>
+        new Promise((_resolve, reject) => {
+          signal.addEventListener("abort", () => {
+            const err = new Error("aborted");
+            err.name = "AbortError";
+            reject(err);
+          });
+        }),
+    );
 
     sendUserMessage();
     await flushPromises();
@@ -375,7 +383,6 @@ describe("chatbot.js — indicateur de réflexion", () => {
     expect(bubble.classList.contains("chatbot-msg-bubble--thinking")).toBe(false);
   });
 });
-
 
 // ── Chantier UX phase 1 : simplification des actions des messages ─────────
 describe("chatbot.js — menu 'Plus' sous les messages", () => {
@@ -523,7 +530,12 @@ describe("chatbot.js — menu 'Plus' sous les messages", () => {
       // viewport laisse peu de marge) et un menu plus large que l'espace
       // restant à droite du bouton.
       toggle.getBoundingClientRect = () => ({
-        top: 100, bottom: 120, left: viewportWidth - 40, right: viewportWidth - 20, width: 20, height: 20,
+        top: 100,
+        bottom: 120,
+        left: viewportWidth - 40,
+        right: viewportWidth - 20,
+        width: 20,
+        height: 20,
       });
       menu.getBoundingClientRect = () => ({ top: 0, bottom: 0, left: 0, right: 0, width: 220, height: 120 });
 
@@ -598,8 +610,12 @@ describe("chatbot.js — actions Copier et Modifier sous les messages utilisateu
     await wait(100); // laisse le "machine à écrire" finir et la liste se recharger avec les ids persistés
   });
 
-  function userRow() { return document.querySelector(".chatbot-msg-row--user"); }
-  function assistantRow() { return document.querySelector(".chatbot-msg-row--assistant"); }
+  function userRow() {
+    return document.querySelector(".chatbot-msg-row--user");
+  }
+  function assistantRow() {
+    return document.querySelector(".chatbot-msg-row--assistant");
+  }
 
   it("affiche Copier et Modifier sous le message utilisateur", () => {
     const actions = userRow().querySelector(".chatbot-msg-actions--user");
@@ -715,13 +731,16 @@ describe("chatbot.js — actions Copier et Modifier sous les messages utilisateu
   });
 
   it("désactive le bouton Modifier pendant qu'une génération est active (pas de conflit avec un envoi en cours)", async () => {
-    mockApi.chatbotStream.mockImplementation((convId, text, mentions, { signal } = {}) => new Promise((_resolve, reject) => {
-      signal.addEventListener("abort", () => {
-        const err = new Error("aborted");
-        err.name = "AbortError";
-        reject(err);
-      });
-    }));
+    mockApi.chatbotStream.mockImplementation(
+      (convId, text, mentions, { signal } = {}) =>
+        new Promise((_resolve, reject) => {
+          signal.addEventListener("abort", () => {
+            const err = new Error("aborted");
+            err.name = "AbortError";
+            reject(err);
+          });
+        }),
+    );
     const input = $("chatbot-input");
     input.textContent = "Autre message";
     input.dispatchEvent(new Event("input"));
@@ -861,7 +880,8 @@ describe("chatbot.js — rendu Markdown/KaTeX pendant le streaming", () => {
       // chaîne, sans dépendre du nouveau rendu déclenché juste après par le
       // rechargement de l'historique (non mocké ici, hors-sujet pour ce test).
       expect(setRenderedHtmlContent).toHaveBeenCalledWith(
-        expect.anything(), "RESTORED(<p>PROTECTED(Texte avec \\(x^2\\))</p>)",
+        expect.anything(),
+        "RESTORED(<p>PROTECTED(Texte avec \\(x^2\\))</p>)",
       );
     } finally {
       delete window.marked;
@@ -879,9 +899,9 @@ describe("chatbot.js — rendu Markdown/KaTeX pendant le streaming", () => {
     try {
       // La formule "\(x^2 + 1\)" arrive coupée en 3 deltas SSE distincts —
       // le texte complet ne doit être protégé/rendu qu'une fois réassemblé.
-      mockApi.chatbotStream.mockResolvedValue(makeStreamResponse([
-        { delta: "Résultat : \\(x^2 " }, { delta: "+ 1" }, { delta: "\\)." }, { done: true },
-      ]));
+      mockApi.chatbotStream.mockResolvedValue(
+        makeStreamResponse([{ delta: "Résultat : \\(x^2 " }, { delta: "+ 1" }, { delta: "\\)." }, { done: true }]),
+      );
       sendUserMessage();
       await flushPromises();
       await wait(300);
@@ -892,9 +912,13 @@ describe("chatbot.js — rendu Markdown/KaTeX pendant le streaming", () => {
     }
   });
 
-
   it("affiche quand même le texte progressivement pendant le défilement (pas d'attente artificielle)", async () => {
-    mockApi.chatbotStream.mockResolvedValue(makeStreamResponse([{ delta: "Une réponse assez longue pour voir la progression du défilement de caractères." }, { done: true }]));
+    mockApi.chatbotStream.mockResolvedValue(
+      makeStreamResponse([
+        { delta: "Une réponse assez longue pour voir la progression du défilement de caractères." },
+        { done: true },
+      ]),
+    );
     sendUserMessage();
     await flushPromises();
     const bubble = document.querySelector(".chatbot-msg-bubble--assistant");
@@ -914,7 +938,9 @@ describe("chatbot.js — rendu Markdown/KaTeX pendant le streaming", () => {
     // pendant le défilement, pas juste avant la première réponse.
     mockApi.chatbotStream.mockImplementation((convId, text, mentions, { signal } = {}) => {
       const encoder = new TextEncoder();
-      const firstChunk = encoder.encode(sseChunk({ delta: "Une réponse assez longue pour que l'annulation arrive en plein défilement." }));
+      const firstChunk = encoder.encode(
+        sseChunk({ delta: "Une réponse assez longue pour que l'annulation arrive en plein défilement." }),
+      );
       let delivered = false;
       return Promise.resolve({
         body: {
@@ -967,9 +993,12 @@ describe("chatbot.js — réglage 'Affichage progressif' (streaming)", () => {
 
   it("activé (valeur par défaut) : le texte apparaît progressivement, pas d'un bloc", async () => {
     await mountChatbot(); // getSettings() -> streaming:true, voir defaultMocks()
-    mockApi.chatbotStream.mockResolvedValue(makeStreamResponse([
-      { delta: "Une réponse assez longue pour observer une révélation progressive du texte." }, { done: true },
-    ]));
+    mockApi.chatbotStream.mockResolvedValue(
+      makeStreamResponse([
+        { delta: "Une réponse assez longue pour observer une révélation progressive du texte." },
+        { done: true },
+      ]),
+    );
     sendUserMessage();
     await flushPromises();
     const bubble = document.querySelector(".chatbot-msg-bubble--assistant");
@@ -1038,13 +1067,16 @@ describe("chatbot.js — bouton Envoyer/Arrêter : icône et nom accessible", ()
     // Avant ce correctif, aria-label restait bloqué sur "Envoyer" même une
     // fois le bouton transformé en "Arrêter la génération" (icône carrée
     // rouge) — un vrai défaut d'accessibilité, pas qu'un détail visuel.
-    mockApi.chatbotStream.mockImplementation((convId, text, mentions, { signal } = {}) => new Promise((_resolve, reject) => {
-      signal.addEventListener("abort", () => {
-        const err = new Error("aborted");
-        err.name = "AbortError";
-        reject(err);
-      });
-    }));
+    mockApi.chatbotStream.mockImplementation(
+      (convId, text, mentions, { signal } = {}) =>
+        new Promise((_resolve, reject) => {
+          signal.addEventListener("abort", () => {
+            const err = new Error("aborted");
+            err.name = "AbortError";
+            reject(err);
+          });
+        }),
+    );
 
     const sendBtn = $("chatbot-send-btn");
     expect(sendBtn.getAttribute("aria-label")).toBe("Envoyer");
@@ -1078,7 +1110,16 @@ describe("chatbot.js — carte de suggestion (entraînement)", () => {
           id: 21,
           role: "assistant",
           content: "Voici une explication.",
-          cards: [{ type: "notion_series", icon: "target", label_key: "chatbot.card.practice", chapter_id: 3, notion: "suites", exercise_ids: [101, 102] }],
+          cards: [
+            {
+              type: "notion_series",
+              icon: "target",
+              label_key: "chatbot.card.practice",
+              chapter_id: 3,
+              notion: "suites",
+              exercise_ids: [101, 102],
+            },
+          ],
         },
       ],
     });
@@ -1129,13 +1170,16 @@ describe("chatbot.js — carte de suggestion (entraînement)", () => {
 describe("chatbot.js — structure DOM de l'indicateur à trois points", () => {
   it("insère exactement 3 <span> enfants dans .chatbot-thinking-dots", async () => {
     await mountChatbot();
-    mockApi.chatbotStream.mockImplementation((convId, text, mentions, { signal } = {}) => new Promise((_resolve, reject) => {
-      signal.addEventListener("abort", () => {
-        const err = new Error("aborted");
-        err.name = "AbortError";
-        reject(err);
-      });
-    }));
+    mockApi.chatbotStream.mockImplementation(
+      (convId, text, mentions, { signal } = {}) =>
+        new Promise((_resolve, reject) => {
+          signal.addEventListener("abort", () => {
+            const err = new Error("aborted");
+            err.name = "AbortError";
+            reject(err);
+          });
+        }),
+    );
     const input = $("chatbot-input");
     input.textContent = "Salut";
     input.dispatchEvent(new Event("input"));
@@ -1206,7 +1250,9 @@ describe("chatbot.css — règles d'animation des trois points (source CSS)", ()
     const start = css.indexOf("@keyframes chatbot-thinking-dot");
     const end = css.indexOf(".chatbot-thinking-label", start);
     const keyframesBody = css.slice(start, end);
-    const translateYValues = [...keyframesBody.matchAll(/translateY\(([-\d.]+)(?:px)?\)/g)].map((m) => Math.abs(Number(m[1])));
+    const translateYValues = [...keyframesBody.matchAll(/translateY\(([-\d.]+)(?:px)?\)/g)].map((m) =>
+      Math.abs(Number(m[1])),
+    );
     expect(Math.max(...translateYValues)).toBeLessThan(2);
   });
 
@@ -1339,7 +1385,10 @@ describe("chatbot.js — vue de recherche de conversations", () => {
 
   it("ouvre la bonne conversation au clic sur un résultat, sans doublon ni génération IA", async () => {
     mockApi.chatbotMessages.mockResolvedValue({
-      messages: [{ id: 10, role: "user", content: "Salut" }, { id: 11, role: "assistant", content: "Bonjour !" }],
+      messages: [
+        { id: 10, role: "user", content: "Salut" },
+        { id: 11, role: "assistant", content: "Bonjour !" },
+      ],
     });
     $("chatbot-search-trigger").click();
     await flushPromises();

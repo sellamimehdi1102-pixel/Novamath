@@ -107,7 +107,11 @@ describe("features.js — hasFeature", () => {
     // Simule /api/auth/me pour un Owner dont le plan réel est free mais qui
     // teste "premium" : le backend calcule déjà `features` via effective_plan,
     // donc ce module n'a besoin d'aucune logique Owner de son côté.
-    const ownerTestingPremium = { plan: "free", is_owner: true, features: { chatbot_unlimited: true, advanced_ai: false } };
+    const ownerTestingPremium = {
+      plan: "free",
+      is_owner: true,
+      features: { chatbot_unlimited: true, advanced_ai: false },
+    };
     expect(hasFeature(ownerTestingPremium, "chatbot_unlimited")).toBe(true);
     expect(hasFeature(ownerTestingPremium, "advanced_ai")).toBe(false);
   });

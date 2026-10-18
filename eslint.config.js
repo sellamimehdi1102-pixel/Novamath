@@ -23,7 +23,12 @@ export default [
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",
-      globals: { ...globals.browser },
+      // katex : chargé en globale via <script> CDN (voir cours.html), jamais
+      // importé en module — geomSvg.js le teste avec `typeof katex ===
+      // "undefined"` avant usage (voir renderMathHtml) pour rester tolérant
+      // si le CDN est indisponible, d'où la déclaration readonly ici plutôt
+      // qu'un import.
+      globals: { ...globals.browser, katex: "readonly" },
     },
     rules: {
       "no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
