@@ -259,13 +259,21 @@ def _translate_schema_for_postgres(schema_sql):
     return _AUTOINCREMENT_DDL_RE.sub("SERIAL PRIMARY KEY", schema_sql)
 
 
+_SQL_LINE_COMMENT_RE = re.compile(r"--[^\n]*")
+
+
 def _split_statements(sql_script):
     """Équivalent de `sqlite3.Connection.executescript()` (absent de
-    psycopg) : découpe un script en instructions individuelles sur `;` —
-    sûr ici car webapp/db.py::SCHEMA ne contient aucun `;` à l'intérieur
-    d'un littéral de chaîne ou d'un commentaire (schéma entièrement rédigé
-    par ce projet, vérifié)."""
-    return [stmt.strip() for stmt in sql_script.split(";") if stmt.strip()]
+    psycopg) : découpe un script en instructions individuelles sur `;`.
+    Les commentaires SQL (`-- ...` jusqu'à la fin de ligne) sont retirés
+    AVANT le découpage : un commentaire en prose peut légitimement contenir
+    un `;` de ponctuation (ex. db.py::SCHEMA, table rate_limit_events :
+    "... donnée ; la fenêtre ...") que SQL ignore totalement, mais qu'un
+    découpage naïf sur `;` prenait à tort pour une fin d'instruction —
+    envoyant la fin du commentaire ("la fenêtre") à PostgreSQL comme un
+    fragment de requête (`syntax error at or near "la"`, voir ARCH-02)."""
+    without_comments = _SQL_LINE_COMMENT_RE.sub("", sql_script)
+    return [stmt.strip() for stmt in without_comments.split(";") if stmt.strip()]
 
 
 class _PostgresCursor:
