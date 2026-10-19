@@ -43,7 +43,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // webapp/static/js/__tests__ -> ... -> racine du projet (exercises_bank.json)
 const PROJECT_ROOT = resolve(__dirname, "..", "..", "..", "..");
 const REAL_BANK = JSON.parse(readFileSync(resolve(PROJECT_ROOT, "exercises_bank.json"), "utf-8"));
-const REAL_BANK_BY_ID = new Map(REAL_BANK.map((e) => [e.id, e]));
 
 const mockApi = {
   practiceLoad: vi.fn(),
@@ -74,12 +73,42 @@ const $ = (id) => document.getElementById(id);
 // n'ont besoin que de vérifier le MÉCANISME de progression (pas la richesse
 // des données réelles).
 const BANK = {
-  101: { id: 101, chapter_id: "Chapitre_8", notion: "Dérivées", difficulty: 2, enonce: "Question A", hint: "", answer: "", solution_steps: [] },
-  102: { id: 102, chapter_id: "Chapitre_8", notion: "Dérivées", difficulty: 2, enonce: "Question B", hint: "", answer: "", solution_steps: [] },
-  103: { id: 103, chapter_id: "Chapitre_8", notion: "Dérivées", difficulty: 2, enonce: "Question C", hint: "", answer: "", solution_steps: [] },
+  101: {
+    id: 101,
+    chapter_id: "Chapitre_8",
+    notion: "Dérivées",
+    difficulty: 2,
+    enonce: "Question A",
+    hint: "",
+    answer: "",
+    solution_steps: [],
+  },
+  102: {
+    id: 102,
+    chapter_id: "Chapitre_8",
+    notion: "Dérivées",
+    difficulty: 2,
+    enonce: "Question B",
+    hint: "",
+    answer: "",
+    solution_steps: [],
+  },
+  103: {
+    id: 103,
+    chapter_id: "Chapitre_8",
+    notion: "Dérivées",
+    difficulty: 2,
+    enonce: "Question C",
+    hint: "",
+    answer: "",
+    solution_steps: [],
+  },
 };
 
-async function mountExerciceWithPendingSeries(exerciseIds, { chapterId = "Chapitre_8", notion = "Dérivées", bank = BANK } = {}) {
+async function mountExerciceWithPendingSeries(
+  exerciseIds,
+  { chapterId = "Chapitre_8", notion = "Dérivées", bank = BANK } = {},
+) {
   localStorage.setItem(
     "lumis:pending_series",
     JSON.stringify({ mode: "notion", chapterId, notion, notions: [notion], exerciseIds }),
@@ -157,7 +186,9 @@ describe("exercice.js — progression d'une série « notion » (chatbot ET ongl
     // Pool réel construit exactement comme search_service.exercises_by_notion
     // le ferait côté backend (voir test_routage_reel_chatbot.py) : tous les
     // exercices de cette notion dans la vraie banque exercises_bank.json.
-    const realPool = REAL_BANK.filter((e) => e.chapter_id === "Chapitre_3" && e.notion === "Distributivité et identités remarquables");
+    const realPool = REAL_BANK.filter(
+      (e) => e.chapter_id === "Chapitre_3" && e.notion === "Distributivité et identités remarquables",
+    );
     expect(realPool.length).toBeGreaterThanOrEqual(10);
     const tenIds = realPool.slice(0, 10).map((e) => e.id);
 
@@ -237,9 +268,25 @@ describe("exercice.js — progression d'une série « notion » (chatbot ET ongl
     // cette garantie tient réellement pour une série de 10.
     const tenIds = [101, 102, 103, 104, 105, 106, 107, 108, 109, 110];
     const bigBank = Object.fromEntries(
-      tenIds.map((id) => [id, { id, chapter_id: "Chapitre_3", notion: "Distributivité et identités remarquables", difficulty: 2, enonce: `Question ${id}`, hint: "", answer: "", solution_steps: [] }]),
+      tenIds.map((id) => [
+        id,
+        {
+          id,
+          chapter_id: "Chapitre_3",
+          notion: "Distributivité et identités remarquables",
+          difficulty: 2,
+          enonce: `Question ${id}`,
+          hint: "",
+          answer: "",
+          solution_steps: [],
+        },
+      ]),
     );
-    await mountExerciceWithPendingSeries(tenIds, { chapterId: "Chapitre_3", notion: "Distributivité et identités remarquables", bank: bigBank });
+    await mountExerciceWithPendingSeries(tenIds, {
+      chapterId: "Chapitre_3",
+      notion: "Distributivité et identités remarquables",
+      bank: bigBank,
+    });
 
     const seen = new Set();
     for (let i = 0; i < 10; i++) {

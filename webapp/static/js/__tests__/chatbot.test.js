@@ -1177,12 +1177,22 @@ describe("chatbot.js — suggestions live pendant la frappe : pool d'exercices e
   it("un seul résultat 'exercices' : navigateToCard complète le pool via /api/search/exercises-by-notion avant d'écrire lumis:pending_series", async () => {
     mockApi.search.mockResolvedValue({
       results: [
-        { type: "exercices", chapter_id: "Chapitre_3", notion: "Distributivité et identités remarquables", exercise_id: 508, title: "Distributivité et identités remarquables" },
+        {
+          type: "exercices",
+          chapter_id: "Chapitre_3",
+          notion: "Distributivité et identités remarquables",
+          exercise_id: 508,
+          title: "Distributivité et identités remarquables",
+        },
       ],
     });
     mockApi.exercisesByNotion.mockResolvedValue({
       results: [
-        { exercise_id: 40 }, { exercise_id: 41 }, { exercise_id: 42 }, { exercise_id: 508 }, { exercise_id: 509 },
+        { exercise_id: 40 },
+        { exercise_id: 41 },
+        { exercise_id: 42 },
+        { exercise_id: 508 },
+        { exercise_id: 509 },
       ],
     });
 
@@ -1199,7 +1209,10 @@ describe("chatbot.js — suggestions live pendant la frappe : pool d'exercices e
       await flushPromises();
 
       expect(mockApi.exercisesByNotion).toHaveBeenCalledWith(
-        "Chapitre_3", "Distributivité et identités remarquables", 10, "seconde",
+        "Chapitre_3",
+        "Distributivité et identités remarquables",
+        10,
+        "seconde",
       );
       const stored = JSON.parse(localStorage.getItem("lumis:pending_series"));
       expect(stored.exerciseIds).toEqual([40, 41, 42, 508, 509]);
@@ -1209,7 +1222,9 @@ describe("chatbot.js — suggestions live pendant la frappe : pool d'exercices e
 
   it("l'enrichissement échoue (réseau) : repli silencieux sur le pool d'origine, la navigation n'est jamais bloquée", async () => {
     mockApi.search.mockResolvedValue({
-      results: [{ type: "exercices", chapter_id: "Chapitre_3", notion: "Notion rare", exercise_id: 999, title: "Notion rare" }],
+      results: [
+        { type: "exercices", chapter_id: "Chapitre_3", notion: "Notion rare", exercise_id: 999, title: "Notion rare" },
+      ],
     });
     mockApi.exercisesByNotion.mockRejectedValue(new Error("réseau indisponible"));
 

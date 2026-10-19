@@ -240,7 +240,13 @@ describe("dashboard.js — réaction du GRAPHIQUE lui-même à un changement de 
     mockApi.getStats.mockResolvedValue(statsFixture({ nHistory: 15, nSeries: 15 }));
     window.dispatchEvent(
       new CustomEvent("novamath:account-updated", {
-        detail: { pseudo: "Élève", username: "eleve", email: "e@gmail.com", plan: "premium", effective_plan: "premium" },
+        detail: {
+          pseudo: "Élève",
+          username: "eleve",
+          email: "e@gmail.com",
+          plan: "premium",
+          effective_plan: "premium",
+        },
       }),
     );
     await flushPromises();
@@ -260,7 +266,11 @@ describe("dashboard.js — réaction du GRAPHIQUE lui-même à un changement de 
   });
 
   it("passage à Ultra débloque 'Tout' et l'affiche avec l'historique complet fraîchement récupéré", async () => {
-    await mountDashboard({ plan: "premium", effectivePlan: "premium", stats: statsFixture({ nHistory: 15, nSeries: 15 }) });
+    await mountDashboard({
+      plan: "premium",
+      effectivePlan: "premium",
+      stats: statsFixture({ nHistory: 15, nSeries: 15 }),
+    });
     const btnAll = document.querySelector('.chart-zoom-btn[data-window="all"]');
     expect(btnAll.disabled).toBe(true);
 
@@ -286,7 +296,13 @@ describe("dashboard.js — réaction du GRAPHIQUE lui-même à un changement de 
     mockApi.getStats.mockResolvedValue(statsFixture({ nHistory: 15, nSeries: 15 }));
     window.dispatchEvent(
       new CustomEvent("novamath:account-updated", {
-        detail: { pseudo: "Élève", username: "eleve", email: "e@gmail.com", plan: "premium", effective_plan: "premium" },
+        detail: {
+          pseudo: "Élève",
+          username: "eleve",
+          email: "e@gmail.com",
+          plan: "premium",
+          effective_plan: "premium",
+        },
       }),
     );
     await flushPromises();
