@@ -167,15 +167,20 @@ def validate_pseudo(pseudo):
 
 
 def validate_birth_date(birth_date):
-    """Valide une date de naissance ISO (`YYYY-MM-DD`) — jamais un âge saisi
-    directement (voir consent_service.compute_age, qui le dérive toujours de
-    cette date). Rejette les dates futures et les âges déraisonnables (>120
-    ans), qui trahissent une saisie erronée plutôt qu'une vraie date."""
+    """Valide une date de naissance ISO (`YYYY-MM-DD`) SI fournie — champ
+    désormais optionnel à l'inscription (voir `is_minor`, l'auto-déclaration
+    booléenne qui est le mécanisme principal de détection des mineurs
+    depuis la suppression de la question d'âge du formulaire) ; conservé
+    uniquement en repli pour un éventuel client API qui enverrait encore une
+    vraie date de naissance sans `is_minor`. Jamais un âge saisi directement
+    (voir consent_service.compute_age, qui le dérive toujours de cette
+    date). Rejette les dates futures et les âges déraisonnables (>120 ans),
+    qui trahissent une saisie erronée plutôt qu'une vraie date."""
     from datetime import date
 
     birth_date = _clean(birth_date, 10)
     if not birth_date:
-        return None, "La date de naissance est obligatoire."
+        return None, None
     try:
         year, month, day = (int(part) for part in birth_date.split("-"))
         parsed = date(year, month, day)
@@ -855,9 +860,15 @@ def register():
 
     # Protection des mineurs (RGPD art. 8 / art. 45 Loi Informatique et
     # Libertés) — voir consent_service pour le seuil légal français (15 ans).
+    # Auto-déclaration directe (`is_minor`, case à cocher "J'ai moins de 15
+    # ans") depuis la suppression de la question d'âge du formulaire
+    # d'inscription : birth_date (optionnel, repli de rétrocompatibilité
+    # API) reste utilisable si un client le fournit encore sans is_minor.
     # L'email du parent n'est demandé (et validé) que si nécessaire : jamais
     # un champ visible/obligatoire pour un compte majeur.
-    is_minor = consent_service.requires_parental_consent(birth_date)
+    is_minor = bool(data.get("is_minor")) or (
+        birth_date is not None and consent_service.requires_parental_consent(birth_date)
+    )
     parent_email = None
     if is_minor:
         parent_email, err = validate_parent_email(data.get("parent_email"))
@@ -1683,11 +1694,11 @@ def oauth_callback(provider):
             return gate
         return _finish_oauth_login(by_email)
 
-    # Nouveau compte : la date de naissance (obligation RGPD art. 8 — seuil de
-    # consentement parental, voir consent_service) n'existe pas côté Google et
-    # doit être collectée avant de créer quoi que ce soit. Profil vérifié
-    # posé en session (signée, jamais en base) le temps que le front complète
-    # l'inscription via /api/auth/<provider>/complete-signup.
+    # Nouveau compte : l'auto-déclaration mineur (`is_minor`, obligation RGPD
+    # art. 8 — seuil de consentement parental, voir consent_service) n'existe
+    # pas côté Google et doit être collectée avant de créer quoi que ce soit.
+    # Profil vérifié posé en session (signée, jamais en base) le temps que le
+    # front complète l'inscription via /api/auth/<provider>/complete-signup.
     session["pending_oauth_profile"] = {
         "provider": provider,
         "provider_user_id": provider_user_id,
@@ -1701,9 +1712,9 @@ def oauth_callback(provider):
 @rate_limit(requests=5, per_seconds=3600)
 def oauth_complete_signup(provider):
     """Termine une inscription Google amorcée par oauth_callback : même
-    validations que register() (nom d'utilisateur, pseudo, date de naissance,
-    CGU/confidentialité), mais email déjà vérifié par le fournisseur et aucun
-    mot de passe à choisir (password_hash reste NULL, colonne nullable conçue
+    validations que register() (nom d'utilisateur, pseudo, auto-déclaration
+    mineur, CGU/confidentialité), mais email déjà vérifié par le fournisseur
+    et aucun mot de passe à choisir (password_hash reste NULL, colonne nullable conçue
     pour ça — voir schéma users)."""
     pending = session.get("pending_oauth_profile")
     if not pending or pending.get("provider") != provider:
@@ -1733,7 +1744,11 @@ def oauth_complete_signup(provider):
     if not data.get("accept_privacy"):
         return jsonify({"error": "Tu dois accepter la politique de confidentialité.", "field": "accept_privacy"}), 400
 
-    is_minor = consent_service.requires_parental_consent(birth_date)
+    # Auto-déclaration directe (`is_minor`), birth_date en repli optionnel —
+    # même mécanisme que register() ci-dessus.
+    is_minor = bool(data.get("is_minor")) or (
+        birth_date is not None and consent_service.requires_parental_consent(birth_date)
+    )
     parent_email = None
     if is_minor:
         parent_email, err = validate_parent_email(data.get("parent_email"))

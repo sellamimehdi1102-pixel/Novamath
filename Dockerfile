@@ -95,11 +95,14 @@ COPY --chown=novamath:novamath . .
 # server.py le détecte et le sert automatiquement en priorité.
 COPY --from=frontend-builder --chown=novamath:novamath /app/webapp/static-dist /app/webapp/static-dist
 
-# data/ et backups/ sont écrits au runtime (base SQLite, stats utilisateurs,
-# sauvegardes — voir webapp/db.py/backup_service.py) : créés ici avec les
+# data/ (et son sous-dossier data/backups, voir webapp/config.py::
+# BACKUP_DIRECTORY) est écrit au runtime (base SQLite, stats utilisateurs,
+# sauvegardes — voir webapp/db.py/backup_service.py) : créé ici avec les
 # bons droits pour que l'utilisateur non-root puisse y écrire, même avant
-# tout montage de volume (voir docker-compose.yml).
-RUN mkdir -p /app/data /app/backups && chown -R novamath:novamath /app/data /app/backups
+# tout montage de volume (voir docker-compose.yml). Un seul répertoire à
+# monter en volume/disque persistant (/app/data) couvre désormais toutes les
+# données utilisateur, y compris les sauvegardes.
+RUN mkdir -p /app/data/backups && chown -R novamath:novamath /app/data
 
 USER novamath
 

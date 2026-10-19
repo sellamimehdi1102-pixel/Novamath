@@ -534,8 +534,27 @@ function actionCardsHtml(cards) {
     .join("")}</div>`;
 }
 
-function navigateToCard(card) {
+/** `card.exercise_ids` ne porte parfois qu'UN SEUL id (voir resultToCard
+ * ci-dessous : les suggestions live pendant la frappe ne connaissent qu'un
+ * résultat de recherche ponctuel, pas un pool) — exercice.js::buildSeriesPool
+ * ne doit alors jamais répéter silencieusement ce même exercice pour remplir
+ * la série (bug "10 questions identiques" du chantier routage réel). On
+ * complète ici le pool via le même mécanisme que le backend utilise déjà
+ * pour les cartes générées sous une réponse du chatbot (voir
+ * action_cards_service.py::build_cards -> search_service.exercises_by_notion),
+ * avant d'écrire lumis:pending_series — jamais après coup côté exercice.js,
+ * qui n'a aucun moyen d'élargir un pool déjà trop restreint. */
+async function navigateToCard(card) {
   if (card.type === "notion_series") {
+    let exerciseIds = card.exercise_ids;
+    if (exerciseIds.length <= 1 && card.chapter_id && card.notion) {
+      try {
+        const { results } = await api.exercisesByNotion(card.chapter_id, card.notion, 10, getStoredClassLevel());
+        if (results.length > 1) exerciseIds = results.map((r) => r.exercise_id);
+      } catch {
+        /* repli silencieux sur le pool d'origine (mieux qu'un blocage total) */
+      }
+    }
     localStorage.setItem(
       "lumis:pending_series",
       JSON.stringify({
@@ -543,7 +562,7 @@ function navigateToCard(card) {
         chapterId: card.chapter_id,
         notion: card.notion,
         notions: [card.notion],
-        exerciseIds: card.exercise_ids,
+        exerciseIds,
       }),
     );
     window.location.href = "exercice.html";

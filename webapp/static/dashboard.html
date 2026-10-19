@@ -346,13 +346,13 @@
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px">
                   <h3 style="margin: 0">Résultats au fil des séries</h3>
                   <div class="chart-zoom" id="chart-zoom">
-                    <button class="chart-zoom-btn active" data-window="20">20</button>
-                    <button class="chart-zoom-btn" data-window="50">50</button>
+                    <button class="chart-zoom-btn active" data-window="5">5</button>
+                    <button class="chart-zoom-btn" data-window="15">15</button>
                     <button class="chart-zoom-btn" data-window="all">Tout</button>
                   </div>
                 </div>
                 <div style="position: relative">
-                  <svg id="progress-chart" viewBox="0 0 600 180" preserveAspectRatio="none"></svg>
+                  <svg id="progress-chart" viewBox="0 0 600 220"></svg>
                   <div
                     id="chart-tooltip"
                     style="
@@ -370,6 +370,7 @@
                     "
                   ></div>
                 </div>
+                <div class="chart-window-note" id="chart-window-note" hidden></div>
               </div>
 
               <div class="list-card card" id="notion-breakdown-card" style="overflow-x: auto">

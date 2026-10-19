@@ -138,7 +138,8 @@ docker compose --profile postgres up -d --build       # 2. démarre l'applicatio
 `db` — le mode SQLite par défaut reste garanti disponible sans PostgreSQL
 installé. Les données PostgreSQL sont persistées dans le volume nommé
 `novamath-postgres` (survit aux redémarrages/rebuilds, comme
-`novamath-data`/`novamath-backups`).
+`novamath-data`, qui contient aussi les sauvegardes — voir section
+"Sauvegardes" ci-dessous).
 
 ### Différences SQLite / PostgreSQL prises en charge
 
@@ -521,21 +522,24 @@ entre révisions) — voir [Évolutions futures](#évolutions-futures).
 
 ## Sauvegardes
 
-`webapp/backup_service.py` (inchangé par ce chantier) écrit dans
-`BACKUP_DIRECTORY` (défaut `backups/`, racine du projet) avec rétention
+`webapp/backup_service.py` écrit dans `BACKUP_DIRECTORY` (défaut
+`data/backups/`, sous `DATA_DIR` — voir `webapp/config.py`) avec rétention
 configurable (`BACKUP_RETENTION_DAYS`, défaut 30 jours). En conteneur, ce
-dossier est le volume nommé `novamath-backups` (voir `docker-compose.yml`) —
-toujours présent après un `docker compose down` (sans `-v`).
+dossier fait partie du volume nommé `novamath-data` (voir
+`docker-compose.yml`), le même que la base SQLite — toujours présent après
+un `docker compose down` (sans `-v`). Un seul volume/disque persistant
+(`/app/data`) suffit donc à protéger à la fois la base et ses sauvegardes,
+sans configuration supplémentaire côté hébergeur (voir `render.yaml`).
 
 Copier une sauvegarde hors du conteneur :
 
 ```bash
-docker compose cp web:/app/backups ./backups-local
+docker compose cp web:/app/data/backups ./backups-local
 ```
 
-Sur un VPS sans Docker, `backups/` est déjà un répertoire local classique —
-sauvegarder avec l'outil habituel de l'hébergeur (snapshot disque, rsync
-vers un stockage distant, etc.).
+Sur un VPS sans Docker, `data/backups/` est déjà un répertoire local
+classique — sauvegarder avec l'outil habituel de l'hébergeur (snapshot
+disque, rsync vers un stockage distant, etc.).
 
 ## Rollback
 
@@ -545,7 +549,7 @@ vers un stockage distant, etc.).
    ```bash
    docker compose stop web
    docker run -d --name novamath-web -p 8000:8000 --env-file .env \
-     -v novamath-data:/app/data -v novamath-backups:/app/backups \
+     -v novamath-data:/app/data \
      novamath:v1.63   # tag précédent
    ```
 2. **Code source** : `versions/vX.YY/` (voir README.md, "Organisation du
@@ -569,8 +573,8 @@ git pull
 docker compose up -d --build   # reconstruit uniquement ce qui a changé
 ```
 
-Les volumes nommés (`novamath-data`, `novamath-backups`) ne sont **jamais**
-affectés par un rebuild — la mise à jour ne perd aucune donnée. Hors
+Le volume nommé `novamath-data` n'est **jamais** affecté par un rebuild — la
+mise à jour ne perd aucune donnée. Hors
 conteneur (VPS) :
 
 ```bash

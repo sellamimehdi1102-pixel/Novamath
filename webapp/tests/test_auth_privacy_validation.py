@@ -12,18 +12,27 @@ import server
 
 
 class TestValidateBirthDate(unittest.TestCase):
+    """birth_date est désormais optionnel à l'inscription (voir is_minor,
+    l'auto-déclaration qui a remplacé la question d'âge/date de naissance du
+    formulaire) : absente/vide n'est plus une erreur, mais une valeur fournie
+    reste validée (format, date future, âge déraisonnable) pour le repli de
+    rétrocompatibilité API — voir TestEnregistrementIsMinor ci-dessous et
+    test_server_registration_age.py pour le mécanisme principal."""
+
     def test_date_valide_est_normalisee_en_iso(self):
         value, err = auth.validate_birth_date("2000-01-01")
         self.assertIsNone(err)
         self.assertEqual(value, "2000-01-01")
 
-    def test_absente(self):
+    def test_absente_nest_plus_une_erreur(self):
         value, err = auth.validate_birth_date(None)
-        self.assertIsNotNone(err)
+        self.assertIsNone(err)
+        self.assertIsNone(value)
 
-    def test_chaine_vide(self):
+    def test_chaine_vide_nest_plus_une_erreur(self):
         value, err = auth.validate_birth_date("   ")
-        self.assertIsNotNone(err)
+        self.assertIsNone(err)
+        self.assertIsNone(value)
 
     def test_format_us_invalide(self):
         value, err = auth.validate_birth_date("01/01/2000")

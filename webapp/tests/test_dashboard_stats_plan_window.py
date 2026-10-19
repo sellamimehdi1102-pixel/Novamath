@@ -1,8 +1,9 @@
 """
-Suite du chantier "Répartition des options du dashboard par plan" (2026-08-26) :
-GET /api/stats limite désormais `series[]` (utilisée par le graphique et la
-table "dernières séries" du dashboard) selon le plan effectif de
-l'utilisateur — Free = 20 dernières séries, Premium = 50, Ultra = complet.
+Suite du chantier "Répartition des options du dashboard par plan" (2026-08-26,
+fenêtres simplifiées en 5/15/Tout le 2026-10-19) : GET /api/stats limite
+désormais `series[]` (utilisée par le graphique et la table "dernières séries"
+du dashboard) selon le plan effectif de l'utilisateur — Free = 5 dernières
+séries, Premium = 15, Ultra = complet.
 
 `history[]` — dont dépendent seuls streak/XP/mastery/badges/accuracy côté
 client (store.js) — n'est JAMAIS tronqué : la vérification technique
@@ -73,32 +74,32 @@ class DashboardStatsTestCase(unittest.TestCase):
 
 
 class TestFreeSeriesWindow(DashboardStatsTestCase):
-    def test_series_limitee_a_20_dernieres(self):
+    def test_series_limitee_a_5_dernieres(self):
         self._seed(n_history=25, n_series=25)
         body = self.client.get("/api/stats", headers=self.headers).get_json()
-        self.assertEqual(len(body["series"]), 20)
-        # Les 20 CONSERVÉES doivent être les plus récentes (startedAt 6..25),
+        self.assertEqual(len(body["series"]), 5)
+        # Les 5 CONSERVÉES doivent être les plus récentes (startedAt 21..25),
         # dans l'ordre chronologique déjà utilisé par le dashboard.
-        self.assertEqual([s["startedAt"] for s in body["series"]], list(range(6, 26)))
+        self.assertEqual([s["startedAt"] for s in body["series"]], list(range(21, 26)))
 
     def test_history_reste_complet(self):
         self._seed(n_history=25, n_series=25)
         body = self.client.get("/api/stats", headers=self.headers).get_json()
         self.assertEqual(len(body["history"]), 25)
 
-    def test_moins_de_20_series_nest_pas_tronque(self):
-        self._seed(n_history=5, n_series=5)
+    def test_moins_de_5_series_nest_pas_tronque(self):
+        self._seed(n_history=3, n_series=3)
         body = self.client.get("/api/stats", headers=self.headers).get_json()
-        self.assertEqual(len(body["series"]), 5)
+        self.assertEqual(len(body["series"]), 3)
 
 
 class TestPremiumSeriesWindow(DashboardStatsTestCase):
-    def test_series_limitee_a_50_dernieres(self):
+    def test_series_limitee_a_15_dernieres(self):
         _set_plan(self.user["id"], "premium")
         self._seed(n_history=60, n_series=60)
         body = self.client.get("/api/stats", headers=self.headers).get_json()
-        self.assertEqual(len(body["series"]), 50)
-        self.assertEqual([s["startedAt"] for s in body["series"]], list(range(11, 61)))
+        self.assertEqual(len(body["series"]), 15)
+        self.assertEqual([s["startedAt"] for s in body["series"]], list(range(46, 61)))
 
     def test_history_reste_complet(self):
         _set_plan(self.user["id"], "premium")
@@ -188,7 +189,7 @@ class TestSuggestionsLimitByPlan(DashboardStatsTestCase):
         _set_plan(self.user["id"], "premium")
         self._seed(n_history=60, n_series=60)
         body = self.client.get("/api/stats", headers=self.headers).get_json()
-        self.assertEqual(len(body["series"]), 50)  # fenêtre Premium inchangée
+        self.assertEqual(len(body["series"]), 15)  # fenêtre Premium inchangée
         self.assertEqual(body["suggestions_limit"], 5)
 
 
@@ -254,11 +255,11 @@ class TestOwnerTestPlanRespecte(DashboardStatsTestCase):
         else:
             os.environ["NOVAMATH_OWNER_USER_ID"] = self._saved_owner_env
 
-    def test_owner_test_free_limite_bien_a_20(self):
+    def test_owner_test_free_limite_bien_a_5(self):
         owner_test_plan_service.set_test_plan(self.user, "free")
         self._seed(n_history=25, n_series=25)
         body = self.client.get("/api/stats", headers=self.headers).get_json()
-        self.assertEqual(len(body["series"]), 20)
+        self.assertEqual(len(body["series"]), 5)
 
     def test_owner_test_ultra_recoit_tout(self):
         owner_test_plan_service.set_test_plan(self.user, "ultra")

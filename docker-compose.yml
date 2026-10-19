@@ -47,7 +47,7 @@ services:
       FLASK_ENV: production
       PORT: 8000
     volumes:
-      # Volumes NOMMÉS (pas un bind mount host) : Docker copie le contenu
+      # Volume NOMMÉ (pas un bind mount host) : Docker copie le contenu
       # initial de l'image (base de données seed, statistiques d'exemple,
       # sauvegardes) dans le volume à sa toute première création, puis le
       # préserve indéfiniment à travers rebuilds/redémarrages — voir
@@ -55,9 +55,10 @@ services:
       # pour les données applicatives (voir volume "novamath-postgres"
       # ci-dessous) — conservé tel quel pour les statistiques utilisateurs
       # (fichiers JSON, hors base de données, voir auth.py) et les
-      # sauvegardes, indépendantes du moteur SQL choisi.
+      # sauvegardes (webapp/config.py::BACKUP_DIRECTORY = data/backups,
+      # même volume — un seul répertoire à monter en persistant, aligné sur
+      # render.yaml en production), indépendantes du moteur SQL choisi.
       - novamath-data:/app/data
-      - novamath-backups:/app/backups
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/api/health"]
       interval: 30s
@@ -90,5 +91,4 @@ services:
 
 volumes:
   novamath-data:
-  novamath-backups:
   novamath-postgres:

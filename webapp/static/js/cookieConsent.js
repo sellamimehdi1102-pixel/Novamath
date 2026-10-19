@@ -79,6 +79,29 @@ function syncBannerSpace(el) {
   // Hauteur réelle du contenu, sans compter le padding-bottom qu'on vient
   // nous-mêmes d'ajouter (sinon il fausserait la mesure de recouvrement).
   const rawContentHeight = document.documentElement.scrollHeight - extra;
+
+  // Ce correctif ne concerne QUE les pages "courtes" (contenu tenant déjà
+  // entièrement dans le viewport, sans aucun défilement possible AVANT que
+  // le padding-bottom ci-dessus n'en crée un) — c'est le seul cas où du
+  // contenu déjà visible à l'écran peut se retrouver masqué sans qu'aucun
+  // geste de l'utilisateur ne permette de le révéler (voir repro en tête de
+  // fichier). Sur une page plus longue que le viewport, le padding-bottom
+  // réserve déjà la place nécessaire pour qu'un défilement NATUREL jusqu'en
+  // bas révèle tout le contenu au-dessus du bandeau — sans ce garde-fou,
+  // chaque recalcul du ResizeObserver (déclenché par le chargement
+  // asynchrone du contenu réel d'une page comme dashboard.html, bien plus
+  // haute que le viewport) comparait à tort la hauteur TOTALE du document à
+  // la position du bandeau (limitée, elle, au viewport) et forçait un
+  // défilement massif et non sollicité dès le premier chargement — bug
+  // confirmé : sur dashboard.html, la sidebar (position:sticky, voir
+  // base.css) sort alors de sa zone d'ancrage et semble "collée" tout en
+  // bas de la page au lieu de rester visible en haut, puisque le viewport
+  // se retrouve défilé bien au-delà de ce que .app-shell peut encore
+  // ancrer. Spécifique au rail desktop (position:sticky) : le drawer
+  // mobile (position:fixed + transform, voir responsive.css) n'est jamais
+  // concerné, quel que soit le défilement de la page.
+  if (rawContentHeight > window.innerHeight) return;
+
   const overlap = rawContentHeight - window.scrollY - bannerRect.top;
   if (overlap > 0) {
     window.scrollBy(0, overlap);

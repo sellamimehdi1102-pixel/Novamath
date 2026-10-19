@@ -210,8 +210,16 @@ function updateLevelLine() {
   $("level-line").textContent = "Choisis un chapitre pour commencer à t'entraîner.";
 }
 
-/** Construit exactement SERIES_TOTAL ids pour une série, avec répétition si le
- * pool disponible (ex: une seule notion) contient moins d'exercices que nécessaire. */
+/** Construit le pool d'ids d'une série, à partir des ids distincts
+ * disponibles. Ne répète JAMAIS silencieusement un même exercice pour
+ * atteindre SERIES_TOTAL (bug "10 questions identiques" du chantier routage
+ * réel, constaté avec un pool à 1 seul id transmis par le chatbot) : quand
+ * moins d'exercices distincts que SERIES_TOTAL sont disponibles, la série
+ * est raccourcie à ce nombre réel plutôt que de fabriquer une fausse
+ * diversité en ne changeant que les identifiants. `SERIES_TOTAL` est ajusté
+ * ICI (avant le premier rendu, voir startSeries) pour que "Question X/Y", la
+ * barre de progression et la condition de fin restent cohérents avec le
+ * contenu réel de la série. */
 function buildSeriesPool(currentMode) {
   const state = scopedStats(getState(), getStoredClassLevel());
   let ids;
@@ -222,27 +230,11 @@ function buildSeriesPool(currentMode) {
   } else {
     ids = pool().map((c) => c.id);
   }
-  if (!ids.length) return [];
+  const distinctIds = [...new Set(ids)];
+  if (!distinctIds.length) return [];
 
-  const seriesIds = [];
-  let shuffled = shuffle(ids);
-  while (seriesIds.length < SERIES_TOTAL) {
-    if (!shuffled.length) {
-      shuffled = shuffle(ids);
-      // Anti-répétition à la jonction entre deux passages du pool : sans
-      // ce garde-fou, le dernier id du lot précédent peut retomber en
-      // première position du nouveau lot (deux tirages indépendants), ce
-      // qui donne à l'élève deux fois de suite le même exercice — voir
-      // Phase 1 "diversité contrôlée" du chantier pédagogique.
-      const last = seriesIds[seriesIds.length - 1];
-      if (ids.length > 1 && shuffled[shuffled.length - 1] === last) {
-        const swapAt = shuffled.length - 2;
-        [shuffled[swapAt], shuffled[shuffled.length - 1]] = [shuffled[shuffled.length - 1], shuffled[swapAt]];
-      }
-    }
-    seriesIds.push(shuffled.pop());
-  }
-  return seriesIds;
+  if (distinctIds.length < SERIES_TOTAL) SERIES_TOTAL = distinctIds.length;
+  return shuffle(distinctIds).slice(0, SERIES_TOTAL);
 }
 
 function emptyMessageFor(m) {
@@ -489,7 +481,12 @@ function renderExercise() {
  * Un 429 (série ayant épuisé le quota du jour, ex: 3 exercices restants sur
  * une série de 10) arrête proprement la série sans la casser — la série
  * reste reprenable demain (voir lumis:series_in_progress / resumeSeries),
- * le quota se réinitialisant à minuit UTC côté serveur. */
+ * le quota se réinitialisant à minuit UTC côté serveur.
+ *
+ * Un id introuvable (404 "exercice inconnu", voir server.py::api_practice_load)
+ * est retiré explicitement de la série — jamais remplacé silencieusement par
+ * un autre exercice (même principe que buildSeriesPool : aucune diversité
+ * fabriquée, aucune substitution invisible). */
 async function loadCurrent() {
   const id = seriesQueue[seriesIndex];
   $("screen-ex").classList.add("is-loading");
@@ -499,6 +496,21 @@ async function loadCurrent() {
   } catch (err) {
     if (err.isQuotaExceeded && err.quota === "exercises_daily") {
       showExercisesQuotaExceeded(err);
+      return;
+    }
+    if (err.status === 404) {
+      seriesQueue.splice(seriesIndex, 1);
+      if (SERIES_TOTAL > seriesQueue.length) SERIES_TOTAL = seriesQueue.length;
+      if (seriesIndex >= seriesQueue.length) {
+        $("screen-ex").classList.remove("is-loading");
+        if (draft.questions.length) {
+          finishSeries();
+        } else {
+          showEmpty("Les exercices de cette série sont introuvables. Relance une nouvelle série.");
+        }
+        return;
+      }
+      await loadCurrent();
       return;
     }
     $("screen-ex").classList.remove("is-loading");

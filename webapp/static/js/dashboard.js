@@ -34,9 +34,10 @@ renderCourseResumeCard(document.getElementById("course-resume-card"));
 const $ = (id) => document.getElementById(id);
 const RING_CIRCUMFERENCE = 2 * Math.PI * 18;
 
-let chartWindow = 20;
+let chartWindow = 5;
 let chaptersMeta = [];
 let currentUser = null;
+let lastChartSeries = [];
 
 function initials(name) {
   const parts = String(name || "")
@@ -267,27 +268,141 @@ function renderWeekGrid(history) {
   });
 }
 
-function renderProgressChart(series) {
-  const svg = $("progress-chart");
-  const tooltip = $("chart-tooltip");
-  if (!series.length) {
-    svg.innerHTML = `<text x="300" y="90" text-anchor="middle" fill="var(--text-faint)" font-size="14">Termine une série pour voir ta progression</text>`;
+// ── Graphique "Résultats au fil des séries" (refonte) ──────────────────────
+// viewBox recalculé à chaque rendu à partir des dimensions RÉELLES du <svg>
+// (clientWidth/clientHeight) plutôt qu'un viewBox fixe + preserveAspectRatio
+// "none" : c'est ce qui causait le rendu étiré/déformé (points ovalisés,
+// courbe distendue) signalé sur le dashboard — un viewBox qui correspond
+// exactement à la taille affichée élimine toute mise à l'échelle non
+// uniforme. Repli sur une taille fixe si le layout n'est pas encore mesurable
+// (ex: environnement de test sans moteur de rendu) pour un comportement
+// déterministe.
+const CHART_FALLBACK_SIZE = { width: 600, height: 220 };
+// `bottom` élargi pour loger deux lignes (date + heure, voir xLabels) plutôt
+// qu'une seule date sur l'axe horizontal.
+const CHART_PAD = { left: 34, right: 14, top: 14, bottom: 36 };
+
+// Date affichée sur l'axe/tooltip à partir de `endedAt` (timestamp réel),
+// jamais du champ `date` persisté (dérivé en UTC côté store.js) — toLocaleDateString
+// respecte nativement le fuseau horaire du navigateur de l'utilisateur.
+function formatChartDate(s) {
+  return new Date(s.endedAt || s.startedAt || Date.now()).toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+  });
+}
+
+function formatChartTime(s) {
+  return new Date(s.endedAt || s.startedAt || Date.now()).toLocaleTimeString("fr-FR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+// Libellé lisible "X bonne(s) réponse(s) sur Y — Z%" (point 2 du cahier des
+// charges) : jamais de pourcentage seul, toujours le score exact à côté.
+function chartScoreLabel(s) {
+  return `${s.score} bonne${s.score === 1 ? "" : "s"} réponse${s.score === 1 ? "" : "s"} sur ${s.total} — ${s.accuracy}%`;
+}
+
+// Fenêtre demandée (5/15/all) vs nombre de points réellement disponibles
+// (point 5 du cahier des charges) : avec peu de séries, les fenêtres plus
+// larges affichent forcément le même historique — ce n'est jamais un bug,
+// seulement un fait à annoncer discrètement plutôt qu'à laisser deviner.
+function updateChartWindowNote(requestedWindow, shownCount, totalAvailable) {
+  const el = $("chart-window-note");
+  if (requestedWindow === "all" || shownCount >= Number(requestedWindow)) {
+    el.hidden = true;
     return;
   }
+  el.hidden = false;
+  el.textContent = `${totalAvailable} série${totalAvailable > 1 ? "s" : ""} disponible${totalAvailable > 1 ? "s" : ""} sur les ${requestedWindow} dernières demandées`;
+}
+
+function renderProgressChart(series) {
+  lastChartSeries = series;
+  const svg = $("progress-chart");
+  const tooltip = $("chart-tooltip");
+
+  if (!series.length) {
+    svg.setAttribute("viewBox", `0 0 ${CHART_FALLBACK_SIZE.width} ${CHART_FALLBACK_SIZE.height}`);
+    svg.innerHTML = `<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" fill="var(--text-faint)" font-size="13">Termine une série pour voir ta progression</text>`;
+    tooltip.style.display = "none";
+    $("chart-window-note").hidden = true;
+    return;
+  }
+
   const windowed = chartWindow === "all" ? series : series.slice(-chartWindow);
-  const points = windowed.map((s, i) => {
-    const x = windowed.length > 1 ? (i / (windowed.length - 1)) * 580 + 10 : 300;
-    const y = 160 - (s.accuracy / 100) * 140;
-    return { x, y, s };
-  });
+  updateChartWindowNote(chartWindow, windowed.length, series.length);
+
+  const width = svg.clientWidth || CHART_FALLBACK_SIZE.width;
+  const height = svg.clientHeight || CHART_FALLBACK_SIZE.height;
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+  const left = CHART_PAD.left;
+  const right = width - CHART_PAD.right;
+  const top = CHART_PAD.top;
+  const bottom = height - CHART_PAD.bottom;
+  const plotWidth = Math.max(1, right - left);
+  const plotHeight = Math.max(1, bottom - top);
+
+  // Répartition harmonieuse sur TOUTE la largeur utile, quel que soit le
+  // nombre de points — jamais d'espacement plafonné/centré qui compressait
+  // artificiellement le tracé au milieu du cadre quel que soit le bouton
+  // 10/20/50/Tout sélectionné (cause du graphique "trop petit et concentré").
+  const n = windowed.length;
+  const points = windowed.map((s, i) => ({
+    x: n > 1 ? left + (i / (n - 1)) * plotWidth : left + plotWidth / 2,
+    y: top + (1 - s.accuracy / 100) * plotHeight,
+    s,
+  }));
 
   const accent1 = getAccentColor();
   const accent2 = getAccentColorSecondary();
+
+  // Repères horizontaux légers + graduations verticales lisibles (0/25/50/75/100%).
+  const gridLines = [0, 25, 50, 75, 100]
+    .map((pct) => {
+      const y = (top + (1 - pct / 100) * plotHeight).toFixed(1);
+      return `<line x1="${left}" y1="${y}" x2="${right}" y2="${y}" stroke="var(--border)" stroke-width="1" opacity="0.5"/><text x="${(left - 7).toFixed(1)}" y="${y}" text-anchor="end" dominant-baseline="middle" font-size="9.5" fill="var(--text-faint)">${pct}%</text>`;
+    })
+    .join("");
+
+  // Repères temporels sur l'axe horizontal, sur deux lignes (date puis
+  // heure, ex. "19/10" / "14:35") : la date n'est réaffichée que lorsqu'elle
+  // change (plusieurs séries le même jour ne répètent pas "19/10" à chaque
+  // point), mais l'HEURE, elle, est toujours affichée pour chaque libellé
+  // conservé — c'est elle qui permet de distinguer plusieurs séries du même
+  // jour. Avec beaucoup de points sur un espace étroit (mobile, fenêtre
+  // Tout), afficher un libellé par point les ferait se chevaucher : un
+  // libellé n'est conservé que s'il est à bonne distance en pixels du
+  // précédent RÉELLEMENT affiché — jamais un simple pas d'index régulier
+  // (qui pouvait encore faire chevaucher le tout dernier point et son voisin
+  // direct), et le survol reste la source complète (date + heure) dans tous
+  // les cas.
+  const MIN_LABEL_SPACING_PX = 34;
+  let lastDateLabel = null;
+  let lastLabelX = -Infinity;
+  const xLabels = points
+    .map((p, i) => {
+      if (i !== 0 && p.x - lastLabelX < MIN_LABEL_SPACING_PX) return "";
+      lastLabelX = p.x;
+      const dateLabel = formatChartDate(p.s);
+      const showDate = dateLabel !== lastDateLabel;
+      lastDateLabel = dateLabel;
+      const dateText = showDate
+        ? `<text x="${p.x.toFixed(1)}" y="${(bottom + 16).toFixed(1)}" text-anchor="middle" font-size="9.5" fill="var(--text-faint)">${dateLabel}</text>`
+        : "";
+      const timeText = `<text x="${p.x.toFixed(1)}" y="${(bottom + 27).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="var(--text-faint)" opacity="0.85">${formatChartTime(p.s)}</text>`;
+      return dateText + timeText;
+    })
+    .join("");
+
   const path = points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
   const dots = points
     .map(
       (p, i) =>
-        `<circle data-idx="${i}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${accent2}" class="chart-dot"/>`,
+        `<circle data-idx="${i}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="${accent2}" class="chart-dot"/>`,
     )
     .join("");
   const hitAreas = points
@@ -298,11 +413,12 @@ function renderProgressChart(series) {
     .join("");
 
   svg.innerHTML = `
-    <line x1="10" y1="160" x2="590" y2="160" stroke="var(--border)" stroke-width="1"/>
-    <path d="${path}" fill="none" stroke="url(#linegrad)" stroke-width="3" stroke-linecap="round" style="transition: d 300ms ease;"/>
+    ${gridLines}
+    ${xLabels}
+    <path d="${path}" fill="none" stroke="url(#linegrad)" stroke-width="2" stroke-linecap="round" style="transition: d 300ms ease;"/>
     ${dots}
     ${hitAreas}
-    <defs><linearGradient id="linegrad" x1="0" y1="0" x2="600" y2="0"><stop offset="0" stop-color="${accent1}"/><stop offset="1" stop-color="${accent2}"/></linearGradient></defs>
+    <defs><linearGradient id="linegrad" x1="0" y1="0" x2="${width}" y2="0"><stop offset="0" stop-color="${accent1}"/><stop offset="1" stop-color="${accent2}"/></linearGradient></defs>
   `;
 
   svg.querySelectorAll(".chart-hit").forEach((hit) => {
@@ -310,14 +426,14 @@ function renderProgressChart(series) {
       const idx = Number(hit.dataset.idx);
       const point = points[idx];
       const rect = svg.getBoundingClientRect();
-      const scaleX = rect.width / 600;
-      const scaleY = rect.height / 180;
+      const scaleX = rect.width / width;
+      const scaleY = rect.height / height;
       tooltip.style.display = "block";
       tooltip.style.left = `${point.x * scaleX + 12}px`;
       tooltip.style.top = `${point.y * scaleY - 10}px`;
       const d = point.s;
       const label = d.notion ? `${d.chapterId || ""} · ${d.notion}` : d.chapterId || "Mixte";
-      tooltip.innerHTML = `<strong>${d.accuracy}%</strong> (${d.score}/${d.total})<br>${label}<br>${d.date}`;
+      tooltip.innerHTML = `<strong>${chartScoreLabel(d)}</strong><br>${label}<br>${formatChartDate(d)} à ${formatChartTime(d)}`;
     });
     hit.addEventListener("mouseleave", () => {
       tooltip.style.display = "none";
@@ -325,13 +441,24 @@ function renderProgressChart(series) {
   });
 }
 
-// ── Répartition dashboard par plan (2026-08-26) : le backend (/api/stats)
-// limite déjà `series[]` à la fenêtre autorisée par le plan effectif — ces
-// boutons ne font qu'exposer/verrouiller visuellement les fenêtres que
-// l'utilisateur n'a pas le droit d'atteindre, jamais une deuxième logique de
-// filtrage (la donnée reçue est déjà la bonne, on ne fait qu'informer).
-const PLAN_WINDOW_ACCESS = { free: ["20"], premium: ["20", "50"], ultra: ["20", "50", "all"] };
-const WINDOW_LOCK_PLAN_LABEL = { 50: "Premium", all: "Ultra" };
+// Redessine le graphique quand la taille réelle du conteneur change (resize
+// fenêtre, rotation mobile) — le viewBox dépend des dimensions mesurées, donc
+// un simple CSS fluide ne suffit pas à garder les points/graduations alignés.
+let chartResizeTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(chartResizeTimer);
+  chartResizeTimer = setTimeout(() => renderProgressChart(lastChartSeries), 150);
+});
+
+// ── Répartition dashboard par plan (simplifiée en 5/15/Tout, Chantier
+// "Simplifier les fenêtres du graphique") : le backend (/api/stats, voir
+// server.py::_STATS_SERIES_WINDOW) limite déjà `series[]` à la fenêtre
+// autorisée par le plan EFFECTIF — ces boutons ne font qu'exposer/verrouiller
+// visuellement les fenêtres que l'utilisateur n'a pas le droit d'atteindre,
+// jamais une deuxième logique de filtrage (la donnée reçue est déjà la
+// bonne, on ne fait qu'informer).
+const PLAN_WINDOW_ACCESS = { free: ["5"], premium: ["5", "15"], ultra: ["5", "15", "all"] };
+const WINDOW_LOCK_PLAN_LABEL = { 15: "Premium", all: "Ultra" };
 
 function applyChartWindowLocks(plan) {
   const allowed = PLAN_WINDOW_ACCESS[plan] || PLAN_WINDOW_ACCESS.free;
@@ -340,6 +467,12 @@ function applyChartWindowLocks(plan) {
     const locked = !allowed.includes(w);
     btn.classList.toggle("is-locked", locked);
     btn.disabled = locked;
+    // Un bouton qui redevient verrouillé (rétrogradation de plan) ne doit
+    // jamais rester visuellement "actif" (dégradé violet plein) en même
+    // temps que verrouillé — ce cumul de classes laissait croire que la
+    // fenêtre restait sélectionnée/utilisable alors qu'elle ne l'était plus.
+    // Le choix de la fenêtre de repli revient à refreshChartWindowForPlan().
+    if (locked) btn.classList.remove("active");
     let badge = btn.querySelector(".chart-zoom-lock-badge");
     if (locked) {
       btn.title = `Fonctionnalité ${WINDOW_LOCK_PLAN_LABEL[w]}`;
@@ -356,13 +489,53 @@ function applyChartWindowLocks(plan) {
   });
 }
 
+// ── Réaction à un changement de plan EFFECTIF (test Owner, changement réel
+// d'abonnement) : deux problèmes corrigés ici (le verrouillage visuel seul,
+// posé par applyChartWindowLocks ci-dessus, ne suffisait pas) —
+// (1) si la fenêtre actuellement sélectionnée vient d'être verrouillée
+// (ex: "Tout" en Ultra puis rétrogradation Free), il faut retomber sur "5"
+// (seule fenêtre toujours autorisée) plutôt que de rester bloqué sur un
+// bouton désormais désactivé ; (2) la fenêtre de données RÉELLEMENT
+// disponible dépend du plan côté serveur (server.py::_STATS_SERIES_WINDOW) —
+// le tableau `series[]` déjà en mémoire a été récupéré sous l'ANCIEN plan et
+// peut être trop court (upgrade : Free->Premium ne contenait que 5 séries en
+// mémoire, la 15 vient d'être débloquée mais les données ne sont pas encore
+// là) ou simplement périmé. Un nouvel appel GET /api/stats, systématique,
+// est donc nécessaire pour que les boutons déverrouillés correspondent à de
+// vraies données plutôt qu'à un historique local insuffisant — jamais un
+// second filtrage : le serveur reste la seule source de vérité de la
+// troncature par plan.
+async function refreshChartWindowForPlan(effectivePlan) {
+  const allowed = PLAN_WINDOW_ACCESS[effectivePlan] || PLAN_WINDOW_ACCESS.free;
+  if (!allowed.includes(String(chartWindow))) {
+    chartWindow = 5;
+    document.querySelectorAll(".chart-zoom-btn").forEach((b) => b.classList.toggle("active", b.dataset.window === "5"));
+  }
+  try {
+    const stats = await api.getStats();
+    const classLevel = getStoredClassLevel();
+    const series = (stats.series || []).filter((s) => (s.class_level || "seconde") === classLevel);
+    renderProgressChart(series);
+  } catch {
+    // Au pire, on garde l'affichage déjà présent (fenêtre déjà corrigée
+    // au besoin ci-dessus) plutôt que de casser l'UI pour un échec réseau.
+    renderProgressChart(lastChartSeries);
+  }
+}
+
 document.querySelectorAll(".chart-zoom-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     if (btn.disabled) return;
     document.querySelectorAll(".chart-zoom-btn").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     chartWindow = btn.dataset.window === "all" ? "all" : Number(btn.dataset.window);
-    renderProgressChart(scopedStats(getState(), getStoredClassLevel()).series);
+    // `lastChartSeries` (mis à jour à chaque rendu, voir renderProgressChart)
+    // plutôt que de relire `getState()` ici : après un changement de plan
+    // (refreshChartWindowForPlan ci-dessus), c'est le tableau fraîchement
+    // obtenu du serveur qui doit rester la source pour les clics suivants —
+    // relire le store local aurait réintroduit un historique périmé/trop
+    // court datant de l'ancien plan.
+    renderProgressChart(lastChartSeries);
   });
 });
 
@@ -677,10 +850,15 @@ async function renderAiUsageCard() {
 async function init() {
   const { user } = await api.me();
   renderAccountCard(user);
-  applyChartWindowLocks(user.plan);
+  // `effective_plan` (jamais `plan`) : seul `effective_plan` suit un plan de
+  // test Owner en cours (voir auth.py::_public_user) — utiliser `plan` ici
+  // laissait les verrous 50/Tout figés sur le plan Free réel pendant un test,
+  // ce qui donnait l'impression que ces indicateurs ne changeaient jamais.
+  applyChartWindowLocks(user.effective_plan);
   window.addEventListener("novamath:account-updated", (e) => {
     renderAccountCard(e.detail);
-    applyChartWindowLocks(e.detail.plan);
+    applyChartWindowLocks(e.detail.effective_plan);
+    refreshChartWindowForPlan(e.detail.effective_plan);
   });
   renderAiUsageCard();
 

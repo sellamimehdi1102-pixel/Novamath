@@ -158,12 +158,15 @@ describe("exercice.js — gestion du HTTP 429 (quota épuisé)", () => {
   });
 
   it("une série avec seulement 3 exercices restants charge les 3, puis bloque proprement au 4e", async () => {
-    // Pool volontairement plus grand que le quota restant (3) : buildSeriesPool()
-    // shuffle l'ordre des ids et répète si besoin pour atteindre SERIES_TOTAL
-    // (10 par défaut) — le test ne dépend donc d'aucun id ni d'aucun ordre
-    // précis, uniquement du RANG de l'appel (les 3 premiers réussissent, le
-    // 4e est refusé), exactement ce que le backend garantit réellement.
-    seedPracticeChoices(["ex1", "ex2", "ex3"]);
+    // Pool volontairement plus grand que le quota restant (3) mais avec assez
+    // d'exercices DISTINCTS (10) pour que buildSeriesPool() ne raccourcisse
+    // pas la série elle-même (voir son non-repli désormais interdit sur la
+    // répétition — chantier "routage réel") : seul le quota (3 restants) doit
+    // interrompre la série, pas une diversité insuffisante. Le test ne dépend
+    // donc d'aucun id ni d'aucun ordre précis, uniquement du RANG de l'appel
+    // (les 3 premiers réussissent, le 4e est refusé), exactement ce que le
+    // backend garantit réellement.
+    seedPracticeChoices(["ex1", "ex2", "ex3", "ex4", "ex5", "ex6", "ex7", "ex8", "ex9", "ex10"]);
     document.body.innerHTML = loadPageBody("exercice.html");
     mockApi.getQuota.mockReset();
     mockApi.getQuota.mockResolvedValue({ exercises_daily: { used: 17, remaining: 3, limit: 20, unlimited: false } });

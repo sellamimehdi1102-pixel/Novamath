@@ -10,6 +10,7 @@ import unittest
 
 import db
 import server
+import settings_service
 from chatbot.services import llm_fallback_service
 from role_service import Role
 
@@ -43,16 +44,34 @@ class TestParametresIAReellementAppliques(unittest.TestCase):
 
     def setUp(self):
         self.client = server.app.test_client()
-        self.addCleanup(self._reset_ai_settings)
+        # Chantier "troncature des réponses IA" (2026-10-17) : l'ancien
+        # nettoyage ci-dessous réécrivait des valeurs FIXES ("1024" pour
+        # ai_max_response_tokens_default) dans la vraie base SQLite partagée
+        # — "1024" était déjà obsolète depuis les chantiers 6/9
+        # (_DEFAULT_MAX_TOKENS passé à 2500), et une exécution de la suite
+        # complète laissait cette valeur stale en place pour TOUTE
+        # conversation réelle suivante (confirmé par les logs de production :
+        # réponses tronquées en plein milieu d'une formule LaTeX). Cette
+        # classe restaure maintenant l'état EXACT observé avant le test
+        # (valeur réelle si une ligne existait déjà, suppression sinon),
+        # jamais une valeur recopiée en dur — correct quelle que soit la
+        # config réelle de la base (y compris un choix délibéré d'admin).
+        self._ai_settings_before = {
+            key: db.get_system_setting(key) for key in settings_service.AI_SETTINGS_KEYS
+        }
+        self.addCleanup(self._restore_ai_settings)
 
-    def _reset_ai_settings(self):
-        # Pas de delete_system_setting() dans db.py (voir sa docstring) : on
-        # réécrit explicitement les valeurs par défaut documentées plutôt que
-        # de stocker NULL (qui ferait planter float(None)/int(None) au
-        # prochain appel réel du pipeline).
-        db.set_system_setting("ai_temperature_default", "0.6")
-        db.set_system_setting("ai_max_response_tokens_default", "1024")
-        db.set_system_setting("ai_fallback_enabled", "1")
+    def _restore_ai_settings(self):
+        for key, row in self._ai_settings_before.items():
+            if row is None:
+                conn = db.get_connection()
+                try:
+                    conn.execute("DELETE FROM system_settings WHERE key = ?", (key,))
+                    conn.commit()
+                finally:
+                    conn.close()
+            else:
+                db.set_system_setting(key, row["value"], updated_by_admin_id=row["updated_by_admin_id"])
 
     def test_temperature_et_max_tokens_persistes_et_relus_par_le_pipeline(self):
         _, headers = _register_admin(self.client)

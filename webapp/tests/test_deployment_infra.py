@@ -254,9 +254,12 @@ class TestDockerCompose(unittest.TestCase):
     def test_service_web_construit_depuis_le_dockerfile(self):
         self.assertIn("dockerfile: Dockerfile", self.content)
 
-    def test_volumes_nommes_pour_data_et_backups(self):
+    def test_volume_nomme_pour_data_et_backups(self):
+        # Un seul volume persistant (/app/data) couvre la base ET les
+        # sauvegardes (webapp/config.py::BACKUP_DIRECTORY = data/backups) —
+        # aligné sur render.yaml, qui ne déclare lui aussi qu'un seul disque.
         self.assertIn("novamath-data:/app/data", self.content)
-        self.assertIn("novamath-backups:/app/backups", self.content)
+        self.assertNotIn("/app/backups", self.content)
 
     def test_redemarrage_automatique(self):
         self.assertIn("restart: unless-stopped", self.content)

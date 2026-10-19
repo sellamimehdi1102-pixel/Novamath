@@ -75,34 +75,20 @@ wireOpeners(".js-open-signup", "signup-modal-overlay", () => {
 
 // ── Protection des mineurs (RGPD) — seuil légal français : 15 ans (voir
 // consent_service.MINOR_CONSENT_AGE_THRESHOLD côté serveur, seule source de
-// vérité ; ce calcul client n'est qu'un confort d'affichage immédiat, revalidé
-// systématiquement côté serveur à l'inscription). ──────────────────────────
-const MINOR_CONSENT_AGE_THRESHOLD = 15;
-function computeAge(birthDateStr) {
-  const [year, month, day] = birthDateStr.split("-").map(Number);
-  if (!year || !month || !day) return null;
-  const born = new Date(year, month - 1, day);
-  const today = new Date();
-  let age = today.getFullYear() - born.getFullYear();
-  if (
-    today.getMonth() < born.getMonth() ||
-    (today.getMonth() === born.getMonth() && today.getDate() < born.getDate())
-  ) {
-    age -= 1;
-  }
-  return age;
+// vérité). Auto-déclaration directe (case à cocher "J'ai moins de 15 ans")
+// depuis la suppression de la question d'âge/date de naissance du
+// formulaire d'inscription — plus de calcul d'âge côté client, le serveur
+// fait confiance à cette déclaration exactement comme il le faisait déjà
+// pour accept_terms/accept_privacy (jamais un champ revérifié par recalcul,
+// uniquement par la présence du consentement parental qui en découle). ────
+function isMinorSignup(checkboxId = "signup-is-minor") {
+  return $(checkboxId).checked;
 }
-function isMinorSignup(birthDateFieldId = "signup-birth-date") {
-  const birthDate = $(birthDateFieldId).value;
-  if (!birthDate) return false;
-  const age = computeAge(birthDate);
-  return age !== null && age < MINOR_CONSENT_AGE_THRESHOLD;
-}
-$("signup-birth-date").addEventListener("change", () => {
+$("signup-is-minor").addEventListener("change", () => {
   $("signup-parent-email-row").hidden = !isMinorSignup();
 });
-$("oauth-signup-birth-date").addEventListener("change", () => {
-  $("oauth-signup-parent-email-row").hidden = !isMinorSignup("oauth-signup-birth-date");
+$("oauth-signup-is-minor").addEventListener("change", () => {
+  $("oauth-signup-parent-email-row").hidden = !isMinorSignup("oauth-signup-is-minor");
 });
 wireOpeners(".js-open-login", "login-modal-overlay");
 wireOpeners(".js-open-forgot", "forgot-modal-overlay", () => {
@@ -251,7 +237,6 @@ function validateSignupClientSide() {
     "email",
     "username",
     "pseudo",
-    "birth_date",
     "parent_email",
     "password",
     "confirm",
@@ -285,14 +270,7 @@ function validateSignupClientSide() {
     ok = false;
   }
 
-  const birthDate = $("signup-birth-date").value;
-  if (!birthDate) {
-    setFieldError("signup", "birth_date", "La date de naissance est obligatoire.");
-    ok = false;
-  } else if (new Date(birthDate) > new Date()) {
-    setFieldError("signup", "birth_date", "La date de naissance ne peut pas être dans le futur.");
-    ok = false;
-  } else if (isMinorSignup() && !$("signup-parent-email").value.trim()) {
+  if (isMinorSignup() && !$("signup-parent-email").value.trim()) {
     setFieldError("signup", "parent_email", "L'email d'un parent est obligatoire pour ton âge.");
     ok = false;
   }
@@ -368,7 +346,7 @@ $("signup-form").addEventListener("submit", async (e) => {
       email: $("signup-email").value.trim(),
       username: $("signup-username").value.trim(),
       pseudo: $("signup-pseudo").value.trim(),
-      birth_date: $("signup-birth-date").value,
+      is_minor: isMinor,
       parent_email: isMinor ? $("signup-parent-email").value.trim() : undefined,
       password: $("signup-password").value,
       confirm_password: $("signup-password-confirm").value,
@@ -394,18 +372,11 @@ $("signup-form").addEventListener("submit", async (e) => {
 
 // ── Finalise une inscription Google amorcée par oauth_callback (voir
 // initFromQuery ci-dessous) : email déjà vérifié par Google, il ne manque que
-// nom d'utilisateur/pseudo/date de naissance/CGU (auth.py::oauth_complete_signup). ─
+// nom d'utilisateur/pseudo/auto-déclaration mineur/CGU
+// (auth.py::oauth_complete_signup). ─────────────────────────────────────────
 let pendingOAuthProvider = null;
 function validateOAuthSignupClientSide() {
-  clearErrors("oauth-signup", [
-    "username",
-    "pseudo",
-    "birth_date",
-    "parent_email",
-    "accept_terms",
-    "accept_privacy",
-    "global",
-  ]);
+  clearErrors("oauth-signup", ["username", "pseudo", "parent_email", "accept_terms", "accept_privacy", "global"]);
   let ok = true;
 
   const username = $("oauth-signup-username").value.trim();
@@ -423,14 +394,7 @@ function validateOAuthSignupClientSide() {
     ok = false;
   }
 
-  const birthDate = $("oauth-signup-birth-date").value;
-  if (!birthDate) {
-    setFieldError("oauth-signup", "birth_date", "La date de naissance est obligatoire.");
-    ok = false;
-  } else if (new Date(birthDate) > new Date()) {
-    setFieldError("oauth-signup", "birth_date", "La date de naissance ne peut pas être dans le futur.");
-    ok = false;
-  } else if (isMinorSignup("oauth-signup-birth-date") && !$("oauth-signup-parent-email").value.trim()) {
+  if (isMinorSignup("oauth-signup-is-minor") && !$("oauth-signup-parent-email").value.trim()) {
     setFieldError("oauth-signup", "parent_email", "L'email d'un parent est obligatoire pour ton âge.");
     ok = false;
   }
@@ -450,15 +414,7 @@ function validateOAuthSignupClientSide() {
 function openOAuthCompleteSignup(provider) {
   pendingOAuthProvider = provider;
   closeAllAuthModals();
-  clearErrors("oauth-signup", [
-    "username",
-    "pseudo",
-    "birth_date",
-    "parent_email",
-    "accept_terms",
-    "accept_privacy",
-    "global",
-  ]);
+  clearErrors("oauth-signup", ["username", "pseudo", "parent_email", "accept_terms", "accept_privacy", "global"]);
   $("oauth-signup-form").reset();
   $("oauth-signup-parent-email-row").hidden = true;
   openModal($("oauth-signup-modal-overlay"));
@@ -471,11 +427,11 @@ $("oauth-signup-form").addEventListener("submit", async (e) => {
   const submitBtn = $("btn-oauth-signup-submit");
   submitBtn.disabled = true;
   try {
-    const isMinor = isMinorSignup("oauth-signup-birth-date");
+    const isMinor = isMinorSignup("oauth-signup-is-minor");
     const result = await api.oauthCompleteSignup(pendingOAuthProvider, {
       username: $("oauth-signup-username").value.trim(),
       pseudo: $("oauth-signup-pseudo").value.trim(),
-      birth_date: $("oauth-signup-birth-date").value,
+      is_minor: isMinor,
       parent_email: isMinor ? $("oauth-signup-parent-email").value.trim() : undefined,
       accept_terms: $("oauth-signup-accept-terms").checked,
       accept_privacy: $("oauth-signup-accept-privacy").checked,
