@@ -20,13 +20,22 @@ const EMPTY_LABEL = "Cette fonctionnalité n'est pas encore alimentée.";
 const REFRESH_INTERVAL_MS = 30000;
 
 const STATE_LABELS = {
-  ok: "Opérationnel", degraded: "Dégradé", down: "Indisponible", non_teste: "Jamais testé",
+  ok: "Opérationnel",
+  degraded: "Dégradé",
+  down: "Indisponible",
+  non_teste: "Jamais testé",
 };
 const STATE_DOT_CLASS = {
-  ok: "admin-status-dot--ok", degraded: "admin-status-dot--warning", down: "admin-status-dot--down",
+  ok: "admin-status-dot--ok",
+  degraded: "admin-status-dot--warning",
+  down: "admin-status-dot--down",
   non_teste: "admin-status-dot--unknown",
 };
-const ALERT_LEVEL_CLASS = { critical: "admin-badge--error", warning: "admin-badge--neutral", info: "admin-badge--muted" };
+const ALERT_LEVEL_CLASS = {
+  critical: "admin-badge--error",
+  warning: "admin-badge--neutral",
+  info: "admin-badge--muted",
+};
 const INCIDENT_LEVEL_CLASS = { error: "admin-badge--error", warning: "admin-badge--neutral" };
 
 function el(tag, className, text) {
@@ -46,7 +55,13 @@ function formatDateTime(iso) {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatBytes(bytes) {
@@ -100,8 +115,16 @@ function statusDot(state) {
 // jauger la sévérité à côté du badge ; le détail précis vit dans Services.
 function renderOverview(container, overview) {
   container.innerHTML = "";
-  const statusLabel = { ok: "Opérationnel", degraded: "Dégradé", down: "Indisponible" }[overview.global_status] || overview.global_status;
-  container.appendChild(simpleCard("Santé globale", statusLabel, null, "Statut agrégé de tous les services supervisés : Opérationnel si tous fonctionnent, Dégradé si au moins un est en échec sans que tout soit indisponible, Indisponible si un service critique est en panne."));
+  const statusLabel =
+    { ok: "Opérationnel", degraded: "Dégradé", down: "Indisponible" }[overview.global_status] || overview.global_status;
+  container.appendChild(
+    simpleCard(
+      "Santé globale",
+      statusLabel,
+      null,
+      "Statut agrégé de tous les services supervisés : Opérationnel si tous fonctionnent, Dégradé si au moins un est en échec sans que tout soit indisponible, Indisponible si un service critique est en panne.",
+    ),
+  );
   container.appendChild(simpleCard("Dégradés", overview.degraded_count));
   container.appendChild(simpleCard("Indisponibles", overview.down_count));
   container.appendChild(simpleCard("Dernière vérification", formatDateTime(overview.checked_at)));
@@ -130,7 +153,13 @@ function renderServices(container, services) {
     head.appendChild(el("span", "admin-provider-name", s.name));
     if (CONFIG_ONLY_SERVICE_IDS.has(s.id)) {
       const configured = s.state === "ok";
-      head.appendChild(el("span", `admin-badge ${configured ? "admin-badge--ok" : "admin-badge--neutral"}`, configured ? "Configuré" : "Non configuré"));
+      head.appendChild(
+        el(
+          "span",
+          `admin-badge ${configured ? "admin-badge--ok" : "admin-badge--neutral"}`,
+          configured ? "Configuré" : "Non configuré",
+        ),
+      );
       card.appendChild(head);
       container.appendChild(card);
       return;
@@ -160,7 +189,9 @@ function renderAiSummary(container, services, navigateTo) {
     if (down) state = "down";
     else if (degraded) state = "degraded";
     container.appendChild(statusDot(state));
-    container.appendChild(el("span", "admin-card-sub", `${aiServices.length - down} / ${aiServices.length} opérationnel(s)`));
+    container.appendChild(
+      el("span", "admin-card-sub", `${aiServices.length - down} / ${aiServices.length} opérationnel(s)`),
+    );
   } else {
     container.appendChild(el("p", "admin-empty", "Aucun fournisseur IA enregistré."));
   }
@@ -184,7 +215,9 @@ function renderDatabase(container, database, storage) {
   } else {
     container.appendChild(metricCard("Introspection SQLite", database.introspection));
   }
-  container.appendChild(metricCard("Dernière sauvegarde", database.last_backup, (b) => `${b.filename} — ${formatDateTime(b.created_at)}`));
+  container.appendChild(
+    metricCard("Dernière sauvegarde", database.last_backup, (b) => `${b.filename} — ${formatDateTime(b.created_at)}`),
+  );
   container.appendChild(metricCard("Taille en base", storage.database_bytes, formatBytes));
   container.appendChild(metricCard("Espace disque libre", storage.disk_free_bytes, formatBytes));
   container.appendChild(metricCard("Espace disque utilisé", storage.disk_used_bytes, formatBytes));
@@ -209,7 +242,13 @@ function renderServer(container, server, storage) {
   container.innerHTML = "";
   container.appendChild(metricCard("CPU", server.cpu_percent, (v) => `${v}%`));
   container.appendChild(metricCard("RAM", server.ram_percent, (v) => `${v}%`));
-  container.appendChild(simpleCard("Uptime", formatUptime(server.uptime_seconds), `Démarré le ${formatDateTime(server.process_started_at)}`));
+  container.appendChild(
+    simpleCard(
+      "Uptime",
+      formatUptime(server.uptime_seconds),
+      `Démarré le ${formatDateTime(server.process_started_at)}`,
+    ),
+  );
   container.appendChild(metricCard("Temps moyen API", server.avg_api_response_time_ms, formatMs));
   container.appendChild(metricCard("Uploads (pièces jointes)", storage.uploads_bytes, formatBytes));
 }
@@ -234,7 +273,14 @@ function renderIncidents(container, emptyEl, items) {
     const li = el("li", "admin-unavailable-item");
     li.appendChild(el("span", `admin-badge ${INCIDENT_LEVEL_CLASS[ev.level] || "admin-badge--neutral"}`, ev.level));
     li.appendChild(document.createTextNode(` ${formatDateTime(ev.created_at)} — ${ev.service} — ${ev.message} `));
-    li.appendChild(el("em", null, ev.resolution + (ev.duration_ms !== null && ev.duration_ms !== undefined ? ` (${formatMs(ev.duration_ms)})` : "")));
+    li.appendChild(
+      el(
+        "em",
+        null,
+        ev.resolution +
+          (ev.duration_ms !== null && ev.duration_ms !== undefined ? ` (${formatMs(ev.duration_ms)})` : ""),
+      ),
+    );
     container.appendChild(li);
   });
 }
@@ -242,7 +288,9 @@ function renderIncidents(container, emptyEl, items) {
 // ── Structure des 6 sections repliables (ordre imposé) ──────────────────────
 const SECTIONS = [
   {
-    id: "health-summary", title: "Résumé", open: true,
+    id: "health-summary",
+    title: "Résumé",
+    open: true,
     bodyHtml: `
       <div class="admin-cards" id="admin-health-overview"></div>
       <h3 class="admin-analytics-subtitle">Disponibilité</h3>
@@ -250,7 +298,9 @@ const SECTIONS = [
     `,
   },
   {
-    id: "health-services", title: "Services", open: false,
+    id: "health-services",
+    title: "Services",
+    open: false,
     bodyHtml: `
       <div class="admin-ai-health-list" id="admin-health-services"></div>
       <div class="admin-section-head-row">
@@ -267,19 +317,27 @@ const SECTIONS = [
     `,
   },
   {
-    id: "health-ai", title: "IA", open: false,
+    id: "health-ai",
+    title: "IA",
+    open: false,
     bodyHtml: `<div class="admin-provider-row" id="admin-health-ai-summary"></div>`,
   },
   {
-    id: "health-database", title: "Base de données", open: false,
+    id: "health-database",
+    title: "Base de données",
+    open: false,
     bodyHtml: `<div class="admin-cards" id="admin-health-database"></div>`,
   },
   {
-    id: "health-server", title: "Serveur", open: false,
+    id: "health-server",
+    title: "Serveur",
+    open: false,
     bodyHtml: `<div class="admin-cards" id="admin-health-server"></div>`,
   },
   {
-    id: "health-alerts", title: "Alertes", open: false,
+    id: "health-alerts",
+    title: "Alertes",
+    open: false,
     bodyHtml: `
       <ul class="admin-unavailable-list" id="admin-health-alerts"></ul>
       <p class="admin-empty" id="admin-health-alerts-empty" hidden>Aucune alerte active.</p>
@@ -310,7 +368,10 @@ export async function loadHealth(navigateTo) {
   async function refreshOverview() {
     const data = await fetchJson("/api/admin/system-health/overview");
     if (!data) {
-      if (errorEl) { errorEl.hidden = false; errorEl.textContent = "Impossible de charger la santé du système."; }
+      if (errorEl) {
+        errorEl.hidden = false;
+        errorEl.textContent = "Impossible de charger la santé du système.";
+      }
       return;
     }
     if (errorEl) errorEl.hidden = true;

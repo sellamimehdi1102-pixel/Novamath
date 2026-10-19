@@ -2,8 +2,13 @@ import { initSettingsManager, onSettingsChange } from "./settingsManager.js";
 import { bindSettingsButton } from "./settingsPopup.js";
 import { getAccentColorSecondary, accentRgba } from "./theme.js";
 import {
-  getState, hydrateFromServer, computeStreak,
-  masteryByChapter, levelFromXp, badgeDefs, scopedStats,
+  getState,
+  hydrateFromServer,
+  computeStreak,
+  masteryByChapter,
+  levelFromXp,
+  badgeDefs,
+  scopedStats,
 } from "./store.js";
 import { getStoredClassLevel, fetchCurricula } from "./curriculumSelector.js";
 import { getChapterTitles, buildSeriesRow } from "./seriesview.js";
@@ -23,7 +28,10 @@ let chaptersMeta = [];
 let currentUser = null;
 
 function initials(name) {
-  const parts = String(name || "").trim().split(/\s+/).slice(0, 2);
+  const parts = String(name || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2);
   return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
 }
 
@@ -83,8 +91,13 @@ function renderAccount(user) {
 // ── Section Abonnement (Stripe Billing) ────────────────────────────────────
 const PLAN_LABELS = { free: "Gratuit", premium: "Premium", ultra: "Ultra" };
 const SUBSCRIPTION_STATUS_LABELS = {
-  active: "Actif", trialing: "Période d'essai", past_due: "Paiement en retard",
-  canceled: "Résilié", unpaid: "Impayé", incomplete: "Incomplet", incomplete_expired: "Expiré",
+  active: "Actif",
+  trialing: "Période d'essai",
+  past_due: "Paiement en retard",
+  canceled: "Résilié",
+  unpaid: "Impayé",
+  incomplete: "Incomplet",
+  incomplete_expired: "Expiré",
 };
 
 function formatUnixDateFR(unixSeconds) {
@@ -146,12 +159,16 @@ async function renderSubscription() {
     const invoicesWrap = $("subscription-invoices");
     const invoicesList = $("subscription-invoices-list");
     if (status.invoices && status.invoices.length) {
-      invoicesList.innerHTML = status.invoices.map((inv) => `
+      invoicesList.innerHTML = status.invoices
+        .map(
+          (inv) => `
         <li>
           <span>${formatUnixDateFR(inv.created)} — ${(inv.amount_paid / 100).toFixed(2)} ${inv.currency.toUpperCase()}</span>
           ${inv.hosted_invoice_url ? `<a href="${inv.hosted_invoice_url}" target="_blank" rel="noopener">Voir la facture</a>` : ""}
         </li>
-      `).join("");
+      `,
+        )
+        .join("");
       invoicesWrap.hidden = false;
     } else {
       invoicesWrap.hidden = true;
@@ -184,7 +201,9 @@ function renderClassBadge() {
       const current = curricula.find((c) => c.classLevel === getStoredClassLevel());
       if (current) $("profile-class-badge").textContent = current.label;
     })
-    .catch(() => { /* garde le libellé par défaut déjà affiché dans le HTML */ });
+    .catch(() => {
+      /* garde le libellé par défaut déjà affiché dans le HTML */
+    });
 }
 
 function render(state) {
@@ -220,7 +239,9 @@ function globalProgressPct(history) {
     attempted[h.chapter] = attempted[h.chapter] || new Set();
     attempted[h.chapter].add(h.id);
   });
-  const ratios = chaptersMeta.map((c) => (c.n_exercises ? Math.min(1, (attempted[c.id]?.size || 0) / c.n_exercises) : 0));
+  const ratios = chaptersMeta.map((c) =>
+    c.n_exercises ? Math.min(1, (attempted[c.id]?.size || 0) / c.n_exercises) : 0,
+  );
   if (!ratios.length) return 0;
   return Math.round((ratios.reduce((a, b) => a + b, 0) / ratios.length) * 100);
 }
@@ -239,7 +260,9 @@ function renderAccuracyChart(series) {
   }
   svg.parentElement.querySelector(".accuracy-empty")?.remove();
 
-  const W = 300, H = 140, PAD = 12;
+  const W = 300,
+    H = 140,
+    PAD = 12;
   const pts = series.slice(-20);
   const stepX = pts.length > 1 ? (W - PAD * 2) / (pts.length - 1) : 0;
   const coords = pts.map((s, i) => {
@@ -253,7 +276,10 @@ function renderAccuracyChart(series) {
 
   const accent = getAccentColorSecondary();
   const dots = coords
-    .map(([x, y], i) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="${accent}"><title>${pts[i].accuracy}%</title></circle>`)
+    .map(
+      ([x, y], i) =>
+        `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="${accent}"><title>${pts[i].accuracy}%</title></circle>`,
+    )
     .join("");
 
   svg.innerHTML = `
@@ -282,7 +308,8 @@ function renderDonut(total, correct) {
     return;
   }
 
-  const r = 48, c = 2 * Math.PI * r;
+  const r = 48,
+    c = 2 * Math.PI * r;
   const correctLen = (pctCorrect / 100) * c;
   svg.innerHTML = `
     <circle cx="60" cy="60" r="${r}" fill="none" stroke="var(--surface-hover)" stroke-width="14"/>
@@ -305,7 +332,9 @@ function renderRadar(history) {
     svg.innerHTML = `<text x="150" y="130" text-anchor="middle" fill="var(--text-faint)" font-size="13">Fais des exercices pour voir ton radar</text>`;
     return;
   }
-  const cx = 150, cy = 130, maxR = 100;
+  const cx = 150,
+    cy = 130,
+    maxR = 100;
   const n = chapters.length;
   const angleFor = (i) => (Math.PI * 2 * i) / n - Math.PI / 2;
 
@@ -341,18 +370,24 @@ function renderRadar(history) {
 function renderBadges(unlocked) {
   const grid = $("badges-grid");
   const unlockedSet = new Set(unlocked);
-  grid.innerHTML = badgeDefs().map((b) => `
+  grid.innerHTML = badgeDefs()
+    .map(
+      (b) => `
     <div class="badge-tile${unlockedSet.has(b.id) ? " unlocked" : ""}">
       <div class="icon">${badgeIconSvg(b.id)}</div>
       <div class="name">${b.label}</div>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function renderHeatmap(history) {
   const grid = $("heatmap-grid");
   const counts = {};
-  history.forEach((h) => { counts[h.date] = (counts[h.date] || 0) + 1; });
+  history.forEach((h) => {
+    counts[h.date] = (counts[h.date] || 0) + 1;
+  });
 
   const days = [];
   for (let i = 181; i >= 0; i--) {
@@ -360,11 +395,13 @@ function renderHeatmap(history) {
     d.setDate(d.getDate() - i);
     days.push(d.toISOString().slice(0, 10));
   }
-  grid.innerHTML = days.map((day) => {
-    const c = counts[day] || 0;
-    const level = c === 0 ? 0 : c === 1 ? 1 : c <= 3 ? 2 : c <= 5 ? 3 : 4;
-    return `<div class="heatmap-cell" data-level="${level}" title="${day} : ${c} exercice(s)"></div>`;
-  }).join("");
+  grid.innerHTML = days
+    .map((day) => {
+      const c = counts[day] || 0;
+      const level = c === 0 ? 0 : c === 1 ? 1 : c <= 3 ? 2 : c <= 5 ? 3 : 4;
+      return `<div class="heatmap-cell" data-level="${level}" title="${day} : ${c} exercice(s)"></div>`;
+    })
+    .join("");
 }
 
 function renderSeriesPage(series) {
@@ -403,8 +440,12 @@ $("btn-next-page").addEventListener("click", () => {
 window.addEventListener("novamath:account-updated", (e) => renderAccount(e.detail));
 
 // ── Déconnexion ──────────────────────────────────────────────────────────────
-$("btn-logout").addEventListener("click", () => { $("logout-modal-overlay").hidden = false; });
-$("btn-logout-cancel").addEventListener("click", () => { $("logout-modal-overlay").hidden = true; });
+$("btn-logout").addEventListener("click", () => {
+  $("logout-modal-overlay").hidden = false;
+});
+$("btn-logout-cancel").addEventListener("click", () => {
+  $("logout-modal-overlay").hidden = true;
+});
 $("logout-modal-overlay").addEventListener("click", (e) => {
   if (e.target.id === "logout-modal-overlay") $("logout-modal-overlay").hidden = true;
 });
@@ -427,7 +468,9 @@ $("btn-delete-account").addEventListener("click", () => {
   $("delete-account-password-field").hidden = currentUser?.auth_provider !== "local";
   $("delete-account-modal-overlay").hidden = false;
 });
-$("btn-delete-account-cancel").addEventListener("click", () => { $("delete-account-modal-overlay").hidden = true; });
+$("btn-delete-account-cancel").addEventListener("click", () => {
+  $("delete-account-modal-overlay").hidden = true;
+});
 $("delete-account-modal-overlay").addEventListener("click", (e) => {
   if (e.target.id === "delete-account-modal-overlay") $("delete-account-modal-overlay").hidden = true;
 });

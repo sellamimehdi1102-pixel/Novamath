@@ -29,7 +29,13 @@ function formatDateTime(iso) {
   if (!iso) return null;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatInt(value) {
@@ -71,8 +77,13 @@ function renderHeader(info, providerId, { onChanged, onRefresh }) {
   meta.appendChild(el("p", "admin-user-profile-email", `${info.provider_key} · ${info.model_name}`));
   const badges = el("div", "admin-user-profile-badges");
   if (info.badge.available) badges.appendChild(el("span", "admin-badge admin-badge--neutral", info.badge.value));
-  badges.appendChild(el("span", `admin-status-dot admin-status-dot--${info.enabled ? "ok" : "down"}`,
-    info.enabled ? "Activé" : "Désactivé"));
+  badges.appendChild(
+    el(
+      "span",
+      `admin-status-dot admin-status-dot--${info.enabled ? "ok" : "down"}`,
+      info.enabled ? "Activé" : "Désactivé",
+    ),
+  );
   meta.appendChild(badges);
   head.appendChild(meta);
 
@@ -117,7 +128,11 @@ function renderHeader(info, providerId, { onChanged, onRefresh }) {
     const { ok, payload } = await apiCall(`/api/admin/ai/providers/${providerId}/health-check`, { method: "POST" });
     healthBtn.disabled = false;
     resultSlot.innerHTML = "";
-    resultSlot.appendChild(ok ? testResultBox(payload) : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."));
+    resultSlot.appendChild(
+      ok
+        ? testResultBox(payload)
+        : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."),
+    );
   });
   actions.appendChild(healthBtn);
 
@@ -130,7 +145,11 @@ function renderHeader(info, providerId, { onChanged, onRefresh }) {
     const { ok, payload } = await apiCall(`/api/admin/ai/providers/${providerId}/test-connection`, { method: "POST" });
     testConnectionBtn.disabled = false;
     resultSlot.innerHTML = "";
-    resultSlot.appendChild(ok ? testResultBox(payload) : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."));
+    resultSlot.appendChild(
+      ok
+        ? testResultBox(payload)
+        : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."),
+    );
   });
   actions.appendChild(testConnectionBtn);
 
@@ -201,7 +220,9 @@ function renderUsageTab(data) {
     const table = el("table", "admin-users-table");
     const thead = document.createElement("thead");
     const theadRow = el("tr");
-    ["Date", "Input", "Output", "Requêtes", "Coût"].forEach((label) => theadRow.appendChild(el("th", "admin-users-th", label)));
+    ["Date", "Input", "Output", "Requêtes", "Coût"].forEach((label) =>
+      theadRow.appendChild(el("th", "admin-users-th", label)),
+    );
     thead.appendChild(theadRow);
     table.appendChild(thead);
     const tbody = document.createElement("tbody");
@@ -316,7 +337,8 @@ export async function loadAiProviderDetail(providerId) {
 
     renderSkeletonPanel(panel);
     try {
-      const { payload, notFound } = tabId === "info" ? { payload: cache.get("info"), notFound: false } : await fetchTab(tabId);
+      const { payload, notFound } =
+        tabId === "info" ? { payload: cache.get("info"), notFound: false } : await fetchTab(tabId);
       if (notFound) {
         panel.innerHTML = "";
         panel.appendChild(emptyState("Ce fournisseur est introuvable."));
@@ -334,7 +356,9 @@ export async function loadAiProviderDetail(providerId) {
       renderTabContent(tabId, payload);
     } catch {
       panel.innerHTML = "";
-      panel.appendChild(el("p", "admin-empty admin-card-error", "Impossible de charger cet onglet. Réessaie dans un instant."));
+      panel.appendChild(
+        el("p", "admin-empty admin-card-error", "Impossible de charger cet onglet. Réessaie dans un instant."),
+      );
     }
   }
 

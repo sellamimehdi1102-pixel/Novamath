@@ -30,7 +30,13 @@ function formatDateTime(iso) {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatMs(ms) {
@@ -105,7 +111,10 @@ function renderRow(tbody, key, { onChanged, allowEdit }) {
     const { ok, payload } = await apiCall(`/api/admin/ai/keys/${key.id}/test`, { method: "POST" });
     testBtn.disabled = false;
     testBtn.textContent = "Tester";
-    if (!ok) { alert(payload.error || "Test impossible."); return; }
+    if (!ok) {
+      alert(payload.error || "Test impossible.");
+      return;
+    }
     onChanged();
   });
   actions.appendChild(testBtn);
@@ -115,9 +124,15 @@ function renderRow(tbody, key, { onChanged, allowEdit }) {
   toggleBtn.addEventListener("click", async () => {
     if (key.enabled && !confirm(`Désactiver la clé « ${key.label} » ?`)) return;
     toggleBtn.disabled = true;
-    const { ok, payload } = await apiCall(`/api/admin/ai/keys/${key.id}`, { method: "PATCH", body: { enabled: !key.enabled } });
+    const { ok, payload } = await apiCall(`/api/admin/ai/keys/${key.id}`, {
+      method: "PATCH",
+      body: { enabled: !key.enabled },
+    });
     toggleBtn.disabled = false;
-    if (!ok) { alert(payload.error || "Action impossible."); return; }
+    if (!ok) {
+      alert(payload.error || "Action impossible.");
+      return;
+    }
     onChanged();
   });
   actions.appendChild(toggleBtn);
@@ -132,10 +147,14 @@ function renderRow(tbody, key, { onChanged, allowEdit }) {
       if (newPriority === null) return;
       editBtn.disabled = true;
       const { ok, payload } = await apiCall(`/api/admin/ai/keys/${key.id}`, {
-        method: "PATCH", body: { label: newLabel, priority: Number(newPriority) || 0 },
+        method: "PATCH",
+        body: { label: newLabel, priority: Number(newPriority) || 0 },
       });
       editBtn.disabled = false;
-      if (!ok) { alert(payload.error || "Modification impossible."); return; }
+      if (!ok) {
+        alert(payload.error || "Modification impossible.");
+        return;
+      }
       onChanged();
     });
     actions.appendChild(editBtn);
@@ -148,7 +167,10 @@ function renderRow(tbody, key, { onChanged, allowEdit }) {
     deleteBtn.disabled = true;
     const { ok, payload } = await apiCall(`/api/admin/ai/keys/${key.id}`, { method: "DELETE" });
     deleteBtn.disabled = false;
-    if (!ok) { alert(payload.error || "Suppression impossible."); return; }
+    if (!ok) {
+      alert(payload.error || "Suppression impossible.");
+      return;
+    }
     onChanged();
   });
   actions.appendChild(deleteBtn);
@@ -159,19 +181,40 @@ function renderRow(tbody, key, { onChanged, allowEdit }) {
 
   if (key.last_error) {
     const errorRow = document.createElement("tr");
-    const errorTd = el("td", "admin-users-td admin-users-td--muted admin-users-td--wrap", `Dernière erreur : ${key.last_error}`);
+    const errorTd = el(
+      "td",
+      "admin-users-td admin-users-td--muted admin-users-td--wrap",
+      `Dernière erreur : ${key.last_error}`,
+    );
     errorTd.colSpan = COLUMNS.length;
     errorRow.appendChild(errorTd);
     tbody.appendChild(errorRow);
   }
 }
 
-const COLUMNS = ["Nom", "Fournisseur", "Modèle principal", "État", "Priorité", "Dernière utilisation", "Requêtes", "Succès", "Échecs", "Bascules", "Latence", "Actions"];
+const COLUMNS = [
+  "Nom",
+  "Fournisseur",
+  "Modèle principal",
+  "État",
+  "Priorité",
+  "Dernière utilisation",
+  "Requêtes",
+  "Succès",
+  "Échecs",
+  "Bascules",
+  "Latence",
+  "Actions",
+];
 
 /** Construit (ou réutilise) un tableau complet à l'intérieur de `container`
  * et le peuple avec `keys`. `allowEdit` doit rester exactement ce que
  * l'appelant avait avant ce chantier (voir docstring en tête de fichier). */
-export function renderApiKeysTable(container, keys, { onChanged, allowEdit = false, emptyMessage = "Aucune clé API configurée." } = {}) {
+export function renderApiKeysTable(
+  container,
+  keys,
+  { onChanged, allowEdit = false, emptyMessage = "Aucune clé API configurée." } = {},
+) {
   container.innerHTML = "";
   if (!keys.length) {
     container.appendChild(el("p", "admin-empty", emptyMessage));

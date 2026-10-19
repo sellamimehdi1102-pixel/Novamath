@@ -1,6 +1,10 @@
 import { bindThemeToggle } from "./theme.js";
 import {
-  fetchCurricula, getStoredClassLevel, setStoredClassLevel, renderCurriculumCard, ALLOWED_NEXT_PAGES,
+  fetchCurricula,
+  getStoredClassLevel,
+  setStoredClassLevel,
+  renderCurriculumCard,
+  ALLOWED_NEXT_PAGES,
 } from "./curriculumSelector.js";
 import { initScrollReveal } from "./scroll-reveal.js";
 
@@ -32,13 +36,16 @@ fetchCurricula()
     grid.innerHTML = "";
     grid.setAttribute("aria-busy", "false");
     curricula.forEach((curriculum) => {
-      grid.appendChild(renderCurriculumCard(curriculum, {
-        isCurrent: curriculum.classLevel === current,
-        onEnter: enterCurriculum,
-      }));
+      grid.appendChild(
+        renderCurriculumCard(curriculum, {
+          isCurrent: curriculum.classLevel === current,
+          onEnter: enterCurriculum,
+        }),
+      );
     });
   })
   .catch(() => {
-    grid.innerHTML = '<p class="cursus-select-error">Impossible de charger les classes disponibles pour le moment. Réessaie dans un instant.</p>';
+    grid.innerHTML =
+      '<p class="cursus-select-error">Impossible de charger les classes disponibles pour le moment. Réessaie dans un instant.</p>';
     grid.setAttribute("aria-busy", "false");
   });

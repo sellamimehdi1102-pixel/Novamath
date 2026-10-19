@@ -85,7 +85,9 @@ class TestHistoriqueSeriesProfilDefileHorizontalement(unittest.TestCase):
         html = _read("webapp/static/profil.html")
         match = re.search(r'<div class="profile-card card"[^>]*>\s*<h3>.*?Historique des séries', html, re.DOTALL)
         self.assertIsNotNone(match, "bloc Historique des séries introuvable")
-        self.assertIn("overflow-x:auto", match.group(0))
+        # Espace après ":" optionnel : Prettier normalise le style inline
+        # (voir .prettierrc), équivalent CSS strict.
+        self.assertRegex(match.group(0), r"overflow-x:\s*auto")
 
 
 class TestIconeExerciceSurMesureTailleeCorrectement(unittest.TestCase):

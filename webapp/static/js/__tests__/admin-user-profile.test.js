@@ -12,7 +12,10 @@ import { loadUserProfile } from "../admin-user-profile.js";
 
 function profilePayload(overrides = {}) {
   return {
-    id: 7, avatar: null, pseudo: "Alice", email: "alice@test.novamath.local",
+    id: 7,
+    avatar: null,
+    pseudo: "Alice",
+    email: "alice@test.novamath.local",
     plan: { available: true, value: "premium" },
     role: { available: true, value: "user" },
     account_status: { available: true, value: "active" },
@@ -32,17 +35,30 @@ function profilePayload(overrides = {}) {
 // cours/tentatives d'exercice ont été retirées de l'affichage).
 const TAB_PAYLOADS = {
   profile: profilePayload(),
-  activity: { events: [{ type: "security", label: "Connexion réussie", created_at: "2026-07-01T10:00:00+00:00", meta: null }], total_events: 1 },
+  activity: {
+    events: [{ type: "security", label: "Connexion réussie", created_at: "2026-07-01T10:00:00+00:00", meta: null }],
+    total_events: 1,
+  },
   courses: { chapters: null, chapters_reason: "Aucune progression enregistrée." },
-  exercises: { total: 0, success_rate: null, chapters_with_most_errors: null, last_exercise: { available: false, value: null, reason: "aucun exercice" }, time_spent_s: { available: true, value: 0 } },
+  exercises: {
+    total: 0,
+    success_rate: null,
+    chapters_with_most_errors: null,
+    last_exercise: { available: false, value: null, reason: "aucun exercice" },
+    time_spent_s: { available: true, value: 0 },
+  },
   learning: { notions: null, notions_reason: "Aucune notion consultée." },
   chatbot: {
-    conversations_count: 2, messages_count: 5,
+    conversations_count: 2,
+    messages_count: 5,
     last_conversation: { available: true, value: { id: 1, title: "Conv", updated_at: "2026-07-01T10:00:00+00:00" } },
-    history: [], time_spent_s: { available: false, value: null, reason: "non mesuré" },
-    local_responses_count: { available: true, value: 3 }, llm_responses_count: { available: true, value: 2 },
+    history: [],
+    time_spent_s: { available: false, value: null, reason: "non mesuré" },
+    local_responses_count: { available: true, value: 3 },
+    llm_responses_count: { available: true, value: 2 },
     engine_breakdown: { available: true, value: { local: 3, llm: 2 } },
-    ai_consumption_available: false, ai_consumption_empty_message: "Ce compte n'a encore jamais utilisé le chatbot.",
+    ai_consumption_available: false,
+    ai_consumption_empty_message: "Ce compte n'a encore jamais utilisé le chatbot.",
     ai_requests_total: { available: false, value: null, reason: "non disponible" },
     ai_tokens_total: { available: false, value: null, reason: "non disponible" },
     ai_input_tokens: { available: false, value: null, reason: "non disponible" },
@@ -58,12 +74,27 @@ const TAB_PAYLOADS = {
     ai_real_tokens: { available: false, value: null, reason: "non disponible" },
     ai_estimated_tokens: { available: false, value: null, reason: "non disponible" },
     ai_source_breakdown: { available: false, value: null, reason: "non disponible" },
-    ai_call_history: null, ai_call_history_reason: "Ce compte n'a encore jamais utilisé le chatbot.",
+    ai_call_history: null,
+    ai_call_history_reason: "Ce compte n'a encore jamais utilisé le chatbot.",
   },
-  subscription: { plan: { available: true, value: "premium" }, stripe_subscription_status: { available: false, value: null, reason: "aucun abonnement" }, has_stripe_customer: { available: true, value: false } },
+  subscription: {
+    plan: { available: true, value: "premium" },
+    stripe_subscription_status: { available: false, value: null, reason: "aucun abonnement" },
+    has_stripe_customer: { available: true, value: false },
+  },
   support: {
     tickets: [
-      { id: 1, subject: "Le chatbot ne répond plus", category: "bug", category_label: "Bug", priority: "haute", status: "open", status_label: "Ouvert", created_at: "2026-07-01T10:00:00+00:00", updated_at: "2026-07-02T09:00:00+00:00" },
+      {
+        id: 1,
+        subject: "Le chatbot ne répond plus",
+        category: "bug",
+        category_label: "Bug",
+        priority: "haute",
+        status: "open",
+        status_label: "Ouvert",
+        created_at: "2026-07-01T10:00:00+00:00",
+        updated_at: "2026-07-02T09:00:00+00:00",
+      },
     ],
     tickets_reason: null,
   },
@@ -281,11 +312,15 @@ describe("admin-user-profile.js — onglet Informations enrichi (auth_provider/2
   });
 
   it("affiche Google, la 2FA activée et l'email vérifié pour un compte OAuth avec 2FA", async () => {
-    mockFetch(7, { overrides: { profile: profilePayload({
-      auth_provider: { available: true, value: "google" },
-      two_factor_enabled: { available: true, value: true },
-      email_verified: { available: true, value: true },
-    }) } });
+    mockFetch(7, {
+      overrides: {
+        profile: profilePayload({
+          auth_provider: { available: true, value: "google" },
+          two_factor_enabled: { available: true, value: true },
+          email_verified: { available: true, value: true },
+        }),
+      },
+    });
     mountTemplate();
     await loadUserProfile(7);
 
@@ -296,9 +331,13 @@ describe("admin-user-profile.js — onglet Informations enrichi (auth_provider/2
   });
 
   it("un fournisseur inconnu retombe sur un fallback propre (valeur brute), jamais un libellé inventé", async () => {
-    mockFetch(7, { overrides: { profile: profilePayload({
-      auth_provider: { available: true, value: "microsoft" },
-    }) } });
+    mockFetch(7, {
+      overrides: {
+        profile: profilePayload({
+          auth_provider: { available: true, value: "microsoft" },
+        }),
+      },
+    });
     mountTemplate();
     await loadUserProfile(7);
 
@@ -334,7 +373,9 @@ describe("admin-user-profile.js — onglet Support", () => {
   });
 
   it("état vide : aucun ticket affiche un message explicite, jamais un tableau vide silencieux", async () => {
-    mockFetch(7, { overrides: { support: { tickets: null, tickets_reason: "Aucun ticket support n'a été créé par ce compte." } } });
+    mockFetch(7, {
+      overrides: { support: { tickets: null, tickets_reason: "Aucun ticket support n'a été créé par ce compte." } },
+    });
     mountTemplate();
     await loadUserProfile(7);
     document.querySelector('.admin-tab-btn[data-tab="support"]').click();
@@ -379,7 +420,9 @@ describe("admin-user-profile.js — gestion des erreurs", () => {
     document.querySelector('.admin-tab-btn[data-tab="activity"]').click();
     await flushPromises();
 
-    expect(document.getElementById("admin-user-profile-panel").textContent).toContain("Impossible de charger cet onglet");
+    expect(document.getElementById("admin-user-profile-panel").textContent).toContain(
+      "Impossible de charger cet onglet",
+    );
   });
 
   it("utilisateur introuvable (404) affiche un message explicite", async () => {
@@ -398,7 +441,9 @@ describe("admin-user-profile.js — skeleton loading", () => {
       if (url === "/api/admin/users/7/profile") {
         return Promise.resolve({ ok: true, json: () => Promise.resolve(TAB_PAYLOADS.profile) });
       }
-      return new Promise((resolve) => { resolveFetch = () => resolve({ ok: true, json: () => Promise.resolve(TAB_PAYLOADS.subscription) }); });
+      return new Promise((resolve) => {
+        resolveFetch = () => resolve({ ok: true, json: () => Promise.resolve(TAB_PAYLOADS.subscription) });
+      });
     });
     mountTemplate();
     await loadUserProfile(7);

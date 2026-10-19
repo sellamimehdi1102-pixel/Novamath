@@ -13,18 +13,25 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { loadPageBody, flushPromises } from "./testUtils.js";
 
-const NAV_WITH_DASHBOARD = [
-  { id: "dashboard", label: "Dashboard", icon: "🏠", path: "/admin", implemented: true },
-];
+const NAV_WITH_DASHBOARD = [{ id: "dashboard", label: "Dashboard", icon: "🏠", path: "/admin", implemented: true }];
 
 function snapshot(overrides = {}) {
   return {
     cards: {
       active_users_today: { available: true, value: { today: 12, yesterday: 5, delta: 7 } },
-      ai_providers_status: { available: true, value: [{ name: "Gemini Flash", enabled: true, last_success: "2026-08-25T10:00:00+00:00", last_failure: null }] },
-      health_status: { available: true, value: { total_services: 3, ok_count: 3, down_count: 0, degraded_count: 0, global_status: "ok" } },
+      ai_providers_status: {
+        available: true,
+        value: [{ name: "Gemini Flash", enabled: true, last_success: "2026-08-25T10:00:00+00:00", last_failure: null }],
+      },
+      health_status: {
+        available: true,
+        value: { total_services: 3, ok_count: 3, down_count: 0, degraded_count: 0, global_status: "ok" },
+      },
       support_status: { available: true, value: { open_count: 0, total_count: 5 } },
-      server_errors: { available: true, value: { total_requests: 250, total_errors: 0, avg_request_duration_ms: 42.1 } },
+      server_errors: {
+        available: true,
+        value: { total_requests: 250, total_errors: 0, avg_request_duration_ms: 42.1 },
+      },
       ...overrides,
     },
     alerts: { available: true, value: [] },
@@ -34,7 +41,10 @@ function snapshot(overrides = {}) {
 function mockFetchWith(dashboardPayload) {
   global.fetch = vi.fn((url) => {
     if (url === "/api/admin/me") {
-      return Promise.resolve({ ok: true, json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }) });
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }),
+      });
     }
     if (url === "/api/admin/nav") {
       return Promise.resolve({ ok: true, json: () => Promise.resolve({ modules: NAV_WITH_DASHBOARD }) });
@@ -72,14 +82,28 @@ describe("admin-dashboard.js — carte Santé système + badge erreurs serveur",
   });
 
   it("des erreurs réelles : affichées avec leur nombre exact, jamais masquées", async () => {
-    await mount(snapshot({ server_errors: { available: true, value: { total_requests: 300, total_errors: 4, avg_request_duration_ms: 55 } } }));
+    await mount(
+      snapshot({
+        server_errors: {
+          available: true,
+          value: { total_requests: 300, total_errors: 4, avg_request_duration_ms: 55 },
+        },
+      }),
+    );
     const cardsEl = document.getElementById("admin-cards");
     expect(cardsEl.textContent).toContain("4 depuis le dernier redémarrage");
     expect(cardsEl.textContent).toContain("300 requêtes");
   });
 
   it("aucune requête enregistrée : libellé honnête, pas de 0/0 fabriqué", async () => {
-    await mount(snapshot({ server_errors: { available: true, value: { total_requests: 0, total_errors: 0, avg_request_duration_ms: null } } }));
+    await mount(
+      snapshot({
+        server_errors: {
+          available: true,
+          value: { total_requests: 0, total_errors: 0, avg_request_duration_ms: null },
+        },
+      }),
+    );
     const cardsEl = document.getElementById("admin-cards");
     expect(cardsEl.textContent).toContain("Aucune requête enregistrée depuis le dernier redémarrage");
   });
@@ -99,9 +123,18 @@ describe("admin-dashboard.js — carte Santé système + badge erreurs serveur",
   });
 
   it("le badge erreurs serveur est visuellement secondaire (pas le statut principal de la carte)", async () => {
-    await mount(snapshot({ server_errors: { available: true, value: { total_requests: 300, total_errors: 4, avg_request_duration_ms: 55 } } }));
+    await mount(
+      snapshot({
+        server_errors: {
+          available: true,
+          value: { total_requests: 300, total_errors: 4, avg_request_duration_ms: 55 },
+        },
+      }),
+    );
     const cardsEl = document.getElementById("admin-cards");
-    const healthCard = [...cardsEl.querySelectorAll(".admin-card")].find((c) => c.textContent.includes("Santé système"));
+    const healthCard = [...cardsEl.querySelectorAll(".admin-card")].find((c) =>
+      c.textContent.includes("Santé système"),
+    );
     const badge = healthCard.querySelector(".admin-badge--error");
     expect(badge).not.toBeNull();
     expect(badge.textContent).toContain("4 depuis le dernier redémarrage");
@@ -110,7 +143,9 @@ describe("admin-dashboard.js — carte Santé système + badge erreurs serveur",
 
 describe("admin-dashboard.js — carte Utilisateurs actifs (comparaison avec hier)", () => {
   it("variation positive : affichée avec un signe +", async () => {
-    await mount(snapshot({ active_users_today: { available: true, value: { today: 127, yesterday: 115, delta: 12 } } }));
+    await mount(
+      snapshot({ active_users_today: { available: true, value: { today: 127, yesterday: 115, delta: 12 } } }),
+    );
     const cardsEl = document.getElementById("admin-cards");
     expect(cardsEl.textContent).toContain("127");
     expect(cardsEl.textContent).toContain("+12 vs hier");
@@ -150,12 +185,21 @@ describe("admin-dashboard.js — alertes ponctuelles (paiements / consentements 
       ...snapshot(),
       alerts: {
         available: true,
-        value: [{ level: "warning", code: "paiements_en_echec", message: "3 abonnement(s) en échec de paiement.", link: { path: "/admin/subscriptions", label: "Voir les abonnements" } }],
+        value: [
+          {
+            level: "warning",
+            code: "paiements_en_echec",
+            message: "3 abonnement(s) en échec de paiement.",
+            link: { path: "/admin/subscriptions", label: "Voir les abonnements" },
+          },
+        ],
       },
     });
     const activityEl = document.getElementById("admin-activity-body");
     expect(activityEl.textContent).toContain("3 abonnement(s) en échec de paiement.");
-    const link = [...activityEl.querySelectorAll(".admin-card-link-btn")].find((b) => b.textContent.includes("Voir les abonnements"));
+    const link = [...activityEl.querySelectorAll(".admin-card-link-btn")].find((b) =>
+      b.textContent.includes("Voir les abonnements"),
+    );
     expect(link).not.toBeUndefined();
   });
 
@@ -164,12 +208,21 @@ describe("admin-dashboard.js — alertes ponctuelles (paiements / consentements 
       ...snapshot(),
       alerts: {
         available: true,
-        value: [{ level: "warning", code: "consentement_parental_attente", message: "4 compte(s) en attente de consentement parental.", link: { path: "/admin/users", label: "Voir les utilisateurs" } }],
+        value: [
+          {
+            level: "warning",
+            code: "consentement_parental_attente",
+            message: "4 compte(s) en attente de consentement parental.",
+            link: { path: "/admin/users", label: "Voir les utilisateurs" },
+          },
+        ],
       },
     });
     const activityEl = document.getElementById("admin-activity-body");
     expect(activityEl.textContent).toContain("4 compte(s) en attente de consentement parental.");
-    const link = [...activityEl.querySelectorAll(".admin-card-link-btn")].find((b) => b.textContent.includes("Voir les utilisateurs"));
+    const link = [...activityEl.querySelectorAll(".admin-card-link-btn")].find((b) =>
+      b.textContent.includes("Voir les utilisateurs"),
+    );
     expect(link).not.toBeUndefined();
   });
 

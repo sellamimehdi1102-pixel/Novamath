@@ -140,16 +140,20 @@ describe("store.js — notionBreakdown (bilan de progression par notion, Premium
 
   it("détecte une tendance à la hausse avec au moins 4 tentatives", () => {
     const history = [
-      h({ ts: 1, correct: false }), h({ ts: 2, correct: false }),
-      h({ ts: 3, correct: true }), h({ ts: 4, correct: true }),
+      h({ ts: 1, correct: false }),
+      h({ ts: 2, correct: false }),
+      h({ ts: 3, correct: true }),
+      h({ ts: 4, correct: true }),
     ];
     expect(notionBreakdown(history)[0].trend).toBe("up");
   });
 
   it("détecte une tendance à la baisse avec au moins 4 tentatives", () => {
     const history = [
-      h({ ts: 1, correct: true }), h({ ts: 2, correct: true }),
-      h({ ts: 3, correct: false }), h({ ts: 4, correct: false }),
+      h({ ts: 1, correct: true }),
+      h({ ts: 2, correct: true }),
+      h({ ts: 3, correct: false }),
+      h({ ts: 4, correct: false }),
     ];
     expect(notionBreakdown(history)[0].trend).toBe("down");
   });
@@ -235,14 +239,36 @@ describe("store.js — recordAnswer / getState (persistance localStorage + sync 
   });
 
   it("applique le multiplicateur de difficulté", () => {
-    const { gained: g1 } = recordAnswer({ id: 1, chapter: "c", notion: "n", difficulty: 1, correct: true, usedHint: true });
-    const g5 = recordAnswer({ id: 2, chapter: "c", notion: "n", difficulty: 5, correct: true, usedHint: true }).gained - g1;
+    const { gained: g1 } = recordAnswer({
+      id: 1,
+      chapter: "c",
+      notion: "n",
+      difficulty: 1,
+      correct: true,
+      usedHint: true,
+    });
+    const g5 =
+      recordAnswer({ id: 2, chapter: "c", notion: "n", difficulty: 5, correct: true, usedHint: true }).gained - g1;
     expect(g5).toBeGreaterThan(0);
   });
 
   it("bonifie une bonne réponse sans indice utilisé", () => {
-    const withHint = recordAnswer({ id: 1, chapter: "c", notion: "n", difficulty: 1, correct: true, usedHint: true }).gained;
-    const noHint = recordAnswer({ id: 2, chapter: "c", notion: "n", difficulty: 1, correct: true, usedHint: false }).gained;
+    const withHint = recordAnswer({
+      id: 1,
+      chapter: "c",
+      notion: "n",
+      difficulty: 1,
+      correct: true,
+      usedHint: true,
+    }).gained;
+    const noHint = recordAnswer({
+      id: 2,
+      chapter: "c",
+      notion: "n",
+      difficulty: 1,
+      correct: true,
+      usedHint: false,
+    }).gained;
     expect(noHint).toBeGreaterThan(withHint);
   });
 
@@ -277,7 +303,10 @@ describe("store.js — scopedStats (isolation par classe)", () => {
   });
 
   it("calcule l'xp uniquement sur les entrées du scope", () => {
-    const state = { history: [h({ class_level: "seconde", xp: 10 }), h({ class_level: "premiere", xp: 999 })], series: [] };
+    const state = {
+      history: [h({ class_level: "seconde", xp: 10 }), h({ class_level: "premiere", xp: 999 })],
+      series: [],
+    };
     expect(scopedStats(state, "seconde").xp).toBe(10);
   });
 

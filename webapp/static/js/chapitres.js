@@ -1,7 +1,18 @@
 import { api } from "./api.js";
 import { initSettingsManager } from "./settingsManager.js";
 import { bindSettingsButton } from "./settingsPopup.js";
-import { getState, masteryByChapter, masteryByNotion, coverageByChapter, coverageByNotion, getInProgressSeries, getChapterStatus, scopedStats, MASTERY_ACCURACY_THRESHOLD, MASTERY_MIN_ATTEMPTS } from "./store.js";
+import {
+  getState,
+  masteryByChapter,
+  masteryByNotion,
+  coverageByChapter,
+  coverageByNotion,
+  getInProgressSeries,
+  getChapterStatus,
+  scopedStats,
+  MASTERY_ACCURACY_THRESHOLD,
+  MASTERY_MIN_ATTEMPTS,
+} from "./store.js";
 import { renderResumeCard } from "./resume.js";
 import { icon } from "./icons.js";
 import { bindLiveTranslations } from "./i18n.js";
@@ -17,7 +28,7 @@ bindSettingsButton(document.getElementById("settings-btn"));
 renderResumeCard(document.getElementById("resume-card"));
 
 const DIFF_LABEL = Object.fromEntries(
-  Object.entries(DIFF_LABEL_SHORT).map(([lvl, label]) => [lvl, `${DIFF_EMOJI[lvl]} ${label}`])
+  Object.entries(DIFF_LABEL_SHORT).map(([lvl, label]) => [lvl, `${DIFF_EMOJI[lvl]} ${label}`]),
 );
 
 const grid = document.getElementById("chapters-grid");
@@ -37,7 +48,10 @@ const selectedNotions = new Map();
 
 function selectedSetFor(chapterId) {
   let set = selectedNotions.get(chapterId);
-  if (!set) { set = new Set(); selectedNotions.set(chapterId, set); }
+  if (!set) {
+    set = new Set();
+    selectedNotions.set(chapterId, set);
+  }
   return set;
 }
 
@@ -97,7 +111,8 @@ function updateGuestWelcome(isGuest, hasHistory) {
 // le même état d'une page à l'autre.
 function masteryLabel(rate, count) {
   if (count === 0) return { text: "À faire", cls: "badge--neutral" };
-  if (rate >= MASTERY_ACCURACY_THRESHOLD && count >= MASTERY_MIN_ATTEMPTS) return { text: "Maîtrisé", cls: "badge--success" };
+  if (rate >= MASTERY_ACCURACY_THRESHOLD && count >= MASTERY_MIN_ATTEMPTS)
+    return { text: "Maîtrisé", cls: "badge--success" };
   if (rate < 0.6) return { text: "À renforcer", cls: "badge--danger" };
   return { text: "En cours", cls: "badge--warning" };
 }
@@ -212,10 +227,13 @@ function renderChapters(chaptersMeta) {
     const seriesConfig = inProgress?.seriesConfig;
     const resumableLabels = new Set(
       ch.notions_detail
-        .filter((n) => !!seriesConfig
-          && seriesConfig.chapterId === ch.id
-          && (seriesConfig.notions ? seriesConfig.notions.includes(n.notion) : seriesConfig.notion === n.notion))
-        .map((n) => n.notion)
+        .filter(
+          (n) =>
+            !!seriesConfig &&
+            seriesConfig.chapterId === ch.id &&
+            (seriesConfig.notions ? seriesConfig.notions.includes(n.notion) : seriesConfig.notion === n.notion),
+        )
+        .map((n) => n.notion),
     );
     const selectableCount = ch.notions_detail.length - resumableLabels.size;
 
@@ -354,7 +372,9 @@ function renderChapters(chaptersMeta) {
       } else {
         // Vide ou partiel -> sélection complète (CAS 1) : coche toutes les
         // notions sélectionnables du chapitre (jamais les "reprenables").
-        ch.notions_detail.forEach((n) => { if (!resumableLabels.has(n.notion)) set.add(n.notion); });
+        ch.notions_detail.forEach((n) => {
+          if (!resumableLabels.has(n.notion)) set.add(n.notion);
+        });
       }
       card.querySelectorAll(".notion-row--selectable").forEach((row) => {
         row.classList.toggle("selected", set.has(row.dataset.notion));
@@ -398,7 +418,7 @@ function avgDuration(history, chapter, notion) {
 function launchNotionSeries(chapterId, notions, exerciseIds) {
   localStorage.setItem(
     "lumis:pending_series",
-    JSON.stringify({ mode: "notion", chapterId, notion: notions.join(" + "), notions, exerciseIds })
+    JSON.stringify({ mode: "notion", chapterId, notion: notions.join(" + "), notions, exerciseIds }),
   );
   window.location.href = "exercice.html";
 }
@@ -541,7 +561,7 @@ function launchMergedSeries() {
       notion: label,
       notions,
       exerciseIds: [...exerciseIdSet],
-    })
+    }),
   );
   window.location.href = "exercice.html";
 }
@@ -579,13 +599,19 @@ function buildSearchIndex(chaptersMeta) {
   searchIndex = chaptersMeta.flatMap((ch) => {
     const chapterTitle = resolveChapterTitle(ch.title, ch.notions_cours) || ch.id.replace(/_/g, " ");
     const chapterEntry = {
-      type: "chapter", chapterId: ch.id, chapterTitle, notionLabel: null,
+      type: "chapter",
+      chapterId: ch.id,
+      chapterTitle,
+      notionLabel: null,
       norm: normalizeText(chapterTitle),
     };
     const notionEntries = (ch.notions_detail || []).map((n) => {
       const diffWords = (n.difficulties_available || []).map((d) => DIFF_SEARCH_WORDS[d] || "").join(" ");
       return {
-        type: "notion", chapterId: ch.id, chapterTitle, notionLabel: n.notion,
+        type: "notion",
+        chapterId: ch.id,
+        chapterTitle,
+        notionLabel: n.notion,
         norm: normalizeText(`${chapterTitle} ${n.notion} ${diffWords}`),
         notionNorm: normalizeText(n.notion),
       };
@@ -618,11 +644,15 @@ const searchResultsEl = document.getElementById("chapters-search-results");
 function applySearchDim(query) {
   const q = normalizeText(query);
   grid.querySelectorAll(".chapter-card").forEach((card) => {
-    if (!q) { card.classList.remove("is-search-dimmed"); return; }
+    if (!q) {
+      card.classList.remove("is-search-dimmed");
+      return;
+    }
     const ch = currentChaptersMeta.find((c) => c.id === card.dataset.id);
-    const chapterTitle = ch ? (resolveChapterTitle(ch.title, ch.notions_cours) || ch.id) : "";
-    const matches = normalizeText(chapterTitle).includes(q)
-      || (ch?.notions_detail || []).some((n) => normalizeText(n.notion).includes(q));
+    const chapterTitle = ch ? resolveChapterTitle(ch.title, ch.notions_cours) || ch.id : "";
+    const matches =
+      normalizeText(chapterTitle).includes(q) ||
+      (ch?.notions_detail || []).some((n) => normalizeText(n.notion).includes(q));
     card.classList.toggle("is-search-dimmed", !matches);
   });
 }
@@ -641,12 +671,16 @@ function renderSearchResults(query) {
     searchResultsEl.innerHTML = `<div class="page-search-empty">Aucun résultat pour « ${query} ».</div>`;
     return;
   }
-  searchResultsEl.innerHTML = results.map((r, i) => `
+  searchResultsEl.innerHTML = results
+    .map(
+      (r, i) => `
     <button type="button" class="page-search-item${i === 0 ? " is-active" : ""}" data-index="${i}" role="option">
       <span class="title">${icon(r.type === "chapter" ? "checklist" : "layers")}${r.type === "chapter" ? r.chapterTitle : r.notionLabel}</span>
       <span class="subtitle">${r.type === "chapter" ? "Chapitre" : `${r.chapterTitle} — Notion`}</span>
     </button>
-  `).join("");
+  `,
+    )
+    .join("");
   results.forEach((r, i) => {
     searchResultsEl.children[i].addEventListener("click", () => pickSearchResult(r));
   });
@@ -661,7 +695,9 @@ function pickSearchResult(result) {
   searchResultsEl.hidden = true;
   const card = grid.querySelector(`.chapter-card[data-id="${result.chapterId}"]`);
   if (!card) return;
-  grid.querySelectorAll(".chapter-card.expanded").forEach((c) => { if (c !== card) c.classList.remove("expanded"); });
+  grid.querySelectorAll(".chapter-card.expanded").forEach((c) => {
+    if (c !== card) c.classList.remove("expanded");
+  });
   card.classList.add("expanded");
   card.scrollIntoView({ behavior: "smooth", block: "center" });
   if (result.type === "notion") {
@@ -681,12 +717,16 @@ if (searchInput) {
   searchInput.addEventListener("input", () => debouncedSearch(searchInput.value));
   searchInput.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if (searchInput.value) { searchInput.value = ""; renderSearchResults(""); }
-      else searchInput.blur();
+      if (searchInput.value) {
+        searchInput.value = "";
+        renderSearchResults("");
+      } else searchInput.blur();
       return;
     }
     if (e.key === "Enter") {
-      const active = searchResultsEl.querySelector(".page-search-item.is-active") || searchResultsEl.querySelector(".page-search-item");
+      const active =
+        searchResultsEl.querySelector(".page-search-item.is-active") ||
+        searchResultsEl.querySelector(".page-search-item");
       if (active) active.click();
       return;
     }

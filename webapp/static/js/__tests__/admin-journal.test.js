@@ -14,12 +14,17 @@ const NAV_WITH_JOURNAL = [
 
 function entry(overrides = {}) {
   return {
-    id: 1, created_at: "2026-07-29T08:00:00+00:00",
+    id: 1,
+    created_at: "2026-07-29T08:00:00+00:00",
     admin: { id: 10, name: "Mehdi", role: "super_admin" },
-    ip: "127.0.0.1", action: "update_provider", action_label: "Modification d'un fournisseur",
+    ip: "127.0.0.1",
+    action: "update_provider",
+    action_label: "Modification d'un fournisseur",
     provider: { id: 1, name: "Gemini Flash" },
-    old_values: { priority: 0 }, new_values: { priority: 1 },
-    result: "success", error_message: null,
+    old_values: { priority: 0 },
+    new_values: { priority: 1 },
+    result: "success",
+    error_message: null,
     ...overrides,
   };
 }
@@ -41,7 +46,10 @@ function mockFetchWith({ journal = journalPayload(), filters = FILTERS_PAYLOAD, 
   global.fetch = vi.fn((url) => {
     fetchLog.push(url);
     if (url === "/api/admin/me") {
-      return Promise.resolve({ ok: true, json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }) });
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }),
+      });
     }
     if (url === "/api/admin/nav") {
       return Promise.resolve({ ok: true, json: () => Promise.resolve({ modules: NAV_WITH_JOURNAL }) });
@@ -49,9 +57,12 @@ function mockFetchWith({ journal = journalPayload(), filters = FILTERS_PAYLOAD, 
     if (fail.includes(url)) {
       return Promise.resolve({ ok: false, status: 500, json: () => Promise.resolve({ error: "boom" }) });
     }
-    if (url === "/api/admin/journal/filters") return Promise.resolve({ ok: true, json: () => Promise.resolve(filters) });
-    if (url.startsWith("/api/admin/journal/export.json")) return Promise.resolve({ ok: true, json: () => Promise.resolve([entry()]) });
-    if (url.startsWith("/api/admin/journal")) return Promise.resolve({ ok: true, json: () => Promise.resolve(journal) });
+    if (url === "/api/admin/journal/filters")
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(filters) });
+    if (url.startsWith("/api/admin/journal/export.json"))
+      return Promise.resolve({ ok: true, json: () => Promise.resolve([entry()]) });
+    if (url.startsWith("/api/admin/journal"))
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(journal) });
     return Promise.resolve({ ok: false, status: 404, json: () => Promise.resolve({ error: "not found" }) });
   });
 }
@@ -89,7 +100,11 @@ describe("admin-journal.js — chargement et rendu", () => {
   });
 
   it("échec réseau -> message d'erreur, sans planter la page", async () => {
-    await mount({ fail: ["/api/admin/journal?admin_user_id=&action=&date_from=&date_to=&page=1&page_size=25&provider_id=&result=&search="] });
+    await mount({
+      fail: [
+        "/api/admin/journal?admin_user_id=&action=&date_from=&date_to=&page=1&page_size=25&provider_id=&result=&search=",
+      ],
+    });
     // Le message générique s'affiche dès que le fetch échoue (peu importe la query exacte construite).
     await flushPromises();
     expect(document.getElementById("admin-global-error")).not.toBeNull();
@@ -262,7 +277,9 @@ describe("admin-journal.js — chips de filtres actifs", () => {
     await flushPromises();
 
     expect(document.getElementById("admin-journal-filter-action").value).toBe("");
-    expect(fetchLog.some((u) => u.startsWith("/api/admin/journal?") && !u.includes("action=update_provider"))).toBe(true);
+    expect(fetchLog.some((u) => u.startsWith("/api/admin/journal?") && !u.includes("action=update_provider"))).toBe(
+      true,
+    );
     expect(document.getElementById("admin-journal-filter-chips").hidden).toBe(true);
   });
 

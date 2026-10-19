@@ -33,12 +33,20 @@ function formatDateTime(iso) {
   if (!iso) return EMPTY_LABEL;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatPrice(cents, currency) {
   if (cents === 0) return "Gratuit";
-  const amount = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(cents / 100);
+  const amount = new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
+    cents / 100,
+  );
   const symbol = (currency || "").toLowerCase() === "eur" ? "€" : (currency || "").toUpperCase();
   return `${amount} ${symbol}`;
 }
@@ -72,8 +80,9 @@ function renderHeader(info, plan, { onChanged }) {
   meta.appendChild(el("h1", "admin-user-profile-name", info.name));
   meta.appendChild(el("p", "admin-user-profile-email", `${formatInt(info.user_count.value)} utilisateur(s)`));
   const badges = el("div", "admin-user-profile-badges");
-  badges.appendChild(el("span", `admin-status-dot admin-status-dot--${info.active ? "ok" : "down"}`,
-    info.active ? "Actif" : "Inactif"));
+  badges.appendChild(
+    el("span", `admin-status-dot admin-status-dot--${info.active ? "ok" : "down"}`, info.active ? "Actif" : "Inactif"),
+  );
   meta.appendChild(badges);
   head.appendChild(meta);
 
@@ -135,20 +144,39 @@ async function openEditModal(plan, onSaved) {
   const nameInput = field("Nom", "name", { value: info.name });
   const orderInput = field("Ordre d'affichage", "display_order", { type: "number", value: info.display_order });
   const priceInput = field("Prix (centimes)", "price_amount_cents", {
-    type: "number", value: pricing.price_amount_cents.available ? pricing.price_amount_cents.value : "",
+    type: "number",
+    value: pricing.price_amount_cents.available ? pricing.price_amount_cents.value : "",
   });
-  const currencyInput = field("Devise", "currency", { value: pricing.currency.available ? pricing.currency.value : "" });
-  const durationInput = field("Durée", "duration_label", { value: pricing.duration_label.available ? pricing.duration_label.value : "" });
+  const currencyInput = field("Devise", "currency", {
+    value: pricing.currency.available ? pricing.currency.value : "",
+  });
+  const durationInput = field("Durée", "duration_label", {
+    value: pricing.duration_label.available ? pricing.duration_label.value : "",
+  });
   const dailyInput = field("Quota quotidien (catalogue)", "quota_daily", {
-    type: "number", value: features.quota_daily.available ? features.quota_daily.value : "",
+    type: "number",
+    value: features.quota_daily.available ? features.quota_daily.value : "",
   });
   const chatbotInput = field("Quota chatbot (catalogue)", "quota_chatbot", {
-    type: "number", value: features.quota_chatbot.available ? features.quota_chatbot.value : "",
+    type: "number",
+    value: features.quota_chatbot.available ? features.quota_chatbot.value : "",
   });
 
-  const descInput = field("Description", "description", { type: "textarea", full: true, value: info.description.available ? info.description.value : "" });
-  const advantagesInput = field("Avantages (un par ligne)", "advantages", { type: "textarea", full: true, value: features.advantages.join("\n") });
-  const limitsInput = field("Limites (un par ligne)", "limits", { type: "textarea", full: true, value: features.limits.join("\n") });
+  const descInput = field("Description", "description", {
+    type: "textarea",
+    full: true,
+    value: info.description.available ? info.description.value : "",
+  });
+  const advantagesInput = field("Avantages (un par ligne)", "advantages", {
+    type: "textarea",
+    full: true,
+    value: features.advantages.join("\n"),
+  });
+  const limitsInput = field("Limites (un par ligne)", "limits", {
+    type: "textarea",
+    full: true,
+    value: features.limits.join("\n"),
+  });
 
   const activeWrap = el("div", "admin-form-field admin-form-field--full admin-form-checkbox-row");
   const activeInput = document.createElement("input");
@@ -167,12 +195,20 @@ async function openEditModal(plan, onSaved) {
   actionsRow.appendChild(saveBtn);
   form.appendChild(actionsRow);
 
-  function closeModal() { overlay.hidden = true; }
+  function closeModal() {
+    overlay.hidden = true;
+  }
   cancelBtn.addEventListener("click", closeModal);
   closeBtn.onclick = closeModal;
-  overlay.onclick = (e) => { if (e.target === overlay) closeModal(); };
+  overlay.onclick = (e) => {
+    if (e.target === overlay) closeModal();
+  };
 
-  const toLines = (text) => text.split("\n").map((l) => l.trim()).filter(Boolean);
+  const toLines = (text) =>
+    text
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
   const toIntOrNull = (text) => (text.trim() === "" ? null : Number(text));
 
   form.addEventListener("submit", async (e) => {
@@ -281,7 +317,13 @@ export function renderFeaturesTab(data) {
   // — c'est précisément la confusion que ce chantier corrige.
   const catalogBlock = el("div", "admin-feature-block admin-feature-block--catalog");
   catalogBlock.appendChild(el("h3", "admin-feature-block-title", "📄 Catalogue / présentation (modifiable)"));
-  catalogBlock.appendChild(el("p", "admin-form-hint", "Texte commercial affiché aux élèves sur la page d'offres. Le modifier ne change RIEN au comportement réel du produit — voir le bloc ci-dessous pour ce qui est réellement appliqué."));
+  catalogBlock.appendChild(
+    el(
+      "p",
+      "admin-form-hint",
+      "Texte commercial affiché aux élèves sur la page d'offres. Le modifier ne change RIEN au comportement réel du produit — voir le bloc ci-dessous pour ce qui est réellement appliqué.",
+    ),
+  );
 
   catalogBlock.appendChild(el("h4", "admin-section-title", "Avantages affichés"));
   catalogBlock.appendChild(bulletList(data.advantages));
@@ -299,7 +341,9 @@ export function renderFeaturesTab(data) {
   // Bloc 2 — vérité fonctionnelle réelle : dérivé de plan_service.py, jamais
   // éditable depuis cette interface (lecture seule, aucun formulaire).
   const realBlock = el("div", "admin-feature-block admin-feature-block--real");
-  realBlock.appendChild(el("h3", "admin-feature-block-title", "✅ Fonctionnalités réellement appliquées (lecture seule)"));
+  realBlock.appendChild(
+    el("h3", "admin-feature-block-title", "✅ Fonctionnalités réellement appliquées (lecture seule)"),
+  );
   realBlock.appendChild(el("p", "admin-form-hint", data.real_note));
   const featChips = el("div", "admin-users-filters");
   data.real_features.forEach((f) => featChips.appendChild(el("span", "admin-badge admin-badge--neutral", f.label)));
@@ -326,7 +370,9 @@ function renderUsersTab(data, { onPageChange }) {
   const table = el("table", "admin-users-table");
   const thead = document.createElement("thead");
   const theadRow = el("tr");
-  ["Nom", "Email", "Rôle", "Dernière connexion"].forEach((label) => theadRow.appendChild(el("th", "admin-users-th", label)));
+  ["Nom", "Email", "Rôle", "Dernière connexion"].forEach((label) =>
+    theadRow.appendChild(el("th", "admin-users-th", label)),
+  );
   thead.appendChild(theadRow);
   table.appendChild(thead);
   const tbody = document.createElement("tbody");
@@ -335,7 +381,9 @@ function renderUsersTab(data, { onPageChange }) {
     tr.appendChild(el("td", "admin-users-td", user.name));
     tr.appendChild(el("td", "admin-users-td admin-users-td--muted admin-users-td--wrap", user.email));
     tr.appendChild(el("td", "admin-users-td", user.role));
-    tr.appendChild(el("td", "admin-users-td", user.last_login_at ? formatDateTime(user.last_login_at) : "Jamais connecté"));
+    tr.appendChild(
+      el("td", "admin-users-td", user.last_login_at ? formatDateTime(user.last_login_at) : "Jamais connecté"),
+    );
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);
@@ -344,8 +392,13 @@ function renderUsersTab(data, { onPageChange }) {
   wrap.appendChild(tableWrap);
 
   const pagination = el("nav", "admin-users-pagination");
-  pagination.appendChild(el("span", "admin-users-pagination-info",
-    `Page ${data.page} / ${data.total_pages} · ${formatInt(data.total)} utilisateur(s)`));
+  pagination.appendChild(
+    el(
+      "span",
+      "admin-users-pagination-info",
+      `Page ${data.page} / ${data.total_pages} · ${formatInt(data.total)} utilisateur(s)`,
+    ),
+  );
   const prev = el("button", "admin-icon-btn admin-users-page-btn", "‹");
   prev.type = "button";
   prev.disabled = data.page <= 1;
@@ -371,7 +424,9 @@ function renderHistoryTab(data, { onPageChange }) {
   const table = el("table", "admin-users-table");
   const thead = document.createElement("thead");
   const theadRow = el("tr");
-  ["Date", "Administrateur", "Action", "Résultat"].forEach((label) => theadRow.appendChild(el("th", "admin-users-th", label)));
+  ["Date", "Administrateur", "Action", "Résultat"].forEach((label) =>
+    theadRow.appendChild(el("th", "admin-users-th", label)),
+  );
   thead.appendChild(theadRow);
   table.appendChild(thead);
   const tbody = document.createElement("tbody");
@@ -450,8 +505,13 @@ export async function loadSubscriptionDetail(plan) {
     if (!cache.has("info")) {
       try {
         const { payload, notFound } = await fetchJson(`/api/admin/subscriptions/${plan}/info`);
-        if (!notFound) { cache.set("info", payload); renderHeader(payload, plan, { onChanged: reloadAll }); }
-      } catch { /* en-tête non critique */ }
+        if (!notFound) {
+          cache.set("info", payload);
+          renderHeader(payload, plan, { onChanged: reloadAll });
+        }
+      } catch {
+        /* en-tête non critique */
+      }
     } else {
       renderHeader(cache.get("info"), plan, { onChanged: reloadAll });
     }
@@ -477,7 +537,9 @@ export async function loadSubscriptionDetail(plan) {
       renderTabContent(tabId, payload);
     } catch {
       panel.innerHTML = "";
-      panel.appendChild(el("p", "admin-empty admin-card-error", "Impossible de charger cet onglet. Réessaie dans un instant."));
+      panel.appendChild(
+        el("p", "admin-empty admin-card-error", "Impossible de charger cet onglet. Réessaie dans un instant."),
+      );
     }
   }
 
@@ -487,14 +549,25 @@ export async function loadSubscriptionDetail(plan) {
     else if (tabId === "pricing") panel.appendChild(renderPricingTab(data));
     else if (tabId === "features") panel.appendChild(renderFeaturesTab(data));
     else if (tabId === "users") {
-      panel.appendChild(renderUsersTab(data, {
-        plan, page: usersPage,
-        onPageChange: (p) => { usersPage = p; switchTab("users"); },
-      }));
+      panel.appendChild(
+        renderUsersTab(data, {
+          plan,
+          page: usersPage,
+          onPageChange: (p) => {
+            usersPage = p;
+            switchTab("users");
+          },
+        }),
+      );
     } else if (tabId === "history") {
-      panel.appendChild(renderHistoryTab(data, {
-        onPageChange: (p) => { historyPage = p; switchTab("history"); },
-      }));
+      panel.appendChild(
+        renderHistoryTab(data, {
+          onPageChange: (p) => {
+            historyPage = p;
+            switchTab("history");
+          },
+        }),
+      );
     }
   }
 

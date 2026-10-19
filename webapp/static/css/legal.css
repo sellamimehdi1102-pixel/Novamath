@@ -44,9 +44,14 @@
   border-radius: var(--radius-sm);
   font-size: 0.86rem;
   color: var(--text-muted);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
 }
-.legal-toc a:hover { background: var(--surface-hover); color: var(--text); }
+.legal-toc a:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
 
 .legal-content {
   min-width: 0;
@@ -54,13 +59,19 @@
      pleine largeur de la grille, même sur un très grand écran. */
   max-width: 720px;
 }
-.legal-content h1 { font-size: 1.9rem; margin-bottom: 8px; }
+.legal-content h1 {
+  font-size: 1.9rem;
+  margin-bottom: 8px;
+}
 .legal-content .legal-updated {
   color: var(--text-muted);
   font-size: 0.88rem;
   margin-bottom: 32px;
 }
-.legal-content section { margin-bottom: 36px; scroll-margin-top: 24px; }
+.legal-content section {
+  margin-bottom: 36px;
+  scroll-margin-top: 24px;
+}
 .legal-content h2 {
   font-size: 1.25rem;
   margin-bottom: 14px;
@@ -68,15 +79,43 @@
   border-top: 1px solid var(--border);
   padding-top: 20px;
 }
-.legal-content section:first-of-type h2 { border-top: none; padding-top: 0; }
-.legal-content h3 { font-size: 1.02rem; margin: 18px 0 8px; }
-.legal-content p { color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
-.legal-content ul, .legal-content ol { padding-left: 22px; margin-bottom: 14px; }
-.legal-content ul { list-style: disc; }
-.legal-content ol { list-style: decimal; }
-.legal-content li { color: var(--text-muted); line-height: 1.7; margin-bottom: 6px; }
-.legal-content strong { color: var(--text); }
-.legal-content a { color: var(--accent-text); text-decoration: underline; text-underline-offset: 2px; }
+.legal-content section:first-of-type h2 {
+  border-top: none;
+  padding-top: 0;
+}
+.legal-content h3 {
+  font-size: 1.02rem;
+  margin: 18px 0 8px;
+}
+.legal-content p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.legal-content ul,
+.legal-content ol {
+  padding-left: 22px;
+  margin-bottom: 14px;
+}
+.legal-content ul {
+  list-style: disc;
+}
+.legal-content ol {
+  list-style: decimal;
+}
+.legal-content li {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+.legal-content strong {
+  color: var(--text);
+}
+.legal-content a {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 
 /* ── Placeholders juridiques — jamais confondus visuellement avec le reste
    du texte : l'éditeur doit les repérer en un coup d'œil avant publication. */
@@ -98,10 +137,16 @@
   margin-bottom: 16px;
   font-size: 0.9rem;
 }
-.legal-callout p { margin-bottom: 0; }
-.legal-callout p + p { margin-top: 10px; }
+.legal-callout p {
+  margin-bottom: 0;
+}
+.legal-callout p + p {
+  margin-top: 10px;
+}
 
-.legal-back-link { margin-top: 40px; }
+.legal-back-link {
+  margin-top: 40px;
+}
 
 /* ── Pied de page — cohérence avec .site-footer (landing.css) sans en
    dépendre : ces pages ne chargent pas landing.css (pas de hero/marketing),
@@ -125,20 +170,44 @@
   color: var(--text);
   font-size: 0.92rem;
 }
-.legal-footer-brand img { width: 22px; height: 22px; }
-.legal-footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
-.legal-footer-links a { color: var(--text-muted); font-size: 0.85rem; }
-.legal-footer-links a:hover { color: var(--text); }
-.legal-footer-copy { color: var(--text-faint); font-size: 0.82rem; }
+.legal-footer-brand img {
+  width: 22px;
+  height: 22px;
+}
+.legal-footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.legal-footer-links a {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.legal-footer-links a:hover {
+  color: var(--text);
+}
+.legal-footer-copy {
+  color: var(--text-faint);
+  font-size: 0.82rem;
+}
 
 @media (max-width: 860px) {
-  .legal-shell { grid-template-columns: 1fr; gap: 20px; }
+  .legal-shell {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
   .legal-toc {
     position: static;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 6px;
   }
-  .legal-toc-title { display: none; }
-  .legal-footer { flex-direction: column; align-items: flex-start; text-align: left; }
+  .legal-toc-title {
+    display: none;
+  }
+  .legal-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
 }

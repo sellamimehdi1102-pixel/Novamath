@@ -9,8 +9,12 @@ import { loadPageBody, flushPromises } from "./testUtils.js";
 import { loadAiProviderDetail } from "../admin-ai-provider.js";
 
 const INFO_PAYLOAD = {
-  id: 7, name: "Gemini Flash", provider_key: "gemini", model_name: "gemini-3-flash-preview",
-  enabled: true, priority: 0,
+  id: 7,
+  name: "Gemini Flash",
+  provider_key: "gemini",
+  model_name: "gemini-3-flash-preview",
+  enabled: true,
+  priority: 0,
   badge: { available: true, value: "Rapide" },
   icon: { available: true, value: "zap" },
   color: { available: true, value: "#22C55E" },
@@ -20,8 +24,17 @@ const INFO_PAYLOAD = {
   updated_at: { available: true, value: "2026-01-01T08:00:00+00:00" },
 };
 
-const HEALTH_UNAVAILABLE = { available: false, value: null, reason: "Ce fournisseur n'a jamais été testé (aucun health-check n'a encore été exécuté)." };
-const USAGE_UNAVAILABLE = { available: false, value: null, reason: "Aucun appel réel n'a encore été comptabilisé pour ce fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot)." };
+const HEALTH_UNAVAILABLE = {
+  available: false,
+  value: null,
+  reason: "Ce fournisseur n'a jamais été testé (aucun health-check n'a encore été exécuté).",
+};
+const USAGE_UNAVAILABLE = {
+  available: false,
+  value: null,
+  reason:
+    "Aucun appel réel n'a encore été comptabilisé pour ce fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot).",
+};
 
 const CONFIG_PAYLOAD = {
   provider_key: { available: true, value: "gemini" },
@@ -36,7 +49,12 @@ const CONFIG_PAYLOAD = {
   color: { available: true, value: "#22C55E" },
 };
 
-const TAB_PAYLOADS = { info: INFO_PAYLOAD, health: HEALTH_UNAVAILABLE, usage: USAGE_UNAVAILABLE, config: CONFIG_PAYLOAD };
+const TAB_PAYLOADS = {
+  info: INFO_PAYLOAD,
+  health: HEALTH_UNAVAILABLE,
+  usage: USAGE_UNAVAILABLE,
+  config: CONFIG_PAYLOAD,
+};
 
 let fetchLog;
 
@@ -85,7 +103,11 @@ describe("admin-ai-provider.js — lazy loading réel", () => {
     document.querySelector('.admin-tab-btn[data-tab="usage"]').click();
     await flushPromises();
 
-    expect(fetchLog).toEqual(["/api/admin/ai/providers/7/info", "/api/admin/ai/providers/7/config", "/api/admin/ai/providers/7/usage"]);
+    expect(fetchLog).toEqual([
+      "/api/admin/ai/providers/7/info",
+      "/api/admin/ai/providers/7/config",
+      "/api/admin/ai/providers/7/usage",
+    ]);
   });
 
   it("rouvrir un onglet déjà chargé ne refait AUCUN appel réseau (cache par onglet)", async () => {
@@ -100,7 +122,11 @@ describe("admin-ai-provider.js — lazy loading réel", () => {
     document.querySelector('.admin-tab-btn[data-tab="usage"]').click();
     await flushPromises();
 
-    expect(fetchLog).toEqual(["/api/admin/ai/providers/7/info", "/api/admin/ai/providers/7/config", "/api/admin/ai/providers/7/usage"]);
+    expect(fetchLog).toEqual([
+      "/api/admin/ai/providers/7/info",
+      "/api/admin/ai/providers/7/config",
+      "/api/admin/ai/providers/7/usage",
+    ]);
   });
 });
 
@@ -148,7 +174,9 @@ describe("admin-ai-provider.js — gestion des erreurs et 404", () => {
     document.querySelector('.admin-tab-btn[data-tab="usage"]').click();
     await flushPromises();
 
-    expect(document.getElementById("admin-ai-provider-panel").textContent).toContain("Impossible de charger cet onglet");
+    expect(document.getElementById("admin-ai-provider-panel").textContent).toContain(
+      "Impossible de charger cet onglet",
+    );
   });
 
   it("fournisseur introuvable (404) affiche un message explicite", async () => {
@@ -170,7 +198,9 @@ describe("admin-ai-provider.js — skeleton loading", () => {
       if (url === "/api/admin/ai/providers/7/config") {
         return Promise.resolve({ ok: true, json: () => Promise.resolve(CONFIG_PAYLOAD) });
       }
-      return new Promise((resolve) => { resolveFetch = () => resolve({ ok: true, json: () => Promise.resolve(USAGE_UNAVAILABLE) }); });
+      return new Promise((resolve) => {
+        resolveFetch = () => resolve({ ok: true, json: () => Promise.resolve(USAGE_UNAVAILABLE) });
+      });
     });
     mountTemplate();
     await loadAiProviderDetail(7);
@@ -210,14 +240,22 @@ describe("admin-ai-provider.js — actions d'en-tête", () => {
   it("bouton 'Tester la connexion' affiche le résultat réel renvoyé par l'API", async () => {
     mockFetchWithActions({
       "POST /api/admin/ai/providers/7/test-connection": () => ({
-        ok: true, json: () => Promise.resolve({ ok: true, latency_ms: 180, model: "gemini-3-flash-preview", tokens: { prompt_tokens: 5, completion_tokens: 1 } }),
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            ok: true,
+            latency_ms: 180,
+            model: "gemini-3-flash-preview",
+            tokens: { prompt_tokens: 5, completion_tokens: 1 },
+          }),
       }),
     });
     mountTemplate();
     await loadAiProviderDetail(7);
 
-    const testBtn = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")]
-      .find((b) => b.textContent === "Tester la connexion");
+    const testBtn = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")].find(
+      (b) => b.textContent === "Tester la connexion",
+    );
     testBtn.click();
     await flushPromises();
 
@@ -235,8 +273,9 @@ describe("admin-ai-provider.js — actions d'en-tête", () => {
     mountTemplate();
     await loadAiProviderDetail(7);
 
-    const healthBtn = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")]
-      .find((b) => b.textContent === "Lancer un health-check");
+    const healthBtn = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")].find(
+      (b) => b.textContent === "Lancer un health-check",
+    );
     healthBtn.click();
     await flushPromises();
 
@@ -250,8 +289,9 @@ describe("admin-ai-provider.js — actions d'en-tête", () => {
     await loadAiProviderDetail(7);
     fetchLog = [];
 
-    const refreshBtn = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")]
-      .find((b) => b.textContent === "Actualiser");
+    const refreshBtn = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")].find(
+      (b) => b.textContent === "Actualiser",
+    );
     refreshBtn.click();
     await flushPromises();
 
@@ -263,8 +303,9 @@ describe("admin-ai-provider.js — actions d'en-tête", () => {
     mountTemplate();
     await loadAiProviderDetail(7);
 
-    const editBtn = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")]
-      .find((b) => b.textContent === "Modifier");
+    const editBtn = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")].find(
+      (b) => b.textContent === "Modifier",
+    );
     editBtn.click();
     await flushPromises();
 

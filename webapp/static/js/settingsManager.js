@@ -29,9 +29,11 @@ function writeCache(settings) {
 }
 
 function dispatchChange(category, patch) {
-  window.dispatchEvent(new CustomEvent("novamath:settings-changed", {
-    detail: { category, patch, settings: current },
-  }));
+  window.dispatchEvent(
+    new CustomEvent("novamath:settings-changed", {
+      detail: { category, patch, settings: current },
+    }),
+  );
 }
 
 function applyCategorySideEffects(category) {
@@ -95,14 +97,17 @@ export function setSetting(category, key, value) {
 
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
-    saveChain = saveChain.then(() => api.saveSettings(current)).then((saved) => {
-      current = saved;
-      writeCache(current);
-    }).catch(() => {
-      // Rollback en mémoire uniquement — l'UI a déjà pu changer d'onglet entre
-      // temps ; on ne réapplique pas de force pour éviter un flash intempestif.
-      if (previous !== undefined) current = { ...current, [category]: previous };
-    });
+    saveChain = saveChain
+      .then(() => api.saveSettings(current))
+      .then((saved) => {
+        current = saved;
+        writeCache(current);
+      })
+      .catch(() => {
+        // Rollback en mémoire uniquement — l'UI a déjà pu changer d'onglet entre
+        // temps ; on ne réapplique pas de force pour éviter un flash intempestif.
+        if (previous !== undefined) current = { ...current, [category]: previous };
+      });
   }, 250);
 
   return current;

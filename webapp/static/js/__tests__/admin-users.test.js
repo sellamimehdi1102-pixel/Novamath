@@ -13,9 +13,15 @@ const NAV_WITH_USERS = [
 
 function makeUser(overrides = {}) {
   return {
-    id: 1, name: "Alice Dupont", email: "alice@test.novamath.local", avatar: null,
-    plan: "free", role: "user", account_status: "active",
-    last_login_at: "2026-07-01T10:00:00+00:00", created_at: "2026-01-01T08:00:00+00:00",
+    id: 1,
+    name: "Alice Dupont",
+    email: "alice@test.novamath.local",
+    avatar: null,
+    plan: "free",
+    role: "user",
+    account_status: "active",
+    last_login_at: "2026-07-01T10:00:00+00:00",
+    created_at: "2026-01-01T08:00:00+00:00",
     total_time_s: 3600,
     ...overrides,
   };
@@ -30,8 +36,12 @@ let fetchCalls;
 
 function fakeProfileTab(userId) {
   return {
-    id: userId, avatar: null, pseudo: `user${userId}`, email: `user${userId}@test.novamath.local`,
-    plan: { available: true, value: "free" }, role: { available: true, value: "user" },
+    id: userId,
+    avatar: null,
+    pseudo: `user${userId}`,
+    email: `user${userId}@test.novamath.local`,
+    plan: { available: true, value: "free" },
+    role: { available: true, value: "user" },
     account_status: { available: true, value: "active" },
     created_at: { available: true, value: "2026-01-01T08:00:00+00:00" },
     last_login_at: { available: true, value: "2026-07-01T10:00:00+00:00" },
@@ -47,7 +57,8 @@ function mockFetchWith(navModules, usersSnapshotFn) {
     if (url === "/api/admin/me") {
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ name: "Mehdi", email: "sellamimehdi1102@gmail.com", role: "super_admin", avatar: null }),
+        json: () =>
+          Promise.resolve({ name: "Mehdi", email: "sellamimehdi1102@gmail.com", role: "super_admin", avatar: null }),
       });
     }
     if (url === "/api/admin/nav") {
@@ -104,7 +115,9 @@ describe("admin-users.js — chargement et rendu de base", () => {
   });
 
   it("gestion des erreurs : bannière visible si l'API échoue, jamais un plantage silencieux", async () => {
-    await mount("/admin/users", NAV_WITH_USERS, () => { throw new Error("boom"); });
+    await mount("/admin/users", NAV_WITH_USERS, () => {
+      throw new Error("boom");
+    });
     // fetch lève -> catch côté admin-users.js
     const errorEl = document.getElementById("admin-global-error");
     expect(errorEl.hidden).toBe(false);
@@ -230,7 +243,9 @@ describe("admin-users.js — badge de statut dans le tableau", () => {
   });
 
   it("affiche le badge 'En attente de consentement' avec le ton avertissement", async () => {
-    await mount("/admin/users", NAV_WITH_USERS, () => snapshotFor([makeUser({ account_status: "pending_parental_consent" })]));
+    await mount("/admin/users", NAV_WITH_USERS, () =>
+      snapshotFor([makeUser({ account_status: "pending_parental_consent" })]),
+    );
     const row = document.querySelector(".admin-users-row");
     const dot = row.querySelector(".admin-status-dot--warning");
     expect(dot).not.toBeNull();
@@ -238,7 +253,9 @@ describe("admin-users.js — badge de statut dans le tableau", () => {
   });
 
   it("affiche le badge 'Consentement refusé' avec le ton danger", async () => {
-    await mount("/admin/users", NAV_WITH_USERS, () => snapshotFor([makeUser({ account_status: "parental_consent_refused" })]));
+    await mount("/admin/users", NAV_WITH_USERS, () =>
+      snapshotFor([makeUser({ account_status: "parental_consent_refused" })]),
+    );
     const row = document.querySelector(".admin-users-row");
     const dot = row.querySelector(".admin-status-dot--down");
     expect(dot).not.toBeNull();
@@ -249,8 +266,15 @@ describe("admin-users.js — badge de statut dans le tableau", () => {
     await mount("/admin/users", NAV_WITH_USERS, () => snapshotFor([makeUser()]));
     const headers = [...document.querySelectorAll(".admin-users-th")].map((th) => th.textContent);
     expect(headers).toEqual([
-      "Avatar", "Nom", "Email", "Abonnement", "Statut", "Rôle",
-      "Dernière connexion", "Date de création", "Temps passé",
+      "Avatar",
+      "Nom",
+      "Email",
+      "Abonnement",
+      "Statut",
+      "Rôle",
+      "Dernière connexion",
+      "Date de création",
+      "Temps passé",
     ]);
   });
 });

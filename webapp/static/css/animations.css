@@ -12,8 +12,9 @@
 .reveal {
   opacity: 0;
   transform: translateY(25px);
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.is-visible {
   opacity: 1;
@@ -26,26 +27,54 @@
 .reveal-stagger > * {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
-.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
-.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 70ms; }
-.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 140ms; }
-.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 210ms; }
-.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 280ms; }
-.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 350ms; }
-.reveal-stagger.is-visible > *:nth-child(7) { transition-delay: 420ms; }
-.reveal-stagger.is-visible > *:nth-child(8) { transition-delay: 480ms; }
-.reveal-stagger.is-visible > *:nth-child(n+9) { transition-delay: 540ms; }
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger.is-visible > *:nth-child(1) {
+  transition-delay: 0ms;
+}
+.reveal-stagger.is-visible > *:nth-child(2) {
+  transition-delay: 70ms;
+}
+.reveal-stagger.is-visible > *:nth-child(3) {
+  transition-delay: 140ms;
+}
+.reveal-stagger.is-visible > *:nth-child(4) {
+  transition-delay: 210ms;
+}
+.reveal-stagger.is-visible > *:nth-child(5) {
+  transition-delay: 280ms;
+}
+.reveal-stagger.is-visible > *:nth-child(6) {
+  transition-delay: 350ms;
+}
+.reveal-stagger.is-visible > *:nth-child(7) {
+  transition-delay: 420ms;
+}
+.reveal-stagger.is-visible > *:nth-child(8) {
+  transition-delay: 480ms;
+}
+.reveal-stagger.is-visible > *:nth-child(n + 9) {
+  transition-delay: 540ms;
+}
 
 /* Keyframe d'entrée partagé (ex-dupliqué entre landing.css et dashboard.css)
    — montée + fondu, utilisable directement via la classe .nm-rise avec un
    délai par nth-child défini localement à chaque page. */
 @keyframes nm-rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .nm-rise {
   animation: nm-rise 550ms cubic-bezier(0.16, 1, 0.3, 1) both;

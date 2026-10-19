@@ -13,8 +13,7 @@ export function fireConfetti(rootEl = document.body) {
   if (!animationsEnabled()) return;
   const colors = [getAccentColor(), getAccentColorSecondary(), "#22c55e", "#f59e0b"];
   const container = document.createElement("div");
-  container.style.cssText =
-    "position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;";
+  container.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;";
   rootEl.appendChild(container);
 
   const count = 60;

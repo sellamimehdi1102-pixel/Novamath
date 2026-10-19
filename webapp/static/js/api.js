@@ -42,7 +42,9 @@ export function handleQuotaExceeded(payload) {
     // < Premium=25 < Ultra=40, chacun distinct). Ne jamais recalculer cette
     // valeur côté client (voir abonnement.js) : un calcul naïf "palier
     // suivant" pourrait diverger si QUOTA_MATRIX changeait à nouveau.
-    const requiredPlanParam = payload.required_plan ? `&required_plan=${encodeURIComponent(payload.required_plan)}` : "";
+    const requiredPlanParam = payload.required_plan
+      ? `&required_plan=${encodeURIComponent(payload.required_plan)}`
+      : "";
     window.location.href = `/abonnement.html?reason=quota&quota=${encodeURIComponent(payload.quota)}${requiredPlanParam}`;
   }, 1600);
 }
@@ -68,9 +70,12 @@ export function handleRateLimited(payload) {
   el.className = "toast toast--error";
   el.innerHTML = `<span>Trop de tentatives. Réessaie dans ${seconds} seconde${seconds > 1 ? "s" : ""}.</span>`;
   el.hidden = false;
-  rateLimitToastTimer = setTimeout(() => {
-    el.hidden = true;
-  }, Math.min(seconds * 1000, 8000));
+  rateLimitToastTimer = setTimeout(
+    () => {
+      el.hidden = true;
+    },
+    Math.min(seconds * 1000, 8000),
+  );
 }
 
 // Construit l'Error levée pour toute réponse HTTP en échec, partagée par
@@ -78,7 +83,7 @@ export function handleRateLimited(payload) {
 // brut, hors de request() car leur réponse réussie n'est pas du JSON) — un
 // seul endroit qui sait traduire un payload d'erreur serveur en Error
 // exploitable côté client, jamais dupliqué entre les deux styles d'appel.
-function buildApiError(path, status, payload, res) {
+function buildApiError(path, status, payload) {
   const err = new Error(payload.error || `Erreur API ${path}: ${status}`);
   err.status = status;
   // 403 "premium_required" (voir plan_service.requires_feature) : porte la
@@ -133,7 +138,7 @@ async function request(path, { method = "GET", body, headers } = {}) {
     body: body ? JSON.stringify(body) : undefined,
   });
   const payload = await res.json().catch(() => ({}));
-  if (!res.ok) throw buildApiError(path, res.status, payload, res);
+  if (!res.ok) throw buildApiError(path, res.status, payload);
   return payload;
 }
 
@@ -146,7 +151,10 @@ export const api = {
   practiceLoad: (exerciseId, classLevel) =>
     request("/api/practice/load", { method: "POST", body: { exercise_id: exerciseId, class_level: classLevel } }),
   practiceResult: (exerciseId, correct, classLevel) =>
-    request("/api/practice/result", { method: "POST", body: { exercise_id: exerciseId, correct, class_level: classLevel } }),
+    request("/api/practice/result", {
+      method: "POST",
+      body: { exercise_id: exerciseId, correct, class_level: classLevel },
+    }),
   exercise: (id, classLevel) =>
     request(`/api/exercise/${id}${classLevel ? `?class_level=${encodeURIComponent(classLevel)}` : ""}`),
   // Génération d'exercices sur mesure (Ultra, Feature.CUSTOM_EXERCISES) —
@@ -180,15 +188,21 @@ export const api = {
   getReviews: (adminKey) => request("/api/reviews", { headers: adminKey ? { "X-Admin-Key": adminKey } : undefined }),
   createReview: (payload) => request("/api/reviews", { method: "POST", body: payload }),
   updateReview: (id, payload, adminKey) =>
-    request(`/api/reviews/${id}`, { method: "PUT", body: payload, headers: adminKey ? { "X-Admin-Key": adminKey } : undefined }),
+    request(`/api/reviews/${id}`, {
+      method: "PUT",
+      body: payload,
+      headers: adminKey ? { "X-Admin-Key": adminKey } : undefined,
+    }),
   deleteReview: (id, ownerToken, adminKey) =>
     request(`/api/reviews/${id}`, {
       method: "DELETE",
       body: { owner_token: ownerToken || undefined },
       headers: adminKey ? { "X-Admin-Key": adminKey } : undefined,
     }),
-  pinReview: (id, adminKey) => request(`/api/reviews/${id}/pin`, { method: "POST", headers: { "X-Admin-Key": adminKey } }),
-  hideReview: (id, adminKey) => request(`/api/reviews/${id}/hide`, { method: "POST", headers: { "X-Admin-Key": adminKey } }),
+  pinReview: (id, adminKey) =>
+    request(`/api/reviews/${id}/pin`, { method: "POST", headers: { "X-Admin-Key": adminKey } }),
+  hideReview: (id, adminKey) =>
+    request(`/api/reviews/${id}/hide`, { method: "POST", headers: { "X-Admin-Key": adminKey } }),
 
   register: (payload) => request("/api/auth/register", { method: "POST", body: payload }),
   login: (payload) => request("/api/auth/login", { method: "POST", body: payload }),
@@ -221,13 +235,18 @@ export const api = {
   verify2FA: (challengeToken, code) =>
     request("/api/auth/2fa/verify", { method: "POST", body: { challenge_token: challengeToken, code } }),
   recover2FA: (challengeToken, recoveryCode) =>
-    request("/api/auth/2fa/recovery", { method: "POST", body: { challenge_token: challengeToken, recovery_code: recoveryCode } }),
+    request("/api/auth/2fa/recovery", {
+      method: "POST",
+      body: { challenge_token: challengeToken, recovery_code: recoveryCode },
+    }),
 
   // ── Consentement parental RGPD (voir consent_service.py) — routes publiques,
   // ouvertes depuis le lien reçu par email par le parent, sans session. ─────
   getParentalConsentStatus: (token) => request(`/api/auth/parental-consent/${encodeURIComponent(token)}`),
-  acceptParentalConsent: (token) => request(`/api/auth/parental-consent/${encodeURIComponent(token)}/accept`, { method: "POST" }),
-  refuseParentalConsent: (token) => request(`/api/auth/parental-consent/${encodeURIComponent(token)}/refuse`, { method: "POST" }),
+  acceptParentalConsent: (token) =>
+    request(`/api/auth/parental-consent/${encodeURIComponent(token)}/accept`, { method: "POST" }),
+  refuseParentalConsent: (token) =>
+    request(`/api/auth/parental-consent/${encodeURIComponent(token)}/refuse`, { method: "POST" }),
   resendParentalConsent: (email, password) =>
     request("/api/auth/parental-consent/resend", { method: "POST", body: { email, password } }),
 
@@ -247,11 +266,14 @@ export const api = {
   // ── Chatbot ────────────────────────────────────────────────────────────
   chatbotConversations: (q) => request(`/api/chatbot/conversations${q ? `?q=${encodeURIComponent(q)}` : ""}`),
   chatbotCreateConversation: () => request("/api/chatbot/conversations", { method: "POST" }),
-  chatbotRenameConversation: (id, title) => request(`/api/chatbot/conversations/${id}`, { method: "PATCH", body: { title } }),
-  chatbotPinConversation: (id, pinned) => request(`/api/chatbot/conversations/${id}`, { method: "PATCH", body: { pinned } }),
+  chatbotRenameConversation: (id, title) =>
+    request(`/api/chatbot/conversations/${id}`, { method: "PATCH", body: { title } }),
+  chatbotPinConversation: (id, pinned) =>
+    request(`/api/chatbot/conversations/${id}`, { method: "PATCH", body: { pinned } }),
   chatbotDeleteConversation: (id) => request(`/api/chatbot/conversations/${id}`, { method: "DELETE" }),
   chatbotMessages: (id) => request(`/api/chatbot/conversations/${id}/messages`),
-  chatbotFeedback: (messageId, liked) => request(`/api/chatbot/messages/${messageId}/feedback`, { method: "POST", body: { liked } }),
+  chatbotFeedback: (messageId, liked) =>
+    request(`/api/chatbot/messages/${messageId}/feedback`, { method: "POST", body: { liked } }),
 
   // ── Support (tickets côté utilisateur, voir support_service.py) ───────────
   supportTickets: () => request("/api/support/tickets"),
@@ -275,7 +297,7 @@ export const api = {
       body: form,
     });
     const payload = await res.json().catch(() => ({}));
-    if (!res.ok) throw buildApiError(path, res.status, payload, res);
+    if (!res.ok) throw buildApiError(path, res.status, payload);
     return payload;
   },
   chatbotQuota: () => request("/api/chatbot/quota"),
@@ -285,7 +307,10 @@ export const api = {
   chatbotGreeting: (classLevel) =>
     request(`/api/chatbot/greeting${classLevel ? `?class_level=${encodeURIComponent(classLevel)}` : ""}`),
   chatbotHealth: () => request("/api/chatbot/health"),
-  chatbotMentions: (q, limit, classLevel) => request(`/api/chatbot/mentions?q=${encodeURIComponent(q || "")}${limit ? `&limit=${limit}` : ""}${classLevel ? `&class_level=${encodeURIComponent(classLevel)}` : ""}`),
+  chatbotMentions: (q, limit, classLevel) =>
+    request(
+      `/api/chatbot/mentions?q=${encodeURIComponent(q || "")}${limit ? `&limit=${limit}` : ""}${classLevel ? `&class_level=${encodeURIComponent(classLevel)}` : ""}`,
+    ),
 
   // ── Recherche unifiée + objectifs quotidiens ────────────────────────────
   search: (q, scope, limit, classLevel) => {
@@ -313,11 +338,13 @@ export const api = {
       headers: { "Content-Type": "application/json", ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}) },
       credentials: "same-origin",
       body: JSON.stringify({
-        message, mentions: mentions && mentions.length ? mentions : undefined, class_level: classLevel,
+        message,
+        mentions: mentions && mentions.length ? mentions : undefined,
+        class_level: classLevel,
       }),
       signal,
     });
-    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})), res);
+    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})));
     return res;
   },
   chatbotRegenerateStream: async (conversationId, { signal, classLevel } = {}) => {
@@ -330,7 +357,7 @@ export const api = {
       body: JSON.stringify({ class_level: classLevel }),
       signal,
     });
-    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})), res);
+    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})));
     return res;
   },
   // Réessai après une erreur réseau réelle : régénère une réponse pour le
@@ -346,7 +373,7 @@ export const api = {
       body: JSON.stringify({ class_level: classLevel }),
       signal,
     });
-    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})), res);
+    if (!res.ok) throw buildApiError(path, res.status, await res.json().catch(() => ({})));
     return res;
   },
   // Upload de fichier (FormData) : pas de Content-Type manuel, le navigateur
@@ -362,7 +389,7 @@ export const api = {
       body: form,
     });
     const payload = await res.json().catch(() => ({}));
-    if (!res.ok) throw buildApiError("/api/chatbot/attachments/pdf", res.status, payload, res);
+    if (!res.ok) throw buildApiError("/api/chatbot/attachments/pdf", res.status, payload);
     return payload;
   },
 };

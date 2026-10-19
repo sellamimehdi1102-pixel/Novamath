@@ -30,8 +30,20 @@ describe("geomSvg.js — renderFigure", () => {
       { kind: "venn", sets: ["A", "B"] },
       { kind: "nested-sets", labels: ["N", "Z", "Q"] },
       { kind: "numberline", min: 0, max: 10, marks: [{ value: 5, label: "5" }] },
-      { kind: "bars", bars: [{ value: 3, label: "A" }, { value: 5, label: "B" }] },
-      { kind: "pie", slices: [{ value: 1, label: "A" }, { value: 2, label: "B" }] },
+      {
+        kind: "bars",
+        bars: [
+          { value: 3, label: "A" },
+          { value: 5, label: "B" },
+        ],
+      },
+      {
+        kind: "pie",
+        slices: [
+          { value: 1, label: "A" },
+          { value: 2, label: "B" },
+        ],
+      },
       { kind: "boxplot", min: 0, q1: 2, median: 5, q3: 7, max: 10 },
       { kind: "solid", shape: "cube" },
     ];

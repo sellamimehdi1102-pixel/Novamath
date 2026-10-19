@@ -4,8 +4,14 @@
 
 /* @keyframes nm-rise partagé — voir css/animations.css. */
 @keyframes nm-pop {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* ── Indicateur "exercices restants aujourd'hui" (QuotaType.EXERCISES_DAILY,
@@ -20,13 +26,29 @@
   font-size: 0.8rem;
   color: var(--text-faint);
 }
-.exercises-quota-value { font-weight: 600; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-.exercises-quota-indicator.is-low .exercises-quota-value { color: var(--warning); }
-.exercises-quota-indicator.is-exhausted .exercises-quota-value { color: var(--danger); }
-.exercises-quota-indicator.is-unlimited .exercises-quota-value { color: var(--accent-text); }
+.exercises-quota-value {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.exercises-quota-indicator.is-low .exercises-quota-value {
+  color: var(--warning);
+}
+.exercises-quota-indicator.is-exhausted .exercises-quota-value {
+  color: var(--danger);
+}
+.exercises-quota-indicator.is-unlimited .exercises-quota-value {
+  color: var(--accent-text);
+}
 
 /* ── Mise en page à deux colonnes de la page Entraînement ────────────────── */
-.exercise-layout { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; position: relative; }
+.exercise-layout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+}
 /* ── Variation "landing" pour Entraînement — petites croix mathématiques en
    trame très légère, masquées au centre (radial mask, même technique que
    landing.css #fonctionnalites) pour ne jamais passer derrière l'énoncé ou
@@ -45,8 +67,14 @@
   -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 35%, transparent 30%, black 82%);
   mask-image: radial-gradient(ellipse 65% 60% at 50% 35%, transparent 30%, black 82%);
 }
-.exercise-layout-main { flex: 2; min-width: 320px; }
-.exercise-layout-side { flex: 1; min-width: 260px; }
+.exercise-layout-main {
+  flex: 2;
+  min-width: 320px;
+}
+.exercise-layout-side {
+  flex: 1;
+  min-width: 260px;
+}
 
 /* ══════════════════════════════════════════════════════════════════════════
    PROGRESSION DE LA SÉRIE — reste visible en permanence pendant toute la
@@ -67,11 +95,26 @@
   box-shadow: var(--shadow-sm);
   margin-bottom: 28px;
 }
-.series-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
-.series-hero .eval-progress-track { height: 8px; }
-.series-hero .progress-fill { transition: width var(--transition-slow); }
+.series-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.series-hero .eval-progress-track {
+  height: 8px;
+}
+.series-hero .progress-fill {
+  transition: width var(--transition-slow);
+}
 
-.series-dots { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
+.series-dots {
+  display: flex;
+  gap: 5px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
 .series-dot {
   width: 100%;
   max-width: 22px;
@@ -79,14 +122,20 @@
   border-radius: var(--radius-pill);
   background: var(--border-strong);
   flex: 1;
-  transition: background var(--transition-base), transform var(--transition-base);
+  transition:
+    background var(--transition-base),
+    transform var(--transition-base);
 }
 .series-dot.is-current {
   background: var(--brand-gradient);
   box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.18);
 }
-.series-dot.is-correct { background: var(--success); }
-.series-dot.is-wrong { background: var(--danger); }
+.series-dot.is-correct {
+  background: var(--success);
+}
+.series-dot.is-wrong {
+  background: var(--danger);
+}
 
 /* ── Boutons de mode — icône + libellé, plus présents et plus vivants ────── */
 .mode-pills {
@@ -107,12 +156,32 @@
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-fast), box-shadow var(--transition-base);
+  transition:
+    background var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
 }
-.mode-pill svg { width: 16px; height: 16px; flex-shrink: 0; }
-.mode-pill:hover { color: var(--text); border-color: var(--border-strong); transform: translateY(-1px); }
-.mode-pill:active { transform: translateY(0) scale(0.97); }
-.mode-pill.active { background: var(--brand-gradient); color: var(--text-on-accent); border-color: transparent; box-shadow: 0 6px 18px -6px rgba(var(--accent-rgb), 0.5); }
+.mode-pill svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.mode-pill:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+.mode-pill:active {
+  transform: translateY(0) scale(0.97);
+}
+.mode-pill.active {
+  background: var(--brand-gradient);
+  color: var(--text-on-accent);
+  border-color: transparent;
+  box-shadow: 0 6px 18px -6px rgba(var(--accent-rgb), 0.5);
+}
 
 /* ══════════════════════════════════════════════════════════════════════════
    CARTE DE L'EXERCICE — plus de profondeur, hiérarchie claire énoncé >
@@ -133,7 +202,9 @@
    (voir #question-loading-bar, purement présentationnel). */
 .question-loading-bar {
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 2px;
   background: transparent;
   overflow: hidden;
@@ -147,17 +218,36 @@
   background: var(--brand-gradient);
   animation: none;
 }
-.question-card.is-loading .question-loading-bar { opacity: 1; }
-.question-card.is-loading .question-loading-bar span { animation: nm-loading-slide 1100ms ease-in-out infinite; }
+.question-card.is-loading .question-loading-bar {
+  opacity: 1;
+}
+.question-card.is-loading .question-loading-bar span {
+  animation: nm-loading-slide 1100ms ease-in-out infinite;
+}
 @keyframes nm-loading-slide {
-  0% { transform: translateX(-100%); }
-  50% { transform: translateX(150%); }
-  100% { transform: translateX(280%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(280%);
+  }
 }
 .question-card.is-loading .question-enonce,
-.question-card.is-loading .question-badges { opacity: 0.45; transition: opacity 150ms ease; }
+.question-card.is-loading .question-badges {
+  opacity: 0.45;
+  transition: opacity 150ms ease;
+}
 
-.question-badges { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; align-items: center; }
+.question-badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
 .question-enonce {
   font-size: 1.25rem;
@@ -173,7 +263,9 @@
      d'être silencieusement rognée par un overflow:hidden du parent. */
   overflow-x: auto;
 }
-.question-enonce .katex { font-size: 1.05em; }
+.question-enonce .katex {
+  font-size: 1.05em;
+}
 
 .answer-field {
   width: 100%;
@@ -185,9 +277,17 @@
   font-size: 1rem;
   margin-bottom: 16px;
 }
-.answer-field:focus { border-color: var(--brand-indigo); outline: none; }
+.answer-field:focus {
+  border-color: var(--brand-indigo);
+  outline: none;
+}
 
-.action-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 18px; }
+.action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 6px 0 18px;
+}
 .action-row .btn.is-revealed {
   background: rgba(var(--accent-rgb), 0.12);
   border-color: rgba(var(--accent-rgb), 0.3);
@@ -207,19 +307,45 @@
   animation: nm-rise 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
   overflow-x: auto;
 }
-.callout--hint { border-left-color: var(--warning); background: linear-gradient(135deg, var(--warning-soft), var(--surface-hover)); }
-.callout--method { border-left-color: var(--brand-indigo); }
-.callout--solution { border-left-color: var(--success); background: linear-gradient(135deg, var(--success-soft), var(--surface-hover)); }
-.callout--steps ol { padding-left: 20px; list-style: decimal; display: flex; flex-direction: column; gap: 8px; }
+.callout--hint {
+  border-left-color: var(--warning);
+  background: linear-gradient(135deg, var(--warning-soft), var(--surface-hover));
+}
+.callout--method {
+  border-left-color: var(--brand-indigo);
+}
+.callout--solution {
+  border-left-color: var(--success);
+  background: linear-gradient(135deg, var(--success-soft), var(--surface-hover));
+}
+.callout--steps ol {
+  padding-left: 20px;
+  list-style: decimal;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 .exercice-inline-icon {
-  display: inline-flex; vertical-align: -3px;
-  width: 16px; height: 16px; margin-right: 8px;
+  display: inline-flex;
+  vertical-align: -3px;
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
   color: var(--accent);
 }
-.exercice-inline-icon svg { width: 100%; height: 100%; }
+.exercice-inline-icon svg {
+  width: 100%;
+  height: 100%;
+}
 
-.verdict-row { display: flex; gap: 12px; margin-top: 24px; }
-.verdict-row .btn { flex: 1; }
+.verdict-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+.verdict-row .btn {
+  flex: 1;
+}
 
 /* ── Boutons Réussi / Échoué — code couleur explicite (vert/rouge), sans
    jamais utiliser de lueur néon : mêmes tokens sémantiques que le reste du
@@ -231,7 +357,10 @@
   color: var(--text-on-accent);
   box-shadow: 0 4px 18px -4px rgba(34, 197, 94, 0.45);
 }
-.btn-verdict-yes:hover { box-shadow: 0 6px 22px -4px rgba(34, 197, 94, 0.55); transform: translateY(-1px); }
+.btn-verdict-yes:hover {
+  box-shadow: 0 6px 22px -4px rgba(34, 197, 94, 0.55);
+  transform: translateY(-1px);
+}
 .btn-verdict-no {
   background: transparent;
   color: var(--danger);
@@ -240,13 +369,29 @@
 /* --danger brut ne passe que 3.8:1 sur les surfaces claires (audit contraste) —
    assombri uniquement en thème clair, où le fond derrière le texte est
    proche du blanc (en sombre, --danger est déjà ≥4.5:1). */
-:root[data-theme="light"] .btn-verdict-no { color: color-mix(in srgb, var(--danger) 78%, black 22%); border-color: color-mix(in srgb, var(--danger) 78%, black 22%); }
-.btn-verdict-no:hover { background: var(--danger-soft); transform: translateY(-1px); }
-.btn-verdict-yes, .btn-verdict-no { transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast); }
+:root[data-theme="light"] .btn-verdict-no {
+  color: color-mix(in srgb, var(--danger) 78%, black 22%);
+  border-color: color-mix(in srgb, var(--danger) 78%, black 22%);
+}
+.btn-verdict-no:hover {
+  background: var(--danger-soft);
+  transform: translateY(-1px);
+}
+.btn-verdict-yes,
+.btn-verdict-no {
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
 
 .xp-pill {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 0.8rem; font-weight: 700; color: var(--warning);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--warning);
 }
 
 /* ── Chrono — les 10 dernières secondes se signalent en rouge, sobrement
@@ -258,11 +403,18 @@
   animation: nm-urgent-pulse 1s ease-in-out infinite;
 }
 @keyframes nm-urgent-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  #ex-chrono-badge.is-urgent { animation: none; }
+  #ex-chrono-badge.is-urgent {
+    animation: none;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -270,8 +422,18 @@
    en cascade (#history-strip peuplé par exercice.js::renderHistory, id et
    structure des .history-dot inchangés).
    ══════════════════════════════════════════════════════════════════════════ */
-.history-card { padding: 20px; }
-.history-card h3, .custom-exercise-card h3 { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; margin-bottom: 14px; font-family: var(--font-display); }
+.history-card {
+  padding: 20px;
+}
+.history-card h3,
+.custom-exercise-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+  font-family: var(--font-display);
+}
 /* .custom-exercise-card partage le même balisage <h3><svg class="h3-icon">
    (voir exercice.html) mais exercice.html ne charge pas dashboard.css, seul
    fichier définissant .h3-icon sans le scoper à .history-card — sans cette
@@ -280,7 +442,12 @@
    remplacement par défaut du navigateur (confirmé en audit navigateur réel,
    Playwright : 352×352px), un bloc "Exercice sur mesure" à l'aspect
    totalement disproportionné. */
-.history-card .h3-icon, .custom-exercise-card .h3-icon { width: 16px; height: 16px; color: var(--accent-text); }
+.history-card .h3-icon,
+.custom-exercise-card .h3-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--accent-text);
+}
 
 .history-strip {
   width: 100%;
@@ -289,18 +456,32 @@
   flex-wrap: wrap;
 }
 .history-dot {
-  width: 32px; height: 32px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.8rem;
   font-weight: 700;
   animation: nm-pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
   transition: transform var(--transition-fast);
 }
-.history-dot:hover { transform: scale(1.12); }
-.history-dot svg { width: 15px; height: 15px; }
-.history-dot.correct { background: var(--success-soft); color: var(--success); }
-.history-dot.wrong { background: var(--danger-soft); color: var(--danger); }
+.history-dot:hover {
+  transform: scale(1.12);
+}
+.history-dot svg {
+  width: 15px;
+  height: 15px;
+}
+.history-dot.correct {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.history-dot.wrong {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
 
 /* ══════════════════════════════════════════════════════════════════════════
    FIN DE SÉRIE — panneau de résultat avec message et icône adaptés à la
@@ -314,30 +495,67 @@
   text-align: center;
   animation: nm-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.result-level-icon { width: 56px; height: 56px; margin: 0 auto 12px; color: var(--accent); }
-.result-level-icon svg { width: 100%; height: 100%; }
+.result-level-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 12px;
+  color: var(--accent);
+}
+.result-level-icon svg {
+  width: 100%;
+  height: 100%;
+}
 
 .recap-icon {
-  width: 64px; height: 64px;
+  width: 64px;
+  height: 64px;
   margin: 0 auto 16px;
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: rgba(var(--accent-rgb), 0.14);
   color: var(--accent-text);
   animation: nm-pop 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
-.recap-icon svg { width: 30px; height: 30px; }
+.recap-icon svg {
+  width: 30px;
+  height: 30px;
+}
 /* Réservé aux meilleures séries (≥90%) : seul endroit "récompense" de cet
    écran à utiliser l'accent Or, jamais pour un score moyen ou faible. */
-.recap-icon.tier-gold { background: rgba(var(--brand-gold-rgb), 0.18); color: var(--brand-gold-text); }
-.recap-icon.tier-good { background: rgba(var(--accent-rgb), 0.14); color: var(--accent-text); }
-.recap-icon.tier-encourage { background: var(--surface-hover); color: var(--text-muted); }
+.recap-icon.tier-gold {
+  background: rgba(var(--brand-gold-rgb), 0.18);
+  color: var(--brand-gold-text);
+}
+.recap-icon.tier-good {
+  background: rgba(var(--accent-rgb), 0.14);
+  color: var(--accent-text);
+}
+.recap-icon.tier-encourage {
+  background: var(--surface-hover);
+  color: var(--text-muted);
+}
 
-#recap-title { text-align: center; margin-bottom: 6px; }
-.recap-sub { text-align: center; color: var(--text-muted); margin-bottom: 24px; }
-.recap-stats-grid { margin-bottom: 24px; }
-.recap-notions { margin-bottom: 24px; text-align: left; }
-.recap-actions { flex-wrap: wrap; }
+#recap-title {
+  text-align: center;
+  margin-bottom: 6px;
+}
+.recap-sub {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.recap-stats-grid {
+  margin-bottom: 24px;
+}
+.recap-notions {
+  margin-bottom: 24px;
+  text-align: left;
+}
+.recap-actions {
+  flex-wrap: wrap;
+}
 
 /* Corrige l'absence de style de .profile-stat/.profile-stats-grid : ce
    composant vient de profil.css, non chargé sur cette page — redéfini ici
@@ -348,10 +566,27 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 14px;
 }
-.profile-stat { padding: 20px; text-align: center; transition: transform var(--transition-base), box-shadow var(--transition-base); }
-.profile-stat:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.profile-stat .value { font-size: 1.6rem; font-weight: 700; font-family: var(--font-display); }
-.profile-stat .label { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; }
+.profile-stat {
+  padding: 20px;
+  text-align: center;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+.profile-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.profile-stat .value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+.profile-stat .label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
 
 /* ══════════════════════════════════════════════════════════════════════════
    ÉTAT VIDE — invite claire à démarrer, plutôt qu'un simple paragraphe.
@@ -362,34 +597,67 @@
   animation: nm-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .empty-state-icon {
-  width: 56px; height: 56px;
+  width: 56px;
+  height: 56px;
   margin: 0 auto 18px;
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: rgba(var(--accent-rgb), 0.12);
   color: var(--accent-text);
 }
-.empty-state-icon svg { width: 26px; height: 26px; }
-.empty-state h3 { font-size: 1.1rem; margin-bottom: 8px; }
-.empty-state p { color: var(--text-muted); margin-bottom: 22px; }
+.empty-state-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.empty-state h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.empty-state p {
+  color: var(--text-muted);
+  margin-bottom: 22px;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .question-loading-bar span { animation: none; }
-  .callout, .history-dot, .result-panel, .recap-icon, .empty-state { animation: none; }
+  .question-loading-bar span {
+    animation: none;
+  }
+  .callout,
+  .history-dot,
+  .result-panel,
+  .recap-icon,
+  .empty-state {
+    animation: none;
+  }
 }
 
 @media (max-width: 640px) {
-  .question-card, .result-panel { padding: 26px 20px; }
-  .question-enonce { padding: 18px; font-size: 1.12rem; }
-  .empty-state { padding: 40px 24px; }
-  .series-hero { padding: 16px; }
+  .question-card,
+  .result-panel {
+    padding: 26px 20px;
+  }
+  .question-enonce {
+    padding: 18px;
+    font-size: 1.12rem;
+  }
+  .empty-state {
+    padding: 40px 24px;
+  }
+  .series-hero {
+    padding: 16px;
+  }
   /* Phase 7 (responsive) : .exercise-layout-main garde min-width:320px pour
      le calcul flex desktop (ligne 48) — sur un écran de 320px de large,
      .main-content retire déjà 32px de padding (16px de chaque côté, voir
      responsive.css), ne laissant que 288px disponibles : ce plancher dépassait
      la largeur réelle et provoquait un débordement horizontal (bug confirmé
      par calcul des dimensions, cf. audit Phase 7). */
-  .exercise-layout-main, .exercise-layout-side { min-width: 0; }
+  .exercise-layout-main,
+  .exercise-layout-side {
+    min-width: 0;
+  }
   /* min-width:0 (ci-dessus) empêchait le débordement horizontal, mais
      .exercise-layout-main (flex:2) et .exercise-layout-side (flex:1)
      restaient côte à côte en se partageant la largeur réduite au lieu de
@@ -399,17 +667,40 @@
      "Exercice sur mesure"). flex-basis:100% force chaque colonne sur sa
      propre ligne (le conteneur a déjà flex-wrap:wrap, voir .exercise-layout
      plus haut). */
-  .exercise-layout-main, .exercise-layout-side { flex-basis: 100%; }
+  .exercise-layout-main,
+  .exercise-layout-side {
+    flex-basis: 100%;
+  }
 }
 
 /* ── Exercice sur mesure (Ultra, customExercise.js) ──────────────────────
    Même convention visuelle que dashboard.css .dashboard-locked-card /
    cours.css .cours-box--locked : badge discret, jamais de popup. */
-.custom-exercise-card { margin-top: 20px; padding: 20px; }
-.custom-exercise-select { width: 100%; margin-bottom: 10px; }
-.custom-exercise-enonce { font-size: 0.92rem; margin: 10px 0; }
-.custom-exercise-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-.custom-exercise-correction { margin-top: 10px; padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-hover); font-size: 0.86rem; }
+.custom-exercise-card {
+  margin-top: 20px;
+  padding: 20px;
+}
+.custom-exercise-select {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.custom-exercise-enonce {
+  font-size: 0.92rem;
+  margin: 10px 0;
+}
+.custom-exercise-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.custom-exercise-correction {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--surface-hover);
+  font-size: 0.86rem;
+}
 
 .dashboard-locked-card {
   display: flex;
@@ -421,6 +712,19 @@
   background: linear-gradient(135deg, rgba(var(--brand-violet-rgb), 0.06), var(--surface));
   font-size: 0.88rem;
 }
-.dashboard-locked-card svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--brand-violet); margin-top: 2px; }
-.dashboard-locked-title { font-weight: 600; color: var(--brand-violet); margin-bottom: 4px; }
-.dashboard-locked-desc { color: var(--text-muted); font-size: 0.82rem; }
+.dashboard-locked-card svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--brand-violet);
+  margin-top: 2px;
+}
+.dashboard-locked-title {
+  font-weight: 600;
+  color: var(--brand-violet);
+  margin-bottom: 4px;
+}
+.dashboard-locked-desc {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}

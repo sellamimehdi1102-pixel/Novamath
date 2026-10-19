@@ -86,7 +86,11 @@ const BADGE_DEFS = [
     label: "Un chapitre à 100%",
     test: (s) => Object.values(masteryByChapter(s.history)).some((m) => m.rate >= 1 && m.count >= 5),
   },
-  { id: "exam_pass", label: "Premier examen blanc réussi", test: (s) => s.history.some((h) => h.mode === "examen" && h.correct) },
+  {
+    id: "exam_pass",
+    label: "Premier examen blanc réussi",
+    test: (s) => s.history.some((h) => h.mode === "examen" && h.correct),
+  },
 ];
 
 function emptyState() {
@@ -161,7 +165,7 @@ export function computeStreak(history) {
 // réponses. Constantes centralisées ici : chapitres.js, dashboard.js et
 // l'équivalent backend (webapp/chatbot/services/progress_service.py) doivent
 // tous s'y référer, aucune page ne recalcule sa propre définition.
-export const MASTERY_ACCURACY_THRESHOLD = 0.70;
+export const MASTERY_ACCURACY_THRESHOLD = 0.7;
 export const MASTERY_MIN_ATTEMPTS = 10;
 
 /** Statut de progression d'un chapitre : "not_started" | "in_progress" |
@@ -247,33 +251,35 @@ export function notionBreakdown(history) {
     byNotion[key].push(h);
   });
 
-  return Object.entries(mastery).map(([key, m]) => {
-    const [chapter, notion] = key.split("|");
-    const attempts = (byNotion[key] || []).slice().sort((a, b) => a.ts - b.ts);
-    const totalDuration = attempts.reduce((sum, h) => sum + (h.duration_s || 0), 0);
-    const avgDurationS = attempts.length ? Math.round(totalDuration / attempts.length) : 0;
+  return Object.entries(mastery)
+    .map(([key, m]) => {
+      const [chapter, notion] = key.split("|");
+      const attempts = (byNotion[key] || []).slice().sort((a, b) => a.ts - b.ts);
+      const totalDuration = attempts.reduce((sum, h) => sum + (h.duration_s || 0), 0);
+      const avgDurationS = attempts.length ? Math.round(totalDuration / attempts.length) : 0;
 
-    let trend = null;
-    if (attempts.length >= NOTION_TREND_MIN_ATTEMPTS) {
-      const mid = Math.floor(attempts.length / 2);
-      const firstHalf = attempts.slice(0, mid);
-      const secondHalf = attempts.slice(mid);
-      const rateOf = (list) => list.filter((h) => h.correct).length / list.length;
-      const diff = rateOf(secondHalf) - rateOf(firstHalf);
-      if (diff > 0.1) trend = "up";
-      else if (diff < -0.1) trend = "down";
-      else trend = "stable";
-    }
+      let trend = null;
+      if (attempts.length >= NOTION_TREND_MIN_ATTEMPTS) {
+        const mid = Math.floor(attempts.length / 2);
+        const firstHalf = attempts.slice(0, mid);
+        const secondHalf = attempts.slice(mid);
+        const rateOf = (list) => list.filter((h) => h.correct).length / list.length;
+        const diff = rateOf(secondHalf) - rateOf(firstHalf);
+        if (diff > 0.1) trend = "up";
+        else if (diff < -0.1) trend = "down";
+        else trend = "stable";
+      }
 
-    return {
-      chapter,
-      notion,
-      count: m.count,
-      rate: m.rate,
-      avgDurationS,
-      trend,
-    };
-  }).sort((a, b) => a.rate - b.rate);
+      return {
+        chapter,
+        notion,
+        count: m.count,
+        rate: m.rate,
+        avgDurationS,
+        trend,
+      };
+    })
+    .sort((a, b) => a.rate - b.rate);
 }
 
 export function levelFromXp(xp) {
@@ -338,7 +344,10 @@ export function scopedStats(state, classLevel) {
   // par cursus) — jamais recalculés ici, dashboard.js les utilise tels
   // quels pour plafonner renderSuggestions() / autoriser renderNotionBreakdown().
   return {
-    xp, history, series, badges,
+    xp,
+    history,
+    series,
+    badges,
     suggestions_limit: state.suggestions_limit,
     notion_breakdown_enabled: state.notion_breakdown_enabled,
   };
@@ -450,7 +459,11 @@ export async function hydrateFromServer() {
       // jamais laisser ces valeurs périmées dans le state local. Reprend
       // `local` tel quel (aucun autre champ touché), seuls ces deux champs
       // viennent du fetch qui vient de réussir.
-      return { ...local, suggestions_limit: remote.suggestions_limit, notion_breakdown_enabled: remote.notion_breakdown_enabled };
+      return {
+        ...local,
+        suggestions_limit: remote.suggestions_limit,
+        notion_breakdown_enabled: remote.notion_breakdown_enabled,
+      };
     }
   } catch {
     /* pas grave — on reste en local si le serveur est indisponible */

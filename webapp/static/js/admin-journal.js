@@ -50,14 +50,28 @@ function formatDateTime(iso) {
   if (!iso) return EMPTY_LABEL;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 }
 
 // ── État du module (réinitialisé à chaque montage) ──────────────────────
 function initialState() {
   return {
-    search: "", admin_user_id: "", provider_id: "", action: "", result: "",
-    date_from: "", date_to: "", page: 1, page_size: 25,
+    search: "",
+    admin_user_id: "",
+    provider_id: "",
+    action: "",
+    result: "",
+    date_from: "",
+    date_to: "",
+    page: 1,
+    page_size: 25,
   };
 }
 
@@ -135,7 +149,10 @@ function renderRows(tbody, entries, onRowClick, columnCount) {
     tr.setAttribute("role", "button");
     tr.addEventListener("click", () => onRowClick(entry));
     tr.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onRowClick(entry); }
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onRowClick(entry);
+      }
     });
 
     tr.appendChild(el("td", "admin-users-td", formatDateTime(entry.created_at)));
@@ -158,8 +175,13 @@ function renderRows(tbody, entries, onRowClick, columnCount) {
     tr.appendChild(el("td", "admin-users-td", entry.provider ? entry.provider.name : EMPTY_LABEL));
 
     const resultTd = el("td", "admin-users-td");
-    resultTd.appendChild(el("span", `admin-status-dot admin-status-dot--${entry.result === "success" ? "ok" : "down"}`,
-      RESULT_LABELS[entry.result] || entry.result));
+    resultTd.appendChild(
+      el(
+        "span",
+        `admin-status-dot admin-status-dot--${entry.result === "success" ? "ok" : "down"}`,
+        RESULT_LABELS[entry.result] || entry.result,
+      ),
+    );
     tr.appendChild(resultTd);
 
     tr.appendChild(el("td", "admin-users-td admin-users-td--muted", entry.error_message || EMPTY_LABEL));
@@ -172,8 +194,11 @@ function renderPagination(container, snapshot, onPageChange) {
   container.innerHTML = "";
   if (snapshot.total === 0) return;
 
-  const info = el("span", "admin-users-pagination-info",
-    `Page ${snapshot.page} / ${snapshot.total_pages} · ${new Intl.NumberFormat("fr-FR").format(snapshot.total)} événement(s)`);
+  const info = el(
+    "span",
+    "admin-users-pagination-info",
+    `Page ${snapshot.page} / ${snapshot.total_pages} · ${new Intl.NumberFormat("fr-FR").format(snapshot.total)} événement(s)`,
+  );
   container.appendChild(info);
 
   const prev = el("button", "admin-icon-btn admin-users-page-btn", "‹");
@@ -208,10 +233,23 @@ function renderFilterChips(container, state, inputs, onRemove, onReset) {
   const chips = [];
 
   if (state.search) chips.push({ label: `Recherche : "${state.search}"`, remove: () => onRemove("search") });
-  if (state.admin_user_id) chips.push({ label: `Administrateur : ${selectedLabel(inputs.adminSelect)}`, remove: () => onRemove("admin_user_id") });
-  if (state.provider_id) chips.push({ label: `Fournisseur : ${selectedLabel(inputs.providerSelect)}`, remove: () => onRemove("provider_id") });
-  if (state.action) chips.push({ label: `Action : ${selectedLabel(inputs.actionSelect)}`, remove: () => onRemove("action") });
-  if (state.result) chips.push({ label: `Résultat : ${RESULT_LABELS[state.result] || state.result}`, remove: () => onRemove("result") });
+  if (state.admin_user_id)
+    chips.push({
+      label: `Administrateur : ${selectedLabel(inputs.adminSelect)}`,
+      remove: () => onRemove("admin_user_id"),
+    });
+  if (state.provider_id)
+    chips.push({
+      label: `Fournisseur : ${selectedLabel(inputs.providerSelect)}`,
+      remove: () => onRemove("provider_id"),
+    });
+  if (state.action)
+    chips.push({ label: `Action : ${selectedLabel(inputs.actionSelect)}`, remove: () => onRemove("action") });
+  if (state.result)
+    chips.push({
+      label: `Résultat : ${RESULT_LABELS[state.result] || state.result}`,
+      remove: () => onRemove("result"),
+    });
   if (state.date_from) chips.push({ label: `Depuis le ${state.date_from}`, remove: () => onRemove("date_from") });
   if (state.date_to) chips.push({ label: `Jusqu'au ${state.date_to}`, remove: () => onRemove("date_to") });
 
@@ -246,28 +284,43 @@ function openDetailModal(entry) {
   body.innerHTML = "";
 
   const summary = el("div", "admin-fields-grid");
-  summary.appendChild(el("div", "admin-field")).append(
-    el("span", "admin-field-label", "Date / heure"), el("span", "admin-field-value", formatDateTime(entry.created_at)),
-  );
-  summary.appendChild(el("div", "admin-field")).append(
-    el("span", "admin-field-label", "Administrateur"), el("span", "admin-field-value", `${entry.admin.name} (${entry.admin.role})`),
-  );
-  summary.appendChild(el("div", "admin-field")).append(
-    el("span", "admin-field-label", "Adresse IP"), el("span", "admin-field-value", entry.ip || EMPTY_LABEL),
-  );
-  summary.appendChild(el("div", "admin-field")).append(
-    el("span", "admin-field-label", "Action"), el("span", "admin-field-value", entry.action_label),
-  );
-  summary.appendChild(el("div", "admin-field")).append(
-    el("span", "admin-field-label", "Fournisseur"), el("span", "admin-field-value", entry.provider ? entry.provider.name : EMPTY_LABEL),
-  );
-  summary.appendChild(el("div", "admin-field")).append(
-    el("span", "admin-field-label", "Résultat"), el("span", "admin-field-value", RESULT_LABELS[entry.result] || entry.result),
-  );
-  if (entry.error_message) {
-    summary.appendChild(el("div", "admin-field admin-form-field--full")).append(
-      el("span", "admin-field-label", "Message d'erreur"), el("span", "admin-field-value", entry.error_message),
+  summary
+    .appendChild(el("div", "admin-field"))
+    .append(
+      el("span", "admin-field-label", "Date / heure"),
+      el("span", "admin-field-value", formatDateTime(entry.created_at)),
     );
+  summary
+    .appendChild(el("div", "admin-field"))
+    .append(
+      el("span", "admin-field-label", "Administrateur"),
+      el("span", "admin-field-value", `${entry.admin.name} (${entry.admin.role})`),
+    );
+  summary
+    .appendChild(el("div", "admin-field"))
+    .append(el("span", "admin-field-label", "Adresse IP"), el("span", "admin-field-value", entry.ip || EMPTY_LABEL));
+  summary
+    .appendChild(el("div", "admin-field"))
+    .append(el("span", "admin-field-label", "Action"), el("span", "admin-field-value", entry.action_label));
+  summary
+    .appendChild(el("div", "admin-field"))
+    .append(
+      el("span", "admin-field-label", "Fournisseur"),
+      el("span", "admin-field-value", entry.provider ? entry.provider.name : EMPTY_LABEL),
+    );
+  summary
+    .appendChild(el("div", "admin-field"))
+    .append(
+      el("span", "admin-field-label", "Résultat"),
+      el("span", "admin-field-value", RESULT_LABELS[entry.result] || entry.result),
+    );
+  if (entry.error_message) {
+    summary
+      .appendChild(el("div", "admin-field admin-form-field--full"))
+      .append(
+        el("span", "admin-field-label", "Message d'erreur"),
+        el("span", "admin-field-value", entry.error_message),
+      );
   }
   body.appendChild(summary);
 
@@ -288,9 +341,13 @@ function openDetailModal(entry) {
 
   body.appendChild(diff);
 
-  function close() { overlay.hidden = true; }
+  function close() {
+    overlay.hidden = true;
+  }
   closeBtn.onclick = close;
-  overlay.onclick = (e) => { if (e.target === overlay) close(); };
+  overlay.onclick = (e) => {
+    if (e.target === overlay) close();
+  };
   overlay.hidden = false;
 }
 
@@ -344,13 +401,32 @@ export async function loadJournal() {
   try {
     const res = await fetch("/api/admin/journal/filters", { credentials: "same-origin" });
     const filters = await res.json().catch(() => ({ admins: [], providers: [], actions: [] }));
-    populateSelect(adminSelect, filters.admins.map((a) => [String(a.id), a.name]), "Tous les administrateurs");
-    populateSelect(providerSelect, filters.providers.map((p) => [String(p.id), p.name]), "Tous les fournisseurs");
-    populateSelect(actionSelect, filters.actions.map((a) => [a.value, a.label]), "Toutes les actions");
+    populateSelect(
+      adminSelect,
+      filters.admins.map((a) => [String(a.id), a.name]),
+      "Tous les administrateurs",
+    );
+    populateSelect(
+      providerSelect,
+      filters.providers.map((p) => [String(p.id), p.name]),
+      "Tous les fournisseurs",
+    );
+    populateSelect(
+      actionSelect,
+      filters.actions.map((a) => [a.value, a.label]),
+      "Toutes les actions",
+    );
   } catch {
     // Filtres non critiques : la liste principale reste consultable sans eux.
   }
-  populateSelect(resultSelect, [["success", "Succès"], ["error", "Échec"]], "Tous les résultats");
+  populateSelect(
+    resultSelect,
+    [
+      ["success", "Succès"],
+      ["error", "Échec"],
+    ],
+    "Tous les résultats",
+  );
 
   async function refresh() {
     renderSkeletonRows(tbody);
@@ -379,17 +455,48 @@ export async function loadJournal() {
       return;
     }
     renderRows(tbody, snapshot.items, openDetailModal, COLUMNS.length);
-    renderPagination(paginationEl, snapshot, (page) => { state.page = page; refresh(); });
+    renderPagination(paginationEl, snapshot, (page) => {
+      state.page = page;
+      refresh();
+    });
   }
 
-  const debouncedSearch = debounce((value) => { state.search = value; state.page = 1; refresh(); }, SEARCH_DEBOUNCE_MS);
+  const debouncedSearch = debounce((value) => {
+    state.search = value;
+    state.page = 1;
+    refresh();
+  }, SEARCH_DEBOUNCE_MS);
   searchInput.addEventListener("input", (e) => debouncedSearch(e.target.value));
-  adminSelect.addEventListener("change", (e) => { state.admin_user_id = e.target.value; state.page = 1; refresh(); });
-  providerSelect.addEventListener("change", (e) => { state.provider_id = e.target.value; state.page = 1; refresh(); });
-  actionSelect.addEventListener("change", (e) => { state.action = e.target.value; state.page = 1; refresh(); });
-  resultSelect.addEventListener("change", (e) => { state.result = e.target.value; state.page = 1; refresh(); });
-  dateFromInput.addEventListener("change", (e) => { state.date_from = e.target.value; state.page = 1; refresh(); });
-  dateToInput.addEventListener("change", (e) => { state.date_to = e.target.value; state.page = 1; refresh(); });
+  adminSelect.addEventListener("change", (e) => {
+    state.admin_user_id = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  providerSelect.addEventListener("change", (e) => {
+    state.provider_id = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  actionSelect.addEventListener("change", (e) => {
+    state.action = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  resultSelect.addEventListener("change", (e) => {
+    state.result = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  dateFromInput.addEventListener("change", (e) => {
+    state.date_from = e.target.value;
+    state.page = 1;
+    refresh();
+  });
+  dateToInput.addEventListener("change", (e) => {
+    state.date_to = e.target.value;
+    state.page = 1;
+    refresh();
+  });
 
   exportCsvBtn.addEventListener("click", () => {
     window.location.href = `/api/admin/journal/export.csv?${buildQuery(state)}`;

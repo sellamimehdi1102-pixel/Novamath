@@ -28,9 +28,14 @@ function closeModal(overlay) {
 }
 function closeAllAuthModals() {
   [
-    "signup-modal-overlay", "oauth-signup-modal-overlay", "login-modal-overlay", "login-2fa-modal-overlay",
+    "signup-modal-overlay",
+    "oauth-signup-modal-overlay",
+    "login-modal-overlay",
+    "login-2fa-modal-overlay",
     "forgot-modal-overlay",
-  ].forEach((id) => { $(id).hidden = true; });
+  ].forEach((id) => {
+    $(id).hidden = true;
+  });
 }
 
 // ── Ouverture / fermeture génériques ────────────────────────────────────────
@@ -79,7 +84,10 @@ function computeAge(birthDateStr) {
   const born = new Date(year, month - 1, day);
   const today = new Date();
   let age = today.getFullYear() - born.getFullYear();
-  if (today.getMonth() < born.getMonth() || (today.getMonth() === born.getMonth() && today.getDate() < born.getDate())) {
+  if (
+    today.getMonth() < born.getMonth() ||
+    (today.getMonth() === born.getMonth() && today.getDate() < born.getDate())
+  ) {
     age -= 1;
   }
   return age;
@@ -128,17 +136,20 @@ document.addEventListener("click", (e) => {
 // continuer avec son vrai compte). Un compte invité ne peut plus jamais être
 // observé ici : le serveur l'a déjà détruit avant de servir la page.
 let currentAccount = null;
-api.me().then(({ user }) => {
-  currentAccount = user;
-  if (!user.is_guest) checkPolicyReacceptance();
-}).catch(() => {
-  // 401 : aucune session valide. Purge défensive de tout résidu client d'une
-  // éventuelle session invité précédente (localStorage/sessionStorage) — le
-  // serveur a déjà détruit ses données, mais on élimine ici toute trace encore
-  // visible dans CE navigateur avant que l'utilisateur ne relance quoi que ce
-  // soit (voir store.js::resetGuestLocalState).
-  if (document.querySelector(".js-start-guest")) resetGuestLocalState();
-});
+api
+  .me()
+  .then(({ user }) => {
+    currentAccount = user;
+    if (!user.is_guest) checkPolicyReacceptance();
+  })
+  .catch(() => {
+    // 401 : aucune session valide. Purge défensive de tout résidu client d'une
+    // éventuelle session invité précédente (localStorage/sessionStorage) — le
+    // serveur a déjà détruit ses données, mais on élimine ici toute trace encore
+    // visible dans CE navigateur avant que l'utilisateur ne relance quoi que ce
+    // soit (voir store.js::resetGuestLocalState).
+    if (document.querySelector(".js-start-guest")) resetGuestLocalState();
+  });
 
 // ── Ré-acceptation forcée des CGU/politique de confidentialité (RGPD) ──────
 // Vérifiée à chaque chargement de page pour un compte connecté (non invité) :
@@ -236,37 +247,80 @@ function clearErrors(prefix, fields) {
 }
 
 function validateSignupClientSide() {
-  clearErrors("signup", ["email", "username", "pseudo", "birth_date", "parent_email", "password", "confirm", "terms", "privacy", "global"]);
+  clearErrors("signup", [
+    "email",
+    "username",
+    "pseudo",
+    "birth_date",
+    "parent_email",
+    "password",
+    "confirm",
+    "terms",
+    "privacy",
+    "global",
+  ]);
   let ok = true;
 
   const email = $("signup-email").value.trim();
-  if (!email) { setFieldError("signup", "email", "L'adresse email est obligatoire."); ok = false; }
-  else if (!EMAIL_RE.test(email)) { setFieldError("signup", "email", "Utilise une adresse Gmail valide (nom@gmail.com)."); ok = false; }
+  if (!email) {
+    setFieldError("signup", "email", "L'adresse email est obligatoire.");
+    ok = false;
+  } else if (!EMAIL_RE.test(email)) {
+    setFieldError("signup", "email", "Utilise une adresse Gmail valide (nom@gmail.com).");
+    ok = false;
+  }
 
   const username = $("signup-username").value.trim();
-  if (!username) { setFieldError("signup", "username", "Le nom d'utilisateur est obligatoire."); ok = false; }
-  else if (!USERNAME_RE.test(username)) { setFieldError("signup", "username", "3 à 25 caractères : lettres, chiffres, - ou _ uniquement."); ok = false; }
+  if (!username) {
+    setFieldError("signup", "username", "Le nom d'utilisateur est obligatoire.");
+    ok = false;
+  } else if (!USERNAME_RE.test(username)) {
+    setFieldError("signup", "username", "3 à 25 caractères : lettres, chiffres, - ou _ uniquement.");
+    ok = false;
+  }
 
   const pseudo = $("signup-pseudo").value.trim();
-  if (!pseudo) { setFieldError("signup", "pseudo", "Le pseudo est obligatoire."); ok = false; }
+  if (!pseudo) {
+    setFieldError("signup", "pseudo", "Le pseudo est obligatoire.");
+    ok = false;
+  }
 
   const birthDate = $("signup-birth-date").value;
-  if (!birthDate) { setFieldError("signup", "birth_date", "La date de naissance est obligatoire."); ok = false; }
-  else if (new Date(birthDate) > new Date()) { setFieldError("signup", "birth_date", "La date de naissance ne peut pas être dans le futur."); ok = false; }
-  else if (isMinorSignup() && !$("signup-parent-email").value.trim()) {
-    setFieldError("signup", "parent_email", "L'email d'un parent est obligatoire pour ton âge."); ok = false;
+  if (!birthDate) {
+    setFieldError("signup", "birth_date", "La date de naissance est obligatoire.");
+    ok = false;
+  } else if (new Date(birthDate) > new Date()) {
+    setFieldError("signup", "birth_date", "La date de naissance ne peut pas être dans le futur.");
+    ok = false;
+  } else if (isMinorSignup() && !$("signup-parent-email").value.trim()) {
+    setFieldError("signup", "parent_email", "L'email d'un parent est obligatoire pour ton âge.");
+    ok = false;
   }
 
   const password = $("signup-password").value;
   const { rules } = evaluatePassword(password);
-  if (!password) { setFieldError("signup", "password", "Le mot de passe est obligatoire."); ok = false; }
-  else if (!Object.values(rules).every(Boolean)) { setFieldError("signup", "password", "Le mot de passe ne respecte pas toutes les conditions ci-dessus."); ok = false; }
+  if (!password) {
+    setFieldError("signup", "password", "Le mot de passe est obligatoire.");
+    ok = false;
+  } else if (!Object.values(rules).every(Boolean)) {
+    setFieldError("signup", "password", "Le mot de passe ne respecte pas toutes les conditions ci-dessus.");
+    ok = false;
+  }
 
   const confirm = $("signup-password-confirm").value;
-  if (password !== confirm) { setFieldError("signup", "confirm", "Les deux mots de passe ne correspondent pas."); ok = false; }
+  if (password !== confirm) {
+    setFieldError("signup", "confirm", "Les deux mots de passe ne correspondent pas.");
+    ok = false;
+  }
 
-  if (!$("signup-accept-terms").checked) { setFieldError("signup", "terms", "Tu dois accepter les conditions d'utilisation."); ok = false; }
-  if (!$("signup-accept-privacy").checked) { setFieldError("signup", "privacy", "Tu dois accepter la politique de confidentialité."); ok = false; }
+  if (!$("signup-accept-terms").checked) {
+    setFieldError("signup", "terms", "Tu dois accepter les conditions d'utilisation.");
+    ok = false;
+  }
+  if (!$("signup-accept-privacy").checked) {
+    setFieldError("signup", "privacy", "Tu dois accepter la politique de confidentialité.");
+    ok = false;
+  }
 
   return ok;
 }
@@ -343,25 +397,52 @@ $("signup-form").addEventListener("submit", async (e) => {
 // nom d'utilisateur/pseudo/date de naissance/CGU (auth.py::oauth_complete_signup). ─
 let pendingOAuthProvider = null;
 function validateOAuthSignupClientSide() {
-  clearErrors("oauth-signup", ["username", "pseudo", "birth_date", "parent_email", "accept_terms", "accept_privacy", "global"]);
+  clearErrors("oauth-signup", [
+    "username",
+    "pseudo",
+    "birth_date",
+    "parent_email",
+    "accept_terms",
+    "accept_privacy",
+    "global",
+  ]);
   let ok = true;
 
   const username = $("oauth-signup-username").value.trim();
-  if (!username) { setFieldError("oauth-signup", "username", "Le nom d'utilisateur est obligatoire."); ok = false; }
-  else if (!USERNAME_RE.test(username)) { setFieldError("oauth-signup", "username", "3 à 25 caractères : lettres, chiffres, - ou _ uniquement."); ok = false; }
-
-  const pseudo = $("oauth-signup-pseudo").value.trim();
-  if (!pseudo) { setFieldError("oauth-signup", "pseudo", "Le pseudo est obligatoire."); ok = false; }
-
-  const birthDate = $("oauth-signup-birth-date").value;
-  if (!birthDate) { setFieldError("oauth-signup", "birth_date", "La date de naissance est obligatoire."); ok = false; }
-  else if (new Date(birthDate) > new Date()) { setFieldError("oauth-signup", "birth_date", "La date de naissance ne peut pas être dans le futur."); ok = false; }
-  else if (isMinorSignup("oauth-signup-birth-date") && !$("oauth-signup-parent-email").value.trim()) {
-    setFieldError("oauth-signup", "parent_email", "L'email d'un parent est obligatoire pour ton âge."); ok = false;
+  if (!username) {
+    setFieldError("oauth-signup", "username", "Le nom d'utilisateur est obligatoire.");
+    ok = false;
+  } else if (!USERNAME_RE.test(username)) {
+    setFieldError("oauth-signup", "username", "3 à 25 caractères : lettres, chiffres, - ou _ uniquement.");
+    ok = false;
   }
 
-  if (!$("oauth-signup-accept-terms").checked) { setFieldError("oauth-signup", "accept_terms", "Tu dois accepter les conditions d'utilisation."); ok = false; }
-  if (!$("oauth-signup-accept-privacy").checked) { setFieldError("oauth-signup", "accept_privacy", "Tu dois accepter la politique de confidentialité."); ok = false; }
+  const pseudo = $("oauth-signup-pseudo").value.trim();
+  if (!pseudo) {
+    setFieldError("oauth-signup", "pseudo", "Le pseudo est obligatoire.");
+    ok = false;
+  }
+
+  const birthDate = $("oauth-signup-birth-date").value;
+  if (!birthDate) {
+    setFieldError("oauth-signup", "birth_date", "La date de naissance est obligatoire.");
+    ok = false;
+  } else if (new Date(birthDate) > new Date()) {
+    setFieldError("oauth-signup", "birth_date", "La date de naissance ne peut pas être dans le futur.");
+    ok = false;
+  } else if (isMinorSignup("oauth-signup-birth-date") && !$("oauth-signup-parent-email").value.trim()) {
+    setFieldError("oauth-signup", "parent_email", "L'email d'un parent est obligatoire pour ton âge.");
+    ok = false;
+  }
+
+  if (!$("oauth-signup-accept-terms").checked) {
+    setFieldError("oauth-signup", "accept_terms", "Tu dois accepter les conditions d'utilisation.");
+    ok = false;
+  }
+  if (!$("oauth-signup-accept-privacy").checked) {
+    setFieldError("oauth-signup", "accept_privacy", "Tu dois accepter la politique de confidentialité.");
+    ok = false;
+  }
 
   return ok;
 }
@@ -369,7 +450,15 @@ function validateOAuthSignupClientSide() {
 function openOAuthCompleteSignup(provider) {
   pendingOAuthProvider = provider;
   closeAllAuthModals();
-  clearErrors("oauth-signup", ["username", "pseudo", "birth_date", "parent_email", "accept_terms", "accept_privacy", "global"]);
+  clearErrors("oauth-signup", [
+    "username",
+    "pseudo",
+    "birth_date",
+    "parent_email",
+    "accept_terms",
+    "accept_privacy",
+    "global",
+  ]);
   $("oauth-signup-form").reset();
   $("oauth-signup-parent-email-row").hidden = true;
   openModal($("oauth-signup-modal-overlay"));
@@ -567,8 +656,10 @@ function stripQueryParams(names) {
   const next = params.get("next");
   if (!next) return;
   const labels = {
-    "dashboard.html": "ton dashboard", "chapitres.html": "les exercices",
-    "exercice.html": "l'entraînement", "profil.html": "ton profil",
+    "dashboard.html": "ton dashboard",
+    "chapitres.html": "les exercices",
+    "exercice.html": "l'entraînement",
+    "profil.html": "ton profil",
   };
   $("login-next-hint").textContent = `Connecte-toi pour accéder à ${labels[next] || "cette page"}.`;
   $("login-next-hint").hidden = false;

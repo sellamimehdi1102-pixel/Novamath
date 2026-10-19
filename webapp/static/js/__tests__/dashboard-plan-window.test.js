@@ -8,7 +8,7 @@
 // filtrage, et que le reste du dashboard (streak, XP, badges, mastery,
 // suggestions, objectif du jour, série en cours, reprise de cours) continue
 // de fonctionner à l'identique quel que soit le plan.
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { loadPageBody, flushPromises } from "./testUtils.js";
 
 const mockApi = {
@@ -39,16 +39,34 @@ const CHAPTER = { id: "Chapitre_1", title: "Nombres et calculs", n_exercises: 10
 
 function historyEntry(ts, correct = true) {
   return {
-    id: `ex_${ts}`, ts, date: "2026-08-20", chapter: "Chapitre_1", notion: "n1",
-    difficulty: 1, correct, mode: "revisions", duration_s: 30, xp: 5, class_level: "seconde",
+    id: `ex_${ts}`,
+    ts,
+    date: "2026-08-20",
+    chapter: "Chapitre_1",
+    notion: "n1",
+    difficulty: 1,
+    correct,
+    mode: "revisions",
+    duration_s: 30,
+    xp: 5,
+    class_level: "seconde",
   };
 }
 
 function seriesEntry(startedAt) {
   return {
-    id: `s_${startedAt}`, startedAt, endedAt: startedAt + 100, mode: "revisions",
-    chapterId: "Chapitre_1", notion: "n1", questions: [], score: 8, total: 10,
-    accuracy: 80, durationTotal_s: 100, class_level: "seconde",
+    id: `s_${startedAt}`,
+    startedAt,
+    endedAt: startedAt + 100,
+    mode: "revisions",
+    chapterId: "Chapitre_1",
+    notion: "n1",
+    questions: [],
+    score: 8,
+    total: 10,
+    accuracy: 80,
+    durationTotal_s: 100,
+    class_level: "seconde",
   };
 }
 
@@ -75,7 +93,9 @@ async function mountDashboard({ plan = "free", stats } = {}) {
   document.documentElement.setAttribute("data-animations", "off");
   localStorage.clear();
   defaultMocks();
-  mockApi.me.mockResolvedValue({ user: { id: 1, pseudo: "Élève", username: "eleve", email: "e@gmail.com", is_guest: false, plan } });
+  mockApi.me.mockResolvedValue({
+    user: { id: 1, pseudo: "Élève", username: "eleve", email: "e@gmail.com", is_guest: false, plan },
+  });
   mockApi.getStats.mockResolvedValue(stats || statsFixture());
   vi.resetModules();
   await import("../dashboard.js");
@@ -136,30 +156,39 @@ describe("dashboard.js — verrouillage du sélecteur de fenêtre par plan", () 
 });
 
 describe("dashboard.js — non-régression des fonctionnalités communes aux trois plans", () => {
-  it.each(["free", "premium", "ultra"])("streak, XP et accuracy s'affichent normalement pour le plan %s", async (plan) => {
-    await mountDashboard({ plan, stats: statsFixture({ nHistory: 12, nSeries: 3 }) });
-    expect(document.getElementById("streak-value").textContent).not.toBe("");
-    expect(document.getElementById("xp-value").textContent).toContain("XP");
-    expect(document.getElementById("accuracy-value").textContent).toMatch(/\/ 20/);
-  });
+  it.each(["free", "premium", "ultra"])(
+    "streak, XP et accuracy s'affichent normalement pour le plan %s",
+    async (plan) => {
+      await mountDashboard({ plan, stats: statsFixture({ nHistory: 12, nSeries: 3 }) });
+      expect(document.getElementById("streak-value").textContent).not.toBe("");
+      expect(document.getElementById("xp-value").textContent).toContain("XP");
+      expect(document.getElementById("accuracy-value").textContent).toMatch(/\/ 20/);
+    },
+  );
 
-  it.each(["free", "premium", "ultra"])("les badges se calculent à partir de l'historique complet, identiques quel que soit le plan (%s)", async (plan) => {
-    // 10 exercices d'historique (nHistory=10) au-delà de la fenêtre `series`
-    // (5, toujours < 20) : le badge "10 exercices" doit se débloquer même en
-    // Free, preuve que `history[]` n'est jamais tronqué par la restriction
-    // appliquée à `series[]`.
-    await mountDashboard({ plan, stats: statsFixture({ nHistory: 10, nSeries: 5 }) });
-    const badgesCounter = document.getElementById("badges-counter").textContent;
-    expect(badgesCounter).toMatch(/^\d+ \/ \d+$/);
-    const unlockedCount = Number(badgesCounter.split(" / ")[0]);
-    expect(unlockedCount).toBeGreaterThanOrEqual(1);
-  });
+  it.each(["free", "premium", "ultra"])(
+    "les badges se calculent à partir de l'historique complet, identiques quel que soit le plan (%s)",
+    async (plan) => {
+      // 10 exercices d'historique (nHistory=10) au-delà de la fenêtre `series`
+      // (5, toujours < 20) : le badge "10 exercices" doit se débloquer même en
+      // Free, preuve que `history[]` n'est jamais tronqué par la restriction
+      // appliquée à `series[]`.
+      await mountDashboard({ plan, stats: statsFixture({ nHistory: 10, nSeries: 5 }) });
+      const badgesCounter = document.getElementById("badges-counter").textContent;
+      expect(badgesCounter).toMatch(/^\d+ \/ \d+$/);
+      const unlockedCount = Number(badgesCounter.split(" / ")[0]);
+      expect(unlockedCount).toBeGreaterThanOrEqual(1);
+    },
+  );
 
-  it.each(["free", "premium", "ultra"])("les suggestions et chapitres à revoir se basent sur l'historique complet (%s)", async (plan) => {
-    await mountDashboard({ plan, stats: statsFixture({ nHistory: 8, nSeries: 2 }) });
-    // Ne doit jamais rester sur l'état vide "Fais ta première évaluation..."
-    expect(document.getElementById("suggestions").textContent).not.toContain("première évaluation");
-  });
+  it.each(["free", "premium", "ultra"])(
+    "les suggestions et chapitres à revoir se basent sur l'historique complet (%s)",
+    async (plan) => {
+      await mountDashboard({ plan, stats: statsFixture({ nHistory: 8, nSeries: 2 }) });
+      // Ne doit jamais rester sur l'état vide "Fais ta première évaluation..."
+      expect(document.getElementById("suggestions").textContent).not.toContain("première évaluation");
+    },
+  );
 
   it.each(["free", "premium", "ultra"])("la table des dernières séries se remplit sans erreur (%s)", async (plan) => {
     await mountDashboard({ plan, stats: statsFixture({ nHistory: 5, nSeries: 5 }) });

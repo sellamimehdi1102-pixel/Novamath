@@ -1,7 +1,13 @@
 /* ── Command Palette globale (Ctrl+K) — s'appuie sur .popup-* de base.css ── */
-#command-palette-popup .popup-body { padding: 0; }
+#command-palette-popup .popup-body {
+  padding: 0;
+}
 
-.command-palette { display: flex; flex-direction: column; max-height: 60vh; }
+.command-palette {
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+}
 
 .command-palette-input-row {
   display: flex;
@@ -11,7 +17,12 @@
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
-.command-palette-input-row svg { width: 18px; height: 18px; color: var(--text-faint); flex-shrink: 0; }
+.command-palette-input-row svg {
+  width: 18px;
+  height: 18px;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
 .command-palette-input-row input {
   flex: 1;
   border: none;
@@ -21,7 +32,9 @@
   font-family: inherit;
   font-size: 1rem;
 }
-.command-palette-input-row input::placeholder { color: var(--text-faint); }
+.command-palette-input-row input::placeholder {
+  color: var(--text-faint);
+}
 
 .command-palette-results {
   overflow-y: auto;
@@ -46,7 +59,20 @@
   cursor: pointer;
   transition: background var(--transition-fast);
 }
-.command-palette-item:hover { background: var(--surface-hover); }
-.command-palette-item .title { font-weight: 600; font-size: 0.9rem; }
-.command-palette-item .subtitle { font-size: 0.78rem; color: var(--text-faint); }
-.command-palette-empty { padding: 20px; text-align: center; color: var(--text-faint); font-size: 0.85rem; }
+.command-palette-item:hover {
+  background: var(--surface-hover);
+}
+.command-palette-item .title {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.command-palette-item .subtitle {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+.command-palette-empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 0.85rem;
+}

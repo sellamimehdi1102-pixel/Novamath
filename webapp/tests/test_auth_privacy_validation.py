@@ -117,7 +117,7 @@ class TestParentConsentPage(unittest.TestCase):
     def test_page_publique_accessible_sans_session(self):
         resp = self.client.get("/parent/consent/un-token-quelconque")
         self.assertEqual(resp.status_code, 200)
-        self.assertIn(b"NovaMath", resp.data)
+        self.assertIn(b"Mathadap", resp.data)
 
     def test_page_ne_leve_jamais_meme_avec_un_token_farfelu(self):
         resp = self.client.get("/parent/consent/../../etc/passwd")

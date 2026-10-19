@@ -42,7 +42,13 @@ function formatDateTime(iso) {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatDuration(seconds) {
@@ -72,7 +78,11 @@ function metricCard(label, metric, formatter = (v) => v, kpiKey = null, tooltip 
   head.appendChild(labelEl);
   if (kpiKey && _onPinToggle) {
     const pinned = _pinnedKpis.has(kpiKey);
-    const pinBtn = el("button", `admin-analytics-pin-btn${pinned ? " admin-analytics-pin-btn--active" : ""}`, pinned ? "★" : "☆");
+    const pinBtn = el(
+      "button",
+      `admin-analytics-pin-btn${pinned ? " admin-analytics-pin-btn--active" : ""}`,
+      pinned ? "★" : "☆",
+    );
     pinBtn.type = "button";
     pinBtn.title = pinned ? "Retirer du tableau de bord" : "Épingler au tableau de bord";
     pinBtn.addEventListener("click", () => _onPinToggle(kpiKey, !pinned));
@@ -101,10 +111,22 @@ const KPI_LOOKUP = {
   "ai.calls": ["Appels IA", (u) => u.ai.calls],
   "ai.tokens": ["Tokens", (u) => u.ai.tokens],
   "ai.cost_usd": ["Coût", (u) => u.ai.cost_usd],
-  "ai.avg_latency_ms": ["Latence moyenne", (u) => u.ai.avg_latency_ms, "Temps de réponse moyen des fournisseurs IA sur la période, en millisecondes."],
-  "ai.success_rate_pct": ["Taux de succès", (u) => u.ai.success_rate_pct, "Proportion d'appels IA ayant abouti sans erreur ni bascule de secours."],
+  "ai.avg_latency_ms": [
+    "Latence moyenne",
+    (u) => u.ai.avg_latency_ms,
+    "Temps de réponse moyen des fournisseurs IA sur la période, en millisecondes.",
+  ],
+  "ai.success_rate_pct": [
+    "Taux de succès",
+    (u) => u.ai.success_rate_pct,
+    "Proportion d'appels IA ayant abouti sans erreur ni bascule de secours.",
+  ],
   "ai.errors": ["Erreurs IA", (u) => u.ai.errors],
-  "ai.fallbacks": ["Fallbacks IA", (u) => u.ai.fallbacks, "Nombre de bascules automatiques vers un fournisseur IA de secours suite à un échec du fournisseur principal."],
+  "ai.fallbacks": [
+    "Fallbacks IA",
+    (u) => u.ai.fallbacks,
+    "Nombre de bascules automatiques vers un fournisseur IA de secours suite à un échec du fournisseur principal.",
+  ],
   "support.tickets_created": ["Tickets créés", (u) => u.support.tickets_created],
   "support.open": ["Tickets ouverts", (u) => u.support.open],
   "support.closed": ["Tickets fermés", (u) => u.support.closed],
@@ -145,16 +167,18 @@ function renderChart(box, spec, series) {
     type: spec.type,
     data: {
       labels: series.value.map((p) => p.date),
-      datasets: [{
-        label: spec.label,
-        data: series.value.map((p) => p.value),
-        borderColor: spec.color,
-        backgroundColor: spec.type === "bar" ? spec.color : `${spec.color}33`,
-        fill: spec.type === "line" || spec.type === "area",
-        tension: 0.25,
-        borderWidth: 2,
-        pointRadius: 2,
-      }],
+      datasets: [
+        {
+          label: spec.label,
+          data: series.value.map((p) => p.value),
+          borderColor: spec.color,
+          backgroundColor: spec.type === "bar" ? spec.color : `${spec.color}33`,
+          fill: spec.type === "line" || spec.type === "area",
+          tension: 0.25,
+          borderWidth: 2,
+          pointRadius: 2,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -220,9 +244,15 @@ function renderPieChart(box, label, valueMap) {
     type: "pie",
     data: {
       labels: entries.map(([k]) => k),
-      datasets: [{ data: entries.map(([, v]) => v), backgroundColor: entries.map((_, i) => palette[i % palette.length]) }],
+      datasets: [
+        { data: entries.map(([, v]) => v), backgroundColor: entries.map((_, i) => palette[i % palette.length]) },
+      ],
     },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, position: "bottom" } } },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: true, position: "bottom" } },
+    },
   });
   _chartInstances.push(chart);
 }
@@ -233,19 +263,39 @@ function chartBox() {
 
 function renderUsersCharts(container, users) {
   container.innerHTML = "";
-  const daily = chartBox(); renderChart(daily, { label: "Croissance quotidienne", type: "bar", color: "#3B82F6" }, users.daily); container.appendChild(daily);
-  const monthly = chartBox(); renderChart(monthly, { label: "Croissance mensuelle", type: "bar", color: "#22C55E" }, users.monthly); container.appendChild(monthly);
-  const yearly = chartBox(); renderChart(yearly, { label: "Croissance annuelle", type: "bar", color: "#D97757" }, users.yearly); container.appendChild(yearly);
+  const daily = chartBox();
+  renderChart(daily, { label: "Croissance quotidienne", type: "bar", color: "#3B82F6" }, users.daily);
+  container.appendChild(daily);
+  const monthly = chartBox();
+  renderChart(monthly, { label: "Croissance mensuelle", type: "bar", color: "#22C55E" }, users.monthly);
+  container.appendChild(monthly);
+  const yearly = chartBox();
+  renderChart(yearly, { label: "Croissance annuelle", type: "bar", color: "#D97757" }, users.yearly);
+  container.appendChild(yearly);
 }
 
 function renderChatbotCharts(container, chatbot) {
   container.innerHTML = "";
-  const conv = chartBox(); renderChart(conv, { label: "Conversations par jour", type: "bar", color: "#3B82F6" }, chatbot.conversations_per_day); container.appendChild(conv);
+  const conv = chartBox();
+  renderChart(conv, { label: "Conversations par jour", type: "bar", color: "#3B82F6" }, chatbot.conversations_per_day);
+  container.appendChild(conv);
   const msg = chartBox();
-  renderMultiSeriesChart(msg, "Messages par jour", "line", { "Utilisateur": chatbot.messages_per_day.user, "Assistant": chatbot.messages_per_day.assistant }, ["#3B82F6", "#22C55E"]);
+  renderMultiSeriesChart(
+    msg,
+    "Messages par jour",
+    "line",
+    { Utilisateur: chatbot.messages_per_day.user, Assistant: chatbot.messages_per_day.assistant },
+    ["#3B82F6", "#22C55E"],
+  );
   container.appendChild(msg);
   const aiVsLocal = chartBox();
-  renderMultiSeriesChart(aiVsLocal, "Réponses IA vs réponses locales", "line", { "IA (réel)": chatbot.ai_vs_local_per_day.ai, "Locale (estimé)": chatbot.ai_vs_local_per_day.local }, ["#7c5cff", "#dc8f2e"]);
+  renderMultiSeriesChart(
+    aiVsLocal,
+    "Réponses IA vs réponses locales",
+    "line",
+    { "IA (réel)": chatbot.ai_vs_local_per_day.ai, "Locale (estimé)": chatbot.ai_vs_local_per_day.local },
+    ["#7c5cff", "#dc8f2e"],
+  );
   container.appendChild(aiVsLocal);
 }
 
@@ -269,7 +319,9 @@ function renderAiCharts(container, ai) {
 
 function renderSupportCharts(container, support) {
   container.innerHTML = "";
-  const perDay = chartBox(); renderChart(perDay, { label: "Tickets par jour", type: "bar", color: "#3B82F6" }, support.tickets_per_day); container.appendChild(perDay);
+  const perDay = chartBox();
+  renderChart(perDay, { label: "Tickets par jour", type: "bar", color: "#3B82F6" }, support.tickets_per_day);
+  container.appendChild(perDay);
   const byCategory = chartBox();
   renderPieChart(byCategory, "Tickets par catégorie", support.by_category.available ? support.by_category.value : null);
   container.appendChild(byCategory);
@@ -294,14 +346,23 @@ async function toggleUserDetail(row, userId) {
   const detail = el("div", "admin-analytics-ranking-detail", "Chargement…");
   row.after(detail);
   const { ok, payload } = await fetchJson(`/api/admin/users/${userId}/chatbot`);
-  if (!ok) { detail.textContent = "Impossible de charger le détail."; return; }
+  if (!ok) {
+    detail.textContent = "Impossible de charger le détail.";
+    return;
+  }
   detail.innerHTML = "";
   const lines = [
     ["Conversations", payload.conversations_count],
     ["Messages", payload.messages_count],
-    ["Tokens IA", payload.ai_tokens_total && payload.ai_tokens_total.available ? payload.ai_tokens_total.value : undefined],
+    [
+      "Tokens IA",
+      payload.ai_tokens_total && payload.ai_tokens_total.available ? payload.ai_tokens_total.value : undefined,
+    ],
     ["Coût IA", payload.ai_cost && payload.ai_cost.available ? `${payload.ai_cost.value} $` : undefined],
-    ["Progression (temps passé)", payload.time_spent_s && payload.time_spent_s.available ? formatDuration(payload.time_spent_s.value) : undefined],
+    [
+      "Progression (temps passé)",
+      payload.time_spent_s && payload.time_spent_s.available ? formatDuration(payload.time_spent_s.value) : undefined,
+    ],
   ];
   lines.forEach(([label, value]) => {
     if (value === undefined || value === null) return;
@@ -346,9 +407,11 @@ function renderSimpleRankingBox(container, title, rows, nameKey, valueKey, value
 function renderChatbotRankings(container, rankings) {
   container.innerHTML = "";
   renderUserRankingBox(
-    container, "Top utilisateurs du chatbot",
+    container,
+    "Top utilisateurs du chatbot",
     rankings.users.top_chatbot_users.available ? rankings.users.top_chatbot_users.value : null,
-    "message_count", "messages",
+    "message_count",
+    "messages",
   );
   const note = el("p", "admin-form-hint", rankings.users.top_active_reason);
   container.appendChild(note);
@@ -357,29 +420,44 @@ function renderChatbotRankings(container, rankings) {
 function renderAiRankings(container, rankings) {
   container.innerHTML = "";
   renderUserRankingBox(
-    container, "Top consommateurs IA",
+    container,
+    "Top consommateurs IA",
     rankings.users.top_ai_consumers.available ? rankings.users.top_ai_consumers.value : null,
-    "total_tokens", "tokens",
+    "total_tokens",
+    "tokens",
   );
   renderSimpleRankingBox(
-    container, "Top fournisseurs",
+    container,
+    "Top fournisseurs",
     rankings.ai.top_providers.available ? rankings.ai.top_providers.value : null,
-    "provider_key", "total_tokens", "tokens",
+    "provider_key",
+    "total_tokens",
+    "tokens",
   );
   renderSimpleRankingBox(
-    container, "Top modèles",
+    container,
+    "Top modèles",
     rankings.ai.top_models.available ? rankings.ai.top_models.value : null,
-    "name", "total_tokens", "tokens",
+    "name",
+    "total_tokens",
+    "tokens",
   );
   renderSimpleRankingBox(
-    container, "Top moteurs",
+    container,
+    "Top moteurs",
     rankings.ai.top_engines.available ? rankings.ai.top_engines.value : null,
-    "engine", "requests", "appels",
+    "engine",
+    "requests",
+    "appels",
   );
   renderSimpleRankingBox(
-    container, "Top coûts",
+    container,
+    "Top coûts",
     rankings.ai.top_cost.available ? rankings.ai.top_cost.value : null,
-    "name", "estimated_cost", "$", (v) => Number(v).toFixed(4),
+    "name",
+    "estimated_cost",
+    "$",
+    (v) => Number(v).toFixed(4),
   );
 }
 
@@ -406,7 +484,9 @@ function renderSupportRankings(container, rankings) {
     rowEl.appendChild(el("span", "admin-analytics-ranking-name", row.admin_name));
     const valueWrap = el("span", "admin-analytics-ranking-value", `${row.ticket_count} tickets`);
     if (row.avg_resolution_seconds !== null && row.avg_resolution_seconds !== undefined) {
-      valueWrap.appendChild(el("span", "admin-card-sub", ` · résolution moy. ${formatDuration(row.avg_resolution_seconds)}`));
+      valueWrap.appendChild(
+        el("span", "admin-card-sub", ` · résolution moy. ${formatDuration(row.avg_resolution_seconds)}`),
+      );
     }
     rowEl.appendChild(valueWrap);
     box.appendChild(rowEl);
@@ -429,39 +509,65 @@ function searchResultGroup(title, items, renderItem) {
 function renderSearchResults(container, resultsSection, results) {
   container.innerHTML = "";
   resultsSection.hidden = false;
-  container.appendChild(searchResultGroup("Utilisateurs", results.users, (u) => {
-    const a = el("a", "admin-analytics-search-result-item", `${u.pseudo} — ${u.email}`);
-    a.href = `/admin/users/${u.id}`;
-    return a;
-  }));
-  container.appendChild(searchResultGroup("Conversations", results.conversations, (c) => {
-    const a = el("a", "admin-analytics-search-result-item", `${c.title} — ${c.pseudo} (${formatDateTime(c.created_at)})`);
-    a.href = `/admin/users/${c.user_id}`;
-    return a;
-  }));
-  container.appendChild(searchResultGroup("Tickets", results.tickets, (t) => {
-    const a = el("a", "admin-analytics-search-result-item", `#${t.id} — ${t.subject}`);
-    a.href = `/admin/support/${t.id}`;
-    return a;
-  }));
-  container.appendChild(searchResultGroup("Fournisseurs / modèles IA", results.ai_providers, (p) => {
-    const a = el("a", "admin-analytics-search-result-item", `${p.name} (${p.provider_key} — ${p.model_name})`);
-    a.href = `/admin/ia/${p.id}`;
-    return a;
-  }));
-  container.appendChild(searchResultGroup("Messages", results.messages, (m) => {
-    const a = el("a", "admin-analytics-search-result-item", `${m.pseudo} — « ${m.excerpt} » (${formatDateTime(m.created_at)})`);
-    a.href = `/admin/users/${m.user_id}`;
-    return a;
-  }));
-  container.appendChild(searchResultGroup("Sauvegardes", results.backups, (b) => {
-    const span = el("span", "admin-analytics-search-result-item", `${b.filename} (${formatDateTime(b.created_at)})`);
-    return span;
-  }));
-  container.appendChild(searchResultGroup("Événements de sécurité", results.security_events, (e) => {
-    const span = el("span", "admin-analytics-search-result-item", `${e.event_type} — ${e.ip || "IP inconnue"} (${formatDateTime(e.created_at)})`);
-    return span;
-  }));
+  container.appendChild(
+    searchResultGroup("Utilisateurs", results.users, (u) => {
+      const a = el("a", "admin-analytics-search-result-item", `${u.pseudo} — ${u.email}`);
+      a.href = `/admin/users/${u.id}`;
+      return a;
+    }),
+  );
+  container.appendChild(
+    searchResultGroup("Conversations", results.conversations, (c) => {
+      const a = el(
+        "a",
+        "admin-analytics-search-result-item",
+        `${c.title} — ${c.pseudo} (${formatDateTime(c.created_at)})`,
+      );
+      a.href = `/admin/users/${c.user_id}`;
+      return a;
+    }),
+  );
+  container.appendChild(
+    searchResultGroup("Tickets", results.tickets, (t) => {
+      const a = el("a", "admin-analytics-search-result-item", `#${t.id} — ${t.subject}`);
+      a.href = `/admin/support/${t.id}`;
+      return a;
+    }),
+  );
+  container.appendChild(
+    searchResultGroup("Fournisseurs / modèles IA", results.ai_providers, (p) => {
+      const a = el("a", "admin-analytics-search-result-item", `${p.name} (${p.provider_key} — ${p.model_name})`);
+      a.href = `/admin/ia/${p.id}`;
+      return a;
+    }),
+  );
+  container.appendChild(
+    searchResultGroup("Messages", results.messages, (m) => {
+      const a = el(
+        "a",
+        "admin-analytics-search-result-item",
+        `${m.pseudo} — « ${m.excerpt} » (${formatDateTime(m.created_at)})`,
+      );
+      a.href = `/admin/users/${m.user_id}`;
+      return a;
+    }),
+  );
+  container.appendChild(
+    searchResultGroup("Sauvegardes", results.backups, (b) => {
+      const span = el("span", "admin-analytics-search-result-item", `${b.filename} (${formatDateTime(b.created_at)})`);
+      return span;
+    }),
+  );
+  container.appendChild(
+    searchResultGroup("Événements de sécurité", results.security_events, (e) => {
+      const span = el(
+        "span",
+        "admin-analytics-search-result-item",
+        `${e.event_type} — ${e.ip || "IP inconnue"} (${formatDateTime(e.created_at)})`,
+      );
+      return span;
+    }),
+  );
 }
 
 // ── Rapports ──────────────────────────────────────────────────────────────────
@@ -477,7 +583,9 @@ function renderReports(tbody, emptyEl, items) {
     tr.appendChild(el("td", null, (meta.format || "").toUpperCase()));
     tr.appendChild(el("td", null, meta.size_bytes ? `${(meta.size_bytes / 1024).toFixed(1)} Ko` : "—"));
     tr.appendChild(el("td", null, meta.duration_ms ? `${meta.duration_ms} ms` : "—"));
-    tr.appendChild(el("td", `admin-badge ${entry.result === "success" ? "admin-badge--ok" : "admin-badge--error"}`, entry.result));
+    tr.appendChild(
+      el("td", `admin-badge ${entry.result === "success" ? "admin-badge--ok" : "admin-badge--error"}`, entry.result),
+    );
     const actionsTd = document.createElement("td");
     if (entry.action === "analytics_report" && meta.filename && entry.result === "success") {
       const link = document.createElement("a");
@@ -542,11 +650,15 @@ export async function loadAnalytics() {
     const csrfToken = document.cookie.match(/(?:^|; )nm_csrf=([^;]*)/);
     await fetch("/api/admin/analytics/pinned-kpis", {
       method: "PATCH",
-      headers: { "Content-Type": "application/json", ...(csrfToken ? { "X-CSRF-Token": decodeURIComponent(csrfToken[1]) } : {}) },
+      headers: {
+        "Content-Type": "application/json",
+        ...(csrfToken ? { "X-CSRF-Token": decodeURIComponent(csrfToken[1]) } : {}),
+      },
       credentials: "same-origin",
       body: JSON.stringify({ kpi_key: kpiKey, pinned }),
     });
-    if (pinned) _pinnedKpis.add(kpiKey); else _pinnedKpis.delete(kpiKey);
+    if (pinned) _pinnedKpis.add(kpiKey);
+    else _pinnedKpis.delete(kpiKey);
     // Épingler une clé d'un groupe jamais encore chargé (overview() ne
     // calcule désormais que les groupes réellement épinglés, voir refresh())
     // : lastOverview peut ne pas le contenir — un unique refetch ciblé
@@ -554,7 +666,9 @@ export async function loadAnalytics() {
     const neededGroups = [...new Set([..._pinnedKpis].map((key) => key.split(".")[0]))];
     const missingGroups = neededGroups.filter((g) => !lastOverview || !(g in lastOverview));
     if (missingGroups.length) {
-      const { ok, payload } = await fetchJson(`/api/admin/analytics/overview?${buildQuery()}&groups=${neededGroups.join(",")}`);
+      const { ok, payload } = await fetchJson(
+        `/api/admin/analytics/overview?${buildQuery()}&groups=${neededGroups.join(",")}`,
+      );
       if (ok) lastOverview = payload;
     }
     if (lastOverview) renderPinned(pinnedEl, pinnedSection, lastOverview);
@@ -686,12 +800,23 @@ export async function loadAnalytics() {
     const csrfToken = document.cookie.match(/(?:^|; )nm_csrf=([^;]*)/);
     const res = await fetch("/api/admin/analytics/views", {
       method: "POST",
-      headers: { "Content-Type": "application/json", ...(csrfToken ? { "X-CSRF-Token": decodeURIComponent(csrfToken[1]) } : {}) },
+      headers: {
+        "Content-Type": "application/json",
+        ...(csrfToken ? { "X-CSRF-Token": decodeURIComponent(csrfToken[1]) } : {}),
+      },
       credentials: "same-origin",
-      body: JSON.stringify({ name, window: windowSelect.value, date_from: dateFromInput.value || null, date_to: dateToInput.value || null }),
+      body: JSON.stringify({
+        name,
+        window: windowSelect.value,
+        date_from: dateFromInput.value || null,
+        date_to: dateToInput.value || null,
+      }),
     });
     const payload = await res.json().catch(() => ({}));
-    if (!res.ok) { alert(payload.error || "Impossible d'enregistrer cette vue."); return; }
+    if (!res.ok) {
+      alert(payload.error || "Impossible d'enregistrer cette vue.");
+      return;
+    }
     await refreshSavedViews();
   });
 
@@ -701,17 +826,29 @@ export async function loadAnalytics() {
     e.preventDefault();
     const submitBtn = reportForm.querySelector("button[type=submit]");
     const originalLabel = submitBtn ? submitBtn.textContent : null;
-    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Génération en cours…"; }
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Génération en cours…";
+    }
     const csrfToken = document.cookie.match(/(?:^|; )nm_csrf=([^;]*)/);
     const res = await fetch("/api/admin/analytics/reports", {
       method: "POST",
-      headers: { "Content-Type": "application/json", ...(csrfToken ? { "X-CSRF-Token": decodeURIComponent(csrfToken[1]) } : {}) },
+      headers: {
+        "Content-Type": "application/json",
+        ...(csrfToken ? { "X-CSRF-Token": decodeURIComponent(csrfToken[1]) } : {}),
+      },
       credentials: "same-origin",
       body: JSON.stringify({ report_type: reportTypeSelect.value, format: reportFormatSelect.value }),
     });
     const payload = await res.json().catch(() => ({}));
-    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalLabel; }
-    if (!res.ok) { alert(payload.error || "Génération impossible."); return; }
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    }
+    if (!res.ok) {
+      alert(payload.error || "Génération impossible.");
+      return;
+    }
     await refreshReports();
   });
 

@@ -26,8 +26,12 @@ export function confirmDialog({ title, text, confirmLabel = "Confirmer", danger 
     };
     const onConfirm = () => close(true);
     const onCancel = () => close(false);
-    const onOverlayClick = (e) => { if (e.target === overlay) close(false); };
-    const onKeydown = (e) => { if (e.key === "Escape") close(false); };
+    const onOverlayClick = (e) => {
+      if (e.target === overlay) close(false);
+    };
+    const onKeydown = (e) => {
+      if (e.key === "Escape") close(false);
+    };
 
     confirmBtn.addEventListener("click", onConfirm);
     cancelBtn.addEventListener("click", onCancel);
@@ -50,6 +54,12 @@ export function showToast(message, isError = false) {
   el.hidden = false;
   toastTimer = setTimeout(() => {
     el.classList.add("is-leaving");
-    el.addEventListener("animationend", () => { el.hidden = true; }, { once: true });
+    el.addEventListener(
+      "animationend",
+      () => {
+        el.hidden = true;
+      },
+      { once: true },
+    );
   }, 2600);
 }

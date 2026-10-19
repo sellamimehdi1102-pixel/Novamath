@@ -2224,11 +2224,17 @@ def set_message_feedback(message_id, liked):
 
 # ── Chatbot : quota quotidien ────────────────────────────────────────────────
 def increment_chatbot_quota(user_id, day_str):
+    """`count` qualifié par le nom de la table dans la clause DO UPDATE SET :
+    un `count` nu y est ambigu sous PostgreSQL (psycopg.errors.AmbiguousColumn,
+    "column reference 'count' is ambiguous" — la ligne EXCLUDED est aussi en
+    portée dès qu'ON CONFLICT DO UPDATE est utilisé), alors que SQLite
+    accepte les deux formes indifféremment (vérifié) : qualifier est donc
+    sûr sur les deux moteurs, jamais besoin d'une traduction dédiée."""
     conn = get_connection()
     try:
         conn.execute(
             """INSERT INTO chatbot_quota (user_id, date, count) VALUES (?, ?, 1)
-               ON CONFLICT(user_id, date) DO UPDATE SET count = count + 1""",
+               ON CONFLICT(user_id, date) DO UPDATE SET count = chatbot_quota.count + 1""",
             (user_id, day_str),
         )
         conn.commit()
@@ -2256,21 +2262,29 @@ def increment_daily_usage(user_id, quota_type, day_str, amount=1):
     """Incrémente (ou crée) le compteur de `quota_type` pour `user_id`/`day_str`
     de `amount` (peut être négatif, utilisé par quota_service.py pour annuler
     un incrément refusé) et renvoie le nouveau total. Un seul INSERT ...
-    ON CONFLICT DO UPDATE : opération atomique unique côté SQLite, jamais un
-    lire-puis-écrire séparé — sûr sous appels concurrents (voir
-    increment_chatbot_quota ci-dessus, même principe)."""
+    ON CONFLICT DO UPDATE ... RETURNING : opération atomique unique côté
+    SQLite (RETURNING supporté depuis SQLite 3.35, voir
+    database_service._PostgresConnection.execute pour l'équivalent
+    PostgreSQL), jamais un lire-puis-écrire séparé — un SELECT distinct
+    APRÈS le commit (ancienne implémentation) pouvait lire une valeur déjà
+    modifiée par un autre thread entretemps, faisant croire à tort à
+    quota_service.consume() qu'une limite était dépassée (voir
+    test_quota_service.py::TestAccesConcurrentSimule, 40 threads
+    concurrents — le nombre de succès pouvait dériver de la limite réelle
+    sous forte contention). `count` qualifié par le nom de la table dans le
+    SET (`user_daily_usage.count`) : un `count` nu y est ambigu sous
+    PostgreSQL (psycopg.errors.AmbiguousColumn — EXCLUDED est aussi en
+    portée), accepté tel quel par SQLite (vérifié), donc sûr sur les deux
+    moteurs sans traduction dédiée."""
     conn = get_connection()
     try:
-        conn.execute(
-            """INSERT INTO user_daily_usage (user_id, quota_type, date, count) VALUES (?, ?, ?, ?)
-               ON CONFLICT(user_id, quota_type, date) DO UPDATE SET count = count + excluded.count""",
-            (user_id, quota_type, day_str, amount),
-        )
-        conn.commit()
         row = conn.execute(
-            "SELECT count FROM user_daily_usage WHERE user_id = ? AND quota_type = ? AND date = ?",
-            (user_id, quota_type, day_str),
+            """INSERT INTO user_daily_usage (user_id, quota_type, date, count) VALUES (?, ?, ?, ?)
+               ON CONFLICT(user_id, quota_type, date) DO UPDATE SET count = user_daily_usage.count + excluded.count
+               RETURNING count""",
+            (user_id, quota_type, day_str, amount),
         ).fetchone()
+        conn.commit()
         return row["count"]
     finally:
         conn.close()
@@ -2316,12 +2330,16 @@ def record_rate_limit_event(key, endpoint, window_start, amount=1):
     annuler un incrément refusé) et renvoie le nouveau total du bucket. Un
     seul INSERT ... ON CONFLICT DO UPDATE : opération atomique unique côté
     SQLite, jamais un lire-puis-écrire séparé — sûr sous appels concurrents
-    (même principe que increment_daily_usage ci-dessus)."""
+    (même principe que increment_daily_usage ci-dessus). `count` qualifié
+    par le nom de la table dans le SET (`rate_limit_events.count`) : un
+    `count` nu y est ambigu sous PostgreSQL (psycopg.errors.AmbiguousColumn
+    — EXCLUDED est aussi en portée), accepté tel quel par SQLite (vérifié),
+    donc sûr sur les deux moteurs sans traduction dédiée."""
     conn = get_connection()
     try:
         conn.execute(
             """INSERT INTO rate_limit_events (key, endpoint, window_start, count) VALUES (?, ?, ?, ?)
-               ON CONFLICT(key, endpoint, window_start) DO UPDATE SET count = count + excluded.count""",
+               ON CONFLICT(key, endpoint, window_start) DO UPDATE SET count = rate_limit_events.count + excluded.count""",
             (key, endpoint, window_start, amount),
         )
         conn.commit()
@@ -2375,12 +2393,18 @@ def check_and_record_rate_limit(key, endpoint, window_start, since_window_start,
     s'intercaler entre l'INSERT et le commit (verrou d'écriture posé dès le
     premier INSERT, relâché seulement au commit/rollback).
 
-    Renvoie (allowed: bool, total: int, oldest: int|None)."""
+    Renvoie (allowed: bool, total: int, oldest: int|None). `count` qualifié
+    par le nom de la table dans le SET (`rate_limit_events.count`) : un
+    `count` nu y est ambigu sous PostgreSQL (psycopg.errors.AmbiguousColumn
+    — EXCLUDED est aussi en portée dans un ON CONFLICT DO UPDATE), accepté
+    tel quel par SQLite (vérifié) ; l'UPDATE simple plus bas (hors ON
+    CONFLICT, une seule table en portée) n'a pas ce problème, jamais
+    qualifié inutilement."""
     conn = get_connection()
     try:
         conn.execute(
             """INSERT INTO rate_limit_events (key, endpoint, window_start, count) VALUES (?, ?, ?, 1)
-               ON CONFLICT(key, endpoint, window_start) DO UPDATE SET count = count + 1""",
+               ON CONFLICT(key, endpoint, window_start) DO UPDATE SET count = rate_limit_events.count + 1""",
             (key, endpoint, window_start),
         )
         row = conn.execute(

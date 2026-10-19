@@ -7,7 +7,9 @@ configuration, et non-régression complète de webapp/db.py sur SQLite (mode
 par défaut, comportement historique).
 """
 import importlib
+import inspect
 import os
+import re
 import shutil
 import tempfile
 import unittest
@@ -47,11 +49,20 @@ class _EnvIsolatedTestCase(unittest.TestCase):
         ds.reset_pool()
 
 
-class _SqliteIsolatedTestCase(unittest.TestCase):
+class _SqliteIsolatedTestCase(_EnvIsolatedTestCase):
     """Même stratégie que tests/test_two_factor_migration.py : base SQLite
-    temporaire, jamais la base réelle."""
+    temporaire, jamais la base réelle. Hérite de _EnvIsolatedTestCase pour
+    neutraliser DATABASE_URL (et les autres ENV_VARS) en plus de
+    DATA_DIR/DB_PATH : sans ça, sous le job CI PostgreSQL (DATABASE_URL
+    pointant vers un vrai serveur pour toute la durée du job),
+    db.get_connection() détecterait ce DATABASE_URL malgré l'isolation
+    DATA_DIR/DB_PATH ci-dessous et ces tests s'exécuteraient réellement
+    contre PostgreSQL — contredisant littéralement leur docstring
+    ("jamais la base réelle") et envoyant des PRAGMA/requêtes dialecte
+    SQLite non traduites à un serveur qui ne les comprend pas."""
 
     def setUp(self):
+        super().setUp()
         self._tmp_dir = tempfile.mkdtemp()
         self._data_dir_backup = db.DATA_DIR
         self._db_path_backup = db.DB_PATH
@@ -62,6 +73,7 @@ class _SqliteIsolatedTestCase(unittest.TestCase):
         db.DATA_DIR = self._data_dir_backup
         db.DB_PATH = self._db_path_backup
         shutil.rmtree(self._tmp_dir, ignore_errors=True)
+        super().tearDown()
 
 
 # ── Détection du moteur ──────────────────────────────────────────────────
@@ -312,10 +324,15 @@ class TestTranslateSchemaForPostgres(unittest.TestCase):
     def test_schema_reel_du_projet(self):
         translated = ds._translate_schema_for_postgres(db.SCHEMA)
         self.assertNotIn("AUTOINCREMENT", translated.upper())
-        # SEC-04 a ajouté consent_records (id INTEGER PRIMARY KEY AUTOINCREMENT) :
-        # 9 tables historiques + 1 nouvelle = 10 (voir TestAutoincrementTables
-        # ci-dessous pour la liste complète).
-        self.assertEqual(translated.count("SERIAL PRIMARY KEY"), 10)
+        # Compte indépendant de l'implémentation testée : chaque occurrence
+        # littérale du motif SQLite dans le schéma SOURCE doit devenir
+        # "SERIAL PRIMARY KEY" après traduction. Pas de valeur figée — le
+        # nombre de tables auto-incrémentées grandit avec le projet (SEC-04,
+        # support tickets, fournisseurs IA...), voir TestAutoincrementTables
+        # ci-dessous pour la liste complète à un instant donné.
+        occurrences = db.SCHEMA.upper().count("INTEGER PRIMARY KEY AUTOINCREMENT")
+        self.assertGreater(occurrences, 0)
+        self.assertEqual(translated.count("SERIAL PRIMARY KEY"), occurrences)
 
     def test_insensible_a_la_casse(self):
         translated = ds._translate_schema_for_postgres("id integer primary key autoincrement,")
@@ -349,13 +366,25 @@ class TestSplitStatements(unittest.TestCase):
 class TestAutoincrementTables(unittest.TestCase):
     def test_tables_reelles_du_schema(self):
         tables = ds._autoincrement_tables(db.SCHEMA)
-        expected = {
-            "users", "oauth_accounts", "login_attempts", "security_events", "conversations",
-            "chatbot_messages", "user_daily_usage", "rate_limit_events", "two_factor_recovery_codes",
-            # SEC-04 : preuve RGPD immuable (voir consent_service.py/db.py::SCHEMA).
-            "consent_records",
-        }
+        # Vérification INDÉPENDANTE de la regex de database_service.py (pas de
+        # liste figée qui diverge à chaque table ajoutée, voir git blame sur
+        # cette classe — hardcodée à 10 alors que le schéma en a 23 au
+        # 2026-10-18) : on découpe nous-mêmes le schéma en blocs de table et on
+        # vérifie que chaque bloc dont la première colonne littérale est "id
+        # INTEGER PRIMARY KEY AUTOINCREMENT" est bien, et seulement lui, dans
+        # le résultat de la fonction testée.
+        expected = set()
+        for name, body in re.findall(r"CREATE TABLE IF NOT EXISTS (\w+) \(([^;]*?)\);", db.SCHEMA, re.DOTALL):
+            first_column = body.strip().splitlines()[0].strip().rstrip(",")
+            if first_column.upper() == "ID INTEGER PRIMARY KEY AUTOINCREMENT":
+                expected.add(name)
+        self.assertGreater(len(expected), 0)
         self.assertEqual(tables, expected)
+        # Propriété structurelle : chaque table détectée existe réellement
+        # dans le schéma (jamais un faux positif issu d'un commentaire ou
+        # d'une chaîne de caractères).
+        for table in tables:
+            self.assertIn(f"CREATE TABLE IF NOT EXISTS {table} (", db.SCHEMA)
 
     def test_tables_sans_id_absentes(self):
         tables = ds._autoincrement_tables(db.SCHEMA)
@@ -911,6 +940,38 @@ class TestDbPyRegressionSQLite(_SqliteIsolatedTestCase):
             db._migrate_guest_lifecycle_columns(conn)
         finally:
             conn.close()
+
+
+class TestUpsertCountJamaisAmbiguSousPostgres(unittest.TestCase):
+    """Garde de non-régression pour l'ambiguïté PostgreSQL
+    (psycopg.errors.AmbiguousColumn, "column reference 'count' is
+    ambiguous") sur les UPSERT ON CONFLICT DO UPDATE : SQLite accepte
+    indifféremment `count` nu ou qualifié `table.count` dans ce contexte
+    (vérifié manuellement), donc aucun test fonctionnel exécuté sur SQLite
+    ne peut détecter une régression ici — seule une exécution réelle contre
+    PostgreSQL le révèle (voir TestCompatibiliteUpsert,
+    test_database_service_postgres.py). Ce test inspecte directement le
+    code source pour empêcher qu'un futur "nettoyage" ne retire la
+    qualification sans que personne ne s'en aperçoive avant la prochaine
+    exécution PostgreSQL de la CI."""
+
+    def _set_clause_target(self, func):
+        source = inspect.getsource(func)
+        match = re.search(r"DO UPDATE SET count = (\S+)", source)
+        self.assertIsNotNone(match, f"{func.__name__} : clause DO UPDATE SET count introuvable")
+        return match.group(1)
+
+    def test_increment_chatbot_quota_qualifie_count(self):
+        self.assertEqual(self._set_clause_target(db.increment_chatbot_quota), "chatbot_quota.count")
+
+    def test_increment_daily_usage_qualifie_count(self):
+        self.assertEqual(self._set_clause_target(db.increment_daily_usage), "user_daily_usage.count")
+
+    def test_record_rate_limit_event_qualifie_count(self):
+        self.assertEqual(self._set_clause_target(db.record_rate_limit_event), "rate_limit_events.count")
+
+    def test_check_and_record_rate_limit_qualifie_count(self):
+        self.assertEqual(self._set_clause_target(db.check_and_record_rate_limit), "rate_limit_events.count")
 
 
 if __name__ == "__main__":

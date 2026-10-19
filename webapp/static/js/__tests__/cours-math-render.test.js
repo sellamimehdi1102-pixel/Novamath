@@ -54,7 +54,9 @@ const CHAPTER = { id: "Chapitre_1", title: "Dérivation", notions_cours: [], n_n
 // y compris les 4 points corrigés (intro, objectif, méthode.titre,
 // démonstration.titre) et les champs qui passaient déjà par data-text.
 const NOTION_AVEC_LATEX = {
-  id: "nombre-derive", title: "Nombre dérivé", schemaVersion: 2,
+  id: "nombre-derive",
+  title: "Nombre dérivé",
+  schemaVersion: 2,
   intro: "Le taux de variation $\\frac{f(x_0+h)-f(x_0)}{h}$ est étudié ici.",
   objectif: "Tu sauras calculer $f'(x_0)$ en faisant tendre $h \\to 0$.",
   definition: "Le nombre dérivé $f'(x_0)$ est la limite $\\lim_{h\\to0}\\frac{f(x_0+h)-f(x_0)}{h}$.",

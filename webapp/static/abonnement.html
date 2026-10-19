@@ -1,117 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abonnements — Mathadap</title>
-<meta name="application-name" content="Mathadap">
-<meta name="theme-color" content="#6366f1">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/curriculum.css">
-<link rel="stylesheet" href="css/settings.css">
-<link rel="stylesheet" href="css/abonnement.css">
-<link rel="stylesheet" href="css/responsive.css">
-<link rel="stylesheet" href="css/command-palette.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abonnements — Mathadap</title>
+    <meta name="application-name" content="Mathadap" />
+    <meta name="theme-color" content="#6366f1" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/curriculum.css" />
+    <link rel="stylesheet" href="css/settings.css" />
+    <link rel="stylesheet" href="css/abonnement.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/command-palette.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a href="/" class="brand"><img src="assets/logo.svg" alt="" /> <span class="brand-name">Mathadap</span></a>
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="sidebar-link"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z" /></svg
+            ><span data-i18n="nav.dashboard">Dashboard</span></a
+          >
+          <a href="chapitres.html" class="sidebar-link"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m3 6 2 2 3-3" />
+              <path d="M11 6h10" />
+              <path d="m3 13 2 2 3-3" />
+              <path d="M11 13h10" />
+              <path d="m3 20 2 2 3-3" />
+              <path d="M11 20h10" /></svg
+            ><span data-i18n="nav.exercices">Exercices</span></a
+          >
+          <a href="cours.html" class="sidebar-link"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" /></svg
+            ><span data-i18n="nav.cours">Cours</span></a
+          >
+          <a href="exercice.html" class="sidebar-link"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="8" width="4" height="8" rx="1.5" />
+              <rect x="18" y="8" width="4" height="8" rx="1.5" />
+              <line x1="6" y1="12" x2="18" y2="12" /></svg
+            ><span data-i18n="nav.entrainement">Entraînement</span></a
+          >
+          <a href="chatbot.html" class="sidebar-link"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z" /></svg
+            ><span data-i18n="nav.chatbot">Chatbot</span></a
+          >
+          <a href="abonnement.html" class="sidebar-link active"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z" /></svg
+            ><span data-i18n="nav.abonnement">Abonnement</span></a
+          >
+        </nav>
+        <div class="sidebar-bottom">
+          <button class="sidebar-settings-btn" id="settings-btn" aria-label="Paramètres" data-tooltip="Paramètres">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"
+              />
+            </svg>
+            <span data-i18n="settings.title">Paramètres</span>
+          </button>
+          <a href="profil.html" class="sidebar-user" id="sidebar-user">
+            <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
+            <span class="sidebar-user-info">
+              <span class="name" id="sidebar-user-name">Élève</span>
+              <span class="sub" id="sidebar-user-plan">Free</span>
+            </span>
+          </a>
+        </div>
+        <div class="sidebar-version" id="sidebar-version"></div>
+      </aside>
 
-<div class="app-shell">
-  <aside class="sidebar">
-    <a href="/" class="brand"><img src="assets/logo.svg" alt=""> <span class="brand-name">Mathadap</span></a>
-    <nav class="sidebar-nav">
-      <a href="dashboard.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5 12 3l9 6.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg><span data-i18n="nav.dashboard">Dashboard</span></a>
-      <a href="chapitres.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 2 2 3-3"/><path d="M11 6h10"/><path d="m3 13 2 2 3-3"/><path d="M11 13h10"/><path d="m3 20 2 2 3-3"/><path d="M11 20h10"/></svg><span data-i18n="nav.exercices">Exercices</span></a>
-      <a href="cours.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span data-i18n="nav.cours">Cours</span></a>
-      <a href="exercice.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="8" width="4" height="8" rx="1.5"/><rect x="18" y="8" width="4" height="8" rx="1.5"/><line x1="6" y1="12" x2="18" y2="12"/></svg><span data-i18n="nav.entrainement">Entraînement</span></a>
-      <a href="chatbot.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="nav.chatbot">Chatbot</span></a>
-      <a href="abonnement.html" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z"/></svg><span data-i18n="nav.abonnement">Abonnement</span></a>
-    </nav>
-    <div class="sidebar-bottom">
-      <button class="sidebar-settings-btn" id="settings-btn" aria-label="Paramètres" data-tooltip="Paramètres">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"/></svg>
-        <span data-i18n="settings.title">Paramètres</span>
-      </button>
-      <a href="profil.html" class="sidebar-user" id="sidebar-user">
-        <span class="sidebar-user-avatar" id="sidebar-user-avatar"></span>
-        <span class="sidebar-user-info">
-          <span class="name" id="sidebar-user-name">Élève</span>
-          <span class="sub" id="sidebar-user-plan">Free</span>
-        </span>
-      </a>
-    </div>
-    <div class="sidebar-version" id="sidebar-version"></div>
-  </aside>
-
-  <main class="main-content" id="abonnement-main">
-    <!-- Affichée uniquement quand la page est ouverte via ?required=<feature>
+      <main class="main-content" id="abonnement-main">
+        <!-- Affichée uniquement quand la page est ouverte via ?required=<feature>
          (redirection serveur, voir server.py::_serve_protected, ou refus API
          403 premium_required intercepté côté client) — jamais d'erreur brute,
          toujours ce message explicatif + l'offre correspondante. -->
-    <section class="premium-required-banner card" id="premium-required-banner" hidden>
-      <span class="premium-required-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-      </span>
-      <div class="premium-required-body">
-        <h2 id="premium-required-title">Cette fonctionnalité nécessite Premium.</h2>
-        <p class="premium-required-desc" id="premium-required-desc">
-          Débloque cette fonctionnalité et bien plus en passant à une formule supérieure.
-        </p>
-        <ul class="pricing-features" id="premium-required-benefits"></ul>
-        <button type="button" class="btn btn-primary" id="premium-required-cta">Passer à Premium</button>
-      </div>
-    </section>
+        <section class="premium-required-banner card" id="premium-required-banner" hidden>
+          <span class="premium-required-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4" y="10" width="16" height="11" rx="2" />
+              <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+            </svg>
+          </span>
+          <div class="premium-required-body">
+            <h2 id="premium-required-title">Cette fonctionnalité nécessite Premium.</h2>
+            <p class="premium-required-desc" id="premium-required-desc">
+              Débloque cette fonctionnalité et bien plus en passant à une formule supérieure.
+            </p>
+            <ul class="pricing-features" id="premium-required-benefits"></ul>
+            <button type="button" class="btn btn-primary" id="premium-required-cta">Passer à Premium</button>
+          </div>
+        </section>
 
-    <!-- Affichée uniquement pour un compte Premium/Ultra (voir
+        <!-- Affichée uniquement pour un compte Premium/Ultra (voir
          GET /api/billing/status, customer_portal_available) : statut Stripe
          + accès direct au Portail client, jamais d'informations de
          facturation recalculées côté client. -->
-    <section class="billing-status-card card" id="billing-status-card" hidden>
-      <div class="billing-status-head">
-        <div>
-          <span class="billing-status-plan" id="billing-status-plan">Premium</span>
-          <span class="badge badge--neutral" id="billing-status-badge">Actif</span>
-        </div>
-        <button type="button" class="btn btn-secondary btn-sm" id="billing-status-manage">
-          Gérer mon abonnement
-        </button>
-      </div>
-      <div class="billing-status-dates">
-        <span id="billing-status-renew" hidden></span>
-        <span id="billing-status-cancel" hidden></span>
-      </div>
-    </section>
+        <section class="billing-status-card card" id="billing-status-card" hidden>
+          <div class="billing-status-head">
+            <div>
+              <span class="billing-status-plan" id="billing-status-plan">Premium</span>
+              <span class="badge badge--neutral" id="billing-status-badge">Actif</span>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="billing-status-manage">
+              Gérer mon abonnement
+            </button>
+          </div>
+          <div class="billing-status-dates">
+            <span id="billing-status-renew" hidden></span>
+            <span id="billing-status-cancel" hidden></span>
+          </div>
+        </section>
 
-    <!-- Réservée exclusivement au compte Owner (voir owner_service.is_owner_account,
+        <!-- Réservée exclusivement au compte Owner (voir owner_service.is_owner_account,
          vérification serveur uniquement) — les boutons des cartes ci-dessous
          deviennent alors des boutons de simulation locale (voir abonnement.js,
          /api/owner/test-plan, owner_test_plan_service.py) : aucun paiement,
          aucune Checkout Session, aucune donnée Stripe/users.plan modifiée. -->
-    <section class="premium-required-banner card" id="owner-mode-banner" hidden>
-      <span class="premium-required-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><path d="M1 14h6M9 8h6M17 16h6"/></svg>
-      </span>
-      <div class="premium-required-body">
-        <h2>Mode test Owner — aucun paiement Stripe</h2>
-        <p class="premium-required-desc">
-          Les boutons des formules ci-dessous changent uniquement ton plan de simulation locale
-          (effective_plan). Ils ne déclenchent jamais Stripe, ne créent aucun paiement et ne
-          modifient jamais ton abonnement réel.
-        </p>
-      </div>
-    </section>
+        <section class="premium-required-banner card" id="owner-mode-banner" hidden>
+          <span class="premium-required-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3" />
+              <path d="M1 14h6M9 8h6M17 16h6" />
+            </svg>
+          </span>
+          <div class="premium-required-body">
+            <h2>Mode test Owner — aucun paiement Stripe</h2>
+            <p class="premium-required-desc">
+              Les boutons des formules ci-dessous changent uniquement ton plan de simulation locale (effective_plan).
+              Ils ne déclenchent jamais Stripe, ne créent aucun paiement et ne modifient jamais ton abonnement réel.
+            </p>
+          </div>
+        </section>
 
-    <div class="pricing-header reveal">
-      <span class="pricing-eyebrow">Abonnement</span>
-      <h1>Choisis la formule qui te correspond</h1>
-      <p class="pricing-subtitle">Progresse plus vite en maths avec un accès étendu au chatbot, aux exports et
-        aux outils avancés de suivi. Résiliable à tout moment.</p>
-    </div>
+        <div class="pricing-header reveal">
+          <span class="pricing-eyebrow">Abonnement</span>
+          <h1>Choisis la formule qui te correspond</h1>
+          <p class="pricing-subtitle">
+            Progresse plus vite en maths avec un accès étendu au chatbot, aux exports et aux outils avancés de suivi.
+            Résiliable à tout moment.
+          </p>
+        </div>
 
-    <!-- Montants affichés ci-dessous (0€ / 6,99€ / 12,99€) : vérifiés
+        <!-- Montants affichés ci-dessous (0€ / 6,99€ / 12,99€) : vérifiés
          (Chantier 6, lecture réelle stripe.Price.retrieve()) identiques aux
          Price ID Stripe réellement configurés (STRIPE_PRICE_PREMIUM/
          STRIPE_PRICE_ULTRA, voir stripe_service.py — Stripe reste la seule
@@ -120,103 +177,186 @@
          un prix change côté Stripe, mettre à jour les DEUX fichiers. Un
          endpoint backend dédié n'a pas été créé pour ces 3 valeurs statiques
          (coût de maintenance disproportionné par rapport au risque réel). -->
-    <div class="pricing-grid reveal-stagger" id="pricing-grid">
-      <!-- ── Gratuit ─────────────────────────────────────────────────────── -->
-      <article class="pricing-card card" data-plan="free">
-        <div class="pricing-card-head">
-          <span class="pricing-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
-          </span>
-          <h2>Gratuit</h2>
-          <p class="pricing-card-desc">Pour découvrir Mathadap et progresser à ton rythme.</p>
-        </div>
-        <div class="pricing-card-price">
-          <span class="price-amount">0€</span>
-          <span class="price-period">/mois</span>
-        </div>
-        <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Accès à tous les chapitres, avec l'essentiel du cours</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>20 exercices/jour</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot : 15 messages/jour</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Historique complet et suivi de progression</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>3 suggestions de révision personnalisées</li>
-        </ul>
-        <button type="button" class="btn btn-secondary pricing-cta" data-plan-button="free" disabled>
-          Plan actuel
-        </button>
-      </article>
+        <div class="pricing-grid reveal-stagger" id="pricing-grid">
+          <!-- ── Gratuit ─────────────────────────────────────────────────────── -->
+          <article class="pricing-card card" data-plan="free">
+            <div class="pricing-card-head">
+              <span class="pricing-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
+                </svg>
+              </span>
+              <h2>Gratuit</h2>
+              <p class="pricing-card-desc">Pour découvrir Mathadap et progresser à ton rythme.</p>
+            </div>
+            <div class="pricing-card-price">
+              <span class="price-amount">0€</span>
+              <span class="price-period">/mois</span>
+            </div>
+            <ul class="pricing-features">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Accès à tous les chapitres, avec l'essentiel du cours
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >20 exercices/jour
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Chatbot : 15 messages/jour
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Historique complet et suivi de progression
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >3 suggestions de révision personnalisées
+              </li>
+            </ul>
+            <button type="button" class="btn btn-secondary pricing-cta" data-plan-button="free" disabled>
+              Plan actuel
+            </button>
+          </article>
 
-      <!-- ── Premium (mis en avant) ──────────────────────────────────────── -->
-      <article class="pricing-card pricing-card--popular card" data-plan="premium">
-        <span class="pricing-popular-badge">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5 14.6 8l6.1.6-4.6 4 1.3 6-5.4-3-5.4 3 1.3-6-4.6-4L10 8z"/></svg>
-          Le plus populaire
-        </span>
-        <div class="pricing-card-head">
-          <span class="pricing-card-icon pricing-card-icon--accent" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 3 6.5 7 1-5 5 1.5 7-6.5-3.5L5 21.5 6.5 14.5l-5-5 7-1Z" stroke-linejoin="round"/></svg>
-          </span>
-          <h2>Premium</h2>
-          <p class="pricing-card-desc">Pour les élèves qui veulent progresser sans limites.</p>
-        </div>
-        <div class="pricing-card-price">
-          <span class="price-amount">6,99€</span>
-          <span class="price-period">/mois</span>
-        </div>
-        <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Cours complet, toutes les notions et exemples</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>60 exercices/jour</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot : 25 messages/jour</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Explications avancées du chatbot</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Dashboard élargi : 50 séries d'entraînement conservées</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>5 suggestions de révision personnalisées</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Bilan de progression détaillé par notion</li>
-        </ul>
-        <button type="button" class="btn btn-primary pricing-cta" data-plan-button="premium">
-          Passer à Premium
-        </button>
-      </article>
+          <!-- ── Premium (mis en avant) ──────────────────────────────────────── -->
+          <article class="pricing-card pricing-card--popular card" data-plan="premium">
+            <span class="pricing-popular-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.5 14.6 8l6.1.6-4.6 4 1.3 6-5.4-3-5.4 3 1.3-6-4.6-4L10 8z" />
+              </svg>
+              Le plus populaire
+            </span>
+            <div class="pricing-card-head">
+              <span class="pricing-card-icon pricing-card-icon--accent" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m12 2 3 6.5 7 1-5 5 1.5 7-6.5-3.5L5 21.5 6.5 14.5l-5-5 7-1Z" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <h2>Premium</h2>
+              <p class="pricing-card-desc">Pour les élèves qui veulent progresser sans limites.</p>
+            </div>
+            <div class="pricing-card-price">
+              <span class="price-amount">6,99€</span>
+              <span class="price-period">/mois</span>
+            </div>
+            <ul class="pricing-features">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Cours complet, toutes les notions et exemples
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >60 exercices/jour
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Chatbot : 25 messages/jour
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Explications avancées du chatbot
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Dashboard élargi : 50 séries d'entraînement conservées
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >5 suggestions de révision personnalisées
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Bilan de progression détaillé par notion
+              </li>
+            </ul>
+            <button type="button" class="btn btn-primary pricing-cta" data-plan-button="premium">
+              Passer à Premium
+            </button>
+          </article>
 
-      <!-- ── Ultra ───────────────────────────────────────────────────────── -->
-      <article class="pricing-card card" data-plan="ultra">
-        <div class="pricing-card-head">
-          <span class="pricing-card-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z" stroke-linejoin="round"/></svg>
-          </span>
-          <h2>Ultra</h2>
-          <p class="pricing-card-desc">L'expérience Mathadap complète, sans compromis.</p>
+          <!-- ── Ultra ───────────────────────────────────────────────────────── -->
+          <article class="pricing-card card" data-plan="ultra">
+            <div class="pricing-card-head">
+              <span class="pricing-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2.5 8.5 6 11l3-6 3 6 3-6 3 6 3.5-2.5-1.5 10h-15Z" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <h2>Ultra</h2>
+              <p class="pricing-card-desc">L'expérience Mathadap complète, sans compromis.</p>
+            </div>
+            <div class="pricing-card-price">
+              <span class="price-amount">12,99€</span>
+              <span class="price-period">/mois</span>
+            </div>
+            <ul class="pricing-features">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Cours complet, avec les démonstrations
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Exercices illimités
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Chatbot : 40 messages/jour
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Analyse de PDF par l'IA du chatbot
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Dashboard complet : toutes tes séries conservées
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >8 suggestions de révision personnalisées
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Génération d'exercices sur mesure
+              </li>
+            </ul>
+            <button type="button" class="btn btn-secondary pricing-cta" data-plan-button="ultra">Passer à Ultra</button>
+          </article>
         </div>
-        <div class="pricing-card-price">
-          <span class="price-amount">12,99€</span>
-          <span class="price-period">/mois</span>
-        </div>
-        <ul class="pricing-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Cours complet, avec les démonstrations</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Exercices illimités</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Chatbot : 40 messages/jour</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Analyse de PDF par l'IA du chatbot</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Dashboard complet : toutes tes séries conservées</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>8 suggestions de révision personnalisées</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Génération d'exercices sur mesure</li>
-        </ul>
-        <button type="button" class="btn btn-secondary pricing-cta" data-plan-button="ultra">
-          Passer à Ultra
-        </button>
-      </article>
+
+        <p class="pricing-footnote reveal" id="pricing-footnote">
+          Paiement sécurisé par Stripe. Annule à tout moment depuis ton espace client, sans engagement.
+        </p>
+      </main>
     </div>
 
-    <p class="pricing-footnote reveal" id="pricing-footnote">
-      Paiement sécurisé par Stripe. Annule à tout moment depuis ton espace client, sans engagement.
-    </p>
-  </main>
-</div>
+    <div class="toast" id="abonnement-toast" hidden></div>
 
-<div class="toast" id="abonnement-toast" hidden></div>
-
-<script type="module" src="js/identity.js"></script>
-<script type="module" src="js/sidebar.js"></script>
-<script type="module" src="js/auth.js"></script>
-<script type="module" src="js/command-palette.js"></script>
-<script type="module" src="js/abonnement.js"></script>
-</body>
+    <script type="module" src="js/identity.js"></script>
+    <script type="module" src="js/sidebar.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/command-palette.js"></script>
+    <script type="module" src="js/abonnement.js"></script>
+  </body>
 </html>

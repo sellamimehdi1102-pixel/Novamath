@@ -2,9 +2,13 @@
 import { ICONS } from "./icons.js";
 
 const BADGE_ICON_NAMES = {
-  ex_10: "target", ex_50: "target", ex_100: "target",
-  streak_7: "flame", streak_30: "star",
-  chapter_mastered: "trophy", exam_pass: "graduationCap",
+  ex_10: "target",
+  ex_50: "target",
+  ex_100: "target",
+  streak_7: "flame",
+  streak_30: "star",
+  chapter_mastered: "trophy",
+  exam_pass: "graduationCap",
 };
 
 export function badgeIconSvg(badgeId) {

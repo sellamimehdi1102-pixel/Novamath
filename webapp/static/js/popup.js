@@ -115,7 +115,11 @@ export function openPopup({
     // durée alignée sur --transition-base (voir base.css), no-op si
     // data-animations="off" (transitionend se déclenche alors immédiatement).
     let done = false;
-    const onEnd = () => { if (done) return; done = true; finish(); };
+    const onEnd = () => {
+      if (done) return;
+      done = true;
+      finish();
+    };
     overlay.addEventListener("transitionend", onEnd, { once: true });
     setTimeout(onEnd, 300);
   }
@@ -126,7 +130,9 @@ export function openPopup({
   document.addEventListener("keydown", onKeydown);
 
   if (closeOnOverlayClick) {
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) close();
+    });
   }
 
   if (onOpen) onOpen(card);
@@ -157,7 +163,12 @@ export function openPromptPopup({
 } = {}) {
   return new Promise((resolve) => {
     let settled = false;
-    const settle = (value) => { if (!settled) { settled = true; resolve(value); } };
+    const settle = (value) => {
+      if (!settled) {
+        settled = true;
+        resolve(value);
+      }
+    };
 
     const bodyEl = document.createElement("div");
     bodyEl.innerHTML = `
@@ -175,13 +186,26 @@ export function openPromptPopup({
     const input = bodyEl.querySelector("#popup-prompt-input");
     input.value = defaultValue;
 
-    bodyEl.querySelector('[data-action="cancel"]').addEventListener("click", () => { settle(null); popup.close(); });
-    bodyEl.querySelector('[data-action="confirm"]').addEventListener("click", () => { settle(input.value); popup.close(); });
+    bodyEl.querySelector('[data-action="cancel"]').addEventListener("click", () => {
+      settle(null);
+      popup.close();
+    });
+    bodyEl.querySelector('[data-action="confirm"]').addEventListener("click", () => {
+      settle(input.value);
+      popup.close();
+    });
     input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") { e.preventDefault(); settle(input.value); popup.close(); }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        settle(input.value);
+        popup.close();
+      }
     });
 
-    requestAnimationFrame(() => { input.focus(); input.select(); });
+    requestAnimationFrame(() => {
+      input.focus();
+      input.select();
+    });
   });
 }
 
@@ -205,7 +229,12 @@ export function openConfirmPopup({
 } = {}) {
   return new Promise((resolve) => {
     let settled = false;
-    const settle = (value) => { if (!settled) { settled = true; resolve(value); } };
+    const settle = (value) => {
+      if (!settled) {
+        settled = true;
+        resolve(value);
+      }
+    };
 
     const bodyEl = document.createElement("div");
     bodyEl.innerHTML = `
@@ -217,7 +246,13 @@ export function openConfirmPopup({
     `;
 
     const popup = openPopup({ title, bodyEl, size: "sm", onClose: () => settle(false) });
-    bodyEl.querySelector('[data-action="cancel"]').addEventListener("click", () => { settle(false); popup.close(); });
-    bodyEl.querySelector('[data-action="confirm"]').addEventListener("click", () => { settle(true); popup.close(); });
+    bodyEl.querySelector('[data-action="cancel"]').addEventListener("click", () => {
+      settle(false);
+      popup.close();
+    });
+    bodyEl.querySelector('[data-action="confirm"]').addEventListener("click", () => {
+      settle(true);
+      popup.close();
+    });
   });
 }

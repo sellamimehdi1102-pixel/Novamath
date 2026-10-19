@@ -15,7 +15,8 @@ const CATEGORY_ICONS = {
   search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>',
   nav: '<path d="M5 12h14M13 6l6 6-6 6"/>',
   goals: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
-  action: '<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>',
+  action:
+    '<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>',
 };
 
 function iconFor(item) {
@@ -87,14 +88,18 @@ export function initMentions({ input, onNavigate, onAction }) {
   function renderItems(items) {
     state.items = items;
     state.activeIndex = items.length ? 0 : -1;
-    menu.innerHTML = items.map((it, i) => `
+    menu.innerHTML = items
+      .map(
+        (it, i) => `
       <button type="button" class="chatbot-mentions-item${i === 0 ? " is-active" : ""}" data-index="${i}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${iconFor(it)}</svg>
         <span class="chatbot-mentions-item-text">
           <span class="title">${it.item_kind === "category" ? "@" + it.label : it.title}</span>
           ${it.snippet ? `<span class="subtitle">${it.snippet.slice(0, 70)}</span>` : ""}
         </span>
-      </button>`).join("");
+      </button>`,
+      )
+      .join("");
     menu.hidden = false;
     menu.querySelectorAll("[data-index]").forEach((btn) => {
       btn.addEventListener("click", () => selectItem(items[Number(btn.dataset.index)]));
@@ -146,7 +151,12 @@ export function initMentions({ input, onNavigate, onAction }) {
       composer.removeRange(node, atOffset, caretOffset);
       close();
       if (item.kind === "nav") {
-        (onNavigate || ((url) => { window.location.href = url; }))(item.url);
+        (
+          onNavigate ||
+          ((url) => {
+            window.location.href = url;
+          })
+        )(item.url);
       } else if (item.kind === "goals") {
         onAction ? onAction("goals") : null;
       } else if (item.kind === "action") {

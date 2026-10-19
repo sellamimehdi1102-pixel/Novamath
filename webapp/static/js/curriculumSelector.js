@@ -143,7 +143,10 @@ let _panel = null;
 let _outsideHandler = null;
 
 function closeClassPanel() {
-  if (_panel) { _panel.remove(); _panel = null; }
+  if (_panel) {
+    _panel.remove();
+    _panel = null;
+  }
   if (_outsideHandler) {
     document.removeEventListener("mousedown", _outsideHandler);
     _outsideHandler = null;
@@ -151,7 +154,10 @@ function closeClassPanel() {
 }
 
 function openClassPanel(buttonEl) {
-  if (_panel) { closeClassPanel(); return; }
+  if (_panel) {
+    closeClassPanel();
+    return;
+  }
 
   const panel = document.createElement("div");
   panel.className = "class-badge-panel card";
@@ -172,33 +178,36 @@ function openClassPanel(buttonEl) {
       panel.removeAttribute("aria-busy");
       panel.innerHTML = "";
       curricula.forEach((curriculum) => {
-        panel.appendChild(renderCurriculumCard(curriculum, {
-          isCurrent: curriculum.classLevel === current,
-          onEnter: (classLevel) => {
-            setStoredClassLevel(classLevel);
-            closeClassPanel();
-            // Toute page peut écouter cet événement pour se mettre à jour sans
-            // rechargement (voir landing.js pour la conversation de démo du
-            // chatbot) — annoncé AVANT le reload ci-dessous pour rester
-            // équivalent au comportement précédent partout où rien ne
-            // l'écoute encore.
-            document.dispatchEvent(new CustomEvent("novamath:classLevelChange", { detail: { classLevel } }));
-            // `data-class-level-live` : posé uniquement par les pages qui se
-            // sont abonnées à l'événement ci-dessus et gèrent elles-mêmes la
-            // mise à jour de tout leur contenu dépendant de la classe — sans
-            // ça, on garde le reload complet (comportement historique,
-            // nécessaire tant qu'une page ne recharge ses données que via un
-            // rechargement de page).
-            if (document.body.dataset.classLevelLive !== "1") {
-              window.location.reload();
-            }
-          },
-        }));
+        panel.appendChild(
+          renderCurriculumCard(curriculum, {
+            isCurrent: curriculum.classLevel === current,
+            onEnter: (classLevel) => {
+              setStoredClassLevel(classLevel);
+              closeClassPanel();
+              // Toute page peut écouter cet événement pour se mettre à jour sans
+              // rechargement (voir landing.js pour la conversation de démo du
+              // chatbot) — annoncé AVANT le reload ci-dessous pour rester
+              // équivalent au comportement précédent partout où rien ne
+              // l'écoute encore.
+              document.dispatchEvent(new CustomEvent("novamath:classLevelChange", { detail: { classLevel } }));
+              // `data-class-level-live` : posé uniquement par les pages qui se
+              // sont abonnées à l'événement ci-dessus et gèrent elles-mêmes la
+              // mise à jour de tout leur contenu dépendant de la classe — sans
+              // ça, on garde le reload complet (comportement historique,
+              // nécessaire tant qu'une page ne recharge ses données que via un
+              // rechargement de page).
+              if (document.body.dataset.classLevelLive !== "1") {
+                window.location.reload();
+              }
+            },
+          }),
+        );
       });
     })
     .catch(() => {
       panel.removeAttribute("aria-busy");
-      panel.innerHTML = '<p class="cursus-select-error">Impossible de charger les classes disponibles pour le moment.</p>';
+      panel.innerHTML =
+        '<p class="cursus-select-error">Impossible de charger les classes disponibles pour le moment.</p>';
     });
 
   _outsideHandler = (e) => {
@@ -225,5 +234,7 @@ export function initClassBadge(buttonEl) {
       const current = curricula.find((c) => c.classLevel === getStoredClassLevel());
       if (current && labelEl) labelEl.textContent = current.label;
     })
-    .catch(() => { /* garde le libellé par défaut déjà affiché dans le HTML */ });
+    .catch(() => {
+      /* garde le libellé par défaut déjà affiché dans le HTML */
+    });
 }

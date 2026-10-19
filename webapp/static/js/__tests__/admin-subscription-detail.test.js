@@ -21,7 +21,7 @@ function sampleData() {
       { key: "chat_messages", label: "Messages chatbot", unlimited: false, limit: 30 },
       { key: "llm_calls", label: "Appels IA", unlimited: true, limit: null },
     ],
-    real_note: "\"real_features\"/\"real_quotas\" reflètent ce qui est RÉELLEMENT appliqué aujourd'hui.",
+    real_note: '"real_features"/"real_quotas" reflètent ce qui est RÉELLEMENT appliqué aujourd\'hui.',
   };
 }
 

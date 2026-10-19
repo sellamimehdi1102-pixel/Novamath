@@ -69,7 +69,10 @@ const isMobile = () => window.innerWidth <= MOBILE_BREAKPOINT;
 function setConvosCollapsed(collapsed) {
   convosAside.classList.toggle("is-collapsed", collapsed);
   convosCollapseBtn.setAttribute("aria-expanded", String(!collapsed));
-  convosCollapseBtn.setAttribute("aria-label", collapsed ? "Développer les conversations" : "Réduire les conversations");
+  convosCollapseBtn.setAttribute(
+    "aria-label",
+    collapsed ? "Développer les conversations" : "Réduire les conversations",
+  );
   localStorage.setItem(CONVOS_COLLAPSED_KEY, collapsed ? "1" : "0");
 }
 
@@ -207,7 +210,9 @@ function renderConvoList() {
     convoList.innerHTML = `<div class="chatbot-convo-empty">Aucune conversation pour l'instant.</div>`;
     return;
   }
-  convoList.innerHTML = conversations.map((c) => `
+  convoList.innerHTML = conversations
+    .map(
+      (c) => `
     <div class="chatbot-convo-item${c.id === activeConversationId ? " active" : ""}" data-id="${c.id}">
       ${c.pinned ? '<svg class="pin-icon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M12 17v5M8 3h8l-1 6 3 3v2H6v-2l3-3-1-6Z"/></svg>' : ""}
       <span class="chatbot-convo-title">${escapeHtml(c.title)}</span>
@@ -217,7 +222,9 @@ function renderConvoList() {
         <button data-action="delete" title="Supprimer" aria-label="Supprimer la conversation">${ICONS.trash}</button>
       </div>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 
   convoList.querySelectorAll(".chatbot-convo-item").forEach((item) => {
     const id = Number(item.dataset.id);
@@ -327,12 +334,16 @@ function renderSearchResults(items, query) {
       : `<div class="chatbot-search-view-status">Aucune conversation pour l'instant.</div>`;
     return;
   }
-  searchViewResults.innerHTML = items.map((c) => `
+  searchViewResults.innerHTML = items
+    .map(
+      (c) => `
     <button type="button" class="chatbot-search-result" data-id="${c.id}">
       <span class="chatbot-search-result-title">${escapeHtml(c.title)}</span>
       <span class="chatbot-search-result-date">${escapeHtml(formatConvoDate(c.updated_at))}</span>
     </button>
-  `).join("");
+  `,
+    )
+    .join("");
   searchViewResults.querySelectorAll(".chatbot-search-result").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const id = Number(btn.dataset.id);
@@ -460,7 +471,10 @@ function closeAllMoreMenus(except) {
   messagesEl.querySelectorAll(".chatbot-msg-more-menu").forEach((menu) => {
     if (menu === except) return;
     menu.hidden = true;
-    menu.closest(".chatbot-msg-more-wrap")?.querySelector('[data-action="more-toggle"]')?.setAttribute("aria-expanded", "false");
+    menu
+      .closest(".chatbot-msg-more-wrap")
+      ?.querySelector('[data-action="more-toggle"]')
+      ?.setAttribute("aria-expanded", "false");
   });
 }
 document.addEventListener("click", (e) => {
@@ -508,12 +522,16 @@ function actionCardLabel(c) {
 
 function actionCardsHtml(cards) {
   if (!cards || !cards.length) return "";
-  return `<div class="chatbot-action-cards">${cards.map((c, i) => `
+  return `<div class="chatbot-action-cards">${cards
+    .map(
+      (c, i) => `
     <button type="button" class="chatbot-action-card card card--interactive" data-card-index="${i}">
       <span class="chatbot-action-card-icon">${ACTION_CARD_ICONS[c.icon] || ACTION_CARD_ICONS.book}</span>
       <span>${escapeHtml(actionCardLabel(c))}</span>
     </button>
-  `).join("")}</div>`;
+  `,
+    )
+    .join("")}</div>`;
 }
 
 function navigateToCard(card) {
@@ -526,7 +544,7 @@ function navigateToCard(card) {
         notion: card.notion,
         notions: [card.notion],
         exerciseIds: card.exercise_ids,
-      })
+      }),
     );
     window.location.href = "exercice.html";
     return;
@@ -660,7 +678,10 @@ function bindMessageActions(row, msg) {
     const index = activeMessages.indexOf(msg);
     let userMessage = "";
     for (let i = index - 1; i >= 0; i -= 1) {
-      if (activeMessages[i].role === "user") { userMessage = activeMessages[i].content || ""; break; }
+      if (activeMessages[i].role === "user") {
+        userMessage = activeMessages[i].content || "";
+        break;
+      }
     }
     // Provider/modèle ne sont jamais transmis au frontend par design — le
     // contexte joint au ticket se limite donc à ce que ce module connaît
@@ -755,8 +776,11 @@ function openMessageEditor(row, bubbleEl, actionsEl, msg) {
   // — rien à perdre qui ait une valeur au-delà de cette session d'édition).
   if (activeMessageEditor) {
     closeMessageEditor(
-      activeMessageEditor.row, activeMessageEditor.bubbleEl, activeMessageEditor.actionsEl,
-      activeMessageEditor.msg, { restoreFocus: false },
+      activeMessageEditor.row,
+      activeMessageEditor.bubbleEl,
+      activeMessageEditor.actionsEl,
+      activeMessageEditor.msg,
+      { restoreFocus: false },
     );
   }
 
@@ -787,8 +811,14 @@ function openMessageEditor(row, bubbleEl, actionsEl, msg) {
     actionsEl.querySelector(".chatbot-msg-edit-notice")?.remove();
   });
   textarea.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") { e.preventDefault(); closeMessageEditor(row, bubbleEl, actionsEl, msg); }
-    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); submitBtn.click(); }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeMessageEditor(row, bubbleEl, actionsEl, msg);
+    }
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      submitBtn.click();
+    }
   });
   textarea.focus();
   textarea.setSelectionRange(textarea.value.length, textarea.value.length);
@@ -820,7 +850,8 @@ function openMessageEditor(row, bubbleEl, actionsEl, msg) {
     const notice = document.createElement("p");
     notice.className = "chatbot-msg-edit-notice";
     notice.setAttribute("role", "status");
-    notice.textContent = "Cette fonctionnalité nécessite une évolution du backend, pas encore approuvée — rien n'a été modifié.";
+    notice.textContent =
+      "Cette fonctionnalité nécessite une évolution du backend, pas encore approuvée — rien n'a été modifié.";
     actionsEl.appendChild(notice);
   });
 }
@@ -863,7 +894,9 @@ function startTypewriter(bubbleEl) {
     // écrire, la réponse s'affiche d'un bloc une fois entièrement reçue.
     let target = "";
     const controller = {
-      push(text) { target += text; },
+      push(text) {
+        target += text;
+      },
       finish(callback) {
         const wasNearBottom = isNearBottom();
         bubbleEl.classList.remove("is-streaming");
@@ -912,8 +945,13 @@ function startTypewriter(bubbleEl) {
   }, TYPEWRITER_INTERVAL_MS);
 
   const controller = {
-    push(text) { target += text; },
-    finish(callback) { doneReceiving = true; onFullyDone = callback; },
+    push(text) {
+      target += text;
+    },
+    finish(callback) {
+      doneReceiving = true;
+      onFullyDone = callback;
+    },
     // Même correctif que ci-dessus pour le cas "machine à écrire" : sans
     // ceci, l'intervalle continuait de tourner indéfiniment après un stop
     // (plus aucun `push` ne vient jamais l'arrêter) et le curseur clignotant
@@ -948,7 +986,7 @@ async function consumeStream(response, bubbleEl, onDone) {
       let payload;
       try {
         payload = JSON.parse(line);
-      } catch (parseErr) {
+      } catch {
         continue;
       }
       if (payload.delta) {
@@ -1005,7 +1043,8 @@ async function ensureConversation() {
 // qu'on attend d'un indicateur de réflexion et plus clairement animé.
 // prefers-reduced-motion/Paramètres→Animations="off" sont déjà gérés
 // globalement (voir tokens.css) : aucune logique spécifique nécessaire ici.
-const THINKING_HTML = '<div class="chatbot-thinking" role="status" aria-live="polite" aria-label="Mathadap réfléchit"><span class="chatbot-thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span><span class="chatbot-thinking-label visually-hidden">Mathadap réfléchit…</span></div>';
+const THINKING_HTML =
+  '<div class="chatbot-thinking" role="status" aria-live="polite" aria-label="Mathadap réfléchit"><span class="chatbot-thinking-dots" aria-hidden="true"><span></span><span></span><span></span></span><span class="chatbot-thinking-label visually-hidden">Mathadap réfléchit…</span></div>';
 
 // ── Robustesse réseau (façon ChatGPT/Claude) ────────────────────────────────
 // Une erreur réseau réelle (fetch/lecture du flux qui lève, pas un payload
@@ -1033,10 +1072,14 @@ function renderErrorRetryState(bubbleEl, onRetry) {
   // désactive en plus le bouton de façon synchrone, en défense en profondeur,
   // pour un retour visuel immédiat même si l'échange de contenu du bubble
   // venait à être retardé par une future évolution (transition, etc.).
-  retryBtn.addEventListener("click", () => {
-    retryBtn.disabled = true;
-    onRetry();
-  }, { once: true });
+  retryBtn.addEventListener(
+    "click",
+    () => {
+      retryBtn.disabled = true;
+      onRetry();
+    },
+    { once: true },
+  );
 }
 
 // Exécute un tour (envoi initial, régénération ou réessai) contre l'un des
@@ -1070,7 +1113,10 @@ async function runAssistantTurn(convId, bubbleEl, startStream, onRetry) {
       // ici on finalise juste la bulle assistant avec un message explicite,
       // jamais l'erreur brute, jamais l'état "Réessayer" (retenter ne
       // débloquerait rien avant demain ou une mise à niveau).
-      renderMessageBody(bubbleEl, "*Tu as atteint ta limite de messages aujourd'hui — redirection vers la page Abonnement…*");
+      renderMessageBody(
+        bubbleEl,
+        "*Tu as atteint ta limite de messages aujourd'hui — redirection vers la page Abonnement…*",
+      );
       return;
     }
     let lastIsUser = true;
@@ -1078,7 +1124,7 @@ async function runAssistantTurn(convId, bubbleEl, startStream, onRetry) {
       const { messages } = await api.chatbotMessages(convId);
       activeMessages = messages;
       lastIsUser = !messages.length || messages[messages.length - 1].role === "user";
-    } catch (getErr) {
+    } catch {
       /* même le rechargement échoue (réseau totalement coupé) : on suppose
          le pire et on propose quand même un réessai plutôt qu'un blocage. */
     }
@@ -1108,7 +1154,7 @@ async function retryReply(convId, bubbleEl) {
     convId,
     bubbleEl,
     (signal) => api.chatbotRetryStream(convId, { signal, classLevel: getStoredClassLevel() }),
-    () => retryReply(convId, bubbleEl)
+    () => retryReply(convId, bubbleEl),
   );
 }
 
@@ -1136,7 +1182,7 @@ async function sendMessage(overrideText) {
     convId,
     bubbleEl,
     (signal) => api.chatbotStream(convId, text, mentions, { signal, classLevel: getStoredClassLevel() }),
-    () => retryReply(convId, bubbleEl)
+    () => retryReply(convId, bubbleEl),
   );
 }
 
@@ -1154,7 +1200,7 @@ async function regenerate() {
     convId,
     bubbleEl,
     (signal) => api.chatbotRegenerateStream(convId, { signal, classLevel: getStoredClassLevel() }),
-    () => retryReply(convId, bubbleEl)
+    () => retryReply(convId, bubbleEl),
   );
 }
 
@@ -1199,9 +1245,14 @@ function resultToCard(r) {
 
 function renderLiveSuggestions(results) {
   if (!results.length) return hideLiveSuggestions();
-  liveSuggestions.innerHTML = results.slice(0, 4).map((r, i) => `
+  liveSuggestions.innerHTML = results
+    .slice(0, 4)
+    .map(
+      (r, i) => `
     <button type="button" class="chatbot-suggestion-chip" data-index="${i}">${escapeHtml(r.title)}</button>
-  `).join("");
+  `,
+    )
+    .join("");
   liveSuggestions.hidden = false;
   liveSuggestions.querySelectorAll("[data-index]").forEach((btn) => {
     btn.addEventListener("click", () => navigateToCard(resultToCard(results[Number(btn.dataset.index)])));
@@ -1276,9 +1327,7 @@ pdfFileInput.addEventListener("change", async () => {
   btn.disabled = true;
   try {
     const { text, truncated, filename } = await api.chatbotAttachPdf(file);
-    insertIntoInput(
-      `[Extrait de "${filename}"${truncated ? " (tronqué, document long)" : ""}]\n${text}`
-    );
+    insertIntoInput(`[Extrait de "${filename}"${truncated ? " (tronqué, document long)" : ""}]\n${text}`);
   } catch (err) {
     // 403 "premium_required" (analyse de PDF réservée à Ultra, voir
     // plan_service.Feature.ADVANCED_AI) : jamais afficher err.message brut
@@ -1288,7 +1337,7 @@ pdfFileInput.addEventListener("change", async () => {
       const planLabel = err.requiredPlan === "ultra" ? "Ultra" : "Premium";
       insertIntoInput(
         `[${featureLabel(err.feature)} fait partie de la formule ${planLabel}. ` +
-        `Découvre l'offre ${planLabel} sur la page Abonnement pour débloquer l'analyse de documents joints.]`
+          `Découvre l'offre ${planLabel} sur la page Abonnement pour débloquer l'analyse de documents joints.]`,
       );
     } else {
       insertIntoInput(`[Impossible d'importer ce PDF : ${err.message}]`);
@@ -1304,7 +1353,7 @@ $("chatbot-attach-pdf").addEventListener("click", () => pdfFileInput.click());
 // plutôt que de laisser croire à une analyse qui n'a pas lieu.
 $("chatbot-attach-image").addEventListener("click", () => {
   insertIntoInput(
-    "[Image jointe — Mathadap ne peut pas encore analyser automatiquement une image. Décris ce qu'elle contient (énoncé, figure...) pour que je puisse t'aider.]"
+    "[Image jointe — Mathadap ne peut pas encore analyser automatiquement une image. Décris ce qu'elle contient (énoncé, figure...) pour que je puisse t'aider.]",
   );
 });
 
@@ -1319,7 +1368,8 @@ async function checkProviderHealth() {
     if (health.ok) {
       providerBanner.hidden = true;
     } else {
-      providerBannerMsg.textContent = health.detail || "Le service d'intelligence artificielle n'est pas disponible pour le moment.";
+      providerBannerMsg.textContent =
+        health.detail || "Le service d'intelligence artificielle n'est pas disponible pour le moment.";
       providerBanner.hidden = false;
     }
   } catch {
@@ -1327,7 +1377,9 @@ async function checkProviderHealth() {
   }
 }
 $("chatbot-provider-retry").addEventListener("click", checkProviderHealth);
-$("chatbot-provider-dismiss").addEventListener("click", () => { providerBanner.hidden = true; });
+$("chatbot-provider-dismiss").addEventListener("click", () => {
+  providerBanner.hidden = true;
+});
 
 // ── Quota ────────────────────────────────────────────────────────────────────
 // Source unique : GET /api/quota (quota_service.py) — appelé au chargement de
@@ -1339,11 +1391,16 @@ async function refreshQuota() {
     quotaIndicator.hidden = false;
     quotaIndicator.classList.toggle("is-unlimited", chat.unlimited);
     quotaIndicator.classList.toggle("is-exhausted", !chat.unlimited && chat.remaining === 0);
-    quotaIndicator.classList.toggle("is-low", !chat.unlimited && chat.remaining > 0 && chat.remaining <= Math.ceil(chat.limit * 0.15));
+    quotaIndicator.classList.toggle(
+      "is-low",
+      !chat.unlimited && chat.remaining > 0 && chat.remaining <= Math.ceil(chat.limit * 0.15),
+    );
     quotaValue.innerHTML = chat.unlimited
-      ? "Illimité <span aria-hidden=\"true\">∞</span>"
+      ? 'Illimité <span aria-hidden="true">∞</span>'
       : `${chat.used} / ${chat.limit} messages`;
-  } catch { /* silencieux : l'indicateur reste dans son dernier état connu */ }
+  } catch {
+    /* silencieux : l'indicateur reste dans son dernier état connu */
+  }
 }
 
 // ── Suggestions personnalisées par classe (état vide, avant toute
@@ -1391,7 +1448,9 @@ function renderSuggestions() {
   const chips = $("chatbot-suggestions");
   if (!chips) return;
   const questions = CLASS_SUGGESTIONS[getStoredClassLevel()] || DEFAULT_SUGGESTIONS;
-  chips.innerHTML = questions.map((q) => `<button class="chatbot-suggestion-chip" type="button">${escapeHtml(q)}</button>`).join("");
+  chips.innerHTML = questions
+    .map((q) => `<button class="chatbot-suggestion-chip" type="button">${escapeHtml(q)}</button>`)
+    .join("");
 }
 
 // ── Accueil personnalisé (état vide, avant toute conversation) ──────────────
@@ -1456,7 +1515,7 @@ async function handleMentionAction(action) {
       composer.prependParagraphIfNotEmpty(input);
       composer.insertText(
         input,
-        `Mon objectif du jour : ${goals.done_exercises}/${goals.target_exercises} exercices${goals.reached ? " (atteint)" : ""}. `
+        `Mon objectif du jour : ${goals.done_exercises}/${goals.target_exercises} exercices${goals.reached ? " (atteint)" : ""}. `,
       );
       sendBtn.disabled = isStreaming ? false : composer.isEmpty(input);
     } catch {

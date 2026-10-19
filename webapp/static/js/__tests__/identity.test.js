@@ -64,9 +64,11 @@ describe("identity.js — affichage du plan dans la sidebar", () => {
     await mountIdentity({ plan: "free", pseudo: "Léa", is_guest: false });
     expect(planText()).toBe("Free");
 
-    window.dispatchEvent(new CustomEvent("novamath:account-updated", {
-      detail: { plan: "premium", pseudo: "Léa", is_guest: false },
-    }));
+    window.dispatchEvent(
+      new CustomEvent("novamath:account-updated", {
+        detail: { plan: "premium", pseudo: "Léa", is_guest: false },
+      }),
+    );
     await flushPromises();
 
     expect(planText()).toBe("Premium");
@@ -74,9 +76,11 @@ describe("identity.js — affichage du plan dans la sidebar", () => {
 
   it("un ancien « Free » ne reste jamais affiché après un changement de plan", async () => {
     await mountIdentity({ plan: "free", pseudo: "Léa", is_guest: false });
-    window.dispatchEvent(new CustomEvent("novamath:account-updated", {
-      detail: { plan: "ultra", pseudo: "Léa", is_guest: false },
-    }));
+    window.dispatchEvent(
+      new CustomEvent("novamath:account-updated", {
+        detail: { plan: "ultra", pseudo: "Léa", is_guest: false },
+      }),
+    );
     await flushPromises();
     expect(planText()).not.toBe("Free");
     expect(planText()).toBe("Ultra");
@@ -117,9 +121,11 @@ describe("identity.js — affichage du plan dans la sidebar", () => {
 
   it("nom et avatar restent corrects après une mise à jour de plan (non-régression)", async () => {
     await mountIdentity({ plan: "free", pseudo: "Léa", is_guest: false, avatar: null });
-    window.dispatchEvent(new CustomEvent("novamath:account-updated", {
-      detail: { plan: "premium", pseudo: "Léa", is_guest: false, avatar: null },
-    }));
+    window.dispatchEvent(
+      new CustomEvent("novamath:account-updated", {
+        detail: { plan: "premium", pseudo: "Léa", is_guest: false, avatar: null },
+      }),
+    );
     await flushPromises();
     expect(document.getElementById("sidebar-user-name").textContent).toBe("Léa");
     expect(planText()).toBe("Premium");
@@ -154,9 +160,11 @@ describe("identity.js — plan effectif (Mode test Owner)", () => {
     await mountIdentity({ plan: "free", effective_plan: "free", pseudo: "Owner", is_guest: false });
     expect(planText()).toBe("Free");
 
-    window.dispatchEvent(new CustomEvent("novamath:account-updated", {
-      detail: { plan: "free", effective_plan: "ultra", pseudo: "Owner", is_guest: false },
-    }));
+    window.dispatchEvent(
+      new CustomEvent("novamath:account-updated", {
+        detail: { plan: "free", effective_plan: "ultra", pseudo: "Owner", is_guest: false },
+      }),
+    );
     await flushPromises();
 
     expect(planText()).toBe("Ultra");

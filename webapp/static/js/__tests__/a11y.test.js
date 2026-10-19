@@ -28,7 +28,11 @@ async function runAxe(target = document) {
 describe("a11y — carte de cursus (curriculumSelector.js)", () => {
   it("ne produit aucune violation axe-core", async () => {
     const card = renderCurriculumCard({
-      classLevel: "seconde", label: "Seconde", totalExercises: 100, chapters: 12, notions: 40,
+      classLevel: "seconde",
+      label: "Seconde",
+      totalExercises: 100,
+      chapters: 12,
+      notions: 40,
     });
     document.body.appendChild(card);
     const violations = await runAxe();
@@ -36,13 +40,25 @@ describe("a11y — carte de cursus (curriculumSelector.js)", () => {
   });
 
   it("porte un aria-label descriptif (jamais seulement une icône décorative)", () => {
-    const card = renderCurriculumCard({ classLevel: "seconde", label: "Seconde", totalExercises: 1, chapters: 1, notions: 1 });
+    const card = renderCurriculumCard({
+      classLevel: "seconde",
+      label: "Seconde",
+      totalExercises: 1,
+      chapters: 1,
+      notions: 1,
+    });
     expect(card.getAttribute("aria-label")).toContain("Seconde");
     expect(card.querySelector(".cursus-card-icon").getAttribute("aria-hidden")).toBe("true");
   });
 
   it("le CTA est un vrai <button type=button> (focusable/activable au clavier)", () => {
-    const card = renderCurriculumCard({ classLevel: "seconde", label: "Seconde", totalExercises: 1, chapters: 1, notions: 1 });
+    const card = renderCurriculumCard({
+      classLevel: "seconde",
+      label: "Seconde",
+      totalExercises: 1,
+      chapters: 1,
+      notions: 1,
+    });
     const cta = card.querySelector(".cursus-card-cta");
     expect(cta.tagName).toBe("BUTTON");
     expect(cta.getAttribute("type")).toBe("button");

@@ -8,3 +8,9 @@
 # réellement bloquantes (syntaxe, noms non définis) — pas de règles de style,
 # pour ne jamais faire échouer la CI sur une préférence de formatage.
 ruff==0.15.22
+
+# Runner des suites webapp/tests/ (voir ci.yml, jobs "install-lint-test" et
+# "stripe-e2e-tests") — les tests sont écrits en unittest.TestCase, pytest
+# n'est utilisé que comme découverte/exécution (`python -m pytest tests/`),
+# jamais ses fixtures/marks.
+pytest==9.1.1

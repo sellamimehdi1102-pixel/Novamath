@@ -14,9 +14,30 @@ const mockApi = {
 };
 vi.mock("../api.js", () => ({ api: mockApi }));
 
-const statusFree = { real_plan: "free", test_plan: null, effective_plan: "free", owner_unlimited_quotas: false, provider: "gemini", model: "gemini-3-flash-preview" };
-const statusPremium = { real_plan: "free", test_plan: "premium", effective_plan: "premium", owner_unlimited_quotas: false, provider: "gemini", model: "gemini-3.1-pro-preview" };
-const statusUltra = { real_plan: "free", test_plan: "ultra", effective_plan: "ultra", owner_unlimited_quotas: false, provider: "anthropic", model: "claude-sonnet-5" };
+const statusFree = {
+  real_plan: "free",
+  test_plan: null,
+  effective_plan: "free",
+  owner_unlimited_quotas: false,
+  provider: "gemini",
+  model: "gemini-3-flash-preview",
+};
+const statusPremium = {
+  real_plan: "free",
+  test_plan: "premium",
+  effective_plan: "premium",
+  owner_unlimited_quotas: false,
+  provider: "gemini",
+  model: "gemini-3.1-pro-preview",
+};
+const statusUltra = {
+  real_plan: "free",
+  test_plan: "ultra",
+  effective_plan: "ultra",
+  owner_unlimited_quotas: false,
+  provider: "anthropic",
+  model: "claude-sonnet-5",
+};
 
 async function mountOwnerPanel(url = "/dashboard.html", initialStatus = statusFree) {
   window.history.pushState({}, "", url);
@@ -56,7 +77,11 @@ describe("owner-test-panel.js — synchronisation novamath:account-updated (Chan
     // api.me() appelé une 2e fois après ownerTestPlanUpdate (1 au montage + 1 après le clic).
     expect(mockApi.me).toHaveBeenCalledTimes(2);
     expect(onUpdate).toHaveBeenCalledTimes(1);
-    expect(onUpdate.mock.calls[0][0].detail).toEqual({ plan: "free", is_owner: true, features: { chatbot_unlimited: true } });
+    expect(onUpdate.mock.calls[0][0].detail).toEqual({
+      plan: "free",
+      is_owner: true,
+      features: { chatbot_unlimited: true },
+    });
   });
 
   it("changement Premium -> Ultra déclenche l'événement", async () => {
@@ -110,7 +135,9 @@ describe("owner-test-panel.js — synchronisation novamath:account-updated (Chan
     // widget le dispatchait tel quel, identity.js recevrait un detail cassé.
     await mountOwnerPanel();
     mockApi.ownerTestPlanUpdate.mockResolvedValue(statusPremium);
-    mockApi.me.mockResolvedValue({ user: { plan: "free", is_owner: true, pseudo: "Owner", avatar: null, features: {} } });
+    mockApi.me.mockResolvedValue({
+      user: { plan: "free", is_owner: true, pseudo: "Owner", avatar: null, features: {} },
+    });
 
     const onUpdate = vi.fn();
     window.addEventListener("novamath:account-updated", onUpdate);

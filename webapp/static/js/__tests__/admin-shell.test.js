@@ -21,16 +21,15 @@ const NAV_ALL = [
   { id: "reports", label: "Rapports", icon: "📈", path: "/admin/reports", implemented: false },
 ];
 
-const NAV_SUPPORT_ONLY = NAV_ALL.filter((m) =>
-  ["dashboard", "users", "analytics", "support"].includes(m.id),
-);
+const NAV_SUPPORT_ONLY = NAV_ALL.filter((m) => ["dashboard", "users", "analytics", "support"].includes(m.id));
 
 function mockFetchWith(navModules) {
   global.fetch = vi.fn((url) => {
     if (url === "/api/admin/me") {
       return Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ name: "Mehdi", email: "sellamimehdi1102@gmail.com", role: "super_admin", avatar: null }),
+        json: () =>
+          Promise.resolve({ name: "Mehdi", email: "sellamimehdi1102@gmail.com", role: "super_admin", avatar: null }),
       });
     }
     if (url === "/api/admin/nav") {
@@ -59,9 +58,7 @@ describe("admin-shell.js — construction du menu selon les permissions reçues 
   it("n'affiche que les modules renvoyés par /api/admin/nav (SUPPORT)", async () => {
     await mount("/admin", NAV_SUPPORT_ONLY);
     const links = [...document.querySelectorAll(".admin-sidebar-link")];
-    expect(links.map((l) => l.dataset.path)).toEqual([
-      "/admin", "/admin/users", "/admin/analytics", "/admin/support",
-    ]);
+    expect(links.map((l) => l.dataset.path)).toEqual(["/admin", "/admin/users", "/admin/analytics", "/admin/support"]);
     // Jamais "Paramètres"/"IA"/"Journal" dans le DOM : le frontend n'a reçu
     // aucune information sur ces modules, il ne peut donc pas les afficher.
     expect(document.body.textContent).not.toContain("Paramètres");

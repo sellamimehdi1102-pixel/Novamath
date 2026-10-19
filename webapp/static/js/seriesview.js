@@ -23,7 +23,9 @@ export async function getChaptersMeta() {
 export async function getChapterTitles() {
   const meta = await getChaptersMeta();
   const titles = {};
-  meta.forEach((ch) => { titles[ch.id] = ch.title; });
+  meta.forEach((ch) => {
+    titles[ch.id] = ch.title;
+  });
   return titles;
 }
 
@@ -104,7 +106,7 @@ async function toggleReview(row, series) {
         }
       }
       return { q, ex: exerciseCache.get(q.exercise_id) };
-    })
+    }),
   );
 
   cell.innerHTML = "";
@@ -132,7 +134,7 @@ export function restartSeries(series) {
   const exerciseIds = [...new Set(series.questions.map((q) => q.exercise_id))];
   localStorage.setItem(
     "lumis:pending_series",
-    JSON.stringify({ mode: series.mode, chapterId: series.chapterId, notion: series.notion, exerciseIds })
+    JSON.stringify({ mode: series.mode, chapterId: series.chapterId, notion: series.notion, exerciseIds }),
   );
   window.location.href = "exercice.html";
 }

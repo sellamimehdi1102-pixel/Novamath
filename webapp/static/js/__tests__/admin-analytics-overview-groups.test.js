@@ -27,8 +27,13 @@ const EMPTY_CHARTS = {
     ai_vs_local_per_day: { ai: NA, local: NA },
   },
   ai: {
-    tokens_per_day: NA, cost_per_day: NA, calls_per_day: NA,
-    avg_latency_per_day: NA, success_rate_per_day: NA, fallbacks_per_day: NA, errors_per_day: NA,
+    tokens_per_day: NA,
+    cost_per_day: NA,
+    calls_per_day: NA,
+    avg_latency_per_day: NA,
+    success_rate_per_day: NA,
+    fallbacks_per_day: NA,
+    errors_per_day: NA,
   },
   support: { tickets_per_day: NA, by_category: NA, by_priority: NA, by_status: NA },
 };
@@ -40,8 +45,11 @@ const EMPTY_RANKINGS = {
 };
 
 function overviewPayload(groups) {
-  const base = { window: { value: "30j", label: "30 derniers jours", since: "2026-07-26T00:00:00+00:00", until: null } };
-  if (groups.includes("ai")) base.ai = { calls: { available: true, value: 42 }, tokens: { available: true, value: 1000 } };
+  const base = {
+    window: { value: "30j", label: "30 derniers jours", since: "2026-07-26T00:00:00+00:00", until: null },
+  };
+  if (groups.includes("ai"))
+    base.ai = { calls: { available: true, value: 42 }, tokens: { available: true, value: 1000 } };
   return base;
 }
 
@@ -51,7 +59,10 @@ function mockFetchWith({ pinned = [] } = {}) {
   overviewCalls = [];
   global.fetch = vi.fn((url) => {
     if (url === "/api/admin/me") {
-      return Promise.resolve({ ok: true, json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }) });
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }),
+      });
     }
     if (url === "/api/admin/nav") {
       return Promise.resolve({ ok: true, json: () => Promise.resolve({ modules: NAV_WITH_ANALYTICS }) });
@@ -138,7 +149,9 @@ describe("admin-analytics.js — overview() n'est calculé que pour les KPI épi
     expect(overviewCalls.length).toBe(1);
     expect(document.getElementById("admin-analytics-pinned-section").hidden).toBe(false);
 
-    const unpinBtn = [...document.querySelectorAll(".admin-analytics-pin-btn")].find((b) => b.title.includes("Retirer"));
+    const unpinBtn = [...document.querySelectorAll(".admin-analytics-pin-btn")].find((b) =>
+      b.title.includes("Retirer"),
+    );
     expect(unpinBtn).toBeDefined();
     unpinBtn.click();
     await flushPromises();

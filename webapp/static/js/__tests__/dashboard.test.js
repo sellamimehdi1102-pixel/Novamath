@@ -27,7 +27,11 @@ vi.mock("../seriesview.js", () => ({
 }));
 vi.mock("../icons.js", () => ({ icon: () => "" }));
 vi.mock("../badgeIcons.js", () => ({ badgeIconSvg: () => "" }));
-vi.mock("../animations.js", () => ({ animateCount: (el, { to, formatter }) => { el.textContent = formatter ? formatter(to) : String(to); } }));
+vi.mock("../animations.js", () => ({
+  animateCount: (el, { to, formatter }) => {
+    el.textContent = formatter ? formatter(to) : String(to);
+  },
+}));
 vi.mock("../guestLockOverlay.js", () => ({
   mountGuestLockOverlay: vi.fn(),
   dismissGuestLockOverlay: vi.fn(),
@@ -45,7 +49,16 @@ const mockApi = {
 vi.mock("../api.js", () => ({ api: mockApi }));
 
 function user(overrides = {}) {
-  return { id: 1, pseudo: "Léa", username: "lea", email: "lea@x.com", avatar: null, plan: "free", is_guest: false, ...overrides };
+  return {
+    id: 1,
+    pseudo: "Léa",
+    username: "lea",
+    email: "lea@x.com",
+    avatar: null,
+    plan: "free",
+    is_guest: false,
+    ...overrides,
+  };
 }
 
 // 5 notions distinctes, chacune avec un taux de réussite < 60% (2 bonnes /
@@ -57,8 +70,11 @@ function weakHistory(n) {
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < 5; j++) {
       entries.push({
-        chapter: `Chapitre ${i}`, notion: `Notion ${i}`, correct: j < 2,
-        date: "2026-08-01", class_level: "seconde",
+        chapter: `Chapitre ${i}`,
+        notion: `Notion ${i}`,
+        correct: j < 2,
+        date: "2026-08-01",
+        class_level: "seconde",
       });
     }
   }
@@ -66,14 +82,20 @@ function weakHistory(n) {
 }
 
 async function mount({
-  suggestionsLimit, historyCount = 8, planUser = {},
-  notionBreakdownEnabled = false, history,
+  suggestionsLimit,
+  historyCount = 8,
+  planUser = {},
+  notionBreakdownEnabled = false,
+  history,
 } = {}) {
   document.body.innerHTML = loadPageBody("dashboard.html");
   document.cookie = "nm_csrf=test-csrf-token";
   mockApi.me.mockReset().mockResolvedValue({ user: user(planUser) });
   mockApi.getStats.mockReset().mockResolvedValue({
-    xp: 0, history: history || weakHistory(historyCount), series: [], badges: [],
+    xp: 0,
+    history: history || weakHistory(historyCount),
+    series: [],
+    badges: [],
     suggestions_limit: suggestionsLimit,
     notion_breakdown_enabled: notionBreakdownEnabled,
   });
@@ -144,8 +166,13 @@ function notionHistory({ n = 3, correct = 2, durations = [10, 20, 30] } = {}) {
   const entries = [];
   for (let i = 0; i < n; i++) {
     entries.push({
-      chapter: "Chapitre 1", notion: "Fonctions", ts: i + 1, date: "2026-08-01",
-      correct: i < correct, duration_s: durations[i] ?? 0, class_level: "seconde",
+      chapter: "Chapitre 1",
+      notion: "Fonctions",
+      ts: i + 1,
+      date: "2026-08-01",
+      correct: i < correct,
+      duration_s: durations[i] ?? 0,
+      class_level: "seconde",
     });
   }
   return entries;
@@ -196,9 +223,16 @@ describe("dashboard.js — bilan de progression par notion (notion_breakdown_ena
     // on seed directement l'état LOCAL avant le premier rendu — scénario
     // réaliste (un compte Premium déjà hydraté une fois, revenant sans
     // avoir fait d'exercice depuis).
-    localStorage.setItem("lumis:stats", JSON.stringify({
-      xp: 0, history: [], badges: [], series: [], notion_breakdown_enabled: true,
-    }));
+    localStorage.setItem(
+      "lumis:stats",
+      JSON.stringify({
+        xp: 0,
+        history: [],
+        badges: [],
+        series: [],
+        notion_breakdown_enabled: true,
+      }),
+    );
     await mount({ notionBreakdownEnabled: false, history: [] });
     expect(notionBreakdownRows().length).toBe(0);
     expect(document.getElementById("notion-breakdown").textContent).toMatch(/première évaluation/);

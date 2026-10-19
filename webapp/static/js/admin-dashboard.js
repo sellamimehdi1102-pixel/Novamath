@@ -50,7 +50,10 @@ function formatDelta(delta) {
 }
 
 function activeUsersCard(cards) {
-  const card = cardShell("Utilisateurs actifs", "Comptes ayant eu une activité depuis minuit (heure serveur), comparés à la même fenêtre hier.");
+  const card = cardShell(
+    "Utilisateurs actifs",
+    "Comptes ayant eu une activité depuis minuit (heure serveur), comparés à la même fenêtre hier.",
+  );
   const metric = cards.active_users_today;
   if (!metric || !metric.available) {
     emptyCardBody(card, metric || {});
@@ -109,7 +112,10 @@ function serverErrorsIndicator(metric) {
     return { value: "Aucune requête enregistrée depuis le dernier redémarrage.", warn: false };
   }
   return total_errors
-    ? { value: `${formatInt(total_errors)} depuis le dernier redémarrage (${formatInt(total_requests)} requêtes)`, warn: true }
+    ? {
+        value: `${formatInt(total_errors)} depuis le dernier redémarrage (${formatInt(total_requests)} requêtes)`,
+        warn: true,
+      }
     : { value: `Aucune depuis le dernier redémarrage (${formatInt(total_requests)} requêtes)`, warn: false };
 }
 
@@ -119,7 +125,9 @@ function badgeCard(label, badge, navigateTo, path, tooltip, indicator) {
   if (indicator) {
     const row = el("div", "admin-card-sub admin-provider-row");
     row.appendChild(el("span", null, "Erreurs serveur"));
-    row.appendChild(el("span", `admin-badge ${indicator.warn ? "admin-badge--error" : "admin-badge--muted"}`, indicator.value));
+    row.appendChild(
+      el("span", `admin-badge ${indicator.warn ? "admin-badge--error" : "admin-badge--muted"}`, indicator.value),
+    );
     card.appendChild(row);
   }
   const link = el("button", "admin-card-link-btn", "Voir les détails →");
@@ -130,7 +138,11 @@ function badgeCard(label, badge, navigateTo, path, tooltip, indicator) {
 }
 
 // ── Alertes (déplacées depuis /admin/analytics — audit round 2) ───────────
-const ALERT_LEVEL_CLASS = { critical: "admin-badge--error", warning: "admin-badge--neutral", info: "admin-badge--muted" };
+const ALERT_LEVEL_CLASS = {
+  critical: "admin-badge--error",
+  warning: "admin-badge--neutral",
+  info: "admin-badge--muted",
+};
 
 // `a.link` optionnel ({path, label}) — seules les 2 alertes ponctuelles du
 // Dashboard (paiements en échec / consentements parentaux en attente) en
@@ -200,9 +212,34 @@ export async function loadDashboard(navigateTo) {
   errorEl.hidden = true;
   const cards = snapshot.cards || {};
   cardsEl.replaceChildren();
-  cardsEl.appendChild(badgeCard("Santé système", healthBadge(cards.health_status), navigateTo, "/admin/health", "Statut agrégé des services, de la base de données et du serveur.", serverErrorsIndicator(cards.server_errors)));
-  cardsEl.appendChild(badgeCard("Support", supportBadge(cards.support_status), navigateTo, "/admin/support", "Nombre de tickets actuellement ouverts."));
-  cardsEl.appendChild(badgeCard("IA", aiBadge(cards.ai_providers_status), navigateTo, "/admin/ia", "État agrégé des fournisseurs IA actifs (opérationnel / en échec)."));
+  cardsEl.appendChild(
+    badgeCard(
+      "Santé système",
+      healthBadge(cards.health_status),
+      navigateTo,
+      "/admin/health",
+      "Statut agrégé des services, de la base de données et du serveur.",
+      serverErrorsIndicator(cards.server_errors),
+    ),
+  );
+  cardsEl.appendChild(
+    badgeCard(
+      "Support",
+      supportBadge(cards.support_status),
+      navigateTo,
+      "/admin/support",
+      "Nombre de tickets actuellement ouverts.",
+    ),
+  );
+  cardsEl.appendChild(
+    badgeCard(
+      "IA",
+      aiBadge(cards.ai_providers_status),
+      navigateTo,
+      "/admin/ia",
+      "État agrégé des fournisseurs IA actifs (opérationnel / en échec).",
+    ),
+  );
   cardsEl.appendChild(activeUsersCard(cards));
 
   renderAlerts(activityEl, snapshot.alerts || { available: false }, navigateTo);

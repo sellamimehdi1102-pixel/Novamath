@@ -33,7 +33,10 @@ function syncOverlayBounds(container, overlay) {
  * contenu passe en `.guest-lock-target` (flouté + inerte). `container` doit
  * envelopper tout le contenu à flouter — jamais la sidebar/nav.
  */
-export function mountGuestLockOverlay(container, { id, icon: iconName = "lock", title, description, listItems = null, actionsHtml }) {
+export function mountGuestLockOverlay(
+  container,
+  { id, icon: iconName = "lock", title, description, listItems = null, actionsHtml },
+) {
   container.classList.add("guest-lock-target");
 
   let overlay = document.getElementById(id);

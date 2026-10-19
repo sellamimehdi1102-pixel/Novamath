@@ -19,7 +19,13 @@ function formatDateTime(iso) {
   if (!iso) return "—";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  return d.toLocaleString("fr-FR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 function formatSize(bytes) {
@@ -56,14 +62,23 @@ async function apiJson(path, { method = "GET", body } = {}) {
 function renderHead(container, ticket) {
   container.innerHTML = "";
   container.appendChild(el("h1", null, `#${ticket.id} — ${ticket.subject}`));
-  const sub = el("p", "admin-page-lead",
-    `${ticket.user_pseudo} (${ticket.user_email}) — ${ticket.category_label} — créé le ${formatDateTime(ticket.created_at)}`);
+  const sub = el(
+    "p",
+    "admin-page-lead",
+    `${ticket.user_pseudo} (${ticket.user_email}) — ${ticket.category_label} — créé le ${formatDateTime(ticket.created_at)}`,
+  );
   container.appendChild(sub);
 
   const meta = el("div", "admin-user-profile-badges");
   meta.appendChild(priorityBadge(ticket.priority));
   if (ticket.first_admin_response_at) {
-    meta.appendChild(el("span", "admin-badge admin-badge--neutral", `1ère réponse : ${formatDateTime(ticket.first_admin_response_at)}`));
+    meta.appendChild(
+      el(
+        "span",
+        "admin-badge admin-badge--neutral",
+        `1ère réponse : ${formatDateTime(ticket.first_admin_response_at)}`,
+      ),
+    );
   }
   if (ticket.satisfaction_rating) {
     meta.appendChild(el("span", "admin-badge admin-badge--ok", `Satisfaction : ${ticket.satisfaction_rating}/5`));
@@ -79,8 +94,11 @@ function renderMessages(container, messages) {
   }
   messages.forEach((msg) => {
     const block = el("div", `admin-support-message admin-support-message--${msg.author_type}`);
-    const meta = el("div", "admin-support-message-meta",
-      `${msg.author_type === "admin" ? "Administrateur" : "Utilisateur"} — ${formatDateTime(msg.created_at)}`);
+    const meta = el(
+      "div",
+      "admin-support-message-meta",
+      `${msg.author_type === "admin" ? "Administrateur" : "Utilisateur"} — ${formatDateTime(msg.created_at)}`,
+    );
     block.appendChild(meta);
     block.appendChild(el("p", "admin-support-message-body", msg.body));
     if (msg.attachments.length) {
@@ -111,7 +129,8 @@ function renderNotes(container, notes) {
 }
 
 const HISTORY_EVENT_LABELS = {
-  status_changed: (h) => `Statut changé : ${STATUS_LABELS[h.from_value] || h.from_value} → ${STATUS_LABELS[h.to_value] || h.to_value}`,
+  status_changed: (h) =>
+    `Statut changé : ${STATUS_LABELS[h.from_value] || h.from_value} → ${STATUS_LABELS[h.to_value] || h.to_value}`,
   assigned: (h) => (h.to_value ? `Ticket assigné (administrateur #${h.to_value})` : "Ticket désassigné"),
 };
 
@@ -180,7 +199,8 @@ export async function loadSupportTicketDetail(ticketId) {
 
   statusSelect.addEventListener("change", async (e) => {
     const { ok, payload } = await apiJson(`/api/admin/support/tickets/${ticketId}/status`, {
-      method: "PATCH", body: { status: e.target.value },
+      method: "PATCH",
+      body: { status: e.target.value },
     });
     if (!ok) alert(payload.error || "Impossible de changer le statut.");
     await refresh();
@@ -188,7 +208,8 @@ export async function loadSupportTicketDetail(ticketId) {
 
   assignSelect.addEventListener("change", async (e) => {
     const { ok, payload } = await apiJson(`/api/admin/support/tickets/${ticketId}/assign`, {
-      method: "PATCH", body: { admin_id: e.target.value || null },
+      method: "PATCH",
+      body: { admin_id: e.target.value || null },
     });
     if (!ok) alert(payload.error || "Impossible de changer l'assignation.");
     await refresh();
@@ -223,7 +244,8 @@ export async function loadSupportTicketDetail(ticketId) {
     const body = noteBody.value.trim();
     if (!body) return;
     const { ok, payload } = await apiJson(`/api/admin/support/tickets/${ticketId}/notes`, {
-      method: "POST", body: { body },
+      method: "POST",
+      body: { body },
     });
     if (!ok) {
       alert(payload.error || "Impossible d'ajouter la note.");

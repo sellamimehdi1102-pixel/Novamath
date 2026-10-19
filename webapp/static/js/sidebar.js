@@ -129,7 +129,8 @@ function lockLink(link, featureValue) {
   const lockBadge = document.createElement("span");
   lockBadge.className = "sidebar-link-lock";
   lockBadge.setAttribute("aria-hidden", "true");
-  lockBadge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
+  lockBadge.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
   link.appendChild(lockBadge);
 
   const targetPage = pageFromHref(link.getAttribute("href"));

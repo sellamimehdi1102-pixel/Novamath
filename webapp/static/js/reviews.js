@@ -55,7 +55,10 @@ function clearAdmin() {
 }
 
 function initials(name) {
-  const parts = String(name || "").trim().split(/\s+/).slice(0, 2);
+  const parts = String(name || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2);
   return parts.map((p) => p[0]?.toUpperCase() || "").join("") || "?";
 }
 
@@ -90,7 +93,7 @@ function applyFiltersSort() {
         r.name.toLowerCase().includes(q) ||
         (r.pseudo || "").toLowerCase().includes(q) ||
         r.classe.toLowerCase().includes(q) ||
-        r.comment.toLowerCase().includes(q)
+        r.comment.toLowerCase().includes(q),
     );
   }
 
@@ -124,7 +127,8 @@ function actionBtn(label, iconSvg, cls, onClick) {
 
 function buildCard(review) {
   const card = document.createElement("div");
-  card.className = "review-card card card--interactive" + (review.pinned ? " is-pinned" : "") + (review.hidden ? " is-hidden" : "");
+  card.className =
+    "review-card card card--interactive" + (review.pinned ? " is-pinned" : "") + (review.hidden ? " is-hidden" : "");
 
   if (review.pinned) {
     const pin = document.createElement("span");
@@ -187,8 +191,12 @@ function buildCard(review) {
     actions.appendChild(actionBtn("Modifier", ICONS.penSquare, "btn-secondary", () => openEditModal(review)));
     actions.appendChild(actionBtn("Supprimer", ICONS.trash, "btn-danger-outline", () => askDelete(review.id)));
     if (admin) {
-      actions.appendChild(actionBtn(review.pinned ? "Désépingler" : "Épingler", ICONS.pin, "btn-ghost", () => togglePin(review.id)));
-      actions.appendChild(actionBtn(review.hidden ? "Afficher" : "Masquer", ICONS.eyeOff, "btn-ghost", () => toggleHide(review.id)));
+      actions.appendChild(
+        actionBtn(review.pinned ? "Désépingler" : "Épingler", ICONS.pin, "btn-ghost", () => togglePin(review.id)),
+      );
+      actions.appendChild(
+        actionBtn(review.hidden ? "Afficher" : "Masquer", ICONS.eyeOff, "btn-ghost", () => toggleHide(review.id)),
+      );
     }
     card.appendChild(actions);
   }
@@ -349,10 +357,16 @@ function ensureGuestReviewModal() {
     </div>
   `;
   document.body.appendChild(overlay);
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.hidden = true; });
-  overlay.querySelector("#btn-guest-review-dismiss").addEventListener("click", () => { overlay.hidden = true; });
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) overlay.hidden = true;
+  });
+  overlay.querySelector("#btn-guest-review-dismiss").addEventListener("click", () => {
+    overlay.hidden = true;
+  });
   overlay.querySelectorAll(".js-open-signup, .js-open-login").forEach((btn) => {
-    btn.addEventListener("click", () => { overlay.hidden = true; });
+    btn.addEventListener("click", () => {
+      overlay.hidden = true;
+    });
   });
 }
 
@@ -525,12 +539,18 @@ export function initReviews() {
   if (isAdmin()) $("btn-admin-mode").classList.add("is-active");
 
   loadReviews().catch(() => {
-    $("reviews-summary").innerHTML = `<p style="color:var(--text-muted);">Impossible de charger les avis pour le moment.</p>`;
+    $("reviews-summary").innerHTML =
+      `<p style="color:var(--text-muted);">Impossible de charger les avis pour le moment.</p>`;
   });
 
   // La page d'accueil reste publique : un visiteur non connecté peut toujours
   // publier un avis (échec silencieux de /api/auth/me, currentAccount reste null).
-  api.me().then(({ user }) => { currentAccount = user; }).catch(() => {});
+  api
+    .me()
+    .then(({ user }) => {
+      currentAccount = user;
+    })
+    .catch(() => {});
 
   $("btn-add-review").addEventListener("click", openAddModal);
   $("btn-review-cancel").addEventListener("click", closeModal);

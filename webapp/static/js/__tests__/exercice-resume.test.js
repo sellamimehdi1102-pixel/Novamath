@@ -33,22 +33,25 @@ const TAB_ACTIVE_KEY = "lumis:exercice_tab_active";
 // exactement la forme écrite par store.js::saveInProgressSeries (voir
 // exercice.js::persistProgress).
 function seedStaleSeries(chapterId = "Chapitre_8") {
-  localStorage.setItem(IN_PROGRESS_KEY, JSON.stringify({
-    mode: "revisions",
-    seriesConfig: { chapterId, notion: null },
-    seriesQueue: ["ex1", "ex2", "ex3"],
-    seriesIndex: 1,
-    draftId: "draft-1",
-    draftStartedAt: Date.now() - 60_000,
-    startDate: new Date().toISOString().slice(0, 10),
-    draftQuestions: [{ exercise_id: "ex1", chapter: chapterId, correct: true }],
-    total: 3,
-    score: 1,
-    wrong: 0,
-    progressPct: 33,
-    class_level: "seconde",
-    savedAt: Date.now() - 60_000,
-  }));
+  localStorage.setItem(
+    IN_PROGRESS_KEY,
+    JSON.stringify({
+      mode: "revisions",
+      seriesConfig: { chapterId, notion: null },
+      seriesQueue: ["ex1", "ex2", "ex3"],
+      seriesIndex: 1,
+      draftId: "draft-1",
+      draftStartedAt: Date.now() - 60_000,
+      startDate: new Date().toISOString().slice(0, 10),
+      draftQuestions: [{ exercise_id: "ex1", chapter: chapterId, correct: true }],
+      total: 3,
+      score: 1,
+      wrong: 0,
+      progressPct: 33,
+      class_level: "seconde",
+      savedAt: Date.now() - 60_000,
+    }),
+  );
 }
 
 async function mountExercice(url = "/exercice.html") {
@@ -57,7 +60,16 @@ async function mountExercice(url = "/exercice.html") {
   mockApi.practiceLoad.mockReset();
   mockApi.practiceResult.mockReset();
   mockApi.practiceLoad.mockResolvedValue({
-    exercise: { id: "ex2", chapter_id: "Chapitre_8", notion: "Dérivées", difficulty: 2, enonce: "Question ?", hint: "", answer: "", solution_steps: [] },
+    exercise: {
+      id: "ex2",
+      chapter_id: "Chapitre_8",
+      notion: "Dérivées",
+      difficulty: 2,
+      enonce: "Question ?",
+      hint: "",
+      answer: "",
+      solution_steps: [],
+    },
   });
   vi.resetModules();
   await import("../exercice.js");

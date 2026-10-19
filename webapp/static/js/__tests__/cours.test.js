@@ -24,7 +24,12 @@ vi.mock("../api.js", () => ({ api: mockApi }));
 vi.mock("../settingsManager.js", () => ({ initSettingsManager: () => Promise.resolve(), onSettingsChange: vi.fn() }));
 vi.mock("../settingsPopup.js", () => ({ bindSettingsButton: vi.fn() }));
 vi.mock("../i18n.js", () => ({ bindLiveTranslations: vi.fn() }));
-vi.mock("../mathrender.js", () => ({ setMathContent: vi.fn(), setRenderedHtmlContent: (el, text) => { el.textContent = text; } }));
+vi.mock("../mathrender.js", () => ({
+  setMathContent: vi.fn(),
+  setRenderedHtmlContent: (el, text) => {
+    el.textContent = text;
+  },
+}));
 vi.mock("../geomSvg.js", () => ({ renderFigure: vi.fn(() => "") }));
 vi.mock("../curriculumSelector.js", () => ({
   getStoredClassLevel: () => "seconde",
