@@ -7,6 +7,7 @@ configuration, et non-régression complète de webapp/db.py sur SQLite (mode
 par défaut, comportement historique).
 """
 import importlib
+import inspect
 import os
 import re
 import shutil
@@ -939,6 +940,38 @@ class TestDbPyRegressionSQLite(_SqliteIsolatedTestCase):
             db._migrate_guest_lifecycle_columns(conn)
         finally:
             conn.close()
+
+
+class TestUpsertCountJamaisAmbiguSousPostgres(unittest.TestCase):
+    """Garde de non-régression pour l'ambiguïté PostgreSQL
+    (psycopg.errors.AmbiguousColumn, "column reference 'count' is
+    ambiguous") sur les UPSERT ON CONFLICT DO UPDATE : SQLite accepte
+    indifféremment `count` nu ou qualifié `table.count` dans ce contexte
+    (vérifié manuellement), donc aucun test fonctionnel exécuté sur SQLite
+    ne peut détecter une régression ici — seule une exécution réelle contre
+    PostgreSQL le révèle (voir TestCompatibiliteUpsert,
+    test_database_service_postgres.py). Ce test inspecte directement le
+    code source pour empêcher qu'un futur "nettoyage" ne retire la
+    qualification sans que personne ne s'en aperçoive avant la prochaine
+    exécution PostgreSQL de la CI."""
+
+    def _set_clause_target(self, func):
+        source = inspect.getsource(func)
+        match = re.search(r"DO UPDATE SET count = (\S+)", source)
+        self.assertIsNotNone(match, f"{func.__name__} : clause DO UPDATE SET count introuvable")
+        return match.group(1)
+
+    def test_increment_chatbot_quota_qualifie_count(self):
+        self.assertEqual(self._set_clause_target(db.increment_chatbot_quota), "chatbot_quota.count")
+
+    def test_increment_daily_usage_qualifie_count(self):
+        self.assertEqual(self._set_clause_target(db.increment_daily_usage), "user_daily_usage.count")
+
+    def test_record_rate_limit_event_qualifie_count(self):
+        self.assertEqual(self._set_clause_target(db.record_rate_limit_event), "rate_limit_events.count")
+
+    def test_check_and_record_rate_limit_qualifie_count(self):
+        self.assertEqual(self._set_clause_target(db.check_and_record_rate_limit), "rate_limit_events.count")
 
 
 if __name__ == "__main__":
