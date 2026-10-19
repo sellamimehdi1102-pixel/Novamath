@@ -24,6 +24,8 @@ const mockApi = {
   chatbotFeedback: vi.fn(),
   handleQuotaExceeded: vi.fn(),
   getSettings: vi.fn(),
+  search: vi.fn(),
+  exercisesByNotion: vi.fn(),
 };
 
 // ── Simule une réponse SSE (voir chatbot.js::consumeStream) sans dépendre
@@ -92,6 +94,8 @@ function defaultMocks() {
   // défaut réelle (auth.DEFAULT_SETTINGS.chatbot.streaming = True) — voir le
   // describe dédié ci-dessous pour la valeur "false".
   mockApi.getSettings.mockResolvedValue({ chatbot: { streaming: true } });
+  mockApi.search.mockResolvedValue({ results: [] });
+  mockApi.exercisesByNotion.mockResolvedValue({ results: [] });
 }
 
 async function mountChatbot() {
@@ -1151,6 +1155,75 @@ describe("chatbot.js — carte de suggestion (entraînement)", () => {
         notions: ["suites"],
         exerciseIds: [101, 102],
       });
+      expect(window.location.href).toBe("exercice.html");
+    });
+  });
+});
+
+// ── Chantier "routage réel" (2026-10-19) : suggestions live pendant la frappe
+// (chatbot.js::scheduleLiveSuggestions/resultToCard) — un chemin SÉPARÉ des
+// cartes générées sous une réponse de l'assistant ci-dessus, jamais couvert
+// par les tests backend (action_cards_service.py) ni par la première
+// correction de ce bug. resultToCard codait en dur un pool d'UN SEUL
+// exercise_id : non corrigé, le clic sur une suggestion live envoyait
+// l'élève vers exercice.html avec une série qui répétait le même exercice
+// 10 fois (voir exercice-series-progression.test.js pour la preuve côté
+// exercice.js).
+describe("chatbot.js — suggestions live pendant la frappe : pool d'exercices enrichi avant navigation", () => {
+  beforeEach(async () => {
+    await mountChatbot();
+  });
+
+  it("un seul résultat 'exercices' : navigateToCard complète le pool via /api/search/exercises-by-notion avant d'écrire lumis:pending_series", async () => {
+    mockApi.search.mockResolvedValue({
+      results: [
+        { type: "exercices", chapter_id: "Chapitre_3", notion: "Distributivité et identités remarquables", exercise_id: 508, title: "Distributivité et identités remarquables" },
+      ],
+    });
+    mockApi.exercisesByNotion.mockResolvedValue({
+      results: [
+        { exercise_id: 40 }, { exercise_id: 41 }, { exercise_id: 42 }, { exercise_id: 508 }, { exercise_id: 509 },
+      ],
+    });
+
+    const input = $("chatbot-input");
+    input.textContent = "distributivité";
+    input.dispatchEvent(new Event("input"));
+    await wait(400); // débounce LIVE_SUGGESTIONS_DELAY_MS (350ms)
+
+    const chip = document.querySelector("#chatbot-live-suggestions .chatbot-suggestion-chip");
+    expect(chip).not.toBeNull();
+
+    await withMockedLocation(async () => {
+      chip.click();
+      await flushPromises();
+
+      expect(mockApi.exercisesByNotion).toHaveBeenCalledWith(
+        "Chapitre_3", "Distributivité et identités remarquables", 10, "seconde",
+      );
+      const stored = JSON.parse(localStorage.getItem("lumis:pending_series"));
+      expect(stored.exerciseIds).toEqual([40, 41, 42, 508, 509]);
+      expect(window.location.href).toBe("exercice.html");
+    });
+  });
+
+  it("l'enrichissement échoue (réseau) : repli silencieux sur le pool d'origine, la navigation n'est jamais bloquée", async () => {
+    mockApi.search.mockResolvedValue({
+      results: [{ type: "exercices", chapter_id: "Chapitre_3", notion: "Notion rare", exercise_id: 999, title: "Notion rare" }],
+    });
+    mockApi.exercisesByNotion.mockRejectedValue(new Error("réseau indisponible"));
+
+    const input = $("chatbot-input");
+    input.textContent = "notion rare";
+    input.dispatchEvent(new Event("input"));
+    await wait(400);
+
+    const chip = document.querySelector("#chatbot-live-suggestions .chatbot-suggestion-chip");
+    await withMockedLocation(async () => {
+      chip.click();
+      await flushPromises();
+      const stored = JSON.parse(localStorage.getItem("lumis:pending_series"));
+      expect(stored.exerciseIds).toEqual([999]);
       expect(window.location.href).toBe("exercice.html");
     });
   });

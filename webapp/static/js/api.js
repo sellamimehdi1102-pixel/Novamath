@@ -320,6 +320,12 @@ export const api = {
     if (classLevel) params.set("class_level", classLevel);
     return request(`/api/search?${params.toString()}`);
   },
+  exercisesByNotion: (chapterId, notion, limit, classLevel) => {
+    const params = new URLSearchParams({ chapter_id: chapterId || "", notion: notion || "" });
+    if (limit) params.set("limit", limit);
+    if (classLevel) params.set("class_level", classLevel);
+    return request(`/api/search/exercises-by-notion?${params.toString()}`);
+  },
   dailyGoals: () => request("/api/goals/daily"),
 
   // Streaming SSE : pas de JSON de retour classique côté succès (le corps est

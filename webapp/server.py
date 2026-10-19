@@ -972,9 +972,16 @@ def _compute_stats_cache(history, xp, client_level):
     return level, accuracy, progression, total_time_s
 
 
+# Fenêtres du graphique "Résultats au fil des séries" (dashboard.js) — Chantier
+# "Simplification des fenêtres du graphique" : seules 3 options désormais
+# (5 / 15 / Tout, remplace l'ancien jeu 20/50/Tout). Règle d'accès à
+# l'HISTORIQUE AFFICHÉ sur le graphique uniquement — ne touche ni aux quotas
+# d'exercices/séries (quota_service.py), ni aux données persistées (voir
+# commentaire plus bas dans api_stats : la troncature ne porte jamais sur le
+# fichier sur disque, seulement sur la réponse).
 _STATS_SERIES_WINDOW = {
-    plan_service.Plan.FREE: 20,
-    plan_service.Plan.PREMIUM: 50,
+    plan_service.Plan.FREE: 5,
+    plan_service.Plan.PREMIUM: 15,
     plan_service.Plan.ULTRA: None,
 }
 
@@ -2189,6 +2196,28 @@ def api_search():
     if class_level is not None and class_level not in curriculum_registry.CURRICULUM_REGISTRY:
         return jsonify({"error": f"classe inconnue : {class_level!r}"}), 404
     return jsonify({"results": search_service.search(query, scope=scope, limit=limit, class_level=class_level)})
+
+
+@app.route("/api/search/exercises-by-notion")
+@login_required
+@rate_limit(requests=60, per_seconds=60)
+def api_search_exercises_by_notion():
+    """Pool réel d'exercices d'UNE notion (même mécanisme que la carte
+    "Commencer un entraînement" du chatbot, voir action_cards_service.py) —
+    utilisée par le frontend (chatbot.js) quand il ne dispose que d'un seul
+    exercise_id (résultat de recherche ponctuel : suggestions live pendant la
+    frappe) et doit construire une vraie série sans répéter silencieusement
+    le même exercice (bug "10 questions identiques" du chantier routage
+    réel). `chapter_id`/`notion` obligatoires (texte EXACT de la banque, tel
+    que renvoyé par /api/search)."""
+    from chatbot.services import search_service
+    chapter_id = request.args.get("chapter_id", "")
+    notion = request.args.get("notion", "")
+    limit = min(max(int(request.args.get("limit", 5)), 1), 20)
+    class_level = request.args.get("class_level")
+    if class_level is not None and class_level not in curriculum_registry.CURRICULUM_REGISTRY:
+        return jsonify({"error": f"classe inconnue : {class_level!r}"}), 404
+    return jsonify({"results": search_service.exercises_by_notion(chapter_id, notion, limit=limit, class_level=class_level)})
 
 
 @app.route("/api/goals/daily")

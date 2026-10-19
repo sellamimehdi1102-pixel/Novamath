@@ -18,6 +18,12 @@ from .. import knowledge_engine
 
 SCORE_THRESHOLD = 0.15
 MAX_CARDS = 3
+# Chantier "routage réel" (2026-10-19, bug "3 questions distinctes puis
+# répétition") : alignée sur exercice.js::trainingSettings.questionsPerSeries
+# (10 par défaut) — un pool plafonné à 5 forçait exercice.js à raccourcir une
+# série de 10 questions demandées, ou (avant son propre correctif anti-
+# répétition) à répéter silencieusement les mêmes exercices pour la remplir.
+SERIES_POOL_SIZE = 10
 
 
 def _weak_chapter_card(chapter_id, class_level=None):
@@ -64,7 +70,7 @@ def _notion_series_card(chapter_id, notion, exercise_ids, label_key="chatbot_car
         # distingue deux cartes "Commencer un entraînement" sur des notions
         # différentes sans dupliquer cette donnée sous un autre nom.
         "title": notion,
-        "exercise_ids": exercise_ids[:5],
+        "exercise_ids": exercise_ids[:SERIES_POOL_SIZE],
         "url": None,
     }
 
@@ -110,7 +116,36 @@ def build_cards(
         elif r["type"] == "exercices":
             if intent_chapter_id and r["chapter_id"] != intent_chapter_id:
                 continue
-            add(_notion_series_card(r["chapter_id"], r["notion"], [r["exercise_id"]]))
+            # Bug corrigé (répétition de la même question tout au long de la
+            # série lancée depuis le bouton "Commencer un entraînement") :
+            # `[r["exercise_id"]]` ne transmettait qu'UN SEUL exercice au
+            # frontend (voir chatbot.js::navigateToCard), qui construit
+            # ensuite une série de SERIES_TOTAL questions en répétant le pool
+            # disponible (exercice.js::buildSeriesPool, comportement voulu
+            # pour un pool réellement restreint) — avec un pool d'1 seul
+            # exercice, chaque "question suivante" était donc le même
+            # exercice.
+            #
+            # Un premier correctif passait par `r["topic_id"]` (résolu par
+            # canonical_ids.resolve_topic_id via search_service._exercice_result)
+            # pour récupérer un vrai pool — mais cette résolution renvoie
+            # TOUJOURS None pour une classe sans topic_crosswalk.json
+            # (ex. "troisieme"/"premiere" : metadata_dir=None dans
+            # curriculum_registry.py), donc exercises_by_topic(topic_id=None)
+            # renvoyait [] et le repli `[r["exercise_id"]]` se redéclenchait
+            # systématiquement pour ces classes — le bug persistait, constaté
+            # en conditions réelles malgré ce premier correctif.
+            #
+            # exercises_by_notion() ci-dessous ne dépend d'aucun topic_id : il
+            # compare directement le texte EXACT de `r["notion"]` (même champ
+            # que celui déjà porté par ce résultat de recherche) à celui des
+            # autres exercices de la banque — fonctionne pour toute classe,
+            # avec ou sans crosswalk.
+            pool = search_service.exercises_by_notion(
+                r["chapter_id"], r["notion"], limit=SERIES_POOL_SIZE, class_level=class_level,
+            )
+            exercise_ids = [m["exercise_id"] for m in pool] if pool else [r["exercise_id"]]
+            add(_notion_series_card(r["chapter_id"], r["notion"], exercise_ids))
 
     weak_topics = context_summary.get("weak_topics") or []
     if weak_topics:
@@ -128,7 +163,7 @@ def build_cards(
             card["label_key"] = "chatbot_card_review_weak"
             add(card)
         exercise_matches = search_service.exercises_by_topic(
-            topic["chapter_id"], topic["topic_id"], limit=5, class_level=class_level,
+            topic["chapter_id"], topic["topic_id"], limit=SERIES_POOL_SIZE, class_level=class_level,
         )
         if exercise_matches:
             add(_notion_series_card(
@@ -147,7 +182,7 @@ def build_cards(
                 card = _course_card(matches[0])
                 card["label_key"] = "chatbot_card_review_weak"
                 add(card)
-            exercise_matches = search_service.search(weak_notion, scope=["exercices"], limit=5, class_level=class_level)
+            exercise_matches = search_service.search(weak_notion, scope=["exercices"], limit=SERIES_POOL_SIZE, class_level=class_level)
             if exercise_matches:
                 add(_notion_series_card(
                     exercise_matches[0]["chapter_id"],

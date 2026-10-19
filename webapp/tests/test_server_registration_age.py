@@ -3,7 +3,13 @@ Suite SEC-04 : intégration serveur — vérification de l'âge à l'inscription
 seuil des 15 ans, consentement parental obligatoire pour les mineurs, blocage
 de connexion tant que le consentement n'est pas obtenu. Complète la suite
 isolée tests/test_consent_service.py.
-"""
+
+Depuis la suppression de la question d'âge/date de naissance du formulaire
+d'inscription, le mécanisme PRINCIPAL de détection des mineurs est
+l'auto-déclaration directe `is_minor` (case à cocher "J'ai moins de 15 ans",
+voir TestIsMinorSelfDeclaration) — birth_date n'est plus qu'un repli
+optionnel de rétrocompatibilité API (voir TestBirthDateValidation,
+TestMinorRegistration pour ce chemin historique, toujours fonctionnel)."""
 import random
 import unittest
 from unittest.mock import patch
@@ -16,17 +22,20 @@ def _fake_ip():
     return f"10.{random.randint(0, 254)}.{random.randint(0, 254)}.{random.randint(1, 254)}"
 
 
-def _register_payload(birth_date="2000-01-01", parent_email=None, **overrides):
+def _register_payload(birth_date=None, is_minor=None, parent_email=None, **overrides):
     payload = {
         "email": f"regage{random.randint(1_000_000, 9_999_999)}@gmail.com",
         "username": f"regage{random.randint(100_000, 999_999)}",
         "pseudo": "Test",
-        "birth_date": birth_date,
         "password": "MotDePasse123!",
         "confirm_password": "MotDePasse123!",
         "accept_terms": True,
         "accept_privacy": True,
     }
+    if birth_date is not None:
+        payload["birth_date"] = birth_date
+    if is_minor is not None:
+        payload["is_minor"] = is_minor
     if parent_email is not None:
         payload["parent_email"] = parent_email
     payload.update(overrides)
@@ -45,18 +54,23 @@ class RegistrationAgeTestCase(unittest.TestCase):
 
 
 class TestBirthDateValidation(RegistrationAgeTestCase):
-    def test_absente_renvoie_400(self):
-        payload = _register_payload()
-        del payload["birth_date"]
-        resp = self.client.post("/api/auth/register", json=payload, headers={"X-Forwarded-For": _fake_ip()})
-        self.assertEqual(resp.status_code, 400)
-        self.assertEqual(resp.get_json()["field"], "birth_date")
+    """birth_date est désormais optionnel (repli de rétrocompatibilité API,
+    voir TestIsMinorSelfDeclaration pour le mécanisme principal) : absent ou
+    vide n'est plus une erreur et produit un compte actif non-mineur, mais
+    une valeur fournie reste validée (format, futur, âge déraisonnable)."""
 
-    def test_vide_renvoie_400(self):
+    def test_absente_cree_un_compte_actif_non_mineur(self):
+        payload = _register_payload()
+        self.assertNotIn("birth_date", payload)
+        resp = self.client.post("/api/auth/register", json=payload, headers={"X-Forwarded-For": _fake_ip()})
+        self.assertEqual(resp.status_code, 201)
+        self.assertIsNotNone(self.client.get_cookie("nm_session"))
+
+    def test_vide_cree_un_compte_actif_non_mineur(self):
         resp = self.client.post(
             "/api/auth/register", json=_register_payload(birth_date=""), headers={"X-Forwarded-For": _fake_ip()}
         )
-        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.status_code, 201)
 
     def test_format_invalide_renvoie_400(self):
         resp = self.client.post(
@@ -90,6 +104,11 @@ class TestBirthDateValidation(RegistrationAgeTestCase):
 
 
 class TestMinorRegistration(RegistrationAgeTestCase):
+    """Chemin de repli birth_date (rétrocompatibilité API) — voir
+    TestIsMinorSelfDeclaration pour le mécanisme principal (`is_minor`)
+    utilisé par le formulaire d'inscription depuis la suppression de la
+    question d'âge."""
+
     def _minor_birth_date(self):
         from datetime import date
         today = date.today()
@@ -147,6 +166,89 @@ class TestMinorRegistration(RegistrationAgeTestCase):
         self.client.post("/api/auth/register", json=payload, headers={"X-Forwarded-For": _fake_ip()})
         user = db.get_user_by_email(email)
         self.assertEqual(user["account_status"], "pending_parental_consent")
+
+
+class TestIsMinorSelfDeclaration(RegistrationAgeTestCase):
+    """Mécanisme PRINCIPAL de détection des mineurs depuis la suppression de
+    la question d'âge/date de naissance du formulaire d'inscription : une
+    case à cocher auto-déclarative (`is_minor`), jamais recalculée côté
+    serveur à partir d'un âge. Mêmes garanties que l'ancien chemin birth_date
+    (TestMinorRegistration) : consentement parental obligatoire, aucune
+    session créée, compte en attente — seule la SOURCE de `is_minor` change."""
+
+    def test_absent_cree_un_compte_actif_avec_session(self):
+        """Ni birth_date ni is_minor fournis : l'inscription simplifiée
+        attendue par la mission "suppression de la question d'âge" — un
+        compte actif est créé immédiatement, sans aucune question d'âge."""
+        resp = self.client.post(
+            "/api/auth/register", json=_register_payload(), headers={"X-Forwarded-For": _fake_ip()}
+        )
+        self.assertEqual(resp.status_code, 201)
+        self.assertIn("user", resp.get_json())
+        self.assertIsNotNone(self.client.get_cookie("nm_session"))
+
+    def test_is_minor_false_cree_un_compte_actif_avec_session(self):
+        resp = self.client.post(
+            "/api/auth/register", json=_register_payload(is_minor=False), headers={"X-Forwarded-For": _fake_ip()}
+        )
+        self.assertEqual(resp.status_code, 201)
+        self.assertIsNotNone(self.client.get_cookie("nm_session"))
+
+    def test_is_minor_true_sans_email_parent_renvoie_400(self):
+        resp = self.client.post(
+            "/api/auth/register", json=_register_payload(is_minor=True), headers={"X-Forwarded-For": _fake_ip()}
+        )
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.get_json()["field"], "parent_email")
+
+    def test_is_minor_true_avec_email_parent_invalide_renvoie_400(self):
+        resp = self.client.post(
+            "/api/auth/register",
+            json=_register_payload(is_minor=True, parent_email="pas-un-email"),
+            headers={"X-Forwarded-For": _fake_ip()},
+        )
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(resp.get_json()["field"], "parent_email")
+
+    def test_is_minor_true_avec_email_parent_valide_recoit_202_et_statut_pending(self):
+        resp = self.client.post(
+            "/api/auth/register",
+            json=_register_payload(is_minor=True, parent_email="parent@example.com"),
+            headers={"X-Forwarded-For": _fake_ip()},
+        )
+        self.assertEqual(resp.status_code, 202)
+        self.assertEqual(resp.get_json()["account_status"], "pending_parental_consent")
+
+    def test_is_minor_true_ne_recoit_aucune_session(self):
+        resp = self.client.post(
+            "/api/auth/register",
+            json=_register_payload(is_minor=True, parent_email="parent@example.com"),
+            headers={"X-Forwarded-For": _fake_ip()},
+        )
+        self.assertEqual(resp.status_code, 202)
+        self.assertIsNone(self.client.get_cookie("nm_session"))
+
+    def test_le_compte_existe_bien_en_base_avec_le_bon_statut(self):
+        email = f"regageisminor{random.randint(1_000_000, 9_999_999)}@gmail.com"
+        payload = _register_payload(is_minor=True, parent_email="parent@example.com")
+        payload["email"] = email
+        self.client.post("/api/auth/register", json=payload, headers={"X-Forwarded-For": _fake_ip()})
+        user = db.get_user_by_email(email)
+        self.assertEqual(user["account_status"], "pending_parental_consent")
+        # Plus aucune date de naissance réelle collectée par ce chemin.
+        self.assertIsNone(user["birth_date"])
+
+    def test_is_minor_true_prioritaire_meme_avec_une_birth_date_majeure(self):
+        """L'auto-déclaration prime toujours sur le repli birth_date, y
+        compris dans le sens inverse (une vraie date d'adulte ne doit jamais
+        écraser `is_minor: true` envoyé explicitement par le client)."""
+        resp = self.client.post(
+            "/api/auth/register",
+            json=_register_payload(birth_date="2000-01-01", is_minor=True, parent_email="parent@example.com"),
+            headers={"X-Forwarded-For": _fake_ip()},
+        )
+        self.assertEqual(resp.status_code, 202)
+        self.assertEqual(resp.get_json()["account_status"], "pending_parental_consent")
 
 
 class TestLoginBlockedForPendingAccount(RegistrationAgeTestCase):

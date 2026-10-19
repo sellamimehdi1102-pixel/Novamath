@@ -768,10 +768,23 @@
   font-size: 1rem;
   font-family: var(--font-display);
 }
+/* Largeur fluide (100% de la carte, elle-même ~2/3 du dashboard — largement
+   85-90% de l'espace utile) et hauteur confortable sur ordinateur (200-230px
+   demandés). Le viewBox du SVG est recalculé en JS à partir des dimensions
+   RÉELLES du bloc (voir dashboard.js::renderProgressChart) : la largeur ou la
+   hauteur CSS peuvent donc changer librement ici sans jamais déformer
+   points/courbe (plus de preserveAspectRatio="none" sur un viewBox fixe). */
 .chart-card svg {
   width: 100%;
-  height: 190px;
+  height: 220px;
   cursor: crosshair;
+}
+
+.chart-window-note {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  text-align: right;
 }
 
 .chart-zoom {
@@ -1088,6 +1101,16 @@
   }
   .stat-card:first-child {
     border-top: none;
+  }
+  .chart-card {
+    padding: 18px;
+  }
+  .chart-card svg {
+    height: 170px;
+  }
+  .chart-zoom-btn {
+    padding: 4px 9px;
+    font-size: 0.7rem;
   }
 }
 

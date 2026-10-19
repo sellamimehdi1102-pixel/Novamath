@@ -70,11 +70,11 @@ export const AUTH_MODALS_HTML = `
         <span class="form-error" id="signup-error-confirm" hidden></span>
       </div>
 
-      <div class="form-field">
-        <label for="signup-birth-date">Date de naissance</label>
-        <input type="date" id="signup-birth-date" autocomplete="bday">
-        <span class="form-error" id="signup-error-birth_date" hidden></span>
-      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="signup-is-minor">
+        <span>J'ai moins de 15 ans</span>
+      </label>
+      <span class="form-error" id="signup-error-is_minor" hidden></span>
       <div class="form-field" id="signup-parent-email-row" hidden>
         <label for="signup-parent-email">Email d'un parent ou tuteur</label>
         <input type="email" id="signup-parent-email" autocomplete="off">
@@ -132,11 +132,11 @@ export const AUTH_MODALS_HTML = `
         </div>
       </div>
 
-      <div class="form-field">
-        <label for="oauth-signup-birth-date">Date de naissance</label>
-        <input type="date" id="oauth-signup-birth-date" autocomplete="bday">
-        <span class="form-error" id="oauth-signup-error-birth_date" hidden></span>
-      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="oauth-signup-is-minor">
+        <span>J'ai moins de 15 ans</span>
+      </label>
+      <span class="form-error" id="oauth-signup-error-is_minor" hidden></span>
       <div class="form-field" id="oauth-signup-parent-email-row" hidden>
         <label for="oauth-signup-parent-email">Email d'un parent ou tuteur</label>
         <input type="email" id="oauth-signup-parent-email" autocomplete="off">

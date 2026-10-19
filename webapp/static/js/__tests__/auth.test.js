@@ -147,7 +147,6 @@ describe("auth.js — validation et soumission du formulaire d'inscription", () 
     $("signup-email").value = "eleve@gmail.com";
     $("signup-username").value = "eleve_2026";
     $("signup-pseudo").value = "Eleve";
-    $("signup-birth-date").value = "2000-01-01";
     $("signup-password").value = "Abcdef1!gh";
     $("signup-password-confirm").value = "Abcdef1!gh";
     $("signup-accept-terms").checked = true;
@@ -170,7 +169,6 @@ describe("auth.js — validation et soumission du formulaire d'inscription", () 
     $("signup-email").value = "eleve@gmail.com";
     $("signup-username").value = "eleve_2026";
     $("signup-pseudo").value = "Eleve";
-    $("signup-birth-date").value = "2000-01-01";
     $("signup-password").value = "Abcdef1!gh";
     $("signup-password-confirm").value = "Abcdef1!gh";
     $("signup-accept-terms").checked = true;
@@ -182,6 +180,83 @@ describe("auth.js — validation et soumission du formulaire d'inscription", () 
   });
 });
 
+// ── Auto-déclaration mineur (case "J'ai moins de 15 ans") remplaçant la
+// question d'âge/date de naissance : vérifie que la case affiche/masque le
+// champ email parent ET que le payload envoyé au serveur porte bien
+// `is_minor`, jamais une date de naissance recalculée côté client. ─────────
+describe("auth.js — inscription : auto-déclaration mineur", () => {
+  beforeEach(async () => {
+    localStorage.setItem(CLASS_LEVEL_KEY, "seconde");
+    await mountAuth();
+  });
+
+  it("cocher 'J'ai moins de 15 ans' affiche le champ email parent", () => {
+    expect($("signup-parent-email-row").hidden).toBe(true);
+    $("signup-is-minor").checked = true;
+    $("signup-is-minor").dispatchEvent(new Event("change"));
+    expect($("signup-parent-email-row").hidden).toBe(false);
+  });
+
+  it("décocher masque à nouveau le champ email parent", () => {
+    $("signup-is-minor").checked = true;
+    $("signup-is-minor").dispatchEvent(new Event("change"));
+    $("signup-is-minor").checked = false;
+    $("signup-is-minor").dispatchEvent(new Event("change"));
+    expect($("signup-parent-email-row").hidden).toBe(true);
+  });
+
+  it("non coché : envoie is_minor=false et aucun parent_email", async () => {
+    mockApi.register.mockResolvedValue({});
+    $("signup-email").value = "eleve@gmail.com";
+    $("signup-username").value = "eleve_2026";
+    $("signup-pseudo").value = "Eleve";
+    $("signup-password").value = "Abcdef1!gh";
+    $("signup-password-confirm").value = "Abcdef1!gh";
+    $("signup-accept-terms").checked = true;
+    $("signup-accept-privacy").checked = true;
+    $("signup-form").dispatchEvent(new Event("submit", { cancelable: true }));
+    await flushPromises();
+    expect(mockApi.register).toHaveBeenCalledWith(
+      expect.objectContaining({ is_minor: false, parent_email: undefined }),
+    );
+  });
+
+  it("coché avec email parent valide : envoie is_minor=true et le parent_email", async () => {
+    mockApi.register.mockResolvedValue({});
+    $("signup-email").value = "eleve@gmail.com";
+    $("signup-username").value = "eleve_2026";
+    $("signup-pseudo").value = "Eleve";
+    $("signup-password").value = "Abcdef1!gh";
+    $("signup-password-confirm").value = "Abcdef1!gh";
+    $("signup-accept-terms").checked = true;
+    $("signup-accept-privacy").checked = true;
+    $("signup-is-minor").checked = true;
+    $("signup-is-minor").dispatchEvent(new Event("change"));
+    $("signup-parent-email").value = "parent@example.com";
+    $("signup-form").dispatchEvent(new Event("submit", { cancelable: true }));
+    await flushPromises();
+    expect(mockApi.register).toHaveBeenCalledWith(
+      expect.objectContaining({ is_minor: true, parent_email: "parent@example.com" }),
+    );
+  });
+
+  it("coché sans email parent : bloque la soumission avec une erreur dédiée", async () => {
+    $("signup-email").value = "eleve@gmail.com";
+    $("signup-username").value = "eleve_2026";
+    $("signup-pseudo").value = "Eleve";
+    $("signup-password").value = "Abcdef1!gh";
+    $("signup-password-confirm").value = "Abcdef1!gh";
+    $("signup-accept-terms").checked = true;
+    $("signup-accept-privacy").checked = true;
+    $("signup-is-minor").checked = true;
+    $("signup-is-minor").dispatchEvent(new Event("change"));
+    $("signup-form").dispatchEvent(new Event("submit", { cancelable: true }));
+    await flushPromises();
+    expect(mockApi.register).not.toHaveBeenCalled();
+    expect($("signup-error-parent_email").hidden).toBe(false);
+  });
+});
+
 // ── Phase 5 (onboarding) : détour par choisir-classe.html après une
 // INSCRIPTION quand aucune classe n'a jamais été choisie explicitement dans
 // ce navigateur (curriculumSelector.js::hasExplicitClassLevel). ────────────
@@ -190,7 +265,6 @@ describe("auth.js — inscription : détour onboarding vers choisir-classe.html"
     $("signup-email").value = "eleve@gmail.com";
     $("signup-username").value = "eleve_2026";
     $("signup-pseudo").value = "Eleve";
-    $("signup-birth-date").value = "2000-01-01";
     $("signup-password").value = "Abcdef1!gh";
     $("signup-password-confirm").value = "Abcdef1!gh";
     $("signup-accept-terms").checked = true;

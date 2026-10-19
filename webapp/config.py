@@ -77,7 +77,14 @@ SENTRY_DSN = os.environ.get("SENTRY_DSN") or None
 # n'existe pas encore ; rétention en jours, avec un second filet de sécurité
 # (nombre absolu de sauvegardes) codé dans backup_service.py lui-même — pas
 # une valeur "sensible", mais centralisée ici comme le reste de la config.
-BACKUP_DIRECTORY = os.environ.get("BACKUP_DIRECTORY", str(ROOT / "backups"))
+# Défaut sous ROOT/data (et non ROOT/backups) : en production (Render, voir
+# render.yaml), seul /app/data est un disque persistant monté — un dossier
+# frère au niveau racine (/app/backups) serait silencieusement perdu à
+# chaque redéploiement (nouveau conteneur = nouveau filesystem éphémère hors
+# du disque monté). Aligné sur webapp/db.py::DATA_DIR pour qu'un seul disque
+# couvre à la fois la base et ses sauvegardes, sans configuration
+# supplémentaire côté hébergeur.
+BACKUP_DIRECTORY = os.environ.get("BACKUP_DIRECTORY", str(ROOT / "data" / "backups"))
 # Plancher à 1 jour : BACKUP_RETENTION_DAYS=0 (ou une valeur négative, par
 # erreur de configuration) supprimerait sinon TOUTE sauvegarde, y compris
 # celle qui vient d'être créée dans le même appel (voir

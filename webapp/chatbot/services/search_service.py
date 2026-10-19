@@ -188,6 +188,28 @@ def exercises_by_topic(chapter_id, topic_id, limit=5, class_level=None):
     return [_exercice_result(d, score=1.0, class_level=class_level) for d in matching[:limit]]
 
 
+def exercises_by_notion(chapter_id, notion, limit=5, class_level=None):
+    """Exercices de la même notion dans un chapitre, par correspondance EXACTE
+    du texte libre de la banque (`d["notion"]`, le même champ déjà renvoyé par
+    _exercice_result) — n'a besoin d'aucun topic_id canonique, contrairement à
+    exercises_by_topic() ci-dessus. Introduit après un bug persistant (carte
+    "Commencer un entraînement" du chatbot encore limitée à 1 seul exercice
+    sur les classes "troisieme"/"premiere" malgré un premier correctif basé
+    sur exercises_by_topic) : ces classes ont `metadata_dir=None` dans
+    curriculum_registry.py (aucun topic_crosswalk.json), donc
+    canonical_ids.resolve_topic_id() y renvoie TOUJOURS None, et
+    exercises_by_topic(..., topic_id=None) renvoie [] sans jamais pouvoir
+    construire de vrai pool, quelle que soit la richesse réelle de la banque.
+    [] si chapter_id/notion est vide ou si rien ne correspond."""
+    if not chapter_id or not notion:
+        return []
+    docs = [
+        d for d in _load_exercise_documents(class_level)
+        if d["chapter_id"] == chapter_id and d["notion"] == notion
+    ]
+    return [_exercice_result(d, score=1.0, class_level=class_level) for d in docs[:limit]]
+
+
 def _cours_result(m, score=None):
     return {
         "type": SCOPE_COURS,
