@@ -48,11 +48,20 @@ class _EnvIsolatedTestCase(unittest.TestCase):
         ds.reset_pool()
 
 
-class _SqliteIsolatedTestCase(unittest.TestCase):
+class _SqliteIsolatedTestCase(_EnvIsolatedTestCase):
     """Même stratégie que tests/test_two_factor_migration.py : base SQLite
-    temporaire, jamais la base réelle."""
+    temporaire, jamais la base réelle. Hérite de _EnvIsolatedTestCase pour
+    neutraliser DATABASE_URL (et les autres ENV_VARS) en plus de
+    DATA_DIR/DB_PATH : sans ça, sous le job CI PostgreSQL (DATABASE_URL
+    pointant vers un vrai serveur pour toute la durée du job),
+    db.get_connection() détecterait ce DATABASE_URL malgré l'isolation
+    DATA_DIR/DB_PATH ci-dessous et ces tests s'exécuteraient réellement
+    contre PostgreSQL — contredisant littéralement leur docstring
+    ("jamais la base réelle") et envoyant des PRAGMA/requêtes dialecte
+    SQLite non traduites à un serveur qui ne les comprend pas."""
 
     def setUp(self):
+        super().setUp()
         self._tmp_dir = tempfile.mkdtemp()
         self._data_dir_backup = db.DATA_DIR
         self._db_path_backup = db.DB_PATH
@@ -63,6 +72,7 @@ class _SqliteIsolatedTestCase(unittest.TestCase):
         db.DATA_DIR = self._data_dir_backup
         db.DB_PATH = self._db_path_backup
         shutil.rmtree(self._tmp_dir, ignore_errors=True)
+        super().tearDown()
 
 
 # ── Détection du moteur ──────────────────────────────────────────────────

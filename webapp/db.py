@@ -2256,21 +2256,25 @@ def increment_daily_usage(user_id, quota_type, day_str, amount=1):
     """Incrémente (ou crée) le compteur de `quota_type` pour `user_id`/`day_str`
     de `amount` (peut être négatif, utilisé par quota_service.py pour annuler
     un incrément refusé) et renvoie le nouveau total. Un seul INSERT ...
-    ON CONFLICT DO UPDATE : opération atomique unique côté SQLite, jamais un
-    lire-puis-écrire séparé — sûr sous appels concurrents (voir
-    increment_chatbot_quota ci-dessus, même principe)."""
+    ON CONFLICT DO UPDATE ... RETURNING : opération atomique unique côté
+    SQLite (RETURNING supporté depuis SQLite 3.35, voir
+    database_service._PostgresConnection.execute pour l'équivalent
+    PostgreSQL), jamais un lire-puis-écrire séparé — un SELECT distinct
+    APRÈS le commit (ancienne implémentation) pouvait lire une valeur déjà
+    modifiée par un autre thread entretemps, faisant croire à tort à
+    quota_service.consume() qu'une limite était dépassée (voir
+    test_quota_service.py::TestAccesConcurrentSimule, 40 threads
+    concurrents — le nombre de succès pouvait dériver de la limite réelle
+    sous forte contention)."""
     conn = get_connection()
     try:
-        conn.execute(
-            """INSERT INTO user_daily_usage (user_id, quota_type, date, count) VALUES (?, ?, ?, ?)
-               ON CONFLICT(user_id, quota_type, date) DO UPDATE SET count = count + excluded.count""",
-            (user_id, quota_type, day_str, amount),
-        )
-        conn.commit()
         row = conn.execute(
-            "SELECT count FROM user_daily_usage WHERE user_id = ? AND quota_type = ? AND date = ?",
-            (user_id, quota_type, day_str),
+            """INSERT INTO user_daily_usage (user_id, quota_type, date, count) VALUES (?, ?, ?, ?)
+               ON CONFLICT(user_id, quota_type, date) DO UPDATE SET count = count + excluded.count
+               RETURNING count""",
+            (user_id, quota_type, day_str, amount),
         ).fetchone()
+        conn.commit()
         return row["count"]
     finally:
         conn.close()
