@@ -132,12 +132,55 @@ class TestBuildCspDefautsDev(_EnvIsolatedTestCase):
     def test_pas_de_upgrade_insecure_requests_en_dev(self):
         self.assertNotIn("upgrade-insecure-requests", shs.build_csp())
 
+    def test_cloudflare_web_analytics_absent_en_dev(self):
+        # Audit admin (2026-10-2x) : analyticsBeacon.js ne charge jamais ce
+        # script hors de mathadap.com, mais la CSP ne doit pas non plus
+        # ouvrir inutilement ces domaines tiers en développement.
+        csp = shs.build_csp()
+        self.assertNotIn("cloudflareinsights.com", csp)
+
 
 class TestBuildCspProduction(_EnvIsolatedTestCase):
     def test_upgrade_insecure_requests_present_en_production(self):
         os.environ["FLASK_ENV"] = "production"
         _reload_config()
         self.assertIn("upgrade-insecure-requests", shs.build_csp())
+
+
+class TestBuildCspCloudflareWebAnalytics(_EnvIsolatedTestCase):
+    """Cloudflare Web Analytics (audit admin, 2026-10-2x) — deux domaines
+    DIFFÉRENTS (le script, puis l'endroit où il transmet ses données),
+    autorisés UNIQUEMENT en production (voir webapp/static/js/
+    analyticsBeacon.js, qui ne le charge lui-même jamais hors production)."""
+
+    def test_present_en_production_script_src(self):
+        os.environ["FLASK_ENV"] = "production"
+        _reload_config()
+        csp = shs.build_csp()
+        script_directive = [d for d in csp.split("; ") if d.startswith("script-src")][0]
+        self.assertIn("https://static.cloudflareinsights.com", script_directive)
+
+    def test_present_en_production_connect_src(self):
+        os.environ["FLASK_ENV"] = "production"
+        _reload_config()
+        csp = shs.build_csp()
+        connect_directive = [d for d in csp.split("; ") if d.startswith("connect-src")][0]
+        self.assertIn("https://cloudflareinsights.com", connect_directive)
+
+    def test_domaines_distincts_jamais_interchangeables(self):
+        os.environ["FLASK_ENV"] = "production"
+        _reload_config()
+        csp = shs.build_csp()
+        script_directive = [d for d in csp.split("; ") if d.startswith("script-src")][0]
+        connect_directive = [d for d in csp.split("; ") if d.startswith("connect-src")][0]
+        self.assertIn("static.cloudflareinsights.com", script_directive)
+        self.assertNotIn("static.cloudflareinsights.com", connect_directive)
+        self.assertIn("cloudflareinsights.com", connect_directive)
+
+    def test_absent_en_developpement_meme_apres_reload(self):
+        os.environ["FLASK_ENV"] = "development"
+        _reload_config()
+        self.assertNotIn("cloudflareinsights.com", shs.build_csp())
 
 
 class TestBuildCspSourcesConfigurables(_EnvIsolatedTestCase):
@@ -343,7 +386,7 @@ class TestApplyHeadersUnitaire(_EnvIsolatedTestCase):
     def test_server_header_neutralise(self):
         with server.app.test_request_context("/"):
             resp = shs.apply_headers(Response())
-        self.assertEqual(resp.headers["Server"], "NovaMath")
+        self.assertEqual(resp.headers["Server"], "Mathadap")
 
     def test_permissions_policy_minimale(self):
         with server.app.test_request_context("/"):

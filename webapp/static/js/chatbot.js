@@ -11,6 +11,7 @@ import { featureLabel } from "./features.js";
 import { openReportTicketPopup } from "./supportTicket.js";
 import { ICONS } from "./icons.js";
 import { mountGuestLockOverlay } from "./guestLockOverlay.js";
+import { registerUnsavedActivityCheck } from "./unsavedActivity.js";
 
 initSettingsManager().then(() => bindLiveTranslations());
 bindSettingsButton(document.getElementById("settings-btn"));
@@ -20,6 +21,15 @@ const convoList = $("chatbot-convo-list");
 const messagesEl = $("chatbot-messages");
 const emptyState = $("chatbot-empty-state");
 const input = $("chatbot-input");
+
+// Aucun brouillon persistant pour le composeur du chatbot (contrairement à
+// une série d'exercices, voir store.js::saveInProgressSeries) — un message en
+// cours de rédaction, non encore envoyé, serait donc perdu par n'importe quel
+// rechargement de page. Enregistré auprès de unsavedActivity.js pour que
+// analyticsBeacon.js puisse en tenir compte avant de recharger la page après
+// un retrait de consentement aux cookies statistiques — jamais une
+// sauvegarde parallèle du texte lui-même, seulement sa détection.
+registerUnsavedActivityCheck("chatbot-draft", () => !!input && !composer.isEmpty(input));
 const sendBtn = $("chatbot-send-btn");
 const topbarTitle = $("chatbot-topbar-title");
 const quotaIndicator = $("chatbot-quota-indicator");

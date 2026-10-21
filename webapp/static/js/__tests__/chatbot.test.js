@@ -1533,3 +1533,37 @@ describe("chatbot.js — vue de recherche de conversations", () => {
     expect($("chatbot-convos").classList.contains("is-collapsed")).toBe(true);
   });
 });
+
+// ── Détection d'activité non sauvegardée (brouillon du composeur) ──────────
+// Chantier "protection de la progression" : aucun brouillon persistant pour
+// le composeur du chatbot (contrairement à une série d'exercices, voir
+// store.js) — un message en cours de rédaction serait perdu par n'importe
+// quel rechargement de page. chatbot.js s'enregistre auprès de
+// unsavedActivity.js (voir ce fichier) pour que analyticsBeacon.js puisse en
+// tenir compte avant de recharger la page après un retrait de consentement
+// aux cookies statistiques — vérifié ici sans jamais passer par
+// analyticsBeacon.js lui-même (testé séparément dans son propre fichier).
+describe("chatbot.js — détection d'activité non sauvegardée (brouillon du composeur)", () => {
+  beforeEach(async () => {
+    await mountChatbot();
+  });
+
+  it("composeur vide au montage : hasUnsavedActivity() ne signale rien", async () => {
+    const { hasUnsavedActivity } = await import("../unsavedActivity.js");
+    expect(hasUnsavedActivity()).toBe(false);
+  });
+
+  it("texte en cours de rédaction dans le composeur : hasUnsavedActivity() le signale", async () => {
+    const { hasUnsavedActivity } = await import("../unsavedActivity.js");
+    $("chatbot-input").textContent = "Comment résoudre cette équation ?";
+    expect(hasUnsavedActivity()).toBe(true);
+  });
+
+  it("composeur revidé après rédaction : hasUnsavedActivity() ne signale plus rien", async () => {
+    const { hasUnsavedActivity } = await import("../unsavedActivity.js");
+    $("chatbot-input").textContent = "Bonjour";
+    expect(hasUnsavedActivity()).toBe(true);
+    $("chatbot-input").textContent = "";
+    expect(hasUnsavedActivity()).toBe(false);
+  });
+});

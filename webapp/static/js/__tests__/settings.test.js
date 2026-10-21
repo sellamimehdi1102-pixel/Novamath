@@ -30,6 +30,7 @@ const DEFAULT_SETTINGS = {
 const mockApi = {
   me: vi.fn(),
   getCookieConsent: vi.fn().mockResolvedValue({ statistics: false, marketing: false, updated_at: null }),
+  setCookieConsent: vi.fn().mockResolvedValue({}),
   getSettings: vi.fn().mockResolvedValue(DEFAULT_SETTINGS),
   saveSettings: vi.fn((s) => Promise.resolve(s)),
 };
@@ -117,6 +118,87 @@ describe("settings.js — mountSettingsPanel", () => {
   it("ne charge pas le consentement cookies pour un compte invité", async () => {
     await mountSettings({ id: 1, is_guest: true });
     expect(mockApi.getCookieConsent).not.toHaveBeenCalled();
+  });
+
+  // Audit admin (2026-10-2x), intégration Cloudflare Web Analytics : avant ce
+  // chantier, basculer ce toggle n'appelait QUE api.setCookieConsent (serveur),
+  // sans jamais mettre à jour le localStorage lu par cookieConsent.js — un
+  // script gated sur ce consentement (analyticsBeacon.js) ne voyait donc
+  // jamais ce retrait tant que la page n'était pas rechargée. Régression
+  // explicite pour ce bug corrigé : le toggle doit maintenant passer par
+  // setCookieConsentChoice (cookieConsent.js), seul point d'écriture.
+  it("basculer le toggle Statistiques met à jour le localStorage lu par cookieConsent.js", async () => {
+    mockApi.getCookieConsent.mockResolvedValue({ statistics: false, marketing: false, updated_at: null });
+    const container = await mountSettings({ id: 1, is_guest: false });
+    container.querySelector('[data-cat="security"]').click();
+    await flushPromises();
+
+    const toggle = container.querySelector("#toggle-cookie-statistics");
+    expect(toggle.checked).toBe(false);
+    toggle.checked = true;
+    toggle.dispatchEvent(new Event("change"));
+    await flushPromises();
+
+    const stored = JSON.parse(localStorage.getItem("nm_cookie_consent"));
+    expect(stored.statistics).toBe(true);
+    expect(mockApi.setCookieConsent).toHaveBeenCalledWith(true, false);
+    localStorage.removeItem("nm_cookie_consent");
+  });
+
+  // Chantier "protection de la progression" : une garde (enregistrée par
+  // analyticsBeacon.js en production réelle, simulée directement ici — voir
+  // cookieConsent.js::registerStatisticsWithdrawalGuard) peut annuler un
+  // retrait de consentement si l'utilisateur renonce à la confirmation
+  // (activité non sauvegardée en cours). Le toggle, coché par le navigateur
+  // AVANT ce test ("change" ne se déclenche qu'après), doit alors revenir
+  // visuellement à son état réel.
+  it("retrait du consentement Statistiques annulé par une garde : le toggle revient coché, localStorage inchangé", async () => {
+    mockApi.getCookieConsent.mockResolvedValue({ statistics: true, marketing: false, updated_at: null });
+    const container = await mountSettings({ id: 1, is_guest: false });
+    container.querySelector('[data-cat="security"]').click();
+    await flushPromises();
+
+    // Même module que celui déjà utilisé par settings.js/mountSettings pour
+    // ce test (aucun vi.resetModules() entre les deux) — voir mountSettings.
+    const { registerStatisticsWithdrawalGuard, getCookieConsentChoice } = await import("../cookieConsent.js");
+    localStorage.setItem(
+      "nm_cookie_consent",
+      JSON.stringify({ statistics: true, marketing: false, version: "1", decided_at: new Date().toISOString() }),
+    );
+    registerStatisticsWithdrawalGuard(() => false);
+
+    const toggle = container.querySelector("#toggle-cookie-statistics");
+    expect(toggle.checked).toBe(true);
+    toggle.checked = false;
+    toggle.dispatchEvent(new Event("change"));
+    await flushPromises();
+
+    expect(toggle.checked).toBe(true); // rétabli : le retrait n'a pas eu lieu
+    expect(getCookieConsentChoice().statistics).toBe(true);
+    localStorage.removeItem("nm_cookie_consent");
+  });
+
+  it("retrait du consentement Statistiques accepté par une garde : le toggle reste décoché, localStorage mis à jour", async () => {
+    mockApi.getCookieConsent.mockResolvedValue({ statistics: true, marketing: false, updated_at: null });
+    const container = await mountSettings({ id: 1, is_guest: false });
+    container.querySelector('[data-cat="security"]').click();
+    await flushPromises();
+
+    const { registerStatisticsWithdrawalGuard, getCookieConsentChoice } = await import("../cookieConsent.js");
+    localStorage.setItem(
+      "nm_cookie_consent",
+      JSON.stringify({ statistics: true, marketing: false, version: "1", decided_at: new Date().toISOString() }),
+    );
+    registerStatisticsWithdrawalGuard(() => true);
+
+    const toggle = container.querySelector("#toggle-cookie-statistics");
+    toggle.checked = false;
+    toggle.dispatchEvent(new Event("change"));
+    await flushPromises();
+
+    expect(toggle.checked).toBe(false);
+    expect(getCookieConsentChoice().statistics).toBe(false);
+    localStorage.removeItem("nm_cookie_consent");
   });
 });
 

@@ -20,12 +20,53 @@ function readStoredConsent() {
   }
 }
 
+// Nom de l'événement DOM diffusé à CHAQUE changement de consentement, qu'il
+// vienne de la bannière (ce fichier) ou de la page Paramètres (settings.js,
+// qui appelle setCookieConsentChoice ci-dessous plutôt que de dupliquer sa
+// propre écriture localStorage — un seul point d'écriture, jamais deux
+// sources qui pourraient diverger). Permet à un module comme
+// analyticsBeacon.js de réagir immédiatement à un retrait de consentement
+// SANS rechargement de page, plutôt que de ne relire ce choix qu'au prochain
+// chargement de script.
+const CONSENT_CHANGED_EVENT = "mathadap:cookie-consent-changed";
+
+// Garde optionnelle appelée AVANT tout retrait du consentement "statistiques"
+// (voir storeConsent ci-dessous) — enregistrée par analyticsBeacon.js (seul
+// module aujourd'hui dont le retrait de consentement a une conséquence qui
+// justifie de prévenir l'utilisateur : un rechargement de page, voir ce
+// fichier). Un seul emplacement (pas une liste) : volontairement, il n'existe
+// qu'UN SEUL retrait possible du consentement statistiques dans ce projet
+// (rechargement Cloudflare) — inutile d'anticiper plusieurs gardes
+// concurrentes pour un besoin qui n'existe pas encore. `null` = aucune garde
+// (comportement inchangé, retrait toujours accepté).
+let withdrawalGuard = null;
+
+/** Enregistre `fn` comme garde appelée synchrone avant tout retrait du
+ * consentement "statistiques" (passage de accordé à refusé). `fn` doit
+ * renvoyer `true` pour laisser le retrait avoir lieu, `false` pour l'annuler
+ * (le consentement reste alors inchangé — ni écrit en localStorage, ni
+ * envoyé au serveur, ni diffusé). Un appel ultérieur remplace la garde
+ * précédente (jamais d'accumulation). */
+export function registerStatisticsWithdrawalGuard(fn) {
+  withdrawalGuard = fn;
+}
+
+/** Renvoie `true` si le choix a bien été enregistré, `false` si une garde a
+ * annulé le retrait (voir registerStatisticsWithdrawalGuard ci-dessus) — dans
+ * ce second cas, AUCUN effet de bord n'a eu lieu : ni localStorage, ni appel
+ * serveur, ni évènement diffusé, le consentement précédent reste pleinement
+ * en vigueur. */
 function storeConsent(statistics, marketing) {
+  if (!statistics && withdrawalGuard && !withdrawalGuard()) {
+    return false;
+  }
   const payload = { statistics, marketing, version: CONSENT_VERSION, decided_at: new Date().toISOString() };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   // Best-effort : un visiteur anonyme n'a pas de session, la requête échoue
   // silencieusement (401) sans jamais bloquer le bandeau côté client.
   api.setCookieConsent(statistics, marketing).catch(() => {});
+  window.dispatchEvent(new CustomEvent(CONSENT_CHANGED_EVENT, { detail: { statistics, marketing } }));
+  return true;
 }
 
 // La bannière est en position:fixed (voir .cookie-banner, base.css) et ne
@@ -164,20 +205,26 @@ function mountBanner() {
     // recalcule l'espace réservé sur sa nouvelle hauteur réelle.
     reserveSpaceForBanner(el);
   });
+  // `close()` uniquement si storeConsent() a réellement écrit le choix — une
+  // garde (voir registerStatisticsWithdrawalGuard) peut annuler un retrait
+  // de consentement "statistiques" (activité non sauvegardée en cours,
+  // réponse déclinée par l'utilisateur) : le bandeau reste alors ouvert,
+  // AUCUN choix n'est changé, l'utilisateur peut réessayer ou renoncer.
   document.getElementById("cookie-banner-accept-all").addEventListener("click", () => {
-    storeConsent(true, true);
-    close();
+    if (storeConsent(true, true)) close();
   });
   document.getElementById("cookie-banner-reject-all").addEventListener("click", () => {
-    storeConsent(false, false);
-    close();
+    if (storeConsent(false, false)) close();
   });
   document.getElementById("cookie-banner-save").addEventListener("click", () => {
-    storeConsent(
-      document.getElementById("cookie-banner-statistics").checked,
-      document.getElementById("cookie-banner-marketing").checked,
-    );
-    close();
+    if (
+      storeConsent(
+        document.getElementById("cookie-banner-statistics").checked,
+        document.getElementById("cookie-banner-marketing").checked,
+      )
+    ) {
+      close();
+    }
   });
 }
 
@@ -190,6 +237,26 @@ if (!readStoredConsent()) {
 export function getCookieConsentChoice() {
   return readStoredConsent();
 }
+
+// Point d'écriture UNIQUE du consentement (bannière ci-dessus ET page
+// Paramètres, voir settings.js) — avant ce chantier, settings.js appelait
+// directement api.setCookieConsent() sans jamais mettre à jour le
+// localStorage lu par ce module, donc un retrait de consentement fait
+// depuis Paramètres restait invisible pour tout script gated sur ce choix
+// (ex: analyticsBeacon.js) tant que la page n'était pas rechargée ET que la
+// bannière ne se réaffichait pas (ce qu'elle ne fait jamais si un choix,
+// même périmé, est déjà stocké). Audit admin (2026-10-2x), intégration
+// Cloudflare Web Analytics.
+//
+// Renvoie `true` si le choix a bien été écrit, `false` si une garde l'a
+// annulé (voir registerStatisticsWithdrawalGuard/storeConsent) — settings.js
+// utilise cette valeur pour rétablir visuellement la case à cocher si
+// l'utilisateur renonce au retrait.
+export function setCookieConsentChoice(statistics, marketing) {
+  return storeConsent(statistics, marketing);
+}
+
+export const COOKIE_CONSENT_CHANGED_EVENT = CONSENT_CHANGED_EVENT;
 
 export function openCookiePreferences() {
   localStorage.removeItem(STORAGE_KEY);
