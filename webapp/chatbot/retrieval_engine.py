@@ -1,7 +1,7 @@
 """
 Moteur de recherche interne générique (TF-IDF + similarité cosinus,
 scikit-learn — déjà une dépendance du projet, pas de base vectorielle à
-héberger). Ce module ne connaît AUCUNE donnée métier NovaMath : il indexe des
+héberger). Ce module ne connaît AUCUNE donnée métier Mathadap : il indexe des
 "documents" (dicts arbitraires avec un champ "text") fournis par un appelant
 (voir knowledge_engine.py, qui sait lui QUOI indexer — cours, exercices,
 erreurs fréquentes...) et renvoie les plus pertinents pour une requête. Seule

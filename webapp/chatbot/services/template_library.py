@@ -31,7 +31,7 @@ TEMPLATES = {
     ],
     intent_service.PROFIL: [
         "Ton profil : {prenom}, niveau {niveau}. Favoris : {favoris}.",
-        "Voici ton profil NovaMath : niveau {niveau}, précision {precision}%, favoris enregistrés : {favoris}.",
+        "Voici ton profil Mathadap : niveau {niveau}, précision {precision}%, favoris enregistrés : {favoris}.",
         "{prenom}, niveau {niveau}. Chapitres favoris : {favoris}.",
     ],
     intent_service.PARAMETRES: [

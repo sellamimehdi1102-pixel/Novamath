@@ -1,5 +1,5 @@
 """
-Recherche unifiée sur le contenu réel de NovaMath (cours + exercices) — pour
+Recherche unifiée sur le contenu réel de Mathadap (cours + exercices) — pour
 GET /api/search, la palette @ du chatbot (mentions_service.py) et la Command
 Palette Ctrl+K. Aucune donnée fictive : les cours viennent de
 knowledge_engine.py (déjà un index TF-IDF sur webapp/static/data/cours/

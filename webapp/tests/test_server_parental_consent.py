@@ -1,7 +1,7 @@
 """
 Suite SEC-04 : routes publiques de consentement parental (GET status,
 accept, refuse, resend) — /api/auth/parental-consent/*, ouvertes sans session
-(le parent qui clique le lien reçu par email n'a pas de compte NovaMath).
+(le parent qui clique le lien reçu par email n'a pas de compte Mathadap).
 """
 import random
 import unittest

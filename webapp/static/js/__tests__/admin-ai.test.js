@@ -205,6 +205,64 @@ describe("admin-ai.js — rendu des cartes (Fournisseurs, Consommation)", () => 
     await mount("/admin/ia");
     expect(document.getElementById("admin-ai-usage-title").textContent).toContain("cumul");
   });
+
+  // Audit admin (2026-10-22), point 4 : le paragraphe permanent sur le
+  // périmètre (moteur local exclu) est remplacé par une icône "i"/tooltip
+  // sur le titre — l'information reste accessible, jamais supprimée.
+  it("la précision de périmètre de Consommation IA est une icône tooltip sur le titre, plus un paragraphe permanent", async () => {
+    await mount("/admin/ia");
+    const title = document.getElementById("admin-ai-usage-title");
+    const icon = title.querySelector(".admin-info-icon");
+    expect(icon).not.toBeNull();
+    expect(icon.title.toLowerCase()).toContain("moteur de réponses locales");
+    expect(document.querySelector("#admin-content-body .admin-form-hint")?.textContent).not.toMatch(
+      /moteur de réponses locales/,
+    );
+  });
+});
+
+// Audit admin (2026-10-22), point 1 : la carte Fournisseur ne garde que
+// l'essentiel — icône/description/dates sont déplacées vers l'onglet
+// "Informations" de la fiche détaillée (déjà vérifié par
+// admin-ai-provider.test.js), jamais perdues, juste absentes de la carte.
+describe("admin-ai.js — carte Fournisseur allégée (icône/description/dates déplacées vers la fiche)", () => {
+  it("la carte n'affiche plus l'icône, la description, ni les dates de création/mise à jour", async () => {
+    await mount("/admin/ia");
+    const card = providerCard("Gemini Flash");
+    expect(card.textContent).not.toContain("Modèle rapide.");
+    expect(card.textContent).not.toContain("zap");
+    expect(card.querySelector(".admin-field-label")?.textContent).not.toBe("Icône");
+    const labels = [...card.querySelectorAll(".admin-field-label")].map((l) => l.textContent);
+    expect(labels).not.toContain("Icône");
+    expect(labels).not.toContain("Description");
+    expect(labels).not.toContain("Créé le");
+    expect(labels).not.toContain("Mis à jour le");
+  });
+
+  it("la carte garde l'essentiel : nom, badge, statut, santé, modèle, priorité, secours", async () => {
+    await mount("/admin/ia");
+    const card = providerCard("Gemini Flash");
+    expect(card.textContent).toContain("Gemini Flash");
+    expect(card.textContent).toContain("Rapide");
+    expect(card.textContent).toContain("Activé");
+    expect(card.textContent).toContain("gemini");
+    expect(card.textContent).toContain("Priorité");
+    const labels = [...card.querySelectorAll(".admin-field-label")].map((l) => l.textContent);
+    expect(labels).toContain("Fournisseur de secours");
+  });
+});
+
+// Audit admin (2026-10-22), point 3 : un libellé COURT et PERMANENT (pas
+// seulement un title au survol, invisible au tactile) sous chacun des deux
+// boutons explique leur coût réel respectif.
+describe("admin-ai.js — libellés de coût permanents sous Health-check / Tester la connexion", () => {
+  it("affiche « Gratuit » sous Health-check et « Coûte des tokens » sous Tester la connexion", async () => {
+    await mount("/admin/ia");
+    const card = providerCard("Gemini Flash");
+    const captions = [...card.querySelectorAll(".admin-btn-caption")].map((c) => c.textContent);
+    expect(captions).toContain("Gratuit");
+    expect(captions).toContain("Coûte des tokens");
+  });
 });
 
 // Chantier "fiabilité des données d'analytics IA" (audit 2026-08-27, anomalie
@@ -396,6 +454,49 @@ describe("admin-ai.js — état vide et gestion des erreurs", () => {
   // L'échec réseau de /api/admin/ai/health (badges de repli, bannière
   // d'erreur) est couvert par le describe "carte 'État des fournisseurs'
   // retirée" ci-dessus.
+
+  // Audit admin (2026-10-20), point 4 : une réponse HTTP en échec sur
+  // /api/admin/ai/keys ne doit jamais s'afficher comme "aucune clé API
+  // configurée" (faux zéro trompeur) — elle doit afficher une erreur.
+  it("échec HTTP sur /api/admin/ai/keys -> message d'erreur explicite, jamais 'aucune clé configurée'", async () => {
+    await mount("/admin/ia", { fail: ["/api/admin/ai/keys"] });
+    const keysEl = document.getElementById("admin-ai-keys");
+    expect(keysEl.textContent).toContain("Impossible de charger les clés API");
+    expect(keysEl.textContent).not.toContain("Aucune clé API configurée");
+  });
+
+  // Finalisation du nettoyage admin (2026-10-22) : /admin/ia devient l'UNIQUE
+  // emplacement de gestion des clés API (Paramètres ne garde qu'un lien, voir
+  // admin-settings.test.js) — le bouton "Modifier" (renommer/changer la
+  // priorité), auparavant réservé à /admin/settings, doit désormais aussi
+  // apparaître ici (allowEdit=true, vérifié sans élargir aucune permission :
+  // les routes /api/admin/ai/keys/* exigent toutes le même rôle ADMIN).
+  it("affiche désormais le bouton 'Modifier' sur les clés API (allowEdit=true, centralisation)", async () => {
+    await mount("/admin/ia", {
+      handlers: {
+        "GET /api/admin/ai/keys": () =>
+          Promise.resolve({
+            ok: true,
+            json: () =>
+              Promise.resolve([
+                {
+                  id: 1,
+                  provider_key: "gemini",
+                  label: "Clé principale",
+                  priority: 0,
+                  enabled: true,
+                  request_count: 10,
+                  success_count: 9,
+                  failure_count: 1,
+                },
+              ]),
+          }),
+      },
+    });
+    const keysEl = document.getElementById("admin-ai-keys");
+    const buttons = [...keysEl.querySelectorAll("button")].map((b) => b.textContent);
+    expect(buttons).toContain("Modifier");
+  });
 });
 
 describe("admin-ai.js — navigation vers la fiche détaillée (/admin/ia/:id)", () => {
@@ -445,17 +546,56 @@ describe("admin-ai.js — activer/désactiver un fournisseur", () => {
   });
 });
 
-describe("admin-ai.js — réordonner les priorités", () => {
-  it("clic sur ↓ envoie POST /move-down et recharge la liste", async () => {
+// Audit admin (2026-10-22), point 2 : les boutons ↑/↓ (un par fournisseur)
+// sont désormais regroupés dans un menu "⋮" (même composant que le menu
+// kebab déjà utilisé par admin-settings.js pour les sauvegardes) — toujours
+// 1 clic pour ouvrir le menu + 1 clic pour l'action, jamais une navigation
+// complexe, donc aucune perte d'accessibilité réelle par rapport aux deux
+// boutons visibles séparément d'avant ce chantier.
+describe("admin-ai.js — réordonner les priorités (menu kebab)", () => {
+  it("le menu kebab est fermé par défaut et s'ouvre au clic sur ⋮", async () => {
+    await mount("/admin/ia");
+    const card = providerCard("Gemini Flash");
+    const menu = card.querySelector(".admin-kebab-menu");
+    expect(menu.hidden).toBe(true);
+    card.querySelector(".admin-kebab-btn").click();
+    expect(menu.hidden).toBe(false);
+  });
+
+  it("clic sur ⋮ puis « Monter la priorité » envoie POST /move-up et recharge la liste", async () => {
+    await mount("/admin/ia", {
+      handlers: {
+        "POST /api/admin/ai/providers/1/move-up": () => ({ ok: true, json: () => Promise.resolve({ ok: true }) }),
+      },
+    });
+    const card = providerCard("Gemini Flash");
+    card.querySelector(".admin-kebab-btn").click();
+    const upItem = [...card.querySelectorAll(".admin-kebab-item")].find((b) => b.textContent.includes("Monter"));
+    upItem.click();
+    await flushPromises();
+    expect(fetchLog).toContain("POST /api/admin/ai/providers/1/move-up");
+  });
+
+  it("clic sur ⋮ puis « Descendre la priorité » envoie POST /move-down et recharge la liste", async () => {
     await mount("/admin/ia", {
       handlers: {
         "POST /api/admin/ai/providers/1/move-down": () => ({ ok: true, json: () => Promise.resolve({ ok: true }) }),
       },
     });
-    const downBtn = [...providerCard("Gemini Flash").querySelectorAll(".admin-btn")].find((b) => b.textContent === "↓");
-    downBtn.click();
+    const card = providerCard("Gemini Flash");
+    card.querySelector(".admin-kebab-btn").click();
+    const downItem = [...card.querySelectorAll(".admin-kebab-item")].find((b) => b.textContent.includes("Descendre"));
+    downItem.click();
     await flushPromises();
     expect(fetchLog).toContain("POST /api/admin/ai/providers/1/move-down");
+  });
+
+  it("un clic sur le menu kebab NE déclenche PAS la navigation vers la fiche détaillée", async () => {
+    await mount("/admin/ia");
+    const pushStateSpy = vi.spyOn(window.history, "pushState");
+    providerCard("Gemini Flash").querySelector(".admin-kebab-btn").click();
+    await flushPromises();
+    expect(pushStateSpy).not.toHaveBeenCalled();
   });
 });
 
@@ -527,6 +667,26 @@ describe("admin-ai.js — tester un fournisseur / health-check", () => {
   });
 });
 
+// Audit admin (2026-10-22) : vérifié dans admin_ai_service.py que
+// run_health_check() (instance.health(), gratuit, aucun token) et
+// test_connection() (vrai prompt, tokens réels) effectuent des opérations
+// réellement différentes — jamais fusionnées. Ce bloc prouve que les deux
+// boutons restent distincts et que leurs libellés (title) expliquent
+// explicitement ce coût réel, plutôt qu'une fusion qui ferait perdre la
+// capacité de vérifier la disponibilité sans consommer de tokens.
+describe("admin-ai.js — Health-check et Tester la connexion restent deux actions distinctes", () => {
+  it("les deux boutons existent, avec un title qui explique leur coût réel respectif", async () => {
+    await mount("/admin/ia");
+    const buttons = [...providerCard("Gemini Flash").querySelectorAll(".admin-btn")];
+    const healthBtn = buttons.find((b) => b.textContent === "Health-check");
+    const testBtn = buttons.find((b) => b.textContent === "Tester la connexion");
+    expect(healthBtn).not.toBeUndefined();
+    expect(testBtn).not.toBeUndefined();
+    expect(healthBtn.title).toMatch(/gratuit/i);
+    expect(testBtn.title).toMatch(/tokens/i);
+  });
+});
+
 describe("admin-ai.js — création d'un fournisseur (modale)", () => {
   it("ouvre la modale, affiche les erreurs de validation renvoyées par le serveur", async () => {
     await mount("/admin/ia", {
@@ -569,6 +729,78 @@ describe("admin-ai.js — création d'un fournisseur (modale)", () => {
     await flushPromises();
 
     expect(modal.hidden).toBe(true);
+  });
+});
+
+// Audit admin (2026-10-22), point 6 : les 10 champs à plat sont regroupés en
+// 2 blocs visuels — "Configuration" (impact réel) toujours visible,
+// "Présentation" (cosmétique) repliée par défaut sous un <details>. Aucun
+// champ supprimé, aucune validation changée.
+describe("admin-ai.js — modale fournisseur en 2 blocs (Configuration / Présentation)", () => {
+  it("affiche un bloc Configuration toujours visible et un bloc Présentation replié par défaut", async () => {
+    await mount("/admin/ia");
+    document.getElementById("admin-ai-new-provider-btn").click();
+    const modal = document.getElementById("admin-ai-provider-modal");
+    expect(modal.textContent).toContain("Configuration");
+    const details = modal.querySelector("details");
+    expect(details).not.toBeNull();
+    expect(details.open).toBe(false);
+    expect(details.textContent).toContain("Présentation");
+    // Les champs cosmétiques restent bien dans le formulaire (repliés, pas supprimés).
+    expect(details.querySelector("[name=code]")).not.toBeNull();
+    expect(details.querySelector("[name=badge]")).not.toBeNull();
+    expect(details.querySelector("[name=icon]")).not.toBeNull();
+    expect(details.querySelector("[name=color]")).not.toBeNull();
+    expect(details.querySelector('[data-field="description"]')).not.toBeNull();
+    // Les champs d'impact réel restent hors du bloc replié.
+    expect(details.querySelector("[name=provider_key]")).toBeNull();
+    expect(details.querySelector("[name=model_name]")).toBeNull();
+    expect(details.querySelector("[name=priority]")).toBeNull();
+    expect(details.querySelector("[name=fallback_provider_id]")).toBeNull();
+  });
+});
+
+// Audit admin (2026-10-22), point 5 : si TOUS les fournisseurs sont à
+// "aucune donnée" simultanément, un seul message global apparaît au-dessus
+// de la liste, jamais répété par carte.
+describe("admin-ai.js — Consommation : message global unique si tout est vide", () => {
+  it("un seul message vide pour 3 fournisseurs tous sans donnée (pas de répétition)", async () => {
+    await mount("/admin/ia", {
+      usage: {
+        items: [
+          { provider_id: 1, name: "Gemini Flash", usage: { available: false, value: null, reason: "x" } },
+          { provider_id: 2, name: "Gemini Pro", usage: { available: false, value: null, reason: "x" } },
+          { provider_id: 3, name: "Claude", usage: { available: false, value: null, reason: "x" } },
+        ],
+        reason: null,
+      },
+    });
+    const usageEl = document.getElementById("admin-ai-usage");
+    const emptyMessages = usageEl.querySelectorAll(".admin-empty");
+    expect(emptyMessages.length).toBe(1);
+    expect(usageEl.textContent).toContain("Aucune donnée disponible");
+  });
+
+  it("au moins un fournisseur avec donnée réelle -> chaque carte garde son propre état (pas de message global)", async () => {
+    await mount("/admin/ia", {
+      usage: {
+        items: [
+          {
+            provider_id: 1,
+            name: "Gemini Flash",
+            usage: {
+              available: true,
+              value: { input_tokens: 10, output_tokens: 5, total_tokens: 15, requests: 1, estimated_cost: 0.01 },
+            },
+          },
+          { provider_id: 2, name: "Gemini Pro", usage: { available: false, value: null, reason: "x" } },
+        ],
+        reason: null,
+      },
+    });
+    const usageEl = document.getElementById("admin-ai-usage");
+    expect(usageEl.querySelectorAll(".admin-card").length).toBe(2);
+    expect(usageEl.textContent).toContain("Gemini Pro");
   });
 });
 

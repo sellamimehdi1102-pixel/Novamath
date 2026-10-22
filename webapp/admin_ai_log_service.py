@@ -81,6 +81,9 @@ ACTIONS = (
     "analytics_export_excel",
     "analytics_export_pdf",
     "analytics_report",
+    "reconcile_stripe",
+    "view_finance_revenue",
+    "view_finance_payments",
 )
 
 ACTION_LABELS = {
@@ -109,6 +112,9 @@ ACTION_LABELS = {
     "analytics_export_excel": "Export Analytics (Excel)",
     "analytics_export_pdf": "Export Analytics (PDF)",
     "analytics_report": "Génération d'un rapport Analytics",
+    "reconcile_stripe": "Réconciliation Stripe (lecture seule)",
+    "view_finance_revenue": "Consultation des revenus Stripe (lecture seule)",
+    "view_finance_payments": "Consultation des paiements Stripe (lecture seule)",
 }
 
 _RESULTS = ("success", "error")

@@ -3,7 +3,7 @@ Suite du service de traitement des webhooks Stripe
 (webapp/stripe_webhook_service.py) : couvre les 6 événements gérés
 (checkout.session.completed, invoice.paid, invoice.payment_failed,
 customer.subscription.{created,updated,deleted}), l'idempotence, et les cas
-limites (événement inconnu, customer sans utilisateur NovaMath).
+limites (événement inconnu, customer sans utilisateur Mathadap).
 
 Base SQLite isolée dans un répertoire temporaire (db.DATA_DIR/db.DB_PATH
 monkeypatchés) : aucune interférence avec data/novamath.db. Les appels au SDK

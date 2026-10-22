@@ -1,6 +1,6 @@
 """
 Source unique de vérité des rôles d'équipe (autorisations d'administration)
-pour NovaMath.
+pour Mathadap.
 
 Architecture stricte, identique à plan_service.py/quota_service.py :
 

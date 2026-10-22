@@ -35,13 +35,18 @@ const EMPTY_CHARTS = {
     fallbacks_per_day: NA,
     errors_per_day: NA,
   },
-  support: { tickets_per_day: NA, by_category: NA, by_priority: NA, by_status: NA },
+  // `by_priority` retiré (audit admin 2026-10-20) : calculé mais jamais lu
+  // par admin-analytics.js — voir admin_analytics_service.py::charts().
+  support: { tickets_per_day: NA, by_category: NA, by_status: NA },
 };
 const EMPTY_RANKINGS = {
   window: { value: "30j", label: "30 derniers jours", since: "2026-07-26T00:00:00+00:00", until: null },
   users: { top_ai_consumers: NA, top_chatbot_users: NA, top_active_reason: "test" },
-  ai: { top_providers: NA, top_models: NA, top_engines: NA, top_cost: NA, top_tokens: NA },
-  support: { top_categories: NA, top_priorities: NA, top_admins: NA },
+  // `top_tokens` retiré (doublon exact de top_models) ; `top_categories`/
+  // `top_priorities` retirés (jamais lus côté JS) — audit admin 2026-10-20,
+  // voir admin_analytics_service.py::rankings().
+  ai: { top_providers: NA, top_models: NA, top_engines: NA, top_cost: NA },
+  support: { top_admins: NA },
 };
 
 function overviewPayload(groups) {

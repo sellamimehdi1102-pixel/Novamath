@@ -1,5 +1,5 @@
 """
-Validateur du schéma des cours NovaMath (static/data/cours/chapitre_*.json).
+Validateur du schéma des cours Mathadap (static/data/cours/chapitre_*.json).
 Deux niveaux de contrôle :
 
 1. Structurel (toutes les notions, migrées ou non) : champs de base présents,

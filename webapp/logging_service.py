@@ -1,5 +1,5 @@
 """
-Journalisation structurée + supervision runtime pour NovaMath.
+Journalisation structurée + supervision runtime pour Mathadap.
 
 Architecture stricte, identique à plan_service.py/quota_service.py/
 role_service.py/rate_limit_service.py :
@@ -191,7 +191,7 @@ def capture_exception(exc):
 
 
 def init_app(app):
-    """Installe le middleware HTTP de NovaMath sur `app` : configuration du
+    """Installe le middleware HTTP de Mathadap sur `app` : configuration du
     logging, mesure de la durée de chaque requête, journal de fin de requête,
     alimentation de metrics_service, et capture de toute exception non gérée
     (panic log, Partie 6) — jamais silencieuse, jamais un 500 générique sans

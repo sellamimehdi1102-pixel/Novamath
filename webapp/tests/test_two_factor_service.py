@@ -106,7 +106,7 @@ class TestGenerationSecretEtUri(TwoFactorServiceTestCase):
         user = self._make_user(email="alice@gmail.com")
         result = tfs.begin_setup(user)
         self.assertTrue(result["otpauth_uri"].startswith("otpauth://totp/"))
-        self.assertIn("issuer=NovaMath", result["otpauth_uri"])
+        self.assertIn("issuer=Mathadap", result["otpauth_uri"])
         self.assertIn("alice%40gmail.com", result["otpauth_uri"])
 
     def test_otpauth_uri_respecte_two_factor_issuer_configure(self):

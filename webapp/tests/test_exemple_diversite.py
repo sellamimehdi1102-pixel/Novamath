@@ -1,6 +1,6 @@
 """
 Suite "répétition des exemples" (chantier 2026-08-23, Priorité 3) : prouve
-que le chatbot NovaMath mémorise réellement quels exemples ont déjà été
+que le chatbot Mathadap mémorise réellement quels exemples ont déjà été
 montrés dans une conversation et ne les répète plus tant qu'une alternative
 réelle existe dans les données de cours — voir knowledge_engine.get_exemple/
 exemple_pool_exhausted, knowledge_response_composer.compose() (moteur local),

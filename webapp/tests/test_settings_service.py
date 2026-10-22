@@ -8,9 +8,13 @@ désormais réellement branché (température/tokens/fallback IA)."""
 import random
 import unittest
 
+import os
+import unittest.mock
+
 import db
 import server
 import settings_service
+import stripe_service
 from chatbot.services import llm_fallback_service
 from role_service import Role
 
@@ -297,6 +301,108 @@ class TestApercuParametresSansErreur500(unittest.TestCase):
         self.assertIn("total_size_bytes", backups)
         self.assertIn("last_backup", backups)
         self.assertIn("last_backup_successful", backups)
+
+
+class TestAiConfigSansListeDeFournisseursDupliquee(unittest.TestCase):
+    """Audit admin (2026-10-22) : `provider_order` (liste à plat des
+    fournisseurs IA) a été retiré de settings_service.ai_config() — la
+    section "IA" de Paramètres pointe désormais vers /admin/ia pour cette
+    information (voir admin-settings.js), qui n'existe plus qu'à un seul
+    endroit. Les 3 réglages réellement persistés/appliqués par
+    llm_fallback_service.py restent, eux, inchangés."""
+
+    def setUp(self):
+        self.client = server.app.test_client()
+
+    def test_overview_ne_renvoie_plus_provider_order(self):
+        _, headers = _register_admin(self.client)
+        resp = self.client.get("/api/admin/settings/overview", headers=headers)
+        self.assertEqual(resp.status_code, 200)
+        ai = resp.get_json()["ai"]
+        self.assertNotIn("provider_order", ai)
+
+    def test_overview_conserve_les_3_reglages_ia_reellement_appliques(self):
+        _, headers = _register_admin(self.client)
+        resp = self.client.get("/api/admin/settings/overview", headers=headers)
+        ai = resp.get_json()["ai"]
+        self.assertIn("temperature_default", ai)
+        self.assertIn("max_response_tokens_default", ai)
+        self.assertIn("fallback_enabled", ai)
+        self.assertEqual(ai["temperature_default"]["key"], "ai_temperature_default")
+        self.assertEqual(ai["max_response_tokens_default"]["key"], "ai_max_response_tokens_default")
+        self.assertEqual(ai["fallback_enabled"]["key"], "ai_fallback_enabled")
+
+
+class TestStripeOperatingMode(unittest.TestCase):
+    """Audit admin (2026-10-20) : 4 états déterministes, jamais devinés, et
+    jamais la clé elle-même exposée (voir stripe_service.operating_mode)."""
+
+    def test_sk_test_prefix_mode_test(self):
+        with unittest.mock.patch.dict(os.environ, {"STRIPE_SECRET_KEY": "sk_test_abc123"}):
+            self.assertEqual(stripe_service.operating_mode(), "test")
+
+    def test_sk_live_prefix_mode_production(self):
+        with unittest.mock.patch.dict(os.environ, {"STRIPE_SECRET_KEY": "sk_live_abc123"}):
+            self.assertEqual(stripe_service.operating_mode(), "production")
+
+    def test_cle_absente_mode_non_configure(self):
+        with unittest.mock.patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("STRIPE_SECRET_KEY", None)
+            self.assertEqual(stripe_service.operating_mode(), "non_configure")
+
+    def test_placeholder_env_example_mode_non_configure(self):
+        with unittest.mock.patch.dict(os.environ, {"STRIPE_SECRET_KEY": "sk_test_xxx"}):
+            self.assertEqual(stripe_service.operating_mode(), "non_configure")
+
+    def test_prefixe_non_reconnu_mode_etat_inconnu(self):
+        with unittest.mock.patch.dict(os.environ, {"STRIPE_SECRET_KEY": "rk_restricted_abc123"}):
+            self.assertEqual(stripe_service.operating_mode(), "etat_inconnu")
+
+    def test_la_cle_elle_meme_napparait_jamais_dans_le_resultat(self):
+        with unittest.mock.patch.dict(os.environ, {"STRIPE_SECRET_KEY": "sk_live_secret_value_12345"}):
+            self.assertEqual(stripe_service.operating_mode(), "production")
+            # Non seulement la fonction ne renvoie qu'un mot-clé, mais aucune
+            # valeur dérivée de la clé (longueur, hash, fragment) n'est
+            # jamais retournée.
+            self.assertNotIn("secret_value_12345", str(stripe_service.operating_mode()))
+
+
+class TestStripeInfoOverview(unittest.TestCase):
+    """GET /api/admin/settings/overview (champ "stripe") — `configured` ne
+    doit jamais être déduit uniquement de `mode.available` (régression audit
+    admin 2026-10-20 : un état "etat_inconnu" était avant cela confondu avec
+    "non_configure" côté frontend)."""
+
+    def setUp(self):
+        self.client = server.app.test_client()
+
+    def test_mode_test_configured_true(self):
+        with unittest.mock.patch.dict(os.environ, {"STRIPE_SECRET_KEY": "sk_test_abc123"}):
+            info = settings_service.stripe_info()
+        self.assertEqual(info["mode"], {"available": True, "value": "test"})
+        self.assertTrue(info["configured"])
+
+    def test_mode_etat_inconnu_reste_configured_true(self):
+        with unittest.mock.patch.dict(os.environ, {"STRIPE_SECRET_KEY": "rk_restricted_abc123"}):
+            info = settings_service.stripe_info()
+        self.assertEqual(info["mode"], {"available": True, "value": "etat_inconnu"})
+        self.assertTrue(info["configured"], "une clé présente mais non reconnue reste une clé CONFIGURÉE")
+
+    def test_mode_non_configure_configured_false(self):
+        with unittest.mock.patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("STRIPE_SECRET_KEY", None)
+            info = settings_service.stripe_info()
+        self.assertEqual(info["mode"], {"available": True, "value": "non_configure"})
+        self.assertFalse(info["configured"])
+
+    def test_overview_http_expose_le_mode_sans_la_cle(self):
+        _, headers = _register_admin(self.client)
+        with unittest.mock.patch.dict(os.environ, {"STRIPE_SECRET_KEY": "sk_test_abc123"}):
+            resp = self.client.get("/api/admin/settings/overview", headers=headers)
+        body = resp.get_json()
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(body["stripe"]["mode"]["value"], "test")
+        self.assertNotIn("sk_test_abc123", str(body))
 
 
 if __name__ == "__main__":

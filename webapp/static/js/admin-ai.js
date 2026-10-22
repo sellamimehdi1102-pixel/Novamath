@@ -68,19 +68,6 @@ function el(tag, className, text) {
   return node;
 }
 
-function formatDateTime(iso) {
-  if (!iso) return null;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("fr-FR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
 function formatInt(value) {
   return new Intl.NumberFormat("fr-FR").format(value);
 }
@@ -172,6 +159,61 @@ export function testResultBox(result) {
   return box;
 }
 
+// Audit admin (2026-10-22), point 2 : regroupe les actions secondaires
+// (priorité ↑/↓) dans un menu "⋮" — même composant/mêmes classes CSS que le
+// menu kebab déjà utilisé par admin-settings.js (actions de sauvegarde),
+// pour une cohérence visuelle, sans importer ce module entre pages (chacune
+// garde son périmètre). Toujours 1 clic pour ouvrir + 1 clic pour l'action
+// (jamais une navigation à plusieurs niveaux) — aucune perte d'accessibilité
+// réelle par rapport aux deux boutons visibles séparément.
+// Audit admin (2026-10-22), point 3 : Health-check (gratuit) et "Tester la
+// connexion" (coûte de vrais tokens) sont RÉELLEMENT différents — confirmé
+// dans admin_ai_service.py (run_health_check() = instance.health(), aucun
+// token ; test_connection() = vrai prompt). Jamais fusionnés. Le `title`
+// (infobulle au survol) ne suffit pas seul : invisible au tactile/mobile —
+// ce libellé COURT est donc affiché en permanence sous le bouton, ici comme
+// dans la fiche détaillée (voir admin-ai-provider.js::renderHeader).
+export function buttonWithCostCaption(button, captionText) {
+  const wrap = el("div", "admin-btn-with-caption");
+  wrap.appendChild(button);
+  wrap.appendChild(el("span", "admin-btn-caption", captionText));
+  return wrap;
+}
+
+function buildKebabMenu(actions) {
+  const wrap = el("div", "admin-kebab");
+  const btn = el("button", "admin-kebab-btn", "⋮");
+  btn.type = "button";
+  btn.setAttribute("aria-label", "Actions de priorité");
+  const menu = el("div", "admin-kebab-menu");
+  menu.hidden = true;
+  actions.forEach((action) => {
+    const item = el("button", "admin-kebab-item", action.label);
+    item.type = "button";
+    item.title = action.title || "";
+    item.disabled = Boolean(action.disabled);
+    item.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      menu.hidden = true;
+      await action.onClick();
+    });
+    menu.appendChild(item);
+  });
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    document.querySelectorAll(".admin-kebab-menu").forEach((m) => {
+      if (m !== menu) m.hidden = true;
+    });
+    menu.hidden = !menu.hidden;
+  });
+  document.addEventListener("click", () => {
+    menu.hidden = true;
+  });
+  wrap.appendChild(btn);
+  wrap.appendChild(menu);
+  return wrap;
+}
+
 // ── Carte 1 : Fournisseurs IA ────────────────────────────────────────────
 function renderProviderCard(provider, { onProviderClick, onChanged, providersCount, healthEntry }) {
   const card = el("article", "admin-card admin-ai-provider-card");
@@ -206,12 +248,13 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
   card.appendChild(el("div", "admin-card-sub", `Modèle : ${provider.provider_key} · ${provider.model_name}`));
   card.appendChild(el("div", "admin-card-sub", `Priorité ${provider.priority}`));
 
+  // Audit admin (2026-10-22), point 1 : la carte ne garde plus que
+  // l'essentiel (nom/badge/statut/santé/modèle/priorité/secours) — icône,
+  // description et dates de création/mise à jour sont déplacées vers
+  // l'onglet "Informations" de la fiche détaillée (voir admin-ai-provider.js
+  // ::renderInfoTab, qui les affiche déjà), AUCUNE information perdue.
   const fields = el("div", "admin-fields-grid admin-ai-provider-card-fields");
   fields.appendChild(fieldRow("Fournisseur de secours", provider.fallback_provider, (v) => v.name));
-  fields.appendChild(fieldRow("Icône", provider.icon));
-  fields.appendChild(fieldRow("Description", provider.description));
-  fields.appendChild(fieldRow("Créé le", provider.created_at, formatDateTime));
-  fields.appendChild(fieldRow("Mis à jour le", provider.updated_at, formatDateTime));
   card.appendChild(fields);
 
   // ── Actions — chaque bouton stoppe la propagation pour ne jamais déclencher
@@ -262,43 +305,48 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
   actions.appendChild(editBtn);
 
   if (providersCount > 1) {
-    const upBtn = el("button", "admin-btn admin-btn--sm", "↑");
-    upBtn.type = "button";
-    upBtn.title = "Monter la priorité";
-    upBtn.addEventListener(
-      "click",
-      stop(async () => {
-        const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/move-up`, { method: "POST" });
-        if (!ok) {
-          window.alert(payload.error || "Action impossible.");
-          return;
-        }
-        onChanged();
-      }),
-    );
-    actions.appendChild(upBtn);
-
-    const downBtn = el("button", "admin-btn admin-btn--sm", "↓");
-    downBtn.type = "button";
-    downBtn.title = "Descendre la priorité";
-    downBtn.addEventListener(
-      "click",
-      stop(async () => {
-        const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/move-down`, { method: "POST" });
-        if (!ok) {
-          window.alert(payload.error || "Action impossible.");
-          return;
-        }
-        onChanged();
-      }),
-    );
-    actions.appendChild(downBtn);
+    const priorityMenu = buildKebabMenu([
+      {
+        label: "↑ Monter la priorité",
+        title: "Monter la priorité",
+        onClick: async () => {
+          const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/move-up`, { method: "POST" });
+          if (!ok) {
+            window.alert(payload.error || "Action impossible.");
+            return;
+          }
+          onChanged();
+        },
+      },
+      {
+        label: "↓ Descendre la priorité",
+        title: "Descendre la priorité",
+        onClick: async () => {
+          const { ok, payload } = await apiCall(`/api/admin/ai/providers/${provider.id}/move-down`, {
+            method: "POST",
+          });
+          if (!ok) {
+            window.alert(payload.error || "Action impossible.");
+            return;
+          }
+          onChanged();
+        },
+      },
+    ]);
+    actions.appendChild(priorityMenu);
   }
 
   const resultSlot = el("div", "admin-ai-provider-card-result");
 
   const healthBtn = el("button", "admin-btn admin-btn--sm", "Health-check");
   healthBtn.type = "button";
+  // Audit admin (2026-10-22) : vérifié dans admin_ai_service.py que ce
+  // bouton et "Tester la connexion" ci-dessous ne font PAS la même chose —
+  // run_health_check() appelle instance.health() (diagnostic, aucun token
+  // consommé, aucun contenu généré) alors que test_connection() envoie un
+  // vrai prompt (tokens réels, voir testResultBox). Conservés séparés à
+  // dessein ; le titre explicite leur coût réel plutôt que de les fusionner.
+  healthBtn.title = "Vérification de disponibilité : gratuite, aucun token consommé, aucun contenu généré.";
   healthBtn.addEventListener(
     "click",
     stop(async () => {
@@ -315,10 +363,11 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
       );
     }),
   );
-  actions.appendChild(healthBtn);
+  actions.appendChild(buttonWithCostCaption(healthBtn, "Gratuit"));
 
   const testConnectionBtn = el("button", "admin-btn admin-btn--sm admin-btn--primary", "Tester la connexion");
   testConnectionBtn.type = "button";
+  testConnectionBtn.title = "Appel réel au fournisseur : consomme de vrais tokens (prompt + réponse).";
   testConnectionBtn.addEventListener(
     "click",
     stop(async () => {
@@ -337,7 +386,7 @@ function renderProviderCard(provider, { onProviderClick, onChanged, providersCou
       );
     }),
   );
-  actions.appendChild(testConnectionBtn);
+  actions.appendChild(buttonWithCostCaption(testConnectionBtn, "Coûte des tokens"));
 
   const deleteBtn = el("button", "admin-btn admin-btn--sm admin-btn--danger", "Supprimer");
   deleteBtn.type = "button";
@@ -413,7 +462,7 @@ export function openProviderModal({ mode, provider, allProviders, onSaved }) {
   const form = document.createElement("form");
   form.className = "admin-form-grid";
 
-  function field(labelText, key, { type = "text", full = false, value = "" } = {}) {
+  function field(target, labelText, key, { type = "text", full = false, value = "" } = {}) {
     const wrap = el("div", `admin-form-field${full ? " admin-form-field--full" : ""}`);
     wrap.dataset.field = key;
     wrap.appendChild(el("label", "admin-form-label", labelText));
@@ -424,12 +473,26 @@ export function openProviderModal({ mode, provider, allProviders, onSaved }) {
     if (type === "number") input.min = "0";
     input.value = value;
     wrap.appendChild(input);
-    form.appendChild(wrap);
+    target.appendChild(wrap);
     return input;
   }
 
-  const nameInput = field("Nom", "name", { value: provider?.name || "" });
-  const keySelect = field("provider_key", "provider_key", { type: "select" });
+  // Le nom reste seul, hors des deux blocs (identité du fournisseur, visible
+  // d'emblée, ni "configuration" ni "présentation" au sens de l'audit).
+  const nameInput = field(form, "Nom", "name", { value: provider?.name || "" });
+
+  // Audit admin (2026-10-22), point 6 : les 10 champs à plat de l'ancienne
+  // modale sont regroupés en 2 blocs visuels — "Configuration" (impacte le
+  // comportement réel du chatbot : provider_key/modèle/priorité/secours/
+  // activé) et "Présentation" (purement cosmétique, jamais lu par le
+  // chatbot : code/badge/icône/couleur/description), ce second bloc replié
+  // par défaut sous un <details>. AUCUN champ supprimé, AUCUNE validation
+  // changée — seule la présentation visuelle évolue.
+  const configSection = el("div", "admin-form-grid admin-form-field--full");
+  configSection.appendChild(el("h3", "admin-settings-subtitle", "Configuration"));
+  form.appendChild(configSection);
+
+  const keySelect = field(configSection, "provider_key", "provider_key", { type: "select" });
   PROVIDER_KEY_OPTIONS.forEach((key) => {
     const opt = document.createElement("option");
     opt.value = key;
@@ -437,19 +500,13 @@ export function openProviderModal({ mode, provider, allProviders, onSaved }) {
     keySelect.appendChild(opt);
   });
   keySelect.value = provider?.provider_key || PROVIDER_KEY_OPTIONS[0];
-  const modelInput = field("Modèle", "model_name", { value: provider?.model_name || "" });
-  const priorityInput = field("Priorité", "priority", { type: "number", value: provider?.priority ?? 0 });
-  const codeInput = field("Code", "code", {
-    value: provider?.code?.available ? provider.code.value : provider?.code || "",
+  const modelInput = field(configSection, "Modèle", "model_name", { value: provider?.model_name || "" });
+  const priorityInput = field(configSection, "Priorité", "priority", {
+    type: "number",
+    value: provider?.priority ?? 0,
   });
-  const badgeInput = field("Badge", "badge", { value: provider?.badge?.available ? provider.badge.value : "" });
-  const iconInput = field("Icône", "icon", { value: provider?.icon?.available ? provider.icon.value : "" });
-  const colorInput = field("Couleur", "color", {
-    value: provider?.color?.available ? provider.color.value : "#3B82F6",
-  });
-  colorInput.type = "color";
 
-  const fallbackSelect = field("Fournisseur de secours", "fallback_provider_id", { type: "select" });
+  const fallbackSelect = field(configSection, "Fournisseur de secours", "fallback_provider_id", { type: "select" });
   const noneOpt = document.createElement("option");
   noneOpt.value = "";
   noneOpt.textContent = "Aucun";
@@ -463,6 +520,38 @@ export function openProviderModal({ mode, provider, allProviders, onSaved }) {
   });
   if (provider?.fallback_provider?.available) fallbackSelect.value = String(provider.fallback_provider.value.id);
 
+  const enabledWrap = el("div", "admin-form-field admin-form-field--full admin-form-checkbox-row");
+  const enabledInput = document.createElement("input");
+  enabledInput.type = "checkbox";
+  enabledInput.checked = provider ? provider.enabled : true;
+  enabledWrap.appendChild(enabledInput);
+  enabledWrap.appendChild(el("span", null, "Fournisseur activé"));
+  configSection.appendChild(enabledWrap);
+
+  const presentationDetails = document.createElement("details");
+  presentationDetails.className = "admin-form-field--full admin-ai-provider-presentation";
+  const presentationSummary = document.createElement("summary");
+  presentationSummary.className = "admin-settings-subtitle";
+  presentationSummary.textContent = "Présentation (cosmétique — jamais lu par le chatbot)";
+  presentationDetails.appendChild(presentationSummary);
+  const presentationGrid = el("div", "admin-form-grid");
+  presentationDetails.appendChild(presentationGrid);
+  form.appendChild(presentationDetails);
+
+  const codeInput = field(presentationGrid, "Code", "code", {
+    value: provider?.code?.available ? provider.code.value : provider?.code || "",
+  });
+  const badgeInput = field(presentationGrid, "Badge", "badge", {
+    value: provider?.badge?.available ? provider.badge.value : "",
+  });
+  const iconInput = field(presentationGrid, "Icône", "icon", {
+    value: provider?.icon?.available ? provider.icon.value : "",
+  });
+  const colorInput = field(presentationGrid, "Couleur", "color", {
+    value: provider?.color?.available ? provider.color.value : "#3B82F6",
+  });
+  colorInput.type = "color";
+
   const descWrap = el("div", "admin-form-field admin-form-field--full");
   descWrap.dataset.field = "description";
   descWrap.appendChild(el("label", "admin-form-label", "Description"));
@@ -471,15 +560,7 @@ export function openProviderModal({ mode, provider, allProviders, onSaved }) {
   descInput.rows = 2;
   descInput.value = provider?.description?.available ? provider.description.value : "";
   descWrap.appendChild(descInput);
-  form.appendChild(descWrap);
-
-  const enabledWrap = el("div", "admin-form-field admin-form-field--full admin-form-checkbox-row");
-  const enabledInput = document.createElement("input");
-  enabledInput.type = "checkbox";
-  enabledInput.checked = provider ? provider.enabled : true;
-  enabledWrap.appendChild(enabledInput);
-  enabledWrap.appendChild(el("span", null, "Fournisseur activé"));
-  form.appendChild(enabledWrap);
+  presentationGrid.appendChild(descWrap);
 
   const actions = el("div", "admin-form-field--full admin-form-actions");
   const cancelBtn = el("button", "admin-btn", "Annuler");
@@ -593,22 +674,46 @@ function renderUsageItem(item) {
   return card;
 }
 
+// Audit admin (2026-10-22), point 5 : si TOUS les fournisseurs sont à
+// "aucune donnée" en même temps, le même message ("Aucun appel réel n'a
+// encore été comptabilisé...") apparaissait répété sur chaque carte —
+// remplacé par UN SEUL message global au-dessus de la liste, jamais répété.
+// Dès qu'AU MOINS un fournisseur a une donnée réelle, chaque carte retrouve
+// son propre état (vide ou rempli), pour ne jamais masquer une absence
+// ponctuelle sur un fournisseur précis parmi d'autres qui ont des données.
 function renderUsage(container, data) {
   container.innerHTML = "";
   if (!data.items) {
     container.appendChild(emptyState(data.reason));
     return;
   }
+  const allEmpty = data.items.length > 0 && data.items.every((item) => !item.usage.available);
+  if (allEmpty) {
+    container.appendChild(
+      emptyState(
+        `${EMPTY_LABEL} : aucun appel réel n'a encore été comptabilisé pour aucun fournisseur (ai_provider_usage n'est pas encore alimentée par le chatbot).`,
+      ),
+    );
+    return;
+  }
   data.items.forEach((item) => container.appendChild(renderUsageItem(item)));
 }
 
 // ── Carte 4 : Clés API (haute disponibilité, rotation automatique) ─────────
-// Affichage de la liste factorisé dans admin-api-keys.js (partagé avec
-// /admin/settings, qui affichait auparavant la même donnée via une
-// implémentation dupliquée) — `allowEdit` reste `false` ici volontairement :
-// le renommage/changement de priorité n'était accessible que depuis
-// /admin/settings (SUPER_ADMIN) avant ce chantier, jamais depuis /admin/ia
-// (ADMIN) ; ne pas l'activer ici préserve exactement cette frontière.
+// Finalisation du nettoyage admin (2026-10-22) : /admin/ia devient l'UNIQUE
+// emplacement de gestion des clés API (Paramètres ne garde qu'un lien, voir
+// admin-settings.js). `allowEdit: true` active ici le renommage/changement
+// de priorité — auparavant réservé à /admin/settings (SUPER_ADMIN), jamais
+// à /admin/ia (ADMIN). Vérifié avant d'activer : AUCUNE des routes
+// /api/admin/ai/keys/* (GET/POST/PATCH/DELETE/test, server.py) n'exige
+// SUPER_ADMIN — toutes sont gardées par le même rôle minimum ADMIN
+// (_AI_MODULE_ROLE), y compris le PATCH de renommage/priorité ; la
+// frontière "SUPER_ADMIN uniquement" n'existait qu'au niveau de la PAGE
+// /admin/settings, jamais au niveau de l'autorisation réelle de l'opération.
+// Activer `allowEdit` ici n'élargit donc aucune permission : un ADMIN
+// pouvait déjà techniquement appeler ce PATCH via l'API, il peut
+// maintenant aussi le faire depuis l'interface qu'il utilise déjà pour
+// tout le reste de la gestion des clés.
 
 export function openApiKeyModal({ onSaved }) {
   const overlay = document.getElementById("admin-ai-key-modal");
@@ -757,10 +862,15 @@ export async function loadAiOverview(onProviderClick) {
   if (keysEl) {
     try {
       const keysResp = await fetch("/api/admin/ai/keys", { credentials: "same-origin" });
-      const keys = keysResp.ok ? await keysResp.json() : [];
+      // Audit admin (2026-10-20), point 4 : une réponse HTTP en échec ne
+      // doit jamais être traitée comme "aucune clé" (un [] en cas d'erreur
+      // s'affichait exactement comme un [] légitime, via emptyMessage
+      // ci-dessous, qui affirme à tort qu'aucune clé n'est configurée).
+      if (!keysResp.ok) throw new Error(`HTTP ${keysResp.status}`);
+      const keys = await keysResp.json();
       renderApiKeysTable(keysEl, keys, {
         onChanged: refresh,
-        allowEdit: false,
+        allowEdit: true,
         emptyMessage:
           "Aucune clé API configurée — le fournisseur utilise la variable d'environnement historique (une seule clé, sans rotation).",
       });

@@ -15,6 +15,7 @@ import importlib
 import os
 import random
 import unittest
+import uuid
 
 import config
 import security_headers_service as shs
@@ -55,8 +56,17 @@ def _fake_ip():
 
 
 def _register(client):
-    email = f"secheaders{random.randint(1_000_000, 9_999_999)}@gmail.com"
-    username = f"secheaders{random.randint(100_000, 999_999)}"
+    # uuid4 (122 bits d'aléa) plutôt qu'un randint sur une plage étroite :
+    # la base SQLite de test est PARTAGÉE pour toute la session pytest (voir
+    # tests/conftest.py, jamais recréée par test/fichier), et ce helper est
+    # appelé plusieurs fois dans ce seul fichier — un randint sur 9e5/9e6
+    # valeurs expose un paradoxe des anniversaires non négligeable sur la
+    # durée de vie du projet (CI répétée des centaines de fois), déjà
+    # observé en CI (register -> 409 "déjà utilisée" sur un email/username
+    # try de coïncider avec un appel précédent).
+    unique = uuid.uuid4().hex
+    email = f"secheaders{unique}@gmail.com"
+    username = f"secheaders{unique[:15]}"
     resp = client.post("/api/auth/register", json={
         "email": email, "username": username, "pseudo": "Test",
         "birth_date": "2000-01-01",

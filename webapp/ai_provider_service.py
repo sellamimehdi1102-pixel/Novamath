@@ -188,7 +188,7 @@ _DEFAULT_SUBSCRIPTION_MAPPING = (
 
 def seed_default_providers():
     """Initialise ai_providers/subscription_ai_mapping avec les fournisseurs
-    actuels de NovaMath, une seule fois, puis complète les métadonnées
+    actuels de Mathadap, une seule fois, puis complète les métadonnées
     d'affichage (`code`/`description`/`badge`/`icon`/`color`) de tout
     fournisseur par défaut déjà présent qui ne les a pas encore (voir
     _backfill_default_metadata ci-dessous).
@@ -310,7 +310,7 @@ def increment_usage(provider_id, date, input_tokens=0, output_tokens=0, total_to
 # Gemini sous-évalué, Claude Sonnet 5 surévalué) :
 #   - Gemini 3 Flash Preview : https://ai.google.dev/gemini-api/docs/pricing
 #     (page datée 13/08/2026) — tarif Standard, tier texte/image/vidéo (le
-#     tarif audio, 1,00 $/M en entrée, ne s'applique jamais ici : NovaMath
+#     tarif audio, 1,00 $/M en entrée, ne s'applique jamais ici : Mathadap
 #     n'envoie que du texte).
 #   - Gemini 3.1 Pro Preview : idem, tier prompts <= 200k tokens (le tier
 #     > 200k, 4,00 $/12,00 $... 18,00 $, ne s'applique jamais aux échanges
@@ -484,11 +484,24 @@ def record_provider_fallback(provider_initial, model_initial, provider_final, mo
     par conversation_manager.py::_log_llm_call_details uniquement quand
     call_info["fallback_from"] est renseigné (le premier candidat tenté a
     échoué). Ne lève jamais d'exception, même logique de tolérance que
-    record_llm_usage() ci-dessus."""
+    record_llm_usage() ci-dessus.
+
+    Audit admin (2026-10-20), point 5 : le repli ULTIME vers "fake"
+    (FakeProvider, aucun fournisseur IA réel disponible — voir
+    chatbot/provider_manager.py::select_llm_for_user, qui renvoie
+    ("fake", None) dans ce cas précis) transmettait `model_final=None` tel
+    quel à une colonne SQL NOT NULL — l'INSERT levait une IntegrityError,
+    silencieusement avalée par le `except Exception` ci-dessous : l'incident
+    le PLUS GRAVE (plus aucune IA réelle ne répond) ne laissait alors
+    STRICTEMENT AUCUNE trace, ni ici ni dans l'historique des incidents
+    (voir system_health_service.list_incidents). Un placeholder non-NULL
+    explicite restaure l'enregistrement réel sans jamais prétendre qu'un
+    vrai modèle a répondu (voir list_incidents, qui détecte `provider_final
+    == "fake"` pour afficher "mode dégradé", jamais ce placeholder brut)."""
     try:
         db.create_ai_provider_fallback_event(
-            provider_initial, model_initial, provider_final, model_final, reason,
-            time_lost_ms=round(time_lost_ms) if time_lost_ms else 0,
+            provider_initial, model_initial, provider_final, model_final or "aucun",
+            reason, time_lost_ms=round(time_lost_ms) if time_lost_ms else 0,
         )
     except Exception:
         logger.exception("record_provider_fallback : échec de l'enregistrement — ignoré.")

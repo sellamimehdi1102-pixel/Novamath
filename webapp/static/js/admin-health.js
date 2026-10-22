@@ -130,8 +130,37 @@ function renderOverview(container, overview) {
   container.appendChild(simpleCard("Dernière vérification", formatDateTime(overview.checked_at)));
 }
 
+// "Disponibilité IA" (renommé, audit admin 2026-10-20) : availability()
+// côté backend ne mesure QUE les appels aux fournisseurs IA (exclusivement
+// dérivée de ai_request_logs, voir system_health_service.py::
+// _availability_for_window) — jamais SQLite/Stripe/SMTP. L'ancien libellé
+// "Disponibilité" laissait croire à une disponibilité globale du système.
+// Fusion des 3 cartes (24h/7j/30j) en UN SEUL message groupé UNIQUEMENT
+// quand les 3 fenêtres sont simultanément indisponibles (même raison dans
+// les 3 cas : échantillon < _MIN_SAMPLES_FOR_AVAILABILITY appels réels —
+// voir system_health_service.py) — répéter 3 fois "données insuffisantes"
+// n'apporte rien de plus qu'une seule fois (Chantier Santé, 2026-10-22). Dès
+// qu'AU MOINS UNE fenêtre a une vraie donnée, les 3 cartes reviennent
+// (une fenêtre avec données reste une information distincte des 2 autres,
+// jamais masquée).
 function renderAvailability(container, availability) {
   container.innerHTML = "";
+  const windows = [availability["24h"], availability["7j"], availability["30j"]];
+  if (windows.every((w) => !w || !w.available)) {
+    const reason = (windows.find((w) => w && w.reason) || {}).reason;
+    const card = el("article", "admin-card");
+    card.appendChild(el("div", "admin-card-label", "Disponibilité IA"));
+    card.appendChild(
+      el(
+        "div",
+        "admin-card-value admin-card-value--empty",
+        "Données insuffisantes sur toutes les fenêtres (24h/7j/30j).",
+      ),
+    );
+    if (reason) card.appendChild(el("div", "admin-card-sub", reason));
+    container.appendChild(card);
+    return;
+  }
   container.appendChild(metricCard("24 heures", availability["24h"], (v) => `${v}%`));
   container.appendChild(metricCard("7 jours", availability["7j"], (v) => `${v}%`));
   container.appendChild(metricCard("30 jours", availability["30j"], (v) => `${v}%`));
@@ -265,7 +294,12 @@ function renderAlerts(container, emptyEl, alerts) {
   });
 }
 
-// ── Historique des incidents (sous-bloc de Services) ────────────────────────
+// ── Incidents IA (sous-bloc de Services) ────────────────────────────────────
+// Renommé (audit admin 2026-10-20) : les 3 sources composées par
+// system_health_service.list_incidents() (ai_provider_fallback_events,
+// ai_admin_log, ai_provider_health) sont TOUTES liées à l'IA — jamais un
+// incident SQLite/Stripe/SMTP. L'ancien libellé "Historique des incidents"
+// laissait croire à une portée plus large que la réalité.
 function renderIncidents(container, emptyEl, items) {
   container.innerHTML = "";
   emptyEl.hidden = items.length > 0;
@@ -293,7 +327,7 @@ const SECTIONS = [
     open: true,
     bodyHtml: `
       <div class="admin-cards" id="admin-health-overview"></div>
-      <h3 class="admin-analytics-subtitle">Disponibilité</h3>
+      <h3 class="admin-analytics-subtitle">Disponibilité IA</h3>
       <div class="admin-cards" id="admin-health-availability"></div>
     `,
   },
@@ -304,7 +338,7 @@ const SECTIONS = [
     bodyHtml: `
       <div class="admin-ai-health-list" id="admin-health-services"></div>
       <div class="admin-section-head-row">
-        <h3 class="admin-analytics-subtitle" style="margin:0">Historique des incidents</h3>
+        <h3 class="admin-analytics-subtitle" style="margin:0">Incidents IA</h3>
         <select class="admin-form-select" id="admin-health-incidents-window" aria-label="Fenêtre de temps">
           <option value="24h">24 heures</option>
           <option value="7j" selected>7 jours</option>

@@ -3,7 +3,7 @@
 // délégués au backend (même architecture que admin-users.js/admin-journal.js,
 // réutilise .admin-users-table) — jamais de tri/filtre en mémoire côté client.
 import { debounce } from "./searchUtils.js";
-import { fetchTeamMembers } from "./admin-team-roles.js";
+import { fetchTeamMembers, describeTeamLoadIssues } from "./admin-team-roles.js";
 
 const SEARCH_DEBOUNCE_MS = 300;
 
@@ -211,17 +211,37 @@ export async function loadSupport(onRowClick) {
   populateSelect(prioritySelect, Object.entries(PRIORITY_LABELS), "Toutes les priorités");
 
   // Liste des administrateurs assignables (rôles d'équipe) — factorisée dans
-  // admin-team-roles.js (partagée avec admin-support-ticket.js).
-  try {
-    const admins = await fetchTeamMembers();
-    populateSelect(
-      assignedSelect,
-      [...admins].map(([id, name]) => [String(id), name]),
-      "Tous les assignataires",
-    );
-  } catch {
-    populateSelect(assignedSelect, [], "Tous les assignataires");
+  // admin-team-roles.js (partagée avec admin-support-ticket.js). Audit admin
+  // (2026-10-20), point 4 : un échec partiel ou une troncature par
+  // page_size n'est plus silencieux (voir loadAssignedFilter ci-dessous).
+  const warningEl = document.getElementById("admin-support-assigned-warning");
+  const warningTextEl = document.getElementById("admin-support-assigned-warning-text");
+  const retryBtn = document.getElementById("admin-support-assigned-retry");
+
+  async function loadAssignedFilter() {
+    try {
+      const { admins, failedRoles, incompleteRoles } = await fetchTeamMembers();
+      populateSelect(
+        assignedSelect,
+        [...admins].map(([id, name]) => [String(id), name]),
+        "Tous les assignataires",
+      );
+      const message = describeTeamLoadIssues(failedRoles, incompleteRoles);
+      if (warningEl) {
+        warningEl.hidden = !message;
+        if (message) warningTextEl.textContent = message;
+      }
+    } catch {
+      populateSelect(assignedSelect, [], "Tous les assignataires");
+      if (warningEl) {
+        warningEl.hidden = false;
+        warningTextEl.textContent = "Liste des assignataires indisponible (panne réseau).";
+      }
+    }
   }
+
+  await loadAssignedFilter();
+  if (retryBtn) retryBtn.onclick = loadAssignedFilter;
 
   async function refresh() {
     renderTableHead(theadRow, state, (sortKey) => {

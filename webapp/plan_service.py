@@ -1,5 +1,5 @@
 """
-Source unique de vérité des droits utilisateur (Feature Flags) pour NovaMath.
+Source unique de vérité des droits utilisateur (Feature Flags) pour Mathadap.
 
 Architecture stricte :
 

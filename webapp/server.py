@@ -1,5 +1,5 @@
 """
-Backend Flask pour l'interface web NovaMath.
+Backend Flask pour l'interface web Mathadap.
 Remplace l'UI Gradio de 06_quiz_app.py par une API JSON consommée par
 webapp/static/index.html + script.js, tout en gardant EXACTEMENT la même
 logique de sélection d'exercices et de prédiction de niveau (même
@@ -38,7 +38,9 @@ import admin_ai_log_service
 import admin_ai_service
 import admin_analytics_export_service
 import admin_analytics_service
+import admin_finance_service
 import admin_subscriptions_service
+import cloudflare_analytics_service
 import ai_provider_service
 import auth
 import backup_service
@@ -577,6 +579,11 @@ ai_provider_service.seed_default_providers()
 # quota_service.py : ne change strictement rien aux droits/quotas réellement
 # appliqués au chatbot.
 subscription_plan_service.seed_default_plans()
+# Audit admin (2026-10-20), point 3 : corrige le texte catalogue déjà
+# seedé AVANT ce chantier (seed_default_plans() ci-dessus ne retouche
+# jamais une ligne déjà existante) — idempotent, ne réécrit rien si le
+# texte est déjà à jour, ne touche à aucun autre champ.
+subscription_plan_service.migrate_stale_series_window_wording()
 # Socle de sécurité de l'espace Administration (voir role_service.py) —
 # promeut immédiatement en SUPER_ADMIN tout compte de NOVAMATH_SUPER_ADMIN_
 # EMAILS déjà existant en base, sans attendre sa prochaine connexion. Sûr à
@@ -1184,7 +1191,7 @@ def api_data_export():
     export["course_progress"] = read_user_course_progress(user["id"])
     export["exported_at"] = _date.today().isoformat()
     resp = jsonify(export)
-    resp.headers["Content-Disposition"] = f'attachment; filename="novamath_export_{user["id"]}.json"'
+    resp.headers["Content-Disposition"] = f'attachment; filename="mathadap_export_{user["id"]}.json"'
     return resp
 
 
@@ -3386,6 +3393,177 @@ def api_admin_subscription_set_active(plan):
     if not ok:
         return jsonify({"error": errors.get("_", "Action impossible.")}), 404
     return jsonify({"ok": True})
+
+
+# Réconciliation Stripe <-> DB locale — LECTURE SEULE (audit admin
+# 2026-10-20, point 2). Déclenchement exclusivement manuel (bouton admin),
+# jamais une tâche planifiée. `@rate_limit` protège le quota de fréquence
+# Stripe réel (un lot = jusqu'à `limit` appels Subscription.retrieve) contre
+# un double-clic/une boucle accidentelle côté frontend — jamais une
+# modification de données, uniquement des appels Stripe en lecture.
+@app.route("/api/admin/subscriptions/reconcile-stripe", methods=["POST"])
+@login_required
+@requires_role(_SUBSCRIPTIONS_MODULE_ROLE)
+@csrf_protect
+@rate_limit(requests=5, per_seconds=60)
+def api_admin_subscription_reconcile_stripe():
+    data = request.get_json(silent=True) or {}
+    offset = max(int(data.get("offset", 0) or 0), 0)
+    limit = data.get("limit")
+    limit = max(min(int(limit), 200), 1) if limit is not None else None
+    confirmed = bool(data.get("confirmed", False))
+    ok, result = admin_subscriptions_service.reconcile_stripe_logged(
+        _admin_actor(), limit=limit, offset=offset, confirmed=confirmed
+    )
+    if not ok:
+        # Un seul et même endpoint, 3 refus distincts et non ambigus pour le
+        # frontend (voir admin_subscriptions_service.reconcile_stripe_logged) :
+        # - 501 : Stripe non configuré du tout (comportement inchangé).
+        # - 403 : blocage DUR (Stripe production + serveur non-production) —
+        #   jamais contournable, même par un appel direct à cette route avec
+        #   confirmed=true (voir stripe_reconciliation_service.reconcile, qui
+        #   ignore `confirmed` dans ce cas précis).
+        # - 409 : Stripe production + serveur production, mais confirmation
+        #   manquante — l'appelant peut relancer avec confirmed=true.
+        code = result.get("code")
+        status = {"blocked_local_production": 403, "confirmation_required": 409}.get(code, 501)
+        return jsonify({"error": result.get("_", "Stripe n'est pas configuré."), "code": code}), status
+    return jsonify(result)
+
+
+# ── Module "Finance" (/admin/finance) — Phase 2A de l'audit admin
+# (2026-10-21). SUPER_ADMIN (voir admin_nav_service.py), même rôle minimum
+# que /admin/settings — données financières réelles, jamais ADMIN.
+#
+# `_map_financial_http_status` : UNE SEULE correspondance code->statut HTTP
+# pour les 3 routes Stripe ci-dessous (revenus, évolution, paiements) —
+# jamais dupliquée 3 fois, même principe que la route de réconciliation
+# Stripe au-dessus. Le garde-fou RÉEL vit dans stripe_access_guard.py
+# (appelé par stripe_financial_service.py), jamais ici : cette fonction ne
+# fait que traduire un refus déjà décidé en code HTTP.
+_FINANCE_MODULE_ROLE = admin_nav_service.module_by_path("/admin/finance").minimum_role
+
+
+def _map_financial_http_status(code):
+    return {"blocked_local_production": 403, "confirmation_required": 409}.get(code, 501)
+
+
+@app.route("/api/admin/finance/overview")
+@login_required
+@requires_role(_FINANCE_MODULE_ROLE)
+def api_admin_finance_overview():
+    """Abonnements/MRR (local, aucun appel Stripe) + bannière d'environnement
+    — toujours disponible, y compris si Stripe est bloqué/non configuré."""
+    return jsonify({
+        "stripe_environment": admin_finance_service.stripe_environment(),
+        "subscriptions": admin_finance_service.get_subscriptions_overview(),
+    })
+
+
+# `@rate_limit` : même limite que la réconciliation Stripe (5/60s) — chaque
+# appel déclenche jusqu'à MAX_PAGES x 2 requêtes Stripe réelles (Invoices +
+# Refunds), jamais un simple GET local.
+@app.route("/api/admin/finance/revenue")
+@login_required
+@requires_role(_FINANCE_MODULE_ROLE)
+@rate_limit(requests=5, per_seconds=60)
+def api_admin_finance_revenue():
+    days = request.args.get("days", 30)
+    try:
+        days = max(min(int(days), 365), 1)
+    except (TypeError, ValueError):
+        days = 30
+    confirmed = request.args.get("confirmed") == "true"
+    ok, result = admin_finance_service.get_revenue_report_logged(_admin_actor(), days=days, confirmed=confirmed)
+    if not ok:
+        code = result.get("code")
+        return jsonify({"error": result.get("_", "Stripe n'est pas configuré."), "code": code}), _map_financial_http_status(code)
+    return jsonify(result)
+
+
+@app.route("/api/admin/finance/revenue/series")
+@login_required
+@requires_role(_FINANCE_MODULE_ROLE)
+@rate_limit(requests=5, per_seconds=60)
+def api_admin_finance_revenue_series():
+    months = request.args.get("months", 6)
+    try:
+        months = max(min(int(months), 24), 1)
+    except (TypeError, ValueError):
+        months = 6
+    confirmed = request.args.get("confirmed") == "true"
+    ok, result = admin_finance_service.get_revenue_series_logged(_admin_actor(), months=months, confirmed=confirmed)
+    if not ok:
+        code = result.get("code")
+        return jsonify({"error": result.get("_", "Stripe n'est pas configuré."), "code": code}), _map_financial_http_status(code)
+    return jsonify(result)
+
+
+@app.route("/api/admin/finance/payments")
+@login_required
+@requires_role(_FINANCE_MODULE_ROLE)
+@rate_limit(requests=5, per_seconds=60)
+def api_admin_finance_payments():
+    limit = request.args.get("limit", 20)
+    try:
+        limit = max(min(int(limit), 100), 1)
+    except (TypeError, ValueError):
+        limit = 20
+    confirmed = request.args.get("confirmed") == "true"
+    ok, result = admin_finance_service.get_payments_report_logged(_admin_actor(), limit=limit, confirmed=confirmed)
+    if not ok:
+        code = result.get("code")
+        return jsonify({"error": result.get("_", "Stripe n'est pas configuré."), "code": code}), _map_financial_http_status(code)
+    return jsonify(result)
+
+
+# ── Fréquentation (Phase 2 Cloudflare, audit admin 2026-10-21) — lecture
+# seule des statistiques Cloudflare Web Analytics (visiteurs/pages vues du
+# site, données EXTERNES à Mathadap — voir cloudflare_analytics_service.py),
+# jamais les comptes/l'activité Mathadap (voir module "Analytics" pour
+# cela). ADMIN (décision validée explicitement pour ce module, plutôt que
+# SUPPORT comme "Analytics" interne) — voir admin_nav_service.py.
+_FREQUENTATION_MODULE_ROLE = admin_nav_service.module_by_path("/admin/frequentation").minimum_role
+
+
+@app.route("/api/admin/frequentation/filters")
+@login_required
+@requires_role(_FREQUENTATION_MODULE_ROLE)
+def api_admin_frequentation_filters():
+    return jsonify(cloudflare_analytics_service.list_filters())
+
+
+@app.route("/api/admin/frequentation/overview")
+@login_required
+@requires_role(_FREQUENTATION_MODULE_ROLE)
+def api_admin_frequentation_overview():
+    window = request.args.get("window", "30j")
+    payload, error = cloudflare_analytics_service.overview(window)
+    if error:
+        return jsonify({"error": error}), 400
+    return jsonify(payload)
+
+
+@app.route("/api/admin/frequentation/charts")
+@login_required
+@requires_role(_FREQUENTATION_MODULE_ROLE)
+def api_admin_frequentation_charts():
+    window = request.args.get("window", "30j")
+    payload, error = cloudflare_analytics_service.charts(window)
+    if error:
+        return jsonify({"error": error}), 400
+    return jsonify(payload)
+
+
+@app.route("/api/admin/frequentation/rankings")
+@login_required
+@requires_role(_FREQUENTATION_MODULE_ROLE)
+def api_admin_frequentation_rankings():
+    window = request.args.get("window", "30j")
+    payload, error = cloudflare_analytics_service.rankings(window)
+    if error:
+        return jsonify({"error": error}), 400
+    return jsonify(payload)
 
 
 # Tableau de bord développeur (Phase 4, Mission 8) — lecture seule, aucune

@@ -20,7 +20,7 @@ def build_greeting(context_summary):
 
     if not context_summary.get("total_exercises"):
         return (
-            f"{salutation} Je suis l'assistant NovaMath. Pose-moi une question sur un cours, "
+            f"{salutation} Je suis l'assistant Mathadap. Pose-moi une question sur un cours, "
             "un exercice qui bloque, ou dis-moi ce que tu veux réviser — je t'accompagne pas à pas."
         )
 

@@ -1,5 +1,5 @@
 """
-Système d'authentification NovaMath : inscription, connexion, session
+Système d'authentification Mathadap : inscription, connexion, session
 persistante, mot de passe oublié, et architecture prête pour l'OAuth
 (Google en premier, Microsoft/Apple/GitHub par extension du même mécanisme).
 
@@ -134,7 +134,7 @@ def validate_email(email):
 
 
 
-# Contrairement à EMAIL_RE (comptes NovaMath, restreints à Gmail), l'email
+# Contrairement à EMAIL_RE (comptes Mathadap, restreints à Gmail), l'email
 # d'un parent n'a aucune raison d'être limité à un fournisseur particulier —
 # format RFC 5322 simplifié, même tolérance que la plupart des validateurs
 # email côté serveur.
@@ -951,7 +951,7 @@ def register():
 
 # ── Consentement parental (RGPD, protection des mineurs) ───────────────────
 # Routes PUBLIQUES (aucune session requise — le parent qui ouvre le lien reçu
-# par email n'a, et ne doit jamais avoir besoin, de compte NovaMath). Seules
+# par email n'a, et ne doit jamais avoir besoin, de compte Mathadap). Seules
 # des informations minimales sont exposées (voir consent_service.
 # get_public_consent_info : jamais l'email du parent, uniquement le pseudo de
 # l'enfant, le statut et l'expiration).
@@ -1615,7 +1615,7 @@ def oauth_callback(provider):
 
     if request.args.get("error"):
         # L'utilisateur a refusé le consentement côté Google (ou une autre
-        # erreur du fournisseur) — pas une panne NovaMath, jamais journalisé
+        # erreur du fournisseur) — pas une panne Mathadap, jamais journalisé
         # comme un échec de sécurité.
         return _oauth_error_redirect("Connexion annulée.")
 
@@ -1723,7 +1723,7 @@ def oauth_complete_signup(provider):
     email = pending["email"]
     email, err = validate_email(email)
     if err:
-        # Compte Google valide mais hors du domaine accepté par NovaMath
+        # Compte Google valide mais hors du domaine accepté par Mathadap
         # (voir EMAIL_RE) — même contrainte que l'inscription classique.
         session.pop("pending_oauth_profile", None)
         return jsonify({"error": err, "field": "email"}), 400

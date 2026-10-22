@@ -23,9 +23,12 @@ function snapshot(overrides = {}) {
         available: true,
         value: [{ name: "Gemini Flash", enabled: true, last_success: "2026-08-25T10:00:00+00:00", last_failure: null }],
       },
+      // Contrat RÉEL de system_health_service.overview() (simplifié) : plus
+      // de total_services/ok_count — voir la régression "undefined/undefined
+      // opérationnels" couverte ci-dessous.
       health_status: {
         available: true,
-        value: { total_services: 3, ok_count: 3, down_count: 0, degraded_count: 0, global_status: "ok" },
+        value: { degraded_count: 0, down_count: 0, global_status: "ok", checked_at: "2026-10-20T10:00:00+00:00" },
       },
       support_status: { available: true, value: { open_count: 0, total_count: 5 } },
       server_errors: {
@@ -138,6 +141,71 @@ describe("admin-dashboard.js — carte Santé système + badge erreurs serveur",
     const badge = healthCard.querySelector(".admin-badge--error");
     expect(badge).not.toBeNull();
     expect(badge.textContent).toContain("4 depuis le dernier redémarrage");
+  });
+});
+
+describe("admin-dashboard.js — badge Santé système (contrat réel de overview(), sans total_services/ok_count)", () => {
+  it("statut ok : jamais 'undefined/undefined opérationnels' (régression corrigée)", async () => {
+    await mount(snapshot());
+    const cardsEl = document.getElementById("admin-cards");
+    expect(cardsEl.textContent).not.toContain("undefined");
+    expect(cardsEl.textContent).toContain("Tous les services opérationnels");
+  });
+
+  it("statut dégradé : nombre réel de services dégradés affiché", async () => {
+    await mount(
+      snapshot({
+        health_status: {
+          available: true,
+          value: {
+            degraded_count: 2,
+            down_count: 0,
+            global_status: "degraded",
+            checked_at: "2026-10-20T10:00:00+00:00",
+          },
+        },
+      }),
+    );
+    const cardsEl = document.getElementById("admin-cards");
+    expect(cardsEl.textContent).not.toContain("undefined");
+    expect(cardsEl.textContent).toContain("2 service(s) dégradé(s)");
+  });
+
+  it("statut indisponible : nombre réel de services en panne affiché", async () => {
+    await mount(
+      snapshot({
+        health_status: {
+          available: true,
+          value: { degraded_count: 0, down_count: 1, global_status: "down", checked_at: "2026-10-20T10:00:00+00:00" },
+        },
+      }),
+    );
+    const cardsEl = document.getElementById("admin-cards");
+    expect(cardsEl.textContent).not.toContain("undefined");
+    expect(cardsEl.textContent).toContain("1 service(s) en panne");
+  });
+});
+
+describe("admin-dashboard.js — distinction alertes d'état vs alertes de tendance", () => {
+  it("distingue les alertes d'état des alertes de tendance", async () => {
+    await mount({
+      ...snapshot(),
+      alerts: {
+        available: true,
+        value: [
+          {
+            level: "warning",
+            code: "paiements_en_echec",
+            message: "3 abonnement(s) en échec de paiement.",
+            link: { path: "/admin/subscriptions", label: "Voir les abonnements" },
+          },
+          { level: "critical", code: "hausse_erreurs", message: "Erreurs IA en hausse de 80%." },
+        ],
+      },
+    });
+    const activityEl = document.getElementById("admin-activity-body");
+    expect(activityEl.textContent).toContain("État");
+    expect(activityEl.textContent).toContain("Tendance");
   });
 });
 

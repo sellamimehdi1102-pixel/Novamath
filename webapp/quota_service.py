@@ -1,6 +1,6 @@
 """
 Source unique de vérité des quotas d'utilisation (limitations numériques
-quotidiennes) pour NovaMath.
+quotidiennes) pour Mathadap.
 
 Architecture stricte, identique à plan_service.py :
 

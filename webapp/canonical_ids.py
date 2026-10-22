@@ -1,5 +1,5 @@
 """
-Identifiants canoniques de NovaMath — point d'entrée unique pour tout système
+Identifiants canoniques de Mathadap — point d'entrée unique pour tout système
 (chatbot, dashboard, séries, recommandations, futur système de mémoire) qui a
 besoin de désigner un chapitre ou une notion sans ambiguïté.
 

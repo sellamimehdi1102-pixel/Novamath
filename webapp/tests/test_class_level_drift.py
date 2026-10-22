@@ -1,6 +1,6 @@
 """
 Suite "dérive de classe" (chantier 2026-08-23, Priorité 2) : prouve que le
-chatbot NovaMath personnalise réellement par class_level (Seconde/Première/
+chatbot Mathadap personnalise réellement par class_level (Seconde/Première/
 Troisième) et que le Current Learning Context d'une conversation ne peut plus
 être réutilisé aveuglément quand la classe active a changé depuis (même
 chapter_id réutilisé d'une classe à l'autre pour désigner un sujet

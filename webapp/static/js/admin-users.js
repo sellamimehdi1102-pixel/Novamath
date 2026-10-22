@@ -34,8 +34,6 @@ const ACCOUNT_STATUS_DOT_CLASS = {
   pending_parental_consent: "warning",
   parental_consent_refused: "down",
 };
-const PAYMENT_STATUS_LABELS = { failed: "Paiement en échec" };
-
 const COLUMNS = [
   { key: "avatar", label: "Avatar", sortable: false },
   { key: "name", label: "Nom", sortable: true, sortKey: "pseudo" },
@@ -244,7 +242,23 @@ export async function loadUsers(onRowClick) {
   populateSelect(planSelect, Object.entries(PLAN_LABELS), "Tous les abonnements");
   populateSelect(roleSelect, Object.entries(ROLE_LABELS), "Tous les rôles");
   populateSelect(statusSelect, Object.entries(ACCOUNT_STATUS_LABELS), "Tous les statuts");
-  populateSelect(paymentSelect, Object.entries(PAYMENT_STATUS_LABELS), "Tous les paiements");
+
+  // Filtre backend strictement inchangé (payment_status=failed) — seul le
+  // contrôle visuel change : un <select> avec une seule option réelle
+  // devient une case à cocher (audit utilité/densité).
+  function isAnyFilterActive() {
+    return Boolean(state.search || state.role || state.plan || state.account_status || state.payment_status);
+  }
+
+  function resetAllFilters() {
+    searchInput.value = "";
+    planSelect.value = "";
+    roleSelect.value = "";
+    statusSelect.value = "";
+    paymentSelect.checked = false;
+    Object.assign(state, initialState());
+    refresh();
+  }
 
   async function refresh() {
     renderTableHead(theadRow, state, (sortKey) => {
@@ -277,7 +291,21 @@ export async function loadUsers(onRowClick) {
 
     tbody.innerHTML = "";
     if (snapshot.items.length === 0) {
-      emptyEl.textContent = EMPTY_LABEL;
+      // Audit admin (2026-10-22) : "Aucune donnée disponible" (EMPTY_LABEL)
+      // est trompeur ici — ce n'est pas une absence de données, mais le
+      // résultat des filtres actifs. Même wording que le module Support ;
+      // bouton de réinitialisation affiché uniquement si un filtre est actif.
+      emptyEl.innerHTML = "";
+      emptyEl.appendChild(document.createTextNode("Aucun utilisateur ne correspond à ces critères."));
+      if (isAnyFilterActive()) {
+        const resetBtn = document.createElement("button");
+        resetBtn.type = "button";
+        resetBtn.className = "admin-btn admin-btn--sm";
+        resetBtn.textContent = "Réinitialiser les filtres";
+        resetBtn.addEventListener("click", resetAllFilters);
+        emptyEl.appendChild(document.createElement("br"));
+        emptyEl.appendChild(resetBtn);
+      }
       emptyEl.hidden = false;
       return;
     }
@@ -310,8 +338,9 @@ export async function loadUsers(onRowClick) {
     state.page = 1;
     refresh();
   });
+  // Case à cocher (plus un <select>) — filtre backend inchangé.
   paymentSelect.addEventListener("change", (e) => {
-    state.payment_status = e.target.value;
+    state.payment_status = e.target.checked ? "failed" : "";
     state.page = 1;
     refresh();
   });

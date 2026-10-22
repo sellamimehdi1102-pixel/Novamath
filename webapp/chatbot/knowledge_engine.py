@@ -1,5 +1,5 @@
 """
-Sait où aller chercher les connaissances pédagogiques NovaMath — ne contient
+Sait où aller chercher les connaissances pédagogiques Mathadap — ne contient
 aucune donnée lui-même. Source unique : les cours déjà écrits
 (webapp/static/data/cours/*.json — définitions, règles importantes, méthodes,
 erreurs fréquentes, points à retenir), lus directement, jamais dupliqués. Ce
@@ -63,7 +63,7 @@ def _resolve_class_level(class_level):
 
 
 def _load_notions(class_level=None):
-    """Construit les documents à indexer à partir des cours NovaMath existants
+    """Construit les documents à indexer à partir des cours Mathadap existants
     (source unique de vérité) — aucune copie persistée nulle part."""
     class_level = _resolve_class_level(class_level)
     profile = curriculum_registry.CURRICULUM_REGISTRY[class_level]
