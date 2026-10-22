@@ -1,5 +1,5 @@
 """
-Filet de sécurité de TOUT dernier recours de NovaMath : ne contacte AUCUNE
+Filet de sécurité de TOUT dernier recours de Mathadap : ne contacte AUCUNE
 API, n'est utilisé QUE si le fournisseur IA réellement actif (voir
 provider_manager.select_llm_for_user) a échoué à l'usage pour ce message
 précis — jamais un choix visible ou compris par l'élève. Respecte exactement
@@ -11,7 +11,7 @@ l'élève ne doit JAMAIS savoir qu'il existe plusieurs fournisseurs IA, lequel
 est actif, ni qu'un filet de sécurité local existe — aucun texte ci-dessous ne
 doit jamais nommer un fournisseur (Gemini/Claude/Ollama/...), une API, ou
 mentionner "intelligence artificielle"/"sans IA". Toute formulation reste
-naturelle et pédagogique, comme si NovaMath répondait lui-même.
+naturelle et pédagogique, comme si Mathadap répondait lui-même.
 
 Audit du mode dégradé (2026-07-26) : CE fournisseur n'est plus responsable de
 construire une réponse pédagogique à partir du Current Learning Context/de
@@ -66,7 +66,7 @@ class FakeProvider(ChatProvider):
         return {"ok": True, "detail": ""}
 
     def available_models(self):
-        return {MODEL_ID: "Moteur NovaMath (sans IA)"}
+        return {MODEL_ID: "Moteur Mathadap (sans IA)"}
 
     def current_model(self):
         return self._model

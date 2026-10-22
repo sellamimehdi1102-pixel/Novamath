@@ -1,5 +1,5 @@
 """
-Audit de la base de connaissances NovaMath — Phase 4, Missions 1 & 2.
+Audit de la base de connaissances Mathadap — Phase 4, Missions 1 & 2.
 
 Outil d'ANALYSE PURE (lecture seule) : ne modifie jamais un fichier de cours,
 ne prend aucune décision de réponse, n'est appelé par aucun moteur du

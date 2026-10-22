@@ -1,6 +1,10 @@
-// Module "Journal" (/admin/journal) — historique en lecture seule de toutes
-// les actions effectuées depuis le module Administration IA (voir
-// admin_ai_log_service.py / GET /api/admin/journal). Recherche/filtres/tri
+// Module "Journal d'administration" (/admin/journal) — historique en lecture
+// seule, générique à toute l'administration : IA, Abonnements, Analytics,
+// Sauvegardes et Finance (Stripe, lecture seule) — voir ACTIONS dans
+// admin_ai_log_service.py / GET /api/admin/journal pour la liste complète.
+// Renommé (chantier de simplification du panneau admin) : "Journal d'activité
+// IA" ne reflétait plus que les actions du module IA, alors que la majorité
+// des événements journalisés viennent d'autres modules. Recherche/filtres/tri
 // sont tous délégués au backend (jamais filtré en mémoire, même politique
 // que admin-users.js) — ce fichier réutilise volontairement le même
 // composant table (.admin-users-table) et le même motif de pagination.
@@ -366,7 +370,25 @@ export async function loadJournal() {
   const errorEl = document.getElementById("admin-global-error");
   const exportCsvBtn = document.getElementById("admin-journal-export-csv");
   const exportJsonBtn = document.getElementById("admin-journal-export-json");
+  const exportToggleBtn = document.getElementById("admin-journal-export-toggle");
+  const exportMenu = document.getElementById("admin-journal-export-menu");
   const filterChipsEl = document.getElementById("admin-journal-filter-chips");
+
+  // Chantier de simplification : un seul contrôle "Exporter" ouvre un menu à
+  // 2 choix (CSV/JSON) — remplace les 2 boutons séparés d'avant, sans
+  // toucher aux 2 mécanismes d'export eux-mêmes (voir plus bas).
+  if (exportToggleBtn && exportMenu) {
+    exportToggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const willOpen = exportMenu.hidden;
+      exportMenu.hidden = !willOpen;
+      exportToggleBtn.setAttribute("aria-expanded", String(willOpen));
+    });
+    document.addEventListener("click", () => {
+      exportMenu.hidden = true;
+      exportToggleBtn.setAttribute("aria-expanded", "false");
+    });
+  }
 
   const state = initialState();
   renderTableHead(theadRow);
@@ -398,27 +420,48 @@ export async function loadJournal() {
     refresh();
   }
 
-  try {
-    const res = await fetch("/api/admin/journal/filters", { credentials: "same-origin" });
-    const filters = await res.json().catch(() => ({ admins: [], providers: [], actions: [] }));
-    populateSelect(
-      adminSelect,
-      filters.admins.map((a) => [String(a.id), a.name]),
-      "Tous les administrateurs",
-    );
-    populateSelect(
-      providerSelect,
-      filters.providers.map((p) => [String(p.id), p.name]),
-      "Tous les fournisseurs",
-    );
-    populateSelect(
-      actionSelect,
-      filters.actions.map((a) => [a.value, a.label]),
-      "Toutes les actions",
-    );
-  } catch {
-    // Filtres non critiques : la liste principale reste consultable sans eux.
+  // Audit admin (2026-10-20), point 4 : un échec de /api/admin/journal/filters
+  // (HTTP ou réseau) n'est plus silencieux — la liste principale du journal
+  // reste consultable (non bloquant), mais un message explicite + un bouton
+  // Réessayer remplacent l'ancien `catch` vide.
+  const filtersWarningEl = document.getElementById("admin-journal-filters-warning");
+  const filtersWarningTextEl = document.getElementById("admin-journal-filters-warning-text");
+  const filtersRetryBtn = document.getElementById("admin-journal-filters-retry");
+
+  async function loadFilters() {
+    try {
+      const res = await fetch("/api/admin/journal/filters", { credentials: "same-origin" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const filters = await res.json();
+      populateSelect(
+        adminSelect,
+        (filters.admins || []).map((a) => [String(a.id), a.name]),
+        "Tous les administrateurs",
+      );
+      populateSelect(
+        providerSelect,
+        (filters.providers || []).map((p) => [String(p.id), p.name]),
+        "Tous les fournisseurs",
+      );
+      populateSelect(
+        actionSelect,
+        (filters.actions || []).map((a) => [a.value, a.label]),
+        "Toutes les actions",
+      );
+      if (filtersWarningEl) filtersWarningEl.hidden = true;
+    } catch {
+      // Filtres non critiques : la liste principale reste consultable sans
+      // eux — mais l'échec, lui, est désormais toujours signalé.
+      if (filtersWarningEl) {
+        filtersWarningEl.hidden = false;
+        filtersWarningTextEl.textContent =
+          "Les filtres Administrateur/Fournisseur/Action n'ont pas pu être chargés (réessaie ou utilise la recherche texte).";
+      }
+    }
   }
+
+  await loadFilters();
+  if (filtersRetryBtn) filtersRetryBtn.onclick = loadFilters;
   populateSelect(
     resultSelect,
     [
@@ -450,7 +493,10 @@ export async function loadJournal() {
 
     tbody.innerHTML = "";
     if (snapshot.items.length === 0) {
-      emptyEl.textContent = EMPTY_LABEL;
+      // Audit admin (2026-10-22) : "Aucune donnée disponible" (EMPTY_LABEL)
+      // est trompeur ici — ce n'est pas une absence de données, mais le
+      // résultat des filtres actifs. Même wording que le module Support.
+      emptyEl.textContent = "Aucun événement ne correspond à ces critères.";
       emptyEl.hidden = false;
       return;
     }
@@ -499,9 +545,11 @@ export async function loadJournal() {
   });
 
   exportCsvBtn.addEventListener("click", () => {
+    if (exportMenu) exportMenu.hidden = true;
     window.location.href = `/api/admin/journal/export.csv?${buildQuery(state)}`;
   });
   exportJsonBtn.addEventListener("click", async () => {
+    if (exportMenu) exportMenu.hidden = true;
     exportJsonBtn.disabled = true;
     const originalLabel = exportJsonBtn.textContent;
     exportJsonBtn.textContent = "Export en cours…";
@@ -512,7 +560,7 @@ export async function loadJournal() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = "journal-ia.json";
+      link.download = "journal-admin.json";
       link.click();
       URL.revokeObjectURL(url);
     } finally {

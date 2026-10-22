@@ -1,5 +1,5 @@
 """
-Couche Stripe Billing pour NovaMath : création/lecture de client, Checkout
+Couche Stripe Billing pour Mathadap : création/lecture de client, Checkout
 Session, abonnement, paiement, annulation, changement de plan.
 
 Même séparation que db.py : ce module ne contient aucune route Flask, aucune
@@ -12,7 +12,7 @@ dur dans le code), sur le même modèle que OAUTH_PROVIDERS dans auth.py :
 STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_PRICE_PREMIUM, STRIPE_PRICE_ULTRA.
 
 Le vocabulaire de plan (Plan.PREMIUM/Plan.ULTRA) vient de plan_service.py,
-seule source de vérité des plans NovaMath — ce module ne fait qu'utiliser ce
+seule source de vérité des plans Mathadap — ce module ne fait qu'utiliser ce
 type partagé pour parler à l'API Stripe, il ne décide jamais des droits
 utilisateur (voir plan_service.py pour cette responsabilité).
 """
@@ -41,7 +41,7 @@ class StripePlanUnknown(Exception):
 
 class StripePriceMismatch(Exception):
     """Levée par validate_stripe_prices() quand le montant réel d'un Price
-    Stripe configuré ne correspond pas au montant attendu par NovaMath."""
+    Stripe configuré ne correspond pas au montant attendu par Mathadap."""
 
 
 # Montants attendus (centimes) — mêmes valeurs que celles affichées côté
@@ -116,6 +116,30 @@ def is_configured():
     Utilisé par health_service.py (GET /api/health) : un health check ne
     doit jamais dépendre de la disponibilité d'un service tiers."""
     return not _looks_unconfigured(os.environ.get("STRIPE_SECRET_KEY"))
+
+
+def operating_mode():
+    """Mode Stripe déduit UNIQUEMENT du préfixe de STRIPE_SECRET_KEY — jamais
+    la clé elle-même, jamais loggée ni renvoyée dans aucune réponse JSON.
+    Audit admin (2026-10-20) : avant ce chantier, rien n'affichait si les
+    "revenus"/abonnements vus dans l'admin provenaient du bac à sable Stripe
+    (sk_test_...) ou de la vraie production (sk_live_...) — risque réel de
+    confusion pour un humain qui ne va pas vérifier le .env.
+
+    Renvoie l'une de : "test" (sk_test_...), "production" (sk_live_...),
+    "non_configure" (absente ou placeholder de .env.example, voir
+    _looks_unconfigured), "etat_inconnu" (une clé est présente mais ne
+    correspond à aucun des deux préfixes officiels Stripe — ne jamais
+    deviner, un `is_configured()` qui dirait "production" à tort serait pire
+    qu'une réponse honnête "état inconnu")."""
+    api_key = os.environ.get("STRIPE_SECRET_KEY")
+    if _looks_unconfigured(api_key):
+        return "non_configure"
+    if api_key.startswith("sk_test_"):
+        return "test"
+    if api_key.startswith("sk_live_"):
+        return "production"
+    return "etat_inconnu"
 
 
 def resolve_price_id(plan):
@@ -315,6 +339,53 @@ def validate_stripe_prices():
                 f"Price Stripe {price_id!r} (plan {plan.value}) a un montant de "
                 f"{actual_cents!r} centimes, attendu {expected_cents} centimes."
             )
+
+
+def _list_with_created_window(resource, limit, starting_after, created_gte, created_lte, **extra):
+    """Construit les kwargs communs à Invoice.list/Refund.list/
+    PaymentIntent.list — jamais de filtre `created` envoyé si ni gte ni lte
+    ne sont fournis (un dict `created={}` vide ferait échouer l'appel côté
+    Stripe avec une InvalidRequestError, vérifié dans la documentation de
+    l'API). Un seul point qui assemble ce filtre, pour que les 3 fonctions
+    de listing ci-dessous restent de simples appels SDK, sans logique
+    dupliquée trois fois."""
+    client = _client()
+    kwargs = {"limit": limit, **extra}
+    if starting_after:
+        kwargs["starting_after"] = starting_after
+    created = {}
+    if created_gte is not None:
+        created["gte"] = created_gte
+    if created_lte is not None:
+        created["lte"] = created_lte
+    if created:
+        kwargs["created"] = created
+    return _to_plain(getattr(client, resource).list(**kwargs))
+
+
+def list_all_invoices(limit=100, starting_after=None, created_gte=None, created_lte=None, status="paid"):
+    """Factures, TOUS clients confondus (contrairement à list_invoices
+    ci-dessus, scopée à un seul `customer_id` pour la page Facturation d'un
+    utilisateur) — utilisée par stripe_financial_service.py pour le tableau
+    de bord financier. `status="paid"` par défaut : une Invoice payée est
+    un encaissement réel (voir sa docstring pour la justification complète
+    du choix de cet objet plutôt que Charge)."""
+    extra = {"status": status} if status else {}
+    return _list_with_created_window("Invoice", limit, starting_after, created_gte, created_lte, **extra)
+
+
+def list_all_refunds(limit=100, starting_after=None, created_gte=None, created_lte=None):
+    """Remboursements, TOUS clients confondus — `created` filtre la date du
+    REMBOURSEMENT, pas celle du paiement d'origine (peut être antérieur à
+    la fenêtre demandée, voir stripe_financial_service.py)."""
+    return _list_with_created_window("Refund", limit, starting_after, created_gte, created_lte)
+
+
+def list_all_payment_intents(limit=20, starting_after=None, created_gte=None, created_lte=None):
+    """PaymentIntents, TOUS clients confondus — seule source qui expose un
+    paiement en ÉCHEC (une Invoice "paid" n'existe par définition que pour
+    un paiement réussi, voir list_all_invoices)."""
+    return _list_with_created_window("PaymentIntent", limit, starting_after, created_gte, created_lte)
 
 
 def construct_webhook_event(payload, sig_header):

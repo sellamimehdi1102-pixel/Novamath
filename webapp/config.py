@@ -116,8 +116,8 @@ BACKUP_AUTO_CHECK_INTERVAL_SECONDS = int(os.environ.get("BACKUP_AUTO_CHECK_INTER
 TWO_FACTOR_SECRET_KEY = os.environ.get("TWO_FACTOR_SECRET_KEY") or None
 
 # Nom affiché par l'application d'authentification (Google/Microsoft
-# Authenticator, Authy, 1Password, Bitwarden...) à côté du compte NovaMath.
-TWO_FACTOR_ISSUER = os.environ.get("TWO_FACTOR_ISSUER", "NovaMath")
+# Authenticator, Authy, 1Password, Bitwarden...) à côté du compte Mathadap.
+TWO_FACTOR_ISSUER = os.environ.get("TWO_FACTOR_ISSUER", "Mathadap")
 
 # En-têtes de sécurité HTTP (webapp/security_headers_service.py) — SEC-06.
 # Coupure d'urgence globale (CSP/HSTS/X-Frame-Options/etc.) : reste True dans
@@ -201,7 +201,7 @@ STRIPE_WEBHOOK_CLAIM_TIMEOUT_SECONDS = int(os.environ.get("STRIPE_WEBHOOK_CLAIM_
 # réellement envoyé, le lien concerné (consentement parental) est renvoyé en
 # clair dans la réponse JSON, comme dev_reset_link dans auth.py::forgot_
 # password — jamais une erreur, même philosophie que STRIPE_SECRET_KEY/
-# TWO_FACTOR_SECRET_KEY. À configurer pour que NovaMath soit réellement
+# TWO_FACTOR_SECRET_KEY. À configurer pour que Mathadap soit réellement
 # exploitable commercialement (consentement parental RGPD).
 EMAIL_SMTP_HOST = os.environ.get("EMAIL_SMTP_HOST") or None
 EMAIL_SMTP_PORT = int(os.environ.get("EMAIL_SMTP_PORT", "587"))
@@ -209,7 +209,7 @@ EMAIL_SMTP_USERNAME = os.environ.get("EMAIL_SMTP_USERNAME") or None
 EMAIL_SMTP_PASSWORD = os.environ.get("EMAIL_SMTP_PASSWORD") or None
 EMAIL_SMTP_USE_TLS = _env_flag("EMAIL_SMTP_USE_TLS", True)
 EMAIL_FROM_ADDRESS = os.environ.get("EMAIL_FROM_ADDRESS") or None
-EMAIL_FROM_NAME = os.environ.get("EMAIL_FROM_NAME", "NovaMath")
+EMAIL_FROM_NAME = os.environ.get("EMAIL_FROM_NAME", "Mathadap")
 
 # URL absolue de base utilisée UNIQUEMENT pour construire des liens cliquables
 # dans les emails (webapp/email_service.py) — un email ne peut pas utiliser de
@@ -232,3 +232,23 @@ PARENTAL_CONSENT_TOKEN_TTL_DAYS = int(os.environ.get("PARENTAL_CONSENT_TOKEN_TTL
 # multipart, sans jamais élargir aucune limite métier déjà en place (support :
 # 5 Mo par pièce jointe, voir support_attachment_service.MAX_SIZE_BYTES).
 MAX_CONTENT_LENGTH = int(os.environ.get("MAX_CONTENT_LENGTH", str(20 * 1024 * 1024)))
+
+# Lecture des statistiques de fréquentation Cloudflare Web Analytics dans
+# l'administration (webapp/cloudflare_analytics_service.py, module admin
+# "Fréquentation") — API GraphQL Analytics, jeton en lecture seule
+# ("Account Analytics Read" uniquement, jamais une clé API Cloudflare globale)
+# — même philosophie que STRIPE_SECRET_KEY/SENTRY_DSN : absente, le module
+# affiche "API non configurée" (voir cloudflare_analytics_service.py), jamais
+# une exception. Jamais exposé au frontend.
+CLOUDFLARE_API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN") or None
+# Identifiant de compte Cloudflare (pas un ID de zone/DNS) — requis par le
+# dataset GraphQL "rumPageloadEventsAdaptiveGroups", qui est au niveau du
+# compte, pas de la zone.
+CLOUDFLARE_ACCOUNT_TAG = os.environ.get("CLOUDFLARE_ACCOUNT_TAG") or None
+# Identifiant de la propriété Web Analytics (siteTag), distinct du zoneTag —
+# voir webapp/static/js/analyticsBeacon.js::BEACON_TOKEN, qui est la même
+# valeur publique (déjà visible dans le DOM du site) utilisée côté client
+# pour charger le beacon ; ici elle sert à FILTRER les requêtes GraphQL côté
+# serveur. Variable séparée (plutôt que réutiliser BEACON_TOKEN directement)
+# pour ne jamais faire dépendre le backend d'une constante JavaScript.
+CLOUDFLARE_SITE_TAG = os.environ.get("CLOUDFLARE_SITE_TAG") or None

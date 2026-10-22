@@ -1,5 +1,5 @@
 """
-Module Chatbot pédagogique NovaMath.
+Module Chatbot pédagogique Mathadap.
 
 Architecture en couches (Frontend -> Conversation Manager -> Prompt Builder ->
 Context Builder -> Rule Engine -> Provider Manager -> Provider -> API) :

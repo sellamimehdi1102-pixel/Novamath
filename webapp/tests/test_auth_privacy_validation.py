@@ -70,7 +70,7 @@ class TestValidateParentEmail(unittest.TestCase):
         self.assertEqual(value, "parent@example.com")
 
     def test_domaine_non_gmail_accepte(self):
-        """Contrairement à validate_email (comptes NovaMath, Gmail
+        """Contrairement à validate_email (comptes Mathadap, Gmail
         uniquement), l'email d'un parent n'est jamais restreint à un
         fournisseur particulier."""
         value, err = auth.validate_parent_email("parent@outlook.fr")

@@ -62,7 +62,8 @@ _CATEGORY_OVERVIEW_KEY = {
 }
 _CATEGORY_FIELDS = {
     "Utilisateurs": [
-        ("Utilisateurs inscrits", "total_registered"), ("Nouveaux utilisateurs", "new_users"),
+        ("Utilisateurs inscrits", "total_registered"), ("Comptes invités", "guest_accounts"),
+        ("Nouveaux utilisateurs", "new_users"),
         ("Utilisateurs actifs", "active_users"), ("Connexions", "logins"),
     ],
     "Chatbot": [
@@ -70,7 +71,7 @@ _CATEGORY_FIELDS = {
         ("Réponses assistant", "assistant_messages"),
     ],
     "IA": [
-        ("Appels IA", "calls"), ("Tokens", "tokens"), ("Coût ($)", "cost_usd"),
+        ("Appels IA", "calls"), ("Tokens", "tokens"), ("Coût estimé ($)", "cost_usd"),
         ("Latence moyenne (ms)", "avg_latency_ms"), ("Taux de succès (%)", "success_rate_pct"),
         ("Erreurs", "errors"), ("Fallbacks", "fallbacks"),
     ],
@@ -121,7 +122,7 @@ def build_csv(window="30j", date_from=None, date_to=None):
     overview = data["overview"]
     buf = io.StringIO()
     writer = csv.writer(buf)
-    writer.writerow(["NovaMath — Export Analytics"])
+    writer.writerow(["Mathadap — Export Analytics"])
     writer.writerow(["Période", overview["window"]["label"], overview["window"]["since"], overview["window"]["until"] or ""])
     writer.writerow([])
     for category in _CATEGORY_FIELDS:
@@ -132,7 +133,7 @@ def build_csv(window="30j", date_from=None, date_to=None):
             writer.writerow([label, value, note])
         writer.writerow([])
     content = buf.getvalue().encode("utf-8-sig")
-    filename = f"novamath_analytics_{window}_{_timestamp()}.csv"
+    filename = f"mathadap_analytics_{window}_{_timestamp()}.csv"
     return content, filename, None
 
 
@@ -181,7 +182,7 @@ def build_excel(window="30j", date_from=None, date_to=None):
         for category in _CATEGORY_FIELDS
         for label, metric in _category_rows(overview, category)
     ]
-    _write_kpi_sheet(ws, f"NovaMath Analytics — {overview['window']['label']}", general_rows)
+    _write_kpi_sheet(ws, f"Mathadap Analytics — {overview['window']['label']}", general_rows)
 
     for category in _CATEGORY_FIELDS:
         sheet = wb.create_sheet(category)
@@ -189,7 +190,7 @@ def build_excel(window="30j", date_from=None, date_to=None):
 
     buf = io.BytesIO()
     wb.save(buf)
-    filename = f"novamath_analytics_{window}_{_timestamp()}.xlsx"
+    filename = f"mathadap_analytics_{window}_{_timestamp()}.xlsx"
     return buf.getvalue(), filename, None
 
 
@@ -262,7 +263,7 @@ def _auto_summary(overview):
         parts.append(f"{tickets['value']} ticket(s) de support créé(s)")
     if not parts:
         return "Aucune activité mesurable n'a été enregistrée sur cette période."
-    return "Sur la période sélectionnée, NovaMath a enregistré " + ", ".join(parts) + "."
+    return "Sur la période sélectionnée, Mathadap a enregistré " + ", ".join(parts) + "."
 
 
 def _page_footer(canvas, doc):
@@ -270,7 +271,7 @@ def _page_footer(canvas, doc):
     canvas.setFont("Helvetica", 8)
     canvas.setFillColor(colors.HexColor("#9CA3AF"))
     canvas.drawRightString(A4[0] - 2 * cm, 1.2 * cm, f"Page {doc.page}")
-    canvas.drawString(2 * cm, 1.2 * cm, "NovaMath — Rapport Analytics")
+    canvas.drawString(2 * cm, 1.2 * cm, "Mathadap — Rapport Analytics")
     canvas.restoreState()
 
 
@@ -293,7 +294,7 @@ def build_pdf(window="30j", date_from=None, date_to=None, report_type_label=None
         leftMargin=2 * cm, rightMargin=2 * cm, topMargin=2 * cm, bottomMargin=2 * cm,
     )
     story = [
-        Paragraph("NovaMath", brand_style),
+        Paragraph("Mathadap", brand_style),
         Spacer(1, 4),
         Paragraph(report_type_label or "Rapport Analytics", title_style),
         Paragraph(f"Généré le {datetime.now(timezone.utc).strftime('%d/%m/%Y %H:%M')} UTC", meta_style),
@@ -319,7 +320,7 @@ def build_pdf(window="30j", date_from=None, date_to=None, report_type_label=None
 
     if rankings["ai"]["top_providers"]["available"]:
         story.append(Paragraph("Top fournisseurs IA", section_style))
-        rows = [["Fournisseur", "Requêtes", "Tokens", "Coût ($)"]]
+        rows = [["Fournisseur", "Requêtes", "Tokens", "Coût estimé ($)"]]
         for r in rankings["ai"]["top_providers"]["value"][:10]:
             rows.append([r["provider_key"], str(r["requests"]), str(r["total_tokens"]), f"{r['estimated_cost']:.4f}"])
         table = Table(rows, colWidths=[5 * cm, 3 * cm, 3 * cm, 3 * cm])
@@ -332,7 +333,7 @@ def build_pdf(window="30j", date_from=None, date_to=None, report_type_label=None
         story.append(table)
 
     doc.build(story, onFirstPage=_page_footer, onLaterPages=_page_footer)
-    filename = f"novamath_analytics_{window}_{_timestamp()}.pdf"
+    filename = f"mathadap_analytics_{window}_{_timestamp()}.pdf"
     return buf.getvalue(), filename, None
 
 

@@ -1,5 +1,5 @@
 """
-Envoi d'email pour NovaMath — SEC-04.
+Envoi d'email pour Mathadap — SEC-04.
 
 Architecture stricte, identique aux autres services :
 
@@ -8,7 +8,7 @@ Architecture stricte, identique aux autres services :
 jamais l'inverse. Ce module ne connaît rien de la base de données ni de la
 logique métier RGPD : il expose uniquement `send_email()` (transport SMTP
 générique) et des fonctions `build_*_email()` (contenu HTML/texte des emails
-NovaMath) : consentement parental, mise à jour de politique, et
+Mathadap) : consentement parental, mise à jour de politique, et
 réinitialisation de mot de passe (voir auth.py::forgot_password).
 
 Aucune nouvelle dépendance : `smtplib`/`email` (bibliothèque standard Python)
@@ -91,17 +91,17 @@ def _wrap_html(title, body_html, button_label=None, button_url=None):
     <h2 style="color:#1a1a2e;">{title}</h2>
     <div style="color:#333;line-height:1.6;">{body_html}</div>
     {button_html}
-    <p style="color:#999;font-size:12px;margin-top:32px;">NovaMath — Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
+    <p style="color:#999;font-size:12px;margin-top:32px;">Mathadap — Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
   </div>
 </body></html>"""
 
 
 def build_parental_consent_request_email(child_pseudo, consent_url, expires_at):
-    subject = f"NovaMath — Autorisation parentale pour {child_pseudo}"
+    subject = f"Mathadap — Autorisation parentale pour {child_pseudo}"
     html = _wrap_html(
         "Autorisation parentale requise",
         f"""<p>Bonjour,</p>
-        <p>Le compte NovaMath de <strong>{child_pseudo}</strong> nécessite votre autorisation
+        <p>Le compte Mathadap de <strong>{child_pseudo}</strong> nécessite votre autorisation
         pour être activé, conformément à la réglementation française sur la protection
         des mineurs (RGPD).</p>
         <p>Ce lien expire le {expires_at}.</p>""",
@@ -109,54 +109,54 @@ def build_parental_consent_request_email(child_pseudo, consent_url, expires_at):
         button_url=consent_url,
     )
     text = (
-        f"Le compte NovaMath de {child_pseudo} nécessite votre autorisation parentale.\n"
+        f"Le compte Mathadap de {child_pseudo} nécessite votre autorisation parentale.\n"
         f"Lien : {consent_url}\nCe lien expire le {expires_at}."
     )
     return subject, html, text
 
 
 def build_parental_consent_confirmed_email(child_pseudo):
-    subject = "NovaMath — Compte activé"
+    subject = "Mathadap — Compte activé"
     html = _wrap_html(
         "Compte activé",
-        f"<p>Bonjour {child_pseudo},</p><p>Ton parent a autorisé ton compte NovaMath : "
+        f"<p>Bonjour {child_pseudo},</p><p>Ton parent a autorisé ton compte Mathadap : "
         "tu peux maintenant te connecter et profiter de toutes les fonctionnalités.</p>",
     )
-    text = f"Bonjour {child_pseudo}, ton parent a autorisé ton compte NovaMath : tu peux maintenant te connecter."
+    text = f"Bonjour {child_pseudo}, ton parent a autorisé ton compte Mathadap : tu peux maintenant te connecter."
     return subject, html, text
 
 
 def build_parental_consent_refused_email(child_pseudo):
-    subject = "NovaMath — Autorisation refusée"
+    subject = "Mathadap — Autorisation refusée"
     html = _wrap_html(
         "Autorisation refusée",
         f"<p>Bonjour {child_pseudo},</p><p>Ton parent n'a pas autorisé la création de ton "
-        "compte NovaMath. Il restera inaccessible.</p>",
+        "compte Mathadap. Il restera inaccessible.</p>",
     )
-    text = f"Bonjour {child_pseudo}, ton parent n'a pas autorisé la création de ton compte NovaMath."
+    text = f"Bonjour {child_pseudo}, ton parent n'a pas autorisé la création de ton compte Mathadap."
     return subject, html, text
 
 
 def build_password_reset_email(pseudo, reset_url):
-    subject = "NovaMath — Réinitialisation de mot de passe"
+    subject = "Mathadap — Réinitialisation de mot de passe"
     html = _wrap_html(
         "Réinitialisation de mot de passe",
         f"""<p>Bonjour {pseudo},</p>
-        <p>Tu as demandé la réinitialisation de ton mot de passe NovaMath. Si tu n'es
+        <p>Tu as demandé la réinitialisation de ton mot de passe Mathadap. Si tu n'es
         pas à l'origine de cette demande, ignore simplement cet email : ton mot de
         passe actuel reste inchangé.</p>""",
         button_label="Réinitialiser mon mot de passe",
         button_url=reset_url,
     )
     text = (
-        f"Bonjour {pseudo}, tu as demandé la réinitialisation de ton mot de passe NovaMath.\n"
+        f"Bonjour {pseudo}, tu as demandé la réinitialisation de ton mot de passe Mathadap.\n"
         f"Lien : {reset_url}\nSi tu n'es pas à l'origine de cette demande, ignore cet email."
     )
     return subject, html, text
 
 
 def build_policy_updated_email(pseudo):
-    subject = "NovaMath — Mise à jour de la politique de confidentialité"
+    subject = "Mathadap — Mise à jour de la politique de confidentialité"
     html = _wrap_html(
         "Politique de confidentialité mise à jour",
         f"<p>Bonjour {pseudo},</p><p>Nos conditions d'utilisation et/ou notre politique de "

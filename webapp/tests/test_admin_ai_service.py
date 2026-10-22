@@ -105,5 +105,59 @@ class TestTotalTokensExposeParListUsage(_IsolatedDbTestCase):
         self.assertEqual(result["value"]["daily"][0]["total_tokens"], 12)
 
 
+class TestSerializeApiKeySuccessCount(_IsolatedDbTestCase):
+    """Audit admin (2026-10-20), point 6 : success_count calculé côté
+    backend (request_count - failure_count), source unique de vérité —
+    avant ce chantier, le frontend recalculait cette soustraction
+    localement, exposé à une divergence silencieuse si la définition
+    changeait côté serveur sans mise à jour correspondante du JS."""
+
+    def setUp(self):
+        super().setUp()
+        self.key_id = db.create_ai_provider_api_key("gemini", "Clé de test", "encrypted-placeholder", priority=0)
+
+    def test_success_count_egal_request_moins_failure(self):
+        db.record_ai_provider_api_key_result(self.key_id, success=True, response_time_ms=100)
+        db.record_ai_provider_api_key_result(self.key_id, success=True, response_time_ms=100)
+        db.record_ai_provider_api_key_result(self.key_id, success=False, response_time_ms=100, error="timeout")
+        row = db.get_ai_provider_api_key(self.key_id)
+        serialized = admin_ai_service._serialize_api_key(row)
+        self.assertEqual(serialized["request_count"], 3)
+        self.assertEqual(serialized["failure_count"], 1)
+        self.assertEqual(serialized["success_count"], 2)
+
+    def test_aucune_tentative_success_count_zero_jamais_negatif(self):
+        row = db.get_ai_provider_api_key(self.key_id)
+        serialized = admin_ai_service._serialize_api_key(row)
+        self.assertEqual(serialized["success_count"], 0)
+
+    def test_list_keys_http_expose_bien_success_count(self):
+        import server
+        from role_service import Role
+
+        client = server.app.test_client()
+        email = "adminaikeys@gmail.com"
+        resp = client.post("/api/auth/register", json={
+            "email": email, "username": "adminaikeys", "pseudo": "Test",
+            "birth_date": "2000-01-01",
+            "password": "MotDePasse123!", "confirm_password": "MotDePasse123!",
+            "accept_terms": True, "accept_privacy": True,
+        })
+        user_id = resp.get_json()["user"]["id"]
+        db.set_user_role(user_id, Role.ADMIN.value)
+        csrf = client.get_cookie("nm_csrf").value
+        headers = {"X-CSRF-Token": csrf}
+
+        db.record_ai_provider_api_key_result(self.key_id, success=True, response_time_ms=100)
+        db.record_ai_provider_api_key_result(self.key_id, success=False, response_time_ms=100, error="boom")
+
+        resp = client.get("/api/admin/ai/keys", headers=headers)
+        self.assertEqual(resp.status_code, 200)
+        keys = resp.get_json()
+        key = next(k for k in keys if k["id"] == self.key_id)
+        self.assertEqual(key["success_count"], 1)
+        db.delete_user(user_id)
+
+
 if __name__ == "__main__":
     unittest.main()

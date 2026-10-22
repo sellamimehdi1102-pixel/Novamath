@@ -74,7 +74,7 @@ def format_report(quality_sample_size=20):
     data = snapshot(quality_sample_size)
     p = data["pipeline"]
     lines = [
-        "=== Tableau de bord développeur NovaMath ===",
+        "=== Tableau de bord développeur Mathadap ===",
         f"Requêtes totales        : {p['total_requests']}",
         f"Réponses locales        : {p['local_responses']} ({p['local_response_rate_pct']}%)",
         f"Appels LLM              : {p['llm_calls']} ({p['llm_call_rate_pct']}%)",

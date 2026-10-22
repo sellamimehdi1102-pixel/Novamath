@@ -1,6 +1,6 @@
 """
 Service pour le module "Santé du système" (/admin/health) — centre d'ALERTE
-de NovaMath (pas un tableau d'observation) : vue d'ensemble, services
+de Mathadap (pas un tableau d'observation) : vue d'ensemble, services
 (SQLite/Stripe/SMTP/fournisseurs IA), incidents, disponibilité IA, base
 SQLite, stockage, serveur, alertes. Chaque champ conservé correspond à une
 décision concrète (investiguer un service précis, restaurer une sauvegarde,
@@ -99,10 +99,22 @@ def _parse_iso(value):
 
 
 # ── 1. Vue d'ensemble + 9. Cartes "Services" ────────────────────────────────
-def _sqlite_service(introspection):
+def _check_database_with_latency():
+    """Une seule connexion + "SELECT 1" réels (health_service.check_database()),
+    chronométrés une fois. Audit admin (2026-10-20) : avant ce correctif,
+    full_snapshot() déclenchait DEUX connexions SQLite distinctes pour
+    exactement la même information (une via _sqlite_service(), une autre via
+    database_info()) — le résultat (ok, latency_ms) est désormais calculé une
+    seule fois par cycle de requête et réutilisé partout où il est
+    nécessaire (voir list_services()/database_info()/full_snapshot())."""
     started = time.perf_counter()
     ok = health_service.check_database()
     latency_ms = round((time.perf_counter() - started) * 1000)
+    return ok, latency_ms
+
+
+def _sqlite_service(introspection, db_check):
+    ok, latency_ms = db_check
     now_iso = _now().isoformat()
     return {
         "id": "sqlite", "name": "Base SQLite", "state": "ok" if ok else "down",
@@ -168,7 +180,7 @@ def _ai_provider_service_card(provider):
     }
 
 
-def list_services(introspection=None):
+def list_services(introspection=None, db_check=None):
     """Cartes de la Partie 9 ("SQLite"/"Stripe"/"SMTP"/un fournisseur IA par
     ligne de ai_providers, ex : "Gemini Flash"/"Gemini Pro"/"Claude"). "Fake"/
     "Ollama" n'apparaissent que s'ils ont été enregistrés dans ai_providers
@@ -176,15 +188,19 @@ def list_services(introspection=None):
     configuré. `introspection` : résultat déjà calculé de
     db.sqlite_introspection(), pour éviter de le recalculer (COUNT(*) sur
     chaque table) plusieurs fois par requête — recalculé ici seulement si
-    absent."""
+    absent. `db_check` : idem pour le couple (ok, latency_ms) de
+    _check_database_with_latency() — voir sa docstring (une seule connexion
+    SQLite réelle par cycle de requête, jamais deux)."""
     if introspection is None:
         introspection = db.sqlite_introspection()
-    services = [_sqlite_service(introspection), _stripe_service(), _smtp_service()]
+    if db_check is None:
+        db_check = _check_database_with_latency()
+    services = [_sqlite_service(introspection, db_check), _stripe_service(), _smtp_service()]
     services += [_ai_provider_service_card(p) for p in ai_svc.list_providers()]
     return services
 
 
-def overview(introspection=None):
+def overview(introspection=None, services=None):
     """Partie 1 : vue d'ensemble résumée, calculée à partir de list_services().
 
     `total_services`/`ok_count`/`untested_count` et les moyennes globales
@@ -192,8 +208,12 @@ def overview(introspection=None):
     un seul chiffre non actionnable) ont été retirés (chantier de
     simplification de la page Santé) : seuls `degraded_count`/`down_count`
     restent, pour jauger la sévérité à côté du badge `global_status` — le
-    détail précis (quel service, quelle latence) reste dans list_services()."""
-    services = list_services(introspection)
+    détail précis (quel service, quelle latence) reste dans list_services().
+    `services` : résultat déjà calculé de list_services(), pour éviter une
+    deuxième connexion SQLite de vérification dans le même cycle de requête
+    (voir full_snapshot()) — recalculé ici seulement si absent."""
+    if services is None:
+        services = list_services(introspection)
     degraded_count = sum(1 for s in services if s["state"] == "degraded")
     down_count = sum(1 for s in services if s["state"] == "down")
 
@@ -212,7 +232,8 @@ def overview(introspection=None):
     }
 
 
-# ── 4. Historique des incidents ──────────────────────────────────────────────
+# ── 4. Incidents IA (renommé, audit admin 2026-10-20 : les 3 sources ───────
+# composées ci-dessous sont toutes liées à l'IA, jamais à SQLite/Stripe/SMTP)
 def list_incidents(window="7j"):
     """Partie 4 : chronologie fusionnée à partir de TROIS sources réelles déjà
     existantes — ai_provider_fallback_events (bascules réelles),
@@ -224,15 +245,36 @@ def list_incidents(window="7j"):
     events = []
 
     for ev in db.list_ai_provider_fallback_events(since_iso=since_iso, limit=500):
-        events.append({
-            "created_at": ev["created_at"],
-            "service": f"{ev['provider_initial']} → {ev['provider_final']}",
-            "level": "warning",
-            "message": (
+        # Audit admin (2026-10-20), point 5 : "fake" (FakeProvider, voir
+        # chatbot/provider_manager.py) est le repli ULTIME quand aucun
+        # fournisseur IA réel n'est disponible — jamais une vraie API
+        # externe. Avant ce correctif, cet événement s'affichait tel quel
+        # ("... → fake/None"), illisible, et la résolution affirmait à tort
+        # qu'un "fournisseur de secours" avait pris le relais avec succès
+        # (en réalité : aucune IA n'a répondu, seulement une réponse locale
+        # de repli). Seul le LIBELLÉ change ici, jamais les données
+        # enregistrées (provider_final reste "fake" en base, inchangé).
+        if ev["provider_final"] == "fake":
+            service_label = f"{ev['provider_initial']} → mode dégradé (réponse locale)"
+            message = (
+                f"Aucun fournisseur IA réel disponible ({ev['reason'] or 'raison non précisée'}) après "
+                f"{ev['provider_initial']}/{ev['model_initial']} : réponse automatique du moteur local "
+                f"(aucune IA externe n'a traité cette requête)."
+            )
+            resolution = "Dégradé — aucun fournisseur IA réel n'a pris le relais, à surveiller si répété."
+        else:
+            service_label = f"{ev['provider_initial']} → {ev['provider_final']}"
+            message = (
                 f"Bascule automatique ({ev['reason'] or 'raison non précisée'}) : "
                 f"{ev['provider_initial']}/{ev['model_initial']} → {ev['provider_final']}/{ev['model_final']}."
-            ),
-            "resolution": "Résolu (le fournisseur de secours a pris le relais avec succès).",
+            )
+            resolution = "Résolu (le fournisseur de secours a pris le relais avec succès)."
+        events.append({
+            "created_at": ev["created_at"],
+            "service": service_label,
+            "level": "warning" if ev["provider_final"] != "fake" else "critical",
+            "message": message,
+            "resolution": resolution,
             "duration_ms": ev["time_lost_ms"],
         })
 
@@ -275,7 +317,8 @@ def list_incidents(window="7j"):
     return events
 
 
-# ── 5. Disponibilité ──────────────────────────────────────────────────────────
+# ── 5. Disponibilité IA (renommé, audit admin 2026-10-20 : exclusivement ──
+# dérivée de ai_request_logs, jamais SQLite/Stripe/SMTP, voir availability())
 _MIN_SAMPLES_FOR_AVAILABILITY = 5
 
 
@@ -302,15 +345,22 @@ def availability():
 
 
 # ── 6. Base SQLite ────────────────────────────────────────────────────────────
-def database_info(introspection=None):
+def database_info(introspection=None, db_check=None):
+    """`db_check` : idem list_services()/overview() — réutilise le couple
+    (ok, latency_ms) déjà calculé par _check_database_with_latency() au lieu
+    d'ouvrir une deuxième connexion SQLite "SELECT 1" pour la même
+    information dans le même cycle de requête (voir full_snapshot())."""
     if introspection is None:
         introspection = db.sqlite_introspection()
+    if db_check is None:
+        db_check = _check_database_with_latency()
+    ok, _latency_ms = db_check
     backups = backup_service.list_backups()
     last_backup = _ok(backups[0]) if backups else _na(
         "Aucune sauvegarde trouvée dans le dossier de sauvegarde (voir backup_service.backup_dir())."
     )
     return {
-        "state": _ok("ok") if health_service.check_database() else _ok("down"),
+        "state": _ok("ok") if ok else _ok("down"),
         "introspection": _ok(introspection) if introspection is not None else _na(
             "Moteur PostgreSQL actif : PRAGMA integrity_check/sqlite_master ne s'appliquent qu'à SQLite."
         ),
@@ -353,7 +403,7 @@ def storage_info():
 # pratique ici (chantier de simplification de la page Santé).
 # `ram_available_bytes`/`process_count` retirés : redondants avec ram_percent
 # (même fait, deux présentations) ou non actionnables (nombre de process OS
-# entier, pas spécifique à NovaMath). `avg_backend_time_ms` retiré : doublon
+# entier, pas spécifique à Mathadap). `avg_backend_time_ms` retiré : doublon
 # exact de `avg_api_response_time_ms` (même variable), jamais affiché sous ce
 # second nom.
 def server_info():
@@ -444,12 +494,20 @@ def list_alerts():
 # fournisseur duplique intégralement /admin/ia (déjà retiré du rendu
 # frontend dans un chantier antérieur, jamais suivi côté backend).
 def full_snapshot():
+    """Audit admin (2026-10-20) : `introspection` et le couple (ok,
+    latency_ms) de la vérification SQLite sont calculés UNE SEULE FOIS ici
+    et réutilisés par overview()/list_services()/database_info() — avant ce
+    correctif, cette fonction déclenchait deux connexions SQLite "SELECT 1"
+    distinctes (une via list_services()→_sqlite_service(), une autre via
+    database_info()) pour exactement la même information."""
     introspection = db.sqlite_introspection()
+    db_check = _check_database_with_latency()
+    services = list_services(introspection, db_check=db_check)
     return {
-        "overview": overview(introspection),
-        "services": list_services(introspection),
+        "overview": overview(introspection, services=services),
+        "services": services,
         "availability": availability(),
-        "database": database_info(introspection),
+        "database": database_info(introspection, db_check=db_check),
         "storage": storage_info(),
         "server": server_info(),
         "alerts": list_alerts(),

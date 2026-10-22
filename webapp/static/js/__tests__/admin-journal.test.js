@@ -99,6 +99,27 @@ describe("admin-journal.js — chargement et rendu", () => {
     expect(document.getElementById("admin-journal-empty").hidden).toBe(false);
   });
 
+  // Audit utilité/densité (2026-10-22) : "Aucune donnée disponible" était
+  // trompeur (laisse croire à une absence de données plutôt qu'à des
+  // filtres trop restrictifs).
+  it("état vide : le texte contextuel remplace 'Aucune donnée disponible'", async () => {
+    await mount({ journal: journalPayload({ items: [], total: 0, total_pages: 1 }) });
+    expect(document.getElementById("admin-journal-empty").textContent).toBe(
+      "Aucun événement ne correspond à ces critères.",
+    );
+  });
+
+  // Renommage (chantier de simplification du panneau admin) : "Journal
+  // d'activité IA" ne reflétait plus que les actions du module IA, alors que
+  // ce journal couvre aussi Abonnements/Analytics/Sauvegardes/Finance (voir
+  // admin_ai_log_service.ACTIONS). Le nom de navigation ("Journal", voir
+  // admin_nav_service.py) était déjà générique et reste inchangé.
+  it("le titre de la page est 'Journal d'administration' (plus 'Journal d'activité IA')", async () => {
+    await mount();
+    const heading = document.querySelector("#admin-content-body h1");
+    expect(heading.textContent).toBe("Journal d'administration");
+  });
+
   it("échec réseau -> message d'erreur, sans planter la page", async () => {
     await mount({
       fail: [
@@ -152,6 +173,62 @@ describe("admin-journal.js — filtres et recherche", () => {
     await flushPromises();
 
     expect(fetchLog.some((u) => u.includes("search=Gemini"))).toBe(true);
+  });
+});
+
+// Audit admin (2026-10-20), point 4 : un échec de /api/admin/journal/filters
+// doit être signalé explicitement (jamais un catch vide silencieux), tout
+// en laissant la liste principale du journal consultable.
+describe("admin-journal.js — échec des filtres (jamais silencieux)", () => {
+  it("affiche un avertissement explicite et garde la liste principale consultable", async () => {
+    await mount({ fail: ["/api/admin/journal/filters"] });
+    const warningEl = document.getElementById("admin-journal-filters-warning");
+    expect(warningEl.hidden).toBe(false);
+    expect(warningEl.textContent).toMatch(/filtres.*n'ont pas pu être chargés/i);
+    // La table principale reste chargée malgré l'échec des filtres.
+    expect(document.getElementById("admin-journal-tbody").textContent).toContain("Mehdi");
+  });
+
+  it("le bouton Réessayer relance le chargement des filtres et masque l'avertissement en cas de succès", async () => {
+    let shouldFail = true;
+    global.fetch = vi.fn((url) => {
+      if (url === "/api/admin/me") {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ name: "Mehdi", email: "a@b.c", role: "super_admin", avatar: null }),
+        });
+      }
+      if (url === "/api/admin/nav") {
+        return Promise.resolve({ ok: true, json: () => Promise.resolve({ modules: NAV_WITH_JOURNAL }) });
+      }
+      if (url === "/api/admin/journal/filters") {
+        if (shouldFail)
+          return Promise.resolve({ ok: false, status: 500, json: () => Promise.resolve({ error: "boom" }) });
+        return Promise.resolve({ ok: true, json: () => Promise.resolve(FILTERS_PAYLOAD) });
+      }
+      if (url.startsWith("/api/admin/journal")) {
+        return Promise.resolve({ ok: true, json: () => Promise.resolve(journalPayload()) });
+      }
+      return Promise.resolve({ ok: false, status: 404, json: () => Promise.resolve({ error: "not found" }) });
+    });
+    window.history.pushState({}, "", "/admin/journal");
+    document.body.innerHTML = loadPageBody("admin.html");
+    vi.resetModules();
+    mockLoadDashboard.mockClear();
+    const { initAdminShell } = await import("../admin-shell.js");
+    await initAdminShell();
+    await flushPromises();
+
+    const warningEl = document.getElementById("admin-journal-filters-warning");
+    expect(warningEl.hidden).toBe(false);
+
+    shouldFail = false;
+    document.getElementById("admin-journal-filters-retry").click();
+    await flushPromises();
+
+    expect(warningEl.hidden).toBe(true);
+    const adminSelect = document.getElementById("admin-journal-filter-admin");
+    expect([...adminSelect.options].some((o) => o.textContent === "Mehdi")).toBe(true);
   });
 });
 
@@ -210,6 +287,63 @@ describe("admin-journal.js — export", () => {
     await flushPromises();
     expect(fetchLog.some((u) => u.startsWith("/api/admin/journal/export.json"))).toBe(true);
     expect(createObjectURL).toHaveBeenCalled();
+  });
+
+  // Renommage du module (plus seulement "IA") : le fichier téléchargé ne doit
+  // plus porter l'ancien nom "journal-ia.json".
+  it("le fichier JSON téléchargé s'appelle 'journal-admin.json' (plus 'journal-ia.json')", async () => {
+    await mount();
+    fetchLog = [];
+    global.URL.createObjectURL = vi.fn(() => "blob:fake");
+    global.URL.revokeObjectURL = vi.fn();
+    const realCreateElement = document.createElement.bind(document);
+    let anchor;
+    const createElementSpy = vi.spyOn(document, "createElement").mockImplementation((tag) => {
+      const node = realCreateElement(tag);
+      if (tag === "a") anchor = node;
+      return node;
+    });
+
+    document.getElementById("admin-journal-export-json").click();
+    await flushPromises();
+
+    expect(anchor.download).toBe("journal-admin.json");
+    createElementSpy.mockRestore();
+  });
+
+  // Chantier de simplification (audit utilité/densité, 2026-10-22) : les 2
+  // boutons "Exporter CSV"/"Exporter JSON" sont fusionnés en un seul contrôle
+  // (menu déroulant) — ce bloc vérifie le comportement du menu lui-même, les
+  // 2 tests ci-dessus vérifient déjà que les 2 mécanismes d'export marchent
+  // toujours (ils n'ont pas besoin que le menu soit ouvert pour cliquer).
+  describe("menu déroulant unique", () => {
+    it("le menu est fermé par défaut et s'ouvre au clic sur 'Exporter'", async () => {
+      await mount();
+      const menu = document.getElementById("admin-journal-export-menu");
+      expect(menu.hidden).toBe(true);
+
+      document.getElementById("admin-journal-export-toggle").click();
+      expect(menu.hidden).toBe(false);
+    });
+
+    it("cliquer en dehors du menu le referme", async () => {
+      await mount();
+      const menu = document.getElementById("admin-journal-export-menu");
+      document.getElementById("admin-journal-export-toggle").click();
+      expect(menu.hidden).toBe(false);
+
+      document.body.click();
+      expect(menu.hidden).toBe(true);
+    });
+
+    it("le menu contient toujours les 2 options CSV et JSON", async () => {
+      await mount();
+      document.getElementById("admin-journal-export-toggle").click();
+      const menu = document.getElementById("admin-journal-export-menu");
+      expect(menu.textContent).toContain("CSV");
+      expect(menu.textContent).toContain("JSON");
+      expect(document.querySelectorAll("#admin-journal-export-menu button").length).toBe(2);
+    });
   });
 });
 

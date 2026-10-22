@@ -143,7 +143,7 @@ def _ollama_really_running():
 @unittest.skipUnless(_ollama_really_running(), "Aucun serveur Ollama réel joignable sur cette machine (`ollama serve`).")
 class TestIntegrationReelleSiOllamaTourne(unittest.TestCase):
     """Jamais mocké — exécuté uniquement si un vrai serveur Ollama local
-    répond. Reflète l'usage réel de NovaMath (CHATBOT_PROVIDER=ollama)."""
+    répond. Reflète l'usage réel de Mathadap (CHATBOT_PROVIDER=ollama)."""
 
     def test_health_reel(self):
         result = OllamaProvider().health()

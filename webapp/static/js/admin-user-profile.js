@@ -42,10 +42,15 @@ const ROLE_LABELS = {
   admin: "Admin",
   super_admin: "Super admin",
 };
+// Mêmes 3 libellés EXACTS que admin-users.js::ACCOUNT_STATUS_LABELS (liste
+// Utilisateurs) — unification Chantier Administrateur "Utilisateurs"
+// (Phase 2 bis) : ce fichier utilisait auparavant un wording légèrement
+// différent ("Consentement parental en attente/refusé") pour la même donnée
+// `users.account_status`, jamais un second libellé pour la même valeur.
 const ACCOUNT_STATUS_LABELS = {
   active: "Actif",
-  pending_parental_consent: "Consentement parental en attente",
-  parental_consent_refused: "Consentement parental refusé",
+  pending_parental_consent: "En attente de consentement",
+  parental_consent_refused: "Consentement refusé",
 };
 // auth_provider réel (users.auth_provider) — seul "google" est un
 // fournisseur OAuth réellement configuré aujourd'hui (voir auth.py::
@@ -172,12 +177,13 @@ function renderHeader(profile) {
 }
 
 // ── 1. Informations ──────────────────────────────────────────────────────
+// Chantier de simplification (audit utilité/densité, 2026-10-22) : pseudo,
+// email, rôle et état du compte sont retirés de cette grille — ils font un
+// doublon EXACT avec l'en-tête déjà affiché au-dessus (voir renderHeader),
+// toujours visible quel que soit l'onglet actif. Seules les données qui n'y
+// figurent PAS restent ici.
 function renderProfileTab(data) {
   const grid = el("div", "admin-fields-grid");
-  grid.appendChild(fieldRow("Pseudo", { available: true, value: data.pseudo }));
-  grid.appendChild(fieldRow("Adresse email", { available: true, value: data.email }));
-  grid.appendChild(fieldRow("Rôle", data.role, (v) => ROLE_LABELS[v] || v));
-  grid.appendChild(fieldRow("État du compte", data.account_status, (v) => ACCOUNT_STATUS_LABELS[v] || v));
   grid.appendChild(fieldRow("Date de création", data.created_at, formatDateTime));
   grid.appendChild(fieldRow("Dernière connexion", data.last_login_at, formatDateTime));
   grid.appendChild(fieldRow("Temps passé", data.total_time_s, formatDuration));
@@ -409,18 +415,41 @@ function renderAiConsumptionBody(data) {
     return wrap;
   }
 
-  const aiCards = el("div", "admin-cards");
-  aiCards.appendChild(metricCard("Requêtes IA (total)", data.ai_requests_total));
-  aiCards.appendChild(metricCard("Tokens totaux", data.ai_tokens_total));
-  aiCards.appendChild(metricCard("Tokens entrée (input)", data.ai_input_tokens));
-  aiCards.appendChild(metricCard("Tokens sortie (output)", data.ai_output_tokens));
-  aiCards.appendChild(metricCard("Coût IA (réel, Gemini/Claude uniquement)", data.ai_cost, formatCost));
-  aiCards.appendChild(metricCard("Fournisseur le plus utilisé", data.ai_most_used_provider));
-  aiCards.appendChild(metricCard("Dernier fournisseur utilisé", data.ai_last_provider));
-  aiCards.appendChild(metricCard("Dernier modèle utilisé", data.ai_last_model));
-  aiCards.appendChild(metricCard("Temps moyen de réponse", data.ai_avg_response_time_ms, formatMs));
-  aiCards.appendChild(metricCard("Dernière utilisation", data.ai_last_used_at, formatDateTime));
-  wrap.appendChild(aiCards);
+  // Chantier de simplification (audit utilité/densité, 2026-10-22) : les 10
+  // cartes étaient à plat, sans hiérarchie — regroupées en 3 blocs visuels
+  // cohérents (Volume / Coût & fournisseur / Performance), aucune donnée
+  // retirée, juste réorganisée. Réutilise .admin-section/.admin-section-title
+  // (espacement + titre déjà utilisés partout ailleurs dans l'admin) plutôt
+  // que d'introduire un nouveau composant CSS.
+  const volumeGroup = el("div", "admin-section");
+  volumeGroup.appendChild(el("h4", "admin-section-title", "Volume"));
+  const volumeCards = el("div", "admin-cards");
+  volumeCards.appendChild(metricCard("Requêtes IA (total)", data.ai_requests_total));
+  volumeCards.appendChild(metricCard("Tokens totaux", data.ai_tokens_total));
+  volumeCards.appendChild(metricCard("Tokens entrée (input)", data.ai_input_tokens));
+  volumeCards.appendChild(metricCard("Tokens sortie (output)", data.ai_output_tokens));
+  volumeGroup.appendChild(volumeCards);
+  wrap.appendChild(volumeGroup);
+
+  const costGroup = el("div", "admin-section");
+  costGroup.appendChild(el("h4", "admin-section-title", "Coût & fournisseur"));
+  const costCards = el("div", "admin-cards");
+  costCards.appendChild(
+    metricCard("Coût IA estimé (Gemini/Claude uniquement, grille tarifaire)", data.ai_cost, formatCost),
+  );
+  costCards.appendChild(metricCard("Fournisseur le plus utilisé", data.ai_most_used_provider));
+  costCards.appendChild(metricCard("Dernier fournisseur utilisé", data.ai_last_provider));
+  costCards.appendChild(metricCard("Dernier modèle utilisé", data.ai_last_model));
+  costGroup.appendChild(costCards);
+  wrap.appendChild(costGroup);
+
+  const perfGroup = el("div", "admin-section");
+  perfGroup.appendChild(el("h4", "admin-section-title", "Performance"));
+  const perfCards = el("div", "admin-cards");
+  perfCards.appendChild(metricCard("Temps moyen de réponse", data.ai_avg_response_time_ms, formatMs));
+  perfCards.appendChild(metricCard("Dernière utilisation", data.ai_last_used_at, formatDateTime));
+  perfGroup.appendChild(perfCards);
+  wrap.appendChild(perfGroup);
 
   // Transparence réel/estimé : jamais confondre un vrai comptage
   // Gemini/Claude avec une estimation heuristique du moteur local.
@@ -450,7 +479,11 @@ function renderAiConsumptionBody(data) {
     const entries = Object.entries(data.ai_source_breakdown.value);
     if (entries.length) {
       const section = el("div", "admin-unavailable-note");
-      section.appendChild(el("h3", "admin-unavailable-note-title", "Répartition par moteur"));
+      // Renommé (audit utilité/densité, 2026-10-22) : "Répartition par
+      // moteur" était ambigu, trop proche de "Répartition Local / Gemini /
+      // Claude" (onglet Chatbot) alors que la source de données est
+      // différente (coût/tokens réels ai_request_logs, pas les conversations).
+      section.appendChild(el("h3", "admin-unavailable-note-title", "Répartition des requêtes IA (coût/tokens)"));
       const list = el("ul", "admin-unavailable-list");
       entries.forEach(([bucket, v]) => {
         list.appendChild(
@@ -538,7 +571,10 @@ function renderChatbotTab(data) {
     const entries = Object.entries(breakdown).filter(([, n]) => n > 0);
     if (entries.length) {
       const section = el("div", "admin-unavailable-note");
-      section.appendChild(el("h3", "admin-unavailable-note-title", "Répartition Local / Gemini / Claude"));
+      // Renommé (audit utilité/densité, 2026-10-22) : à distinguer de
+      // "Répartition des requêtes IA (coût/tokens)" plus bas (Consommation
+      // IA) — ici, source = conversations/messages, jamais ai_request_logs.
+      section.appendChild(el("h3", "admin-unavailable-note-title", "Répartition des réponses (conversations)"));
       const list = el("ul", "admin-unavailable-list");
       entries.forEach(([bucket, n]) => {
         list.appendChild(el("li", "admin-unavailable-item", `${engineBucketLabel(bucket)} — ${n} réponse(s)`));
@@ -548,15 +584,22 @@ function renderChatbotTab(data) {
     }
   }
 
+  // ── Historique des conversations : repliée par défaut (comme
+  // "Consommation IA" ci-dessous), jusqu'à 20 lignes — allège l'affichage
+  // principal sans perdre l'accès aux données. ────────────────────────────
   if (data.history.length) {
-    const section = el("div", "admin-unavailable-note");
-    section.appendChild(el("h3", "admin-unavailable-note-title", "Historique des conversations"));
-    const list = el("ul", "admin-unavailable-list");
+    const historyList = el("ul", "admin-unavailable-list");
     data.history.forEach((c) => {
-      list.appendChild(el("li", "admin-unavailable-item", `${c.title} — ${formatDateTime(c.updated_at)}`));
+      historyList.appendChild(el("li", "admin-unavailable-item", `${c.title} — ${formatDateTime(c.updated_at)}`));
     });
-    section.appendChild(list);
-    wrap.appendChild(section);
+    wrap.appendChild(
+      collapseSection({
+        id: "user-profile-conversation-history",
+        title: "Historique des conversations",
+        open: false,
+        bodyNode: historyList,
+      }),
+    );
   }
 
   // ── Consommation IA repliée : allège l'affichage principal, doublon
@@ -566,7 +609,14 @@ function renderChatbotTab(data) {
     collapseSection({
       id: "user-profile-ai-consumption",
       title: "Consommation IA",
-      hint: "Requêtes, tokens, coût, fournisseur, historique des appels",
+      // Clarification explicite (Chantier Administrateur "Utilisateurs",
+      // Phase 2 bis) : ces statistiques ne portent QUE sur cet utilisateur —
+      // jamais une vue globale (voir admin-ai.js pour la consommation IA
+      // agrégée de toute la plateforme). Icône "i"/tooltip (audit utilité/
+      // densité, 2026-10-22) à la place du texte explicatif permanent — même
+      // pattern que admin-ai.js (.admin-info-icon), l'information reste
+      // accessible au survol/tactile (title) et au clavier (tabindex).
+      hint: `<span class="admin-info-icon" tabindex="0" role="img" aria-label="Précision sur la portée de ces statistiques" title="Uniquement pour cet utilisateur (pas une vue globale) — requêtes, tokens, coût, fournisseur, historique des appels">ⓘ</span>`,
       bodyNode: renderAiConsumptionBody(data),
     }),
   );

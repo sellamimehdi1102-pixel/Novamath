@@ -1,6 +1,6 @@
 """
 Service pour le module "Paramètres" (/admin/settings) — centre de
-configuration de NovaMath : IA/Clés API/SMTP/Stripe/Sauvegardes/Sécurité/Logs
+configuration de Mathadap : IA/Clés API/SMTP/Stripe/Sauvegardes/Sécurité/Logs
 (lecture agrégée de services déjà existants, jamais recodés — seuls les 3
 réglages IA sont réellement écrits ici, voir AI_SETTINGS_KEYS).
 
@@ -70,8 +70,8 @@ import backup_service
 import config
 import db
 import email_service
-import health_service
 import role_service
+import stripe_service
 import system_health_service
 
 
@@ -239,24 +239,21 @@ def ai_config():
     """Partie 3, réduite au strict nécessaire (chantier de simplification) :
     uniquement les réglages RÉELLEMENT éditables (température/max tokens/
     fallback — persistés dans system_settings ET lus à chaque appel LLM, voir
-    chatbot/services/llm_fallback_service.py) et le fournisseur/modèle
-    principal réellement utilisé (ai_providers, priorité la plus basse).
-    `retry`/`cache` (constantes techniques jamais consultées par un admin au
-    quotidien, jamais affichées ailleurs que dans du texte explicatif) et
-    `default_provider` (jamais consommé par le frontend, doublon strict du
-    premier élément de `provider_order`) ont été supprimés — voir docstring
-    du module pour la politique de suppression du bruit."""
-    providers = ai_svc.list_providers()
-    order = [
-        {
-            "id": p["id"], "name": p["name"], "provider_key": p["provider_key"],
-            "model_name": p["model_name"], "priority": p["priority"], "enabled": bool(p["enabled"]),
-        }
-        for p in sorted(providers, key=lambda p: p["priority"])
-    ]
+    chatbot/services/llm_fallback_service.py). `retry`/`cache` (constantes
+    techniques jamais consultées par un admin au quotidien, jamais affichées
+    ailleurs que dans du texte explicatif) et `default_provider` ont été
+    supprimés — voir docstring du module pour la politique de suppression du
+    bruit.
+
+    Audit admin (2026-10-22) : `provider_order` (liste à plat des
+    fournisseurs IA, dupliquée depuis /admin/ia) a été retiré — la section
+    "IA & Clés API" de Paramètres pointe désormais vers le module IA
+    (/admin/ia, voir admin-settings.js) pour CETTE information, qui n'existe
+    plus qu'à un seul endroit. Aucune action (créer/modifier/activer/
+    réordonner) n'était accessible depuis cette liste en lecture seule :
+    rien n'est perdu, voir le rapport de ce chantier."""
     settings = ai_settings()
     return {
-        "provider_order": _ok(order) if order else _na("Aucun fournisseur IA n'est configuré."),
         "temperature_default": settings["ai_temperature_default"],
         "max_response_tokens_default": settings["ai_max_response_tokens_default"],
         "fallback_enabled": settings["ai_fallback_enabled"],
@@ -332,9 +329,9 @@ def test_smtp(actor, to_address):
         admin_ai_log_service.record(actor, action="test_smtp", provider_name="smtp", result="error",
                                       error_message="SMTP non configuré.")
         return False, "SMTP non configuré (EMAIL_SMTP_HOST absente)."
-    subject = "NovaMath — Email de test (Paramètres)"
-    html = "<p>Ceci est un email de test envoyé depuis le panneau d'administration NovaMath (Paramètres > Email).</p>"
-    text = "Ceci est un email de test envoyé depuis le panneau d'administration NovaMath (Paramètres > Email)."
+    subject = "Mathadap — Email de test (Paramètres)"
+    html = "<p>Ceci est un email de test envoyé depuis le panneau d'administration Mathadap (Paramètres > Email).</p>"
+    text = "Ceci est un email de test envoyé depuis le panneau d'administration Mathadap (Paramètres > Email)."
     try:
         sent = email_service.send_email(to_address, subject, html, text, required=True)
     except email_service.EmailNotConfigured as exc:
@@ -353,18 +350,20 @@ def test_smtp(actor, to_address):
 
 # ── Stripe (lecture seule — jamais de modification) ──────────────────────────
 def stripe_info():
-    secret = config.STRIPE_SECRET_KEY or ""
-    if not health_service.check_stripe_configured():
-        mode = _na("Stripe n'est pas configuré (STRIPE_SECRET_KEY absente ou placeholder).")
-    elif secret.startswith("sk_live_"):
-        mode = _ok("production")
-    elif secret.startswith("sk_test_"):
-        mode = _ok("test")
-    else:
-        mode = _na("Clé présente mais préfixe non reconnu (ni sk_test_ ni sk_live_).")
+    """Audit admin (2026-10-20) : `mode` est TOUJOURS une des 4 valeurs
+    déterministes de stripe_service.operating_mode() ("test"/"production"/
+    "non_configure"/"etat_inconnu") — jamais enveloppé dans `_na()` : même
+    "non_configure" est une mesure réelle et déterminée (pas une absence de
+    mesure), la politique "aucune donnée inventée" ne s'applique pas ici.
+    Avant ce chantier, "etat_inconnu" (clé présente mais préfixe non
+    reconnu) était confondu avec "non_configure" côté frontend
+    (`stripe.mode.available` utilisé comme seul signal de "clé configurée")
+    — `configured` ci-dessous sépare maintenant explicitement les deux."""
+    mode = stripe_service.operating_mode()
     webhook_configured = bool(config.STRIPE_WEBHOOK_SECRET)
     return {
-        "mode": mode,
+        "mode": _ok(mode),
+        "configured": mode != "non_configure",
         "webhook_configured": webhook_configured,
         "env_controlled_reason": "Mode et webhook sont dérivés de STRIPE_SECRET_KEY/STRIPE_WEBHOOK_SECRET "
                                    "(variables d'environnement) — jamais affichés en clair, non modifiables "
@@ -465,11 +464,12 @@ def security_info():
 def logs_info():
     return {
         "level": _ok(config.LOG_LEVEL),
+        # Audit admin (2026-10-22), point 5 : phrase raccourcie (l'explication
+        # 12-factor complète reste dans l'historique git/docstring du module,
+        # jamais utile au quotidien pour un admin).
         "level_env_controlled_reason": "Piloté par la variable d'environnement LOG_LEVEL — non modifiable "
-                                          "depuis cette interface. Logs envoyés uniquement vers stdout/stderr "
-                                          "(voir logging_service.py) : aucune rotation/rétention/taille "
-                                          "maximale à gérer côté NovaMath (délégué à la plateforme d'hébergement, "
-                                          "12-factor).",
+                                          "depuis cette interface. Logs non archivés côté application "
+                                          "(délégué à l'hébergeur).",
         "sentry_enabled": _ok(bool(config.SENTRY_DSN)),
     }
 

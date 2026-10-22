@@ -1,5 +1,5 @@
 """
-Registre central des programmes scolaires (curricula) de NovaMath.
+Registre central des programmes scolaires (curricula) de Mathadap.
 
 Ce module ne fait QUE décrire où se trouvent les ressources propres à chaque
 programme (classe, spécialité, matière, pays...). Il ne calcule rien, ne
@@ -11,7 +11,7 @@ knowledge_engine.py, search_service.py, student_context_resolver.py...).
 Aucun de ces consommateurs n'est modifié ni importé ici : ce module est
 totalement indépendant, n'importe rien du projet (seulement la bibliothèque
 standard), et n'est encore importé par personne. Tant qu'aucun composant ne
-le consomme, le comportement actuel de NovaMath reste strictement identique.
+le consomme, le comportement actuel de Mathadap reste strictement identique.
 
 Ajouter un programme (Terminale, Première NSI, Collège, un autre pays...) se
 fait uniquement en ajoutant une entrée à `_PROFILES` ci-dessous — aucune

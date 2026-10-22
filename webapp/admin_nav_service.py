@@ -35,6 +35,15 @@ class AdminModule:
     # aucune fonctionnalité métier n'est développée pour ce module à ce
     # stade (voir server.py::serve_admin_module).
     implemented: bool
+    # Regroupement purement visuel du menu (sidebar), décidé lors du grand
+    # nettoyage admin (2026-10-22) : "suivi" (observation/monitoring),
+    # "gestion" (actions sur les utilisateurs/abonnements/support), ou
+    # "configuration" (réglages système). N'affecte JAMAIS les permissions
+    # ni les routes — uniquement l'ordre d'affichage des sections dans
+    # admin-shell.js::renderSidebar. N'importe pas dans modules_for_user()/
+    # module_by_path() ni dans server.py, qui continuent de n'utiliser que
+    # l'ordre de déclaration ci-dessous.
+    category: str
 
 
 # Rôles minimums : reprend les décisions déjà actées dans le document
@@ -44,16 +53,43 @@ class AdminModule:
 # techniques/financières), Paramètres exige SUPER_ADMIN (impact le plus
 # large). Un seul endroit à modifier si ces paliers doivent évoluer.
 MODULES = (
-    AdminModule("dashboard", "Dashboard", "🏠", "/admin", Role.SUPPORT, implemented=True),
-    AdminModule("users", "Utilisateurs", "👥", "/admin/users", Role.SUPPORT, implemented=True),
-    AdminModule("ai", "IA", "🤖", "/admin/ia", Role.ADMIN, implemented=True),
-    AdminModule("subscriptions", "Abonnements", "💳", "/admin/subscriptions", Role.ADMIN, implemented=True),
-    AdminModule("analytics", "Analytics", "📊", "/admin/analytics", Role.SUPPORT, implemented=True),
-    AdminModule("support", "Support", "🛠", "/admin/support", Role.SUPPORT, implemented=True),
-    AdminModule("health", "Santé du système", "❤", "/admin/health", Role.ADMIN, implemented=True),
-    AdminModule("settings", "Paramètres", "⚙", "/admin/settings", Role.SUPER_ADMIN, implemented=True),
-    AdminModule("journal", "Journal", "📜", "/admin/journal", Role.ADMIN, implemented=True),
+    AdminModule("dashboard", "Dashboard", "🏠", "/admin", Role.SUPPORT, implemented=True, category="suivi"),
+    AdminModule("users", "Utilisateurs", "👥", "/admin/users", Role.SUPPORT, implemented=True, category="gestion"),
+    AdminModule("ai", "IA", "🤖", "/admin/ia", Role.ADMIN, implemented=True, category="configuration"),
+    AdminModule(
+        "subscriptions", "Abonnements", "💳", "/admin/subscriptions", Role.ADMIN, implemented=True, category="gestion"
+    ),
+    AdminModule("analytics", "Analytics", "📊", "/admin/analytics", Role.SUPPORT, implemented=True, category="suivi"),
+    AdminModule("support", "Support", "🛠", "/admin/support", Role.SUPPORT, implemented=True, category="gestion"),
+    AdminModule(
+        "health", "Santé du système", "❤", "/admin/health", Role.ADMIN, implemented=True, category="suivi"
+    ),
+    AdminModule(
+        "settings", "Paramètres", "⚙", "/admin/settings", Role.SUPER_ADMIN, implemented=True, category="configuration"
+    ),
+    AdminModule("journal", "Journal", "📜", "/admin/journal", Role.ADMIN, implemented=True, category="suivi"),
+    # Phase 2A (audit admin, 2026-10-21) : données financières réelles
+    # (revenus/paiements Stripe) — SUPER_ADMIN comme Paramètres, jamais ADMIN,
+    # vu la sensibilité des montants réels par rapport au catalogue éditable
+    # du module Abonnements.
+    AdminModule(
+        "finance", "Finance", "💰", "/admin/finance", Role.SUPER_ADMIN, implemented=True, category="gestion"
+    ),
+    # Phase 2 Cloudflare (audit admin, 2026-10-21) : fréquentation du site
+    # (Cloudflare Web Analytics, données EXTERNES au site, jamais les comptes
+    # Mathadap — voir cloudflare_analytics_service.py) — ADMIN comme IA/
+    # Abonnements/Journal, décision validée explicitement pour ce module
+    # (plutôt que SUPPORT comme le module "Analytics" interne).
+    AdminModule(
+        "frequentation", "Fréquentation", "🌐", "/admin/frequentation", Role.ADMIN, implemented=True, category="suivi"
+    ),
 )
+
+# Ordre d'affichage des sections de la sidebar (grand nettoyage admin,
+# 2026-10-22) — "Suivi" (observation/monitoring), "Gestion" (actions sur
+# utilisateurs/abonnements/support), "Configuration" (réglages système).
+CATEGORY_ORDER = ("suivi", "gestion", "configuration")
+CATEGORY_LABELS = {"suivi": "Suivi", "gestion": "Gestion", "configuration": "Configuration"}
 
 
 def modules_for_user(user):
@@ -73,4 +109,5 @@ def serialize_module(module):
         "icon": module.icon,
         "path": module.path,
         "implemented": module.implemented,
+        "category": module.category,
     }

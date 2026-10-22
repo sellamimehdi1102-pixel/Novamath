@@ -49,12 +49,12 @@ function overviewPayload(overrides = {}) {
         user_count: { available: true, value: 7 },
       }),
     ],
+    // Audit admin (2026-10-22) : plus de clé "stats" dans la réponse réelle
+    // de /api/admin/subscriptions (voir admin_subscriptions_service.
+    // get_overview) — "Nouveaux abonnements"/"Résiliations" vivent
+    // désormais uniquement dans le module Finance (voir admin-finance.
+    // test.js). Le payload de mock ne porte donc plus ce champ.
     reason: null,
-    stats: {
-      window_days: 30,
-      new_subscribers: { available: true, value: 12 },
-      cancellations: { available: true, value: 3 },
-    },
     ...overrides,
   };
 }
@@ -216,12 +216,28 @@ describe("admin-subscriptions.js — vue d'ensemble", () => {
     expect(plansEl.textContent).toContain("Gratuit"); // prix 0 -> "Gratuit"
   });
 
-  it("affiche les statistiques réelles (nouveaux abonnés/résiliations), sans carte toujours vide", async () => {
+  // Audit admin (2026-10-22) : les cartes "Nouveaux abonnés"/"Résiliations"
+  // ont été retirées de ce module (doublon exact avec le module Finance,
+  // voir admin-finance.test.js). Suite de l'audit (même date) : la section
+  // "Statistiques" elle-même a été retirée (elle ne contenait plus qu'une
+  // phrase de renvoi vers Finance, aucune carte/appel API) — cette phrase est
+  // désormais fusionnée dans le hint de la section "Plans", sans perte
+  // d'information.
+  it("n'affiche plus de section Statistiques séparée ; le renvoi vers Finance est fusionné dans le hint Plans", async () => {
     await mount("/admin/subscriptions");
-    const statsEl = document.getElementById("admin-subscriptions-stats");
-    expect(statsEl.textContent).toContain("12");
-    expect(statsEl.textContent).toContain("3");
-    expect(statsEl.querySelectorAll(".admin-card").length).toBe(2);
+    expect(document.getElementById("admin-subscriptions-stats-title")).toBeNull();
+    const plansTitle = document.getElementById("admin-subscriptions-plans-title");
+    const plansSection = plansTitle.closest(".admin-section");
+    // La phrase de renvoi vers Finance vit maintenant dans le hint de la
+    // section Plans elle-même — jamais dans une section séparée.
+    expect(plansSection.querySelector(".admin-form-hint").textContent).toMatch(/Finance/);
+    // Les seules cartes de cette section sont les cartes de plans
+    // (.admin-ai-provider-card), jamais une carte de statistiques
+    // (la section Statistiques, elle, n'existait déjà plus que comme une
+    // phrase, sans carte, avant même ce retrait).
+    expect(plansSection.querySelectorAll(".admin-card").length).toBe(
+      plansSection.querySelectorAll(".admin-ai-provider-card").length,
+    );
   });
 
   it("bascule l'interrupteur actif/inactif -> PATCH /active", async () => {
@@ -424,5 +440,218 @@ describe("admin-subscription-detail.js — fiche détaillée (5 onglets)", () =>
     await mount("/admin/subscriptions/inconnu");
     await flushPromises();
     expect(document.body.textContent).not.toMatch(/undefined/);
+  });
+});
+
+// Audit admin (2026-10-20), point 2 : réconciliation Stripe <-> DB locale,
+// déclenchement manuel uniquement, jamais automatique.
+describe("admin-subscriptions.js — réconciliation Stripe (lecture seule)", () => {
+  it("clic sur le bouton affiche le rapport (divergence + compte en erreur)", async () => {
+    await mount("/admin/subscriptions", {
+      handlers: {
+        "POST /api/admin/subscriptions/reconcile-stripe": () => ({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              mode: "test",
+              checked: 2,
+              total: 2,
+              has_more: false,
+              divergences: [
+                {
+                  user_id: 42,
+                  email: "eleve@gmail.com",
+                  stripe_subscription_id: "sub_123",
+                  local_status: "active",
+                  stripe_status: "canceled",
+                },
+              ],
+              errors: [{ user_id: 43, stripe_subscription_id: "sub_456", error: "timeout" }],
+            }),
+        }),
+      },
+    });
+    const btn = document.getElementById("admin-subscriptions-reconcile-btn");
+    btn.click();
+    await flushPromises();
+
+    const resultEl = document.getElementById("admin-subscriptions-reconcile-result");
+    expect(resultEl.textContent).toContain("eleve@gmail.com");
+    expect(resultEl.textContent).toContain("sub_123");
+    expect(resultEl.textContent).toMatch(/active/);
+    expect(resultEl.textContent).toMatch(/canceled/);
+    expect(resultEl.textContent).toMatch(/1 compte\(s\) n'ont pas pu être vérifiés/);
+    expect(btn.disabled).toBe(false);
+  });
+
+  it("Stripe non configuré (501) -> message explicite, jamais un rapport vide trompeur", async () => {
+    await mount("/admin/subscriptions", {
+      handlers: {
+        "POST /api/admin/subscriptions/reconcile-stripe": () => ({
+          ok: false,
+          status: 501,
+          json: () => Promise.resolve({ error: "Stripe n'est pas configuré sur ce serveur." }),
+        }),
+      },
+    });
+    const btn = document.getElementById("admin-subscriptions-reconcile-btn");
+    btn.click();
+    await flushPromises();
+
+    const resultEl = document.getElementById("admin-subscriptions-reconcile-result");
+    expect(resultEl.textContent).toMatch(/Stripe n'est pas configuré/);
+  });
+
+  it("aucune divergence : message explicite plutôt qu'un tableau vide silencieux", async () => {
+    await mount("/admin/subscriptions", {
+      handlers: {
+        "POST /api/admin/subscriptions/reconcile-stripe": () => ({
+          ok: true,
+          json: () =>
+            Promise.resolve({ mode: "production", checked: 5, total: 5, has_more: false, divergences: [], errors: [] }),
+        }),
+      },
+    });
+    const btn = document.getElementById("admin-subscriptions-reconcile-btn");
+    btn.click();
+    await flushPromises();
+
+    const resultEl = document.getElementById("admin-subscriptions-reconcile-result");
+    expect(resultEl.textContent).toMatch(/Aucune divergence détectée/);
+    expect(resultEl.querySelector("table")).toBeNull();
+  });
+});
+
+// Garde-fou Stripe production (2026-10-20), suite à l'incident réel où un
+// clic de vérification depuis un poste de développement local (FLASK_ENV de
+// développement) avait déclenché 50 appels réels vers Stripe PRODUCTION —
+// voir stripe_reconciliation_service.py pour la protection serveur (seule
+// protection réelle, non contournable). Ces tests ne vérifient QUE le
+// comportement d'interface (bouton désactivé / confirmation demandée) — la
+// non-contournabilité elle-même est prouvée côté backend
+// (test_stripe_reconciliation_service.py::TestRouteReconcileStripeGardeFouProduction).
+describe("admin-subscriptions.js — garde-fou Stripe production", () => {
+  it("Stripe production + serveur de développement : bouton désactivé, aucun appel réseau possible", async () => {
+    await mount("/admin/subscriptions", {
+      overview: overviewPayload({
+        stripe_environment: {
+          mode: "production",
+          app_environment: "developpement",
+          reconciliation_blocked: true,
+          reconciliation_requires_confirmation: false,
+        },
+      }),
+    });
+    const btn = document.getElementById("admin-subscriptions-reconcile-btn");
+    expect(btn.disabled).toBe(true);
+    expect(document.getElementById("admin-subscriptions-stripe-environment").textContent).toMatch(/bloquée/);
+
+    fetchLog = [];
+    btn.click();
+    await flushPromises();
+    expect(fetchLog).not.toContain("POST /api/admin/subscriptions/reconcile-stripe");
+  });
+
+  it("Stripe production + serveur production : demande confirmation avant tout appel réseau", async () => {
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(false);
+    await mount("/admin/subscriptions", {
+      overview: overviewPayload({
+        stripe_environment: {
+          mode: "production",
+          app_environment: "production",
+          reconciliation_blocked: false,
+          reconciliation_requires_confirmation: true,
+        },
+      }),
+    });
+    const btn = document.getElementById("admin-subscriptions-reconcile-btn");
+    expect(btn.disabled).toBe(false);
+
+    fetchLog = [];
+    btn.click();
+    await flushPromises();
+    expect(confirmSpy).toHaveBeenCalled();
+    expect(fetchLog).not.toContain("POST /api/admin/subscriptions/reconcile-stripe");
+  });
+
+  it("confirmation acceptée : envoie confirmed:true au serveur", async () => {
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+    let sentBody = null;
+    await mount("/admin/subscriptions", {
+      overview: overviewPayload({
+        stripe_environment: {
+          mode: "production",
+          app_environment: "production",
+          reconciliation_blocked: false,
+          reconciliation_requires_confirmation: true,
+        },
+      }),
+      handlers: {
+        "POST /api/admin/subscriptions/reconcile-stripe": (options) => {
+          sentBody = JSON.parse(options.body);
+          return {
+            ok: true,
+            json: () =>
+              Promise.resolve({
+                mode: "production",
+                checked: 0,
+                total: 0,
+                has_more: false,
+                divergences: [],
+                errors: [],
+              }),
+          };
+        },
+      },
+    });
+    document.getElementById("admin-subscriptions-reconcile-btn").click();
+    await flushPromises();
+    expect(sentBody).toEqual({ confirmed: true });
+  });
+
+  it("refus serveur 403 (blocage local/production) : message explicite", async () => {
+    await mount("/admin/subscriptions", {
+      handlers: {
+        "POST /api/admin/subscriptions/reconcile-stripe": () => ({
+          ok: false,
+          status: 403,
+          json: () =>
+            Promise.resolve({
+              error: "Stripe est configuré en mode PRODUCTION mais ce serveur tourne en développement.",
+              code: "blocked_local_production",
+            }),
+        }),
+      },
+    });
+    const btn = document.getElementById("admin-subscriptions-reconcile-btn");
+    btn.click();
+    await flushPromises();
+    const resultEl = document.getElementById("admin-subscriptions-reconcile-result");
+    expect(resultEl.textContent).toMatch(/PRODUCTION/);
+  });
+
+  it("refus serveur 409 (confirmation manquante) : message explicite", async () => {
+    await mount("/admin/subscriptions", {
+      overview: overviewPayload({
+        stripe_environment: {
+          mode: "production",
+          app_environment: "production",
+          reconciliation_blocked: false,
+          reconciliation_requires_confirmation: false, // désync volontaire : le serveur refuse quand même
+        },
+      }),
+      handlers: {
+        "POST /api/admin/subscriptions/reconcile-stripe": () => ({
+          ok: false,
+          status: 409,
+          json: () => Promise.resolve({ error: "Confirmation requise.", code: "confirmation_required" }),
+        }),
+      },
+    });
+    const btn = document.getElementById("admin-subscriptions-reconcile-btn");
+    btn.click();
+    await flushPromises();
+    const resultEl = document.getElementById("admin-subscriptions-reconcile-result");
+    expect(resultEl.textContent).toMatch(/Confirmation requise/);
   });
 });

@@ -760,6 +760,14 @@ def _serialize_api_key(row):
         "enabled": bool(row["enabled"]),
         "priority": row["priority"],
         "request_count": row["request_count"],
+        # Audit admin (2026-10-20), point 6 : calculé ICI (requêtes totales
+        # moins échecs — db.py::increment_api_key_stats incrémente
+        # request_count à CHAQUE appel et failure_count UNIQUEMENT sur
+        # échec, donc cette soustraction est exacte) plutôt que recalculé
+        # côté frontend, pour qu'une seule et même formule existe — jamais
+        # deux implémentations susceptibles de diverger si l'une change
+        # sans l'autre.
+        "success_count": row["request_count"] - row["failure_count"],
         "failure_count": row["failure_count"],
         "fallback_count": row["fallback_count"],
         "avg_response_time_ms": avg_response_time_ms,

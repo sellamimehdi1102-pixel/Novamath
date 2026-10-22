@@ -220,6 +220,33 @@ describe("admin-user-profile.js — rendu de base et absence de données fabriqu
     expect(panelText).not.toContain("Prénom");
   });
 
+  // Audit utilité/densité (2026-10-22) : pseudo/email/rôle/état du compte
+  // sont des doublons EXACTS avec l'en-tête (renderHeader, toujours visible)
+  // — retirés de la grille de l'onglet Informations, jamais masqués de
+  // l'en-tête lui-même.
+  it("onglet Informations : pseudo/email/rôle/état du compte ne sont plus répétés dans la grille, seulement dans l'en-tête", async () => {
+    mockFetch(7);
+    mountTemplate();
+    await loadUserProfile(7);
+
+    const headText = document.getElementById("admin-user-profile-head").textContent;
+    expect(headText).toContain("Alice");
+    expect(headText).toContain("alice@test.novamath.local");
+    expect(headText).toContain("Utilisateur");
+    expect(headText).toContain("Actif");
+
+    const fieldLabels = [...document.querySelectorAll("#admin-user-profile-panel .admin-field-label")].map(
+      (n) => n.textContent,
+    );
+    expect(fieldLabels).not.toContain("Pseudo");
+    expect(fieldLabels).not.toContain("Adresse email");
+    expect(fieldLabels).not.toContain("Rôle");
+    expect(fieldLabels).not.toContain("État du compte");
+    // Les champs non dupliqués restent bien présents.
+    expect(fieldLabels).toContain("Date de création");
+    expect(fieldLabels).toContain("Méthode de connexion");
+  });
+
   it("onglet Activité : timeline visible, plus de catégories systématiquement vides listées", async () => {
     mockFetch(7);
     mountTemplate();
@@ -272,6 +299,93 @@ describe("admin-user-profile.js — rendu de base et absence de données fabriqu
     const collapse = panel.querySelector(".admin-collapse");
     expect(collapse).not.toBeNull();
     expect(collapse.textContent).toContain("Consommation IA");
+  });
+
+  // Audit utilité/densité (2026-10-22) : les 10 cartes de "Consommation IA"
+  // sont désormais regroupées en 3 blocs visuels (aucune carte supprimée).
+  it("onglet Chatbot : Consommation IA regroupe ses cartes en 3 blocs Volume / Coût & fournisseur / Performance", async () => {
+    mockFetch(7, {
+      overrides: {
+        chatbot: {
+          ...TAB_PAYLOADS.chatbot,
+          ai_consumption_available: true,
+          ai_requests_total: { available: true, value: 10 },
+          ai_tokens_total: { available: true, value: 1000 },
+          ai_input_tokens: { available: true, value: 600 },
+          ai_output_tokens: { available: true, value: 400 },
+          ai_cost: { available: true, value: 0.01 },
+          ai_most_used_provider: { available: true, value: "gemini" },
+          ai_last_provider: { available: true, value: "gemini" },
+          ai_last_model: { available: true, value: "gemini-pro" },
+          ai_avg_response_time_ms: { available: true, value: 500 },
+          ai_last_used_at: { available: true, value: "2026-07-01T10:00:00+00:00" },
+        },
+      },
+    });
+    mountTemplate();
+    await loadUserProfile(7);
+    document.querySelector('.admin-tab-btn[data-tab="chatbot"]').click();
+    await flushPromises();
+
+    const collapse = document.querySelector("#admin-user-profile-panel .admin-collapse");
+    const groupTitles = [...collapse.querySelectorAll(".admin-section-title")].map((n) => n.textContent);
+    expect(groupTitles).toEqual(["Volume", "Coût & fournisseur", "Performance"]);
+    // Toutes les données restent présentes, juste réorganisées.
+    expect(collapse.textContent).toContain("gemini-pro");
+    expect(collapse.textContent).toContain("500 ms");
+  });
+
+  // Audit utilité/densité (2026-10-22) : repliée par défaut, comme
+  // "Consommation IA" l'est déjà — aucune donnée perdue.
+  it("onglet Chatbot : 'Historique des conversations' est repliable et fermée par défaut", async () => {
+    mockFetch(7, {
+      overrides: {
+        chatbot: {
+          ...TAB_PAYLOADS.chatbot,
+          history: [{ title: "Conv récente", updated_at: "2026-07-01T10:00:00+00:00" }],
+        },
+      },
+    });
+    mountTemplate();
+    await loadUserProfile(7);
+    document.querySelector('.admin-tab-btn[data-tab="chatbot"]').click();
+    await flushPromises();
+
+    const panel = document.getElementById("admin-user-profile-panel");
+    const collapses = [...panel.querySelectorAll(".admin-collapse")];
+    const historyCollapse = collapses.find((c) => c.textContent.includes("Historique des conversations"));
+    expect(historyCollapse).not.toBeUndefined();
+    expect(historyCollapse.hasAttribute("open")).toBe(false);
+    expect(historyCollapse.textContent).toContain("Conv récente");
+  });
+
+  // Audit utilité/densité (2026-10-22) : les 2 libellés de répartition
+  // (conversations vs coût/tokens) doivent être visuellement distincts pour
+  // ne jamais être confondus.
+  it("onglet Chatbot : les libellés de répartition distinguent conversations et coût/tokens", async () => {
+    mockFetch(7, {
+      overrides: {
+        chatbot: {
+          ...TAB_PAYLOADS.chatbot,
+          engine_breakdown: { available: true, value: { local: 3, gemini: 2 } },
+          ai_consumption_available: true,
+          ai_source_breakdown: {
+            available: true,
+            value: { gemini: { requests: 2, tokens: 500, cost: 0.01 } },
+          },
+        },
+      },
+    });
+    mountTemplate();
+    await loadUserProfile(7);
+    document.querySelector('.admin-tab-btn[data-tab="chatbot"]').click();
+    await flushPromises();
+
+    const panelText = document.getElementById("admin-user-profile-panel").textContent;
+    expect(panelText).toContain("Répartition des réponses (conversations)");
+    expect(panelText).toContain("Répartition des requêtes IA (coût/tokens)");
+    expect(panelText).not.toContain("Répartition Local / Gemini / Claude");
+    expect(panelText).not.toContain("Répartition par moteur");
   });
 
   it("onglet Abonnement : renouvellement/expiration/historique des paiements/date d'achat ont tous disparu (placeholders toujours vides)", async () => {
@@ -409,6 +523,86 @@ describe("admin-user-profile.js — onglet Support", () => {
     await flushPromises();
 
     expect(fetchLog).toEqual(["/api/admin/users/7/profile", "/api/admin/users/7/support"]);
+  });
+});
+
+// Unification Chantier Administrateur "Utilisateurs" (Phase 2 bis) :
+// mêmes libellés EXACTS pour account_status que la liste Utilisateurs
+// (admin-users.js::ACCOUNT_STATUS_LABELS) — jamais un second wording pour
+// la même valeur ("pending_parental_consent"/"parental_consent_refused").
+describe("admin-user-profile.js — libellés account_status unifiés avec la liste Utilisateurs", () => {
+  // Audit utilité/densité (2026-10-22) : "État du compte" a été retiré de
+  // l'onglet Informations (doublon exact avec l'en-tête) — ce test vérifie
+  // désormais le libellé dans l'en-tête, seul endroit où il est affiché,
+  // et confirme explicitement que le panneau ne le répète plus.
+  it("affiche 'En attente de consentement' (et non 'Consentement parental en attente') dans l'en-tête, jamais répété dans l'onglet Informations", async () => {
+    mockFetch(7, {
+      overrides: {
+        profile: profilePayload({ account_status: { available: true, value: "pending_parental_consent" } }),
+      },
+    });
+    mountTemplate();
+    await loadUserProfile(7);
+
+    const headText = document.getElementById("admin-user-profile-head").textContent;
+    const panelText = document.getElementById("admin-user-profile-panel").textContent;
+    expect(headText).toContain("En attente de consentement");
+    expect(headText).not.toContain("Consentement parental en attente");
+    expect(panelText).not.toContain("En attente de consentement");
+    expect(panelText).not.toContain("Consentement parental en attente");
+  });
+
+  it("affiche 'Consentement refusé' (et non 'Consentement parental refusé') dans l'en-tête", async () => {
+    mockFetch(7, {
+      overrides: {
+        profile: profilePayload({ account_status: { available: true, value: "parental_consent_refused" } }),
+      },
+    });
+    mountTemplate();
+    await loadUserProfile(7);
+
+    const headText = document.getElementById("admin-user-profile-head").textContent;
+    expect(headText).toContain("Consentement refusé");
+    expect(headText).not.toContain("Consentement parental refusé");
+  });
+});
+
+// Clarification explicite (Chantier Administrateur "Utilisateurs", Phase 2
+// bis) : les statistiques "Consommation IA" de cette fiche ne portent QUE
+// sur l'utilisateur sélectionné, jamais une vue globale de la plateforme.
+describe("admin-user-profile.js — clarification 'Consommation IA' par utilisateur uniquement", () => {
+  it("le hint de la section Consommation IA précise explicitement qu'elle ne porte que sur cet utilisateur", async () => {
+    mockFetch(7, {
+      overrides: {
+        chatbot: {
+          ...TAB_PAYLOADS.chatbot,
+          ai_consumption_available: true,
+          ai_requests_total: { available: true, value: 10 },
+          ai_tokens_total: { available: true, value: 1000 },
+          ai_input_tokens: { available: true, value: 600 },
+          ai_output_tokens: { available: true, value: 400 },
+          ai_cost: { available: true, value: 0.01 },
+          ai_most_used_provider: { available: true, value: "gemini" },
+          ai_last_provider: { available: true, value: "gemini" },
+          ai_last_model: { available: true, value: "gemini-pro" },
+          ai_avg_response_time_ms: { available: true, value: 500 },
+          ai_last_used_at: { available: true, value: "2026-07-01T10:00:00+00:00" },
+        },
+      },
+    });
+    mountTemplate();
+    await loadUserProfile(7);
+    document.querySelector('.admin-tab-btn[data-tab="chatbot"]').click();
+    await flushPromises();
+
+    // Audit utilité/densité (2026-10-22) : le texte explicatif permanent est
+    // remplacé par une icône "i"/tooltip sur le titre — l'information reste
+    // accessible via l'attribut title, plus dans le textContent visible.
+    const collapse = document.querySelector("#admin-user-profile-panel .admin-collapse");
+    const infoIcon = collapse.querySelector(".admin-collapse-hint .admin-info-icon");
+    expect(infoIcon).not.toBeNull();
+    expect(infoIcon.getAttribute("title")).toContain("Uniquement pour cet utilisateur");
+    expect(infoIcon.getAttribute("title")).toContain("pas une vue globale");
   });
 });
 

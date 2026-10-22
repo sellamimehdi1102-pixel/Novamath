@@ -1,5 +1,5 @@
 """
-Droits RGPD (export, historique des consentements) pour un compte NovaMath
+Droits RGPD (export, historique des consentements) pour un compte Mathadap
 déjà actif — SEC-04.
 
 Architecture stricte, identique à consent_service.py :

@@ -106,12 +106,38 @@ describe("admin-users.js — chargement et rendu de base", () => {
     expect(rowText).toContain("Utilisateur");
   });
 
-  it("état vide : aucune ligne, message explicite, jamais une table vide silencieuse", async () => {
+  // Audit utilité/densité (2026-10-22) : "Aucune donnée disponible" était
+  // trompeur (laisse croire à une absence de données plutôt qu'à des
+  // filtres trop restrictifs) — remplacé par un texte contextuel, même
+  // wording que le module Support ("Aucun ticket ne correspond à ces
+  // critères.").
+  it("état vide : aucune ligne, message contextuel explicite, jamais une table vide silencieuse", async () => {
     await mount("/admin/users", NAV_WITH_USERS, () => snapshotFor([]));
     expect(document.querySelectorAll(".admin-users-row").length).toBe(0);
     const empty = document.getElementById("admin-users-empty");
     expect(empty.hidden).toBe(false);
-    expect(empty.textContent).toBe("Aucune donnée disponible");
+    expect(empty.textContent).toContain("Aucun utilisateur ne correspond à ces critères.");
+  });
+
+  it("état vide avec un filtre actif : propose un bouton pour réinitialiser les filtres", async () => {
+    await mount("/admin/users", NAV_WITH_USERS, (url) =>
+      url.searchParams.get("account_status") === "active" ? snapshotFor([]) : snapshotFor([makeUser()]),
+    );
+    document.getElementById("admin-users-filter-status").value = "active";
+    document.getElementById("admin-users-filter-status").dispatchEvent(new Event("change"));
+    await flushPromises();
+
+    const empty = document.getElementById("admin-users-empty");
+    expect(empty.hidden).toBe(false);
+    const resetBtn = empty.querySelector("button");
+    expect(resetBtn).not.toBeNull();
+    expect(resetBtn.textContent).toContain("Réinitialiser les filtres");
+  });
+
+  it("état vide sans aucun filtre actif : pas de bouton de réinitialisation (rien à réinitialiser)", async () => {
+    await mount("/admin/users", NAV_WITH_USERS, () => snapshotFor([]));
+    const empty = document.getElementById("admin-users-empty");
+    expect(empty.querySelector("button")).toBeNull();
   });
 
   it("gestion des erreurs : bannière visible si l'API échoue, jamais un plantage silencieux", async () => {
@@ -196,19 +222,42 @@ describe("admin-users.js — filtres", () => {
     expect(options).toEqual(["", "active", "pending_parental_consent", "parental_consent_refused"]);
   });
 
-  it("changer le filtre paiement envoie payment_status=failed et remet la page à 1", async () => {
+  // Audit utilité/densité (2026-10-22) : le <select> à une seule option
+  // réelle ("Paiement en échec") devient une case à cocher — le filtre
+  // backend reste strictement identique (payment_status=failed).
+  it("cocher la case 'Paiement en échec' envoie payment_status=failed et remet la page à 1", async () => {
     let lastParams = null;
     await mount("/admin/users", NAV_WITH_USERS, (url) => {
       lastParams = url.searchParams;
       return snapshotFor([makeUser({ account_status: "active" })]);
     });
 
-    document.getElementById("admin-users-filter-payment").value = "failed";
-    document.getElementById("admin-users-filter-payment").dispatchEvent(new Event("change"));
+    const checkbox = document.getElementById("admin-users-filter-payment");
+    expect(checkbox.type).toBe("checkbox");
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event("change"));
     await flushPromises();
 
     expect(lastParams.get("payment_status")).toBe("failed");
     expect(lastParams.get("page")).toBe("1");
+  });
+
+  it("décocher la case 'Paiement en échec' retire le filtre payment_status", async () => {
+    let lastParams = null;
+    await mount("/admin/users", NAV_WITH_USERS, (url) => {
+      lastParams = url.searchParams;
+      return snapshotFor([makeUser()]);
+    });
+
+    const checkbox = document.getElementById("admin-users-filter-payment");
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event("change"));
+    await flushPromises();
+    checkbox.checked = false;
+    checkbox.dispatchEvent(new Event("change"));
+    await flushPromises();
+
+    expect(lastParams.get("payment_status")).toBe(null);
   });
 
   it("recherche + statut + paiement peuvent être combinés dans la même requête", async () => {
@@ -222,8 +271,9 @@ describe("admin-users.js — filtres", () => {
     document.getElementById("admin-users-search-input").dispatchEvent(new Event("input"));
     document.getElementById("admin-users-filter-status").value = "active";
     document.getElementById("admin-users-filter-status").dispatchEvent(new Event("change"));
-    document.getElementById("admin-users-filter-payment").value = "failed";
-    document.getElementById("admin-users-filter-payment").dispatchEvent(new Event("change"));
+    const checkbox = document.getElementById("admin-users-filter-payment");
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event("change"));
     await new Promise((r) => setTimeout(r, 350));
     await flushPromises();
 

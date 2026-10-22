@@ -55,8 +55,8 @@ from plan_service import Plan
 from tests import stripe_e2e_helpers as h
 
 
-class _NovaMathUserFixture(unittest.TestCase):
-    """Utilisateur NovaMath local (base SQLite temporaire, jamais la base
+class _MathadapUserFixture(unittest.TestCase):
+    """Utilisateur Mathadap local (base SQLite temporaire, jamais la base
     réelle — même stratégie que tests/test_two_factor_migration.py) lié à un
     VRAI client Stripe Test Mode, prêt pour les scénarios qui doivent
     résoudre `db.get_user_by_stripe_customer_id` (webhooks) ou lire/écrire
@@ -196,7 +196,7 @@ class TestCheckoutSession(unittest.TestCase):
 
 # ── Abonnement Premium — paiement accepté ─────────────────────────────────
 @h.skip_unless_e2e
-class TestAbonnementPremiumReussi(_NovaMathUserFixture):
+class TestAbonnementPremiumReussi(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -248,7 +248,7 @@ class TestAbonnementPremiumReussi(_NovaMathUserFixture):
 
 # ── Abonnement Ultra — paiement accepté ───────────────────────────────────
 @h.skip_unless_e2e
-class TestAbonnementUltraReussi(_NovaMathUserFixture):
+class TestAbonnementUltraReussi(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -300,7 +300,7 @@ class TestAbonnementUltraReussi(_NovaMathUserFixture):
 
 # ── Paiement refusé ────────────────────────────────────────────────────────
 @h.skip_unless_e2e
-class TestPaiementRefuse(_NovaMathUserFixture):
+class TestPaiementRefuse(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -331,7 +331,7 @@ class TestPaiementRefuse(_NovaMathUserFixture):
 
 
 @h.skip_unless_e2e
-class TestPaiementFondsInsuffisants(_NovaMathUserFixture):
+class TestPaiementFondsInsuffisants(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -348,7 +348,7 @@ class TestPaiementFondsInsuffisants(_NovaMathUserFixture):
 
 
 @h.skip_unless_e2e
-class TestCarteExpiree(_NovaMathUserFixture):
+class TestCarteExpiree(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -407,7 +407,7 @@ class TestWebhookSignature(unittest.TestCase):
 
 
 @h.skip_unless_e2e
-class TestWebhookCheckoutEtAbonnement(_NovaMathUserFixture):
+class TestWebhookCheckoutEtAbonnement(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -462,7 +462,7 @@ class TestWebhookCheckoutEtAbonnement(_NovaMathUserFixture):
 
 
 @h.skip_unless_e2e
-class TestWebhookInvoices(_NovaMathUserFixture):
+class TestWebhookInvoices(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -537,7 +537,7 @@ class TestWebhookInvoices(_NovaMathUserFixture):
 
 # ── Customer Portal ─────────────────────────────────────────────────────────
 @h.skip_unless_e2e
-class TestCustomerPortal(_NovaMathUserFixture):
+class TestCustomerPortal(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -559,7 +559,7 @@ class TestCustomerPortal(_NovaMathUserFixture):
 
 # ── Upgrade Premium -> Ultra ──────────────────────────────────────────────
 @h.skip_unless_e2e
-class TestUpgradePremiumVersUltra(_NovaMathUserFixture):
+class TestUpgradePremiumVersUltra(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -594,7 +594,7 @@ class TestUpgradePremiumVersUltra(_NovaMathUserFixture):
 
 # ── Downgrade Ultra -> Premium ─────────────────────────────────────────────
 @h.skip_unless_e2e
-class TestDowngradeUltraVersPremium(_NovaMathUserFixture):
+class TestDowngradeUltraVersPremium(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -626,7 +626,7 @@ class TestDowngradeUltraVersPremium(_NovaMathUserFixture):
 
 # ── Résiliation ────────────────────────────────────────────────────────────
 @h.skip_unless_e2e
-class TestResiliationImmediate(_NovaMathUserFixture):
+class TestResiliationImmediate(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -645,7 +645,7 @@ class TestResiliationImmediate(_NovaMathUserFixture):
 
 
 @h.skip_unless_e2e
-class TestResiliationFinDePeriode(_NovaMathUserFixture):
+class TestResiliationFinDePeriode(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -670,7 +670,7 @@ class TestResiliationFinDePeriode(_NovaMathUserFixture):
 
 # ── Facturation ────────────────────────────────────────────────────────────
 @h.skip_unless_e2e
-class TestFacturation(_NovaMathUserFixture):
+class TestFacturation(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -713,7 +713,7 @@ class TestFacturation(_NovaMathUserFixture):
 
 # ── Synchronisation locale (plan / quotas / billing) ──────────────────────
 @h.skip_unless_e2e
-class TestSynchronisationLocale(_NovaMathUserFixture):
+class TestSynchronisationLocale(_MathadapUserFixture):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -757,7 +757,7 @@ class TestSynchronisationLocale(_NovaMathUserFixture):
 
 # ── Renouvellement / expiration via Test Clock ────────────────────────────
 @h.skip_unless_e2e
-class TestRenouvellementAvecTestClock(_NovaMathUserFixture):
+class TestRenouvellementAvecTestClock(_MathadapUserFixture):
     """Seul groupe de tests à utiliser un Test Clock (lent : chaque avance
     d'horloge attend une resynchronisation réelle côté Stripe) — voir
     stripe_e2e_helpers.advance_test_clock. Un seul cycle création + avance

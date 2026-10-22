@@ -9,11 +9,11 @@ que cette montée en couverture n'exige aucun changement d'architecture.
 import re
 
 GREETING_RE = re.compile(r"^\s*(salut|bonjour|bonsoir|coucou|hello|hey|cc)\s*[!.?]*\s*$", re.IGNORECASE)
-IDENTITY_RE = re.compile(r"(qui es[- ]tu|tu es qui|c'est quoi novamath|présente[- ]toi)", re.IGNORECASE)
+IDENTITY_RE = re.compile(r"(qui es[- ]tu|tu es qui|c'est quoi mathadap|présente[- ]toi)", re.IGNORECASE)
 THANKS_RE = re.compile(r"^\s*(merci|merci beaucoup|ok merci|super merci)\s*[!.]*\s*$", re.IGNORECASE)
 
 IDENTITY_ANSWER = (
-    "Je suis l'assistant pédagogique de NovaMath 🙂 Je t'aide à comprendre tes cours et à résoudre tes "
+    "Je suis l'assistant pédagogique de Mathadap 🙂 Je t'aide à comprendre tes cours et à résoudre tes "
     "exercices de maths, étape par étape — jamais en te donnant juste la réponse finale. "
     "Pose-moi une question sur un chapitre, une notion, ou colle-moi un exercice sur lequel tu bloques !"
 )

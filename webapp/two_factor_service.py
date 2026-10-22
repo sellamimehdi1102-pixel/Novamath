@@ -1,5 +1,5 @@
 """
-Authentification à deux facteurs (2FA) — TOTP, RFC 6238 — pour NovaMath.
+Authentification à deux facteurs (2FA) — TOTP, RFC 6238 — pour Mathadap.
 SEC-03 : remplace l'ancien stub non fonctionnel de POST /api/auth/2fa/enable.
 
 Architecture stricte, identique à plan_service.py/quota_service.py/
