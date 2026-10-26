@@ -106,7 +106,14 @@
           <select id="admin-users-filter-plan" aria-label="Filtrer par abonnement"></select>
           <select id="admin-users-filter-role" aria-label="Filtrer par rôle"></select>
           <select id="admin-users-filter-status" aria-label="Filtrer par statut"></select>
-          <select id="admin-users-filter-payment" aria-label="Filtrer par statut de paiement"></select>
+          <!-- Chantier de simplification (audit utilité/densité) : remplace le
+           <select> à une seule option réelle ("Paiement en échec") par une
+           case à cocher — le filtre backend reste strictement identique
+           (payment_status=failed, voir admin_users_service.py). -->
+          <label class="admin-form-checkbox-row" for="admin-users-filter-payment">
+            <input type="checkbox" id="admin-users-filter-payment" aria-label="Filtrer les paiements en échec" />
+            Paiement en échec
+          </label>
         </div>
       </div>
       <div class="admin-users-table-wrap">
@@ -178,7 +185,22 @@
        d'introduction ci-dessus) plutôt qu'un bouton JS : pas de nouvelle
        route, pas de nouveau câblage de navigation. -->
       <section class="admin-section" aria-labelledby="admin-ai-usage-title">
-        <h2 class="admin-section-title" id="admin-ai-usage-title">Consommation IA — cumul à vie</h2>
+        <h2 class="admin-section-title" id="admin-ai-usage-title">
+          Consommation IA — cumul à vie
+          <!-- Audit admin (2026-10-22), point 4 : précision du périmètre exact de
+           CE total (ai_provider_usage) — déplacée du paragraphe permanent
+           ci-dessous vers une icône "i"/tooltip sur le titre, l'information
+           reste accessible (au clavier via tabindex + au survol/tactile via
+           title) sans occuper un espace permanent. Aucune donnée perdue. -->
+          <span
+            class="admin-info-icon"
+            tabindex="0"
+            role="img"
+            aria-label="Précision sur le périmètre de ce total"
+            title="Ce total ne couvre que les appels réellement envoyés à un fournisseur IA externe (Gemini/Claude/…) — jamais le moteur de réponses locales (bibliothèque de réponses statiques, aucun appel externe, aucun token)."
+            >ⓘ</span
+          >
+        </h2>
         <p class="admin-page-lead">
           Total de tous les appels enregistrés depuis toujours pour chaque fournisseur (jamais une fenêtre glissante).
           Pour l'évolution dans le temps et les classements par période, voir <a href="/admin/analytics">Analytics</a>.
@@ -241,13 +263,20 @@
     </template>
 
     <!-- Contenu du module Journal (voir admin-journal.js) — historique en lecture
-     seule de toutes les actions effectuées depuis le module Administration
-     IA (recherche/filtres/pagination/export), réutilise le composant table
-     déjà utilisé par le module Utilisateurs (.admin-users-table). -->
+     seule, générique à toute l'administration : IA, Abonnements, Analytics,
+     Sauvegardes et Finance (Stripe, lecture seule) — voir ACTIONS dans
+     admin_ai_log_service.py pour la liste complète. Renommé "Journal
+     d'administration" (chantier de simplification du panneau admin) : le
+     nom "Journal d'activité IA" ne reflétait plus que les actions du module
+     IA, alors que la majorité des événements journalisés aujourd'hui viennent
+     d'autres modules. Réutilise le composant table déjà utilisé par le
+     module Utilisateurs (.admin-users-table). -->
     <template id="admin-journal-template">
       <div class="admin-page-head">
-        <h1>Journal d'activité IA</h1>
-        <p class="admin-page-lead">Historique complet des actions effectuées depuis le module Administration IA.</p>
+        <h1>Journal d'administration</h1>
+        <p class="admin-page-lead">
+          Historique complet de toutes les actions d'administration (IA, Abonnements, Analytics, Sauvegardes, Finance).
+        </p>
       </div>
       <div class="admin-users-toolbar">
         <div class="admin-users-search">
@@ -267,12 +296,43 @@
           <select id="admin-journal-filter-provider" aria-label="Filtrer par fournisseur"></select>
           <select id="admin-journal-filter-action" aria-label="Filtrer par action"></select>
           <select id="admin-journal-filter-result" aria-label="Filtrer par résultat"></select>
-          <input type="date" id="admin-journal-filter-date-from" aria-label="Depuis le" />
-          <input type="date" id="admin-journal-filter-date-to" aria-label="Jusqu'au" />
+          <!-- Chantier de simplification (audit utilité/densité) : les 2
+           champs de date étaient isolés dans la grille de filtres, au même
+           niveau que les selects — regroupés visuellement en un seul bloc
+           "Période", les ids/comportement JS restent inchangés
+           (admin-journal-filter-date-from/to). -->
+          <div class="admin-form-checkbox-row" aria-label="Filtrer par période">
+            <span>Période :</span>
+            <input type="date" id="admin-journal-filter-date-from" aria-label="Depuis le" />
+            <span aria-hidden="true">→</span>
+            <input type="date" id="admin-journal-filter-date-to" aria-label="Jusqu'au" />
+          </div>
         </div>
-        <div class="admin-journal-export-actions">
-          <button type="button" class="admin-btn admin-btn--sm" id="admin-journal-export-csv">Exporter CSV</button>
-          <button type="button" class="admin-btn admin-btn--sm" id="admin-journal-export-json">Exporter JSON</button>
+        <p class="admin-form-hint admin-form-hint--warning" id="admin-journal-filters-warning" hidden>
+          <span id="admin-journal-filters-warning-text"></span>
+          <button type="button" class="admin-btn admin-btn--sm" id="admin-journal-filters-retry">Réessayer</button>
+        </p>
+        <!-- Chantier de simplification : les 2 boutons "Exporter CSV"/
+         "Exporter JSON" sont fusionnés en un seul contrôle (menu déroulant),
+         réutilisant les classes .admin-kebab/.admin-kebab-menu déjà
+         utilisées ailleurs dans l'admin (voir admin-settings.js) — les deux
+         mécanismes techniques (redirection directe pour CSV, fetch+blob pour
+         JSON, voir admin-journal.js) restent inchangés, seuls les ids des
+         2 actions sont conservés. -->
+        <div class="admin-journal-export-actions admin-kebab">
+          <button
+            type="button"
+            class="admin-btn admin-btn--sm"
+            id="admin-journal-export-toggle"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Exporter ▾
+          </button>
+          <div class="admin-kebab-menu" id="admin-journal-export-menu" hidden>
+            <button type="button" class="admin-kebab-item" id="admin-journal-export-csv">Exporter en CSV</button>
+            <button type="button" class="admin-kebab-item" id="admin-journal-export-json">Exporter en JSON</button>
+          </div>
         </div>
       </div>
       <div class="admin-filter-chips" id="admin-journal-filter-chips" hidden></div>
@@ -333,6 +393,10 @@
             <select id="admin-support-filter-priority" aria-label="Filtrer par priorité"></select>
             <select id="admin-support-filter-assigned" aria-label="Filtrer par administrateur assigné"></select>
           </div>
+          <p class="admin-form-hint admin-form-hint--warning" id="admin-support-assigned-warning" hidden>
+            <span id="admin-support-assigned-warning-text"></span>
+            <button type="button" class="admin-btn admin-btn--sm" id="admin-support-assigned-retry">Réessayer</button>
+          </p>
         </div>
         <div class="admin-users-table-wrap">
           <table class="admin-users-table">
@@ -406,6 +470,12 @@
           <div class="admin-form-field">
             <label class="admin-form-label" for="admin-support-ticket-assign-select">Administrateur assigné</label>
             <select class="admin-form-select" id="admin-support-ticket-assign-select"></select>
+            <p class="admin-form-hint admin-form-hint--warning" id="admin-support-ticket-assign-warning" hidden>
+              <span id="admin-support-ticket-assign-warning-text"></span>
+              <button type="button" class="admin-btn admin-btn--sm" id="admin-support-ticket-assign-retry">
+                Réessayer
+              </button>
+            </p>
           </div>
         </aside>
       </div>
@@ -449,10 +519,11 @@
     <template id="admin-settings-template">
       <div class="admin-page-head">
         <h1>Paramètres</h1>
-        <p class="admin-page-lead">
-          Centre de configuration de Mathadap. Tout ce qui n'est pas encore réellement appliqué par le code est signalé
-          explicitement — jamais deviné.
-        </p>
+        <!-- Audit admin (2026-10-22), point 4 : bandeau "enforced:false"
+         retiré — vérifié dans settings_service.py::SETTINGS_SCHEMA, plus
+         aucun réglage n'est `enforced:False` aujourd'hui, le texte était
+         devenu obsolète. -->
+        <p class="admin-page-lead">Centre de configuration de Mathadap.</p>
         <div class="admin-settings-toolbar">
           <div class="admin-settings-search">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -466,21 +537,17 @@
               aria-label="Rechercher un paramètre"
             />
           </div>
-          <button
-            type="button"
-            class="admin-btn admin-btn--sm admin-settings-fav-filter"
-            id="admin-settings-fav-filter-btn"
-            aria-pressed="false"
-          >
-            ☆ Favoris
-          </button>
         </div>
       </div>
 
-      <!-- Chaque catégorie est construite en JS (admin-settings.js::buildCategories)
-       via createCollapseSection (admin-collapse.js), avec une étoile de favori
-       injectée dans le titre — jamais de <section> fixe, pour rester cohérent
-       avec la structure repliable + favoris demandée par le produit. -->
+      <!-- Audit admin (2026-10-22), point 1 (Paramètres) : le système de
+       favoris (étoile par catégorie + filtre + localStorage) a été retiré —
+       disproportionné pour seulement 4 catégories, un simple repli suffit
+       (voir admin-settings.js::CATEGORIES/buildCategories). La recherche
+       texte est conservée (utile pour retrouver un champ précis). Chaque
+       catégorie est construite en JS (admin-settings.js::buildCategories)
+       via createCollapseSection (admin-collapse.js) — jamais de <section>
+       fixe. -->
       <div id="admin-settings-categories"></div>
     </template>
 
@@ -518,15 +585,9 @@
           <input
             type="search"
             id="admin-analytics-search-input"
-            placeholder="Rechercher un utilisateur, une conversation, un ticket, un message, un fournisseur, une sauvegarde…"
+            placeholder="Rechercher un utilisateur, une conversation, un ticket, un message, un fournisseur IA, une sauvegarde, un événement de sécurité…"
             aria-label="Recherche globale Analytics"
           />
-        </div>
-        <div class="admin-analytics-export-actions">
-          <a class="admin-btn admin-btn--sm" id="admin-analytics-export-csv" href="#">Exporter CSV</a>
-          <a class="admin-btn admin-btn--sm" id="admin-analytics-export-xlsx" href="#">Exporter Excel</a>
-          <a class="admin-btn admin-btn--sm" id="admin-analytics-export-pdf" href="#">Exporter PDF</a>
-          <button type="button" class="admin-btn admin-btn--sm" id="admin-analytics-print-btn">Imprimer</button>
         </div>
         <p class="admin-form-hint" id="admin-analytics-window-label"></p>
       </div>
@@ -552,12 +613,36 @@
         <div class="admin-cards" id="admin-analytics-pinned"></div>
       </section>
 
-      <section class="admin-section admin-analytics-no-print" aria-labelledby="admin-analytics-reports-title">
-        <h2 class="admin-section-title" id="admin-analytics-reports-title">Rapports</h2>
-        <form class="admin-form-grid" id="admin-analytics-report-form">
+      <!-- Export + Rapports fusionnés en UNE SEULE UI (Chantier Analytics,
+       2026-10-22) — avant : 3 boutons "Exporter CSV/Excel/PDF" dans la
+       barre d'outils + une section "Rapports" séparée (même historique
+       sous-jacent, voir admin_analytics_export_service.list_export_history,
+       déjà fusionné côté backend). "Imprimer" a été retiré (doublon
+       fonctionnel confirmé avec l'export PDF serveur, qui fait mieux : mise
+       en page dédiée, graphiques vectoriels réels, pas une capture de la
+       page web). La case "Conserver dans l'historique" détermine SEUL le
+       comportement du bouton : décochée (défaut) = export ponctuel de la
+       période actuellement affichée (comportement de l'ancien bouton
+       "Exporter", jamais écrit sur disque) ; cochée = génère un rapport
+       PERSISTÉ (comportement de l'ancienne section "Rapports", avec son
+       propre sélecteur de période car un rapport garde un sens même après
+       un changement de la période affichée à l'écran) — les deux restent
+       visibles dans le même tableau d'historique ci-dessous, aucune
+       fonction de traçabilité perdue. -->
+      <section class="admin-section admin-analytics-no-print" aria-labelledby="admin-analytics-export-title">
+        <h2 class="admin-section-title" id="admin-analytics-export-title">Export</h2>
+        <form class="admin-form-grid" id="admin-analytics-export-form">
           <div class="admin-form-field">
-            <label class="admin-form-label" for="admin-analytics-report-type">Type</label>
-            <select class="admin-form-select" id="admin-analytics-report-type">
+            <label class="admin-form-label" for="admin-analytics-export-format">Format</label>
+            <select class="admin-form-select" id="admin-analytics-export-format">
+              <option value="pdf" selected>PDF</option>
+              <option value="xlsx">Excel</option>
+              <option value="csv">CSV</option>
+            </select>
+          </div>
+          <div class="admin-form-field" id="admin-analytics-export-report-type-field" hidden>
+            <label class="admin-form-label" for="admin-analytics-export-report-type">Période du rapport</label>
+            <select class="admin-form-select" id="admin-analytics-export-report-type">
               <option value="quotidien">Quotidien</option>
               <option value="hebdomadaire">Hebdomadaire</option>
               <option value="mensuel" selected>Mensuel</option>
@@ -565,15 +650,15 @@
               <option value="personnalise">Personnalisé</option>
             </select>
           </div>
-          <div class="admin-form-field">
-            <label class="admin-form-label" for="admin-analytics-report-format">Format</label>
-            <select class="admin-form-select" id="admin-analytics-report-format">
-              <option value="pdf" selected>PDF</option>
-              <option value="xlsx">Excel</option>
-              <option value="csv">CSV</option>
-            </select>
+          <div class="admin-form-field admin-analytics-export-keep-field">
+            <label class="admin-form-label" for="admin-analytics-export-keep-checkbox">
+              <input type="checkbox" id="admin-analytics-export-keep-checkbox" />
+              Conserver dans l'historique (téléchargeable plus tard)
+            </label>
           </div>
-          <button type="submit" class="admin-btn admin-btn--primary">Générer le rapport</button>
+          <button type="submit" class="admin-btn admin-btn--primary" id="admin-analytics-export-submit-btn">
+            Exporter
+          </button>
         </form>
         <div class="admin-users-table-wrap">
           <table class="admin-users-table">
@@ -595,8 +680,21 @@
         <p class="admin-empty" id="admin-analytics-reports-empty" hidden>Aucun export/rapport n'a encore été généré.</p>
       </section>
 
+      <!-- Les 3 graphiques "Croissance quotidienne/mensuelle/annuelle"
+       (même métrique d'inscriptions, 3 granularités) ont été fusionnés en
+       UN SEUL graphique + un sélecteur de granularité (Chantier Analytics,
+       2026-10-22) — toutes les données restent accessibles, juste via le
+       sélecteur plutôt que 3 blocs simultanés. -->
       <section class="admin-section" aria-labelledby="admin-analytics-users-title">
         <h2 class="admin-section-title" id="admin-analytics-users-title">Utilisateurs</h2>
+        <div class="admin-form-field admin-analytics-no-print">
+          <label class="admin-form-label" for="admin-analytics-users-granularity-select">Granularité</label>
+          <select class="admin-form-select" id="admin-analytics-users-granularity-select">
+            <option value="daily" selected>Jour</option>
+            <option value="monthly">Mois</option>
+            <option value="yearly">Année</option>
+          </select>
+        </div>
         <div class="admin-health-charts-grid" id="admin-analytics-users-charts"></div>
       </section>
 
@@ -635,12 +733,26 @@
 
       <section class="admin-section" aria-labelledby="admin-subscriptions-plans-title">
         <h2 class="admin-section-title" id="admin-subscriptions-plans-title">Plans</h2>
+        <p class="admin-form-hint">
+          Le nombre d'utilisateurs par plan (champ local <code>plan</code>) diffère des abonnements Stripe actifs et des
+          indicateurs agrégés (nouveaux abonnements, résiliations, MRR estimé), tous centralisés dans le module
+          <a href="/admin/finance">Finance</a> (réservé SUPER_ADMIN) — voir la réconciliation ci-dessous en cas d'écart.
+        </p>
         <div class="admin-cards admin-ai-providers-grid" id="admin-subscriptions-plans"></div>
       </section>
 
-      <section class="admin-section" aria-labelledby="admin-subscriptions-stats-title">
-        <h2 class="admin-section-title" id="admin-subscriptions-stats-title">Statistiques</h2>
-        <div class="admin-cards" id="admin-subscriptions-stats"></div>
+      <section class="admin-section" aria-labelledby="admin-subscriptions-stripe-reconcile-title">
+        <h2 class="admin-section-title" id="admin-subscriptions-stripe-reconcile-title">Réconciliation Stripe</h2>
+        <p class="admin-form-hint">
+          Compare, en LECTURE SEULE, le statut d'abonnement stocké localement au statut réel renvoyé par Stripe pour
+          chaque compte — ne modifie jamais ni la base ni Stripe. Une divergence signale un webhook manqué ou un
+          changement effectué directement dans le Dashboard Stripe.
+        </p>
+        <div id="admin-subscriptions-stripe-environment"></div>
+        <button type="button" class="admin-btn" id="admin-subscriptions-reconcile-btn">
+          Lancer une réconciliation (lecture seule)
+        </button>
+        <div id="admin-subscriptions-reconcile-result"></div>
       </section>
 
       <section class="admin-section" aria-labelledby="admin-subscriptions-ai-title">
@@ -651,6 +763,127 @@
         </p>
         <div id="admin-subscriptions-ai-assignment"></div>
       </section>
+    </template>
+
+    <template id="admin-finance-template">
+      <div class="admin-page-head">
+        <h1>Finance</h1>
+        <p class="admin-page-lead">
+          Tableau de bord financier Mathadap — abonnements/MRR calculés localement (instantanés), revenus/paiements lus
+          en direct depuis Stripe sur demande explicite (lecture seule, jamais automatique).
+        </p>
+        <p class="admin-form-hint" id="admin-finance-last-refresh"></p>
+        <button type="button" class="admin-btn admin-btn--sm" id="admin-finance-retry-btn" hidden>Réessayer</button>
+      </div>
+
+      <section class="admin-section" aria-labelledby="admin-finance-env-title">
+        <h2 class="admin-section-title" id="admin-finance-env-title">Source des données</h2>
+        <div id="admin-finance-stripe-environment"></div>
+      </section>
+
+      <section class="admin-section" aria-labelledby="admin-finance-subs-title">
+        <h2 class="admin-section-title" id="admin-finance-subs-title">Abonnements</h2>
+        <p class="admin-form-hint">
+          Les chiffres ci-dessous mesurent les abonnements Stripe réellement actifs (dernier statut webhook connu
+          <code>active</code>/<code>trialing</code>) — une mesure différente du nombre d'utilisateurs par plan affiché
+          dans le module <a href="/admin/subscriptions">Abonnements</a> (champ <code>plan</code> du compte, pas
+          nécessairement synchronisé en temps réel) : les deux sont légitimes, ce ne sont pas des doublons.
+        </p>
+        <div class="admin-cards" id="admin-finance-subscriptions"></div>
+      </section>
+
+      <section class="admin-section" aria-labelledby="admin-finance-revenue-title">
+        <h2 class="admin-section-title" id="admin-finance-revenue-title">Revenus (Stripe, lecture seule)</h2>
+        <!-- Audit admin (2026-10-22) : quand Stripe n'est pas accessible en
+         lecture (non_configure/etat_inconnu/reconciliation_blocked), cette
+         zone compacte remplace entièrement les contrôles ci-dessous (jamais
+         les deux affichés ensemble) — voir wireFinanceButtons/
+         isFinanceUnavailable dans admin-finance.js, qui bascule .hidden sur
+         les deux blocs selon stripe_environment. Évite de réserver les 240px
+         du graphique (.admin-health-chart-box, ajoutée dynamiquement par JS
+         UNIQUEMENT quand une série est réellement rendue) tant qu'aucune
+         donnée n'est disponible. -->
+        <div id="admin-finance-revenue-unavailable" hidden></div>
+        <div id="admin-finance-revenue-controls">
+          <p class="admin-form-hint">
+            Revenu brut = factures payées sur la période. Net = brut moins remboursements UNIQUEMENT (jamais net des
+            frais Stripe, non calculé dans cette phase). Chaque clic déclenche un véritable appel à Stripe.
+          </p>
+          <label class="admin-form-label" for="admin-finance-period" id="admin-finance-period-label">Période</label>
+          <select id="admin-finance-period" class="admin-form-select">
+            <option value="30">30 derniers jours</option>
+            <option value="90">90 derniers jours</option>
+            <option value="365">12 derniers mois</option>
+          </select>
+          <button type="button" class="admin-btn" id="admin-finance-revenue-btn">Charger les revenus (Stripe)</button>
+          <div id="admin-finance-revenue-result"></div>
+          <div id="admin-finance-revenue-chart"></div>
+        </div>
+      </section>
+
+      <section class="admin-section" aria-labelledby="admin-finance-payments-title">
+        <h2 class="admin-section-title" id="admin-finance-payments-title">
+          Derniers paiements (Stripe, lecture seule)
+        </h2>
+        <button type="button" class="admin-btn" id="admin-finance-payments-btn">
+          Charger les derniers paiements (Stripe)
+        </button>
+        <div id="admin-finance-payments-result"></div>
+      </section>
+    </template>
+
+    <!-- Module "Fréquentation" (/admin/frequentation) — Phase 2 Cloudflare (audit
+     admin, 2026-10-21). Fréquentation du SITE (Cloudflare Web Analytics),
+     jamais les comptes/l'activité Mathadap (voir module "Analytics" pour
+     cela) — distinction toujours visible via le texte d'introduction et les
+     libellés de section. Même design que les autres modules (admin-card/
+     admin-section/admin-health-chart-box), aucun nouveau style créé. -->
+    <template id="admin-frequentation-template">
+      <div class="admin-page-head">
+        <h1>Fréquentation</h1>
+        <p class="admin-page-lead">
+          Statistiques de fréquentation du site mathadap.com, mesurées par Cloudflare Web Analytics (cookie-free) —
+          distinctes des comptes et de l'activité Mathadap (voir le module Analytics pour cela). Ce qui n'est pas encore
+          disponible est signalé explicitement, jamais deviné ni approximé.
+        </p>
+      </div>
+
+      <div class="admin-users-toolbar">
+        <div class="admin-users-filters">
+          <select class="admin-form-select" id="admin-frequentation-window-select" aria-label="Période"></select>
+        </div>
+      </div>
+      <p class="admin-form-hint" id="admin-frequentation-sampling-note" hidden></p>
+      <p class="admin-form-error" id="admin-frequentation-error" hidden></p>
+
+      <!-- État vide groupé (non configuré / erreur API / zéro réel confirmé) —
+       remplace les 3 sections détaillées ci-dessous quand aucune métrique
+       n'a de donnée réelle (voir computeEmptyState() dans admin-frequentation.js) ;
+       une seule carte, pas 1300px de blocs vides répétant le même message. -->
+      <article class="admin-card admin-frequentation-empty-state" id="admin-frequentation-empty-state" hidden>
+        <div class="admin-card-label" id="admin-frequentation-empty-state-title"></div>
+        <p class="admin-card-sub" id="admin-frequentation-empty-state-message"></p>
+        <button type="button" class="admin-btn admin-btn--sm" id="admin-frequentation-empty-state-retry" hidden>
+          Réessayer
+        </button>
+      </article>
+
+      <div id="admin-frequentation-detail">
+        <section class="admin-section" aria-labelledby="admin-frequentation-overview-title">
+          <h2 class="admin-section-title" id="admin-frequentation-overview-title">Vue d'ensemble</h2>
+          <div class="admin-cards" id="admin-frequentation-overview-cards"></div>
+        </section>
+
+        <section class="admin-section" aria-labelledby="admin-frequentation-evolution-title">
+          <h2 class="admin-section-title" id="admin-frequentation-evolution-title">Évolution quotidienne</h2>
+          <div class="admin-health-chart-box" id="admin-frequentation-evolution-chart"></div>
+        </section>
+
+        <section class="admin-section" aria-labelledby="admin-frequentation-rankings-title">
+          <h2 class="admin-section-title" id="admin-frequentation-rankings-title">Classements</h2>
+          <div class="admin-cards" id="admin-frequentation-rankings"></div>
+        </section>
+      </div>
     </template>
 
     <!-- Contenu du sous-chemin /admin/subscriptions/:plan — fiche détaillée d'un

@@ -1,5 +1,5 @@
 """
-Couche base de données pour le système de comptes NovaMath.
+Couche base de données pour le système de comptes Mathadap.
 
 SQLite par défaut (fichier local, DATA_DIR/DB_PATH ci-dessous), PostgreSQL si
 `config.DATABASE_URL` est positionnée (ARCH-02) — l'ouverture des connexions,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS security_events (
     created_at TEXT NOT NULL
 );
 
--- Chatbot pédagogique NovaMath (module webapp/chatbot/) : une conversation
+-- Chatbot pédagogique Mathadap (module webapp/chatbot/) : une conversation
 -- contient plusieurs messages, relation classique 1-N, d'où l'usage de vraies
 -- tables SQL (contrairement aux stats/settings/course-progress qui sont un
 -- blob JSON par utilisateur) — nécessaire pour l'historique paginé et la
@@ -611,7 +611,7 @@ CREATE INDEX IF NOT EXISTS idx_support_tickets_assigned ON support_tickets(assig
 
 -- Conversation d'UN ticket — `author_type` 'user'/'admin' distingue qui a
 -- écrit (jamais déductible de `author_id` seul : un admin peut aussi être un
--- utilisateur NovaMath par ailleurs). Une réponse admin met à jour
+-- utilisateur Mathadap par ailleurs). Une réponse admin met à jour
 -- support_tickets.first_admin_response_at (si absente) ET last_response_at
 -- (voir support_service.add_message) — jamais recalculé ici, cette table ne
 -- fait qu'stocker le message brut.
@@ -3682,6 +3682,13 @@ def set_subscription_plan_active(plan, active):
 # même format que `_now()` déjà utilisé dans toutes les colonnes `created_at`/
 # `last_login_at` de ce fichier — jamais un objet datetime construit ici.
 def count_users():
+    """Total BRUT, invités compris — jamais à utiliser pour un KPI "utilisateurs
+    inscrits" affiché à un humain (voir count_registered_users ci-dessous).
+    Conservé tel quel : auth.py::_migrate_legacy_stats_if_first_user en a
+    besoin pour détecter littéralement la toute première ligne de la table
+    (un invité y compris), et server.py journalise ce total brut au
+    démarrage — aucun des deux n'est un KPI admin, changer leur sens ici
+    casserait l'un des deux silencieusement."""
     conn = get_connection()
     try:
         return conn.execute("SELECT COUNT(*) AS n FROM users").fetchone()["n"]
@@ -3689,17 +3696,51 @@ def count_users():
         conn.close()
 
 
-def count_users_active_since(since_iso, until_iso=None):
+def count_registered_users():
+    """Comptage EXPLICITE des comptes réellement inscrits (auth_provider !=
+    'guest') — distinct de count_users() (total brut, invités compris).
+    Audit admin (2026-10-20) : aucun KPI "utilisateurs inscrits"/"nouvelles
+    inscriptions"/"répartition par plan" ne doit utiliser count_users() ni
+    count_users_by_plan(include_guests=True) sans un motif explicite."""
+    conn = get_connection()
+    try:
+        return conn.execute(
+            "SELECT COUNT(*) AS n FROM users WHERE auth_provider != 'guest'"
+        ).fetchone()["n"]
+    finally:
+        conn.close()
+
+
+def count_guest_users():
+    """Comptage EXPLICITE des sessions invitées actuellement en base (avant
+    nettoyage par cleanup_expired_guests) — jamais confondu avec un vrai
+    compte inscrit dans les KPI admin."""
+    conn = get_connection()
+    try:
+        return conn.execute(
+            "SELECT COUNT(*) AS n FROM users WHERE auth_provider = 'guest'"
+        ).fetchone()["n"]
+    finally:
+        conn.close()
+
+
+def count_users_active_since(since_iso, until_iso=None, include_guests=True):
     """Comptage par `last_login_at` — un compte qui ne s'est jamais connecté
     (last_login_at NULL) n'est jamais compté comme actif. `until_iso`
     optionnel (borne supérieure, ex: filtre "hier"/"personnalisé" du module
-    Analytics) — les appelants existants ne le passent jamais, comportement
-    inchangé."""
+    Analytics). `include_guests` : paramètre EXPLICITE (défaut True, aucun
+    changement de comportement pour les appelants existants) — audit admin
+    (2026-10-20) : un compte invité actif gonflait silencieusement les KPI
+    "utilisateurs actifs" ; les appelants admin concernés passent désormais
+    `include_guests=False` explicitement plutôt que de changer le défaut
+    globalement (voir admin_dashboard_service.py/admin_analytics_service.py)."""
     sql = "SELECT COUNT(*) AS n FROM users WHERE last_login_at IS NOT NULL AND last_login_at >= ?"
     params = [since_iso]
     if until_iso is not None:
         sql += " AND last_login_at < ?"
         params.append(until_iso)
+    if not include_guests:
+        sql += " AND auth_provider != 'guest'"
     conn = get_connection()
     try:
         return conn.execute(sql, tuple(params)).fetchone()["n"]
@@ -3707,12 +3748,19 @@ def count_users_active_since(since_iso, until_iso=None):
         conn.close()
 
 
-def count_users_created_since(since_iso, until_iso=None):
+def count_users_created_since(since_iso, until_iso=None, include_guests=True):
+    """`include_guests` : paramètre EXPLICITE (défaut True, comportement
+    inchangé pour les appelants existants) — audit admin (2026-10-20) : une
+    création de session invitée n'est pas une "nouvelle inscription" ; les
+    appelants admin concernés passent désormais `include_guests=False`
+    explicitement (voir admin_analytics_service.py)."""
     sql = "SELECT COUNT(*) AS n FROM users WHERE created_at >= ?"
     params = [since_iso]
     if until_iso is not None:
         sql += " AND created_at < ?"
         params.append(until_iso)
+    if not include_guests:
+        sql += " AND auth_provider != 'guest'"
     conn = get_connection()
     try:
         return conn.execute(sql, tuple(params)).fetchone()["n"]
@@ -3811,15 +3859,98 @@ def count_users_pending_parental_consent():
         conn.close()
 
 
-def count_users_by_plan():
+def count_users_by_plan(include_guests=True):
     """{"free": n, "premium": n, "ultra": n, ...} — une clé par valeur de
     `plan` réellement présente en base (jamais une liste fixe de plans
     codée en dur ici, voir plan_service.Plan pour la liste des plans
-    valides côté application)."""
+    valides côté application). `include_guests` : paramètre EXPLICITE
+    (défaut True, comportement inchangé) — audit admin (2026-10-20) : un
+    invité a toujours `plan='free'` par défaut, gonflant silencieusement le
+    compteur "Free" des KPI admin ; les appelants admin concernés passent
+    désormais `include_guests=False` explicitement (voir
+    admin_analytics_service.py/admin_subscriptions_service.py)."""
+    sql = "SELECT plan, COUNT(*) AS n FROM users"
+    if not include_guests:
+        sql += " WHERE auth_provider != 'guest'"
+    sql += " GROUP BY plan"
     conn = get_connection()
     try:
-        rows = conn.execute("SELECT plan, COUNT(*) AS n FROM users GROUP BY plan").fetchall()
+        rows = conn.execute(sql).fetchall()
         return {row["plan"]: row["n"] for row in rows}
+    finally:
+        conn.close()
+
+
+def count_users_with_stripe_subscription():
+    """Nombre total de comptes ayant un `stripe_subscription_id` — borne
+    réelle de pagination pour stripe_reconciliation_service.py (jamais un
+    lot unique sans savoir combien il en reste)."""
+    conn = get_connection()
+    try:
+        return conn.execute(
+            "SELECT COUNT(*) AS n FROM users WHERE stripe_subscription_id IS NOT NULL"
+        ).fetchone()["n"]
+    finally:
+        conn.close()
+
+
+def list_users_with_stripe_subscription(limit=50, offset=0):
+    """Pagination par lot pour la réconciliation Stripe ↔ DB locale (lecture
+    seule, voir stripe_reconciliation_service.py) — ordre stable (`id ASC`)
+    pour qu'un appel paginé répété ne saute ni ne répète jamais une ligne
+    entre deux lots, même si la table change entre temps."""
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            """SELECT id, email, stripe_customer_id, stripe_subscription_id, stripe_subscription_status, plan
+               FROM users
+               WHERE stripe_subscription_id IS NOT NULL
+               ORDER BY id ASC
+               LIMIT ? OFFSET ?""",
+            (limit, offset),
+        ).fetchall()
+        return [dict(row) for row in rows]
+    finally:
+        conn.close()
+
+
+def count_active_subscriptions_by_plan():
+    """{"premium": n, "ultra": n, ...} — UNIQUEMENT les comptes dont le
+    DERNIER statut Stripe connu est 'active' ou 'trialing' (voir
+    stripe_webhook_service._ACTIVE_STATUSES, même liste, jamais redéfinie
+    ici). Audit admin Phase 2A (2026-10-21) : `count_users_by_plan` compte
+    par colonne `plan` seule, qui reste au plan payant pendant la fenêtre de
+    relance (`past_due`, voir stripe_webhook_service._GRACE_STATUSES) — cette
+    fonction sert spécifiquement le tableau de bord financier, qui a besoin
+    de distinguer "abonnement actif" de "abonnement payant en retard de
+    paiement" (voir count_users_with_failed_payment), jamais les confondre."""
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            "SELECT plan, COUNT(*) AS n FROM users "
+            "WHERE stripe_subscription_status IN ('active', 'trialing') "
+            "GROUP BY plan"
+        ).fetchall()
+        return {row["plan"]: row["n"] for row in rows}
+    finally:
+        conn.close()
+
+
+def count_users_with_canceled_subscription():
+    """Nombre de comptes dont le DERNIER statut Stripe connu est 'canceled'
+    (voir stripe_webhook_service._handle_subscription_deleted, qui écrit ce
+    statut en même temps que `stripe_subscription_id=NULL` et `plan=free`).
+    Mesure un ÉTAT courant ("actuellement résilié"), jamais un ÉVÉNEMENT sur
+    une période — un compte résilié il y a un an sans s'être jamais
+    réabonné depuis reste compté ici. Pour les résiliations SURVENUES sur
+    une fenêtre donnée, voir db.count_security_events_since("stripe_
+    subscription_deleted", ...), déjà utilisé par admin_subscriptions_
+    service._global_stats — ne jamais confondre les deux dans l'admin."""
+    conn = get_connection()
+    try:
+        return conn.execute(
+            "SELECT COUNT(*) AS n FROM users WHERE stripe_subscription_status = 'canceled'"
+        ).fetchone()["n"]
     finally:
         conn.close()
 

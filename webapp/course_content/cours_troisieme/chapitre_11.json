@@ -58,7 +58,8 @@
           ],
           "reponse": "20 cm",
           "conclusion": "Nous avons ainsi obtenu le résultat : 20 cm",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1356",
@@ -73,7 +74,8 @@
           ],
           "reponse": "30 cm",
           "conclusion": "Nous avons ainsi obtenu le résultat : 30 cm",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1362",
@@ -92,7 +94,8 @@
           ],
           "reponse": "112,5 cm²",
           "conclusion": "Nous avons ainsi obtenu le résultat : 112,5 cm²",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1368",
@@ -111,12 +114,11 @@
           ],
           "reponse": "k = 4 ; segment image = 12 cm",
           "conclusion": "Nous avons ainsi obtenu le résultat : k = 4 ; segment image = 12 cm",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Multiplier une aire par k au lieu de k², en appliquant la même règle que pour une longueur.",
         "Oublier la valeur absolue pour un rapport k négatif lors du calcul d'une longueur image.",
@@ -157,33 +159,85 @@
         "grid": false,
         "axes": false,
         "points": [
-          {"x": 0, "y": 0, "label": "O"},
-          {"x": 1, "y": 1, "label": "A"},
-          {"x": 3, "y": 1, "label": "B"},
-          {"x": 1, "y": 3, "label": "C"},
-          {"x": 2, "y": 2, "label": "A'"},
-          {"x": 6, "y": 2, "label": "B'"},
-          {"x": 2, "y": 6, "label": "C'"}
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "label": "A"
+          },
+          {
+            "x": 3,
+            "y": 1,
+            "label": "B"
+          },
+          {
+            "x": 1,
+            "y": 3,
+            "label": "C"
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "label": "A'"
+          },
+          {
+            "x": 6,
+            "y": 2,
+            "label": "B'"
+          },
+          {
+            "x": 2,
+            "y": 6,
+            "label": "C'"
+          }
         ],
         "polygons": [
-          {"points": ["A", "B", "C"], "variant": "a", "tooltip": "Triangle ABC (figure initiale)"},
-          {"points": ["A'", "B'", "C'"], "variant": "b", "tooltip": "Triangle A'B'C', image de ABC par l'homothétie de centre O et de rapport k=2"}
+          {
+            "points": ["A", "B", "C"],
+            "variant": "a",
+            "tooltip": "Triangle ABC (figure initiale)"
+          },
+          {
+            "points": ["A'", "B'", "C'"],
+            "variant": "b",
+            "tooltip": "Triangle A'B'C', image de ABC par l'homothétie de centre O et de rapport k=2"
+          }
         ],
         "segments": [
-          {"from": "O", "to": "A'", "dashed": true, "tooltip": "O, A et A' sont alignés"},
-          {"from": "O", "to": "B'", "dashed": true, "tooltip": "O, B et B' sont alignés"},
-          {"from": "O", "to": "C'", "dashed": true, "tooltip": "O, C et C' sont alignés"}
+          {
+            "from": "O",
+            "to": "A'",
+            "dashed": true,
+            "tooltip": "O, A et A' sont alignés"
+          },
+          {
+            "from": "O",
+            "to": "B'",
+            "dashed": true,
+            "tooltip": "O, B et B' sont alignés"
+          },
+          {
+            "from": "O",
+            "to": "C'",
+            "dashed": true,
+            "tooltip": "O, C et C' sont alignés"
+          }
         ],
         "texts": [
-          {"x": 4, "y": 7.5, "label": "k = 2 : longueurs ×2, aire ×4", "weight": "big"}
+          {
+            "x": 4,
+            "y": 7.5,
+            "label": "k = 2 : longueurs ×2, aire ×4",
+            "weight": "big"
+          }
         ],
         "alt": "Triangle ABC et son image A'B'C' par l'homothétie de centre O et de rapport k=2 : chaque longueur de A'B'C' est le double de celle de ABC, et son aire est multipliée par k²=4."
       },
-      "quizExerciseIds": [
-        1351,
-        1352,
-        1353
-      ],
+      "quizExerciseIds": [1351, 1352, 1353],
       "topic_id": "effets-d-une-homothetie-sur-les-longueurs-et-les-aires",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -194,11 +248,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "effets",
-        "homothetie",
-        "longueurs",
-        "aires"
+      "tags": ["effets", "homothetie", "longueurs", "aires"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "homo-eff-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Un rapport négatif appliqué à une aire",
+          "description": "Un exemple complet qui montre pourquoi k² reste positif même si k est négatif."
+        },
+        {
+          "id": "homo-eff-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Retrouver k à partir d'un rapport d'aires",
+          "description": "Le raisonnement inverse : passer du rapport des aires au rapport des longueurs grâce à la racine carrée."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Une homothétie de rapport $k=3$ est appliquée à un carré d'aire $4$ cm². Quelle est l'aire de l'image ?",
+          "piste": "L'aire est multipliée par $k^2=9$, donc l'aire de l'image est $4\\times9=36$ cm²."
+        }
       ]
     },
     {
@@ -256,7 +329,8 @@
           ],
           "reponse": "45°",
           "conclusion": "Nous avons ainsi obtenu le résultat : 45°",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1386",
@@ -271,7 +345,8 @@
           ],
           "reponse": "72°",
           "conclusion": "Nous avons ainsi obtenu le résultat : 72°",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1392",
@@ -286,7 +361,8 @@
           ],
           "reponse": "≈ 51,4°",
           "conclusion": "Nous avons ainsi obtenu le résultat : ≈ 51,4°",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1398",
@@ -301,12 +377,11 @@
           ],
           "reponse": "n = 16",
           "conclusion": "Nous avons ainsi obtenu le résultat : n = 16",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Confondre une frise (translation, motif qui avance en ligne droite) avec une rosace (rotation, motif qui tourne autour d'un point).",
         "Oublier de diviser 360° par le nombre de motifs et utiliser un autre nombre (le nombre d'écarts entre certains motifs, par exemple).",
@@ -347,31 +422,72 @@
         "grid": false,
         "axes": false,
         "points": [
-          {"x": 0, "y": 0, "label": "O"},
-          {"x": 0, "y": 2, "label": "1"},
-          {"x": 1.73, "y": 1, "label": "2"},
-          {"x": 1.73, "y": -1, "label": "3"},
-          {"x": 0, "y": -2, "label": "4"},
-          {"x": -1.73, "y": -1, "label": "5"},
-          {"x": -1.73, "y": 1, "label": "6"}
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 0,
+            "y": 2,
+            "label": "1"
+          },
+          {
+            "x": 1.73,
+            "y": 1,
+            "label": "2"
+          },
+          {
+            "x": 1.73,
+            "y": -1,
+            "label": "3"
+          },
+          {
+            "x": 0,
+            "y": -2,
+            "label": "4"
+          },
+          {
+            "x": -1.73,
+            "y": -1,
+            "label": "5"
+          },
+          {
+            "x": -1.73,
+            "y": 1,
+            "label": "6"
+          }
         ],
         "circles": [
-          {"center": "O", "radius": 2}
+          {
+            "center": "O",
+            "radius": 2
+          }
         ],
         "segments": [
-          {"from": "O", "to": "1", "dashed": true},
-          {"from": "O", "to": "2", "dashed": true}
+          {
+            "from": "O",
+            "to": "1",
+            "dashed": true
+          },
+          {
+            "from": "O",
+            "to": "2",
+            "dashed": true
+          }
         ],
         "arcs": [
-          {"center": "O", "radius": 0.6, "startDeg": 30, "endDeg": 90, "label": "60°"}
+          {
+            "center": "O",
+            "radius": 0.6,
+            "startDeg": 30,
+            "endDeg": 90,
+            "label": "60°"
+          }
         ],
         "alt": "Une rosace formée de 6 motifs (points 1 à 6) régulièrement répartis sur un cercle de centre O : l'angle de rotation entre deux motifs consécutifs vaut 360°/6 = 60°."
       },
-      "quizExerciseIds": [
-        1381,
-        1382,
-        1383
-      ],
+      "quizExerciseIds": [1381, 1382, 1383],
       "topic_id": "frises,-pavages-et-rosaces",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -382,10 +498,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "frises",
-        "pavages",
-        "rosaces"
+      "tags": ["frises", "pavages", "rosaces"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "frises-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Calculer un angle avec un arrondi",
+          "description": "Un exemple complet où 360° ne se divise pas de façon exacte, pour s'entraîner à arrondir correctement."
+        },
+        {
+          "id": "frises-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Retrouver le nombre de motifs à partir de l'angle",
+          "description": "Le raisonnement inverse : passer de l'angle de rotation au nombre total de motifs d'une rosace."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Une frise est-elle construite par translation ou par rotation ?",
+          "piste": "Par translation : le motif avance en ligne droite, toujours avec le même écart."
+        }
       ]
     },
     {
@@ -447,7 +583,8 @@
           ],
           "reponse": "A'(6 ; 9)",
           "conclusion": "Nous avons ainsi obtenu le résultat : A'(6 ; 9)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1326",
@@ -470,7 +607,8 @@
           ],
           "reponse": "F'(5 ; 6)",
           "conclusion": "Nous avons ainsi obtenu le résultat : F'(5 ; 6)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1332",
@@ -485,7 +623,8 @@
           ],
           "reponse": "L'(-6 ; -2)",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'(-6 ; -2)",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1338",
@@ -504,12 +643,11 @@
           ],
           "reponse": "k = 3",
           "conclusion": "Nous avons ainsi obtenu le résultat : k = 3",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Oublier que le centre O ne bouge pas, et déplacer par erreur ses coordonnées lors du calcul de l'image d'un point.",
         "Ne pas tenir compte du signe de k : placer l'image du même côté du centre alors que k est négatif.",
@@ -550,38 +688,86 @@
         "grid": false,
         "axes": false,
         "points": [
-          {"x": 0, "y": 0, "label": "O"},
-          {"x": 2, "y": 1, "label": "M"},
-          {"x": 4, "y": 2, "label": "M'"}
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 2,
+            "y": 1,
+            "label": "M"
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "label": "M'"
+          }
         ],
         "segments": [
-          {"from": "O", "to": "M", "tooltip": "OM"},
-          {"from": "M", "to": "M'", "tooltip": "MM' = OM, donc OM' = 2 × OM"}
+          {
+            "from": "O",
+            "to": "M",
+            "tooltip": "OM"
+          },
+          {
+            "from": "M",
+            "to": "M'",
+            "tooltip": "MM' = OM, donc OM' = 2 × OM"
+          }
         ],
         "texts": [
-          {"x": 1, "y": 0.25, "label": "d"},
-          {"x": 3, "y": 1.25, "label": "d"},
-          {"x": 2, "y": 2.6, "label": "k = 2"}
+          {
+            "x": 1,
+            "y": 0.25,
+            "label": "d"
+          },
+          {
+            "x": 3,
+            "y": 1.25,
+            "label": "d"
+          },
+          {
+            "x": 2,
+            "y": 2.6,
+            "label": "k = 2"
+          }
         ],
         "alt": "Homothétie de centre O et de rapport k=2 : le point M a pour image M', avec O, M et M' alignés et OM' = 2 × OM."
       },
-      "quizExerciseIds": [
-        1321,
-        1322,
-        1323
-      ],
+      "quizExerciseIds": [1321, 1322, 1323],
       "topic_id": "homothetie",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Homothétie."
-      ],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Homothétie."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "homothetie"
+      "tags": ["homothetie"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "homothetie-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Une homothétie dont le centre n'est pas l'origine",
+          "description": "Un exemple complet qui utilise la formule générale M' = O + k×(M-O)."
+        },
+        {
+          "id": "homothetie-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Retrouver le rapport k à partir d'un point et de son image",
+          "description": "Le raisonnement inverse : déterminer k à partir des coordonnées connues d'un point et de son image."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Dans une homothétie, quel est le seul point qui ne bouge jamais ?",
+          "piste": "Le centre O : c'est le seul point invariant, son image est lui-même."
+        }
       ]
     },
     {
@@ -643,7 +829,8 @@
           ],
           "reponse": "A'(-5 ; 3)",
           "conclusion": "Nous avons ainsi obtenu le résultat : A'(-5 ; 3)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1296",
@@ -666,7 +853,8 @@
           ],
           "reponse": "H'(2 ; 6)",
           "conclusion": "Nous avons ainsi obtenu le résultat : H'(2 ; 6)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1302",
@@ -685,7 +873,8 @@
           ],
           "reponse": "R'(1 ; 2,5)",
           "conclusion": "Nous avons ainsi obtenu le résultat : R'(1 ; 2,5)",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1308",
@@ -708,12 +897,11 @@
           ],
           "reponse": "Sens direct",
           "conclusion": "Nous avons ainsi obtenu le résultat : Sens direct",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Confondre le sens direct et le sens indirect de la rotation, ce qui inverse la position de l'image.",
         "Oublier de ramener les coordonnées dans un repère centré sur le centre de la rotation avant d'appliquer la formule, quand le centre n'est pas l'origine.",
@@ -754,39 +942,85 @@
         "grid": false,
         "axes": false,
         "points": [
-          {"x": 0, "y": 0, "label": "O"},
-          {"x": 3, "y": 5, "label": "M"},
-          {"x": -5, "y": 3, "label": "M'"}
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 3,
+            "y": 5,
+            "label": "M"
+          },
+          {
+            "x": -5,
+            "y": 3,
+            "label": "M'"
+          }
         ],
         "segments": [
-          {"from": "O", "to": "M", "tooltip": "OM"},
-          {"from": "O", "to": "M'", "tooltip": "OM' = OM"}
+          {
+            "from": "O",
+            "to": "M",
+            "tooltip": "OM"
+          },
+          {
+            "from": "O",
+            "to": "M'",
+            "tooltip": "OM' = OM"
+          }
         ],
         "arcs": [
-          {"center": "O", "radius": 1.2, "startDeg": 59.04, "endDeg": 149.04, "label": "90°"}
+          {
+            "center": "O",
+            "radius": 1.2,
+            "startDeg": 59.04,
+            "endDeg": 149.04,
+            "label": "90°"
+          }
         ],
         "texts": [
-          {"x": -4, "y": 6.6, "label": "OM = OM'"}
+          {
+            "x": -4,
+            "y": 6.6,
+            "label": "OM = OM'"
+          }
         ],
         "alt": "Rotation de centre O, d'angle 90° dans le sens direct : le point M(3 ; 5) a pour image M'(-5 ; 3), avec OM = OM' et un angle MOM' de 90°."
       },
-      "quizExerciseIds": [
-        1291,
-        1292,
-        1293
-      ],
+      "quizExerciseIds": [1291, 1292, 1293],
       "topic_id": "rotation",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Rotation."
-      ],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Rotation."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "rotation"
+      "tags": ["rotation"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "rotation-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Une rotation de centre différent de l'origine",
+          "description": "Un exemple complet qui montre comment ramener les coordonnées dans un repère centré sur O avant d'appliquer la formule."
+        },
+        {
+          "id": "rotation-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Déterminer le sens d'une rotation à partir d'un point et de son image",
+          "description": "Un raisonnement qui compare les deux formules possibles pour identifier le sens direct ou indirect."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Une rotation change-t-elle la distance entre un point et le centre ?",
+          "piste": "Non : une rotation conserve toujours la distance au centre, $OM=OM'$."
+        }
       ]
     },
     {
@@ -852,7 +1086,8 @@
           ],
           "reponse": "A'(2 ; -5)",
           "conclusion": "Nous avons ainsi obtenu le résultat : A'(2 ; -5)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1236",
@@ -875,7 +1110,8 @@
           ],
           "reponse": "G'(5 ; -6)",
           "conclusion": "Nous avons ainsi obtenu le résultat : G'(5 ; -6)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1242",
@@ -898,7 +1134,8 @@
           ],
           "reponse": "M'(3,5 ; 2,4)",
           "conclusion": "Nous avons ainsi obtenu le résultat : M'(3,5 ; 2,4)",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1248",
@@ -917,12 +1154,11 @@
           ],
           "reponse": "24 cm²",
           "conclusion": "Nous avons ainsi obtenu le résultat : 24 cm²",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Confondre symétrie axiale (par rapport à une droite) et symétrie centrale (par rapport à un point), et donc utiliser la mauvaise formule de coordonnées.",
         "Oublier que, dans une symétrie axiale par rapport à un axe horizontal ou vertical, une des deux coordonnées ne change pas du tout.",
@@ -963,27 +1199,60 @@
         "grid": false,
         "axes": false,
         "points": [
-          {"x": 2, "y": 3, "label": "M"},
-          {"x": 2, "y": -3, "label": "M'"},
-          {"x": 2, "y": 0, "label": "I"}
+          {
+            "x": 2,
+            "y": 3,
+            "label": "M"
+          },
+          {
+            "x": 2,
+            "y": -3,
+            "label": "M'"
+          },
+          {
+            "x": 2,
+            "y": 0,
+            "label": "I"
+          }
         ],
         "segments": [
-          {"from": {"x": -1, "y": 0}, "to": {"x": 5, "y": 0}, "tooltip": "Axe (d)"},
-          {"from": "M", "to": "M'", "dashed": true, "tooltip": "[MM'] coupe (d) perpendiculairement en son milieu I"}
+          {
+            "from": {
+              "x": -1,
+              "y": 0
+            },
+            "to": {
+              "x": 5,
+              "y": 0
+            },
+            "tooltip": "Axe (d)"
+          },
+          {
+            "from": "M",
+            "to": "M'",
+            "dashed": true,
+            "tooltip": "[MM'] coupe (d) perpendiculairement en son milieu I"
+          }
         ],
         "arcs": [
-          {"center": "I", "radius": 0.4, "startDeg": 0, "endDeg": 90, "tooltip": "Angle droit en I"}
+          {
+            "center": "I",
+            "radius": 0.4,
+            "startDeg": 0,
+            "endDeg": 90,
+            "tooltip": "Angle droit en I"
+          }
         ],
         "texts": [
-          {"x": -0.8, "y": 0.4, "label": "(d)"}
+          {
+            "x": -0.8,
+            "y": 0.4,
+            "label": "(d)"
+          }
         ],
         "alt": "La droite (d) est l'axe de symétrie : le point M a pour symétrique M', et le segment [MM'] coupe (d) perpendiculairement en son milieu I."
       },
-      "quizExerciseIds": [
-        1231,
-        1232,
-        1233
-      ],
+      "quizExerciseIds": [1231, 1232, 1233],
       "topic_id": "symetrie-axiale-et-symetrie-centrale",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -994,10 +1263,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "symetrie",
-        "axiale",
-        "centrale"
+      "tags": ["symetrie", "axiale", "centrale"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "symetrie-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Un symétrique par rapport à une droite horizontale non nulle",
+          "description": "Un exemple complet sur une droite $y=-1$, pour généraliser au-delà des axes du repère."
+        },
+        {
+          "id": "symetrie-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "La conservation des aires par symétrie axiale",
+          "description": "Une application directe de la propriété de conservation des aires, sans aucun calcul de coordonnées."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Dans une symétrie centrale de centre O, quelle relation relie M, M' et O ?",
+          "piste": "O est le milieu du segment $[MM']$."
+        }
       ]
     },
     {
@@ -1063,7 +1352,8 @@
           ],
           "reponse": "A'(6 ; 2)",
           "conclusion": "Nous avons ainsi obtenu le résultat : A'(6 ; 2)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1266",
@@ -1086,7 +1376,8 @@
           ],
           "reponse": "K'(0 ; 9)",
           "conclusion": "Nous avons ainsi obtenu le résultat : K'(0 ; 9)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1272",
@@ -1109,7 +1400,8 @@
           ],
           "reponse": "X'(2 ; 1,7)",
           "conclusion": "Nous avons ainsi obtenu le résultat : X'(2 ; 1,7)",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1278",
@@ -1128,7 +1420,8 @@
           ],
           "reponse": "x = 5 et y = 11",
           "conclusion": "Nous avons ainsi obtenu le résultat : x = 5 et y = 11",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -1172,12 +1465,7 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1,
-          -1,
-          7,
-          6
-        ],
+        "viewBox": [-1, -1, 7, 6],
         "grid": true,
         "axes": true,
         "points": [
@@ -1201,23 +1489,39 @@
         ],
         "alt": "Le vecteur u va du point A au point B."
       },
-      "quizExerciseIds": [
-        1261,
-        1262,
-        1263
-      ],
+      "quizExerciseIds": [1261, 1262, 1263],
       "topic_id": "translation",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Translation."
-      ],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Translation."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "translation"
+      "tags": ["translation"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "translation-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Retrouver le vecteur d'une translation à partir d'un point et de son image",
+          "description": "Un exemple complet qui calcule d'abord le vecteur avant de l'appliquer à un autre point."
+        },
+        {
+          "id": "translation-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Retrouver des coordonnées inconnues à partir d'un vecteur donné",
+          "description": "Un problème inverse où il faut résoudre deux petites équations pour retrouver $x$ et $y$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Comment calcule-t-on le vecteur d'une translation qui amène D vers D' ?",
+          "piste": "Toujours arrivée moins départ : coordonnées de D' moins coordonnées de D."
+        }
       ]
     }
   ]

@@ -1,5 +1,5 @@
 """
-Agrégation des signaux de santé de NovaMath pour GET /api/health (server.py).
+Agrégation des signaux de santé de Mathadap pour GET /api/health (server.py).
 
 Architecture stricte, identique au reste des services :
 

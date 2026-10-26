@@ -72,6 +72,39 @@ describe("admin-shell.js — construction du menu selon les permissions reçues 
   });
 });
 
+// Grand nettoyage admin (2026-10-22) : regroupement visuel Suivi/Gestion/
+// Configuration, piloté par le champ "category" renvoyé par /api/admin/nav
+// (voir admin_nav_service.py). NAV_ALL/NAV_SUPPORT_ONLY ci-dessus n'ont
+// volontairement PAS ce champ : ils continuent de vérifier l'affichage à
+// plat d'origine, pour tout consommateur qui ignorerait encore "category".
+const NAV_CATEGORIZED = [
+  { id: "dashboard", label: "Dashboard", icon: "🏠", path: "/admin", implemented: true, category: "suivi" },
+  { id: "users", label: "Utilisateurs", icon: "👥", path: "/admin/users", implemented: true, category: "gestion" },
+  { id: "ai", label: "IA", icon: "🤖", path: "/admin/ia", implemented: true, category: "configuration" },
+];
+
+describe("admin-shell.js — regroupement de la sidebar par catégorie (Suivi/Gestion/Configuration)", () => {
+  it("affiche un en-tête de section par catégorie, dans l'ordre Suivi/Gestion/Configuration", async () => {
+    await mount("/admin", NAV_CATEGORIZED);
+    const nav = document.getElementById("admin-sidebar-nav");
+    const labels = [...nav.querySelectorAll(".admin-sidebar-section-label")].map((n) => n.textContent);
+    expect(labels).toEqual(["Suivi", "Gestion", "Configuration"]);
+    const links = [...nav.querySelectorAll(".admin-sidebar-link")];
+    expect(links.map((l) => l.dataset.path)).toEqual(["/admin", "/admin/users", "/admin/ia"]);
+  });
+
+  it("retombe sur l'affichage à plat (sans en-tête) si un seul module n'a pas de catégorie reconnue", async () => {
+    const mixed = [
+      ...NAV_CATEGORIZED,
+      { id: "reports", label: "Rapports", icon: "📈", path: "/admin/reports", implemented: false },
+    ];
+    await mount("/admin", mixed);
+    const nav = document.getElementById("admin-sidebar-nav");
+    expect(nav.querySelectorAll(".admin-sidebar-section-label").length).toBe(0);
+    expect(nav.querySelectorAll(".admin-sidebar-link").length).toBe(4);
+  });
+});
+
 describe("admin-shell.js — navigation interne (sans rechargement de page)", () => {
   it("affiche le Dashboard (module implémenté) et appelle loadDashboard()", async () => {
     await mount("/admin", NAV_ALL);

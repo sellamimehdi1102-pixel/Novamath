@@ -37,12 +37,31 @@ def _nz(rng: random.Random, lo: int, hi: int) -> int:
     return rng.choice(choices)
 
 
+def _p(v) -> str:
+    """Facteur en LaTeX, entre parenthèses s'il s'affiche avec un signe moins ou
+    s'il est une somme (jamais « \\times -3 », « + -2 » ni « -5^2 »)."""
+    s = v if isinstance(v, str) else latex(v)
+    if not (s.lstrip().startswith("-") or getattr(v, "is_Add", False)):
+        return s
+    return f"\\left({s}\\right)" if "\\frac" in s else f"({s})"
+
+
+def _cx(a) -> str:
+    """Coefficient devant une variable, sans « 1x » ni « -1x »."""
+    return "" if a == 1 else ("-" if a == -1 else str(a))
+
+
+def _carre_centre(var, v) -> str:
+    """« (x - 3) » / « (x + 6) » : jamais « (x - -6) »."""
+    return f"({var} - {v})" if v > 0 else (f"({var} + {-v})" if v < 0 else var)
+
+
 def _fmt_signed(v, var) -> str:
     if v == 0:
         return ""
     sign = "+" if v > 0 else "-"
     coeff = abs(v)
-    coeff_txt = "" if coeff == 1 else str(coeff)
+    coeff_txt = "" if (coeff == 1 and var) else str(coeff)
     return f" {sign} {coeff_txt}{var}"
 
 
@@ -107,8 +126,8 @@ def _gen_centre_rayon_developpee(rng: random.Random) -> Optional[dict]:
     answer = f"Centre $\\Omega({a}\\,;\\,{b})$, rayon $r = {r}$."
     steps = [
         f"Étape 1 — On regroupe : $x^2{_fmt_signed(d,'x')} + y^2{_fmt_signed(e,'y')} = {-f_const}$.",
-        f"Étape 2 — On complète le carré : $(x - {a})^2 - {a*a} + (y - {b})^2 - {b*b} = {-f_const}$.",
-        f"Étape 3 — $(x - {a})^2 + (y - {b})^2 = {-f_const} + {a*a} + {b*b} = {r2}$, donc {answer}",
+        f"Étape 2 — On complète le carré : ${_carre_centre('x', a)}^2 - {a*a} + {_carre_centre('y', b)}^2 - {b*b} = {-f_const}$.",
+        f"Étape 3 — ${_carre_centre('x', a)}^2 + {_carre_centre('y', b)}^2 = {-f_const} + {a*a} + {b*b} = {r2}$, donc {answer}",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_EQUATION_CERCLE}
 
@@ -150,7 +169,7 @@ def _gen_point_appartient_cercle(rng: random.Random) -> Optional[dict]:
 def _gen_vecteur_normal(rng: random.Random) -> Optional[dict]:
     a, b = _nz(rng, -9, 9), _nz(rng, -9, 9)
     c = rng.randint(-10, 10)
-    droite_latex = f"{a}x{_fmt_signed(b, 'y')}{_fmt_signed(c, '')} = 0"
+    droite_latex = f"{_cx(a)}x{_fmt_signed(b, 'y')}{_fmt_signed(c, '')} = 0"
     enonce = f"La droite $\\mathcal{{D}}$ a pour équation cartésienne ${droite_latex}$. Donner un vecteur normal à $\\mathcal{{D}}$."
     answer = f"$\\vec{{n}}\\begin{{pmatrix}} {a} \\\\ {b} \\end{{pmatrix}}$"
     steps = [
@@ -166,7 +185,7 @@ def _gen_equation_depuis_normal(rng: random.Random) -> Optional[dict]:
     a, b = _nz(rng, -8, 8), _nz(rng, -8, 8)
     px, py = _nz(rng, -7, 7), _nz(rng, -7, 7)
     c = -(a * px + b * py)
-    droite_latex = f"{a}x{_fmt_signed(b, 'y')}{_fmt_signed(c, '')} = 0"
+    droite_latex = f"{_cx(a)}x{_fmt_signed(b, 'y')}{_fmt_signed(c, '')} = 0"
     enonce = (
         f"Déterminer une équation cartésienne de la droite $\\mathcal{{D}}$ passant par le point "
         f"$A({px}\\,;\\,{py})$ et de vecteur normal $\\vec{{n}}\\begin{{pmatrix}} {a} \\\\ {b} \\end{{pmatrix}}$."
@@ -174,7 +193,7 @@ def _gen_equation_depuis_normal(rng: random.Random) -> Optional[dict]:
     answer = f"$\\mathcal{{D}} : {droite_latex}$"
     steps = [
         "Étape 1 — $\\mathcal{D}$ admet une équation de la forme $ax+by+c=0$ avec $(a,b)$ les coordonnées de $\\vec{n}$.",
-        f"Étape 2 — $A \\in \\mathcal{{D}}$ donne ${a} \\times {px} + {b} \\times {py} + c = 0$, "
+        f"Étape 2 — $A \\in \\mathcal{{D}}$ donne ${a} \\times {_p(px)} + {_p(b)} \\times {_p(py)} + c = 0$, "
         f"donc $c = {c}$.",
         f"Étape 3 — {answer}",
     ]
@@ -307,7 +326,7 @@ def _gen_mediatrice(rng: random.Random) -> Optional[dict]:
     )
     answer = f"C'est la médiatrice de $[AB]$, d'équation ${droite_latex}$."
     steps = [
-        f"Étape 1 — $AM = BM \\iff AM^2 = BM^2 \\iff (x-{xa})^2+(y-{ya})^2 = (x-{xb})^2+(y-{yb})^2$.",
+        f"Étape 1 — $AM = BM \\iff AM^2 = BM^2 \\iff {_carre_centre('x', xa)}^2+{_carre_centre('y', ya)}^2 = {_carre_centre('x', xb)}^2+{_carre_centre('y', yb)}^2$.",
         "Étape 2 — En développant, les termes en $x^2$ et $y^2$ s'éliminent : il reste une équation du premier degré.",
         f"Étape 3 — {answer} C'est la médiatrice de $[AB]$ (droite perpendiculaire à $[AB]$ en son milieu).",
     ]
@@ -324,8 +343,8 @@ def _gen_droite_parallele_par_point(rng: random.Random) -> Optional[dict]:
     if a * px + b * py + c0 == 0:
         return None
     c = -(a * px + b * py)
-    droite_d_latex = f"{a}x{_fmt_signed(b, 'y')}{_fmt_signed(c0, '')} = 0"
-    droite_parallele_latex = f"{a}x{_fmt_signed(b, 'y')}{_fmt_signed(c, '')} = 0"
+    droite_d_latex = f"{_cx(a)}x{_fmt_signed(b, 'y')}{_fmt_signed(c0, '')} = 0"
+    droite_parallele_latex = f"{_cx(a)}x{_fmt_signed(b, 'y')}{_fmt_signed(c, '')} = 0"
     enonce = (
         f"On donne la droite $\\mathcal{{D}} : {droite_d_latex}$ et le point $A({px}\\,;\\,{py})$, "
         f"n'appartenant pas à $\\mathcal{{D}}$. Déterminer une équation cartésienne de la droite "
@@ -334,8 +353,8 @@ def _gen_droite_parallele_par_point(rng: random.Random) -> Optional[dict]:
     answer = f"$\\mathcal{{D}}' : {droite_parallele_latex}$"
     steps = [
         f"Étape 1 — Deux droites parallèles ont le même vecteur normal : $\\vec{{n}}\\begin{{pmatrix}} {a} \\\\ {b} \\end{{pmatrix}}$ convient encore.",
-        f"Étape 2 — $\\mathcal{{D}}'$ a donc une équation de la forme ${a}x{_fmt_signed(b,'y')}+c=0$, et $A \\in \\mathcal{{D}}'$ donne "
-        f"${a} \\times {px} + {b} \\times {py} + c = 0$, soit $c = {c}$.",
+        f"Étape 2 — $\\mathcal{{D}}'$ a donc une équation de la forme ${_cx(a)}x{_fmt_signed(b,'y')}+c=0$, et $A \\in \\mathcal{{D}}'$ donne "
+        f"${a} \\times {_p(px)} + {_p(b)} \\times {_p(py)} + c = 0$, soit $c = {c}$.",
         f"Étape 3 — {answer}",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VECTEUR_NORMAL}
@@ -368,7 +387,7 @@ def _gen_vecteur_normal_unitaire(rng: random.Random) -> Optional[dict]:
     # pour ne pas y toucher : voir règle "ne modifie pas l'existant"). Cette
     # famille NOUVELLE utilise un formatage correct dédié à la constante.
     c_terme = "" if c == 0 else (f" + {c}" if c > 0 else f" - {abs(c)}")
-    droite_latex = f"{a}x{_fmt_signed(b, 'y')}{c_terme} = 0"
+    droite_latex = f"{_cx(a)}x{_fmt_signed(b, 'y')}{c_terme} = 0"
     enonce = (
         f"La droite $\\mathcal{{D}}$ a pour équation cartésienne ${droite_latex}$. "
         f"Donner un vecteur normal UNITAIRE (de norme 1) à $\\mathcal{{D}}$."

@@ -1,12 +1,12 @@
 """
-Crée un instantané AUTONOME du site NovaMath dans versions/v{X.YY}/.
+Crée un instantané AUTONOME du site Mathadap dans versions/v{X.YY}/.
 
 Usage :
     python create_version_snapshot.py "Titre court de la version" [--bump minor|major]
 
 Système de versioning (convention unifiée depuis le 2026-07-13) :
 - Numérotation décimale professionnelle "vX.YY" (ex: v1.00, v1.01, ..., v1.10, v1.20), toujours
-  deux chiffres après le point, "v" minuscule — un seul schéma pour tout le projet NovaMath.
+  deux chiffres après le point, "v" minuscule — un seul schéma pour tout le projet Mathadap.
   Les dossiers versions/NovaMath_V1-13 et NovaMath_v1.00-1.31 (anciens schémas, l'un entier, l'autre
   décimal mais préfixé "NovaMath_") ont été renommés une fois pour toutes vers ce schéma unique
   (v1.00 à v1.17) le 2026-07-13 — voir CHANGELOG.md pour la table de correspondance.
@@ -55,7 +55,7 @@ VERSIONS_DIR = ROOT / "versions"
 VERSION_FILE = ROOT / "VERSION"
 VERSION_JS = ROOT / "webapp" / "static" / "js" / "version.js"
 ROOT_CHANGELOG = ROOT / "CHANGELOG.md"
-PRODUCT_NAME = "NovaMath"
+PRODUCT_NAME = "Mathadap"
 DEFAULT_PORT = 5050
 
 EXCLUDE_DIRS = {"__pycache__"}
@@ -124,7 +124,7 @@ def detect_port(server_py_path):
 
 # Gabarit du CHANGELOG.md propre à chaque dossier versions/v{X.YY}/ (un seul
 # titre de niveau 1, ce fichier ne documente qu'une seule version).
-VERSION_CHANGELOG_TEMPLATE = """# NovaMath v{version}
+VERSION_CHANGELOG_TEMPLATE = """# Mathadap v{version}
 
 **Date** : {date}
 

@@ -67,7 +67,8 @@
           ],
           "reponse": "240 cm³.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 240 cm³.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1896",
@@ -86,7 +87,8 @@
           ],
           "reponse": "756 cm³, soit 0,756 L.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 756 cm³, soit 0,756 L.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1902",
@@ -105,7 +107,8 @@
           ],
           "reponse": "120 cm³.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 120 cm³.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1908",
@@ -128,7 +131,8 @@
           ],
           "reponse": "Valeur exacte : $51\\pi$ m³, soit environ 160,14 m³.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Valeur exacte : $51\\pi$ m³, soit environ 160,14 m³.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -174,11 +178,7 @@
         "kind": "solid",
         "shape": "cube"
       },
-      "quizExerciseIds": [
-        1891,
-        1892,
-        1893
-      ],
+      "quizExerciseIds": [1891, 1892, 1893],
       "topic_id": "calculer-le-volume-d-un-solide",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -189,10 +189,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "calculer",
-        "volume",
-        "solide"
+      "tags": ["calculer", "volume", "solide"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "volume-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Le volume d'une pyramide à base carrée",
+          "description": "Un exemple complet qui applique le facteur 1/3, souvent oublié."
+        },
+        {
+          "id": "volume-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Le volume d'un silo composé de deux solides",
+          "description": "Un problème qui combine Pythagore et deux formules de volume différentes (cylindre + cône)."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Quelle est la différence entre la formule du volume d'un prisme et celle d'une pyramide de même base ?",
+          "piste": "La pyramide a un facteur $\\dfrac13$ en plus : son volume vaut le tiers de celui du prisme de même base et même hauteur."
+        }
       ]
     },
     {
@@ -254,7 +274,8 @@
           ],
           "reponse": "La nouvelle arête est 6 cm et le volume est multiplié par 8.",
           "conclusion": "Nous avons ainsi obtenu le résultat : La nouvelle arête est 6 cm et le volume est multiplié par 8.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1926",
@@ -273,7 +294,8 @@
           ],
           "reponse": "$k = \\frac{1}{2}$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $k = \\frac{1}{2}$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1932",
@@ -292,7 +314,8 @@
           ],
           "reponse": "32 cm³.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 32 cm³.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1938",
@@ -311,12 +334,11 @@
           ],
           "reponse": "3,375.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 3,375.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Multiplier le volume directement par le rapport $k$ au lieu de le multiplier par $k^3$.",
         "Pour retrouver le rapport $k$ à partir d'un rapport de volumes, diviser le rapport de volumes par 3 au lieu de calculer sa racine cubique.",
@@ -351,12 +373,21 @@
         "Trouve d'abord la hauteur du petit réservoir avec la formule du volume du cylindre.",
         "Le rapport de réduction sur les volumes est $\\left(\\frac{1}{50}\\right)^3$."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        1921,
-        1922,
-        1923
-      ],
+      "figure": {
+        "kind": "bars",
+        "bars": [
+          {
+            "label": "Cube initial (arête 1)",
+            "value": 1
+          },
+          {
+            "label": "Cube agrandi (arête ×2)",
+            "value": 8
+          }
+        ],
+        "alt": "Un cube dont l'arête est multipliée par 2 voit son volume multiplié par 2³=8, pas par 2 : le volume passe de 1 à 8."
+      },
+      "quizExerciseIds": [1921, 1922, 1923],
       "topic_id": "effet-d-un-agrandissement-ou-d-une-reduction-sur-les-volumes",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -367,11 +398,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "effet",
-        "agrandissement",
-        "reduction",
-        "volumes"
+      "tags": ["effet", "agrandissement", "reduction", "volumes"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "agrand-vol-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Retrouver le rapport k à partir d'un rapport de volumes",
+          "description": "Un exemple complet qui utilise la racine cubique pour remonter des volumes aux longueurs."
+        },
+        {
+          "id": "agrand-vol-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Une maquette à l'échelle 1/50",
+          "description": "Une application concrète à une maquette de bâtiment, avec conversion d'unités."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Si on triple toutes les dimensions d'un solide, par combien son volume est-il multiplié ?",
+          "piste": "Par $3^3=27$, jamais par $3$ : le volume dépend de trois dimensions multipliées entre elles."
+        }
       ]
     },
     {
@@ -442,7 +492,8 @@
           ],
           "reponse": "12 arêtes et 8 sommets.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 12 arêtes et 8 sommets.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1866",
@@ -461,7 +512,8 @@
           ],
           "reponse": "3 rectangles différents, chacun en double : 6 cm x 4 cm, 6 cm x 3 cm et 4 cm x 3 cm.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 3 rectangles différents, chacun en double : 6 cm x 4 cm, 6 cm x 3 cm et 4 cm x 3 cm.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1872",
@@ -484,7 +536,8 @@
           ],
           "reponse": "72 cm.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 72 cm.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1878",
@@ -507,12 +560,11 @@
           ],
           "reponse": "L'apothème latéral mesure 5 cm.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'apothème latéral mesure 5 cm.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Compter deux fois la même arête ou le même sommet en les comptant sur chaque face au lieu de compter une seule fois les éléments communs à plusieurs faces.",
         "Oublier qu'un pavé droit n'a que 3 formes de faces distinctes (et non 6), car les faces opposées sont identiques deux à deux.",
@@ -552,11 +604,7 @@
         "shape": "pave",
         "alt": "Représentation en perspective cavalière d'un pavé droit : les faces avant et arrière, rectangulaires et identiques, sont reliées par des arêtes fuyantes qui suggèrent le volume en trois dimensions."
       },
-      "quizExerciseIds": [
-        1861,
-        1862,
-        1863
-      ],
+      "quizExerciseIds": [1861, 1862, 1863],
       "topic_id": "perspective-cavaliere-et-patrons-de-solides",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -567,11 +615,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "perspective",
-        "cavaliere",
-        "patrons",
-        "solides"
+      "tags": ["perspective", "cavaliere", "patrons", "solides"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "perspective-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Calculer la longueur totale des arêtes d'un pavé droit",
+          "description": "Un exemple complet qui compte les arêtes sans en oublier ni en recompter."
+        },
+        {
+          "id": "perspective-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Calculer l'apothème latéral d'une pyramide",
+          "description": "Un exemple qui utilise Pythagore pour trouver une longueur nécessaire au patron."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Combien de formes de faces différentes possède un pavé droit, et combien de fois chacune apparaît-elle ?",
+          "piste": "3 formes différentes, chacune apparaissant 2 fois (faces opposées identiques)."
+        }
       ]
     },
     {
@@ -642,7 +709,8 @@
           ],
           "reponse": "B(5;0;0), D(0;3;0), E(0;0;4).",
           "conclusion": "Nous avons ainsi obtenu le résultat : B(5;0;0), D(0;3;0), E(0;0;4).",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1956",
@@ -661,7 +729,8 @@
           ],
           "reponse": "G(8;6;5).",
           "conclusion": "Nous avons ainsi obtenu le résultat : G(8;6;5).",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1962",
@@ -680,7 +749,8 @@
           ],
           "reponse": "OM = 10.",
           "conclusion": "Nous avons ainsi obtenu le résultat : OM = 10.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1968",
@@ -703,7 +773,8 @@
           ],
           "reponse": "AB = 13.",
           "conclusion": "Nous avons ainsi obtenu le résultat : AB = 13.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -749,11 +820,7 @@
         "kind": "solid",
         "shape": "sphere"
       },
-      "quizExerciseIds": [
-        1951,
-        1952,
-        1953
-      ],
+      "quizExerciseIds": [1951, 1952, 1953],
       "topic_id": "reperage-dans-l-espace-et-sur-une-sphere",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -764,10 +831,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "reperage",
-        "espace",
-        "sphere"
+      "tags": ["reperage", "espace", "sphere"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "reperage-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Trouver le sommet opposé à l'origine",
+          "description": "Un exemple complet qui identifie directement les coordonnées sans calcul intermédiaire."
+        },
+        {
+          "id": "reperage-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Calculer une distance entre deux points quelconques de l'espace",
+          "description": "Le cas général avec trois différences de coordonnées non nulles."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Combien de nombres faut-il pour repérer un point dans l'espace ?",
+          "piste": "Trois : une abscisse, une ordonnée et une altitude (contre deux dans le plan)."
+        }
       ]
     },
     {
@@ -829,7 +916,8 @@
           ],
           "reponse": "Un rectangle identique à la face à laquelle le plan est parallèle.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Un rectangle identique à la face à laquelle le plan est parallèle.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1986",
@@ -848,7 +936,8 @@
           ],
           "reponse": "6 cm x 4 cm.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 6 cm x 4 cm.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1992",
@@ -867,7 +956,8 @@
           ],
           "reponse": "8 cm.",
           "conclusion": "Nous avons ainsi obtenu le résultat : 8 cm.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1998",
@@ -886,12 +976,11 @@
           ],
           "reponse": "La section se réduit à un point unique, car la distance du centre au plan est égale au rayon.",
           "conclusion": "Nous avons ainsi obtenu le résultat : La section se réduit à un point unique, car la distance du centre au plan est égale au rayon.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Penser que la section d'une sphère par un plan est toujours un cercle de même rayon que la sphère, quelle que soit la position du plan.",
         "Dans la formule $r^2 = R^2 - d^2$, confondre le rayon de la sphère $R$ avec le rayon de la section $r$ ou avec la distance $d$.",
@@ -928,12 +1017,7 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -11,
-          -11,
-          22,
-          20
-        ],
+        "viewBox": [-11, -11, 22, 20],
         "grid": false,
         "axes": false,
         "circles": [
@@ -1007,11 +1091,7 @@
         "relation": "$r^2 = R^2 - d^2 = 10^2 - 6^2 = 64 \\Rightarrow r = 8$ cm",
         "alt": "Une sphère de centre O et de rayon R = 10 cm est coupée par un plan situé à d = 6 cm du centre. Le triangle rectangle OCP (C centre de la section, P sur le cercle de section) donne r² = R² − d² = 100 − 36 = 64, soit un rayon de section r = 8 cm ; PQ représente le diamètre de la section obtenue."
       },
-      "quizExerciseIds": [
-        1981,
-        1982,
-        1983
-      ],
+      "quizExerciseIds": [1981, 1982, 1983],
       "topic_id": "sections-planes-de-solides",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -1022,10 +1102,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "sections",
-        "planes",
-        "solides"
+      "tags": ["sections", "planes", "solides"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "sections-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Calculer le rayon d'une section de sphère",
+          "description": "Un exemple complet qui applique la relation $r^2=R^2-d^2$."
+        },
+        {
+          "id": "sections-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Le cas particulier du plan tangent",
+          "description": "Un raisonnement qui montre pourquoi la section se réduit à un point quand $d=R$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Un plan coupe une sphère exactement en son centre (d=0). Quel est le rayon de la section ?",
+          "piste": "$r^2=R^2-0^2=R^2$, donc $r=R$ : la section est le plus grand cercle possible (un grand cercle de la sphère)."
+        }
       ]
     }
   ]

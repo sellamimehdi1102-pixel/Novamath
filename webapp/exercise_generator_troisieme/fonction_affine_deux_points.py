@@ -34,6 +34,11 @@ def _fmt_affine(a, b) -> str:
     return f"{a_str}x {'+' if b > 0 else '-'} {latex(abs(b))}"
 
 
+def _p(v) -> str:
+    """Nombre en LaTeX, parenthésé seulement s'il est négatif (jamais « - -3 » ni « (4) »)."""
+    return f"({latex(v)})" if v < 0 else latex(v)
+
+
 def _compute_affine(x1, y1, x2, y2):
     a = Rational(y2 - y1, x2 - x1)
     b = y1 - a * x1
@@ -52,8 +57,8 @@ def _gen_calcul_direct(rng):
     a, b = _compute_affine(x1, y1, x2, y2)
     enonce = f"Une fonction affine $f$ est telle que $f({x1}) = {y1}$ et $f({x2}) = {y2}$. Déterminer l'expression de $f(x)$."
     steps = [
-        f"Étape 1 — Le coefficient directeur est $a = \\dfrac{{f({x2})-f({x1})}}{{{x2}-{x1}}} = \\dfrac{{{y2}-({y1})}}{{{x2}-({x1})}} = {latex(a)}$.",
-        f"Étape 2 — On trouve $b$ avec $f({x1}) = a\\times {x1} + b$, soit $b = {y1} - {latex(a)}\\times({x1}) = {latex(b)}$.",
+        f"Étape 1 — Le coefficient directeur est $a = \\dfrac{{f({x2})-f({x1})}}{{{x2}-{_p(x1)}}} = \\dfrac{{{y2}-{_p(y1)}}}{{{x2}-{_p(x1)}}} = {latex(a)}$.",
+        f"Étape 2 — On trouve $b$ avec $f({x1}) = a\\times {_p(x1)} + b$, soit $b = {y1} - {_p(a)}\\times {_p(x1)} = {latex(b)}$.",
     ]
     answer = f"$f(x) = {_fmt_affine(a, b)}$"
     hint = "Le coefficient directeur est le rapport de la variation des images sur la variation des antécédents ; b se déduit ensuite en substituant un point."
@@ -82,7 +87,7 @@ def _gen_verifier_appartenance(rng):
     )
     steps = [
         f"Étape 1 — On détermine $f$ : $a = {latex(a)}$ et $b = {latex(b)}$, donc $f(x) = {_fmt_affine(a, b)}$.",
-        f"Étape 2 — On calcule $f({x3}) = {latex(a)}\\times({x3}) {'+' if b >= 0 else '-'} {latex(abs(b))} = {latex(y3_correct)}$.",
+        f"Étape 2 — On calcule $f({x3}) = {latex(a)}\\times {_p(x3)} {'+' if b >= 0 else '-'} {latex(abs(b))} = {latex(y3_correct)}$.",
     ]
     if is_correct:
         answer = f"Vrai : $f({x3}) = {latex(y3_correct)}$."
@@ -108,14 +113,14 @@ def _gen_erreur_a_corriger(rng):
         return None
     enonce = (
         f"Un élève calcule le coefficient directeur de la fonction affine $f$ telle que $f({x1}) = {y1}$ et "
-        f"$f({x2}) = {y2}$ ainsi : \"$a = \\dfrac{{{x2}-({x1})}}{{{y2}-({y1})}} = {latex(wrong_a)}$\" "
+        f"$f({x2}) = {y2}$ ainsi : \"$a = \\dfrac{{{x2}-{_p(x1)}}}{{{y2}-{_p(y1)}}} = {latex(wrong_a)}$\" "
         "(il a inversé numérateur et dénominateur). Identifier son erreur et donner l'expression correcte de $f$."
     )
     steps = [
         "Étape 1 — La formule est $a = \\dfrac{\\text{variation des images}}{\\text{variation des antécédents}}$, "
         "pas l'inverse.",
-        f"Étape 2 — Le bon calcul est $a = \\dfrac{{{y2}-({y1})}}{{{x2}-({x1})}} = {latex(a)}$.",
-        f"Étape 3 — On en déduit $b = {y1} - {latex(a)}\\times({x1}) = {latex(b)}$, donc $f(x) = {_fmt_affine(a, b)}$.",
+        f"Étape 2 — Le bon calcul est $a = \\dfrac{{{y2}-{_p(y1)}}}{{{x2}-{_p(x1)}}} = {latex(a)}$.",
+        f"Étape 3 — On en déduit $b = {y1} - {_p(a)}\\times {_p(x1)} = {latex(b)}$, donc $f(x) = {_fmt_affine(a, b)}$.",
     ]
     answer = f"Erreur : numérateur et dénominateur inversés ; la fonction correcte est $f(x) = {_fmt_affine(a, b)}$."
     hint = "Le coefficient directeur est toujours (variation des images) divisée par (variation des antécédents), jamais l'inverse."
@@ -146,7 +151,7 @@ def _gen_contexte(rng):
         "coefficient directeur dans ce contexte."
     )
     steps = [
-        f"Étape 1 — $a = \\dfrac{{{y2}-({y1})}}{{{x2}-({x1})}} = {latex(a)}$ et $b = {y1} - {latex(a)}\\times({x1}) = {latex(b)}$.",
+        f"Étape 1 — $a = \\dfrac{{{y2}-{_p(y1)}}}{{{x2}-{_p(x1)}}} = {latex(a)}$ et $b = {y1} - {_p(a)}\\times {_p(x1)} = {latex(b)}$.",
         f"Étape 2 — $f(x) = {_fmt_affine(a, b)}$.",
         f"Étape 3 — Le coefficient directeur ${latex(a)}$ représente l'augmentation de {grandeur} par unité de {var} "
         f"(en {unite} par {var_unite}) ; $b={latex(b)}$ est la valeur initiale (à {var}$=0$).",

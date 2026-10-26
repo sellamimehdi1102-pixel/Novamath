@@ -17,34 +17,40 @@
       },
       "intuition": "La condition $a \\neq 0$ n'est pas un détail : sans elle, l'expression $ax^2+bx+c$ devient une fonction affine (ou constante), et non plus un polynôme de degré $2$. Vérifie toujours que $a$ est bien non nul avant d'appliquer les formules de ce cours.",
       "reglesImportantes": [
-        "Utiliser $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$.",
-        "Le signe de $a$ détermine le sens de variation de part et d'autre du sommet $(\\alpha ; \\beta)$."
+        "Forme développée : $f(x)=ax^2+bx+c$ ($a\\neq0$) — pratique pour identifier les coefficients et calculer une image.",
+        "Forme canonique : $f(x)=a(x-\\alpha)^2+\\beta$, avec $\\alpha=-\\dfrac{b}{2a}$ et $\\beta=f(\\alpha)$ — donne directement le sommet $(\\alpha;\\beta)$ de la parabole.",
+        "Sens de variation : si $a>0$, $f$ décroît puis croît (minimum en $\\alpha$) ; si $a<0$, $f$ croît puis décroît (maximum en $\\alpha$)."
       ],
       "formules": [],
       "methode": {
-        "titre": "Méthode — Fonction polynôme de degré 2",
+        "titre": "Méthode — Étudier une fonction polynôme de degré 2",
         "etapes": [
           {
             "icone": "search",
             "couleur": "blue",
-            "texte": "Étape 1 : $\\alpha = -\\dfrac{b}{2a} = -\\dfrac{-1}{2 \\times 1} = \\dfrac{1}{2}$."
+            "texte": "Étape 1 : identifie les coefficients $a$, $b$, $c$ par comparaison avec $ax^2+bx+c$, en vérifiant que $a\\neq0$."
           },
           {
-            "icone": "sliders",
+            "icone": "penSquare",
             "couleur": "purple",
-            "texte": "Étape 2 : $\\beta = f(\\alpha) = \\dfrac{3}{4}$."
+            "texte": "Étape 2 : calcule $\\alpha=-\\dfrac{b}{2a}$, puis $\\beta=f(\\alpha)$ en remplaçant $x$ par $\\alpha$ dans l'expression de $f$."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Étape 3 : écris la forme canonique $f(x)=a(x-\\alpha)^2+\\beta$."
           },
           {
             "icone": "check",
             "couleur": "green",
-            "texte": "Étape 3 : La forme canonique est $f(x) = (x-\\dfrac{1}{2})^2 +\\dfrac{3}{4}$."
+            "texte": "Étape 4 : regarde le signe de $a$ pour déduire le sens de variation et dresser le tableau de variations autour de $\\alpha$."
           }
         ]
       },
       "exemples": [
         {
           "id": "exemple-354",
-          "titre": "Exemple 1",
+          "titre": "Exemple 1 — Identifier les coefficients et calculer une image",
           "enonce": "On considère la fonction polynôme de degré 2 définie sur $\\mathbb{R}$ par $f(x) = x^2 - 7x$. Donner les coefficients $a$, $b$ et $c$, puis calculer $f(-2)$.",
           "calcul": [
             {
@@ -57,7 +63,10 @@
             }
           ],
           "reponse": "$a=1$, $b=-7$, $c=0$ et $f(-2) = 18$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "On identifie $a$, $b$, $c$ par comparaison directe avec $ax^2+bx+c$, puis on calcule $f(-2)$ en remplaçant $x$.",
+          "choixMethode": "On compare terme à terme avec $ax^2+bx+c$, puis on remplace $x$ par $-2$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-366",
@@ -78,7 +87,30 @@
             }
           ],
           "reponse": "$f(x) = -2(x-1)^2 +0$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "On cherche la forme canonique : il faut calculer $\\alpha$ puis $\\beta$, et les réinjecter dans $a(x-\\alpha)^2+\\beta$.",
+          "choixMethode": "On calcule $\\alpha=-\\dfrac{b}{2a}$, puis $\\beta=f(\\alpha)$.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-390",
+          "titre": "Exemple 4",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 4x^2 + 5x - 3$. Dresser le tableau de variations de $f$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On calcule $\\alpha = -\\dfrac{b}{2a} = -\\dfrac{5}{8}$ et $\\beta = f(\\alpha) = -\\dfrac{73}{16}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Comme $a = 4$ est positif, $f$ est strictement décroissante sur $]-\\infty ; -\\dfrac{5}{8}]$ puis strictement croissante sur $[-\\dfrac{5}{8} ; +\\infty[$, avec un minimum égal à $-\\dfrac{73}{16}$ atteint en $x=-\\dfrac{5}{8}$."
+            }
+          ],
+          "reponse": "$f$ est strictement décroissante sur $]-\\infty ; -\\dfrac{5}{8}]$ puis strictement croissante sur $[-\\dfrac{5}{8} ; +\\infty[$, avec un minimum égal à $-\\dfrac{73}{16}$ atteint en $x=-\\dfrac{5}{8}$.",
+          "difficulte": "difficile",
+          "analyse": "Dresser un tableau de variations demande de connaître à la fois $\\alpha$ (où le sens change) et le signe de $a$ (quel sens de variation de chaque côté).",
+          "choixMethode": "On calcule $\\alpha$ et $\\beta=f(\\alpha)$, puis on utilise le signe de $a$ pour déterminer le sens de variation sur chaque intervalle.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-378",
@@ -99,24 +131,8 @@
             }
           ],
           "reponse": "$f(x) = 2(x-(-\\dfrac{1}{2}))^2 -\\dfrac{7}{2}$",
-          "difficulte": "moyen"
-        },
-        {
-          "id": "exemple-390",
-          "titre": "Exemple 4",
-          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 4x^2 + 5x - 3$. Dresser le tableau de variations de $f$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : On calcule $\\alpha = -\\dfrac{b}{2a} = -\\dfrac{5}{8}$ et $\\beta = f(\\alpha) = -\\dfrac{73}{16}$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : Comme $a = 4$ est positif, $f$ est strictement décroissante sur $]-\\infty ; -\\dfrac{5}{8}]$ puis strictement croissante sur $[-\\dfrac{5}{8} ; +\\infty[$, avec un minimum égal à $-\\dfrac{73}{16}$ atteint en $x=-\\dfrac{5}{8}$."
-            }
-          ],
-          "reponse": "$f$ est strictement décroissante sur $]-\\infty ; -\\dfrac{5}{8}]$ puis strictement croissante sur $[-\\dfrac{5}{8} ; +\\infty[$, avec un minimum égal à $-\\dfrac{73}{16}$ atteint en $x=-\\dfrac{5}{8}$.",
-          "difficulte": "difficile"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -146,58 +162,27 @@
       ],
       "astuce": "",
       "aRetenir": [
-        "Utiliser $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$.",
-        "Le signe de $a$ détermine le sens de variation de part et d'autre du sommet $(\\alpha ; \\beta)$."
+        "La forme canonique $a(x-\\alpha)^2+\\beta$ donne directement les coordonnées du sommet $(\\alpha;\\beta)$ — la forme développée ne le montre pas.",
+        "Le signe de $a$ détermine à la fois l'allure de la parabole (vers le haut ou vers le bas) et le sens de variation de part et d'autre du sommet.",
+        "Les deux formes ($ax^2+bx+c$ et $a(x-\\alpha)^2+\\beta$) décrivent exactement la même fonction — seule leur utilité pratique diffère."
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -2,
-          -1,
-          5,
-          6
-        ],
+        "viewBox": [-2, -1, 5, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                -1.5,
-                4.75
-              ],
-              [
-                -1.0,
-                3.0
-              ],
-              [
-                -0.5,
-                1.75
-              ],
-              [
-                0.0,
-                1.0
-              ],
-              [
-                0.5,
-                0.75
-              ],
-              [
-                1.0,
-                1.0
-              ],
-              [
-                1.5,
-                1.75
-              ],
-              [
-                2.0,
-                3.0
-              ],
-              [
-                2.5,
-                4.75
-              ]
+              [-1.5, 4.75],
+              [-1.0, 3.0],
+              [-0.5, 1.75],
+              [0.0, 1.0],
+              [0.5, 0.75],
+              [1.0, 1.0],
+              [1.5, 1.75],
+              [2.0, 3.0],
+              [2.5, 4.75]
             ]
           }
         ],
@@ -232,13 +217,23 @@
             "anchor": "middle"
           }
         ],
-        "alt": "Parabole représentant f(x) = x² - x + 1, une fonction polynôme de degré 2 avec a=1, b=-1, c=1 : le sommet S(α ; β) = (0,5 ; 0,75) est marqué, ainsi que l'axe de symétrie vertical en pointillés d'équation x = α = 0,5, qui partage la parabole en deux branches symétriques."
+        "alt": "Parabole représentant f(x) = x² - x + 1, une fonction polynôme de degré 2 avec a=1, b=-1, c=1 : le sommet S(α ; β) = (0,5 ; 0,75) est marqué, ainsi que l'axe de symétrie vertical en pointillés d'équation x = α = 0,5, qui partage la parabole en deux branches symétriques.",
+        "explication": {
+          "comprendre": "Le sommet S(α;β) est le point où la parabole change de sens de variation ; l'axe de symétrie vertical x=α partage la courbe en deux branches identiques.",
+          "etapes": [
+            {
+              "titre": "Le sommet",
+              "texte": "Ses coordonnées se lisent directement sur la forme canonique."
+            },
+            {
+              "titre": "L'axe de symétrie",
+              "texte": "La parabole est symétrique par rapport à la droite x=α."
+            }
+          ],
+          "resume": "Repérer le sommet et l'axe de symétrie permet de tracer rapidement l'allure générale de la parabole."
+        }
       },
-      "quizExerciseIds": [
-        355,
-        356,
-        357
-      ],
+      "quizExerciseIds": [355, 356, 357],
       "topic_id": "fonction-polynome-de-degre-2",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -246,14 +241,10 @@
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras résoudre des exercices sur Fonction polynôme de degré 2."
       ],
-      "prerequis": [],
-      "notions_liees": [],
+      "prerequis": ["Développer et réduire une expression algébrique", "Résoudre une équation du premier degré"],
+      "notions_liees": ["proprietes-d-un-trinome", "equations-du-second-degre"],
       "difficulte": "facile",
-      "tags": [
-        "fonction",
-        "polynome",
-        "degre"
-      ],
+      "tags": ["fonction", "polynome", "degre"],
       "demonstration": {
         "titre": "Pourquoi $ax^2+bx+c = a(x-\\alpha)^2+\\beta$ ? — démonstration par complétion du carré",
         "etapes": [
@@ -279,7 +270,47 @@
           }
         ],
         "conclusion": "Cette méthode de complétion du carré fonctionne pour n'importe quel trinôme $ax^2+bx+c$ (avec $a \\neq 0$) : elle fait toujours apparaître les coordonnées du sommet $(\\alpha ; \\beta)$ de la parabole associée."
-      }
+      },
+      "pourquoi": "Un ballon lancé en l'air suit une trajectoire courbe : il monte, atteint un point le plus haut, puis redescend. Cette trajectoire est modélisée par une fonction du type $f(x)=ax^2+bx+c$, une parabole.\n\nLa forme $ax^2+bx+c$ ne montre pas directement où se situe ce point le plus haut (ou le plus bas). Une autre écriture, la forme canonique, le fait apparaître directement — c'est ce que tu vas apprendre à construire.",
+      "apercus": [
+        {
+          "id": "apercu-poly2-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une autre détermination de forme canonique, avec des coefficients fractionnaires plus délicats."
+        },
+        {
+          "id": "apercu-poly2-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi ax²+bx+c = a(x-α)²+β",
+          "description": "La démonstration complète par complétion du carré, qui justifie la forme canonique."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi la forme développée ax²+bx+c ne suffit-elle pas à repérer le sommet de la parabole ?",
+          "piste": "Parce que les coordonnées du sommet n'apparaissent pas directement dans cette écriture : il faut les calculer, ou passer par la forme canonique qui les affiche directement."
+        },
+        {
+          "apres": "intuition",
+          "question": "Que se passe-t-il si a=0 dans l'expression ax²+bx+c ?",
+          "piste": "Le terme en x² disparaît : ce n'est plus un polynôme de degré 2 mais une fonction affine, sans sommet de parabole."
+        },
+        {
+          "apres": "methode",
+          "question": "Quelle est la formule qui donne l'abscisse α du sommet ?",
+          "piste": "α = -b/(2a)."
+        },
+        {
+          "apres": "figure",
+          "question": "Que représente la droite verticale en pointillés sur ce graphique ?",
+          "piste": "L'axe de symétrie de la parabole, d'équation x=α : il partage la courbe en deux branches parfaitement symétriques."
+        }
+      ]
     },
     {
       "id": "proprietes-d-un-trinome",
@@ -295,27 +326,38 @@
       },
       "intuition": "Ne confonds jamais les deux formules : la somme des racines vaut $-\\dfrac{b}{a}$ (avec un signe moins), tandis que leur produit vaut $\\dfrac{c}{a}$ (sans signe moins). Une astuce pour ne pas se tromper : relis toujours la formule juste avant de l'utiliser plutôt que de la réciter de mémoire.",
       "reglesImportantes": [
-        "Utiliser les formules $x_1+x_2 = -\\dfrac{b}{a}$ et $x_1 x_2 = \\dfrac{c}{a}$.",
-        "Étudier le signe du trinôme à l'aide du discriminant et du signe de $a$."
+        "Somme des racines : $x_1+x_2 = -\\dfrac{b}{a}$ (avec un signe moins).",
+        "Produit des racines : $x_1 \\times x_2 = \\dfrac{c}{a}$ (sans signe moins).",
+        "Signe du trinôme (deux racines distinctes) : signe de $a$ à l'extérieur des racines, signe opposé à $a$ entre les racines."
       ],
       "formules": [],
       "methode": {
-        "titre": "Méthode — Propriétés d'un trinôme",
+        "titre": "Méthode — Utiliser les propriétés d'un trinôme",
         "etapes": [
           {
             "icone": "search",
             "couleur": "blue",
-            "texte": "Étape 1 : $f(-1) = -4\\times(-1)^2 +12\\times(-1) +16 = 0$, donc $-1$ est bien racine de $f$."
+            "texte": "Étape 1 : identifie ce qui est demandé — calculer somme/produit directement, retrouver une racine manquante, ou étudier le signe."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Étape 2 (somme/produit) : applique directement $x_1+x_2=-\\dfrac{b}{a}$ et $x_1x_2=\\dfrac{c}{a}$."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Étape 2 bis (racine manquante) : vérifie la racine connue par calcul direct, puis utilise le produit (ou la somme) pour isoler l'autre racine."
           },
           {
             "icone": "sliders",
-            "couleur": "purple",
-            "texte": "Étape 2 : Le produit des racines vaut $\\dfrac{c}{a} = -4$, donc l'autre racine $x_2$ vérifie $-1 \\times x_2 = -4$, d'où $x_2 = 4$."
+            "couleur": "pink",
+            "texte": "Étape 2 ter (signe) : repère le signe de $a$ et les racines, puis applique la règle « signe de $a$ à l'extérieur, opposé entre les racines »."
           },
           {
             "icone": "check",
             "couleur": "green",
-            "texte": "Étape 3 : La forme factorisée est $f(x) = -4(x-(-1))(x-4)$."
+            "texte": "Étape 3 : conclus, en citant la propriété utilisée."
           }
         ]
       },
@@ -335,24 +377,10 @@
             }
           ],
           "reponse": "$x_1+x_2 = \\dfrac{2}{5}$ et $x_1 \\times x_2 = -\\dfrac{3}{5}$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-484",
-          "titre": "Exemple 2",
-          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 5x^2 + 9x - 6$, qui admet deux racines distinctes $x_1$ et $x_2$. Calculer $x_1+x_2$ et $x_1 \\times x_2$ sans résoudre l'équation.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : On sait que $x_1+x_2 = -\\dfrac{b}{a} = -\\dfrac{9}{5} = -\\dfrac{9}{5}$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : On sait que $x_1 \\times x_2 = \\dfrac{c}{a} = \\dfrac{-6}{5} = -\\dfrac{6}{5}$."
-            }
-          ],
-          "reponse": "$x_1+x_2 = -\\dfrac{9}{5}$ et $x_1 \\times x_2 = -\\dfrac{6}{5}$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "On applique directement les deux formules, sans chercher les racines elles-mêmes.",
+          "choixMethode": "On calcule $x_1+x_2=-\\dfrac{b}{a}$ et $x_1x_2=\\dfrac{c}{a}$ en remplaçant $a$, $b$, $c$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-496",
@@ -369,7 +397,10 @@
             }
           ],
           "reponse": "$\\mathcal{S} = ]0 ; \\dfrac{7}{4}[$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "analyse": "Pour résoudre une inéquation du second degré, il faut d'abord trouver les racines, puis appliquer la règle de signe du trinôme.",
+          "choixMethode": "On calcule $\\Delta$ et les racines, puis on applique la règle de signe selon celui de $a$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-508",
@@ -390,7 +421,28 @@
             }
           ],
           "reponse": "Autre racine $= -3$ et $f(x) = 2(x-(-4))(x-(-3))$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "analyse": "Une racine est déjà connue : on peut retrouver l'autre directement avec le produit des racines, sans recalculer $\\Delta$.",
+          "choixMethode": "On vérifie la racine connue par calcul direct, puis on isole l'autre racine avec $x_1\\times x_2=\\dfrac{c}{a}$.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-484",
+          "titre": "Exemple 2",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 5x^2 + 9x - 6$, qui admet deux racines distinctes $x_1$ et $x_2$. Calculer $x_1+x_2$ et $x_1 \\times x_2$ sans résoudre l'équation.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On sait que $x_1+x_2 = -\\dfrac{b}{a} = -\\dfrac{9}{5} = -\\dfrac{9}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On sait que $x_1 \\times x_2 = \\dfrac{c}{a} = \\dfrac{-6}{5} = -\\dfrac{6}{5}$."
+            }
+          ],
+          "reponse": "$x_1+x_2 = -\\dfrac{9}{5}$ et $x_1 \\times x_2 = -\\dfrac{6}{5}$",
+          "difficulte": "facile",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -420,74 +472,31 @@
       ],
       "astuce": "",
       "aRetenir": [
-        "Utiliser les formules $x_1+x_2 = -\\dfrac{b}{a}$ et $x_1 x_2 = \\dfrac{c}{a}$.",
-        "Étudier le signe du trinôme à l'aide du discriminant et du signe de $a$."
+        "La somme des racines a un signe moins ($-\\dfrac{b}{a}$), le produit n'en a pas ($\\dfrac{c}{a}$) — ne jamais les confondre.",
+        "Connaître une seule racine suffit à retrouver l'autre avec le produit (ou la somme), sans recalculer $\\Delta$.",
+        "Le trinôme change de signe à chaque racine : signe de $a$ à l'extérieur, signe opposé entre les deux racines."
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1,
-          -4,
-          4,
-          10
-        ],
+        "viewBox": [-1, -4, 4, 10],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                -0.5,
-                4.5
-              ],
-              [
-                -0.25,
-                2.0
-              ],
-              [
-                0.0,
-                0.0
-              ],
-              [
-                0.25,
-                -1.5
-              ],
-              [
-                0.5,
-                -2.5
-              ],
-              [
-                0.75,
-                -3.0
-              ],
-              [
-                1.0,
-                -3.0
-              ],
-              [
-                1.25,
-                -2.5
-              ],
-              [
-                1.5,
-                -1.5
-              ],
-              [
-                1.75,
-                0.0
-              ],
-              [
-                2.0,
-                2.0
-              ],
-              [
-                2.25,
-                4.5
-              ],
-              [
-                2.5,
-                7.5
-              ]
+              [-0.5, 4.5],
+              [-0.25, 2.0],
+              [0.0, 0.0],
+              [0.25, -1.5],
+              [0.5, -2.5],
+              [0.75, -3.0],
+              [1.0, -3.0],
+              [1.25, -2.5],
+              [1.5, -1.5],
+              [1.75, 0.0],
+              [2.0, 2.0],
+              [2.25, 4.5],
+              [2.5, 7.5]
             ]
           }
         ],
@@ -525,27 +534,35 @@
             "anchor": "end"
           }
         ],
-        "alt": "Parabole représentant f(x) = 4x² - 7x (a=4>0), qui coupe l'axe des abscisses en deux racines distinctes x₁=0 et x₂=7/4. Le trinôme est positif (signe de a) à l'extérieur des racines, et négatif (signe opposé à a) entre les deux racines, conformément à la règle de signe d'un trinôme du second degré."
+        "alt": "Parabole représentant f(x) = 4x² - 7x (a=4>0), qui coupe l'axe des abscisses en deux racines distinctes x₁=0 et x₂=7/4. Le trinôme est positif (signe de a) à l'extérieur des racines, et négatif (signe opposé à a) entre les deux racines, conformément à la règle de signe d'un trinôme du second degré.",
+        "explication": {
+          "comprendre": "Le signe du trinôme change exactement aux racines : il vaut le signe de $a$ à l'extérieur, et le signe opposé entre les deux racines.",
+          "etapes": [
+            {
+              "titre": "Les racines",
+              "texte": "Ce sont les points où la courbe touche l'axe des abscisses."
+            },
+            {
+              "titre": "Le signe",
+              "texte": "La courbe est au-dessus de l'axe là où le trinôme est positif, en dessous où il est négatif."
+            }
+          ],
+          "resume": "Repérer les racines sur le graphique permet de lire directement le signe du trinôme sur chaque intervalle."
+        }
       },
-      "quizExerciseIds": [
-        473,
-        474,
-        475
-      ],
+      "quizExerciseIds": [473, 474, 475],
       "topic_id": "proprietes-d-un-trinome",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Propriétés d'un trinôme."
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Propriétés d'un trinôme."],
+      "prerequis": [
+        "Fonction polynôme de degré 2 (notion précédente de ce chapitre)",
+        "Discriminant et résolution d'une équation du second degré"
       ],
-      "prerequis": [],
-      "notions_liees": [],
+      "notions_liees": ["fonction-polynome-de-degre-2", "equations-du-second-degre"],
       "difficulte": "facile",
-      "tags": [
-        "proprietes",
-        "trinome"
-      ],
+      "tags": ["proprietes", "trinome"],
       "demonstration": {
         "titre": "Pourquoi $x_1+x_2=-\\dfrac{b}{a}$ et $x_1 \\times x_2 = \\dfrac{c}{a}$ ? — démonstration par identification",
         "etapes": [
@@ -567,7 +584,47 @@
           }
         ],
         "conclusion": "Ces deux relations entre les racines et les coefficients (somme et produit) se retrouvent en développant systématiquement la forme factorisée $a(x-x_1)(x-x_2)$ et en identifiant avec $ax^2+bx+c$ : elles permettent de retrouver une racine manquante sans recalculer le discriminant."
-      }
+      },
+      "pourquoi": "Si tu connais déjà une racine d'un trinôme (par exemple parce qu'on te l'a donnée), devoir recalculer tout le discriminant pour trouver la seconde racine serait un travail inutile.\n\nIl existe un raccourci : la somme et le produit des deux racines d'un trinôme sont directement liés à ses coefficients $a$, $b$, $c$ — sans jamais calculer $\\Delta$. Connaître une racine suffit alors à retrouver l'autre immédiatement.",
+      "apercus": [
+        {
+          "id": "apercu-trinome-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Un autre calcul direct de somme et produit des racines, pour automatiser la méthode."
+        },
+        {
+          "id": "apercu-trinome-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi ces formules sont vraies",
+          "description": "La démonstration complète par identification entre forme factorisée et forme développée."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi ces formules évitent-elles de recalculer le discriminant ?",
+          "piste": "Parce qu'elles relient directement les racines aux coefficients a, b, c, sans jamais passer par Δ ni par √Δ."
+        },
+        {
+          "apres": "intuition",
+          "question": "Quelle est la différence de signe entre les deux formules ?",
+          "piste": "La somme a un signe moins (-b/a), le produit n'en a pas (c/a)."
+        },
+        {
+          "apres": "methode",
+          "question": "Que faut-il vérifier avant d'utiliser les formules de somme et de produit des racines ?",
+          "piste": "Que le trinôme admet bien des racines réelles, c'est-à-dire que Δ est positif ou nul."
+        },
+        {
+          "apres": "figure",
+          "question": "Sur ce graphique, pourquoi le trinôme est-il négatif entre les deux racines ?",
+          "piste": "Parce que a=4>0 : la règle dit que le trinôme est du signe opposé à a entre ses racines, donc négatif ici."
+        }
+      ]
     },
     {
       "id": "equations-du-second-degre",
@@ -582,38 +639,39 @@
       },
       "intuition": "Le signe de $\\Delta$ doit toujours être déterminé avant de chercher des solutions : chercher $\\sqrt{\\Delta}$ alors que $\\Delta$ est négatif n'a pas de sens dans $\\mathbb{R}$. Prends toujours le temps de calculer $\\Delta$ intégralement (en faisant bien attention aux signes de $a$, $b$, $c$) avant de te lancer dans les formules des solutions.",
       "reglesImportantes": [
-        "Exprimer la longueur en fonction de $x$ à l'aide du périmètre, puis traduire l'aire en équation du second degré."
+        "Pour résoudre $ax^2+bx+c=0$, calcule le discriminant $\\Delta = b^2-4ac$ avant toute chose.",
+        "Discriminant $\\Delta>0$ : deux solutions. $\\Delta=0$ : une solution. $\\Delta<0$ : aucune solution réelle."
       ],
       "formules": [],
       "methode": {
-        "titre": "Méthode — Équations du second degré",
+        "titre": "Méthode — Résoudre une équation du second degré",
         "etapes": [
           {
             "icone": "search",
             "couleur": "blue",
-            "texte": "Étape 1 : Si $x$ est la largeur, la longueur vaut $\\dfrac{40}{2} - x = 20 - x$ (demi-périmètre moins la largeur)."
+            "texte": "Étape 1 : identifie $a$, $b$, $c$ en écrivant l'équation sous la forme $ax^2+bx+c=0$."
           },
           {
-            "icone": "sliders",
+            "icone": "penSquare",
             "couleur": "purple",
-            "texte": "Étape 2 : L'aire donne $x(20-x) = 91$, soit $x^2 - 20x + 91 = 0$."
+            "texte": "Étape 2 : calcule $\\Delta=b^2-4ac$, en remplaçant $a$, $b$, $c$ entre parenthèses pour ne pas perdre les signes."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Étape 3 : détermine le signe de $\\Delta$, puis applique la formule correspondante (deux solutions, une solution, ou aucune)."
           },
           {
             "icone": "check",
             "couleur": "green",
-            "texte": "Étape 3 : $\\Delta = 20^2 - 4\\times91 = 36$, et $\\sqrt{\\Delta} = 6$."
-          },
-          {
-            "icone": "compass",
-            "couleur": "orange",
-            "texte": "Étape 4 : Les solutions sont $x_1 = 7$ et $x_2 = 13$ ; comme la largeur est la plus petite dimension, $x = 7$ m et la longueur vaut $13$ m."
+            "texte": "Étape 4 : écris l'ensemble des solutions, en simplifiant si possible."
           }
         ]
       },
       "exemples": [
         {
           "id": "exemple-413",
-          "titre": "Exemple 1",
+          "titre": "Exemple 1 — Cas Δ > 0 : deux solutions",
           "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $x^2 - 7x - 2 = 0$.",
           "calcul": [
             {
@@ -626,24 +684,51 @@
             }
           ],
           "reponse": "$\\mathcal{S} = \\left\\{\\dfrac{-(-7)-\\sqrt{57}}{2} ; \\dfrac{-(-7)+\\sqrt{57}}{2}\\right\\}$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "On calcule $\\Delta$ : s'il est strictement positif, il y a deux solutions distinctes.",
+          "choixMethode": "On identifie $a$, $b$, $c$, on calcule $\\Delta$, puis on applique les formules de $x_1$ et $x_2$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-425",
-          "titre": "Exemple 2",
-          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $-6x^2 + 9x + 10 = 0$.",
+          "titre": "Exemple 2 — Cas Δ < 0 : aucune solution réelle",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $2x^2 - 3x + 5 = 0$.",
+          "calcul": [
+            {
+              "expr": "\\Delta = (-3)^2 - 4\\times2\\times5 = 9-40 = -31",
+              "texte": "On calcule le discriminant en remplaçant $a$, $b$, $c$ par leurs valeurs."
+            },
+            {
+              "expr": "\\Delta = -31 < 0",
+              "texte": "Le discriminant est strictement négatif."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\varnothing$ (aucune solution réelle)",
+          "difficulte": "facile",
+          "analyse": "On calcule $\\Delta$ avant toute chose : s'il est strictement négatif, l'équation n'a aucune solution réelle — chercher $\\sqrt{\\Delta}$ n'aurait aucun sens.",
+          "choixMethode": "On identifie $a=2$, $b=-3$, $c=5$, puis on calcule $\\Delta=b^2-4ac$.",
+          "interpretation": "Un carré ne pouvant jamais être négatif, $\\sqrt{\\Delta}$ n'existe pas parmi les réels dans ce cas : il est inutile (et faux) de chercher des solutions.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-449",
+          "titre": "Exemple 4 — Cas Δ = 0 : une unique solution",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $-x^2 - 2x - 1 = 0$.",
           "calcul": [
             {
               "expr": "",
-              "texte": "Étape 1 : On identifie $a=-6$, $b=9$, $c=10$, puis $\\Delta = b^2-4ac = 9^2 - 4\\times-6\\times(10) = 321$."
+              "texte": "Étape 1 : On identifie $a=-1$, $b=-2$, $c=-1$, puis $\\Delta = b^2-4ac = -2^2 - 4\\times-1\\times(-1) = 0$."
             },
             {
               "expr": "",
-              "texte": "Étape 2 : $\\Delta = 321 > 0$, donc l'équation admet deux solutions réelles $x_1 = \\dfrac{-(9)-\\sqrt{321}}{2\\times-6}$ et $x_2 = \\dfrac{-(9)+\\sqrt{321}}{2\\times-6}$."
+              "texte": "Étape 2 : $\\Delta = 0$, donc une unique solution : $x_0 = \\dfrac{-b}{2a} = \\dfrac{-(-2)}{2\\times-1} = -1$."
             }
           ],
-          "reponse": "$\\mathcal{S} = \\left\\{\\dfrac{-(9)-\\sqrt{321}}{-12} ; \\dfrac{-(9)+\\sqrt{321}}{-12}\\right\\}$",
-          "difficulte": "facile"
+          "reponse": "$\\mathcal{S} = \\{-1\\}$",
+          "difficulte": "difficile",
+          "analyse": "On calcule $\\Delta$ : s'il est nul, l'équation admet exactement une solution.",
+          "choixMethode": "On identifie $a$, $b$, $c$, on calcule $\\Delta$, puis on applique $x_0=-\\dfrac{b}{2a}$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-437",
@@ -668,24 +753,8 @@
             }
           ],
           "reponse": "Largeur $= 7$ m et longueur $= 13$ m",
-          "difficulte": "moyen"
-        },
-        {
-          "id": "exemple-449",
-          "titre": "Exemple 4",
-          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $-x^2 - 2x - 1 = 0$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : On identifie $a=-1$, $b=-2$, $c=-1$, puis $\\Delta = b^2-4ac = -2^2 - 4\\times-1\\times(-1) = 0$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $\\Delta = 0$, donc une unique solution : $x_0 = \\dfrac{-b}{2a} = \\dfrac{-(-2)}{2\\times-1} = -1$."
-            }
-          ],
-          "reponse": "$\\mathcal{S} = \\{-1\\}$",
-          "difficulte": "difficile"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -713,16 +782,13 @@
           "comment_eviter": "Toujours écrire la formule complète avec le dénominateur $2a$ avant de remplacer les valeurs numériques."
         }
       ],
-      "astuce": "",
+      "astuce": "Pour résoudre une équation du second degré, calcule toujours le discriminant $\\Delta$ avant de chercher $x$ — et ne donne jamais une réponse sans avoir vérifié son signe.",
       "aRetenir": [
-        "Exprimer la longueur en fonction de $x$ à l'aide du périmètre, puis traduire l'aire en équation du second degré."
+        "Résoudre $ax^2+bx+c=0$ consiste à trouver les valeurs de $x$ qui l'annulent, en calculant d'abord le discriminant $\\Delta$.",
+        "Avant de résoudre quoi que ce soit, le signe du discriminant seul suffit à savoir, sans aucun autre calcul, combien de solutions existent."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        414,
-        415,
-        416
-      ],
+      "quizExerciseIds": [414, 415, 416],
       "topic_id": "equations-du-second-degre",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -730,14 +796,14 @@
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras résoudre des exercices sur Équations du second degré."
       ],
-      "prerequis": [],
-      "notions_liees": [],
-      "difficulte": "facile",
-      "tags": [
-        "equations",
-        "second",
-        "degre"
+      "prerequis": [
+        "Fonction polynôme de degré 2 (notion précédente de ce chapitre)",
+        "Propriétés d'un trinôme (notion précédente de ce chapitre)",
+        "Calculer une racine carrée, résoudre une équation simple"
       ],
+      "notions_liees": ["fonction-polynome-de-degre-2", "proprietes-d-un-trinome"],
+      "difficulte": "facile",
+      "tags": ["equations", "second", "degre"],
       "demonstration": {
         "titre": "D'où vient la formule du discriminant ? — démonstration par complétion du carré",
         "etapes": [
@@ -759,7 +825,47 @@
           }
         ],
         "conclusion": "La même méthode — diviser par $a$, compléter le carré, isoler $\\Delta$ — permet de retrouver, dans tous les cas, les formules des solutions de $ax^2+bx+c=0$ à partir de la seule définition d'une équation du second degré."
-      }
+      },
+      "pourquoi": "Un trinôme $ax^2+bx+c$ ne se factorise pas toujours facilement « à vue ». Pour résoudre $ax^2+bx+c=0$ dans tous les cas, sans tâtonner, il faut une méthode générale qui marche à chaque fois.\n\nCette méthode repose sur un seul nombre à calculer en premier, le discriminant $\\Delta$ : son signe te dit immédiatement combien de solutions réelles existent, avant même de les calculer.",
+      "apercus": [
+        {
+          "id": "apercu-eq2-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Un problème concret (rectangle de périmètre et d'aire donnés) qui se traduit en équation du second degré."
+        },
+        {
+          "id": "apercu-eq2-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "D'où vient la formule du discriminant",
+          "description": "La démonstration complète par complétion du carré, qui justifie les trois cas selon le signe de Δ."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi calcule-t-on toujours Δ avant de chercher les solutions ?",
+          "piste": "Parce que son signe indique directement combien de solutions réelles existent, avant même de les calculer — cela évite de chercher des solutions qui n'existent pas."
+        },
+        {
+          "apres": "intuition",
+          "question": "Pourquoi une équation avec Δ<0 n'a-t-elle aucune solution réelle ?",
+          "piste": "Parce que la méthode de résolution fait apparaître une racine carrée de Δ : si Δ est négatif, cette racine carrée n'existe pas parmi les nombres réels."
+        },
+        {
+          "apres": "methode",
+          "question": "Quelle est la toute première chose à calculer pour résoudre ax²+bx+c=0 ?",
+          "piste": "Le discriminant Δ=b²-4ac."
+        },
+        {
+          "apres": "exemple:exemple-425",
+          "question": "Pourquoi est-il inutile de calculer √Δ dans cet exemple ?",
+          "piste": "Parce que Δ=-31<0 : comme un carré ne peut jamais être négatif, aucun nombre réel n'a Δ pour carré, donc aucune solution réelle n'existe."
+        }
+      ]
     }
   ]
 }

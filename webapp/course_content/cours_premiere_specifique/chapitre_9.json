@@ -1,0 +1,1996 @@
+{
+  "chapterId": "Chapitre_9",
+  "title": "Loi de Bernoulli et loi binomiale",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "epreuves-independantes-et-epreuves-de-bernoulli",
+      "title": "Expériences indépendantes et loi de Bernoulli",
+      "schemaVersion": 2,
+      "intro": "Beaucoup d'expériences enchaînent des épreuves qui ne s'influencent pas : lancers successifs, tirages avec remise. Quand une épreuve n'a que deux issues, succès ou échec, on parle d'épreuve de Bernoulli : c'est la brique de base de la loi binomiale.",
+      "pourquoi": "Contrôler des pièces, répondre au hasard à un QCM, jouer plusieurs fois au même jeu : ces situations se modélisent par des épreuves de Bernoulli indépendantes.",
+      "explicationSimple": "Une pièce truquée donne « face » avec la probabilité $0{,}7$ ; quatre lancers indépendants : $P(\\text{4 fois face}) = 0{,}7^4 = 0{,}2401$.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître des expériences indépendantes, calculer la probabilité d'une succession d'issues par un produit, et donner la loi, l'espérance, la variance et l'écart-type d'une variable de Bernoulli.",
+      "definition": "Deux expériences aléatoires sont indépendantes lorsque les résultats de l'une n'influent pas sur les probabilités des issues de l'autre ; répéter une même expérience dans les mêmes conditions initiales donne des expériences indépendantes. Si l'on répète $n$ fois une expérience dans les mêmes conditions et si $A_i$ est un événement de la $i$-ème expérience, alors $P(A_1 \\cap A_2 \\cap \\dots \\cap A_n) = P(A_1) \\times P(A_2) \\times \\dots \\times P(A_n)$. Une épreuve de Bernoulli de paramètre $p \\in [0 ; 1]$ est une expérience à deux issues : succès $S$ (probabilité $p$) et échec $\\overline{S}$ (probabilité $1 - p$). La variable aléatoire $X$ qui vaut $1$ si $S$ est réalisé et $0$ sinon suit la loi de Bernoulli de paramètre $p$ : $P(X = 1) = p$, $P(X = 0) = 1 - p$ ; alors $E(X) = p$, $V(X) = p(1 - p)$ et $\\sigma(X) = \\sqrt{p(1 - p)}$.",
+      "definitions": {
+        "lycee": "Deux expériences aléatoires sont indépendantes lorsque les résultats de l'une n'influent pas sur les probabilités des issues de l'autre ; répéter une même expérience dans les mêmes conditions initiales donne des expériences indépendantes. Si l'on répète $n$ fois une expérience dans les mêmes conditions et si $A_i$ est un événement de la $i$-ème expérience, alors $P(A_1 \\cap A_2 \\cap \\dots \\cap A_n) = P(A_1) \\times P(A_2) \\times \\dots \\times P(A_n)$. Une épreuve de Bernoulli de paramètre $p \\in [0 ; 1]$ est une expérience à deux issues : succès $S$ (probabilité $p$) et échec $\\overline{S}$ (probabilité $1 - p$). La variable aléatoire $X$ qui vaut $1$ si $S$ est réalisé et $0$ sinon suit la loi de Bernoulli de paramètre $p$ : $P(X = 1) = p$, $P(X = 0) = 1 - p$ ; alors $E(X) = p$, $V(X) = p(1 - p)$ et $\\sigma(X) = \\sqrt{p(1 - p)}$."
+      },
+      "intuition": "Indépendance : on multiplie les probabilités le long d'un chemin. Bernoulli : on ne regarde qu'une question, « succès ou pas ? ».",
+      "reglesImportantes": [
+        "Tirages avec remise, lancers successifs : expériences indépendantes ; tirages sans remise : en général non.",
+        "Répétition dans les mêmes conditions : $P(A_1 \\cap \\dots \\cap A_n) = P(A_1) \\times \\dots \\times P(A_n)$.",
+        "Épreuve de Bernoulli : deux issues, succès ($p$) et échec ($1 - p$).",
+        "Loi de Bernoulli : $P(X = 1) = p$, $P(X = 0) = 1 - p$.",
+        "$E(X) = p$ ; $V(X) = p(1 - p)$ ; $\\sigma(X) = \\sqrt{p(1 - p)}$."
+      ],
+      "formules": [
+        {
+          "id": "formule-produit-independance",
+          "nom": "Répétition",
+          "expression": "$P(A_1 \\cap \\dots \\cap A_n) = P(A_1) \\times \\dots \\times P(A_n)$",
+          "quand_utiliser": "Pour des expériences indépendantes.",
+          "erreur_frequente": "L'appliquer à des tirages sans remise.",
+          "astuce": "Vérifie d'abord l'indépendance."
+        },
+        {
+          "id": "formule-bernoulli",
+          "nom": "Loi de Bernoulli",
+          "expression": "$E(X) = p$ ; $V(X) = p(1 - p)$",
+          "quand_utiliser": "Pour une variable qui vaut $0$ ou $1$.",
+          "erreur_frequente": "Écrire $V(X) = p^2$.",
+          "astuce": "$V(X) = E(X^2) - E(X)^2 = p - p^2$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Modéliser par des épreuves indépendantes",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je vérifie que les épreuves se répètent dans les mêmes conditions (avec remise, lancers successifs…)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'identifie le succès et son paramètre $p$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule la probabilité d'une succession d'issues par un produit."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle avec l'événement contraire quand c'est plus simple."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je vérifie que les épreuves se répètent dans les mêmes conditions (avec remise, lancers successifs…)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'identifie le succès et son paramètre $p$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule la probabilité d'une succession d'issues par un produit."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle avec l'événement contraire quand c'est plus simple."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je me demande si un résultat change les probabilités du suivant."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je note ce qu'est un succès et sa probabilité."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je multiplie les probabilités sur le chemin."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Le résultat est entre $0$ et $1$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Indépendance : produit."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Bernoulli : $E = p$, $V = p(1 - p)$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-epreuves-tableau",
+          "titre": "Exemple 1 — Deux expériences indépendantes",
+          "enonce": "On lance une pièce équilibrée puis un dé équilibré. Probabilité d'obtenir « face » et un nombre pair ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Les deux expériences sont indépendantes."
+            },
+            {
+              "expr": "P = \\dfrac{1}{2} \\times \\dfrac{1}{2} = \\dfrac{1}{4}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$\\dfrac{1}{4}$.",
+          "conclusion": "Expériences indépendantes : on multiplie.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-quatre-lancers",
+          "titre": "Exemple 2 — Répéter une même expérience",
+          "enonce": "Une pièce truquée donne « face » avec la probabilité $0{,}7$. On la lance $4$ fois. Probabilité d'obtenir $4$ fois « face » ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Les lancers sont indépendants."
+            },
+            {
+              "expr": "P(F_1 \\cap F_2 \\cap F_3 \\cap F_4) = 0{,}7^4 = 0{,}2401",
+              "texte": ""
+            }
+          ],
+          "reponse": "$0{,}2401$.",
+          "conclusion": "C'est le chemin supérieur de l'arbre.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-loi-bernoulli",
+          "titre": "Exemple 3 — Une variable de Bernoulli",
+          "enonce": "Dans une usine, un article présente un défaut avec la probabilité $0{,}02$. $X$ vaut $1$ si l'article est défectueux, $0$ sinon. Donner la loi de $X$, $E(X)$, $V(X)$ et $\\sigma(X)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(X = 1) = 0{,}02$ et $P(X = 0) = 0{,}98$."
+            },
+            {
+              "expr": "E(X) = 0{,}02 \\quad V(X) = 0{,}02 \\times 0{,}98 = 0{,}0196",
+              "texte": ""
+            },
+            {
+              "expr": "\\sigma(X) = \\sqrt{0{,}0196} = 0{,}14",
+              "texte": ""
+            }
+          ],
+          "reponse": "$E(X) = 0{,}02$, $V(X) = 0{,}0196$, $\\sigma(X) = 0{,}14$.",
+          "conclusion": "Loi de Bernoulli de paramètre $0{,}02$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-tirs",
+          "titre": "Exemple 4 — Exactement une réussite",
+          "enonce": "Un tireur atteint sa cible avec la probabilité $0{,}7$. Il tire deux fois, de façon indépendante. Probabilité d'exactement une réussite ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Chemins $S\\overline{S}$ et $\\overline{S}S$ : $0{,}7 \\times 0{,}3 + 0{,}3 \\times 0{,}7 = 0{,}42$."
+            }
+          ],
+          "reponse": "$0{,}42$.",
+          "conclusion": "Deux chemins de même probabilité.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-avec-sans-remise",
+          "titre": "Exemple 5 — Avec ou sans remise",
+          "enonce": "Une urne contient $3$ boules rouges et $2$ vertes. On tire deux boules. Les deux tirages sont-ils indépendants avec remise ? sans remise ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Avec remise : l'urne est la même au second tirage, $P(R_2) = \\dfrac{3}{5}$ quel que soit le premier tirage."
+            },
+            {
+              "expr": "",
+              "texte": "Sans remise : si la première est rouge, $P(R_2) = \\dfrac{2}{4}$ ; si elle est verte, $\\dfrac{3}{4}$."
+            }
+          ],
+          "reponse": "Indépendants avec remise, pas sans remise.",
+          "conclusion": "Le protocole décide de l'indépendance.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-variance-max",
+          "titre": "Exemple 6 — Quand la variance est-elle maximale ?",
+          "enonce": "Pour quelle valeur de $p$ la variance $p(1 - p)$ d'une loi de Bernoulli est-elle maximale ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$p(1 - p) = -p^2 + p$ : trinôme de coefficient $a = -1 < 0$, maximal en $\\alpha = -\\dfrac{1}{2 \\times (-1)} = \\dfrac{1}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Maximum : $\\dfrac{1}{2} \\times \\dfrac{1}{2} = \\dfrac{1}{4}$."
+            }
+          ],
+          "reponse": "Pour $p = \\dfrac{1}{2}$ ; la variance vaut alors $\\dfrac{1}{4}$.",
+          "conclusion": "L'incertitude est la plus grande quand succès et échec sont également probables.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Lancers successifs d'une pièce.",
+        "Contrôle d'un article (défectueux ou non).",
+        "Tirages avec remise."
+      ],
+      "erreursFrequentes": [
+        "Supposer l'indépendance pour des tirages sans remise.",
+        "Additionner les probabilités le long d'un chemin.",
+        "Écrire $V(X) = p^2$ pour une loi de Bernoulli.",
+        "Oublier que l'échec a la probabilité $1 - p$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Supposer l'indépendance pour des tirages sans remise.",
+          "pourquoi": "On ne regarde pas le protocole.",
+          "comment_detecter": "La composition de l'urne change-t-elle ?",
+          "comment_eviter": "Sans remise : pas indépendants."
+        },
+        {
+          "description": "Additionner les probabilités le long d'un chemin.",
+          "pourquoi": "Confusion entre « et » et « ou ».",
+          "comment_detecter": "Les issues se succèdent-elles ?",
+          "comment_eviter": "Le long d'un chemin, on multiplie."
+        },
+        {
+          "description": "Écrire $V(X) = p^2$ pour une loi de Bernoulli.",
+          "pourquoi": "On élève $E(X)$ au carré.",
+          "comment_detecter": "As-tu soustrait $E(X)^2$ de $E(X^2)$ ?",
+          "comment_eviter": "$V(X) = p - p^2 = p(1 - p)$."
+        },
+        {
+          "description": "Oublier que l'échec a la probabilité $1 - p$.",
+          "pourquoi": "On ne garde que $p$.",
+          "comment_detecter": "La somme des probabilités vaut-elle $1$ ?",
+          "comment_eviter": "$P(X = 0) = 1 - p$."
+        }
+      ],
+      "astuce": "Pour « au moins un succès » sur $n$ épreuves indépendantes, calcule plutôt le contraire : $1 - (1 - p)^n$.",
+      "aRetenir": [
+        "Expériences indépendantes et loi de Bernoulli : on multiplie le long d'un chemin.",
+        "Bernoulli : $P(X = 1) = p$, $P(X = 0) = 1 - p$.",
+        "$E(X) = p$, $V(X) = p(1 - p)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.6,
+          -3.4,
+          11.2,
+          6.8
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": ""
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "label": "S"
+          },
+          {
+            "x": 4,
+            "y": -2,
+            "label": "\\overline{S}"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": 2
+            }
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": -2
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.6,
+            "y": 1.6,
+            "label": "p"
+          },
+          {
+            "x": 1.6,
+            "y": -1.6,
+            "label": "1 − p"
+          },
+          {
+            "x": 6.2,
+            "y": 2.0,
+            "label": "X = 1",
+            "reveal": 2
+          },
+          {
+            "x": 6.2,
+            "y": -2.0,
+            "label": "X = 0",
+            "reveal": 2
+          },
+          {
+            "x": 8.6,
+            "y": 0.6,
+            "label": "E(X) = p",
+            "reveal": 3
+          },
+          {
+            "x": 8.6,
+            "y": -0.6,
+            "label": "V(X) = p(1 − p)",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Une épreuve à deux issues : succès S, échec S̄",
+          "X vaut 1 en cas de succès, 0 sinon",
+          "Espérance p, variance p(1 − p)"
+        ],
+        "relation": "$P(X = 1) = p$ ; $P(X = 0) = 1 - p$",
+        "alt": "Arbre d'une épreuve de Bernoulli : branche succès S de probabilité p (X = 1), branche échec S̄ de probabilité 1 − p (X = 0) ; E(X) = p et V(X) = p(1 − p).",
+        "explication": {
+          "resume": "Une épreuve de Bernoulli n'a que deux issues, succès et échec. La variable aléatoire qui vaut $1$ en cas de succès et $0$ sinon suit la loi de Bernoulli de paramètre $p$.",
+          "lecture": [
+            "La branche du haut : succès, probabilité $p$.",
+            "La branche du bas : échec, probabilité $1 - p$."
+          ],
+          "observations": [
+            "$E(X) = 0 \\times (1 - p) + 1 \\times p = p$.",
+            "$E(X^2) = p$, donc $V(X) = p - p^2 = p(1 - p)$.",
+            "Avec $p = 0{,}02$ : $\\sigma(X) = \\sqrt{0{,}0196} = 0{,}14$."
+          ],
+          "pieges": [
+            "Oublier que les deux probabilités ont pour somme $1$."
+          ],
+          "aRetenir": [
+            "Bernoulli de paramètre $p$ : $E(X) = p$, $V(X) = p(1 - p)$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        69401,
+        69402,
+        89101
+      ],
+      "topic_id": "epreuves-independantes-et-epreuves-de-bernoulli",
+      "proprietes": [
+        "Loi de Bernoulli : $E(X) = p$ et $V(X) = p(1 - p)$."
+      ],
+      "vocabulaire_associe": [
+        "expériences indépendantes",
+        "épreuve de Bernoulli",
+        "succès",
+        "échec",
+        "loi de Bernoulli"
+      ],
+      "synonymes": [
+        "épreuve de Bernoulli",
+        "loi de Bernoulli",
+        "expériences indépendantes",
+        "succès et échec",
+        "tirage avec remise"
+      ],
+      "objectifs_pedagogiques": [
+        "Reconnaître des expériences indépendantes.",
+        "Calculer la probabilité d'une succession d'issues.",
+        "Utiliser la loi de Bernoulli."
+      ],
+      "prerequis": [
+        "Variables aléatoires",
+        "Rappels de probabilités : événements"
+      ],
+      "notions_liees": [
+        "schema-de-bernoulli-et-loi-binomiale"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "probabilités",
+        "Bernoulli"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "epreuves-independantes-et-epreuves-de-bernoulli-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Variable de Bernoulli, exactement une réussite, avec ou sans remise",
+          "description": "Trois exemples rédigés : loi, espérance et variance d'une variable de Bernoulli, deux tirs, indépendance selon le protocole."
+        },
+        {
+          "id": "epreuves-independantes-et-epreuves-de-bernoulli-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Variance maximale, démonstration",
+          "description": "La valeur de $p$ qui rend la variance maximale, et la démonstration de $E(X) = p$ et $V(X) = p(1 - p)$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que vaut $V(X)$ si $p = 0{,}5$ ?",
+          "piste": "$0{,}25$."
+        },
+        {
+          "apres": "methode",
+          "question": "$3$ lancers d'une pièce équilibrée : probabilité de « 3 piles » ?",
+          "piste": "$0{,}125$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Espérance et variance d'une loi de Bernoulli",
+        "etapes": [
+          {
+            "titre": "Loi",
+            "texte": "$P(X = 0) = 1 - p$ et $P(X = 1) = p$."
+          },
+          {
+            "titre": "Espérance",
+            "texte": "$E(X) = 0 \\times (1 - p) + 1 \\times p = p$."
+          },
+          {
+            "titre": "Carré",
+            "texte": "$X^2 = X$ (car $0^2 = 0$ et $1^2 = 1$), donc $E(X^2) = p$."
+          },
+          {
+            "titre": "Variance",
+            "texte": "$V(X) = E(X^2) - E(X)^2 = p - p^2 = p(1 - p)$, et $\\sigma(X) = \\sqrt{p(1 - p)}$."
+          }
+        ],
+        "conclusion": "La formule de König-Huygens (chapitre 8) donne directement la variance."
+      }
+    },
+    {
+      "id": "schema-de-bernoulli-et-loi-binomiale",
+      "title": "Schéma de Bernoulli et loi binomiale",
+      "schemaVersion": 2,
+      "intro": "En répétant plusieurs fois, de façon indépendante, la même épreuve de Bernoulli, on obtient un schéma de Bernoulli. Le nombre de succès suit alors une loi binomiale, que l'on calcule en comptant les chemins de l'arbre.",
+      "pourquoi": "La loi binomiale modélise le nombre de pièces défectueuses dans un lot, de bonnes réponses à un QCM, de victoires sur plusieurs parties : c'est la loi de probabilité la plus utilisée en Première.",
+      "explicationSimple": "On joue $7$ fois à un jeu où l'on gagne avec la probabilité $0{,}4$, de façon indépendante : le nombre de victoires suit $\\mathcal{B}(7 ; 0{,}4)$, d'espérance $7 \\times 0{,}4 = 2{,}8$.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître une loi binomiale et ses paramètres, interpréter un coefficient binomial comme un nombre de chemins, calculer $P(X = k)$, et donner l'espérance, la variance et l'écart-type.",
+      "definition": "Un schéma de Bernoulli est la répétition de $n$ épreuves de Bernoulli identiques (même paramètre $p$) et indépendantes ; l'arbre associé possède $2^n$ chemins. Pour $0 \\leqslant k \\leqslant n$, le coefficient binomial $\\binom{n}{k}$ (« $k$ parmi $n$ ») est le nombre de chemins de l'arbre comportant exactement $k$ succès ; $\\binom{n}{0} = \\binom{n}{n} = 1$ et $\\binom{n}{1} = n$. La variable aléatoire $X$ égale au nombre de succès suit la loi binomiale de paramètres $n$ et $p$, notée $\\mathcal{B}(n ; p)$ : pour tout entier $k$ de $0$ à $n$, $P(X = k) = \\binom{n}{k} p^k (1 - p)^{n - k}$. De plus, $E(X) = np$, $V(X) = np(1 - p)$ et $\\sigma(X) = \\sqrt{np(1 - p)}$.",
+      "definitions": {
+        "lycee": "Un schéma de Bernoulli est la répétition de $n$ épreuves de Bernoulli identiques (même paramètre $p$) et indépendantes ; l'arbre associé possède $2^n$ chemins. Pour $0 \\leqslant k \\leqslant n$, le coefficient binomial $\\binom{n}{k}$ (« $k$ parmi $n$ ») est le nombre de chemins de l'arbre comportant exactement $k$ succès ; $\\binom{n}{0} = \\binom{n}{n} = 1$ et $\\binom{n}{1} = n$. La variable aléatoire $X$ égale au nombre de succès suit la loi binomiale de paramètres $n$ et $p$, notée $\\mathcal{B}(n ; p)$ : pour tout entier $k$ de $0$ à $n$, $P(X = k) = \\binom{n}{k} p^k (1 - p)^{n - k}$. De plus, $E(X) = np$, $V(X) = np(1 - p)$ et $\\sigma(X) = \\sqrt{np(1 - p)}$."
+      },
+      "intuition": "Tous les chemins à $k$ succès ont la même probabilité $p^k(1 - p)^{n - k}$ : il suffit de savoir combien il y en a, c'est $\\binom{n}{k}$.",
+      "reglesImportantes": [
+        "Reconnaître une loi binomiale : $n$ épreuves identiques, indépendantes, à deux issues ; $X$ compte les succès.",
+        "$\\binom{n}{k}$ : nombre de chemins à $k$ succès ; $\\binom{n}{0} = \\binom{n}{n} = 1$, $\\binom{n}{1} = n$.",
+        "$P(X = k) = \\binom{n}{k} p^k (1 - p)^{n - k}$.",
+        "$E(X) = np$ ; $V(X) = np(1 - p)$ ; $\\sigma(X) = \\sqrt{np(1 - p)}$.",
+        "La calculatrice donne les coefficients binomiaux, $P(X = k)$ et $P(X \\leqslant k)$. Texas Instruments : « math », « PRB », « Combinaison » pour $\\binom{n}{k}$ ; « distrib » (« 2nde », « var ») pour <code>binomFdp(n,p,k)</code> $= P(X = k)$ et <code>binomFrép(n,p,k)</code> $= P(X \\leqslant k)$. Casio : « OPTN », « PROB », « nCr » pour $\\binom{n}{k}$ ; « OPTN », « STAT », « DIST », « BINM » pour <code>binomialPD(k,n,p)</code> et <code>binomialCD(k,n,p)</code>."
+      ],
+      "formules": [
+        {
+          "id": "formule-binomiale",
+          "nom": "Loi binomiale",
+          "expression": "$P(X = k) = \\binom{n}{k} p^k (1 - p)^{n - k}$",
+          "quand_utiliser": "Pour $k$ succès exactement.",
+          "erreur_frequente": "Oublier le coefficient binomial.",
+          "astuce": "Compte les chemins, puis multiplie par la probabilité d'un chemin."
+        },
+        {
+          "id": "formule-esperance-binomiale",
+          "nom": "Espérance",
+          "expression": "$E(X) = np$",
+          "quand_utiliser": "Pour le nombre moyen de succès.",
+          "erreur_frequente": "Écrire $E(X) = p$.",
+          "astuce": "En moyenne, $p$ succès par épreuve, donc $np$ sur $n$ épreuves."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Utiliser une loi binomiale",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je justifie le schéma de Bernoulli : épreuves identiques, indépendantes, deux issues."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'identifie $n$ et $p$ et j'écris $X \\sim \\mathcal{B}(n ; p)$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule $P(X = k)$ par la formule (ou la calculatrice), $P(X \\geqslant 1)$ par le contraire."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle l'ordre de grandeur avec $E(X) = np$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je justifie le schéma de Bernoulli : épreuves identiques, indépendantes, deux issues."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'identifie $n$ et $p$ et j'écris $X \\sim \\mathcal{B}(n ; p)$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule $P(X = k)$ par la formule (ou la calculatrice), $P(X \\geqslant 1)$ par le contraire."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle l'ordre de grandeur avec $E(X) = np$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le nombre de répétitions $n$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je repère la probabilité de succès $p$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je compte les chemins à $k$ succès et je multiplie."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je compare à $np$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$\\binom{n}{k} p^k (1 - p)^{n - k}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$E(X) = np$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-compter-chemins",
+          "titre": "Exemple 1 — Compter des chemins",
+          "enonce": "Dans l'arbre de $3$ épreuves de Bernoulli, combien de chemins comportent exactement $2$ succès ? En déduire $\\binom{3}{2}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Chemins : $SS\\overline{S}$, $S\\overline{S}S$, $\\overline{S}SS$."
+            }
+          ],
+          "reponse": "$3$ chemins : $\\binom{3}{2} = 3$.",
+          "conclusion": "C'est la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-reconnaitre-binomiale",
+          "titre": "Exemple 2 — Reconnaître une loi binomiale",
+          "enonce": "On joue $7$ fois à un jeu ; à chaque partie, on gagne avec la probabilité $0{,}4$, indépendamment des autres. $X$ est le nombre de victoires. Quelle est la loi de $X$ ? Son espérance ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$7$ épreuves identiques et indépendantes, succès « gagner » de probabilité $0{,}4$."
+            },
+            {
+              "expr": "E(X) = 7 \\times 0{,}4 = 2{,}8",
+              "texte": ""
+            }
+          ],
+          "reponse": "$X \\sim \\mathcal{B}(7 ; 0{,}4)$ et $E(X) = 2{,}8$.",
+          "conclusion": "On justifie toujours le schéma de Bernoulli.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-calcul-binomiale",
+          "titre": "Exemple 3 — Calculer $P(X = k)$",
+          "enonce": "$X \\sim \\mathcal{B}(5 ; 0{,}2)$. Calculer $P(X = 2)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\binom{5}{2} = 10$ chemins à $2$ succès."
+            },
+            {
+              "expr": "P(X = 2) = 10 \\times 0{,}2^2 \\times 0{,}8^3 = 10 \\times 0{,}04 \\times 0{,}512 = 0{,}2048",
+              "texte": ""
+            }
+          ],
+          "reponse": "$P(X = 2) = 0{,}2048$.",
+          "conclusion": "Nombre de chemins $\\times$ probabilité d'un chemin.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-esperance-binomiale",
+          "titre": "Exemple 4 — Espérance et écart-type",
+          "enonce": "$X \\sim \\mathcal{B}(20 ; 0{,}3)$. Calculer $E(X)$, $V(X)$ et $\\sigma(X)$.",
+          "calcul": [
+            {
+              "expr": "E(X) = 20 \\times 0{,}3 = 6",
+              "texte": ""
+            },
+            {
+              "expr": "V(X) = 20 \\times 0{,}3 \\times 0{,}7 = 4{,}2",
+              "texte": ""
+            },
+            {
+              "expr": "\\sigma(X) = \\sqrt{4{,}2} \\approx 2{,}05",
+              "texte": ""
+            }
+          ],
+          "reponse": "$E(X) = 6$, $V(X) = 4{,}2$, $\\sigma(X) \\approx 2{,}05$.",
+          "conclusion": "En moyenne $6$ succès sur $20$ épreuves.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-au-moins-un",
+          "titre": "Exemple 5 — Au moins un succès",
+          "enonce": "$X \\sim \\mathcal{B}(5 ; 0{,}2)$. Calculer $P(X \\geqslant 1)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Contraire : $P(X = 0) = 0{,}8^5 = 0{,}32768$."
+            },
+            {
+              "expr": "P(X \\geqslant 1) = 1 - 0{,}32768 = 0{,}67232",
+              "texte": ""
+            }
+          ],
+          "reponse": "$P(X \\geqslant 1) = 0{,}67232$.",
+          "conclusion": "Le contraire évite cinq calculs.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cumul",
+          "titre": "Exemple 6 — Probabilité cumulée",
+          "enonce": "Un lot de $10$ pièces ; chaque pièce est défectueuse avec la probabilité $0{,}1$, indépendamment. Probabilité qu'il y ait au plus une pièce défectueuse ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$X \\sim \\mathcal{B}(10 ; 0{,}1)$."
+            },
+            {
+              "expr": "P(X = 0) = 0{,}9^{10} \\approx 0{,}3487 \\quad P(X = 1) = 10 \\times 0{,}1 \\times 0{,}9^9 \\approx 0{,}3874",
+              "texte": ""
+            },
+            {
+              "expr": "P(X \\leqslant 1) \\approx 0{,}3487 + 0{,}3874 = 0{,}7361",
+              "texte": ""
+            }
+          ],
+          "reponse": "$P(X \\leqslant 1) \\approx 0{,}736$.",
+          "conclusion": "La calculatrice donne directement $P(X \\leqslant 1)$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Nombre de pièces défectueuses dans un lot.",
+        "Bonnes réponses au hasard à un QCM.",
+        "Nombre de victoires sur plusieurs parties."
+      ],
+      "erreursFrequentes": [
+        "Oublier le coefficient binomial.",
+        "Utiliser la loi binomiale pour des tirages sans remise.",
+        "Inverser les exposants $k$ et $n - k$.",
+        "Écrire $V(X) = np$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier le coefficient binomial.",
+          "pourquoi": "On calcule la probabilité d'un seul chemin.",
+          "comment_detecter": "Combien de chemins comportent $k$ succès ?",
+          "comment_eviter": "Multiplie par $\\binom{n}{k}$."
+        },
+        {
+          "description": "Utiliser la loi binomiale pour des tirages sans remise.",
+          "pourquoi": "Épreuves non indépendantes.",
+          "comment_detecter": "Les épreuves sont-elles indépendantes et identiques ?",
+          "comment_eviter": "Vérifie le schéma de Bernoulli."
+        },
+        {
+          "description": "Inverser les exposants $k$ et $n - k$.",
+          "pourquoi": "Confusion succès/échecs.",
+          "comment_detecter": "Quel exposant pour $p$ ?",
+          "comment_eviter": "$p$ à la puissance du nombre de succès."
+        },
+        {
+          "description": "Écrire $V(X) = np$.",
+          "pourquoi": "On recopie l'espérance.",
+          "comment_detecter": "As-tu le facteur $1 - p$ ?",
+          "comment_eviter": "$V(X) = np(1 - p)$."
+        }
+      ],
+      "astuce": "Avant tout calcul, écris la phrase : « On répète $n$ fois, de façon indépendante, la même épreuve de Bernoulli de paramètre $p$ ; $X$ compte les succès, donc $X \\sim \\mathcal{B}(n ; p)$. »",
+      "aRetenir": [
+        "Schéma de Bernoulli et loi binomiale : $P(X = k) = \\binom{n}{k} p^k (1 - p)^{n - k}$.",
+        "$\\binom{n}{k}$ : nombre de chemins à $k$ succès.",
+        "$E(X) = np$, $V(X) = np(1 - p)$, $\\sigma(X) = \\sqrt{np(1 - p)}$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.6,
+          -4.8,
+          10.4,
+          9.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": ""
+          },
+          {
+            "x": 2.4,
+            "y": 2.4,
+            "label": "S"
+          },
+          {
+            "x": 2.4,
+            "y": -2.4,
+            "label": "\\overline{S}"
+          },
+          {
+            "x": 4.8,
+            "y": 3.6,
+            "label": "S"
+          },
+          {
+            "x": 4.8,
+            "y": 1.2,
+            "label": "\\overline{S}"
+          },
+          {
+            "x": 4.8,
+            "y": -1.2,
+            "label": "S"
+          },
+          {
+            "x": 4.8,
+            "y": -3.6,
+            "label": "\\overline{S}"
+          },
+          {
+            "x": 7.2,
+            "y": 4.2,
+            "label": "S"
+          },
+          {
+            "x": 7.2,
+            "y": 3.0,
+            "label": "\\overline{S}"
+          },
+          {
+            "x": 7.2,
+            "y": 1.8,
+            "label": "S"
+          },
+          {
+            "x": 7.2,
+            "y": 0.6,
+            "label": "\\overline{S}"
+          },
+          {
+            "x": 7.2,
+            "y": -0.6,
+            "label": "S"
+          },
+          {
+            "x": 7.2,
+            "y": -1.8,
+            "label": "\\overline{S}"
+          },
+          {
+            "x": 7.2,
+            "y": -3.0,
+            "label": "S"
+          },
+          {
+            "x": 7.2,
+            "y": -4.2,
+            "label": "\\overline{S}"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 2.4,
+              "y": 2.4
+            }
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 2.4,
+              "y": -2.4
+            }
+          },
+          {
+            "from": {
+              "x": 2.4,
+              "y": 2.4
+            },
+            "to": {
+              "x": 4.8,
+              "y": 3.6
+            }
+          },
+          {
+            "from": {
+              "x": 2.4,
+              "y": 2.4
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 2.4,
+              "y": -2.4
+            },
+            "to": {
+              "x": 4.8,
+              "y": -1.2
+            }
+          },
+          {
+            "from": {
+              "x": 2.4,
+              "y": -2.4
+            },
+            "to": {
+              "x": 4.8,
+              "y": -3.6
+            }
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": 3.6
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": 4.2
+            }
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": 3.6
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": 3.0
+            }
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": 1.2
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": 1.8
+            }
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": 1.2
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": 0.6
+            }
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": -1.2
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": -0.6
+            }
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": -1.2
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": -1.8
+            }
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": -3.6
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": -3.0
+            }
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": -3.6
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": -4.2
+            }
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 2.4,
+              "y": 2.4
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 2.4,
+              "y": 2.4
+            },
+            "to": {
+              "x": 4.8,
+              "y": 3.6
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": 3.6
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": 3.0
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 2.4,
+              "y": 2.4
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 2.4,
+              "y": 2.4
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.2
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": 1.2
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": 1.8
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 2.4,
+              "y": -2.4
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 2.4,
+              "y": -2.4
+            },
+            "to": {
+              "x": 4.8,
+              "y": -1.2
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": -1.2
+            },
+            "to": {
+              "x": 7.199999999999999,
+              "y": -0.6
+            },
+            "reveal": 2
+          }
+        ],
+        "texts": [
+          {
+            "x": 9.3,
+            "y": 3.0,
+            "label": "SS\\overline{S}",
+            "reveal": 2
+          },
+          {
+            "x": 9.3,
+            "y": 1.8,
+            "label": "S\\overline{S}S",
+            "reveal": 2
+          },
+          {
+            "x": 9.3,
+            "y": -0.6,
+            "label": "\\overline{S}SS",
+            "reveal": 2
+          },
+          {
+            "x": 5.0,
+            "y": -4.6,
+            "label": "P(2 succès) = 3 × p² × (1 − p)",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "3 épreuves de Bernoulli : 8 chemins",
+          "3 chemins comportent exactement 2 succès",
+          "Chaque chemin vaut p²(1 − p)"
+        ],
+        "relation": "$P(\\text{2 succès sur 3}) = 3p^2(1 - p)$",
+        "alt": "Arbre de trois épreuves de Bernoulli successives (S succès, Ē échec) ; les trois chemins SSĒ, SĒS, ĒSS comportent exactement deux succès, chacun de probabilité p²(1 − p).",
+        "explication": {
+          "resume": "Dans un schéma de Bernoulli, chaque chemin à $k$ succès a pour probabilité $p^k(1 - p)^{n - k}$. Le nombre de ces chemins est le coefficient binomial $\\binom{n}{k}$.",
+          "lecture": [
+            "Chaque nœud se divise en succès $S$ (probabilité $p$) et échec $\\overline{S}$ (probabilité $1 - p$).",
+            "Trois niveaux : $2^3 = 8$ chemins."
+          ],
+          "observations": [
+            "Chemins à $2$ succès : $SS\\overline{S}$, $S\\overline{S}S$, $\\overline{S}SS$ : $\\binom{3}{2} = 3$.",
+            "Avec $p = \\dfrac{1}{4}$ : $P(X = 2) = 3 \\times \\dfrac{1}{16} \\times \\dfrac{3}{4} = \\dfrac{9}{64}$.",
+            "$X$, nombre de succès, suit la loi binomiale $\\mathcal{B}(3 ; p)$."
+          ],
+          "pieges": [
+            "Oublier des chemins, ou compter $p^2$ sans le facteur $1 - p$."
+          ],
+          "aRetenir": [
+            "$P(X = k) = \\binom{n}{k} p^k (1 - p)^{n - k}$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        69403,
+        89201,
+        89202
+      ],
+      "topic_id": "schema-de-bernoulli-et-loi-binomiale",
+      "proprietes": [
+        "$E(X) = np$ et $V(X) = np(1 - p)$."
+      ],
+      "vocabulaire_associe": [
+        "schéma de Bernoulli",
+        "coefficient binomial",
+        "loi binomiale",
+        "paramètres $n$ et $p$"
+      ],
+      "synonymes": [
+        "loi binomiale",
+        "schéma de Bernoulli",
+        "coefficient binomial",
+        "k parmi n",
+        "B(n ; p)",
+        "espérance d'une loi binomiale"
+      ],
+      "objectifs_pedagogiques": [
+        "Reconnaître une loi binomiale.",
+        "Calculer $P(X = k)$ et $P(X \\geqslant 1)$.",
+        "Calculer $E(X)$, $V(X)$, $\\sigma(X)$."
+      ],
+      "prerequis": [
+        "Expériences indépendantes et loi de Bernoulli"
+      ],
+      "notions_liees": [
+        "epreuves-independantes-et-epreuves-de-bernoulli",
+        "echantillonnage-et-regle-de-decision"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "probabilités",
+        "loi binomiale"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "schema-de-bernoulli-et-loi-binomiale-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Calcul de $P(X = k)$, espérance, au moins un succès",
+          "description": "Trois exemples rédigés : $P(X = 2)$ pour $\\mathcal{B}(5 ; 0{,}2)$, espérance et écart-type, au moins un succès."
+        },
+        {
+          "id": "schema-de-bernoulli-et-loi-binomiale-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Probabilité cumulée, démonstration",
+          "description": "Le calcul de $P(X \\leqslant 1)$ pour un lot de pièces, et la démonstration de la formule de la loi binomiale."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien de chemins comportent exactement $1$ succès sur la figure ?",
+          "piste": "$3$."
+        },
+        {
+          "apres": "methode",
+          "question": "$X \\sim \\mathcal{B}(40 ; 0{,}25)$ : $E(X)$ ?",
+          "piste": "$10$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Formule de la loi binomiale",
+        "etapes": [
+          {
+            "titre": "Chemin",
+            "texte": "Un chemin à $k$ succès et $n - k$ échecs a pour probabilité $p^k (1 - p)^{n - k}$ (épreuves indépendantes)."
+          },
+          {
+            "titre": "Même probabilité",
+            "texte": "Tous les chemins à $k$ succès ont cette même probabilité, quel que soit l'ordre des succès."
+          },
+          {
+            "titre": "Comptage",
+            "texte": "Par définition, il y a $\\binom{n}{k}$ chemins à $k$ succès."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$P(X = k)$ est la somme de leurs probabilités : $\\binom{n}{k} p^k (1 - p)^{n - k}$."
+          }
+        ],
+        "conclusion": "Dénombrer les chemins suffit : c'est le rôle du coefficient binomial."
+      }
+    },
+    {
+      "id": "echantillonnage-et-regle-de-decision",
+      "title": "Échantillonnage et règle de décision",
+      "schemaVersion": 2,
+      "intro": "Une fréquence observée sur un échantillon fluctue autour de la proportion théorique. La loi binomiale permet de déterminer un intervalle dans lequel la fréquence se trouve avec une probabilité d'au moins $95\\,\\%$ : c'est l'intervalle de fluctuation, qui sert à prendre une décision.",
+      "pourquoi": "Un dé est-il truqué ? Une machine produit-elle trop de pièces défectueuses ? On compare une fréquence observée à l'intervalle de fluctuation pour accepter ou rejeter une hypothèse.",
+      "explicationSimple": "Pour $n = 50$ et $p = 0{,}3$, on trouve $a = 9$ et $b = 22$ : l'intervalle de fluctuation est $[0{,}18 ; 0{,}44]$. Une fréquence observée de $0{,}36$ est compatible avec $p = 0{,}3$ ; une fréquence de $0{,}5$ ne l'est pas.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer l'intervalle de fluctuation à $95\\,\\%$ d'une fréquence à partir de la loi binomiale, et appliquer la règle de décision pour accepter ou rejeter une hypothèse sur une proportion.",
+      "definition": "Soit $X \\sim \\mathcal{B}(n ; p)$, où $X$ compte les succès dans un échantillon aléatoire de taille $n$ et $p$ est la proportion supposée dans la population. L'intervalle de fluctuation à $95\\,\\%$ de la fréquence $\\dfrac{X}{n}$ est l'intervalle $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$, où $a$ est le plus petit entier tel que $P(X \\leqslant a) > 0{,}025$ et $b$ le plus petit entier tel que $P(X \\leqslant b) \\geqslant 0{,}975$. Règle de décision : si la fréquence observée $f$ appartient à $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$, on ne remet pas en question l'hypothèse « la proportion vaut $p$ » et on l'accepte ; sinon, on la rejette (avec un risque d'erreur d'environ $5\\,\\%$).",
+      "definitions": {
+        "lycee": "Soit $X \\sim \\mathcal{B}(n ; p)$, où $X$ compte les succès dans un échantillon aléatoire de taille $n$ et $p$ est la proportion supposée dans la population. L'intervalle de fluctuation à $95\\,\\%$ de la fréquence $\\dfrac{X}{n}$ est l'intervalle $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$, où $a$ est le plus petit entier tel que $P(X \\leqslant a) > 0{,}025$ et $b$ le plus petit entier tel que $P(X \\leqslant b) \\geqslant 0{,}975$. Règle de décision : si la fréquence observée $f$ appartient à $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$, on ne remet pas en question l'hypothèse « la proportion vaut $p$ » et on l'accepte ; sinon, on la rejette (avec un risque d'erreur d'environ $5\\,\\%$)."
+      },
+      "intuition": "On fixe à l'avance une « zone normale » pour la fréquence : en sortir est trop rare (moins de $5\\,\\%$ des cas) pour être attribué au hasard.",
+      "reglesImportantes": [
+        "$X \\sim \\mathcal{B}(n ; p)$ sous l'hypothèse « la proportion vaut $p$ ».",
+        "$a$ : plus petit entier tel que $P(X \\leqslant a) > 0{,}025$.",
+        "$b$ : plus petit entier tel que $P(X \\leqslant b) \\geqslant 0{,}975$.",
+        "Intervalle de fluctuation à $95\\,\\%$ de la fréquence : $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$.",
+        "Règle : $f$ dans l'intervalle, on accepte l'hypothèse ; $f$ hors de l'intervalle, on la rejette."
+      ],
+      "formules": [
+        {
+          "id": "formule-intervalle-fluctuation",
+          "nom": "Intervalle de fluctuation",
+          "expression": "$\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$",
+          "quand_utiliser": "Pour une fréquence observée sur $n$ essais.",
+          "erreur_frequente": "Oublier de diviser par $n$.",
+          "astuce": "$a$ et $b$ sont des nombres de succès, l'intervalle porte sur la fréquence."
+        },
+        {
+          "id": "formule-a-b",
+          "nom": "Bornes",
+          "expression": "$P(X \\leqslant a) > 0{,}025$ ; $P(X \\leqslant b) \\geqslant 0{,}975$",
+          "quand_utiliser": "Pour trouver $a$ et $b$ dans un tableau des probabilités cumulées.",
+          "erreur_frequente": "Prendre le dernier entier sous $0{,}025$.",
+          "astuce": "On cherche le PREMIER entier qui dépasse le seuil."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Prendre une décision par l'intervalle de fluctuation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'écris l'hypothèse : proportion $p$, échantillon de taille $n$, $X \\sim \\mathcal{B}(n ; p)$."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Avec les probabilités cumulées $P(X \\leqslant k)$, je trouve $a$ et $b$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule la fréquence observée $f$ et je la compare à $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je conclus : accepter ou rejeter l'hypothèse, avec une phrase dans le contexte."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris l'hypothèse : proportion $p$, échantillon de taille $n$, $X \\sim \\mathcal{B}(n ; p)$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Avec les probabilités cumulées $P(X \\leqslant k)$, je trouve $a$ et $b$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule la fréquence observée $f$ et je la compare à $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je conclus : accepter ou rejeter l'hypothèse, avec une phrase dans le contexte."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je note $n$ et $p$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je cherche $a$ et $b$ dans le tableau."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule la fréquence observée."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Dans l'intervalle : j'accepte ; dehors : je rejette."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$a$, $b$, puis $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$f$ dedans : accepter."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-decision-accepter",
+          "titre": "Exemple 1 — Accepter une hypothèse",
+          "enonce": "Sous l'hypothèse $p = 0{,}3$ et pour $n = 50$, l'intervalle de fluctuation à $95\\,\\%$ est $[0{,}18 ; 0{,}44]$. On observe $18$ succès sur $50$. Que décider ?",
+          "calcul": [
+            {
+              "expr": "f = \\dfrac{18}{50} = 0{,}36",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "$0{,}36 \\in [0{,}18 ; 0{,}44]$."
+            }
+          ],
+          "reponse": "On accepte l'hypothèse $p = 0{,}3$.",
+          "conclusion": "L'écart à $0{,}3$ peut s'expliquer par la fluctuation.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-decision-rejeter",
+          "titre": "Exemple 2 — Rejeter une hypothèse",
+          "enonce": "Même situation, mais on observe $25$ succès sur $50$. Que décider ?",
+          "calcul": [
+            {
+              "expr": "f = \\dfrac{25}{50} = 0{,}5",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "$0{,}5 \\notin [0{,}18 ; 0{,}44]$."
+            }
+          ],
+          "reponse": "On rejette l'hypothèse $p = 0{,}3$.",
+          "conclusion": "Risque de se tromper : environ $5\\,\\%$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-trouver-a-b",
+          "titre": "Exemple 3 — Déterminer $a$ et $b$",
+          "enonce": "$X \\sim \\mathcal{B}(50 ; 0{,}3)$ : $P(X \\leqslant 8) \\approx 0{,}018$, $P(X \\leqslant 9) \\approx 0{,}040$, $P(X \\leqslant 21) \\approx 0{,}9749$, $P(X \\leqslant 22) \\approx 0{,}9877$. Déterminer l'intervalle de fluctuation à $95\\,\\%$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(X \\leqslant 8) \\leqslant 0{,}025 < P(X \\leqslant 9)$ : $a = 9$."
+            },
+            {
+              "expr": "",
+              "texte": "$P(X \\leqslant 21) < 0{,}975 \\leqslant P(X \\leqslant 22)$ : $b = 22$."
+            },
+            {
+              "expr": "\\left[\\dfrac{9}{50} ; \\dfrac{22}{50}\\right] = [0{,}18 ; 0{,}44]",
+              "texte": ""
+            }
+          ],
+          "reponse": "$[0{,}18 ; 0{,}44]$.",
+          "conclusion": "C'est la figure du cours.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-de-truque",
+          "titre": "Exemple 4 — Un dé est-il truqué ?",
+          "enonce": "On lance $40$ fois un dé et on compte les $6$. Sous l'hypothèse « dé équilibré », $X \\sim \\mathcal{B}\\left(40 ; \\dfrac{1}{6}\\right)$, et l'on obtient $a = 2$, $b = 12$. On observe $14$ fois le $6$. Que décider ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Intervalle de fluctuation : $\\left[\\dfrac{2}{40} ; \\dfrac{12}{40}\\right] = [0{,}05 ; 0{,}3]$."
+            },
+            {
+              "expr": "f = \\dfrac{14}{40} = 0{,}35 \\notin [0{,}05 ; 0{,}3]",
+              "texte": ""
+            }
+          ],
+          "reponse": "On rejette l'hypothèse : le dé semble truqué.",
+          "conclusion": "$E(X) = \\dfrac{40}{6} \\approx 6{,}67$ : $14$ est très au-dessus.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-controle-qualite",
+          "titre": "Exemple 5 — Contrôle qualité",
+          "enonce": "Un fabricant annonce $5\\,\\%$ de pièces défectueuses. Pour $n = 100$, $X \\sim \\mathcal{B}(100 ; 0{,}05)$ et l'intervalle de fluctuation à $95\\,\\%$ est $[0{,}01 ; 0{,}10]$. Sur $100$ pièces, $9$ sont défectueuses. Que conclure ?",
+          "calcul": [
+            {
+              "expr": "f = \\dfrac{9}{100} = 0{,}09 \\in [0{,}01 ; 0{,}10]",
+              "texte": ""
+            }
+          ],
+          "reponse": "On accepte l'annonce du fabricant.",
+          "conclusion": "Une fréquence au-dessus de $5\\,\\%$ n'est pas forcément anormale.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-sens-du-95",
+          "titre": "Exemple 6 — Que signifie « 95 % » ?",
+          "enonce": "Justifier que, si l'hypothèse est vraie, la probabilité que la fréquence observée soit dans $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$ est au moins $0{,}95$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(a \\leqslant X \\leqslant b) = P(X \\leqslant b) - P(X \\leqslant a - 1)$."
+            },
+            {
+              "expr": "",
+              "texte": "$a$ est le plus petit entier tel que $P(X \\leqslant a) > 0{,}025$ : donc $P(X \\leqslant a - 1) \\leqslant 0{,}025$."
+            },
+            {
+              "expr": "P(a \\leqslant X \\leqslant b) \\geqslant 0{,}975 - 0{,}025 = 0{,}95",
+              "texte": ""
+            }
+          ],
+          "reponse": "La fréquence est dans l'intervalle avec une probabilité d'au moins $95\\,\\%$.",
+          "conclusion": "Rejeter à tort une hypothèse vraie n'arrive donc qu'avec une probabilité d'au plus $5\\,\\%$ environ.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Tester un dé.",
+        "Contrôler un taux de pièces défectueuses.",
+        "Vérifier une proportion annoncée."
+      ],
+      "erreursFrequentes": [
+        "Comparer le nombre de succès à l'intervalle de la fréquence.",
+        "Prendre pour $a$ le dernier entier tel que $P(X \\leqslant a) \\leqslant 0{,}025$.",
+        "Conclure qu'une hypothèse acceptée est « prouvée ».",
+        "Oublier les conditions de la loi binomiale."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Comparer le nombre de succès à l'intervalle de la fréquence.",
+          "pourquoi": "On oublie de diviser par $n$.",
+          "comment_detecter": "Compares-tu des fréquences ?",
+          "comment_eviter": "$f = \\dfrac{X}{n}$."
+        },
+        {
+          "description": "Prendre pour $a$ le dernier entier tel que $P(X \\leqslant a) \\leqslant 0{,}025$.",
+          "pourquoi": "Mauvaise lecture du tableau.",
+          "comment_detecter": "Quel est le premier entier qui dépasse $0{,}025$ ?",
+          "comment_eviter": "$a$ : premier entier tel que $P(X \\leqslant a) > 0{,}025$."
+        },
+        {
+          "description": "Conclure qu'une hypothèse acceptée est « prouvée ».",
+          "pourquoi": "Interprétation trop forte.",
+          "comment_detecter": "Les observations démontrent-elles l'hypothèse ?",
+          "comment_eviter": "On dit seulement qu'elle n'est pas remise en question."
+        },
+        {
+          "description": "Oublier les conditions de la loi binomiale.",
+          "pourquoi": "On applique l'outil sans justifier.",
+          "comment_detecter": "L'échantillon est-il aléatoire, les tirages indépendants ?",
+          "comment_eviter": "Justifie $X \\sim \\mathcal{B}(n ; p)$."
+        }
+      ],
+      "astuce": "Dans un tableau de probabilités cumulées, cherche la première ligne qui dépasse $0{,}025$ (pour $a$), puis la première qui atteint $0{,}975$ (pour $b$).",
+      "aRetenir": [
+        "Échantillonnage et règle de décision : intervalle $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$.",
+        "$a$ : premier entier avec $P(X \\leqslant a) > 0{,}025$ ; $b$ : premier entier avec $P(X \\leqslant b) \\geqslant 0{,}975$.",
+        "$f$ dans l'intervalle : on accepte ; sinon on rejette."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          3.0,
+          -1.6,
+          22.0,
+          7.4
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "segments": [
+          {
+            "from": {
+              "x": 4,
+              "y": 0
+            },
+            "to": {
+              "x": 24,
+              "y": 0
+            }
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": 0.022
+            },
+            "tooltip": "P(X = 5) ≈ 0,0006"
+          },
+          {
+            "from": {
+              "x": 5,
+              "y": 0
+            },
+            "to": {
+              "x": 5,
+              "y": 0.071
+            },
+            "tooltip": "P(X = 6) ≈ 0,0018"
+          },
+          {
+            "from": {
+              "x": 6,
+              "y": 0
+            },
+            "to": {
+              "x": 6,
+              "y": 0.191
+            },
+            "tooltip": "P(X = 7) ≈ 0,0048"
+          },
+          {
+            "from": {
+              "x": 7,
+              "y": 0
+            },
+            "to": {
+              "x": 7,
+              "y": 0.44
+            },
+            "tooltip": "P(X = 8) ≈ 0,011"
+          },
+          {
+            "from": {
+              "x": 8,
+              "y": 0
+            },
+            "to": {
+              "x": 8,
+              "y": 0.879
+            },
+            "tooltip": "P(X = 9) ≈ 0,022"
+          },
+          {
+            "from": {
+              "x": 9,
+              "y": 0
+            },
+            "to": {
+              "x": 9,
+              "y": 1.545
+            },
+            "tooltip": "P(X = 10) ≈ 0,0386"
+          },
+          {
+            "from": {
+              "x": 10,
+              "y": 0
+            },
+            "to": {
+              "x": 10,
+              "y": 2.407
+            },
+            "tooltip": "P(X = 11) ≈ 0,0602"
+          },
+          {
+            "from": {
+              "x": 11,
+              "y": 0
+            },
+            "to": {
+              "x": 11,
+              "y": 3.353
+            },
+            "tooltip": "P(X = 12) ≈ 0,0838"
+          },
+          {
+            "from": {
+              "x": 12,
+              "y": 0
+            },
+            "to": {
+              "x": 12,
+              "y": 4.201
+            },
+            "tooltip": "P(X = 13) ≈ 0,105"
+          },
+          {
+            "from": {
+              "x": 13,
+              "y": 0
+            },
+            "to": {
+              "x": 13,
+              "y": 4.758
+            },
+            "tooltip": "P(X = 14) ≈ 0,1189"
+          },
+          {
+            "from": {
+              "x": 14,
+              "y": 0
+            },
+            "to": {
+              "x": 14,
+              "y": 4.894
+            },
+            "tooltip": "P(X = 15) ≈ 0,1223"
+          },
+          {
+            "from": {
+              "x": 15,
+              "y": 0
+            },
+            "to": {
+              "x": 15,
+              "y": 4.588
+            },
+            "tooltip": "P(X = 16) ≈ 0,1147"
+          },
+          {
+            "from": {
+              "x": 16,
+              "y": 0
+            },
+            "to": {
+              "x": 16,
+              "y": 3.933
+            },
+            "tooltip": "P(X = 17) ≈ 0,0983"
+          },
+          {
+            "from": {
+              "x": 17,
+              "y": 0
+            },
+            "to": {
+              "x": 17,
+              "y": 3.09
+            },
+            "tooltip": "P(X = 18) ≈ 0,0772"
+          },
+          {
+            "from": {
+              "x": 18,
+              "y": 0
+            },
+            "to": {
+              "x": 18,
+              "y": 2.23
+            },
+            "tooltip": "P(X = 19) ≈ 0,0558"
+          },
+          {
+            "from": {
+              "x": 19,
+              "y": 0
+            },
+            "to": {
+              "x": 19,
+              "y": 1.482
+            },
+            "tooltip": "P(X = 20) ≈ 0,037"
+          },
+          {
+            "from": {
+              "x": 20,
+              "y": 0
+            },
+            "to": {
+              "x": 20,
+              "y": 0.907
+            },
+            "tooltip": "P(X = 21) ≈ 0,0227"
+          },
+          {
+            "from": {
+              "x": 21,
+              "y": 0
+            },
+            "to": {
+              "x": 21,
+              "y": 0.512
+            },
+            "tooltip": "P(X = 22) ≈ 0,0128"
+          },
+          {
+            "from": {
+              "x": 22,
+              "y": 0
+            },
+            "to": {
+              "x": 22,
+              "y": 0.267
+            },
+            "tooltip": "P(X = 23) ≈ 0,0067"
+          },
+          {
+            "from": {
+              "x": 23,
+              "y": 0
+            },
+            "to": {
+              "x": 23,
+              "y": 0.129
+            },
+            "tooltip": "P(X = 24) ≈ 0,0032"
+          },
+          {
+            "from": {
+              "x": 24,
+              "y": 0
+            },
+            "to": {
+              "x": 24,
+              "y": 0.057
+            },
+            "tooltip": "P(X = 25) ≈ 0,0014"
+          },
+          {
+            "from": {
+              "x": 14,
+              "y": 0
+            },
+            "to": {
+              "x": 14,
+              "y": 5.4
+            },
+            "dashed": true,
+            "reveal": 2,
+            "tooltip": "E(X) = 15"
+          },
+          {
+            "from": {
+              "x": 8,
+              "y": -0.6
+            },
+            "to": {
+              "x": 21,
+              "y": -0.6
+            },
+            "reveal": 3,
+            "tooltip": "au moins 95 % des valeurs"
+          },
+          {
+            "from": {
+              "x": 8,
+              "y": -0.9
+            },
+            "to": {
+              "x": 8,
+              "y": -0.3
+            },
+            "reveal": 3
+          },
+          {
+            "from": {
+              "x": 21,
+              "y": -0.9
+            },
+            "to": {
+              "x": 21,
+              "y": -0.3
+            },
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": 4,
+            "y": -1.3,
+            "label": "5"
+          },
+          {
+            "x": 8,
+            "y": -1.3,
+            "label": "9"
+          },
+          {
+            "x": 14,
+            "y": -1.3,
+            "label": "15"
+          },
+          {
+            "x": 21,
+            "y": -1.3,
+            "label": "22"
+          },
+          {
+            "x": 24,
+            "y": -1.3,
+            "label": "25"
+          },
+          {
+            "x": 19.5,
+            "y": 5.8,
+            "label": "B(50 ; 0,3)"
+          },
+          {
+            "x": 14.0,
+            "y": 5.9,
+            "label": "E(X) = 15",
+            "reveal": 2
+          },
+          {
+            "x": 15.5,
+            "y": -0.15,
+            "label": "de 9 à 22",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "La loi binomiale B(50 ; 0,3) : diagramme en bâtons",
+          "Les valeurs les plus probables sont autour de E(X) = 15",
+          "De a = 9 à b = 22 : au moins 95 % de la probabilité"
+        ],
+        "relation": "Intervalle de fluctuation à $95\\,\\%$ de la fréquence : $\\left[\\dfrac{9}{50} ; \\dfrac{22}{50}\\right] = [0{,}18 ; 0{,}44]$",
+        "alt": "Diagramme en bâtons de la loi binomiale de paramètres 50 et 0,3, centré autour de 15 ; les bâtons de 9 à 22 sont mis en évidence : ils regroupent au moins 95 % de la probabilité.",
+        "explication": {
+          "resume": "Les valeurs d'une loi binomiale se concentrent autour de l'espérance $np$. L'intervalle de fluctuation à $95\\,\\%$ regroupe les valeurs centrales, de probabilité totale au moins $0{,}95$.",
+          "lecture": [
+            "En abscisse : le nombre de succès $k$ ; en hauteur : $P(X = k)$ (échelle $\\times 40$).",
+            "Les bâtons hors de $[9 ; 22]$ sont très petits."
+          ],
+          "observations": [
+            "$E(X) = 50 \\times 0{,}3 = 15$.",
+            "$P(X \\leqslant 8) \\approx 0{,}018$ et $P(X \\leqslant 9) \\approx 0{,}040$ : $a = 9$.",
+            "$P(X \\leqslant 21) \\approx 0{,}975$ (un peu moins) et $P(X \\leqslant 22) \\approx 0{,}988$ : $b = 22$."
+          ],
+          "pieges": [
+            "Confondre l'intervalle pour le nombre de succès $[a ; b]$ et celui pour la fréquence $\\left[\\dfrac{a}{n} ; \\dfrac{b}{n}\\right]$."
+          ],
+          "aRetenir": [
+            "$a$ : plus petit entier tel que $P(X \\leqslant a) > 0{,}025$ ; $b$ : plus petit entier tel que $P(X \\leqslant b) \\geqslant 0{,}975$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        89301,
+        89302,
+        89303
+      ],
+      "topic_id": "echantillonnage-et-regle-de-decision",
+      "proprietes": [
+        "Si l'hypothèse est vraie, $P\\left(\\dfrac{a}{n} \\leqslant \\dfrac{X}{n} \\leqslant \\dfrac{b}{n}\\right) \\geqslant 0{,}95$."
+      ],
+      "vocabulaire_associe": [
+        "échantillon",
+        "intervalle de fluctuation",
+        "fréquence observée",
+        "règle de décision",
+        "hypothèse"
+      ],
+      "synonymes": [
+        "intervalle de fluctuation",
+        "règle de décision",
+        "échantillonnage",
+        "dé truqué",
+        "accepter ou rejeter une hypothèse"
+      ],
+      "objectifs_pedagogiques": [
+        "Déterminer un intervalle de fluctuation à $95\\,\\%$.",
+        "Appliquer la règle de décision.",
+        "Interpréter le risque de $5\\,\\%$."
+      ],
+      "prerequis": [
+        "Schéma de Bernoulli et loi binomiale",
+        "Loi des grands nombres et simulation"
+      ],
+      "notions_liees": [
+        "schema-de-bernoulli-et-loi-binomiale"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "probabilités",
+        "échantillonnage"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "echantillonnage-et-regle-de-decision-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Déterminer $a$ et $b$, dé truqué, contrôle qualité",
+          "description": "Trois exemples rédigés : lecture d'un tableau de probabilités cumulées, test d'un dé, contrôle d'un taux de défauts."
+        },
+        {
+          "id": "echantillonnage-et-regle-de-decision-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Le sens du « 95 % », démonstration",
+          "description": "Pourquoi la fréquence est dans l'intervalle avec une probabilité d'au moins $0{,}95$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelles sont les bornes $a$ et $b$ sur la figure ?",
+          "piste": "$9$ et $22$."
+        },
+        {
+          "apres": "methode",
+          "question": "$n = 50$, $a = 9$, $b = 22$ : $f = 0{,}46$ ?",
+          "piste": "Hors de l'intervalle : on rejette."
+        }
+      ],
+      "demonstration": {
+        "titre": "La fréquence est dans l'intervalle de fluctuation avec une probabilité d'au moins $95\\,\\%$",
+        "etapes": [
+          {
+            "titre": "Événement",
+            "texte": "$\\dfrac{a}{n} \\leqslant \\dfrac{X}{n} \\leqslant \\dfrac{b}{n} \\iff a \\leqslant X \\leqslant b$."
+          },
+          {
+            "titre": "Découpage",
+            "texte": "$P(a \\leqslant X \\leqslant b) = P(X \\leqslant b) - P(X \\leqslant a - 1)$."
+          },
+          {
+            "titre": "Bornes",
+            "texte": "$P(X \\leqslant b) \\geqslant 0{,}975$ et, $a$ étant le plus petit entier tel que $P(X \\leqslant a) > 0{,}025$, $P(X \\leqslant a - 1) \\leqslant 0{,}025$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$P(a \\leqslant X \\leqslant b) \\geqslant 0{,}975 - 0{,}025 = 0{,}95$."
+          }
+        ],
+        "conclusion": "C'est ce qui justifie le seuil de décision : une fréquence hors de l'intervalle est rare si l'hypothèse est vraie."
+      }
+    }
+  ]
+}

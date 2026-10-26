@@ -107,7 +107,7 @@ def get_billing_status(user):
             # (le champ renvoie toujours None au niveau racine désormais) : il
             # ne vit plus que sur chaque ligne d'abonnement
             # (subscription["items"]["data"][i]["current_period_end"]).
-            # NovaMath n'a jamais qu'une seule ligne par abonnement (Premium OU
+            # Mathadap n'a jamais qu'une seule ligne par abonnement (Premium OU
             # Ultra, jamais les deux), donc la première ligne fait foi.
             items_data = subscription.get("items", {}).get("data") or []
             if items_data:

@@ -70,7 +70,8 @@
           ],
           "reponse": "Moyenne $= 13$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Moyenne $= 13$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1056",
@@ -93,7 +94,8 @@
           ],
           "reponse": "Moyenne $= 3,75$ kg",
           "conclusion": "Nous avons ainsi obtenu le résultat : Moyenne $= 3,75$ kg",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1062",
@@ -116,7 +118,8 @@
           ],
           "reponse": "Moyenne $= 12,08$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Moyenne $= 12,08$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1068",
@@ -139,7 +142,8 @@
           ],
           "reponse": "$x = 10$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x = 10$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -183,19 +187,30 @@
       "figure": {
         "kind": "bars",
         "bars": [
-          {"label": "12", "value": 12},
-          {"label": "14", "value": 14},
-          {"label": "10", "value": 10},
-          {"label": "16", "value": 16},
-          {"label": "13", "value": 13}
+          {
+            "label": "12",
+            "value": 12
+          },
+          {
+            "label": "14",
+            "value": 14
+          },
+          {
+            "label": "10",
+            "value": 10
+          },
+          {
+            "label": "16",
+            "value": 16
+          },
+          {
+            "label": "13",
+            "value": 13
+          }
         ],
         "alt": "Les 5 notes de la série (12, 14, 10, 16, 13) : leur somme divisée par 5 donne la moyenne, 13."
       },
-      "quizExerciseIds": [
-        1051,
-        1052,
-        1053
-      ],
+      "quizExerciseIds": [1051, 1052, 1053],
       "topic_id": "moyenne-(simple-et-ponderee)",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -206,10 +221,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "moyenne",
-        "simple",
-        "ponderee"
+      "tags": ["moyenne", "simple", "ponderee"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "moyenne-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Une moyenne pondérée avec plusieurs effectifs",
+          "description": "Un exemple complet sur une série de 25 notes réparties en 5 valeurs différentes."
+        },
+        {
+          "id": "moyenne-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Retrouver un effectif inconnu à partir de la moyenne",
+          "description": "Un problème inverse : on connaît la moyenne et on doit résoudre une équation pour trouver un effectif manquant."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Pour calculer une moyenne pondérée, divise-t-on par le nombre de valeurs différentes ou par la somme des effectifs ?",
+          "piste": "Par la somme des effectifs (ou des coefficients) : une valeur avec un grand effectif pèse plus lourd."
+        }
       ]
     },
     {
@@ -280,7 +315,8 @@
           ],
           "reponse": "Médiane $= 12$, étendue $= 8$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Médiane $= 12$, étendue $= 8$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1086",
@@ -303,7 +339,8 @@
           ],
           "reponse": "Médiane $= 5,35$ kg, étendue $= 1,5$ kg",
           "conclusion": "Nous avons ainsi obtenu le résultat : Médiane $= 5,35$ kg, étendue $= 1,5$ kg",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1092",
@@ -326,7 +363,8 @@
           ],
           "reponse": "Médiane $= 11$, étendue $= 12$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Médiane $= 11$, étendue $= 12$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1098",
@@ -349,12 +387,11 @@
           ],
           "reponse": "Médiane $= 12$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Médiane $= 12$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Chercher la médiane sans avoir rangé la série dans l'ordre croissant.",
         "Confondre effectif pair et effectif impair : prendre une seule valeur centrale alors que l'effectif est pair (il en faut deux à faire la demi-somme), ou l'inverse.",
@@ -394,18 +431,26 @@
         "min": 7,
         "max": 17,
         "marks": [
-          {"value": 8, "label": "min = 8"},
-          {"value": 12, "label": "médiane = 12"},
-          {"value": 16, "label": "max = 16"}
+          {
+            "value": 8,
+            "label": "min = 8"
+          },
+          {
+            "value": 12,
+            "label": "médiane = 12"
+          },
+          {
+            "value": 16,
+            "label": "max = 16"
+          }
         ],
-        "highlight": {"from": 8, "to": 16},
+        "highlight": {
+          "from": 8,
+          "to": 16
+        },
         "alt": "Série rangée 8, 9, 10, 12, 14, 15, 16 : la médiane (12) partage la série en deux, l'étendue (16 − 8 = 8) mesure l'écart entre le minimum et le maximum."
       },
-      "quizExerciseIds": [
-        1081,
-        1082,
-        1083
-      ],
+      "quizExerciseIds": [1081, 1082, 1083],
       "topic_id": "mediane-et-etendue-d-une-serie-statistique",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -416,11 +461,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "mediane",
-        "etendue",
-        "serie",
-        "statistique"
+      "tags": ["mediane", "etendue", "serie", "statistique"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "mediane-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Une médiane avec effectif impair à 11 valeurs",
+          "description": "Un exemple complet qui montre comment repérer la valeur centrale sur une série plus longue."
+        },
+        {
+          "id": "mediane-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Trouver la médiane à partir des effectifs cumulés croissants",
+          "description": "Une méthode plus rapide pour une série groupée en grand effectif, sans réécrire toutes les valeurs."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Pour une série de 8 valeurs rangées, comment trouve-t-on la médiane ?",
+          "piste": "L'effectif est pair : la médiane est la demi-somme des deux valeurs centrales (rangs 4 et 5)."
+        }
       ]
     },
     {
@@ -491,7 +555,8 @@
           ],
           "reponse": "Effectif total $= 30$ ; catégorie la plus citée : Football (effectif $12$)",
           "conclusion": "Nous avons ainsi obtenu le résultat : Effectif total $= 30$ ; catégorie la plus citée : Football (effectif $12$)",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1116",
@@ -514,7 +579,8 @@
           ],
           "reponse": "Effectif total $= 40$ ; classe modale $= [20;30[$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Effectif total $= 40$ ; classe modale $= [20;30[$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1122",
@@ -537,7 +603,8 @@
           ],
           "reponse": "Logement : $144°$ ; Alimentation : $90°$ ; Transport : $54°$ ; Loisirs : $36°$ ; Autres : $36°$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Logement : $144°$ ; Alimentation : $90°$ ; Transport : $54°$ ; Loisirs : $36°$ ; Autres : $36°$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1128",
@@ -560,7 +627,8 @@
           ],
           "reponse": "Voiture : $162°$ ; Bus : $90°$ ; Vélo : $54°$ ; Marche à pied : $36°$ ; Covoiturage : $18°$ ; somme $= 360°$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Voiture : $162°$ ; Bus : $90°$ ; Vélo : $54°$ ; Marche à pied : $36°$ ; Covoiturage : $18°$ ; somme $= 360°$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -605,19 +673,30 @@
       "figure": {
         "kind": "bars",
         "bars": [
-          {"label": "Football", "value": 12},
-          {"label": "Basket", "value": 8},
-          {"label": "Natation", "value": 5},
-          {"label": "Tennis", "value": 3},
-          {"label": "Autre", "value": 2}
+          {
+            "label": "Football",
+            "value": 12
+          },
+          {
+            "label": "Basket",
+            "value": 8
+          },
+          {
+            "label": "Natation",
+            "value": 5
+          },
+          {
+            "label": "Tennis",
+            "value": 3
+          },
+          {
+            "label": "Autre",
+            "value": 2
+          }
         ],
         "alt": "Diagramme en barres des sports préférés de 30 élèves : Football est la catégorie la plus citée avec un effectif de 12."
       },
-      "quizExerciseIds": [
-        1111,
-        1112,
-        1113
-      ],
+      "quizExerciseIds": [1111, 1112, 1113],
       "topic_id": "representations-graphiques-de-donnees",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -628,10 +707,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "representations",
-        "graphiques",
-        "donnees"
+      "tags": ["representations", "graphiques", "donnees"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "repr-graph-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Calculer les angles d'un diagramme circulaire sur un budget",
+          "description": "Un exemple complet qui applique la formule angle = (valeur/total) × 360° à 5 catégories."
+        },
+        {
+          "id": "repr-graph-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Calculer des angles et vérifier la somme sur un plus grand effectif",
+          "description": "Le même calcul appliqué à 200 employés, avec vérification systématique de la somme des angles."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Pour représenter les sports préférés d'une classe, choisit-on un histogramme ou un diagramme en barres ?",
+          "piste": "Un diagramme en barres : les sports sont des catégories (des mots), pas des valeurs numériques regroupées en classes."
+        }
       ]
     }
   ]

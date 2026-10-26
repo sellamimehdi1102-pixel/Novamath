@@ -1,5 +1,5 @@
 """
-Audit global du routage pédagogique NovaMath (2026-08-22) : le classement
+Audit global du routage pédagogique Mathadap (2026-08-22) : le classement
 TF-IDF brut favorisait parfois un chapitre au vocabulaire générique dense
 plutôt que la notion dont le TITRE correspond réellement à la question (ex.
 mesuré : "explique-moi la racine carrée" scorait plus haut sur "Fonctions de

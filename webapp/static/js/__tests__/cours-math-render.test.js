@@ -74,6 +74,66 @@ const NOTION_AVEC_LATEX = {
   figure: null,
 };
 
+// Reproduction du bug signalé (chantier "audit LaTeX brut", 2026-10-24) :
+// des commandes LaTeX (`\leqslant`, `\dfrac`, `\sqrt`...) affichées en texte
+// brut dans la section "Erreurs fréquentes", les exemples, les questions
+// éclair, les formules, le tableau comparatif et les aperçus verrouillés.
+// Couvre les champs que NOTION_AVEC_LATEX ne couvrait pas encore.
+const NOTION_AVEC_LATEX_SECTIONS_ETENDUES = {
+  id: "inequations-signe",
+  title: "Résoudre une inéquation avec un tableau",
+  schemaVersion: 2,
+  intro: "On étudie le signe d'une expression.",
+  objectif: "Tu sauras résoudre $f(x)\\leqslant 0$.",
+  definition: "Une inéquation compare une expression à $0$.",
+  pourquoi: "Lire $\\leqslant 0$ ou $\\geqslant 0$ demande de choisir la bonne colonne.",
+  erreursFrequentesDetail: [
+    {
+      description: "Oublier le sens de l'inégalité.",
+      pourquoi: "Diviser par un nombre négatif retourne $\\leqslant$ en $\\geqslant$.",
+      comment_detecter: "La réponse donnée ne vérifie pas $|x|\\leqslant 3$.",
+      comment_eviter: "Toujours vérifier avec $\\dfrac{1}{2}$ comme exemple simple.",
+    },
+  ],
+  exemples: [
+    {
+      id: "ex1",
+      titre: "Exemple $\\sqrt{x}\\geqslant 0$",
+      enonce: "Résoudre $\\sqrt{x}\\geqslant 2$.",
+      reponse: "$x\\geqslant 4$",
+    },
+  ],
+  formules: [
+    {
+      nom: "Racine carrée",
+      expression: "$\\sqrt{a^2} = |a|$",
+      quand_utiliser: "Quand $a\\leqslant 0$.",
+      erreur_frequente: "Croire que $\\sqrt{a^2}=a$ même si $a<0$.",
+      astuce: "Pense à $\\dfrac{|a|}{1}$.",
+    },
+  ],
+  tableauComparatif: {
+    titre: "Tableau de synthèse",
+    colonnes: ["Forme", "Règle", "Exemple", "Piège"],
+    lignes: [
+      { forme: "$x\\leqslant a$", regle: "$\\dfrac{1}{x}$", exemple: "$\\sqrt{4}=2$", piege: "$x\\geqslant 0$" },
+    ],
+  },
+  apercus: [
+    {
+      id: "ap1",
+      section: "exemples",
+      niveau: "premium",
+      titre: "Cas $x\\leqslant -1$",
+      description: "Un cas où $\\sqrt{x^2}\\neq x$.",
+    },
+  ],
+  questionsEclair: [{ apres: "pourquoi", question: "Que vaut $\\sqrt{(-3)^2}$ ?", piste: "Pense à $|a|$." }],
+  erreursFrequentes: ["Oublier le sens de l'inégalité."],
+  aRetenir: ["$\\sqrt{a^2}=|a|$"],
+  figure: null,
+};
+
 function defaultMocks() {
   Object.values(mockApi).forEach((fn) => fn.mockReset());
   mockApi.me.mockResolvedValue({ user: { is_guest: false } });
@@ -153,5 +213,32 @@ describe("cours.js — rendu mathématique (non-régression architecturale)", ()
     expect(readerView.textContent).toContain("‹math›");
     expect(readerView.querySelector(".cours-intro-text").textContent).toContain("‹math›");
     expect(readerView.querySelector(".cours-objectif-card p").textContent).toContain("‹math›");
+  });
+
+  it("aucun LaTeX brut dans les erreurs fréquentes détaillées, les formules, le tableau comparatif, les aperçus verrouillés et les questions éclair", async () => {
+    await mountCours();
+    mockApi.getCourseContent.mockResolvedValue({
+      title: "Inéquations",
+      notions: [NOTION_AVEC_LATEX_SECTIONS_ETENDUES],
+    });
+    document.querySelector(".cours-open-btn").click();
+    await flushPromises();
+    await flushPromises();
+    document.querySelector('.cours-notion-card[data-notion="inequations-signe"] .cours-read-btn').click();
+    await flushPromises();
+    await flushPromises();
+
+    const readerView = document.getElementById("cours-reader-view");
+    expect(readerView.hidden).toBe(false);
+    expect(readerView.querySelectorAll("[data-text]").length).toBe(0);
+
+    const raw = findRawLatexInDom(readerView);
+    expect(raw).toEqual([]);
+
+    // Preuve que chaque section a bien été atteinte (pas juste absente).
+    expect(readerView.querySelector(".cours-erreurs-detail-list")).not.toBeNull();
+    expect(readerView.querySelector(".cours-formules")).not.toBeNull();
+    expect(readerView.querySelector(".cours-table-comparatif")).not.toBeNull();
+    expect(readerView.querySelector(".cours-question-eclair")).not.toBeNull();
   });
 });

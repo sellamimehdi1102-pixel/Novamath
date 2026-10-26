@@ -84,9 +84,13 @@ class TestDemandeDExemple(unittest.TestCase):
         self.assertEqual(result["chapter_id"], "Chapitre_1")
 
     def test_accesseur_exemple_par_difficulte(self):
+        # La notion a plusieurs exemples "difficile" depuis la refonte
+        # pédagogique de Seconde (2026-10-23) : get_exemple() tire au sort
+        # parmi eux, donc on vérifie la difficulté réellement renvoyée
+        # plutôt qu'un titre précis parmi plusieurs candidats valides.
         notion = knowledge_engine.get_notion("Chapitre_1", "puissances-entieres-relatives")
         exemple = knowledge_engine.get_exemple(notion, difficulte="difficile")
-        self.assertEqual(exemple["titre"], "Exemple 3")
+        self.assertEqual(exemple["difficulte"], "difficile")
 
 
 class TestDemandeDExercice(unittest.TestCase):

@@ -10,11 +10,19 @@ l'intelligence artificielle pour adapter les exercices au niveau de chaque élè
 ### Développement
 
 ```
-python webapp/server.py
+python tools/run_preview.py                 # ou : npm run dev
+python tools/run_preview.py --donnees-test  # base et comptes de test isolés
 ```
 
-Le site est servi sur `http://127.0.0.1:5050` (debug activé, cookies non
-sécurisés autorisés en HTTP local).
+Une seule adresse : `http://127.0.0.1:5050` (debug activé, cookies non
+sécurisés autorisés en HTTP local, Quatrième visible en prévisualisation,
+Stripe désactivé). Relancer la commande ne démarre jamais un second serveur ;
+`--statut`, `--redemarrer` et `--arreter` gèrent l'instance en cours, et le
+lanceur ne prend jamais un autre port (voir l'en-tête de `tools/run_preview.py`).
+Les modifications du frontend sont recompilées automatiquement, celles du
+Python, des cours et des banques redémarrent le serveur sur la même adresse.
+`python webapp/server.py` reste possible (site sans la Quatrième), avec la même
+protection du port.
 
 ### Docker (recommandé pour tester en local ou déployer)
 
@@ -137,7 +145,7 @@ complet (scripts npm, cache busting, pipeline de build).
 
 ```
 npm install
-npm run dev      # serveur de développement Vite (sourcemaps natifs)
+npm run dev      # Mathadap complet sur http://127.0.0.1:5050 (tools/run_preview.py)
 npm run build    # production : webapp/static-dist/ (JS/CSS minifiés et hashés)
 npm run lint
 npm test

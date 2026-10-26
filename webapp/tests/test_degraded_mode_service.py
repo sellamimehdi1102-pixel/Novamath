@@ -8,7 +8,7 @@ notion "theoreme-de-pythagore".
 """
 import unittest
 
-from chatbot.services import degraded_mode_service
+from chatbot.services import degraded_mode_service, search_service
 
 CLASS_LEVEL = "troisieme"
 
@@ -104,6 +104,19 @@ class TestAucunPalierNeTrouveRien(unittest.TestCase):
         messages = _messages(("user", "xyzxyz1234 incompréhensible xyzxyz5678"))
         answer = degraded_mode_service.try_answer(intent_result, messages, class_level=CLASS_LEVEL)
         self.assertIsNone(answer)
+
+    def test_pas_d_exercice_hors_sujet_sur_un_simple_mot_de_conversation(self):
+        """Audit Quatrième (2026-10-25) : un calcul sans mot de sujet
+        (« ne fait pas », « trouvé », « faux ») faisait proposer par la
+        recherche libre un exercice sans rapport (cosinus)."""
+        for q in ("pourquoi 1/3 + 1/4 ne fait pas 2/7", "j'ai trouvé (-3)² = -9 c'est faux ?"):
+            with self.subTest(q=q):
+                self.assertIsNone(degraded_mode_service._exercise_fallback(None, q, class_level=CLASS_LEVEL))
+
+    def test_un_mot_de_sujet_garde_la_recherche_libre(self):
+        self.assertTrue(search_service.has_topic_word("donne-moi un exercice sur les probabilités"))
+        self.assertTrue(search_service.has_topic_word("je comprends pas les fractions"))
+        self.assertFalse(search_service.has_topic_word("ça fait 12 ? c'est faux ?"))
 
 
 class TestVariationDuModeDegrade(unittest.TestCase):
@@ -224,3 +237,27 @@ class TestVariationDuModeDegrade(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestCartesSansMotDeSujet(unittest.TestCase):
+    """Même garde-fou pour les cartes « S'entraîner » (audit Quatrième,
+    2026-10-25) : sans chapitre connu ni mot de sujet, un résultat de la
+    banque n'est qu'une coïncidence de vocabulaire."""
+
+    _RESULT = {"type": "exercices", "score": 0.9, "chapter_id": "Chapitre_13", "notion": "N", "exercise_id": 1}
+
+    def _cards(self, message, intent_chapter_id=None):
+        from chatbot.services import action_cards_service
+        return action_cards_service.build_cards(
+            message, "", {}, search_results=[dict(self._RESULT)],
+            intent_chapter_id=intent_chapter_id, class_level=CLASS_LEVEL,
+        )
+
+    def test_aucune_carte_sur_un_calcul_sans_mot_de_sujet(self):
+        self.assertEqual(self._cards("pourquoi 1/3 + 1/4 ne fait pas 2/7"), [])
+
+    def test_carte_conservee_avec_un_mot_de_sujet(self):
+        self.assertEqual(len(self._cards("je bloque sur Pythagore")), 1)
+
+    def test_carte_conservee_quand_le_chapitre_est_connu(self):
+        self.assertEqual(len(self._cards("ça fait 12 ?", intent_chapter_id="Chapitre_13")), 1)

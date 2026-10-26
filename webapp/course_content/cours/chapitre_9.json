@@ -67,17 +67,37 @@
           ],
           "reponse": "$f(x) > 0$ sur $]2\\,;5[$",
           "id": "signe-dune-fonction-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "signe-dune-fonction-exemple-negatif",
+          "titre": "Exemple 2 — Lire une zone négative",
+          "enonce": "Avec la même courbe (qui touche l'axe en $x=2$ et $x=5$), quel est le signe de $f$ sur $]5\\,;6]$ ?",
+          "calcul": [
+            {
+              "expr": "x>5",
+              "texte": "On se place après la seconde racine."
+            },
+            {
+              "expr": "f(x)<0",
+              "texte": "La courbe est en dessous de l'axe horizontal sur cette zone."
+            }
+          ],
+          "reponse": "$f(x) < 0$ sur $]5\\,;6]$",
+          "difficulte": "moyen",
+          "analyse": "Une fonction qui a deux racines change de signe à chacune d'elles, formant au total 3 zones : avant, entre, et après les racines.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Confondre \"au-dessus\" et \"positif\" avec \"en dessous\" et \"négatif\".",
         "Oublier une racine (un endroit où la courbe touche l'axe)."
       ],
-      "astuce": "Un tableau de signes se lit comme un tableau de variations, mais avec des + et des - au lieu de flèches.",
+      "astuce": "Un tableau de signes se lit comme un tableau de variations, mais avec des + et des - au lieu de flèches. Compte bien toutes les racines avant de découper en zones.",
       "aRetenir": [
-        "$f(x)>0$ : au-dessus de l'axe",
-        "$f(x)=0$ : sur l'axe (racine)"
+        "$f(x)>0$ : au-dessus de l'axe. $f(x)<0$ : en dessous. $f(x)=0$ : sur l'axe (racine).",
+        "Avec 2 racines, il y a 3 zones de signe : avant, entre, et après."
       ],
       "figure": {
         "kind": "geom",
@@ -85,19 +105,57 @@
         "grid": true,
         "axes": true,
         "curves": [
-          {"points": [[1.0, -4.0], [1.417, -2.09], [1.833, -0.528], [2.25, 0.688], [2.667, 1.556], [3.083, 2.076], [3.5, 2.25], [3.917, 2.076], [4.333, 1.556], [4.75, 0.688], [5.167, -0.528], [5.583, -2.09], [6.0, -4.0]]}
+          {
+            "points": [
+              [1.0, -4.0],
+              [1.417, -2.09],
+              [1.833, -0.528],
+              [2.25, 0.688],
+              [2.667, 1.556],
+              [3.083, 2.076],
+              [3.5, 2.25],
+              [3.917, 2.076],
+              [4.333, 1.556],
+              [4.75, 0.688],
+              [5.167, -0.528],
+              [5.583, -2.09],
+              [6.0, -4.0]
+            ]
+          }
         ],
         "points": [
-          {"x": 2, "y": 0, "label": "2"},
-          {"x": 5, "y": 0, "label": "5"}
+          {
+            "x": 2,
+            "y": 0,
+            "label": "2"
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "label": "5"
+          }
         ],
-        "alt": "La courbe touche l'axe en x = 2 et x = 5 : f est positive entre les deux, négative en dehors."
+        "alt": "La courbe touche l'axe en x = 2 et x = 5 : f est positive entre les deux, négative en dehors.",
+        "explication": {
+          "comprendre": "La courbe touche l'axe en x=2 et x=5 : elle est positive entre les deux, négative en dehors.",
+          "etapes": [
+            {
+              "titre": "Avant 2",
+              "texte": "f(x) < 0"
+            },
+            {
+              "titre": "Entre 2 et 5",
+              "texte": "f(x) > 0"
+            },
+            {
+              "titre": "Après 5",
+              "texte": "f(x) < 0"
+            }
+          ],
+          "resume": "2 racines découpent la droite en 3 zones de signe."
+        }
       },
-      "quizExerciseIds": [
-        147,
-        148,
-        149
-      ],
+      "quizExerciseIds": [147, 148, 149],
       "schemaVersion": 2,
       "topic_id": "signe-dune-fonction",
       "definitions": {
@@ -137,29 +195,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Confondre \"au-dessus\" et \"positif\" avec \"en dessous\" et \"négatif\".",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Les deux idées sont liées mais pas identiques en apparence : il faut relier la position GRAPHIQUE à un SIGNE.",
+          "comment_detecter": "La conclusion annonce un signe positif pour une zone visiblement sous l'axe, ou l'inverse.",
+          "comment_eviter": "Retenir fermement : au-dessus de l'axe = positif, en dessous = négatif, jamais l'inverse."
         },
         {
           "description": "Oublier une racine (un endroit où la courbe touche l'axe).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Une racine peut être facile à manquer si elle n'est pas clairement indiquée sur le dessin.",
+          "comment_detecter": "Le nombre de zones de signe trouvées ne correspond pas au nombre de racines + 1.",
+          "comment_eviter": "Compter précisément tous les points où la courbe touche l'axe avant de découper en zones."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Signe d'une fonction"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras lire un signe sur une courbe ou un tableau."
-      ],
+      "synonymes": ["Signe d'une fonction"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras lire un signe sur une courbe ou un tableau."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Étudier le signe d'une fonction permet de savoir, par exemple, à partir de quand un bénéfice devient positif, ou pendant combien de temps une quantité reste négative.",
+      "intuition": "Le signe de f(x) se lit directement sur sa courbe : au-dessus de l'axe horizontal, elle est positive ; en dessous, négative ; et elle vaut 0 exactement là où elle touche l'axe (une racine).",
+      "apercus": [
+        {
+          "id": "apercu-signefonction-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Lire un tableau de signes complet à 3 racines."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple concret où étudier le signe d'une fonction est utile.",
+          "piste": "Savoir à partir de quand un bénéfice devient positif, par exemple."
+        },
+        {
+          "apres": "exemple:signe-dune-fonction-exemple-negatif",
+          "question": "Avec 2 racines, combien de zones de signe obtient-on en tout ?",
+          "piste": "3 zones : avant la première racine, entre les deux, et après la seconde."
+        }
+      ]
     },
     {
       "id": "signe-dune-fonction-affine",
@@ -229,17 +307,37 @@
           ],
           "reponse": "Négatif avant 3, positif après 3",
           "id": "signe-dune-fonction-affine-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "signe-dune-fonction-affine-exemple-m-negatif",
+          "titre": "Exemple 2 — Coefficient négatif",
+          "enonce": "Signe de $f(x) = -3x + 9$.",
+          "calcul": [
+            {
+              "expr": "-3x+9=0 \\Rightarrow x=3",
+              "texte": "On calcule la racine."
+            },
+            {
+              "expr": "m=-3<0",
+              "texte": "Le coefficient est négatif."
+            }
+          ],
+          "reponse": "Positif avant 3, négatif après 3.",
+          "difficulte": "moyen",
+          "analyse": "Contrairement à l'exemple 1 (m positif), c'est ici l'INVERSE : positif avant la racine, négatif après.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Se tromper en calculant la racine (erreur de signe).",
         "Inverser les deux zones de signe."
       ],
-      "astuce": "Vérifie avec une valeur simple : remplace $x$ par 0 dans $f(x)$ pour voir si ton signe est cohérent.",
+      "astuce": "Vérifie avec une valeur simple : remplace $x$ par 0 dans $f(x)$ pour voir si ton signe est cohérent — ou remplace directement la racine trouvée pour vérifier qu'elle annule bien $f$.",
       "aRetenir": [
-        "Racine : $x_0 = -p/m$",
-        "$m>0$ : $-$ avant, $+$ après"
+        "Racine : $x_0 = -p/m$.",
+        "$m>0$ : négatif avant $x_0$, positif après. $m<0$ : positif avant $x_0$, négatif après."
       ],
       "figure": {
         "kind": "geom",
@@ -247,18 +345,38 @@
         "grid": true,
         "axes": true,
         "segments": [
-          {"from": {"x": 1, "y": -4}, "to": {"x": 6, "y": 6}, "variant": "a"}
+          {
+            "from": {
+              "x": 1,
+              "y": -4
+            },
+            "to": {
+              "x": 6,
+              "y": 6
+            },
+            "variant": "a"
+          }
         ],
         "points": [
-          {"x": 3, "y": 0, "label": "x₀ = 3"}
+          {
+            "x": 3,
+            "y": 0,
+            "label": "x₀ = 3"
+          }
         ],
-        "alt": "La droite f(x) = 2x - 6 coupe l'axe en x = 3 : négative avant 3, positive après (car m = 2 > 0)."
+        "alt": "La droite f(x) = 2x - 6 coupe l'axe en x = 3 : négative avant 3, positive après (car m = 2 > 0).",
+        "explication": {
+          "comprendre": "La droite coupe l'axe en x=3 : elle est négative avant (m=2>0, elle monte depuis le bas), positive après.",
+          "etapes": [
+            {
+              "titre": "La racine x_0=3",
+              "texte": "Là où la droite coupe l'axe."
+            }
+          ],
+          "resume": "m>0 : négatif avant la racine, positif après."
+        }
       },
-      "quizExerciseIds": [
-        150,
-        151,
-        152
-      ],
+      "quizExerciseIds": [150, 151, 152],
       "schemaVersion": 2,
       "topic_id": "signe-dune-fonction-affine",
       "definitions": {
@@ -298,29 +416,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Se tromper en calculant la racine (erreur de signe).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Isoler $x$ dans $mx+p=0$ demande de diviser par $m$, ce qui peut inverser un signe par erreur.",
+          "comment_detecter": "Vérifier en remplaçant $x$ par la racine trouvée dans $f(x)$ : le résultat doit être exactement 0.",
+          "comment_eviter": "Toujours vérifier la racine trouvée en la substituant dans l'expression de départ."
         },
         {
           "description": "Inverser les deux zones de signe.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Les deux règles (m>0 et m<0) sont symétriques et faciles à confondre dans la précipitation.",
+          "comment_detecter": "Le signe annoncé avant la racine ne correspond pas à celui obtenu en testant une valeur simple de $x$.",
+          "comment_eviter": "Teste systématiquement avec $x=0$ (ou une autre valeur simple) dans $f(x)$ pour vérifier ton signe."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Signe d'une fonction affine"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras déterminer le signe de $mx+p$."
-      ],
+      "synonymes": ["Signe d'une fonction affine"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras déterminer le signe de $mx+p$."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Connaître le signe d'une fonction affine est la brique de base pour construire le tableau de signes de fonctions plus compliquées, factorisées en plusieurs facteurs affines.",
+      "intuition": "Une droite ne change de signe qu'UNE seule fois, exactement à sa racine : avant et après, selon que la droite monte (m>0) ou descend (m<0).",
+      "apercus": [
+        {
+          "id": "apercu-signeaffine-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Le signe d'une fonction affine avec des coefficients fractionnaires."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert de connaître le signe d'une fonction affine ?",
+          "piste": "C'est la base pour construire le tableau de signes de fonctions plus compliquées, factorisées en facteurs affines."
+        },
+        {
+          "apres": "exemple:signe-dune-fonction-affine-exemple-m-negatif",
+          "question": "Quand m est négatif, le signe est-il positif ou négatif avant la racine ?",
+          "piste": "Positif avant la racine, négatif après — l'inverse du cas m positif."
+        }
+      ]
     },
     {
       "id": "signe-dun-produit-ou-dun-quotient",
@@ -386,34 +524,77 @@
           ],
           "reponse": "Oui : $f(x)$ est positive",
           "id": "signe-dun-produit-ou-dun-quotient-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "signe-dun-produit-ou-dun-quotient-exemple-quotient",
+          "titre": "Exemple 2 — Signe d'un quotient",
+          "enonce": "Détermine le signe de $f(x) = \\dfrac{x+2}{x-1}$ pour $x=0$ et pour $x=2$ (en notant la valeur interdite).",
+          "calcul": [
+            {
+              "expr": "x\\neq1",
+              "texte": "Le dénominateur ne doit jamais être nul : $x=1$ est interdit."
+            },
+            {
+              "expr": "f(0) = \\dfrac{2}{-1} = -2",
+              "texte": "Un facteur négatif (le dénominateur) : résultat négatif."
+            },
+            {
+              "expr": "f(2) = \\dfrac{4}{1} = 4",
+              "texte": "Les deux facteurs sont positifs : résultat positif."
+            }
+          ],
+          "reponse": "$f(0)<0$ et $f(2)>0$ ; $x=1$ est la valeur interdite.",
+          "difficulte": "difficile",
+          "analyse": "La même règle de comptage des signes s'applique à un quotient, à condition de toujours exclure la valeur qui annule le dénominateur.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Oublier un facteur dans le tableau de signes.",
         "Oublier la valeur interdite pour un quotient (dénominateur nul)."
       ],
-      "astuce": "Compte simplement le nombre de \"moins\" : pair = résultat positif, impair = résultat négatif.",
+      "astuce": "Compte simplement le nombre de \"moins\" : pair = résultat positif, impair = résultat négatif. Pour un quotient, exclus d'abord la valeur interdite.",
       "aRetenir": [
-        "Nombre pair de $-$ : produit positif",
-        "Nombre impair de $-$ : produit négatif"
+        "Nombre pair de facteurs négatifs : résultat positif. Nombre impair : résultat négatif.",
+        "Pour un quotient, le dénominateur ne doit JAMAIS être nul : exclure cette valeur avant tout calcul de signe."
       ],
       "figure": {
         "kind": "numberline",
         "min": -4,
         "max": 3,
         "marks": [
-          {"value": -2, "label": "-2"},
-          {"value": 1, "label": "1"}
+          {
+            "value": -2,
+            "label": "-2"
+          },
+          {
+            "value": 1,
+            "label": "1"
+          }
         ],
-        "highlight": {"from": -2, "to": 1},
-        "alt": "Pour f(x) = (x-1)(x+2) : les deux racines sont -2 et 1. Entre les deux, les facteurs sont de signes opposés, donc f est négative ; en dehors, les deux facteurs ont le même signe (deux négatifs ou deux positifs), donc f est positive."
+        "highlight": {
+          "from": -2,
+          "to": 1
+        },
+        "alt": "Pour f(x) = (x-1)(x+2) : les deux racines sont -2 et 1. Entre les deux, les facteurs sont de signes opposés, donc f est négative ; en dehors, les deux facteurs ont le même signe (deux négatifs ou deux positifs), donc f est positive.",
+        "explication": {
+          "comprendre": "Entre les deux racines -2 et 1, les facteurs (x-1) et (x+2) sont de signes opposés : le produit est négatif.",
+          "etapes": [
+            {
+              "titre": "Racine -2",
+              "texte": "Le facteur (x+2) s'annule."
+            },
+            {
+              "titre": "Racine 1",
+              "texte": "Le facteur (x-1) s'annule."
+            }
+          ],
+          "resume": "Entre les racines, signes opposés = produit négatif ; en dehors, mêmes signes = produit positif."
+        }
       },
-      "quizExerciseIds": [
-        144,
-        145,
-        146
-      ],
+      "quizExerciseIds": [144, 145, 146],
       "schemaVersion": 2,
       "topic_id": "signe-dun-produit-ou-dun-quotient",
       "definitions": {
@@ -453,29 +634,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Oublier un facteur dans le tableau de signes.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Plus il y a de facteurs, plus il est facile d'en perdre un en cours de route.",
+          "comment_detecter": "Le nombre de lignes du tableau ne correspond pas au nombre de facteurs de l'expression.",
+          "comment_eviter": "Lister TOUS les facteurs avant de commencer, puis cocher chacun au fur et à mesure."
         },
         {
           "description": "Oublier la valeur interdite pour un quotient (dénominateur nul).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "L'attention se porte davantage sur le calcul du signe que sur l'existence même de l'expression.",
+          "comment_detecter": "Le tableau de signes ne mentionne aucune valeur interdite alors qu'il y a un dénominateur.",
+          "comment_eviter": "Identifier et exclure la valeur interdite AVANT même de commencer l'étude du signe."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Signe d'un produit ou d'un quotient"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras faire un tableau de signes complet."
-      ],
+      "synonymes": ["Signe d'un produit ou d'un quotient"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras faire un tableau de signes complet."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Combiner plusieurs signes permet d'étudier des expressions complexes, comme un bénéfice qui dépend du produit de plusieurs facteurs, ou un taux qui est un quotient de deux grandeurs.",
+      "intuition": "Le signe d'un produit (ou d'un quotient) ne dépend que du NOMBRE de facteurs négatifs : deux négatifs « s'annulent » comme deux signes moins qui se neutralisent.",
+      "apercus": [
+        {
+          "id": "apercu-signeproduit-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Un tableau de signes complet pour un produit de trois facteurs."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple où il faut combiner plusieurs signes.",
+          "piste": "Un bénéfice qui dépend du produit de plusieurs facteurs, ou un taux exprimé comme un quotient."
+        },
+        {
+          "apres": "exemple:signe-dun-produit-ou-dun-quotient-exemple-quotient",
+          "question": "Pour un quotient, que doit-on faire avant de chercher le signe ?",
+          "piste": "Identifier et exclure la valeur qui annule le dénominateur."
+        }
+      ]
     },
     {
       "id": "inequations-signe",
@@ -531,7 +732,30 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "inequations-signe-exemple-complet",
+          "titre": "Exemple 1 — Construire le tableau depuis le début",
+          "enonce": "Résous $x^2-x-6 \\geqslant 0$.",
+          "calcul": [
+            {
+              "expr": "x^2-x-6 \\geqslant 0",
+              "texte": "L'inéquation est déjà sous la forme « ... $\\geqslant 0$ »."
+            },
+            {
+              "expr": "x^2-x-6 = (x-3)(x+2)",
+              "texte": "On factorise (on reconnaît les racines 3 et -2)."
+            },
+            {
+              "expr": "(x-3)(x+2) \\geqslant 0 \\iff x\\leqslant-2 \\text{ ou } x\\geqslant3",
+              "texte": "On construit le tableau de signes : le produit est positif en dehors des racines, négatif entre elles."
+            }
+          ],
+          "reponse": "$x \\in ]-\\infty\\,;-2] \\cup [3\\,;+\\infty[$",
+          "difficulte": "difficile",
+          "analyse": "C'est l'enchaînement complet de la méthode : ramener à 0, factoriser, construire le tableau, puis lire la réponse.",
+          "niveauAcces": "free"
+        },
+        {
+          "titre": "Exemple 2 — Lire directement un tableau déjà construit",
           "enonce": "Le tableau donne $f(x)$ négatif sur $]-2\\,;3[$. Résous $f(x) < 0$.",
           "calcul": [
             {
@@ -541,34 +765,55 @@
           ],
           "reponse": "$x \\in ]-2\\,;3[$",
           "id": "inequations-signe-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Oublier de factoriser avant de faire le tableau.",
         "Se tromper en lisant le tableau (prendre le signe opposé)."
       ],
-      "astuce": "Une fois le tableau fait, surligne juste les colonnes avec le bon signe : la réponse saute aux yeux.",
+      "astuce": "Une fois le tableau fait, surligne juste les colonnes avec le bon signe : la réponse saute aux yeux. N'oublie jamais l'étape de factorisation avant.",
       "aRetenir": [
-        "Toujours ramener à \"... $\\leq 0$\"",
-        "Factoriser avant de faire le tableau"
+        "Toujours ramener à \"... $\\leqslant 0$\" ou \"... $\\geqslant 0$\".",
+        "Factoriser avant de faire le tableau : sans ça, impossible de connaître les racines.",
+        "La réponse se lit directement dans le tableau de signes, une fois construit."
       ],
       "figure": {
         "kind": "numberline",
         "min": -4,
         "max": 5,
         "marks": [
-          {"value": -2, "label": "-2"},
-          {"value": 3, "label": "3"}
+          {
+            "value": -2,
+            "label": "-2"
+          },
+          {
+            "value": 3,
+            "label": "3"
+          }
         ],
-        "highlight": {"from": -2, "to": 3},
-        "alt": "Le tableau de signes donne f(x) négatif sur ]-2 ; 3[ : c'est directement la solution de l'inéquation f(x) < 0."
+        "highlight": {
+          "from": -2,
+          "to": 3
+        },
+        "alt": "Le tableau de signes donne f(x) négatif sur ]-2 ; 3[ : c'est directement la solution de l'inéquation f(x) < 0.",
+        "explication": {
+          "comprendre": "Le tableau de signes découpe la droite en zones ; on retient celles qui correspondent au signe demandé.",
+          "etapes": [
+            {
+              "titre": "Les racines",
+              "texte": "Elles découpent l'axe en zones."
+            },
+            {
+              "titre": "Le signe de chaque zone",
+              "texte": "Lu dans le tableau."
+            }
+          ],
+          "resume": "La solution de l'inéquation est l'union des zones ayant le bon signe."
+        }
       },
-      "quizExerciseIds": [
-        138,
-        139,
-        140
-      ],
+      "quizExerciseIds": [138, 139, 140],
       "schemaVersion": 2,
       "topic_id": "inequations-signe",
       "definitions": {
@@ -608,29 +853,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Oublier de factoriser avant de faire le tableau.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Sans factorisation, on ne connaît pas les racines, donc impossible de découper correctement l'axe en zones.",
+          "comment_detecter": "Le tableau de signes ne peut pas être construit car aucune racine n'a été trouvée.",
+          "comment_eviter": "Toujours factoriser COMPLÈTEMENT l'expression avant de chercher à construire le tableau."
         },
         {
           "description": "Se tromper en lisant le tableau (prendre le signe opposé).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Lire « $\\leqslant 0$ » ou « $\\geqslant 0$ » demande de bien choisir les colonnes du bon signe, ce qui peut s'inverser par erreur.",
+          "comment_detecter": "Vérifier avec une valeur simple de $x$ dans l'inéquation de départ : la solution doit être cohérente.",
+          "comment_eviter": "Relire précisément le symbole de l'inéquation ($\\leqslant$ ou $\\geqslant$) avant de choisir les colonnes à retenir."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Inéquations"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre $f(x) \\leq 0$ avec cette méthode."
-      ],
+      "synonymes": ["Inéquations"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre $f(x) \\leq 0$ avec cette méthode."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Cette méthode permet de résoudre des inéquations que les techniques algébriques simples ne suffisent pas à traiter, comme celles du second degré.",
+      "intuition": "Un tableau de signes transforme une inéquation en une simple LECTURE : une fois le tableau construit, la solution apparaît directement, sans calcul supplémentaire.",
+      "apercus": [
+        {
+          "id": "apercu-inequationssigne-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une inéquation avec un quotient, incluant sa valeur interdite."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi cette méthode est-elle nécessaire pour certaines inéquations ?",
+          "piste": "Les techniques algébriques simples ne suffisent pas pour des inéquations du second degré ou plus complexes."
+        },
+        {
+          "apres": "exemple:inequations-signe-exemple-complet",
+          "question": "Quelle est la première étape avant de construire un tableau de signes ?",
+          "piste": "Ramener l'inéquation à la forme « ... ≤ 0 » ou « ... ≥ 0 », puis factoriser."
+        }
+      ]
     },
     {
       "id": "positions-relatives-de-courbes-de-reference",
@@ -700,16 +965,41 @@
           ],
           "reponse": "$\\mathcal{C}_g$ est au-dessus entre 0 et 1, $\\mathcal{C}_f$ au-dessus ailleurs",
           "id": "positions-relatives-de-courbes-de-reference-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "positions-relatives-de-courbes-de-reference-exemple-racine",
+          "titre": "Exemple 2 — Comparer racine carrée et identité (approfondissement)",
+          "enonce": "Compare $f(x)=\\sqrt{x}$ et $g(x)=x$ sur $[0\\,;+\\infty[$.",
+          "calcul": [
+            {
+              "expr": "f(x)-g(x) = \\sqrt{x}-x = \\sqrt{x}(1-\\sqrt{x})",
+              "texte": "On factorise en mettant $\\sqrt x$ en facteur."
+            },
+            {
+              "expr": "\\sqrt x \\geqslant 0 \\text{ toujours}",
+              "texte": "Le premier facteur est toujours positif ou nul sur $[0;+\\infty[$."
+            },
+            {
+              "expr": "1-\\sqrt x > 0 \\iff x<1",
+              "texte": "Le second facteur est positif seulement avant $x=1$."
+            }
+          ],
+          "reponse": "$\\sqrt{x} > x$ sur $]0\\,;1[$ ; $\\sqrt{x} < x$ sur $]1\\,;+\\infty[$ ; égalité en $x=0$ et $x=1$.",
+          "difficulte": "difficile",
+          "analyse": "Un résultat classique à retenir : entre 0 et 1, la racine carrée est AU-DESSUS de la droite $y=x$ ; après 1, elle passe EN DESSOUS.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Oublier de factoriser la différence avant d'étudier le signe.",
         "Se tromper dans le sens de la comparaison."
       ],
-      "astuce": "C'est exactement la même méthode que pour comparer deux nombres, juste avec des fonctions.",
+      "astuce": "C'est exactement la même méthode que pour comparer deux nombres, juste avec des fonctions — et le résultat peut changer selon la zone de x.",
       "aRetenir": [
-        "$f$ au-dessus de $g$ $\\Leftrightarrow f-g>0$"
+        "$f(x)-g(x)>0 \\iff f$ au-dessus de $g$ ; $f(x)-g(x)<0 \\iff f$ en dessous.",
+        "On factorise la différence, puis on utilise un tableau de signes pour trouver les zones."
       ],
       "figure": {
         "kind": "geom",
@@ -717,20 +1007,60 @@
         "grid": true,
         "axes": true,
         "curves": [
-          {"points": [[-1.0, 1.0], [-0.75, 0.562], [-0.5, 0.25], [-0.25, 0.062], [0.0, 0.0], [0.25, 0.062], [0.5, 0.25], [0.75, 0.562], [1.0, 1.0], [1.25, 1.562], [1.5, 2.25], [1.75, 3.062], [2.0, 4.0]]},
-          {"points": [[-1.0, -1.0], [2.0, 2.0]], "dashed": true}
+          {
+            "points": [
+              [-1.0, 1.0],
+              [-0.75, 0.562],
+              [-0.5, 0.25],
+              [-0.25, 0.062],
+              [0.0, 0.0],
+              [0.25, 0.062],
+              [0.5, 0.25],
+              [0.75, 0.562],
+              [1.0, 1.0],
+              [1.25, 1.562],
+              [1.5, 2.25],
+              [1.75, 3.062],
+              [2.0, 4.0]
+            ]
+          },
+          {
+            "points": [
+              [-1.0, -1.0],
+              [2.0, 2.0]
+            ],
+            "dashed": true
+          }
         ],
         "points": [
-          {"x": 0, "y": 0, "label": "O"},
-          {"x": 1, "y": 1, "label": "A"}
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "label": "A"
+          }
         ],
-        "alt": "Les courbes de f(x) = x² (trait plein) et g(x) = x (pointillés) se croisent en O(0;0) et A(1;1) : g est au-dessus de f entre les deux, f est au-dessus ailleurs."
+        "alt": "Les courbes de f(x) = x² (trait plein) et g(x) = x (pointillés) se croisent en O(0;0) et A(1;1) : g est au-dessus de f entre les deux, f est au-dessus ailleurs.",
+        "explication": {
+          "comprendre": "Les deux courbes se croisent en O et A : entre ces deux points, g est au-dessus ; ailleurs, f est au-dessus.",
+          "etapes": [
+            {
+              "titre": "Point O",
+              "texte": "Premier point d'intersection."
+            },
+            {
+              "titre": "Point A",
+              "texte": "Second point d'intersection."
+            }
+          ],
+          "resume": "Entre les deux points d'intersection, la position relative des courbes s'inverse."
+        }
       },
-      "quizExerciseIds": [
-        141,
-        142,
-        143
-      ],
+      "quizExerciseIds": [141, 142, 143],
       "schemaVersion": 2,
       "topic_id": "positions-relatives-de-courbes-de-reference",
       "definitions": {
@@ -770,29 +1100,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Oublier de factoriser la différence avant d'étudier le signe.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Sans factorisation, le signe de l'expression $f(x)-g(x)$ n'est pas directement lisible.",
+          "comment_detecter": "Le signe de la différence est annoncé sans qu'aucune factorisation n'ait été faite.",
+          "comment_eviter": "Toujours chercher à factoriser $f(x)-g(x)$ avant d'en étudier le signe."
         },
         {
           "description": "Se tromper dans le sens de la comparaison.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Le lien entre le signe de $f-g$ et la position relative des courbes (au-dessus/en dessous) n'est pas immédiat.",
+          "comment_detecter": "La conclusion annonce $f$ au-dessus alors que $f(x)-g(x)$ est négatif (ou l'inverse).",
+          "comment_eviter": "$f(x)-g(x)>0$ signifie $f(x)>g(x)$, donc $f$ est AU-DESSUS : revenir à cette définition en cas de doute."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Positions relatives de courbes de référence"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras dire quelle courbe est au-dessus de l'autre."
-      ],
+      "synonymes": ["Positions relatives de courbes de référence"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras dire quelle courbe est au-dessus de l'autre."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Comparer deux courbes permet de savoir, par exemple, à partir de quelle quantité une offre tarifaire devient plus avantageuse qu'une autre.",
+      "intuition": "Comparer deux courbes revient exactement à comparer deux nombres : on étudie le signe de leur différence $f-g$, comme on le ferait pour deux valeurs numériques.",
+      "apercus": [
+        {
+          "id": "apercu-positionscourbes-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Comparer la racine carrée et la droite y=x, un résultat classique à retenir."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple concret où comparer deux courbes est utile.",
+          "piste": "Savoir à partir de quelle quantité une offre tarifaire devient plus avantageuse qu'une autre."
+        },
+        {
+          "apres": "exemple:positions-relatives-de-courbes-de-reference-exemple-racine",
+          "question": "Entre 0 et 1, laquelle des deux courbes (racine carrée ou droite y=x) est au-dessus ?",
+          "piste": "La racine carrée est au-dessus entre 0 et 1 ; c'est l'inverse après x=1."
+        }
+      ]
     }
   ]
 }

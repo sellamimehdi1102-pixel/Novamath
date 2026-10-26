@@ -25,7 +25,7 @@ from plan_service import Plan, get_plan
 
 logger = logging.getLogger("stripe_webhook_service")
 
-# Statuts Stripe pour lesquels l'abonnement est considéré actif côté NovaMath.
+# Statuts Stripe pour lesquels l'abonnement est considéré actif côté Mathadap.
 _ACTIVE_STATUSES = ("active", "trialing")
 
 # Chantier "Robustesse Stripe" (2026-08-27) : statuts de RELANCE (dunning) —
@@ -56,13 +56,13 @@ def _user_for_customer(customer_id):
         # error (pas warning) : depuis l'ajout des idempotency keys sur
         # Customer.create (voir stripe_service.py::create_customer), un
         # customer_id introuvable ne devrait plus jamais se produire pour un
-        # checkout créé par NovaMath — s'il apparaît malgré tout, c'est un
+        # checkout créé par Mathadap — s'il apparaît malgré tout, c'est un
         # vrai incident à investiguer (compte supprimé manuellement, customer
         # créé hors de ce flux...), pas un cas attendu à absorber en silence.
         # customer_id est la clé de corrélation utilisable dans le Dashboard
         # Stripe pour retrouver l'événement exact.
         logger.error(
-            "Webhook Stripe : aucun utilisateur NovaMath pour le customer %s — "
+            "Webhook Stripe : aucun utilisateur Mathadap pour le customer %s — "
             "événement définitivement perdu (Stripe ne redélivre pas un event déjà marqué traité).",
             customer_id,
         )
@@ -248,7 +248,7 @@ def _handle_payment_method_updated(obj):
 
 def _handle_payment_method_detached(obj):
     # Un PaymentMethod détaché n'a plus de customer associé (c'est justement
-    # ce que "detached" signifie côté Stripe) : aucun utilisateur NovaMath
+    # ce que "detached" signifie côté Stripe) : aucun utilisateur Mathadap
     # fiable à résoudre ici, on se limite à journaliser l'événement lui-même.
     logger.info("Moyen de paiement détaché (payment_method=%s).", obj.get("id"))
 

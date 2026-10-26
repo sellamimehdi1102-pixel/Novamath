@@ -2,7 +2,8 @@
 générique (indice d'exercice au lieu d'une vraie définition), texte
 identique recopié entre plusieurs notions, ou erreursFrequentes vide.
 
-Usage : python -m chatbot.check_cours_generic_content [dir ...]
+Usage : python -m chatbot.check_cours_generic_content [classe|dossier ...]
+(depuis webapp/ ; sans argument : tous les programmes du registre).
 """
 from __future__ import annotations
 
@@ -80,17 +81,44 @@ def audit_dir(cours_dir: Path) -> dict:
     return findings
 
 
-def main(argv: list[str]) -> int:
-    base = Path(__file__).resolve().parent.parent / "static" / "data"
-    dirs = [Path(a) for a in argv] if argv else [
-        base / "cours",
-        base / "cours_troisieme",
-        base / "cours_premiere",
+def default_dirs() -> list[Path]:
+    """Dossiers de cours de TOUS les programmes déclarés (publiés ou en
+    préparation), lus dans curriculum_registry — jamais une liste codée en
+    dur : l'ancienne liste pointait vers webapp/static/data/cours*/, vidés
+    depuis le déplacement des cours dans webapp/course_content/ (chantier
+    "Répartition du contenu des cours par plan"), si bien que cet audit
+    parcourait des dossiers inexistants et annonçait 0 problème."""
+    import curriculum_registry
+
+    return [
+        p.courses_dir for p in curriculum_registry.CURRICULUM_REGISTRY_ALL.values()
+        if p.courses_dir is not None
     ]
 
+
+def resolve_target(arg: str) -> Path:
+    """Un argument est soit un id de programme du registre (ex. "troisieme"),
+    soit un chemin de dossier."""
+    import curriculum_registry
+
+    profile = curriculum_registry.CURRICULUM_REGISTRY_ALL.get(arg)
+    if profile is not None and profile.courses_dir is not None:
+        return profile.courses_dir
+    return Path(arg)
+
+
+def main(argv: list[str]) -> int:
+    dirs = [resolve_target(a) for a in argv] if argv else default_dirs()
+
     total = defaultdict(int)
+    missing = []
     for d in dirs:
         print(f"\n=== {d} ===")
+        if not d.is_dir():
+            # Jamais un "0 problème" silencieux sur un dossier absent.
+            print("  [ERREUR] dossier introuvable — rien n'a été audité")
+            missing.append(d)
+            continue
         findings = audit_dir(d)
         for key in ("indice_definition", "generic_intro", "generic_objectif", "empty_erreurs"):
             items = findings[key]
@@ -109,6 +137,9 @@ def main(argv: list[str]) -> int:
     print("\n=== TOTAL ===")
     for key, count in total.items():
         print(f"  {key}: {count}")
+    if missing:
+        print(f"\n{len(missing)} dossier(s) introuvable(s) : {', '.join(str(d) for d in missing)}")
+        return 2
     return 0
 
 

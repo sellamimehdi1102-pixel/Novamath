@@ -50,6 +50,16 @@ def _fmt_ax_b(a, b) -> str:
     return f"{term} {'+' if b > 0 else '-'} {abs(b)}"
 
 
+def _ax(a) -> str:
+    """Terme $ax$ sans coefficient ±1 affiché (« x », « -x », jamais « 1x » ni « -1x »)."""
+    return f"{'' if a == 1 else '-' if a == -1 else a}x"
+
+
+def _p(v) -> str:
+    """Nombre en LaTeX, parenthésé seulement s'il est négatif (« 4\\times(-2) », jamais « 4\\times-2 »)."""
+    return f"({latex(v)})" if v < 0 else latex(v)
+
+
 def _solve_ax_b_eq_c(a, b, c):
     """Résout ax+b=c par sympy.solve — seule source de vérité."""
     sols = solve(Eq(a * x + b, c), x)
@@ -67,7 +77,7 @@ def _gen_resolution_simple(rng):
         return None
     enonce = f"Résoudre l'équation ${_fmt_ax_b(a, b)} = {c}$."
     steps = [
-        f"Étape 1 — On isole le terme en $x$ : ${a}x = {c} {'-' if b >= 0 else '+'} {abs(b)} = {c - b}$.",
+        f"Étape 1 — On isole le terme en $x$ : ${_ax(a)} = {c} {'-' if b >= 0 else '+'} {abs(b)} = {c - b}$.",
         f"Étape 2 — On divise par ${a}$ : $x = \\dfrac{{{c - b}}}{{{a}}} = {latex(sol)}$.",
     ]
     answer = f"$x = {latex(sol)}$"
@@ -121,8 +131,8 @@ def _gen_resolution_deux_cotes(rng):
     diff_d = d - b
     steps = [
         f"Étape 1 — On regroupe les termes en $x$ à gauche et les constantes à droite : "
-        f"${a}x {'-' if c >= 0 else '+'} {abs(c)}x = {d} {'-' if b >= 0 else '+'} {abs(b)}$.",
-        f"Étape 2 — Cela donne ${diff_a}x = {diff_d}$.",
+        f"${_ax(a)} {'-' if c >= 0 else '+'} {_ax(abs(c))} = {d} {'-' if b >= 0 else '+'} {abs(b)}$.",
+        f"Étape 2 — Cela donne ${_ax(diff_a)} = {diff_d}$.",
         f"Étape 3 — On divise par ${diff_a}$ : $x = {latex(sol)}$.",
     ]
     answer = f"$x = {latex(sol)}$"
@@ -206,7 +216,7 @@ def _gen_equation_depuis_solution(rng):
     )
     steps = [
         f"Étape 1 — On remplace $x$ par ${latex(x0)}$ dans le membre de gauche : "
-        f"${a}\\times{latex(x0)} {'+' if b >= 0 else '-'} {abs(b)} = {latex(c)}$.",
+        f"${a}\\times {_p(x0)} {'+' if b >= 0 else '-'} {abs(b)} = {latex(c)}$.",
         f"Étape 2 — Le second membre doit donc valoir ${latex(c)}$ pour que ${latex(x0)}$ soit solution.",
     ]
     answer = f"$c = {latex(c)}$" if c == int(c) else f"Oui : les deux membres valent bien ${latex(c)}$."
@@ -263,13 +273,13 @@ def _gen_corriger_erreur(rng):
         return None
     enonce = (
         f"Un élève résout ${_fmt_ax_b(a, b)} = {c}$ ainsi : "
-        f"\"${a}x = {c} {'+' if b >= 0 else '-'} {abs(b)}$, donc $x = {latex(wrong)}$\" "
+        f"\"${_ax(a)} = {c} {'+' if b >= 0 else '-'} {abs(b)}$, donc $x = {latex(wrong)}$\" "
         "(il n'a pas changé le signe du terme constant en le faisant passer de l'autre côté). "
         "Identifier son erreur et donner la résolution correcte."
     )
     steps = [
-        f"Étape 1 — Pour isoler ${a}x$, il faut soustraire ${b}$ aux deux membres, pas l'ajouter : "
-        f"${a}x = {c} {'-' if b >= 0 else '+'} {abs(b)} = {c - b}$.",
+        f"Étape 1 — Pour isoler ${_ax(a)}$, il faut soustraire ${b}$ aux deux membres, pas l'ajouter : "
+        f"${_ax(a)} = {c} {'-' if b >= 0 else '+'} {abs(b)} = {c - b}$.",
         f"Étape 2 — L'élève a changé le signe de $b$ dans le mauvais sens : il fallait "
         f"${c} {'-' if b >= 0 else '+'} {abs(b)}$, pas ${c} {'+' if b >= 0 else '-'} {abs(b)}$.",
         f"Étape 3 — La solution correcte est $x = \\dfrac{{{c - b}}}{{{a}}} = {latex(sol)}$.",
@@ -296,7 +306,7 @@ def _gen_comparer_methodes(rng):
         "Mener la méthode d'Inès et vérifier le résultat."
     )
     steps = [
-        f"Méthode d'Inès — On isole le terme en $x$ : ${a}x = {c} {'-' if b >= 0 else '+'} {abs(b)} = {c - b}$, "
+        f"Méthode d'Inès — On isole le terme en $x$ : ${_ax(a)} = {c} {'-' if b >= 0 else '+'} {abs(b)} = {c - b}$, "
         f"puis on divise par ${a}$ : $x = {latex(Rational(c - b, a))}$.",
         f"Vérification — On substitue $x={latex(Rational(c - b, a))}$ dans l'équation de départ : "
         f"on retrouve bien ${c}$ dans les deux membres, donc les deux méthodes mèneraient au même résultat.",

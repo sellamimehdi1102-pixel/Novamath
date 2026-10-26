@@ -8,7 +8,42 @@ import { api } from "./api.js";
 import { AUTH_MODALS_HTML } from "./authModalsTemplate.js";
 import { resetGuestLocalState } from "./store.js";
 import { hasExplicitClassLevel, ALLOWED_NEXT_PAGES } from "./curriculumSelector.js";
-import "./cookieConsent.js";
+
+// cookieConsent.js/analyticsBeacon.js sont chargés sur toutes les pages
+// applicatives pour n'avoir qu'une seule source de vérité — jamais une copie
+// par page. Pages qui n'incluent PAS auth.js, donc jamais couvertes par la
+// bannière de consentement ni par Cloudflare Web Analytics (vérifié par grep
+// sur webapp/static/*.html, 2026-10-21) : admin.html, cgu.html,
+// choisir-classe.html, confidentialite.html, debug-runtime.html,
+// mentions-legales.html, parent-consent.html, reset-password.html. Aucune
+// de ces pages n'importe analyticsBeacon.js/cookieConsent.js par un autre
+// chemin — absence de mesure d'audience intentionnelle sur ces pages,
+// jamais un oubli à corriger sans décision explicite.
+//
+// VOLONTAIREMENT PAS un import statique ici (contrairement à l'ancienne
+// version) : un `import "./x.js"` en tête de fichier est hoisté et son
+// graphe de modules s'évalue INTÉGRALEMENT avant la moindre ligne du corps
+// de CE fichier (dont initFromQuery() en bas, qui retire de l'URL les
+// paramètres sensibles oauth_error/oauth_two_factor_required/
+// oauth_complete_signup) — un import statique chargerait donc
+// analyticsBeacon.js (et la balise <script> Cloudflare qu'il peut injecter)
+// AVANT ce nettoyage, en ne comptant que sur la latence réseau du script
+// Cloudflare pour que l'URL soit nettoyée "à temps" (vérifié en pratique,
+// jamais garanti par la spec ES modules). Un `import()` dynamique, lui, est
+// TOUJOURS résolu de façon asynchrone (au plus tôt à la prochaine microtâche)
+// — en plaçant son appel APRÈS initFromQuery() dans l'ordre d'exécution
+// synchrone de ce fichier (voir le bas de ce fichier), on obtient une
+// garantie déterministe, pas probabiliste : analyticsBeacon.js ne peut
+// commencer à s'évaluer qu'une fois l'URL déjà nettoyée. Voir
+// __tests__/auth.test.js pour la vérification de cet ordre.
+function mountCookieConsentAndAnalytics() {
+  // Promise.all (jamais attendue par le code applicatif, qui n'a besoin
+  // d'aucune de ces deux modules pour fonctionner) exportée ci-dessous
+  // UNIQUEMENT pour que les tests puissent attendre de façon déterministe la
+  // fin réelle de ces deux import() dynamiques — jamais via un délai arbitraire
+  // (voir __tests__/auth.test.js).
+  return Promise.all([import("./cookieConsent.js"), import("./analyticsBeacon.js")]);
+}
 
 const $ = (id) => document.getElementById(id);
 const EMAIL_RE = /^[a-zA-Z0-9](?:[a-zA-Z0-9._+-]*[a-zA-Z0-9])?@gmail\.com$/;
@@ -621,3 +656,10 @@ function stripQueryParams(names) {
   $("login-next-hint").hidden = false;
   openModal($("login-modal-overlay"));
 })();
+
+// Appelé APRÈS initFromQuery() ci-dessus (tous les paramètres sensibles de
+// l'URL déjà retirés, même en cas de `return` anticipé dans l'IIFE : ce
+// `return` ne quitte que l'IIFE, jamais ce module) — voir le commentaire sur
+// mountCookieConsentAndAnalytics() en tête de fichier pour la garantie
+// d'ordre exacte. Export réservé aux tests (voir ce commentaire).
+export const cookieConsentAndAnalyticsReady = mountCookieConsentAndAnalytics();

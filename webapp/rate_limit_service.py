@@ -1,6 +1,6 @@
 """
 Source unique de vérité du rate limiting HTTP (fréquence des requêtes) pour
-NovaMath.
+Mathadap.
 
 Architecture stricte, identique à plan_service.py/quota_service.py/
 role_service.py :

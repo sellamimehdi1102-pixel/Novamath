@@ -1,5 +1,5 @@
 """
-Sauvegarde automatique quotidienne de la base de données NovaMath.
+Sauvegarde automatique quotidienne de la base de données Mathadap.
 
 Ne remplace PAS backup_service.py (toujours la seule couche qui sait
 réellement sauvegarder/restaurer) — ce module se contente de décider QUAND

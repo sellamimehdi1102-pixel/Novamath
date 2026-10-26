@@ -1,5 +1,5 @@
 """
-Métriques applicatives NovaMath.
+Métriques applicatives Mathadap.
 
 Architecture stricte, identique à plan_service.py/quota_service.py/
 rate_limit_service.py :

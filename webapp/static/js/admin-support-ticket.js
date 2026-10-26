@@ -4,7 +4,7 @@
 // (jamais un agrégat unique modifiable en un clic) — même philosophie que
 // admin-ai.js pour les actions ponctuelles (test/health-check).
 import { priorityBadge } from "./admin-support.js";
-import { fetchTeamMembers } from "./admin-team-roles.js";
+import { fetchTeamMembers, describeTeamLoadIssues } from "./admin-team-roles.js";
 
 const STATUS_LABELS = { open: "Ouvert", in_progress: "En cours", closed: "Fermé" };
 
@@ -184,15 +184,43 @@ export async function loadSupportTicketDetail(ticketId) {
   }
 
   // Liste des administrateurs assignables (rôles d'équipe) — factorisée dans
-  // admin-team-roles.js (partagée avec admin-support.js).
-  try {
-    const admins = await fetchTeamMembers();
-    assignSelect.innerHTML = "";
-    assignSelect.appendChild(new Option("Non assigné", ""));
-    admins.forEach((name, id) => assignSelect.appendChild(new Option(name, String(id))));
-  } catch {
-    assignSelect.innerHTML = "";
-    assignSelect.appendChild(new Option("Liste indisponible", ""));
+  // admin-team-roles.js (partagée avec admin-support.js). Audit admin
+  // (2026-10-20), point 4 : un échec partiel ou une troncature par
+  // page_size n'est plus silencieux (voir loadAssignSelect ci-dessous).
+  const assignWarningEl = document.getElementById("admin-support-ticket-assign-warning");
+  const assignWarningTextEl = document.getElementById("admin-support-ticket-assign-warning-text");
+  const assignRetryBtn = document.getElementById("admin-support-ticket-assign-retry");
+
+  async function loadAssignSelect() {
+    try {
+      const { admins, failedRoles, incompleteRoles } = await fetchTeamMembers();
+      assignSelect.innerHTML = "";
+      assignSelect.appendChild(new Option("Non assigné", ""));
+      admins.forEach((name, id) => assignSelect.appendChild(new Option(name, String(id))));
+      const message = describeTeamLoadIssues(failedRoles, incompleteRoles);
+      if (assignWarningEl) {
+        assignWarningEl.hidden = !message;
+        if (message) assignWarningTextEl.textContent = message;
+      }
+    } catch {
+      assignSelect.innerHTML = "";
+      assignSelect.appendChild(new Option("Liste indisponible", ""));
+      if (assignWarningEl) {
+        assignWarningEl.hidden = false;
+        assignWarningTextEl.textContent = "Liste des assignataires indisponible (panne réseau).";
+      }
+    }
+  }
+
+  await loadAssignSelect();
+  if (assignRetryBtn) {
+    // refresh() réapplique la sélection actuelle du ticket après que
+    // loadAssignSelect() ait repeuplé les options (sinon la sélection
+    // retomberait sur "Non assigné" jusqu'à la prochaine action).
+    assignRetryBtn.onclick = async () => {
+      await loadAssignSelect();
+      await refresh();
+    };
   }
 
   await refresh();

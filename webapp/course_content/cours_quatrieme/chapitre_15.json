@@ -1,0 +1,1799 @@
+{
+  "chapterId": "Chapitre_15",
+  "title": "Notion de fonction",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "fonction-formule",
+      "title": "Exprimer une grandeur en fonction d'une autre",
+      "schemaVersion": 2,
+      "intro": "De nombreuses grandeurs dépendent d'une autre : le prix dépend de la quantité, l'aire dépend des dimensions, la distance dépend de la durée. Cette leçon apprend à traduire une telle dépendance par une formule et à l'utiliser pour calculer.",
+      "pourquoi": "Exprimer une grandeur en fonction d'une autre permet de prévoir, de comparer et de choisir : quel forfait choisir, quelle dimension donne la plus grande aire, combien de temps faudra-t-il.",
+      "explicationSimple": "Une séance de cinéma coûte $7$ €. Le prix $P$ dépend du nombre $n$ de séances : $P = 7n$. Pour $n = 4$, $P = 28$ €.",
+      "objectif": "À la fin de cette leçon, tu sauras écrire une formule exprimant une grandeur en fonction d'une autre, l'utiliser pour calculer des valeurs et dresser un tableau de valeurs.",
+      "definition": "On dit qu'une grandeur $y$ dépend d'une grandeur $x$ (ou est une fonction de $x$) lorsqu'à chaque valeur de $x$ correspond une seule valeur de $y$. Lorsque cette dépendance s'écrit avec une formule, par exemple $A = x(6 - x)$, on dit que $A$ est exprimée en fonction de $x$ ; $x$ est la variable. Un tableau de valeurs regroupe quelques valeurs de $x$ et les valeurs correspondantes de $y$.",
+      "definitions": {
+        "college": "Une grandeur dépend d'une autre quand on peut la calculer à partir de celle-ci. La formule, par exemple $A = x(6 - x)$, donne une seule valeur de $A$ pour chaque valeur de $x$.",
+        "lycee": "On dit qu'une grandeur $y$ dépend d'une grandeur $x$ (ou est une fonction de $x$) lorsqu'à chaque valeur de $x$ correspond une seule valeur de $y$. Lorsque cette dépendance s'écrit avec une formule, par exemple $A = x(6 - x)$, on dit que $A$ est exprimée en fonction de $x$ ; $x$ est la variable. Un tableau de valeurs regroupe quelques valeurs de $x$ et les valeurs correspondantes de $y$."
+      },
+      "intuition": "Une formule est une « machine » : on y entre une valeur de la variable, elle en ressort une seule valeur calculée.",
+      "reglesImportantes": [
+        "On choisit la variable (la grandeur qui varie librement) et on l'appelle par une lettre, par exemple $x$.",
+        "On exprime les autres longueurs, prix ou quantités utiles en fonction de $x$.",
+        "On écrit la formule de la grandeur cherchée en fonction de $x$.",
+        "Pour calculer une valeur, on remplace $x$ par un nombre et on respecte les priorités opératoires.",
+        "Un tableau de valeurs se construit en calculant la formule pour plusieurs valeurs de $x$."
+      ],
+      "formules": [
+        {
+          "id": "formule-dependance",
+          "nom": "Grandeur en fonction d'une autre",
+          "expression": "$y = \\text{formule en } x$ (une seule valeur de $y$ pour chaque $x$)",
+          "quand_utiliser": "Pour traduire une dépendance entre deux grandeurs.",
+          "erreur_frequente": "Écrire une formule qui contient deux inconnues.",
+          "astuce": "La formule ne doit contenir que la variable $x$ et des nombres."
+        },
+        {
+          "id": "formule-tableau-valeurs",
+          "nom": "Tableau de valeurs",
+          "expression": "$x$ | $y$ calculé avec la formule",
+          "quand_utiliser": "Pour préparer un graphique ou comparer des valeurs.",
+          "erreur_frequente": "Se tromper dans les priorités opératoires.",
+          "astuce": "Calcule chaque colonne en remplaçant $x$ par sa valeur, entre parenthèses si elle est négative."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Exprimer une grandeur en fonction d'une autre",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère la grandeur qui varie (la variable) et je la nomme $x$."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'exprime les grandeurs intermédiaires en fonction de $x$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris la formule de la grandeur cherchée en fonction de $x$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je teste la formule avec une valeur simple, en comparant avec un calcul direct."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère la grandeur qui varie (la variable) et je la nomme $x$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'exprime les grandeurs intermédiaires en fonction de $x$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris la formule de la grandeur cherchée en fonction de $x$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je teste la formule avec une valeur simple, en comparant avec un calcul direct."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je souligne ce qui change dans l'énoncé : ce sera $x$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je fais le calcul avec un nombre (par exemple $x = 2$) pour comprendre."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je refais le même calcul en remplaçant le nombre par $x$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie ma formule avec une autre valeur."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Variable $x$, grandeurs intermédiaires, formule."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Contrôle avec une valeur simple."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-formule-prix",
+          "titre": "Exemple 1 — Un prix",
+          "enonce": "Une salle de sport demande $30$ € d'inscription puis $8$ € par séance. Exprimer le prix $P$ en fonction du nombre $n$ de séances, puis calculer $P$ pour $12$ séances.",
+          "calcul": [
+            {
+              "expr": "P = 8n + 30",
+              "texte": "Pour $n$ séances : $8n$ € de séances, plus $30$ € d'inscription."
+            },
+            {
+              "expr": "P = 8 \\times 12 + 30 = 126",
+              "texte": "Pour $n = 12$ :"
+            }
+          ],
+          "reponse": "$P = 8n + 30$ ; pour $12$ séances, $P = 126$ €.",
+          "conclusion": "La formule donne le prix pour n'importe quel nombre de séances.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-formule-aire",
+          "titre": "Exemple 2 — Une aire",
+          "enonce": "Un rectangle a un périmètre de $12$ cm et une largeur $x$ (en cm). Exprimer sa longueur, puis son aire $A$ en fonction de $x$. Calculer $A$ pour $x = 2$ et pour $x = 3$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Demi-périmètre : $6$ cm ; longueur $= 6 - x$."
+            },
+            {
+              "expr": "A = x(6 - x)",
+              "texte": "Aire :"
+            },
+            {
+              "expr": "",
+              "texte": "$x = 2$ : $A = 2 \\times 4 = 8$ ; $x = 3$ : $A = 3 \\times 3 = 9$."
+            }
+          ],
+          "reponse": "$A = x(6 - x)$ ; $A = 8$ cm² pour $x = 2$ et $A = 9$ cm² pour $x = 3$.",
+          "conclusion": "C'est la situation de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-tableau-valeurs",
+          "titre": "Exemple 3 — Un tableau de valeurs",
+          "enonce": "Le temps $t$ (en minutes) pour faire cuire un rôti dépend de sa masse $m$ (en kg) selon la formule $t = 40m + 20$. Compléter le tableau pour $m = 0{,}5$ ; $1$ ; $1{,}5$ ; $2$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$m = 0{,}5$ : $t = 20 + 20 = 40$ ; $m = 1$ : $t = 60$."
+            },
+            {
+              "expr": "",
+              "texte": "$m = 1{,}5$ : $t = 80$ ; $m = 2$ : $t = 100$."
+            }
+          ],
+          "reponse": "Temps : $40$ ; $60$ ; $80$ ; $100$ minutes.",
+          "conclusion": "Chaque demi-kilo supplémentaire ajoute $20$ minutes.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-officiel-carres",
+          "titre": "Exemple 4 — Quatre carrés retirés",
+          "enonce": "On retire quatre carrés de côté $x$ cm aux quatre coins d'un rectangle de $20$ cm sur $13$ cm. Exprimer l'aire restante $A$ en fonction de $x$, puis la calculer pour $x = 2$ et $x = 5$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Aire du rectangle : $20 \\times 13 = 260$ cm² ; aire des quatre carrés : $4x^2$."
+            },
+            {
+              "expr": "A = 260 - 4x^2",
+              "texte": "Aire restante :"
+            },
+            {
+              "expr": "",
+              "texte": "$x = 2$ : $A = 260 - 16 = 244$ ; $x = 5$ : $A = 260 - 100 = 160$."
+            }
+          ],
+          "reponse": "$A = 260 - 4x^2$ ; $244$ cm² pour $x = 2$ et $160$ cm² pour $x = 5$.",
+          "conclusion": "C'est l'exemple des attendus officiels de 4e ; $x$ ne peut pas dépasser $6{,}5$ cm.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-boite-volume",
+          "titre": "Exemple 5 — Une boîte sans couvercle",
+          "enonce": "En repliant les bords du rectangle de l'exemple 4 (après avoir retiré les carrés), on obtient une boîte sans couvercle de hauteur $x$. Exprimer son volume $V$ en fonction de $x$ et le calculer pour $x = 1$, $2$ et $3$. Quelle valeur donne le plus grand volume parmi ces trois ?",
+          "calcul": [
+            {
+              "expr": "V = x(20 - 2x)(13 - 2x)",
+              "texte": "Fond : $(20 - 2x)$ cm sur $(13 - 2x)$ cm ; hauteur $x$."
+            },
+            {
+              "expr": "",
+              "texte": "$x = 1$ : $1 \\times 18 \\times 11 = 198$ ; $x = 2$ : $2 \\times 16 \\times 9 = 288$ ; $x = 3$ : $3 \\times 14 \\times 7 = 294$."
+            }
+          ],
+          "reponse": "$V = x(20 - 2x)(13 - 2x)$ ; $198$, $288$ et $294$ cm³ : la plus grande valeur est obtenue pour $x = 3$.",
+          "conclusion": "On ne développe pas la formule : on l'utilise telle quelle pour calculer.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Le prix d'un abonnement en fonction du nombre de séances.",
+        "Le temps de cuisson en fonction de la masse.",
+        "L'aire d'une figure en fonction d'une de ses dimensions."
+      ],
+      "erreursFrequentes": [
+        "Écrire une formule qui contient deux lettres inconnues.",
+        "Oublier les parenthèses dans la formule.",
+        "Ne pas respecter les priorités en calculant une valeur.",
+        "Confondre la variable et la grandeur calculée."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire une formule qui contient deux lettres inconnues.",
+          "pourquoi": "On garde la longueur et la largeur au lieu d'exprimer l'une avec l'autre.",
+          "comment_detecter": "Ta formule ne contient-elle que $x$ ?",
+          "comment_eviter": "Exprime d'abord chaque grandeur intermédiaire en fonction de $x$."
+        },
+        {
+          "description": "Oublier les parenthèses dans la formule.",
+          "pourquoi": "On écrit $x \\times 6 - x$ au lieu de $x(6 - x)$.",
+          "comment_detecter": "Teste avec $x = 2$ : trouves-tu bien $8$ ?",
+          "comment_eviter": "Mets entre parenthèses toute expression multipliée."
+        },
+        {
+          "description": "Ne pas respecter les priorités en calculant une valeur.",
+          "pourquoi": "On calcule $260 - 4 \\times 2^2$ comme $(260 - 4) \\times 4$.",
+          "comment_detecter": "As-tu calculé la puissance en premier ?",
+          "comment_eviter": "Puissances, puis multiplications, puis additions et soustractions."
+        },
+        {
+          "description": "Confondre la variable et la grandeur calculée.",
+          "pourquoi": "On met l'aire à la place de la largeur.",
+          "comment_detecter": "Quelle grandeur choisis-tu librement ?",
+          "comment_eviter": "La variable est celle que l'on choisit ; l'autre se calcule."
+        }
+      ],
+      "astuce": "Si tu n'arrives pas à écrire la formule, fais d'abord le calcul avec un nombre précis (par exemple $x = 2$), puis refais exactement les mêmes opérations avec $x$.",
+      "aRetenir": [
+        "Une formule exprime une grandeur en fonction d'une variable.",
+        "Pour chaque valeur de la variable, une seule valeur calculée.",
+        "Tableau de valeurs : on calcule la formule pour plusieurs valeurs."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "largeur x",
+            "sousTitre": "Grandeur que l'on choisit"
+          },
+          {
+            "titre": "longueur 6 − x",
+            "sousTitre": "Périmètre 12 : demi-périmètre 6"
+          },
+          {
+            "titre": "A = x(6 − x)",
+            "sousTitre": "Aire = largeur × longueur"
+          },
+          {
+            "titre": "x = 2 → A = 8",
+            "sousTitre": "Une valeur calculée"
+          }
+        ],
+        "steps": [
+          "La grandeur variable",
+          "La formule",
+          "Une valeur"
+        ],
+        "relation": "L'aire $A$ d'un rectangle de périmètre $12$ cm dépend de sa largeur $x$ : $A = x(6 - x)$ ; pour $x = 2$, $A = 2 \\times 4 = 8$ cm²",
+        "alt": "Chaîne : largeur x, longueur 6 − x, aire A = x(6 − x), puis pour x = 2 on obtient A = 8.",
+        "explication": {
+          "resume": "Quand une grandeur dépend d'une autre, on peut souvent écrire une formule qui permet de calculer la première à partir de la seconde : on dit que la première est exprimée « en fonction » de la seconde.",
+          "lecture": [
+            "On lit de gauche à droite : la grandeur choisie, puis la formule, puis un exemple de calcul."
+          ],
+          "observations": [
+            "Le périmètre vaut $12$ cm : largeur $+$ longueur $= 6$ cm, donc longueur $= 6 - x$.",
+            "L'aire vaut largeur $\\times$ longueur : $A = x(6 - x)$.",
+            "Pour chaque valeur de $x$, la formule donne une seule valeur de $A$."
+          ],
+          "pieges": [
+            "Croire que l'aire reste la même quand la largeur change, sous prétexte que le périmètre ne change pas."
+          ],
+          "aRetenir": [
+            "Une formule exprime une grandeur en fonction d'une autre.",
+            "À chaque valeur de la variable correspond une seule valeur calculée."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        55101,
+        55102,
+        55104
+      ],
+      "topic_id": "fonction-formule",
+      "proprietes": [
+        "À chaque valeur de la variable correspond une seule valeur de la grandeur exprimée en fonction d'elle."
+      ],
+      "vocabulaire_associe": [
+        "variable",
+        "en fonction de",
+        "formule",
+        "tableau de valeurs",
+        "dépendance",
+        "grandeur"
+      ],
+      "synonymes": [
+        "exprimer en fonction de",
+        "formule d'une grandeur",
+        "dépendance entre deux grandeurs"
+      ],
+      "objectifs_pedagogiques": [
+        "Choisir une variable.",
+        "Écrire une formule en fonction d'une variable.",
+        "Calculer des valeurs.",
+        "Construire un tableau de valeurs."
+      ],
+      "prerequis": [
+        "Expressions littérales : écrire, lire et calculer",
+        "Priorités opératoires"
+      ],
+      "notions_liees": [
+        "fonction-graphique",
+        "expressions-litterales"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "fonctions",
+        "formule",
+        "tableau de valeurs",
+        "calcul littéral"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fonction-formule-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Tableau de valeurs et aire restante",
+          "description": "Deux exemples rédigés : un tableau de valeurs de temps de cuisson, et l'aire d'un rectangle dont on retire quatre carrés."
+        },
+        {
+          "id": "fonction-formule-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Le volume d'une boîte",
+          "description": "Un exemple qui exprime le volume d'une boîte en fonction de la hauteur et compare plusieurs valeurs."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pour $x = 1$, que vaut l'aire du rectangle ?",
+          "piste": "$1 \\times 5 = 5$ cm²."
+        },
+        {
+          "apres": "methode",
+          "question": "Prix de $n$ cahiers à $2{,}50$ € ?",
+          "piste": "$P = 2{,}5n$."
+        }
+      ]
+    },
+    {
+      "id": "fonction-graphique",
+      "title": "Représenter une dépendance par un graphique",
+      "schemaVersion": 2,
+      "intro": "Un graphique montre d'un seul coup d'œil comment une grandeur évolue en fonction d'une autre. On le construit à partir d'un tableau de valeurs, en plaçant des points dans un repère.",
+      "pourquoi": "Les graphiques sont partout : météo, santé, économie, sciences. Savoir en construire un aide à comprendre une situation et à la présenter.",
+      "explicationSimple": "Pour le rectangle de périmètre $12$ cm, le tableau $x = 0, 1, \\ldots, 6$ donne $A = 0, 5, 8, 9, 8, 5, 0$ : on place les points $(0 ; 0)$, $(1 ; 5)$, $(2 ; 8)$… et on obtient une courbe en forme d'arche.",
+      "objectif": "À la fin de cette leçon, tu sauras représenter la dépendance entre deux grandeurs par un graphique : choisir les axes et les unités, placer les points d'un tableau de valeurs et tracer la courbe.",
+      "definition": "La représentation graphique d'une grandeur $y$ en fonction d'une grandeur $x$ est l'ensemble des points de coordonnées $(x ; y)$, où $y$ est la valeur associée à $x$. On place la variable $x$ en abscisse (axe horizontal) et la grandeur $y$ en ordonnée (axe vertical). En pratique, on calcule un tableau de valeurs, on place les points correspondants, puis on les relie par une courbe régulière lorsque $x$ peut prendre toutes les valeurs intermédiaires.",
+      "definitions": {
+        "college": "On met la variable sur l'axe horizontal et la grandeur calculée sur l'axe vertical. Chaque colonne du tableau donne un point ; on relie les points par une courbe.",
+        "lycee": "La représentation graphique d'une grandeur $y$ en fonction d'une grandeur $x$ est l'ensemble des points de coordonnées $(x ; y)$, où $y$ est la valeur associée à $x$. On place la variable $x$ en abscisse (axe horizontal) et la grandeur $y$ en ordonnée (axe vertical). En pratique, on calcule un tableau de valeurs, on place les points correspondants, puis on les relie par une courbe régulière lorsque $x$ peut prendre toutes les valeurs intermédiaires."
+      },
+      "intuition": "Le graphique est une « photo » de la formule : chaque point est un calcul, et la courbe montre tous les calculs possibles à la fois.",
+      "reglesImportantes": [
+        "La variable est en abscisse (horizontalement), la grandeur calculée en ordonnée (verticalement).",
+        "On choisit une unité (une graduation) adaptée à chaque axe ; elles peuvent être différentes.",
+        "Chaque couple $(x ; y)$ du tableau de valeurs donne un point du graphique.",
+        "Si $x$ peut prendre toutes les valeurs intermédiaires, on relie les points par une courbe régulière ; sinon (nombre d'objets, de personnes), on laisse les points isolés.",
+        "Un graphique de proportionnalité est une droite passant par l'origine ; les autres dépendances donnent d'autres formes."
+      ],
+      "formules": [
+        {
+          "id": "formule-point-graphique",
+          "nom": "Point du graphique",
+          "expression": "$(x ; y)$ avec $y$ la valeur associée à $x$",
+          "quand_utiliser": "Pour placer un point à partir du tableau de valeurs.",
+          "erreur_frequente": "Inverser abscisse et ordonnée.",
+          "astuce": "Toujours $x$ d'abord (horizontal), puis $y$ (vertical)."
+        },
+        {
+          "id": "formule-choix-unites",
+          "nom": "Choix des unités",
+          "expression": "graduations régulières sur chaque axe, éventuellement différentes",
+          "quand_utiliser": "Pour que tous les points tiennent dans le repère.",
+          "erreur_frequente": "Des graduations irrégulières.",
+          "astuce": "Repère la plus grande valeur à placer sur chaque axe."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Construire un graphique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je calcule un tableau de valeurs avec la formule (ou je reprends celui de l'énoncé)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je trace les axes : variable en abscisse, grandeur en ordonnée, avec des graduations régulières adaptées."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je place chaque point $(x ; y)$ du tableau."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je relie les points par une courbe régulière si la variable est continue, et je nomme les axes avec les unités."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je calcule un tableau de valeurs avec la formule (ou je reprends celui de l'énoncé)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je trace les axes : variable en abscisse, grandeur en ordonnée, avec des graduations régulières adaptées."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je place chaque point $(x ; y)$ du tableau."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je relie les points par une courbe régulière si la variable est continue, et je nomme les axes avec les unités."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je prépare mon tableau de valeurs."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris ce que représente chaque axe et je gradue régulièrement."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour chaque colonne, j'avance de $x$ puis je monte de $y$, et je place un point."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je relie mes points sans faire de pointes."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Tableau, axes gradués, points $(x ; y)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Courbe régulière ; axes nommés avec unités."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-placer-points",
+          "titre": "Exemple 1 — Placer les points",
+          "enonce": "On donne le tableau : $x = 0, 1, 2, 3, 4, 5, 6$ et $A = 0, 5, 8, 9, 8, 5, 0$. Quels points faut-il placer ? Quel est le point le plus haut ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "On place les points $(0 ; 0)$, $(1 ; 5)$, $(2 ; 8)$, $(3 ; 9)$, $(4 ; 8)$, $(5 ; 5)$ et $(6 ; 0)$."
+            },
+            {
+              "expr": "",
+              "texte": "Le point le plus haut est celui de plus grande ordonnée : $(3 ; 9)$."
+            }
+          ],
+          "reponse": "Sept points ; le plus haut est $(3 ; 9)$.",
+          "conclusion": "C'est le graphique de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-graduations",
+          "titre": "Exemple 2 — Choisir les graduations",
+          "enonce": "On veut représenter la température d'un four (de $20$ °C à $220$ °C) en fonction du temps (de $0$ à $12$ minutes). Proposer des graduations adaptées.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Abscisse : $1$ graduation pour $1$ minute (de $0$ à $12$)."
+            },
+            {
+              "expr": "",
+              "texte": "Ordonnée : $1$ graduation pour $20$ °C (de $0$ à $220$, soit $11$ graduations)."
+            }
+          ],
+          "reponse": "Abscisse : $1$ graduation $= 1$ min ; ordonnée : $1$ graduation $= 20$ °C.",
+          "conclusion": "Les deux axes n'ont pas besoin de la même unité.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-points-isoles",
+          "titre": "Exemple 3 — Relier ou pas ?",
+          "enonce": "On représente le prix $P = 3n$ de $n$ croissants pour $n = 0$ à $6$. Faut-il relier les points ? Et pour la distance $d = 3t$ parcourue en $t$ heures ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le nombre de croissants est entier : on ne peut pas acheter $2{,}5$ croissants. On laisse les points isolés."
+            },
+            {
+              "expr": "",
+              "texte": "La durée $t$ peut prendre toutes les valeurs : on relie les points."
+            }
+          ],
+          "reponse": "Points isolés pour les croissants ; courbe continue (ici une droite) pour la distance.",
+          "conclusion": "On relie les points seulement si la variable varie de façon continue.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-comparer-graphiques",
+          "titre": "Exemple 4 — Comparer deux forfaits",
+          "enonce": "Forfait A : $P = 10n$ ; forfait B : $P = 4n + 30$, pour $n$ séances de $0$ à $10$. Calculer quelques valeurs, placer les points des deux forfaits dans un même repère et dire où les deux graphiques se croisent.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "A : $(0 ; 0)$, $(5 ; 50)$, $(10 ; 100)$. B : $(0 ; 30)$, $(5 ; 50)$, $(10 ; 70)$."
+            },
+            {
+              "expr": "",
+              "texte": "Les deux graphiques passent par $(5 ; 50)$."
+            }
+          ],
+          "reponse": "Ils se croisent au point $(5 ; 50)$ : pour $5$ séances, les deux forfaits coûtent $50$ €.",
+          "conclusion": "Avant $5$ séances, A est moins cher ; après, B est moins cher.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-aire-carres",
+          "titre": "Exemple 5 — L'aire restante",
+          "enonce": "Avec $A = 260 - 4x^2$ (aire restante après avoir retiré quatre carrés de côté $x$ d'un rectangle de $20$ cm sur $13$ cm), construire un tableau de valeurs pour $x = 0$ ; $1$ ; $2$ ; $3$ ; $4$ ; $5$ ; $6$. Pourquoi ne peut-on pas aller au-delà de $x = 6{,}5$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$A = 260$ ; $256$ ; $244$ ; $224$ ; $196$ ; $160$ ; $116$."
+            },
+            {
+              "expr": "",
+              "texte": "Au-delà de $6{,}5$ cm, deux carrés voisins sur le petit côté ($13$ cm) se chevaucheraient."
+            }
+          ],
+          "reponse": "Tableau : $260$, $256$, $244$, $224$, $196$, $160$, $116$ ; $x \\leq 6{,}5$ car $2x \\leq 13$.",
+          "conclusion": "Le graphique ne se trace que pour les valeurs de $x$ qui ont un sens.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "La courbe de température sur une journée.",
+        "L'évolution d'un prix selon la quantité.",
+        "La croissance d'une plante semaine après semaine."
+      ],
+      "erreursFrequentes": [
+        "Inverser abscisse et ordonnée.",
+        "Utiliser des graduations irrégulières.",
+        "Relier les points par des segments en pointe.",
+        "Relier des points qui ne doivent pas l'être."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Inverser abscisse et ordonnée.",
+          "pourquoi": "On place $y$ horizontalement.",
+          "comment_detecter": "Le point $(1 ; 5)$ est-il à droite de $1$ et en haut de $5$ ?",
+          "comment_eviter": "Abscisse d'abord (horizontal), ordonnée ensuite (vertical)."
+        },
+        {
+          "description": "Utiliser des graduations irrégulières.",
+          "pourquoi": "On recopie les valeurs du tableau comme graduations.",
+          "comment_detecter": "L'écart entre deux graduations représente-t-il toujours la même quantité ?",
+          "comment_eviter": "Choisis un pas constant sur chaque axe."
+        },
+        {
+          "description": "Relier les points par des segments en pointe.",
+          "pourquoi": "On relie les points à la règle.",
+          "comment_detecter": "La grandeur change-t-elle brusquement entre deux points ?",
+          "comment_eviter": "Trace une courbe régulière (sauf si c'est une droite)."
+        },
+        {
+          "description": "Relier des points qui ne doivent pas l'être.",
+          "pourquoi": "On relie toujours par habitude.",
+          "comment_detecter": "La variable peut-elle prendre des valeurs non entières ?",
+          "comment_eviter": "Nombre d'objets : points isolés."
+        }
+      ],
+      "astuce": "Avant de graduer, repère la plus grande valeur de chaque grandeur : elle doit tenir sur ton axe. Divise-la par le nombre de carreaux disponibles pour choisir le pas.",
+      "aRetenir": [
+        "Variable en abscisse, grandeur en ordonnée.",
+        "Tableau de valeurs → points $(x ; y)$ → courbe.",
+        "Graduations régulières, axes nommés avec unités."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -0.8,
+          7.6,
+          10.6
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "",
+            "tooltip": "x = 0 ; A = 0"
+          },
+          {
+            "x": 1,
+            "y": 5,
+            "label": "",
+            "tooltip": "x = 1 ; A = 5"
+          },
+          {
+            "x": 2,
+            "y": 8,
+            "label": "",
+            "tooltip": "x = 2 ; A = 8"
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "label": "",
+            "tooltip": "x = 3 ; A = 9"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "label": "",
+            "tooltip": "x = 4 ; A = 8"
+          },
+          {
+            "x": 5,
+            "y": 5,
+            "label": "",
+            "tooltip": "x = 5 ; A = 5"
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "label": "",
+            "tooltip": "x = 6 ; A = 0"
+          }
+        ],
+        "texts": [
+          {
+            "x": 4.6,
+            "y": 9.4,
+            "label": "A = x(6 − x)",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.1,
+                0.59
+              ],
+              [
+                0.2,
+                1.16
+              ],
+              [
+                0.3,
+                1.71
+              ],
+              [
+                0.4,
+                2.24
+              ],
+              [
+                0.5,
+                2.75
+              ],
+              [
+                0.6,
+                3.24
+              ],
+              [
+                0.7,
+                3.71
+              ],
+              [
+                0.8,
+                4.16
+              ],
+              [
+                0.9,
+                4.59
+              ],
+              [
+                1.0,
+                5.0
+              ],
+              [
+                1.1,
+                5.39
+              ],
+              [
+                1.2,
+                5.76
+              ],
+              [
+                1.3,
+                6.11
+              ],
+              [
+                1.4,
+                6.44
+              ],
+              [
+                1.5,
+                6.75
+              ],
+              [
+                1.6,
+                7.04
+              ],
+              [
+                1.7,
+                7.31
+              ],
+              [
+                1.8,
+                7.56
+              ],
+              [
+                1.9,
+                7.79
+              ],
+              [
+                2.0,
+                8.0
+              ],
+              [
+                2.1,
+                8.19
+              ],
+              [
+                2.2,
+                8.36
+              ],
+              [
+                2.3,
+                8.51
+              ],
+              [
+                2.4,
+                8.64
+              ],
+              [
+                2.5,
+                8.75
+              ],
+              [
+                2.6,
+                8.84
+              ],
+              [
+                2.7,
+                8.91
+              ],
+              [
+                2.8,
+                8.96
+              ],
+              [
+                2.9,
+                8.99
+              ],
+              [
+                3.0,
+                9.0
+              ],
+              [
+                3.1,
+                8.99
+              ],
+              [
+                3.2,
+                8.96
+              ],
+              [
+                3.3,
+                8.91
+              ],
+              [
+                3.4,
+                8.84
+              ],
+              [
+                3.5,
+                8.75
+              ],
+              [
+                3.6,
+                8.64
+              ],
+              [
+                3.7,
+                8.51
+              ],
+              [
+                3.8,
+                8.36
+              ],
+              [
+                3.9,
+                8.19
+              ],
+              [
+                4.0,
+                8.0
+              ],
+              [
+                4.1,
+                7.79
+              ],
+              [
+                4.2,
+                7.56
+              ],
+              [
+                4.3,
+                7.31
+              ],
+              [
+                4.4,
+                7.04
+              ],
+              [
+                4.5,
+                6.75
+              ],
+              [
+                4.6,
+                6.44
+              ],
+              [
+                4.7,
+                6.11
+              ],
+              [
+                4.8,
+                5.76
+              ],
+              [
+                4.9,
+                5.39
+              ],
+              [
+                5.0,
+                5.0
+              ],
+              [
+                5.1,
+                4.59
+              ],
+              [
+                5.2,
+                4.16
+              ],
+              [
+                5.3,
+                3.71
+              ],
+              [
+                5.4,
+                3.24
+              ],
+              [
+                5.5,
+                2.75
+              ],
+              [
+                5.6,
+                2.24
+              ],
+              [
+                5.7,
+                1.71
+              ],
+              [
+                5.8,
+                1.16
+              ],
+              [
+                5.9,
+                0.59
+              ],
+              [
+                6.0,
+                0.0
+              ]
+            ]
+          }
+        ],
+        "steps": [
+          "Les axes : x en abscisse, A sur l'axe vertical",
+          "Les points du tableau de valeurs",
+          "La courbe qui relie les points"
+        ],
+        "relation": "Tableau de valeurs : $x = 0, 1, 2, 3, 4, 5, 6$ donne $A = 0, 5, 8, 9, 8, 5, 0$ ; chaque couple $(x ; A)$ est un point du graphique",
+        "alt": "Repère : abscisse x de 0 à 6, ordonnée A de 0 à 9. Les points (0 ; 0), (1 ; 5), (2 ; 8), (3 ; 9), (4 ; 8), (5 ; 5), (6 ; 0) sont reliés par une courbe en forme d'arche.",
+        "explication": {
+          "resume": "Pour représenter graphiquement une dépendance, on calcule un tableau de valeurs, on place chaque couple $(x ; A)$ comme un point du repère, puis on relie les points par une courbe régulière.",
+          "lecture": [
+            "En abscisse (horizontalement) : la largeur $x$ ; en ordonnée (verticalement, axe noté $y$ sur la figure) : l'aire $A$.",
+            "Chaque point correspond à une colonne du tableau de valeurs."
+          ],
+          "observations": [
+            "Les points ne sont pas alignés : l'aire n'est pas proportionnelle à la largeur.",
+            "L'aire est la plus grande pour $x = 3$ : le rectangle est alors un carré.",
+            "La courbe est symétrique : $x$ et $6 - x$ donnent la même aire."
+          ],
+          "pieges": [
+            "Relier les points par des segments en pointe : on trace une courbe « lisse », car $x$ peut prendre toutes les valeurs entre $0$ et $6$."
+          ],
+          "aRetenir": [
+            "Abscisse : grandeur variable ; ordonnée : grandeur calculée.",
+            "Tableau de valeurs, points, courbe."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        55201,
+        55202,
+        55204
+      ],
+      "topic_id": "fonction-graphique",
+      "proprietes": [
+        "Chaque point $(x ; y)$ du graphique associe une valeur de la variable à la valeur correspondante de la grandeur."
+      ],
+      "vocabulaire_associe": [
+        "abscisse",
+        "ordonnée",
+        "repère",
+        "courbe",
+        "graduation",
+        "tableau de valeurs"
+      ],
+      "synonymes": [
+        "représentation graphique",
+        "tracer une courbe",
+        "construire un graphique"
+      ],
+      "objectifs_pedagogiques": [
+        "Choisir les axes et les graduations.",
+        "Placer les points d'un tableau de valeurs.",
+        "Tracer une courbe ou laisser des points isolés.",
+        "Comparer deux dépendances sur un même graphique."
+      ],
+      "prerequis": [
+        "Exprimer une grandeur en fonction d'une autre",
+        "Repérage dans le plan"
+      ],
+      "notions_liees": [
+        "fonction-formule",
+        "fonction-lecture-graphique",
+        "proportionnalite-reconnaitre"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "fonctions",
+        "graphique",
+        "courbe",
+        "repère"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fonction-graphique-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Relier ou non, comparer deux forfaits",
+          "description": "Deux exemples rédigés : savoir quand relier les points, et lire le croisement de deux graphiques."
+        },
+        {
+          "id": "fonction-graphique-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "L'aire restante",
+          "description": "Un exemple qui construit un tableau de valeurs et justifie les valeurs possibles de la variable."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pourquoi la courbe est-elle symétrique ?",
+          "piste": "Car $x$ et $6 - x$ donnent la même aire."
+        },
+        {
+          "apres": "methode",
+          "question": "Quel point placer pour $x = 2$ et $y = 7$ ?",
+          "piste": "Le point $(2 ; 7)$."
+        }
+      ]
+    },
+    {
+      "id": "fonction-lecture-graphique",
+      "title": "Lire et interpréter un graphique",
+      "schemaVersion": 2,
+      "intro": "Un graphique permet de lire des valeurs sans calcul : la valeur d'une grandeur pour une valeur donnée de la variable, ou les valeurs de la variable qui donnent une valeur donnée. On apprend à lire dans les deux sens et à interpréter.",
+      "pourquoi": "Lire un graphique, c'est extraire une information utile : la température d'un four au bout de $7$ minutes, le moment où il atteint $110$ °C, la dimension qui donne la plus grande aire.",
+      "explicationSimple": "Sur le graphique de la température d'un four, on part de $7$ minutes, on monte jusqu'à la courbe et on lit, par exemple, $150$ °C sur l'axe vertical.",
+      "objectif": "À la fin de cette leçon, tu sauras lire sur un graphique la valeur de la grandeur pour une valeur donnée de la variable, trouver la ou les valeurs de la variable correspondant à une valeur donnée, et interpréter le graphique (maximum, évolution).",
+      "definition": "Lire un graphique de $y$ en fonction de $x$ dans le sens direct : on part d'une valeur de $x$ sur l'axe des abscisses, on va verticalement jusqu'à la courbe, puis horizontalement jusqu'à l'axe des ordonnées où l'on lit $y$. Dans le sens inverse : on part d'une valeur de $y$ sur l'axe des ordonnées, on va horizontalement jusqu'à la courbe (il peut y avoir plusieurs points, ou aucun), puis verticalement jusqu'à l'axe des abscisses. Les lectures graphiques sont des valeurs approchées.",
+      "definitions": {
+        "college": "Pour lire $y$ quand on connaît $x$ : on monte jusqu'à la courbe, puis on va à gauche lire sur l'axe vertical. Pour trouver $x$ quand on connaît $y$ : on part de l'axe vertical, on va jusqu'à la courbe, puis on descend.",
+        "lycee": "Lire un graphique de $y$ en fonction de $x$ dans le sens direct : on part d'une valeur de $x$ sur l'axe des abscisses, on va verticalement jusqu'à la courbe, puis horizontalement jusqu'à l'axe des ordonnées où l'on lit $y$. Dans le sens inverse : on part d'une valeur de $y$ sur l'axe des ordonnées, on va horizontalement jusqu'à la courbe (il peut y avoir plusieurs points, ou aucun), puis verticalement jusqu'à l'axe des abscisses. Les lectures graphiques sont des valeurs approchées."
+      },
+      "intuition": "La courbe est un pont entre les deux axes : on traverse toujours par elle, dans un sens ou dans l'autre.",
+      "reglesImportantes": [
+        "Sens direct : abscisse → verticalement jusqu'à la courbe → horizontalement → ordonnée lue.",
+        "Sens inverse : ordonnée → horizontalement jusqu'à la courbe → verticalement → abscisse(s) lue(s).",
+        "Dans le sens inverse, il peut y avoir plusieurs réponses, ou aucune ; il faut toutes les donner.",
+        "Une lecture graphique est approchée ; on la donne avec la précision permise par les graduations.",
+        "On interprète : là où la courbe monte, la grandeur augmente ; là où elle descend, elle diminue ; le point le plus haut donne la valeur maximale."
+      ],
+      "formules": [
+        {
+          "id": "formule-lecture-directe",
+          "nom": "Lecture directe",
+          "expression": "$x$ donné → point de la courbe d'abscisse $x$ → son ordonnée",
+          "quand_utiliser": "Pour lire la valeur de la grandeur pour une valeur de la variable.",
+          "erreur_frequente": "Lire l'abscisse au lieu de l'ordonnée.",
+          "astuce": "Le résultat se lit sur l'axe vertical."
+        },
+        {
+          "id": "formule-lecture-inverse",
+          "nom": "Lecture inverse",
+          "expression": "$y$ donné → point(s) de la courbe d'ordonnée $y$ → leur(s) abscisse(s)",
+          "quand_utiliser": "Pour trouver quand la grandeur atteint une valeur donnée.",
+          "erreur_frequente": "Oublier une deuxième solution.",
+          "astuce": "Prolonge la droite horizontale sur toute la largeur du graphique."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Lire un graphique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère ce que représentent les axes et leurs graduations."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je trace en pointillés le trajet de lecture, en passant par la courbe."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je lis la valeur sur l'autre axe (toutes les valeurs dans le sens inverse)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je donne la réponse avec l'unité, en précisant qu'il s'agit d'une valeur approchée."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère ce que représentent les axes et leurs graduations."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je trace en pointillés le trajet de lecture, en passant par la courbe."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je lis la valeur sur l'autre axe (toutes les valeurs dans le sens inverse)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je donne la réponse avec l'unité, en précisant qu'il s'agit d'une valeur approchée."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde ce qui est écrit sur chaque axe."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je pose ma règle verticalement (ou horizontalement) à partir de la valeur donnée."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Arrivé sur la courbe, je tourne et je vais jusqu'à l'autre axe."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris la valeur lue avec son unité."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Axe → courbe → autre axe, en pointillés."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Sens inverse : toutes les solutions."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-lecture-directe",
+          "titre": "Exemple 1 — Lire une aire",
+          "enonce": "Sur le graphique de l'aire $A$ en fonction de la largeur $x$ (figure du cours), lire l'aire pour $x = 1$ et pour $x = 5$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Depuis $x = 1$ : on monte jusqu'à la courbe, puis on lit $A = 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Depuis $x = 5$ : on lit aussi $A = 5$."
+            }
+          ],
+          "reponse": "$A = 5$ cm² pour $x = 1$ et pour $x = 5$.",
+          "conclusion": "Deux largeurs différentes peuvent donner la même aire.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-lecture-inverse",
+          "titre": "Exemple 2 — Trouver une largeur",
+          "enonce": "Sur le même graphique, pour quelles largeurs l'aire vaut-elle $8$ cm² ? Peut-elle valoir $10$ cm² ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Depuis $A = 8$ : la droite horizontale coupe la courbe en deux points, d'abscisses $2$ et $4$."
+            },
+            {
+              "expr": "",
+              "texte": "La courbe ne monte pas au-dessus de $9$ : la droite $A = 10$ ne la coupe pas."
+            }
+          ],
+          "reponse": "$A = 8$ pour $x = 2$ et $x = 4$ ; l'aire ne peut pas valoir $10$ cm².",
+          "conclusion": "Dans le sens inverse, il peut y avoir deux solutions, ou aucune.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-four",
+          "titre": "Exemple 3 — La température d'un four",
+          "enonce": "La température d'un four passe de $20$ °C à $180$ °C en $8$ minutes en augmentant régulièrement, puis reste stable. Le graphique est formé d'un segment de $(0 ; 20)$ à $(8 ; 180)$, puis d'un segment horizontal. Lire la température au bout de $3$ minutes et le moment où le four atteint $110$ °C.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le four gagne $160$ °C en $8$ minutes, soit $20$ °C par minute."
+            },
+            {
+              "expr": "",
+              "texte": "Au bout de $3$ minutes : $20 + 3 \\times 20 = 80$ °C."
+            },
+            {
+              "expr": "",
+              "texte": "$110$ °C : $20 + 20t = 110$, soit $t = 4{,}5$ minutes."
+            }
+          ],
+          "reponse": "$80$ °C au bout de $3$ minutes ; $110$ °C au bout de $4{,}5$ minutes.",
+          "conclusion": "La lecture graphique et le calcul donnent les mêmes valeurs ; sur un graphique réel, la lecture est approchée.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-interpreter-maximum",
+          "titre": "Exemple 4 — Interpréter",
+          "enonce": "Sur le graphique de l'aire $A$ en fonction de $x$, décrire comment varie l'aire quand $x$ passe de $0$ à $6$. Pour quelle largeur l'aire est-elle maximale ? Que vaut-elle ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "La courbe monte de $x = 0$ à $x = 3$ : l'aire augmente."
+            },
+            {
+              "expr": "",
+              "texte": "Elle descend de $x = 3$ à $x = 6$ : l'aire diminue."
+            },
+            {
+              "expr": "",
+              "texte": "Le point le plus haut est $(3 ; 9)$."
+            }
+          ],
+          "reponse": "L'aire augmente jusqu'à $x = 3$, puis diminue ; elle est maximale pour $x = 3$ cm et vaut $9$ cm².",
+          "conclusion": "Le rectangle de périmètre $12$ cm d'aire maximale est le carré de côté $3$ cm.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-courbes-lecture",
+          "titre": "Exemple 5 — Une course",
+          "enonce": "Deux coureurs partent en même temps. Le graphique de la distance parcourue par Léa est un segment de $(0 ; 0)$ à $(10 ; 3)$ (minutes, km) ; celui de Max, un segment de $(0 ; 0)$ à $(10 ; 2)$ suivi d'un segment de $(10 ; 2)$ à $(15 ; 3{,}5)$. Qui est en tête au bout de $10$ minutes ? Calculer la vitesse de Max (en km par minute) avant et après $10$ minutes : que remarque-t-on ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "À $10$ min, Léa a parcouru $3$ km et Max $2$ km : Léa est en tête."
+            },
+            {
+              "expr": "",
+              "texte": "Max : $2$ km en $10$ min, soit $0{,}2$ km par minute ; puis $1{,}5$ km en $5$ min, soit $0{,}3$ km par minute."
+            }
+          ],
+          "reponse": "Léa est en tête au bout de $10$ minutes ; Max accélère : il passe de $0{,}2$ à $0{,}3$ km par minute.",
+          "conclusion": "Plus un segment est « pentu », plus la distance augmente vite : la vitesse est plus grande.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Lire la température d'un four à un instant donné.",
+        "Trouver à quel moment un réservoir est à moitié plein.",
+        "Repérer le maximum d'une courbe de fréquentation."
+      ],
+      "erreursFrequentes": [
+        "Lire sur le mauvais axe.",
+        "Oublier une solution dans le sens inverse.",
+        "Donner une lecture graphique comme une valeur exacte.",
+        "Ne pas passer par la courbe."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Lire sur le mauvais axe.",
+          "pourquoi": "On lit l'abscisse au lieu de l'ordonnée.",
+          "comment_detecter": "La grandeur demandée est-elle sur l'axe vertical ?",
+          "comment_eviter": "Direct : réponse sur l'axe des ordonnées ; inverse : sur l'axe des abscisses."
+        },
+        {
+          "description": "Oublier une solution dans le sens inverse.",
+          "pourquoi": "On s'arrête au premier point trouvé.",
+          "comment_detecter": "As-tu prolongé ta droite horizontale sur tout le graphique ?",
+          "comment_eviter": "Cherche tous les points de la courbe à la bonne hauteur."
+        },
+        {
+          "description": "Donner une lecture graphique comme une valeur exacte.",
+          "pourquoi": "On oublie l'imprécision du tracé.",
+          "comment_detecter": "Ta valeur tombe-t-elle exactement sur une graduation ?",
+          "comment_eviter": "Écris « environ » si la lecture est approchée."
+        },
+        {
+          "description": "Ne pas passer par la courbe.",
+          "pourquoi": "On lit directement d'un axe à l'autre.",
+          "comment_detecter": "Ton trajet touche-t-il la courbe ?",
+          "comment_eviter": "Trace les pointillés : axe → courbe → axe."
+        }
+      ],
+      "astuce": "Trace toujours tes lectures en pointillés sur le graphique : cela évite les erreurs et montre ta démarche au correcteur.",
+      "aRetenir": [
+        "Direct : abscisse → courbe → ordonnée.",
+        "Inverse : ordonnée → courbe → abscisse(s), parfois plusieurs ou aucune.",
+        "Lectures approchées ; la courbe monte : la grandeur augmente."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -0.8,
+          7.6,
+          10.6
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 1,
+            "y": 5,
+            "label": "",
+            "tooltip": "pour x = 1, A = 5"
+          },
+          {
+            "x": 2,
+            "y": 8,
+            "label": "",
+            "tooltip": "A = 8 pour x = 2"
+          },
+          {
+            "x": 4,
+            "y": 8,
+            "label": "",
+            "tooltip": "A = 8 pour x = 4"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1,
+              "y": 0
+            },
+            "to": {
+              "x": 1,
+              "y": 5
+            },
+            "reveal": 2,
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 1,
+              "y": 5
+            },
+            "to": {
+              "x": 0,
+              "y": 5
+            },
+            "reveal": 2,
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 8
+            },
+            "to": {
+              "x": 4,
+              "y": 8
+            },
+            "reveal": 3,
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 2,
+              "y": 8
+            },
+            "to": {
+              "x": 2,
+              "y": 0
+            },
+            "reveal": 3,
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 8
+            },
+            "to": {
+              "x": 4,
+              "y": 0
+            },
+            "reveal": 3,
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.2,
+            "y": 4.6,
+            "label": "x = 1 → A = 5",
+            "reveal": 2
+          },
+          {
+            "x": 5.6,
+            "y": 8.6,
+            "label": "A = 8 → x = 2 ; x = 4",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.1,
+                0.59
+              ],
+              [
+                0.2,
+                1.16
+              ],
+              [
+                0.3,
+                1.71
+              ],
+              [
+                0.4,
+                2.24
+              ],
+              [
+                0.5,
+                2.75
+              ],
+              [
+                0.6,
+                3.24
+              ],
+              [
+                0.7,
+                3.71
+              ],
+              [
+                0.8,
+                4.16
+              ],
+              [
+                0.9,
+                4.59
+              ],
+              [
+                1.0,
+                5.0
+              ],
+              [
+                1.1,
+                5.39
+              ],
+              [
+                1.2,
+                5.76
+              ],
+              [
+                1.3,
+                6.11
+              ],
+              [
+                1.4,
+                6.44
+              ],
+              [
+                1.5,
+                6.75
+              ],
+              [
+                1.6,
+                7.04
+              ],
+              [
+                1.7,
+                7.31
+              ],
+              [
+                1.8,
+                7.56
+              ],
+              [
+                1.9,
+                7.79
+              ],
+              [
+                2.0,
+                8.0
+              ],
+              [
+                2.1,
+                8.19
+              ],
+              [
+                2.2,
+                8.36
+              ],
+              [
+                2.3,
+                8.51
+              ],
+              [
+                2.4,
+                8.64
+              ],
+              [
+                2.5,
+                8.75
+              ],
+              [
+                2.6,
+                8.84
+              ],
+              [
+                2.7,
+                8.91
+              ],
+              [
+                2.8,
+                8.96
+              ],
+              [
+                2.9,
+                8.99
+              ],
+              [
+                3.0,
+                9.0
+              ],
+              [
+                3.1,
+                8.99
+              ],
+              [
+                3.2,
+                8.96
+              ],
+              [
+                3.3,
+                8.91
+              ],
+              [
+                3.4,
+                8.84
+              ],
+              [
+                3.5,
+                8.75
+              ],
+              [
+                3.6,
+                8.64
+              ],
+              [
+                3.7,
+                8.51
+              ],
+              [
+                3.8,
+                8.36
+              ],
+              [
+                3.9,
+                8.19
+              ],
+              [
+                4.0,
+                8.0
+              ],
+              [
+                4.1,
+                7.79
+              ],
+              [
+                4.2,
+                7.56
+              ],
+              [
+                4.3,
+                7.31
+              ],
+              [
+                4.4,
+                7.04
+              ],
+              [
+                4.5,
+                6.75
+              ],
+              [
+                4.6,
+                6.44
+              ],
+              [
+                4.7,
+                6.11
+              ],
+              [
+                4.8,
+                5.76
+              ],
+              [
+                4.9,
+                5.39
+              ],
+              [
+                5.0,
+                5.0
+              ],
+              [
+                5.1,
+                4.59
+              ],
+              [
+                5.2,
+                4.16
+              ],
+              [
+                5.3,
+                3.71
+              ],
+              [
+                5.4,
+                3.24
+              ],
+              [
+                5.5,
+                2.75
+              ],
+              [
+                5.6,
+                2.24
+              ],
+              [
+                5.7,
+                1.71
+              ],
+              [
+                5.8,
+                1.16
+              ],
+              [
+                5.9,
+                0.59
+              ],
+              [
+                6.0,
+                0.0
+              ]
+            ]
+          }
+        ],
+        "steps": [
+          "La courbe",
+          "Lire A à partir de x",
+          "Lire x à partir de A"
+        ],
+        "relation": "Lecture : pour $x = 1$, $A = 5$ ; $A = 8$ pour $x = 2$ et pour $x = 4$",
+        "alt": "Courbe de l'aire A en fonction de x. Pointillés : depuis x = 1 on monte jusqu'à la courbe puis on lit A = 5 ; depuis A = 8 on va horizontalement jusqu'à la courbe et on lit deux valeurs, x = 2 et x = 4.",
+        "explication": {
+          "resume": "Un graphique se lit dans les deux sens : à partir d'une valeur sur l'axe des abscisses, on lit la valeur correspondante sur l'axe des ordonnées ; à partir d'une valeur sur l'axe des ordonnées, on cherche la ou les valeurs correspondantes sur l'axe des abscisses.",
+          "lecture": [
+            "Les pointillés matérialisent le trajet de lecture.",
+            "On passe toujours par la courbe."
+          ],
+          "observations": [
+            "Depuis $x = 1$ : verticalement jusqu'à la courbe, puis horizontalement : $A = 5$.",
+            "Depuis $A = 8$ : horizontalement, la droite coupe la courbe en deux points : $x = 2$ et $x = 4$.",
+            "Une valeur de $x$ donne une seule valeur de $A$ ; une valeur de $A$ peut correspondre à plusieurs valeurs de $x$, ou à aucune (par exemple $A = 10$)."
+          ],
+          "pieges": [
+            "Lire une valeur sans passer par la courbe, ou oublier une deuxième solution."
+          ],
+          "aRetenir": [
+            "Abscisse → courbe → ordonnée.",
+            "Ordonnée → courbe → abscisse(s)."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        55301,
+        55302,
+        55304
+      ],
+      "topic_id": "fonction-lecture-graphique",
+      "proprietes": [
+        "Une valeur de la variable correspond à une seule valeur de la grandeur ; une valeur de la grandeur peut correspondre à plusieurs valeurs de la variable, ou à aucune."
+      ],
+      "vocabulaire_associe": [
+        "lecture graphique",
+        "abscisse",
+        "ordonnée",
+        "courbe",
+        "maximum",
+        "augmente",
+        "diminue"
+      ],
+      "synonymes": [
+        "lire un graphique",
+        "lecture graphique",
+        "interpréter une courbe"
+      ],
+      "objectifs_pedagogiques": [
+        "Lire une valeur dans le sens direct.",
+        "Lire une ou plusieurs valeurs dans le sens inverse.",
+        "Interpréter l'évolution et le maximum.",
+        "Comparer deux graphiques."
+      ],
+      "prerequis": [
+        "Représenter une dépendance par un graphique"
+      ],
+      "notions_liees": [
+        "fonction-graphique",
+        "fonction-formule"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "fonctions",
+        "graphique",
+        "lecture",
+        "interprétation"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fonction-lecture-graphique-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Température d'un four et maximum",
+          "description": "Deux exemples rédigés : lire la température d'un four, et interpréter l'évolution d'une aire avec son maximum."
+        },
+        {
+          "id": "fonction-lecture-graphique-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Une course",
+          "description": "Un exemple qui compare deux coureurs à partir de leurs graphiques."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pour quelle largeur l'aire vaut-elle $9$ cm² ?",
+          "piste": "Pour $x = 3$ seulement."
+        },
+        {
+          "apres": "methode",
+          "question": "Une droite horizontale ne coupe pas la courbe : que conclure ?",
+          "piste": "Cette valeur n'est jamais atteinte."
+        }
+      ]
+    }
+  ]
+}

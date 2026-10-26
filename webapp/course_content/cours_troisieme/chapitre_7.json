@@ -62,7 +62,8 @@
           ],
           "reponse": "$f(3) = 11$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(3) = 11$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-756",
@@ -81,7 +82,8 @@
           ],
           "reponse": "$f(-2) = -10$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(-2) = -10$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-762",
@@ -100,7 +102,8 @@
           ],
           "reponse": "$f(2) = 10$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(2) = 10$.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-768",
@@ -119,7 +122,8 @@
           ],
           "reponse": "$f(x) = x^2 - 5$ et $f(4) = 11$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = x^2 - 5$ et $f(4) = 11$.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -133,7 +137,32 @@
         "Remplacer $x$ par $1$, en faisant attention au signe devant $2x$.",
         "Remplacer $x$ par $-2$ en faisant bien attention aux signes."
       ],
-      "erreursFrequentesDetail": [],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Attention à l'ordre des opérations : élever au carré avant de multiplier par $3$.",
+          "pourquoi": "Dans $3x^2$, seul $x$ est élevé au carré ; multiplier $3x$ au carré donnerait un résultat neuf fois trop grand.",
+          "comment_detecter": "Le résultat obtenu est beaucoup plus grand que prévu, souvent un multiple du carré du facteur de tête.",
+          "comment_eviter": "Toujours calculer d'abord $x^2$ (ou $(x)^2$ si $x$ est négatif), puis multiplier ce résultat par le coefficient."
+        },
+        {
+          "description": "Attention au produit de deux nombres négatifs : $-3 \\times (-1) = 3$.",
+          "pourquoi": "Sous la pression du calcul, le signe d'un produit de deux nombres négatifs est parfois laissé négatif par réflexe.",
+          "comment_detecter": "Le résultat final a un signe négatif alors que deux facteurs négatifs viennent d'être multipliés.",
+          "comment_eviter": "Déterminer le signe du produit séparément avant de calculer sa valeur : deux signes identiques donnent toujours un résultat positif."
+        },
+        {
+          "description": "Remplacer $x$ par $1$, en faisant attention au signe devant $2x$.",
+          "pourquoi": "Quand $x$ est remplacé par une valeur, le signe qui précède le terme doit rester attaché au résultat du remplacement.",
+          "comment_detecter": "Le signe du terme concerné a disparu ou s'est inversé par rapport à l'expression de départ.",
+          "comment_eviter": "Recopier le signe de chaque terme avant de remplacer $x$ par sa valeur, pour ne jamais le perdre en cours de calcul."
+        },
+        {
+          "description": "Remplacer $x$ par $-2$ en faisant bien attention aux signes.",
+          "pourquoi": "Remplacer $x$ par un nombre négatif sans l'entourer de parenthèses peut changer complètement le résultat, surtout avec un carré.",
+          "comment_detecter": "Le résultat obtenu pour $x^2$ est négatif, ce qui est impossible pour un carré.",
+          "comment_eviter": "Toujours entourer de parenthèses la valeur négative substituée à $x$, en particulier devant une puissance."
+        }
+      ],
       "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
       "aRetenir": [
         "La longueur vaut $3x+2$ ; le périmètre d'un rectangle est deux fois la somme largeur + longueur.",
@@ -145,69 +174,25 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          6
-        ],
+        "viewBox": [-1, -1, 8, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                0.0,
-                1.8
-              ],
-              [
-                0.5,
-                2.325
-              ],
-              [
-                1.0,
-                2.7
-              ],
-              [
-                1.5,
-                2.925
-              ],
-              [
-                2.0,
-                3.0
-              ],
-              [
-                2.5,
-                2.925
-              ],
-              [
-                3.0,
-                2.7
-              ],
-              [
-                3.5,
-                2.325
-              ],
-              [
-                4.0,
-                1.8
-              ],
-              [
-                4.5,
-                1.125
-              ],
-              [
-                5.0,
-                0.30000000000000027
-              ],
-              [
-                5.5,
-                -0.6749999999999998
-              ],
-              [
-                6.0,
-                -1.7999999999999998
-              ]
+              [0.0, 1.8],
+              [0.5, 2.325],
+              [1.0, 2.7],
+              [1.5, 2.925],
+              [2.0, 3.0],
+              [2.5, 2.925],
+              [3.0, 2.7],
+              [3.5, 2.325],
+              [4.0, 1.8],
+              [4.5, 1.125],
+              [5.0, 0.30000000000000027],
+              [5.5, -0.6749999999999998],
+              [6.0, -1.7999999999999998]
             ]
           }
         ],
@@ -244,11 +229,7 @@
         ],
         "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
       },
-      "quizExerciseIds": [
-        751,
-        752,
-        753
-      ],
+      "quizExerciseIds": [751, 752, 753],
       "topic_id": "calculer-une-image-a-partir-de-l-expression-d-une-fonction",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -259,11 +240,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "calculer",
-        "image",
-        "partir",
-        "expression"
+      "tags": ["calculer", "image", "partir", "expression"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "calc-image-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Calculer une image avec un carré et plusieurs termes",
+          "description": "Un exemple complet sur $f(x)=x^2+3x$, pour s'entraîner sur les priorités de calcul."
+        },
+        {
+          "id": "calc-image-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Traduire une phrase en expression de fonction avant de calculer",
+          "description": "Un exercice qui combine la traduction d'un énoncé et le calcul d'une image."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Pour $f(x)=3x^2$, calcule-t-on d'abord $3x$ puis on élève au carré, ou l'inverse ?",
+          "piste": "On élève $x$ au carré en premier, puis on multiplie par $3$ : dans $3x^2$, seul $x$ est au carré."
+        }
       ]
     },
     {
@@ -329,7 +329,8 @@
           ],
           "reponse": "L'antécédent de $7$ par $f$ est $3$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'antécédent de $7$ par $f$ est $3$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-786",
@@ -352,7 +353,8 @@
           ],
           "reponse": "L'antécédent de $-5$ par $f$ est $4$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'antécédent de $-5$ par $f$ est $4$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-792",
@@ -375,7 +377,8 @@
           ],
           "reponse": "L'antécédent de $4$ par $f$ est $\\dfrac{1}{2}$ (soit $0{,}5$).",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'antécédent de $4$ par $f$ est $\\dfrac{1}{2}$ (soit $0{,}5$).",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-798",
@@ -398,7 +401,8 @@
           ],
           "reponse": "Il faut commander $7$ articles.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Il faut commander $7$ articles.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -406,10 +410,15 @@
         "la température d'un four selon le temps de chauffe",
         "le salaire selon le nombre d'heures travaillées"
       ],
-      "erreursFrequentes": [
-        "Résoudre $-2x + 3 = -5$, en faisant attention au signe du coefficient de $x$."
+      "erreursFrequentes": ["Résoudre $-2x + 3 = -5$, en faisant attention au signe du coefficient de $x$."],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Résoudre $-2x + 3 = -5$, en faisant attention au signe du coefficient de $x$.",
+          "pourquoi": "Diviser par un coefficient négatif pour isoler $x$ est une étape où le signe du résultat est facilement perdu.",
+          "comment_detecter": "En remplaçant $x$ par la valeur trouvée dans l'expression de départ, on ne retombe pas sur le résultat voulu.",
+          "comment_eviter": "Une fois $x$ isolé avec son coefficient, diviser les deux membres par ce coefficient en appliquant soigneusement la règle des signes."
+        }
       ],
-      "erreursFrequentesDetail": [],
       "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
       "aRetenir": [
         "Par définition, $3$ a pour image $f(3)$ ; comme $f$ est affine non constante, cette image n'a pas d'autre antécédent.",
@@ -421,69 +430,25 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          6
-        ],
+        "viewBox": [-1, -1, 8, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                0.0,
-                1.8
-              ],
-              [
-                0.5,
-                2.325
-              ],
-              [
-                1.0,
-                2.7
-              ],
-              [
-                1.5,
-                2.925
-              ],
-              [
-                2.0,
-                3.0
-              ],
-              [
-                2.5,
-                2.925
-              ],
-              [
-                3.0,
-                2.7
-              ],
-              [
-                3.5,
-                2.325
-              ],
-              [
-                4.0,
-                1.8
-              ],
-              [
-                4.5,
-                1.125
-              ],
-              [
-                5.0,
-                0.30000000000000027
-              ],
-              [
-                5.5,
-                -0.6749999999999998
-              ],
-              [
-                6.0,
-                -1.7999999999999998
-              ]
+              [0.0, 1.8],
+              [0.5, 2.325],
+              [1.0, 2.7],
+              [1.5, 2.925],
+              [2.0, 3.0],
+              [2.5, 2.925],
+              [3.0, 2.7],
+              [3.5, 2.325],
+              [4.0, 1.8],
+              [4.5, 1.125],
+              [5.0, 0.30000000000000027],
+              [5.5, -0.6749999999999998],
+              [6.0, -1.7999999999999998]
             ]
           }
         ],
@@ -520,11 +485,7 @@
         ],
         "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
       },
-      "quizExerciseIds": [
-        781,
-        782,
-        783
-      ],
+      "quizExerciseIds": [781, 782, 783],
       "topic_id": "determiner-un-antecedent-a-partir-de-l-expression-d-une-fonction",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -535,11 +496,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "determiner",
-        "antecedent",
-        "partir",
-        "expression"
+      "tags": ["determiner", "antecedent", "partir", "expression"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "antecedent-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Un antécédent qui n'est pas un nombre entier",
+          "description": "Un exemple complet où la solution de l'équation est une fraction, pour bien conclure même sans résultat rond."
+        },
+        {
+          "id": "antecedent-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Un problème concret ramené à la recherche d'un antécédent",
+          "description": "Un exercice qui montre comment une question de la vie courante se traduit en recherche d'antécédent."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Pour trouver l'antécédent de $7$ par $f(x)=2x+1$, quelle équation faut-il résoudre ?",
+          "piste": "L'équation $2x+1=7$ : on pose toujours $f(x)=b$ puis on résout pour $x$."
+        }
       ]
     },
     {
@@ -601,7 +581,8 @@
           ],
           "reponse": "L'image de $0$ par $f$ est $-1$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $0$ par $f$ est $-1$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-876",
@@ -620,7 +601,8 @@
           ],
           "reponse": "Les antécédents de $4$ par $f$ sont $-2$ et $2$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Les antécédents de $4$ par $f$ sont $-2$ et $2$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-882",
@@ -639,7 +621,8 @@
           ],
           "reponse": "L'image de $4$ par $f$ est $5$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $4$ par $f$ est $5$.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-888",
@@ -658,7 +641,8 @@
           ],
           "reponse": "L'image de $-2$ par cette fonction est $0$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $-2$ par cette fonction est $0$.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -702,69 +686,25 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          6
-        ],
+        "viewBox": [-1, -1, 8, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                0.0,
-                1.8
-              ],
-              [
-                0.5,
-                2.325
-              ],
-              [
-                1.0,
-                2.7
-              ],
-              [
-                1.5,
-                2.925
-              ],
-              [
-                2.0,
-                3.0
-              ],
-              [
-                2.5,
-                2.925
-              ],
-              [
-                3.0,
-                2.7
-              ],
-              [
-                3.5,
-                2.325
-              ],
-              [
-                4.0,
-                1.8
-              ],
-              [
-                4.5,
-                1.125
-              ],
-              [
-                5.0,
-                0.30000000000000027
-              ],
-              [
-                5.5,
-                -0.6749999999999998
-              ],
-              [
-                6.0,
-                -1.7999999999999998
-              ]
+              [0.0, 1.8],
+              [0.5, 2.325],
+              [1.0, 2.7],
+              [1.5, 2.925],
+              [2.0, 3.0],
+              [2.5, 2.925],
+              [3.0, 2.7],
+              [3.5, 2.325],
+              [4.0, 1.8],
+              [4.5, 1.125],
+              [5.0, 0.30000000000000027],
+              [5.5, -0.6749999999999998],
+              [6.0, -1.7999999999999998]
             ]
           }
         ],
@@ -801,11 +741,7 @@
         ],
         "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
       },
-      "quizExerciseIds": [
-        871,
-        872,
-        873
-      ],
+      "quizExerciseIds": [871, 872, 873],
       "topic_id": "lire-graphiquement-une-image-ou-un-antecedent",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -816,11 +752,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "lire",
-        "graphiquement",
-        "image",
-        "antecedent"
+      "tags": ["lire", "graphiquement", "image", "antecedent"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "lire-graph-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Lire une image à partir de l'équation d'une droite",
+          "description": "Un exemple qui combine lecture graphique et calcul à partir d'une équation de courbe."
+        },
+        {
+          "id": "lire-graph-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Lire une image sur une fonction affine à partir de points connus",
+          "description": "Un cas avec plusieurs points alignés, pour s'entraîner à repérer rapidement la bonne lecture."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Pour lire graphiquement un antécédent, part-on de l'axe des abscisses ou de celui des ordonnées ?",
+          "piste": "On part de l'axe des ordonnées (le résultat connu), puis on va horizontalement jusqu'à la courbe pour lire l'abscisse."
+        }
       ]
     },
     {
@@ -886,7 +841,8 @@
           ],
           "reponse": "$(-2\\,;\\,0)$, $(-1\\,;\\,1)$, $(0\\,;\\,2)$, $(1\\,;\\,3)$, $(2\\,;\\,4)$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $(-2\\,;\\,0)$, $(-1\\,;\\,1)$, $(0\\,;\\,2)$, $(1\\,;\\,3)$, $(2\\,;\\,4)$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-846",
@@ -909,7 +865,8 @@
           ],
           "reponse": "$(-1\\,;\\,7)$, $(0\\,;\\,5)$, $(1\\,;\\,3)$, $(2\\,;\\,1)$, $(3\\,;\\,-1)$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $(-1\\,;\\,7)$, $(0\\,;\\,5)$, $(1\\,;\\,3)$, $(2\\,;\\,1)$, $(3\\,;\\,-1)$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-852",
@@ -932,7 +889,8 @@
           ],
           "reponse": "$(-3\\,;\\,5)$, $(-2\\,;\\,0)$, $(-1\\,;\\,-3)$, $(0\\,;\\,-4)$, $(1\\,;\\,-3)$, $(2\\,;\\,0)$, $(3\\,;\\,5)$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $(-3\\,;\\,5)$, $(-2\\,;\\,0)$, $(-1\\,;\\,-3)$, $(0\\,;\\,-4)$, $(1\\,;\\,-3)$, $(2\\,;\\,0)$, $(3\\,;\\,5)$.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-858",
@@ -955,7 +913,8 @@
           ],
           "reponse": "$f(x) = 2x - 3$ et les points sont $(-1\\,;\\,-5)$, $(0{,}5\\,;\\,-2)$, $(2\\,;\\,1)$, $(3{,}5\\,;\\,4)$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 2x - 3$ et les points sont $(-1\\,;\\,-5)$, $(0{,}5\\,;\\,-2)$, $(2\\,;\\,1)$, $(3{,}5\\,;\\,4)$.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -967,7 +926,20 @@
         "Calculer $f(x)$ pour chaque abscisse, en faisant attention au coefficient négatif.",
         "Attention au signe : $-x$ change le signe de l'abscisse."
       ],
-      "erreursFrequentesDetail": [],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Calculer $f(x)$ pour chaque abscisse, en faisant attention au coefficient négatif.",
+          "pourquoi": "Un coefficient négatif devant $x$ inverse le sens de variation des images, ce qui est facile à oublier en calculant rapidement plusieurs valeurs.",
+          "comment_detecter": "Les images obtenues augmentent avec $x$ alors que le coefficient de $x$ est négatif (ou l'inverse).",
+          "comment_eviter": "Calculer soigneusement chaque image une par une, sans supposer à l'avance le sens de variation de la courbe."
+        },
+        {
+          "description": "Attention au signe : $-x$ change le signe de l'abscisse.",
+          "pourquoi": "Dans une expression comme $-x+2$, le signe moins s'applique à toute la valeur de $x$, y compris quand $x$ est déjà négatif.",
+          "comment_detecter": "Pour une abscisse négative, le résultat obtenu a le même signe que si l'abscisse était positive.",
+          "comment_eviter": "Remplacer $x$ par sa valeur entre parenthèses avant d'appliquer le signe moins, pour ne jamais se tromper."
+        }
+      ],
       "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
       "aRetenir": [
         "Calculer $g(1)$, $g(4)$ et $g(0)$, puis comparer chaque résultat à l'ordonnée du point correspondant.",
@@ -979,69 +951,25 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          6
-        ],
+        "viewBox": [-1, -1, 8, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                0.0,
-                1.8
-              ],
-              [
-                0.5,
-                2.325
-              ],
-              [
-                1.0,
-                2.7
-              ],
-              [
-                1.5,
-                2.925
-              ],
-              [
-                2.0,
-                3.0
-              ],
-              [
-                2.5,
-                2.925
-              ],
-              [
-                3.0,
-                2.7
-              ],
-              [
-                3.5,
-                2.325
-              ],
-              [
-                4.0,
-                1.8
-              ],
-              [
-                4.5,
-                1.125
-              ],
-              [
-                5.0,
-                0.30000000000000027
-              ],
-              [
-                5.5,
-                -0.6749999999999998
-              ],
-              [
-                6.0,
-                -1.7999999999999998
-              ]
+              [0.0, 1.8],
+              [0.5, 2.325],
+              [1.0, 2.7],
+              [1.5, 2.925],
+              [2.0, 3.0],
+              [2.5, 2.925],
+              [3.0, 2.7],
+              [3.5, 2.325],
+              [4.0, 1.8],
+              [4.5, 1.125],
+              [5.0, 0.30000000000000027],
+              [5.5, -0.6749999999999998],
+              [6.0, -1.7999999999999998]
             ]
           }
         ],
@@ -1078,11 +1006,7 @@
         ],
         "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
       },
-      "quizExerciseIds": [
-        841,
-        842,
-        843
-      ],
+      "quizExerciseIds": [841, 842, 843],
       "topic_id": "tracer-la-representation-graphique-d-une-fonction",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -1093,11 +1017,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "tracer",
-        "representation",
-        "graphique",
-        "fonction"
+      "tags": ["tracer", "representation", "graphique", "fonction"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "tracer-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Une courbe en forme de parabole",
+          "description": "Un exemple complet sur $f(x)=x^2-4$, pour voir qu'une courbe peut être arrondie, pas seulement une droite."
+        },
+        {
+          "id": "tracer-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Calculer des points avec des abscisses non entières",
+          "description": "Un exemple qui montre l'intérêt de calculer des abscisses décimales pour affiner le tracé."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Si $f(x)=x^2$, faut-il relier les points de la courbe par des segments droits ?",
+          "piste": "Non : $f$ n'est pas affine, la courbe est arrondie (une parabole), pas une ligne brisée."
+        }
       ]
     },
     {
@@ -1159,7 +1102,8 @@
           ],
           "reponse": "L'image de $2$ par $f$ est $4$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $2$ par $f$ est $4$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-816",
@@ -1178,7 +1122,8 @@
           ],
           "reponse": "L'image de $-2$ par $k$ est $3$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $-2$ par $k$ est $3$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-822",
@@ -1197,7 +1142,8 @@
           ],
           "reponse": "L'image de $1$ par $p$ est $-3$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : L'image de $1$ par $p$ est $-3$.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-828",
@@ -1216,7 +1162,8 @@
           ],
           "reponse": "Le prix payé pour $3$ articles est $12$ euros.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Le prix payé pour $3$ articles est $12$ euros.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -1260,69 +1207,25 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          6
-        ],
+        "viewBox": [-1, -1, 8, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                0.0,
-                1.8
-              ],
-              [
-                0.5,
-                2.325
-              ],
-              [
-                1.0,
-                2.7
-              ],
-              [
-                1.5,
-                2.925
-              ],
-              [
-                2.0,
-                3.0
-              ],
-              [
-                2.5,
-                2.925
-              ],
-              [
-                3.0,
-                2.7
-              ],
-              [
-                3.5,
-                2.325
-              ],
-              [
-                4.0,
-                1.8
-              ],
-              [
-                4.5,
-                1.125
-              ],
-              [
-                5.0,
-                0.30000000000000027
-              ],
-              [
-                5.5,
-                -0.6749999999999998
-              ],
-              [
-                6.0,
-                -1.7999999999999998
-              ]
+              [0.0, 1.8],
+              [0.5, 2.325],
+              [1.0, 2.7],
+              [1.5, 2.925],
+              [2.0, 3.0],
+              [2.5, 2.925],
+              [3.0, 2.7],
+              [3.5, 2.325],
+              [4.0, 1.8],
+              [4.5, 1.125],
+              [5.0, 0.30000000000000027],
+              [5.5, -0.6749999999999998],
+              [6.0, -1.7999999999999998]
             ]
           }
         ],
@@ -1359,11 +1262,7 @@
         ],
         "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
       },
-      "quizExerciseIds": [
-        811,
-        812,
-        813
-      ],
+      "quizExerciseIds": [811, 812, 813],
       "topic_id": "utiliser-un-tableau-de-valeurs-d-une-fonction",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -1374,11 +1273,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "utiliser",
-        "tableau",
-        "valeurs",
-        "fonction"
+      "tags": ["utiliser", "tableau", "valeurs", "fonction"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "tableau-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Lire une image dans un tableau symétrique",
+          "description": "Un exemple complet avec des images qui se répètent, pour bien choisir la bonne colonne."
+        },
+        {
+          "id": "tableau-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Lire un prix dans un tableau de proportionnalité",
+          "description": "Une application concrète d'un tableau de valeurs à une situation de prix."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Si $12$ n'apparaît pas dans la ligne des $f(x)$ d'un tableau, peut-on dire que $12$ n'a pas d'antécédent par $f$ ?",
+          "piste": "Non : le tableau ne montre qu'une sélection de valeurs, $12$ peut très bien avoir un antécédent non affiché."
+        }
       ]
     },
     {
@@ -1440,7 +1358,8 @@
           ],
           "reponse": "$7$ est l'image de $3$ par $f$ ; $3$ est un antécédent de $7$ par $f$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $7$ est l'image de $3$ par $f$ ; $3$ est un antécédent de $7$ par $f$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-726",
@@ -1463,7 +1382,8 @@
           ],
           "reponse": "Le nombre $1$ possède (au moins) deux antécédents par $f$ : $1$ et $-1$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Le nombre $1$ possède (au moins) deux antécédents par $f$ : $1$ et $-1$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-732",
@@ -1482,7 +1402,8 @@
           ],
           "reponse": "$9$ a deux antécédents par $f$ : $3$ et $-3$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : $9$ a deux antécédents par $f$ : $3$ et $-3$.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-738",
@@ -1501,7 +1422,8 @@
           ],
           "reponse": "Les antécédents de $3$ par $f$ sont $1$ et $2$ ; l'image de $3$ par $f$ est $8$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Les antécédents de $3$ par $f$ sont $1$ et $2$ ; l'image de $3$ par $f$ est $8$.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -1545,69 +1467,25 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          6
-        ],
+        "viewBox": [-1, -1, 8, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                0.0,
-                1.8
-              ],
-              [
-                0.5,
-                2.325
-              ],
-              [
-                1.0,
-                2.7
-              ],
-              [
-                1.5,
-                2.925
-              ],
-              [
-                2.0,
-                3.0
-              ],
-              [
-                2.5,
-                2.925
-              ],
-              [
-                3.0,
-                2.7
-              ],
-              [
-                3.5,
-                2.325
-              ],
-              [
-                4.0,
-                1.8
-              ],
-              [
-                4.5,
-                1.125
-              ],
-              [
-                5.0,
-                0.30000000000000027
-              ],
-              [
-                5.5,
-                -0.6749999999999998
-              ],
-              [
-                6.0,
-                -1.7999999999999998
-              ]
+              [0.0, 1.8],
+              [0.5, 2.325],
+              [1.0, 2.7],
+              [1.5, 2.925],
+              [2.0, 3.0],
+              [2.5, 2.925],
+              [3.0, 2.7],
+              [3.5, 2.325],
+              [4.0, 1.8],
+              [4.5, 1.125],
+              [5.0, 0.30000000000000027],
+              [5.5, -0.6749999999999998],
+              [6.0, -1.7999999999999998]
             ]
           }
         ],
@@ -1644,11 +1522,7 @@
         ],
         "alt": "Le point M(2 ; 3) de la courbe : 3 est l'image de 2, 2 est un antécédent de 3."
       },
-      "quizExerciseIds": [
-        721,
-        722,
-        723
-      ],
+      "quizExerciseIds": [721, 722, 723],
       "topic_id": "vocabulaire-d-une-fonction-:-image-et-antecedent",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -1659,11 +1533,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "vocabulaire",
-        "fonction",
-        "image",
-        "antecedent"
+      "tags": ["vocabulaire", "fonction", "image", "antecedent"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "vocab-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Un nombre qui a deux antécédents",
+          "description": "Un exemple complet avec $f(x)=x^2$, pour bien comprendre pourquoi un antécédent n'est pas toujours unique."
+        },
+        {
+          "id": "vocab-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Distinguer image et antécédent d'un même nombre",
+          "description": "Un exercice qui demande à la fois les antécédents ET l'image d'un même nombre, pour bien séparer les deux notions."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Si $f(5)=2$, lequel de $5$ et $2$ est l'antécédent, lequel est l'image ?",
+          "piste": "$5$ (à l'intérieur des parenthèses) est l'antécédent ; $2$ (le résultat) est l'image."
+        }
       ]
     }
   ]

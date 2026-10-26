@@ -99,6 +99,30 @@ describe("admin-api-keys.js — renderApiKeysTable", () => {
     expect(container.textContent).toContain("Dernière erreur : Clé invalide (401)");
   });
 
+  // Audit admin (2026-10-20), point 6 : success_count est désormais calculé
+  // par le backend (admin_ai_service.py::_serialize_api_key) — utilisé tel
+  // quel ici, jamais recalculé, pour qu'une seule formule existe.
+  it("colonne Succès : utilise key.success_count du backend quand présent", () => {
+    const container = document.createElement("div");
+    // request_count - failure_count vaudrait 95 ; success_count volontairement
+    // différent ici pour prouver que c'est bien LUI qui est affiché, pas un
+    // recalcul local.
+    renderApiKeysTable(container, [apiKey({ success_count: 97 })], { onChanged: () => {} });
+    const row = container.querySelector("tbody tr");
+    const cells = [...row.querySelectorAll("td")].map((td) => td.textContent);
+    expect(cells).toContain("97");
+  });
+
+  it("colonne Succès : repli sur request_count - failure_count si success_count absent (réponse backend plus ancienne)", () => {
+    const container = document.createElement("div");
+    const key = apiKey();
+    delete key.success_count;
+    renderApiKeysTable(container, [key], { onChanged: () => {} });
+    const row = container.querySelector("tbody tr");
+    const cells = [...row.querySelectorAll("td")].map((td) => td.textContent);
+    expect(cells).toContain("95");
+  });
+
   it("le bouton Tester appelle POST /api/admin/ai/keys/:id/test puis onChanged", async () => {
     document.cookie = "nm_csrf=test-token";
     const calls = [];

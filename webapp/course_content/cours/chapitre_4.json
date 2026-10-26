@@ -8,11 +8,11 @@
       "title": "La géométrie sans repère",
       "intro": "Dans cette leçon, tu vas apprendre une propriété du triangle : la droite des milieux.",
       "objectif": "À la fin de ce cours, tu sauras utiliser la droite des milieux dans un triangle.",
-      "definition": "Le milieu d'un segment $[AB]$ est le point situé exactement à mi-chemin entre $A$ et $B$. Dans un triangle, la droite qui relie les milieux de deux côtés est appelée la droite des milieux.",
+      "definition": "Le milieu d'un segment $[AB]$ est le point situé exactement à mi-chemin entre $A$ et $B$. Dans un triangle, la droite qui relie les points situés à mi-chemin de deux côtés est appelée la droite des milieux.",
       "reglesImportantes": [
-        "La droite des milieux est parallèle au troisième côté.",
-        "Sa longueur vaut la moitié du troisième côté.",
-        "Le milieu d'un segment est à égale distance des deux extrémités."
+        "La droite des milieux est parallèle au troisième côté, et sa longueur vaut la moitié du troisième côté.",
+        "Réciproquement : si une droite passe par le milieu d'un côté et est parallèle à un deuxième côté, alors elle coupe le troisième côté en son milieu.",
+        "Le milieu d'un segment se situe exactement à mi-chemin entre ses deux extrémités."
       ],
       "methode": {
         "titre": "Comment utiliser la droite des milieux",
@@ -75,25 +75,45 @@
           ],
           "reponse": "$IJ = 4$ cm",
           "id": "geometrie-sans-repere-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "geometrie-sans-repere-exemple-reciproque",
+          "titre": "Exemple 2 — Utiliser la réciproque",
+          "enonce": "$ABC$ est un triangle. $I$ est le milieu de $[AB]$. La droite passant par $I$ et parallèle à $(BC)$ coupe $[AC]$ en $J$. Que peux-tu dire de $J$ ?",
+          "calcul": [
+            {
+              "expr": "I \\text{ milieu de } [AB]",
+              "texte": "On vérifie l'hypothèse : $I$ est bien un milieu."
+            },
+            {
+              "expr": "(IJ) \\parallel (BC)",
+              "texte": "La droite passe par $I$ et est parallèle au côté $(BC)$."
+            },
+            {
+              "expr": "\\text{Réciproque de la droite des milieux}",
+              "texte": "Les deux conditions de la réciproque sont réunies."
+            }
+          ],
+          "reponse": "$J$ est le milieu de $[AC]$.",
+          "difficulte": "moyen",
+          "analyse": "Contrairement au théorème direct, on ne connaissait pas $J$ comme un milieu au départ : c'est la réciproque qui permet de le PROUVER.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Utiliser la règle avec des points qui ne sont pas des milieux.",
-        "Oublier de diviser par 2 la longueur du troisième côté."
+        "Oublier de diviser par 2 la longueur du troisième côté.",
+        "Confondre le théorème direct (calculer une longueur) et sa réciproque (prouver un milieu) : ils ne servent pas à la même chose."
       ],
       "astuce": "Dessine toujours la figure : ça t'aide à voir quel côté est parallèle et lequel il faut diviser par 2.",
       "aRetenir": [
-        "Droite des milieux : parallèle au 3ᵉ côté",
-        "Sa longueur = moitié du 3ᵉ côté"
+        "Droite des milieux : parallèle au 3ᵉ côté, longueur = moitié du 3ᵉ côté.",
+        "Réciproque : un milieu + un parallélisme $\\Rightarrow$ un second milieu (mais aucune longueur)."
       ],
       "figure": {
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          8
-        ],
+        "viewBox": [-1, -1, 8, 8],
         "grid": false,
         "axes": false,
         "alt": "Triangle ABC avec la droite des milieux IJ parallèle à BC",
@@ -126,11 +146,7 @@
         ],
         "polygons": [
           {
-            "points": [
-              "A",
-              "B",
-              "C"
-            ]
+            "points": ["A", "B", "C"]
           }
         ],
         "segments": [
@@ -139,29 +155,39 @@
             "to": "J",
             "dashed": true
           }
-        ]
+        ],
+        "explication": {
+          "comprendre": "I et J sont les milieux de [AB] et [AC] : le segment [IJ] est alors parallèle à [BC] et mesure sa moitié.",
+          "etapes": [
+            {
+              "titre": "Les deux milieux I et J",
+              "texte": "Chacun à mi-chemin sur son côté."
+            },
+            {
+              "titre": "Le segment [IJ]",
+              "texte": "Parallèle à [BC], et de longueur moitié."
+            }
+          ],
+          "resume": "La droite des milieux relie deux milieux de côtés et reproduit le troisième côté à l'échelle 1/2."
+        }
       },
-      "quizExerciseIds": [
-        53,
-        54,
-        55
-      ],
+      "quizExerciseIds": [53, 54, 55],
       "schemaVersion": 2,
       "topic_id": "geometrie-sans-repere",
       "definitions": {
-        "lycee": "Le milieu d'un segment $[AB]$ est le point situé exactement à mi-chemin entre $A$ et $B$. Dans un triangle, la droite qui relie les milieux de deux côtés est appelée la droite des milieux.",
+        "lycee": "Le milieu d'un segment $[AB]$ est le point situé exactement à mi-chemin entre $A$ et $B$. Dans un triangle, la droite qui relie les points situés à mi-chemin de deux côtés est appelée la droite des milieux.",
         "college": "",
         "expert": ""
       },
       "formules": [
         {
           "id": "geometrie-sans-repere-regle-1",
-          "nom": "",
+          "nom": "Théorème de la droite des milieux",
           "expression": "La droite des milieux est parallèle au troisième côté.",
-          "quand_utiliser": "",
+          "quand_utiliser": "Pour calculer une longueur ou prouver un parallélisme, dès que deux milieux sont connus.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Appliquer la règle à des points qui ne sont pas réellement des milieux.",
+          "astuce": "Vérifie toujours que les deux points sont bien les MILIEUX de deux côtés avant d'appliquer le théorème."
         },
         {
           "id": "geometrie-sans-repere-regle-2",
@@ -180,6 +206,15 @@
           "quand_ne_pas_utiliser": "",
           "erreur_frequente": "",
           "astuce": ""
+        },
+        {
+          "id": "geometrie-sans-repere-regle-reciproque",
+          "nom": "Réciproque de la droite des milieux",
+          "expression": "Droite par un milieu, parallèle à un côté $\\Rightarrow$ elle coupe le 3e côté en son milieu.",
+          "quand_utiliser": "Pour PROUVER qu'un point est un milieu, sans le mesurer.",
+          "quand_ne_pas_utiliser": "Elle ne donne pas la longueur du segment (contrairement au théorème direct).",
+          "erreur_frequente": "Utiliser la réciproque pour calculer une longueur : elle ne prouve qu'un milieu, rien de plus.",
+          "astuce": "Théorème direct : tu CONNAIS déjà les deux milieux. Réciproque : tu veux PROUVER qu'un point est un milieu."
         }
       ],
       "erreursFrequentesDetail": [
@@ -194,20 +229,46 @@
           "pourquoi": "",
           "comment_detecter": "",
           "comment_eviter": ""
+        },
+        {
+          "description": "Confondre le théorème direct (calculer une longueur) et sa réciproque (prouver un milieu) : ils ne servent pas à la même chose.",
+          "pourquoi": "Les deux énoncés se ressemblent beaucoup et utilisent les mêmes mots (milieu, parallèle, moitié).",
+          "comment_detecter": "On essaie de calculer une longueur avec la réciproque, ou de prouver un milieu avec le théorème direct.",
+          "comment_eviter": "Théorème direct : on part de DEUX milieux connus. Réciproque : on part d'UN milieu et d'un parallélisme, pour en déduire un second milieu."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Géométrie sans repère"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras utiliser la droite des milieux dans un triangle."
-      ],
+      "synonymes": ["Géométrie sans repère"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras utiliser la droite des milieux dans un triangle."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Ce théorème permet de calculer une longueur ou de prouver un parallélisme dans un triangle, sans avoir besoin de mesurer directement ni de connaître les coordonnées des points.",
+      "intuition": "En reliant les milieux de deux côtés d'un triangle, on obtient un segment qui « réduit » le triangle à une échelle deux fois plus petite : c'est pour cela que la droite des milieux est parallèle au troisième côté et mesure exactement sa moitié.",
+      "apercus": [
+        {
+          "id": "apercu-milieux-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une application combinant le théorème direct et sa réciproque dans la même figure."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert ce théorème si on ne peut pas mesurer directement ?",
+          "piste": "Il permet de calculer une longueur ou de prouver un parallélisme sans mesure ni coordonnées."
+        },
+        {
+          "apres": "exemple:geometrie-sans-repere-exemple-reciproque",
+          "question": "Dans l'exemple 2, connaissait-on déjà J comme un milieu ?",
+          "piste": "Non : c'est justement ce qu'on cherche à prouver, grâce à la réciproque du théorème."
+        }
+      ]
     },
     {
       "id": "translations-et-vecteurs-associes",
@@ -281,25 +342,42 @@
           ],
           "reponse": "$\\vec{AB} = -\\vec{BA}$",
           "id": "translations-et-vecteurs-associes-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "translations-et-vecteurs-associes-exemple-parallelogramme",
+          "titre": "Exemple 2 — Construire un parallélogramme",
+          "enonce": "$A$, $B$, $C$ sont trois points non alignés. On définit $D$ par $\\vec{AD} = \\vec{BC}$. Montre que $ABCD$ est un parallélogramme.",
+          "calcul": [
+            {
+              "expr": "\\vec{AD} = \\vec{BC}",
+              "texte": "$D$ est l'image de $A$ par la translation de vecteur $\\vec{BC}$."
+            },
+            {
+              "expr": "(AD) \\parallel (BC) \\text{ et } AD = BC",
+              "texte": "Une translation conserve les longueurs : les côtés $[AD]$ et $[BC]$ sont donc parallèles et de même longueur."
+            }
+          ],
+          "reponse": "$ABCD$ est un parallélogramme (deux côtés opposés parallèles et de même longueur).",
+          "difficulte": "difficile",
+          "analyse": "Construire un point grâce à une égalité de vecteurs est la méthode de référence pour construire un parallélogramme sans mesurer.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Confondre $\\vec{AB}$ et $\\vec{BA}$ : ils n'ont pas le même sens.",
-        "Oublier qu'un vecteur a une direction ET un sens, pas seulement une longueur."
+        "Oublier qu'un vecteur a une direction ET un sens, pas seulement une longueur.",
+        "Croire qu'une translation change la forme ou la taille d'une figure."
       ],
       "astuce": "Pense à un vecteur comme une flèche qui indique \"va de ce point vers cet autre point\".",
       "aRetenir": [
-        "$\\vec{AB} = -\\vec{BA}$",
-        "Une translation garde les longueurs et les angles"
+        "$\\vec{AB} = -\\vec{BA}$ : même longueur, sens opposé.",
+        "Une translation garde les longueurs et les angles.",
+        "$\\vec{AD}=\\vec{BC}$ permet de construire un parallélogramme $ABCD$."
       ],
       "figure": {
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          8
-        ],
+        "viewBox": [-1, -1, 8, 8],
         "grid": false,
         "axes": false,
         "alt": "Vecteur AB représentant une translation",
@@ -321,13 +399,23 @@
             "to": "B",
             "label": "u"
           }
-        ]
+        ],
+        "explication": {
+          "comprendre": "Le vecteur u relie A à B : il indique la direction, le sens et la longueur du déplacement.",
+          "etapes": [
+            {
+              "titre": "Origine A",
+              "texte": "Point de départ du déplacement."
+            },
+            {
+              "titre": "Extrémité B",
+              "texte": "Point d'arrivée."
+            }
+          ],
+          "resume": "La flèche représente le vecteur AB, utilisé pour décrire une translation."
+        }
       },
-      "quizExerciseIds": [
-        78,
-        79,
-        80
-      ],
+      "quizExerciseIds": [78, 79, 80],
       "schemaVersion": 2,
       "topic_id": "translations-et-vecteurs-associes",
       "definitions": {
@@ -376,20 +464,46 @@
           "pourquoi": "",
           "comment_detecter": "",
           "comment_eviter": ""
+        },
+        {
+          "description": "Croire qu'une translation change la forme ou la taille d'une figure.",
+          "pourquoi": "Le mot « déplacement » évoque parfois, à tort, une transformation qui modifierait la figure.",
+          "comment_detecter": "Les longueurs ou les angles annoncés après la translation sont différents de ceux de départ.",
+          "comment_eviter": "Se souvenir qu'une translation déplace TOUS les points avec le même vecteur, donc conserve exactement longueurs et angles."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Translations et vecteurs associés"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras utiliser un vecteur pour décrire un déplacement."
-      ],
+      "synonymes": ["Translations et vecteurs associés"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras utiliser un vecteur pour décrire un déplacement."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Les vecteurs permettent de décrire un déplacement de façon précise (direction, sens, longueur) : c'est ce qui sert, par exemple, à construire le quatrième sommet d'un parallélogramme sans mesurer.",
+      "intuition": "Un vecteur, c'est une flèche qui résume un déplacement : peu importe où elle est dessinée dans le plan, deux flèches de même longueur, même direction et même sens représentent le MÊME vecteur.",
+      "apercus": [
+        {
+          "id": "apercu-translations-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Construire un parallélogramme à partir d'une égalité de vecteurs."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert concrètement un vecteur ?",
+          "piste": "À décrire précisément un déplacement : sa direction, son sens et sa longueur."
+        },
+        {
+          "apres": "exemple:translations-et-vecteurs-associes-exemple-parallelogramme",
+          "question": "Pourquoi AD=BC permet-il de construire un parallélogramme ?",
+          "piste": "Parce qu'une translation conserve les longueurs : AD et BC sont donc parallèles et de même longueur, ce qui caractérise un parallélogramme."
+        }
+      ]
     },
     {
       "id": "somme-et-difference-de-deux-vecteurs",
@@ -459,25 +573,46 @@
           ],
           "reponse": "$\\vec{AD}$",
           "id": "somme-et-difference-de-deux-vecteurs-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "somme-et-difference-de-deux-vecteurs-exemple-soustraction",
+          "titre": "Exemple 2 — Soustraire deux vecteurs",
+          "enonce": "$A$, $B$, $C$ sont trois points. Simplifie $\\vec{AB} - \\vec{AC}$.",
+          "calcul": [
+            {
+              "expr": "\\vec{AB} - \\vec{AC} = \\vec{AB} + (-\\vec{AC})",
+              "texte": "On transforme la soustraction en addition de l'opposé."
+            },
+            {
+              "expr": "-\\vec{AC} = \\vec{CA}",
+              "texte": "L'opposé de $\\vec{AC}$ est $\\vec{CA}$ (même longueur, sens opposé)."
+            },
+            {
+              "expr": "\\vec{AB} + \\vec{CA} = \\vec{CA}+\\vec{AB} = \\vec{CB}",
+              "texte": "On réordonne pour faire apparaître la lettre commune $A$, puis on applique Chasles."
+            }
+          ],
+          "reponse": "$\\vec{AB} - \\vec{AC} = \\vec{CB}$",
+          "difficulte": "moyen",
+          "analyse": "Une astuce très utile : $\\vec{AB}-\\vec{AC}=\\vec{CB}$ (on « retourne » vers la première lettre pour aller vers la seconde).",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Essayer d'appliquer Chasles sans lettre commune au milieu.",
-        "Oublier le signe moins quand on soustrait un vecteur."
+        "Oublier le signe moins quand on soustrait un vecteur.",
+        "Essayer d'appliquer Chasles directement à une soustraction sans la transformer d'abord en addition."
       ],
-      "astuce": "Cherche toujours la lettre qui se répète pour savoir où appliquer Chasles.",
+      "astuce": "Cherche toujours la lettre qui se répète pour savoir où appliquer Chasles ; pour une soustraction, transforme-la d'abord en addition.",
       "aRetenir": [
-        "$\\vec{AB}+\\vec{BC}=\\vec{AC}$",
-        "$\\vec u - \\vec v = \\vec u + (-\\vec v)$"
+        "$\\vec{AB}+\\vec{BC}=\\vec{AC}$ (relation de Chasles).",
+        "$\\vec u - \\vec v = \\vec u + (-\\vec v)$.",
+        "$\\vec{AB}-\\vec{AC}=\\vec{CB}$ : une astuce fréquente à retenir."
       ],
       "figure": {
-        "viewBox": [
-          -1,
-          -1,
-          9,
-          7
-        ],
+        "viewBox": [-1, -1, 9, 7],
         "grid": false,
         "axes": false,
         "alt": "Chasles : AB plus BC égale AC",
@@ -514,13 +649,23 @@
             "to": "C",
             "label": "AC"
           }
-        ]
+        ],
+        "explication": {
+          "comprendre": "Enchaîner AB puis BC revient au même que d'aller directement de A à C.",
+          "etapes": [
+            {
+              "titre": "Premier déplacement",
+              "texte": "De A vers B."
+            },
+            {
+              "titre": "Second déplacement",
+              "texte": "De B vers C."
+            }
+          ],
+          "resume": "AB + BC = AC : la relation de Chasles."
+        }
       },
-      "quizExerciseIds": [
-        67,
-        68,
-        69
-      ],
+      "quizExerciseIds": [67, 68, 69],
       "schemaVersion": 2,
       "topic_id": "somme-et-difference-de-deux-vecteurs",
       "definitions": {
@@ -569,20 +714,46 @@
           "pourquoi": "",
           "comment_detecter": "",
           "comment_eviter": ""
+        },
+        {
+          "description": "Essayer d'appliquer Chasles directement à une soustraction sans la transformer d'abord en addition.",
+          "pourquoi": "Chasles ne s'applique qu'à une SOMME avec une lettre commune au milieu ; une soustraction n'a pas cette forme.",
+          "comment_detecter": "La lettre commune ne se trouve pas au milieu de l'écriture, et le calcul semble bloqué.",
+          "comment_eviter": "Toujours transformer $\\vec u - \\vec v$ en $\\vec u + (-\\vec v)$ avant de chercher une lettre commune pour Chasles."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Somme et différence de deux vecteurs"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras utiliser la relation de Chasles."
-      ],
+      "synonymes": ["Somme et différence de deux vecteurs"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras utiliser la relation de Chasles."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Additionner des vecteurs permet de combiner plusieurs déplacements successifs en un seul : c'est l'outil de base pour relier des points entre eux sans passer par des coordonnées.",
+      "intuition": "Enchaîner $\\vec{AB}$ puis $\\vec{BC}$ revient à se déplacer directement de $A$ à $C$ : la relation de Chasles ne fait que traduire cette évidence physique en écriture mathématique.",
+      "apercus": [
+        {
+          "id": "apercu-chasles-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une chaîne de 4 vecteurs à simplifier en appliquant Chasles plusieurs fois."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert la relation de Chasles concrètement ?",
+          "piste": "À combiner plusieurs déplacements successifs en un seul vecteur, sans avoir besoin de coordonnées."
+        },
+        {
+          "apres": "exemple:somme-et-difference-de-deux-vecteurs-exemple-soustraction",
+          "question": "Comment transforme-t-on une soustraction de vecteurs pour appliquer Chasles ?",
+          "piste": "On l'écrit comme une addition de l'opposé : u - v = u + (-v), avant de chercher la lettre commune."
+        }
+      ]
     },
     {
       "id": "produit-dun-vecteur",
@@ -652,25 +823,46 @@
           ],
           "reponse": "$\\vec{AI} = \\dfrac{1}{2}\\vec{AB}$",
           "id": "produit-dun-vecteur-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "produit-dun-vecteur-exemple-negatif",
+          "titre": "Exemple 2 — Coefficient négatif",
+          "enonce": "$\\vec{u}$ est un vecteur. Exprime $\\vec{v} = -2\\vec{u}$ : que peux-tu dire de sa longueur et de son sens ?",
+          "calcul": [
+            {
+              "expr": "k=-2",
+              "texte": "Le coefficient est négatif."
+            },
+            {
+              "expr": "\\|\\vec v\\| = |-2|\\times\\|\\vec u\\| = 2\\|\\vec u\\|",
+              "texte": "La longueur est multipliée par la VALEUR ABSOLUE de $k$, donc par $2$."
+            },
+            {
+              "expr": "\\text{sens de } \\vec v \\text{ : opposé à } \\vec u",
+              "texte": "Comme $k<0$, le sens s'inverse par rapport à $\\vec u$."
+            }
+          ],
+          "reponse": "$\\vec v$ est deux fois plus long que $\\vec u$, mais de sens opposé.",
+          "difficulte": "moyen",
+          "analyse": "La longueur dépend de $|k|$ (toujours positive), mais le sens dépend du SIGNE de $k$ : les deux informations sont indépendantes.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Oublier que $k$ négatif inverse le sens du vecteur.",
-        "Confondre la longueur (toujours positive) et le nombre $k$ (qui peut être négatif)."
+        "Confondre la longueur (toujours positive) et le nombre $k$ (qui peut être négatif).",
+        "Dire que la longueur de kU est \"k fois\" celle de u, en oubliant la valeur absolue si k est négatif."
       ],
       "astuce": "Dessine le vecteur de départ, puis imagine-le plus long, plus court, ou retourné selon $k$.",
       "aRetenir": [
-        "$k\\vec u$ : même direction, longueur $\\times |k|$",
-        "$k < 0$ : le sens s'inverse"
+        "$k\\vec u$ : même direction, longueur multipliée par $|k|$.",
+        "$k>0$ : même sens. $k<0$ : sens inversé.",
+        "$0\\times\\vec u = \\vec 0$ (le vecteur nul)."
       ],
       "figure": {
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          5
-        ],
+        "viewBox": [-1, -1, 8, 5],
         "grid": false,
         "axes": false,
         "alt": "Vecteur u et le vecteur 3u, trois fois plus long",
@@ -702,13 +894,23 @@
             "to": "C",
             "label": "3u"
           }
-        ]
+        ],
+        "explication": {
+          "comprendre": "Le vecteur 3u a la même direction et le même sens que u, mais une longueur 3 fois plus grande.",
+          "etapes": [
+            {
+              "titre": "Le vecteur u",
+              "texte": "Le vecteur de départ."
+            },
+            {
+              "titre": "Le vecteur 3u",
+              "texte": "Même direction, même sens, 3 fois plus long."
+            }
+          ],
+          "resume": "Multiplier par un nombre positif garde le sens et change seulement la longueur."
+        }
       },
-      "quizExerciseIds": [
-        50,
-        51,
-        60
-      ],
+      "quizExerciseIds": [50, 51, 60],
       "schemaVersion": 2,
       "topic_id": "produit-dun-vecteur",
       "definitions": {
@@ -757,20 +959,46 @@
           "pourquoi": "",
           "comment_detecter": "",
           "comment_eviter": ""
+        },
+        {
+          "description": "Dire que la longueur de kU est \"k fois\" celle de u, en oubliant la valeur absolue si k est négatif.",
+          "pourquoi": "Une longueur ne peut jamais être négative, mais le réflexe de calcul « $k\\times$ longueur » ne le rappelle pas automatiquement.",
+          "comment_detecter": "Une longueur annoncée est négative.",
+          "comment_eviter": "Toujours multiplier la longueur par $|k|$ (la valeur absolue de $k$), jamais par $k$ directement."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Produit d'un vecteur"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras comprendre ce que devient un vecteur multiplié."
-      ],
+      "synonymes": ["Produit d'un vecteur"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras comprendre ce que devient un vecteur multiplié."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Multiplier un vecteur par un nombre permet d'exprimer des longueurs proportionnelles sans mesurer : par exemple, placer un point qui partage un segment dans une proportion donnée.",
+      "intuition": "Multiplier un vecteur $\\vec u$ par $k$, c'est l'étirer (ou le rétrécir) $|k|$ fois ; le SIGNE de $k$ décide juste si on garde le même sens ($k>0$) ou si on le retourne complètement ($k<0$).",
+      "apercus": [
+        {
+          "id": "apercu-produitvecteur-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Exprimer un vecteur comme combinaison de deux autres à l'aide de coefficients."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple où multiplier un vecteur par un nombre est utile.",
+          "piste": "Pour placer un point qui partage un segment selon une proportion donnée, sans mesurer."
+        },
+        {
+          "apres": "exemple:produit-dun-vecteur-exemple-negatif",
+          "question": "Pour -2u, la longueur est-elle multipliée par -2 ou par 2 ?",
+          "piste": "Par 2 (la valeur absolue de -2) : une longueur n'est jamais négative."
+        }
+      ]
     },
     {
       "id": "condition-de-colinearite",
@@ -840,25 +1068,46 @@
           ],
           "reponse": "$\\vec{u}$ et $\\vec{v}$ sont colinéaires",
           "id": "condition-de-colinearite-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "condition-de-colinearite-exemple-alignement-milieux",
+          "titre": "Exemple 2 — Prouver un parallélisme par le calcul vectoriel",
+          "enonce": "$ABC$ est un triangle. $I$ est le milieu de $[AB]$ et $J$ le milieu de $[AC]$. Montre, par le calcul vectoriel, que $(IJ)$ et $(BC)$ sont parallèles.",
+          "calcul": [
+            {
+              "expr": "\\vec{AI} = \\dfrac12\\vec{AB} \\text{ et } \\vec{AJ} = \\dfrac12\\vec{AC}",
+              "texte": "$I$ et $J$ sont les milieux de $[AB]$ et $[AC]$."
+            },
+            {
+              "expr": "\\vec{IJ} = \\vec{AJ}-\\vec{AI} = \\dfrac12\\vec{AC}-\\dfrac12\\vec{AB} = \\dfrac12(\\vec{AC}-\\vec{AB})",
+              "texte": "On exprime $\\vec{IJ}$ à l'aide de Chasles, puis on factorise par $\\dfrac12$."
+            },
+            {
+              "expr": "\\vec{AC}-\\vec{AB} = \\vec{BC} \\quad\\text{donc}\\quad \\vec{IJ} = \\dfrac12\\vec{BC}",
+              "texte": "On reconnaît $\\vec{AC}-\\vec{AB}=\\vec{BC}$ (vu dans la notion précédente)."
+            }
+          ],
+          "reponse": "$\\vec{IJ} = \\dfrac12\\vec{BC}$ : les vecteurs sont colinéaires, donc $(IJ) \\parallel (BC)$.",
+          "difficulte": "difficile",
+          "analyse": "Cette démonstration retrouve, par le pur calcul vectoriel (sans coordonnées), le théorème de la droite des milieux vu en début de chapitre.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Oublier de vérifier le sens en plus de la direction.",
-        "Confondre \"colinéaires\" et \"égaux\" : deux vecteurs colinéaires n'ont pas forcément la même longueur."
+        "Confondre \"colinéaires\" et \"égaux\" : deux vecteurs colinéaires n'ont pas forcément la même longueur.",
+        "Conclure à un alignement ou un parallélisme sans avoir clairement exprimé un vecteur comme multiple de l'autre."
       ],
       "astuce": "Deux vecteurs colinéaires, c'est comme deux flèches parallèles, même si elles n'ont pas la même taille.",
       "aRetenir": [
-        "Colinéaires : même direction",
-        "Alignement de points = vecteurs colinéaires"
+        "$\\vec u$ et $\\vec v$ colinéaires $\\iff \\vec v=k\\vec u$ pour un certain nombre $k$.",
+        "Alignement de 3 points $\\iff$ les vecteurs qu'ils forment sont colinéaires.",
+        "Parallélisme de 2 droites $\\iff$ leurs vecteurs directeurs sont colinéaires."
       ],
       "figure": {
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          6
-        ],
+        "viewBox": [-1, -1, 8, 6],
         "grid": false,
         "axes": false,
         "alt": "Deux vecteurs colinéaires, de même direction",
@@ -893,11 +1142,23 @@
             "from": "C",
             "to": "D"
           }
-        ]
+        ],
+        "explication": {
+          "comprendre": "AB et CD pointent dans la même direction : l'un est un multiple de l'autre, ils sont colinéaires.",
+          "etapes": [
+            {
+              "titre": "Le premier vecteur",
+              "texte": "AB, sens et direction de référence."
+            },
+            {
+              "titre": "Le second vecteur",
+              "texte": "CD, même direction que AB."
+            }
+          ],
+          "resume": "Deux vecteurs colinéaires ont la même direction, quelle que soit leur longueur ou leur sens."
+        }
       },
-      "quizExerciseIds": [
-        52
-      ],
+      "quizExerciseIds": [52],
       "schemaVersion": 2,
       "topic_id": "condition-de-colinearite",
       "definitions": {
@@ -946,20 +1207,46 @@
           "pourquoi": "",
           "comment_detecter": "",
           "comment_eviter": ""
+        },
+        {
+          "description": "Conclure à un alignement ou un parallélisme sans avoir clairement exprimé un vecteur comme multiple de l'autre.",
+          "pourquoi": "Deux vecteurs peuvent sembler « dans la même direction » sur un dessin, sans que ce soit rigoureusement démontré par le calcul.",
+          "comment_detecter": "La conclusion n'est accompagnée d'aucune égalité du type $\\vec v = k\\vec u$.",
+          "comment_eviter": "Toujours écrire explicitement l'égalité $\\vec v=k\\vec u$ (avec la valeur de $k$) avant de conclure à la colinéarité."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Condition de colinéarité"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras utiliser la colinéarité pour prouver un alignement."
-      ],
+      "synonymes": ["Condition de colinéarité"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras utiliser la colinéarité pour prouver un alignement."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "La colinéarité est l'outil clé pour prouver, sans mesurer ni utiliser de coordonnées, que des points sont alignés ou que deux droites sont parallèles — une démonstration purement vectorielle.",
+      "intuition": "Deux vecteurs colinéaires pointent dans la même direction (ou la direction exactement opposée) : l'un est simplement un agrandissement, une réduction, ou un retournement de l'autre.",
+      "apercus": [
+        {
+          "id": "apercu-colinearite-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une démonstration vectorielle complète du théorème de la droite des milieux, sans coordonnées."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert la colinéarité, sans utiliser de coordonnées ni de mesure ?",
+          "piste": "À prouver rigoureusement un alignement de points ou un parallélisme de droites, par le calcul vectoriel."
+        },
+        {
+          "apres": "exemple:condition-de-colinearite-exemple-alignement-milieux",
+          "question": "Quel résultat connu retrouve-t-on dans l'exemple 2 ?",
+          "piste": "Le théorème de la droite des milieux, mais démontré ici par le calcul vectoriel plutôt qu'admis."
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,1488 @@
+{
+  "chapterId": "Chapitre_12",
+  "title": "Triangles égaux",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "triangles-egaux-definition",
+      "title": "Triangles égaux : définition et éléments homologues",
+      "schemaVersion": 2,
+      "intro": "Deux triangles sont égaux quand ils ont exactement la même forme et la même taille : on peut les superposer. Cette leçon définit les triangles égaux et apprend à repérer leurs éléments homologues.",
+      "pourquoi": "Les triangles égaux sont un outil de démonstration : ils permettent de prouver que deux longueurs ou deux angles sont égaux. On les retrouve aussi dans la fabrication en série (pièces identiques) et dans les pavages.",
+      "explicationSimple": "Deux équerres identiques d'une même trousse forment deux triangles égaux : on peut poser l'une exactement sur l'autre.",
+      "objectif": "À la fin de cette leçon, tu sauras définir des triangles égaux, nommer leurs sommets, côtés et angles homologues, et en déduire des longueurs, des angles, des périmètres et des aires.",
+      "definition": "Deux triangles sont égaux lorsqu'ils sont superposables, c'est-à-dire lorsqu'on peut déplacer l'un (glissement, rotation, éventuellement retournement) pour qu'il coïncide exactement avec l'autre. Les sommets qui viennent l'un sur l'autre sont dits homologues, de même que les côtés et les angles correspondants. Deux triangles égaux ont leurs côtés homologues deux à deux de même longueur et leurs angles homologues deux à deux de même mesure.",
+      "definitions": {
+        "college": "Deux triangles sont égaux s'ils sont superposables. Leurs côtés qui se correspondent ont la même longueur et leurs angles qui se correspondent ont la même mesure.",
+        "lycee": "Deux triangles sont égaux lorsqu'ils sont superposables, c'est-à-dire lorsqu'on peut déplacer l'un (glissement, rotation, éventuellement retournement) pour qu'il coïncide exactement avec l'autre. Les sommets qui viennent l'un sur l'autre sont dits homologues, de même que les côtés et les angles correspondants. Deux triangles égaux ont leurs côtés homologues deux à deux de même longueur et leurs angles homologues deux à deux de même mesure."
+      },
+      "intuition": "Des triangles égaux sont des « copies conformes » : même si l'une est déplacée ou retournée, chaque côté et chaque angle a son double exact dans l'autre.",
+      "reglesImportantes": [
+        "Deux triangles égaux ont leurs trois côtés homologues égaux deux à deux.",
+        "Deux triangles égaux ont leurs trois angles homologues égaux deux à deux.",
+        "Les éléments homologues se lisent dans l'ordre de l'écriture : si $ABC$ et $DEF$ sont égaux (dans cet ordre), $A$ correspond à $D$, $B$ à $E$, $C$ à $F$.",
+        "Un côté homologue est en face d'un angle homologue : $[BC]$ (en face de $A$) correspond à $[EF]$ (en face de $D$).",
+        "Deux triangles égaux ont le même périmètre et la même aire (la réciproque est fausse)."
+      ],
+      "formules": [
+        {
+          "id": "formule-homologues",
+          "nom": "Éléments homologues",
+          "expression": "$ABC = DEF$ : $AB = DE$, $AC = DF$, $BC = EF$ ; $\\widehat{A} = \\widehat{D}$, $\\widehat{B} = \\widehat{E}$, $\\widehat{C} = \\widehat{F}$",
+          "quand_utiliser": "Pour déduire des longueurs ou des angles de l'égalité de deux triangles.",
+          "erreur_frequente": "Associer $AB$ à $EF$.",
+          "astuce": "Suis l'ordre des lettres : 1re avec 1re, 2e avec 2e."
+        },
+        {
+          "id": "formule-somme-angles",
+          "nom": "Somme des angles",
+          "expression": "$\\widehat{A} + \\widehat{B} + \\widehat{C} = 180°$",
+          "quand_utiliser": "Pour calculer un angle manquant avant de le reporter dans le triangle égal.",
+          "erreur_frequente": "Oublier qu'elle vaut $180°$ dans tout triangle.",
+          "astuce": "Calcule le troisième angle, puis utilise l'angle homologue."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Utiliser deux triangles égaux",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'écris la correspondance des sommets dans l'ordre donné (ou je la trouve sur la figure)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'en déduis les côtés homologues et les angles homologues."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je reporte les longueurs et les angles connus d'un triangle sur l'autre."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie qu'un côté homologue est bien en face d'un angle homologue."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris la correspondance des sommets dans l'ordre donné (ou je la trouve sur la figure)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'en déduis les côtés homologues et les angles homologues."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je reporte les longueurs et les angles connus d'un triangle sur l'autre."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie qu'un côté homologue est bien en face d'un angle homologue."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris les sommets l'un sous l'autre : $A$ sous $D$, $B$ sous $E$, $C$ sous $F$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je forme les côtés : $AB$ avec $DE$, $AC$ avec $DF$, $BC$ avec $EF$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris les égalités de longueurs et d'angles."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je réponds à la question posée."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Correspondance des sommets dans l'ordre d'écriture."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Côtés et angles homologues égaux."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-homologues",
+          "titre": "Exemple 1 — Éléments homologues",
+          "enonce": "Les triangles $ABC$ et $DEF$ sont égaux, $A$ correspondant à $D$, $B$ à $E$ et $C$ à $F$. On sait que $AB = 5$ cm, $AC = 3$ cm et $BC = 4$ cm. Donner les longueurs des côtés de $DEF$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Côtés homologues : $[DE]$ et $[AB]$, $[DF]$ et $[AC]$, $[EF]$ et $[BC]$."
+            },
+            {
+              "expr": "",
+              "texte": "$DE = 5$ cm, $DF = 3$ cm, $EF = 4$ cm."
+            }
+          ],
+          "reponse": "$DE = 5$ cm, $DF = 3$ cm et $EF = 4$ cm.",
+          "conclusion": "C'est la situation de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-angle-manquant",
+          "titre": "Exemple 2 — Un angle manquant",
+          "enonce": "Les triangles $RST$ et $UVW$ sont égaux ($R \\to U$, $S \\to V$, $T \\to W$). $\\widehat{R} = 70°$ et $\\widehat{S} = 45°$. Calculer $\\widehat{W}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans $RST$ : $\\widehat{T} = 180 - 70 - 45 = 65°$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\widehat{W}$ est l'angle homologue de $\\widehat{T}$."
+            }
+          ],
+          "reponse": "$\\widehat{W} = 65°$.",
+          "conclusion": "On calcule l'angle dans le triangle où l'on a les données, puis on le reporte.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-ordre-different",
+          "titre": "Exemple 3 — Une correspondance dans un autre ordre",
+          "enonce": "Les triangles $ABC$ et $KLM$ sont égaux, avec $A \\to L$, $B \\to M$ et $C \\to K$. Quel côté de $KLM$ a la même longueur que $[AB]$ ? que $[BC]$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$[AB]$ a pour homologue le côté d'extrémités $L$ et $M$ : $[LM]$."
+            },
+            {
+              "expr": "",
+              "texte": "$[BC]$ a pour homologue $[MK]$."
+            }
+          ],
+          "reponse": "$AB = LM$ et $BC = MK$.",
+          "conclusion": "Il faut suivre la correspondance des sommets, pas l'ordre alphabétique.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-perimetre-aire",
+          "titre": "Exemple 4 — Périmètre et aire",
+          "enonce": "Deux triangles égaux. Le premier a un périmètre de $18$ cm et une aire de $14$ cm². Que peut-on dire du second ? Deux triangles de même aire sont-ils forcément égaux ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le second a aussi un périmètre de $18$ cm et une aire de $14$ cm²."
+            },
+            {
+              "expr": "",
+              "texte": "Contre-exemple : un triangle de base $4$ et hauteur $7$ et un triangle de base $7$ et hauteur $4$ ont tous deux une aire de $14$ cm² mais ne sont pas égaux."
+            }
+          ],
+          "reponse": "Même périmètre et même aire ; mais la réciproque est fausse.",
+          "conclusion": "Égalité des triangles $\\Rightarrow$ même aire ; l'inverse n'est pas vrai.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-pavage-triangles",
+          "titre": "Exemple 5 — Un parallélogramme coupé en deux",
+          "enonce": "On trace la diagonale $[AC]$ d'un parallélogramme $ABCD$. Les triangles $ABC$ et $CDA$ sont égaux. En déduire que les côtés opposés d'un parallélogramme ont la même longueur et que ses angles opposés $\\widehat{B}$ et $\\widehat{D}$ sont égaux.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Correspondance : $A \\to C$, $B \\to D$, $C \\to A$."
+            },
+            {
+              "expr": "",
+              "texte": "Côtés homologues : $AB = CD$ et $BC = DA$."
+            },
+            {
+              "expr": "",
+              "texte": "Angles homologues : $\\widehat{ABC} = \\widehat{CDA}$."
+            }
+          ],
+          "reponse": "$AB = CD$, $BC = DA$ et $\\widehat{B} = \\widehat{D}$.",
+          "conclusion": "Les triangles égaux permettent de démontrer des propriétés des quadrilatères.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Les deux moitiés d'un carré coupé selon sa diagonale.",
+        "Les pièces identiques d'une charpente triangulée.",
+        "Les motifs d'un pavage."
+      ],
+      "erreursFrequentes": [
+        "Associer les sommets dans le désordre.",
+        "Croire que des triangles égaux doivent avoir la même position.",
+        "Conclure que deux triangles de même aire sont égaux.",
+        "Associer un côté à un angle qui n'est pas en face."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Associer les sommets dans le désordre.",
+          "pourquoi": "On suit l'ordre alphabétique au lieu de la correspondance donnée.",
+          "comment_detecter": "As-tu écrit la correspondance des sommets ?",
+          "comment_eviter": "Écris $A \\to \\ldots$, $B \\to \\ldots$, $C \\to \\ldots$ avant tout."
+        },
+        {
+          "description": "Croire que des triangles égaux doivent avoir la même position.",
+          "pourquoi": "On pense qu'un triangle retourné n'est plus égal.",
+          "comment_detecter": "Peut-on superposer les deux triangles en retournant l'un ?",
+          "comment_eviter": "Égal signifie superposable, même après un retournement."
+        },
+        {
+          "description": "Conclure que deux triangles de même aire sont égaux.",
+          "pourquoi": "On confond une conséquence et une caractérisation.",
+          "comment_detecter": "Leurs côtés sont-ils égaux deux à deux ?",
+          "comment_eviter": "Même aire ne suffit pas : il faut un cas d'égalité."
+        },
+        {
+          "description": "Associer un côté à un angle qui n'est pas en face.",
+          "pourquoi": "On mélange côtés et angles homologues.",
+          "comment_detecter": "Ton côté est-il en face de l'angle homologue ?",
+          "comment_eviter": "$[BC]$ est en face de $A$ ; son homologue est en face de l'homologue de $A$."
+        }
+      ],
+      "astuce": "Écris les deux triangles l'un au-dessus de l'autre en respectant la correspondance ($ABC$ au-dessus de $DEF$) : chaque colonne donne une paire de sommets homologues.",
+      "aRetenir": [
+        "Triangles égaux : superposables.",
+        "Côtés homologues égaux, angles homologues égaux.",
+        "L'ordre d'écriture donne la correspondance des sommets."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.0,
+          -1.2,
+          13.6,
+          5.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "A"
+          },
+          {
+            "x": 5.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 1.8,
+            "y": 2.4,
+            "label": "C"
+          },
+          {
+            "x": 6.5,
+            "y": 0.6,
+            "label": "D"
+          },
+          {
+            "x": 11.5,
+            "y": 0.6,
+            "label": "E"
+          },
+          {
+            "x": 8.3,
+            "y": 3.0,
+            "label": "F"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "variant": "a",
+            "tooltip": "Triangle ABC"
+          },
+          {
+            "points": [
+              "D",
+              "E",
+              "F"
+            ],
+            "variant": "b",
+            "tooltip": "Triangle DEF, superposable à ABC"
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.5,
+            "y": -0.5,
+            "label": "5",
+            "reveal": 2
+          },
+          {
+            "x": 0.5,
+            "y": 1.5,
+            "label": "3",
+            "reveal": 2
+          },
+          {
+            "x": 3.8,
+            "y": 1.6,
+            "label": "4",
+            "reveal": 2
+          },
+          {
+            "x": 9.0,
+            "y": 0.1,
+            "label": "5",
+            "reveal": 2
+          },
+          {
+            "x": 7.0,
+            "y": 2.1,
+            "label": "3",
+            "reveal": 2
+          },
+          {
+            "x": 10.3,
+            "y": 2.2,
+            "label": "4",
+            "reveal": 2
+          }
+        ],
+        "arcs": [
+          {
+            "center": "A",
+            "radius": 0.7,
+            "startDeg": 0,
+            "endDeg": 53.13,
+            "reveal": 3,
+            "tooltip": "angle en A"
+          },
+          {
+            "center": "D",
+            "radius": 0.7,
+            "startDeg": 0,
+            "endDeg": 53.13,
+            "reveal": 3,
+            "tooltip": "angle en D, égal à l'angle en A"
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Deux triangles",
+          "Côtés homologues égaux",
+          "Angles homologues égaux"
+        ],
+        "relation": "$ABC$ et $DEF$ sont égaux : $AB = DE$, $AC = DF$, $BC = EF$ et $\\widehat{A} = \\widehat{D}$, $\\widehat{B} = \\widehat{E}$, $\\widehat{C} = \\widehat{F}$",
+        "alt": "Deux triangles ABC et DEF superposables, de côtés 5, 3 et 4 ; les côtés et les angles qui se correspondent sont égaux.",
+        "explication": {
+          "resume": "Deux triangles sont égaux s'ils sont superposables : en déplaçant l'un (et éventuellement en le retournant), on peut le placer exactement sur l'autre. Leurs côtés et leurs angles se correspondent deux à deux et sont égaux.",
+          "lecture": [
+            "Le triangle $DEF$ est obtenu en faisant glisser le triangle $ABC$.",
+            "$A$ vient sur $D$, $B$ sur $E$, $C$ sur $F$."
+          ],
+          "observations": [
+            "Côtés homologues : $[AB]$ et $[DE]$, $[AC]$ et $[DF]$, $[BC]$ et $[EF]$.",
+            "Angles homologues : $\\widehat{A}$ et $\\widehat{D}$, $\\widehat{B}$ et $\\widehat{E}$, $\\widehat{C}$ et $\\widehat{F}$.",
+            "Deux triangles égaux ont aussi le même périmètre et la même aire."
+          ],
+          "pieges": [
+            "Associer des sommets au hasard : l'ordre d'écriture $ABC$ / $DEF$ indique les sommets homologues."
+          ],
+          "aRetenir": [
+            "Triangles égaux $=$ triangles superposables.",
+            "Éléments homologues égaux deux à deux."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        52101,
+        52102,
+        52104
+      ],
+      "topic_id": "triangles-egaux-definition",
+      "proprietes": [
+        "Deux triangles égaux ont leurs côtés et leurs angles homologues égaux deux à deux."
+      ],
+      "vocabulaire_associe": [
+        "triangles égaux",
+        "superposables",
+        "homologues",
+        "sommets homologues",
+        "côtés homologues",
+        "angles homologues"
+      ],
+      "synonymes": [
+        "triangles superposables",
+        "triangles isométriques",
+        "éléments homologues"
+      ],
+      "objectifs_pedagogiques": [
+        "Définir des triangles égaux.",
+        "Repérer les éléments homologues.",
+        "Reporter longueurs et angles d'un triangle à l'autre.",
+        "Savoir que même aire n'implique pas égalité."
+      ],
+      "prerequis": [
+        "Somme des angles d'un triangle",
+        "Construction de triangles (5e)"
+      ],
+      "notions_liees": [
+        "triangles-egaux-cas",
+        "triangles-egaux-demontrer"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "géométrie",
+        "triangles égaux",
+        "homologues"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "triangles-egaux-definition-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Correspondance dans un autre ordre, périmètre et aire",
+          "description": "Deux exemples rédigés : retrouver des côtés homologues quand les sommets ne se correspondent pas dans l'ordre alphabétique, et comparer périmètres et aires."
+        },
+        {
+          "id": "triangles-egaux-definition-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Un parallélogramme coupé en deux",
+          "description": "Un exemple qui établit une propriété du parallélogramme grâce à deux triangles égaux."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel est l'homologue de $[BC]$ dans le triangle $DEF$ ?",
+          "piste": "$[EF]$."
+        },
+        {
+          "apres": "methode",
+          "question": "$ABC$ et $XYZ$ égaux, $\\widehat{A} = 50°$ : que vaut $\\widehat{X}$ ?",
+          "piste": "$50°$."
+        }
+      ]
+    },
+    {
+      "id": "triangles-egaux-cas",
+      "title": "Les trois cas d'égalité des triangles",
+      "schemaVersion": 2,
+      "intro": "Pour montrer que deux triangles sont égaux, il n'est pas nécessaire de vérifier les six égalités (trois côtés, trois angles). Trois éléments bien choisis suffisent : ce sont les cas d'égalité.",
+      "pourquoi": "Les cas d'égalité sont l'outil qui permet de démontrer qu'un triangle est la copie d'un autre, et donc d'en déduire d'autres égalités de longueurs ou d'angles.",
+      "explicationSimple": "Avec trois bâtons de longueurs fixées, on ne peut construire qu'un seul triangle (à un déplacement près) : c'est le cas « trois côtés ».",
+      "objectif": "À la fin de cette leçon, tu sauras énoncer et reconnaître les trois cas d'égalité des triangles (côté-côté-côté, côté-angle-côté, angle-côté-angle) et savoir quand on ne peut pas conclure.",
+      "definition": "Deux triangles sont égaux dans chacun des trois cas suivants. (CCC) Leurs trois côtés sont égaux deux à deux. (CAC) Ils ont un angle égal compris entre deux côtés respectivement égaux. (ACA) Ils ont un côté égal adjacent à deux angles respectivement égaux. Trois angles égaux deux à deux ne suffisent pas : les triangles ont alors la même forme mais pas forcément la même taille.",
+      "definitions": {
+        "college": "Deux triangles sont égaux s'ils ont : leurs trois côtés égaux ; ou deux côtés égaux et l'angle entre eux égal ; ou un côté égal et les deux angles à ses extrémités égaux.",
+        "lycee": "Deux triangles sont égaux dans chacun des trois cas suivants. (CCC) Leurs trois côtés sont égaux deux à deux. (CAC) Ils ont un angle égal compris entre deux côtés respectivement égaux. (ACA) Ils ont un côté égal adjacent à deux angles respectivement égaux. Trois angles égaux deux à deux ne suffisent pas : les triangles ont alors la même forme mais pas forcément la même taille."
+      },
+      "intuition": "Chaque cas d'égalité correspond à une construction « unique » : avec ces trois éléments, il n'existe qu'un seul triangle possible, à un déplacement près.",
+      "reglesImportantes": [
+        "Cas côté – côté – côté (CCC) : trois côtés égaux deux à deux.",
+        "Cas côté – angle – côté (CAC) : deux côtés égaux deux à deux et l'angle COMPRIS entre eux égal.",
+        "Cas angle – côté – angle (ACA) : un côté égal et les deux angles ADJACENTS à ce côté égaux deux à deux.",
+        "Trois angles égaux ne suffisent pas (les triangles peuvent avoir des tailles différentes).",
+        "Deux côtés égaux et un angle NON compris ne suffisent pas en général.",
+        "Les données d'un cas d'égalité suffisent à construire le triangle : un programme de construction qui les utilise donne toujours des triangles égaux."
+      ],
+      "formules": [
+        {
+          "id": "formule-cas-egalite",
+          "nom": "Cas d'égalité",
+          "expression": "CCC ; CAC (angle compris) ; ACA (angles adjacents au côté)",
+          "quand_utiliser": "Pour démontrer que deux triangles sont égaux.",
+          "erreur_frequente": "Utiliser trois angles ou un angle non compris.",
+          "astuce": "Vérifie la position de l'angle par rapport aux côtés."
+        },
+        {
+          "id": "formule-angle-par-somme",
+          "nom": "Compléter un angle",
+          "expression": "$\\widehat{C} = 180° - \\widehat{A} - \\widehat{B}$",
+          "quand_utiliser": "Pour se ramener au cas ACA quand on connaît deux angles quelconques et un côté.",
+          "erreur_frequente": "Oublier que les angles doivent être adjacents au côté connu.",
+          "astuce": "Calcule le troisième angle : tu trouveras les deux angles adjacents."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Reconnaître un cas d'égalité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je liste les éléments égaux connus : côtés et angles, avec leurs positions."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Trois côtés ? Cas CCC. Deux côtés et un angle ? Je vérifie que l'angle est compris entre eux."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Un côté et deux angles ? Je vérifie que les angles sont aux extrémités du côté (sinon je calcule le troisième angle)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je conclus en citant le cas, ou je dis qu'on ne peut pas conclure."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je liste les éléments égaux connus : côtés et angles, avec leurs positions."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Trois côtés ? Cas CCC. Deux côtés et un angle ? Je vérifie que l'angle est compris entre eux."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Un côté et deux angles ? Je vérifie que les angles sont aux extrémités du côté (sinon je calcule le troisième angle)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je conclus en citant le cas, ou je dis qu'on ne peut pas conclure."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je colorie les côtés égaux et les angles égaux sur la figure."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je compte : combien de côtés ? combien d'angles ?"
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je regarde où sont les angles par rapport aux côtés."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je choisis CCC, CAC ou ACA."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "CCC ; CAC (angle compris) ; ACA (angles adjacents)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Jamais AAA seul."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-ccc",
+          "titre": "Exemple 1 — Trois côtés",
+          "enonce": "Le triangle $ABC$ a pour côtés $AB = 6$, $BC = 7$, $CA = 8$ ; le triangle $DEF$ a pour côtés $DE = 6$, $EF = 7$, $FD = 8$. Sont-ils égaux ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Les trois côtés sont égaux deux à deux : $AB = DE$, $BC = EF$, $CA = FD$."
+            },
+            {
+              "expr": "",
+              "texte": "C'est le cas côté – côté – côté."
+            }
+          ],
+          "reponse": "Oui, les triangles $ABC$ et $DEF$ sont égaux (cas CCC).",
+          "conclusion": "On en déduit aussi que leurs angles homologues sont égaux.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-cac",
+          "titre": "Exemple 2 — Deux côtés et l'angle compris",
+          "enonce": "Dans les triangles $PQR$ et $STU$ : $PQ = ST = 4$ cm, $PR = SU = 5$ cm et $\\widehat{QPR} = \\widehat{TSU} = 40°$. Sont-ils égaux ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "L'angle en $P$ est formé par $[PQ]$ et $[PR]$ : il est compris entre les deux côtés égaux."
+            },
+            {
+              "expr": "",
+              "texte": "Même chose pour l'angle en $S$ avec $[ST]$ et $[SU]$."
+            }
+          ],
+          "reponse": "Oui, ils sont égaux (cas CAC).",
+          "conclusion": "C'est la situation de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-aca",
+          "titre": "Exemple 3 — Un côté et deux angles",
+          "enonce": "Dans $ABC$ : $BC = 9$ cm, $\\widehat{B} = 50°$, $\\widehat{C} = 60°$. Dans $DEF$ : $EF = 9$ cm, $\\widehat{E} = 50°$, $\\widehat{D} = 70°$. Les triangles sont-ils égaux ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans $DEF$, $\\widehat{F} = 180 - 50 - 70 = 60°$."
+            },
+            {
+              "expr": "",
+              "texte": "$BC = EF$ et les angles adjacents sont égaux : $\\widehat{B} = \\widehat{E}$ et $\\widehat{C} = \\widehat{F}$."
+            }
+          ],
+          "reponse": "Oui, ils sont égaux (cas ACA), avec $B \\to E$, $C \\to F$, $A \\to D$.",
+          "conclusion": "Calculer le troisième angle permet de faire apparaître les deux angles adjacents au côté.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-trois-angles",
+          "titre": "Exemple 4 — Trois angles ne suffisent pas",
+          "enonce": "Deux triangles ont tous deux des angles de $60°$, $60°$ et $60°$. Sont-ils forcément égaux ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Ce sont deux triangles équilatéraux."
+            },
+            {
+              "expr": "",
+              "texte": "Un triangle équilatéral de côté $3$ cm et un autre de côté $5$ cm ont les mêmes angles."
+            }
+          ],
+          "reponse": "Non : ils ont la même forme mais pas forcément la même taille.",
+          "conclusion": "Les triangles de mêmes angles sont des agrandissements l'un de l'autre (chapitre de Thalès).",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-angle-non-compris",
+          "titre": "Exemple 5 — Un angle non compris",
+          "enonce": "On veut construire un triangle $ABC$ avec $AB = 8$ cm, $BC = 5$ cm et $\\widehat{A} = 30°$. Montrer, en traçant le cercle de centre $B$ et de rayon $5$ cm, qu'il existe deux triangles différents. Que peut-on en déduire ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "On trace $[AB]$, puis la demi-droite issue de $A$ faisant $30°$ avec $[AB]$."
+            },
+            {
+              "expr": "",
+              "texte": "En traçant le cercle de centre $B$ et de rayon $5$ cm, on constate qu'il coupe cette demi-droite en deux points $C_1$ et $C_2$."
+            },
+            {
+              "expr": "",
+              "texte": "Les triangles $ABC_1$ et $ABC_2$ ont $AB$, $BC$ et $\\widehat{A}$ égaux, mais ne sont pas égaux."
+            }
+          ],
+          "reponse": "Deux côtés et un angle non compris ne suffisent pas pour conclure à l'égalité.",
+          "conclusion": "C'est pourquoi le cas CAC exige que l'angle soit COMPRIS entre les deux côtés.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Vérifier que deux pièces triangulaires découpées sont identiques.",
+        "Comprendre pourquoi un triangle est une forme rigide (charpentes, ponts).",
+        "Reproduire un triangle à partir de trois mesures."
+      ],
+      "erreursFrequentes": [
+        "Conclure avec trois angles égaux.",
+        "Utiliser un angle qui n'est pas compris entre les deux côtés.",
+        "Utiliser des angles non adjacents au côté dans ACA.",
+        "Ne pas citer le cas d'égalité."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Conclure avec trois angles égaux.",
+          "pourquoi": "On pense que trois éléments égaux suffisent toujours.",
+          "comment_detecter": "As-tu au moins un côté égal ?",
+          "comment_eviter": "Il faut toujours au moins un côté ; trois angles donnent seulement la même forme."
+        },
+        {
+          "description": "Utiliser un angle qui n'est pas compris entre les deux côtés.",
+          "pourquoi": "On ne regarde pas où est l'angle.",
+          "comment_detecter": "L'angle est-il au sommet commun des deux côtés ?",
+          "comment_eviter": "Pour CAC, l'angle est formé par les deux côtés égaux."
+        },
+        {
+          "description": "Utiliser des angles non adjacents au côté dans ACA.",
+          "pourquoi": "On prend deux angles quelconques.",
+          "comment_detecter": "Les angles sont-ils aux deux extrémités du côté égal ?",
+          "comment_eviter": "Calcule le troisième angle si nécessaire."
+        },
+        {
+          "description": "Ne pas citer le cas d'égalité.",
+          "pourquoi": "On écrit « les triangles sont égaux » sans justification.",
+          "comment_detecter": "Ta conclusion est-elle justifiée par un cas ?",
+          "comment_eviter": "Écris : « d'après le cas côté – angle – côté »."
+        }
+      ],
+      "astuce": "Pour CAC, retiens que l'angle est « coincé » entre les deux côtés ; pour ACA, que le côté est « coincé » entre les deux angles.",
+      "aRetenir": [
+        "CCC : trois côtés.",
+        "CAC : deux côtés et l'angle compris.",
+        "ACA : un côté et les deux angles adjacents. Jamais trois angles seuls."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.0,
+          -1.2,
+          13.0,
+          5.4
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "P"
+          },
+          {
+            "x": 4.0,
+            "y": 0.0,
+            "label": "Q"
+          },
+          {
+            "x": 1.0,
+            "y": 3.0,
+            "label": "R"
+          },
+          {
+            "x": 11.0,
+            "y": 0.0,
+            "label": "S"
+          },
+          {
+            "x": 7.0,
+            "y": 0.0,
+            "label": "T"
+          },
+          {
+            "x": 10.0,
+            "y": 3.0,
+            "label": "U"
+          }
+        ],
+        "segments": [
+          {
+            "from": "P",
+            "to": "Q",
+            "variant": "hypotenuse",
+            "tooltip": "PQ = 4"
+          },
+          {
+            "from": "P",
+            "to": "R",
+            "variant": "hypotenuse",
+            "tooltip": "PR = √10"
+          },
+          {
+            "from": "Q",
+            "to": "R"
+          },
+          {
+            "from": "S",
+            "to": "T",
+            "variant": "hypotenuse",
+            "tooltip": "ST = 4"
+          },
+          {
+            "from": "S",
+            "to": "U",
+            "variant": "hypotenuse",
+            "tooltip": "SU = √10"
+          },
+          {
+            "from": "T",
+            "to": "U",
+            "reveal": 3,
+            "tooltip": "TU = QR, conséquence"
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.0,
+            "y": -0.5,
+            "label": "PQ = ST"
+          },
+          {
+            "x": 9.0,
+            "y": -0.5,
+            "label": "PQ = ST"
+          },
+          {
+            "x": 5.5,
+            "y": 3.9,
+            "label": "angle compris égal",
+            "reveal": 2
+          },
+          {
+            "x": 5.5,
+            "y": -1.0,
+            "label": "donc QR = TU",
+            "reveal": 3
+          }
+        ],
+        "arcs": [
+          {
+            "center": "P",
+            "radius": 0.7,
+            "startDeg": 0,
+            "endDeg": 71.57,
+            "reveal": 2
+          },
+          {
+            "center": "S",
+            "radius": 0.7,
+            "startDeg": 108.43,
+            "endDeg": 180,
+            "reveal": 2
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Deux côtés égaux",
+          "L'angle compris entre eux est égal",
+          "Les triangles sont égaux"
+        ],
+        "relation": "$PQ = ST$, $PR = SU$ et $\\widehat{QPR} = \\widehat{TSU}$ : les triangles $PQR$ et $STU$ sont égaux (cas « côté – angle – côté »), donc $QR = TU$",
+        "alt": "Deux triangles PQR et STU, le second retourné : PQ = ST, PR = SU et les angles en P et en S sont égaux ; les triangles sont donc égaux et QR = TU.",
+        "explication": {
+          "resume": "Pour prouver que deux triangles sont égaux, il n'est pas nécessaire de comparer les six éléments : trois éléments bien choisis suffisent. Ici, deux côtés et l'angle qu'ils forment.",
+          "lecture": [
+            "Les côtés mis en évidence sont égaux deux à deux.",
+            "Le triangle $STU$ est « retourné » : il est quand même superposable à $PQR$."
+          ],
+          "observations": [
+            "L'angle égal est bien COMPRIS entre les deux côtés égaux (il est à leur sommet commun).",
+            "Avec ces trois éléments, il n'y a qu'une seule façon de fermer le triangle : $[QR]$ et $[TU]$ sont forcés d'être égaux.",
+            "Un triangle retourné reste égal au triangle de départ."
+          ],
+          "pieges": [
+            "Utiliser un angle qui n'est pas compris entre les deux côtés : ce n'est plus un cas d'égalité."
+          ],
+          "aRetenir": [
+            "Cas CAC : deux côtés et l'angle compris.",
+            "On en déduit les autres éléments homologues."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        52201,
+        52202,
+        52204
+      ],
+      "topic_id": "triangles-egaux-cas",
+      "proprietes": [
+        "Deux triangles qui ont un angle égal compris entre deux côtés respectivement égaux sont égaux."
+      ],
+      "vocabulaire_associe": [
+        "cas d'égalité",
+        "côté-côté-côté",
+        "côté-angle-côté",
+        "angle-côté-angle",
+        "angle compris",
+        "angles adjacents"
+      ],
+      "synonymes": [
+        "CCC",
+        "CAC",
+        "ACA",
+        "cas d'égalité des triangles"
+      ],
+      "objectifs_pedagogiques": [
+        "Énoncer les trois cas d'égalité.",
+        "Reconnaître le cas qui s'applique.",
+        "Compléter un angle pour utiliser le cas ACA.",
+        "Savoir quand on ne peut pas conclure."
+      ],
+      "prerequis": [
+        "Triangles égaux : définition et éléments homologues",
+        "Construire un triangle"
+      ],
+      "notions_liees": [
+        "triangles-egaux-definition",
+        "triangles-egaux-demontrer"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie",
+        "triangles égaux",
+        "cas d'égalité",
+        "démonstration"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "triangles-egaux-cas-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Cas ACA et le piège des trois angles",
+          "description": "Deux exemples rédigés : utiliser le cas angle-côté-angle après avoir calculé un angle, et comprendre pourquoi trois angles égaux ne suffisent pas."
+        },
+        {
+          "id": "triangles-egaux-cas-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Un angle non compris",
+          "description": "Un exemple de construction qui produit deux triangles différents avec deux côtés et un angle non compris."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel cas d'égalité la figure illustre-t-elle ?",
+          "piste": "Côté – angle – côté."
+        },
+        {
+          "apres": "methode",
+          "question": "Deux triangles ont un côté de $5$ et les deux angles adjacents de $40°$ et $70°$ : égaux ?",
+          "piste": "Oui, cas ACA."
+        }
+      ],
+      "demonstration": {
+        "titre": "Pourquoi trois côtés suffisent (cas CCC)",
+        "etapes": [
+          {
+            "titre": "Construire",
+            "texte": "Avec un côté $[AB]$ et deux longueurs $AC$ et $BC$, on trace deux arcs de cercle de centres $A$ et $B$."
+          },
+          {
+            "titre": "Intersections",
+            "texte": "Les arcs se coupent en au plus deux points, symétriques par rapport à $(AB)$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "Les deux triangles obtenus sont symétriques, donc superposables (par retournement)."
+          }
+        ],
+        "conclusion": "Trois longueurs fixées ne permettent de construire qu'un seul triangle, à un déplacement près : deux triangles ayant les mêmes trois côtés sont égaux."
+      }
+    },
+    {
+      "id": "triangles-egaux-demontrer",
+      "title": "Démontrer avec des triangles égaux",
+      "schemaVersion": 2,
+      "intro": "Les cas d'égalité servent à démontrer : on prouve que deux triangles sont égaux, puis on en déduit qu'une longueur ou un angle est égal à un autre. C'est une méthode de raisonnement très utilisée en géométrie.",
+      "pourquoi": "Beaucoup de propriétés connues (médiatrice, parallélogramme, triangle isocèle) se démontrent avec des triangles égaux. Savoir rédiger ce raisonnement prépare aux démonstrations de 3e.",
+      "explicationSimple": "Pour montrer qu'un point $M$ de la médiatrice de $[AB]$ est à la même distance de $A$ et de $B$, on montre que les triangles $AHM$ et $BHM$ sont égaux (cas CAC), puis on conclut $MA = MB$.",
+      "objectif": "À la fin de cette leçon, tu sauras rédiger une démonstration complète utilisant un cas d'égalité : hypothèses, choix des triangles, cas utilisé, conclusion sur des éléments homologues.",
+      "definition": "Démontrer avec des triangles égaux se fait en trois temps : (1) choisir deux triangles qui contiennent les éléments à comparer ; (2) prouver qu'ils sont égaux grâce à un cas d'égalité, en justifiant chacune des trois égalités utilisées (données, côté commun, angles opposés par le sommet, angles droits, milieu…) ; (3) conclure que les éléments homologues cherchés sont égaux.",
+      "definitions": {
+        "college": "On choisit deux triangles, on prouve qu'ils sont égaux avec un cas d'égalité, puis on dit que les côtés (ou angles) homologues qui nous intéressent sont égaux.",
+        "lycee": "Démontrer avec des triangles égaux se fait en trois temps : (1) choisir deux triangles qui contiennent les éléments à comparer ; (2) prouver qu'ils sont égaux grâce à un cas d'égalité, en justifiant chacune des trois égalités utilisées (données, côté commun, angles opposés par le sommet, angles droits, milieu…) ; (3) conclure que les éléments homologues cherchés sont égaux."
+      },
+      "intuition": "Les triangles égaux sont un « pont » : on traverse de ce qu'on sait (trois éléments égaux) vers ce qu'on veut (un autre élément égal).",
+      "reglesImportantes": [
+        "On choisit deux triangles dont les éléments homologues incluent ce que l'on veut démontrer.",
+        "Chaque égalité utilisée doit être justifiée : donnée de l'énoncé, côté commun, milieu, angles droits, angles opposés par le sommet, propriété d'une figure.",
+        "Un côté commun aux deux triangles est égal à lui-même : c'est une égalité de côtés.",
+        "Des angles opposés par le sommet sont égaux.",
+        "On conclut en nommant les éléments homologues : « donc $MA = MB$, côtés homologues »."
+      ],
+      "formules": [
+        {
+          "id": "formule-redaction",
+          "nom": "Rédaction type",
+          "expression": "Dans les triangles … et … : … (justification) ; … ; … . D'après le cas …, ils sont égaux. Donc …",
+          "quand_utiliser": "Pour toute démonstration par triangles égaux.",
+          "erreur_frequente": "Oublier de justifier une des trois égalités.",
+          "astuce": "Écris une ligne par égalité, avec sa justification."
+        },
+        {
+          "id": "formule-angles-opposes",
+          "nom": "Angles opposés par le sommet",
+          "expression": "deux droites sécantes forment des angles opposés égaux",
+          "quand_utiliser": "Pour obtenir un angle égal sans calcul (configuration en « X »).",
+          "erreur_frequente": "Confondre angles opposés et angles adjacents.",
+          "astuce": "Les angles opposés n'ont que le sommet en commun."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Démontrer avec des triangles égaux",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère les deux éléments à comparer et je choisis deux triangles qui les contiennent."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je cherche trois égalités justifiées (données, côté commun, milieu, angles droits ou opposés par le sommet)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je vérifie qu'elles forment un cas d'égalité (CCC, CAC ou ACA) et je conclus que les triangles sont égaux."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'en déduis l'égalité cherchée en citant les éléments homologues."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère les deux éléments à comparer et je choisis deux triangles qui les contiennent."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je cherche trois égalités justifiées (données, côté commun, milieu, angles droits ou opposés par le sommet)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je vérifie qu'elles forment un cas d'égalité (CCC, CAC ou ACA) et je conclus que les triangles sont égaux."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'en déduis l'égalité cherchée en citant les éléments homologues."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'entoure ce que je dois prouver."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je colorie deux triangles qui contiennent ces éléments."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je cherche trois choses égales et je les justifie une par une."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris « donc … » avec l'élément cherché."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Deux triangles, trois égalités justifiées, un cas."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Conclure sur les éléments homologues."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-mediatrice",
+          "titre": "Exemple 1 — La médiatrice",
+          "enonce": "$H$ est le milieu de $[AB]$ et $M$ un point de la perpendiculaire à $(AB)$ passant par $H$. Démontrer que $MA = MB$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans les triangles $AHM$ et $BHM$ : $AH = BH$ ($H$ milieu de $[AB]$) ; $\\widehat{AHM} = \\widehat{BHM} = 90°$ ; $[HM]$ est commun."
+            },
+            {
+              "expr": "",
+              "texte": "D'après le cas côté – angle – côté, les triangles $AHM$ et $BHM$ sont égaux."
+            }
+          ],
+          "reponse": "Donc $MA = MB$ (côtés homologues).",
+          "conclusion": "C'est la propriété de la médiatrice démontrée.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-angles-opposes",
+          "titre": "Exemple 2 — Une configuration en X",
+          "enonce": "Les segments $[AC]$ et $[BD]$ se coupent en leur milieu $O$. Démontrer que $AB = CD$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans les triangles $AOB$ et $COD$ : $OA = OC$ et $OB = OD$ ($O$ milieu des deux segments)."
+            },
+            {
+              "expr": "",
+              "texte": "$\\widehat{AOB} = \\widehat{COD}$ (angles opposés par le sommet)."
+            },
+            {
+              "expr": "",
+              "texte": "Cas côté – angle – côté : les triangles sont égaux."
+            }
+          ],
+          "reponse": "Donc $AB = CD$ (côtés homologues).",
+          "conclusion": "On a démontré qu'un quadrilatère dont les diagonales se coupent en leur milieu a ses côtés opposés égaux.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-isocele-hauteur",
+          "titre": "Exemple 3 — Le triangle isocèle",
+          "enonce": "$ABC$ est isocèle en $A$ et $I$ est le milieu de $[BC]$. Démontrer que $\\widehat{ABC} = \\widehat{ACB}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans les triangles $ABI$ et $ACI$ : $AB = AC$ (isocèle) ; $BI = CI$ ($I$ milieu) ; $[AI]$ commun."
+            },
+            {
+              "expr": "",
+              "texte": "Cas côté – côté – côté : les triangles $ABI$ et $ACI$ sont égaux."
+            }
+          ],
+          "reponse": "Donc $\\widehat{ABI} = \\widehat{ACI}$, c'est-à-dire $\\widehat{ABC} = \\widehat{ACB}$ (angles homologues).",
+          "conclusion": "Les angles à la base d'un triangle isocèle sont égaux.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-aca-riviere",
+          "titre": "Exemple 4 — Mesurer une distance inaccessible",
+          "enonce": "Pour mesurer la largeur $AB$ d'une rivière ($A$ et $B$ sur les rives opposées), Tom se place en $C$ sur la rive de $A$, avec $(AC) \\perp (AB)$, et plante un piquet en $O$, milieu de $[AC]$. Il trace $(CD) \\perp (AC)$ de l'autre côté, et place $D$ sur $(CD)$ aligné avec $B$ et $O$. Il mesure $CD = 35$ m. Quelle est la largeur de la rivière ? Justifier.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans les triangles $OAB$ et $OCD$ : $OA = OC$ ($O$ milieu) ; $\\widehat{OAB} = \\widehat{OCD} = 90°$ ; $\\widehat{AOB} = \\widehat{COD}$ (opposés par le sommet)."
+            },
+            {
+              "expr": "",
+              "texte": "Le côté $[OA]$ est adjacent aux angles en $O$ et en $A$, comme $[OC]$ aux angles en $O$ et en $C$ : cas angle – côté – angle."
+            }
+          ],
+          "reponse": "Les triangles sont égaux, donc $AB = CD = 35$ m.",
+          "conclusion": "Les triangles égaux transforment une distance inaccessible en une distance mesurable.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-parallelogramme",
+          "titre": "Exemple 5 — Les diagonales d'un parallélogramme",
+          "enonce": "$ABCD$ est un parallélogramme (côtés opposés de même longueur). Ses diagonales se coupent en $O$. En utilisant les triangles $AOB$ et $COD$, démontrer que $O$ est le milieu de $[AC]$ et de $[BD]$. (On admet que $\\widehat{ABD} = \\widehat{CDB}$ et $\\widehat{BAC} = \\widehat{DCA}$, angles alternes-internes.)",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Triangles $AOB$ et $COD$ : $AB = CD$ (côtés opposés) ; $\\widehat{OAB} = \\widehat{OCD}$ et $\\widehat{OBA} = \\widehat{ODC}$ (alternes-internes)."
+            },
+            {
+              "expr": "",
+              "texte": "Cas angle – côté – angle (le côté $[AB]$ est adjacent aux angles en $A$ et $B$) : $AOB$ et $COD$ sont égaux."
+            },
+            {
+              "expr": "",
+              "texte": "Côtés homologues : $OA = OC$ et $OB = OD$."
+            }
+          ],
+          "reponse": "$O$ est le milieu de $[AC]$ et de $[BD]$ : les diagonales d'un parallélogramme se coupent en leur milieu.",
+          "conclusion": "Une propriété du parallélogramme démontrée avec un cas d'égalité.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Mesurer la largeur d'une rivière sans la traverser.",
+        "Démontrer les propriétés des figures usuelles.",
+        "Vérifier la symétrie d'une pièce."
+      ],
+      "erreursFrequentes": [
+        "Oublier de justifier une égalité.",
+        "Conclure sur des éléments qui ne sont pas homologues.",
+        "Choisir des triangles qui ne contiennent pas les éléments cherchés.",
+        "Utiliser la conclusion comme hypothèse."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de justifier une égalité.",
+          "pourquoi": "On écrit « $AH = HB$ » sans dire pourquoi.",
+          "comment_detecter": "Chaque égalité a-t-elle sa justification entre parenthèses ?",
+          "comment_eviter": "Écris toujours la raison : donnée, milieu, côté commun, angles opposés…"
+        },
+        {
+          "description": "Conclure sur des éléments qui ne sont pas homologues.",
+          "pourquoi": "On se trompe de correspondance.",
+          "comment_detecter": "Les deux côtés conclus sont-ils en face des mêmes angles homologues ?",
+          "comment_eviter": "Écris la correspondance des sommets avant de conclure."
+        },
+        {
+          "description": "Choisir des triangles qui ne contiennent pas les éléments cherchés.",
+          "pourquoi": "On choisit les triangles « les plus visibles ».",
+          "comment_detecter": "Le segment à démontrer est-il un côté de tes triangles ?",
+          "comment_eviter": "Pars de la conclusion : quels triangles contiennent ces segments ?"
+        },
+        {
+          "description": "Utiliser la conclusion comme hypothèse.",
+          "pourquoi": "On suppose ce qu'on veut démontrer.",
+          "comment_detecter": "As-tu utilisé l'égalité cherchée dans tes trois égalités ?",
+          "comment_eviter": "Les trois égalités doivent venir de l'énoncé ou de propriétés connues."
+        }
+      ],
+      "astuce": "Commence par la fin : écris ce que tu dois démontrer, repère les deux triangles qui contiennent ces éléments, puis cherche trois égalités.",
+      "aRetenir": [
+        "Choisir deux triangles qui contiennent les éléments cherchés.",
+        "Trois égalités justifiées, un cas d'égalité cité.",
+        "Conclure sur les éléments homologues."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.0,
+          -1.2,
+          8.0,
+          6.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "A"
+          },
+          {
+            "x": 6.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 3.0,
+            "y": 0.0,
+            "label": "H"
+          },
+          {
+            "x": 3.0,
+            "y": 4.0,
+            "label": "M"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 3.0,
+                "y": 0.0
+              },
+              {
+                "x": 3.32,
+                "y": 0.0
+              },
+              {
+                "x": 3.32,
+                "y": 0.32
+              },
+              {
+                "x": 3.0,
+                "y": 0.32
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit"
+          },
+          {
+            "points": [
+              "A",
+              "H",
+              "M"
+            ],
+            "variant": "a",
+            "reveal": 2,
+            "tooltip": "Triangle AHM"
+          },
+          {
+            "points": [
+              "B",
+              "H",
+              "M"
+            ],
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "Triangle BHM"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B"
+          },
+          {
+            "from": "H",
+            "to": "M",
+            "tooltip": "(HM) : médiatrice de [AB]"
+          },
+          {
+            "from": "M",
+            "to": "A",
+            "variant": "hypotenuse",
+            "reveal": 3
+          },
+          {
+            "from": "M",
+            "to": "B",
+            "variant": "hypotenuse",
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.5,
+            "y": -0.5,
+            "label": "3"
+          },
+          {
+            "x": 4.5,
+            "y": -0.5,
+            "label": "3"
+          },
+          {
+            "x": 3.4,
+            "y": 2.0,
+            "label": "commun",
+            "reveal": 2
+          },
+          {
+            "x": 3.0,
+            "y": 4.6,
+            "label": "MA = MB",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Un point de la médiatrice",
+          "Deux triangles égaux (CAC)",
+          "Conséquence : MA = MB"
+        ],
+        "relation": "$AH = HB$, $\\widehat{AHM} = \\widehat{BHM} = 90°$ et $[HM]$ commun : $AHM$ et $BHM$ sont égaux (CAC), donc $MA = MB$",
+        "alt": "Segment [AB] de milieu H ; M est sur la perpendiculaire à [AB] en H. Les triangles AHM et BHM sont égaux par le cas côté-angle-côté, donc MA = MB = 5.",
+        "explication": {
+          "resume": "Les triangles égaux servent à démontrer des égalités de longueurs ou d'angles. Ici, ils prouvent que tout point de la médiatrice d'un segment est à égale distance de ses extrémités.",
+          "lecture": [
+            "$H$ est le milieu de $[AB]$ et $(HM)$ est perpendiculaire à $(AB)$.",
+            "On compare les triangles $AHM$ et $BHM$."
+          ],
+          "observations": [
+            "$AH = HB = 3$ (milieu) ; $\\widehat{AHM} = \\widehat{BHM} = 90°$ ; $[HM]$ est un côté commun.",
+            "Cas côté – angle – côté : les triangles sont égaux.",
+            "Les côtés homologues $[MA]$ et $[MB]$ sont égaux : $MA = MB$ (ici $5$)."
+          ],
+          "pieges": [
+            "Conclure $MA = MB$ « parce que ça se voit » : la démonstration passe par les triangles égaux."
+          ],
+          "aRetenir": [
+            "Hypothèses, cas d'égalité, conclusion sur les éléments homologues."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        52301,
+        52302,
+        52304
+      ],
+      "topic_id": "triangles-egaux-demontrer",
+      "proprietes": [
+        "Des angles opposés par le sommet sont égaux.",
+        "Un côté commun à deux triangles est égal à lui-même."
+      ],
+      "vocabulaire_associe": [
+        "démontrer",
+        "hypothèse",
+        "conclusion",
+        "côté commun",
+        "angles opposés par le sommet",
+        "homologues"
+      ],
+      "synonymes": [
+        "démonstration par triangles égaux",
+        "prouver avec les cas d'égalité"
+      ],
+      "objectifs_pedagogiques": [
+        "Choisir deux triangles pertinents.",
+        "Justifier chaque égalité.",
+        "Citer le cas d'égalité.",
+        "Conclure sur des éléments homologues."
+      ],
+      "prerequis": [
+        "Les trois cas d'égalité des triangles",
+        "Angles opposés par le sommet, milieu, médiatrice"
+      ],
+      "notions_liees": [
+        "triangles-egaux-cas",
+        "triangles-egaux-definition"
+      ],
+      "difficulte": "difficile",
+      "tags": [
+        "géométrie",
+        "démonstration",
+        "triangles égaux"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "triangles-egaux-demontrer-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Triangle isocèle et largeur d'une rivière",
+          "description": "Deux exemples rédigés : établir que les angles à la base d'un triangle isocèle sont égaux, et mesurer une distance inaccessible."
+        },
+        {
+          "id": "triangles-egaux-demontrer-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Les diagonales d'un parallélogramme",
+          "description": "Un exemple qui établit, à l'aide d'un cas d'égalité, que les diagonales d'un parallélogramme se coupent en leur milieu."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel cas d'égalité est utilisé dans la figure ?",
+          "piste": "Côté – angle – côté."
+        },
+        {
+          "apres": "methode",
+          "question": "Deux segments se coupant en leur milieu : quels angles sont égaux ?",
+          "piste": "Les angles opposés par le sommet."
+        }
+      ]
+    }
+  ]
+}

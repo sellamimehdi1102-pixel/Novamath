@@ -1,6 +1,6 @@
 """
 Service du module "Gestion des abonnements" (/admin/subscriptions) —
-panneau d'administration complet des 3 plans NovaMath (Free/Premium/Ultra) :
+panneau d'administration complet des 3 plans Mathadap (Free/Premium/Ultra) :
 consultation du catalogue, statistiques réelles, modification, activation/
 désactivation.
 
@@ -51,19 +51,40 @@ admin-subscriptions.js). `quota_monthly` a été retiré du formulaire/affichage
 catalogue (voir subscription_plan_service.update_plan) : aucun mécanisme de
 quota mensuel n'existe dans quota_service.py, uniquement des quotas
 journaliers — ce champ n'était qu'un espace réservé jamais branché.
-"""
-from datetime import datetime, timedelta, timezone
 
+Audit admin (2026-10-22) : les 2 cartes "Nouveaux abonnements (30j)"/
+"Résiliations (30j)" (fonction `_global_stats`, retirée) ont été supprimées
+de ce module — elles dupliquaient EXACTEMENT les mêmes compteurs déjà
+affichés par le module Finance (get_subscriptions_overview,
+admin_finance_service.py), devenu la seule référence pour les indicateurs
+d'abonnement agrégés. `db.count_security_events_since` et les événements de
+sécurité sous-jacents restent utilisés par Finance, rien n'a été supprimé
+côté data/db. ATTENTION : Finance exige le rôle SUPER_ADMIN alors
+qu'Abonnements n'exige qu'ADMIN (voir admin_nav_service.py) — un ADMIN non
+SUPER_ADMIN ne voit donc plus ces deux chiffres nulle part ; voir
+l'explication affichée à la place dans admin-subscriptions.js/admin.html et
+le rapport de ce chantier pour cette conséquence, qui n'a pas été résolue
+unilatéralement (aucune permission n'a été modifiée).
+
+Audit admin (2026-10-22), suite — simplification visuelle : la section
+"Statistiques" de la page Abonnements (admin.html, ex-#admin-subscriptions-
+stats-title) ne contenait déjà plus qu'une phrase de renvoi vers Finance
+(aucune carte, aucun appel API) depuis la suppression ci-dessus — elle a été
+retirée et sa phrase fusionnée (raccourcie) dans le hint déjà existant sous
+la section "Plans". Changement purement d'affichage (admin.html +
+admin-subscriptions.test.js) : aucune donnée, route, ni permission touchée.
+"""
 import admin_ai_log_service
 import admin_users_service
+import config
 import db
 import quota_service
+import stripe_reconciliation_service
+import stripe_service
 import subscription_plan_service as catalog
 from plan_service import FEATURE_MATRIX, Feature, Plan
 
 _KNOWN_PLANS = tuple(p.value for p in Plan)
-
-STATS_WINDOW_DAYS = 30
 
 FEATURE_LABELS = {
     Feature.CHATBOT: "Chatbot pédagogique",
@@ -113,10 +134,6 @@ def _field(value, reason):
     return _ok(value) if value is not None else _na(reason)
 
 
-def _since(days):
-    return (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
-
-
 # ── Lecture : catalogue ──────────────────────────────────────────────────────
 def _serialize_plan_summary(row, user_counts):
     return {
@@ -140,24 +157,43 @@ def list_plans():
     rows = catalog.list_plans()
     if not rows:
         return {"plans": None, "reason": "Aucun abonnement n'est configuré dans subscription_plans."}
-    user_counts = db.count_users_by_plan()
+    # include_guests=False (audit admin 2026-10-20) : un invité a toujours
+    # plan="free" par défaut, gonflant sinon le nombre affiché pour Free.
+    user_counts = db.count_users_by_plan(include_guests=False)
     return {"plans": [_serialize_plan_summary(r, user_counts) for r in rows], "reason": None}
 
 
-def _global_stats():
-    """Statistiques globales du module, sur une fenêtre glissante de
-    STATS_WINDOW_DAYS jours — voir la politique "aucune donnée inventée" en
-    tête de fichier pour la justification des mesures indisponibles."""
-    since = _since(STATS_WINDOW_DAYS)
+def _stripe_environment():
+    """Bannière d'environnement Stripe affichée au-dessus du bouton de
+    réconciliation — aucun appel réseau (uniquement le préfixe de la clé,
+    voir stripe_service.operating_mode, et config.IS_PRODUCTION) : doit
+    rester instantané et ne jamais échouer si Stripe est injoignable.
+    `reconciliation_blocked` reflète EXACTEMENT la même condition que le
+    blocage dur appliqué par stripe_reconciliation_service.reconcile() —
+    affichée ici pour que l'admin comprenne pourquoi le bouton est
+    grisé/refuse, jamais comme une protection en soi (la vraie protection
+    est côté serveur, voir ce module et stripe_reconciliation_service.py)."""
+    mode = stripe_service.operating_mode()
     return {
-        "window_days": STATS_WINDOW_DAYS,
-        "new_subscribers": _ok(db.count_security_events_since("stripe_subscription_created", since)),
-        "cancellations": _ok(db.count_security_events_since("stripe_subscription_deleted", since)),
+        "mode": mode,
+        "app_environment": "production" if config.IS_PRODUCTION else "developpement",
+        "reconciliation_blocked": mode == "production" and not config.IS_PRODUCTION,
+        "reconciliation_requires_confirmation": mode == "production" and config.IS_PRODUCTION,
     }
 
 
 def get_overview():
-    return {**list_plans(), "stats": _global_stats()}
+    """Audit admin (2026-10-22), décision validée : ce module n'affiche plus
+    "Nouveaux abonnements"/"Résiliations" sur une fenêtre glissante — ces
+    deux compteurs dupliquaient EXACTEMENT ceux de get_subscriptions_overview
+    (admin_finance_service.py, même calcul via db.count_security_events_since),
+    où ils restent affichés, désormais la seule référence pour les
+    indicateurs d'abonnement agrégés. `db.count_security_events_since` et
+    l'événement de sécurité sous-jacent ne sont PAS supprimés (toujours
+    utilisés par Finance) — seul l'appel/l'affichage ici a été retiré. Ce
+    module reste centré sur le catalogue (plans, prix, fonctionnalités,
+    quotas réellement appliqués, réconciliation)."""
+    return {**list_plans(), "stripe_environment": _stripe_environment()}
 
 
 # ── Lecture : fiche détaillée ────────────────────────────────────────────────
@@ -165,7 +201,7 @@ def get_plan_info(plan):
     row = catalog.get_plan(plan)
     if row is None:
         return None
-    user_counts = db.count_users_by_plan()
+    user_counts = db.count_users_by_plan(include_guests=False)
     return {
         "plan": row["plan"],
         "name": row["name"],
@@ -365,3 +401,50 @@ def set_plan_active_logged(actor, plan, active):
         new_values={"active": bool(active)}, result="success", error_message=None,
     )
     return True, {}
+
+
+def reconcile_stripe_logged(actor, limit=None, offset=0, confirmed=False):
+    """Lance UN lot de réconciliation Stripe ↔ DB locale (lecture seule, voir
+    stripe_reconciliation_service.py) et journalise l'action comme tout le
+    reste de ce module — déclenchement exclusivement manuel (voir
+    server.py), jamais une tâche planifiée. Renvoie (ok, result_or_errors) :
+    `ok=False` avec `{"_": message, "code": ...}` si l'opération est
+    refusée (Stripe non configuré, blocage dur local/production, ou
+    confirmation manquante — voir stripe_reconciliation_service.py pour le
+    détail des 3 cas), jamais une exception qui remonterait telle quelle à
+    l'admin. `code` permet à server.py de choisir le bon statut HTTP sans
+    dupliquer cette logique."""
+    kwargs = {"offset": offset, "confirmed": confirmed}
+    if limit is not None:
+        kwargs["limit"] = limit
+    try:
+        report = stripe_reconciliation_service.reconcile(**kwargs)
+    except stripe_reconciliation_service.StripeReconciliationBlocked as exc:
+        admin_ai_log_service.record(
+            actor, action="reconcile_stripe", provider_id=None, provider_name="Stripe",
+            old_values=None, new_values=None, result="error", error_message=str(exc),
+        )
+        return False, {"_": str(exc), "code": "blocked_local_production"}
+    except stripe_reconciliation_service.StripeReconciliationConfirmationRequired as exc:
+        # Pas encore une tentative refusée : l'admin n'a simplement pas
+        # confirmé — jamais journalisé comme une erreur (voir le "error"
+        # ci-dessus, réservé à un vrai refus/échec).
+        return False, {"_": str(exc), "code": "confirmation_required"}
+    except stripe_reconciliation_service.StripeReconciliationUnavailable as exc:
+        admin_ai_log_service.record(
+            actor, action="reconcile_stripe", provider_id=None, provider_name="Stripe",
+            old_values=None, new_values=None, result="error", error_message=str(exc),
+        )
+        return False, {"_": str(exc), "code": "not_configured"}
+
+    admin_ai_log_service.record(
+        actor, action="reconcile_stripe", provider_id=None, provider_name="Stripe",
+        old_values=None,
+        new_values={
+            "mode": report["mode"], "checked": report["checked"],
+            "divergences": len(report["divergences"]), "errors": len(report["errors"]),
+        },
+        result="success" if not report["errors"] else "error",
+        error_message=None if not report["errors"] else f"{len(report['errors'])} erreur(s) réseau/Stripe pendant le lot.",
+    )
+    return True, report

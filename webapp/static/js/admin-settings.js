@@ -5,16 +5,22 @@
 // par le code (voir sa docstring) — toujours affiché tel quel, jamais caché.
 //
 // Structure : catégories repliables (.admin-collapse, voir admin-collapse.js)
-// + recherche + favoris (étoile par catégorie, persistée en localStorage,
-// même pattern de stockage que admin-collapse.js). La section "Général"
-// (réglage `language`) a été supprimée : audit round 2, aucun code ne lisait
-// jamais cette clé (contrat `enforced:true` trompeur) — comme les anciennes
-// sections Comptes/Apparence et les 13 réglages jamais consommés ailleurs,
-// déjà supprimés lors du premier chantier de simplification (voir
-// settings_service.py pour le détail).
+// + recherche texte. La section "Général" (réglage `language`) a été
+// supprimée : audit round 2, aucun code ne lisait jamais cette clé (contrat
+// `enforced:true` trompeur) — comme les anciennes sections Comptes/Apparence
+// et les 13 réglages jamais consommés ailleurs, déjà supprimés lors du
+// premier chantier de simplification (voir settings_service.py pour le
+// détail).
+//
+// Audit admin (2026-10-22), point 1 (Paramètres) : le système de favoris
+// (étoile par catégorie + filtre + localStorage) a été entièrement supprimé
+// — jugé disproportionné pour seulement 4 catégories, un simple repli
+// suffit. La recherche texte reste seule (utile pour retrouver un champ
+// précis). Le repli est désormais fixe : "IA & Clés API" ouverte par défaut,
+// les 3 autres catégories fermées par défaut, sans persistance d'aucune
+// sorte (voir CATEGORIES ci-dessous — seule "ai" porte `open: true`).
 import { createCollapseSection, wireCollapsePersistence } from "./admin-collapse.js";
 import { confirmDialog, showToast } from "./admin-ui-kit.js";
-import { renderApiKeysTable } from "./admin-api-keys.js";
 
 const EMPTY_LABEL = "Cette fonctionnalité n'est pas encore alimentée.";
 
@@ -36,8 +42,6 @@ const FIELD_DESCRIPTIONS = {
 };
 
 const SAVED_LABEL = "✓ Enregistré";
-
-const FAV_STORAGE_KEY = "admin-settings:favorites";
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -99,53 +103,18 @@ function metricCard(label, metric, formatter = (v) => v, clamp = false) {
   return card;
 }
 
-// Remplace tout affichage d'objet brut (JSON.stringify) : une carte avec une
-// liste de lignes clé/valeur déjà lisibles. `rows` est un tableau de paires
-// [label, value] (jamais un objet passé tel quel à l'affichage).
-function kvCard(label, metric, rows) {
-  const card = el("article", "admin-card");
-  card.appendChild(el("div", "admin-card-label", label));
-  if (!metric || !metric.available) {
-    card.appendChild(el("div", "admin-card-value admin-card-value--empty", EMPTY_LABEL));
-    if (metric && metric.reason) card.appendChild(el("div", "admin-card-sub", metric.reason));
-    return card;
-  }
-  const list = el("div", "admin-kv-list");
-  rows(metric.value).forEach(([k, v]) => {
-    const row = el("div", "admin-kv-row");
-    row.appendChild(el("span", "admin-kv-label", k));
-    row.appendChild(el("span", "admin-kv-value", String(v)));
-    list.appendChild(row);
-  });
-  card.appendChild(list);
-  return card;
-}
-
-// Liste visuelle des fournisseurs IA (jamais un objet/tableau brut) : nom,
-// badge de priorité, badge d'état (le premier de la liste triée par
-// priorité est "Actif", les suivants "Secours").
-function providersList(order) {
+// Audit admin (2026-10-22) : l'ancienne liste à plat des fournisseurs IA
+// (nom/priorité/badge Actif-Secours) dupliquait, en lecture seule et sans
+// aucune action, ce que la page /admin/ia affiche déjà avec en plus la
+// gestion complète (créer/modifier/activer/réordonner/tester). Remplacée
+// par un simple lien — aucune capacité n'est perdue puisque cette liste
+// n'exposait elle-même aucune action.
+function providersLink() {
   const card = el("article", "admin-card");
   card.appendChild(el("div", "admin-card-label", "Fournisseurs IA"));
-  if (!order || !order.available || !order.value.length) {
-    card.appendChild(el("div", "admin-card-value admin-card-value--empty", EMPTY_LABEL));
-    if (order && order.reason) card.appendChild(el("div", "admin-card-sub", order.reason));
-    return card;
-  }
-  const list = el("div", "admin-provider-list");
-  order.value.forEach((p, i) => {
-    const row = el("div", "admin-provider-row");
-    row.appendChild(el("span", "admin-provider-name", `${p.name} — ${p.model_name}`));
-    const right = el("span", "admin-actions-right");
-    right.appendChild(el("span", "admin-badge admin-badge--neutral", `Priorité ${p.priority}`));
-    const active = i === 0 && p.enabled;
-    right.appendChild(
-      el("span", `admin-status-dot admin-status-dot--${active ? "ok" : "unknown"}`, active ? "Actif" : "Secours"),
-    );
-    row.appendChild(right);
-    list.appendChild(row);
-  });
-  card.appendChild(list);
+  const link = el("a", "admin-card-value", "Gérer les fournisseurs IA (créer, modifier, priorités, clés API) →");
+  link.href = "/admin/ia";
+  card.appendChild(link);
   return card;
 }
 
@@ -269,9 +238,10 @@ function renderSettingsForm(form, settingsMap, patchPath) {
 }
 
 // ── IA — réglages réellement éditables (température/tokens/fallback, lus par
-// llm_fallback_service.py à chaque appel LLM) + fournisseur/modèle principal
-// réellement utilisé. Retry/cache retirés (chantier de simplification) :
-// constantes techniques jamais consultées par un admin, jamais des réglages. ─
+// llm_fallback_service.py à chaque appel LLM). Retry/cache retirés (chantier
+// de simplification) : constantes techniques jamais consultées par un admin,
+// jamais des réglages. La gestion des fournisseurs (liste/CRUD/priorités)
+// vit uniquement dans /admin/ia (voir providersLink ci-dessus). ───────────
 function renderAi(form, infoContainer, ai) {
   const settingsMap = {
     ai_temperature_default: ai.temperature_default,
@@ -281,53 +251,127 @@ function renderAi(form, infoContainer, ai) {
   renderSettingsForm(form, settingsMap, "/api/admin/settings/ai");
 
   infoContainer.innerHTML = "";
-  infoContainer.appendChild(providersList(ai.provider_order));
+  infoContainer.appendChild(providersLink());
 }
 
 // ── Clés API ──────────────────────────────────────────────────────────────────
-// Affichage de la liste factorisé dans admin-api-keys.js (partagé avec
-// /admin/ia, qui affichait auparavant la même donnée /api/admin/ai/keys via
-// une implémentation dupliquée en cartes). `allowEdit: true` préserve
-// exactement la capacité de renommage/changement de priorité déjà présente
-// ici avant ce chantier (jamais activée côté /admin/ia, voir admin-ai.js).
+// Finalisation du nettoyage admin (2026-10-22) : la gestion complète des
+// clés API (liste, création, renommage/priorité, test, suppression) est
+// désormais centralisée dans /admin/ia (voir admin-ai.js, `allowEdit: true`
+// activé là-bas — vérifié : aucune des routes /api/admin/ai/keys/* n'exige
+// SUPER_ADMIN, toutes sont gardées par le même rôle ADMIN). Cette page ne
+// garde plus qu'un lien compact vers /admin/ia (voir CATEGORIES ci-dessous,
+// catégorie "ai") — plus aucun formulaire de création ni tableau ici.
 
-// ── SMTP — cartes avec icône d'état verte/rouge (partie 10) ──────────────────
+// ── Email (SMTP) + Paiements (Stripe) ─────────────────────────────────────────
 function metricValue(metric, formatter = (v) => v) {
   return metric && metric.available ? formatter(metric.value) : "—";
 }
 
-function renderSmtp(container, smtp) {
+// Audit admin (2026-10-20) : "mode" distingue désormais explicitement les 4
+// états réels (jamais fusionnés) — TEST/PRODUCTION ne sont pas le même
+// niveau d'alerte que ÉTAT INCONNU (clé présente mais préfixe non reconnu,
+// une anomalie à vérifier) ni que NON CONFIGURÉ (rien à configurer, normal
+// en développement). `stripe.configured` (booléen explicite du backend)
+// remplace l'ancienne déduction via `stripe.mode.available`, qui confondait
+// à tort "non configuré" et "état inconnu".
+const STRIPE_MODE_LABELS = {
+  test: "TEST",
+  production: "PRODUCTION",
+  non_configure: "NON CONFIGURÉ",
+  etat_inconnu: "ÉTAT INCONNU",
+};
+const STRIPE_MODE_DOT_STATE = {
+  test: "warning",
+  production: "ok",
+  non_configure: "down",
+  etat_inconnu: "warning",
+};
+
+// Audit admin (2026-10-22), point 3 (Paramètres) : Stripe (3 lignes, lecture
+// seule) fusionné dans LA MÊME carte que SMTP plutôt que 2 sous-sections
+// avec leurs propres titres <h3> — les deux conteneurs `#admin-settings-smtp`
+// et `#admin-settings-stripe` sont conservés (mêmes ids qu'avant ce
+// chantier) comme simples sous-blocs de cette carte unique, pour ne jamais
+// casser un repère existant. Les bandeaux d'avertissement critiques (mode
+// TEST / état inconnu) restent AUSSI visibles qu'avant — jamais noyés dans
+// la fusion, toujours juste après les lignes Stripe.
+function renderIntegrations(container, smtp, stripe) {
   container.innerHTML = "";
 
-  const connectionCard = el("article", "admin-card");
-  connectionCard.appendChild(el("div", "admin-card-label", "Connexion SMTP"));
-  const configured = smtp.configured;
-  connectionCard.appendChild(
+  const card = el("article", "admin-card");
+  card.appendChild(el("div", "admin-card-label", "Email & Paiements (SMTP + Stripe)"));
+
+  const mode = metricValue(stripe.mode);
+  const modeLabel = STRIPE_MODE_LABELS[mode] || "—";
+  const dotState = STRIPE_MODE_DOT_STATE[mode] || "down";
+  const smtpConfigured = smtp.configured;
+
+  const dots = el("div", "admin-integrations-dots");
+  dots.appendChild(
     el(
       "span",
-      `admin-status-dot admin-status-dot--${configured ? "ok" : "down"}`,
-      configured ? "Configuré" : "Non configuré",
+      `admin-status-dot admin-status-dot--${smtpConfigured ? "ok" : "down"}`,
+      smtpConfigured ? "SMTP configuré" : "SMTP non configuré",
     ),
   );
-  const kv = el("div", "admin-kv-list");
+  dots.appendChild(el("span", `admin-status-dot admin-status-dot--${dotState}`, `Stripe ${modeLabel}`));
+  card.appendChild(dots);
+
+  const smtpWrap = el("div", "admin-kv-list");
+  smtpWrap.id = "admin-settings-smtp";
   [
-    ["Serveur", metricValue(smtp.host)],
-    ["Port", metricValue(smtp.port)],
-    ["Utilisateur", metricValue(smtp.username)],
-    ["Chiffrement", metricValue(smtp.encryption)],
-    ["Expéditeur", metricValue(smtp.from_address)],
+    ["Serveur SMTP", metricValue(smtp.host)],
+    ["Port SMTP", metricValue(smtp.port)],
+    ["Utilisateur SMTP", metricValue(smtp.username)],
+    ["Chiffrement SMTP", metricValue(smtp.encryption)],
+    ["Expéditeur SMTP", metricValue(smtp.from_address)],
   ].forEach(([k, v]) => {
     const row = el("div", "admin-kv-row");
     row.appendChild(el("span", "admin-kv-label", k));
     row.appendChild(el("span", "admin-kv-value", String(v)));
-    kv.appendChild(row);
+    smtpWrap.appendChild(row);
   });
-  connectionCard.appendChild(kv);
-  connectionCard.appendChild(el("p", "admin-form-hint", smtp.env_controlled_reason));
-  container.appendChild(connectionCard);
+  card.appendChild(smtpWrap);
+  card.appendChild(el("p", "admin-form-hint", smtp.env_controlled_reason));
+
+  const stripeWrap = el("div", "admin-kv-list");
+  stripeWrap.id = "admin-settings-stripe";
+  [
+    ["Mode Stripe", modeLabel],
+    ["Clés Stripe configurées", stripe.configured ? "Oui" : "Non"],
+    ["Webhook Stripe", stripe.webhook_configured ? "Configuré" : "Non configuré"],
+  ].forEach(([k, v]) => {
+    const row = el("div", "admin-kv-row");
+    row.appendChild(el("span", "admin-kv-label", k));
+    row.appendChild(el("span", "admin-kv-value", String(v)));
+    stripeWrap.appendChild(row);
+  });
+  card.appendChild(stripeWrap);
+  if (mode === "test") {
+    stripeWrap.appendChild(
+      el(
+        "p",
+        "admin-form-hint admin-form-hint--warning",
+        "Mode TEST : aucun paiement réel n'est traité, ne jamais présenter ces données comme des revenus réels.",
+      ),
+    );
+  }
+  if (mode === "etat_inconnu") {
+    stripeWrap.appendChild(
+      el(
+        "p",
+        "admin-form-hint admin-form-hint--warning",
+        "La clé Stripe configurée ne correspond à aucun préfixe Stripe connu (ni sk_test_ ni sk_live_) — à vérifier.",
+      ),
+    );
+  }
+  stripeWrap.appendChild(el("p", "admin-form-hint", stripe.env_controlled_reason));
+  card.appendChild(stripeWrap);
+  container.appendChild(card);
 
   const testCard = el("article", "admin-card");
-  testCard.appendChild(el("div", "admin-card-label", "Dernier test d'envoi"));
+  testCard.appendChild(el("div", "admin-card-label", "Dernier test d'envoi SMTP"));
   const lastTestOk = smtp.last_test_ok && smtp.last_test_ok.available ? smtp.last_test_ok.value : null;
   const hasTest = smtp.last_test_at && smtp.last_test_at.available;
   testCard.appendChild(
@@ -342,36 +386,6 @@ function renderSmtp(container, smtp) {
     testCard.appendChild(el("div", "admin-card-sub", smtp.last_test_error.value));
   }
   container.appendChild(testCard);
-}
-
-// ── Stripe — uniquement les 4 informations utiles (partie 11) ────────────────
-function renderStripe(container, stripe) {
-  container.innerHTML = "";
-  const keysConfigured = stripe.mode.available;
-
-  const card = el("article", "admin-card");
-  card.appendChild(el("div", "admin-card-label", "Stripe"));
-  card.appendChild(
-    el(
-      "span",
-      `admin-status-dot admin-status-dot--${keysConfigured ? "ok" : "down"}`,
-      keysConfigured ? "Configuré" : "Non configuré",
-    ),
-  );
-  const kv = el("div", "admin-kv-list");
-  [
-    ["Mode", metricValue(stripe.mode)],
-    ["Clés configurées", keysConfigured ? "Oui" : "Non"],
-    ["Webhook", stripe.webhook_configured ? "Configuré" : "Non configuré"],
-  ].forEach(([k, v]) => {
-    const row = el("div", "admin-kv-row");
-    row.appendChild(el("span", "admin-kv-label", k));
-    row.appendChild(el("span", "admin-kv-value", String(v)));
-    kv.appendChild(row);
-  });
-  card.appendChild(kv);
-  card.appendChild(el("p", "admin-form-hint", stripe.env_controlled_reason));
-  container.appendChild(card);
 }
 
 // ── Sauvegardes ───────────────────────────────────────────────────────────────
@@ -412,23 +426,16 @@ function renderBackupsStats(container, backups) {
     metricCard("Taille totale des sauvegardes", { available: true, value: backups.total_size_bytes }, formatBytes),
   );
 
-  const diskCard = el("article", "admin-card");
-  diskCard.appendChild(el("div", "admin-card-label", "Espace disque utilisé"));
-  if (!backups.disk_used_bytes.available || !backups.disk_total_bytes.available) {
-    diskCard.appendChild(el("div", "admin-card-value admin-card-value--empty", EMPTY_LABEL));
-  } else {
-    const used = backups.disk_used_bytes.value;
-    const total = backups.disk_total_bytes.value;
-    const pct = total > 0 ? Math.round((used / total) * 100) : 0;
-    diskCard.appendChild(el("div", "admin-card-value", `${pct}%`));
-    diskCard.appendChild(el("div", "admin-card-sub", `${formatBytes(used)} / ${formatBytes(total)}`));
-    const bar = el("div", "admin-progress-bar");
-    const fill = el("div", "admin-progress-bar-fill");
-    fill.style.width = `${Math.min(pct, 100)}%`;
-    bar.appendChild(fill);
-    diskCard.appendChild(bar);
-  }
-  container.appendChild(diskCard);
+  // Audit admin (2026-10-22) : la carte "Espace disque utilisé" (pourcentage
+  // + barre de progression) a été retirée — elle dépendait de
+  // backups.disk_total_bytes, volontairement retiré de
+  // system_health_service.storage_info() (voir settings_service.py::
+  // ai_config — même principe appliqué ici). `disk_total_bytes.available`
+  // étant TOUJOURS false, la branche else ci-dessous n'était jamais
+  // atteinte : cette carte n'affichait plus que "Aucune donnée disponible"
+  // en permanence. L'équivalent réel (disk_used_bytes seul, sans
+  // pourcentage) reste affiché sur la page Santé (voir admin-health.js) —
+  // aucune information n'est perdue, jamais recalculée ici.
 }
 
 function renderBackupsBanner(container, backups) {
@@ -677,46 +684,57 @@ function createBackupsController({ tbody, emptyEl, paginationEl, theadRow, searc
   };
 }
 
-// ── Sécurité / Logs (lecture seule) ──────────────────────────────────────────
-function renderSecurity(container, security) {
+// ── Sécurité & Logs (lecture seule) ───────────────────────────────────────────
+// Audit admin (2026-10-22), point 2 (Paramètres) : les 5 cartes Sécurité +
+// les 2 champs Logs (7 informations au total, toutes en LECTURE SEULE —
+// aucune route d'écriture n'existe pour elles côté backend, voir
+// security_info()/logs_info() dans settings_service.py, jamais modifié par
+// ce chantier) sont fusionnées en UNE SEULE carte compacte "Sécurité & Logs"
+// avec 7 lignes clé/valeur, sans sous-titres séparés.
+function renderSecurity(container, security, logs) {
   container.innerHTML = "";
-  container.appendChild(
-    metricCard("2FA administrateurs (actifs / total)", security.two_factor_admins, (v) => `${v.enabled} / ${v.total}`),
-  );
-  container.appendChild(
-    kvCard("CSP", security.csp, (v) => [
-      ["Activée", v.enabled ? "Oui" : "Non"],
-      ["Mode rapport seul", v.report_only ? "Oui" : "Non"],
-    ]),
-  );
-  container.appendChild(
-    kvCard("Durée des sessions", security.session_durations, (v) => [
-      ["Par défaut", `${v.default_days} j`],
-      ["Se souvenir de moi", `${v.remember_me_days} j`],
-      ["Invité", `${v.guest_days} j`],
-    ]),
-  );
-  container.appendChild(
-    kvCard("Connexions", security.login_attempts, (v) => [
-      ["Tentatives max", v.max_attempts],
-      ["Verrouillage", `${v.lockout_minutes} min`],
-    ]),
-  );
-  container.appendChild(metricCard("HSTS", security.hsts_enabled, (v) => (v ? "Activé" : "Désactivé")));
-}
-
-function renderLogs(container, logs) {
-  container.innerHTML = "";
-  const levelCard = metricCard("Niveau de log", logs.level);
-  levelCard.appendChild(el("p", "admin-form-hint", logs.level_env_controlled_reason));
-  container.appendChild(levelCard);
-  container.appendChild(metricCard("Sentry", logs.sentry_enabled, (v) => (v ? "Activé" : "Désactivé")));
+  const card = el("article", "admin-card");
+  card.appendChild(el("div", "admin-card-label", "Sécurité & Logs"));
+  const kv = el("div", "admin-kv-list");
+  const twoFa = metricValue(security.two_factor_admins);
+  const csp = metricValue(security.csp);
+  const sessions = metricValue(security.session_durations);
+  const attempts = metricValue(security.login_attempts);
+  [
+    ["2FA administrateurs", twoFa !== "—" ? `${twoFa.enabled} / ${twoFa.total}` : "—"],
+    [
+      "CSP",
+      csp !== "—" ? `${csp.enabled ? "Activée" : "Désactivée"}${csp.report_only ? " (mode rapport seul)" : ""}` : "—",
+    ],
+    [
+      "Durée des sessions",
+      sessions !== "—"
+        ? `Par défaut ${sessions.default_days} j · Se souvenir : ${sessions.remember_me_days} j · Invité : ${sessions.guest_days} j`
+        : "—",
+    ],
+    [
+      "Tentatives de connexion",
+      attempts !== "—" ? `${attempts.max_attempts} max · verrouillage ${attempts.lockout_minutes} min` : "—",
+    ],
+    ["HSTS", metricValue(security.hsts_enabled, (v) => (v ? "Activé" : "Désactivé"))],
+    ["Niveau de log", metricValue(logs.level)],
+    ["Sentry", metricValue(logs.sentry_enabled, (v) => (v ? "Activé" : "Désactivé"))],
+  ].forEach(([k, v]) => {
+    const row = el("div", "admin-kv-row");
+    row.appendChild(el("span", "admin-kv-label", k));
+    row.appendChild(el("span", "admin-kv-value", String(v)));
+    kv.appendChild(row);
+  });
+  card.appendChild(kv);
+  card.appendChild(el("p", "admin-form-hint", logs.level_env_controlled_reason));
+  container.appendChild(card);
 }
 
 // ── Catégories repliables (admin-collapse.js) ────────────────────────────────
-// Chaque catégorie = un <details class="admin-collapse"> avec une étoile de
-// favori injectée dans le titre. Le contenu interne (ids ci-dessous) est
-// identique à l'ancienne structure statique — seule l'enveloppe change.
+// Chaque catégorie = un <details class="admin-collapse"> (voir
+// buildCategories, plus bas — plus aucune étoile de favori injectée dans le
+// titre, voir point 1 de l'audit 2026-10-22). "IA & Clés API" est ouverte
+// par défaut, les 3 autres repliées par défaut, sans persistance de favoris.
 const CATEGORIES = [
   {
     id: "ai",
@@ -726,46 +744,21 @@ const CATEGORIES = [
       <form class="admin-settings-rows" id="admin-settings-ai-form"></form>
       <div class="admin-settings-grid" id="admin-settings-ai-info"></div>
       <h3 class="admin-settings-subtitle">Clés API</h3>
-      <div class="admin-section-head-row">
-        <button type="button" class="admin-btn admin-btn--primary" id="admin-settings-new-key-btn">+ Créer une clé</button>
-      </div>
-      <form class="admin-form-grid" id="admin-settings-new-key-form" hidden>
-        <div class="admin-form-field">
-          <label class="admin-form-label" for="admin-settings-new-key-provider">Fournisseur</label>
-          <select class="admin-form-select" id="admin-settings-new-key-provider">
-            <option value="gemini">Gemini</option>
-            <option value="anthropic">Claude</option>
-          </select>
-        </div>
-        <div class="admin-form-field">
-          <label class="admin-form-label" for="admin-settings-new-key-label">Nom</label>
-          <input class="admin-form-input" id="admin-settings-new-key-label" required>
-        </div>
-        <div class="admin-form-field">
-          <label class="admin-form-label" for="admin-settings-new-key-priority">Priorité</label>
-          <input class="admin-form-input" type="number" id="admin-settings-new-key-priority" value="0" min="0">
-        </div>
-        <div class="admin-form-field admin-form-field--full">
-          <label class="admin-form-label" for="admin-settings-new-key-secret">Clé API</label>
-          <input class="admin-form-input" type="password" id="admin-settings-new-key-secret" required autocomplete="new-password">
-        </div>
-        <button type="submit" class="admin-btn admin-btn--primary">Enregistrer la clé</button>
-      </form>
-      <div id="admin-settings-keys"></div>
+      <p class="admin-form-hint">
+        La gestion complète des clés API (création, modification, priorité, activation, test, suppression) est
+        centralisée dans <a href="/admin/ia">IA → Clés API (haute disponibilité)</a>.
+      </p>
     `,
   },
   {
     id: "smtp",
     title: "Intégrations",
     bodyHtml: `
-      <h3 class="admin-settings-subtitle">Email (SMTP)</h3>
       <div class="admin-section-head-row">
         <button type="button" class="admin-btn admin-btn--sm" id="admin-settings-smtp-test-btn">Tester l'envoi</button>
       </div>
       <p class="admin-form-hint">Envoie un vrai email de test à l'administrateur connecté pour vérifier la configuration SMTP.</p>
-      <div class="admin-settings-grid" id="admin-settings-smtp"></div>
-      <h3 class="admin-settings-subtitle">Stripe</h3>
-      <div class="admin-settings-grid" id="admin-settings-stripe"></div>
+      <div class="admin-settings-grid" id="admin-settings-integrations"></div>
     `,
   },
   {
@@ -809,84 +802,38 @@ const CATEGORIES = [
     id: "security",
     title: "Sécurité / Logs",
     bodyHtml: `
-      <h3 class="admin-settings-subtitle">Sécurité</h3>
       <div class="admin-settings-grid" id="admin-settings-security"></div>
-      <h3 class="admin-settings-subtitle">Journalisation</h3>
-      <div class="admin-settings-grid" id="admin-settings-logs"></div>
     `,
   },
 ];
 
-function readFavorites() {
-  try {
-    const raw = window.localStorage.getItem(FAV_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
-
-function writeFavorites(list) {
-  try {
-    window.localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify(list));
-  } catch {
-    /* localStorage indisponible (mode privé) : les favoris ne persistent pas */
-  }
-}
-
-function starGlyph(isFav) {
-  return isFav ? "★" : "☆";
-}
-
+// Audit admin (2026-10-22), point 1 (Paramètres) : système de favoris
+// (readFavorites/writeFavorites/starGlyph/wireFavorites + filtre dédié)
+// entièrement supprimé — disproportionné pour seulement 4 catégories.
+// buildCategories() ne construit plus que le titre brut de chaque catégorie
+// (jamais une étoile injectée), et wireFilters() ne gère plus que la
+// recherche texte, conservée seule.
 function buildCategories(root) {
-  const favorites = readFavorites();
-  root.innerHTML = CATEGORIES.map((cat) => {
-    const isFav = favorites.includes(cat.id);
-    const title = `<button type="button" class="admin-fav-star" data-fav-id="${cat.id}" aria-pressed="${isFav}" aria-label="Marquer « ${cat.title} » comme favori">${starGlyph(isFav)}</button><span>${cat.title}</span>`;
-    return createCollapseSection({ id: `settings-${cat.id}`, title, open: Boolean(cat.open), bodyHtml: cat.bodyHtml });
-  }).join("");
+  root.innerHTML = CATEGORIES.map((cat) =>
+    createCollapseSection({
+      id: `settings-${cat.id}`,
+      title: cat.title,
+      open: Boolean(cat.open),
+      bodyHtml: cat.bodyHtml,
+    }),
+  ).join("");
   wireCollapsePersistence(root);
-  wireFavorites(root);
 }
 
-function wireFavorites(root) {
-  root.querySelectorAll(".admin-fav-star").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const id = btn.dataset.favId;
-      const favorites = readFavorites();
-      const idx = favorites.indexOf(id);
-      const nowFav = idx === -1;
-      if (nowFav) favorites.push(id);
-      else favorites.splice(idx, 1);
-      writeFavorites(favorites);
-      btn.textContent = starGlyph(nowFav);
-      btn.setAttribute("aria-pressed", String(nowFav));
-    });
-  });
-}
-
-// ── Recherche + filtre Favoris (combinés) ────────────────────────────────────
-function wireFilters(root, searchInput, favFilterBtn) {
-  let favOnly = false;
+// ── Recherche texte ───────────────────────────────────────────────────────────
+function wireFilters(root, searchInput) {
   function apply() {
     const query = searchInput.value.trim().toLowerCase();
-    const favorites = readFavorites();
     root.querySelectorAll(".admin-collapse[data-collapse-id]").forEach((section) => {
-      const catId = section.dataset.collapseId.replace(/^settings-/, "");
-      const matchesSearch = !query || section.textContent.toLowerCase().includes(query);
-      const matchesFav = !favOnly || favorites.includes(catId);
-      section.hidden = !(matchesSearch && matchesFav);
+      section.hidden = Boolean(query) && !section.textContent.toLowerCase().includes(query);
     });
   }
   searchInput.addEventListener("input", apply);
-  favFilterBtn.addEventListener("click", () => {
-    favOnly = !favOnly;
-    favFilterBtn.classList.toggle("active", favOnly);
-    favFilterBtn.setAttribute("aria-pressed", String(favOnly));
-    apply();
-  });
 }
 
 // ── Chargement complet ────────────────────────────────────────────────────────
@@ -897,9 +844,7 @@ export async function loadSettings() {
 
   const aiForm = document.getElementById("admin-settings-ai-form");
   const aiInfoEl = document.getElementById("admin-settings-ai-info");
-  const keysContainer = document.getElementById("admin-settings-keys");
-  const smtpEl = document.getElementById("admin-settings-smtp");
-  const stripeEl = document.getElementById("admin-settings-stripe");
+  const integrationsEl = document.getElementById("admin-settings-integrations");
   const backupsStatsEl = document.getElementById("admin-settings-backups-stats");
   const backupsBannerEl = document.getElementById("admin-settings-backups-banner");
   const backupsTbody = document.getElementById("admin-settings-backups-tbody");
@@ -919,11 +864,7 @@ export async function loadSettings() {
     periodButtons: backupsPeriodButtons,
   });
   const securityEl = document.getElementById("admin-settings-security");
-  const logsEl = document.getElementById("admin-settings-logs");
   const searchInput = document.getElementById("admin-settings-search-input");
-  const favFilterBtn = document.getElementById("admin-settings-fav-filter-btn");
-  const newKeyBtn = document.getElementById("admin-settings-new-key-btn");
-  const newKeyForm = document.getElementById("admin-settings-new-key-form");
   const smtpTestBtn = document.getElementById("admin-settings-smtp-test-btn");
   const backupCreateBtn = document.getElementById("admin-settings-backup-create-btn");
 
@@ -938,40 +879,12 @@ export async function loadSettings() {
     const data = await res.json();
 
     renderAi(aiForm, aiInfoEl, data.ai);
-    renderApiKeysTable(keysContainer, data.api_keys, {
-      onChanged: refresh,
-      allowEdit: true,
-      emptyMessage: "Aucune clé API configurée. Utilisez le formulaire ci-dessus pour en ajouter une.",
-    });
-    renderSmtp(smtpEl, data.smtp);
-    renderStripe(stripeEl, data.stripe);
+    renderIntegrations(integrationsEl, data.smtp, data.stripe);
     renderBackupsStats(backupsStatsEl, data.backups);
     renderBackupsBanner(backupsBannerEl, data.backups);
     backupsController.setItems(data.backups.items, refresh);
-    renderSecurity(securityEl, data.security);
-    renderLogs(logsEl, data.logs);
+    renderSecurity(securityEl, data.security, data.logs);
   }
-
-  newKeyBtn.addEventListener("click", () => {
-    newKeyForm.hidden = !newKeyForm.hidden;
-  });
-  newKeyForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const body = {
-      provider_key: document.getElementById("admin-settings-new-key-provider").value,
-      label: document.getElementById("admin-settings-new-key-label").value,
-      priority: Number(document.getElementById("admin-settings-new-key-priority").value) || 0,
-      api_key: document.getElementById("admin-settings-new-key-secret").value,
-    };
-    const { ok, payload } = await apiCall("/api/admin/ai/keys", { method: "POST", body });
-    if (!ok) {
-      alert(payload.error || "Création impossible.");
-      return;
-    }
-    newKeyForm.reset();
-    newKeyForm.hidden = true;
-    await refresh();
-  });
 
   smtpTestBtn.addEventListener("click", async () => {
     smtpTestBtn.disabled = true;
@@ -1002,6 +915,6 @@ export async function loadSettings() {
     await refresh();
   });
 
-  wireFilters(categoriesRoot, searchInput, favFilterBtn);
+  wireFilters(categoriesRoot, searchInput);
   await refresh();
 }

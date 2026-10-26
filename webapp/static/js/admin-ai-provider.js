@@ -8,7 +8,7 @@
 // jamais par une édition inline de cet onglet — un seul formulaire de
 // fournisseur dans toute l'application, jamais deux implémentations
 // divergentes.
-import { openProviderModal, apiCall, testResultBox } from "./admin-ai.js";
+import { openProviderModal, apiCall, testResultBox, buttonWithCostCaption } from "./admin-ai.js";
 
 const EMPTY_LABEL = "Aucune donnée disponible";
 
@@ -121,6 +121,11 @@ function renderHeader(info, providerId, { onChanged, onRefresh }) {
 
   const healthBtn = el("button", "admin-btn admin-btn--sm", "Lancer un health-check");
   healthBtn.type = "button";
+  // Audit admin (2026-10-22) : même constat que admin-ai.js — health-check
+  // (instance.health(), gratuit) et "Tester la connexion" (vrai prompt,
+  // tokens réels) effectuent des vérifications réellement différentes,
+  // jamais fusionnées ; le titre explicite leur coût réel respectif.
+  healthBtn.title = "Vérification de disponibilité : gratuite, aucun token consommé, aucun contenu généré.";
   healthBtn.addEventListener("click", async () => {
     healthBtn.disabled = true;
     resultSlot.innerHTML = "";
@@ -134,10 +139,11 @@ function renderHeader(info, providerId, { onChanged, onRefresh }) {
         : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."),
     );
   });
-  actions.appendChild(healthBtn);
+  actions.appendChild(buttonWithCostCaption(healthBtn, "Gratuit"));
 
   const testConnectionBtn = el("button", "admin-btn admin-btn--sm admin-btn--primary", "Tester la connexion");
   testConnectionBtn.type = "button";
+  testConnectionBtn.title = "Appel réel au fournisseur : consomme de vrais tokens (prompt + réponse).";
   testConnectionBtn.addEventListener("click", async () => {
     testConnectionBtn.disabled = true;
     resultSlot.innerHTML = "";
@@ -151,7 +157,7 @@ function renderHeader(info, providerId, { onChanged, onRefresh }) {
         : el("p", "admin-test-result admin-test-result--fail", payload.error || "Erreur inattendue."),
     );
   });
-  actions.appendChild(testConnectionBtn);
+  actions.appendChild(buttonWithCostCaption(testConnectionBtn, "Coûte des tokens"));
 
   head.appendChild(actions);
   head.appendChild(resultSlot);
@@ -220,7 +226,7 @@ function renderUsageTab(data) {
     const table = el("table", "admin-users-table");
     const thead = document.createElement("thead");
     const theadRow = el("tr");
-    ["Date", "Input", "Output", "Requêtes", "Coût"].forEach((label) =>
+    ["Date", "Input", "Output", "Requêtes", "Coût estimé"].forEach((label) =>
       theadRow.appendChild(el("th", "admin-users-th", label)),
     );
     thead.appendChild(theadRow);

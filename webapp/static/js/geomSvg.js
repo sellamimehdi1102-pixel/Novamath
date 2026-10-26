@@ -62,8 +62,11 @@ function escapeHtml(s) {
 // écrits en toutes lettres) en source KaTeX. Conversion purement typographique
 // — ne change jamais la valeur mathématique ni la formulation pédagogique,
 // seulement la façon dont elle est dessinée (vraie fraction au lieu de "7/4").
-function toKatexSource(label) {
+export function toKatexSource(label) {
   let s = String(label).replace(/−/g, "-").replace(/×/g, "\\times ").replace(/±/g, "\\pm ");
+  // Virgule décimale française : en mode maths, KaTeX traite « , » comme une
+  // ponctuation suivie d'une espace (« 2, 5 ») ; {,} la rend sans espace.
+  s = s.replace(/(\d),(?=\d)/g, "$1{,}");
   s = s.replace(/([A-Za-z])([₀-₉]+)/g, (_, letter, subs) => {
     const digits = subs
       .split("")
@@ -455,7 +458,11 @@ function renderGeom(spec) {
 
   (spec.curves || []).forEach((c) => {
     const projected = c.points.map(([x, y]) => project(layout, x, y));
-    content += `<polyline points="${projected.map((p) => p.join(",")).join(" ")}" class="geom-curve${c.dashed ? " geom-curve--dashed" : ""}" fill="none"/>`;
+    // `variant` (« b », « c » : couleurs des étapes), `reveal` et `tooltip`
+    // (optionnels) : mêmes conventions que les segments — une tangente ou une
+    // seconde courbe se distingue ainsi de la courbe principale.
+    const curveClass = `geom-curve${c.dashed ? " geom-curve--dashed" : ""}${c.variant ? ` geom-curve--${c.variant}` : ""}${c.reveal ? ` reveal-${c.reveal}` : ""}`;
+    content += `<polyline points="${projected.map((p) => p.join(",")).join(" ")}" class="${curveClass}" fill="none">${c.tooltip ? `<title>${escapeHtml(c.tooltip)}</title>` : ""}</polyline>`;
     // La courbe est enregistrée comme zone occupée pour que les labels
     // évitent de la recouvrir. On interpole entre les points échantillonnés
     // (plutôt que de n'occuper que les points bruts) car une courbe pentue
@@ -550,7 +557,9 @@ function renderGeom(spec) {
     const [px, py] = project(layout, p.x, p.y);
     // `tooltip` (optionnel) : infobulle native au survol du point (balise
     // <title>), pour expliquer le rôle du point sans surcharger la figure.
-    content += `<circle cx="${px}" cy="${py}" r="4.5" class="geom-point">${p.tooltip ? `<title>${p.tooltip}</title>` : ""}</circle>`;
+    // `reveal` (optionnel) : le point (et son label, plus bas) n'apparaît qu'à
+    // l'étape indiquée, comme les segments et les polygones.
+    content += `<circle cx="${px}" cy="${py}" r="4.5" class="geom-point${p.reveal ? ` reveal-${p.reveal}` : ""}">${p.tooltip ? `<title>${p.tooltip}</title>` : ""}</circle>`;
     occupy(state, px, py, 6);
   });
 
@@ -592,7 +601,7 @@ function renderGeom(spec) {
     const [px, py] = project(layout, p.x, p.y);
     let labelBox = null;
     if (p.label) {
-      const placed = emitAnchoredLabel(state, [px, py], p.label);
+      const placed = emitAnchoredLabel(state, [px, py], p.label, p.reveal ? `reveal-${p.reveal}` : "");
       content += placed.svg;
       labelBox = placed.box;
     }
@@ -663,6 +672,91 @@ function renderTree(spec) {
     content += `<circle cx="${level1X}" cy="${y1}" r="6" class="geom-tree-node"/>`;
   });
   return `<svg viewBox="0 0 ${W} ${H}" class="geom-figure geom-figure--wide" role="img" aria-label="${spec.alt || "Arbre de probabilités"}">${content}</svg>`;
+}
+
+// ── kind: "pipeline" — chaîne de calculs successifs (refonte pédagogique des
+// cours, 2026-10-23) : une suite de cases reliées par des flèches, chacune
+// représentant une étape (une entrée, une fonction appliquée, un résultat
+// intermédiaire, une seconde fonction, le résultat final...). Conçu pour la
+// composition de fonctions, mais générique à toute notion décrite comme une
+// suite d'étapes (voir spec.nodes) — composant réutilisable, pas un rendu
+// câblé en dur pour une seule notion.
+// spec.nodes : liste de { titre, sousTitre? }, affichés dans l'ordre, reliés
+// par des flèches. `titre`/`sousTitre` sont du texte brut (jamais de LaTeX
+// rendu dans le SVG, comme renderTree/renderVenn ci-dessus) — les formules
+// affichées ici restent volontairement simples (ex. "u(x) = 4x - 6"), la
+// vraie mise en forme LaTeX reste dans le texte d'explication à côté.
+function renderPipeline(spec) {
+  const nodes = spec.nodes || [];
+  const n = Math.max(nodes.length, 1);
+  // À partir de 3 cases, la chaîne horizontale dépasse 650 unités de large :
+  // affichée dans la colonne de la figure (≈ 400 px), tout était réduit de
+  // moitié (sous-titres ≈ 5 px, illisibles — audit Quatrième 2026-10-25).
+  // Les cases s'empilent alors verticalement, presque à taille réelle.
+  if (n >= 3) return renderPipelineVertical(spec, nodes);
+  const boxW = 176,
+    boxH = 92,
+    gap = 46,
+    pad = 24;
+  const W = pad * 2 + n * boxW + (n - 1) * gap;
+  const H = 160;
+  const y = H / 2;
+  // Suffixe aléatoire : un id de marker SVG est global au document, voir
+  // renderGeom ci-dessous — évite toute collision si jamais deux figures
+  // "pipeline" se retrouvaient dans le même DOM.
+  const arrowMarkerId = `pipeline-arrow-${Math.random().toString(36).slice(2, 8)}`;
+  let content = "";
+  nodes.forEach((node, i) => {
+    const x = pad + i * (boxW + gap);
+    content += `<rect x="${x}" y="${y - boxH / 2}" width="${boxW}" height="${boxH}" rx="12" class="geom-pipeline-box"/>`;
+    content += `<text x="${x + boxW / 2}" y="${y - 6}" text-anchor="middle" class="geom-pipeline-titre">${escapeHtml(node.titre || "")}</text>`;
+    if (node.sousTitre) {
+      content += `<foreignObject x="${x + 8}" y="${y + 6}" width="${boxW - 16}" height="${boxH / 2 - 4}"><div xmlns="http://www.w3.org/1999/xhtml" class="geom-pipeline-soustitre">${escapeHtml(node.sousTitre)}</div></foreignObject>`;
+    }
+    if (i < n - 1) {
+      const x1 = x + boxW + 4;
+      const x2 = x + boxW + gap - 4;
+      content += `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" class="geom-pipeline-arrow" marker-end="url(#${arrowMarkerId})"/>`;
+    }
+  });
+  return `
+    <svg viewBox="0 0 ${W} ${H}" class="geom-figure geom-figure--wide" role="img" aria-label="${escapeHtml(spec.alt || "Schéma de composition de fonctions")}">
+      <defs>${buildArrowMarker(arrowMarkerId, "geom-pipeline-arrowhead")}</defs>
+      ${content}
+    </svg>
+  `;
+}
+
+function renderPipelineVertical(spec, nodes) {
+  const boxW = 340,
+    boxH = 74,
+    gap = 30,
+    pad = 16;
+  const W = pad * 2 + boxW;
+  const H = pad * 2 + nodes.length * boxH + (nodes.length - 1) * gap;
+  const x = pad;
+  const arrowMarkerId = `pipeline-arrow-${Math.random().toString(36).slice(2, 8)}`;
+  let content = "";
+  nodes.forEach((node, i) => {
+    const top = pad + i * (boxH + gap);
+    const titreY = node.sousTitre ? top + 30 : top + boxH / 2 + 5;
+    content += `<rect x="${x}" y="${top}" width="${boxW}" height="${boxH}" rx="12" class="geom-pipeline-box"/>`;
+    content += `<text x="${x + boxW / 2}" y="${titreY}" text-anchor="middle" class="geom-pipeline-titre">${escapeHtml(node.titre || "")}</text>`;
+    if (node.sousTitre) {
+      content += `<foreignObject x="${x + 10}" y="${top + 38}" width="${boxW - 20}" height="${boxH - 40}"><div xmlns="http://www.w3.org/1999/xhtml" class="geom-pipeline-soustitre">${escapeHtml(node.sousTitre)}</div></foreignObject>`;
+    }
+    if (i < nodes.length - 1) {
+      const y1 = top + boxH + 3;
+      const y2 = top + boxH + gap - 3;
+      content += `<line x1="${x + boxW / 2}" y1="${y1}" x2="${x + boxW / 2}" y2="${y2}" class="geom-pipeline-arrow" marker-end="url(#${arrowMarkerId})"/>`;
+    }
+  });
+  return `
+    <svg viewBox="0 0 ${W} ${H}" class="geom-figure geom-figure--pipeline-v" role="img" aria-label="${escapeHtml(spec.alt || "Schéma de composition de fonctions")}">
+      <defs>${buildArrowMarker(arrowMarkerId, "geom-pipeline-arrowhead")}</defs>
+      ${content}
+    </svg>
+  `;
 }
 
 // ── kind: "venn" — diagramme de Venn à deux ensembles ───────────────────────
@@ -747,6 +841,11 @@ function renderBars(spec) {
 }
 
 // ── kind: "pie" — diagramme circulaire ──────────────────────────────────────
+// Couleur imposée (facultative) : quand la couleur a un sens dans l'énoncé
+// (« 1 boule rouge, 4 boules orange »), une part peut porter `color` parmi
+// cette liste fermée ; sinon la palette par rang s'applique, comme avant.
+const PIE_NAMED_COLORS = new Set(["rouge", "orange", "bleu", "vert", "jaune", "gris"]);
+
 function renderPie(spec) {
   const W = 384,
     H = 352,
@@ -766,7 +865,8 @@ function renderPie(spec) {
     const x1 = cx + r * Math.cos(a1),
       y1 = cy + r * Math.sin(a1);
     const large = sweep > 180 ? 1 : 0;
-    content += `<path d="M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} Z" class="geom-pie-slice geom-pie-slice--${i % 5}"/>`;
+    const variant = PIE_NAMED_COLORS.has(s.color) ? `c-${s.color}` : i % 5;
+    content += `<path d="M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} Z" class="geom-pie-slice geom-pie-slice--${variant}"/>`;
     const midA = ((angle + sweep / 2) * Math.PI) / 180;
     content += `<text x="${cx + (r + 32) * Math.cos(midA)}" y="${cy + (r + 32) * Math.sin(midA) + 6}" class="geom-label" text-anchor="middle">${s.label}</text>`;
     angle += sweep;
@@ -856,9 +956,96 @@ function renderSolid(spec) {
   return `<svg viewBox="0 0 320 320" class="geom-figure" role="img" aria-label="${label}">${inner}</svg>`;
 }
 
+// ── kind: "tableau" — tableau de signes et/ou de variations (Première, 2026-10-25)
+// spec.xs   : valeurs de x (source LaTeX), au moins 2, de gauche à droite ;
+// spec.rows : lignes, dans l'ordre d'affichage :
+//   { type: "signe", label, signs: [n − 1 signes « + » / « - »], marks: [n repères « 0 », « || » ou « »] }
+//   { type: "variation", label, values: [n valeurs LaTeX ou « »], levels: [n « haut » / « bas »] }
+// Les libellés et valeurs passent tels quels par KaTeX (source LaTeX, pas la
+// conversion « à la française » des labels de repère), avec repli texte brut.
+function tableauCell(src, cx, cy, w, h, cls) {
+  let html = null;
+  if (typeof katex !== "undefined" && src) {
+    try {
+      html = katex.renderToString(String(src), { throwOnError: false, strict: false, output: "html" });
+    } catch {
+      html = null;
+    }
+  }
+  return `<foreignObject x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="${h}"><div xmlns="http://www.w3.org/1999/xhtml" class="geom-tab-cell ${cls}">${html ?? escapeHtml(src || "")}</div></foreignObject>`;
+}
+
+function renderTableau(spec) {
+  const xs = spec.xs || [];
+  const n = Math.max(xs.length, 2);
+  // Géométrie resserrée : le tableau est affiché dans la colonne de la figure
+  // (≈ 400 à 560 px) ; un viewBox plus étroit garde les caractères proches de
+  // leur taille réelle.
+  const labelW = 96,
+    colW = n > 4 ? 84 : 104,
+    edge = 26,
+    headH = 44,
+    signH = 44,
+    varH = 100;
+  const W = labelW + edge * 2 + (n - 1) * colW;
+  const rows = spec.rows || [];
+  const heights = rows.map((r) => (r.type === "variation" ? varH : signH));
+  const H = headH + heights.reduce((a, b) => a + b, 0);
+  const xAt = (i) => labelW + edge + i * colW;
+  const arrowMarkerId = `tab-arrow-${Math.random().toString(36).slice(2, 8)}`;
+  let content = `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" class="geom-tab-frame"/>`;
+  content += `<line x1="${labelW}" y1="0" x2="${labelW}" y2="${H}" class="geom-tab-rule"/>`;
+  content += tableauCell("x", labelW / 2, headH / 2, labelW - 8, headH - 6, "geom-tab-label");
+  xs.forEach((x, i) => (content += tableauCell(x, xAt(i), headH / 2, colW - 6, headH - 6, "geom-tab-x")));
+  let top = headH;
+  rows.forEach((row, r) => {
+    const h = heights[r];
+    content += `<line x1="0" y1="${top}" x2="${W}" y2="${top}" class="geom-tab-rule"/>`;
+    content += tableauCell(row.label, labelW / 2, top + h / 2, labelW - 8, h - 6, "geom-tab-label");
+    if (row.type === "variation") {
+      const values = row.values || [];
+      const levels = row.levels || [];
+      const yOf = (i) => (levels[i] === "haut" ? top + 22 : top + h - 22);
+      for (let i = 0; i < n - 1; i++) {
+        const dx = 30,
+          y1 = yOf(i),
+          y2 = yOf(i + 1);
+        const dy = y2 === y1 ? 0 : y2 > y1 ? 12 : -12;
+        content += `<line x1="${xAt(i) + dx}" y1="${y1 + dy}" x2="${xAt(i + 1) - dx}" y2="${y2 - dy}" class="geom-tab-arrow" marker-end="url(#${arrowMarkerId})"/>`;
+      }
+      values.forEach((v, i) => {
+        if (v) content += tableauCell(v, xAt(i), yOf(i), colW - 10, 32, "geom-tab-value");
+      });
+    } else {
+      const marks = row.marks || [];
+      (row.signs || []).forEach((s, i) => {
+        content += tableauCell(s, (xAt(i) + xAt(i + 1)) / 2, top + h / 2, colW - 30, h - 8, "geom-tab-sign");
+      });
+      marks.forEach((m, i) => {
+        if (m === "||") {
+          content += `<line x1="${xAt(i) - 3}" y1="${top}" x2="${xAt(i) - 3}" y2="${top + h}" class="geom-tab-bar"/>`;
+          content += `<line x1="${xAt(i) + 3}" y1="${top}" x2="${xAt(i) + 3}" y2="${top + h}" class="geom-tab-bar"/>`;
+        } else if (m) {
+          content += `<line x1="${xAt(i)}" y1="${top}" x2="${xAt(i)}" y2="${top + h}" class="geom-tab-dash"/>`;
+          content += tableauCell(m, xAt(i), top + h / 2, 30, 26, "geom-tab-zero");
+        }
+      });
+    }
+    top += h;
+  });
+  return `
+    <svg viewBox="0 0 ${W} ${H}" class="geom-figure geom-figure--tableau" role="img" aria-label="${escapeHtml(spec.alt || "Tableau de signes et de variations")}">
+      <defs>${buildArrowMarker(arrowMarkerId, "geom-tab-arrowhead")}</defs>
+      ${content}
+    </svg>
+  `;
+}
+
 const RENDERERS = {
   geom: renderGeom,
+  tableau: renderTableau,
   tree: renderTree,
+  pipeline: renderPipeline,
   venn: renderVenn,
   "nested-sets": renderNestedSets,
   numberline: renderNumberline,

@@ -57,6 +57,15 @@ NOTION_LIMITE = "Notion de limite d'une suite"
 GENERATED_ID_OFFSET = 910_000
 
 
+def _p(v) -> str:
+    """Facteur en LaTeX, entre parenthèses s'il s'affiche avec un signe moins ou
+    s'il est une somme (jamais « \\times -3 », « + -2 » ni « -5^2 »)."""
+    s = v if isinstance(v, str) else latex(v)
+    if not (s.lstrip().startswith("-") or getattr(v, "is_Add", False)):
+        return s
+    return f"\\left({s}\\right)" if "\\frac" in s else f"({s})"
+
+
 def _lin_rule_latex(a, b, var_latex: str = "u_n") -> str:
     """Rend en LaTeX une relation affine  a·var + b , utilisée pour décrire
     une relation de récurrence u_{n+1} = a u_n + b sans dupliquer le calcul
@@ -195,7 +204,7 @@ def _gen_generalites_recurrence(rng):
         + "."
     )
     steps = [
-        f"Étape {i} — $u_{{{i}}} = {a} \\times {latex(values[i-1])} {'+' if b >= 0 else '-'} {abs(b)} = {latex(values[i])}$."
+        f"Étape {i} — $u_{{{i}}} = {a} \\times {_p(values[i-1])} {'+' if b >= 0 else '-'} {abs(b)} = {latex(values[i])}$."
         for i in range(1, steps_count + 1)
     ]
     answer = ", ".join(f"$u_{{{i}}} = {latex(values[i])}$" for i in range(1, steps_count + 1))

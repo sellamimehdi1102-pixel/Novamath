@@ -81,6 +81,11 @@ def compute_stats(class_level):
             # de savoir, sans en lire le contenu, si elle doit afficher un état
             # vide plutôt que les chapitres d'une autre classe.
             "hasCourses": profile.courses_dir is not None,
+            # `False` uniquement pour un programme servi en prévisualisation
+            # locale (NOVAMATH_PREVIEW_CURRICULA) : la carte du sélecteur
+            # l'annonce alors « En préparation » plutôt que « Programme
+            # officiel ». Jamais `False` sur une instance de production.
+            "published": profile.published is True,
         }
     return _cache[class_level]
 

@@ -136,6 +136,19 @@ os.environ["ANTHROPIC_API_KEY"] = "sk-ant-neutralized-for-pytest-not-a-real-key"
 os.environ["GEMINI_API_KEY"] = "neutralized-for-pytest-not-a-real-key"
 os.environ["STRIPE_SECRET_KEY"] = "neutralized_for_pytest_not_a_real_key"
 os.environ["STRIPE_WEBHOOK_SECRET"] = "neutralized_for_pytest_not_a_real_whsec"
+# OAuth Google (webapp/auth.py::_provider_configured) : si un développeur a
+# configuré de VRAIS identifiants Google OAuth en local (.env) pour tester
+# manuellement "Se connecter avec Google", ces deux variables restent dans
+# os.environ après load_dotenv() et font croire au provider "google" qu'il
+# est configuré pendant toute la suite pytest — alors que les tests qui
+# appellent /api/auth/google/callback sans session OAuth valide (ni state ni
+# code) s'attendent au contraire à un 501 "Fournisseur non configuré"
+# (comportement attendu en l'absence de config). Chaîne vide : `bool("")` est
+# déjà False, donc _provider_configured() reste False pour toute la session
+# pytest, quelle que soit la valeur réelle dans .env local — jamais un vrai
+# appel réseau à Google n'est tenté par ces tests.
+os.environ["GOOGLE_CLIENT_ID"] = ""
+os.environ["GOOGLE_CLIENT_SECRET"] = ""
 # Distincts (jamais la même valeur) : des tests comme test_chantier6_
 # streaming_fix.py::test_prix_stripe_inchanges vérifient que le bon Price ID
 # est résolu PAR PLAN (stripe_service.resolve_price_id) — une valeur unique
@@ -143,6 +156,23 @@ os.environ["STRIPE_WEBHOOK_SECRET"] = "neutralized_for_pytest_not_a_real_whsec"
 # un mock correctement posé sur stripe.Price.retrieve.
 os.environ["STRIPE_PRICE_PREMIUM"] = "price_neutralized_for_pytest_premium"
 os.environ["STRIPE_PRICE_ULTRA"] = "price_neutralized_for_pytest_ultra"
+
+# Cloudflare Web Analytics (Phase 2, cloudflare_analytics_service.py) :
+# contrairement aux clés ci-dessus, une chaîne VIDE est volontaire ici, pas
+# un placeholder non-vide. Ce service n'a pas de mock SDK/client interne à
+# contourner : `is_configured()` (os.environ.get(...) or None) est la SEULE
+# garde avant un éventuel `requests.post` réel vers l'API Cloudflare — un
+# placeholder non-vide la rendrait "configurée" et déclencherait une
+# tentative d'appel réel à chaque test qui exerce une route /api/admin/
+# frequentation/*, intercepté au mieux par le garde-fou réseau (B,
+# ci-dessous) sous forme d'exception non gérée (donc une 500 au lieu du
+# comportement "non configuré" attendu), au pire un vrai appel si jamais ce
+# garde-fou venait à changer. Une chaîne vide se lit comme absente
+# (`"" or None` → None), donc is_configured() reste False pour toute la
+# session pytest, quelle que soit la valeur réelle dans .env local.
+os.environ["CLOUDFLARE_API_TOKEN"] = ""
+os.environ["CLOUDFLARE_ACCOUNT_TAG"] = ""
+os.environ["CLOUDFLARE_SITE_TAG"] = ""
 
 # Répertoire temporaire créé ICI (avant `import config`) : voir la section
 # "BACKUP_DIRECTORY" ci-dessous, qui doit elle aussi être neutralisée AVANT

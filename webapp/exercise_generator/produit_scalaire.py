@@ -43,6 +43,20 @@ def _nz(rng: random.Random, lo: int, hi: int) -> int:
     return rng.choice(choices)
 
 
+def _p(v) -> str:
+    """Facteur en LaTeX, entre parenthèses s'il s'affiche avec un signe moins ou
+    s'il est une somme (jamais « \\times -3 », « + -2 » ni « -5^2 »)."""
+    s = v if isinstance(v, str) else latex(v)
+    if not (s.lstrip().startswith("-") or getattr(v, "is_Add", False)):
+        return s
+    return f"\\left({s}\\right)" if "\\frac" in s else f"({s})"
+
+
+def _cx(a) -> str:
+    """Coefficient devant une variable, sans « 1x » ni « -1x »."""
+    return "" if a == 1 else ("-" if a == -1 else str(a))
+
+
 def _vec_latex(x, y) -> str:
     return f"\\begin{{pmatrix}} {x} \\\\ {y} \\end{{pmatrix}}"
 
@@ -70,7 +84,7 @@ def _gen_produit_coordonnees(rng: random.Random) -> Optional[dict]:
     answer = f"$\\vec{{u}} \\cdot \\vec{{v}} = {resultat}$"
     steps = [
         f"Étape 1 — On utilise la formule $\\vec{{u}} \\cdot \\vec{{v}} = x_u x_v + y_u y_v$.",
-        f"Étape 2 — $\\vec{{u}} \\cdot \\vec{{v}} = {x1} \\times {x2} + {y1} \\times {y2} = {x1*x2} + {y1*y2}$.",
+        f"Étape 2 — $\\vec{{u}} \\cdot \\vec{{v}} = {x1} \\times {_p(x2)} + {_p(y1)} \\times {_p(y2)} = {x1*x2} + {_p(y1*y2)}$.",
         f"Étape 3 — {answer}.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
@@ -86,7 +100,7 @@ def _gen_norme(rng: random.Random) -> Optional[dict]:
     answer = f"$\\|\\vec{{u}}\\| = {latex(sympy.simplify(norme))}$"
     steps = [
         f"Étape 1 — On utilise la formule $\\|\\vec{{u}}\\| = \\sqrt{{x_u^2 + y_u^2}}$.",
-        f"Étape 2 — $\\|\\vec{{u}}\\| = \\sqrt{{{x1}^2 + {y1}^2}} = \\sqrt{{{carre}}}$.",
+        f"Étape 2 — $\\|\\vec{{u}}\\| = \\sqrt{{{_p(x1)}^2 + {_p(y1)}^2}} = \\sqrt{{{carre}}}$.",
         f"Étape 3 — {answer}.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_AUTRES}
@@ -115,7 +129,7 @@ def _gen_orthogonalite(rng: random.Random) -> Optional[dict]:
         answer = f"Non, $\\vec{{u}} \\cdot \\vec{{v}} = {produit} \\neq 0$, donc $\\vec{{u}}$ et $\\vec{{v}}$ ne sont pas orthogonaux."
     steps = [
         f"Étape 1 — Deux vecteurs sont orthogonaux si et seulement si leur produit scalaire est nul.",
-        f"Étape 2 — $\\vec{{u}} \\cdot \\vec{{v}} = {x1} \\times {x2} + {y1} \\times {y2} = {produit}$.",
+        f"Étape 2 — $\\vec{{u}} \\cdot \\vec{{v}} = {x1} \\times {_p(x2)} + {_p(y1)} \\times {_p(y2)} = {produit}$.",
         f"Étape 3 — {answer}",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
@@ -143,7 +157,7 @@ def _gen_colinearite(rng: random.Random) -> Optional[dict]:
         answer = f"Non, $x_u y_v - x_v y_u = {det} \\neq 0$, donc $\\vec{{u}}$ et $\\vec{{v}}$ ne sont pas colinéaires."
     steps = [
         f"Étape 1 — Deux vecteurs sont colinéaires si et seulement si $x_u y_v - x_v y_u = 0$.",
-        f"Étape 2 — $x_u y_v - x_v y_u = {x1} \\times {y2} - {x2} \\times {y1} = {det}$.",
+        f"Étape 2 — $x_u y_v - x_v y_u = {x1} \\times {_p(y2)} - {_p(x2)} \\times {_p(y1)} = {det}$.",
         f"Étape 3 — {answer}",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
@@ -163,7 +177,7 @@ def _gen_produit_norme_angle(rng: random.Random) -> Optional[dict]:
     answer = f"$\\vec{{u}} \\cdot \\vec{{v}} = {latex(resultat)}$"
     steps = [
         f"Étape 1 — On utilise la formule $\\vec{{u}} \\cdot \\vec{{v}} = \\|\\vec{{u}}\\| \\times \\|\\vec{{v}}\\| \\times \\cos\\left(\\vec{{u}},\\vec{{v}}\\right)$.",
-        f"Étape 2 — $\\vec{{u}} \\cdot \\vec{{v}} = {n1} \\times {n2} \\times \\cos\\left({label}\\right) = {n1*n2} \\times {latex(c)}$.",
+        f"Étape 2 — $\\vec{{u}} \\cdot \\vec{{v}} = {n1} \\times {n2} \\times \\cos\\left({label}\\right) = {n1*n2} \\times {_p(c)}$.",
         f"Étape 3 — {answer}.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_AUTRES}
@@ -188,8 +202,8 @@ def _gen_trouver_coordonnee_orthogonale(rng: random.Random) -> Optional[dict]:
     answer = f"$m = {latex(m_val)}$"
     steps = [
         f"Étape 1 — $\\vec{{u}}$ et $\\vec{{v}}$ orthogonaux $\\iff \\vec{{u}} \\cdot \\vec{{v}} = 0$.",
-        f"Étape 2 — $\\vec{{u}} \\cdot \\vec{{v}} = {x1} \\times {x2} + {y1} \\times m = {x1*x2} + {y1}m$.",
-        f"Étape 3 — On résout ${x1*x2} + {y1}m = 0$ : {answer}.",
+        f"Étape 2 — $\\vec{{u}} \\cdot \\vec{{v}} = {x1} \\times {_p(x2)} + {_p(y1)} \\times m = {x1*x2} {'-' if y1 < 0 else '+'} {_cx(abs(y1))}m$.",
+        f"Étape 3 — On résout ${x1*x2} {'-' if y1 < 0 else '+'} {_cx(abs(y1))}m = 0$ : {answer}.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
 
@@ -220,7 +234,7 @@ def _gen_produit_points(rng: random.Random) -> Optional[dict]:
     answer = f"$\\vec{{AB}} \\cdot \\vec{{AC}} = {resultat}$"
     steps = [
         f"Étape 1 — $\\vec{{AB}}{_vec_latex(xab, yab)}$ et $\\vec{{AC}}{_vec_latex(xac, yac)}$.",
-        f"Étape 2 — $\\vec{{AB}} \\cdot \\vec{{AC}} = {xab} \\times {xac} + {yab} \\times {yac} = {resultat}$.",
+        f"Étape 2 — $\\vec{{AB}} \\cdot \\vec{{AC}} = {xab} \\times {_p(xac)} + {_p(yab)} \\times {_p(yac)} = {resultat}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
 
@@ -241,7 +255,7 @@ def _gen_norme_somme(rng: random.Random) -> Optional[dict]:
     answer = f"$\\|\\vec{{u}} + \\vec{{v}}\\| = {latex(norme)}$"
     steps = [
         f"Étape 1 — $\\vec{{u}} + \\vec{{v}}{_vec_latex(xs, ys)}$ (on additionne les coordonnées).",
-        f"Étape 2 — $\\|\\vec{{u}} + \\vec{{v}}\\| = \\sqrt{{{xs}^2 + {ys}^2}} = \\sqrt{{{carre}}} = {latex(norme)}$.",
+        f"Étape 2 — $\\|\\vec{{u}} + \\vec{{v}}\\| = \\sqrt{{{_p(xs)}^2 + {_p(ys)}^2}} = \\sqrt{{{carre}}} = {latex(norme)}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_AUTRES}
 
@@ -274,7 +288,7 @@ def _gen_orthogonalite_triangle(rng: random.Random) -> Optional[dict]:
     steps = [
         f"Étape 1 — $\\vec{{AB}}{_vec_latex(xab, yab)}$ et $\\vec{{AC}}{_vec_latex(xac, yac)}$.",
         f"Étape 2 — Le triangle est rectangle en $A$ si et seulement si $\\vec{{AB}} \\cdot \\vec{{AC}} = 0$.",
-        f"Étape 3 — $\\vec{{AB}} \\cdot \\vec{{AC}} = {xab} \\times {xac} + {yab} \\times {yac} = {produit}$. {answer}",
+        f"Étape 3 — $\\vec{{AB}} \\cdot \\vec{{AC}} = {xab} \\times {_p(xac)} + {_p(yab)} \\times {_p(yac)} = {produit}$. {answer}",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
 
@@ -304,7 +318,7 @@ def _gen_alignement_points(rng: random.Random) -> Optional[dict]:
         f"Étape 1 — $\\vec{{AB}}{_vec_latex(xab, yab)}$ et $\\vec{{AC}}{_vec_latex(xac, yac)}$.",
         "Étape 2 — $A$, $B$, $C$ sont alignés si et seulement si $\\vec{AB}$ et $\\vec{AC}$ sont colinéaires, "
         "c'est-à-dire $x_{AB} y_{AC} - x_{AC} y_{AB} = 0$.",
-        f"Étape 3 — $x_{{AB}} y_{{AC}} - x_{{AC}} y_{{AB}} = {xab} \\times {yac} - {xac} \\times {yab} = {det}$. {answer}",
+        f"Étape 3 — $x_{{AB}} y_{{AC}} - x_{{AC}} y_{{AB}} = {xab} \\times {_p(yac)} - {_p(xac)} \\times {_p(yab)} = {det}$. {answer}",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
 
@@ -346,7 +360,7 @@ def _gen_coordonnee_norme_donnee(rng: random.Random) -> Optional[dict]:
     )
     answer = f"$m = {m_positif}$"
     steps = [
-        f"Étape 1 — $\\|\\vec{{u}}\\|^2 = {x1}^2 + m^2$, donc ${norme_cible}^2 = {x1**2} + m^2$.",
+        f"Étape 1 — $\\|\\vec{{u}}\\|^2 = {_p(x1)}^2 + m^2$, donc ${norme_cible}^2 = {x1**2} + m^2$.",
         f"Étape 2 — $m^2 = {norme_cible**2} - {x1**2} = {m_positif**2}$, donc (avec $m>0$) $m = {m_positif}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
@@ -372,10 +386,10 @@ def _gen_produit_coordonnees_fractionnaires(rng: random.Random) -> Optional[dict
         f"Dans un repère orthonormé, on donne $\\vec{{u}}{_vec_latex(latex(x1), latex(y1))}$ et "
         f"$\\vec{{v}}{_vec_latex(latex(x2), latex(y2))}$. Calculer $\\vec{{u}} \\cdot \\vec{{v}}$."
     )
-    answer = f"$\\vec{{u}} \\cdot \\vec{{v}} = {latex(x1)} \\times {latex(x2)} + {latex(y1)} \\times {latex(y2)} = {latex(resultat)}$"
+    answer = f"$\\vec{{u}} \\cdot \\vec{{v}} = {latex(x1)} \\times {_p(x2)} + {_p(y1)} \\times {_p(y2)} = {latex(resultat)}$"
     steps = [
         f"Étape 1 — $\\vec{{u}} \\cdot \\vec{{v}} = x_u x_v + y_u y_v$.",
-        f"Étape 2 — ${latex(x1)} \\times {latex(x2)} + {latex(y1)} \\times {latex(y2)} = {latex(x1*x2)} + {latex(y1*y2)} = {latex(resultat)}$.",
+        f"Étape 2 — ${latex(x1)} \\times {_p(x2)} + {_p(y1)} \\times {_p(y2)} = {latex(x1*x2)} + {_p(y1*y2)} = {latex(resultat)}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_PRODUIT_SCALAIRE}
 

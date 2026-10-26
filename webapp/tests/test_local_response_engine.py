@@ -308,18 +308,28 @@ class TestLearningContextTransmisAuMoteurLocal(LocalResponseEngineTestCase):
     coïncidentiel de 0.1224, sans aucun recoupement de titre). Correctif :
     generate() accepte désormais learning_context/last_assistant_message et
     les transmet tels quels à response_strategy.decide_strategy() — aucun
-    recalcul, aucune nouvelle logique de routage."""
+    recalcul, aucune nouvelle logique de routage.
+
+    Note (refonte pédagogique de Seconde, 2026-10-24) : le score TF-IDF brut
+    coïncidentiel documenté ci-dessus a bougé avec l'enrichissement du
+    contenu de Chapitre_12 (0,097 désormais, sous le seuil de 0,12) — la
+    dérive historique ne se reproduit donc plus avec ce contenu enrichi, ce
+    qui n'invalide pas le correctif (voir test_avec_learning_context_le_sujet_
+    est_conserve ci-dessous, qui reste le test significatif)."""
 
     LEARNING_CONTEXT = {"chapter_id": "Chapitre_2", "notion_id": "valeur-absolue-dun-nombre-reel"}
 
     def test_sans_learning_context_le_bug_historique_reste_reproductible(self):
         """Contrôle négatif : documente le comportement AVANT transmission
-        du contexte — sans learning_context, le message dérive bien vers la
-        notion sans rapport (comportement par défaut inchangé, non régressé
-        par ce correctif : le paramètre reste optionnel)."""
+        du contexte. Avec le contenu enrichi de Seconde (2026-10-24), le
+        score TF-IDF brut coïncidentiel qui causait la dérive historique est
+        tombé sous le seuil de détection : le message ne dérive plus vers
+        aucune notion (chapter_id/topic_id restent None) plutôt que de
+        dériver vers une notion sans rapport — un effet de bord neutre à
+        positif de l'enrichissement du contenu, pas une régression."""
         r = self.gen("encore une autre façon", student_context=student_context(class_level="seconde"), class_level="seconde")
-        self.assertEqual(r.chapter_id, "Chapitre_12")
-        self.assertEqual(r.topic_id, "operations-sur-les-evenements")
+        self.assertIsNone(r.chapter_id)
+        self.assertIsNone(r.topic_id)
 
     def test_avec_learning_context_le_sujet_est_conserve(self):
         """Le test principal du correctif : avec learning_context transmis,

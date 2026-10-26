@@ -56,6 +56,17 @@
   flex-direction: column;
   gap: 2px;
 }
+.admin-sidebar-section-label {
+  padding: 10px 10px 2px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.admin-sidebar-section-label:first-child {
+  padding-top: 0;
+}
 .admin-sidebar-link {
   display: flex;
   align-items: center;
@@ -292,17 +303,6 @@
   color: var(--danger);
   border: 1px solid rgba(221, 75, 86, 0.25);
 }
-.admin-banner--neutral {
-  background: var(--surface-muted, rgba(127, 127, 127, 0.08));
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-}
-.admin-banner--accent {
-  background: var(--accent-soft-bg);
-  color: var(--accent-text);
-  border: 1px solid rgba(var(--accent-rgb, 90, 120, 220), 0.25);
-}
-
 /* ── Blocs "catalogue" vs "réellement appliqué" (fiche Abonnement) ──────── */
 .admin-feature-block {
   border-radius: var(--radius-sm);
@@ -395,7 +395,6 @@
    panneau admin qui réutilise l'une de ces classes est protégée sans
    correctif supplémentaire. */
 .admin-card,
-.admin-chart-card,
 .admin-activity,
 .admin-kv-row,
 .admin-kv-label,
@@ -412,7 +411,6 @@
 .admin-support-message,
 .admin-users-td,
 .admin-users-th,
-.admin-card-head-row > *,
 .admin-fields-grid > * {
   min-width: 0;
 }
@@ -423,7 +421,6 @@
    jamais de retour à la ligne forcé en dehors des mots normaux. Réutilise
    les mêmes 3 propriétés partout plutôt que de les redéfinir par page. */
 .admin-card,
-.admin-chart-card,
 .admin-activity,
 .admin-provider-name,
 .admin-activity-meta,
@@ -480,12 +477,6 @@
 }
 
 /* État des fournisseurs IA — liste compacte de pastilles. */
-.admin-provider-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 4px;
-}
 .admin-provider-row {
   display: flex;
   align-items: center;
@@ -543,28 +534,12 @@
 
 /* ── Graphiques ────────────────────────────────────────────────────────── */
 .admin-card,
-.admin-chart-card,
 .admin-activity {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 20px 22px;
   box-shadow: var(--shadow-sm);
-}
-.admin-chart-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-.admin-chart-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text);
-}
-.admin-chart-total {
-  font-size: 0.8rem;
-  color: var(--text-muted);
 }
 .admin-activity h2 {
   font-size: 1rem;
@@ -881,6 +856,22 @@
   color: var(--text);
   margin: 0 0 8px;
 }
+/* Variante sans hauteur forcée (240px) — réservée au cas "sous-bloc
+   individuellement vide" (pas de canevas à afficher) : le cas "avec
+   données" garde .admin-health-chart-box tel quel, hauteur légitime pour un
+   vrai graphique (Chantier Fréquentation, 2026-10-22). */
+.admin-health-chart-box--compact {
+  height: auto;
+}
+
+/* ── Module Fréquentation (admin-frequentation.js) — état vide groupé ────
+   Remplace les 7 blocs détaillés (~1300px) par UNE SEULE carte, taille
+   standard, quand aucune des métriques overview/charts/rankings n'a de
+   donnée réelle (non configuré / erreur API / zéro réel confirmé — jamais
+   confondus, voir computeEmptyState() dans le JS). */
+.admin-frequentation-empty-state {
+  max-width: 480px;
+}
 
 /* ── Module Paramètres (admin-settings.js) ────────────────────────────────
    Réutilise les mêmes tokens/motifs que .admin-form-grid/.admin-users-search
@@ -1057,6 +1048,21 @@
   color: var(--text-muted);
   border-bottom: 1px solid var(--border);
 }
+/* "Tickets par statut" — statistique compacte (remplace un camembert à 2-3
+   valeurs, qui réservait 240px — .admin-health-chart-box — pour ça).
+   Taille d'une carte KPI standard (.admin-card), jamais un bloc graphique. */
+.admin-analytics-status-compact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: 4px;
+}
+.admin-analytics-status-compact-item {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
 .admin-analytics-search-result-group {
   margin-bottom: var(--space-sm);
 }
@@ -1129,23 +1135,6 @@
 }
 
 /* Ligne de clé API (haute disponibilité, voir admin-ai.js::renderApiKeyRow) */
-.admin-card-head-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-sm);
-}
-.admin-card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin-top: var(--space-sm);
-}
-.admin-ai-key-row {
-  margin-bottom: var(--space-sm);
-}
-
 .admin-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -1571,6 +1560,10 @@
 .admin-form-hint {
   font-size: 0.72rem;
   color: var(--text-faint);
+}
+.admin-form-hint--warning {
+  color: var(--warning);
+  font-weight: 600;
 }
 .admin-form-error {
   font-size: 0.76rem;
@@ -2021,11 +2014,6 @@
    Réutilise .admin-card/.admin-users-toolbar/.admin-badge/.admin-unavailable-*
    déjà utilisés ailleurs — uniquement les quelques classes propres à ces
    nouveaux composants, absentes ailleurs. */
-.admin-analytics-export-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
 .admin-card-label-row {
   display: flex;
   align-items: center;
@@ -2110,26 +2098,25 @@
 .admin-settings-toolbar .admin-settings-search {
   margin-top: 0;
 }
-.admin-settings-fav-filter {
-  white-space: nowrap;
+/* Module Finance (Phase 2A, 2026-10-21) — réutilise entièrement les
+   classes existantes (admin-card/admin-table/admin-form-hint/
+   admin-health-chart-box) ; seuls ces 2 éléments sont spécifiques. */
+.admin-finance-breakdown {
+  margin-top: var(--space-md);
 }
-.admin-settings-fav-filter.active {
-  background: var(--accent, #7c5cff);
-  color: #fff;
-  border-color: transparent;
-}
-.admin-fav-star {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1rem;
-  line-height: 1;
+.admin-finance-plan-list {
+  list-style: none;
   padding: 0;
-  margin-right: 6px;
-  color: var(--text-faint);
+  margin: var(--space-sm) 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
 }
-.admin-fav-star[aria-pressed="true"] {
-  color: #f5a623;
+.admin-finance-plan-list li {
+  background: var(--surface-alt, #f3f1ff);
+  border-radius: var(--radius-sm, 6px);
+  padding: 4px 10px;
+  font-size: 0.9em;
 }
 .admin-settings-subtitle {
   font-size: 0.82rem;

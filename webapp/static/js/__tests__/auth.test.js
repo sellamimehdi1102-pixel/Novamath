@@ -38,7 +38,16 @@ async function mountAuth({ meResolves = null, url = "/index.html" } = {}) {
     meResolves ? Promise.resolve({ user: meResolves }) : Promise.reject(new Error("401")),
   );
   vi.resetModules();
-  await import("../auth.js");
+  const authModule = await import("../auth.js");
+  // Attend explicitement la fin des import() dynamiques de
+  // cookieConsent.js/analyticsBeacon.js (voir auth.js::
+  // cookieConsentAndAnalyticsReady) — jamais seulement flushPromises() : un
+  // seul tick ne suffit pas toujours à les laisser se résoudre, ce qui
+  // laissait une Promise en suspens capable de se résoudre PENDANT le test
+  // suivant (observé : un mountBanner() d'un test précédent se déclenchant
+  // au milieu du test suivant, faussant toute assertion sur l'ordre réel des
+  // opérations — voir la suite "retrait déterministe des paramètres OAuth").
+  await authModule.cookieConsentAndAnalyticsReady;
   await flushPromises();
 }
 
@@ -446,5 +455,88 @@ describe("auth.js — mot de passe oublié", () => {
     await flushPromises();
     expect($("forgot-result").hidden).toBe(false);
     expect($("forgot-result").innerHTML).toContain("Email envoyé.");
+  });
+});
+
+// ── Nettoyage déterministe des paramètres OAuth sensibles avant tout ────────
+// chargement de cookieConsent.js/analyticsBeacon.js (donc avant toute chance
+// que le script Cloudflare Web Analytics lise une URL encore porteuse d'un
+// jeton). La garantie ne repose JAMAIS sur une latence réseau du script tiers
+// (non testable, non déterministe) : elle repose sur la sémantique du
+// langage — un `import()` dynamique ne peut jamais se résoudre de façon
+// synchrone, voir le commentaire de mountCookieConsentAndAnalytics() dans
+// auth.js. Ces tests vérifient donc DEUX choses indépendantes : (1) le
+// nettoyage a bien lieu, (2) cookieConsent.js/analyticsBeacon.js ne sont
+// effectivement chargés qu'après coup (preuve de la garantie d'ordre, pas
+// seulement de son résultat final).
+describe("auth.js — retrait déterministe des paramètres OAuth sensibles de l'URL", () => {
+  it.each([
+    ["oauth_error", "Connexion annulée."],
+    ["oauth_two_factor_required", "challenge-token-abc123"],
+    ["oauth_complete_signup", "google"],
+  ])("« %s » est retiré de l'URL après le montage de auth.js", async (param, value) => {
+    await mountAuth({ url: `/index.html?${param}=${encodeURIComponent(value)}` });
+    expect(window.location.search).not.toContain(param);
+    expect(window.location.search).not.toContain(encodeURIComponent(value));
+  });
+
+  it("le nettoyage de l'URL (history.replaceState, synchrone) a TOUJOURS lieu avant que cookieConsent.js ne lise le consentement stocké — preuve par ordre d'appel réel, jamais par un délai supposé", async () => {
+    // Pourquoi ce test et pas un simple "la bannière n'est pas encore montée
+    // juste après l'import" : un `await import(...)` flushe la file de
+    // micro-tâches, et dans cet environnement de test les modules déjà
+    // compilés/en cache peuvent voir leurs import() dynamiques se résoudre
+    // dans ce même flush — observer un état DOM intermédiaire serait donc
+    // fragile et dépendant de l'implémentation du test runner, pas de la
+    // garantie réelle. La garantie réelle porte sur l'ORDRE DE DÉMARRAGE de
+    // l'exécution (jamais sur l'ordre de résolution des Promises) : le corps
+    // synchrone de auth.js — donc stripQueryParams()/history.replaceState —
+    // s'exécute et se termine intégralement AVANT que le moindre import()
+    // dynamique qu'il déclenche ne puisse commencer à évaluer son module
+    // (run-to-completion de JS : un import() ne peut jamais s'exécuter en
+    // ligne dans l'appel synchrone qui l'a déclenché). On le prouve ici en
+    // comparant l'ordre RÉEL de deux évènements historiquement concurrents :
+    // history.replaceState (nettoyage) et l'insertion de la bannière cookies
+    // dans <body> par cookieConsent.js (document.body.appendChild, voir
+    // cookieConsent.js::mountBanner) — ni vi.spyOn(Storage.prototype,
+    // "getItem") (jsdom implémente localStorage via un Proxy qui ne passe PAS
+    // par les méthodes héritées de Storage.prototype, constaté en pratique :
+    // le spy ne voyait jamais l'appel), ni vi.doMock("../cookieConsent.js",
+    // ...) (le module dynamiquement importé par auth.js, "./cookieConsent.js",
+    // n'était jamais intercepté par ce doMock malgré une résolution vers le
+    // même fichier, constaté en pratique également) ne se sont montrés
+    // fiables ici — un vrai appel DOM observable directement, lui, ne dépend
+    // d'aucune subtilité d'implémentation de jsdom ou du runner de modules.
+    window.history.pushState({}, "", "/index.html?oauth_two_factor_required=challenge-token-xyz");
+    document.body.innerHTML = loadPageBody("index.html");
+    Object.values(mockApi).forEach((fn) => fn.mockReset());
+    mockApi.me.mockRejectedValue(new Error("401"));
+    vi.resetModules();
+
+    const callOrder = [];
+    const realReplaceState = window.history.replaceState.bind(window.history);
+    const replaceStateSpy = vi.spyOn(window.history, "replaceState").mockImplementation((...args) => {
+      callOrder.push("strip-oauth-params");
+      return realReplaceState(...args);
+    });
+    const realAppendChild = document.body.appendChild.bind(document.body);
+    const appendChildSpy = vi.spyOn(document.body, "appendChild").mockImplementation((node) => {
+      if (node?.id === "cookie-consent-banner") callOrder.push("cookieConsent-banner-mounted");
+      return realAppendChild(node);
+    });
+
+    try {
+      const authModule = await import("../auth.js");
+      // Jamais un flushPromises() (un seul tick arbitraire, qui s'est avéré
+      // insuffisant sous charge — flaky quand toute la suite tourne en
+      // parallèle) : on attend la Promise exportée par auth.js précisément
+      // pour cet usage, qui ne se résout qu'une fois les DEUX import()
+      // dynamiques (cookieConsent.js + analyticsBeacon.js) réellement résolus.
+      await authModule.cookieConsentAndAnalyticsReady;
+
+      expect(callOrder).toEqual(["strip-oauth-params", "cookieConsent-banner-mounted"]);
+    } finally {
+      replaceStateSpy.mockRestore();
+      appendChildSpy.mockRestore();
+    }
   });
 });

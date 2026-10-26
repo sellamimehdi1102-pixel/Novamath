@@ -320,7 +320,7 @@ class TestGestionDErreursStreamChat(unittest.TestCase):
 
 
 class TestTraductionDesMessages(unittest.TestCase):
-    """Gemini utilise le rôle "model" là où le format interne NovaMath (voir
+    """Gemini utilise le rôle "model" là où le format interne Mathadap (voir
     conversation_manager.py) utilise "assistant" — jamais "assistant" envoyé
     tel quel à l'API Gemini."""
 

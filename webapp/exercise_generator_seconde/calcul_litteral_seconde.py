@@ -129,6 +129,11 @@ def _gen_equation_quotient(rng: random.Random) -> Optional[dict]:
             "notion": "Résolution d'équation quotient"}
 
 
+def _p(v) -> str:
+    """Nombre en LaTeX, parenthésé seulement s'il est négatif (jamais « + -7 » ni « - -2 »)."""
+    return f"({latex(v)})" if v < 0 else latex(v)
+
+
 # ── 4. Calcul littéral en écriture fractionnaire (réduction au même dénom.) ─
 
 def _gen_calcul_fractionnaire(rng: random.Random) -> Optional[dict]:
@@ -145,7 +150,7 @@ def _gen_calcul_fractionnaire(rng: random.Random) -> Optional[dict]:
     steps = [
         f"Étape 1 — On réduit au dénominateur commun ${denom_commun}$ : "
         f"$\\dfrac{{{a}}}{{{b}}}x = \\dfrac{{{a*d}}}{{{denom_commun}}}x$ et $\\dfrac{{{c}}}{{{d}}}x = \\dfrac{{{c*b}}}{{{denom_commun}}}x$.",
-        f"Étape 2 — En additionnant : $\\dfrac{{{a*d}+{c*b}}}{{{denom_commun}}}x = {latex(reduit)}$.",
+        f"Étape 2 — En additionnant : $\\dfrac{{{a*d}+{_p(c*b)}}}{{{denom_commun}}}x = {latex(reduit)}$.",
     ]
     answer = f"${latex(reduit)}$"
     hint = "Mettre les deux fractions au même dénominateur (produit des deux dénominateurs) avant d'additionner les numérateurs."

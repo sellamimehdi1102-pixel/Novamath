@@ -17,6 +17,8 @@ import { loadSupportTicketDetail } from "./admin-support-ticket.js";
 import { loadHealth } from "./admin-health.js";
 import { loadSettings } from "./admin-settings.js";
 import { loadAnalytics } from "./admin-analytics.js";
+import { loadFinanceOverview } from "./admin-finance.js";
+import { loadFrequentation } from "./admin-frequentation.js";
 
 // Sous-page /admin/users/:id — pas une entrée du menu (absente de
 // /api/admin/nav), donc jamais dans moduleByPath : reconnue ici par motif,
@@ -88,20 +90,43 @@ async function loadIdentity() {
 // ── Navigation (sidebar + routeur) ───────────────────────────────────────
 const COMING_SOON_MESSAGE = "Cette fonctionnalité sera disponible prochainement.";
 
+// Grand nettoyage admin (2026-10-22) : regroupement visuel de la sidebar en
+// 3 sections (Suivi/Gestion/Configuration, voir admin_nav_service.py). Ne
+// change ni les routes ni les permissions — seulement l'ordre d'affichage.
+// Si un module reçu du backend n'a pas de catégorie reconnue (ex: anciens
+// fixtures de test, module fictif), on retombe sur l'affichage à plat
+// d'origine pour ne jamais casser un consommateur qui ignore ce champ.
+const CATEGORY_ORDER = ["suivi", "gestion", "configuration"];
+const CATEGORY_LABELS = { suivi: "Suivi", gestion: "Gestion", configuration: "Configuration" };
+
+function createNavLink(module, onNavigate) {
+  const link = document.createElement("a");
+  link.href = module.path;
+  link.className = "admin-sidebar-link";
+  link.dataset.path = module.path;
+  link.innerHTML = `<span class="admin-sidebar-icon" aria-hidden="true">${module.icon}</span><span>${module.label}</span>`;
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    onNavigate(module.path, { pushState: true });
+  });
+  return link;
+}
+
 function renderSidebar(modules, onNavigate) {
   const nav = document.getElementById("admin-sidebar-nav");
   nav.innerHTML = "";
-  modules.forEach((module) => {
-    const link = document.createElement("a");
-    link.href = module.path;
-    link.className = "admin-sidebar-link";
-    link.dataset.path = module.path;
-    link.innerHTML = `<span class="admin-sidebar-icon" aria-hidden="true">${module.icon}</span><span>${module.label}</span>`;
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      onNavigate(module.path, { pushState: true });
-    });
-    nav.appendChild(link);
+
+  const allCategorized = modules.length > 0 && modules.every((m) => CATEGORY_ORDER.includes(m.category));
+  if (!allCategorized) {
+    modules.forEach((module) => nav.appendChild(createNavLink(module, onNavigate)));
+    return;
+  }
+
+  CATEGORY_ORDER.forEach((category) => {
+    const group = modules.filter((m) => m.category === category);
+    if (!group.length) return;
+    nav.appendChild(el("div", "admin-sidebar-section-label", CATEGORY_LABELS[category]));
+    group.forEach((module) => nav.appendChild(createNavLink(module, onNavigate)));
   });
 }
 
@@ -183,6 +208,20 @@ async function renderModuleContent(module, navigateTo) {
     const template = document.getElementById("admin-subscriptions-template");
     body.appendChild(template.content.cloneNode(true));
     await loadSubscriptionsOverview((plan) => navigateTo(`/admin/subscriptions/${plan}`, { pushState: true }));
+    return;
+  }
+
+  if (module.id === "finance") {
+    const template = document.getElementById("admin-finance-template");
+    body.appendChild(template.content.cloneNode(true));
+    await loadFinanceOverview();
+    return;
+  }
+
+  if (module.id === "frequentation") {
+    const template = document.getElementById("admin-frequentation-template");
+    body.appendChild(template.content.cloneNode(true));
+    await loadFrequentation();
     return;
   }
 

@@ -1,6 +1,6 @@
 """
 Point d'entrée UNIQUE pour résoudre le fournisseur IA actif. C'est une
-décision interne à NovaMath, jamais un réglage utilisateur : changer de
+décision interne à Mathadap, jamais un réglage utilisateur : changer de
 fournisseur (OpenAI/Gemini/DeepSeek/Qwen/Llama/OpenRouter/LM Studio/API perso)
 = ajouter une entrée à PROVIDERS + une classe dans webapp/chatbot/providers/,
 puis changer la variable d'environnement CHATBOT_PROVIDER — jamais toucher au
@@ -15,7 +15,7 @@ priorité strict :
        CHATBOT_PROVIDER absent de .env ne doit plus jamais retomber en
        silence sur FakeProvider alors qu'une clé Gemini valide existe.
     3. "fake" en dernier repli (aucune clé disponible) — FakeProvider (aucune
-       API, réponses assemblées depuis les cours NovaMath via le Knowledge
+       API, réponses assemblées depuis les cours Mathadap via le Knowledge
        Engine) ne sert alors que de filet de sécurité pour le développement
        sans clé, jamais un choix silencieux en présence d'une clé.
 
@@ -48,7 +48,7 @@ PROVIDERS = {
 # ses modèles dynamiquement (ex: Ollama arrêté) — voir available_models().
 MODELS = {
     "fake": {
-        "moteur-novamath": "Moteur NovaMath (sans IA, par défaut)",
+        "moteur-novamath": "Moteur Mathadap (sans IA, par défaut)",
     },
     "ollama": {
         "mistral": "Mistral (par défaut)",
@@ -331,7 +331,7 @@ def select_llm_for_user(user, exclude=None):
     que soit l'origine de `chain`.
 
     Repli ultime si tous les candidats du plan sont exclus/indisponibles :
-    ("fake", None) — jamais d'exception, le moteur local NovaMath répond
+    ("fake", None) — jamais d'exception, le moteur local Mathadap répond
     toujours, même si aucune API n'est utilisable."""
     exclude = exclude or set()
 

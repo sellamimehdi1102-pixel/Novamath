@@ -12,7 +12,8 @@
       "reglesImportantes": [
         "Un crochet fermé $[$ ou $]$ veut dire : la borne est incluse.",
         "Un crochet ouvert $]$ ou $[$ veut dire : la borne n'est pas incluse.",
-        "$+\\infty$ et $-\\infty$ sont toujours exclus."
+        "$+\\infty$ et $-\\infty$ sont toujours exclus (on ne les « atteint » jamais) : toujours un crochet ouvert à côté.",
+        "L'intersection $\\cap$ de deux intervalles, c'est ce qu'ils ont EN COMMUN ; leur réunion $\\cup$, c'est tout ce qui est dans l'un OU dans l'autre."
       ],
       "methode": {
         "titre": "Comment représenter un intervalle sur une droite",
@@ -57,7 +58,8 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "intervalles-exemple-1",
+          "titre": "Exemple 1 — Intervalle borné",
           "enonce": "Représente l'ensemble des nombres $x$ tels que $-2 < x \\leq 5$.",
           "calcul": [
             {
@@ -70,26 +72,99 @@
             }
           ],
           "reponse": "$]-2\\,;5]$",
-          "id": "intervalles-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "intervalles-exemple-non-borne",
+          "titre": "Exemple 2 — Intervalle non borné",
+          "enonce": "Représente l'ensemble des nombres $x$ tels que $x \\geq -1$.",
+          "calcul": [
+            {
+              "expr": "x \\geq -1",
+              "texte": "$-1$ est inclus, et il n'y a pas de borne supérieure : $x$ peut être n'importe quel nombre, aussi grand que l'on veut."
+            },
+            {
+              "expr": "[-1\\,;+\\infty[",
+              "texte": "On écrit l'intervalle avec un crochet fermé en $-1$, et toujours un crochet ouvert devant $+\\infty$."
+            }
+          ],
+          "reponse": "$[-1\\,;+\\infty[$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "intervalles-exemple-intersection",
+          "titre": "Exemple 3 — Intersection de deux intervalles (approfondissement)",
+          "enonce": "Détermine $I \\cap J$ avec $I = ]-\\infty\\,;4]$ et $J = [-1\\,;+\\infty[$.",
+          "calcul": [
+            {
+              "expr": "I = ]-\\infty\\,;4]",
+              "texte": "$I$ contient tous les nombres inférieurs ou égaux à 4."
+            },
+            {
+              "expr": "J = [-1\\,;+\\infty[",
+              "texte": "$J$ contient tous les nombres supérieurs ou égaux à $-1$."
+            },
+            {
+              "expr": "I \\cap J = [-1\\,;4]",
+              "texte": "Les nombres communs aux deux sont ceux compris entre $-1$ (inclus) et $4$ (inclus)."
+            }
+          ],
+          "reponse": "$[-1\\,;4]$",
+          "difficulte": "difficile",
+          "analyse": "Placer les deux intervalles sur la même droite graduée aide à visualiser immédiatement leur zone commune.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Mettre un crochet fermé à côté de $+\\infty$ ou $-\\infty$. C'est toujours ouvert.",
-        "Confondre le sens des crochets : ouvert = exclu, fermé = inclus."
+        "Confondre le sens des crochets : ouvert = exclu, fermé = inclus.",
+        "Confondre intersection (ce qu'ils ont en commun) et réunion (tout ce qui appartient à l'un ou l'autre)."
       ],
       "astuce": "Le crochet fermé $[$ \"attrape\" la valeur. Le crochet ouvert $]$ la repousse.",
       "aRetenir": [
-        "$[a\\,;b]$ : les deux bornes sont incluses",
-        "$]a\\,;b[$ : les deux bornes sont exclues",
-        "$+\\infty$ et $-\\infty$ sont toujours exclus"
+        "$[a\\,;b]$ : les deux bornes sont incluses. $]a\\,;b[$ : les deux bornes sont exclues.",
+        "$+\\infty$ et $-\\infty$ sont toujours exclus.",
+        "$I\\cap J$ = ce qu'ils ont en commun (plus petit) ; $I\\cup J$ = tout ce qui appartient à l'un ou l'autre (plus grand)."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        19,
-        20,
-        21
-      ],
+      "figure": {
+        "kind": "numberline",
+        "min": -5,
+        "max": 7,
+        "highlight": {
+          "from": -2,
+          "to": 5
+        },
+        "marks": [
+          {
+            "value": -2,
+            "label": "-2",
+            "filled": false
+          },
+          {
+            "value": 5,
+            "label": "5",
+            "filled": true
+          }
+        ],
+        "alt": "Droite graduée représentant l'intervalle ]-2 ; 5] : le point -2 est en cercle ouvert (exclu), le point 5 en cercle plein (inclus), le trait épais relie les deux.",
+        "explication": {
+          "comprendre": "Le trait épais représente tous les nombres de l'intervalle ; un cercle plein = borne incluse, un cercle ouvert = borne exclue.",
+          "etapes": [
+            {
+              "titre": "Le cercle ouvert en -2",
+              "texte": "-2 n'appartient pas à l'intervalle."
+            },
+            {
+              "titre": "Le cercle plein en 5",
+              "texte": "5 appartient à l'intervalle."
+            }
+          ],
+          "resume": "L'intervalle ]-2 ; 5] contient tous les nombres strictement supérieurs à -2 et inférieurs ou égaux à 5."
+        }
+      },
+      "quizExerciseIds": [19, 20, 21],
       "schemaVersion": 2,
       "topic_id": "intervalles",
       "definitions": {
@@ -100,58 +175,80 @@
       "formules": [
         {
           "id": "intervalles-regle-1",
-          "nom": "",
-          "expression": "Un crochet fermé $[$ ou $]$ veut dire : la borne est incluse.",
-          "quand_utiliser": "",
+          "nom": "Crochets et bornes",
+          "expression": "$[a\\,;b]$ : $a$ et $b$ inclus. $]a\\,;b[$ : $a$ et $b$ exclus.",
+          "quand_utiliser": "Pour traduire une inégalité (avec $\\leqslant$/$<$) en écriture d'intervalle.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Mettre un crochet fermé à côté de $+\\infty$ ou $-\\infty$.",
+          "astuce": "Le crochet fermé $[$ « attrape » la valeur ; le crochet ouvert $]$ la repousse."
         },
         {
           "id": "intervalles-regle-2",
-          "nom": "",
-          "expression": "Un crochet ouvert $]$ ou $[$ veut dire : la borne n'est pas incluse.",
-          "quand_utiliser": "",
+          "nom": "Intersection et réunion",
+          "expression": "$I\\cap J$ : nombres communs à $I$ ET $J$. $I\\cup J$ : nombres dans $I$ OU dans $J$.",
+          "quand_utiliser": "Pour combiner deux conditions (ex : deux inéquations à résoudre en même temps).",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
-        },
-        {
-          "id": "intervalles-regle-3",
-          "nom": "",
-          "expression": "$+\\infty$ et $-\\infty$ sont toujours exclus.",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Confondre intersection (plus petit ensemble, ce qu'ils ont en commun) et réunion (plus grand ensemble).",
+          "astuce": "Place les deux intervalles sur UNE SEULE droite graduée pour voir immédiatement leur intersection et leur réunion."
         }
       ],
       "erreursFrequentesDetail": [
         {
           "description": "Mettre un crochet fermé à côté de $+\\infty$ ou $-\\infty$. C'est toujours ouvert.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "$+\\infty$ n'est pas un nombre réel : on ne peut donc jamais réellement « l'atteindre », contrairement à une borne finie.",
+          "comment_detecter": "Un crochet fermé apparaît juste avant $+\\infty$ ou juste après $-\\infty$.",
+          "comment_eviter": "Retenir que $+\\infty$ et $-\\infty$ sont TOUJOURS accompagnés d'un crochet ouvert, sans exception."
         },
         {
           "description": "Confondre le sens des crochets : ouvert = exclu, fermé = inclus.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Les deux crochets se ressemblent visuellement et leur sens n'est pas intuitif au premier abord.",
+          "comment_detecter": "L'élève inclut une borne qui devait être exclue, ou l'inverse.",
+          "comment_eviter": "Relier chaque crochet au signe de l'inégalité d'origine : $\\leqslant$/$\\geqslant$ (inclus, fermé) ou $<$/$>$ (exclu, ouvert)."
+        },
+        {
+          "description": "Confondre intersection (ce qu'ils ont en commun) et réunion (tout ce qui appartient à l'un ou l'autre).",
+          "pourquoi": "Les symboles $\\cap$ et $\\cup$ se ressemblent visuellement (tous les deux des arcs).",
+          "comment_detecter": "Le résultat obtenu est plus grand que prévu pour une intersection, ou plus petit que prévu pour une réunion.",
+          "comment_eviter": "$\\cap$ ressemble à un « chapeau qui referme » (plus petit, ce qu'ils ont en commun) ; $\\cup$ ressemble à un « seau qui s'ouvre » (plus grand, tout ce qui appartient à l'un ou l'autre)."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Intervalles"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras lire et écrire un intervalle."
-      ],
+      "synonymes": ["Intervalles"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras lire et écrire un intervalle."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Dire qu'un produit coûte « entre 10 et 20 euros » ou qu'une temperature est « au moins 0°C » revient à décrire un intervalle. C'est une façon compacte d'écrire un ensemble de nombres, plutôt que de tous les énumérer.",
+      "intuition": "Un intervalle, c'est un morceau de droite graduée sans trou : si deux nombres appartiennent à l'intervalle, tous les nombres entre eux y appartiennent aussi. Le crochet (ouvert ou fermé) dit juste si la frontière elle-même fait partie du morceau.",
+      "apercus": [
+        {
+          "id": "apercu-intervalles-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Calculer l'intersection de deux intervalles non bornés."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple de la vie courante qui correspond à un intervalle.",
+          "piste": "Une fourchette de prix (« entre 10 et 20 euros »), une plage horaire, une température minimale..."
+        },
+        {
+          "apres": "exemple:intervalles-exemple-non-borne",
+          "question": "Pourquoi écrit-on $[-1\\,;+\\infty[$ et jamais $[-1\\,;+\\infty]$ ?",
+          "piste": "$+\\infty$ n'est pas un nombre réel : on ne peut jamais l'inclure, donc le crochet à côté est toujours ouvert."
+        },
+        {
+          "apres": "figure",
+          "question": "Sur cette droite, pourquoi le point -2 est-il dessiné en cercle ouvert ?",
+          "piste": "Parce que -2 est exclu de l'intervalle (l'inégalité est stricte : $-2 < x$)."
+        }
+      ]
     },
     {
       "id": "inegalites-et-inequations",
@@ -162,7 +259,8 @@
       "reglesImportantes": [
         "Tu peux ajouter ou soustraire le même nombre des deux côtés, le sens ne change pas.",
         "Si tu multiplies ou divises par un nombre positif, le sens ne change pas.",
-        "Si tu multiplies ou divises par un nombre NÉGATIF, le sens de l'inégalité s'inverse."
+        "Si tu multiplies ou divises par un nombre NÉGATIF, le sens de l'inégalité s'inverse.",
+        "La solution d'une inéquation est presque toujours un INTERVALLE (une infinité de valeurs), pas un seul nombre."
       ],
       "methode": {
         "titre": "Comment résoudre une inéquation",
@@ -207,7 +305,30 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "inegalites-et-inequations-exemple-sans-inversion",
+          "titre": "Exemple 1 — Coefficient positif (pas d'inversion)",
+          "enonce": "Résous $2x + 3 > 7$.",
+          "calcul": [
+            {
+              "expr": "2x > 7-3",
+              "texte": "On passe le 3 de l'autre côté."
+            },
+            {
+              "expr": "2x > 4",
+              "texte": "On calcule."
+            },
+            {
+              "expr": "x > 2",
+              "texte": "On divise par $2$ (positif) : le sens ne change pas."
+            }
+          ],
+          "reponse": "$x \\in ]2\\,;+\\infty[$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "inegalites-et-inequations-exemple-1",
+          "titre": "Exemple 2 — Coefficient négatif (inversion)",
           "enonce": "Résous $-3x + 5 \\leq 2$.",
           "calcul": [
             {
@@ -220,12 +341,34 @@
             },
             {
               "expr": "x \\geq 1",
-              "texte": "On divise par $-3$ : le signe s'inverse."
+              "texte": "On divise par $-3$ (négatif) : le signe s'inverse."
             }
           ],
           "reponse": "$x \\in [1\\,;+\\infty[$",
-          "id": "inegalites-et-inequations-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "inegalites-et-inequations-exemple-double",
+          "titre": "Exemple 3 — Avec x des deux côtés (approfondissement)",
+          "enonce": "Résous $5x - 2 < 2x + 7$.",
+          "calcul": [
+            {
+              "expr": "5x - 2x < 7 + 2",
+              "texte": "On regroupe les $x$ à gauche, les nombres à droite."
+            },
+            {
+              "expr": "3x < 9",
+              "texte": "On calcule."
+            },
+            {
+              "expr": "x < 3",
+              "texte": "On divise par $3$ (positif) : le sens ne change pas."
+            }
+          ],
+          "reponse": "$x \\in ]-\\infty\\,;3[$",
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -234,16 +377,12 @@
       ],
       "astuce": "Pour vérifier, remplace $x$ par un nombre de ta solution dans l'inéquation de départ. Ça doit être vrai.",
       "aRetenir": [
-        "On résout comme une équation",
-        "Diviser par un nombre négatif : le sens change",
-        "La solution est toujours un intervalle"
+        "On résout comme une équation : on isole $x$ d'un côté.",
+        "Diviser ou multiplier par un nombre NÉGATIF : le sens de l'inégalité change.",
+        "La solution est presque toujours un intervalle, jamais un seul nombre."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        25,
-        26,
-        27
-      ],
+      "quizExerciseIds": [25, 26, 27],
       "schemaVersion": 2,
       "topic_id": "inegalites-et-inequations",
       "definitions": {
@@ -254,58 +393,112 @@
       "formules": [
         {
           "id": "inegalites-et-inequations-regle-1",
-          "nom": "",
-          "expression": "Tu peux ajouter ou soustraire le même nombre des deux côtés, le sens ne change pas.",
-          "quand_utiliser": "",
+          "nom": "Addition/soustraction",
+          "expression": "$a<b \\iff a+k<b+k$",
+          "quand_utiliser": "Pour isoler les termes en $x$ d'un côté.",
           "quand_ne_pas_utiliser": "",
           "erreur_frequente": "",
-          "astuce": ""
+          "astuce": "Exactement comme pour une équation : ajouter/soustraire ne change jamais le sens."
         },
         {
           "id": "inegalites-et-inequations-regle-2",
-          "nom": "",
-          "expression": "Si tu multiplies ou divises par un nombre positif, le sens ne change pas.",
-          "quand_utiliser": "",
+          "nom": "Multiplication par un positif",
+          "expression": "Si $k>0$ : $a<b \\iff ka<kb$",
+          "quand_utiliser": "Pour isoler $x$ quand son coefficient est positif.",
           "quand_ne_pas_utiliser": "",
           "erreur_frequente": "",
-          "astuce": ""
+          "astuce": "Le sens ne change pas : c'est le cas qui ressemble le plus à une équation classique."
         },
         {
           "id": "inegalites-et-inequations-regle-3",
-          "nom": "",
-          "expression": "Si tu multiplies ou divises par un nombre NÉGATIF, le sens de l'inégalité s'inverse.",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "nom": "Multiplication par un négatif",
+          "expression": "Si $k<0$ : $a<b \\iff ka>kb$",
+          "quand_utiliser": "Pour isoler $x$ quand son coefficient est négatif.",
+          "quand_ne_pas_utiliser": "Jamais oublier d'inverser le sens dans ce cas précis.",
+          "erreur_frequente": "Oublier d'inverser le sens de l'inégalité.",
+          "astuce": "Teste avec $2<5$ : en multipliant par $-1$, on doit obtenir $-2>-5$ (vrai), pas $-2<-5$ (faux)."
         }
       ],
       "erreursFrequentesDetail": [
         {
           "description": "Oublier d'inverser le sens quand on divise par un nombre négatif.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "C'est un réflexe acquis avec les équations, où diviser par n'importe quel nombre (positif ou négatif) ne change jamais rien au signe =.",
+          "comment_detecter": "Vérifier le résultat en remplaçant $x$ par une valeur de l'intervalle trouvé dans l'inéquation de départ.",
+          "comment_eviter": "Dès que tu divises/multiplies par un nombre négatif dans une inéquation, retourne IMMÉDIATEMENT le sens de l'inégalité, avant même de continuer le calcul."
         },
         {
           "description": "Confondre la solution d'une inéquation (un intervalle) avec celle d'une équation (un seul nombre).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "La méthode de résolution est très proche de celle d'une équation, ce qui laisse penser que la solution l'est aussi.",
+          "comment_detecter": "La réponse donnée est un seul nombre plutôt qu'un intervalle.",
+          "comment_eviter": "Toujours écrire la réponse finale avec la notation d'intervalle ($x\\in\\ldots$), jamais juste « $x=\\ldots$ »."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Inégalités et inéquations"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre une inéquation du premier degré."
-      ],
+      "synonymes": ["Inégalités et inéquations"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre une inéquation du premier degré."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Une inéquation apparaît chaque fois qu'on cherche une PLAGE de valeurs plutôt qu'une seule : par exemple, combien de places minimum faut-il vendre pour qu'un concert soit rentable ?",
+      "intuition": "Résoudre une inéquation ressemble beaucoup à résoudre une équation (on isole $x$ d'un côté), avec une seule différence essentielle : diviser ou multiplier par un nombre négatif retourne l'inégalité, exactement comme retourner une balance inverse ce qui est « en haut » et « en bas ».",
+      "demonstration": {
+        "titre": "Pourquoi multiplier par un nombre négatif inverse le sens de l'inégalité",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On part d'une inégalité vraie",
+            "texte": "Supposons $a<b$, c'est-à-dire $b-a>0$ (la différence est positive)."
+          },
+          {
+            "titre": "Étape 2 — On multiplie par $k<0$",
+            "texte": "On cherche à comparer $ka$ et $kb$, c'est-à-dire à étudier le signe de $kb-ka=k(b-a)$."
+          },
+          {
+            "titre": "Étape 3 — On étudie le signe de $k(b-a)$",
+            "texte": "On a $k<0$ ET $b-a>0$ : un nombre négatif multiplié par un nombre positif donne un nombre NÉGATIF. Donc $kb-ka<0$, c'est-à-dire $kb<ka$."
+          },
+          {
+            "titre": "Étape 4 — Conclusion",
+            "texte": "$kb<ka$ s'écrit aussi $ka>kb$ : l'inégalité de départ $a<b$ est bien devenue $ka>kb$, le sens s'est inversé."
+          }
+        ],
+        "conclusion": "Ce n'est pas une règle arbitraire : elle découle directement de la règle du signe d'un produit (négatif × positif = négatif) appliquée à la différence $b-a$."
+      },
+      "apercus": [
+        {
+          "id": "apercu-inequations-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une inéquation avec des termes en x des deux côtés, à regrouper avant de conclure."
+        },
+        {
+          "id": "apercu-inequations-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi le sens s'inverse avec un négatif",
+          "description": "La démonstration reliant cette règle à celle du signe d'un produit."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple concret où l'on cherche une plage de valeurs plutôt qu'un seul nombre.",
+          "piste": "Le nombre minimum de billets à vendre pour qu'un événement soit rentable, une vitesse maximale autorisée..."
+        },
+        {
+          "apres": "exemple:inegalites-et-inequations-exemple-sans-inversion",
+          "question": "Dans l'exemple 1, pourquoi le sens de l'inégalité ne change-t-il pas ?",
+          "piste": "Parce qu'on divise par $2$, qui est positif : seule une division/multiplication par un nombre NÉGATIF inverse le sens."
+        },
+        {
+          "apres": "methode",
+          "question": "Comment écrit-on toujours la réponse finale d'une inéquation ?",
+          "piste": "Sous forme d'intervalle (ex : $x\\in[1\\,;+\\infty[$), jamais comme une seule valeur."
+        }
+      ]
     },
     {
       "id": "comparaison",
@@ -314,9 +507,9 @@
       "objectif": "À la fin de ce cours, tu sauras comparer deux expressions grâce à leur différence.",
       "definition": "Pour comparer deux nombres $A$ et $B$, on peut calculer leur différence $A - B$ et regarder son signe.",
       "reglesImportantes": [
-        "Si $A - B > 0$, alors $A > B$.",
-        "Si $A - B < 0$, alors $A < B$.",
-        "Si $A - B = 0$, alors $A = B$."
+        "Si $A - B > 0$, alors $A > B$. Si $A - B < 0$, alors $A < B$. Si $A - B = 0$, alors $A = B$.",
+        "Si $A-B$ a un signe CONSTANT (toujours positif ou toujours négatif, quel que soit $x$), la comparaison est valable pour tout $x$.",
+        "Si le signe de $A-B$ DÉPEND de $x$, alors la comparaison dépend de la valeur de $x$ : il faut étudier un tableau de signes."
       ],
       "methode": {
         "titre": "Comment comparer deux expressions",
@@ -361,7 +554,8 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "comparaison-exemple-1",
+          "titre": "Exemple 1 — Signe constant (vrai pour tout x)",
           "enonce": "Compare $A = (x-1)^2$ et $B = x^2 - 2x$.",
           "calcul": [
             {
@@ -377,26 +571,70 @@
               "texte": "Tout s'annule sauf le 1."
             }
           ],
-          "reponse": "$A - B = 1 > 0$, donc $A > B$ pour tout $x$",
-          "id": "comparaison-exemple-1",
-          "difficulte": "moyen"
+          "reponse": "$A - B = 1 > 0$, donc $A > B$ pour TOUT $x$",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "comparaison-exemple-signe-variable",
+          "titre": "Exemple 2 — Signe qui dépend de x (piège)",
+          "enonce": "Compare $A = x^2$ et $B = 2x+3$.",
+          "calcul": [
+            {
+              "expr": "A - B = x^2-2x-3",
+              "texte": "On calcule la différence."
+            },
+            {
+              "expr": "x^2-2x-3 = (x-3)(x+1)",
+              "texte": "On factorise (on reconnaît les racines $3$ et $-1$)."
+            },
+            {
+              "expr": "(x-3)(x+1)",
+              "texte": "Ce produit change de signe : positif si $x<-1$ ou $x>3$, négatif si $-1<x<3$."
+            }
+          ],
+          "reponse": "$A>B$ si $x<-1$ ou $x>3$ ; $A<B$ si $-1<x<3$ ; $A=B$ si $x=-1$ ou $x=3$.",
+          "difficulte": "difficile",
+          "analyse": "Contrairement à l'exemple 1, le résultat de la comparaison dépend ici de la valeur de $x$ : on ne peut PAS conclure une seule inégalité valable pour tout $x$.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "comparaison-exemple-racine",
+          "titre": "Exemple 3 — Avec une racine carrée (approfondissement)",
+          "enonce": "Compare $A=\\sqrt{x^2+1}$ et $B=x+1$ pour $x\\geqslant0$.",
+          "calcul": [
+            {
+              "expr": "A^2-B^2 = (x^2+1)-(x+1)^2",
+              "texte": "$A$ et $B$ sont positifs ici, donc comparer $A^2$ et $B^2$ revient à comparer $A$ et $B$."
+            },
+            {
+              "expr": "= x^2+1-x^2-2x-1 = -2x",
+              "texte": "On développe et on simplifie."
+            },
+            {
+              "expr": "-2x \\leqslant 0 \\text{ pour } x\\geqslant0",
+              "texte": "Donc $A^2\\leqslant B^2$, donc $A\\leqslant B$ (les deux étant positifs)."
+            }
+          ],
+          "reponse": "$A \\leqslant B$ pour tout $x\\geqslant0$ (égalité seulement en $x=0$).",
+          "difficulte": "difficile",
+          "analyse": "Comparer les CARRÉS est une technique utile quand une racine carrée empêche de calculer directement $A-B$.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Oublier de développer complètement avant de conclure.",
-        "Se tromper de sens : $A - B > 0$ veut dire $A > B$, pas l'inverse."
+        "Se tromper de sens : $A - B > 0$ veut dire $A > B$, pas l'inverse.",
+        "Conclure \"$A>B$ pour tout $x$\" alors que le signe de $A-B$ dépend en réalité de $x$."
       ],
-      "astuce": "Cette méthode marche même quand tu ne connais pas la valeur de $x$.",
+      "astuce": "Cette méthode marche même quand tu ne connais pas la valeur de $x$ — mais vérifie si le signe de la différence est constant ou pas !",
       "aRetenir": [
-        "$A > B \\Leftrightarrow A - B > 0$",
-        "Méthode utile même avec des lettres"
+        "$A > B \\iff A - B > 0$",
+        "Si $A-B$ est une constante de signe fixe, la comparaison vaut pour tout $x$.",
+        "Si $A-B$ dépend de $x$ (ex : $(x-3)(x+1)$), il faut un tableau de signes : la comparaison dépend de $x$."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        13,
-        14,
-        15
-      ],
+      "quizExerciseIds": [13, 14, 15],
       "schemaVersion": 2,
       "topic_id": "comparaison",
       "definitions": {
@@ -407,58 +645,71 @@
       "formules": [
         {
           "id": "comparaison-regle-1",
-          "nom": "",
-          "expression": "Si $A - B > 0$, alors $A > B$.",
-          "quand_utiliser": "",
+          "nom": "Méthode de la différence",
+          "expression": "$A-B>0 \\iff A>B$ ; $A-B<0 \\iff A<B$ ; $A-B=0 \\iff A=B$",
+          "quand_utiliser": "Pour comparer deux expressions, surtout littérales (avec des lettres).",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
-        },
-        {
-          "id": "comparaison-regle-2",
-          "nom": "",
-          "expression": "Si $A - B < 0$, alors $A < B$.",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
-        },
-        {
-          "id": "comparaison-regle-3",
-          "nom": "",
-          "expression": "Si $A - B = 0$, alors $A = B$.",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Se tromper de sens : $A-B>0$ veut dire $A>B$, pas l'inverse.",
+          "astuce": "Teste avec des nombres simples ($A=5$, $B=3$) : $A-B=2>0$ et bien $A>B$."
         }
       ],
       "erreursFrequentesDetail": [
         {
           "description": "Oublier de développer complètement avant de conclure.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Une expression non développée peut cacher des termes qui s'annulent, rendant le signe final peu évident.",
+          "comment_detecter": "Le signe de $A-B$ semble impossible à déterminer alors que le calcul n'est pas terminé.",
+          "comment_eviter": "Toujours développer ET réduire complètement $A-B$ avant de chercher son signe."
         },
         {
           "description": "Se tromper de sens : $A - B > 0$ veut dire $A > B$, pas l'inverse.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Deux inégalités à relier (celle sur $A-B$ et celle sur $A$ et $B$) peuvent se mélanger dans la tête.",
+          "comment_detecter": "Vérifier avec deux nombres simples que la règle appliquée donne le bon sens.",
+          "comment_eviter": "Toujours repartir de la définition : $A-B>0$ signifie que $A$ est plus grand, donc $A>B$."
+        },
+        {
+          "description": "Conclure \"$A>B$ pour tout $x$\" alors que le signe de $A-B$ dépend en réalité de $x$.",
+          "pourquoi": "Dans le premier exemple rencontré, la différence est souvent une constante (signe fixe), ce qui laisse croire que c'est toujours le cas.",
+          "comment_detecter": "La différence $A-B$ contient encore $x$ après simplification (ce n'est pas un nombre fixe).",
+          "comment_eviter": "Si $A-B$ dépend de $x$, il faut factoriser et étudier un tableau de signes : la comparaison peut changer selon la valeur de $x$."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Comparaison"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras comparer deux expressions grâce à leur différence."
-      ],
+      "synonymes": ["Comparaison"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras comparer deux expressions grâce à leur différence."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Comparer deux expressions littérales (avec des $x$) est indispensable dès qu'on ne connaît pas la valeur numérique de $x$ : par exemple, pour savoir quelle formule de tarif est la plus avantageuse selon le nombre d'unités achetées.",
+      "intuition": "Comparer deux nombres directement (surtout avec des lettres) est parfois difficile. Mais comparer leur DIFFÉRENCE à zéro est toujours possible : le signe de $A-B$ donne la réponse sans ambiguïté.",
+      "apercus": [
+        {
+          "id": "apercu-comparaison-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une comparaison plus complexe faisant intervenir une racine carrée."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi comparer deux expressions littérales est-il parfois difficile sans la méthode de la différence ?",
+          "piste": "Parce qu'on ne connaît pas la valeur numérique de $x$ : on ne peut donc pas juste calculer et comparer deux nombres."
+        },
+        {
+          "apres": "exemple:comparaison-exemple-signe-variable",
+          "question": "Dans l'exemple 2, le signe de $A-B$ est-il le même pour tout $x$ ?",
+          "piste": "Non : $(x-3)(x+1)$ change de signe selon que $x$ est inférieur à $-1$, entre $-1$ et $3$, ou supérieur à $3$."
+        },
+        {
+          "apres": "methode",
+          "question": "Que doit-on vérifier avant de conclure une comparaison valable « pour tout x » ?",
+          "piste": "Que le signe de $A-B$, une fois développé et factorisé, est bien CONSTANT et ne dépend pas de $x$."
+        }
+      ]
     },
     {
       "id": "valeur-absolue-dun-nombre-reel",
@@ -467,9 +718,10 @@
       "objectif": "À la fin de ce cours, tu sauras calculer une valeur absolue et l'utiliser comme une distance.",
       "definition": "La valeur absolue d'un nombre $a$, notée $|a|$, c'est sa distance à zéro. Elle est toujours positive ou nulle.",
       "reglesImportantes": [
-        "$|a| = a$ si $a$ est positif.",
-        "$|a| = -a$ si $a$ est négatif.",
-        "$|a - b|$ représente la distance entre $a$ et $b$."
+        "$|a| = a$ si $a$ est positif ; $|a| = -a$ si $a$ est négatif. Dans les deux cas, $|a|\\geqslant0$.",
+        "$|a - b|$ représente la distance entre $a$ et $b$ (et $|a-b|=|b-a|$ : l'ordre ne change rien).",
+        "$|x-a| = r$ (avec $r\\geqslant0$) a pour solutions $x=a-r$ ou $x=a+r$ (deux points à distance $r$ de $a$).",
+        "$|x-a| \\leqslant r$ (avec $r\\geqslant0$) équivaut à $a-r \\leqslant x \\leqslant a+r$, c'est-à-dire $x\\in[a-r\\,;a+r]$."
       ],
       "methode": {
         "titre": "Comment résoudre une équation avec valeur absolue",
@@ -514,7 +766,30 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "valeur-absolue-dun-nombre-reel-exemple-calcul",
+          "titre": "Exemple 1 — Calculer une valeur absolue",
+          "enonce": "Calcule $|-7|$ et $|5-12|$.",
+          "calcul": [
+            {
+              "expr": "|-7| = -(-7) = 7",
+              "texte": "$-7$ est négatif, donc $|-7|=-(-7)=7$."
+            },
+            {
+              "expr": "5-12 = -7",
+              "texte": "On calcule d'abord ce qu'il y a dans la valeur absolue."
+            },
+            {
+              "expr": "|5-12| = |-7| = 7",
+              "texte": "On applique la même règle : $7$ est la distance entre $5$ et $12$."
+            }
+          ],
+          "reponse": "$|-7|=7$ et $|5-12|=7$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "valeur-absolue-dun-nombre-reel-exemple-1",
+          "titre": "Exemple 2 — Équation avec valeur absolue",
           "enonce": "Résous $|x - 3| = 5$.",
           "calcul": [
             {
@@ -527,26 +802,85 @@
             }
           ],
           "reponse": "$x = 8$ ou $x = -2$",
-          "id": "valeur-absolue-dun-nombre-reel-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "valeur-absolue-dun-nombre-reel-exemple-inequation",
+          "titre": "Exemple 3 — Inéquation avec valeur absolue",
+          "enonce": "Résous $|x - 3| \\leqslant 5$, et représente la solution.",
+          "calcul": [
+            {
+              "expr": "|x-3|\\leqslant5",
+              "texte": "La distance entre $x$ et $3$ est au plus $5$."
+            },
+            {
+              "expr": "3-5 \\leqslant x \\leqslant 3+5",
+              "texte": "On applique la règle de l'inéquation avec valeur absolue."
+            },
+            {
+              "expr": "-2 \\leqslant x \\leqslant 8",
+              "texte": "On calcule les deux bornes."
+            }
+          ],
+          "reponse": "$x \\in [-2\\,;8]$",
+          "difficulte": "difficile",
+          "analyse": "La solution est tout l'intervalle entre les deux bornes trouvées dans l'exemple 2, pas juste les deux nombres $8$ et $-2$.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Oublier qu'une valeur absolue a souvent DEUX solutions.",
-        "Essayer de résoudre $|x-3| = -2$ : impossible, une distance n'est jamais négative."
+        "Essayer de résoudre $|x-3| = -2$ : impossible, une distance n'est jamais négative.",
+        "Pour $|x-a|\\leqslant r$, ne donner que les deux bornes au lieu de tout l'intervalle entre elles."
       ],
       "astuce": "Dès que tu vois une valeur absolue, pense \"distance\". Ça rend tout plus facile à comprendre.",
       "aRetenir": [
-        "$|a| \\geq 0$ toujours",
-        "$|a-b|$ = distance entre $a$ et $b$",
-        "$|x-a| = r$ donne souvent 2 solutions"
+        "$|a| \\geq 0$ toujours ; $|a-b|$ = distance entre $a$ et $b$.",
+        "$|x-a| = r$ donne 2 solutions : $a-r$ et $a+r$ (si $r\\geqslant0$).",
+        "$|x-a| \\leqslant r$ donne un INTERVALLE : $[a-r\\,;a+r]$."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        31,
-        32,
-        33
-      ],
+      "figure": {
+        "kind": "numberline",
+        "min": -5,
+        "max": 11,
+        "highlight": {
+          "from": -2,
+          "to": 8
+        },
+        "marks": [
+          {
+            "value": -2,
+            "label": "a-r = -2",
+            "filled": true
+          },
+          {
+            "value": 3,
+            "label": "a = 3"
+          },
+          {
+            "value": 8,
+            "label": "a+r = 8",
+            "filled": true
+          }
+        ],
+        "alt": "Droite graduée : l'intervalle [-2 ; 8] est centré en 3, avec un rayon de 5 de chaque côté, illustrant |x-3|<=5.",
+        "explication": {
+          "comprendre": "L'ensemble des solutions de |x-a|≤r forme toujours un intervalle centré en a, de rayon r.",
+          "etapes": [
+            {
+              "titre": "Le centre a",
+              "texte": "Le point de référence, ici a = 3."
+            },
+            {
+              "titre": "Le rayon r",
+              "texte": "La distance maximale autorisée, ici r = 5, de chaque côté de a."
+            }
+          ],
+          "resume": "[a-r ; a+r] rassemble tous les points situés à une distance d'au plus r du centre a."
+        }
+      },
+      "quizExerciseIds": [31, 32, 33],
       "schemaVersion": 2,
       "topic_id": "valeur-absolue-dun-nombre-reel",
       "definitions": {
@@ -557,58 +891,118 @@
       "formules": [
         {
           "id": "valeur-absolue-dun-nombre-reel-regle-1",
-          "nom": "",
-          "expression": "$|a| = a$ si $a$ est positif.",
-          "quand_utiliser": "",
+          "nom": "Définition par cas",
+          "expression": "$|a| = a$ si $a\\geqslant0$ ; $|a| = -a$ si $a<0$",
+          "quand_utiliser": "Pour calculer directement la valeur absolue d'un nombre connu.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Oublier le signe « $-$ » quand $a$ est négatif, et répondre $a$ au lieu de $-a$.",
+          "astuce": "$|{-7}|=-(-7)=7$ : le signe moins devant $-a$ « annule » le signe moins de $a$."
         },
         {
           "id": "valeur-absolue-dun-nombre-reel-regle-2",
-          "nom": "",
-          "expression": "$|a| = -a$ si $a$ est négatif.",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "nom": "Équation avec valeur absolue",
+          "expression": "$|x-a|=r \\iff x=a-r \\text{ ou } x=a+r$",
+          "quand_utiliser": "Pour résoudre une équation du type $|x-a|=r$.",
+          "quand_ne_pas_utiliser": "Si $r<0$ : aucune solution (une distance n'est jamais négative).",
+          "erreur_frequente": "Oublier une des deux solutions.",
+          "astuce": "Vois $a$ comme un point de référence et $r$ comme un rayon : les solutions sont les deux points à distance $r$ de part et d'autre."
         },
         {
           "id": "valeur-absolue-dun-nombre-reel-regle-3",
-          "nom": "",
-          "expression": "$|a - b|$ représente la distance entre $a$ et $b$.",
-          "quand_utiliser": "",
+          "nom": "Inéquation avec valeur absolue",
+          "expression": "$|x-a|\\leqslant r \\iff x\\in[a-r\\,;a+r]$",
+          "quand_utiliser": "Pour résoudre une inéquation du type $|x-a|\\leqslant r$, ou décrire une marge d'erreur autour de $a$.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Oublier que la solution est un INTERVALLE centré sur $a$, pas deux nombres isolés.",
+          "astuce": "C'est la même idée que l'équation, mais la « zone autorisée » devient tout l'intervalle entre les deux bornes, pas juste leurs extrémités."
         }
       ],
       "erreursFrequentesDetail": [
         {
           "description": "Oublier qu'une valeur absolue a souvent DEUX solutions.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Une équation « classique » (sans valeur absolue) a en général une seule solution, et l'élève généralise ce réflexe.",
+          "comment_detecter": "Une seule solution est donnée pour une équation $|x-a|=r$ avec $r>0$.",
+          "comment_eviter": "Toujours penser aux DEUX points situés à distance $r$ de $a$ : un de chaque côté."
         },
         {
           "description": "Essayer de résoudre $|x-3| = -2$ : impossible, une distance n'est jamais négative.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "L'élève applique la méthode de résolution sans vérifier d'abord le signe du nombre à droite de l'égalité.",
+          "comment_detecter": "Le nombre à droite de l'égalité (ou de l'inégalité) est négatif.",
+          "comment_eviter": "Toujours vérifier AVANT de résoudre que $r\\geqslant0$ : sinon, aucune solution n'existe."
+        },
+        {
+          "description": "Pour $|x-a|\\leqslant r$, ne donner que les deux bornes au lieu de tout l'intervalle entre elles.",
+          "pourquoi": "La méthode ressemble à celle de l'équation $|x-a|=r$, où on ne cherche que deux valeurs précises.",
+          "comment_detecter": "La réponse donnée est « $x=a-r$ ou $x=a+r$ » au lieu d'un intervalle.",
+          "comment_eviter": "Se souvenir que $\\leqslant$ (ou $<$) signale une INÉQUATION, dont la solution est tout un intervalle, pas deux points isolés."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Valeur absolue d'un nombre réel"
-      ],
+      "synonymes": ["Valeur absolue d'un nombre réel"],
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras calculer une valeur absolue et l'utiliser comme une distance."
       ],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "La valeur absolue sert à mesurer un écart, sans se soucier du sens : l'écart entre deux températures, la marge d'erreur acceptée pour une pièce mécanique, ou la distance entre deux points sur une droite.",
+      "intuition": "$|a|$, c'est juste la distance entre $a$ et $0$ sur la droite des nombres : elle ne peut donc jamais être négative, et $|a-b|$ est la distance entre les deux nombres $a$ et $b$, dans n'importe quel ordre.",
+      "demonstration": {
+        "titre": "Pourquoi $|x-a|\\leqslant r \\iff a-r\\leqslant x\\leqslant a+r$",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On distingue selon le signe de $x-a$",
+            "texte": "Par définition, $|x-a|=x-a$ si $x\\geqslant a$, et $|x-a|=a-x$ si $x<a$."
+          },
+          {
+            "titre": "Étape 2 — Cas où $x\\geqslant a$",
+            "texte": "$|x-a|\\leqslant r$ devient $x-a\\leqslant r$, soit $x\\leqslant a+r$. Avec $x\\geqslant a$, on obtient $a\\leqslant x\\leqslant a+r$."
+          },
+          {
+            "titre": "Étape 3 — Cas où $x<a$",
+            "texte": "$|x-a|\\leqslant r$ devient $a-x\\leqslant r$, soit $x\\geqslant a-r$. Avec $x<a$, on obtient $a-r\\leqslant x<a$."
+          },
+          {
+            "titre": "Étape 4 — On réunit les deux cas",
+            "texte": "En mettant ensemble $a\\leqslant x\\leqslant a+r$ (étape 2) et $a-r\\leqslant x<a$ (étape 3), on obtient exactement $a-r\\leqslant x\\leqslant a+r$."
+          }
+        ],
+        "conclusion": "Cette équivalence, utilisée sans démonstration au collège, découle simplement de la définition de la valeur absolue par cas selon le signe de $x-a$."
+      },
+      "apercus": [
+        {
+          "id": "apercu-valeurabsolue-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi l'inéquation donne un intervalle centré",
+          "description": "La démonstration complète, par disjonction de cas, de l'équivalence entre |x-a|≤r et un intervalle."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple où la valeur absolue mesure un écart sans se soucier du sens.",
+          "piste": "Une marge d'erreur de fabrication, la différence de température entre deux villes, un écart de score..."
+        },
+        {
+          "apres": "exemple:valeur-absolue-dun-nombre-reel-exemple-calcul",
+          "question": "$|-7|$ est-il égal à $-7$ ou à $7$ ?",
+          "piste": "$7$ : une valeur absolue n'est jamais négative, même si le nombre à l'intérieur l'est."
+        },
+        {
+          "apres": "exemple:valeur-absolue-dun-nombre-reel-exemple-inequation",
+          "question": "La solution de $|x-3|\\leqslant5$ est-elle composée de deux nombres isolés ou d'un intervalle ?",
+          "piste": "D'un intervalle complet, $[-2\\,;8]$ : contrairement à l'équation $|x-3|=5$ qui n'a que 2 solutions isolées."
+        },
+        {
+          "apres": "figure",
+          "question": "Sur cette droite, que représente le nombre 5 (la distance entre a et chaque borne) ?",
+          "piste": "Le rayon r de l'intervalle : la distance maximale autorisée entre x et le centre a."
+        }
+      ]
     }
   ]
 }

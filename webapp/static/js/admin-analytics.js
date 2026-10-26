@@ -18,6 +18,23 @@
 // admin-settings.js. Le rendu Chart.js reprend le même pattern que
 // admin-health.js (CHART_SPECS déclaratif + destroyCharts()), jamais
 // réinventé.
+//
+// ── Chantier de densité visuelle (2026-10-22) ────────────────────────────
+// Graphiques "Utilisateurs" (quotidien/mensuel/annuel — même métrique
+// d'inscriptions) fusionnés en UN SEUL graphique + un sélecteur de
+// granularité (voir renderUsersChart) — toutes les données restent
+// accessibles. Graphiques "IA" (7 → 4, voir renderAiCharts) :
+// calls_per_day/fallbacks_per_day/errors_per_day (tous dérivés de
+// ai_provider_usage) fusionnés en un seul "Appels & incidents IA"
+// multi-séries ; latence/succès fusionnés en un graphique à 2 axes
+// (unités différentes, jamais mélangées sur le même axe). "Top
+// fournisseurs"/"Top coûts" (mêmes lignes provider_rows, juste un tri
+// différent) fusionnés en un seul tableau (voir renderProviderTable).
+// "Tickets par statut" (camembert à 2-3 valeurs) remplacé par une
+// statistique compacte (voir renderStatusCompact) — plus de 240px
+// réservés pour 2-3 chiffres. Export + Rapports fusionnés en une seule UI
+// (voir le handler du formulaire exportForm plus bas) ; "Imprimer" retiré
+// (doublon de l'export PDF serveur, qui fait mieux).
 import { Chart } from "chart.js/auto";
 import { debounce } from "./searchUtils.js";
 
@@ -102,6 +119,7 @@ function metricCard(label, metric, formatter = (v) => v, kpiKey = null, tooltip 
 // ── Tableau de bord personnalisé (cartes épinglées) ──────────────────────────
 const KPI_LOOKUP = {
   "users.total_registered": ["Utilisateurs inscrits", (u) => u.users.total_registered],
+  "users.guest_accounts": ["Comptes invités", (u) => u.users.guest_accounts],
   "users.new_users": ["Nouveaux utilisateurs", (u) => u.users.new_users],
   "users.active_users": ["Utilisateurs actifs", (u) => u.users.active_users],
   "users.logins": ["Connexions", (u) => u.users.logins],
@@ -110,7 +128,11 @@ const KPI_LOOKUP = {
   "chatbot.assistant_messages": ["Réponses assistant", (u) => u.chatbot.assistant_messages],
   "ai.calls": ["Appels IA", (u) => u.ai.calls],
   "ai.tokens": ["Tokens", (u) => u.ai.tokens],
-  "ai.cost_usd": ["Coût", (u) => u.ai.cost_usd],
+  "ai.cost_usd": [
+    "Coût estimé ($)",
+    (u) => u.ai.cost_usd,
+    "Estimation calculée à partir d'une grille tarifaire figée côté serveur (Gemini/Claude), jamais une facture réelle du fournisseur.",
+  ],
   "ai.avg_latency_ms": [
     "Latence moyenne",
     (u) => u.ai.avg_latency_ms,
@@ -153,6 +175,10 @@ let _chartInstances = [];
 function destroyCharts() {
   _chartInstances.forEach((c) => c.destroy());
   _chartInstances = [];
+  if (_usersChartInstance) {
+    _usersChartInstance.destroy();
+    _usersChartInstance = null;
+  }
 }
 
 function renderChart(box, spec, series) {
@@ -261,17 +287,61 @@ function chartBox() {
   return el("div", "admin-health-chart-box");
 }
 
-function renderUsersCharts(container, users) {
+// Les 3 graphiques "Croissance quotidienne/mensuelle/annuelle" (même
+// métrique d'inscriptions — users.daily/monthly/yearly — seule la
+// granularité change) ont été fusionnés en UN SEUL graphique + un
+// sélecteur de granularité (Chantier Analytics, 2026-10-22) — toutes les
+// données restent accessibles, juste via le sélecteur plutôt que 3 blocs
+// simultanés. Instance Chart.js dédiée (jamais mêlée à _chartInstances/
+// destroyCharts()) : changer la granularité ne doit PAS détruire/reconstruire
+// les graphiques Chatbot/IA/Support affichés à côté.
+const USERS_GRANULARITY_SPECS = {
+  daily: { label: "Croissance quotidienne", type: "bar", color: "#3B82F6" },
+  monthly: { label: "Croissance mensuelle", type: "bar", color: "#22C55E" },
+  yearly: { label: "Croissance annuelle", type: "bar", color: "#D97757" },
+};
+let _usersChartInstance = null;
+
+function renderUsersChart(container, users, granularity) {
   container.innerHTML = "";
-  const daily = chartBox();
-  renderChart(daily, { label: "Croissance quotidienne", type: "bar", color: "#3B82F6" }, users.daily);
-  container.appendChild(daily);
-  const monthly = chartBox();
-  renderChart(monthly, { label: "Croissance mensuelle", type: "bar", color: "#22C55E" }, users.monthly);
-  container.appendChild(monthly);
-  const yearly = chartBox();
-  renderChart(yearly, { label: "Croissance annuelle", type: "bar", color: "#D97757" }, users.yearly);
-  container.appendChild(yearly);
+  if (_usersChartInstance) {
+    _usersChartInstance.destroy();
+    _usersChartInstance = null;
+  }
+  const spec = USERS_GRANULARITY_SPECS[granularity] || USERS_GRANULARITY_SPECS.daily;
+  const series = (users && users[granularity]) || null;
+  const box = chartBox();
+  box.appendChild(el("h3", "admin-health-chart-title", spec.label));
+  if (!series || !series.available) {
+    box.appendChild(el("p", "admin-empty", (series && series.reason) || EMPTY_LABEL));
+    container.appendChild(box);
+    return;
+  }
+  const canvas = document.createElement("canvas");
+  box.appendChild(canvas);
+  _usersChartInstance = new Chart(canvas, {
+    type: spec.type,
+    data: {
+      labels: series.value.map((p) => p.date),
+      datasets: [
+        {
+          label: spec.label,
+          data: series.value.map((p) => p.value),
+          borderColor: spec.color,
+          backgroundColor: spec.color,
+          borderWidth: 2,
+          pointRadius: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: { y: { beginAtZero: true } },
+      plugins: { legend: { display: false } },
+    },
+  });
+  container.appendChild(box);
 }
 
 function renderChatbotCharts(container, chatbot) {
@@ -299,22 +369,110 @@ function renderChatbotCharts(container, chatbot) {
   container.appendChild(aiVsLocal);
 }
 
+// Fusion des 7 graphiques IA en 4 (Chantier Analytics, 2026-10-22), analyses
+// réellement distinctes conservées :
+//   1. Consommation de tokens  2. Coût
+//   3. Performance (latence + taux de succès, 2 axes — unités différentes)
+//   4. "Appels & incidents IA" : calls_per_day/fallbacks_per_day/
+//      errors_per_day, tous les 3 dérivés de la même table
+//      ai_provider_usage — regroupés en UN graphique multi-séries plutôt
+//      que 3 graphiques séparés (consigne explicite).
+function renderDualAxisChart(box, label, seriesSpecs) {
+  box.appendChild(el("h3", "admin-health-chart-title", label));
+  const available = seriesSpecs.filter((s) => s.series && s.series.available);
+  if (!available.length) {
+    box.appendChild(el("p", "admin-empty", EMPTY_LABEL));
+    return;
+  }
+  const allDates = new Set();
+  available.forEach((s) => s.series.value.forEach((p) => allDates.add(p.date)));
+  const labels = [...allDates].sort();
+  const canvas = document.createElement("canvas");
+  box.appendChild(canvas);
+  const chart = new Chart(canvas, {
+    type: "line",
+    data: {
+      labels,
+      datasets: available.map((s) => {
+        const byDate = new Map(s.series.value.map((p) => [p.date, p.value]));
+        return {
+          label: s.name,
+          data: labels.map((d) => (byDate.has(d) ? byDate.get(d) : null)),
+          borderColor: s.color,
+          backgroundColor: `${s.color}33`,
+          yAxisID: s.axis,
+          tension: 0.25,
+          borderWidth: 2,
+          pointRadius: 2,
+          fill: false,
+        };
+      }),
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { type: "linear", position: "left", beginAtZero: true },
+        y1: { type: "linear", position: "right", beginAtZero: true, grid: { drawOnChartArea: false } },
+      },
+      plugins: { legend: { display: true, position: "bottom" } },
+    },
+  });
+  _chartInstances.push(chart);
+}
+
 function renderAiCharts(container, ai) {
   container.innerHTML = "";
-  const specs = [
-    ["tokens_per_day", "Consommation de tokens", "line", "#22C55E"],
-    ["cost_per_day", "Coût", "line", "#D97757"],
-    ["calls_per_day", "Appels IA", "bar", "#3B82F6"],
-    ["avg_latency_per_day", "Temps de réponse moyen (ms)", "line", "#7c5cff"],
-    ["success_rate_per_day", "Taux de succès (%)", "line", "#22C55E"],
-    ["fallbacks_per_day", "Fallbacks", "bar", "#dc8f2e"],
-    ["errors_per_day", "Erreurs", "bar", "#dd4b56"],
-  ];
-  specs.forEach(([key, label, type, color]) => {
-    const box = chartBox();
-    renderChart(box, { label, type, color }, ai[key]);
+
+  const tokens = chartBox();
+  renderChart(tokens, { label: "Consommation de tokens", type: "line", color: "#22C55E" }, ai.tokens_per_day);
+  container.appendChild(tokens);
+
+  const cost = chartBox();
+  renderChart(cost, { label: "Coût", type: "line", color: "#D97757" }, ai.cost_per_day);
+  container.appendChild(cost);
+
+  const performance = chartBox();
+  renderDualAxisChart(performance, "Performance (latence & taux de succès)", [
+    { name: "Latence moyenne (ms)", series: ai.avg_latency_per_day, color: "#7c5cff", axis: "y" },
+    { name: "Taux de succès (%)", series: ai.success_rate_per_day, color: "#22C55E", axis: "y1" },
+  ]);
+  container.appendChild(performance);
+
+  const incidents = chartBox();
+  renderMultiSeriesChart(
+    incidents,
+    "Appels & incidents IA",
+    "bar",
+    { Appels: ai.calls_per_day, Fallbacks: ai.fallbacks_per_day, Erreurs: ai.errors_per_day },
+    ["#3B82F6", "#dc8f2e", "#dd4b56"],
+  );
+  container.appendChild(incidents);
+}
+
+// "Tickets par statut" (2-3 valeurs seulement : open/in_progress/closed) est
+// remplacé par une statistique compacte — un simple camembert pour 2-3
+// valeurs n'apportait rien de plus qu'une ligne de chiffres, et réservait
+// 240px (.admin-health-chart-box) pour ça (Chantier Analytics, 2026-10-22).
+const SUPPORT_STATUS_LABELS = { open: "Ouverts", in_progress: "En cours", closed: "Fermés" };
+
+function renderStatusCompact(container, byStatus) {
+  const box = el("article", "admin-card admin-analytics-status-compact");
+  box.appendChild(el("div", "admin-card-label", "Tickets par statut"));
+  if (!byStatus || !byStatus.available) {
+    box.appendChild(el("p", "admin-empty", (byStatus && byStatus.reason) || EMPTY_LABEL));
     container.appendChild(box);
+    return;
+  }
+  const row = el("div", "admin-analytics-status-compact-row");
+  Object.entries(byStatus.value).forEach(([key, count]) => {
+    row.appendChild(
+      el("span", "admin-analytics-status-compact-item", `${SUPPORT_STATUS_LABELS[key] || key} : ${count}`),
+    );
   });
+  box.appendChild(row);
+  if (byStatus.note) box.appendChild(el("div", "admin-card-sub", byStatus.note));
+  container.appendChild(box);
 }
 
 function renderSupportCharts(container, support) {
@@ -325,9 +483,7 @@ function renderSupportCharts(container, support) {
   const byCategory = chartBox();
   renderPieChart(byCategory, "Tickets par catégorie", support.by_category.available ? support.by_category.value : null);
   container.appendChild(byCategory);
-  const byStatus = chartBox();
-  renderPieChart(byStatus, "Tickets par statut", support.by_status.available ? support.by_status.value : null);
-  container.appendChild(byStatus);
+  renderStatusCompact(container, support.by_status);
 }
 
 // ── Classements ("Top X") ─────────────────────────────────────────────────────
@@ -358,7 +514,7 @@ async function toggleUserDetail(row, userId) {
       "Tokens IA",
       payload.ai_tokens_total && payload.ai_tokens_total.available ? payload.ai_tokens_total.value : undefined,
     ],
-    ["Coût IA", payload.ai_cost && payload.ai_cost.available ? `${payload.ai_cost.value} $` : undefined],
+    ["Coût IA estimé", payload.ai_cost && payload.ai_cost.available ? `${payload.ai_cost.value} $` : undefined],
     [
       "Progression (temps passé)",
       payload.time_spent_s && payload.time_spent_s.available ? formatDuration(payload.time_spent_s.value) : undefined,
@@ -417,6 +573,38 @@ function renderChatbotRankings(container, rankings) {
   container.appendChild(note);
 }
 
+// "Top fournisseurs" et "Top coûts" renvoyaient les MÊMES lignes
+// (provider_rows), juste triées différemment (par tokens vs par coût) — un
+// doublon confirmé par l'audit. Fusionnés en UN SEUL tableau (nom/tokens/
+// coût sur la même ligne), trié par tokens comme l'ancien "Top fournisseurs"
+// (Chantier Analytics, 2026-10-22) : `top_cost` reste calculé côté backend
+// (jamais supprimé, pourrait servir ailleurs) mais n'est plus lu ici.
+function renderProviderTable(container, title, rows) {
+  const box = rankingBox(title);
+  if (!rows || !rows.length) {
+    box.appendChild(el("p", "admin-empty", EMPTY_LABEL));
+    container.appendChild(box);
+    return;
+  }
+  const table = el("table", "admin-users-table");
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  ["Fournisseur", "Tokens", "Coût estimé ($)"].forEach((h) => headRow.appendChild(el("th", null, h)));
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+  const tbody = document.createElement("tbody");
+  rows.forEach((row) => {
+    const tr = document.createElement("tr");
+    tr.appendChild(el("td", null, row.provider_key));
+    tr.appendChild(el("td", null, String(row.total_tokens)));
+    tr.appendChild(el("td", null, Number(row.estimated_cost || 0).toFixed(4)));
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  box.appendChild(table);
+  container.appendChild(box);
+}
+
 function renderAiRankings(container, rankings) {
   container.innerHTML = "";
   renderUserRankingBox(
@@ -426,13 +614,10 @@ function renderAiRankings(container, rankings) {
     "total_tokens",
     "tokens",
   );
-  renderSimpleRankingBox(
+  renderProviderTable(
     container,
-    "Top fournisseurs",
+    "Fournisseurs (tokens & coût)",
     rankings.ai.top_providers.available ? rankings.ai.top_providers.value : null,
-    "provider_key",
-    "total_tokens",
-    "tokens",
   );
   renderSimpleRankingBox(
     container,
@@ -449,15 +634,6 @@ function renderAiRankings(container, rankings) {
     "engine",
     "requests",
     "appels",
-  );
-  renderSimpleRankingBox(
-    container,
-    "Top coûts",
-    rankings.ai.top_cost.available ? rankings.ai.top_cost.value : null,
-    "name",
-    "estimated_cost",
-    "$",
-    (v) => Number(v).toFixed(4),
   );
 }
 
@@ -612,20 +788,25 @@ export async function loadAnalytics() {
 
   const savedViewsSelect = document.getElementById("admin-analytics-saved-views-select");
   const saveViewBtn = document.getElementById("admin-analytics-save-view-btn");
-  const exportCsvLink = document.getElementById("admin-analytics-export-csv");
-  const exportXlsxLink = document.getElementById("admin-analytics-export-xlsx");
-  const exportPdfLink = document.getElementById("admin-analytics-export-pdf");
-  const printBtn = document.getElementById("admin-analytics-print-btn");
 
   const pinnedSection = document.getElementById("admin-analytics-pinned-section");
   const pinnedEl = document.getElementById("admin-analytics-pinned");
 
-  const reportForm = document.getElementById("admin-analytics-report-form");
-  const reportTypeSelect = document.getElementById("admin-analytics-report-type");
-  const reportFormatSelect = document.getElementById("admin-analytics-report-format");
+  // Export + Rapports fusionnés en une seule UI (voir le commentaire du
+  // template admin.html) : la case "conserver dans l'historique" bascule
+  // entre export ponctuel (période actuellement affichée) et rapport
+  // persisté (période dédiée, téléchargeable plus tard) — même tableau
+  // d'historique pour les deux, jamais deux UI distinctes.
+  const exportForm = document.getElementById("admin-analytics-export-form");
+  const exportFormatSelect = document.getElementById("admin-analytics-export-format");
+  const exportKeepCheckbox = document.getElementById("admin-analytics-export-keep-checkbox");
+  const exportReportTypeField = document.getElementById("admin-analytics-export-report-type-field");
+  const exportReportTypeSelect = document.getElementById("admin-analytics-export-report-type");
+  const exportSubmitBtn = document.getElementById("admin-analytics-export-submit-btn");
   const reportsTbody = document.getElementById("admin-analytics-reports-tbody");
   const reportsEmptyEl = document.getElementById("admin-analytics-reports-empty");
 
+  const usersGranularitySelect = document.getElementById("admin-analytics-users-granularity-select");
   const usersChartsEl = document.getElementById("admin-analytics-users-charts");
   const chatbotChartsEl = document.getElementById("admin-analytics-chatbot-charts");
   const aiChartsEl = document.getElementById("admin-analytics-ai-charts");
@@ -699,22 +880,16 @@ export async function loadAnalytics() {
     return params.toString();
   }
 
-  function updateExportLinks() {
-    const query = buildQuery();
-    exportCsvLink.href = `/api/admin/analytics/export/csv?${query}`;
-    exportXlsxLink.href = `/api/admin/analytics/export/excel?${query}`;
-    exportPdfLink.href = `/api/admin/analytics/export/pdf?${query}`;
-  }
-
   async function refreshReports() {
     const { ok, payload } = await fetchJson("/api/admin/analytics/reports");
     if (ok) renderReports(reportsTbody, reportsEmptyEl, payload.items);
   }
 
+  let lastCharts = null;
+
   async function refresh() {
     errorEl.hidden = true;
     const query = buildQuery();
-    updateExportLinks();
 
     // `groups` restreint les agrégations réellement calculées par
     // overview() à celles dont un KPI est épinglé (voir PINNABLE_KPIS côté
@@ -747,7 +922,8 @@ export async function loadAnalytics() {
     destroyCharts();
     if (chartsRes.ok) {
       const charts = chartsRes.payload;
-      renderUsersCharts(usersChartsEl, charts.users);
+      lastCharts = charts;
+      renderUsersChart(usersChartsEl, charts.users, usersGranularitySelect.value);
       renderChatbotCharts(chatbotChartsEl, charts.chatbot);
       renderAiCharts(aiChartsEl, charts.ai);
       renderSupportCharts(supportChartsEl, charts.support);
@@ -779,6 +955,13 @@ export async function loadAnalytics() {
   });
   dateFromInput.addEventListener("change", () => refresh());
   dateToInput.addEventListener("change", () => refresh());
+
+  // Changer la granularité ne relance AUCUN appel réseau : toutes les
+  // séries (jour/mois/année) sont déjà dans la réponse charts() courante
+  // (lastCharts), seul le graphique Utilisateurs est redessiné.
+  usersGranularitySelect.addEventListener("change", () => {
+    if (lastCharts) renderUsersChart(usersChartsEl, lastCharts.users, usersGranularitySelect.value);
+  });
 
   savedViewsSelect.addEventListener("change", () => {
     if (!savedViewsSelect.value) return;
@@ -820,16 +1003,47 @@ export async function loadAnalytics() {
     await refreshSavedViews();
   });
 
-  printBtn.addEventListener("click", () => window.print());
+  // "Imprimer" a été retiré (doublon fonctionnel confirmé avec l'export PDF
+  // serveur — mise en page dédiée + graphiques vectoriels réels, jamais une
+  // simple capture de la page web).
 
-  reportForm.addEventListener("submit", async (e) => {
+  // Export + Rapports fusionnés (voir le commentaire de la section dans
+  // admin.html) : la case "conserver dans l'historique" est le SEUL
+  // discriminant — décochée = export ponctuel de la période actuellement
+  // affichée (ancien comportement des 3 boutons "Exporter CSV/Excel/PDF"),
+  // cochée = rapport persisté sur disque, avec sa propre période dédiée
+  // (ancien comportement de la section "Rapports"). Les deux apparaissent
+  // dans le même tableau d'historique ci-dessous.
+  const EXPORT_FORMAT_TO_ENDPOINT = { csv: "csv", xlsx: "excel", pdf: "pdf" };
+
+  function updateExportKeepUi() {
+    const keep = exportKeepCheckbox.checked;
+    exportReportTypeField.hidden = !keep;
+    exportSubmitBtn.textContent = keep ? "Générer le rapport" : "Exporter";
+  }
+  exportKeepCheckbox.addEventListener("change", updateExportKeepUi);
+  updateExportKeepUi();
+
+  exportForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const submitBtn = reportForm.querySelector("button[type=submit]");
-    const originalLabel = submitBtn ? submitBtn.textContent : null;
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Génération en cours…";
+    const format = exportFormatSelect.value;
+
+    if (!exportKeepCheckbox.checked) {
+      // Export ponctuel : jamais écrit sur disque, journalisé côté serveur
+      // (export_logged()) — même mécanisme que les anciens liens <a href>.
+      const url = `/api/admin/analytics/export/${EXPORT_FORMAT_TO_ENDPOINT[format]}?${buildQuery()}`;
+      const link = document.createElement("a");
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(refreshReports, 1000);
+      return;
     }
+
+    const originalLabel = exportSubmitBtn.textContent;
+    exportSubmitBtn.disabled = true;
+    exportSubmitBtn.textContent = "Génération en cours…";
     const csrfToken = document.cookie.match(/(?:^|; )nm_csrf=([^;]*)/);
     const res = await fetch("/api/admin/analytics/reports", {
       method: "POST",
@@ -838,13 +1052,11 @@ export async function loadAnalytics() {
         ...(csrfToken ? { "X-CSRF-Token": decodeURIComponent(csrfToken[1]) } : {}),
       },
       credentials: "same-origin",
-      body: JSON.stringify({ report_type: reportTypeSelect.value, format: reportFormatSelect.value }),
+      body: JSON.stringify({ report_type: exportReportTypeSelect.value, format }),
     });
     const payload = await res.json().catch(() => ({}));
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalLabel;
-    }
+    exportSubmitBtn.disabled = false;
+    exportSubmitBtn.textContent = originalLabel;
     if (!res.ok) {
       alert(payload.error || "Génération impossible.");
       return;

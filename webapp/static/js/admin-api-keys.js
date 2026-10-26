@@ -1,19 +1,19 @@
-// Rendu partagé de la liste des clés API IA (haute disponibilité) — utilisé
-// par /admin/ia (admin-ai.js) ET /admin/settings (admin-settings.js), qui
-// affichaient auparavant la même donnée (/api/admin/ai/keys) via deux
-// implémentations dupliquées (une en cartes, une en tableau). Ce module ne
-// change ni la donnée, ni les endpoints appelés (toujours
-// /api/admin/ai/keys/:id, /test, PATCH, DELETE), ni les permissions : la
-// capacité "Modifier" (renommer/changer la priorité) reste réservée aux
-// appelants qui la demandent explicitement via `allowEdit` — elle n'était
-// disponible auparavant que sur /admin/settings (SUPER_ADMIN), jamais sur
-// /admin/ia (ADMIN) ; ce module ne l'active donc QUE si l'appelant le
-// demande, pour ne strictement rien changer aux droits existants.
+// Rendu partagé de la liste des clés API IA (haute disponibilité).
+//
+// Finalisation du nettoyage admin (2026-10-22) : /admin/ia (admin-ai.js) est
+// désormais l'UNIQUE emplacement de gestion complète des clés API
+// (`allowEdit: true`) — /admin/settings n'affiche plus qu'un lien compact
+// vers /admin/ia (voir admin-settings.js), ce module n'y est donc plus
+// importé. Ce changement n'élargit aucune permission : toutes les routes
+// /api/admin/ai/keys/* (GET/POST/PATCH/DELETE/test, server.py) sont gardées
+// par le même rôle minimum ADMIN (_AI_MODULE_ROLE) — y compris le PATCH de
+// renommage/priorité, qui n'était auparavant accessible que depuis la PAGE
+// /admin/settings (SUPER_ADMIN pour y entrer), jamais parce que l'opération
+// elle-même exigeait SUPER_ADMIN. Ce module ne change ni la donnée ni les
+// endpoints appelés (toujours /api/admin/ai/keys/:id, /test, PATCH, DELETE).
 //
 // La création de clé (formulaire) reste hors de ce module : /admin/ia
-// utilise une modale (admin-ai.js::openApiKeyModal), /admin/settings un
-// formulaire en ligne — deux UX différentes et volontairement conservées
-// telles quelles, seul l'AFFICHAGE de la liste existante est factorisé ici.
+// utilise une modale (admin-ai.js::openApiKeyModal).
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -94,7 +94,16 @@ function renderRow(tbody, key, { onChanged, allowEdit }) {
   tr.appendChild(el("td", "admin-users-td", String(key.priority)));
   tr.appendChild(el("td", "admin-users-td", formatDateTime(key.last_used_at)));
   tr.appendChild(el("td", "admin-users-td", formatInt(key.request_count)));
-  tr.appendChild(el("td", "admin-users-td", formatInt(key.request_count - key.failure_count)));
+  // Audit admin (2026-10-20), point 6 : success_count vient désormais du
+  // backend (admin_ai_service.py::_serialize_api_key, seule formule) —
+  // jamais recalculé ici, pour ne plus exposer ce module à une divergence
+  // silencieuse si la définition change côté serveur sans que ce fichier
+  // ne soit mis à jour en même temps. Repli defensif (request_count -
+  // failure_count) uniquement si une réponse plus ancienne du backend ne
+  // porte pas encore ce champ.
+  const successCount =
+    typeof key.success_count === "number" ? key.success_count : key.request_count - key.failure_count;
+  tr.appendChild(el("td", "admin-users-td", formatInt(successCount)));
   tr.appendChild(el("td", "admin-users-td", formatInt(key.failure_count)));
   tr.appendChild(el("td", "admin-users-td", formatInt(key.fallback_count || 0)));
   tr.appendChild(el("td", "admin-users-td", formatMs(key.avg_response_time_ms)));

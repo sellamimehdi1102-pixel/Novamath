@@ -1,8 +1,8 @@
 """
-Mode dégradé du chatbot NovaMath — audit du 2026-07-26 : quand le fournisseur
+Mode dégradé du chatbot Mathadap — audit du 2026-07-26 : quand le fournisseur
 IA réellement actif (Gemini) est indisponible (voir provider_manager.
 select_llm_for_user, qui renvoie ("fake", None) une fois tous les candidats
-de la chaîne du plan épuisés/en cache d'indisponibilité), NovaMath ne doit
+de la chaîne du plan épuisés/en cache d'indisponibilité), Mathadap ne doit
 PAS se contenter du message générique de FakeProvider (voir fake_provider.py
 ::NO_MATCH_ANSWERS) — il doit d'abord exploiter tout ce qui est déjà connu
 de la conversation, exactement comme un professeur le ferait sans accès à
@@ -151,6 +151,10 @@ def _exercise_fallback(chapter_id, user_message, class_level=None):
         )
         if results:
             return results[0]
+    # Sans mot de sujet (« ne fait pas », « c'est faux ? »), la recherche libre
+    # ne trouverait qu'un exercice sans rapport : clarification neutre.
+    if not search_service.has_topic_word(user_message):
+        return None
     results = search_service.search(
         user_message, scope=[search_service.SCOPE_EXERCICES], limit=1, class_level=class_level,
     )

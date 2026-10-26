@@ -71,7 +71,8 @@
           ],
           "reponse": "$f(3) = 8$",
           "id": "notion-de-fonction-exemple-1",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "titre": "Exemple 2",
@@ -92,7 +93,27 @@
           ],
           "reponse": "$1$ et $-1$ sont les deux antécédents de $0$",
           "id": "notion-de-fonction-exemple-2",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "notion-de-fonction-exemple-aucun-antecedent",
+          "titre": "Exemple 3 — Aucun antécédent (approfondissement)",
+          "enonce": "Pour $f(x)=x^2+1$, trouve les antécédents de $-3$.",
+          "calcul": [
+            {
+              "expr": "x^2+1=-3",
+              "texte": "On cherche les x qui donnent -3."
+            },
+            {
+              "expr": "x^2=-4",
+              "texte": "On isole x²."
+            }
+          ],
+          "reponse": "Aucun antécédent : $x^2$ n'est jamais négatif, donc $x^2=-4$ est impossible.",
+          "difficulte": "difficile",
+          "analyse": "Un nombre peut très bien n'avoir AUCUN antécédent : ici, -3 n'est jamais atteint par cette fonction.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -100,75 +121,28 @@
         "Oublier qu'un nombre peut avoir plusieurs antécédents."
       ],
       "astuce": "Image : tu connais $x$, tu cherches $f(x)$. Antécédent : tu connais $f(x)$, tu cherches $x$.",
-      "aRetenir": [
-        "Image : $x \\to f(x)$, toujours unique",
-        "Antécédent : résoudre $f(x)=y$"
-      ],
+      "aRetenir": ["Image : $x \\to f(x)$, toujours unique", "Antécédent : résoudre $f(x)=y$"],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -4,
-          -2,
-          8,
-          10
-        ],
+        "viewBox": [-4, -2, 8, 10],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                -3.0,
-                8.0
-              ],
-              [
-                -2.5,
-                5.25
-              ],
-              [
-                -2.0,
-                3.0
-              ],
-              [
-                -1.5,
-                1.25
-              ],
-              [
-                -1.0,
-                0.0
-              ],
-              [
-                -0.5,
-                -0.75
-              ],
-              [
-                0.0,
-                -1.0
-              ],
-              [
-                0.5,
-                -0.75
-              ],
-              [
-                1.0,
-                0.0
-              ],
-              [
-                1.5,
-                1.25
-              ],
-              [
-                2.0,
-                3.0
-              ],
-              [
-                2.5,
-                5.25
-              ],
-              [
-                3.0,
-                8.0
-              ]
+              [-3.0, 8.0],
+              [-2.5, 5.25],
+              [-2.0, 3.0],
+              [-1.5, 1.25],
+              [-1.0, 0.0],
+              [-0.5, -0.75],
+              [0.0, -1.0],
+              [0.5, -0.75],
+              [1.0, 0.0],
+              [1.5, 1.25],
+              [2.0, 3.0],
+              [2.5, 5.25],
+              [3.0, 8.0]
             ]
           }
         ],
@@ -206,18 +180,11 @@
             "reveal": 2
           }
         ],
-        "steps": [
-          "La courbe de f",
-          "On lit l'image de 3 : on monte jusqu'à la courbe, puis on lit la hauteur"
-        ],
+        "steps": ["La courbe de f", "On lit l'image de 3 : on monte jusqu'à la courbe, puis on lit la hauteur"],
         "alt": "Courbe de f(x) = x² − 1. Pour x = 3, on lit f(3) = 8 : c'est l'image de 3.",
         "emphasis": true
       },
-      "quizExerciseIds": [
-        117,
-        118,
-        119
-      ],
+      "quizExerciseIds": [117, 118, 119],
       "schemaVersion": 2,
       "topic_id": "notion-de-fonction",
       "definitions": {
@@ -270,18 +237,37 @@
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Notion de fonction"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras calculer une image et trouver un antécédent."
-      ],
+      "synonymes": ["Notion de fonction"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras calculer une image et trouver un antécédent."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
       "tags": [],
       "explicationSimple": "Une fonction, c'est une machine à calculer : tu lui donnes un nombre $x$, elle te renvoie toujours un seul résultat, $f(x)$. Ce résultat s'appelle l'image de $x$. À l'inverse, un nombre $x$ qui donne un résultat précis s'appelle un antécédent de ce résultat.",
-      "intuition": "Calculer une image est toujours facile : tu connais $x$, tu remplaces, tu calcules. Trouver un antécédent est plus difficile : tu connais le résultat, mais tu dois résoudre une équation pour retrouver $x$ — et parfois il y a plusieurs solutions, parfois aucune."
+      "intuition": "Calculer une image est toujours facile : tu connais $x$, tu remplaces, tu calcules. Trouver un antécédent est plus difficile : tu connais le résultat, mais tu dois résoudre une équation pour retrouver $x$ — et parfois il y a plusieurs solutions, parfois aucune.",
+      "pourquoi": "Les fonctions modélisent une infinité de situations concrètes : le prix payé selon la quantité achetée, la distance parcourue selon le temps écoulé...",
+      "apercus": [
+        {
+          "id": "apercu-fonction-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Trouver les antécédents d'un nombre dans un cas où il n'y en a aucun."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple concret de fonction.",
+          "piste": "Le prix total payé en fonction du nombre d'articles achetés, par exemple."
+        },
+        {
+          "apres": "exemple:notion-de-fonction-exemple-2",
+          "question": "Combien d'antécédents 0 peut-il avoir pour f(x)=x²-1 ?",
+          "piste": "Deux : 1 et -1, puisque les deux donnent f(x)=0."
+        }
+      ]
     },
     {
       "id": "courbe-representative-dune-fonction",
@@ -347,7 +333,27 @@
           ],
           "reponse": "$f(2) = 5$",
           "id": "courbe-representative-dune-fonction-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "courbe-representative-dune-fonction-exemple-antecedent",
+          "titre": "Exemple 2 — Lire un antécédent",
+          "enonce": "Sur la même courbe, trouve un antécédent de $5$.",
+          "calcul": [
+            {
+              "expr": "y=5",
+              "texte": "On part de 5 sur l'axe vertical."
+            },
+            {
+              "expr": "x=2",
+              "texte": "On avance horizontalement jusqu'à toucher la courbe, puis on lit l'abscisse."
+            }
+          ],
+          "reponse": "$2$ est un antécédent de $5$.",
+          "difficulte": "moyen",
+          "analyse": "C'est exactement le sens de lecture INVERSE de celui d'une image : on part de l'axe vertical, pas de l'axe horizontal.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
@@ -361,69 +367,25 @@
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -1.5,
-          -0.5,
-          7,
-          6
-        ],
+        "viewBox": [-1.5, -0.5, 7, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                -1.0,
-                1.4
-              ],
-              [
-                -0.5,
-                2.5
-              ],
-              [
-                0.0,
-                3.4
-              ],
-              [
-                0.5,
-                4.1
-              ],
-              [
-                1.0,
-                4.6
-              ],
-              [
-                1.5,
-                4.9
-              ],
-              [
-                2.0,
-                5.0
-              ],
-              [
-                2.5,
-                4.9
-              ],
-              [
-                3.0,
-                4.6
-              ],
-              [
-                3.5,
-                4.1
-              ],
-              [
-                4.0,
-                3.4
-              ],
-              [
-                4.5,
-                2.5
-              ],
-              [
-                5.0,
-                1.4
-              ]
+              [-1.0, 1.4],
+              [-0.5, 2.5],
+              [0.0, 3.4],
+              [0.5, 4.1],
+              [1.0, 4.6],
+              [1.5, 4.9],
+              [2.0, 5.0],
+              [2.5, 4.9],
+              [3.0, 4.6],
+              [3.5, 4.1],
+              [4.0, 3.4],
+              [4.5, 2.5],
+              [5.0, 1.4]
             ]
           }
         ],
@@ -470,11 +432,7 @@
         "alt": "Le point (2 ; 5) appartient à la courbe : l'image de 2 est 5, et 2 est un antécédent de 5.",
         "emphasis": true
       },
-      "quizExerciseIds": [
-        111,
-        112,
-        113
-      ],
+      "quizExerciseIds": [111, 112, 113],
       "schemaVersion": 2,
       "topic_id": "courbe-representative-dune-fonction",
       "definitions": {
@@ -527,18 +485,37 @@
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Courbe représentative d'une fonction"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras lire une image ou un antécédent sur un graphique."
-      ],
+      "synonymes": ["Courbe représentative d'une fonction"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras lire une image ou un antécédent sur un graphique."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
       "tags": [],
       "explicationSimple": "La courbe d'une fonction, c'est le dessin qui montre toutes les images en même temps : pour chaque valeur de $x$ sur l'axe horizontal, la courbe passe par le point de hauteur $f(x)$.",
-      "intuition": "Pour lire une image sur un graphique, on part toujours du bas (l'axe des $x$) et on monte à la verticale. Pour lire un antécédent, on fait l'inverse : on part de la gauche (l'axe des $y$) et on avance à l'horizontale. C'est exactement l'inverse l'un de l'autre."
+      "intuition": "Pour lire une image sur un graphique, on part toujours du bas (l'axe des $x$) et on monte à la verticale. Pour lire un antécédent, on fait l'inverse : on part de la gauche (l'axe des $y$) et on avance à l'horizontale. C'est exactement l'inverse l'un de l'autre.",
+      "pourquoi": "Lire une courbe permet d'obtenir rapidement des images et des antécédents sans avoir l'expression de la fonction, uniquement à partir de son dessin.",
+      "apercus": [
+        {
+          "id": "apercu-courbe-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Lire plusieurs antécédents d'une même valeur sur une courbe qui redescend."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi est-il utile de savoir lire une courbe ?",
+          "piste": "Pour obtenir rapidement des images et des antécédents sans connaître l'expression de la fonction."
+        },
+        {
+          "apres": "exemple:courbe-representative-dune-fonction-exemple-antecedent",
+          "question": "Pour lire un antécédent, part-on de l'axe horizontal ou vertical ?",
+          "piste": "De l'axe vertical (les y), puis on avance horizontalement jusqu'à la courbe."
+        }
+      ]
     },
     {
       "id": "resolutions-graphiques",
@@ -604,83 +581,61 @@
           ],
           "reponse": "$x = 1$ ou $x = 5$",
           "id": "resolutions-graphiques-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "resolutions-graphiques-exemple-inequation",
+          "titre": "Exemple 2 — Résoudre une inéquation graphiquement",
+          "enonce": "Avec la même courbe (qui croise $y=3$ en $x=1$ et $x=5$, et reste au-dessus entre ces deux valeurs), résous $f(x) \\geq 3$.",
+          "calcul": [
+            {
+              "expr": "f(x)\\geq3",
+              "texte": "On cherche où la courbe est AU-DESSUS (ou sur) la droite $y=3$."
+            },
+            {
+              "expr": "1\\leqslant x\\leqslant5",
+              "texte": "C'est exactement la zone entre les deux points d'intersection trouvés précédemment."
+            }
+          ],
+          "reponse": "$x \\in [1\\,;5]$",
+          "difficulte": "difficile",
+          "analyse": "Contrairement à l'équation (2 valeurs isolées), la solution d'une inéquation est tout un INTERVALLE de valeurs.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Confondre \"au-dessus\" et \"en dessous\" de la droite.",
-        "Oublier une des solutions si la courbe croise la droite plusieurs fois."
+        "Oublier une des solutions si la courbe croise la droite plusieurs fois.",
+        "Donner comme solution d'une inéquation les mêmes valeurs isolées que pour l'équation associée."
       ],
-      "astuce": "Imagine la zone solution comme un territoire à colorier sur le dessin : ça aide à visualiser.",
+      "astuce": "Imagine la zone solution comme un territoire à colorier sur le dessin : ça aide à visualiser — et retiens que ce territoire est un intervalle entier, pas juste ses bords.",
       "aRetenir": [
-        "$f(x)=k$ : intersections avec $y=k$",
-        "$f(x)\\leq k$ : courbe sous la droite"
+        "$f(x)=k$ : intersections avec $y=k$ (des valeurs isolées).",
+        "$f(x)\\leq k$ : zone de la courbe sous la droite (un intervalle).",
+        "$f(x)\\geq k$ : zone de la courbe au-dessus (un intervalle)."
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -0.5,
-          -0.5,
-          7,
-          5
-        ],
+        "viewBox": [-0.5, -0.5, 7, 5],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                0.0,
-                1.75
-              ],
-              [
-                0.5,
-                2.438
-              ],
-              [
-                1.0,
-                3.0
-              ],
-              [
-                1.5,
-                3.438
-              ],
-              [
-                2.0,
-                3.75
-              ],
-              [
-                2.5,
-                3.938
-              ],
-              [
-                3.0,
-                4.0
-              ],
-              [
-                3.5,
-                3.938
-              ],
-              [
-                4.0,
-                3.75
-              ],
-              [
-                4.5,
-                3.438
-              ],
-              [
-                5.0,
-                3.0
-              ],
-              [
-                5.5,
-                2.438
-              ],
-              [
-                6.0,
-                1.75
-              ]
+              [0.0, 1.75],
+              [0.5, 2.438],
+              [1.0, 3.0],
+              [1.5, 3.438],
+              [2.0, 3.75],
+              [2.5, 3.938],
+              [3.0, 4.0],
+              [3.5, 3.938],
+              [4.0, 3.75],
+              [4.5, 3.438],
+              [5.0, 3.0],
+              [5.5, 2.438],
+              [6.0, 1.75]
             ]
           }
         ],
@@ -713,19 +668,11 @@
             "reveal": 3
           }
         ],
-        "steps": [
-          "La courbe de f",
-          "La droite y = 3",
-          "Les points d'intersection : les solutions de f(x) = 3"
-        ],
+        "steps": ["La courbe de f", "La droite y = 3", "Les points d'intersection : les solutions de f(x) = 3"],
         "alt": "La courbe de f croise la droite y = 3 en x = 1 et x = 5 : ce sont les solutions de f(x) = 3.",
         "emphasis": true
       },
-      "quizExerciseIds": [
-        123,
-        124,
-        125
-      ],
+      "quizExerciseIds": [123, 124, 125],
       "schemaVersion": 2,
       "topic_id": "resolutions-graphiques",
       "definitions": {
@@ -774,22 +721,47 @@
           "pourquoi": "Une courbe peut croiser une droite horizontale à plusieurs endroits différents : chaque croisement est une solution valable de l'équation.",
           "comment_detecter": "Compte le nombre d'intersections visibles sur le dessin avant de répondre : si tu n'as donné qu'une seule valeur alors qu'il y en a deux, la réponse est incomplète.",
           "comment_eviter": "Balaie tout le graphique du bord gauche au bord droit avant de conclure, pour ne rater aucun croisement."
+        },
+        {
+          "description": "Donner comme solution d'une inéquation les mêmes valeurs isolées que pour l'équation associée.",
+          "pourquoi": "L'équation f(x)=k et l'inéquation f(x)≥k partagent les mêmes bornes, ce qui peut faire croire que leurs solutions se ressemblent.",
+          "comment_detecter": "La réponse donnée pour une inéquation ne contient que 2 valeurs isolées, sans intervalle.",
+          "comment_eviter": "Se souvenir qu'une inéquation a pour solution tout un INTERVALLE (ou une réunion d'intervalles), jamais seulement les bornes."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Résolutions graphiques d'équations et d'inéquations à l'aide d'une fonction"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre $f(x)=k$ et $f(x) \\leq k$ graphiquement."
-      ],
+      "synonymes": ["Résolutions graphiques d'équations et d'inéquations à l'aide d'une fonction"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre $f(x)=k$ et $f(x) \\leq k$ graphiquement."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
       "tags": [],
       "explicationSimple": "Résoudre $f(x) = k$ avec un graphique, c'est chercher où la courbe touche exactement la droite horizontale $y = k$. Résoudre $f(x) \\leq k$, c'est chercher toute la partie de la courbe qui reste EN DESSOUS de cette droite.",
-      "intuition": "Trace toujours la droite $y = k$ en premier, avant de chercher quoi que ce soit sur la courbe : elle te sert de repère visuel pour comparer, comme une règle posée sur le dessin."
+      "intuition": "Trace toujours la droite $y = k$ en premier, avant de chercher quoi que ce soit sur la courbe : elle te sert de repère visuel pour comparer, comme une règle posée sur le dessin.",
+      "pourquoi": "Résoudre graphiquement permet de répondre instantanément à des questions concrètes (quand une quantité dépasse-t-elle un seuil ?) sans calcul algébrique.",
+      "apercus": [
+        {
+          "id": "apercu-resolutgraph-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une inéquation dont la solution est une réunion de deux intervalles séparés."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple de question concrète résolue par une résolution graphique.",
+          "piste": "À partir de quelle quantité produite un bénéfice dépasse-t-il un certain seuil, par exemple."
+        },
+        {
+          "apres": "exemple:resolutions-graphiques-exemple-inequation",
+          "question": "La solution de f(x)≥3 est-elle composée de valeurs isolées ou d'un intervalle ?",
+          "piste": "D'un intervalle complet, [1 ; 5], pas seulement des deux bornes 1 et 5."
+        }
+      ]
     },
     {
       "id": "exemples-de-fonctions-de-reference",
@@ -856,275 +828,116 @@
           ],
           "reponse": "$x \\geq 0$",
           "id": "exemples-de-fonctions-de-reference-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemples-de-fonctions-de-reference-exemple-inverse",
+          "titre": "Exemple 2 — L'ensemble de définition de l'inverse",
+          "enonce": "$f(x) = \\dfrac{1}{x}$. Quelles valeurs de $x$ sont autorisées ?",
+          "calcul": [
+            {
+              "expr": "x \\neq 0",
+              "texte": "Une division par 0 n'existe pas."
+            }
+          ],
+          "reponse": "$x \\neq 0$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Oublier que $\\sqrt{x}$ n'existe pas pour $x$ négatif.",
-        "Oublier que $\\dfrac{1}{x}$ n'existe pas pour $x = 0$."
+        "Oublier que $\\dfrac{1}{x}$ n'existe pas pour $x = 0$.",
+        "Croire que le carré et le cube ont, eux aussi, un ensemble de définition restreint."
       ],
-      "astuce": "Retiens bien la forme de ces 4 courbes : elle t'aidera à comprendre des fonctions plus compliquées plus tard.",
+      "astuce": "Retiens bien la forme de ces 4 courbes : elle t'aidera à comprendre des fonctions plus compliquées plus tard. Seules racine et inverse ont un ensemble de définition restreint.",
       "aRetenir": [
-        "$x^2$ : parabole",
-        "$x^3$ : symétrique au centre",
-        "$\\sqrt x$ : $x \\geq 0$ seulement",
-        "$1/x$ : $x \\neq 0$ seulement"
+        "$x^2$ (parabole) et $x^3$ : définies pour TOUT $x$ réel.",
+        "$\\sqrt x$ : $x \\geq 0$ seulement. $1/x$ : $x \\neq 0$ seulement."
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -3,
-          -3,
-          6,
-          8
-        ],
+        "viewBox": [-3, -3, 6, 8],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                -2.2,
-                4.84
-              ],
-              [
-                -1.8,
-                3.24
-              ],
-              [
-                -1.4,
-                1.96
-              ],
-              [
-                -1.0,
-                1.0
-              ],
-              [
-                -0.6,
-                0.36
-              ],
-              [
-                -0.2,
-                0.04
-              ],
-              [
-                0.2,
-                0.04
-              ],
-              [
-                0.6,
-                0.36
-              ],
-              [
-                1.0,
-                1.0
-              ],
-              [
-                1.4,
-                1.96
-              ],
-              [
-                1.8,
-                3.24
-              ],
-              [
-                2.2,
-                4.84
-              ]
+              [-2.2, 4.84],
+              [-1.8, 3.24],
+              [-1.4, 1.96],
+              [-1.0, 1.0],
+              [-0.6, 0.36],
+              [-0.2, 0.04],
+              [0.2, 0.04],
+              [0.6, 0.36],
+              [1.0, 1.0],
+              [1.4, 1.96],
+              [1.8, 3.24],
+              [2.2, 4.84]
             ]
           },
           {
             "points": [
-              [
-                -1.4,
-                -2.744
-              ],
-              [
-                -1.12,
-                -1.405
-              ],
-              [
-                -0.84,
-                -0.593
-              ],
-              [
-                -0.56,
-                -0.176
-              ],
-              [
-                -0.28,
-                -0.022
-              ],
-              [
-                0.0,
-                0.0
-              ],
-              [
-                0.28,
-                0.022
-              ],
-              [
-                0.56,
-                0.176
-              ],
-              [
-                0.84,
-                0.593
-              ],
-              [
-                1.12,
-                1.405
-              ],
-              [
-                1.4,
-                2.744
-              ]
+              [-1.4, -2.744],
+              [-1.12, -1.405],
+              [-0.84, -0.593],
+              [-0.56, -0.176],
+              [-0.28, -0.022],
+              [0.0, 0.0],
+              [0.28, 0.022],
+              [0.56, 0.176],
+              [0.84, 0.593],
+              [1.12, 1.405],
+              [1.4, 2.744]
             ],
             "dashed": true
           },
           {
             "points": [
-              [
-                0.0,
-                0.0
-              ],
-              [
-                0.3,
-                0.548
-              ],
-              [
-                0.6,
-                0.775
-              ],
-              [
-                0.9,
-                0.949
-              ],
-              [
-                1.2,
-                1.095
-              ],
-              [
-                1.5,
-                1.225
-              ],
-              [
-                1.8,
-                1.342
-              ],
-              [
-                2.1,
-                1.449
-              ],
-              [
-                2.4,
-                1.549
-              ],
-              [
-                2.7,
-                1.643
-              ],
-              [
-                3.0,
-                1.732
-              ]
+              [0.0, 0.0],
+              [0.3, 0.548],
+              [0.6, 0.775],
+              [0.9, 0.949],
+              [1.2, 1.095],
+              [1.5, 1.225],
+              [1.8, 1.342],
+              [2.1, 1.449],
+              [2.4, 1.549],
+              [2.7, 1.643],
+              [3.0, 1.732]
             ]
           },
           {
             "points": [
-              [
-                0.35,
-                2.857
-              ],
-              [
-                0.61,
-                1.626
-              ],
-              [
-                0.88,
-                1.136
-              ],
-              [
-                1.15,
-                0.873
-              ],
-              [
-                1.41,
-                0.709
-              ],
-              [
-                1.68,
-                0.597
-              ],
-              [
-                1.94,
-                0.515
-              ],
-              [
-                2.21,
-                0.454
-              ],
-              [
-                2.47,
-                0.405
-              ],
-              [
-                2.74,
-                0.366
-              ],
-              [
-                3.0,
-                0.333
-              ]
+              [0.35, 2.857],
+              [0.61, 1.626],
+              [0.88, 1.136],
+              [1.15, 0.873],
+              [1.41, 0.709],
+              [1.68, 0.597],
+              [1.94, 0.515],
+              [2.21, 0.454],
+              [2.47, 0.405],
+              [2.74, 0.366],
+              [3.0, 0.333]
             ],
             "dashed": true
           },
           {
             "points": [
-              [
-                -0.35,
-                -2.857
-              ],
-              [
-                -0.61,
-                -1.626
-              ],
-              [
-                -0.88,
-                -1.136
-              ],
-              [
-                -1.15,
-                -0.873
-              ],
-              [
-                -1.41,
-                -0.709
-              ],
-              [
-                -1.68,
-                -0.597
-              ],
-              [
-                -1.94,
-                -0.515
-              ],
-              [
-                -2.21,
-                -0.454
-              ],
-              [
-                -2.47,
-                -0.405
-              ],
-              [
-                -2.74,
-                -0.366
-              ],
-              [
-                -3.0,
-                -0.333
-              ]
+              [-0.35, -2.857],
+              [-0.61, -1.626],
+              [-0.88, -1.136],
+              [-1.15, -0.873],
+              [-1.41, -0.709],
+              [-1.68, -0.597],
+              [-1.94, -0.515],
+              [-2.21, -0.454],
+              [-2.47, -0.405],
+              [-2.74, -0.366],
+              [-3.0, -0.333]
             ],
             "dashed": true
           }
@@ -1154,11 +967,7 @@
         "alt": "Les 4 fonctions de référence : carré (parabole), cube, racine carrée (définie pour x ≥ 0), inverse (définie pour x ≠ 0, deux branches en pointillés).",
         "emphasis": true
       },
-      "quizExerciseIds": [
-        114,
-        115,
-        116
-      ],
+      "quizExerciseIds": [114, 115, 116],
       "schemaVersion": 2,
       "topic_id": "exemples-de-fonctions-de-reference",
       "definitions": {
@@ -1216,29 +1025,54 @@
           "pourquoi": "Diviser par zéro n'a pas de sens en mathématiques : c'est une opération qui n'est jamais autorisée.",
           "comment_detecter": "Si le dénominateur d'une fraction peut valoir $0$ pour une valeur de $x$ donnée, cette valeur doit être exclue.",
           "comment_eviter": "Avant tout calcul avec une fraction, identifie et exclus systématiquement les valeurs interdites."
+        },
+        {
+          "description": "Croire que le carré et le cube ont, eux aussi, un ensemble de définition restreint.",
+          "pourquoi": "Comme deux des quatre fonctions de référence (racine et inverse) ont des restrictions, on généralise parfois cette idée à toutes.",
+          "comment_detecter": "Une valeur de x est exclue à tort pour f(x)=x² ou f(x)=x³.",
+          "comment_eviter": "Se souvenir que SEULES la racine carrée (x≥0) et l'inverse (x≠0) ont une restriction : le carré et le cube sont définis pour tout x réel."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Exemples de fonctions de référence"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras reconnaître l'allure de ces fonctions."
-      ],
+      "synonymes": ["Exemples de fonctions de référence"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras reconnaître l'allure de ces fonctions."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
       "tags": [],
       "explicationSimple": "Il existe 4 fonctions que l'on retrouve tout le temps en mathématiques, il vaut mieux connaître leur forme par cœur : le carré (une vallée), le cube (une courbe qui « serpente » autour du centre), la racine carrée (qui n'existe que d'un côté), et l'inverse (qui a deux morceaux séparés, jamais en $x=0$).",
-      "intuition": "Reconnaître rapidement l'allure d'une de ces 4 courbes t'aidera énormément plus tard : beaucoup de fonctions plus compliquées ressemblent en fait à l'une de ces formes de base, juste décalée ou déformée."
+      "intuition": "Reconnaître rapidement l'allure d'une de ces 4 courbes t'aidera énormément plus tard : beaucoup de fonctions plus compliquées ressemblent en fait à l'une de ces formes de base, juste décalée ou déformée.",
+      "pourquoi": "Reconnaître ces 4 formes de référence permet d'anticiper l'allure d'une fonction inconnue, et d'en déduire rapidement son ensemble de définition.",
+      "apercus": [
+        {
+          "id": "apercu-fctsref-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Reconnaître quelle fonction de référence se cache derrière une expression plus complexe."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert de connaître ces 4 fonctions par cœur ?",
+          "piste": "Elles aident à reconnaître rapidement l'allure et l'ensemble de définition de fonctions plus compliquées qui leur ressemblent."
+        },
+        {
+          "apres": "exemple:exemples-de-fonctions-de-reference-exemple-inverse",
+          "question": "Le carré et le cube ont-ils aussi un ensemble de définition restreint ?",
+          "piste": "Non : seules la racine carrée (x≥0) et l'inverse (x≠0) ont une restriction ; carré et cube sont définis pour tout x réel."
+        }
+      ]
     },
     {
       "id": "parite",
       "title": "La parité d'une fonction",
       "intro": "Dans cette leçon, tu vas apprendre à repérer une symétrie dans une courbe.",
       "objectif": "À la fin de ce cours, tu sauras dire si une fonction est paire ou impaire.",
-      "definition": "Une fonction est paire si sa courbe est symétrique par rapport à l'axe vertical. Elle est impaire si sa courbe est symétrique par rapport au centre du repère.",
+      "definition": "Une fonction est paire si sa courbe est symétrique autour de l'axe vertical. Elle est impaire si sa courbe est symétrique autour du centre du repère.",
       "reglesImportantes": [
         "Paire : $f(-x) = f(x)$ pour tout $x$.",
         "Impaire : $f(-x) = -f(x)$ pour tout $x$.",
@@ -1301,83 +1135,79 @@
           ],
           "reponse": "$f$ est paire",
           "id": "parite-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "parite-exemple-impaire",
+          "titre": "Exemple 2 — Une fonction impaire",
+          "enonce": "$f(x) = x^3$. Est-elle impaire ?",
+          "calcul": [
+            {
+              "expr": "f(-x) = (-x)^3",
+              "texte": "On remplace x par (-x), parenthèses incluses."
+            },
+            {
+              "expr": "f(-x) = -x^3 = -f(x)",
+              "texte": "On retrouve l'opposé de f(x)."
+            }
+          ],
+          "reponse": "$f$ est impaire.",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "parite-exemple-ni-paire-ni-impaire",
+          "titre": "Exemple 3 — Ni paire ni impaire",
+          "enonce": "$f(x) = x^2+x$. Est-elle paire ou impaire ?",
+          "calcul": [
+            {
+              "expr": "f(-x) = (-x)^2+(-x) = x^2-x",
+              "texte": "On calcule f(-x)."
+            },
+            {
+              "expr": "f(x)=x^2+x \\text{ et } -f(x)=-x^2-x",
+              "texte": "On compare à f(x) et à -f(x) : aucun des deux ne correspond à x²-x."
+            }
+          ],
+          "reponse": "$f$ n'est ni paire ni impaire.",
+          "difficulte": "difficile",
+          "analyse": "La plupart des fonctions ne sont ni paires ni impaires : il ne faut pas s'attendre à toujours trouver une symétrie.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Oublier de bien mettre $(-x)$ entre parenthèses avant de calculer.",
-        "Conclure trop vite sans comparer avec $-f(x)$ aussi."
+        "Conclure trop vite sans comparer avec $-f(x)$ aussi.",
+        "Croire qu'une fonction qui n'est pas paire est forcément impaire."
       ],
-      "astuce": "Si tous les exposants de $x$ sont pairs, la fonction est souvent paire. Si tous sont impairs, elle est souvent impaire.",
+      "astuce": "Si tous les exposants de $x$ sont pairs, la fonction est souvent paire. Si tous sont impairs, elle est souvent impaire. Un mélange des deux donne souvent ni l'un ni l'autre.",
       "aRetenir": [
-        "Paire : $f(-x)=f(x)$, symétrie verticale",
-        "Impaire : $f(-x)=-f(x)$, symétrie centrale"
+        "Paire : $f(-x)=f(x)$, symétrie par rapport à l'axe vertical.",
+        "Impaire : $f(-x)=-f(x)$, symétrie par rapport au centre du repère.",
+        "La plupart des fonctions ne sont NI paires NI impaires."
       ],
       "figure": {
         "kind": "geom",
-        "viewBox": [
-          -3.5,
-          -1,
-          7,
-          6
-        ],
+        "viewBox": [-3.5, -1, 7, 6],
         "grid": true,
         "axes": true,
         "curves": [
           {
             "points": [
-              [
-                -3.0,
-                4.5
-              ],
-              [
-                -2.5,
-                3.125
-              ],
-              [
-                -2.0,
-                2.0
-              ],
-              [
-                -1.5,
-                1.125
-              ],
-              [
-                -1.0,
-                0.5
-              ],
-              [
-                -0.5,
-                0.125
-              ],
-              [
-                0.0,
-                0.0
-              ],
-              [
-                0.5,
-                0.125
-              ],
-              [
-                1.0,
-                0.5
-              ],
-              [
-                1.5,
-                1.125
-              ],
-              [
-                2.0,
-                2.0
-              ],
-              [
-                2.5,
-                3.125
-              ],
-              [
-                3.0,
-                4.5
-              ]
+              [-3.0, 4.5],
+              [-2.5, 3.125],
+              [-2.0, 2.0],
+              [-1.5, 1.125],
+              [-1.0, 0.5],
+              [-0.5, 0.125],
+              [0.0, 0.0],
+              [0.5, 0.125],
+              [1.0, 0.5],
+              [1.5, 1.125],
+              [2.0, 2.0],
+              [2.5, 3.125],
+              [3.0, 4.5]
             ]
           }
         ],
@@ -1415,15 +1245,11 @@
         "alt": "La courbe est symétrique par rapport à l'axe vertical : f(−2) = f(2). La fonction est paire.",
         "emphasis": true
       },
-      "quizExerciseIds": [
-        120,
-        121,
-        122
-      ],
+      "quizExerciseIds": [120, 121, 122],
       "schemaVersion": 2,
       "topic_id": "parite",
       "definitions": {
-        "lycee": "Une fonction est paire si sa courbe est symétrique par rapport à l'axe vertical. Elle est impaire si sa courbe est symétrique par rapport au centre du repère.",
+        "lycee": "Une fonction est paire si sa courbe est symétrique autour de l'axe vertical. Elle est impaire si sa courbe est symétrique autour du centre du repère.",
         "college": "",
         "expert": ""
       },
@@ -1468,22 +1294,72 @@
           "pourquoi": "Si $f(-x)$ n'est pas égal à $f(x)$, la fonction n'est pas forcément impaire pour autant : il faut vérifier séparément si elle est égale à $-f(x)$.",
           "comment_detecter": "As-tu bien écrit et comparé les TROIS expressions : $f(-x)$, $f(x)$ et $-f(x)$ ?",
           "comment_eviter": "Prends l'habitude d'écrire systématiquement les trois expressions côte à côte avant de conclure."
+        },
+        {
+          "description": "Croire qu'une fonction qui n'est pas paire est forcément impaire.",
+          "pourquoi": "On pense parfois qu'il n'existe que deux cas possibles, alors qu'un troisième cas (ni l'un ni l'autre) est en réalité le plus fréquent.",
+          "comment_detecter": "On conclut « impaire » juste après avoir constaté que f(-x) ≠ f(x), sans vérifier f(-x) = -f(x).",
+          "comment_eviter": "Toujours comparer f(-x) aux DEUX expressions f(x) ET -f(x) avant de conclure."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Parité"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras dire si une fonction est paire ou impaire."
-      ],
+      "synonymes": ["Parité"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras dire si une fonction est paire ou impaire."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
       "tags": [],
       "explicationSimple": "Une fonction paire a une courbe qui se reflète parfaitement de chaque côté de l'axe vertical, comme un miroir. Une fonction impaire a une courbe qui tourne autour du centre du repère, comme si on la faisait pivoter d'un demi-tour.",
-      "intuition": "Pour tester la parité, le réflexe est toujours le même : calcule $f(-x)$, puis compare ce résultat à $f(x)$ (fonction paire ?) et à $-f(x)$ (fonction impaire ?). Si aucun des deux ne correspond, la fonction n'est ni paire ni impaire — et c'est un résultat tout à fait normal, la plupart des fonctions sont dans ce cas."
+      "intuition": "Pour tester la parité, le réflexe est toujours le même : calcule $f(-x)$, puis compare ce résultat à $f(x)$ (fonction paire ?) et à $-f(x)$ (fonction impaire ?). Si aucun des deux ne correspond, la fonction n'est ni paire ni impaire — et c'est un résultat tout à fait normal, la plupart des fonctions sont dans ce cas.",
+      "pourquoi": "Connaître la parité d'une fonction permet de déduire la moitié de sa courbe à partir de l'autre moitié, sans avoir à tout calculer.",
+      "demonstration": {
+        "titre": "Pourquoi $x^n$ est paire si $n$ est pair, et impaire si $n$ est impair",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On calcule f(-x) pour f(x)=x^n",
+            "texte": "$f(-x) = (-x)^n = (-1)^n \\times x^n$."
+          },
+          {
+            "titre": "Étape 2 — Cas où n est pair",
+            "texte": "$(-1)^n = 1$ (un nombre pair de signes moins s'annulent deux par deux), donc $f(-x)=x^n=f(x)$ : la fonction est paire."
+          },
+          {
+            "titre": "Étape 3 — Cas où n est impair",
+            "texte": "$(-1)^n = -1$ (un signe moins reste après les annulations deux par deux), donc $f(-x)=-x^n=-f(x)$ : la fonction est impaire."
+          }
+        ],
+        "conclusion": "La parité de $x^n$ ne dépend que de la parité de l'exposant $n$ lui-même : c'est pour cela qu'on parle de fonction « paire » ou « impaire », par analogie directe avec les nombres pairs et impairs."
+      },
+      "apercus": [
+        {
+          "id": "apercu-parite-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une fonction qui n'est ni paire ni impaire, à démontrer par le calcul."
+        },
+        {
+          "id": "apercu-parite-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi x^n est paire ou impaire selon n",
+          "description": "La démonstration générale reliant la parité de la fonction à celle de l'exposant."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert concrètement de connaître la parité d'une fonction ?",
+          "piste": "À déduire la moitié de sa courbe à partir de l'autre moitié, sans tout recalculer."
+        },
+        {
+          "apres": "exemple:parite-exemple-ni-paire-ni-impaire",
+          "question": "Une fonction qui n'est pas paire est-elle forcément impaire ?",
+          "piste": "Non : la plupart des fonctions ne sont ni l'une ni l'autre — il faut vérifier les deux possibilités séparément."
+        }
+      ]
     }
   ]
 }

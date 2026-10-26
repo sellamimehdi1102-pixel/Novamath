@@ -31,6 +31,16 @@ def _nz(rng, lo, hi):
     return rng.choice([n for n in range(lo, hi + 1) if n != 0])
 
 
+def _cx(n) -> str:
+    """Coefficient devant x, sans afficher « 1x » ni « -1x »."""
+    return "" if n == 1 else ("-" if n == -1 else latex(n))
+
+
+def _p(v) -> str:
+    """Nombre en LaTeX, parenthésé seulement s'il est négatif (jamais « (8) »)."""
+    return f"({latex(v)})" if v < 0 else latex(v)
+
+
 def _fmt_parenthese(b, c) -> str:
     b_str = "" if b == 1 else ("-" if b == -1 else str(b))
     inner = f"{b_str}x"
@@ -49,7 +59,7 @@ def _gen_calcul_direct(rng):
     dev = expand(expr)
     enonce = f"Développer l'expression ${k}{_fmt_parenthese(b, c)}$."
     steps = [
-        f"Étape 1 — On distribue ${k}$ sur chaque terme : ${k}\\times {b}x = {k * b}x$ et ${k}\\times({c}) = {k * c}$.",
+        f"Étape 1 — On distribue ${k}$ sur chaque terme : ${k}\\times {_cx(b)}x = {k * b}x$ et ${k}\\times {_p(c)} = {k * c}$.",
         f"Étape 2 — On obtient ${latex(dev)}$.",
     ]
     answer = f"${latex(dev)}$"
@@ -68,7 +78,7 @@ def _gen_facteur_negatif(rng):
     enonce = f"Développer l'expression ${k}{_fmt_parenthese(b, c)}$."
     steps = [
         f"Étape 1 — Le facteur ${k}$ est négatif : il change le signe de CHAQUE terme distribué.",
-        f"Étape 2 — ${k}\\times {b}x = {k * b}x$ et ${k}\\times({c}) = {k * c}$, donc le résultat est ${latex(dev)}$.",
+        f"Étape 2 — ${k}\\times {_cx(b)}x = {k * b}x$ et ${k}\\times {_p(c)} = {k * c}$, donc le résultat est ${latex(dev)}$.",
     ]
     answer = f"${latex(dev)}$"
     hint = "Un facteur négatif devant la parenthèse change le signe de tous les termes développés — erreur fréquente à surveiller."
@@ -140,13 +150,13 @@ def _gen_erreur_a_corriger(rng):
     if expand(wrong) == correct:
         return None
     enonce = (
-        f"Un élève développe ${k}{_fmt_parenthese(b, c)}$ ainsi : \"${k}\\times {b}x {'+' if c > 0 else '-'} {abs(c)} = "
+        f"Un élève développe ${k}{_fmt_parenthese(b, c)}$ ainsi : \"${k}\\times {_cx(b)}x {'+' if c > 0 else '-'} {abs(c)} = "
         f"{latex(expand(wrong))}$\" (il n'a multiplié ${k}$ que par le premier terme). Identifier son erreur et donner "
         "le développement correct."
     )
     steps = [
         f"Étape 1 — Le facteur ${k}$ doit multiplier CHAQUE terme de la parenthèse, pas seulement le premier.",
-        f"Étape 2 — Le second terme devient ${k}\\times({c}) = {k * c}$, pas ${c}$.",
+        f"Étape 2 — Le second terme devient ${k}\\times {_p(c)} = {k * c}$, pas ${c}$.",
         f"Étape 3 — Le développement correct est ${latex(correct)}$.",
     ]
     answer = f"Erreur : le second terme n'a pas été multiplié par {k} ; le développement correct est ${latex(correct)}$."
@@ -211,7 +221,7 @@ def _gen_calcul_direct_fractionnaire(rng):
     enonce = f"Développer l'expression ${latex(k)}{_fmt_parenthese(b, c)}$."
     steps = [
         f"Étape 1 — On distribue ${latex(k)}$ (une fraction, pas un entier) sur chaque terme : "
-        f"${latex(k)}\\times {b}x = {latex(k * b)}x$ et ${latex(k)}\\times({c}) = {latex(k * c)}$.",
+        f"${latex(k)}\\times {_cx(b)}x = {_cx(k * b)}x$ et ${latex(k)}\\times {_p(c)} = {latex(k * c)}$.",
         f"Étape 2 — On obtient ${latex(dev)}$.",
     ]
     answer = f"${latex(dev)}$"

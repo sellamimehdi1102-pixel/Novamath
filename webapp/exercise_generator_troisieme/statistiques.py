@@ -185,7 +185,7 @@ def _gen_moyenne_ponderee_inverse(rng: random.Random) -> Optional[dict]:
     connu_latex = " + ".join(f"{v} \\times {p}" for v, p in zip(valeurs_connues, poids[:-1]))
     steps = [
         f"Étape 1 — La moyenne pondérée s'écrit $\\dfrac{{{connu_latex} + x \\times {poids[-1]}}}{{{total_poids}}} = {latex(moyenne)}$.",
-        f"Étape 2 — En multipliant par ${total_poids}$ : ${sum(v*p for v,p in zip(valeurs_connues, poids[:-1]))} + {poids[-1]}x = {somme_ponderee}$.",
+        f"Étape 2 — En multipliant par ${total_poids}$ : ${sum(v*p for v,p in zip(valeurs_connues, poids[:-1]))} + {'' if poids[-1] == 1 else poids[-1]}x = {somme_ponderee}$.",
         f"Étape 3 — $x = \\dfrac{{{somme_ponderee} - {sum(v*p for v,p in zip(valeurs_connues, poids[:-1]))}}}{{{poids[-1]}}} = {note_inconnue}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_MOYENNE}

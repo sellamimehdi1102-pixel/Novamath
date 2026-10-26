@@ -1,6 +1,6 @@
 """
 Implémentation Claude (Anthropic) du contrat ChatProvider — fournisseur par
-défaut de NovaMath. Utilise exclusivement l'API officielle Anthropic (clé API
+défaut de Mathadap. Utilise exclusivement l'API officielle Anthropic (clé API
 standard via la variable d'environnement ANTHROPIC_API_KEY), jamais un
 abonnement Claude Pro. La clé n'est jamais lue ailleurs que dans ce fichier et
 n'est jamais transmise au frontend — voir provider_manager.py qui instancie

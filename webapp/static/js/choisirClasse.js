@@ -24,10 +24,16 @@ function resolveNextDestination() {
   return next && ALLOWED_NEXT_PAGES.includes(next) ? next : null;
 }
 
+// Sans ?next= (page ouverte directement, ou depuis un lien), « Entrer dans
+// ce cursus » ouvre le tableau de bord de la classe choisie (2026-10-24 —
+// auparavant retour à l'accueil, où la classe choisie n'était visible nulle
+// part). Un visiteur non connecté y est redirigé vers la connexion par le
+// serveur (server.py::_serve_protected, `/?next=dashboard.html`), puis
+// ramené sur ce tableau de bord.
 function enterCurriculum(classLevel) {
   setStoredClassLevel(classLevel);
   const next = resolveNextDestination();
-  window.location.href = next ? `/${next}` : "index.html";
+  window.location.href = `/${next || "dashboard.html"}`;
 }
 
 fetchCurricula()

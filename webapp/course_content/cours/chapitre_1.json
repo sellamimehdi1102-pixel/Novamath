@@ -16,9 +16,11 @@
         "expert": "$(a^n)_{n \\in \\mathbb{Z}}$ définit un morphisme de groupe de $(\\mathbb{Z}, +)$ vers $(\\mathbb{R}^*, \\times)$ pour $a \\neq 0$, d'où $a^{n+m} = a^n a^m$."
       },
       "reglesImportantes": [
-        "$a^0 = 1$ (toujours, sauf si $a = 0$)",
-        "$a^1 = a$",
-        "$a^{-n} = \\dfrac{1}{a^n}$ (un exposant négatif donne un inverse)"
+        "$a^0 = 1$ (toujours, sauf si $a = 0$) ; $a^1 = a$.",
+        "$a^{-n} = \\dfrac{1}{a^n}$ (un exposant négatif donne un inverse, jamais un nombre négatif).",
+        "Produit de puissances de même base : $a^n \\times a^m = a^{n+m}$ (on ADDITIONNE les exposants).",
+        "Quotient de puissances de même base : $\\dfrac{a^n}{a^m} = a^{n-m}$ (on SOUSTRAIT les exposants).",
+        "Puissance d'une puissance : $(a^n)^m = a^{n\\times m}$ (on MULTIPLIE les exposants)."
       ],
       "formules": [
         {
@@ -29,6 +31,15 @@
           "quand_ne_pas_utiliser": "Jamais si les bases sont différentes (ex : $2^3 \\times 3^2$ ne se simplifie pas ainsi).",
           "erreur_frequente": "Multiplier les exposants au lieu de les additionner.",
           "astuce": "Compte les facteurs sur un petit exemple ($2^2 \\times 2^3$) pour vérifier la règle avant de l'appliquer à un cas abstrait."
+        },
+        {
+          "id": "quotient-puissances-meme-base",
+          "nom": "Quotient de puissances de même base",
+          "expression": "$\\dfrac{a^n}{a^m} = a^{n-m}$",
+          "quand_utiliser": "Quand deux puissances à diviser ont exactement la même base (et que cette base n'est pas nulle).",
+          "quand_ne_pas_utiliser": "Jamais si les bases sont différentes.",
+          "erreur_frequente": "Diviser les exposants au lieu de les soustraire, ou se tromper dans l'ordre de la soustraction.",
+          "astuce": "$\\dfrac{a^n}{a^m}$ et $a^n\\times a^{-m}$ désignent la même chose : si tu doutes du signe, repasse par cette écriture."
         },
         {
           "id": "puissance-d-une-puissance",
@@ -111,7 +122,7 @@
       "exemples": [
         {
           "id": "exemple-produit-meme-base",
-          "titre": "Exemple 1",
+          "titre": "Exemple 1 — Produit",
           "enonce": "Calcule $2^3 \\times 2^2$.",
           "calcul": [
             {
@@ -128,11 +139,12 @@
             }
           ],
           "reponse": "$32$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-exposant-negatif",
-          "titre": "Exemple 2",
+          "titre": "Exemple 2 — Exposant négatif",
           "enonce": "Calcule $5^{-2}$.",
           "calcul": [
             {
@@ -141,7 +153,7 @@
             },
             {
               "expr": "\\dfrac{1}{5^2}",
-              "texte": "On prend l'inverse de $5^2$."
+              "texte": "On prend l'inverse de $5^2$ : $a^{-n}=\\dfrac{1}{a^n}$."
             },
             {
               "expr": "\\dfrac{1}{25}",
@@ -149,11 +161,34 @@
             }
           ],
           "reponse": "$\\dfrac{1}{25}$",
-          "difficulte": "moyen"
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-quotient-meme-base",
+          "titre": "Exemple 3 — Quotient",
+          "enonce": "Calcule $\\dfrac{3^7}{3^4}$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{3^7}{3^4}",
+              "texte": "Même base ($3$) : on peut appliquer la règle du quotient."
+            },
+            {
+              "expr": "3^{7-4}",
+              "texte": "On soustrait les exposants : $7-4=3$."
+            },
+            {
+              "expr": "3^3 = 27",
+              "texte": "On calcule le résultat."
+            }
+          ],
+          "reponse": "$27$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-puissance-de-puissance-combinee",
-          "titre": "Exemple 3",
+          "titre": "Exemple 4 — Combiner plusieurs règles (approfondissement)",
           "enonce": "Simplifie $(2^3)^{-2} \\times 2^7$.",
           "calcul": [
             {
@@ -170,12 +205,37 @@
             }
           ],
           "reponse": "$2$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-puissances-litterales",
+          "titre": "Exemple 5 — Avec des lettres (approfondissement)",
+          "enonce": "Simplifie $\\dfrac{x^5 \\times x^{-2}}{x^4}$ (pour $x \\neq 0$).",
+          "calcul": [
+            {
+              "expr": "\\dfrac{x^5 \\times x^{-2}}{x^4}",
+              "texte": "Même base $x$ partout : on peut combiner tous les exposants."
+            },
+            {
+              "expr": "\\dfrac{x^{5+(-2)}}{x^4} = \\dfrac{x^{3}}{x^4}",
+              "texte": "On additionne d'abord les exposants du numérateur."
+            },
+            {
+              "expr": "x^{3-4} = x^{-1} = \\dfrac{1}{x}",
+              "texte": "On termine par le quotient, puis on retire l'exposant négatif."
+            }
+          ],
+          "reponse": "$\\dfrac{1}{x}$",
+          "difficulte": "difficile",
+          "analyse": "Une base littérale ne change rien à la méthode : les mêmes règles s'appliquent, à condition de garder la même base ($x$) tout au long du calcul.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Confondre $a^n \\times a^m$ (on additionne les exposants) et $(a^n)^m$ (on les multiplie).",
-        "Croire que $a^{-n}$ est un nombre négatif. C'est faux : c'est un inverse, toujours positif si $a$ est positif."
+        "Croire que $a^{-n}$ est un nombre négatif. C'est faux : c'est un inverse, toujours positif si $a$ est positif.",
+        "Dans un quotient $\\dfrac{a^n}{a^m}$, soustraire les exposants dans le mauvais sens (faire $m-n$ au lieu de $n-m$)."
       ],
       "erreursFrequentesDetail": [
         {
@@ -189,35 +249,95 @@
           "pourquoi": "Le signe « - » devant l'exposant est intuitivement associé à un résultat négatif, comme pour un nombre.",
           "comment_detecter": "L'élève écrit un résultat négatif pour une puissance à exposant négatif d'un nombre positif.",
           "comment_eviter": "Rappeler que $a^{-n} = 1/a^n$ : c'est un inverse (donc positif si $a$ est positif), jamais un signe moins."
+        },
+        {
+          "description": "Dans un quotient $\\dfrac{a^n}{a^m}$, soustraire les exposants dans le mauvais sens (faire $m-n$ au lieu de $n-m$).",
+          "pourquoi": "Dans une division, l'ordre des deux nombres compte, et l'élève confond parfois avec une addition où l'ordre n'a pas d'importance.",
+          "comment_detecter": "Le résultat obtenu est l'inverse du bon résultat (exposant opposé).",
+          "comment_eviter": "Toujours soustraire l'exposant du BAS (dénominateur) à celui du HAUT (numérateur), jamais l'inverse."
         }
       ],
       "astuce": "Si tu as un doute, écris la puissance en toutes lettres avec quelques facteurs. Ça t'aide à voir ce qui se passe.",
       "aRetenir": [
-        "$a^n \\times a^m = a^{n+m}$",
-        "$a^{-n} = \\dfrac{1}{a^n}$",
-        "$a^0 = 1$",
-        "$(a^n)^m = a^{n \\times m}$",
-        "Vérifie toujours avec un petit nombre facile."
+        "$a^n \\times a^m = a^{n+m}$ et $\\dfrac{a^n}{a^m} = a^{n-m}$ : on additionne ou on soustrait les exposants.",
+        "$(a^n)^m = a^{n \\times m}$ : on multiplie les exposants.",
+        "$a^{-n} = \\dfrac{1}{a^n}$ (un inverse, jamais un nombre négatif) et $a^0 = 1$.",
+        "Vérifie toujours avec un petit nombre facile en cas de doute."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        6,
-        7,
-        8
-      ],
+      "quizExerciseIds": [6, 7, 8],
       "topic_id": "puissances-entieres-relatives",
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Puissances entières relatives"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras calculer et simplifier une puissance."
-      ],
+      "synonymes": ["Puissances entières relatives"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras calculer et simplifier une puissance."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Les puissances permettent d'écrire en très peu de signes des nombres énormes (ou minuscules) : la population mondiale (environ $8\\times10^{9}$ personnes), la taille d'un atome (environ $10^{-10}$ mètre)... Sans elles, il faudrait écrire des dizaines de zéros à chaque fois.",
+      "intuition": "$a^n$ n'est qu'une écriture raccourcie d'une multiplication répétée $n$ fois. Toutes les règles de calcul sur les puissances (produit, quotient, puissance de puissance) ne sont que des conséquences de cette idée simple : il suffit de compter combien de fois $a$ apparaît comme facteur.",
+      "demonstration": {
+        "titre": "Pourquoi $a^0=1$ et $a^{-n}=\\dfrac{1}{a^n}$ ? — une conséquence de la règle du quotient",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On applique la règle du quotient à $\\dfrac{a^n}{a^n}$",
+            "texte": "Pour $a\\neq0$, on sait d'une part que $\\dfrac{a^n}{a^n}=1$ (un nombre non nul divisé par lui-même), et d'autre part que la règle du quotient donne $\\dfrac{a^n}{a^n}=a^{n-n}=a^0$."
+          },
+          {
+            "titre": "Étape 2 — On en déduit $a^0=1$",
+            "texte": "Les deux écritures désignent le même nombre : $a^0 = \\dfrac{a^n}{a^n} = 1$. C'est pour que la règle du quotient reste valable même quand les deux exposants sont égaux qu'on DÉFINIT $a^0=1$."
+          },
+          {
+            "titre": "Étape 3 — On applique la même règle à $\\dfrac{a^0}{a^n}$",
+            "texte": "La règle du quotient donne $\\dfrac{a^0}{a^n}=a^{0-n}=a^{-n}$."
+          },
+          {
+            "titre": "Étape 4 — On en déduit $a^{-n}=\\dfrac{1}{a^n}$",
+            "texte": "Mais $\\dfrac{a^0}{a^n}=\\dfrac{1}{a^n}$ puisque $a^0=1$ (étape 2). En comparant avec l'étape 3 : $a^{-n}=\\dfrac{1}{a^n}$."
+          }
+        ],
+        "conclusion": "$a^0=1$ et $a^{-n}=\\dfrac{1}{a^n}$ ne sont pas des règles inventées séparément : elles découlent toutes les deux, de façon cohérente, de la seule règle du quotient $\\dfrac{a^n}{a^m}=a^{n-m}$ appliquée à des cas où $n\\leqslant m$."
+      },
+      "apercus": [
+        {
+          "id": "apercu-puissances-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "2 exemples supplémentaires",
+          "description": "Un calcul combinant plusieurs règles à la suite, et un exemple avec une base littérale (lettre) au lieu d'un nombre."
+        },
+        {
+          "id": "apercu-puissances-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi a^0=1 et a^(-n)=1/a^n",
+          "description": "La démonstration montrant que ces deux règles découlent toutes les deux de la seule règle du quotient."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi utilise-t-on des puissances plutôt que d'écrire le nombre en entier ?",
+          "piste": "Pour écrire en quelques signes des nombres très grands ou très petits, sans avoir à compter des dizaines de zéros."
+        },
+        {
+          "apres": "exemple:exemple-exposant-negatif",
+          "question": "$5^{-2}$ est-il un nombre négatif ?",
+          "piste": "Non : un exposant négatif donne un inverse ($\\dfrac{1}{25}$), qui reste positif puisque $5$ est positif."
+        },
+        {
+          "apres": "exemple:exemple-quotient-meme-base",
+          "question": "Dans $\\dfrac{a^n}{a^m}$, soustrait-on $n-m$ ou $m-n$ ?",
+          "piste": "$n-m$ : on soustrait toujours l'exposant du dénominateur (le bas) à celui du numérateur (le haut)."
+        },
+        {
+          "apres": "methode",
+          "question": "Que fait-on des exposants quand on calcule $(a^n)^m$ ?",
+          "piste": "On les MULTIPLIE : $(a^n)^m = a^{n\\times m}$, à ne pas confondre avec le produit $a^n\\times a^m$ où on les additionne."
+        }
+      ]
     },
     {
       "id": "racine-carree",
@@ -226,10 +346,11 @@
       "objectif": "À la fin de ce cours, tu sauras calculer et simplifier une racine carrée.",
       "definition": "La racine carrée d'un nombre positif $a$, notée $\\sqrt{a}$, c'est le nombre positif qui, multiplié par lui-même, donne $a$. Par exemple $\\sqrt{9} = 3$ car $3 \\times 3 = 9$.",
       "reglesImportantes": [
-        "$\\sqrt{a}$ n'existe pas si $a$ est négatif.",
-        "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$",
-        "$\\sqrt{a+b}$ n'est PAS égal à $\\sqrt{a} + \\sqrt{b}$",
-        "$\\sqrt{a^2} = a$ (si $a$ positif)"
+        "$\\sqrt{a}$ n'existe pas si $a$ est négatif ; $\\sqrt{a}$ est toujours positif ou nul.",
+        "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$ (pour $a\\geqslant0$ et $b\\geqslant0$).",
+        "$\\sqrt{\\dfrac{a}{b}} = \\dfrac{\\sqrt{a}}{\\sqrt{b}}$ (pour $a\\geqslant0$ et $b>0$).",
+        "$\\sqrt{a+b}$ n'est PAS égal à $\\sqrt{a} + \\sqrt{b}$ (sauf cas très particuliers).",
+        "$\\sqrt{a^2} = a$ si $a\\geqslant0$, mais $\\sqrt{a^2} = -a$ si $a<0$ (la racine d'un carré est toujours positive, donc c'est la VALEUR ABSOLUE de $a$)."
       ],
       "methode": {
         "titre": "Comment simplifier une racine carrée",
@@ -274,7 +395,8 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "racine-carree-exemple-1",
+          "titre": "Exemple 1 — Simplifier avec un carré parfait",
           "enonce": "Simplifie $\\sqrt{75}$.",
           "calcul": [
             {
@@ -283,7 +405,7 @@
             },
             {
               "expr": "\\sqrt{75} = \\sqrt{25} \\times \\sqrt{3}",
-              "texte": "On sépare la racine."
+              "texte": "On sépare la racine grâce à la règle du produit."
             },
             {
               "expr": "5\\sqrt{3}",
@@ -291,27 +413,80 @@
             }
           ],
           "reponse": "$5\\sqrt{3}$",
-          "id": "racine-carree-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "racine-carree-exemple-piege-carre",
+          "titre": "Exemple 2 — Le piège de $\\sqrt{a^2}$",
+          "enonce": "Calcule $\\sqrt{(-5)^2}$.",
+          "calcul": [
+            {
+              "expr": "(-5)^2 = 25",
+              "texte": "On calcule d'abord ce qu'il y a sous la racine."
+            },
+            {
+              "expr": "\\sqrt{25} = 5",
+              "texte": "Une racine carrée est TOUJOURS positive ou nulle : la réponse est $5$, jamais $-5$."
+            }
+          ],
+          "reponse": "$5$ (pas $-5$)",
+          "difficulte": "moyen",
+          "analyse": "$\\sqrt{a^2}$ n'est égal à $a$ que si $a$ est positif. Ici $a=-5$ est négatif, donc $\\sqrt{a^2}=-a=5$.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "racine-carree-exemple-contre-exemple-somme",
+          "titre": "Exemple 3 — Vérifier que $\\sqrt{a+b}\\neq\\sqrt{a}+\\sqrt{b}$",
+          "enonce": "Calcule $\\sqrt{9+16}$ et compare avec $\\sqrt{9}+\\sqrt{16}$.",
+          "calcul": [
+            {
+              "expr": "\\sqrt{9+16} = \\sqrt{25} = 5",
+              "texte": "On calcule d'abord la somme à l'intérieur, puis la racine."
+            },
+            {
+              "expr": "\\sqrt{9}+\\sqrt{16} = 3+4 = 7",
+              "texte": "On calcule chaque racine séparément, puis on additionne."
+            }
+          ],
+          "reponse": "$\\sqrt{9+16}=5$ alors que $\\sqrt{9}+\\sqrt{16}=7$ : les deux calculs donnent des résultats différents.",
+          "difficulte": "facile",
+          "analyse": "Cet exemple numérique prouve, une fois pour toutes, que la racine carrée d'une somme n'est pas la somme des racines.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "racine-carree-exemple-quotient",
+          "titre": "Exemple 4 — Racine d'un quotient (approfondissement)",
+          "enonce": "Simplifie $\\sqrt{\\dfrac{18}{2}}$ de deux façons différentes.",
+          "calcul": [
+            {
+              "expr": "\\sqrt{\\dfrac{18}{2}} = \\sqrt{9} = 3",
+              "texte": "Méthode 1 : on simplifie d'abord la fraction, puis on prend la racine."
+            },
+            {
+              "expr": "\\dfrac{\\sqrt{18}}{\\sqrt{2}} = \\dfrac{3\\sqrt2}{\\sqrt2} = 3",
+              "texte": "Méthode 2 : on sépare la racine du quotient, puis on simplifie."
+            }
+          ],
+          "reponse": "$3$",
+          "difficulte": "difficile",
+          "analyse": "Les deux méthodes donnent le même résultat : c'est une bonne façon de vérifier un calcul avec des racines.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Écrire $\\sqrt{a+b} = \\sqrt{a} + \\sqrt{b}$. C'est faux !",
-        "Essayer de calculer $\\sqrt{a}$ avec $a$ négatif : ça n'existe pas."
+        "Essayer de calculer $\\sqrt{a}$ avec $a$ négatif : ça n'existe pas.",
+        "Écrire $\\sqrt{a^2}=a$ sans vérifier que $a$ est positif."
       ],
       "astuce": "Pour trouver un carré parfait caché, teste dans l'ordre : 4, 9, 16, 25, 36, 49...",
       "aRetenir": [
-        "$\\sqrt{a}$ existe seulement si $a \\geq 0$",
-        "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$",
-        "$\\sqrt{a+b} \\neq \\sqrt{a} + \\sqrt{b}$",
-        "$\\sqrt{a^2} = a$ (si $a$ positif)"
+        "$\\sqrt{a}$ existe seulement si $a \\geq 0$, et vaut toujours un nombre positif ou nul.",
+        "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$ et $\\sqrt{\\dfrac{a}{b}} = \\dfrac{\\sqrt{a}}{\\sqrt{b}}$ (jamais pour une somme).",
+        "$\\sqrt{a^2} = |a|$ : attention au signe de $a$ !"
       ],
       "figure": null,
-      "quizExerciseIds": [
-        10,
-        11,
-        12
-      ],
+      "quizExerciseIds": [10, 11, 12],
       "schemaVersion": 2,
       "topic_id": "racine-carree",
       "definitions": {
@@ -322,67 +497,137 @@
       "formules": [
         {
           "id": "racine-carree-regle-1",
-          "nom": "",
-          "expression": "$\\sqrt{a}$ n'existe pas si $a$ est négatif.",
-          "quand_utiliser": "",
+          "nom": "Existence et signe",
+          "expression": "$\\sqrt{a}$ n'existe pas si $a<0$ ; sinon $\\sqrt{a}\\geqslant0$.",
+          "quand_utiliser": "Avant tout calcul avec une racine carrée : vérifier que ce qu'il y a dessous n'est pas négatif.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Calculer $\\sqrt{a}$ sans vérifier le signe de $a$.",
+          "astuce": "Si un exercice te demande $\\sqrt{a}$ avec $a<0$, c'est que l'ensemble de définition exclut cette valeur — regarde ce qu'on te demande vraiment."
         },
         {
           "id": "racine-carree-regle-2",
-          "nom": "",
+          "nom": "Racine d'un produit",
           "expression": "$\\sqrt{a \\times b} = \\sqrt{a} \\times \\sqrt{b}$",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "quand_utiliser": "Pour simplifier une racine carrée en faisant apparaître un carré parfait, ou pour regrouper deux racines en une seule.",
+          "quand_ne_pas_utiliser": "Jamais si $a$ ou $b$ est négatif.",
+          "erreur_frequente": "Appliquer la même règle à une somme : $\\sqrt{a+b}\\neq\\sqrt{a}+\\sqrt{b}$.",
+          "astuce": "Teste avec $a=4$, $b=9$ : $\\sqrt{36}=6=\\sqrt4\\times\\sqrt9=2\\times3$. Ça marche pour un produit, pas pour une somme."
+        },
+        {
+          "id": "racine-carree-regle-quotient",
+          "nom": "Racine d’un quotient",
+          "expression": "$\\sqrt{\\dfrac{a}{b}} = \\dfrac{\\sqrt{a}}{\\sqrt{b}}$",
+          "quand_utiliser": "Pour simplifier la racine carrée d’une fraction.",
+          "quand_ne_pas_utiliser": "Jamais si $b$ est négatif ou nul.",
+          "erreur_frequente": "Oublier de vérifier que le dénominateur n’est pas nul ou négatif.",
+          "astuce": "Même idée que pour le produit, appliquée à une division."
         },
         {
           "id": "racine-carree-regle-3",
-          "nom": "",
-          "expression": "$\\sqrt{a+b}$ n'est PAS égal à $\\sqrt{a} + \\sqrt{b}$",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "nom": "Racine d'un quotient",
+          "expression": "$\\sqrt{\\dfrac{a}{b}} = \\dfrac{\\sqrt{a}}{\\sqrt{b}}$",
+          "quand_utiliser": "Pour simplifier la racine carrée d'une fraction.",
+          "quand_ne_pas_utiliser": "Jamais si $b\\leqslant0$ ou $a<0$.",
+          "erreur_frequente": "Oublier de vérifier que le dénominateur n'est pas nul ou négatif.",
+          "astuce": "C'est la même idée que pour le produit, appliquée à une division."
         },
         {
           "id": "racine-carree-regle-4",
-          "nom": "",
-          "expression": "$\\sqrt{a^2} = a$ (si $a$ positif)",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "nom": "Racine d'un carré",
+          "expression": "$\\sqrt{a^2} = |a|$ (égal à $a$ si $a\\geqslant0$, égal à $-a$ si $a<0$)",
+          "quand_utiliser": "Pour simplifier $\\sqrt{a^2}$ quand on ne connaît pas forcément le signe de $a$.",
+          "quand_ne_pas_utiliser": "Ne jamais écrire $\\sqrt{a^2}=a$ sans savoir que $a$ est positif.",
+          "erreur_frequente": "Oublier le cas où $a$ est négatif, et répondre $a$ au lieu de $-a$ (ou de $|a|$).",
+          "astuce": "$\\sqrt{(-5)^2}=\\sqrt{25}=5$, pas $-5$ : une racine carrée ne peut jamais être négative."
         }
       ],
       "erreursFrequentesDetail": [
         {
           "description": "Écrire $\\sqrt{a+b} = \\sqrt{a} + \\sqrt{b}$. C'est faux !",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "La règle du produit $\\sqrt{a\\times b}=\\sqrt a\\times\\sqrt b$ donne l'impression, à tort, que la racine carrée « se distribue » sur toutes les opérations.",
+          "comment_detecter": "Vérifier sur un exemple numérique simple : $\\sqrt{9+16}=5$ alors que $\\sqrt9+\\sqrt{16}=7$.",
+          "comment_eviter": "Ne jamais séparer une racine carrée au niveau d'un signe $+$ ou $-$ : seul un produit ou un quotient peut être séparé."
         },
         {
           "description": "Essayer de calculer $\\sqrt{a}$ avec $a$ négatif : ça n'existe pas.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Le carré d'un nombre réel n'est jamais négatif, donc aucun nombre réel au carré ne peut donner un résultat négatif : il n'y a pas de racine carrée à un nombre négatif.",
+          "comment_detecter": "Le nombre sous la racine est négatif après calcul.",
+          "comment_eviter": "Toujours vérifier le signe de ce qu'il y a sous la racine avant de continuer un calcul."
+        },
+        {
+          "description": "Écrire $\\sqrt{a^2}=a$ sans vérifier que $a$ est positif.",
+          "pourquoi": "Pour un nombre positif, $\\sqrt{a^2}=a$ fonctionne bien, et l'élève généralise cette règle sans tester le cas négatif.",
+          "comment_detecter": "Le résultat annoncé est négatif, ce qui est impossible pour une racine carrée.",
+          "comment_eviter": "Se souvenir que $\\sqrt{a^2}=|a|$ : toujours positif, donc $-a$ si $a$ est négatif."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Racine carrée"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras calculer et simplifier une racine carrée."
-      ],
+      "synonymes": ["Racine carrée"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras calculer et simplifier une racine carrée."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Les racines carrées apparaissent dès qu'on cherche une longueur à partir d'une aire : par exemple, quel est le côté d'un carré d'aire $75\\text{ cm}^2$ ? C'est aussi la clé du théorème de Pythagore, que tu utiliseras pour calculer des distances.",
+      "intuition": "$\\sqrt{a}$ répond à la question « quel nombre positif, multiplié par lui-même, donne $a$ ? ». C'est pour cela qu'un nombre négatif n'a pas de racine carrée (le carré d'un nombre réel n'est jamais négatif) et que $\\sqrt{a}$ est toujours positif ou nul.",
+      "demonstration": {
+        "titre": "Pourquoi $\\sqrt{a\\times b}=\\sqrt{a}\\times\\sqrt{b}$ ?",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On élève au carré le membre de droite",
+            "texte": "$(\\sqrt{a}\\times\\sqrt{b})^2 = (\\sqrt{a})^2\\times(\\sqrt{b})^2 = a\\times b$ (car $(\\sqrt{x})^2=x$ pour $x\\geqslant0$)."
+          },
+          {
+            "titre": "Étape 2 — Le membre de droite est positif",
+            "texte": "$\\sqrt{a}\\geqslant0$ et $\\sqrt{b}\\geqslant0$, donc leur produit $\\sqrt{a}\\times\\sqrt{b}$ est aussi positif ou nul."
+          },
+          {
+            "titre": "Étape 3 — Conclusion",
+            "texte": "$\\sqrt{a}\\times\\sqrt{b}$ est un nombre positif dont le carré vaut $a\\times b$ : c'est exactement la définition de $\\sqrt{a\\times b}$ (l'UNIQUE nombre positif dont le carré vaut $a\\times b$). Donc $\\sqrt{a\\times b}=\\sqrt{a}\\times\\sqrt{b}$."
+          }
+        ],
+        "conclusion": "Cette règle n'est pas un hasard : elle vient du fait qu'il n'existe qu'un seul nombre positif dont le carré donne $a\\times b$, et qu'on vient de montrer que $\\sqrt{a}\\times\\sqrt{b}$ est justement ce nombre."
+      },
+      "apercus": [
+        {
+          "id": "apercu-racine-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Simplifier une racine carrée de quotient de deux façons différentes, pour vérifier un calcul."
+        },
+        {
+          "id": "apercu-racine-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi la racine d'un produit se sépare",
+          "description": "La démonstration rigoureuse de $\\sqrt{a\\times b}=\\sqrt a\\times\\sqrt b$, à partir de la définition de la racine carrée."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert concrètement la racine carrée ?",
+          "piste": "À retrouver une longueur à partir d'une aire (le côté d'un carré), ou à utiliser le théorème de Pythagore."
+        },
+        {
+          "apres": "exemple:racine-carree-exemple-piege-carre",
+          "question": "$\\sqrt{(-5)^2}$ vaut-il $-5$ ou $5$ ?",
+          "piste": "$5$ : une racine carrée n'est jamais négative, même si le nombre élevé au carré l'était."
+        },
+        {
+          "apres": "exemple:racine-carree-exemple-contre-exemple-somme",
+          "question": "$\\sqrt{9+16}$ est-il égal à $\\sqrt9+\\sqrt{16}$ ?",
+          "piste": "Non : $\\sqrt{25}=5$ alors que $3+4=7$. La racine carrée ne se distribue jamais sur une somme."
+        },
+        {
+          "apres": "methode",
+          "question": "Que cherche-t-on d'abord pour simplifier une racine carrée ?",
+          "piste": "Le plus grand carré parfait (4, 9, 16, 25...) qui divise le nombre sous la racine."
+        }
+      ]
     },
     {
       "id": "multiples-diviseurs-nombres-premiers",
@@ -391,9 +636,11 @@
       "objectif": "À la fin de ce cours, tu sauras dire si un nombre est premier et le décomposer.",
       "definition": "Un nombre $b$ est un multiple d'un nombre $a$ si on peut écrire $b = a \\times k$, avec $k$ un nombre entier. Dans ce cas, $a$ est un diviseur de $b$.",
       "reglesImportantes": [
-        "Un nombre premier a exactement 2 diviseurs : 1 et lui-même.",
-        "1 n'est pas un nombre premier.",
-        "2 est le seul nombre premier pair."
+        "Un nombre premier a exactement 2 diviseurs : 1 et lui-même. 1 n'est pas un nombre premier (il n'a qu'UN diviseur).",
+        "2 est le seul nombre premier pair ; tous les autres nombres premiers sont impairs.",
+        "Un nombre est divisible par 2 si son dernier chiffre est 0, 2, 4, 6 ou 8.",
+        "Un nombre est divisible par 5 si son dernier chiffre est 0 ou 5 ; par 10 si son dernier chiffre est 0.",
+        "Un nombre est divisible par 3 (resp. par 9) si la somme de ses chiffres est divisible par 3 (resp. par 9)."
       ],
       "methode": {
         "titre": "Comment décomposer un nombre en facteurs premiers",
@@ -438,7 +685,8 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "multiples-diviseurs-nombres-premiers-exemple-1",
+          "titre": "Exemple 1 — Décomposer en facteurs premiers",
           "enonce": "Décompose 60 en facteurs premiers.",
           "calcul": [
             {
@@ -455,27 +703,65 @@
             }
           ],
           "reponse": "$60 = 2^2 \\times 3 \\times 5$",
-          "id": "multiples-diviseurs-nombres-premiers-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "multiples-diviseurs-nombres-premiers-exemple-criteres",
+          "titre": "Exemple 2 — Appliquer les critères de divisibilité",
+          "enonce": "2 484 est-il divisible par 2 ? par 3 ? par 5 ? par 9 ? par 10 ?",
+          "calcul": [
+            {
+              "expr": "2\\,484",
+              "texte": "Dernier chiffre : 4. C'est un chiffre pair : 2 484 est divisible par 2."
+            },
+            {
+              "expr": "2+4+8+4=18",
+              "texte": "Somme des chiffres : 18. Or $18=2\\times9$, divisible par 9, donc aussi par 3."
+            },
+            {
+              "expr": "\\text{dernier chiffre }4",
+              "texte": "Le dernier chiffre n'est ni 0 ni 5 : 2 484 n'est PAS divisible par 5, donc pas par 10 non plus."
+            }
+          ],
+          "reponse": "Divisible par $2$, $3$ et $9$ ; pas par $5$ ni par $10$.",
+          "difficulte": "moyen",
+          "analyse": "Chaque critère se teste indépendamment : un nombre peut très bien être divisible par certains de ces nombres et pas par d'autres.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "multiples-diviseurs-nombres-premiers-exemple-prime-test",
+          "titre": "Exemple 3 — Est-ce que 127 est premier ? (approfondissement)",
+          "enonce": "127 est-il un nombre premier ?",
+          "calcul": [
+            {
+              "expr": "\\sqrt{127}\\approx11{,}3",
+              "texte": "Il suffit de tester les nombres premiers jusqu'à $\\sqrt{127}$, soit jusqu'à 11."
+            },
+            {
+              "expr": "127 \\div 2,\\ 127\\div3,\\ 127\\div5,\\ 127\\div7,\\ 127\\div11",
+              "texte": "Aucune de ces divisions ne tombe juste (127 est impair, somme des chiffres $1+2+7=10$ non multiple de 3, ne finit pas par 0/5, $127=7\\times18+1$, $127=11\\times11+6$)."
+            }
+          ],
+          "reponse": "127 est premier.",
+          "difficulte": "difficile",
+          "analyse": "On ne teste jamais TOUS les nombres jusqu'à 127 : s'arrêter à $\\sqrt{127}$ suffit (voir la démonstration).",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Penser que 1 est un nombre premier. C'est faux : il n'a qu'un seul diviseur.",
-        "Oublier de vérifier si un facteur peut être divisé encore une fois."
+        "Oublier de vérifier si un facteur peut être divisé encore une fois.",
+        "Appliquer le critère du dernier chiffre à la divisibilité par 3 ou par 9."
       ],
       "astuce": "Pour savoir si un nombre est premier, teste juste les diviseurs premiers jusqu'à sa racine carrée.",
       "aRetenir": [
-        "Multiple de $a$ : $b = a \\times k$",
-        "Nombre premier : exactement 2 diviseurs",
-        "1 n'est pas premier, 2 est le seul nombre premier pair",
-        "Tout nombre se décompose en produit de nombres premiers"
+        "Un nombre premier a exactement 2 diviseurs (1 et lui-même) ; 1 n'est pas premier.",
+        "Divisible par 2/5/10 : dernier chiffre. Divisible par 3/9 : somme des chiffres.",
+        "Tout nombre se décompose de façon unique en produit de nombres premiers."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        3,
-        4,
-        5
-      ],
+      "quizExerciseIds": [3, 4, 5],
       "schemaVersion": 2,
       "topic_id": "multiples-diviseurs-nombres-premiers",
       "definitions": {
@@ -486,58 +772,105 @@
       "formules": [
         {
           "id": "multiples-diviseurs-nombres-premiers-regle-1",
-          "nom": "",
+          "nom": "Définition d'un nombre premier",
           "expression": "Un nombre premier a exactement 2 diviseurs : 1 et lui-même.",
-          "quand_utiliser": "",
+          "quand_utiliser": "Pour décider si un nombre est premier ou non.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Croire que 1 est premier (il n'a qu'un seul diviseur, pas deux).",
+          "astuce": "2, 3, 5, 7, 11, 13... sont les premiers nombres premiers : apprends-les par cœur jusqu'à 20."
         },
         {
           "id": "multiples-diviseurs-nombres-premiers-regle-2",
-          "nom": "",
-          "expression": "1 n'est pas un nombre premier.",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
-        },
-        {
-          "id": "multiples-diviseurs-nombres-premiers-regle-3",
-          "nom": "",
-          "expression": "2 est le seul nombre premier pair.",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "nom": "Critères de divisibilité",
+          "expression": "Divisible par 2/5/10 : dernier chiffre. Divisible par 3/9 : somme des chiffres.",
+          "quand_utiliser": "Pour tester rapidement, sans poser de division, si un nombre est divisible par 2, 3, 5, 9 ou 10.",
+          "quand_ne_pas_utiliser": "Ces critères ne marchent QUE pour 2, 3, 5, 9 et 10 — pas pour 7 ou 11 par exemple.",
+          "erreur_frequente": "Appliquer le critère du dernier chiffre (fait pour 2, 5, 10) à la divisibilité par 3 ou 9.",
+          "astuce": "Pour 3 et 9 : additionne les chiffres, et si le résultat est encore grand, additionne à nouveau ses chiffres."
         }
       ],
       "erreursFrequentesDetail": [
         {
           "description": "Penser que 1 est un nombre premier. C'est faux : il n'a qu'un seul diviseur.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "1 ressemble à un « petit » nombre premier car il ne se décompose pas non plus en facteurs plus petits.",
+          "comment_detecter": "L'élève inclut 1 dans une liste de nombres premiers ou dans une décomposition.",
+          "comment_eviter": "Vérifier que le nombre a bien exactement DEUX diviseurs distincts (1 ET lui-même) : 1 n'en a qu'un."
         },
         {
           "description": "Oublier de vérifier si un facteur peut être divisé encore une fois.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "L'élève s'arrête dès qu'il trouve un facteur premier, sans vérifier si ce facteur premier apparaît plusieurs fois.",
+          "comment_detecter": "La décomposition obtenue, une fois multipliée, ne redonne pas le nombre de départ.",
+          "comment_eviter": "Toujours continuer à diviser par le MÊME nombre premier tant que c'est possible, avant de passer au suivant."
+        },
+        {
+          "description": "Appliquer le critère du dernier chiffre à la divisibilité par 3 ou par 9.",
+          "pourquoi": "Les critères de 2/5/10 (dernier chiffre) sont les plus simples et les élèves les généralisent par réflexe.",
+          "comment_detecter": "L'élève conclut à la divisibilité par 3 en regardant uniquement le dernier chiffre.",
+          "comment_eviter": "Se souvenir que 3 et 9 demandent d'additionner TOUS les chiffres, pas de regarder le dernier."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Multiples, diviseurs et nombres premiers"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras dire si un nombre est premier et le décomposer."
-      ],
+      "synonymes": ["Multiples, diviseurs et nombres premiers"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras dire si un nombre est premier et le décomposer."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Savoir reconnaître rapidement si un nombre est divisible par 2, 3, 5, 9 ou 10 permet de simplifier des fractions sans calculatrice, de répartir équitablement des objets, ou de vérifier si un partage est possible — par exemple, peut-on répartir 2 484 bonbons en parts égales entre 9 enfants ?",
+      "intuition": "Un nombre premier, c'est un nombre qu'on ne peut « découper » en deux facteurs plus petits que lui-même (à part $1\\times$lui-même) : il est, en quelque sorte, « indivisible ». Décomposer un nombre en facteurs premiers, c'est casser ce nombre en ses plus petits morceaux possibles.",
+      "demonstration": {
+        "titre": "Pourquoi tester les diviseurs jusqu'à $\\sqrt{n}$ suffit pour savoir si $n$ est premier",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Si $n$ n'est pas premier, il a un diviseur $a\\leqslant\\sqrt n$",
+            "texte": "Si $n$ n'est pas premier, on peut écrire $n=a\\times b$ avec $1<a\\leqslant b<n$ (deux diviseurs autres que 1 et $n$, on peut toujours choisir $a$ comme le plus petit des deux)."
+          },
+          {
+            "titre": "Étape 2 — On compare $a$ à $\\sqrt{n}$",
+            "texte": "Comme $a\\leqslant b$, on a $a\\times a\\leqslant a\\times b=n$, donc $a^2\\leqslant n$, c'est-à-dire $a\\leqslant\\sqrt{n}$."
+          },
+          {
+            "titre": "Étape 3 — Conclusion",
+            "texte": "Si $n$ a un diviseur autre que 1 et lui-même, il en a forcément un qui est $\\leqslant\\sqrt n$. Donc si AUCUN nombre jusqu'à $\\sqrt n$ ne divise $n$, c'est que $n$ n'a aucun diviseur autre que 1 et lui-même : $n$ est premier."
+          }
+        ],
+        "conclusion": "C'est pour cela qu'on peut s'arrêter à $\\sqrt{127}\\approx11{,}3$ pour tester si 127 est premier : inutile de tester 13, 17... un diviseur plus grand que $\\sqrt n$ s'accompagnerait toujours d'un diviseur plus petit que $\\sqrt n$, qu'on aurait déjà trouvé."
+      },
+      "apercus": [
+        {
+          "id": "apercu-premiers-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Tester si un nombre à trois chiffres est premier, en ne testant que les diviseurs jusqu'à sa racine carrée."
+        },
+        {
+          "id": "apercu-premiers-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi s'arrêter à la racine carrée",
+          "description": "La démonstration qui justifie qu'il suffit de tester les diviseurs jusqu'à $\\sqrt n$ pour savoir si $n$ est premier."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi servent les critères de divisibilité dans la vie courante ?",
+          "piste": "À vérifier rapidement, sans calculatrice, si un partage égal entre plusieurs personnes est possible."
+        },
+        {
+          "apres": "exemple:multiples-diviseurs-nombres-premiers-exemple-criteres",
+          "question": "Pour tester la divisibilité par 9, que doit-on faire ?",
+          "piste": "Additionner tous les chiffres du nombre, et vérifier si cette somme est divisible par 9 — jamais regarder juste le dernier chiffre."
+        },
+        {
+          "apres": "methode",
+          "question": "Par quel type de nombre commence-t-on toujours une décomposition en facteurs premiers ?",
+          "piste": "Le plus petit nombre premier possible qui divise le nombre (en général 2, si le nombre est pair)."
+        }
+      ]
     },
     {
       "id": "ensembles-de-nombres",
@@ -546,10 +879,11 @@
       "objectif": "À la fin de ce cours, tu sauras reconnaître à quelle famille appartient un nombre.",
       "definition": "Il existe plusieurs familles de nombres, appelées ensembles. Chaque famille contient la précédente, comme des poupées russes.",
       "reglesImportantes": [
-        "$\\mathbb{N}$ : les entiers naturels (0, 1, 2, 3...)",
-        "$\\mathbb{Z}$ : les entiers relatifs (..., -2, -1, 0, 1, 2...)",
-        "$\\mathbb{Q}$ : les rationnels (les fractions d'entiers)",
-        "$\\mathbb{R}$ : les réels (tous les nombres, même $\\sqrt{2}$ et $\\pi$)"
+        "$\\mathbb{N}$ : les entiers naturels (0, 1, 2, 3...) ; $\\mathbb{Z}$ : les entiers relatifs (..., -2, -1, 0, 1, 2...).",
+        "$\\mathbb{Q}$ : les rationnels, c'est-à-dire tous les nombres qui peuvent s'écrire comme une fraction de deux entiers.",
+        "$\\mathbb{R}$ : les réels, c'est-à-dire tous les nombres existants, même ceux qui ne sont pas des fractions (comme $\\sqrt{2}$ ou $\\pi$).",
+        "$\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$ : chaque famille contient entièrement la précédente.",
+        "Un nombre décimal illimité PÉRIODIQUE (un motif qui se répète, comme $0{,}333...$) est quand même rationnel ; seul un nombre décimal illimité NON périodique (comme $\\sqrt2$) est irrationnel."
       ],
       "methode": {
         "titre": "Comment trouver la famille d'un nombre",
@@ -594,7 +928,8 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "ensembles-de-nombres-exemple-1",
+          "titre": "Exemple 1 — Un entier relatif",
           "enonce": "Dans quelle famille se trouve $-3$ ?",
           "calcul": [
             {
@@ -607,43 +942,87 @@
             }
           ],
           "reponse": "$-3 \\in \\mathbb{Z}$ (et aussi dans $\\mathbb{Q}$ et $\\mathbb{R}$)",
-          "id": "ensembles-de-nombres-exemple-1",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
-          "titre": "Exemple 2",
+          "id": "ensembles-de-nombres-exemple-2",
+          "titre": "Exemple 2 — Un nombre irrationnel",
           "enonce": "Dans quelle famille se trouve $\\sqrt{2}$ ?",
           "calcul": [
             {
               "expr": "\\sqrt{2} \\approx 1{,}414...",
-              "texte": "Ses chiffres après la virgule ne s'arrêtent jamais."
+              "texte": "Ses chiffres après la virgule ne s'arrêtent jamais ET ne se répètent jamais selon un motif."
             },
             {
               "expr": "\\sqrt{2} \\notin \\mathbb{Q}",
-              "texte": "Ce n'est pas une fraction d'entiers."
+              "texte": "Ce n'est pas une fraction d'entiers : c'est un irrationnel."
             }
           ],
           "reponse": "$\\sqrt{2} \\in \\mathbb{R}$ seulement",
-          "id": "ensembles-de-nombres-exemple-2",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "ensembles-de-nombres-exemple-periodique",
+          "titre": "Exemple 3 — Un décimal infini... mais rationnel",
+          "enonce": "$0{,}333...$ (les 3 se répètent indéfiniment) est-il rationnel ?",
+          "calcul": [
+            {
+              "expr": "0{,}333... = \\dfrac13",
+              "texte": "C'est l'écriture décimale de la fraction $\\dfrac13$."
+            },
+            {
+              "expr": "\\dfrac13 \\in \\mathbb{Q}",
+              "texte": "C'est une fraction de deux entiers : c'est bien un rationnel, malgré ses chiffres infinis."
+            }
+          ],
+          "reponse": "$0{,}333... \\in \\mathbb{Q}$",
+          "difficulte": "moyen",
+          "analyse": "Contrairement à $\\sqrt2$ (chiffres infinis SANS motif répété), ici le motif « 3 » se répète à l'infini : c'est ce qui rend ce nombre rationnel malgré son écriture décimale illimitée.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Croire que tous les nombres sont des fractions. $\\sqrt{2}$ et $\\pi$ ne le sont pas.",
-        "Oublier qu'un nombre entier appartient aussi à toutes les familles plus grandes."
+        "Oublier qu'un nombre entier appartient aussi à toutes les familles plus grandes.",
+        "Croire qu'un nombre décimal avec une infinité de chiffres est forcément irrationnel."
       ],
       "astuce": "Pour savoir si un nombre est une fraction (rationnel), demande-toi : peut-on l'écrire comme entier divisé par entier ?",
       "aRetenir": [
         "$\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$",
         "$\\sqrt{2}$ et $\\pi$ sont dans $\\mathbb{R}$ mais pas dans $\\mathbb{Q}$",
-        "Un entier appartient à toutes les familles plus grandes"
+        "Un entier appartient à toutes les familles plus grandes",
+        "Un décimal infini PÉRIODIQUE reste rationnel ; seul un décimal infini SANS motif répété est irrationnel"
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        0,
-        1,
-        2
-      ],
+      "figure": {
+        "kind": "nested-sets",
+        "labels": ["R", "Q", "Z", "N"],
+        "alt": "Les ensembles N, Z, Q et R sont emboîtés les uns dans les autres : N est inclus dans Z, qui est inclus dans Q, qui est inclus dans R.",
+        "explication": {
+          "comprendre": "Chaque cercle contient entièrement le cercle précédent : tout ce qui est dans N est aussi dans Z, Q et R.",
+          "etapes": [
+            {
+              "titre": "Le plus petit cercle : N",
+              "texte": "Les entiers naturels (0, 1, 2, 3...)."
+            },
+            {
+              "titre": "Puis Z",
+              "texte": "Les entiers relatifs : on ajoute les nombres négatifs."
+            },
+            {
+              "titre": "Puis Q",
+              "texte": "Les rationnels : on ajoute toutes les fractions."
+            },
+            {
+              "titre": "Le plus grand cercle : R",
+              "texte": "Les réels : on ajoute les irrationnels comme √2 et π."
+            }
+          ],
+          "resume": "Plus on s'éloigne du centre, plus la famille de nombres s'agrandit — sans jamais perdre les nombres des familles précédentes."
+        }
+      },
+      "quizExerciseIds": [0, 1, 2],
       "schemaVersion": 2,
       "topic_id": "ensembles-de-nombres",
       "definitions": {
@@ -654,67 +1033,109 @@
       "formules": [
         {
           "id": "ensembles-de-nombres-regle-1",
-          "nom": "",
-          "expression": "$\\mathbb{N}$ : les entiers naturels (0, 1, 2, 3...)",
-          "quand_utiliser": "",
+          "nom": "Les quatre grandes familles",
+          "expression": "$\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R}$",
+          "quand_utiliser": "Pour situer un nombre par rapport aux autres et savoir quelles propriétés s'appliquent à lui.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Oublier qu'un nombre appartient aussi à TOUTES les familles plus grandes que la sienne.",
+          "astuce": "Pose-toi la question dans l'ordre : entier positif ? entier (même négatif) ? fraction d'entiers ? sinon, réel seulement."
         },
         {
           "id": "ensembles-de-nombres-regle-2",
-          "nom": "",
-          "expression": "$\\mathbb{Z}$ : les entiers relatifs (..., -2, -1, 0, 1, 2...)",
-          "quand_utiliser": "",
+          "nom": "Rationnel ou irrationnel ?",
+          "expression": "Un nombre est rationnel s'il s'écrit $\\dfrac{p}{q}$ avec $p,q$ entiers ($q\\neq0$).",
+          "quand_utiliser": "Pour décider si un nombre (notamment une écriture décimale) est rationnel ou non.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
-        },
-        {
-          "id": "ensembles-de-nombres-regle-3",
-          "nom": "",
-          "expression": "$\\mathbb{Q}$ : les rationnels (les fractions d'entiers)",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
-        },
-        {
-          "id": "ensembles-de-nombres-regle-4",
-          "nom": "",
-          "expression": "$\\mathbb{R}$ : les réels (tous les nombres, même $\\sqrt{2}$ et $\\pi$)",
-          "quand_utiliser": "",
-          "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Croire qu'un nombre décimal avec une infinité de chiffres est forcément irrationnel.",
+          "astuce": "$0{,}333...=\\dfrac13$ est rationnel malgré ses chiffres infinis, car ils se répètent : seule l'absence de répétition (comme pour $\\sqrt2$) signale un irrationnel."
         }
       ],
       "erreursFrequentesDetail": [
         {
           "description": "Croire que tous les nombres sont des fractions. $\\sqrt{2}$ et $\\pi$ ne le sont pas.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "En pratique, la plupart des nombres rencontrés au collège sont des fractions ou des décimaux simples.",
+          "comment_detecter": "L'élève essaie d'écrire $\\sqrt2$ ou $\\pi$ comme une fraction exacte d'entiers.",
+          "comment_eviter": "Retenir que $\\sqrt2$ et $\\pi$ sont des exemples classiques de nombres irrationnels, à connaître par cœur."
         },
         {
           "description": "Oublier qu'un nombre entier appartient aussi à toutes les familles plus grandes.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "L'élève pense à une seule « bonne » famille par nombre, comme des catégories qui s'excluent.",
+          "comment_detecter": "L'élève répond une seule famille à la question « dans quelle famille se trouve ce nombre ? », en excluant les plus grandes.",
+          "comment_eviter": "Se rappeler l'image des poupées russes : $\\mathbb N\\subset\\mathbb Z\\subset\\mathbb Q\\subset\\mathbb R$, chaque famille est incluse dans la suivante."
+        },
+        {
+          "description": "Croire qu'un nombre décimal avec une infinité de chiffres est forcément irrationnel.",
+          "pourquoi": "L'argument « les chiffres ne s'arrêtent jamais » utilisé pour $\\sqrt2$ est incomplet : il faut aussi qu'ils ne se répètent jamais selon un motif.",
+          "comment_detecter": "L'élève classe $0{,}333...$ ou $0{,}142857142857...$ comme irrationnels.",
+          "comment_eviter": "Vérifier si un motif de chiffres se répète : si oui, le nombre est rationnel (on peut toujours le réécrire en fraction)."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Ensembles de nombres"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras reconnaître à quelle famille appartient un nombre."
-      ],
+      "synonymes": ["Ensembles de nombres"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras reconnaître à quelle famille appartient un nombre."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Savoir reconnaître à quelle famille appartient un nombre évite des erreurs de raisonnement : certaines propriétés ne sont vraies que pour certains ensembles (par exemple, une équation peut avoir une solution entière, ou seulement une solution réelle non entière).",
+      "intuition": "Ces familles de nombres sont emboîtées les unes dans les autres, comme des poupées russes : tout entier naturel est aussi un entier relatif, qui est aussi un rationnel, qui est aussi un réel. Plus on avance vers $\\mathbb{R}$, plus la famille s'agrandit.",
+      "demonstration": {
+        "titre": "Pourquoi $\\sqrt{2}$ n'est pas un nombre rationnel",
+        "etapes": [
+          {
+            "titre": "Étape 1 — On suppose le contraire",
+            "texte": "Supposons que $\\sqrt2$ soit rationnel : on pourrait l'écrire $\\sqrt2=\\dfrac pq$ avec $p$ et $q$ entiers, la fraction étant irréductible (c'est-à-dire $p$ et $q$ sans facteur commun)."
+          },
+          {
+            "titre": "Étape 2 — On élève au carré",
+            "texte": "$2=\\dfrac{p^2}{q^2}$, donc $p^2=2q^2$. Le nombre $p^2$ est donc pair."
+          },
+          {
+            "titre": "Étape 3 — $p$ est pair",
+            "texte": "Si $p$ était impair, $p^2$ serait impair aussi. Comme $p^2$ est pair, $p$ est forcément pair : on peut écrire $p=2k$."
+          },
+          {
+            "titre": "Étape 4 — $q$ est pair aussi — contradiction",
+            "texte": "En remplaçant : $(2k)^2=2q^2$, donc $4k^2=2q^2$, donc $q^2=2k^2$. Par le même raisonnement qu'à l'étape 3, $q$ est pair aussi. Mais alors $p$ ET $q$ sont pairs, donc divisibles par 2 : la fraction $\\dfrac pq$ n'était pas irréductible, ce qui contredit l'hypothèse de départ."
+          }
+        ],
+        "conclusion": "L'hypothèse « $\\sqrt2$ est rationnel » conduit à une contradiction : $\\sqrt2$ n'est donc PAS un nombre rationnel. C'est l'une des plus anciennes démonstrations par l'absurde des mathématiques (attribuée aux pythagoriciens)."
+      },
+      "apercus": [
+        {
+          "id": "apercu-ensembles-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Un nombre décimal infini mais qui reste rationnel, pour affiner la frontière entre rationnel et irrationnel."
+        },
+        {
+          "id": "apercu-ensembles-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi √2 n'est pas rationnel",
+          "description": "La démonstration historique par l'absurde montrant que √2 ne peut s'écrire comme une fraction d'entiers."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi est-il utile de savoir à quelle famille appartient un nombre ?",
+          "piste": "Parce que certaines propriétés ou méthodes ne sont valables que pour certains ensembles de nombres."
+        },
+        {
+          "apres": "exemple:ensembles-de-nombres-exemple-periodique",
+          "question": "$0{,}333...$ est-il rationnel, bien que ses chiffres soient infinis ?",
+          "piste": "Oui : ses chiffres se répètent selon un motif (le « 3 »), donc il s'écrit comme une fraction ($\\frac13$) — c'est un rationnel."
+        },
+        {
+          "apres": "figure",
+          "question": "Si un nombre appartient à N, appartient-il aussi à R ?",
+          "piste": "Oui : N est inclus dans Z, qui est inclus dans Q, qui est inclus dans R. Tout nombre de N est donc aussi dans R."
+        }
+      ]
     }
   ]
 }

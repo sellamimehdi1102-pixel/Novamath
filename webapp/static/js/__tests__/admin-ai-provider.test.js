@@ -283,6 +283,35 @@ describe("admin-ai-provider.js — actions d'en-tête", () => {
     expect(document.getElementById("admin-ai-provider-head").textContent).toContain("Health-check OK");
   });
 
+  // Audit admin (2026-10-22) : même constat que admin-ai.js — ces deux
+  // boutons restent distincts (health() gratuit vs vrai prompt payant),
+  // leurs `title` respectifs en expliquent le coût réel.
+  it("les deux boutons portent un title qui explique leur coût réel respectif", async () => {
+    mockFetchWithActions({});
+    mountTemplate();
+    await loadAiProviderDetail(7);
+
+    const buttons = [...document.getElementById("admin-ai-provider-head").querySelectorAll(".admin-btn")];
+    const healthBtn = buttons.find((b) => b.textContent === "Lancer un health-check");
+    const testBtn = buttons.find((b) => b.textContent === "Tester la connexion");
+    expect(healthBtn.title).toMatch(/gratuit/i);
+    expect(testBtn.title).toMatch(/tokens/i);
+  });
+
+  // Audit admin (2026-10-22), point 3 : le title seul (survol) est invisible
+  // au tactile/mobile — un libellé COURT et PERMANENT est affiché sous
+  // chaque bouton, ici comme sur la carte (admin-ai.js).
+  it("un libellé permanent (pas seulement un title) précise le coût sous chaque bouton", async () => {
+    mockFetchWithActions({});
+    mountTemplate();
+    await loadAiProviderDetail(7);
+
+    const head = document.getElementById("admin-ai-provider-head");
+    const captions = [...head.querySelectorAll(".admin-btn-caption")].map((c) => c.textContent);
+    expect(captions).toContain("Gratuit");
+    expect(captions).toContain("Coûte des tokens");
+  });
+
   it("bouton 'Actualiser' revide le cache et refait un appel réseau pour l'onglet actif", async () => {
     mockFetchWithActions({});
     mountTemplate();

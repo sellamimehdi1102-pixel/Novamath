@@ -88,7 +88,7 @@ CARD_VISA_SUCCESS = "pm_card_visa"
 # le paiement échoue. Stripe n'offrant qu'un seul token "attach puis échec"
 # (pas de distinction insuffisant/expiré au niveau attach), les trois
 # constantes ci-dessous partagent volontairement la même valeur réelle — leurs
-# noms distincts documentent l'intention du scénario testé côté NovaMath,
+# noms distincts documentent l'intention du scénario testé côté Mathadap,
 # jamais un comportement Stripe différent.
 CARD_DECLINED = "pm_card_chargeCustomerFail"
 CARD_DECLINED_INSUFFICIENT_FUNDS = "pm_card_chargeCustomerFail"

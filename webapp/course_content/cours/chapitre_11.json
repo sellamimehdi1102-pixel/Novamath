@@ -57,6 +57,24 @@
       },
       "exemples": [
         {
+          "id": "moyenne-exemple-simple",
+          "titre": "Exemple 1 — Moyenne simple",
+          "enonce": "Calcule la moyenne des notes 8, 12 et 16.",
+          "calcul": [
+            {
+              "expr": "8+12+16 = 36",
+              "texte": "On additionne toutes les valeurs."
+            },
+            {
+              "expr": "\\dfrac{36}{3} = 12",
+              "texte": "On divise par le nombre de valeurs."
+            }
+          ],
+          "reponse": "$12$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
           "titre": "Exemple 1",
           "enonce": "Notes 12 (coefficient 2) et 16 (coefficient 1). Calcule la moyenne pondérée.",
           "calcul": [
@@ -71,7 +89,8 @@
           ],
           "reponse": "$\\approx 13{,}3$",
           "id": "moyenne-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
@@ -80,15 +99,38 @@
       ],
       "astuce": "Si tous les coefficients sont égaux à 1, la moyenne pondérée devient une moyenne simple.",
       "aRetenir": [
-        "Moyenne simple : somme / nombre de valeurs",
-        "Moyenne pondérée : somme (valeur × coefficient) / somme des coefficients"
+        "Moyenne simple : somme des valeurs / nombre de valeurs.",
+        "Moyenne pondérée : somme (valeur × coefficient) / somme des coefficients."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        168,
-        169,
-        170
-      ],
+      "figure": {
+        "kind": "bars",
+        "bars": [
+          {
+            "label": "12 (coef 2)",
+            "value": 12
+          },
+          {
+            "label": "16 (coef 1)",
+            "value": 16
+          }
+        ],
+        "alt": "La note 12 compte deux fois plus que la note 16 dans la moyenne pondérée.",
+        "explication": {
+          "comprendre": "Un coefficient plus grand donne plus de poids à une valeur dans le calcul de la moyenne.",
+          "etapes": [
+            {
+              "titre": "La note 12",
+              "texte": "Coefficient 2 : elle compte double."
+            },
+            {
+              "titre": "La note 16",
+              "texte": "Coefficient 1 : elle compte simple."
+            }
+          ],
+          "resume": "La moyenne pondérée se rapproche davantage de la valeur qui a le plus grand coefficient."
+        }
+      },
+      "quizExerciseIds": [168, 169, 170],
       "schemaVersion": 2,
       "topic_id": "moyenne",
       "definitions": {
@@ -128,29 +170,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Faire une moyenne simple alors que les valeurs ont des coefficients différents.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "La moyenne simple est la première méthode apprise, et le réflexe est de l'appliquer systématiquement.",
+          "comment_detecter": "L'énoncé mentionne des coefficients différents pour certaines valeurs, mais le calcul les ignore.",
+          "comment_eviter": "Vérifier systématiquement si l'énoncé mentionne des coefficients avant de choisir la méthode (simple ou pondérée)."
         },
         {
           "description": "Oublier de diviser par la somme des coefficients (et pas par le nombre de valeurs).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Le nombre de valeurs et la somme des coefficients peuvent être confondus, surtout quand les coefficients sont proches de 1.",
+          "comment_detecter": "Le résultat final semble décalé par rapport à ce qu'on attendrait intuitivement.",
+          "comment_eviter": "Calculer EXPLICITEMENT la somme des coefficients comme une étape à part, avant de diviser."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Moyenne"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras calculer une moyenne pondérée."
-      ],
+      "synonymes": ["Moyenne"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras calculer une moyenne pondérée."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "La moyenne pondérée est utilisée partout où certaines valeurs comptent plus que d'autres : une note de contrôle qui compte double, ou un prix moyen pondéré par les quantités achetées.",
+      "intuition": "Dans une moyenne pondérée, chaque valeur est « répétée » autant de fois que l'indique son coefficient avant de faire la moyenne — c'est exactement comme une moyenne simple, mais sur une liste où certaines valeurs apparaissent plusieurs fois.",
+      "apercus": [
+        {
+          "id": "apercu-moyenne-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une moyenne pondérée avec trois valeurs et des coefficients différents."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple concret où une moyenne pondérée est utile.",
+          "piste": "Une note de contrôle qui compte double, ou un prix moyen pondéré par les quantités achetées."
+        },
+        {
+          "apres": "exemple:moyenne-exemple-1",
+          "question": "Dans une moyenne pondérée, par quoi divise-t-on à la fin ?",
+          "piste": "Par la SOMME DES COEFFICIENTS, jamais par le nombre de valeurs."
+        }
+      ]
     },
     {
       "id": "linearite-de-la-moyenne",
@@ -210,23 +272,58 @@
           ],
           "reponse": "$13$",
           "id": "linearite-de-la-moyenne-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "linearite-de-la-moyenne-exemple-multiplicatif",
+          "titre": "Exemple 2 — Une transformation multiplicative",
+          "enonce": "La moyenne des prix d'un magasin est 40 €. Tous les prix doublent. Quelle est la nouvelle moyenne ?",
+          "calcul": [
+            {
+              "expr": "x_i \\to 2x_i",
+              "texte": "Chaque prix est multiplié par 2."
+            },
+            {
+              "expr": "\\bar x \\to 2\\bar x = 80",
+              "texte": "On applique la même transformation à la moyenne."
+            }
+          ],
+          "reponse": "$80$ €",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "linearite-de-la-moyenne-exemple-combine",
+          "titre": "Exemple 3 — Transformation combinée (approfondissement)",
+          "enonce": "La moyenne d'une série est 20. On multiplie chaque valeur par 3, puis on soustrait 5. Nouvelle moyenne ?",
+          "calcul": [
+            {
+              "expr": "x_i \\to 3x_i - 5",
+              "texte": "On repère la transformation complète : $a=3$, $b=-5$."
+            },
+            {
+              "expr": "\\bar x \\to 3\\times20 - 5 = 55",
+              "texte": "On applique directement la même transformation à la moyenne."
+            }
+          ],
+          "reponse": "$55$",
+          "difficulte": "difficile",
+          "analyse": "La règle fonctionne même quand la transformation combine une multiplication ET une addition en même temps.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Recalculer toute la moyenne alors qu'on peut utiliser cette astuce.",
         "Oublier d'appliquer la transformation exactement de la même façon à la moyenne."
       ],
-      "astuce": "Dès que la même opération s'applique à toutes les valeurs, applique-la directement à la moyenne.",
+      "astuce": "Dès que la même opération s'applique à toutes les valeurs, applique-la directement à la moyenne — qu'elle soit additive, multiplicative, ou les deux en même temps.",
       "aRetenir": [
-        "$x_i \\to ax_i+b$ donne $\\bar x \\to a\\bar x+b$"
+        "$x_i \\to ax_i+b$ donne $\\bar x \\to a\\bar x+b$.",
+        "Cette règle marche pour une addition, une multiplication, ou une combinaison des deux."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        165,
-        166,
-        167
-      ],
+      "quizExerciseIds": [165, 166, 167],
       "schemaVersion": 2,
       "topic_id": "linearite-de-la-moyenne",
       "definitions": {
@@ -266,29 +363,51 @@
       "erreursFrequentesDetail": [
         {
           "description": "Recalculer toute la moyenne alors qu'on peut utiliser cette astuce.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Sans connaître cette règle, le réflexe naturel est de reprendre le calcul depuis le début.",
+          "comment_detecter": "Le calcul reprend chaque valeur individuellement, alors que seule la transformation globale est nécessaire.",
+          "comment_eviter": "Vérifier d'abord si la MÊME transformation s'applique à TOUTES les valeurs : si oui, appliquer directement la règle à la moyenne."
         },
         {
           "description": "Oublier d'appliquer la transformation exactement de la même façon à la moyenne.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Appliquer seulement une partie de la transformation (par exemple, oublier le +b) donne un résultat partiel et faux.",
+          "comment_detecter": "Le résultat ne contient pas toutes les étapes de la transformation d'origine.",
+          "comment_eviter": "Reproduire scrupuleusement CHAQUE étape de la transformation ($\\times a$ ET $+b$) sur la moyenne."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Linéarité de la moyenne"
-      ],
+      "synonymes": ["Linéarité de la moyenne"],
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras appliquer une transformation directement à une moyenne."
       ],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Cette astuce évite de recalculer toute une série de données depuis le début dès qu'on applique la même opération à toutes les valeurs : un bonus, une conversion d'unité, une remise identique...",
+      "intuition": "Comme la moyenne est juste une somme divisée par un nombre, appliquer la même transformation à CHAQUE valeur transforme la moyenne EXACTEMENT de la même façon — pas besoin de tout recalculer.",
+      "apercus": [
+        {
+          "id": "apercu-linearite-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une transformation combinant multiplication et addition en même temps."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple où cette astuce évite un recalcul complet.",
+          "piste": "Un bonus identique ajouté à chaque copie, une conversion d'unité, une remise identique sur tous les prix."
+        },
+        {
+          "apres": "exemple:linearite-de-la-moyenne-exemple-multiplicatif",
+          "question": "Si toutes les valeurs doublent, que devient la moyenne ?",
+          "piste": "Elle double aussi, exactement dans les mêmes proportions."
+        }
+      ]
     },
     {
       "id": "ecart-type",
@@ -348,24 +467,63 @@
           ],
           "reponse": "La première classe est plus homogène que la deuxième",
           "id": "ecart-type-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "ecart-type-exemple-moyennes-differentes",
+          "titre": "Exemple 2 — Comparer des séries de moyennes différentes",
+          "enonce": "Une série de notes a pour moyenne 8 et écart-type 1. Une autre a pour moyenne 15 et écart-type 1. Peut-on dire que les deux séries sont « aussi regroupées » l'une que l'autre ?",
+          "calcul": [
+            {
+              "expr": "\\text{écart-type} = 1 \\text{ (les deux séries)}",
+              "texte": "Les deux écarts-types sont identiques."
+            }
+          ],
+          "reponse": "Oui : les deux séries sont aussi homogènes l'une que l'autre, même si leurs moyennes sont très différentes.",
+          "difficulte": "moyen",
+          "analyse": "L'écart-type mesure la dispersion AUTOUR de la moyenne, indépendamment de la valeur de cette moyenne.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Croire que l'écart-type donne la même information que la moyenne.",
         "Oublier que deux séries peuvent avoir la même moyenne mais des écarts-types très différents."
       ],
-      "astuce": "Retiens surtout le sens : petit écart-type = valeurs regroupées, grand écart-type = valeurs dispersées.",
+      "astuce": "Retiens surtout le sens : petit écart-type = valeurs regroupées, grand écart-type = valeurs dispersées — et cette information est indépendante de la valeur de la moyenne.",
       "aRetenir": [
-        "Écart-type petit = valeurs homogènes",
-        "Écart-type grand = valeurs dispersées"
+        "Écart-type petit = valeurs homogènes (proches de la moyenne). Écart-type grand = valeurs dispersées.",
+        "Deux séries peuvent avoir la même moyenne mais des écarts-types très différents : ce sont deux informations complémentaires."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        162,
-        163,
-        164
-      ],
+      "figure": {
+        "kind": "bars",
+        "bars": [
+          {
+            "label": "Classe A (σ=1)",
+            "value": 12
+          },
+          {
+            "label": "Classe B (σ=5)",
+            "value": 12
+          }
+        ],
+        "alt": "Deux classes ont la même moyenne (12) mais des écarts-types très différents (1 et 5) : leurs notes ne sont pas du tout dispersées de la même façon.",
+        "explication": {
+          "comprendre": "Même hauteur de barre (même moyenne), mais la dispersion réelle des notes autour de cette moyenne diffère énormément.",
+          "etapes": [
+            {
+              "titre": "Classe A",
+              "texte": "Écart-type petit : notes très regroupées autour de 12."
+            },
+            {
+              "titre": "Classe B",
+              "texte": "Écart-type grand : notes très dispersées autour de 12."
+            }
+          ],
+          "resume": "La moyenne seule ne suffit jamais à décrire une série : l'écart-type complète toujours l'information."
+        }
+      },
+      "quizExerciseIds": [162, 163, 164],
       "schemaVersion": 2,
       "topic_id": "ecart-type",
       "definitions": {
@@ -405,29 +563,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Croire que l'écart-type donne la même information que la moyenne.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Les deux sont des nombres calculés à partir de la même série, ce qui peut laisser penser qu'ils mesurent la même chose.",
+          "comment_detecter": "On utilise l'écart-type pour répondre à une question sur la valeur « typique » de la série, ce qui est le rôle de la moyenne.",
+          "comment_eviter": "La moyenne donne une valeur centrale ; l'écart-type donne la DISPERSION autour de cette valeur — deux informations complémentaires, jamais interchangeables."
         },
         {
           "description": "Oublier que deux séries peuvent avoir la même moyenne mais des écarts-types très différents.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "On suppose parfois qu'une même moyenne signifie des séries « semblables ».",
+          "comment_detecter": "Une conclusion sur l'homogénéité de deux séries s'appuie uniquement sur leur moyenne, sans regarder leur écart-type.",
+          "comment_eviter": "Toujours comparer les écarts-types, pas seulement les moyennes, pour juger de l'homogénéité de deux séries."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Ecart-type"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras interpréter un écart-type."
-      ],
+      "synonymes": ["Ecart-type"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras interpréter un écart-type."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "L'écart-type permet de comparer la régularité de deux séries qui ont la même moyenne : deux classes avec 12 de moyenne ne se ressemblent pas forcément du tout.",
+      "intuition": "La moyenne seule ne dit rien sur la DISPERSION des valeurs : deux séries très différentes peuvent avoir exactement la même moyenne. L'écart-type complète cette information en mesurant l'éloignement typique par rapport à la moyenne.",
+      "apercus": [
+        {
+          "id": "apercu-ecarttype-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Comparer trois séries avec des moyennes et écarts-types tous différents."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi la moyenne seule ne suffit-elle pas à décrire une série de notes ?",
+          "piste": "Deux séries très différentes (homogène ou très dispersée) peuvent avoir exactement la même moyenne."
+        },
+        {
+          "apres": "exemple:ecart-type-exemple-moyennes-differentes",
+          "question": "Deux séries avec le même écart-type mais des moyennes différentes sont-elles aussi homogènes l'une que l'autre ?",
+          "piste": "Oui : l'écart-type mesure la dispersion autour de la moyenne, indépendamment de la valeur de cette moyenne."
+        }
+      ]
     },
     {
       "id": "quartiles-et-ecart-interquartile",
@@ -483,6 +661,33 @@
       },
       "exemples": [
         {
+          "id": "quartiles-et-ecart-interquartile-exemple-trouver",
+          "titre": "Exemple 1 — Trouver les quartiles à partir des données",
+          "enonce": "Voici 12 notes triées : 2, 5, 6, 8, 9, 11, 12, 13, 15, 18, 20, 23. Trouve $Q_1$ et $Q_3$.",
+          "calcul": [
+            {
+              "expr": "N=12,\\quad N/4 = 3",
+              "texte": "On calcule le quart de l'effectif ; $Q_1$ est la valeur de rang $3$ (en arrondissant vers le haut si besoin)."
+            },
+            {
+              "expr": "Q_1 = 6",
+              "texte": "La 3ᵉ valeur de la liste triée est 6."
+            },
+            {
+              "expr": "3N/4 = 9",
+              "texte": "$Q_3$ est la valeur de rang $9$."
+            },
+            {
+              "expr": "Q_3 = 15",
+              "texte": "La 9ᵉ valeur de la liste triée est 15."
+            }
+          ],
+          "reponse": "$Q_1 = 6$ et $Q_3 = 15$",
+          "difficulte": "difficile",
+          "analyse": "C'est la méthode complète : on ordonne la série, on calcule les rangs de $Q_1$ et $Q_3$, puis on lit les valeurs correspondantes.",
+          "niveauAcces": "free"
+        },
+        {
           "titre": "Exemple 1",
           "enonce": "$Q_1 = 10$ et $Q_3 = 16$. Calcule l'écart interquartile.",
           "calcul": [
@@ -497,7 +702,8 @@
           ],
           "reponse": "$6$",
           "id": "quartiles-et-ecart-interquartile-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
@@ -506,16 +712,38 @@
       ],
       "astuce": "L'écart interquartile ignore les valeurs extrêmes : il est utile même quand il y a des valeurs bizarres dans la série.",
       "aRetenir": [
-        "$Q_1$ : 25% des valeurs en dessous",
-        "$Q_3$ : 75% des valeurs en dessous",
-        "Écart interquartile $=Q_3-Q_1$"
+        "$Q_1$ : au moins 25% des valeurs sont en dessous ; $Q_3$ : au moins 75%.",
+        "Toujours ordonner la série avant de chercher les quartiles.",
+        "Écart interquartile $=Q_3-Q_1$ : ignore les valeurs extrêmes."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        171,
-        172,
-        173
-      ],
+      "figure": {
+        "kind": "boxplot",
+        "min": 2,
+        "q1": 6,
+        "median": 11.5,
+        "q3": 15,
+        "max": 23,
+        "alt": "Boîte à moustaches de la série : minimum 2, Q1=6, médiane 11,5, Q3=15, maximum 23.",
+        "explication": {
+          "comprendre": "La boîte centrale représente la moitié des valeurs les plus centrales, entre Q1 et Q3.",
+          "etapes": [
+            {
+              "titre": "Q1=6",
+              "texte": "25% des valeurs sont en dessous."
+            },
+            {
+              "titre": "Médiane=11,5",
+              "texte": "La moitié des valeurs sont en dessous."
+            },
+            {
+              "titre": "Q3=15",
+              "texte": "75% des valeurs sont en dessous."
+            }
+          ],
+          "resume": "L'écart interquartile (15-6=9) est la largeur de la boîte centrale."
+        }
+      },
+      "quizExerciseIds": [171, 172, 173],
       "schemaVersion": 2,
       "topic_id": "quartiles-et-ecart-interquartile",
       "definitions": {
@@ -555,29 +783,54 @@
       "erreursFrequentesDetail": [
         {
           "description": "Oublier d'ordonner les valeurs avant de chercher les quartiles.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Les rangs ($N/4$, $3N/4$) n'ont de sens que si la série est déjà triée du plus petit au plus grand.",
+          "comment_detecter": "Les valeurs trouvées pour $Q_1$ et $Q_3$ ne respectent pas $Q_1 \\leqslant Q_3$.",
+          "comment_eviter": "TOUJOURS trier la série en premier, avant tout calcul de rang."
         },
         {
           "description": "Confondre $Q_1$ et $Q_3$.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Les deux rangs ($N/4$ et $3N/4$) et les deux lettres se ressemblent et peuvent s'inverser dans la précipitation.",
+          "comment_detecter": "La valeur trouvée pour $Q_1$ est plus grande que celle trouvée pour $Q_3$, ce qui est impossible.",
+          "comment_eviter": "$Q_1$ (indice 1, le premier) est toujours plus petit ; $Q_3$ (indice 3, le dernier) est toujours plus grand."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Quartiles et écart interquartile"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras trouver les quartiles et l'écart interquartile."
-      ],
+      "synonymes": ["Quartiles et écart interquartile"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras trouver les quartiles et l'écart interquartile."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Les quartiles et l'écart interquartile permettent de décrire une série sans être influencés par une valeur extrême (contrairement à la moyenne, qui elle peut être faussée par une donnée aberrante).",
+      "intuition": "Les quartiles découpent la série ordonnée en 4 groupes de taille égale : $Q_1$ sépare le premier quart, $Q_3$ sépare le dernier quart. L'écart interquartile ne regarde que la « moitié centrale » de la série, ignorant les valeurs les plus extrêmes.",
+      "apercus": [
+        {
+          "id": "apercu-quartiles-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Trouver les quartiles d'une série dont l'effectif n'est pas un multiple de 4."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi utiliser l'écart interquartile plutôt que l'écart entre le minimum et le maximum ?",
+          "piste": "L'écart interquartile n'est pas influencé par une valeur extrême isolée, contrairement à l'écart min-max."
+        },
+        {
+          "apres": "exemple:quartiles-et-ecart-interquartile-exemple-trouver",
+          "question": "Quelle est la première étape pour trouver les quartiles d'une série ?",
+          "piste": "Ordonner toutes les valeurs de la plus petite à la plus grande."
+        },
+        {
+          "apres": "figure",
+          "question": "Que représente la largeur de la boîte centrale sur ce schéma ?",
+          "piste": "L'écart interquartile, c'est-à-dire Q3 moins Q1."
+        }
+      ]
     }
   ]
 }

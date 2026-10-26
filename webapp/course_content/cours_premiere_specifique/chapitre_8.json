@@ -1,0 +1,2041 @@
+{
+  "chapterId": "Chapitre_8",
+  "title": "Variables aléatoires",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "rappels-de-probabilites-evenements",
+      "title": "Rappels de probabilités : événements",
+      "schemaVersion": 2,
+      "intro": "Avant d'étudier les variables aléatoires, on revient sur le vocabulaire des probabilités : univers, issues, événements, et les règles de calcul qui relient les probabilités de « A et B », « A ou B » et « non A ».",
+      "pourquoi": "Toute question de probabilité commence par traduire une phrase en événement : « au moins un », « ni l'un ni l'autre », « l'un ou l'autre ». Ces règles servent ensuite au calcul des lois de probabilité.",
+      "explicationSimple": "Dé équilibré, $A$ : « pair », $B$ : « au moins $4$ ». $A \\cap B = \\{4 ; 6\\}$ et $P(A \\cup B) = \\dfrac{3}{6} + \\dfrac{3}{6} - \\dfrac{2}{6} = \\dfrac{2}{3}$.",
+      "objectif": "À la fin de ce cours, tu sauras décrire un événement par ses issues, former l'intersection, la réunion et le contraire d'événements, reconnaître des événements incompatibles et calculer $P(\\overline{A})$ et $P(A \\cup B)$.",
+      "definition": "On considère l'univers $\\Omega$ d'une expérience aléatoire. Un événement $A$ est une partie de $\\Omega$ ; une issue $\\omega$ réalise $A$ si $\\omega \\in A$. $\\varnothing$ est l'événement impossible, $\\Omega$ l'événement certain. $A \\cap B$ est formé des issues qui réalisent à la fois $A$ et $B$ ; $A \\cup B$ des issues qui réalisent au moins l'un des deux. $A$ et $B$ sont incompatibles si $A \\cap B = \\varnothing$. L'événement contraire $\\overline{A}$ est formé des issues qui ne réalisent pas $A$. La probabilité d'un événement est la somme des probabilités des issues qui le réalisent ; $P(\\varnothing) = 0$, $P(\\Omega) = 1$, $0 \\leqslant P(A) \\leqslant 1$, $P(\\overline{A}) = 1 - P(A)$ et $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.",
+      "definitions": {
+        "lycee": "On considère l'univers $\\Omega$ d'une expérience aléatoire. Un événement $A$ est une partie de $\\Omega$ ; une issue $\\omega$ réalise $A$ si $\\omega \\in A$. $\\varnothing$ est l'événement impossible, $\\Omega$ l'événement certain. $A \\cap B$ est formé des issues qui réalisent à la fois $A$ et $B$ ; $A \\cup B$ des issues qui réalisent au moins l'un des deux. $A$ et $B$ sont incompatibles si $A \\cap B = \\varnothing$. L'événement contraire $\\overline{A}$ est formé des issues qui ne réalisent pas $A$. La probabilité d'un événement est la somme des probabilités des issues qui le réalisent ; $P(\\varnothing) = 0$, $P(\\Omega) = 1$, $0 \\leqslant P(A) \\leqslant 1$, $P(\\overline{A}) = 1 - P(A)$ et $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$."
+      },
+      "intuition": "« et » restreint (intersection), « ou » élargit (réunion), « non » prend le reste de l'univers.",
+      "reglesImportantes": [
+        "Intersection $A \\cap B$ : « $A$ et $B$ » ; réunion $A \\cup B$ : « $A$ ou $B$ » (au moins l'un des deux).",
+        "Événement contraire : $P(\\overline{A}) = 1 - P(A)$.",
+        "Pour tous événements $A$ et $B$ : $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.",
+        "Incompatibles ($A \\cap B = \\varnothing$) : $P(A \\cup B) = P(A) + P(B)$.",
+        "Lois de De Morgan : $\\overline{A \\cap B} = \\overline{A} \\cup \\overline{B}$ et $\\overline{A \\cup B} = \\overline{A} \\cap \\overline{B}$."
+      ],
+      "formules": [
+        {
+          "id": "formule-contraire",
+          "nom": "Événement contraire",
+          "expression": "$P(\\overline{A}) = 1 - P(A)$",
+          "quand_utiliser": "Pour « au moins un », « pas de… ».",
+          "erreur_frequente": "Calculer $P(A) - 1$.",
+          "astuce": "La somme $P(A) + P(\\overline{A})$ vaut toujours $1$."
+        },
+        {
+          "id": "formule-reunion",
+          "nom": "Réunion",
+          "expression": "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$",
+          "quand_utiliser": "Pour « $A$ ou $B$ ».",
+          "erreur_frequente": "Oublier de retirer l'intersection.",
+          "astuce": "L'intersection est comptée deux fois dans $P(A) + P(B)$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer la probabilité d'un événement composé",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je nomme les événements et je traduis la phrase : « et », « ou », « non »."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je décris les issues (liste, diagramme, tableau) ou je repère les probabilités données."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'applique la règle adaptée : contraire, réunion, incompatibilité."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que le résultat est entre $0$ et $1$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je nomme les événements et je traduis la phrase : « et », « ou », « non »."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je décris les issues (liste, diagramme, tableau) ou je repère les probabilités données."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'applique la règle adaptée : contraire, réunion, incompatibilité."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que le résultat est entre $0$ et $1$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris ce que veut dire l'événement avec des mots simples."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je liste les issues qui le réalisent."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'additionne leurs probabilités."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Le résultat est entre $0$ et $1$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Traduire : et, ou, non."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Règle adaptée, résultat entre $0$ et $1$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-evenements-de",
+          "titre": "Exemple 1 — Intersection et réunion",
+          "enonce": "On lance un dé équilibré. $A$ : « obtenir un nombre pair », $B$ : « obtenir au moins $4$ ». Décrire $A \\cap B$ et $A \\cup B$, puis calculer $P(A \\cup B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$A = \\{2 ; 4 ; 6\\}$ et $B = \\{4 ; 5 ; 6\\}$."
+            },
+            {
+              "expr": "",
+              "texte": "$A \\cap B = \\{4 ; 6\\}$ et $A \\cup B = \\{2 ; 4 ; 5 ; 6\\}$."
+            },
+            {
+              "expr": "P(A \\cup B) = \\dfrac{4}{6} = \\dfrac{2}{3}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$P(A \\cup B) = \\dfrac{2}{3}$.",
+          "conclusion": "C'est la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-evenement-contraire",
+          "titre": "Exemple 2 — Événement contraire",
+          "enonce": "La probabilité qu'un appareil tombe en panne dans l'année est $0{,}08$. Quelle est la probabilité qu'il ne tombe pas en panne ?",
+          "calcul": [
+            {
+              "expr": "P(\\overline{A}) = 1 - 0{,}08 = 0{,}92",
+              "texte": ""
+            }
+          ],
+          "reponse": "$0{,}92$.",
+          "conclusion": "« Ne pas » : événement contraire.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-formule-reunion",
+          "titre": "Exemple 3 — Probabilité d'une réunion",
+          "enonce": "On tire une carte d'un jeu de $32$. $A$ : « cœur », $B$ : « figure » (valet, dame, roi). Calculer $P(A \\cup B)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(A) = \\dfrac{8}{32}$, $P(B) = \\dfrac{12}{32}$, $P(A \\cap B) = \\dfrac{3}{32}$ (les trois figures de cœur)."
+            },
+            {
+              "expr": "P(A \\cup B) = \\dfrac{8 + 12 - 3}{32} = \\dfrac{17}{32}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$P(A \\cup B) = \\dfrac{17}{32}$.",
+          "conclusion": "On retire les figures de cœur, comptées deux fois.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-incompatibles",
+          "titre": "Exemple 4 — Événements incompatibles",
+          "enonce": "Dans une urne, $30\\,\\%$ des boules sont rouges et $45\\,\\%$ sont vertes. On tire une boule. Probabilité qu'elle soit rouge ou verte ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Une boule ne peut pas être à la fois rouge et verte : les événements sont incompatibles."
+            },
+            {
+              "expr": "P(R \\cup V) = 0{,}3 + 0{,}45 = 0{,}75",
+              "texte": ""
+            }
+          ],
+          "reponse": "$0{,}75$.",
+          "conclusion": "Incompatibles : on additionne simplement.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-tableau-croise-evenements",
+          "titre": "Exemple 5 — Lire un tableau croisé",
+          "enonce": "Sur $120$ élèves, $70$ filles dont $42$ externes, et $50$ garçons dont $20$ externes. On choisit un élève au hasard. $F$ : « fille », $E$ : « externe ». Calculer $P(F \\cap E)$ et $P(F \\cup E)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(F \\cap E) = \\dfrac{42}{120} = 0{,}35$."
+            },
+            {
+              "expr": "",
+              "texte": "$P(F) = \\dfrac{70}{120}$, $P(E) = \\dfrac{62}{120}$."
+            },
+            {
+              "expr": "P(F \\cup E) = \\dfrac{70 + 62 - 42}{120} = \\dfrac{90}{120} = 0{,}75",
+              "texte": ""
+            }
+          ],
+          "reponse": "$P(F \\cap E) = 0{,}35$ et $P(F \\cup E) = 0{,}75$.",
+          "conclusion": "Contrôle : seuls les $30$ garçons internes ne sont pas dans $F \\cup E$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-de-morgan",
+          "titre": "Exemple 6 — Ni l'un ni l'autre",
+          "enonce": "On donne $P(A) = 0{,}4$, $P(B) = 0{,}5$ et $P(A \\cup B) = 0{,}7$. Calculer $P(A \\cap B)$ puis la probabilité que ni $A$ ni $B$ ne soit réalisé.",
+          "calcul": [
+            {
+              "expr": "P(A \\cap B) = 0{,}4 + 0{,}5 - 0{,}7 = 0{,}2",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "« Ni $A$ ni $B$ » est $\\overline{A} \\cap \\overline{B} = \\overline{A \\cup B}$ (loi de De Morgan)."
+            },
+            {
+              "expr": "P(\\overline{A} \\cap \\overline{B}) = 1 - 0{,}7 = 0{,}3",
+              "texte": ""
+            }
+          ],
+          "reponse": "$P(A \\cap B) = 0{,}2$ et $P(\\overline{A} \\cap \\overline{B}) = 0{,}3$.",
+          "conclusion": "La loi de De Morgan transforme « ni… ni… » en contraire d'une réunion.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Probabilité qu'une pièce ait au moins un défaut.",
+        "Lecture d'un sondage croisé.",
+        "Jeux de cartes et de dés."
+      ],
+      "erreursFrequentes": [
+        "Écrire $P(A \\cup B) = P(A) + P(B)$ dans tous les cas.",
+        "Confondre « et » et « ou ».",
+        "Écrire $\\overline{A \\cup B} = \\overline{A} \\cup \\overline{B}$.",
+        "Obtenir une probabilité négative ou supérieure à $1$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $P(A \\cup B) = P(A) + P(B)$ dans tous les cas.",
+          "pourquoi": "On oublie l'intersection.",
+          "comment_detecter": "$A$ et $B$ peuvent-ils se produire ensemble ?",
+          "comment_eviter": "Retire $P(A \\cap B)$, sauf si $A$ et $B$ sont incompatibles."
+        },
+        {
+          "description": "Confondre « et » et « ou ».",
+          "pourquoi": "Traduction trop rapide.",
+          "comment_detecter": "Faut-il réaliser les deux, ou au moins un ?",
+          "comment_eviter": "« et » : $\\cap$ ; « ou » : $\\cup$."
+        },
+        {
+          "description": "Écrire $\\overline{A \\cup B} = \\overline{A} \\cup \\overline{B}$.",
+          "pourquoi": "On « distribue » la barre sans changer le symbole.",
+          "comment_detecter": "Teste avec le dé de la figure.",
+          "comment_eviter": "Le contraire échange $\\cup$ et $\\cap$."
+        },
+        {
+          "description": "Obtenir une probabilité négative ou supérieure à $1$.",
+          "pourquoi": "Erreur de formule ou de lecture.",
+          "comment_detecter": "Le résultat est-il entre $0$ et $1$ ?",
+          "comment_eviter": "Recompte les issues ou relis la formule."
+        }
+      ],
+      "astuce": "Pour « au moins un », pense d'abord au contraire : « aucun » est souvent bien plus simple à calculer.",
+      "aRetenir": [
+        "Rappels de probabilités : événements $A \\cap B$, $A \\cup B$, $\\overline{A}$.",
+        "$P(\\overline{A}) = 1 - P(A)$ ; $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.",
+        "Incompatibles : $A \\cap B = \\varnothing$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.6,
+          -0.8,
+          11.2,
+          7.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 10,
+              "y": 0
+            }
+          },
+          {
+            "from": {
+              "x": 10,
+              "y": 0
+            },
+            "to": {
+              "x": 10,
+              "y": 6
+            }
+          },
+          {
+            "from": {
+              "x": 10,
+              "y": 6
+            },
+            "to": {
+              "x": 0,
+              "y": 6
+            }
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 6
+            },
+            "to": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 0.6,
+            "y": 5.5,
+            "label": "Ω"
+          },
+          {
+            "x": 2.4,
+            "y": 5.0,
+            "label": "A"
+          },
+          {
+            "x": 7.6,
+            "y": 5.0,
+            "label": "B"
+          },
+          {
+            "x": 2.6,
+            "y": 3.0,
+            "label": "2",
+            "reveal": 2
+          },
+          {
+            "x": 5.0,
+            "y": 3.0,
+            "label": "4 ; 6",
+            "reveal": 2
+          },
+          {
+            "x": 7.4,
+            "y": 3.0,
+            "label": "5",
+            "reveal": 2
+          },
+          {
+            "x": 1.0,
+            "y": 0.7,
+            "label": "1 ; 3",
+            "reveal": 3
+          },
+          {
+            "x": 5.0,
+            "y": -0.4,
+            "label": "A ∩ B = {4 ; 6}   A ∪ B = {2 ; 4 ; 5 ; 6}",
+            "reveal": 3
+          }
+        ],
+        "circles": [
+          {
+            "center": {
+              "x": 3.8,
+              "y": 3
+            },
+            "radius": 2.2
+          },
+          {
+            "center": {
+              "x": 6.2,
+              "y": 3
+            },
+            "radius": 2.2
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "L'univers Ω et deux événements A et B",
+          "Les issues placées dans le diagramme",
+          "Intersection, réunion et issues hors de A ∪ B"
+        ],
+        "relation": "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$",
+        "alt": "Diagramme de Venn d'un lancer de dé : A « obtenir un nombre pair » = {2 ; 4 ; 6}, B « obtenir au moins 4 » = {4 ; 5 ; 6}. L'intersection A ∩ B = {4 ; 6}, la réunion A ∪ B = {2 ; 4 ; 5 ; 6} ; les issues 1 et 3 ne réalisent ni A ni B.",
+        "explication": {
+          "resume": "Un événement est un ensemble d'issues. $A \\cap B$ réunit les issues qui réalisent à la fois $A$ et $B$ ; $A \\cup B$ celles qui réalisent au moins l'un des deux ; $\\overline{A}$ celles qui ne réalisent pas $A$.",
+          "lecture": [
+            "Le rectangle représente l'univers $\\Omega = \\{1 ; 2 ; 3 ; 4 ; 5 ; 6\\}$.",
+            "Chaque cercle représente un événement."
+          ],
+          "observations": [
+            "$P(A) = P(B) = \\dfrac{3}{6}$ et $P(A \\cap B) = \\dfrac{2}{6}$.",
+            "$P(A \\cup B) = \\dfrac{3}{6} + \\dfrac{3}{6} - \\dfrac{2}{6} = \\dfrac{4}{6}$ : on retire l'intersection, comptée deux fois.",
+            "$\\overline{A \\cup B} = \\{1 ; 3\\} = \\overline{A} \\cap \\overline{B}$."
+          ],
+          "pieges": [
+            "Additionner $P(A)$ et $P(B)$ sans retirer $P(A \\cap B)$."
+          ],
+          "aRetenir": [
+            "« et » : intersection ; « ou » : réunion ; « non » : événement contraire."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        88101,
+        88102,
+        73403
+      ],
+      "topic_id": "rappels-de-probabilites-evenements",
+      "proprietes": [
+        "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$."
+      ],
+      "vocabulaire_associe": [
+        "univers",
+        "issue",
+        "événement",
+        "intersection",
+        "réunion",
+        "événement contraire",
+        "incompatibles"
+      ],
+      "synonymes": [
+        "événement contraire",
+        "A inter B",
+        "A union B",
+        "événements incompatibles",
+        "lois de De Morgan",
+        "probabilité d'une réunion"
+      ],
+      "objectifs_pedagogiques": [
+        "Décrire un événement par ses issues.",
+        "Former intersection, réunion, contraire.",
+        "Calculer $P(\\overline{A})$ et $P(A \\cup B)$."
+      ],
+      "prerequis": [
+        "Probabilités (Seconde)"
+      ],
+      "notions_liees": [
+        "variables-aleatoires-reelles"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "probabilités",
+        "événements"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "rappels-de-probabilites-evenements-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Réunion, incompatibilité, tableau croisé",
+          "description": "Trois exemples rédigés : probabilité d'une réunion (cartes), événements incompatibles, lecture d'un tableau croisé."
+        },
+        {
+          "id": "rappels-de-probabilites-evenements-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Lois de De Morgan, démonstration",
+          "description": "« Ni l'un ni l'autre » par le contraire d'une réunion, et la démonstration de la formule de la réunion."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelles issues réalisent A ∩ B sur la figure ?",
+          "piste": "$4$ et $6$."
+        },
+        {
+          "apres": "methode",
+          "question": "$P(A) = 0{,}3$ : $P(\\overline{A})$ ?",
+          "piste": "$0{,}7$."
+        }
+      ],
+      "demonstration": {
+        "titre": "La probabilité d'une réunion vaut $P(A) + P(B) - P(A \\cap B)$",
+        "etapes": [
+          {
+            "titre": "Découpage",
+            "texte": "Les issues de $A \\cup B$ se répartissent en trois groupes disjoints : celles de $A$ seulement, celles de $B$ seulement, celles de $A \\cap B$."
+          },
+          {
+            "titre": "Somme",
+            "texte": "$P(A \\cup B)$ est la somme des probabilités des issues de ces trois groupes."
+          },
+          {
+            "titre": "Double compte",
+            "texte": "Dans $P(A) + P(B)$, les issues de $A \\cap B$ sont comptées deux fois, les autres une fois."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "On retire une fois $P(A \\cap B)$ : $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$."
+          }
+        ],
+        "conclusion": "Si $A$ et $B$ sont incompatibles, $P(A \\cap B) = 0$ et les probabilités s'additionnent."
+      }
+    },
+    {
+      "id": "variables-aleatoires-reelles",
+      "title": "Variables aléatoires réelles",
+      "schemaVersion": 2,
+      "intro": "Dans beaucoup d'expériences aléatoires, on s'intéresse à un nombre : un gain, un nombre de défauts, une somme de dés. Une variable aléatoire associe un nombre à chaque issue.",
+      "pourquoi": "Les variables aléatoires permettent de calculer des gains moyens, des risques, des probabilités de seuils : ce sont les outils de l'assurance, des jeux et de la statistique.",
+      "explicationSimple": "On lance deux pièces, $X$ = nombre de « pile » : $X$ vaut $0$, $1$ ou $2$, avec $P(X = 0) = \\dfrac{1}{4}$, $P(X = 1) = \\dfrac{1}{2}$, $P(X = 2) = \\dfrac{1}{4}$.",
+      "objectif": "À la fin de ce cours, tu sauras modéliser une situation par une variable aléatoire, déterminer sa loi, et utiliser les notations $\\{X = a\\}$, $\\{X \\leqslant a\\}$, $P(X = a)$, $P(X \\leqslant a)$.",
+      "definition": "Une variable aléatoire réelle $X$ sur un univers fini $\\Omega$ est une fonction qui associe un nombre réel à chaque issue de $\\Omega$. L'événement $\\{X = a\\}$ est l'ensemble des issues auxquelles $X$ associe $a$ ; de même pour $\\{X \\leqslant a\\}$, $\\{X > a\\}$… La loi de probabilité de $X$ est la donnée des valeurs $x_1, \\dots, x_n$ prises par $X$ et des probabilités $p_i = P(X = x_i)$ ; on a $p_1 + \\dots + p_n = 1$. On calcule $P(X \\leqslant a)$ en additionnant les $P(X = x_i)$ pour $x_i \\leqslant a$.",
+      "definitions": {
+        "lycee": "Une variable aléatoire réelle $X$ sur un univers fini $\\Omega$ est une fonction qui associe un nombre réel à chaque issue de $\\Omega$. L'événement $\\{X = a\\}$ est l'ensemble des issues auxquelles $X$ associe $a$ ; de même pour $\\{X \\leqslant a\\}$, $\\{X > a\\}$… La loi de probabilité de $X$ est la donnée des valeurs $x_1, \\dots, x_n$ prises par $X$ et des probabilités $p_i = P(X = x_i)$ ; on a $p_1 + \\dots + p_n = 1$. On calcule $P(X \\leqslant a)$ en additionnant les $P(X = x_i)$ pour $x_i \\leqslant a$."
+      },
+      "intuition": "Une variable aléatoire « traduit » chaque issue en nombre : on oublie le détail de l'issue et on ne garde que le nombre qui nous intéresse.",
+      "reglesImportantes": [
+        "Variable aléatoire : fonction de l'univers dans $\\mathbb{R}$.",
+        "Loi : valeurs $x_i$ et probabilités $P(X = x_i)$, de somme $1$.",
+        "$\\{X = a\\}$ et $\\{X \\leqslant a\\}$ sont des événements.",
+        "$P(X \\leqslant a)$ : somme des $P(X = x_i)$ avec $x_i \\leqslant a$ ; $P(X > a) = 1 - P(X \\leqslant a)$.",
+        "Une probabilité est toujours entre $0$ et $1$ ; une loi dont une probabilité est négative est fausse."
+      ],
+      "formules": [
+        {
+          "id": "formule-somme-loi",
+          "nom": "Loi",
+          "expression": "$\\sum P(X = x_i) = 1$",
+          "quand_utiliser": "Pour compléter ou vérifier une loi.",
+          "erreur_frequente": "Oublier une valeur.",
+          "astuce": "La dernière probabilité se déduit des autres."
+        },
+        {
+          "id": "formule-proba-seuil",
+          "nom": "Seuil",
+          "expression": "$P(X \\leqslant a) = \\sum_{x_i \\leqslant a} P(X = x_i)$",
+          "quand_utiliser": "Pour « au plus », « au moins ».",
+          "erreur_frequente": "Confondre $<$ et $\\leqslant$.",
+          "astuce": "Au moins : passer par le contraire."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Déterminer la loi d'une variable aléatoire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je décris l'univers et je calcule la valeur de $X$ pour chaque issue."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je liste les valeurs possibles de $X$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Pour chaque valeur, j'additionne les probabilités des issues correspondantes."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que la somme des probabilités vaut $1$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je décris l'univers et je calcule la valeur de $X$ pour chaque issue."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je liste les valeurs possibles de $X$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour chaque valeur, j'additionne les probabilités des issues correspondantes."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que la somme des probabilités vaut $1$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris tous les résultats possibles de l'expérience."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Pour chacun, je calcule le nombre $X$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je regroupe les résultats qui donnent le même nombre."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Total : $1$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Valeurs, puis probabilités."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Somme $1$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-1884",
+          "titre": "Exemple 1 — Compléter une loi",
+          "enonce": "$X$ prend les valeurs $-4$, $0$, $5$, $7$ avec $P(X = -4) = \\dfrac{1}{5}$, $P(X = 0) = \\dfrac{1}{5}$, $P(X = 5) = \\dfrac{1}{10}$. Calculer $P(X = 7)$.",
+          "calcul": [
+            {
+              "expr": "P(X = 7) = 1 - \\dfrac{1}{5} - \\dfrac{1}{5} - \\dfrac{1}{10}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$P(X = 7) = \\dfrac{1}{2}$.",
+          "conclusion": "La somme des probabilités vaut $1$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1908",
+          "titre": "Exemple 2 — Deux pièces",
+          "enonce": "On lance deux pièces équilibrées ; $X$ est le nombre de « pile ». Donner la loi de $X$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Issues $PP$, $PF$, $FP$, $FF$ équiprobables."
+            },
+            {
+              "expr": "",
+              "texte": "$X = 1$ pour deux issues."
+            }
+          ],
+          "reponse": "$P(X = 0) = \\dfrac{1}{4}$, $P(X = 1) = \\dfrac{1}{2}$, $P(X = 2) = \\dfrac{1}{4}$.",
+          "conclusion": "On regroupe les issues de même valeur.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1896",
+          "titre": "Exemple 3 — Un jeu de dé",
+          "enonce": "Un dé équilibré : on gagne le résultat s'il est pair, on perd $3$ euros sinon. Loi du gain $X$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Impair (probabilité $\\dfrac{1}{2}$) : $X = -3$."
+            },
+            {
+              "expr": "",
+              "texte": "$X = 2$, $4$ ou $6$, chacun avec probabilité $\\dfrac{1}{6}$."
+            }
+          ],
+          "reponse": "$P(X = -3) = \\dfrac{1}{2}$, $P(X = 2) = P(X = 4) = P(X = 6) = \\dfrac{1}{6}$.",
+          "conclusion": "Un gain peut être négatif.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-1920",
+          "titre": "Exemple 4 — Probabilité d'un seuil",
+          "enonce": "Avec la loi $P(X = 0) = 0{,}3$, $P(X = 1) = 0{,}3$, $P(X = 2) = 0{,}25$, $P(X = 3) = 0{,}15$, calculer $P(X \\geqslant 1)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(X \\geqslant 1) = 1 - P(X = 0) = 0{,}7$."
+            }
+          ],
+          "reponse": "$P(X \\geqslant 1) = 0{,}7$.",
+          "conclusion": "« Au moins » : on passe par le contraire.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-loterie-loi",
+          "titre": "Exemple 5 — Loterie",
+          "enonce": "$100$ billets à $2$ euros : $1$ gagne $50$ euros, $4$ gagnent $10$ euros. $X$ est le gain net. Loi de $X$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Gains nets : $48$, $8$, $-2$."
+            },
+            {
+              "expr": "",
+              "texte": "Probabilités : $\\dfrac{1}{100}$, $\\dfrac{4}{100}$, $\\dfrac{95}{100}$."
+            }
+          ],
+          "reponse": "$P(X = 48) = 0{,}01$, $P(X = 8) = 0{,}04$, $P(X = -2) = 0{,}95$.",
+          "conclusion": "Gain net = gain − prix du billet.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-somme-boules",
+          "titre": "Exemple 6 — Somme de deux tirages",
+          "enonce": "Urne de $3$ boules numérotées $1$, $2$, $3$ ; deux tirages avec remise ; $X$ = somme. Loi de $X$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Tableau $3 \\times 3$ des $9$ issues équiprobables."
+            },
+            {
+              "expr": "",
+              "texte": "Sommes : $2$ ($1$ fois), $3$ ($2$), $4$ ($3$), $5$ ($2$), $6$ ($1$)."
+            }
+          ],
+          "reponse": "$P(X = 4) = \\dfrac{1}{3}$, $P(X = 3) = P(X = 5) = \\dfrac{2}{9}$, $P(X = 2) = P(X = 6) = \\dfrac{1}{9}$.",
+          "conclusion": "La loi est symétrique autour de $4$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Gain à un jeu.",
+        "Nombre de défauts sur une pièce.",
+        "Nombre d'enfants par foyer."
+      ],
+      "erreursFrequentes": [
+        "Oublier une valeur possible de $X$.",
+        "Accepter une probabilité négative.",
+        "Confondre $P(X < a)$ et $P(X \\leqslant a)$.",
+        "Confondre gain et gain net."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier une valeur possible de $X$.",
+          "pourquoi": "On liste trop vite.",
+          "comment_detecter": "La somme vaut-elle $1$ ?",
+          "comment_eviter": "Vérifie toujours la somme."
+        },
+        {
+          "description": "Accepter une probabilité négative.",
+          "pourquoi": "On ne contrôle que la somme.",
+          "comment_detecter": "Chaque probabilité est-elle entre $0$ et $1$ ?",
+          "comment_eviter": "Une loi a des probabilités positives."
+        },
+        {
+          "description": "Confondre $P(X < a)$ et $P(X \\leqslant a)$.",
+          "pourquoi": "On inclut ou exclut $a$ à tort.",
+          "comment_detecter": "La valeur $a$ est-elle comprise ?",
+          "comment_eviter": "$\\leqslant$ inclut $a$."
+        },
+        {
+          "description": "Confondre gain et gain net.",
+          "pourquoi": "On oublie la mise.",
+          "comment_detecter": "As-tu retranché le prix ?",
+          "comment_eviter": "Gain net = gain − mise."
+        }
+      ],
+      "astuce": "Range toujours la loi dans un tableau (valeurs en ordre croissant) : les calculs de $P(X \\leqslant a)$ se font en additionnant de gauche à droite.",
+      "aRetenir": [
+        "Variables aléatoires réelles : une variable aléatoire associe un nombre à chaque issue.",
+        "Loi : valeurs et probabilités, de somme $1$.",
+        "$P(X \\leqslant a)$ : on additionne."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3.6,
+          -1.2,
+          10.0,
+          7.0
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": -2,
+            "y": 5.0,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 1,
+            "y": 3.0,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 5,
+            "y": 2.0,
+            "label": "",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -2,
+              "y": 0
+            },
+            "to": {
+              "x": -2,
+              "y": 5.0
+            },
+            "reveal": 2,
+            "tooltip": "P(X = -2) = 0,5"
+          },
+          {
+            "from": {
+              "x": 1,
+              "y": 0
+            },
+            "to": {
+              "x": 1,
+              "y": 3.0
+            },
+            "reveal": 2,
+            "tooltip": "P(X = 1) = 0,3"
+          },
+          {
+            "from": {
+              "x": 5,
+              "y": 0
+            },
+            "to": {
+              "x": 5,
+              "y": 2.0
+            },
+            "reveal": 2,
+            "tooltip": "P(X = 5) = 0,2"
+          }
+        ],
+        "texts": [
+          {
+            "x": -2,
+            "y": 5.5,
+            "label": "0,5",
+            "reveal": 2
+          },
+          {
+            "x": 1,
+            "y": 3.5,
+            "label": "0,3",
+            "reveal": 2
+          },
+          {
+            "x": 5,
+            "y": 2.5,
+            "label": "0,2",
+            "reveal": 2
+          },
+          {
+            "x": 2.2,
+            "y": 5.8,
+            "label": "P(X ⩽ 1) = 0,5 + 0,3 = 0,8",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Les valeurs possibles de X : −2, 1, 5",
+          "Leurs probabilités (diagramme en bâtons)",
+          "P(X ⩽ 1) : on additionne les bâtons concernés"
+        ],
+        "relation": "$P(X = -2) + P(X = 1) + P(X = 5) = 0{,}5 + 0{,}3 + 0{,}2 = 1$",
+        "alt": "Diagramme en bâtons de la loi de X : bâton de hauteur 0,5 en −2, 0,3 en 1, 0,2 en 5 ; P(X ⩽ 1) = 0,8.",
+        "explication": {
+          "resume": "La loi d'une variable aléatoire associe à chaque valeur possible sa probabilité ; la somme des probabilités vaut $1$. On la représente par un tableau ou un diagramme en bâtons.",
+          "lecture": [
+            "En abscisse : les valeurs de $X$ ; en hauteur : leurs probabilités (échelle $\\times 10$).",
+            "Trois valeurs possibles."
+          ],
+          "observations": [
+            "$0{,}5 + 0{,}3 + 0{,}2 = 1$.",
+            "$P(X \\leqslant 1) = 0{,}8$ et $P(X > 1) = 0{,}2$.",
+            "$\\{X \\leqslant 1\\}$ est un événement : « $X$ prend une valeur inférieure ou égale à $1$ »."
+          ],
+          "pieges": [
+            "Oublier une valeur, ou obtenir une somme différente de $1$."
+          ],
+          "aRetenir": [
+            "Loi : valeurs et probabilités, de somme $1$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        1884,
+        1889,
+        2056
+      ],
+      "topic_id": "variables-aleatoires-reelles",
+      "proprietes": [
+        "La somme des probabilités d'une loi vaut $1$."
+      ],
+      "vocabulaire_associe": [
+        "variable aléatoire",
+        "loi de probabilité",
+        "univers",
+        "événement",
+        "gain algébrique"
+      ],
+      "synonymes": [
+        "variable aléatoire",
+        "loi de probabilité",
+        "loi d'une variable aléatoire",
+        "P(X = a)"
+      ],
+      "objectifs_pedagogiques": [
+        "Modéliser par une variable aléatoire.",
+        "Déterminer une loi.",
+        "Utiliser les notations $P(X = a)$, $P(X \\leqslant a)$."
+      ],
+      "prerequis": [
+        "Probabilités (Seconde)",
+        "Probabilités conditionnelles et indépendance"
+      ],
+      "notions_liees": [
+        "esperance-–-variance-–-ecart-type",
+        "simulation-et-echantillonnage"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "probabilités",
+        "variable aléatoire",
+        "loi"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "variables-aleatoires-reelles-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Jeu de dé, seuil, loterie",
+          "description": "Trois exemples rédigés : loi d'un gain, probabilité « au moins », loi d'une loterie."
+        },
+        {
+          "id": "variables-aleatoires-reelles-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Somme de deux tirages, démonstration",
+          "description": "La loi d'une somme par un tableau et la démonstration de $P(X > a) = 1 - P(X \\leqslant a)$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que vaut $P(X = 1)$ sur la figure ?",
+          "piste": "$0{,}3$."
+        },
+        {
+          "apres": "methode",
+          "question": "$P(X = 0) = 0{,}4$ : $P(X \\neq 0)$ ?",
+          "piste": "$0{,}6$."
+        }
+      ],
+      "demonstration": {
+        "titre": "La somme des probabilités d'une loi vaut $1$",
+        "etapes": [
+          {
+            "titre": "Partition",
+            "texte": "Les événements $\\{X = x_1\\}, \\dots, \\{X = x_n\\}$ sont deux à deux incompatibles (une issue a une seule image)."
+          },
+          {
+            "titre": "Réunion",
+            "texte": "Leur réunion est l'univers $\\Omega$ (toute issue a une image parmi les $x_i$)."
+          },
+          {
+            "titre": "Somme",
+            "texte": "$P(X = x_1) + \\dots + P(X = x_n) = P(\\Omega) = 1$."
+          },
+          {
+            "titre": "Conséquence",
+            "texte": "$P(X > a) = 1 - P(X \\leqslant a)$, car ces deux événements sont contraires."
+          }
+        ],
+        "conclusion": "Les valeurs de $X$ découpent l'univers en une partition."
+      }
+    },
+    {
+      "id": "esperance-–-variance-–-ecart-type",
+      "title": "Espérance – Variance – Écart-type",
+      "schemaVersion": 2,
+      "intro": "L'espérance est la valeur moyenne d'une variable aléatoire « à long terme ». La variance et l'écart type mesurent à quel point ses valeurs s'écartent de cette moyenne : c'est une mesure du risque.",
+      "pourquoi": "Un jeu est-il équitable ? Quel placement est le plus risqué ? Quelle prime d'assurance fixer ? L'espérance et l'écart type répondent à ces questions.",
+      "explicationSimple": "Dé équilibré : $E(X) = \\dfrac{1 + 2 + \\dots + 6}{6} = 3{,}5$ ; $E(X^2) = \\dfrac{91}{6}$, donc $V(X) = \\dfrac{91}{6} - \\dfrac{49}{4} = \\dfrac{35}{12}$.",
+      "objectif": "À la fin de ce cours, tu sauras calculer l'espérance, la variance et l'écart type d'une variable aléatoire, utiliser la formule de König-Huygens, et interpréter ces nombres (jeu équitable, risque).",
+      "definition": "Soit $X$ de loi $P(X = x_i) = p_i$ ($1 \\leqslant i \\leqslant n$). L'espérance est $E(X) = \\sum p_i x_i$ ; la variance est $V(X) = \\sum p_i (x_i - E(X))^2$ ; l'écart type est $\\sigma(X) = \\sqrt{V(X)}$. Formule de König-Huygens : $V(X) = E(X^2) - E(X)^2$. Ces nombres correspondent à la moyenne, la variance et l'écart type d'une série statistique, les probabilités jouant le rôle des fréquences. Un jeu est équitable si l'espérance du gain algébrique est nulle, favorable au joueur si elle est positive.",
+      "definitions": {
+        "lycee": "Soit $X$ de loi $P(X = x_i) = p_i$ ($1 \\leqslant i \\leqslant n$). L'espérance est $E(X) = \\sum p_i x_i$ ; la variance est $V(X) = \\sum p_i (x_i - E(X))^2$ ; l'écart type est $\\sigma(X) = \\sqrt{V(X)}$. Formule de König-Huygens : $V(X) = E(X^2) - E(X)^2$. Ces nombres correspondent à la moyenne, la variance et l'écart type d'une série statistique, les probabilités jouant le rôle des fréquences. Un jeu est équitable si l'espérance du gain algébrique est nulle, favorable au joueur si elle est positive."
+      },
+      "intuition": "L'espérance est la moyenne obtenue en jouant un très grand nombre de fois ; l'écart type dit si les résultats sont plutôt regroupés ou très étalés.",
+      "reglesImportantes": [
+        "$E(X) = \\sum p_i x_i$ (moyenne pondérée).",
+        "König-Huygens : $V(X) = E(X^2) - E(X)^2$ ; $\\sigma(X) = \\sqrt{V(X)}$.",
+        "Définition de la variance : $V(X) = \\sum p_i (x_i - E(X))^2$ (moyenne des carrés des écarts à $E(X)$).",
+        "Les probabilités jouent le rôle des fréquences : $E$, $V$, $\\sigma$ sont l'analogue de $\\overline{x}$, $V$, $\\sigma$ d'une série statistique.",
+        "Jeu équitable : $E(\\text{gain}) = 0$ ; une variance est toujours positive ou nulle."
+      ],
+      "formules": [
+        {
+          "id": "formule-esperance",
+          "nom": "Espérance",
+          "expression": "$E(X) = \\sum p_i x_i$",
+          "quand_utiliser": "Pour une moyenne à long terme.",
+          "erreur_frequente": "Oublier les probabilités.",
+          "astuce": "Moyenne pondérée."
+        },
+        {
+          "id": "formule-konig-huygens",
+          "nom": "König-Huygens",
+          "expression": "$V(X) = E(X^2) - E(X)^2$",
+          "quand_utiliser": "Pour calculer une variance.",
+          "erreur_frequente": "Oublier de soustraire $E(X)^2$.",
+          "astuce": "Résultat toujours $\\geqslant 0$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer $E(X)$, $V(X)$, $\\sigma(X)$",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'écris la loi dans un tableau (valeurs, probabilités)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je calcule $E(X) = \\sum p_i x_i$ puis $E(X^2) = \\sum p_i x_i^2$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "$V(X) = E(X^2) - E(X)^2$, puis $\\sigma(X) = \\sqrt{V(X)}$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie $V(X) \\geqslant 0$ et j'interprète."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris la loi dans un tableau (valeurs, probabilités)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule $E(X) = \\sum p_i x_i$ puis $E(X^2) = \\sum p_i x_i^2$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "$V(X) = E(X^2) - E(X)^2$, puis $\\sigma(X) = \\sqrt{V(X)}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie $V(X) \\geqslant 0$ et j'interprète."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je multiplie chaque valeur par sa probabilité."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'additionne : c'est l'espérance."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je fais pareil avec les carrés, puis je retire le carré de l'espérance."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Racine carrée : l'écart type."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$E$, $E(X^2)$, $V$, $\\sigma$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$V \\geqslant 0$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-1942",
+          "titre": "Exemple 1 — Espérance d'un dé",
+          "enonce": "$X$ est le résultat d'un dé équilibré. Calculer $E(X)$.",
+          "calcul": [
+            {
+              "expr": "E(X) = \\dfrac{1 + 2 + 3 + 4 + 5 + 6}{6} = \\dfrac{21}{6}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$E(X) = 3{,}5$.",
+          "conclusion": "Valeur moyenne à long terme, pas forcément une valeur de $X$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1954",
+          "titre": "Exemple 2 — Jeu équitable ?",
+          "enonce": "Pile : on gagne $5$ euros ; face : on perd $5$ euros (pièce équilibrée). Le jeu est-il équitable ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$E(X) = 5 \\times \\dfrac{1}{2} + (-5) \\times \\dfrac{1}{2} = 0$."
+            }
+          ],
+          "reponse": "Oui, $E(X) = 0$ : le jeu est équitable.",
+          "conclusion": "Équitable : espérance nulle.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1966",
+          "titre": "Exemple 3 — Variance par König-Huygens",
+          "enonce": "Loi : $P(X = -2) = \\dfrac{1}{4}$, $P(X = 1) = \\dfrac{1}{2}$, $P(X = 4) = \\dfrac{1}{4}$. Calculer $V(X)$ et $\\sigma(X)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$E(X) = -\\dfrac{1}{2} + \\dfrac{1}{2} + 1 = 1$ ; $E(X^2) = 1 + \\dfrac{1}{2} + 4 = \\dfrac{11}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "$V(X) = \\dfrac{11}{2} - 1 = \\dfrac{9}{2}$."
+            }
+          ],
+          "reponse": "$V(X) = \\dfrac{9}{2}$ et $\\sigma(X) = \\dfrac{3\\sqrt{2}}{2}$.",
+          "conclusion": "On calcule $E(X^2)$ avec les carrés des valeurs.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-variance-definition",
+          "titre": "Exemple 4 — Variance par la définition",
+          "enonce": "Loi : $P(X = 0) = \\dfrac{1}{2}$, $P(X = 2) = \\dfrac{1}{4}$, $P(X = 4) = \\dfrac{1}{4}$. Calculer $V(X)$ avec la définition, puis contrôler avec König-Huygens.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$E(X) = 0 + \\dfrac{1}{2} + 1 = \\dfrac{3}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "$V(X) = \\dfrac{1}{2}\\left(\\dfrac{3}{2}\\right)^2 + \\dfrac{1}{4}\\left(\\dfrac{1}{2}\\right)^2 + \\dfrac{1}{4}\\left(\\dfrac{5}{2}\\right)^2 = \\dfrac{9}{8} + \\dfrac{1}{16} + \\dfrac{25}{16} = \\dfrac{11}{4}$."
+            },
+            {
+              "expr": "",
+              "texte": "Contrôle : $E(X^2) = 0 + 1 + 4 = 5$ et $5 - \\dfrac{9}{4} = \\dfrac{11}{4}$."
+            }
+          ],
+          "reponse": "$V(X) = \\dfrac{11}{4}$ et $\\sigma(X) = \\dfrac{\\sqrt{11}}{2}$.",
+          "conclusion": "Les deux formules donnent le même résultat.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-mise-equitable",
+          "titre": "Exemple 5 — Mise équitable",
+          "enonce": "On gagne $20$ euros avec la probabilité $\\dfrac{1}{5}$ et on perd une mise $m$ sinon. Quelle mise rend le jeu équitable ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$E(X) = 20 \\times \\dfrac{1}{5} - m \\times \\dfrac{4}{5} = 4 - \\dfrac{4m}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "$E(X) = 0 \\iff m = 5$."
+            }
+          ],
+          "reponse": "$m = 5$ euros.",
+          "conclusion": "On résout $E(X) = 0$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-risque",
+          "titre": "Exemple 6 — Même espérance, risques différents",
+          "enonce": "Jeu $A$ : $\\pm 1$ euro avec probabilité $\\dfrac{1}{2}$ ; jeu $B$ : $\\pm 10$ euros avec probabilité $\\dfrac{1}{2}$. Comparer espérances et écarts types.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$E(A) = E(B) = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "$V(A) = 1$, $V(B) = 100$ : $\\sigma(A) = 1$, $\\sigma(B) = 10$."
+            }
+          ],
+          "reponse": "Mêmes espérances, mais $B$ est dix fois plus dispersé : plus risqué.",
+          "conclusion": "L'écart type mesure le risque.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Prime d'assurance.",
+        "Comparer deux placements.",
+        "Fixer une mise équitable."
+      ],
+      "erreursFrequentes": [
+        "Faire la moyenne des valeurs sans les pondérer.",
+        "Confondre $V(X)$ et $E(X^2)$.",
+        "Oublier la racine carrée pour l'écart type.",
+        "Écrire $-1^2$ pour le carré de $-1$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Faire la moyenne des valeurs sans les pondérer.",
+          "pourquoi": "On oublie les probabilités.",
+          "comment_detecter": "Chaque valeur a-t-elle la même probabilité ?",
+          "comment_eviter": "$E(X) = \\sum p_i x_i$."
+        },
+        {
+          "description": "Confondre $V(X)$ et $E(X^2)$.",
+          "pourquoi": "On oublie le second terme de König-Huygens.",
+          "comment_detecter": "As-tu soustrait $E(X)^2$ ?",
+          "comment_eviter": "$V(X) = E(X^2) - E(X)^2$."
+        },
+        {
+          "description": "Oublier la racine carrée pour l'écart type.",
+          "pourquoi": "On confond variance et écart type.",
+          "comment_detecter": "L'écart type a-t-il l'unité de $X$ ?",
+          "comment_eviter": "$\\sigma(X) = \\sqrt{V(X)}$."
+        },
+        {
+          "description": "Écrire $-1^2$ pour le carré de $-1$.",
+          "pourquoi": "Priorité des opérations.",
+          "comment_detecter": "Que vaut $(-1)^2$ ?",
+          "comment_eviter": "Toujours des parenthèses : $(-1)^2 = 1$."
+        }
+      ],
+      "astuce": "Une variance négative signale toujours une erreur : contrôle ce signe avant de prendre la racine carrée.",
+      "aRetenir": [
+        "Espérance – variance – écart-type : $E(X) = \\sum p_i x_i$, $V(X) = E(X^2) - E(X)^2$, $\\sigma = \\sqrt{V}$.",
+        "Les probabilités jouent le rôle des fréquences.",
+        "Jeu équitable : $E(\\text{gain}) = 0$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3.6,
+          -1.2,
+          10.0,
+          7.0
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": -2,
+            "y": 5.0,
+            "label": ""
+          },
+          {
+            "x": 1,
+            "y": 3.0,
+            "label": ""
+          },
+          {
+            "x": 5,
+            "y": 2.0,
+            "label": ""
+          },
+          {
+            "x": 0.3,
+            "y": 0,
+            "label": "E(X)",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -2,
+              "y": 0
+            },
+            "to": {
+              "x": -2,
+              "y": 5.0
+            }
+          },
+          {
+            "from": {
+              "x": 1,
+              "y": 0
+            },
+            "to": {
+              "x": 1,
+              "y": 3.0
+            }
+          },
+          {
+            "from": {
+              "x": 5,
+              "y": 0
+            },
+            "to": {
+              "x": 5,
+              "y": 2.0
+            }
+          },
+          {
+            "from": {
+              "x": 0.3,
+              "y": 0
+            },
+            "to": {
+              "x": 0.3,
+              "y": 5.8
+            },
+            "reveal": 2,
+            "dashed": true,
+            "tooltip": "E(X) = 0,3"
+          },
+          {
+            "from": {
+              "x": -2,
+              "y": -0.6
+            },
+            "to": {
+              "x": 5,
+              "y": -0.6
+            },
+            "reveal": 3,
+            "tooltip": "dispersion autour de E(X)"
+          }
+        ],
+        "texts": [
+          {
+            "x": 0.9,
+            "y": 6.2,
+            "label": "E(X) = 0,3 : point d'équilibre",
+            "reveal": 2
+          },
+          {
+            "x": 1.6,
+            "y": -1.0,
+            "label": "σ(X) ≈ 2,69",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "La loi de X",
+          "L'espérance : moyenne pondérée, point d'équilibre",
+          "L'écart type mesure la dispersion"
+        ],
+        "relation": "$E(X) = \\sum x_i\\,P(X = x_i)$ ; $V(X) = E(X^2) - E(X)^2$ ; $\\sigma(X) = \\sqrt{V(X)}$",
+        "alt": "Diagramme en bâtons de la loi de X avec la droite verticale x = E(X) = 0,3, point d'équilibre des bâtons ; l'écart type σ(X) ≈ 2,69 mesure la dispersion des valeurs autour de E(X).",
+        "explication": {
+          "resume": "L'espérance est la moyenne des valeurs pondérées par leurs probabilités : c'est la valeur moyenne obtenue sur un très grand nombre de répétitions. La variance et l'écart type mesurent la dispersion autour de cette moyenne.",
+          "lecture": [
+            "Si les bâtons étaient des masses posées sur une règle, celle-ci serait en équilibre en $x = E(X)$.",
+            "Les valeurs s'étalent de $-2$ à $5$."
+          ],
+          "observations": [
+            "$E(X) = -1 + 0{,}3 + 1 = 0{,}3$.",
+            "$E(X^2) = 2 + 0{,}3 + 5 = 7{,}3$, $V(X) = 7{,}3 - 0{,}09 = 7{,}21$.",
+            "$\\sigma(X) = \\sqrt{7{,}21} \\approx 2{,}69$."
+          ],
+          "pieges": [
+            "Faire la moyenne simple des valeurs sans les pondérer."
+          ],
+          "aRetenir": [
+            "$E$ : position moyenne ; $\\sigma$ : dispersion, dans l'unité de $X$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        70201,
+        1945,
+        2074
+      ],
+      "topic_id": "esperance-–-variance-–-ecart-type",
+      "proprietes": [
+        "$V(X) = E(X^2) - E(X)^2$."
+      ],
+      "vocabulaire_associe": [
+        "espérance",
+        "variance",
+        "écart type",
+        "jeu équitable"
+      ],
+      "synonymes": [
+        "espérance",
+        "variance",
+        "écart type",
+        "formule de König-Huygens",
+        "jeu équitable"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer $E$, $V$, $\\sigma$.",
+        "Utiliser la formule de König-Huygens.",
+        "Interpréter : équité, risque."
+      ],
+      "prerequis": [
+        "Variables aléatoires réelles",
+        "Moyenne et écart type (statistiques)"
+      ],
+      "notions_liees": [
+        "variables-aleatoires-reelles",
+        "simulation-et-echantillonnage"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "probabilités",
+        "espérance",
+        "variance"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "esperance-–-variance-–-ecart-type-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "König-Huygens, variance par la définition, mise équitable",
+          "description": "Trois exemples rédigés : variance par König-Huygens, variance par la définition, mise rendant un jeu équitable."
+        },
+        {
+          "id": "esperance-–-variance-–-ecart-type-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Risque et écart type, démonstration de König-Huygens",
+          "description": "La comparaison de deux jeux de même espérance et la démonstration de la formule de König-Huygens."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que vaut $E(X)$ sur la figure ?",
+          "piste": "$0{,}3$."
+        },
+        {
+          "apres": "methode",
+          "question": "$V(X) = 4$ : $\\sigma(X)$ ?",
+          "piste": "$2$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Formule de König-Huygens",
+        "etapes": [
+          {
+            "titre": "Définition",
+            "texte": "$V(X) = \\sum p_i (x_i - m)^2$ avec $m = E(X)$."
+          },
+          {
+            "titre": "Développement",
+            "texte": "$(x_i - m)^2 = x_i^2 - 2mx_i + m^2$, donc $V(X) = \\sum p_i x_i^2 - 2m\\sum p_i x_i + m^2\\sum p_i$."
+          },
+          {
+            "titre": "Simplification",
+            "texte": "$\\sum p_i x_i = m$ et $\\sum p_i = 1$ : $V(X) = E(X^2) - 2m^2 + m^2$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$V(X) = E(X^2) - E(X)^2$."
+          }
+        ],
+        "conclusion": "Une identité remarquable et deux propriétés de la loi suffisent."
+      }
+    },
+    {
+      "id": "simulation-et-echantillonnage",
+      "title": "Loi des grands nombres et simulation",
+      "schemaVersion": 2,
+      "intro": "On peut simuler une expérience aléatoire (calculatrice, tableur) et la répéter un grand nombre de fois. On obtient alors une série statistique : ses fréquences et sa moyenne se rapprochent des probabilités et de l'espérance du modèle. C'est la loi des grands nombres.",
+      "pourquoi": "La loi des grands nombres relie les statistiques (fréquences observées) et les probabilités (modèle) : elle permet d'estimer une probabilité inconnue, ou de mettre en doute un modèle quand les observations s'en écartent trop.",
+      "explicationSimple": "On lance une pièce équilibrée : sur $10$ lancers on peut obtenir $7$ piles (fréquence $0{,}7$) ; sur $10\\,000$ lancers, la fréquence de pile est très proche de $0{,}5$.",
+      "objectif": "À la fin de ce cours, tu sauras relier fréquences observées et probabilités, moyenne observée et espérance, estimer une probabilité par une fréquence sur un grand nombre d'essais, et expliquer pourquoi un petit nombre d'essais ne suffit pas.",
+      "definition": "Après avoir choisi un modèle pour une expérience aléatoire, on peut la simuler : $N$ simulations donnent une série statistique d'effectif $N$. Loi des grands nombres : pour une expérience donnée, les fréquences des issues calculées sur $N$ simulations se rapprochent des probabilités de ces issues lorsque $N$ devient grand. En conséquence, pour une variable aléatoire $X$, la moyenne des valeurs observées se rapproche de l'espérance $E(X)$. Pour un petit nombre d'essais, les fréquences peuvent s'écarter nettement des probabilités : elles fluctuent d'une série à l'autre.",
+      "definitions": {
+        "lycee": "Après avoir choisi un modèle pour une expérience aléatoire, on peut la simuler : $N$ simulations donnent une série statistique d'effectif $N$. Loi des grands nombres : pour une expérience donnée, les fréquences des issues calculées sur $N$ simulations se rapprochent des probabilités de ces issues lorsque $N$ devient grand. En conséquence, pour une variable aléatoire $X$, la moyenne des valeurs observées se rapproche de l'espérance $E(X)$. Pour un petit nombre d'essais, les fréquences peuvent s'écarter nettement des probabilités : elles fluctuent d'une série à l'autre."
+      },
+      "intuition": "Un seul essai ne dit presque rien ; des milliers d'essais dessinent les probabilités du modèle.",
+      "reglesImportantes": [
+        "Simuler $N$ fois une expérience donne une série statistique d'effectif $N$.",
+        "Loi des grands nombres : quand $N$ devient grand, la fréquence d'une issue se rapproche de sa probabilité.",
+        "La moyenne observée des valeurs d'une variable aléatoire $X$ se rapproche de $E(X)$.",
+        "Pour $N$ petit, les fréquences fluctuent beaucoup d'une série à l'autre.",
+        "Une fréquence sur un grand nombre d'essais permet d'estimer une probabilité inconnue."
+      ],
+      "formules": [
+        {
+          "id": "formule-frequence",
+          "nom": "Fréquence observée",
+          "expression": "$f = \\dfrac{\\text{nombre d'apparitions}}{N}$",
+          "quand_utiliser": "Pour estimer une probabilité.",
+          "erreur_frequente": "Diviser par le mauvais effectif.",
+          "astuce": "Une fréquence est toujours entre $0$ et $1$."
+        },
+        {
+          "id": "formule-moyenne-observee",
+          "nom": "Moyenne observée",
+          "expression": "$\\overline{x} = \\dfrac{x_1 + \\dots + x_N}{N}$",
+          "quand_utiliser": "Pour estimer $E(X)$.",
+          "erreur_frequente": "Confondre $\\overline{x}$ et $E(X)$.",
+          "astuce": "$\\overline{x}$ varie d'une série à l'autre, $E(X)$ est fixe."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Relier une simulation au modèle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je précise le modèle : issues et probabilités (ou loi de $X$ et $E(X)$)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je calcule les fréquences (ou la moyenne) observées sur les $N$ essais."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je compare aux probabilités (ou à $E(X)$), en tenant compte de la taille $N$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Si $N$ est grand et l'écart important, je mets le modèle en doute."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je précise le modèle : issues et probabilités (ou loi de $X$ et $E(X)$)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule les fréquences (ou la moyenne) observées sur les $N$ essais."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je compare aux probabilités (ou à $E(X)$), en tenant compte de la taille $N$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Si $N$ est grand et l'écart important, je mets le modèle en doute."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris les probabilités du modèle."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule les fréquences observées."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je compare."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Plus il y a d'essais, plus elles doivent être proches."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Fréquences observées."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Grand $N$ : proches des probabilités."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-moyenne-de",
+          "titre": "Exemple 1 — Moyenne de lancers",
+          "enonce": "On lance $1\\,000$ fois un dé équilibré. Autour de quelle valeur la moyenne des résultats devrait-elle se trouver ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$E(X) = \\dfrac{1 + 2 + 3 + 4 + 5 + 6}{6} = 3{,}5$ ; pour un grand nombre de lancers, la moyenne observée en est proche."
+            }
+          ],
+          "reponse": "Autour de $3{,}5$.",
+          "conclusion": "C'est la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-frequence-pile",
+          "titre": "Exemple 2 — Fréquence de pile",
+          "enonce": "On lance $10\\,000$ fois une pièce équilibrée. Que peut-on attendre de la fréquence de pile ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "La probabilité de pile est $0{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "D'après la loi des grands nombres, la fréquence observée en est proche."
+            }
+          ],
+          "reponse": "Une fréquence proche de $0{,}5$.",
+          "conclusion": "Sur $10$ lancers seulement, on ne pourrait rien affirmer.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-estimer-probabilite",
+          "titre": "Exemple 3 — Estimer une probabilité inconnue",
+          "enonce": "Une punaise lancée $2\\,000$ fois est tombée $1\\,240$ fois sur la pointe. Estimer la probabilité qu'elle tombe sur la pointe.",
+          "calcul": [
+            {
+              "expr": "f = \\dfrac{1\\,240}{2\\,000} = 0{,}62",
+              "texte": ""
+            }
+          ],
+          "reponse": "Environ $0{,}62$.",
+          "conclusion": "Aucun calcul ne donne cette probabilité : seule l'expérience répétée permet de l'estimer.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-frequences-loi",
+          "titre": "Exemple 4 — Fréquences et loi d'une variable aléatoire",
+          "enonce": "$X$ est le nombre de piles en deux lancers d'une pièce équilibrée. Sur $400$ simulations, on a obtenu $X = 0$ : $104$ fois, $X = 1$ : $194$ fois, $X = 2$ : $102$ fois. Comparer au modèle.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Fréquences : $0{,}26$ ; $0{,}485$ ; $0{,}255$. Modèle : $0{,}25$ ; $0{,}5$ ; $0{,}25$."
+            },
+            {
+              "expr": "",
+              "texte": "Moyenne observée : $\\dfrac{0 \\times 104 + 1 \\times 194 + 2 \\times 102}{400} = 0{,}995$, proche de $E(X) = 1$."
+            }
+          ],
+          "reponse": "Les fréquences et la moyenne observées sont proches des probabilités et de l'espérance.",
+          "conclusion": "La moyenne observée se calcule avec les fréquences comme l'espérance avec les probabilités.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-mettre-en-doute",
+          "titre": "Exemple 5 — Un dé suspect",
+          "enonce": "Sur $1\\,000$ lancers d'un dé, le $6$ est sorti $248$ fois. Le dé semble-t-il équilibré ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Fréquence observée : $0{,}248$ ; probabilité si le dé est équilibré : $\\dfrac{1}{6} \\approx 0{,}167$."
+            },
+            {
+              "expr": "",
+              "texte": "Sur un aussi grand nombre de lancers, l'écart est très important."
+            }
+          ],
+          "reponse": "Non : le dé semble truqué en faveur du $6$.",
+          "conclusion": "Le chapitre 9 précise cette décision avec un intervalle de fluctuation.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-fluctuation",
+          "titre": "Exemple 6 — Petits et grands échantillons",
+          "enonce": "Des élèves simulent chacun $20$ lancers d'une pièce, puis chacun $2\\,000$ lancers. Comment varient les fréquences de pile d'un élève à l'autre ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Avec $20$ lancers, les fréquences peuvent aller par exemple de $0{,}3$ à $0{,}7$."
+            },
+            {
+              "expr": "",
+              "texte": "Avec $2\\,000$ lancers, elles sont toutes proches de $0{,}5$."
+            }
+          ],
+          "reponse": "Les fréquences fluctuent beaucoup moins pour les grandes séries.",
+          "conclusion": "On estime d'autant mieux une probabilité que le nombre d'essais est grand.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Estimer la probabilité qu'une punaise tombe sur la pointe.",
+        "Contrôler l'équilibre d'un dé.",
+        "Simuler un jeu avant d'y jouer."
+      ],
+      "erreursFrequentes": [
+        "Croire que la fréquence observée vaut exactement la probabilité.",
+        "Conclure avec très peu d'essais.",
+        "Croire qu'après plusieurs piles, face est « plus probable ».",
+        "Diviser par le mauvais effectif."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Croire que la fréquence observée vaut exactement la probabilité.",
+          "pourquoi": "On confond estimation et valeur exacte.",
+          "comment_detecter": "Deux séries donnent-elles le même résultat ?",
+          "comment_eviter": "Elle fluctue autour de la probabilité."
+        },
+        {
+          "description": "Conclure avec très peu d'essais.",
+          "pourquoi": "On se fie à quelques lancers.",
+          "comment_detecter": "Combien d'essais ?",
+          "comment_eviter": "Il faut un grand nombre $N$."
+        },
+        {
+          "description": "Croire qu'après plusieurs piles, face est « plus probable ».",
+          "pourquoi": "On pense que la pièce « se souvient ».",
+          "comment_detecter": "Les lancers sont-ils indépendants ?",
+          "comment_eviter": "Chaque lancer a toujours la probabilité $0{,}5$."
+        },
+        {
+          "description": "Diviser par le mauvais effectif.",
+          "pourquoi": "On divise par le nombre d'issues possibles.",
+          "comment_detecter": "Par quoi divise-t-on une fréquence ?",
+          "comment_eviter": "Par le nombre total d'essais $N$."
+        }
+      ],
+      "astuce": "Pour simuler un dé au tableur, utilise ALEA.ENTRE.BORNES(1;6) et recopie la formule sur des milliers de lignes.",
+      "aRetenir": [
+        "Loi des grands nombres : les fréquences se rapprochent des probabilités quand $N$ devient grand.",
+        "La moyenne observée se rapproche de l'espérance.",
+        "Petit $N$ : fortes fluctuations."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -0.6,
+          11.4,
+          6.8
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 0.05,
+            "y": 1.0,
+            "label": "",
+            "reveal": 1
+          },
+          {
+            "x": 0.1,
+            "y": 1.5,
+            "label": "",
+            "reveal": 1
+          },
+          {
+            "x": 0.15,
+            "y": 3.0,
+            "label": "",
+            "reveal": 1
+          },
+          {
+            "x": 0.25,
+            "y": 3.0,
+            "label": "",
+            "reveal": 1
+          },
+          {
+            "x": 0.4,
+            "y": 3.125,
+            "label": "",
+            "reveal": 1
+          },
+          {
+            "x": 0.6,
+            "y": 3.167,
+            "label": "",
+            "reveal": 1
+          },
+          {
+            "x": 0.9,
+            "y": 3.333,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 1.25,
+            "y": 3.4,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 1.75,
+            "y": 3.371,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 2.5,
+            "y": 3.42,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 3.5,
+            "y": 3.343,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 4.5,
+            "y": 3.4,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 6.0,
+            "y": 3.392,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 8.0,
+            "y": 3.394,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 10.0,
+            "y": 3.525,
+            "label": "",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 3.5
+            },
+            "to": {
+              "x": 10.4,
+              "y": 3.5
+            },
+            "reveal": 3,
+            "dashed": true,
+            "tooltip": "E(X) = 3,5"
+          }
+        ],
+        "texts": [
+          {
+            "x": 8.6,
+            "y": 4.0,
+            "label": "E(X) = 3,5",
+            "reveal": 3
+          },
+          {
+            "x": 9.6,
+            "y": 0.4,
+            "label": "lancers (× 20)"
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Moyenne des premiers lancers : très variable",
+          "Avec 200 lancers, elle se stabilise",
+          "Elle s'approche de l'espérance 3,5"
+        ],
+        "relation": "Moyenne observée sur un grand échantillon $\\approx E(X)$",
+        "alt": "Moyenne cumulée des résultats de 200 lancers simulés d'un dé : très variable au début, elle se stabilise autour de la droite horizontale y = 3,5, valeur de l'espérance.",
+        "explication": {
+          "resume": "En simulant un grand nombre de répétitions, la moyenne observée des valeurs de $X$ se rapproche de l'espérance $E(X)$ : c'est le principe de l'estimation d'une espérance par un échantillon.",
+          "lecture": [
+            "En abscisse : le nombre de lancers (divisé par $20$) ; en ordonnée : la moyenne des résultats obtenus.",
+            "Simulation reproductible (générateur pseudo-aléatoire initialisé)."
+          ],
+          "observations": [
+            "Les premières moyennes varient beaucoup.",
+            "Après $200$ lancers, la moyenne est proche de $3{,}5$.",
+            "Plus l'échantillon est grand, moins la moyenne fluctue."
+          ],
+          "pieges": [
+            "Croire que la moyenne vaut exactement $3{,}5$ : elle fluctue autour."
+          ],
+          "aRetenir": [
+            "L'espérance est la moyenne « à long terme »."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        70301,
+        88401,
+        88402
+      ],
+      "topic_id": "simulation-et-echantillonnage",
+      "proprietes": [
+        "Pour un grand nombre d'essais, les fréquences observées sont proches des probabilités."
+      ],
+      "vocabulaire_associe": [
+        "simulation",
+        "fréquence",
+        "loi des grands nombres",
+        "moyenne observée",
+        "fluctuation"
+      ],
+      "synonymes": [
+        "loi des grands nombres",
+        "simulation",
+        "fréquence et probabilité",
+        "moyenne observée et espérance",
+        "fluctuation"
+      ],
+      "objectifs_pedagogiques": [
+        "Relier fréquences et probabilités.",
+        "Relier moyenne observée et espérance.",
+        "Estimer une probabilité par une fréquence."
+      ],
+      "prerequis": [
+        "Espérance – Variance – Écart-type",
+        "Fréquences (statistiques)"
+      ],
+      "notions_liees": [
+        "variables-aleatoires-reelles",
+        "esperance-–-variance-–-ecart-type"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "probabilités",
+        "simulation",
+        "statistiques"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "simulation-et-echantillonnage-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Estimer une probabilité, fréquences et loi, dé suspect",
+          "description": "Trois exemples rédigés : estimation par une fréquence, comparaison d'une simulation à une loi, mise en doute d'un dé."
+        },
+        {
+          "id": "simulation-et-echantillonnage-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Fluctuation, justification",
+          "description": "La fluctuation selon la taille de la série et la justification du lien entre moyenne observée et espérance."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Vers quelle valeur la moyenne se stabilise-t-elle ?",
+          "piste": "$3{,}5$."
+        },
+        {
+          "apres": "methode",
+          "question": "$312$ succès sur $1\\,000$ essais : fréquence ?",
+          "piste": "$0{,}312$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Pourquoi la moyenne observée se rapproche de l'espérance",
+        "etapes": [
+          {
+            "titre": "Moyenne et fréquences",
+            "texte": "Si la valeur $x_i$ apparaît $n_i$ fois sur $N$ essais, $\\overline{x} = \\dfrac{\\sum n_i x_i}{N} = \\sum f_i x_i$ avec $f_i = \\dfrac{n_i}{N}$."
+          },
+          {
+            "titre": "Loi des grands nombres",
+            "texte": "Quand $N$ devient grand, chaque fréquence $f_i$ se rapproche de la probabilité $p_i = P(X = x_i)$."
+          },
+          {
+            "titre": "Conséquence",
+            "texte": "La somme $\\sum f_i x_i$ se rapproche alors de $\\sum p_i x_i$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$\\sum p_i x_i = E(X)$ : la moyenne observée se rapproche de l'espérance."
+          }
+        ],
+        "conclusion": "La moyenne d'une série s'écrit avec les fréquences ; l'espérance s'écrit de la même façon avec les probabilités."
+      }
+    }
+  ]
+}

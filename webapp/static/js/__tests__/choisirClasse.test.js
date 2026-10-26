@@ -38,14 +38,14 @@ function clickCurriculum(label) {
   cta.click();
 }
 
-describe("choisirClasse.js — sélection sans ?next= (comportement historique)", () => {
-  it("persiste la classe et retourne vers index.html", async () => {
+describe("choisirClasse.js — sélection sans ?next= (page ouverte directement)", () => {
+  it("persiste la classe et ouvre le tableau de bord de cette classe", async () => {
     localStorage.removeItem(CLASS_LEVEL_KEY);
     await mountChoisirClasse();
     await withMockedLocation(async () => {
       clickCurriculum("Première");
       expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("premiere");
-      expect(window.location.href).toBe("index.html");
+      expect(window.location.href).toBe("/dashboard.html");
     });
   });
 });
@@ -67,19 +67,19 @@ describe("choisirClasse.js — Phase 5 (onboarding) : détour depuis auth.js via
     });
   });
 
-  it("next externe (open redirect) : ignoré, retombe sur le comportement historique (index.html)", async () => {
+  it("next externe (open redirect) : ignoré, retombe sur le tableau de bord interne", async () => {
     await mountChoisirClasse("/choisir-classe.html?next=https://evil.example.com");
     await withMockedLocation(async () => {
       clickCurriculum("Seconde");
-      expect(window.location.href).toBe("index.html");
+      expect(window.location.href).toBe("/dashboard.html");
     });
   });
 
-  it("next inconnu (hors liste blanche) : ignoré, retombe sur index.html", async () => {
+  it("next inconnu (hors liste blanche) : ignoré, retombe sur le tableau de bord interne", async () => {
     await mountChoisirClasse("/choisir-classe.html?next=admin.html");
     await withMockedLocation(async () => {
       clickCurriculum("Seconde");
-      expect(window.location.href).toBe("index.html");
+      expect(window.location.href).toBe("/dashboard.html");
     });
   });
 
@@ -90,5 +90,50 @@ describe("choisirClasse.js — Phase 5 (onboarding) : détour depuis auth.js via
       clickCurriculum("Première");
       expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("premiere");
     });
+  });
+});
+
+// ── Publication des classes (chantier "préparation de la Quatrième") : le
+// serveur ne renvoie jamais une classe non publiée dans /api/curricula. Le
+// sélecteur ne doit afficher QUE ce que l'API renvoie — aucune classe codée
+// en dur, et une valeur forcée dans localStorage ne fait jamais apparaître
+// de carte (l'accès reste refusé côté serveur, voir
+// tests/test_curriculum_publication.py).
+describe("choisirClasse.js — classes non publiées", () => {
+  it("n'affiche que les classes renvoyées par l'API, même si localStorage contient une classe non publiée", async () => {
+    localStorage.setItem(CLASS_LEVEL_KEY, "quatrieme");
+    await mountChoisirClasse();
+    const titles = [...document.querySelectorAll(".cursus-card-title")].map((el) => el.textContent);
+    expect(titles).toEqual(["Seconde", "Première"]);
+    expect(document.querySelector(".cursus-card.is-current")).toBeNull();
+    localStorage.removeItem(CLASS_LEVEL_KEY);
+  });
+});
+
+// Chantier "Quatrième — chapitre pilote" : en prévisualisation locale
+// (NOVAMATH_PREVIEW_CURRICULA=quatrieme), le serveur renvoie la Quatrième en
+// tête de /api/curricula — le sélecteur l'affiche alors avec les mêmes cartes
+// que les autres classes, sans aucun code dédié.
+describe("choisirClasse.js — Quatrième en prévisualisation", () => {
+  it("affiche la Quatrième en premier quand l'API la renvoie, et la sélection est persistée", async () => {
+    localStorage.removeItem(CLASS_LEVEL_KEY);
+    window.history.pushState({}, "", "/choisir-classe.html");
+    document.body.innerHTML = loadPageBody("choisir-classe.html");
+    mockGetCurricula.mockReset();
+    mockGetCurricula.mockResolvedValue([
+      { classLevel: "quatrieme", label: "Quatrième", totalExercises: 324, chapters: 1, notions: 5 },
+      ...CURRICULA,
+    ]);
+    vi.resetModules();
+    await import("../choisirClasse.js");
+    await flushPromises();
+    await flushPromises();
+    const titles = [...document.querySelectorAll(".cursus-card-title")].map((el) => el.textContent);
+    expect(titles).toEqual(["Quatrième", "Seconde", "Première"]);
+    await withMockedLocation(async () => {
+      clickCurriculum("Quatrième");
+      expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("quatrieme");
+    });
+    localStorage.removeItem(CLASS_LEVEL_KEY);
   });
 });

@@ -1,0 +1,2822 @@
+{
+  "chapterId": "Chapitre_8",
+  "title": "Théorème de Pythagore",
+  "icon": "ruler",
+  "notions": [
+    {
+      "id": "pythagore-hypotenuse-et-egalite",
+      "title": "Triangle rectangle et égalité de Pythagore",
+      "schemaVersion": 2,
+      "intro": "Dans un triangle rectangle, les trois côtés ne sont pas indépendants : leurs longueurs sont liées par une égalité connue depuis l'Antiquité. Avant de s'en servir pour calculer, il faut savoir repérer l'angle droit, reconnaître l'hypoténuse et écrire l'égalité sans se tromper de côté.",
+      "pourquoi": "Ce théorème permet de calculer une longueur qu'on ne peut pas mesurer directement (la diagonale d'un écran, la hauteur atteinte par une échelle, une distance sur une carte) et de vérifier qu'un angle est droit. C'est aussi l'un des premiers grands théorèmes que l'on démontre au collège.",
+      "explicationSimple": "Imagine que l'on construise un carré sur chacun des trois côtés d'un triangle rectangle. Le théorème de Pythagore dit que l'aire du grand carré, construit sur l'hypoténuse, est exactement égale à la somme des aires des deux autres carrés. Avec des côtés de l'angle droit de $3$ cm et $4$ cm, les petits carrés ont pour aires $9$ cm$^2$ et $16$ cm$^2$ : le grand carré a une aire de $25$ cm$^2$, donc son côté mesure $5$ cm.",
+      "objectif": "À la fin de cette leçon, tu sauras repérer l'angle droit et l'hypoténuse d'un triangle rectangle, énoncer le théorème de Pythagore et écrire l'égalité de Pythagore quels que soient les noms des sommets.",
+      "definition": "Dans un triangle rectangle, l'hypoténuse est le côté opposé à l'angle droit. C'est le plus long des trois côtés ; les deux autres côtés sont appelés les côtés de l'angle droit.",
+      "definitions": {
+        "college": "L'hypoténuse est le côté situé en face de l'angle droit : c'est le plus grand côté du triangle rectangle.",
+        "lycee": "Dans un triangle rectangle, l'hypoténuse est le côté opposé à l'angle droit. C'est le plus long des trois côtés ; les deux autres côtés sont appelés les côtés de l'angle droit."
+      },
+      "intuition": "L'hypoténuse « referme » le triangle : elle dépend des deux côtés de l'angle droit à la fois. Mais elle ne vaut pas leur somme ($3 + 4 \\neq 5$) : ce sont les carrés qui s'additionnent ($9 + 16 = 25$).",
+      "reglesImportantes": [
+        "Théorème de Pythagore : si un triangle est rectangle, alors le carré de l'hypoténuse est égal à la somme des carrés des côtés de l'angle droit.",
+        "Si le triangle $ABC$ est rectangle en $A$, son hypoténuse est $[BC]$ et $BC^2 = AB^2 + AC^2$.",
+        "Dans l'égalité de Pythagore, l'hypoténuse est seule dans un membre ; les deux côtés de l'angle droit sont dans l'autre.",
+        "On n'applique le théorème qu'à un triangle dont on sait qu'il est rectangle (par l'énoncé, le codage ou une propriété démontrée), jamais parce que la figure « a l'air » rectangle."
+      ],
+      "formules": [
+        {
+          "id": "formule-egalite-pythagore",
+          "nom": "Égalité de Pythagore",
+          "expression": "$BC^2 = AB^2 + AC^2$",
+          "quand_utiliser": "Le triangle $ABC$ est rectangle en $A$ : $[BC]$ est l'hypoténuse.",
+          "erreur_frequente": "Isoler un côté de l'angle droit, par exemple écrire $AB^2 = AC^2 + BC^2$.",
+          "astuce": "La lettre de l'angle droit, $A$, n'apparaît pas dans le nom de l'hypoténuse $BC$."
+        },
+        {
+          "id": "formule-pythagore-lettres",
+          "nom": "Version à retenir avec des lettres",
+          "expression": "$c^2 = a^2 + b^2$",
+          "quand_utiliser": "Pour mémoriser la relation : $a$ et $b$ sont les longueurs des côtés de l'angle droit, $c$ celle de l'hypoténuse.",
+          "erreur_frequente": "Croire que $c$ désigne toujours le dernier côté cité dans l'énoncé.",
+          "astuce": "$c$ est toujours la plus grande des trois longueurs."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Écrire l'égalité de Pythagore",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère l'angle droit : l'énoncé (« rectangle en $A$ ») ou le codage (petit carré) indique son sommet."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Je nomme l'hypoténuse : c'est le côté opposé à ce sommet, le seul dont le nom ne contient pas sa lettre."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "J'écris l'égalité : (hypoténuse)$^2$ = (premier côté de l'angle droit)$^2$ + (second côté de l'angle droit)$^2$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie : chaque côté apparaît une seule fois et l'hypoténuse est seule dans son membre."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère l'angle droit : l'énoncé (« rectangle en $A$ ») ou le codage (petit carré) indique son sommet."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Je nomme l'hypoténuse : c'est le côté opposé à ce sommet, le seul dont le nom ne contient pas sa lettre."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "J'écris l'égalité : (hypoténuse)$^2$ = (premier côté de l'angle droit)$^2$ + (second côté de l'angle droit)$^2$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie : chaque côté apparaît une seule fois et l'hypoténuse est seule dans son membre."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je lis l'énoncé et je cherche les mots « rectangle en » : la lettre qui suit est le sommet de l'angle droit. Sur une figure, je cherche le petit carré."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Je pose mon doigt sur ce sommet : le côté que mon doigt ne touche pas, en face, est l'hypoténuse."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "J'écris d'abord l'hypoténuse au carré, puis le signe $=$, puis les carrés des deux autres côtés séparés par $+$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je relis : trois côtés différents, l'hypoténuse seule à gauche, et des carrés partout."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Rectangle en $A$ : hypoténuse $[BC]$ (sans la lettre $A$)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$BC^2 = AB^2 + AC^2$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-hypotenuse-rst",
+          "titre": "Exemple 1 — Nommer l'hypoténuse et écrire l'égalité",
+          "enonce": "Le triangle $RST$ est rectangle en $S$. Nommer son hypoténuse et écrire l'égalité de Pythagore.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "L'angle droit est en $S$ : le côté opposé à $S$ est $[RT]$, c'est l'hypoténuse."
+            },
+            {
+              "expr": "",
+              "texte": "Les côtés de l'angle droit sont $[SR]$ et $[ST]$ : ils partent tous les deux de $S$."
+            },
+            {
+              "expr": "RT^2 = SR^2 + ST^2",
+              "texte": "On écrit l'égalité en isolant l'hypoténuse."
+            }
+          ],
+          "reponse": "l'hypoténuse est $[RT]$ et $RT^2 = SR^2 + ST^2$.",
+          "conclusion": "Le nom de l'hypoténuse, $RT$, ne contient pas la lettre $S$ de l'angle droit : c'est un bon moyen de contrôle.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-carre-hypotenuse-def",
+          "titre": "Exemple 2 — Calculer le carré de l'hypoténuse",
+          "enonce": "Le triangle $DEF$ est rectangle en $E$, avec $DE = 5$ cm et $EF = 12$ cm. Calculer $DF^2$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le triangle est rectangle en $E$ : l'hypoténuse est $[DF]$."
+            },
+            {
+              "expr": "DF^2 = DE^2 + EF^2",
+              "texte": "On écrit l'égalité de Pythagore."
+            },
+            {
+              "expr": "DF^2 = 5^2 + 12^2 = 25 + 144 = 169",
+              "texte": "On remplace par les longueurs connues."
+            }
+          ],
+          "reponse": "$DF^2 = 169$.",
+          "conclusion": "Pour obtenir $DF$ lui-même, il faut trouver le nombre positif dont le carré vaut $169$ : c'est l'objet de la leçon sur les racines carrées (ici $DF = 13$ cm).",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-rectangle-deux-triangles",
+          "titre": "Exemple 3 — Deux triangles, une même hypoténuse",
+          "enonce": "$ABCD$ est un rectangle. Écrire l'égalité de Pythagore dans le triangle $ABD$, puis dans le triangle $BCD$.",
+          "analyse": "Un rectangle a quatre angles droits : sa diagonale $[BD]$ le partage en deux triangles rectangles.",
+          "calcul": [
+            {
+              "expr": "BD^2 = AB^2 + AD^2",
+              "texte": "Dans $ABD$, l'angle droit est en $A$ : l'hypoténuse est $[BD]$."
+            },
+            {
+              "expr": "BD^2 = CB^2 + CD^2",
+              "texte": "Dans $BCD$, l'angle droit est en $C$ : l'hypoténuse est encore $[BD]$."
+            }
+          ],
+          "reponse": "$BD^2 = AB^2 + AD^2$ et $BD^2 = CB^2 + CD^2$.",
+          "interpretation": "La diagonale est l'hypoténuse des deux triangles : c'est pour cela que le théorème permet de calculer la diagonale d'un rectangle à partir de sa longueur et de sa largeur.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-corriger-egalite",
+          "titre": "Exemple 4 — Corriger une égalité fausse",
+          "enonce": "Pour un triangle $MNP$ rectangle en $M$, Léo écrit : $MN^2 = MP^2 + NP^2$. Expliquer son erreur et la corriger.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "L'angle droit est en $M$ : l'hypoténuse est le côté opposé à $M$, c'est-à-dire $[NP]$."
+            },
+            {
+              "expr": "",
+              "texte": "Léo a isolé $MN^2$, alors que $[MN]$ contient la lettre $M$ : c'est un côté de l'angle droit."
+            },
+            {
+              "expr": "NP^2 = MN^2 + MP^2",
+              "texte": "On isole l'hypoténuse."
+            }
+          ],
+          "reponse": "l'égalité correcte est $NP^2 = MN^2 + MP^2$.",
+          "conclusion": "Le membre isolé doit toujours être le carré du côté opposé à l'angle droit.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-hypotenuse-litteral",
+          "titre": "Exemple 5 — Avec une expression littérale",
+          "enonce": "Un triangle rectangle a des côtés de l'angle droit de longueurs $a$ et $2a$ (en cm, avec $a > 0$). Exprimer le carré $c^2$ de l'hypoténuse en fonction de $a$, puis calculer l'hypoténuse pour $a = 3$.",
+          "calcul": [
+            {
+              "expr": "c^2 = a^2 + (2a)^2",
+              "texte": "On applique le théorème de Pythagore."
+            },
+            {
+              "expr": "(2a)^2 = 2a \\times 2a = 4a^2",
+              "texte": "On calcule le carré du produit $2a$."
+            },
+            {
+              "expr": "c^2 = a^2 + 4a^2 = 5a^2",
+              "texte": "On réduit la somme."
+            },
+            {
+              "expr": "c^2 = 5 \\times 3^2 = 45",
+              "texte": "Pour $a = 3$, on remplace, puis on prend la racine carrée."
+            }
+          ],
+          "reponse": "$c^2 = 5a^2$ ; pour $a = 3$, $c = \\sqrt{45} \\approx 6{,}7$ cm.",
+          "interpretation": "Quand les deux côtés de l'angle droit sont multipliés par $3$, le carré de l'hypoténuse est multiplié par $9$ : on retrouve $c^2 = 5 \\times 9 = 45$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Les maçons vérifient qu'un mur est d'équerre avec un triangle de côtés $3$ m, $4$ m et $5$ m.",
+        "La taille d'un écran est donnée par sa diagonale, qui est l'hypoténuse d'un triangle formé par la largeur et la hauteur.",
+        "Une distance « à vol d'oiseau » se calcule à partir d'un déplacement vers le nord et d'un déplacement vers l'est."
+      ],
+      "erreursFrequentes": [
+        "Choisir pour hypoténuse le côté qui paraît le plus long ou le plus « penché » sur le dessin, sans regarder où est l'angle droit.",
+        "Isoler un côté de l'angle droit dans l'égalité, par exemple écrire $AB^2 = AC^2 + BC^2$ pour un triangle rectangle en $A$.",
+        "Oublier les carrés et écrire $BC = AB + AC$.",
+        "Appliquer le théorème à un triangle dont rien ne dit qu'il est rectangle."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Choisir pour hypoténuse le côté qui paraît le plus long ou le plus « penché » sur le dessin, sans regarder où est l'angle droit.",
+          "pourquoi": "Une figure peut être tournée dans tous les sens : la position du côté sur la feuille ne dit rien de son rôle.",
+          "comment_detecter": "Demande-toi en quel sommet est l'angle droit avant de nommer l'hypoténuse.",
+          "comment_eviter": "Repère d'abord le codage ou les mots « rectangle en », puis cherche le côté opposé."
+        },
+        {
+          "description": "Isoler un côté de l'angle droit dans l'égalité, par exemple écrire $AB^2 = AC^2 + BC^2$ pour un triangle rectangle en $A$.",
+          "pourquoi": "L'égalité n'est vraie que si l'hypoténuse est seule dans son membre : en isolant un autre côté, on écrit une égalité fausse.",
+          "comment_detecter": "Le côté isolé contient-il la lettre de l'angle droit ? Si oui, l'égalité est fausse.",
+          "comment_eviter": "Écris toujours l'hypoténuse en premier, avant le signe $=$."
+        },
+        {
+          "description": "Oublier les carrés et écrire $BC = AB + AC$.",
+          "pourquoi": "Le théorème relie les carrés des longueurs, pas les longueurs : $3 + 4 = 7$ alors que l'hypoténuse mesure $5$.",
+          "comment_detecter": "Ton égalité contient-elle des exposants $^2$ partout ?",
+          "comment_eviter": "Écris la formule avec les carrés avant de remplacer par des nombres."
+        },
+        {
+          "description": "Appliquer le théorème à un triangle dont rien ne dit qu'il est rectangle.",
+          "pourquoi": "Le théorème commence par « si le triangle est rectangle » : sans cette hypothèse, il ne dit rien.",
+          "comment_detecter": "Cherche dans l'énoncé l'information qui garantit l'angle droit.",
+          "comment_eviter": "Commence ta rédaction par « Le triangle … est rectangle en …, donc d'après le théorème de Pythagore »."
+        }
+      ],
+      "astuce": "Pour trouver l'hypoténuse sans hésiter, cherche le seul côté dont le nom ne contient pas la lettre de l'angle droit : rectangle en $A$, hypoténuse $[BC]$.",
+      "aRetenir": [
+        "L'hypoténuse est le côté opposé à l'angle droit ; c'est le plus long côté.",
+        "Si $ABC$ est rectangle en $A$, alors $BC^2 = AB^2 + AC^2$.",
+        "L'hypoténuse est seule dans un membre de l'égalité.",
+        "Pas d'angle droit connu, pas de théorème de Pythagore."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1.2,
+          7,
+          4.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 1.8,
+            "y": 2.4,
+            "label": "A"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 5.0,
+            "y": 0.0,
+            "label": "C"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "tooltip": "Triangle ABC rectangle en A"
+          },
+          {
+            "points": [
+              {
+                "x": 1.8,
+                "y": 2.4
+              },
+              {
+                "x": 1.608,
+                "y": 2.144
+              },
+              {
+                "x": 1.864,
+                "y": 1.952
+              },
+              {
+                "x": 2.056,
+                "y": 2.208
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B",
+            "reveal": 2,
+            "tooltip": "AB = 3 cm (côté de l'angle droit)"
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "reveal": 2,
+            "tooltip": "AC = 4 cm (côté de l'angle droit)"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "BC = 5 cm (hypoténuse)"
+          }
+        ],
+        "texts": [
+          {
+            "x": 0.35,
+            "y": 1.35,
+            "label": "3 cm",
+            "reveal": 2
+          },
+          {
+            "x": 3.65,
+            "y": 1.45,
+            "label": "4 cm",
+            "reveal": 2
+          },
+          {
+            "x": 2.2,
+            "y": -0.55,
+            "label": "5 cm",
+            "reveal": 3
+          }
+        ],
+        "steps": [
+          "Le triangle et son angle droit",
+          "Les côtés de l'angle droit",
+          "L'hypoténuse"
+        ],
+        "relation": "$BC^2 = AB^2 + AC^2$",
+        "alt": "Triangle ABC rectangle en A, dessiné avec le côté BC horizontal en bas : le petit carré en A code l'angle droit, AB = 3 cm et AC = 4 cm sont les côtés de l'angle droit, BC = 5 cm, en face de l'angle droit, est l'hypoténuse.",
+        "emphasis": true,
+        "explication": {
+          "resume": "Le triangle $ABC$ est rectangle en $A$. Son hypoténuse $[BC]$ est ici horizontale : l'hypoténuse n'est pas toujours le côté « penché » de la figure.",
+          "lecture": [
+            "Le petit carré au sommet $A$ code l'angle droit.",
+            "Les deux côtés qui partent de $A$, $[AB]$ et $[AC]$, sont les côtés de l'angle droit.",
+            "Le côté coloré $[BC]$, en face de l'angle droit, est l'hypoténuse.",
+            "Les proportions de la figure sont respectées : $AB = 3$ cm, $AC = 4$ cm et $BC = 5$ cm."
+          ],
+          "observations": [
+            "$[BC]$ est bien le plus long des trois côtés.",
+            "$3^2 + 4^2 = 9 + 16 = 25$ et $5^2 = 25$ : l'égalité de Pythagore est vérifiée.",
+            "En revanche $3 + 4 = 7 \\neq 5$ : ce ne sont pas les longueurs qui s'additionnent, mais leurs carrés."
+          ],
+          "pieges": [
+            "Chercher l'hypoténuse « en bas » ou « en biais » : on la cherche toujours en face de l'angle droit."
+          ],
+          "aRetenir": [
+            "Hypoténuse = côté opposé à l'angle droit.",
+            "Triangle rectangle en $A$ : $BC^2 = AB^2 + AC^2$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        48101,
+        48104,
+        48108
+      ],
+      "topic_id": "pythagore-hypotenuse-et-egalite",
+      "proprietes": [
+        "Dans un triangle rectangle, l'hypoténuse est strictement plus longue que chacun des deux autres côtés."
+      ],
+      "vocabulaire_associe": [
+        "triangle rectangle",
+        "hypoténuse",
+        "côtés de l'angle droit",
+        "carré d'un nombre",
+        "égalité de Pythagore"
+      ],
+      "synonymes": [
+        "théorème de Pythagore",
+        "relation de Pythagore"
+      ],
+      "objectifs_pedagogiques": [
+        "Repérer l'angle droit et nommer l'hypoténuse d'un triangle rectangle.",
+        "Énoncer le théorème de Pythagore.",
+        "Écrire l'égalité de Pythagore adaptée aux noms des sommets."
+      ],
+      "prerequis": [
+        "Reconnaître un angle droit et son codage",
+        "Calculer le carré d'un nombre",
+        "Somme des angles d'un triangle (pour la démonstration)"
+      ],
+      "notions_liees": [
+        "carres-et-racines-carrees",
+        "pythagore-calculer-une-longueur",
+        "triangle-rectangle-ou-non"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "pythagore",
+        "hypotenuse",
+        "triangle-rectangle"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "pythagore-egalite-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Deux triangles, une même hypoténuse",
+          "description": "Un rectangle partagé par sa diagonale, et une égalité fausse corrigée pas à pas."
+        },
+        {
+          "id": "pythagore-egalite-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "La démonstration du théorème",
+          "description": "Une preuve par découpage d'aires, accessible en Quatrième, et un exemple avec une expression littérale."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Le triangle est rectangle en $A$. Pourquoi $[BC]$ est-il forcément le plus long côté ?",
+          "piste": "$BC^2 = AB^2 + AC^2$ est plus grand que $AB^2$ et que $AC^2$ : donc $BC$ est plus grand que $AB$ et que $AC$."
+        },
+        {
+          "apres": "methode",
+          "question": "Le triangle $UVW$ est rectangle en $W$. Quel est le nom de son hypoténuse ?",
+          "piste": "Le seul côté dont le nom ne contient pas la lettre $W$ : $[UV]$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Démonstration — pourquoi l'égalité est-elle toujours vraie ?",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Le point de départ",
+            "texte": "On considère un triangle rectangle quelconque : ses côtés de l'angle droit mesurent $a$ et $b$, son hypoténuse $c$. On en découpe quatre copies identiques."
+          },
+          {
+            "titre": "Étape 2 — Première disposition",
+            "texte": "On place les quatre triangles dans un carré de côté $a + b$, un dans chaque coin, de façon que leurs hypoténuses délimitent un quadrilatère au centre. Ce quadrilatère a quatre côtés de longueur $c$."
+          },
+          {
+            "titre": "Étape 3 — Le quadrilatère central est un carré",
+            "texte": "En chacun de ses sommets, l'angle du quadrilatère et les deux angles aigus d'un triangle forment un angle plat ($180°$). Or les deux angles aigus d'un triangle rectangle ont pour somme $180° - 90° = 90°$. L'angle du quadrilatère vaut donc $180° - 90° = 90°$ : c'est un carré, d'aire $c^2$."
+          },
+          {
+            "titre": "Étape 4 — Seconde disposition",
+            "texte": "Dans un autre carré de côté $a + b$, on regroupe les quatre triangles deux par deux pour former deux rectangles de côtés $a$ et $b$, placés dans deux coins opposés. Il reste deux carrés : l'un de côté $a$ (aire $a^2$), l'autre de côté $b$ (aire $b^2$)."
+          },
+          {
+            "titre": "Étape 5 — On compare",
+            "texte": "Les deux grands carrés ont la même aire et contiennent les quatre mêmes triangles. Les parties restantes ont donc la même aire : $c^2 = a^2 + b^2$."
+          }
+        ],
+        "conclusion": "Le raisonnement ne dépend d'aucune valeur particulière de $a$, $b$ et $c$ : l'égalité est vraie dans tout triangle rectangle. C'est exactement le théorème de Pythagore."
+      }
+    },
+    {
+      "id": "carres-et-racines-carrees",
+      "title": "Carrés et racines carrées",
+      "schemaVersion": 2,
+      "intro": "Le théorème de Pythagore donne le carré d'une longueur, pas la longueur elle-même. Pour revenir à la longueur, on utilise une nouvelle opération : la racine carrée. Cette leçon t'apprend à la calculer, à l'encadrer entre deux entiers et à en donner une valeur approchée.",
+      "pourquoi": "Sans racine carrée, on s'arrêterait à « $BC^2 = 50$ » sans pouvoir dire combien mesure $BC$. La racine carrée sert aussi à trouver le côté d'un carré dont on connaît l'aire.",
+      "explicationSimple": "Calculer une racine carrée, c'est faire le chemin inverse du carré : le carré transforme $7$ en $49$, la racine carrée ramène $49$ à $7$. Géométriquement, $\\sqrt{49}$ est le côté d'un carré d'aire $49$. Si l'aire n'est pas un carré parfait, par exemple $20$, le côté existe quand même : il ne tombe simplement pas sur un nombre entier.",
+      "objectif": "À la fin de cette leçon, tu sauras reconnaître les carrés parfaits, calculer la racine carrée d'un carré parfait, encadrer une racine carrée entre deux entiers consécutifs et en donner une valeur approchée à la calculatrice.",
+      "definition": "La racine carrée d'un nombre positif $a$, notée $\\sqrt{a}$, est le nombre positif dont le carré est égal à $a$.",
+      "definitions": {
+        "college": "$\\sqrt{a}$ est le nombre positif qui, multiplié par lui-même, donne $a$. Par exemple, $\\sqrt{49} = 7$ car $7 \\times 7 = 49$.",
+        "lycee": "La racine carrée d'un nombre positif $a$, notée $\\sqrt{a}$, est le nombre positif dont le carré est égal à $a$."
+      },
+      "intuition": "Entre deux carrés parfaits voisins se cachent des racines non entières : $\\sqrt{20}$ est un peu plus que $4$ (car $16 < 20$) et un peu moins que $5$ (car $20 < 25$).",
+      "reglesImportantes": [
+        "Pour tout nombre positif $a$ : $\\sqrt{a} \\geq 0$ et $(\\sqrt{a})^2 = a$.",
+        "Les carrés parfaits à connaître sont $1$, $4$, $9$, $16$, $25$, $36$, $49$, $64$, $81$, $100$, $121$ et $144$ : leurs racines carrées sont les entiers de $1$ à $12$.",
+        "La racine carrée d'un nombre négatif n'existe pas : un carré n'est jamais négatif.",
+        "Si $0 \\leq a < b$, alors $\\sqrt{a} < \\sqrt{b}$. Pour encadrer $\\sqrt{30}$, on encadre $30$ entre deux carrés parfaits : $25 < 30 < 36$, donc $5 < \\sqrt{30} < 6$.",
+        "Quand $a$ n'est pas un carré parfait, la valeur exacte s'écrit $\\sqrt{a}$ et la calculatrice en donne une valeur approchée, que l'on arrondit à la précision demandée."
+      ],
+      "formules": [
+        {
+          "id": "formule-carre-racine",
+          "nom": "Carré d'une racine carrée",
+          "expression": "$(\\sqrt{a})^2 = a$ pour $a \\geq 0$",
+          "quand_utiliser": "Pour calculer le carré d'une racine, par exemple $(\\sqrt{7})^2 = 7$.",
+          "erreur_frequente": "Penser que $\\sqrt{a}$ peut être un nombre négatif.",
+          "astuce": "Pour un nombre positif, la racine carrée et le carré se « défont » l'une l'autre."
+        },
+        {
+          "id": "formule-racine-somme",
+          "nom": "Attention à la somme",
+          "expression": "$\\sqrt{a + b} \\neq \\sqrt{a} + \\sqrt{b}$ en général",
+          "quand_utiliser": "Avant de calculer une racine dont l'intérieur est une somme, comme $\\sqrt{3^2 + 4^2}$.",
+          "erreur_frequente": "Écrire $\\sqrt{9 + 16} = 3 + 4 = 7$ au lieu de $\\sqrt{25} = 5$.",
+          "astuce": "Calcule toujours d'abord ce qui est sous la racine."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer ou encadrer une racine carrée",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je regarde si le nombre sous la racine est un carré parfait (par exemple $64 = 8^2$)."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Si oui, sa racine carrée est l'entier correspondant : $\\sqrt{64} = 8$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Sinon, je l'encadre entre deux carrés parfaits consécutifs pour situer sa racine entre deux entiers."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Si une valeur approchée est demandée, j'utilise la touche racine carrée de la calculatrice et j'arrondis à la précision demandée."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde si le nombre sous la racine est un carré parfait (par exemple $64 = 8^2$)."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Si oui, sa racine carrée est l'entier correspondant : $\\sqrt{64} = 8$."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Sinon, je l'encadre entre deux carrés parfaits consécutifs pour situer sa racine entre deux entiers."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Si une valeur approchée est demandée, j'utilise la touche racine carrée de la calculatrice et j'arrondis à la précision demandée."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris la liste des carrés : $1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144$."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Si mon nombre est dans la liste, je lis sa racine : c'est le nombre que l'on a mis au carré."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Sinon, je trouve les deux nombres de la liste qui l'entourent : sa racine est entre leurs deux racines."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Avec la calculatrice, je vérifie que la valeur affichée est bien dans mon encadrement, puis j'arrondis."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Carré parfait : racine entière. Sinon : encadrement par deux carrés parfaits."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Valeur exacte $\\sqrt{a}$, valeur approchée à la calculatrice."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-racine-carre-parfait",
+          "titre": "Exemple 1 — Racine d'un carré parfait",
+          "enonce": "Calculer $\\sqrt{81}$ et $\\sqrt{0{,}49}$.",
+          "calcul": [
+            {
+              "expr": "9^2 = 81",
+              "texte": "$9$ est positif et son carré vaut $81$, donc $\\sqrt{81} = 9$."
+            },
+            {
+              "expr": "0{,}7^2 = 0{,}49",
+              "texte": "$0{,}7$ est positif et son carré vaut $0{,}49$, donc $\\sqrt{0{,}49} = 0{,}7$."
+            }
+          ],
+          "reponse": "$\\sqrt{81} = 9$ et $\\sqrt{0{,}49} = 0{,}7$.",
+          "conclusion": "On vérifie toujours en élevant le résultat au carré.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-encadrer-arrondir",
+          "titre": "Exemple 2 — Encadrer puis arrondir",
+          "enonce": "Encadrer $\\sqrt{40}$ entre deux entiers consécutifs, puis en donner l'arrondi au dixième.",
+          "calcul": [
+            {
+              "expr": "36 < 40 < 49",
+              "texte": "$40$ est compris entre les carrés parfaits $6^2 = 36$ et $7^2 = 49$."
+            },
+            {
+              "expr": "6 < \\sqrt{40} < 7",
+              "texte": "Les racines carrées sont rangées dans le même ordre que les nombres."
+            },
+            {
+              "expr": "\\sqrt{40} \\approx 6{,}3",
+              "texte": "La calculatrice affiche $6{,}324\\ldots$ : le chiffre des centièmes est $2$, on garde $6{,}3$."
+            }
+          ],
+          "reponse": "$6 < \\sqrt{40} < 7$ et $\\sqrt{40} \\approx 6{,}3$.",
+          "conclusion": "L'arrondi $6{,}3$ est bien compris entre $6$ et $7$ : l'encadrement permet de contrôler la calculatrice.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-cote-carre-aire",
+          "titre": "Exemple 3 — Le côté d'un carré",
+          "enonce": "Un carré a une aire de $12$ cm$^2$. Donner la valeur exacte de son côté, puis son arrondi au millimètre.",
+          "calcul": [
+            {
+              "expr": "c^2 = 12",
+              "texte": "Le côté $c$ vérifie $c^2 = 12$, avec $c$ positif."
+            },
+            {
+              "expr": "c = \\sqrt{12}",
+              "texte": "Valeur exacte."
+            },
+            {
+              "expr": "c \\approx 3{,}5",
+              "texte": "La calculatrice donne $3{,}464\\ldots$ ; au millimètre, c'est-à-dire au dixième de centimètre, on obtient $3{,}5$."
+            }
+          ],
+          "reponse": "$c = \\sqrt{12}$ cm, soit environ $3{,}5$ cm.",
+          "conclusion": "En Quatrième, la valeur exacte s'écrit simplement $\\sqrt{12}$ : on ne la transforme pas.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-racine-somme",
+          "titre": "Exemple 4 — Le piège de la somme",
+          "enonce": "Calculer $\\sqrt{36 + 64}$, puis comparer avec $\\sqrt{36} + \\sqrt{64}$.",
+          "calcul": [
+            {
+              "expr": "\\sqrt{36 + 64} = \\sqrt{100} = 10",
+              "texte": "On calcule d'abord sous la racine."
+            },
+            {
+              "expr": "\\sqrt{36} + \\sqrt{64} = 6 + 8 = 14",
+              "texte": "On calcule les deux racines séparément."
+            }
+          ],
+          "reponse": "$\\sqrt{36 + 64} = 10$ alors que $\\sqrt{36} + \\sqrt{64} = 14$.",
+          "interpretation": "Ce piège revient dans chaque calcul de Pythagore : on ne « distribue » jamais une racine carrée sur une somme.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-approcher-racine-7",
+          "titre": "Exemple 5 — Approcher une racine sans la touche racine",
+          "enonce": "Sans utiliser la touche racine carrée, trouver l'arrondi au centième de $\\sqrt{7}$ par encadrements successifs.",
+          "calcul": [
+            {
+              "expr": "2^2 = 4 < 7 < 9 = 3^2",
+              "texte": "Donc $2 < \\sqrt{7} < 3$."
+            },
+            {
+              "expr": "2{,}6^2 = 6{,}76 < 7 < 7{,}29 = 2{,}7^2",
+              "texte": "Donc $2{,}6 < \\sqrt{7} < 2{,}7$."
+            },
+            {
+              "expr": "2{,}64^2 = 6{,}9696 < 7 < 7{,}0225 = 2{,}65^2",
+              "texte": "Donc $2{,}64 < \\sqrt{7} < 2{,}65$."
+            },
+            {
+              "expr": "2{,}645^2 = 6{,}996025 < 7",
+              "texte": "$\\sqrt{7}$ dépasse $2{,}645$, le milieu de $2{,}64$ et $2{,}65$ : il est plus proche de $2{,}65$."
+            }
+          ],
+          "reponse": "$\\sqrt{7} \\approx 2{,}65$ au centième.",
+          "interpretation": "Chaque étape gagne un chiffre après la virgule : c'est ainsi que l'on peut approcher une racine carrée aussi précisément que l'on veut.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Trouver le côté d'une pièce carrée de $20$ m$^2$.",
+        "Terminer un calcul de Pythagore : longueur d'un câble, d'une diagonale, d'une rampe.",
+        "Les menuisiers retiennent $\\sqrt{2} \\approx 1{,}414$ : c'est la diagonale d'un carré de côté $1$."
+      ],
+      "erreursFrequentes": [
+        "Confondre racine carrée et moitié, par exemple écrire $\\sqrt{16} = 8$.",
+        "Écrire $\\sqrt{a + b} = \\sqrt{a} + \\sqrt{b}$, par exemple $\\sqrt{9 + 16} = 7$.",
+        "Se tromper dans le carré d'un nombre décimal : écrire $0{,}3^2 = 0{,}9$ au lieu de $0{,}09$.",
+        "Arrondir trop tôt, puis réutiliser la valeur arrondie dans la suite du calcul."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre racine carrée et moitié, par exemple écrire $\\sqrt{16} = 8$.",
+          "pourquoi": "$8 \\times 8 = 64$ et non $16$ : la racine carrée défait le carré, pas la multiplication par $2$.",
+          "comment_detecter": "Élève ton résultat au carré : retrouves-tu le nombre de départ ?",
+          "comment_eviter": "Récite les carrés parfaits jusqu'à retrouver le nombre sous la racine."
+        },
+        {
+          "description": "Écrire $\\sqrt{a + b} = \\sqrt{a} + \\sqrt{b}$, par exemple $\\sqrt{9 + 16} = 7$.",
+          "pourquoi": "La racine carrée ne se distribue pas sur une addition : $\\sqrt{25} = 5$ alors que $3 + 4 = 7$.",
+          "comment_detecter": "Ta racine contient-elle une somme ? Calcule-la d'abord.",
+          "comment_eviter": "Applique les priorités : ce qui est sous la racine se calcule en premier."
+        },
+        {
+          "description": "Se tromper dans le carré d'un nombre décimal : écrire $0{,}3^2 = 0{,}9$ au lieu de $0{,}09$.",
+          "pourquoi": "$0{,}3 \\times 0{,}3$ a deux chiffres après la virgule, comme $0{,}1 \\times 0{,}1 = 0{,}01$.",
+          "comment_detecter": "Compte les chiffres après la virgule dans le produit.",
+          "comment_eviter": "Calcule $3 \\times 3 = 9$, puis place la virgule pour avoir autant de décimales que dans les deux facteurs réunis."
+        },
+        {
+          "description": "Arrondir trop tôt, puis réutiliser la valeur arrondie dans la suite du calcul.",
+          "pourquoi": "Une valeur arrondie contient déjà une petite erreur ; la réutiliser accumule les erreurs.",
+          "comment_detecter": "As-tu réutilisé un nombre écrit avec le signe $\\approx$ ?",
+          "comment_eviter": "Garde la valeur exacte ($\\sqrt{a}$ ou la valeur complète de la calculatrice) jusqu'au résultat final."
+        }
+      ],
+      "astuce": "Pour vérifier une racine carrée, élève ton résultat au carré : tu dois retrouver le nombre de départ (ou presque, pour une valeur approchée).",
+      "aRetenir": [
+        "$\\sqrt{a}$ est le nombre positif dont le carré vaut $a$ (pour $a \\geq 0$).",
+        "Les carrés parfaits de $1$ à $144$ permettent de calculer et d'encadrer.",
+        "$\\sqrt{a + b} \\neq \\sqrt{a} + \\sqrt{b}$.",
+        "Valeur exacte : $\\sqrt{50}$ ; valeur approchée : $\\sqrt{50} \\approx 7{,}07$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3,
+          -1,
+          8,
+          8
+        ],
+        "grid": true,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "A"
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "label": "B"
+          },
+          {
+            "x": 2,
+            "y": 6,
+            "label": "C"
+          },
+          {
+            "x": -2,
+            "y": 4,
+            "label": "D"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "variant": "a",
+            "tooltip": "Carré ABCD d'aire 20 : son côté mesure √20"
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 4,
+                "y": 0
+              },
+              {
+                "x": 4,
+                "y": 2
+              }
+            ],
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "Triangle rectangle de côtés 4 et 2 : aire 4"
+          },
+          {
+            "points": [
+              {
+                "x": 4,
+                "y": 2
+              },
+              {
+                "x": 4,
+                "y": 6
+              },
+              {
+                "x": 2,
+                "y": 6
+              }
+            ],
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "Triangle rectangle de côtés 4 et 2 : aire 4"
+          },
+          {
+            "points": [
+              {
+                "x": 2,
+                "y": 6
+              },
+              {
+                "x": -2,
+                "y": 6
+              },
+              {
+                "x": -2,
+                "y": 4
+              }
+            ],
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "Triangle rectangle de côtés 4 et 2 : aire 4"
+          },
+          {
+            "points": [
+              {
+                "x": -2,
+                "y": 4
+              },
+              {
+                "x": -2,
+                "y": 0
+              },
+              {
+                "x": 0,
+                "y": 0
+              }
+            ],
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "Triangle rectangle de côtés 4 et 2 : aire 4"
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 0.358,
+                "y": 0.179
+              },
+              {
+                "x": 0.179,
+                "y": 0.537
+              },
+              {
+                "x": -0.179,
+                "y": 0.358
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -2,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": 0
+            },
+            "dashed": true,
+            "reveal": 2,
+            "tooltip": "Grand carré de côté 6"
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": 6
+            },
+            "dashed": true,
+            "reveal": 2,
+            "tooltip": "Grand carré de côté 6"
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 6
+            },
+            "to": {
+              "x": -2,
+              "y": 6
+            },
+            "dashed": true,
+            "reveal": 2,
+            "tooltip": "Grand carré de côté 6"
+          },
+          {
+            "from": {
+              "x": -2,
+              "y": 6
+            },
+            "to": {
+              "x": -2,
+              "y": 0
+            },
+            "dashed": true,
+            "reveal": 2,
+            "tooltip": "Grand carré de côté 6"
+          }
+        ],
+        "texts": [
+          {
+            "x": 0.6,
+            "y": 2.9,
+            "label": "aire 20",
+            "reveal": 3
+          },
+          {
+            "x": 1.7,
+            "y": -0.6,
+            "label": "4",
+            "reveal": 2
+          },
+          {
+            "x": 4.25,
+            "y": 0.8,
+            "label": "2",
+            "reveal": 2
+          }
+        ],
+        "steps": [
+          "Le carré incliné",
+          "Le grand carré et ses quatre coins",
+          "L'aire puis le côté"
+        ],
+        "relation": "$AB^2 = 36 - 4 \\times 4 = 20$, donc $AB = \\sqrt{20} \\approx 4{,}47$",
+        "alt": "Sur un quadrillage, un carré ABCD incliné a pour sommets A(0;0), B(4;2), C(2;6) et D(-2;4). Il est inscrit dans un grand carré de côté 6 ; les quatre coins sont des triangles rectangles de côtés 4 et 2. L'aire du carré incliné vaut 36 - 16 = 20, donc son côté mesure racine de 20.",
+        "explication": {
+          "resume": "Le carré $ABCD$ est dessiné « en biais » sur un quadrillage : son aire vaut $20$ carreaux, donc son côté mesure $\\sqrt{20}$ unités, un nombre qui n'est pas entier.",
+          "lecture": [
+            "Chaque carreau du quadrillage est un carré de côté $1$ unité.",
+            "Le carré coloré $ABCD$ est incliné : ses côtés ne suivent pas les lignes du quadrillage.",
+            "À l'étape 2, il est entouré par un grand carré de $6$ unités de côté, dont on retire quatre triangles de coin."
+          ],
+          "etapes": [
+            {
+              "titre": "Aire du grand carré",
+              "texte": "$6 \\times 6 = 36$ carreaux."
+            },
+            {
+              "titre": "Les quatre coins",
+              "texte": "Quatre triangles rectangles de côtés $4$ et $2$, d'aire $\\dfrac{4 \\times 2}{2} = 4$ chacun, soit $16$ carreaux."
+            },
+            {
+              "titre": "Aire puis côté",
+              "texte": "$36 - 16 = 20$ carreaux, donc $AB^2 = 20$ et $AB = \\sqrt{20} \\approx 4{,}47$ unités."
+            }
+          ],
+          "observations": [
+            "$4^2 = 16 < 20 < 25 = 5^2$ : le côté mesure entre $4$ et $5$ unités, ce que l'on voit sur la figure.",
+            "Dans un triangle de coin, le théorème de Pythagore redonne $AB^2 = 4^2 + 2^2 = 20$."
+          ],
+          "aRetenir": [
+            "Le côté d'un carré d'aire $a$ mesure $\\sqrt{a}$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        48202,
+        48209,
+        48210
+      ],
+      "topic_id": "carres-et-racines-carrees",
+      "proprietes": [
+        "Deux nombres positifs différents ont des carrés différents : un nombre positif a une seule racine carrée."
+      ],
+      "vocabulaire_associe": [
+        "racine carrée",
+        "carré parfait",
+        "valeur exacte",
+        "valeur approchée",
+        "encadrement",
+        "arrondi"
+      ],
+      "synonymes": [
+        "racine",
+        "radical"
+      ],
+      "objectifs_pedagogiques": [
+        "Connaître les carrés parfaits de $1$ à $144$.",
+        "Calculer la racine carrée d'un carré parfait.",
+        "Encadrer une racine carrée entre deux entiers consécutifs.",
+        "Donner une valeur approchée d'une racine carrée à la calculatrice."
+      ],
+      "prerequis": [
+        "Calculer le carré d'un nombre entier ou décimal",
+        "Aire d'un carré",
+        "Arrondir un nombre décimal"
+      ],
+      "notions_liees": [
+        "pythagore-hypotenuse-et-egalite",
+        "pythagore-calculer-une-longueur"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "racine-carree",
+        "carre-parfait",
+        "valeur-approchee"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "racines-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Côté d'un carré et piège de la somme",
+          "description": "Trouver le côté d'un carré à partir de son aire, et comprendre pourquoi $\\sqrt{36 + 64}$ ne vaut pas $14$."
+        },
+        {
+          "id": "racines-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Approcher une racine sans calculatrice",
+          "description": "Une méthode par encadrements successifs, et la preuve qu'un nombre positif n'a qu'une seule racine carrée."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Sans calculatrice, entre quels entiers se trouve le côté du carré incliné ?",
+          "piste": "$16 < 20 < 25$, donc $4 < \\sqrt{20} < 5$."
+        },
+        {
+          "apres": "methode",
+          "question": "$\\sqrt{100}$ vaut-il $50$ ou $10$ ?",
+          "piste": "$10$, car $10^2 = 100$ ; $50^2$ vaut $2\\,500$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Démonstration — un nombre positif n'a qu'une seule racine carrée",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Ce qu'on veut montrer",
+            "texte": "La définition parle « du » nombre positif dont le carré vaut $a$ : il faut vérifier qu'il ne peut pas y en avoir deux différents."
+          },
+          {
+            "titre": "Étape 2 — On suppose le contraire",
+            "texte": "Supposons que $b$ et $c$ soient deux nombres positifs différents, par exemple $0 \\leq b < c$, tous les deux de carré $a$."
+          },
+          {
+            "titre": "Étape 3 — On compare les carrés",
+            "texte": "En multipliant l'inégalité $b < c$ par le nombre positif $b$, on obtient $b \\times b \\leq b \\times c$ ; en la multipliant par le nombre strictement positif $c$, on obtient $b \\times c < c \\times c$. Donc $b^2 < c^2$."
+          },
+          {
+            "titre": "Étape 4 — La contradiction",
+            "texte": "On aurait à la fois $b^2 < c^2$ et $b^2 = a = c^2$ : c'est impossible."
+          }
+        ],
+        "conclusion": "Deux nombres positifs différents ont toujours des carrés différents. Il existe donc un seul nombre positif dont le carré vaut $a$ : c'est $\\sqrt{a}$. Ce raisonnement justifie aussi qu'on compare des longueurs en comparant leurs carrés."
+      }
+    },
+    {
+      "id": "pythagore-calculer-une-longueur",
+      "title": "Calculer une longueur avec le théorème de Pythagore",
+      "schemaVersion": 2,
+      "intro": "Tu sais écrire l'égalité de Pythagore et calculer une racine carrée : tu peux maintenant calculer n'importe quel côté d'un triangle rectangle à partir des deux autres. Deux situations sont à bien distinguer : chercher l'hypoténuse, ou chercher un côté de l'angle droit.",
+      "pourquoi": "C'est l'usage le plus fréquent du théorème : obtenir par le calcul une longueur impossible ou difficile à mesurer, avec une valeur exacte ou une valeur approchée adaptée à la situation.",
+      "explicationSimple": "Le théorème de Pythagore est une balance entre trois carrés : le carré de l'hypoténuse « pèse » autant que les deux autres ensemble. Si tu connais les deux petits carrés, tu les additionnes pour trouver le grand. Si tu connais le grand et un petit, tu retires le petit du grand pour trouver l'autre.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer l'hypoténuse ou un côté de l'angle droit d'un triangle rectangle, donner la valeur exacte puis une valeur approchée, et rédiger le calcul avec les unités.",
+      "definition": "Dans un triangle rectangle, deux côtés connus suffisent à calculer le troisième grâce au théorème de Pythagore : on additionne les carrés pour obtenir l'hypoténuse, on les soustrait pour obtenir un côté de l'angle droit.",
+      "definitions": {
+        "college": "Avec deux côtés d'un triangle rectangle, on calcule le troisième : on additionne les carrés pour l'hypoténuse, on les soustrait pour un autre côté.",
+        "lycee": "Dans un triangle rectangle, deux côtés connus suffisent à calculer le troisième grâce au théorème de Pythagore : on additionne les carrés pour obtenir l'hypoténuse, on les soustrait pour obtenir un côté de l'angle droit."
+      },
+      "intuition": "Un côté de l'angle droit est forcément plus court que l'hypoténuse : si ton calcul donne un côté plus long que l'hypoténuse, tu as additionné au lieu de soustraire.",
+      "reglesImportantes": [
+        "Pour calculer l'hypoténuse : si $ABC$ est rectangle en $A$, alors $BC^2 = AB^2 + AC^2$ et $BC = \\sqrt{AB^2 + AC^2}$.",
+        "Pour calculer un côté de l'angle droit : $AB^2 = BC^2 - AC^2$ et $AB = \\sqrt{BC^2 - AC^2}$ ; on retire toujours le carré connu du carré de l'hypoténuse.",
+        "On donne d'abord la valeur exacte (par exemple $\\sqrt{65}$ cm), puis, si on le demande, une valeur approchée arrondie à la précision indiquée.",
+        "Les longueurs doivent être exprimées dans la même unité avant le calcul ; le résultat est alors dans cette unité.",
+        "Contrôle : l'hypoténuse est toujours plus longue que chacun des deux autres côtés."
+      ],
+      "formules": [
+        {
+          "id": "formule-calcul-hypotenuse",
+          "nom": "Calculer l'hypoténuse",
+          "expression": "$BC = \\sqrt{AB^2 + AC^2}$",
+          "quand_utiliser": "$ABC$ est rectangle en $A$ et on connaît $AB$ et $AC$.",
+          "erreur_frequente": "Calculer $AB + AC$ au lieu de $\\sqrt{AB^2 + AC^2}$.",
+          "astuce": "Le résultat doit être plus grand que $AB$ et que $AC$."
+        },
+        {
+          "id": "formule-calcul-cote",
+          "nom": "Calculer un côté de l'angle droit",
+          "expression": "$AB = \\sqrt{BC^2 - AC^2}$",
+          "quand_utiliser": "$ABC$ est rectangle en $A$ ; on connaît l'hypoténuse $BC$ et le côté $AC$.",
+          "erreur_frequente": "Additionner au lieu de soustraire.",
+          "astuce": "Si $BC^2 - AC^2$ est négatif ou nul, l'hypoténuse a été mal identifiée."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer une longueur dans un triangle rectangle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère l'angle droit et l'hypoténuse, et je vérifie que les longueurs sont dans la même unité."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "J'écris l'égalité de Pythagore avec les noms du triangle."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Je remplace par les longueurs connues : j'additionne si je cherche l'hypoténuse, je soustrais si je cherche un côté de l'angle droit."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je prends la racine carrée du résultat : valeur exacte, puis valeur approchée si elle est demandée, avec l'unité."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère l'angle droit et l'hypoténuse, et je vérifie que les longueurs sont dans la même unité."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "J'écris l'égalité de Pythagore avec les noms du triangle."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Je remplace par les longueurs connues : j'additionne si je cherche l'hypoténuse, je soustrais si je cherche un côté de l'angle droit."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je prends la racine carrée du résultat : valeur exacte, puis valeur approchée si elle est demandée, avec l'unité."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je fais un petit schéma du triangle, je code l'angle droit et je colorie l'hypoténuse."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "J'écris « (hypoténuse)$^2$ = … + … » avec les vrais noms des côtés."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Je me demande : la longueur cherchée est-elle l'hypoténuse ? Oui : j'additionne les deux carrés connus. Non : je fais (hypoténuse)$^2$ moins l'autre carré."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je termine par la racine carrée et je vérifie que l'hypoténuse reste le plus long côté."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Hypoténuse : $\\sqrt{\\text{somme des carrés}}$. Côté de l'angle droit : $\\sqrt{\\text{différence des carrés}}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Valeur exacte, puis arrondi demandé, avec l'unité."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-calcul-hypotenuse",
+          "titre": "Exemple 1 — Calculer l'hypoténuse",
+          "enonce": "Le triangle $ABC$ est rectangle en $B$, avec $AB = 6$ cm et $BC = 9$ cm. Calculer $AC$, puis en donner l'arrondi au dixième.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le triangle est rectangle en $B$ : l'hypoténuse est $[AC]$."
+            },
+            {
+              "expr": "AC^2 = AB^2 + BC^2",
+              "texte": "D'après le théorème de Pythagore."
+            },
+            {
+              "expr": "AC^2 = 6^2 + 9^2 = 36 + 81 = 117",
+              "texte": "On remplace par les longueurs connues."
+            },
+            {
+              "expr": "AC = \\sqrt{117} \\approx 10{,}8",
+              "texte": "$AC$ est positif : la valeur exacte est $\\sqrt{117}$ cm ; la calculatrice affiche $10{,}816\\ldots$"
+            }
+          ],
+          "reponse": "$AC = \\sqrt{117}$ cm, soit $AC \\approx 10{,}8$ cm.",
+          "conclusion": "$10{,}8$ cm est plus grand que $6$ cm et que $9$ cm : le résultat est cohérent avec une hypoténuse.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-calcul-cote-uvw",
+          "titre": "Exemple 2 — Calculer un côté de l'angle droit",
+          "enonce": "Le triangle $UVW$ est rectangle en $W$, avec $UV = 17$ cm et $VW = 8$ cm. Calculer $UW$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le triangle est rectangle en $W$ : l'hypoténuse est $[UV]$ ; la longueur cherchée $UW$ est un côté de l'angle droit."
+            },
+            {
+              "expr": "UV^2 = UW^2 + VW^2",
+              "texte": "On écrit l'égalité de Pythagore."
+            },
+            {
+              "expr": "UW^2 = UV^2 - VW^2 = 17^2 - 8^2 = 289 - 64 = 225",
+              "texte": "On isole $UW^2$ en soustrayant."
+            },
+            {
+              "expr": "UW = \\sqrt{225} = 15",
+              "texte": "$UW$ est positif."
+            }
+          ],
+          "reponse": "$UW = 15$ cm.",
+          "conclusion": "$15$ cm est plus petit que l'hypoténuse ($17$ cm), comme il se doit.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-unites",
+          "titre": "Exemple 3 — Harmoniser les unités",
+          "enonce": "Le triangle $DEF$ est rectangle en $D$, avec $DE = 0{,}9$ m et $DF = 120$ cm. Calculer $EF$ en centimètres.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "On convertit : $DE = 0{,}9$ m $= 90$ cm."
+            },
+            {
+              "expr": "EF^2 = DE^2 + DF^2",
+              "texte": "Le triangle est rectangle en $D$ : l'hypoténuse est $[EF]$."
+            },
+            {
+              "expr": "EF^2 = 90^2 + 120^2 = 8\\,100 + 14\\,400 = 22\\,500",
+              "texte": "On remplace par les longueurs en centimètres."
+            },
+            {
+              "expr": "EF = \\sqrt{22\\,500} = 150",
+              "texte": "$EF$ est positif."
+            }
+          ],
+          "reponse": "$EF = 150$ cm.",
+          "conclusion": "Sans conversion, on aurait calculé $0{,}9^2 + 120^2$ : un résultat qui n'a aucun sens.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-arrondi-final",
+          "titre": "Exemple 4 — Arrondir seulement à la fin",
+          "enonce": "Le triangle $GHI$ est rectangle en $G$, avec $HI = 8$ cm et $GH = 3$ cm. Calculer $GI$ au millimètre près, puis le périmètre du triangle au millimètre près.",
+          "calcul": [
+            {
+              "expr": "GI^2 = HI^2 - GH^2 = 64 - 9 = 55",
+              "texte": "Le triangle est rectangle en $G$ : l'hypoténuse est $[HI]$."
+            },
+            {
+              "expr": "GI = \\sqrt{55} \\approx 7{,}4",
+              "texte": "Valeur exacte, puis arrondi au dixième de centimètre."
+            },
+            {
+              "expr": "8 + 3 + \\sqrt{55} \\approx 18{,}4",
+              "texte": "Pour le périmètre, on garde la valeur exacte de $GI$ et on arrondit seulement le total."
+            }
+          ],
+          "reponse": "$GI \\approx 7{,}4$ cm et le périmètre vaut environ $18{,}4$ cm.",
+          "conclusion": "La calculatrice donne $8 + 3 + \\sqrt{55} = 18{,}416\\ldots$ : on arrondit une seule fois, à la fin.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-equation-pythagore",
+          "titre": "Exemple 5 — Pythagore et équation",
+          "enonce": "Un triangle est rectangle. Un côté de l'angle droit mesure $5$ cm ; l'hypoténuse mesure $1$ cm de plus que l'autre côté de l'angle droit, de longueur $x$ cm. Calculer $x$.",
+          "calcul": [
+            {
+              "expr": "(x + 1)^2 = x^2 + 5^2",
+              "texte": "Théorème de Pythagore, l'hypoténuse mesurant $x + 1$."
+            },
+            {
+              "expr": "(x + 1)^2 - x^2 = 25",
+              "texte": "La différence des aires des deux carrés vaut donc $25$."
+            },
+            {
+              "expr": "(x + 1)^2 - x^2 = x + x + 1 = 2x + 1",
+              "texte": "Dans un carré de côté $x + 1$, on retire un carré de côté $x$ : il reste une bande en L formée de deux rectangles de $x$ sur $1$ et d'un petit carré de $1$ sur $1$."
+            },
+            {
+              "expr": "2x + 1 = 25 \\text{, donc } 2x = 24 \\text{ et } x = 12",
+              "texte": "On obtient une équation du premier degré."
+            }
+          ],
+          "reponse": "$x = 12$ : le côté mesure $12$ cm et l'hypoténuse $13$ cm.",
+          "conclusion": "Vérification : $12^2 + 5^2 = 144 + 25 = 169 = 13^2$. Le découpage en bande en L évite tout développement de $(x + 1)^2$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Calculer la longueur d'une rampe d'accès à partir de sa hauteur et de son avancée au sol.",
+        "Trouver la hauteur atteinte par une échelle posée contre un mur.",
+        "Calculer la longueur du câble d'une tyrolienne entre deux points."
+      ],
+      "erreursFrequentes": [
+        "Additionner les carrés alors qu'on cherche un côté de l'angle droit (il faut soustraire).",
+        "Oublier la racine carrée à la fin et donner $BC^2$ à la place de $BC$.",
+        "Mélanger les unités (centimètres et mètres) dans le même calcul.",
+        "Arrondir un résultat intermédiaire puis le réutiliser, ce qui fausse le résultat final."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Additionner les carrés alors qu'on cherche un côté de l'angle droit (il faut soustraire).",
+          "pourquoi": "Additionner donne toujours un résultat plus grand que les deux longueurs connues : c'est le calcul de l'hypoténuse, pas d'un côté de l'angle droit.",
+          "comment_detecter": "Ton côté de l'angle droit est-il plus long que l'hypoténuse ? Alors tu as additionné.",
+          "comment_eviter": "Avant de calculer, écris en toutes lettres « je cherche l'hypoténuse » ou « je cherche un côté de l'angle droit »."
+        },
+        {
+          "description": "Oublier la racine carrée à la fin et donner $BC^2$ à la place de $BC$.",
+          "pourquoi": "Le théorème donne le carré de la longueur ; la longueur elle-même s'obtient avec la racine carrée.",
+          "comment_detecter": "Ta réponse est-elle beaucoup trop grande pour la figure ? Il manque sans doute la racine.",
+          "comment_eviter": "Écris la dernière ligne sous la forme « $BC = \\sqrt{\\dots}$ » avant de faire le calcul."
+        },
+        {
+          "description": "Mélanger les unités (centimètres et mètres) dans le même calcul.",
+          "pourquoi": "Les carrés de centimètres et de mètres ne s'additionnent pas : $0{,}5^2 + 30^2$ ne représente aucune longueur.",
+          "comment_detecter": "Toutes les longueurs de ton calcul portent-elles la même unité ?",
+          "comment_eviter": "Convertis toutes les longueurs dans l'unité demandée dans la question, dès le début."
+        },
+        {
+          "description": "Arrondir un résultat intermédiaire puis le réutiliser, ce qui fausse le résultat final.",
+          "pourquoi": "Une valeur arrondie est déjà légèrement fausse ; l'erreur grossit à chaque nouvelle opération.",
+          "comment_detecter": "As-tu réutilisé un nombre écrit avec le signe $\\approx$ ?",
+          "comment_eviter": "Garde la valeur exacte (ou toutes les décimales de la calculatrice) jusqu'au résultat final."
+        }
+      ],
+      "astuce": "Avant de calculer, demande-toi : « est-ce que je cherche le plus long côté ? » Si oui, j'additionne ; sinon, je soustrais.",
+      "aRetenir": [
+        "Hypoténuse cherchée : on additionne les carrés.",
+        "Côté de l'angle droit cherché : on soustrait les carrés.",
+        "On termine toujours par une racine carrée.",
+        "Valeur exacte d'abord, valeur approchée ensuite, avec l'unité."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.4,
+          -1.0,
+          5.6,
+          7.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 6.0,
+            "label": "U"
+          },
+          {
+            "x": 3.2,
+            "y": 0.0,
+            "label": "V"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "W"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "U",
+              "V",
+              "W"
+            ],
+            "tooltip": "Triangle UVW rectangle en W"
+          },
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "x": 0.32,
+                "y": 0.0
+              },
+              {
+                "x": 0.32,
+                "y": 0.32
+              },
+              {
+                "x": 0.0,
+                "y": 0.32
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit"
+          }
+        ],
+        "segments": [
+          {
+            "from": "U",
+            "to": "V",
+            "variant": "hypotenuse",
+            "reveal": 2,
+            "tooltip": "UV = 17 cm : hypoténuse connue"
+          },
+          {
+            "from": "W",
+            "to": "V",
+            "reveal": 2,
+            "tooltip": "VW = 8 cm"
+          },
+          {
+            "from": "U",
+            "to": "W",
+            "dashed": true,
+            "reveal": 3,
+            "tooltip": "UW : la longueur cherchée"
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.3,
+            "y": -0.55,
+            "label": "8 cm",
+            "reveal": 2
+          },
+          {
+            "x": 1.85,
+            "y": 3.25,
+            "label": "17 cm",
+            "reveal": 2
+          },
+          {
+            "x": -1.05,
+            "y": 3.0,
+            "label": "? cm",
+            "reveal": 3
+          }
+        ],
+        "steps": [
+          "Le triangle rectangle en W",
+          "Les longueurs connues",
+          "Le côté cherché"
+        ],
+        "relation": "$UW^2 = UV^2 - VW^2 = 289 - 64 = 225$, donc $UW = 15$ cm",
+        "alt": "Triangle UVW rectangle en W : l'hypoténuse UV mesure 17 cm, le côté VW mesure 8 cm et le côté UW, marqué d'un point d'interrogation, est la longueur cherchée.",
+        "explication": {
+          "resume": "On connaît l'hypoténuse $[UV]$ et un côté de l'angle droit. La longueur cherchée, $UW$, est un côté de l'angle droit : il faut soustraire.",
+          "lecture": [
+            "Le petit carré en $W$ code l'angle droit.",
+            "Le côté coloré $[UV]$, en face de l'angle droit, est l'hypoténuse : $17$ cm.",
+            "Le côté en pointillés, $[UW]$, est la longueur cherchée.",
+            "Les proportions de la figure sont respectées (figure réduite)."
+          ],
+          "etapes": [
+            {
+              "titre": "Égalité de Pythagore",
+              "texte": "$UV^2 = UW^2 + VW^2$."
+            },
+            {
+              "titre": "Isoler le carré cherché",
+              "texte": "$UW^2 = UV^2 - VW^2 = 17^2 - 8^2 = 289 - 64 = 225$."
+            },
+            {
+              "titre": "Racine carrée",
+              "texte": "$UW = \\sqrt{225} = 15$ cm."
+            }
+          ],
+          "pieges": [
+            "Additionner $17^2 + 8^2 = 353$ donnerait $UW \\approx 18{,}8$ cm, plus long que l'hypoténuse : c'est impossible."
+          ],
+          "aRetenir": [
+            "On soustrait quand on cherche un côté de l'angle droit."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        48301,
+        48304,
+        48308
+      ],
+      "topic_id": "pythagore-calculer-une-longueur",
+      "proprietes": [
+        "Dans un triangle rectangle, chaque côté de l'angle droit est strictement plus court que l'hypoténuse."
+      ],
+      "vocabulaire_associe": [
+        "hypoténuse",
+        "côté de l'angle droit",
+        "valeur exacte",
+        "valeur approchée",
+        "arrondi"
+      ],
+      "synonymes": [
+        "appliquer le théorème de Pythagore",
+        "calculer une longueur manquante"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer l'hypoténuse d'un triangle rectangle.",
+        "Calculer un côté de l'angle droit d'un triangle rectangle.",
+        "Donner une valeur exacte puis une valeur approchée d'une longueur.",
+        "Rédiger un calcul de longueur avec les unités."
+      ],
+      "prerequis": [
+        "Écrire l'égalité de Pythagore",
+        "Calculer et encadrer une racine carrée",
+        "Convertir des longueurs",
+        "Arrondir un nombre décimal"
+      ],
+      "notions_liees": [
+        "pythagore-hypotenuse-et-egalite",
+        "carres-et-racines-carrees",
+        "problemes-avec-pythagore"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "pythagore",
+        "calcul-de-longueur",
+        "hypotenuse",
+        "racine-carree"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "longueur-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Unités et arrondis",
+          "description": "Deux exemples détaillés : convertir avant de calculer, et n'arrondir qu'une seule fois à la fin."
+        },
+        {
+          "id": "longueur-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pythagore et équation",
+          "description": "Une longueur inconnue trouvée en combinant le théorème, la double distributivité et une équation, et la preuve que l'hypoténuse est le plus long côté."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Sur la figure, pourquoi le côté cherché $UW$ doit-il mesurer moins de $17$ cm ?",
+          "piste": "$UW$ est un côté de l'angle droit : il est plus court que l'hypoténuse $[UV]$, qui mesure $17$ cm."
+        },
+        {
+          "apres": "methode",
+          "question": "On cherche $EF$ dans un triangle $DEF$ rectangle en $D$. Faut-il additionner ou soustraire ?",
+          "piste": "$[EF]$ est opposé à $D$ : c'est l'hypoténuse, on additionne $DE^2 + DF^2$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Démonstration — pourquoi l'hypoténuse est-elle le plus long côté ?",
+        "etapes": [
+          {
+            "titre": "Étape 1 — L'égalité de départ",
+            "texte": "Dans un triangle $ABC$ rectangle en $A$ : $BC^2 = AB^2 + AC^2$."
+          },
+          {
+            "titre": "Étape 2 — Comparer les carrés",
+            "texte": "$AC$ est la longueur d'un côté, donc $AC > 0$ et $AC^2 > 0$. Ainsi $BC^2 = AB^2 + AC^2 > AB^2$."
+          },
+          {
+            "titre": "Étape 3 — Revenir aux longueurs",
+            "texte": "Pour des nombres positifs, le plus grand carré correspond au plus grand nombre (voir la leçon sur les racines carrées) : $BC > AB$. De la même façon, $BC > AC$."
+          },
+          {
+            "titre": "Étape 4 — La conséquence pratique",
+            "texte": "$BC^2 - AC^2 = AB^2$ est toujours strictement positif : un résultat négatif ou nul signale une erreur sur l'hypoténuse."
+          }
+        ],
+        "conclusion": "Ce raisonnement fournit un contrôle automatique de chaque calcul : une hypoténuse calculée doit dépasser les deux autres côtés, et un côté de l'angle droit calculé doit être plus court que l'hypoténuse."
+      }
+    },
+    {
+      "id": "triangle-rectangle-ou-non",
+      "title": "Démontrer qu'un triangle est rectangle ou non",
+      "schemaVersion": 2,
+      "intro": "Jusqu'ici, on savait que le triangle était rectangle et on calculait une longueur. On inverse maintenant la question : on connaît les trois longueurs d'un triangle et on veut savoir s'il est rectangle. Le calcul est le même ; la conclusion s'appuie sur un énoncé différent selon le résultat.",
+      "pourquoi": "Un dessin ne permet jamais de prouver qu'un angle est droit : un angle de $89°$ ressemble beaucoup à un angle droit. Le calcul, lui, tranche. C'est ainsi que l'on contrôle l'équerrage d'une pièce, d'un cadre ou d'une fondation.",
+      "explicationSimple": "Le théorème de Pythagore fonctionne dans les deux sens. Dans un sens, si le triangle est rectangle, l'égalité est vraie. Dans l'autre sens, la réciproque : si l'égalité est vraie, le triangle est rectangle. Et si l'égalité est fausse, le triangle ne peut pas être rectangle, sinon le théorème serait contredit.",
+      "objectif": "À la fin de cette leçon, tu sauras démontrer qu'un triangle est rectangle avec la réciproque du théorème de Pythagore, démontrer qu'il ne l'est pas avec le théorème de Pythagore (sa contraposée), et rédiger la démonstration complète.",
+      "definition": "La réciproque du théorème de Pythagore affirme que si, dans un triangle, le carré du plus long côté est égal à la somme des carrés des deux autres côtés, alors ce triangle est rectangle ; l'angle droit est au sommet opposé au plus long côté.",
+      "definitions": {
+        "college": "Si le carré du plus grand côté est égal à la somme des carrés des deux autres, alors le triangle est rectangle, avec l'angle droit en face du plus grand côté.",
+        "lycee": "La réciproque du théorème de Pythagore affirme que si, dans un triangle, le carré du plus long côté est égal à la somme des carrés des deux autres côtés, alors ce triangle est rectangle ; l'angle droit est au sommet opposé au plus long côté."
+      },
+      "intuition": "Imagine un compas qu'on ouvre : avec deux côtés de $5$ cm, le troisième côté mesure exactement $\\sqrt{50} \\approx 7{,}07$ cm quand l'angle entre eux est droit. S'il mesure $7$ cm, l'angle est un peu plus fermé ; s'il mesure $7{,}2$ cm, un peu plus ouvert. Une seule longueur correspond à l'angle droit.",
+      "reglesImportantes": [
+        "Réciproque du théorème de Pythagore : dans un triangle $ABC$ dont le plus long côté est $[BC]$, si $BC^2 = AB^2 + AC^2$, alors le triangle $ABC$ est rectangle en $A$.",
+        "Contraposée du théorème de Pythagore : si $BC^2 \\neq AB^2 + AC^2$ (avec $[BC]$ le plus long côté), alors le triangle $ABC$ n'est pas rectangle.",
+        "On calcule séparément le carré du plus long côté et la somme des carrés des deux autres, puis on compare.",
+        "On compare des valeurs exactes : une égalité « presque vraie » après arrondi ne prouve rien.",
+        "Le théorème sert à calculer une longueur dans un triangle déjà rectangle ; la réciproque sert à prouver qu'un triangle est rectangle."
+      ],
+      "formules": [
+        {
+          "id": "formule-test-reciproque",
+          "nom": "Le test à effectuer",
+          "expression": "$BC^2 \\overset{?}{=} AB^2 + AC^2$",
+          "quand_utiliser": "On connaît les trois longueurs ; $[BC]$ est le plus long côté.",
+          "erreur_frequente": "Isoler un côté qui n'est pas le plus long.",
+          "astuce": "Écris les deux calculs sur deux lignes séparées (« d'une part », « d'autre part ») avant de comparer."
+        },
+        {
+          "id": "formule-sommet-angle-droit",
+          "nom": "Où est l'angle droit ?",
+          "expression": "$\\text{sommet de l'angle droit} = \\text{sommet opposé au plus long côté}$",
+          "quand_utiliser": "Pour conclure « rectangle en … » après la réciproque.",
+          "erreur_frequente": "Donner l'un des deux sommets du plus long côté.",
+          "astuce": "C'est la seule lettre absente du nom du plus long côté."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Le triangle est-il rectangle ?",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère le plus long côté, après avoir exprimé les trois longueurs dans la même unité."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "D'une part, je calcule le carré du plus long côté ; d'autre part, la somme des carrés des deux autres côtés."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Je compare les deux résultats exacts."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "S'ils sont égaux : d'après la réciproque du théorème de Pythagore, le triangle est rectangle (en face du plus long côté). Sinon : d'après le théorème de Pythagore (contraposée), il n'est pas rectangle."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le plus long côté, après avoir exprimé les trois longueurs dans la même unité."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "D'une part, je calcule le carré du plus long côté ; d'autre part, la somme des carrés des deux autres côtés."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Je compare les deux résultats exacts."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "S'ils sont égaux : d'après la réciproque du théorème de Pythagore, le triangle est rectangle (en face du plus long côté). Sinon : d'après le théorème de Pythagore (contraposée), il n'est pas rectangle."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je range les trois longueurs dans l'ordre croissant : la dernière est celle du plus long côté."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "J'écris « D'une part, (plus long côté)$^2$ = … » puis « D'autre part, (côté 1)$^2$ + (côté 2)$^2$ = … »."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Je regarde si les deux nombres obtenus sont exactement les mêmes, sans arrondir."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Égaux : « d'après la réciproque du théorème de Pythagore, le triangle est rectangle en … ». Différents : « d'après le théorème de Pythagore, le triangle n'est pas rectangle »."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Comparer (plus long côté)$^2$ et la somme des deux autres carrés."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Égalité : réciproque, rectangle. Sinon : contraposée, pas rectangle."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-reciproque-efg",
+          "titre": "Exemple 1 — Démontrer qu'un triangle est rectangle",
+          "enonce": "Le triangle $EFG$ est tel que $EF = 2{,}4$ cm, $FG = 2{,}6$ cm et $EG = 1$ cm. Est-il rectangle ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le plus long côté est $[FG]$."
+            },
+            {
+              "expr": "FG^2 = 2{,}6^2 = 6{,}76",
+              "texte": "D'une part."
+            },
+            {
+              "expr": "EF^2 + EG^2 = 2{,}4^2 + 1^2 = 5{,}76 + 1 = 6{,}76",
+              "texte": "D'autre part."
+            },
+            {
+              "expr": "FG^2 = EF^2 + EG^2",
+              "texte": "On constate l'égalité."
+            }
+          ],
+          "reponse": "d'après la réciproque du théorème de Pythagore, le triangle $EFG$ est rectangle en $E$.",
+          "conclusion": "L'angle droit est en $E$, le sommet opposé au plus long côté $[FG]$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-contraposee-klm",
+          "titre": "Exemple 2 — Démontrer qu'un triangle n'est pas rectangle",
+          "enonce": "Le triangle $KLM$ est tel que $KL = 6$ cm, $LM = 8$ cm et $KM = 11$ cm. Est-il rectangle ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le plus long côté est $[KM]$."
+            },
+            {
+              "expr": "KM^2 = 11^2 = 121",
+              "texte": "D'une part."
+            },
+            {
+              "expr": "KL^2 + LM^2 = 6^2 + 8^2 = 36 + 64 = 100",
+              "texte": "D'autre part."
+            },
+            {
+              "expr": "121 \\neq 100",
+              "texte": "Les deux résultats sont différents."
+            }
+          ],
+          "reponse": "le triangle $KLM$ n'est pas rectangle.",
+          "conclusion": "S'il était rectangle, ce serait en $L$ et le théorème de Pythagore donnerait $KM^2 = KL^2 + LM^2$. Comme cette égalité est fausse, le triangle n'est pas rectangle : c'est la contraposée du théorème.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-ordre-cotes",
+          "titre": "Exemple 3 — Le plus long côté n'est pas le dernier cité",
+          "enonce": "Le triangle $PQR$ est tel que $PQ = 16$ cm, $QR = 34$ cm et $PR = 30$ cm. Est-il rectangle ?",
+          "analyse": "L'énoncé ne donne pas les longueurs dans l'ordre : il faut d'abord identifier le plus long côté.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "On range les longueurs : $16 < 30 < 34$ ; le plus long côté est $[QR]$."
+            },
+            {
+              "expr": "QR^2 = 34^2 = 1\\,156",
+              "texte": "D'une part."
+            },
+            {
+              "expr": "PQ^2 + PR^2 = 256 + 900 = 1\\,156",
+              "texte": "D'autre part."
+            },
+            {
+              "expr": "QR^2 = PQ^2 + PR^2",
+              "texte": "Égalité : on applique la réciproque."
+            }
+          ],
+          "reponse": "le triangle $PQR$ est rectangle en $P$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-piege-arrondi",
+          "titre": "Exemple 4 — Le piège de l'arrondi",
+          "enonce": "Le triangle $ABC$ est tel que $AB = 4$ cm, $AC = 7$ cm et $BC = 8{,}1$ cm. Est-il rectangle ?",
+          "calcul": [
+            {
+              "expr": "BC^2 = 8{,}1^2 = 65{,}61",
+              "texte": "Le plus long côté est $[BC]$."
+            },
+            {
+              "expr": "AB^2 + AC^2 = 16 + 49 = 65",
+              "texte": "Somme des carrés des deux autres côtés."
+            },
+            {
+              "expr": "65{,}61 \\neq 65",
+              "texte": "Les valeurs exactes sont différentes."
+            }
+          ],
+          "reponse": "d'après le théorème de Pythagore (contraposée), le triangle $ABC$ n'est pas rectangle.",
+          "interpretation": "$\\sqrt{65} \\approx 8{,}06$, très proche de $8{,}1$ : à l'œil ou après arrondi, on aurait pu croire le triangle rectangle. Seule la comparaison exacte $65{,}61 \\neq 65$ permet de conclure.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-parallelogramme-rectangle",
+          "titre": "Exemple 5 — Prouver qu'un quadrilatère est un rectangle",
+          "enonce": "$ABCD$ est un parallélogramme tel que $AB = 7{,}2$ cm, $AD = 3$ cm et $BD = 7{,}8$ cm. Démontrer que $ABCD$ est un rectangle.",
+          "analyse": "On cherche un triangle dont on connaît les trois côtés : la diagonale $[BD]$ en forme un avec deux côtés consécutifs.",
+          "calcul": [
+            {
+              "expr": "BD^2 = 7{,}8^2 = 60{,}84",
+              "texte": "Dans le triangle $ABD$, le plus long côté est $[BD]$."
+            },
+            {
+              "expr": "AB^2 + AD^2 = 51{,}84 + 9 = 60{,}84",
+              "texte": "D'autre part."
+            },
+            {
+              "expr": "",
+              "texte": "D'après la réciproque du théorème de Pythagore, $ABD$ est rectangle en $A$ : l'angle $\\widehat{DAB}$ est droit."
+            },
+            {
+              "expr": "",
+              "texte": "Un parallélogramme qui possède un angle droit est un rectangle."
+            }
+          ],
+          "reponse": "$ABCD$ est un rectangle.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "La règle du « 3-4-5 » des maçons et des jardiniers pour tracer un angle droit au sol.",
+        "Vérifier qu'un cadre ou un meuble est d'équerre en mesurant sa diagonale.",
+        "Contrôler un plan avant de découper une plaque."
+      ],
+      "erreursFrequentes": [
+        "Ne pas isoler le plus long côté et comparer au hasard.",
+        "Citer le théorème de Pythagore (et non sa réciproque) pour démontrer qu'un triangle est rectangle.",
+        "Arrondir les longueurs ou les carrés avant de comparer, et conclure à une égalité qui n'existe pas.",
+        "Conclure qu'un triangle est rectangle, ou non, en regardant la figure.",
+        "Mal nommer le sommet de l'angle droit, qui est opposé au plus long côté."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Ne pas isoler le plus long côté et comparer au hasard.",
+          "pourquoi": "Seul le plus long côté peut être l'hypoténuse : avec un autre côté, l'égalité est toujours fausse, même pour un triangle rectangle.",
+          "comment_detecter": "As-tu rangé les trois longueurs avant de calculer ?",
+          "comment_eviter": "Souligne le plus long côté dans l'énoncé avant tout calcul."
+        },
+        {
+          "description": "Citer le théorème de Pythagore (et non sa réciproque) pour démontrer qu'un triangle est rectangle.",
+          "pourquoi": "Le théorème suppose le triangle rectangle : il ne peut pas servir à le prouver.",
+          "comment_detecter": "Ta conclusion « il est rectangle » est-elle précédée de « d'après la réciproque » ?",
+          "comment_eviter": "Retiens : égalité vraie, réciproque ; égalité fausse, théorème (contraposée)."
+        },
+        {
+          "description": "Arrondir les longueurs ou les carrés avant de comparer, et conclure à une égalité qui n'existe pas.",
+          "pourquoi": "Après arrondi, deux nombres différents peuvent sembler égaux : $\\sqrt{65} \\approx 8{,}1$ alors que $8{,}1^2 = 65{,}61 \\neq 65$.",
+          "comment_detecter": "Ton calcul contient-il le signe $\\approx$ ?",
+          "comment_eviter": "Compare les carrés exacts des longueurs données, sans jamais prendre de racine."
+        },
+        {
+          "description": "Conclure qu'un triangle est rectangle, ou non, en regardant la figure.",
+          "pourquoi": "Un angle de $89°$ et un angle droit sont indiscernables à l'œil, et une figure peut être fausse.",
+          "comment_detecter": "Ta justification s'appuie-t-elle sur un calcul ?",
+          "comment_eviter": "Ne regarde la figure que pour nommer les côtés, jamais pour conclure."
+        },
+        {
+          "description": "Mal nommer le sommet de l'angle droit, qui est opposé au plus long côté.",
+          "pourquoi": "L'angle droit est en face de l'hypoténuse, pas à l'une de ses extrémités.",
+          "comment_detecter": "La lettre donnée apparaît-elle dans le nom du plus long côté ? Si oui, c'est une erreur.",
+          "comment_eviter": "Prends la seule lettre absente du nom du plus long côté."
+        }
+      ],
+      "astuce": "Rédige toujours en trois temps : « D'une part… D'autre part… On constate que… donc, d'après… ». La dernière phrase cite le bon énoncé selon que les résultats sont égaux ou non.",
+      "aRetenir": [
+        "Égalité vraie : réciproque du théorème de Pythagore, le triangle est rectangle.",
+        "Égalité fausse : contraposée du théorème, le triangle n'est pas rectangle.",
+        "On isole toujours le plus long côté.",
+        "On compare des valeurs exactes, jamais des arrondis."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1,
+          -1.3,
+          13.4,
+          7.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "A"
+          },
+          {
+            "x": 4.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 0.0,
+            "y": 3.0,
+            "label": "C"
+          },
+          {
+            "x": 6.5,
+            "y": 0.0,
+            "label": "O"
+          },
+          {
+            "x": 11.5,
+            "y": 0.0,
+            "label": "N"
+          },
+          {
+            "x": 6.6,
+            "y": 4.999,
+            "label": "P"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "variant": "a",
+            "tooltip": "AB = 4 cm, AC = 3 cm, BC = 5 cm"
+          },
+          {
+            "points": [
+              "O",
+              "N",
+              "P"
+            ],
+            "variant": "b",
+            "tooltip": "ON = OP = 5 cm, NP = 7 cm"
+          },
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "x": 0.32,
+                "y": 0.0
+              },
+              {
+                "x": 0.32,
+                "y": 0.32
+              },
+              {
+                "x": 0.0,
+                "y": 0.32
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit",
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.7,
+            "y": -0.55,
+            "label": "4 cm",
+            "reveal": 2
+          },
+          {
+            "x": -0.95,
+            "y": 1.5,
+            "label": "3 cm",
+            "reveal": 2
+          },
+          {
+            "x": 2.2,
+            "y": 1.75,
+            "label": "5 cm",
+            "reveal": 2
+          },
+          {
+            "x": 8.7,
+            "y": -0.55,
+            "label": "5 cm",
+            "reveal": 2
+          },
+          {
+            "x": 5.6,
+            "y": 2.499,
+            "label": "5 cm",
+            "reveal": 2
+          },
+          {
+            "x": 9.25,
+            "y": 2.749,
+            "label": "7 cm",
+            "reveal": 2
+          },
+          {
+            "x": 0.6,
+            "y": 4.4,
+            "label": "rectangle en A",
+            "reveal": 3
+          },
+          {
+            "x": 6.4,
+            "y": 6.0,
+            "label": "non rectangle",
+            "reveal": 3
+          }
+        ],
+        "steps": [
+          "Deux triangles qui se ressemblent",
+          "Leurs longueurs",
+          "Le verdict du calcul"
+        ],
+        "emphasis": true,
+        "relation": "$5^2 = 3^2 + 4^2$ : $ABC$ est rectangle en $A$. Mais $7^2 = 49 \\neq 5^2 + 5^2 = 50$ : $NOP$ n'est pas rectangle.",
+        "alt": "Deux triangles côte à côte. Le triangle ABC (AB = 4 cm, AC = 3 cm, BC = 5 cm) est rectangle en A. Le triangle NOP (ON = OP = 5 cm, NP = 7 cm) semble rectangle en O, mais son angle en O mesure environ 89 degrés : il n'est pas rectangle.",
+        "explication": {
+          "resume": "Les deux triangles semblent avoir un angle droit. Le calcul montre que seul le triangle $ABC$ en a un.",
+          "lecture": [
+            "Triangle $ABC$ : $AB = 4$ cm, $AC = 3$ cm et $BC = 5$ cm.",
+            "Triangle $NOP$ : $ON = OP = 5$ cm et $NP = 7$ cm.",
+            "Les proportions sont respectées : l'angle en $O$ mesure environ $89°$, invisible à l'œil."
+          ],
+          "observations": [
+            "$ABC$ : le plus long côté est $[BC]$, $5^2 = 25$ et $3^2 + 4^2 = 25$. Égalité : d'après la réciproque du théorème de Pythagore, $ABC$ est rectangle en $A$.",
+            "$NOP$ : le plus long côté est $[NP]$, $7^2 = 49$ et $5^2 + 5^2 = 50$. Comme $49 \\neq 50$, d'après le théorème de Pythagore (contraposée), $NOP$ n'est pas rectangle."
+          ],
+          "pieges": [
+            "Conclure d'après le dessin : un angle de $89°$ et un angle droit se ressemblent trop pour être distingués à l'œil."
+          ],
+          "aRetenir": [
+            "Seul le calcul exact permet de conclure."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        48401,
+        48402,
+        48412
+      ],
+      "topic_id": "triangle-rectangle-ou-non",
+      "proprietes": [
+        "Dans un triangle rectangle, l'angle droit est toujours opposé au plus long côté."
+      ],
+      "vocabulaire_associe": [
+        "réciproque",
+        "contraposée",
+        "plus long côté",
+        "triangle rectangle",
+        "démontrer"
+      ],
+      "synonymes": [
+        "réciproque de Pythagore",
+        "contraposée de Pythagore",
+        "démontrer qu'un triangle est rectangle"
+      ],
+      "objectifs_pedagogiques": [
+        "Démontrer qu'un triangle est rectangle avec la réciproque du théorème de Pythagore.",
+        "Démontrer qu'un triangle n'est pas rectangle avec la contraposée du théorème.",
+        "Choisir l'énoncé adapté et rédiger la conclusion.",
+        "Identifier le sommet de l'angle droit."
+      ],
+      "prerequis": [
+        "Théorème de Pythagore",
+        "Calculer le carré d'un nombre décimal",
+        "Comparer des nombres décimaux",
+        "Cas d'égalité des triangles (pour la démonstration)"
+      ],
+      "notions_liees": [
+        "pythagore-hypotenuse-et-egalite",
+        "pythagore-calculer-une-longueur",
+        "problemes-avec-pythagore"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "pythagore",
+        "reciproque",
+        "contraposee",
+        "demonstration"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "reciproque-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Deux pièges classiques",
+          "description": "Des longueurs données dans le désordre, et un triangle qui semble rectangle après arrondi mais ne l'est pas."
+        },
+        {
+          "id": "reciproque-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Démontrer la réciproque",
+          "description": "La preuve de la réciproque à l'aide d'un triangle construit et des cas d'égalité, et une application aux quadrilatères."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pourquoi ne peut-on pas prouver avec un rapporteur qu'un angle est droit ?",
+          "piste": "Une mesure est toujours approchée : un angle de $89{,}9°$ et un angle de $90°$ donnent la même lecture. Seul un calcul exact le prouve."
+        },
+        {
+          "apres": "methode",
+          "question": "Un triangle a pour côtés $6$, $8$ et $10$. En quel sommet serait l'angle droit ?",
+          "piste": "$6^2 + 8^2 = 100 = 10^2$ : l'angle droit est opposé au côté de longueur $10$."
+        }
+      ],
+      "tableauComparatif": {
+        "titre": "Quel énoncé utiliser ?",
+        "colonnes": [
+          "Situation",
+          "Énoncé à citer",
+          "Exemple",
+          "Piège"
+        ],
+        "lignes": [
+          {
+            "forme": "On sait que le triangle est rectangle et on cherche une longueur",
+            "regle": "Théorème de Pythagore",
+            "exemple": "$ABC$ rectangle en $A$ : $BC^2 = AB^2 + AC^2$",
+            "piege": "Se tromper d'hypoténuse"
+          },
+          {
+            "forme": "On connaît les trois longueurs et l'égalité est vraie",
+            "regle": "Réciproque du théorème de Pythagore",
+            "exemple": "$5^2 = 3^2 + 4^2$ : rectangle",
+            "piege": "Ne pas isoler le plus long côté"
+          },
+          {
+            "forme": "On connaît les trois longueurs et l'égalité est fausse",
+            "regle": "Théorème de Pythagore (contraposée)",
+            "exemple": "$7^2 \\neq 5^2 + 5^2$ : pas rectangle",
+            "piege": "Conclure d'après le dessin"
+          }
+        ]
+      },
+      "demonstration": {
+        "titre": "Démonstration — pourquoi la réciproque est-elle vraie ?",
+        "etapes": [
+          {
+            "titre": "Étape 1 — L'hypothèse",
+            "texte": "On part d'un triangle $ABC$ tel que $BC^2 = AB^2 + AC^2$. On veut montrer que l'angle en $A$ est droit."
+          },
+          {
+            "titre": "Étape 2 — Un triangle de comparaison",
+            "texte": "On construit un triangle $A'B'C'$ rectangle en $A'$, avec $A'B' = AB$ et $A'C' = AC$."
+          },
+          {
+            "titre": "Étape 3 — Le théorème direct",
+            "texte": "D'après le théorème de Pythagore dans $A'B'C'$ : $B'C'^2 = A'B'^2 + A'C'^2 = AB^2 + AC^2 = BC^2$. Les longueurs étant positives, $B'C' = BC$."
+          },
+          {
+            "titre": "Étape 4 — Deux triangles égaux",
+            "texte": "Les triangles $ABC$ et $A'B'C'$ ont leurs trois côtés deux à deux de même longueur : ce sont des triangles égaux. Leurs angles sont donc égaux deux à deux."
+          },
+          {
+            "titre": "Étape 5 — La conclusion",
+            "texte": "L'angle en $A'$ est droit, donc l'angle en $A$ l'est aussi : $ABC$ est rectangle en $A$."
+          }
+        ],
+        "conclusion": "La réciproque se démontre avec le théorème direct. La contraposée, elle, se justifie en une phrase : si le triangle était rectangle, le théorème imposerait l'égalité ; comme l'égalité est fausse, il ne l'est pas."
+      }
+    },
+    {
+      "id": "problemes-avec-pythagore",
+      "title": "Résoudre un problème avec le théorème de Pythagore",
+      "schemaVersion": 2,
+      "intro": "Dans la vie courante, personne ne te dira « le triangle $ABC$ est rectangle en $A$ ». C'est à toi de repérer le triangle rectangle caché dans la situation (un mur et le sol, les côtés d'un rectangle, deux directions perpendiculaires), puis de choisir le bon outil.",
+      "pourquoi": "Les problèmes réels demandent plusieurs compétences à la fois : modéliser par une figure, choisir entre le théorème et sa réciproque, gérer les unités et donner une réponse arrondie qui a du sens.",
+      "explicationSimple": "Un problème de Pythagore est un exercice déguisé. Le travail principal consiste à enlever le déguisement : voir que l'échelle, le mur et le sol forment un triangle rectangle, ou que la diagonale d'un écran coupe le rectangle en deux triangles rectangles. Une fois le triangle dessiné, tu appliques la méthode habituelle.",
+      "objectif": "À la fin de cette leçon, tu sauras modéliser une situation concrète par un triangle rectangle, justifier l'angle droit, choisir entre le théorème de Pythagore et sa réciproque, et rédiger une réponse complète avec une phrase de conclusion.",
+      "definition": "Résoudre un problème avec le théorème de Pythagore, c'est repérer dans la situation un triangle dont on sait (ou dont on veut prouver) qu'il est rectangle, nommer ses côtés et appliquer soit le théorème, soit sa réciproque.",
+      "definitions": {
+        "college": "On cherche dans la situation un triangle rectangle caché, on le dessine à part, et on applique le théorème ou sa réciproque.",
+        "lycee": "Résoudre un problème avec le théorème de Pythagore, c'est repérer dans la situation un triangle dont on sait (ou dont on veut prouver) qu'il est rectangle, nommer ses côtés et appliquer soit le théorème, soit sa réciproque."
+      },
+      "intuition": "Cherche les angles droits naturels : la verticale et l'horizontale, les coins d'un rectangle ou d'un carré, les directions perpendiculaires d'une carte, la hauteur d'un triangle isocèle.",
+      "reglesImportantes": [
+        "On justifie l'angle droit à partir de la situation : mur vertical et sol horizontal, côtés consécutifs d'un rectangle, directions nord et est, hauteur d'un triangle isocèle, diagonales d'un losange…",
+        "On fait un schéma à main levée, on code l'angle droit et on y reporte les longueurs connues et la longueur cherchée.",
+        "Pour calculer une longueur : théorème de Pythagore. Pour prouver qu'un angle est droit, ou non : réciproque ou contraposée.",
+        "On arrondit seulement le résultat final, à une précision adaptée à la situation (au centimètre pour une échelle, au dixième de kilomètre pour une randonnée…).",
+        "On conclut par une phrase qui répond à la question posée, avec l'unité."
+      ],
+      "formules": [
+        {
+          "id": "formule-diagonale-rectangle",
+          "nom": "Diagonale d'un rectangle",
+          "expression": "$d = \\sqrt{L^2 + \\ell^2}$",
+          "quand_utiliser": "Un rectangle de longueur $L$ et de largeur $\\ell$ : écran, terrain, plaque, fond de boîte.",
+          "erreur_frequente": "Calculer $L + \\ell$ ou $L \\times \\ell$.",
+          "astuce": "La diagonale est plus longue que $L$ mais plus courte que $L + \\ell$."
+        },
+        {
+          "id": "formule-hauteur-isocele",
+          "nom": "Hauteur d'un triangle isocèle",
+          "expression": "$h = \\sqrt{c^2 - \\left(\\dfrac{b}{2}\\right)^2}$",
+          "quand_utiliser": "Triangle isocèle de côtés égaux $c$ et de base $b$ : la hauteur coupe la base en son milieu.",
+          "erreur_frequente": "Utiliser la base entière $b$ au lieu de sa moitié.",
+          "astuce": "Travaille dans le demi-triangle : il est rectangle, d'hypoténuse $c$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre un problème",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère le triangle utile et je justifie l'angle droit avec une information de l'énoncé."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "pink",
+            "texte": "Je fais un schéma codé : angle droit, longueurs connues, longueur cherchée, unités harmonisées."
+          },
+          {
+            "icone": "compass",
+            "couleur": "orange",
+            "texte": "Je choisis l'outil : le théorème pour calculer, la réciproque ou la contraposée pour prouver qu'un angle est droit ou non."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Je calcule avec les valeurs exactes, en enchaînant plusieurs triangles si nécessaire."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'arrondis à la fin, je vérifie la vraisemblance et je réponds par une phrase."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le triangle utile et je justifie l'angle droit avec une information de l'énoncé."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "pink",
+              "texte": "Je fais un schéma codé : angle droit, longueurs connues, longueur cherchée, unités harmonisées."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Je choisis l'outil : le théorème pour calculer, la réciproque ou la contraposée pour prouver qu'un angle est droit ou non."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Je calcule avec les valeurs exactes, en enchaînant plusieurs triangles si nécessaire."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'arrondis à la fin, je vérifie la vraisemblance et je réponds par une phrase."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je souligne dans l'énoncé les mots qui indiquent un angle droit : « vertical », « horizontal », « rectangulaire », « perpendiculaire », « nord » et « est »…"
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "pink",
+              "texte": "Je dessine seulement le triangle rectangle, à part, et j'écris dessus ce que je connais et ce que je cherche."
+            },
+            {
+              "icone": "compass",
+              "couleur": "orange",
+              "texte": "Je me demande : est-ce que je cherche une longueur, ou est-ce que je dois prouver un angle droit ?"
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "J'applique la méthode de la leçon correspondante, étape par étape."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que ma réponse est réaliste et je l'écris dans une phrase, avec l'unité."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Triangle rectangle caché, angle droit justifié."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Théorème ou réciproque, valeurs exactes, arrondi final, phrase."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-echelle-mur",
+          "titre": "Exemple 1 — L'échelle contre le mur",
+          "enonce": "Une échelle de $4$ m est posée contre un mur vertical, son pied étant à $1$ m du mur sur un sol horizontal. À quelle hauteur arrive le haut de l'échelle ? Arrondir au centimètre.",
+          "analyse": "Le mur est perpendiculaire au sol : le mur, le sol et l'échelle forment un triangle rectangle au pied du mur. L'échelle est l'hypoténuse.",
+          "calcul": [
+            {
+              "expr": "h^2 + 1^2 = 4^2",
+              "texte": "Théorème de Pythagore ($h$ est la hauteur atteinte, en mètres)."
+            },
+            {
+              "expr": "h^2 = 16 - 1 = 15",
+              "texte": "On cherche un côté de l'angle droit : on soustrait."
+            },
+            {
+              "expr": "h = \\sqrt{15} \\approx 3{,}87",
+              "texte": "La calculatrice affiche $3{,}872\\ldots$ ; au centimètre, on garde deux décimales."
+            }
+          ],
+          "reponse": "le haut de l'échelle arrive à environ $3{,}87$ m de hauteur.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-equerrage-massif",
+          "titre": "Exemple 2 — Vérifier un angle droit sur le terrain",
+          "enonce": "Un jardinier délimite un massif rectangulaire de $1{,}2$ m sur $3{,}5$ m. Pour vérifier un angle, il mesure la diagonale qui joint les extrémités de ces deux côtés : $3{,}7$ m. L'angle est-il droit ?",
+          "analyse": "On connaît les trois côtés du triangle formé par deux bords et la diagonale : c'est un problème de réciproque, pas un calcul de longueur.",
+          "calcul": [
+            {
+              "expr": "3{,}7^2 = 13{,}69",
+              "texte": "Carré du plus long côté, la diagonale."
+            },
+            {
+              "expr": "1{,}2^2 + 3{,}5^2 = 1{,}44 + 12{,}25 = 13{,}69",
+              "texte": "Somme des carrés des deux bords."
+            },
+            {
+              "expr": "3{,}7^2 = 1{,}2^2 + 3{,}5^2",
+              "texte": "Égalité : on peut appliquer la réciproque du théorème de Pythagore."
+            }
+          ],
+          "reponse": "l'angle entre les deux bords est droit.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-distance-repere",
+          "titre": "Exemple 3 — Une distance dans un repère",
+          "enonce": "Dans un repère orthonormé d'unité $1$ cm, calculer la distance entre les points $A(-1 ; 2)$ et $B(5 ; -1)$, arrondie au millimètre.",
+          "analyse": "Dans un repère orthonormé, les déplacements horizontal et vertical sont perpendiculaires.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le point $C(5 ; 2)$ a la même ordonnée que $A$ et la même abscisse que $B$ : le triangle $ABC$ est rectangle en $C$."
+            },
+            {
+              "expr": "AC = 5 - (-1) = 6 \\text{ et } BC = 2 - (-1) = 3",
+              "texte": "Longueurs des côtés de l'angle droit."
+            },
+            {
+              "expr": "AB^2 = 6^2 + 3^2 = 36 + 9 = 45",
+              "texte": "Théorème de Pythagore."
+            },
+            {
+              "expr": "AB = \\sqrt{45} \\approx 6{,}7",
+              "texte": "Valeur exacte, puis arrondi au dixième de centimètre."
+            }
+          ],
+          "reponse": "$AB = \\sqrt{45}$ cm, soit environ $6{,}7$ cm.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-toit-abri",
+          "titre": "Exemple 4 — Un problème en deux temps",
+          "enonce": "La façade d'un abri de jardin est formée d'un rectangle de $3$ m de large et $2$ m de haut, surmonté d'un toit à deux pans symétriques dont le faîte est à $2{,}8$ m du sol. Calculer la longueur d'un pan du toit.",
+          "analyse": "Il faut d'abord trouver les deux côtés de l'angle droit, qui ne sont pas donnés directement.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le faîte est au-dessus du milieu de la façade : le demi-pignon est un triangle rectangle."
+            },
+            {
+              "expr": "\\dfrac{3}{2} = 1{,}5 \\text{ et } 2{,}8 - 2 = 0{,}8",
+              "texte": "Côtés de l'angle droit : demi-largeur et hauteur du toit."
+            },
+            {
+              "expr": "p^2 = 1{,}5^2 + 0{,}8^2 = 2{,}25 + 0{,}64 = 2{,}89",
+              "texte": "Théorème de Pythagore."
+            },
+            {
+              "expr": "p = \\sqrt{2{,}89} = 1{,}7",
+              "texte": "$p$ est positif."
+            }
+          ],
+          "reponse": "chaque pan du toit mesure $1{,}7$ m.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-bateaux",
+          "titre": "Exemple 5 — Deux bateaux",
+          "enonce": "À midi, deux bateaux quittent le même port : l'un navigue vers le nord à $12$ km/h, l'autre vers l'est à $16$ km/h. À quelle heure seront-ils à $30$ km l'un de l'autre ?",
+          "analyse": "La distance entre les bateaux est l'hypoténuse d'un triangle rectangle dont les côtés grandissent avec le temps.",
+          "calcul": [
+            {
+              "expr": "d_1 = 12t \\text{ et } d_2 = 16t",
+              "texte": "Après $t$ heures, à vitesse constante, les distances parcourues sont proportionnelles au temps."
+            },
+            {
+              "expr": "D^2 = (12t)^2 + (16t)^2 = 144t^2 + 256t^2 = 400t^2",
+              "texte": "Le nord et l'est sont perpendiculaires : théorème de Pythagore."
+            },
+            {
+              "expr": "D = 20t",
+              "texte": "$20t$ est positif et son carré vaut $400t^2$."
+            },
+            {
+              "expr": "20t = 30 \\text{, donc } t = 1{,}5",
+              "texte": "On résout l'équation."
+            }
+          ],
+          "reponse": "ils seront à $30$ km l'un de l'autre au bout de $1{,}5$ h, c'est-à-dire à $13$ h $30$.",
+          "conclusion": "Vérification : à $13$ h $30$, les bateaux ont parcouru $18$ km et $24$ km, et $18^2 + 24^2 = 324 + 576 = 900 = 30^2$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Calculer la longueur d'une tyrolienne ou d'un câble de haubanage.",
+        "Vérifier qu'un meuble passe en diagonale par une porte.",
+        "Estimer une distance à vol d'oiseau sur un plan quadrillé."
+      ],
+      "erreursFrequentes": [
+        "Utiliser le théorème sans justifier que le triangle est rectangle dans la situation.",
+        "Prendre pour hypoténuse un côté qui n'est pas en face de l'angle droit, par exemple le sol au lieu de l'échelle.",
+        "Oublier de convertir les longueurs dans la même unité.",
+        "Arrondir trop tôt dans un problème à plusieurs étapes.",
+        "Donner un résultat sans phrase de conclusion ni unité."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Utiliser le théorème sans justifier que le triangle est rectangle dans la situation.",
+          "pourquoi": "Le théorème ne s'applique qu'à un triangle rectangle : sans justification, la rédaction est incomplète.",
+          "comment_detecter": "Ta copie contient-elle une phrase qui explique pourquoi l'angle est droit ?",
+          "comment_eviter": "Écris une phrase du type « le mur est perpendiculaire au sol, donc le triangle est rectangle »."
+        },
+        {
+          "description": "Prendre pour hypoténuse un côté qui n'est pas en face de l'angle droit, par exemple le sol au lieu de l'échelle.",
+          "pourquoi": "Dans la situation réelle, le côté le plus « visible » n'est pas forcément l'hypoténuse.",
+          "comment_detecter": "Le côté que tu as isolé est-il en face de l'angle droit de ton schéma ?",
+          "comment_eviter": "Sur le schéma, colorie l'hypoténuse avant de calculer."
+        },
+        {
+          "description": "Oublier de convertir les longueurs dans la même unité.",
+          "pourquoi": "Des centimètres et des mètres dans le même calcul donnent un résultat sans signification.",
+          "comment_detecter": "Toutes les longueurs de ton calcul ont-elles la même unité ?",
+          "comment_eviter": "Convertis tout dans l'unité de la réponse attendue, dès le schéma."
+        },
+        {
+          "description": "Arrondir trop tôt dans un problème à plusieurs étapes.",
+          "pourquoi": "Chaque arrondi intermédiaire ajoute une petite erreur, qui peut changer le résultat final.",
+          "comment_detecter": "As-tu réutilisé une valeur écrite avec $\\approx$ dans une deuxième étape ?",
+          "comment_eviter": "Garde les valeurs exactes ou toutes les décimales de la calculatrice jusqu'à la fin."
+        },
+        {
+          "description": "Donner un résultat sans phrase de conclusion ni unité.",
+          "pourquoi": "Un problème pose une question : un nombre isolé n'y répond pas.",
+          "comment_detecter": "Relis la question : ta dernière phrase y répond-elle avec l'unité ?",
+          "comment_eviter": "Termine toujours par une phrase qui reprend les mots de la question."
+        }
+      ],
+      "astuce": "Dessine toujours le triangle rectangle à plat, hors de la situation, avec ses trois côtés nommés : le problème devient un exercice que tu sais déjà faire.",
+      "aRetenir": [
+        "Repérer et justifier l'angle droit dans la situation.",
+        "Faire un schéma codé avec les longueurs connues et l'inconnue.",
+        "Théorème pour calculer, réciproque pour prouver.",
+        "Arrondi final adapté et phrase de réponse."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.6,
+          -1.0,
+          4.4,
+          5.6
+        ],
+        "grid": false,
+        "axes": false,
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "x": 1.0,
+                "y": 0.0
+              },
+              {
+                "x": 0.0,
+                "y": 3.873
+              }
+            ],
+            "variant": "a",
+            "reveal": 2,
+            "tooltip": "Le triangle rectangle caché : mur, sol, échelle"
+          },
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "x": 0.32,
+                "y": 0.0
+              },
+              {
+                "x": 0.32,
+                "y": 0.32
+              },
+              {
+                "x": 0.0,
+                "y": 0.32
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 0,
+              "y": 4.5
+            },
+            "tooltip": "Mur vertical"
+          },
+          {
+            "from": {
+              "x": -1.2,
+              "y": 0
+            },
+            "to": {
+              "x": 2.6,
+              "y": 0
+            },
+            "tooltip": "Sol horizontal"
+          },
+          {
+            "from": {
+              "x": 1.0,
+              "y": 0.0
+            },
+            "to": {
+              "x": 0.0,
+              "y": 3.873
+            },
+            "variant": "hypotenuse",
+            "tooltip": "Échelle : 4 m (hypoténuse)"
+          }
+        ],
+        "texts": [
+          {
+            "x": -1.25,
+            "y": 4.1,
+            "label": "mur"
+          },
+          {
+            "x": 1.9,
+            "y": -0.6,
+            "label": "sol"
+          },
+          {
+            "x": 0.75,
+            "y": 2.3,
+            "label": "4 mètres"
+          },
+          {
+            "x": 0.3,
+            "y": -0.6,
+            "label": "1 mètre",
+            "reveal": 2
+          },
+          {
+            "x": -1.3,
+            "y": 1.8,
+            "label": "h ?",
+            "reveal": 3
+          }
+        ],
+        "steps": [
+          "La situation",
+          "Le triangle rectangle caché",
+          "La longueur cherchée"
+        ],
+        "relation": "$h^2 = 4^2 - 1^2 = 15$, donc $h = \\sqrt{15} \\approx 3{,}87$ m",
+        "alt": "Schéma à l'échelle : un mur vertical, un sol horizontal et une échelle de 4 m dont le pied est à 1 m du mur. Le mur et le sol forment un angle droit, codé par un petit carré ; la hauteur h atteinte sur le mur est la longueur cherchée.",
+        "explication": {
+          "resume": "Le mur vertical et le sol horizontal forment un angle droit : avec l'échelle, ils dessinent un triangle rectangle dont l'échelle est l'hypoténuse.",
+          "lecture": [
+            "Le trait vertical représente le mur, le trait horizontal le sol.",
+            "Le petit carré code l'angle droit entre le mur et le sol.",
+            "L'échelle, en couleur, relie le sol au mur : c'est l'hypoténuse.",
+            "Le schéma respecte les proportions : $1$ m au sol, $4$ m d'échelle."
+          ],
+          "etapes": [
+            {
+              "titre": "Modéliser",
+              "texte": "Triangle rectangle au pied du mur, d'hypoténuse l'échelle ($4$ m)."
+            },
+            {
+              "titre": "Calculer",
+              "texte": "$h^2 = 4^2 - 1^2 = 16 - 1 = 15$."
+            },
+            {
+              "titre": "Conclure",
+              "texte": "$h = \\sqrt{15} \\approx 3{,}87$ m : l'échelle atteint environ $3{,}87$ m de hauteur."
+            }
+          ],
+          "pieges": [
+            "Le sol n'est pas l'hypoténuse : c'est un côté de l'angle droit."
+          ],
+          "aRetenir": [
+            "Mur et sol forment un angle droit ; l'objet appuyé est l'hypoténuse."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        48501,
+        48502,
+        48506
+      ],
+      "topic_id": "problemes-avec-pythagore",
+      "proprietes": [
+        "Un mur vertical est perpendiculaire à un sol horizontal.",
+        "Les diagonales d'un losange sont perpendiculaires et se coupent en leur milieu.",
+        "Dans un triangle isocèle, la hauteur issue du sommet principal coupe la base en son milieu."
+      ],
+      "vocabulaire_associe": [
+        "modéliser",
+        "schéma",
+        "diagonale",
+        "hauteur",
+        "perpendiculaire",
+        "vol d'oiseau"
+      ],
+      "synonymes": [
+        "problème de Pythagore",
+        "application du théorème de Pythagore"
+      ],
+      "objectifs_pedagogiques": [
+        "Modéliser une situation par un triangle rectangle.",
+        "Justifier un angle droit à partir de la situation.",
+        "Choisir entre le théorème et sa réciproque.",
+        "Résoudre un problème à plusieurs étapes et conclure par une phrase."
+      ],
+      "prerequis": [
+        "Calculer une longueur avec le théorème de Pythagore",
+        "Démontrer qu'un triangle est rectangle ou non",
+        "Conversions de longueurs",
+        "Propriétés du rectangle, du losange et du triangle isocèle"
+      ],
+      "notions_liees": [
+        "pythagore-calculer-une-longueur",
+        "triangle-rectangle-ou-non"
+      ],
+      "difficulte": "difficile",
+      "tags": [
+        "pythagore",
+        "probleme",
+        "modelisation"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "problemes-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Repère et problème en deux temps",
+          "description": "Calculer une distance dans un repère, et le pan d'un toit dont il faut d'abord trouver les dimensions."
+        },
+        {
+          "id": "problemes-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pythagore, vitesse et équation",
+          "description": "Deux bateaux qui s'éloignent : un problème qui combine proportionnalité, théorème de Pythagore et équation."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Sur le schéma, pourquoi l'échelle est-elle l'hypoténuse ?",
+          "piste": "L'angle droit est entre le mur et le sol, au pied du mur : l'échelle est le côté qui lui fait face."
+        },
+        {
+          "apres": "methode",
+          "question": "Dans un écran rectangulaire, quel segment joue le rôle d'hypoténuse ?",
+          "piste": "La diagonale : elle est opposée à l'angle droit formé par la largeur et la hauteur."
+        }
+      ]
+    }
+  ]
+}

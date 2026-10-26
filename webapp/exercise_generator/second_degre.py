@@ -69,6 +69,20 @@ def _roots_via_sympy(a, b, c):
 
 # ── 1. Résolution directe (les 3 cas de discriminant) ──────────────────────
 
+def _p(v) -> str:
+    """Facteur en LaTeX, entre parenthèses s'il s'affiche avec un signe moins ou
+    s'il est une somme (jamais « \\times -3 », « + -2 » ni « -5^2 »)."""
+    s = v if isinstance(v, str) else latex(v)
+    if not (s.lstrip().startswith("-") or getattr(v, "is_Add", False)):
+        return s
+    return f"\\left({s}\\right)" if "\\frac" in s else f"({s})"
+
+
+def _cx(a) -> str:
+    """Coefficient devant une variable, sans « 1x » ni « -1x »."""
+    return "" if a == 1 else ("-" if a == -1 else str(a))
+
+
 def _gen_resolution(rng):
     a = _nz(rng, -4, 4)
     kind = rng.choice(["deux_racines", "racine_double", "aucune_racine"])
@@ -139,7 +153,7 @@ def _gen_signe_discriminant(rng):
     else:
         concl = f"$\\Delta = {delta} < 0$ : l'équation n'admet aucune solution réelle."
     steps = [
-        f"Étape 1 — $\\Delta = b^2-4ac = {b}^2 - 4\\times({a})\\times({c}) = {delta}$.",
+        f"Étape 1 — $\\Delta = b^2-4ac = {_p(b)}^2 - 4\\times({a})\\times({c}) = {delta}$.",
         f"Étape 2 — {concl}",
     ]
     hint = "Le signe de Δ détermine à lui seul le nombre de solutions, sans qu'il soit nécessaire de les calculer."
@@ -224,7 +238,7 @@ def _gen_equation_depuis_racines(rng):
     steps = [
         f"Étape 1 — On utilise $x_1+x_2=-\\dfrac{{b}}{{a}}$ et $x_1x_2=\\dfrac{{c}}{{a}}$, donc "
         f"$b=-a(x_1+x_2)$ et $c=a\\,x_1x_2$.",
-        f"Étape 2 — $b = -{a}\\times({r1+r2}) = {b}$ et $c = {a}\\times({r1})\\times({r2}) = {c}$.",
+        f"Étape 2 — $b = -{_p(a)}\\times({r1+r2}) = {b}$ et $c = {a}\\times({r1})\\times({r2}) = {c}$.",
     ]
     answer = f"${_fmt_eq(a, b, c)}$"
     hint = "Reconstruire b et c à partir de la somme et du produit imposés par les racines : b=-a(x1+x2), c=a·x1x2."
@@ -281,11 +295,11 @@ def _gen_contexte_projectile(rng):
     ])
     enonce = (
         f"On lance {objet} verticalement. Sa hauteur $h(t)$ (en mètres), $t$ secondes après le lancer, est modélisée par "
-        f"$h(t) = -{a}t^2 + {v0}t + {h0}$. Déterminer, en résolvant une équation du second degré, "
+        f"$h(t) = -{_cx(a)}t^2 + {_cx(v0)}t + {h0}$. Déterminer, en résolvant une équation du second degré, "
         f"au bout de combien de secondes {pronom} retombe au sol (on donnera une valeur exacte)."
     )
     steps = [
-        f"Étape 1 — L'objet touche le sol quand $h(t)=0$, soit $-{a}t^2+{v0}t+{h0}=0$.",
+        f"Étape 1 — L'objet touche le sol quand $h(t)=0$, soit $-{_cx(a)}t^2+{_cx(v0)}t+{h0}=0$.",
         f"Étape 2 — $\\Delta = {v0}^2+4\\times{a}\\times{h0} = {delta}$, donc $\\Delta > 0$.",
         f"Étape 3 — Seule la solution positive a un sens physique (le temps est positif) : "
         f"$t = \\dfrac{{-{v0}-\\sqrt{{{delta}}}}}{{-2\\times{a}}} = {latex(t_pos)}$ s.",
@@ -317,8 +331,8 @@ def _gen_comparer_methodes(rng):
     autre = r2
     steps = [
         f"Méthode de Léa — $x_1={r_evidente}$ est une racine évidente (on vérifie : "
-        f"${r_evidente}^2 {'+' if b>=0 else '-'} {abs(b)}\\times({r_evidente}) {'+' if c>=0 else '-'} {abs(c)} = 0$). "
-        f"Comme $x_1x_2={c}$, on trouve $x_2={c}/{r_evidente}={autre}$.",
+        f"${_p(r_evidente)}^2 {'+' if b>=0 else '-'} {abs(b)}\\times {_p(r_evidente)} {'+' if c>=0 else '-'} {abs(c)} = 0$). "
+        f"Comme $x_1x_2={c}$, on trouve $x_2={c}/{_p(r_evidente)}={autre}$.",
         f"Méthode de Marc — $\\Delta = {delta}$, donc les racines sont "
         f"$\\dfrac{{-({b})\\pm\\sqrt{{{delta}}}}}{{2}}$, ce qui redonne $\\{{{min(r1,r2)};{max(r1,r2)}\\}}$.",
         "Étape finale — Les deux méthodes donnent bien le même ensemble de solutions : "
@@ -439,7 +453,7 @@ def _gen_parametre(rng):
         just = f"Aucune solution $\\iff \\Delta<0 \\iff b^2-4m<0 \\iff m>\\dfrac{{b^2}}{{4}}={latex(seuil)}$."
     enonce = f"Déterminer, selon les valeurs du réel $m$, pour quelle(s) valeur(s) l'équation {target}."
     steps = [
-        f"Étape 1 — On exprime le discriminant en fonction de $m$ : $\\Delta = b^2-4\\times1\\times m = {b}^2-4m$.",
+        f"Étape 1 — On exprime le discriminant en fonction de $m$ : $\\Delta = b^2-4\\times1\\times m = {_p(b)}^2-4m$.",
         f"Étape 2 — {just}",
     ]
     answer = cond
@@ -612,7 +626,7 @@ def _gen_equation_depuis_racines_et_point(rng):
         f"$f({x0})={valeur}$. Déterminer l'expression de $f(x) = ax^2+bx+c$."
     )
     steps = [
-        f"Étape 1 — $f$ s'écrit sous forme factorisée $f(x) = a(x-{r1})(x-{r2})$.",
+        f"Étape 1 — $f$ s'écrit sous forme factorisée $f(x) = a(x-{_p(r1)})(x-{_p(r2)})$.",
         f"Étape 2 — $f({x0}) = a \\times ({x0-r1}) \\times ({x0-r2}) = {valeur}$, donc $a = "
         f"\\dfrac{{{valeur}}}{{{(x0-r1)*(x0-r2)}}} = {a}$.",
         f"Étape 3 — On développe : $b = -a(x_1+x_2) = {b}$ et $c = a\\,x_1x_2 = {c}$.",
@@ -655,7 +669,7 @@ def _gen_resolution_irrationnelle(rng):
         f"Donner les solutions sous forme exacte (radicaux non simplifiables en entiers)."
     )
     steps = [
-        f"Étape 1 — Discriminant : $\\Delta = {b}^2 - 4\\times{a}\\times({c}) = {delta}$.",
+        f"Étape 1 — Discriminant : $\\Delta = {_p(b)}^2 - 4\\times{_p(a)}\\times({c}) = {delta}$.",
         f"Étape 2 — $\\Delta = {delta}$ n'est pas le carré d'un entier : les solutions restent sous forme "
         f"radicale, $x = \\dfrac{{-b \\pm \\sqrt{{\\Delta}}}}{{2a}}$.",
         f"Étape 3 — $x_1 = {latex(roots[0])}$ et $x_2 = {latex(roots[1])}$.",
@@ -706,8 +720,8 @@ def _gen_equation_depuis_racines_irrationnelles(rng):
     )
     steps = [
         f"Étape 1 — $x_1+x_2 = ({r1_s})+({r2_s}) = {2*p}$ (les termes en $\\sqrt{{{q}}}$ s'annulent) "
-        f"et $x_1x_2 = ({r1_s})({r2_s}) = {p}^2-{q} = {p*p-q}$ (identité $(u+v)(u-v)=u^2-v^2$).",
-        f"Étape 2 — $b=-a(x_1+x_2) = -{a}\\times{2*p} = {b}$ et $c=a\\,x_1x_2 = {a}\\times({p*p-q}) = {c}$.",
+        f"et $x_1x_2 = ({r1_s})({r2_s}) = {_p(p)}^2-{q} = {p*p-q}$ (identité $(u+v)(u-v)=u^2-v^2$).",
+        f"Étape 2 — $b=-a(x_1+x_2) = -{_p(a)}\\times {_p(2*p)} = {b}$ et $c=a\\,x_1x_2 = {a}\\times({p*p-q}) = {c}$.",
     ]
     answer = f"$b = {b}$ et $c = {c}$ (soit ${_fmt_eq(a, b, c)}$)"
     hint = "Même deux racines irrationnelles conjuguées se traitent avec les relations S=-b/a, P=c/a — les radicaux s'annulent dans la somme et se simplifient dans le produit via (u+v)(u-v)=u²-v²."

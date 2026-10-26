@@ -270,9 +270,11 @@ directement ou transitivement.
 
 ```bash
 npm install         # installe les dépendances de dev (jamais en production)
-npm run dev          # serveur Vite (rechargement à chaud, sourcemaps natifs)
+npm run dev          # Mathadap complet, http://127.0.0.1:5050 (tools/run_preview.py)
+npm run dev:donnees-test  # même adresse, données de test isolées
+npm run dev:statut / dev:redemarrer / dev:arreter  # gestion de l'instance unique
 npm run build        # production : webapp/static-dist/ (voir Cache busting)
-npm run preview       # sert webapp/static-dist/ localement pour vérification
+npm run preview       # alias de `npm run dev` (plus de second serveur Vite)
 npm run lint          # ESLint — bloquant en CI
 npm run lint:fix      # corrige automatiquement ce qui peut l'être
 npm run format        # Prettier — réécrit JS/HTML/CSS
@@ -298,9 +300,11 @@ npm run coverage      # Vitest avec rapport de couverture (coverage/frontend/)
   par Vite pour référencer ces noms — **aucun renommage manuel, jamais**. Un
   changement de contenu change le hash, donc l'URL, donc invalide
   automatiquement le cache navigateur/CDN.
-- **Sourcemaps en développement uniquement** : `npm run dev` sert les
-  modules ES natifs du navigateur avec sourcemaps implicites ; `npm run
-  build` (production) ne génère **aucune** sourcemap (`build.sourcemap:
+- **Développement local** : `npm run dev` (tools/run_preview.py) sert
+  static-dist/ par Flask sur l'unique adresse `http://127.0.0.1:5050` et
+  le recompile à chaque modification (`vite build --watch`) ; le serveur
+  Vite autonome (port 5173, sans l'API Flask) n'est plus utilisé. `npm
+  run build` (production) ne génère **aucune** sourcemap (`build.sourcemap:
   false`), pour ne jamais exposer de source non minifiée en production.
 - **Lazy loading déjà en place, préservé** : `settings.js` charge
   `pdfExport.js` et `popup.js` via `import()` dynamique (export PDF, popups

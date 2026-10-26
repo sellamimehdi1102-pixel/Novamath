@@ -79,13 +79,22 @@ function aiBadge(metric) {
 
 // Carte "Santé système" — statut agrégé réel (system_health_service.overview,
 // même source que la page Santé), plus une carte de navigation vide.
+//
+// Correctif (audit admin 2026-10-20) : `overview()` a été simplifié côté
+// backend (chantier de simplification de la page Santé) et ne renvoie plus
+// `total_services`/`ok_count` depuis un moment — ce badge lisait encore ces
+// deux champs disparus et affichait donc littéralement "undefined/undefined
+// opérationnels" dès que global_status valait "ok". Le contrat RÉEL actuel
+// de overview() est { global_status, degraded_count, down_count,
+// checked_at } (voir system_health_service.py) : ce badge s'y aligne
+// désormais, sans jamais réintroduire un total/compte agrégé que le backend
+// ne calcule plus.
 function healthBadge(metric) {
   if (!metric || !metric.available) return { cls: "unknown", label: EMPTY_LABEL };
   const h = metric.value;
-  if (h.total_services === 0) return { cls: "unknown", label: "Aucun service supervisé" };
   if (h.global_status === "down") return { cls: "down", label: `${h.down_count} service(s) en panne` };
   if (h.global_status === "degraded") return { cls: "warning", label: `${h.degraded_count} service(s) dégradé(s)` };
-  return { cls: "ok", label: `${h.ok_count}/${h.total_services} opérationnels` };
+  return { cls: "ok", label: "Tous les services opérationnels" };
 }
 
 // Carte "Support" — nombre réel de tickets ouverts (support_service.overview_stats,
@@ -144,6 +153,34 @@ const ALERT_LEVEL_CLASS = {
   info: "admin-badge--muted",
 };
 
+// Distinction état vs tendance (audit admin 2026-10-20) : avant ce
+// correctif, les alertes d'ÉTAT (un fait constaté à l'instant T — service
+// en panne, paiement en échec) et les alertes de TENDANCE (une comparaison
+// période courante/période précédente calculée par
+// admin_analytics_service.list_alerts()) s'affichaient mélangées, avec la
+// seule distinction du niveau de sévérité (critical/warning/info) — jamais
+// de quelle NATURE d'alerte il s'agit. Classification faite ici par code
+// (jamais une modification des dicts renvoyés par le backend, pour ne
+// casser aucun test existant sur la forme exacte des alertes) :
+// `provider_indisponible`/`paiements_en_echec`/`consentement_parental_
+// attente` sont des constats instantanés (">0" ou "down" maintenant) ;
+// les 4 autres codes connus sont des deltas période vs période précédente
+// (voir admin_analytics_service.py::list_alerts()). Un code inconnu
+// (futur) n'affiche simplement aucune étiquette de nature, sans jamais
+// planter.
+const STATUS_ALERT_CODES = new Set(["provider_indisponible", "paiements_en_echec", "consentement_parental_attente"]);
+const TREND_ALERT_CODES = new Set([
+  "forte_consommation_ia",
+  "hausse_erreurs",
+  "forte_creation_comptes",
+  "augmentation_tickets",
+]);
+function alertKindLabel(code) {
+  if (STATUS_ALERT_CODES.has(code)) return "État";
+  if (TREND_ALERT_CODES.has(code)) return "Tendance";
+  return null;
+}
+
 // `a.link` optionnel ({path, label}) — seules les 2 alertes ponctuelles du
 // Dashboard (paiements en échec / consentements parentaux en attente) en
 // portent un aujourd'hui (Chantier Administrateur, Phase 2) ; les 5 alertes
@@ -162,6 +199,8 @@ function renderAlerts(container, alerts, navigateTo) {
   const list = el("ul", "admin-activity-list");
   alerts.value.forEach((a) => {
     const row = el("li", "admin-activity-row");
+    const kind = alertKindLabel(a.code);
+    if (kind) row.appendChild(el("span", "admin-badge admin-badge--muted", kind));
     row.appendChild(el("span", `admin-badge ${ALERT_LEVEL_CLASS[a.level] || "admin-badge--neutral"}`, a.level));
     row.appendChild(el("span", "admin-activity-meta", a.message));
     if (a.link) {

@@ -11,10 +11,22 @@ import re
 import unittest
 
 from sympy import Matrix, Rational, symbols
+from sympy.parsing.sympy_parser import implicit_multiplication_application, parse_expr, standard_transformations
 
 from exercise_generator_seconde import droites as gen
 
 x, y = symbols("x y")
+
+
+def _lin_coeffs(txt):
+    """Relit une expression affichée (« 3x - y + 2 », « -2x - 1 ») et renvoie
+    (coefficient de x, coefficient de y, constante), indépendamment du code
+    du générateur."""
+    expr = parse_expr(
+        txt.replace("−", "-"), local_dict={"x": x, "y": y},
+        transformations=standard_transformations + (implicit_multiplication_application,),
+    ).expand()
+    return expr.coeff(x), expr.coeff(y), expr.subs({x: 0, y: 0})
 
 
 def _run_n(family_id, n, seed):
@@ -88,9 +100,10 @@ class TestValiditeMathematiqueEquations(unittest.TestCase):
     def test_eq_reduite_erreur_bonne_equation_verifie_lequation_cartesienne_dorigine(self):
         checked = 0
         for ex in _run_n("eq_reduite_erreur", 150, seed=4):
-            m = re.search(r"l'équation (-?\d+)x \+ (-?\d+)y \+ (-?\d+) = 0", ex["enonce"])
+            m = re.search(r"l'équation (.+?) = 0 sous forme réduite", ex["enonce"])
             self.assertIsNotNone(m)
-            a, b, c = (int(g) for g in m.groups())
+            a, b, c = _lin_coeffs(m.group(1))
+            self.assertNotEqual(b, 0)
             ma = re.search(r"y = (.+)$", ex["answer"])
             self.assertIsNotNone(ma)
             expr = ma.group(1).replace("(", "").replace(")", "")
@@ -111,7 +124,7 @@ class TestValiditeMathematiqueEquations(unittest.TestCase):
             self.assertIsNotNone(m)
             relation = m.group(1)
             if relation == "perpendiculaire":
-                ma = re.search(r"-1/(-?\d+) = (-?\d+(?:/\d+)?)", ex["solution_steps"][0])
+                ma = re.search(r"-1/\(?(-?\d+)\)? = (-?\d+(?:/\d+)?)", ex["solution_steps"][0])
                 self.assertIsNotNone(ma)
                 a = Rational(ma.group(1))
                 slope_d_prime = Rational(ma.group(2))
@@ -120,9 +133,10 @@ class TestValiditeMathematiqueEquations(unittest.TestCase):
                 ma = re.search(r"celui de D' est donc (-?\d+(?:/\d+)?)", ex["solution_steps"][0])
                 self.assertIsNotNone(ma)
                 a = Rational(ma.group(1))
-                ms = re.search(r"D' : y = (-?\d+(?:/\d+)?)x \+ p", ex["solution_steps"][1])
+                ms = re.search(r"D' : y = (-?\d*)x \+ p", ex["solution_steps"][1])
                 self.assertIsNotNone(ms)
-                slope_d_prime = Rational(ms.group(1))
+                slope_txt = ms.group(1)
+                slope_d_prime = Rational({"": "1", "-": "-1"}.get(slope_txt, slope_txt))
                 self.assertEqual(a, slope_d_prime)
             # Le point C annoncé doit vérifier l'équation finale de D'.
             mc = re.search(r"C\((-?\d+), (-?\d+)\)", ex["enonce"])
@@ -188,11 +202,10 @@ class TestPositionsRelatives(unittest.TestCase):
             # Les coefficients a1,b1,a2,b2 apparaissent explicitement dans le
             # step de résolution correcte.
             step = ex["solution_steps"][1]
-            ms = re.search(
-                r"(-?\d+)x\+(-?\d+) = (-?\d+)x\+(-?\d+)", step
-            )
+            ms = re.search(r"système : (.+?) = (.+?), donc", step)
             self.assertIsNotNone(ms, step)
-            a1, b1, a2, b2 = (int(g) for g in ms.groups())
+            a1, _, b1 = _lin_coeffs(ms.group(1))
+            a2, _, b2 = _lin_coeffs(ms.group(2))
             self.assertEqual(a1 * x_true + b1, y_true)
             self.assertEqual(a2 * x_true + b2, y_true)
             checked += 1

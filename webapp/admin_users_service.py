@@ -14,7 +14,7 @@ jamais l'inverse. Ce module ne dépend ni de Flask ni de rôles/permissions
 ici) — voir server.py::api_admin_users.
 
 ── "Classe" (colonne supprimée) ─────────────────────────────────────────────
-NovaMath ne persiste aujourd'hui AUCUNE classe par utilisateur en base (la
+Mathadap ne persiste aujourd'hui AUCUNE classe par utilisateur en base (la
 classe active est résolue par requête, jamais stockée sur la ligne `users` —
 voir webapp/chatbot/student_context_resolver.py). Une colonne "Classe"
 existait ici mais restait structurellement vide à 100 % des cas : supprimée
@@ -22,7 +22,7 @@ existait ici mais restait structurellement vide à 100 % des cas : supprimée
 comme "Aucune donnée disponible" en permanence.
 
 ── account_status (filtre "Statut") ────────────────────────────────────────
-Il n'existe pas de mécanisme de suspension dédié dans NovaMath : le filtre
+Il n'existe pas de mécanisme de suspension dédié dans Mathadap : le filtre
 réutilise la colonne réelle `users.account_status` (déjà écrite par
 consent_service.py — SEC-04), dont les 3 valeurs possibles sont 'active',
 'pending_parental_consent' et 'parental_consent_refused'.

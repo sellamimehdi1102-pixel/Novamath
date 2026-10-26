@@ -83,10 +83,13 @@ def _card_active_users_today():
     (delta = aujourd'hui - 0), voir admin-dashboard.js::activeUsersCard pour
     l'affichage exact ("+N vs hier"/"−N vs hier"). `db.count_users_active_
     since` renvoie toujours un entier réel (COUNT SQL, jamais NULL) : cette
-    carte est donc toujours `available`, comme avant ce chantier."""
+    carte est donc toujours `available`, comme avant ce chantier.
+    `include_guests=False` (audit admin 2026-10-20) : un visiteur anonyme ne
+    doit jamais gonfler le KPI "utilisateurs actifs" destiné à une décision
+    métier."""
     today_start = _today_start_iso()
-    today = db.count_users_active_since(today_start)
-    yesterday = db.count_users_active_since(_yesterday_start_iso(), today_start)
+    today = db.count_users_active_since(today_start, include_guests=False)
+    yesterday = db.count_users_active_since(_yesterday_start_iso(), today_start, include_guests=False)
     return _available({"today": today, "yesterday": yesterday, "delta": today - yesterday})
 
 

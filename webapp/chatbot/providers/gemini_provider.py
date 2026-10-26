@@ -227,7 +227,7 @@ def _classify_error(exc):
 
 
 def _translate_messages(messages):
-    """Traduit le format interne NovaMath (role "user"/"assistant", voir
+    """Traduit le format interne Mathadap (role "user"/"assistant", voir
     conversation_manager.py) vers le format Gemini (role "user"/"model" —
     Gemini n'utilise jamais "assistant")."""
     return [

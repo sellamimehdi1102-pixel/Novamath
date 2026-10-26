@@ -1,6 +1,6 @@
 """
 Suite "répétition des exemples" (chantier 2026-08-23, Priorité 3) : prouve
-que le chatbot NovaMath mémorise réellement quels exemples ont déjà été
+que le chatbot Mathadap mémorise réellement quels exemples ont déjà été
 montrés dans une conversation et ne les répète plus tant qu'une alternative
 réelle existe dans les données de cours — voir knowledge_engine.get_exemple/
 exemple_pool_exhausted, knowledge_response_composer.compose() (moteur local),
@@ -9,12 +9,13 @@ conversation_manager._commit_used_exemples (persistance cross-tour dans
 conversations.learning_context).
 
 Notion "puissances-entieres-relatives" (Chapitre_1, Seconde) utilisée pour la
-plupart des tests : 3 exemples réels et distincts dans les données actuelles
-(exemple-produit-meme-base / exemple-exposant-negatif /
-exemple-puissance-de-puissance-combinee) — assez pour observer une vraie
-rotation sans repli. "valeur-absolue-dun-nombre-reel" (Chapitre_2, Seconde,
-1 seul exemple réel) sert à prouver le repli honnête quand le stock est
-epuisé dès le premier tour.
+plupart des tests : 5 exemples réels et distincts dans les données actuelles
+depuis la refonte pédagogique de Seconde (2026-10-23) — assez pour observer
+une vraie rotation sans repli. "valeur-absolue-dun-nombre-reel" (Chapitre_2,
+Seconde) sert à prouver le repli honnête quand le stock est épuisé : on
+exclut explicitement TOUS ses exemples réels (quel que soit leur nombre,
+qui peut changer au fil des refontes) plutôt que de supposer qu'elle n'en a
+qu'un seul.
 """
 import random
 import unittest
@@ -67,7 +68,7 @@ class TestKnowledgeEngineExcludeIds(unittest.TestCase):
     def setUp(self):
         self.notion = knowledge_engine.get_notion(*PUISSANCES, class_level="seconde")
         self.all_ids = {ex["id"] for ex in self.notion["exemples"]}
-        self.assertEqual(len(self.all_ids), 3)
+        self.assertEqual(len(self.all_ids), 5)
 
     def test_exclut_les_ids_deja_vus_quand_une_alternative_existe(self):
         first = knowledge_engine.get_exemple(self.notion, exclude_ids=())
@@ -91,11 +92,14 @@ class TestKnowledgeEngineExcludeIds(unittest.TestCase):
         self.assertIn(repeated["id"], self.all_ids)
 
     def test_notion_a_un_seul_exemple_epuise_des_le_premier_tour(self):
-        va_notion = knowledge_engine.get_notion(*VALEUR_ABSOLUE, class_level="seconde")
-        self.assertEqual(len(va_notion["exemples"]), 1)
-        only_id = va_notion["exemples"][0]["id"]
-        self.assertFalse(knowledge_engine.exemple_pool_exhausted(va_notion, exclude_ids=()))
-        self.assertTrue(knowledge_engine.exemple_pool_exhausted(va_notion, exclude_ids=(only_id,)))
+        # Notion synthétique à un seul exemple (plutôt qu'une notion réelle
+        # du cours, dont le nombre d'exemples évolue au fil des refontes
+        # pédagogiques) : seul le mécanisme générique d'épuisement est testé
+        # ici, indépendamment du contenu réel d'une notion précise.
+        solo_notion = {"exemples": [{"id": "solo-exemple-1", "niveauAcces": "free"}]}
+        only_id = solo_notion["exemples"][0]["id"]
+        self.assertFalse(knowledge_engine.exemple_pool_exhausted(solo_notion, exclude_ids=()))
+        self.assertTrue(knowledge_engine.exemple_pool_exhausted(solo_notion, exclude_ids=(only_id,)))
 
 
 class TestComposeExcludeExemplesEntreLesTours(unittest.TestCase):
@@ -163,11 +167,14 @@ class TestDegradedModeExcludeExemplesEntreLesTours(unittest.TestCase):
 
     def test_repli_honnete_quand_stock_dune_notion_pauvre_est_epuise(self):
         va_notion = knowledge_engine.get_notion(*VALEUR_ABSOLUE, class_level="seconde")
-        only_id = va_notion["exemples"][0]["id"]
+        # On exclut TOUS les exemples réels (pas seulement le premier) pour
+        # garantir l'épuisement du stock, quel que soit son nombre actuel —
+        # voir la note en tête de fichier.
+        all_ids = [ex["id"] for ex in va_notion["exemples"]]
         intent_result = {
             "chapter_id": VALEUR_ABSOLUE[0], "notion_id": VALEUR_ABSOLUE[1], "topic_inherited": True,
             "intent": intent_service.EXEMPLE, "escalation_level": 1, "recommended_approach": "exemple",
-            "used_exemple_ids": [only_id],
+            "used_exemple_ids": all_ids,
         }
         messages = [{"role": "user", "content": "donne-moi un autre exemple"}]
         answer = degraded_mode_service.try_answer(intent_result, messages, class_level="seconde")

@@ -1,5 +1,5 @@
 """
-Owner/Developer Override — NovaMath.
+Owner/Developer Override — Mathadap.
 
 Mécanisme technique isolé du système commercial (Stripe / plan_service.py /
 quota_service.py / role_service.py restent, pour TOUT LE MONDE d'autre, la

@@ -12,6 +12,7 @@ import { t } from "./i18n.js";
 import { initClassBadge } from "./curriculumSelector.js";
 import { openPopup } from "./popup.js";
 import { openReportTicketPopup, openSupportHubPopup } from "./supportTicket.js";
+import { setCookieConsentChoice } from "./cookieConsent.js";
 
 const $ = (id) => document.getElementById(id);
 let panel, menu;
@@ -784,13 +785,33 @@ function bindSecurity() {
   });
 
   if (cookieConsentState !== null) {
+    // setCookieConsentChoice (cookieConsent.js) : point d'écriture unique du
+    // consentement, jamais api.setCookieConsent() directement ici — sans
+    // quoi le choix fait depuis Paramètres resterait invisible du
+    // localStorage lu par la bannière et par tout script gated sur ce
+    // consentement (ex: analyticsBeacon.js), voir la docstring de
+    // setCookieConsentChoice.
+    // setCookieConsentChoice renvoie `false` si une garde a annulé le retrait
+    // (activité non sauvegardée détectée, utilisateur ayant renoncé à la
+    // confirmation — voir analyticsBeacon.js::checkWithdrawalIsSafe) : la
+    // case cochée par le navigateur AVANT ce "change" doit alors être
+    // rétablie visuellement, et cookieConsentState ne doit PAS refléter un
+    // changement qui n'a en réalité jamais eu lieu.
     $("toggle-cookie-statistics").addEventListener("change", (e) => {
-      cookieConsentState = { ...cookieConsentState, statistics: e.target.checked };
-      api.setCookieConsent(cookieConsentState.statistics, cookieConsentState.marketing).catch(() => {});
+      const next = e.target.checked;
+      if (setCookieConsentChoice(next, cookieConsentState.marketing)) {
+        cookieConsentState = { ...cookieConsentState, statistics: next };
+      } else {
+        e.target.checked = !next;
+      }
     });
     $("toggle-cookie-marketing").addEventListener("change", (e) => {
-      cookieConsentState = { ...cookieConsentState, marketing: e.target.checked };
-      api.setCookieConsent(cookieConsentState.statistics, cookieConsentState.marketing).catch(() => {});
+      const next = e.target.checked;
+      if (setCookieConsentChoice(cookieConsentState.statistics, next)) {
+        cookieConsentState = { ...cookieConsentState, marketing: next };
+      } else {
+        e.target.checked = !next;
+      }
     });
   }
 

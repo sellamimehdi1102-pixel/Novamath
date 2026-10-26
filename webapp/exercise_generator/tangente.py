@@ -92,6 +92,11 @@ def _rand_f_expr(rng):
 
 # ── 1. Taux de variation → nombre dérivé ────────────────────────────────────
 
+def _x_moins(x0) -> str:
+    """« x-4 » / « x+3 » : jamais « x--3 »."""
+    return f"x-{x0}" if x0 >= 0 else f"x+{-x0}"
+
+
 def _gen_taux_variation(rng):
     f, f_txt = _rand_f_expr(rng)
     x0 = _small(rng, -6, 6)
@@ -205,7 +210,7 @@ def _gen_tangente(rng):
     steps = [
         f"Étape 1 — $f'(x) = {latex(fprime)}$, donc $f'({x0}) = {latex(m)}$.",
         f"Étape 2 — $f({x0}) = {latex(p)}$.",
-        f"Étape 3 — La tangente a pour équation $y = f'({x0})(x-{x0}) + f({x0})$, soit $y = {latex(tangente)}$.",
+        f"Étape 3 — La tangente a pour équation $y = f'({x0})({_x_moins(x0)}) + f({x0})$, soit $y = {latex(tangente)}$.",
     ]
     answer = f"$y = {latex(tangente)}$"
     hint = "Utiliser $y = f'(x_0)(x-x_0)+f(x_0)$."
@@ -352,13 +357,13 @@ def _gen_erreur_calcul(rng):
     enonce = (
         f"Soit $f$ la fonction définie sur $\\mathbb{{R}}$ par $f(x) = {_fmt_poly2(a, b, c)}$. "
         f"Un élève détermine la tangente en $x_0={x0}$ ainsi : \"$f'({x0})={latex(m_true)}$, donc "
-        f"$y = {latex(m_true)}(x-{x0}) + {latex(m_true)}$\" (il a utilisé $f'({x0})$ à la place de $f({x0})$ "
+        f"$y = {latex(m_true)}({_x_moins(x0)}) {'-' if m_true < 0 else '+'} {latex(abs(m_true))}$\" (il a utilisé $f'({x0})$ à la place de $f({x0})$ "
         "pour l'ordonnée à l'origine du calcul). Identifier son erreur et donner l'équation correcte."
     )
     steps = [
         f"Étape 1 — Le calcul de $f'({x0})={latex(m_true)}$ est correct.",
         f"Étape 2 — L'erreur est d'avoir réutilisé $f'({x0})$ à la place de $f({x0})$ : ici $f({x0})={latex(p_true)}$.",
-        f"Étape 3 — L'équation correcte est $y = f'({x0})(x-{x0})+f({x0}) = {latex(true_line)}$.",
+        f"Étape 3 — L'équation correcte est $y = f'({x0})({_x_moins(x0)})+f({x0}) = {latex(true_line)}$.",
     ]
     answer = f"Confusion entre $f'({x0})$ et $f({x0})$ ; l'équation correcte est $y = {latex(true_line)}$."
     hint = "Vérifier que l'ordonnée à l'origine du calcul utilise bien f(x0), pas f'(x0) — ce sont deux quantités différentes."

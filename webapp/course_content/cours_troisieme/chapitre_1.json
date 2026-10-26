@@ -70,7 +70,8 @@
           ],
           "reponse": "Oui, $48$ est divisible par $2$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $48$ est divisible par $2$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-66",
@@ -93,7 +94,8 @@
           ],
           "reponse": "$312$ est divisible par $2$, par $3$ et par $4$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $312$ est divisible par $2$, par $3$ et par $4$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-72",
@@ -116,7 +118,8 @@
           ],
           "reponse": "Oui, $2358$ est divisible par $18$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $2358$ est divisible par $18$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-78",
@@ -139,12 +142,35 @@
           ],
           "reponse": "Oui pour le sens direct ; la réciproque est fausse, par exemple $6$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Oui pour le sens direct ; la réciproque est fausse, par exemple $6$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        },
+        {
+          "id": "exemple-crit-div-premium-756",
+          "titre": "Exemple 5 — Un critère combiné (36 = 4 × 9)",
+          "enonce": "Le nombre $756$ est-il divisible par $36$ ? (On rappelle que $36 = 4 \\times 9$.)",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : les deux derniers chiffres de $756$ forment $56$, et $56 \\div 4 = 14$, donc $756$ est divisible par $4$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : la somme des chiffres est $7+5+6=18$, divisible par $9$, donc $756$ est divisible par $9$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : étant divisible à la fois par $4$ et par $9$ (des nombres sans diviseur commun autre que $1$), $756$ est divisible par $36$."
+            }
+          ],
+          "reponse": "Oui, $756$ est divisible par $36$",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $756$ est divisible par $36$",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Confondre le critère de divisibilité par 3 et celui par 9 : dans les deux cas on additionne les chiffres, mais il faut vérifier que la somme est divisible par 3 (respectivement par 9), pas juste regarder si elle est ronde.",
         "Ne regarder que le dernier chiffre pour tester la divisibilité par 4, alors qu'il faut regarder les deux derniers chiffres ensemble (par exemple 114 se termine par 4 mais n'est pas divisible par 4 car 14 ne l'est pas).",
@@ -180,11 +206,7 @@
         "Exprimer la somme des chiffres en fonction de $y$, puis chercher les valeurs qui la rendent divisible par $3$."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        61,
-        62,
-        63
-      ],
+      "quizExerciseIds": [67, 68, 81],
       "topic_id": "criteres-de-divisibilite",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -195,10 +217,49 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "criteres",
-        "divisibilite"
-      ]
+      "tags": ["criteres", "divisibilite"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "crit-div-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Tester un critère combiné sur un nombre à 3 chiffres",
+          "description": "Un exemple complet qui combine deux critères (4 et 9) pour tester la divisibilité par 36."
+        },
+        {
+          "id": "crit-div-ultra-1",
+          "section": "demonstration",
+          "niveau": "ultra",
+          "titre": "Pourquoi la somme des chiffres fonctionne pour 3 et 9 ?",
+          "description": "La démonstration complète, à partir de l'écriture décimale d'un nombre, qui explique pourquoi ce critère marche toujours."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Le nombre $4572$ est-il divisible par $6$ ? (Indice : $6 = 2 \\times 3$.)",
+          "piste": "Teste séparément la divisibilité par $2$ (chiffre des unités) et par $3$ (somme des chiffres), puis combine les deux résultats."
+        }
+      ],
+      "demonstration": {
+        "titre": "Pourquoi la somme des chiffres teste la divisibilité par 9 ?",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Décomposer le nombre selon ses chiffres",
+            "texte": "Un nombre à trois chiffres $\\overline{abc}$ s'écrit $100a + 10b + c$ (par exemple $472 = 4\\times100+7\\times10+2$)."
+          },
+          {
+            "titre": "Étape 2 — Comparer $100$, $10$ et $1$ à des multiples de $9$",
+            "texte": "$100 = 99+1$ et $10 = 9+1$ : $99$ et $9$ sont divisibles par $9$, donc $100a+10b+c = 99a+9b+(a+b+c)$."
+          },
+          {
+            "titre": "Étape 3 — Conclure",
+            "texte": "$99a+9b$ est toujours divisible par $9$ ; le nombre de départ est donc divisible par $9$ exactement quand $a+b+c$ (la somme des chiffres) l'est aussi. Le même raisonnement, avec $100=3\\times33+1$, fonctionne pour $3$."
+          }
+        ],
+        "conclusion": "Le critère fonctionne car $10$ et $100$ ne sont jamais « loin » d'un multiple de $9$ (ou de $3$) : il leur manque toujours exactement $1$."
+      }
     },
     {
       "id": "diviseurs-et-multiples-d-un-entier",
@@ -268,7 +329,8 @@
           ],
           "reponse": "Oui, $4$ est un diviseur de $20$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $4$ est un diviseur de $20$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-36",
@@ -295,7 +357,8 @@
           ],
           "reponse": "$1, 2, 3, 4, 6, 8, 12, 24$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $1, 2, 3, 4, 6, 8, 12, 24$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-42",
@@ -322,7 +385,8 @@
           ],
           "reponse": "$1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-48",
@@ -345,7 +409,8 @@
           ],
           "reponse": "$64$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $64$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -460,11 +525,7 @@
         ],
         "alt": "Les points pleins marquent les multiples de 3 entre 0 et 12."
       },
-      "quizExerciseIds": [
-        31,
-        32,
-        33
-      ],
+      "quizExerciseIds": [31, 32, 33],
       "topic_id": "diviseurs-et-multiples-d-un-entier",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -475,10 +536,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "diviseurs",
-        "multiples",
-        "entier"
+      "tags": ["diviseurs", "multiples", "entier"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "div-mult-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Trouver tous les diviseurs d'un nombre à 2 chiffres",
+          "description": "Un exemple complet qui montre comment organiser la recherche sans en oublier un seul."
+        },
+        {
+          "id": "div-mult-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Un problème qui combine multiples et encadrement",
+          "description": "Trouver un multiple précis dans un intervalle donné, une compétence qui revient souvent en problème."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "$9$ est-il un diviseur de $9$ ? Et un multiple de $9$ ?",
+          "piste": "Tout nombre est à la fois diviseur et multiple de lui-même : $9 = 9 \\times 1$."
+        }
       ]
     },
     {
@@ -549,7 +630,8 @@
           ],
           "reponse": "$q = 7$ et $r = 1$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $q = 7$ et $r = 1$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-6",
@@ -572,7 +654,8 @@
           ],
           "reponse": "$q = 11$ et $r = 7$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $q = 11$ et $r = 7$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-12",
@@ -599,7 +682,8 @@
           ],
           "reponse": "$q = 45$ et $r = 19$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $q = 45$ et $r = 19$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-18",
@@ -622,12 +706,11 @@
           ],
           "reponse": "$a = 353$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $a = 353$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Trouver un reste supérieur ou égal au diviseur (par exemple $r = 8$ pour une division par $6$), ce qui signifie que le quotient est trop petit.",
         "Confondre le quotient et le reste dans la réponse finale, par exemple en donnant $q$ à la place de $r$.",
@@ -663,24 +746,39 @@
         "Vérifier non seulement l'égalité numérique, mais aussi la condition sur le reste par rapport au diviseur."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        1,
-        2,
-        3
-      ],
+      "quizExerciseIds": [1, 2, 3],
       "topic_id": "division-euclidienne",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Division euclidienne."
-      ],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Division euclidienne."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "division",
-        "euclidienne"
+      "tags": ["division", "euclidienne"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "div-eucl-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Division euclidienne d'un grand nombre",
+          "description": "Une division à quatre chiffres, détaillée pas à pas pour bien chercher le quotient."
+        },
+        {
+          "id": "div-eucl-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Retrouver un nombre à partir de son quotient et de son reste",
+          "description": "Le raisonnement inverse de la division euclidienne, utile pour les problèmes de calendrier ou de codage."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Peut-on avoir $r = 6$ pour la division euclidienne par $6$ ? Pourquoi ?",
+          "piste": "Le reste doit toujours être strictement inférieur au diviseur : $r=6$ signifierait qu'on peut encore enlever $6$, donc le quotient n'était pas le bon."
+        }
       ]
     },
     {
@@ -755,7 +853,8 @@
           ],
           "reponse": "$12 = 2^2 \\times 3$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $12 = 2^2 \\times 3$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-126",
@@ -782,7 +881,8 @@
           ],
           "reponse": "$60 = 2^2 \\times 3 \\times 5$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $60 = 2^2 \\times 3 \\times 5$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-132",
@@ -809,7 +909,8 @@
           ],
           "reponse": "$210 = 2 \\times 3 \\times 5 \\times 7$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $210 = 2 \\times 3 \\times 5 \\times 7$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-138",
@@ -836,12 +937,11 @@
           ],
           "reponse": "$256 = 2^8$ ; on remarque que seul le nombre premier $2$ intervient",
           "conclusion": "Nous avons ainsi obtenu le résultat : $256 = 2^8$ ; on remarque que seul le nombre premier $2$ intervient",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Arrêter la décomposition trop tôt, en s'arrêtant sur un quotient qui n'est pas encore premier.",
         "Oublier de regrouper les facteurs premiers identiques sous forme de puissance, ou se tromper dans l'exposant en les comptant.",
@@ -877,11 +977,7 @@
         "Diviser successivement par les nombres premiers dans l'ordre croissant : $2$, puis $3$, puis $5$, etc."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        121,
-        122,
-        123
-      ],
+      "quizExerciseIds": [121, 122, 123],
       "topic_id": "decomposition-en-produit-de-facteurs-premiers",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -892,11 +988,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "decomposition",
-        "produit",
-        "facteurs",
-        "premiers"
+      "tags": ["decomposition", "produit", "facteurs", "premiers"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "decomp-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Décomposer un nombre à trois chiffres",
+          "description": "Un exemple complet avec plusieurs facteurs premiers distincts."
+        },
+        {
+          "id": "decomp-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Reconnaître une puissance pure d'un seul nombre premier",
+          "description": "Un cas particulier intéressant où un seul facteur premier intervient, utile pour repérer les puissances de 2."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Pourquoi ne peut-on jamais utiliser $4$ ou $6$ comme facteur dans une décomposition en facteurs premiers ?",
+          "piste": "$4$ et $6$ ne sont pas des nombres premiers : $4=2\\times2$ et $6=2\\times3$ — il faut toujours descendre jusqu'aux facteurs premiers."
+        }
       ]
     },
     {
@@ -967,7 +1082,8 @@
           ],
           "reponse": "Oui, $7$ est premier",
           "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $7$ est premier",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-96",
@@ -990,7 +1106,8 @@
           ],
           "reponse": "Non, $51$ n'est pas premier",
           "conclusion": "Nous avons ainsi obtenu le résultat : Non, $51$ n'est pas premier",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-102",
@@ -1013,7 +1130,8 @@
           ],
           "reponse": "Oui, $97$ est premier",
           "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $97$ est premier",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-108",
@@ -1040,12 +1158,35 @@
           ],
           "reponse": "Si $n$ n'a aucun diviseur premier inférieur ou égal à $\\sqrt{n}$, alors $n$ est premier",
           "conclusion": "Nous avons ainsi obtenu le résultat : Si $n$ n'a aucun diviseur premier inférieur ou égal à $\\sqrt{n}$, alors $n$ est premier",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        },
+        {
+          "id": "exemple-nb-premier-premium-133",
+          "titre": "Exemple 5 — Un nombre qui semble premier mais ne l'est pas",
+          "enonce": "Le nombre $133$ est-il premier ?",
+          "explication": "Pour résoudre cet exercice, nous allons appliquer la méthode vue juste au-dessus, étape par étape.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nous commençons par regarder ce que l'énoncé nous donne : $\\sqrt{133} \\approx 11{,}5$, il suffit de tester les nombres premiers $2, 3, 5, 7, 11$."
+            },
+            {
+              "expr": "",
+              "texte": "Nous poursuivons le calcul : $133$ est impair, sa somme des chiffres est $7$ (non divisible par $3$), il ne finit pas par $0$ ou $5$, mais $133 \\div 7 = 19$, un nombre entier."
+            },
+            {
+              "expr": "",
+              "texte": "Nous arrivons ainsi au résultat : $133 = 7 \\times 19$ possède donc au moins les diviseurs $1, 7, 19, 133$ : il n'est pas premier."
+            }
+          ],
+          "reponse": "Non, $133$ n'est pas premier ($133 = 7 \\times 19$)",
+          "conclusion": "Nous avons ainsi obtenu le résultat : Non, $133$ n'est pas premier ($133 = 7 \\times 19$)",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Croire que tous les nombres impairs sont premiers (par exemple penser que 9, 15 ou 21 sont premiers alors qu'ils sont divisibles par 3).",
         "Oublier que 2 est premier, en pensant à tort qu'un nombre premier doit être impair.",
@@ -1081,24 +1222,39 @@
         "Passer en revue chaque entier de la plage et éliminer ceux qui ont un diviseur évident."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        91,
-        92,
-        93
-      ],
+      "quizExerciseIds": [91, 92, 93],
       "topic_id": "nombres-premiers",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Nombres premiers."
-      ],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Nombres premiers."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "nombres",
-        "premiers"
+      "tags": ["nombres", "premiers"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "nb-premiers-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Un nombre qui semble premier mais ne l'est pas",
+          "description": "Un exemple qui montre qu'il ne faut jamais s'arrêter avant d'avoir testé tous les diviseurs premiers nécessaires."
+        },
+        {
+          "id": "nb-premiers-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Pourquoi s'arrêter à la racine carrée ?",
+          "description": "La preuve complète de la méthode de test de primalité, avec un raisonnement par l'absurde accessible."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Jusqu'à quel nombre faut-il tester les diviseurs pour savoir si $50$ est premier ?",
+          "piste": "$\\sqrt{50}\\approx 7{,}07$, donc il suffit de tester $2, 3, 5, 7$."
+        }
       ]
     }
   ]

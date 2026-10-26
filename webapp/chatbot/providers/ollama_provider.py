@@ -1,6 +1,6 @@
 """
 Implémentation Ollama (modèle local, aucune API cloud) du contrat ChatProvider.
-Fournisseur par défaut de NovaMath : toutes les communications passent par
+Fournisseur par défaut de Mathadap : toutes les communications passent par
 l'API HTTP locale d'Ollama (http://127.0.0.1:11434 par défaut), jamais depuis
 le frontend — cette classe est instanciée uniquement côté serveur, par
 provider_manager.py.
@@ -83,7 +83,7 @@ class OllamaProvider(ChatProvider):
         self.last_usage = None
         # `with resp:` (au lieu d'une simple variable locale) : garantit que
         # la connexion HTTP sortante vers Ollama est TOUJOURS fermée — même
-        # si le client NovaMath se déconnecte en plein stream (GeneratorExit
+        # si le client Mathadap se déconnecte en plein stream (GeneratorExit
         # remonté par server.py à travers cette boucle) ou si une exception
         # est levée depuis la boucle (JSON invalide, erreur applicative) —
         # au lieu de compter sur le ramasse-miettes CPython pour libérer la

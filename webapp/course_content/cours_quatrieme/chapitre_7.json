@@ -1,0 +1,2088 @@
+{
+  "chapterId": "Chapitre_7",
+  "title": "Équations",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "equations-tester-solution",
+      "title": "Équations : vocabulaire et test d'une solution",
+      "schemaVersion": 2,
+      "intro": "Une équation est une égalité qui contient un nombre inconnu, désigné par une lettre. Avant d'apprendre à la résoudre, il faut comprendre ce que signifie « être solution » et savoir le vérifier.",
+      "pourquoi": "Les équations permettent de trouver une valeur inconnue (un prix, une durée, une longueur) à partir de ce que l'on sait. Tester une solution sert aussi à vérifier tous ses calculs.",
+      "explicationSimple": "« J'ai pensé à un nombre, je l'ai triplé et j'ai ajouté $2$ : j'obtiens $11$. » Cela s'écrit $3x + 2 = 11$. Le nombre $3$ convient car $3 \\times 3 + 2 = 11$ : c'est la solution.",
+      "objectif": "À la fin de cette leçon, tu sauras employer le vocabulaire des équations (membre, inconnue, solution) et tester si un nombre est solution d'une équation.",
+      "definition": "Une équation d'inconnue $x$ est une égalité dans laquelle figure la lettre $x$, qui désigne un nombre inconnu. L'expression écrite à gauche du signe $=$ est le premier membre, celle de droite le second membre. Un nombre est solution de l'équation si, en remplaçant $x$ par ce nombre, les deux membres prennent la même valeur. Résoudre une équation, c'est trouver toutes ses solutions.",
+      "definitions": {
+        "college": "Une équation est une égalité avec un nombre inconnu $x$. Un nombre est solution si, quand on remplace $x$ par ce nombre, les deux côtés du signe $=$ donnent le même résultat.",
+        "lycee": "Une équation d'inconnue $x$ est une égalité dans laquelle figure la lettre $x$, qui désigne un nombre inconnu. L'expression écrite à gauche du signe $=$ est le premier membre, celle de droite le second membre. Un nombre est solution de l'équation si, en remplaçant $x$ par ce nombre, les deux membres prennent la même valeur. Résoudre une équation, c'est trouver toutes ses solutions."
+      },
+      "intuition": "Une équation pose une question : « pour quelle valeur de $x$ cette égalité est-elle vraie ? ». Tester un nombre, c'est essayer une réponse.",
+      "reglesImportantes": [
+        "Dans une équation, le premier membre est à gauche du signe $=$ et le second membre à droite.",
+        "Pour tester si un nombre est solution, on calcule séparément chaque membre en remplaçant $x$ par ce nombre.",
+        "Si les deux membres sont égaux, le nombre est solution ; sinon, il ne l'est pas.",
+        "On ne mélange jamais les deux membres pendant le test : on compare deux résultats.",
+        "Une équation peut avoir une seule solution, plusieurs solutions, aucune solution, ou une infinité de solutions."
+      ],
+      "formules": [
+        {
+          "id": "formule-tester-solution",
+          "nom": "Tester une solution",
+          "expression": "$a$ est solution $\\iff$ les deux membres valent la même chose pour $x = a$",
+          "quand_utiliser": "Pour vérifier une solution trouvée ou proposée.",
+          "erreur_frequente": "Calculer un seul membre et conclure.",
+          "astuce": "Écris deux lignes : « membre de gauche = … » et « membre de droite = … »."
+        },
+        {
+          "id": "formule-vocabulaire-equation",
+          "nom": "Vocabulaire",
+          "expression": "$\\underbrace{3x + 2}_{\\text{1er membre}} = \\underbrace{11}_{\\text{2e membre}}$",
+          "quand_utiliser": "Pour décrire une équation et ses étapes de résolution.",
+          "erreur_frequente": "Confondre l'inconnue et la solution.",
+          "astuce": "L'inconnue est la lettre ; la solution est le nombre qui rend l'égalité vraie."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Tester si un nombre est solution",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère les deux membres de l'équation."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je calcule le premier membre en remplaçant $x$ par le nombre (parenthèses s'il est négatif)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule le second membre de la même façon."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je compare : égaux, le nombre est solution ; différents, il ne l'est pas."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère les deux membres de l'équation."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule le premier membre en remplaçant $x$ par le nombre (parenthèses s'il est négatif)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule le second membre de la même façon."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je compare : égaux, le nombre est solution ; différents, il ne l'est pas."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je coupe l'équation en deux au niveau du signe $=$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule le côté gauche avec le nombre proposé."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule le côté droit avec le même nombre."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Même résultat ? Alors c'est une solution."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Calculer les deux membres séparément pour $x = a$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Égalité : solution ; sinon : pas solution."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-tester-simple",
+          "titre": "Exemple 1 — Tester une valeur",
+          "enonce": "$4$ est-il solution de l'équation $5x - 6 = 3x + 2$ ?",
+          "calcul": [
+            {
+              "expr": "5 \\times 4 - 6 = 14",
+              "texte": "Premier membre pour $x = 4$ :"
+            },
+            {
+              "expr": "3 \\times 4 + 2 = 14",
+              "texte": "Second membre pour $x = 4$ :"
+            }
+          ],
+          "reponse": "Les deux membres valent $14$ : $4$ est solution.",
+          "conclusion": "On a calculé chaque membre séparément avant de comparer.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-tester-carre",
+          "titre": "Exemple 2 — Une équation avec un carré",
+          "enonce": "$4$ est-il solution de $x^2 - 9 = 3x - 5$ ? Et $-1$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pour $x = 4$ : $16 - 9 = 7$ et $12 - 5 = 7$ : égal."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = -1$ : $(-1)^2 - 9 = -8$ et $3 \\times (-1) - 5 = -8$ : égal."
+            }
+          ],
+          "reponse": "$4$ et $-1$ sont tous les deux solutions.",
+          "conclusion": "Une équation peut avoir plusieurs solutions.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-tester-fraction",
+          "titre": "Exemple 3 — Une solution fractionnaire",
+          "enonce": "$\\dfrac{1}{2}$ est-il solution de $6x - 1 = 2x + 1$ ? Et $1$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pour $x = \\dfrac{1}{2}$ : $6 \\times \\dfrac{1}{2} - 1 = 2$ et $2 \\times \\dfrac{1}{2} + 1 = 2$ : égal."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = 1$ : $6 - 1 = 5$ et $2 + 1 = 3$ : différent."
+            }
+          ],
+          "reponse": "$\\dfrac{1}{2}$ est solution ; $1$ ne l'est pas.",
+          "conclusion": "La solution d'une équation n'est pas forcément un nombre entier.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-traduire-tester",
+          "titre": "Exemple 4 — Traduire puis tester",
+          "enonce": "Un nombre $x$ vérifie : « son double augmenté de $7$ est égal à son triple diminué de $5$ ». Écrire l'équation, puis tester $10$ et $12$.",
+          "calcul": [
+            {
+              "expr": "2x + 7 = 3x - 5",
+              "texte": "Équation :"
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = 10$ : $27$ et $25$ : différent."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = 12$ : $31$ et $31$ : égal."
+            }
+          ],
+          "reponse": "L'équation est $2x + 7 = 3x - 5$ ; $12$ est solution, $10$ ne l'est pas.",
+          "conclusion": "Traduire correctement l'énoncé est la première étape.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-aucune-infinite",
+          "titre": "Exemple 5 — Aucune ou une infinité de solutions",
+          "enonce": "Montrer que l'équation $2(x + 3) = 2x + 6$ est vraie pour toutes les valeurs de $x$, et que l'équation $2(x + 3) = 2x + 5$ n'a aucune solution.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$2(x + 3) = 2x + 6$ pour tout $x$ (distributivité) : tout nombre est solution."
+            },
+            {
+              "expr": "",
+              "texte": "$2(x + 3) = 2x + 5$ s'écrit $2x + 6 = 2x + 5$ ; en retirant $2x$ : $6 = 5$, ce qui est faux."
+            },
+            {
+              "expr": "",
+              "texte": "Aucune valeur de $x$ ne rend l'égalité vraie."
+            }
+          ],
+          "reponse": "La première a une infinité de solutions ; la seconde n'en a aucune.",
+          "conclusion": "Une équation du premier degré peut avoir une, aucune ou une infinité de solutions.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Vérifier un prix trouvé à partir d'une facture.",
+        "Contrôler la réponse d'une devinette mathématique.",
+        "Vérifier une longueur trouvée dans un problème de périmètre."
+      ],
+      "erreursFrequentes": [
+        "Ne calculer qu'un seul membre.",
+        "Oublier les parenthèses autour d'une valeur négative.",
+        "Confondre l'inconnue $x$ et la solution.",
+        "Conclure qu'un nombre est solution parce que les calculs « tombent juste »."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Ne calculer qu'un seul membre.",
+          "pourquoi": "On croit qu'il suffit de « trouver un résultat ».",
+          "comment_detecter": "As-tu bien deux résultats à comparer ?",
+          "comment_eviter": "Écris toujours les deux calculs, l'un sous l'autre."
+        },
+        {
+          "description": "Oublier les parenthèses autour d'une valeur négative.",
+          "pourquoi": "On écrit $-1^2$ au lieu de $(-1)^2$.",
+          "comment_detecter": "Le carré d'un nombre est-il négatif dans ton calcul ?",
+          "comment_eviter": "Mets toute valeur négative entre parenthèses."
+        },
+        {
+          "description": "Confondre l'inconnue $x$ et la solution.",
+          "pourquoi": "Les deux mots désignent « le nombre cherché ».",
+          "comment_detecter": "Ta réponse est-elle une lettre ou un nombre ?",
+          "comment_eviter": "La solution est un nombre précis, l'inconnue est la lettre."
+        },
+        {
+          "description": "Conclure qu'un nombre est solution parce que les calculs « tombent juste ».",
+          "pourquoi": "On confond un résultat entier avec une égalité vérifiée.",
+          "comment_detecter": "As-tu comparé les deux membres ?",
+          "comment_eviter": "Un nombre est solution seulement si les deux membres sont égaux."
+        }
+      ],
+      "astuce": "Quand tu as résolu une équation, teste toujours ta solution : c'est la façon la plus sûre de détecter une erreur de calcul.",
+      "aRetenir": [
+        "Une équation est une égalité avec une inconnue.",
+        "$a$ est solution si les deux membres sont égaux pour $x = a$.",
+        "On calcule chaque membre séparément."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.6,
+          -2.4,
+          15.8,
+          6.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0.4,
+                "y": 1.0
+              },
+              {
+                "x": 1.1,
+                "y": 1.0
+              },
+              {
+                "x": 1.1,
+                "y": 2.6
+              },
+              {
+                "x": 0.4,
+                "y": 2.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une boîte de masse x"
+          },
+          {
+            "points": [
+              {
+                "x": 1.2,
+                "y": 1.0
+              },
+              {
+                "x": 1.9,
+                "y": 1.0
+              },
+              {
+                "x": 1.9,
+                "y": 2.6
+              },
+              {
+                "x": 1.2,
+                "y": 2.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une boîte de masse x"
+          },
+          {
+            "points": [
+              {
+                "x": 2.0,
+                "y": 1.0
+              },
+              {
+                "x": 2.7,
+                "y": 1.0
+              },
+              {
+                "x": 2.7,
+                "y": 2.6
+              },
+              {
+                "x": 2.0,
+                "y": 2.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une boîte de masse x"
+          },
+          {
+            "points": [
+              {
+                "x": 2.8,
+                "y": 1.0
+              },
+              {
+                "x": 3.5,
+                "y": 1.0
+              },
+              {
+                "x": 3.5,
+                "y": 1.7
+              },
+              {
+                "x": 2.8,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 3.5999999999999996,
+                "y": 1.0
+              },
+              {
+                "x": 4.3,
+                "y": 1.0
+              },
+              {
+                "x": 4.3,
+                "y": 1.7
+              },
+              {
+                "x": 3.5999999999999996,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 6.6,
+                "y": 1.0
+              },
+              {
+                "x": 7.3,
+                "y": 1.0
+              },
+              {
+                "x": 7.3,
+                "y": 1.7
+              },
+              {
+                "x": 6.6,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 7.3999999999999995,
+                "y": 1.0
+              },
+              {
+                "x": 8.1,
+                "y": 1.0
+              },
+              {
+                "x": 8.1,
+                "y": 1.7
+              },
+              {
+                "x": 7.3999999999999995,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 8.2,
+                "y": 1.0
+              },
+              {
+                "x": 8.899999999999999,
+                "y": 1.0
+              },
+              {
+                "x": 8.899999999999999,
+                "y": 1.7
+              },
+              {
+                "x": 8.2,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 9.0,
+                "y": 1.0
+              },
+              {
+                "x": 9.7,
+                "y": 1.0
+              },
+              {
+                "x": 9.7,
+                "y": 1.7
+              },
+              {
+                "x": 9.0,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 9.8,
+                "y": 1.0
+              },
+              {
+                "x": 10.5,
+                "y": 1.0
+              },
+              {
+                "x": 10.5,
+                "y": 1.7
+              },
+              {
+                "x": 9.8,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 10.600000000000001,
+                "y": 1.0
+              },
+              {
+                "x": 11.3,
+                "y": 1.0
+              },
+              {
+                "x": 11.3,
+                "y": 1.7
+              },
+              {
+                "x": 10.600000000000001,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 11.400000000000002,
+                "y": 1.0
+              },
+              {
+                "x": 12.100000000000001,
+                "y": 1.0
+              },
+              {
+                "x": 12.100000000000001,
+                "y": 1.7
+              },
+              {
+                "x": 11.400000000000002,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 12.200000000000003,
+                "y": 1.0
+              },
+              {
+                "x": 12.900000000000002,
+                "y": 1.0
+              },
+              {
+                "x": 12.900000000000002,
+                "y": 1.7
+              },
+              {
+                "x": 12.200000000000003,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 13.000000000000004,
+                "y": 1.0
+              },
+              {
+                "x": 13.700000000000003,
+                "y": 1.0
+              },
+              {
+                "x": 13.700000000000003,
+                "y": 1.7
+              },
+              {
+                "x": 13.000000000000004,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 13.800000000000004,
+                "y": 1.0
+              },
+              {
+                "x": 14.500000000000004,
+                "y": 1.0
+              },
+              {
+                "x": 14.500000000000004,
+                "y": 1.7
+              },
+              {
+                "x": 13.800000000000004,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          },
+          {
+            "points": [
+              {
+                "x": 14.600000000000005,
+                "y": 1.0
+              },
+              {
+                "x": 15.300000000000004,
+                "y": 1.0
+              },
+              {
+                "x": 15.300000000000004,
+                "y": 1.7
+              },
+              {
+                "x": 14.600000000000005,
+                "y": 1.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une masse de 1"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0.0,
+              "y": 0.9
+            },
+            "to": {
+              "x": 5.8,
+              "y": 0.9
+            }
+          },
+          {
+            "from": {
+              "x": 6.4,
+              "y": 0.9
+            },
+            "to": {
+              "x": 15.0,
+              "y": 0.9
+            }
+          },
+          {
+            "from": {
+              "x": 6.1,
+              "y": 0.9
+            },
+            "to": {
+              "x": 6.1,
+              "y": -0.6
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.9,
+            "y": 3.2,
+            "label": "3x + 2"
+          },
+          {
+            "x": 10.7,
+            "y": 3.2,
+            "label": "11"
+          },
+          {
+            "x": 3.0,
+            "y": -1.2,
+            "label": "1) on retire 2 : 3x = 9",
+            "reveal": 2
+          },
+          {
+            "x": 11.0,
+            "y": -1.2,
+            "label": "2) on partage en 3 : x = 3",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "La balance est en équilibre",
+          "On retire 2 de chaque côté",
+          "On partage en 3"
+        ],
+        "relation": "$3x + 2 = 11 \\iff 3x = 9 \\iff x = 3$",
+        "alt": "Balance en équilibre : à gauche trois boîtes de masse x et deux masses de 1, à droite onze masses de 1. En retirant 2 de chaque côté puis en partageant en trois, on trouve x = 3.",
+        "explication": {
+          "resume": "Une équation est comme une balance en équilibre : elle reste équilibrée si l'on fait la même opération des deux côtés. On isole ainsi l'inconnue.",
+          "lecture": [
+            "Chaque boîte haute pèse $x$ (masse inconnue) ; chaque petit carré pèse $1$.",
+            "À gauche : $3x + 2$ ; à droite : $11$. La balance est équilibrée : $3x + 2 = 11$."
+          ],
+          "observations": [
+            "Retirer $2$ de chaque côté garde l'équilibre : $3x = 9$.",
+            "Partager chaque côté en $3$ parts égales garde l'équilibre : $x = 3$.",
+            "Vérification : $3 \\times 3 + 2 = 11$."
+          ],
+          "pieges": [
+            "Retirer $2$ d'un seul côté : la balance n'est plus équilibrée, l'égalité devient fausse."
+          ],
+          "aRetenir": [
+            "On peut ajouter ou soustraire le même nombre aux deux membres.",
+            "On peut multiplier ou diviser les deux membres par un même nombre NON NUL."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        47101,
+        47102,
+        47104
+      ],
+      "topic_id": "equations-tester-solution",
+      "proprietes": [
+        "Un nombre est solution d'une équation si l'égalité est vraie lorsqu'on remplace l'inconnue par ce nombre."
+      ],
+      "vocabulaire_associe": [
+        "équation",
+        "inconnue",
+        "membre",
+        "solution",
+        "résoudre",
+        "égalité"
+      ],
+      "synonymes": [
+        "tester une solution",
+        "vérifier une équation",
+        "est-il solution"
+      ],
+      "objectifs_pedagogiques": [
+        "Employer le vocabulaire : équation, membre, inconnue, solution.",
+        "Tester si un nombre est solution.",
+        "Traduire une phrase par une équation simple.",
+        "Savoir qu'une équation peut avoir plusieurs solutions."
+      ],
+      "prerequis": [
+        "Expressions littérales : écrire, lire et calculer",
+        "Nombres relatifs"
+      ],
+      "notions_liees": [
+        "equations-resoudre-ax-b",
+        "expressions-litterales"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "équations",
+        "solution",
+        "test",
+        "calcul littéral"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "equations-tester-solution-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Solution fractionnaire et traduction",
+          "description": "Deux exemples rédigés : tester une solution qui est une fraction, et traduire une phrase en équation avant de tester."
+        },
+        {
+          "id": "equations-tester-solution-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Aucune solution ou une infinité",
+          "description": "Un exemple qui montre qu'une équation peut n'avoir aucune solution, ou en avoir une infinité."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que pèserait une boîte si la balance portait $3x + 2$ à gauche et $14$ à droite ?",
+          "piste": "$x = 4$ car $3 \\times 4 + 2 = 14$."
+        },
+        {
+          "apres": "methode",
+          "question": "$-2$ est-il solution de $x + 5 = 3$ ?",
+          "piste": "Oui : $-2 + 5 = 3$."
+        }
+      ]
+    },
+    {
+      "id": "equations-resoudre-ax-b",
+      "title": "Résoudre une équation du type ax + b = c",
+      "schemaVersion": 2,
+      "intro": "Tester des nombres au hasard est long. Pour trouver directement la solution, on transforme l'équation en équations plus simples qui ont la même solution, jusqu'à obtenir « $x = $ un nombre ».",
+      "pourquoi": "Résoudre une équation permet de répondre à des questions concrètes : combien d'articles acheter, quelle durée prévoir, quelle longueur choisir.",
+      "explicationSimple": "Pour $3x + 2 = 11$ : on retire $2$ des deux côtés ($3x = 9$), puis on divise les deux côtés par $3$ ($x = 3$). C'est comme défaire un paquet cadeau dans l'ordre inverse de l'emballage.",
+      "objectif": "À la fin de cette leçon, tu sauras résoudre une équation du type $ax + b = c$, avec des nombres relatifs ou décimaux, en justifiant chaque étape, et vérifier ta solution.",
+      "definition": "Deux équations sont équivalentes si elles ont les mêmes solutions. On obtient une équation équivalente en ajoutant (ou en soustrayant) un même nombre aux deux membres, ou en multipliant (ou en divisant) les deux membres par un même nombre non nul. Pour $a \\neq 0$, l'équation $ax + b = c$ a une unique solution : $x = \\dfrac{c - b}{a}$.",
+      "definitions": {
+        "college": "On peut ajouter ou soustraire le même nombre des deux côtés du signe $=$, et multiplier ou diviser les deux côtés par le même nombre (pas zéro). On s'en sert pour isoler $x$.",
+        "lycee": "Deux équations sont équivalentes si elles ont les mêmes solutions. On obtient une équation équivalente en ajoutant (ou en soustrayant) un même nombre aux deux membres, ou en multipliant (ou en divisant) les deux membres par un même nombre non nul. Pour $a \\neq 0$, l'équation $ax + b = c$ a une unique solution : $x = \\dfrac{c - b}{a}$."
+      },
+      "intuition": "Le programme « multiplier par $a$ puis ajouter $b$ » a été appliqué à $x$. Pour retrouver $x$, on remonte le programme à l'envers : on soustrait $b$, puis on divise par $a$.",
+      "reglesImportantes": [
+        "On peut ajouter ou soustraire un même nombre aux deux membres d'une équation : on obtient une équation qui a les mêmes solutions.",
+        "On peut multiplier ou diviser les deux membres par un même nombre NON NUL.",
+        "Pour résoudre $ax + b = c$ : on soustrait $b$ aux deux membres ($ax = c - b$), puis on divise par $a$ ($x = \\dfrac{c - b}{a}$).",
+        "La solution peut être un nombre négatif, décimal ou une fraction ; on donne la valeur exacte, sous forme de fraction irréductible si nécessaire.",
+        "On termine toujours par une vérification et une phrase : « la solution de l'équation est … »."
+      ],
+      "formules": [
+        {
+          "id": "formule-ax-b-c",
+          "nom": "Équation $ax + b = c$",
+          "expression": "$ax + b = c \\iff ax = c - b \\iff x = \\dfrac{c - b}{a}$ ($a \\neq 0$)",
+          "quand_utiliser": "Pour résoudre une équation du premier degré avec l'inconnue d'un seul côté.",
+          "erreur_frequente": "Diviser par $a$ avant d'avoir soustrait $b$.",
+          "astuce": "Défais d'abord l'addition, ensuite la multiplication."
+        },
+        {
+          "id": "formule-ax-c",
+          "nom": "Équation $ax = c$",
+          "expression": "$ax = c \\iff x = \\dfrac{c}{a}$ ($a \\neq 0$)",
+          "quand_utiliser": "Dernière étape de toute résolution.",
+          "erreur_frequente": "Écrire $x = \\dfrac{a}{c}$ ou $x = c - a$.",
+          "astuce": "On divise par le nombre qui MULTIPLIE $x$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre $ax + b = c$",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'isole le terme en $x$ : j'ajoute ou je soustrais le même nombre aux deux membres."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'isole $x$ : je divise les deux membres par le coefficient de $x$ (non nul)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je simplifie la solution (fraction irréductible ou décimal)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie en remplaçant $x$ dans l'équation de départ et je conclus par une phrase."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'isole le terme en $x$ : j'ajoute ou je soustrais le même nombre aux deux membres."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'isole $x$ : je divise les deux membres par le coefficient de $x$ (non nul)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je simplifie la solution (fraction irréductible ou décimal)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie en remplaçant $x$ dans l'équation de départ et je conclus par une phrase."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde ce qui est ajouté ou retiré à $3x$ : je fais l'inverse des deux côtés."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Il reste « nombre fois $x$ = nombre » : je divise les deux côtés par le nombre devant $x$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris $x = \\ldots$"
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je remplace $x$ dans l'équation de départ pour vérifier."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$ax + b = c \\iff ax = c - b \\iff x = \\dfrac{c - b}{a}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Vérifier par substitution."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-resoudre-simple",
+          "titre": "Exemple 1 — Une équation simple",
+          "enonce": "Résoudre $5x - 7 = 3$.",
+          "calcul": [
+            {
+              "expr": "5x = 10",
+              "texte": "On ajoute $7$ aux deux membres :"
+            },
+            {
+              "expr": "x = 2",
+              "texte": "On divise les deux membres par $5$ :"
+            },
+            {
+              "expr": "",
+              "texte": "Vérification : $5 \\times 2 - 7 = 3$."
+            }
+          ],
+          "reponse": "La solution est $2$.",
+          "conclusion": "On a défait $-7$, puis $\\times 5$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-resoudre-negatif",
+          "titre": "Exemple 2 — Une solution négative",
+          "enonce": "Résoudre $4x + 2 = 0$.",
+          "calcul": [
+            {
+              "expr": "4x = -2",
+              "texte": "On soustrait $2$ aux deux membres :"
+            },
+            {
+              "expr": "x = -\\dfrac{2}{4} = -\\dfrac{1}{2}",
+              "texte": "On divise par $4$ :"
+            },
+            {
+              "expr": "",
+              "texte": "Vérification : $4 \\times \\left(-\\dfrac{1}{2}\\right) + 2 = -2 + 2 = 0$."
+            }
+          ],
+          "reponse": "La solution est $-\\dfrac{1}{2}$ (soit $-0{,}5$).",
+          "conclusion": "La solution peut être négative et non entière.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-coef-negatif",
+          "titre": "Exemple 3 — Un coefficient négatif",
+          "enonce": "Résoudre $-3x + 8 = 20$.",
+          "calcul": [
+            {
+              "expr": "-3x = 12",
+              "texte": "On soustrait $8$ :"
+            },
+            {
+              "expr": "x = \\dfrac{12}{-3} = -4",
+              "texte": "On divise par $-3$ :"
+            },
+            {
+              "expr": "",
+              "texte": "Vérification : $-3 \\times (-4) + 8 = 12 + 8 = 20$."
+            }
+          ],
+          "reponse": "La solution est $-4$.",
+          "conclusion": "On divise par le coefficient avec son signe : $-3$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-decimaux",
+          "titre": "Exemple 4 — Avec des décimaux",
+          "enonce": "Résoudre $2{,}5x - 1{,}5 = 6$.",
+          "calcul": [
+            {
+              "expr": "2{,}5x = 7{,}5",
+              "texte": "On ajoute $1{,}5$ :"
+            },
+            {
+              "expr": "x = 3",
+              "texte": "On divise par $2{,}5$ :"
+            },
+            {
+              "expr": "",
+              "texte": "Vérification : $2{,}5 \\times 3 - 1{,}5 = 7{,}5 - 1{,}5 = 6$."
+            }
+          ],
+          "reponse": "La solution est $3$.",
+          "conclusion": "Les règles sont les mêmes avec des nombres décimaux.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-fraction-coef",
+          "titre": "Exemple 5 — Un coefficient fractionnaire",
+          "enonce": "Résoudre $\\dfrac{2}{3}x + 1 = 7$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{2}{3}x = 6",
+              "texte": "On soustrait $1$ :"
+            },
+            {
+              "expr": "x = 6 \\times \\dfrac{3}{2} = 9",
+              "texte": "On multiplie les deux membres par $\\dfrac{3}{2}$, l'inverse de $\\dfrac{2}{3}$ :"
+            },
+            {
+              "expr": "",
+              "texte": "Vérification : $\\dfrac{2}{3} \\times 9 + 1 = 6 + 1 = 7$."
+            }
+          ],
+          "reponse": "La solution est $9$.",
+          "conclusion": "Diviser par $\\dfrac{2}{3}$, c'est multiplier par son inverse $\\dfrac{3}{2}$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Retrouver le prix unitaire d'un article à partir d'un total et d'une remise.",
+        "Calculer le nombre de séances d'un abonnement.",
+        "Trouver une durée à partir d'une distance et d'une vitesse."
+      ],
+      "erreursFrequentes": [
+        "Faire une opération sur un seul membre.",
+        "Diviser par le mauvais nombre : $3x = 12$ donne « $x = 12 - 3$ » ou « $x = \\dfrac{3}{12}$ ».",
+        "Perdre le signe du coefficient : $-3x = 12$ donne « $x = 4$ ».",
+        "Ne pas vérifier la solution."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Faire une opération sur un seul membre.",
+          "pourquoi": "On « fait passer » un nombre sans comprendre que c'est une opération sur les deux membres.",
+          "comment_detecter": "As-tu écrit la même opération des deux côtés ?",
+          "comment_eviter": "Écris l'opération (« $+7$ des deux côtés ») à côté de chaque ligne."
+        },
+        {
+          "description": "Diviser par le mauvais nombre : $3x = 12$ donne « $x = 12 - 3$ » ou « $x = \\dfrac{3}{12}$ ».",
+          "pourquoi": "On confond la soustraction et la division, ou on inverse la fraction.",
+          "comment_detecter": "Vérifie : $3 \\times 9 = 27 \\neq 12$.",
+          "comment_eviter": "$3x$ signifie $3 \\times x$ : on divise par $3$ ; $x = \\dfrac{12}{3} = 4$."
+        },
+        {
+          "description": "Perdre le signe du coefficient : $-3x = 12$ donne « $x = 4$ ».",
+          "pourquoi": "On oublie que le coefficient est $-3$.",
+          "comment_detecter": "Vérifie : $-3 \\times 4 = -12 \\neq 12$.",
+          "comment_eviter": "On divise par $-3$ : $x = -4$."
+        },
+        {
+          "description": "Ne pas vérifier la solution.",
+          "pourquoi": "On pense avoir fini dès qu'on a trouvé un nombre.",
+          "comment_detecter": "As-tu remplacé $x$ dans l'équation de départ ?",
+          "comment_eviter": "La vérification fait partie de la résolution."
+        }
+      ],
+      "astuce": "Pour savoir dans quel ordre défaire les opérations, lis l'équation comme un programme de calcul : $5x - 7$, c'est « multiplier par $5$ puis retirer $7$ ». Pour revenir à $x$, on ajoute d'abord $7$, puis on divise par $5$.",
+      "aRetenir": [
+        "Même opération sur les deux membres.",
+        "Trouver $x$ dans une équation comme $3x + 5 = 20$, c'est la résoudre : on isole $x$.",
+        "On défait $+$/$-$, puis $\\times$/$\\div$ (par un nombre non nul).",
+        "On vérifie toujours la solution."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "5x − 7 = 3",
+            "sousTitre": "Équation de départ"
+          },
+          {
+            "titre": "5x = 10",
+            "sousTitre": "+ 7 dans les deux membres"
+          },
+          {
+            "titre": "x = 2",
+            "sousTitre": "÷ 5 dans les deux membres"
+          },
+          {
+            "titre": "5 × 2 − 7 = 3 ✓",
+            "sousTitre": "Vérification"
+          }
+        ],
+        "steps": [
+          "On isole le terme en x",
+          "On isole x",
+          "On vérifie"
+        ],
+        "relation": "$5x - 7 = 3 \\iff 5x = 10 \\iff x = 2$",
+        "alt": "Chaîne : 5x − 7 = 3, puis 5x = 10 en ajoutant 7, puis x = 2 en divisant par 5, puis vérification 5 × 2 − 7 = 3.",
+        "explication": {
+          "resume": "Pour résoudre $ax + b = c$, on « défait » les opérations dans l'ordre inverse : d'abord l'addition ou la soustraction, puis la multiplication.",
+          "lecture": [
+            "Chaque case est une équation équivalente à la précédente.",
+            "Sous chaque case figure l'opération faite sur les DEUX membres."
+          ],
+          "observations": [
+            "$-7$ est annulé en ajoutant $7$ des deux côtés.",
+            "Le facteur $5$ est annulé en divisant par $5$ des deux côtés.",
+            "La vérification confirme que $2$ est bien la solution."
+          ],
+          "pieges": [
+            "Diviser par $5$ avant d'avoir ajouté $7$ : il faudrait diviser aussi le $-7$."
+          ],
+          "aRetenir": [
+            "On défait d'abord $+$ ou $-$, puis $\\times$.",
+            "On vérifie toujours la solution trouvée."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        47201,
+        47202,
+        47204
+      ],
+      "topic_id": "equations-resoudre-ax-b",
+      "proprietes": [
+        "Ajouter un même nombre aux deux membres d'une équation ne change pas ses solutions.",
+        "Multiplier les deux membres par un même nombre non nul ne change pas ses solutions."
+      ],
+      "vocabulaire_associe": [
+        "résoudre",
+        "équation équivalente",
+        "isoler",
+        "coefficient",
+        "membre",
+        "vérifier"
+      ],
+      "synonymes": [
+        "résoudre une équation du premier degré",
+        "trouver x",
+        "isoler l'inconnue"
+      ],
+      "objectifs_pedagogiques": [
+        "Transformer une équation en une équation équivalente.",
+        "Résoudre $ax + b = c$.",
+        "Donner une solution exacte (fraction irréductible).",
+        "Vérifier une solution."
+      ],
+      "prerequis": [
+        "Équations : vocabulaire et test d'une solution",
+        "Fractions : multiplier et diviser"
+      ],
+      "notions_liees": [
+        "equations-tester-solution",
+        "equations-deux-membres"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "équations",
+        "résolution",
+        "premier degré"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "equations-resoudre-ax-b-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Coefficient négatif et décimaux",
+          "description": "Deux exemples rédigés : résoudre une équation avec un coefficient négatif, puis avec des nombres décimaux."
+        },
+        {
+          "id": "equations-resoudre-ax-b-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Un coefficient fractionnaire",
+          "description": "Un exemple où l'on multiplie par l'inverse d'une fraction pour isoler $x$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle est la première opération pour résoudre $5x - 7 = 3$ ?",
+          "piste": "Ajouter $7$ aux deux membres."
+        },
+        {
+          "apres": "methode",
+          "question": "Résoudre $2x + 9 = 1$.",
+          "piste": "$2x = -8$, donc $x = -4$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Pourquoi peut-on diviser les deux membres par un nombre non nul, mais pas par zéro ?",
+        "etapes": [
+          {
+            "titre": "Diviser, c'est multiplier par l'inverse",
+            "texte": "Si $3x = 12$, multiplier les deux membres par $\\dfrac{1}{3}$ donne $x = 4$ ; inversement, multiplier $x = 4$ par $3$ redonne $3x = 12$ : les deux équations ont les mêmes solutions."
+          },
+          {
+            "titre": "Le cas de zéro",
+            "texte": "Multiplier $x = 4$ par $0$ donne $0 = 0$, qui est vraie pour TOUT $x$ : on a perdu l'information."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "On ne peut revenir en arrière que si le multiplicateur est non nul : c'est pourquoi on ne multiplie ni ne divise jamais par $0$."
+          }
+        ],
+        "conclusion": "Multiplier ou diviser les deux membres par un nombre non nul donne une équation équivalente ; par zéro, ce n'est plus le cas."
+      }
+    },
+    {
+      "id": "equations-deux-membres",
+      "title": "Équations avec l'inconnue dans les deux membres",
+      "schemaVersion": 2,
+      "intro": "Dans certaines équations, l'inconnue apparaît des deux côtés du signe $=$, parfois avec des parenthèses. On commence alors par regrouper tous les termes en $x$ dans un même membre.",
+      "pourquoi": "Comparer deux tarifs, deux périmètres ou deux programmes de calcul conduit à une équation où $x$ figure dans les deux membres : c'est le cas le plus fréquent dans les problèmes.",
+      "explicationSimple": "Deux forfaits : le premier coûte $2x + 30$, le second $5x + 6$ pour $x$ heures. Ils coûtent pareil quand $2x + 30 = 5x + 6$. On retire $2x$ des deux côtés : $30 = 3x + 6$, puis $24 = 3x$, donc $x = 8$ heures.",
+      "objectif": "À la fin de cette leçon, tu sauras résoudre une équation du premier degré dont l'inconnue figure dans les deux membres, y compris après avoir développé une parenthèse.",
+      "definition": "Une équation du premier degré peut s'écrire $ax + b = cx + d$. En soustrayant $cx$ aux deux membres, on obtient $(a - c)x + b = d$, qu'on résout comme précédemment. Si $a = c$, il n'y a plus de $x$ : l'équation a alors soit aucune solution, soit une infinité.",
+      "definitions": {
+        "college": "Quand il y a des $x$ des deux côtés, on enlève les $x$ d'un côté (en faisant la même chose de l'autre côté) pour se ramener à une équation du type $ax + b = c$.",
+        "lycee": "Une équation du premier degré peut s'écrire $ax + b = cx + d$. En soustrayant $cx$ aux deux membres, on obtient $(a - c)x + b = d$, qu'on résout comme précédemment. Si $a = c$, il n'y a plus de $x$ : l'équation a alors soit aucune solution, soit une infinité."
+      },
+      "intuition": "Sur une balance avec des boîtes $x$ des deux côtés, on peut retirer le même nombre de boîtes de chaque plateau sans rompre l'équilibre.",
+      "reglesImportantes": [
+        "On regroupe les termes en $x$ dans un membre en ajoutant ou en soustrayant un même terme en $x$ aux deux membres.",
+        "On regroupe ensuite les nombres dans l'autre membre.",
+        "S'il y a des parenthèses, on commence par développer et réduire chaque membre.",
+        "On choisit de préférence de regrouper les $x$ du côté où leur coefficient reste positif, pour limiter les erreurs de signe.",
+        "Si les termes en $x$ disparaissent, on obtient une égalité entre nombres : fausse (aucune solution) ou vraie (tous les nombres sont solutions)."
+      ],
+      "formules": [
+        {
+          "id": "formule-deux-membres",
+          "nom": "Inconnue des deux côtés",
+          "expression": "$ax + b = cx + d \\iff (a - c)x = d - b$",
+          "quand_utiliser": "Quand $x$ apparaît dans les deux membres.",
+          "erreur_frequente": "Changer le signe d'un terme en x sans l'avoir fait des deux côtés.",
+          "astuce": "Écris l'opération faite : « $-cx$ des deux côtés »."
+        },
+        {
+          "id": "formule-developper-avant",
+          "nom": "Avec des parenthèses",
+          "expression": "$k(x + m) = \\ldots \\Rightarrow$ développer d'abord",
+          "quand_utiliser": "Quand l'équation contient un produit.",
+          "erreur_frequente": "Ne multiplier que le premier terme de la parenthèse.",
+          "astuce": "Développe et réduis chaque membre avant de déplacer les termes."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre $ax + b = cx + d$",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je développe et je réduis chaque membre s'il y a des parenthèses."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je regroupe les termes en $x$ dans un membre (même opération des deux côtés)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je regroupe les nombres dans l'autre membre, puis je divise par le coefficient de $x$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie en calculant les deux membres de l'équation de départ."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je développe et je réduis chaque membre s'il y a des parenthèses."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je regroupe les termes en $x$ dans un membre (même opération des deux côtés)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je regroupe les nombres dans l'autre membre, puis je divise par le coefficient de $x$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie en calculant les deux membres de l'équation de départ."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'enlève les parenthèses en développant."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je fais disparaître les $x$ d'un côté en les soustrayant (ou ajoutant) des deux côtés."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je résous l'équation simple qui reste."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie avec l'équation du début."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Développer, $x$ d'un côté, nombres de l'autre, diviser."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Vérifier dans l'équation initiale."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-deux-membres",
+          "titre": "Exemple 1 — Des x des deux côtés",
+          "enonce": "Résoudre $7x - 4 = 3x + 8$.",
+          "calcul": [
+            {
+              "expr": "4x - 4 = 8",
+              "texte": "On soustrait $3x$ aux deux membres :"
+            },
+            {
+              "expr": "4x = 12",
+              "texte": "On ajoute $4$ :"
+            },
+            {
+              "expr": "x = 3",
+              "texte": "On divise par $4$ :"
+            }
+          ],
+          "reponse": "La solution est $3$ (vérification : $17 = 17$).",
+          "conclusion": "On a gardé les $x$ du côté où leur coefficient est le plus grand.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-officiel-moins-x",
+          "titre": "Exemple 2 — Un terme $-x$",
+          "enonce": "Résoudre $2x + 5 = -x - 4$.",
+          "calcul": [
+            {
+              "expr": "3x + 5 = -4",
+              "texte": "On ajoute $x$ aux deux membres :"
+            },
+            {
+              "expr": "3x = -9",
+              "texte": "On soustrait $5$ :"
+            },
+            {
+              "expr": "x = -3",
+              "texte": "On divise par $3$ :"
+            }
+          ],
+          "reponse": "La solution est $-3$ (vérification : $-1 = -1$).",
+          "conclusion": "Ajouter $x$ fait disparaître $-x$ du second membre.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-parentheses",
+          "titre": "Exemple 3 — Avec des parenthèses",
+          "enonce": "Résoudre $3(x - 2) = 5x + 4$.",
+          "calcul": [
+            {
+              "expr": "3x - 6 = 5x + 4",
+              "texte": "On développe :"
+            },
+            {
+              "expr": "-6 = 2x + 4",
+              "texte": "On soustrait $3x$ :"
+            },
+            {
+              "expr": "-10 = 2x \\quad x = -5",
+              "texte": "On soustrait $4$ puis on divise par $2$ :"
+            }
+          ],
+          "reponse": "La solution est $-5$ (vérification : $3 \\times (-7) = -21$ et $5 \\times (-5) + 4 = -21$).",
+          "conclusion": "On peut garder les $x$ à droite pour que leur coefficient reste positif.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-parentheses",
+          "titre": "Exemple 4 — Deux membres à développer",
+          "enonce": "Résoudre $4(2x + 1) - 3 = 2(x - 4) + 3x$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Membre de gauche : $8x + 4 - 3 = 8x + 1$. Membre de droite : $2x - 8 + 3x = 5x - 8$."
+            },
+            {
+              "expr": "3x + 1 = -8",
+              "texte": "$8x + 1 = 5x - 8$ ; on soustrait $5x$ :"
+            },
+            {
+              "expr": "x = -3",
+              "texte": "$3x = -9$, donc :"
+            }
+          ],
+          "reponse": "La solution est $-3$.",
+          "conclusion": "Réduire chaque membre d'abord rend l'équation beaucoup plus simple.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-sans-solution",
+          "titre": "Exemple 5 — Quand les x disparaissent",
+          "enonce": "Résoudre $5(x + 2) - 3x = 2(x + 4)$, puis $5(x + 2) - 3x = 2(x + 5)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Première équation : $2x + 10 = 2x + 8$ ; en soustrayant $2x$ : $10 = 8$, faux."
+            },
+            {
+              "expr": "",
+              "texte": "Seconde équation : $2x + 10 = 2x + 10$ ; en soustrayant $2x$ : $10 = 10$, vrai."
+            },
+            {
+              "expr": "",
+              "texte": "La première n'a aucune solution ; tout nombre est solution de la seconde."
+            }
+          ],
+          "reponse": "Aucune solution pour la première ; une infinité pour la seconde.",
+          "conclusion": "Quand les $x$ disparaissent, c'est l'égalité entre nombres obtenue qui décide.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Trouver à partir de combien d'heures deux forfaits coûtent le même prix.",
+        "Chercher quand deux figures ont le même périmètre.",
+        "Déterminer quand deux programmes de calcul donnent le même résultat."
+      ],
+      "erreursFrequentes": [
+        "« Faire passer » un terme de l'autre côté sans changer son signe.",
+        "Ne pas développer complètement les parenthèses.",
+        "Mélanger les termes en $x$ et les nombres dans une même étape.",
+        "Conclure « $x = 0$ » quand les $x$ disparaissent."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "« Faire passer » un terme de l'autre côté sans changer son signe.",
+          "pourquoi": "On déplace le terme au lieu de faire une opération sur les deux membres.",
+          "comment_detecter": "Vérifie ta solution dans l'équation de départ.",
+          "comment_eviter": "Écris l'opération : « $-3x$ des deux côtés »."
+        },
+        {
+          "description": "Ne pas développer complètement les parenthèses.",
+          "pourquoi": "On multiplie seulement le premier terme.",
+          "comment_detecter": "Compte les termes : chacun doit être multiplié.",
+          "comment_eviter": "Développe chaque membre sur une ligne à part avant de résoudre."
+        },
+        {
+          "description": "Mélanger les termes en $x$ et les nombres dans une même étape.",
+          "pourquoi": "On veut aller trop vite.",
+          "comment_detecter": "Chaque ligne est-elle une équation complète et juste ?",
+          "comment_eviter": "Une seule opération par ligne au début."
+        },
+        {
+          "description": "Conclure « $x = 0$ » quand les $x$ disparaissent.",
+          "pourquoi": "On croit que l'absence de $x$ signifie $x = 0$.",
+          "comment_detecter": "Remplace $x$ par $0$ : l'égalité est-elle vraie ?",
+          "comment_eviter": "Regarde l'égalité obtenue : vraie (infinité de solutions) ou fausse (aucune)."
+        }
+      ],
+      "astuce": "Regroupe les $x$ du côté où leur coefficient est le plus grand : le coefficient reste positif et tu évites une division par un nombre négatif.",
+      "aRetenir": [
+        "Développer et réduire chaque membre d'abord.",
+        "Les $x$ d'un côté, les nombres de l'autre, par des opérations sur les deux membres.",
+        "Si les $x$ disparaissent : aucune solution ou une infinité."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "2x + 5 = −x − 4",
+            "sousTitre": "Équation de départ"
+          },
+          {
+            "titre": "3x + 5 = −4",
+            "sousTitre": "+ x dans les deux membres"
+          },
+          {
+            "titre": "3x = −9",
+            "sousTitre": "− 5 dans les deux membres"
+          },
+          {
+            "titre": "x = −3",
+            "sousTitre": "÷ 3 dans les deux membres"
+          }
+        ],
+        "steps": [
+          "Les x d'un seul côté",
+          "Les nombres de l'autre",
+          "On isole x"
+        ],
+        "relation": "$2x + 5 = -x - 4 \\iff 3x = -9 \\iff x = -3$",
+        "alt": "Chaîne : 2x + 5 = −x − 4, puis 3x + 5 = −4 en ajoutant x, puis 3x = −9 en retirant 5, puis x = −3.",
+        "explication": {
+          "resume": "Quand l'inconnue apparaît dans les deux membres, on regroupe d'abord tous les termes en $x$ d'un même côté, puis les nombres de l'autre côté.",
+          "lecture": [
+            "On lit la chaîne de gauche à droite.",
+            "Chaque étape applique la même opération aux deux membres."
+          ],
+          "observations": [
+            "Ajouter $x$ aux deux membres fait disparaître $-x$ à droite.",
+            "Retirer $5$ des deux membres fait disparaître $+5$ à gauche.",
+            "Vérification : $2 \\times (-3) + 5 = -1$ et $-(-3) - 4 = -1$."
+          ],
+          "pieges": [
+            "Faire passer $-x$ à gauche sans changer son signe : on obtiendrait $x$ au lieu de $3x$."
+          ],
+          "aRetenir": [
+            "D'abord les $x$ d'un côté, puis les nombres de l'autre.",
+            "Ajouter $x$ ou retirer $x$ est une opération permise sur les deux membres."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        47301,
+        47302,
+        47304
+      ],
+      "topic_id": "equations-deux-membres",
+      "proprietes": [
+        "Ajouter ou soustraire un même terme en $x$ aux deux membres ne change pas les solutions."
+      ],
+      "vocabulaire_associe": [
+        "membre",
+        "équation équivalente",
+        "regrouper",
+        "développer",
+        "réduire",
+        "solution"
+      ],
+      "synonymes": [
+        "x des deux côtés",
+        "inconnue dans les deux membres",
+        "équation avec parenthèses"
+      ],
+      "objectifs_pedagogiques": [
+        "Regrouper les termes en $x$ dans un membre.",
+        "Résoudre une équation avec parenthèses.",
+        "Reconnaître une équation sans solution ou à infinité de solutions.",
+        "Vérifier une solution."
+      ],
+      "prerequis": [
+        "Résoudre une équation du type ax + b = c",
+        "Développer et factoriser avec la distributivité simple"
+      ],
+      "notions_liees": [
+        "equations-resoudre-ax-b",
+        "equations-mettre-en-equation",
+        "developper-factoriser"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "équations",
+        "résolution",
+        "parenthèses",
+        "premier degré"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "equations-deux-membres-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Parenthèses dans un ou deux membres",
+          "description": "Deux exemples rédigés : développer une parenthèse avant de résoudre, puis réduire deux membres complets."
+        },
+        {
+          "id": "equations-deux-membres-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Quand les x disparaissent",
+          "description": "Un exemple avec deux équations : l'une sans solution, l'autre vraie pour tout nombre."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pourquoi ajoute-t-on $x$ aux deux membres dans la figure ?",
+          "piste": "Pour faire disparaître $-x$ du second membre."
+        },
+        {
+          "apres": "methode",
+          "question": "Résoudre $6x + 1 = 4x + 9$.",
+          "piste": "$2x = 8$, donc $x = 4$."
+        }
+      ]
+    },
+    {
+      "id": "equations-mettre-en-equation",
+      "title": "Mettre un problème en équation",
+      "schemaVersion": 2,
+      "intro": "Pour résoudre un problème avec une équation, il faut d'abord le traduire : choisir l'inconnue, exprimer les quantités en fonction d'elle, puis écrire l'égalité imposée par l'énoncé.",
+      "pourquoi": "La mise en équation est l'outil universel pour résoudre des problèmes : âges, prix, périmètres, partages, vitesses. Elle remplace les essais au hasard par une méthode sûre.",
+      "explicationSimple": "« Léo a $3$ ans de plus que sa sœur ; ensemble, ils ont $27$ ans. » Si la sœur a $x$ ans, Léo a $x + 3$ ans et $x + (x + 3) = 27$. Donc $2x + 3 = 27$, $x = 12$ : la sœur a $12$ ans et Léo $15$ ans.",
+      "objectif": "À la fin de cette leçon, tu sauras choisir une inconnue, traduire un problème par une équation, la résoudre et interpréter la solution dans le contexte de l'énoncé.",
+      "definition": "Mettre un problème en équation, c'est désigner par une lettre une quantité inconnue de l'énoncé, exprimer les autres quantités à l'aide de cette lettre, puis traduire la condition de l'énoncé par une égalité entre deux expressions. La solution de l'équation doit ensuite être interprétée : elle doit avoir un sens dans la situation (nombre entier de personnes, longueur positive…).",
+      "definitions": {
+        "college": "On choisit une lettre pour le nombre cherché, on écrit l'égalité que l'énoncé impose, on la résout, puis on vérifie que la réponse a du sens et on répond par une phrase.",
+        "lycee": "Mettre un problème en équation, c'est désigner par une lettre une quantité inconnue de l'énoncé, exprimer les autres quantités à l'aide de cette lettre, puis traduire la condition de l'énoncé par une égalité entre deux expressions. La solution de l'équation doit ensuite être interprétée : elle doit avoir un sens dans la situation (nombre entier de personnes, longueur positive…)."
+      },
+      "intuition": "L'équation est une « photographie » de l'énoncé : chaque information devient un morceau de l'égalité. Une fois la photographie prise, on n'a plus qu'à calculer.",
+      "reglesImportantes": [
+        "Étape 1 : choisir l'inconnue et l'écrire clairement (« soit $x$ le prix d'un cahier, en euros »).",
+        "Étape 2 : exprimer les autres quantités en fonction de $x$.",
+        "Étape 3 : traduire la condition de l'énoncé par une équation.",
+        "Étape 4 : résoudre l'équation, puis vérifier la solution DANS L'ÉNONCÉ (pas seulement dans l'équation).",
+        "Étape 5 : conclure par une phrase avec l'unité, en vérifiant que la solution a du sens (positive, entière si nécessaire)."
+      ],
+      "formules": [
+        {
+          "id": "formule-etapes-probleme",
+          "nom": "Les cinq étapes",
+          "expression": "inconnue → expressions → équation → résolution → phrase",
+          "quand_utiliser": "Pour tout problème qui se résout par une équation.",
+          "erreur_frequente": "Résoudre sans avoir écrit ce que représente $x$.",
+          "astuce": "Commence toujours par « Soit $x$ … »."
+        },
+        {
+          "id": "formule-traductions",
+          "nom": "Traductions courantes",
+          "expression": "« de plus que » $\\to + $ ; « fois plus » $\\to \\times$ ; « autant que » $\\to =$",
+          "quand_utiliser": "Pour traduire une phrase de l'énoncé.",
+          "erreur_frequente": "Traduire « $3$ fois plus que $x$ » par $x + 3$.",
+          "astuce": "Teste ta traduction avec une valeur simple de $x$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre un problème par une équation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je choisis l'inconnue et j'écris « Soit $x$ … » avec son unité."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'exprime les autres quantités en fonction de $x$, puis j'écris l'équation."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je résous l'équation."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie dans l'énoncé, je contrôle que la réponse a du sens et je conclus par une phrase."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je choisis l'inconnue et j'écris « Soit $x$ … » avec son unité."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'exprime les autres quantités en fonction de $x$, puis j'écris l'équation."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je résous l'équation."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie dans l'énoncé, je contrôle que la réponse a du sens et je conclus par une phrase."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je souligne ce qu'on cherche : ce sera $x$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris chaque information avec $x$ (le double, $3$ de plus…)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris l'égalité de l'énoncé et je la résous."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie avec les nombres de l'énoncé et j'écris une phrase réponse."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Soit $x$ … ; expressions ; équation ; résolution."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Vérification dans l'énoncé et phrase avec unité."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-ages",
+          "titre": "Exemple 1 — Un problème d'âges",
+          "enonce": "Une mère a $28$ ans de plus que son fils. Dans $4$ ans, la somme de leurs âges sera $60$ ans. Quel est l'âge du fils aujourd'hui ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Soit $x$ l'âge du fils aujourd'hui ; la mère a $x + 28$ ans."
+            },
+            {
+              "expr": "2x + 36 = 60",
+              "texte": "Dans $4$ ans : $(x + 4) + (x + 32) = 60$, soit"
+            },
+            {
+              "expr": "",
+              "texte": "$2x = 24$, donc $x = 12$. Vérification : dans $4$ ans, $16 + 44 = 60$."
+            }
+          ],
+          "reponse": "Le fils a $12$ ans (et sa mère $40$ ans).",
+          "conclusion": "On a vérifié la réponse avec les données de l'énoncé.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-perimetre-officiel",
+          "titre": "Exemple 2 — Même périmètre",
+          "enonce": "Un carré a pour côté $x$ cm et un triangle équilatéral a pour côté $x + 2$ cm. Pour quelle valeur de $x$ ont-ils le même périmètre ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Périmètre du carré : $4x$ ; du triangle : $3(x + 2) = 3x + 6$."
+            },
+            {
+              "expr": "4x = 3x + 6",
+              "texte": "Équation :"
+            },
+            {
+              "expr": "",
+              "texte": "$x = 6$. Vérification : $4 \\times 6 = 24$ et $3 \\times 8 = 24$."
+            }
+          ],
+          "reponse": "Pour $x = 6$ cm, les deux figures ont un périmètre de $24$ cm.",
+          "conclusion": "C'est la situation de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-tarifs",
+          "titre": "Exemple 3 — Comparer deux tarifs",
+          "enonce": "Une salle d'escalade propose : tarif A, $12$ € la séance ; tarif B, $45$ € d'adhésion puis $7$ € la séance. Pour combien de séances les deux tarifs coûtent-ils le même prix ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Soit $x$ le nombre de séances. Tarif A : $12x$ ; tarif B : $7x + 45$."
+            },
+            {
+              "expr": "12x = 7x + 45",
+              "texte": "Équation :"
+            },
+            {
+              "expr": "",
+              "texte": "$5x = 45$, donc $x = 9$. Vérification : $108$ € et $63 + 45 = 108$ €."
+            }
+          ],
+          "reponse": "Pour $9$ séances, les deux tarifs coûtent $108$ €.",
+          "conclusion": "Au-delà de $9$ séances, le tarif B devient le plus avantageux.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-partage",
+          "titre": "Exemple 4 — Un partage",
+          "enonce": "Trois amis se partagent $150$ €. Le deuxième reçoit le double du premier, et le troisième reçoit $30$ € de plus que le premier. Combien reçoit chacun ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Soit $x$ la part du premier : les autres reçoivent $2x$ et $x + 30$."
+            },
+            {
+              "expr": "x + 2x + (x + 30) = 150",
+              "texte": "Équation :"
+            },
+            {
+              "expr": "",
+              "texte": "$4x + 30 = 150$, $4x = 120$, $x = 30$."
+            }
+          ],
+          "reponse": "Le premier reçoit $30$ €, le deuxième $60$ € et le troisième $60$ € ($30 + 60 + 60 = 150$).",
+          "conclusion": "Bien choisir l'inconnue (ici la plus petite part) simplifie les expressions.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-sens-solution",
+          "titre": "Exemple 5 — Une solution qui n'a pas de sens",
+          "enonce": "Dans une classe, il y a $4$ filles de plus que de garçons. La classe compte $29$ élèves. Combien y a-t-il de garçons ? Et si la classe comptait $30$ élèves ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Soit $x$ le nombre de garçons : $x + (x + 4) = 29$, donc $2x = 25$ et $x = 12{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "Un nombre d'élèves est entier : la situation décrite est impossible avec $29$ élèves."
+            },
+            {
+              "expr": "",
+              "texte": "Avec $30$ élèves : $2x + 4 = 30$, $x = 13$ garçons et $17$ filles."
+            }
+          ],
+          "reponse": "Avec $29$ élèves, le problème n'a pas de solution ; avec $30$ élèves, il y a $13$ garçons et $17$ filles.",
+          "conclusion": "La solution de l'équation doit toujours être interprétée dans le contexte.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Comparer deux abonnements ou deux tarifs.",
+        "Retrouver des âges, des prix ou des quantités.",
+        "Trouver une dimension pour obtenir un périmètre ou une aire donnés."
+      ],
+      "erreursFrequentes": [
+        "Ne pas préciser ce que représente $x$.",
+        "Mal traduire « $3$ de plus » ou « $3$ fois plus ».",
+        "Donner la solution de l'équation sans répondre à la question posée.",
+        "Accepter une solution qui n'a pas de sens (négative, non entière…)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Ne pas préciser ce que représente $x$.",
+          "pourquoi": "On écrit une équation sans savoir quelle quantité est cherchée.",
+          "comment_detecter": "Peux-tu dire en français ce que vaut $x$ ?",
+          "comment_eviter": "Commence toujours par « Soit $x$ … »."
+        },
+        {
+          "description": "Mal traduire « $3$ de plus » ou « $3$ fois plus ».",
+          "pourquoi": "On confond addition et multiplication.",
+          "comment_detecter": "Teste ta traduction avec $x = 10$.",
+          "comment_eviter": "« de plus » : $+$ ; « fois plus » : $\\times$."
+        },
+        {
+          "description": "Donner la solution de l'équation sans répondre à la question posée.",
+          "pourquoi": "On s'arrête à $x = 12$ alors qu'on demandait l'âge de la mère.",
+          "comment_detecter": "Relis la question : que demande-t-elle exactement ?",
+          "comment_eviter": "Calcule la quantité demandée et rédige une phrase."
+        },
+        {
+          "description": "Accepter une solution qui n'a pas de sens (négative, non entière…).",
+          "pourquoi": "On ne revient pas au contexte.",
+          "comment_detecter": "Une longueur peut-elle être négative ? Un nombre d'élèves décimal ?",
+          "comment_eviter": "Interprète toujours la solution dans la situation."
+        }
+      ],
+      "astuce": "Avant d'écrire l'équation, fais un essai avec un nombre au hasard (par exemple $x = 10$) : calculer les quantités avec ce nombre montre comment elles s'expriment avec $x$.",
+      "aRetenir": [
+        "Choisir l'inconnue et le dire.",
+        "Traduire la condition par une égalité.",
+        "Résoudre, vérifier dans l'énoncé, interpréter et conclure par une phrase."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.2,
+          -1.6,
+          10.6,
+          7.4
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "x": 3.0,
+                "y": 0.0
+              },
+              {
+                "x": 3.0,
+                "y": 3.0
+              },
+              {
+                "x": 0.0,
+                "y": 3.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "carré de côté x"
+          },
+          {
+            "points": [
+              {
+                "x": 4.4,
+                "y": 0.0
+              },
+              {
+                "x": 8.4,
+                "y": 0.0
+              },
+              {
+                "x": 6.4,
+                "y": 3.4641016151377544
+              }
+            ],
+            "variant": "b",
+            "tooltip": "triangle équilatéral de côté x + 2"
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.5,
+            "y": -0.5,
+            "label": "x"
+          },
+          {
+            "x": 6.4,
+            "y": -0.5,
+            "label": "x + 2"
+          },
+          {
+            "x": 1.5,
+            "y": 1.5,
+            "label": "4x",
+            "reveal": 2
+          },
+          {
+            "x": 6.4,
+            "y": 1.155,
+            "label": "3(x + 2)",
+            "reveal": 2
+          },
+          {
+            "x": 4.4,
+            "y": -1.2,
+            "label": "4x = 3(x + 2) donc x = 6",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Les deux figures",
+          "Les deux périmètres",
+          "L'équation et sa solution"
+        ],
+        "relation": "$4x = 3(x + 2) \\iff 4x = 3x + 6 \\iff x = 6$",
+        "alt": "Un carré de côté x et un triangle équilatéral de côté x + 2 ; leurs périmètres 4x et 3(x + 2) sont égaux pour x = 6.",
+        "explication": {
+          "resume": "Mettre en équation, c'est traduire une condition de l'énoncé (« même périmètre ») par une égalité entre deux expressions de la même inconnue.",
+          "lecture": [
+            "Le carré a quatre côtés de longueur $x$ ; le triangle équilatéral a trois côtés de longueur $x + 2$.",
+            "La figure est dessinée pour $x = 6$ (à l'échelle)."
+          ],
+          "observations": [
+            "Périmètre du carré : $4x$ ; périmètre du triangle : $3(x + 2) = 3x + 6$.",
+            "Même périmètre : $4x = 3x + 6$, donc $x = 6$.",
+            "Vérification : $4 \\times 6 = 24$ et $3 \\times 8 = 24$."
+          ],
+          "pieges": [
+            "Écrire $3x + 2$ pour le périmètre du triangle : le $+2$ concerne chacun des trois côtés."
+          ],
+          "aRetenir": [
+            "Choisir l'inconnue, traduire la condition par une égalité, résoudre, vérifier, conclure avec une phrase."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        47401,
+        47402,
+        47404
+      ],
+      "topic_id": "equations-mettre-en-equation",
+      "proprietes": [
+        "La solution d'une équation n'est une réponse au problème que si elle a un sens dans la situation."
+      ],
+      "vocabulaire_associe": [
+        "mettre en équation",
+        "inconnue",
+        "traduire",
+        "vérifier",
+        "interpréter",
+        "problème"
+      ],
+      "synonymes": [
+        "problème avec une équation",
+        "mise en équation",
+        "résoudre un problème"
+      ],
+      "objectifs_pedagogiques": [
+        "Choisir une inconnue.",
+        "Traduire un énoncé par une équation.",
+        "Résoudre et vérifier dans l'énoncé.",
+        "Interpréter la solution dans le contexte."
+      ],
+      "prerequis": [
+        "Équations avec l'inconnue dans les deux membres",
+        "Expressions littérales : écrire, lire et calculer"
+      ],
+      "notions_liees": [
+        "equations-deux-membres",
+        "expressions-litterales"
+      ],
+      "difficulte": "difficile",
+      "tags": [
+        "équations",
+        "problèmes",
+        "mise en équation",
+        "modélisation"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "equations-mettre-en-equation-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Tarifs et partage",
+          "description": "Deux exemples rédigés : trouver quand deux tarifs coûtent le même prix, et partager une somme selon des conditions."
+        },
+        {
+          "id": "equations-mettre-en-equation-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Une solution qui n'a pas de sens",
+          "description": "Un exemple où l'équation a une solution non entière : le problème n'a alors pas de réponse."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pour quelle valeur de $x$ le carré de côté $x$ et le triangle équilatéral de côté $x + 3$ ont-ils le même périmètre ?",
+          "piste": "$4x = 3x + 9$, donc $x = 9$."
+        },
+        {
+          "apres": "methode",
+          "question": "« Un nombre augmenté de $8$ vaut le triple de ce nombre. » Quelle équation ?",
+          "piste": "$x + 8 = 3x$ (solution $4$)."
+        }
+      ]
+    }
+  ]
+}

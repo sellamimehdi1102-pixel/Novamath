@@ -89,12 +89,12 @@ def _gen_reconnaitre(rng: random.Random) -> Optional[dict]:
         b1, b2, b3 = k * a1, k * a2 + rng.randint(1, 5), k * a3
     enonce = (
         f"Le tableau suivant est-il un tableau de proportionnalité ? "
-        f"$x$ : {a1} ; {a2} ; {a3}  —  $y$ : {latex(b1)} ; {latex(b2)} ; {latex(b3)}. Justifier."
+        f"$x$ : {a1} ; {a2} ; {a3}  —  $y$ : ${latex(b1)}$ ; ${latex(b2)}$ ; ${latex(b3)}$. Justifier."
     )
     r1, r2, r3 = Rational(b1, a1), Rational(b2, a2), Rational(b3, a3)
     est_prop = r1 == r2 == r3
     if est_prop:
-        answer = f"Oui : tous les rapports $y/x$ valent {latex(r1)}."
+        answer = f"Oui : tous les rapports $y/x$ valent ${latex(r1)}$."
         steps = [
             f"Étape 1 — On calcule les rapports : $\\frac{{{latex(b1)}}}{{{a1}}} = {latex(r1)}$, "
             f"$\\frac{{{latex(b2)}}}{{{a2}}} = {latex(r2)}$, $\\frac{{{latex(b3)}}}{{{a3}}} = {latex(r3)}$.",

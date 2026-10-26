@@ -1,5 +1,5 @@
 """
-En-têtes de sécurité HTTP pour NovaMath — niveau proche d'un SaaS
+En-têtes de sécurité HTTP pour Mathadap — niveau proche d'un SaaS
 professionnel (Content-Security-Policy, HSTS, X-Frame-Options, etc.).
 
 Architecture stricte, identique à logging_service.py/health_service.py :
@@ -22,6 +22,18 @@ Sources externes réellement chargées par le frontend (vérifié dans
 webapp/static/ : aucun autre domaine externe n'est référencé) :
 - KaTeX (rendu des formules mathématiques) et jsPDF (export PDF), tous deux
   servis par le CDN jsdelivr — scripts, feuille de style et fonts.
+- Cloudflare Web Analytics (webapp/static/js/analyticsBeacon.js, audit admin
+  2026-10-2x) : balise de mesure d'audience intégrée MANUELLEMENT (jamais
+  via le proxy Cloudflare, ce projet n'y est pas hébergé — voir sa docstring)
+  — le script se charge depuis static.cloudflareinsights.com et transmet ses
+  données vers cloudflareinsights.com (domaine différent de celui du script,
+  confirmé par la documentation officielle Cloudflare pour une intégration
+  manuelle, contrairement à l'injection automatique en mode proxy qui poste
+  en same-origin sur /cdn-cgi/rum). Les deux domaines ne sont autorisés
+  QU'EN PRODUCTION (`config.IS_PRODUCTION`) : analyticsBeacon.js lui-même ne
+  charge jamais ce script hors du domaine public mathadap.com, cette
+  double protection (CSP + JS) évite qu'un environnement de développement
+  ouvre inutilement la CSP à un domaine tiers jamais réellement sollicité.
 Stripe Checkout et Google OAuth sont intégrés par redirection complète du
 navigateur (voir abonnement.js / auth.py::oauth_start) — jamais par un
 script, un iframe ou un appel fetch() embarqué — donc aucune autorisation
@@ -46,6 +58,12 @@ logger = logging.getLogger("security_headers_service")
 # Unique CDN externe utilisé par le frontend (KaTeX + jsPDF, voir docstring
 # ci-dessus) — jamais un autre domaine sans revue explicite de ce fichier.
 _KATEX_CDN = "https://cdn.jsdelivr.net"
+
+# Cloudflare Web Analytics (voir docstring ci-dessus) — deux domaines
+# DIFFÉRENTS (le script, puis l'endroit où il transmet ses données),
+# autorisés uniquement en production (voir build_csp ci-dessous).
+_CLOUDFLARE_BEACON_SCRIPT = "https://static.cloudflareinsights.com"
+_CLOUDFLARE_BEACON_CONNECT = "https://cloudflareinsights.com"
 
 # Longueur minimale usuelle pour que `preload` ait un sens (1 an, valeur
 # recommandée par hstspreload.org) — sous ce seuil, HSTS reste actif mais
@@ -82,7 +100,14 @@ def build_csp(nonce=None):
     `nonce` : nonce du script inline injecté par `_serve_protected()` dans
     server.py (page protégée uniquement) — permet un script-src strict, sans
     jamais 'unsafe-inline' ni 'unsafe-eval'."""
-    script_sources = _dedupe(["'self'", _KATEX_CDN] + ([f"'nonce-{nonce}'"] if nonce else []))
+    # Cloudflare Web Analytics : autorisé UNIQUEMENT en production (voir
+    # docstring module) — analyticsBeacon.js ne charge de toute façon jamais
+    # ce script hors du domaine public mathadap.com, mais la CSP ne doit pas
+    # non plus ouvrir inutilement un domaine tiers jamais sollicité en dev.
+    _cf_script = [_CLOUDFLARE_BEACON_SCRIPT] if config.IS_PRODUCTION else []
+    _cf_connect = [_CLOUDFLARE_BEACON_CONNECT] if config.IS_PRODUCTION else []
+
+    script_sources = _dedupe(["'self'", _KATEX_CDN] + _cf_script + ([f"'nonce-{nonce}'"] if nonce else []))
     # style-src garde 'unsafe-inline' : de nombreux styles inline sont générés
     # dynamiquement par le JS existant (dashboard.js, profil.js, reviews.js,
     # ...) — les migrer vers des classes CSS est hors périmètre de cette passe
@@ -91,7 +116,7 @@ def build_csp(nonce=None):
     style_sources = _dedupe(["'self'", "'unsafe-inline'", _KATEX_CDN])
     img_sources = _dedupe(["'self'", "data:"] + _split_sources(config.CSP_ALLOWED_IMAGES))
     font_sources = _dedupe(["'self'", _KATEX_CDN] + _split_sources(config.CSP_ALLOWED_FONTS))
-    connect_sources = _dedupe(["'self'"] + _split_sources(config.CSP_ALLOWED_CONNECT))
+    connect_sources = _dedupe(["'self'"] + _split_sources(config.CSP_ALLOWED_CONNECT) + _cf_connect)
 
     directives = [
         "default-src 'self'",
@@ -169,7 +194,7 @@ def apply_headers(response):
     # serveur HTTP lui-même après la réponse de l'application et ne peut pas
     # être modifié depuis ici — suppression "si possible" (cahier des
     # charges), donc effective uniquement en production.
-    response.headers["Server"] = "NovaMath"
+    response.headers["Server"] = "Mathadap"
 
     return response
 

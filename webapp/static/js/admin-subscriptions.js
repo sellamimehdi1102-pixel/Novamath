@@ -1,14 +1,19 @@
 // Module "Abonnements" (/admin/subscriptions) — panneau d'administration
 // complet des 3 plans Mathadap (Free/Premium/Ultra) : catalogue (nom/
-// description/prix/durée/avantages/limites/quotas), statistiques réelles
-// (nombre d'utilisateurs, nouveaux abonnés, résiliations), activation/
-// désactivation, ET assignation des fournisseurs IA par plan (section
-// repliable "Fournisseurs IA par plan" — seul endroit de l'admin où cette
-// information est éditable ; la page IA n'affiche plus que la configuration
-// technique des fournisseurs, voir admin-ai.js). IMPORTANT : ce module ne
-// modifie JAMAIS les droits/quotas réellement appliqués au chatbot (voir
-// admin_subscriptions_service.py) ni la facturation Stripe réelle — le prix
-// édité ici est un champ catalogue.
+// description/prix/durée/avantages/limites/quotas), nombre réel
+// d'utilisateurs par plan, activation/désactivation, ET assignation des
+// fournisseurs IA par plan (section repliable "Fournisseurs IA par plan" —
+// seul endroit de l'admin où cette information est éditable ; la page IA
+// n'affiche plus que la configuration technique des fournisseurs, voir
+// admin-ai.js). IMPORTANT : ce module ne modifie JAMAIS les droits/quotas
+// réellement appliqués au chatbot (voir admin_subscriptions_service.py) ni
+// la facturation Stripe réelle — le prix édité ici est un champ catalogue.
+//
+// Audit admin (2026-10-22) : les cartes "Nouveaux abonnements (30j)"/
+// "Résiliations (30j)" ont été retirées d'ici — ces compteurs agrégés
+// dupliquaient exactement ceux du module Finance (admin-finance.js),
+// devenu la seule référence pour les indicateurs d'abonnement agrégés (voir
+// admin_subscriptions_service.py::get_overview pour le détail).
 import { createCollapseSection, wireCollapsePersistence } from "./admin-collapse.js";
 
 const EMPTY_LABEL = "Aucune donnée disponible";
@@ -65,23 +70,159 @@ function fieldValue(metric, formatter = (v) => v) {
   return formatter(metric.value);
 }
 
-// ── Cartes de statistiques globales ─────────────────────────────────────
-function statCard(label, metric, formatter = formatInt) {
-  const card = el("article", "admin-card");
-  card.appendChild(el("div", "admin-card-label", label));
-  if (!metric.available) {
-    card.appendChild(el("div", "admin-card-value admin-card-value--empty", EMPTY_LABEL));
-    card.appendChild(el("div", "admin-card-sub", metric.reason));
-  } else {
-    card.appendChild(el("div", "admin-card-value", formatter(metric.value)));
+// ── Réconciliation Stripe (lecture seule, audit admin 2026-10-20) ─────────
+const STRIPE_RECONCILE_MODE_LABELS = { test: "mode TEST", production: "mode PRODUCTION", etat_inconnu: "état inconnu" };
+
+// Garde-fou Stripe production (2026-10-20) : la vraie protection est côté
+// serveur (voir stripe_reconciliation_service.py, qui refuse 403/409 même
+// sur un appel direct à l'API) — ce bandeau ne fait qu'expliquer pourquoi le
+// bouton est grisé ou va demander une confirmation, jamais la protection
+// elle-même.
+function renderStripeEnvironment(container, env) {
+  container.innerHTML = "";
+  if (!env) return;
+  const modeLabel = STRIPE_RECONCILE_MODE_LABELS[env.mode] || env.mode;
+  const envLabel = env.app_environment === "production" ? "production" : "développement";
+  container.appendChild(
+    el("p", "admin-form-hint", `Stripe ciblé : ${modeLabel} — serveur en environnement de ${envLabel}.`),
+  );
+  if (env.reconciliation_blocked) {
+    container.appendChild(
+      el(
+        "p",
+        "admin-form-hint admin-form-hint--warning",
+        "Réconciliation bloquée : Stripe est en mode PRODUCTION mais ce serveur tourne en développement. " +
+          "Aucun appel réel vers Stripe production n'est autorisé depuis ce poste.",
+      ),
+    );
+  } else if (env.reconciliation_requires_confirmation) {
+    container.appendChild(
+      el(
+        "p",
+        "admin-form-hint admin-form-hint--warning",
+        "Attention : une confirmation explicite sera demandée avant d'interroger de vrais abonnements Stripe.",
+      ),
+    );
   }
-  return card;
 }
 
-function renderStats(container, stats) {
+function renderReconcileResult(container, report) {
   container.innerHTML = "";
-  container.appendChild(statCard(`Nouveaux abonnés (${stats.window_days}j)`, stats.new_subscribers));
-  container.appendChild(statCard(`Résiliations (${stats.window_days}j)`, stats.cancellations));
+  const modeLabel = STRIPE_RECONCILE_MODE_LABELS[report.mode] || report.mode;
+  container.appendChild(
+    el("p", "admin-form-hint", `${report.checked} compte(s) vérifié(s) sur ${report.total} (${modeLabel}).`),
+  );
+  if (report.divergences.length === 0 && report.errors.length === 0) {
+    container.appendChild(emptyState("Aucune divergence détectée sur ce lot."));
+  }
+  if (report.divergences.length > 0) {
+    const table = el("table", "admin-table");
+    const thead = el("thead");
+    const headRow = el("tr");
+    ["Utilisateur", "Abonnement Stripe", "Statut local", "Statut Stripe réel"].forEach((label) =>
+      headRow.appendChild(el("th", null, label)),
+    );
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+    const tbody = el("tbody");
+    report.divergences.forEach((d) => {
+      const row = el("tr");
+      row.appendChild(el("td", null, d.email));
+      row.appendChild(el("td", null, d.stripe_subscription_id));
+      row.appendChild(el("td", null, d.local_status || "—"));
+      row.appendChild(el("td", null, d.stripe_status || "—"));
+      tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+    container.appendChild(table);
+  }
+  if (report.errors.length > 0) {
+    container.appendChild(
+      el(
+        "p",
+        "admin-form-error",
+        `${report.errors.length} compte(s) n'ont pas pu être vérifiés (erreur réseau/Stripe) — réessaie plus tard.`,
+      ),
+    );
+  }
+  if (report.has_more) {
+    container.appendChild(
+      el("p", "admin-form-hint", "D'autres comptes restent à vérifier (lot suivant non lancé automatiquement)."),
+    );
+  }
+}
+
+async function runReconcile(resultEl, { confirmed = false } = {}) {
+  return apiCall("/api/admin/subscriptions/reconcile-stripe", {
+    method: "POST",
+    body: { confirmed },
+  });
+}
+
+function wireReconcileButton(env) {
+  const btn = document.getElementById("admin-subscriptions-reconcile-btn");
+  const resultEl = document.getElementById("admin-subscriptions-reconcile-result");
+  if (!btn || !resultEl) return;
+
+  // Blocage DUR déjà appliqué côté serveur (403, non contournable) — le
+  // bouton est aussi désactivé ici pour ne pas laisser l'admin cliquer dans
+  // le vide, mais ce n'est qu'un confort d'interface : voir
+  // stripe_reconciliation_service.py pour la vraie protection.
+  if (env && env.reconciliation_blocked) {
+    btn.disabled = true;
+    btn.textContent = "Réconciliation bloquée (Stripe production depuis un poste de développement)";
+    return;
+  }
+
+  btn.disabled = false;
+  const baseLabel = "Lancer une réconciliation (lecture seule)";
+  btn.textContent = baseLabel;
+
+  btn.onclick = async () => {
+    // Confirmation explicite obligatoire côté serveur (409) quand Stripe ET
+    // ce serveur sont tous deux en PRODUCTION — demandée AVANT tout appel
+    // réseau pour ne jamais déclencher un premier lot d'appels Stripe réels
+    // sans consentement explicite de l'admin.
+    let confirmed = false;
+    if (env && env.reconciliation_requires_confirmation) {
+      confirmed = window.confirm(
+        "Cette réconciliation va interroger de VRAIS abonnements Stripe en PRODUCTION " +
+          "(lecture seule, aucune modification). Confirmer le lancement ?",
+      );
+      if (!confirmed) return;
+    }
+
+    btn.disabled = true;
+    const originalLabel = btn.textContent;
+    btn.textContent = "Réconciliation en cours...";
+    resultEl.innerHTML = "";
+    try {
+      const { ok, status, payload } = await runReconcile(resultEl, { confirmed });
+      if (!ok) {
+        resultEl.innerHTML = "";
+        let message = "La réconciliation a échoué. Réessaie dans un instant.";
+        if (status === 501) {
+          message = payload.error || "Stripe n'est pas configuré sur ce serveur.";
+        } else if (status === 403) {
+          message =
+            payload.error || "Réconciliation bloquée (Stripe production depuis un environnement non-production).";
+        } else if (status === 409) {
+          message = payload.error || "Confirmation requise avant de lancer cette réconciliation.";
+        }
+        resultEl.appendChild(el("p", "admin-form-error", message));
+        return;
+      }
+      renderReconcileResult(resultEl, payload);
+    } catch {
+      resultEl.innerHTML = "";
+      resultEl.appendChild(
+        el("p", "admin-form-error", "La réconciliation a échoué (réseau). Réessaie dans un instant."),
+      );
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    }
+  };
 }
 
 // ── Cartes de plans ───────────────────────────────────────────────────────
@@ -256,12 +397,10 @@ async function loadAiAssignment(container, onChanged) {
 // ── Point d'entrée ────────────────────────────────────────────────────────
 export async function loadSubscriptionsOverview(onPlanClick) {
   const plansEl = document.getElementById("admin-subscriptions-plans");
-  const statsEl = document.getElementById("admin-subscriptions-stats");
   const aiAssignmentEl = document.getElementById("admin-subscriptions-ai-assignment");
   const errorEl = document.getElementById("admin-global-error");
 
   renderPlansSkeleton(plansEl);
-  statsEl.innerHTML = "";
   if (aiAssignmentEl) aiAssignmentEl.innerHTML = "";
   errorEl.hidden = true;
 
@@ -289,7 +428,9 @@ export async function loadSubscriptionsOverview(onPlanClick) {
   } else {
     res.plans.forEach((plan) => plansEl.appendChild(renderPlanCard(plan, { onPlanClick, onChanged: refresh })));
   }
-  renderStats(statsEl, res.stats);
+  const stripeEnvEl = document.getElementById("admin-subscriptions-stripe-environment");
+  if (stripeEnvEl) renderStripeEnvironment(stripeEnvEl, res.stripe_environment);
+  wireReconcileButton(res.stripe_environment);
 
   if (aiAssignmentEl) {
     await loadAiAssignment(aiAssignmentEl, refresh);

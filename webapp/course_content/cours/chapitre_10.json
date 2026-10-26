@@ -71,24 +71,72 @@
           ],
           "reponse": "$24\\%$ de tous les élèves",
           "id": "proportion-de-proportion-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "proportion-de-proportion-exemple-inverse",
+          "titre": "Exemple 2 — Retrouver une proportion manquante (division)",
+          "enonce": "60% des élèves sont en filière générale. 24% de TOUS les élèves font des maths expertes, et tous les élèves de maths expertes sont en filière générale. Quelle proportion des élèves de filière générale fait des maths expertes ?",
+          "calcul": [
+            {
+              "expr": "0{,}60 \\times x = 0{,}24",
+              "texte": "On pose l'équation : la proportion cherchée $x$ multipliée par 60% donne 24% du total."
+            },
+            {
+              "expr": "x = \\dfrac{0{,}24}{0{,}60} = 0{,}40",
+              "texte": "On isole $x$ en divisant."
+            }
+          ],
+          "reponse": "$40\\%$ des élèves de filière générale",
+          "difficulte": "difficile",
+          "analyse": "Quand la proportion GLOBALE et une des deux proportions emboîtées sont connues, on retrouve l'autre par une DIVISION, l'opération inverse de la multiplication.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Additionner les deux proportions au lieu de les multiplier.",
         "Oublier de transformer les pourcentages en écriture décimale."
       ],
-      "astuce": "Le mot \"parmi\" est un indice : ça veut souvent dire qu'il faut multiplier deux proportions.",
+      "astuce": "Le mot \"parmi\" est un indice : ça veut souvent dire qu'il faut multiplier deux proportions. Si la proportion globale est déjà connue, c'est une division qu'il faut faire pour retrouver l'autre.",
       "aRetenir": [
-        "Proportions emboîtées : on multiplie",
-        "Jamais d'addition entre deux proportions différentes"
+        "Proportions emboîtées : on MULTIPLIE, jamais on additionne.",
+        "Le résultat est toujours plus petit que chacune des deux proportions de départ.",
+        "Pour retrouver une proportion manquante connaissant le résultat global : on divise."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        159,
-        160,
-        161
-      ],
+      "figure": {
+        "kind": "pie",
+        "slices": [
+          {
+            "label": "Maths expertes (24%)",
+            "value": 24
+          },
+          {
+            "label": "Générale sans expertes (36%)",
+            "value": 36
+          },
+          {
+            "label": "Autres filières (40%)",
+            "value": 40
+          }
+        ],
+        "alt": "60% des élèves sont en filière générale (24%+36%) ; parmi eux, 24/60 = 40% font des maths expertes.",
+        "explication": {
+          "comprendre": "Les maths expertes (24% du total) forment une partie de la filière générale (60% du total).",
+          "etapes": [
+            {
+              "titre": "La filière générale",
+              "texte": "60% du total."
+            },
+            {
+              "titre": "Les maths expertes",
+              "texte": "24% du total, incluses dans les 60%."
+            }
+          ],
+          "resume": "24% du total correspond à 40% de la filière générale (24/60 = 0,40)."
+        }
+      },
+      "quizExerciseIds": [159, 160, 161],
       "schemaVersion": 2,
       "topic_id": "proportion-de-proportion",
       "definitions": {
@@ -128,29 +176,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Additionner les deux proportions au lieu de les multiplier.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Combiner deux informations évoque souvent une addition dans d'autres contextes (additionner deux quantités).",
+          "comment_detecter": "Le résultat obtenu dépasse la plus grande des deux proportions de départ, ce qui est impossible pour une proportion emboîtée.",
+          "comment_eviter": "Se souvenir que le résultat d'une proportion emboîtée est TOUJOURS plus petit que chacune des deux proportions de départ."
         },
         {
           "description": "Oublier de transformer les pourcentages en écriture décimale.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Multiplier directement 60 et 40 (sans les diviser par 100) donne un nombre bien trop grand.",
+          "comment_detecter": "Le résultat obtenu dépasse 100%, ce qui est impossible pour une proportion.",
+          "comment_eviter": "Toujours convertir CHAQUE pourcentage en écriture décimale ($60\\%=0{,}60$) avant de multiplier."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Proportion de proportion"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras calculer une proportion emboîtée."
-      ],
+      "synonymes": ["Proportion de proportion"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras calculer une proportion emboîtée."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Cette méthode est indispensable dès qu'une statistique est donnée « en cascade » : par exemple, le pourcentage de clients satisfaits PARMI les clients d'une catégorie, elle-même une proportion du total.",
+      "intuition": "Multiplier deux proportions revient à prendre « une fraction d'une fraction » : 40% de 60%, ce n'est pas 40+60, mais une portion plus petite encore que chacune des deux.",
+      "apercus": [
+        {
+          "id": "apercu-propprop-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Retrouver une proportion manquante par division, quand le résultat global est déjà connu."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Donne un exemple de proportion « en cascade » de la vie courante.",
+          "piste": "Le pourcentage de clients satisfaits parmi les clients d'une catégorie donnée, elle-même une proportion du total."
+        },
+        {
+          "apres": "exemple:proportion-de-proportion-exemple-inverse",
+          "question": "Pour retrouver une proportion manquante connaissant le résultat global, additionne-t-on, multiplie-t-on ou divise-t-on ?",
+          "piste": "On divise : c'est l'opération inverse de la multiplication utilisée pour calculer une proportion emboîtée."
+        }
+      ]
     },
     {
       "id": "evolutions-dune-quantite",
@@ -220,24 +288,63 @@
           ],
           "reponse": "$92$ €",
           "id": "evolutions-dune-quantite-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "evolutions-dune-quantite-exemple-baisse",
+          "titre": "Exemple 2 — Une baisse",
+          "enonce": "Un prix de 80 € baisse de 15%. Quel est le nouveau prix ?",
+          "calcul": [
+            {
+              "expr": "CM = 1 - 0{,}15 = 0{,}85",
+              "texte": "On calcule le coefficient multiplicateur d'une baisse."
+            },
+            {
+              "expr": "80 \\times 0{,}85 = 68",
+              "texte": "On multiplie le prix de départ."
+            }
+          ],
+          "reponse": "$68$ €",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "evolutions-dune-quantite-exemple-valeur-initiale",
+          "titre": "Exemple 3 — Retrouver la valeur initiale (approfondissement)",
+          "enonce": "Après une hausse de 15%, un prix vaut 92 €. Quel était le prix de départ ?",
+          "calcul": [
+            {
+              "expr": "CM = 1{,}15",
+              "texte": "On calcule le coefficient multiplicateur de la hausse."
+            },
+            {
+              "expr": "V_{initial} = \\dfrac{V_{final}}{CM} = \\dfrac{92}{1{,}15}",
+              "texte": "On DIVISE par le coefficient (opération inverse de la multiplication)."
+            },
+            {
+              "expr": "V_{initial} = 80",
+              "texte": "On calcule."
+            }
+          ],
+          "reponse": "$80$ €",
+          "difficulte": "difficile",
+          "analyse": "Quand on connaît le résultat final et qu'on cherche le départ, on DIVISE par le coefficient multiplicateur au lieu de multiplier.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Écrire un coefficient multiplicateur négatif pour une baisse. C'est faux : il reste positif ($1-t$).",
-        "Oublier de transformer le pourcentage en écriture décimale."
+        "Oublier de transformer le pourcentage en écriture décimale.",
+        "Multiplier par le coefficient alors qu'on cherche la valeur de DÉPART (il faut diviser)."
       ],
-      "astuce": "Le coefficient multiplicateur est toujours positif (tant que le prix final reste positif), même pour une baisse.",
+      "astuce": "Le coefficient multiplicateur est toujours positif (tant que le prix final reste positif), même pour une baisse. Pour revenir à la valeur de départ, on divise par CM au lieu de multiplier.",
       "aRetenir": [
-        "Hausse de $t\\%$ : $CM=1+t$",
-        "Baisse de $t\\%$ : $CM=1-t$"
+        "Hausse de $t\\%$ : $CM=1+t$. Baisse de $t\\%$ : $CM=1-t$.",
+        "$V_{final} = V_{initial} \\times CM$ ; et donc $V_{initial} = V_{final} / CM$."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        153,
-        154,
-        155
-      ],
+      "quizExerciseIds": [153, 154, 155],
       "schemaVersion": 2,
       "topic_id": "evolutions-dune-quantite",
       "definitions": {
@@ -277,29 +384,55 @@
       "erreursFrequentesDetail": [
         {
           "description": "Écrire un coefficient multiplicateur négatif pour une baisse. C'est faux : il reste positif ($1-t$).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Une baisse évoque intuitivement un nombre négatif, alors que le coefficient reste une proportion (toujours positive, sauf baisse de plus de 100%).",
+          "comment_detecter": "Le prix final calculé est négatif, ce qui est impossible pour un prix.",
+          "comment_eviter": "Se souvenir que le coefficient multiplicateur d'une baisse est $1-t$ (positif tant que $t<1$), jamais $-t$ seul."
         },
         {
           "description": "Oublier de transformer le pourcentage en écriture décimale.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Utiliser directement le nombre 15 au lieu de 0,15 fausse complètement le calcul.",
+          "comment_detecter": "Le coefficient multiplicateur obtenu est un nombre très grand (comme 16 au lieu de 1,15).",
+          "comment_eviter": "Toujours diviser le pourcentage par 100 avant de l'utiliser dans le coefficient multiplicateur."
+        },
+        {
+          "description": "Multiplier par le coefficient alors qu'on cherche la valeur de DÉPART (il faut diviser).",
+          "pourquoi": "Le réflexe « multiplier par CM » est acquis pour calculer une valeur finale, et s'applique par erreur à la recherche d'une valeur initiale.",
+          "comment_detecter": "La valeur initiale trouvée est plus grande que la valeur finale, pour une hausse (ce qui est illogique).",
+          "comment_eviter": "Pour retrouver le DÉPART à partir de l'ARRIVÉE, diviser par le coefficient multiplicateur, jamais multiplier."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Evolutions d'une quantité"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras utiliser un coefficient multiplicateur."
-      ],
+      "synonymes": ["Evolutions d'une quantité"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras utiliser un coefficient multiplicateur."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Le coefficient multiplicateur est l'outil le plus rapide pour calculer un nouveau prix après une augmentation ou une réduction, en une seule opération.",
+      "intuition": "Multiplier directement par $1+t$ (ou $1-t$) évite de calculer d'abord le montant de la variation puis de l'ajouter : le coefficient multiplicateur fait les deux étapes en une seule fois.",
+      "apercus": [
+        {
+          "id": "apercu-evolutions-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Retrouver la valeur initiale à partir de la valeur finale et du taux d'évolution."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi utiliser un coefficient multiplicateur plutôt que de calculer la variation puis l'ajouter ?",
+          "piste": "Cela fait les deux étapes (calculer la variation, puis l'appliquer) en une seule multiplication."
+        },
+        {
+          "apres": "exemple:evolutions-dune-quantite-exemple-valeur-initiale",
+          "question": "Pour retrouver la valeur de départ connaissant la valeur finale, multiplie-t-on ou divise-t-on par CM ?",
+          "piste": "On divise : c'est l'opération inverse de celle utilisée pour calculer la valeur finale."
+        }
+      ]
     },
     {
       "id": "evolutions-successives-et-reciproques",
@@ -355,6 +488,25 @@
       },
       "exemples": [
         {
+          "id": "evolutions-successives-et-reciproques-exemple-global",
+          "titre": "Exemple 1 — Deux hausses successives",
+          "enonce": "Un prix augmente de 10%, puis de 20% l'année suivante. Quelle est l'évolution globale ?",
+          "calcul": [
+            {
+              "expr": "CM_1 = 1{,}1 \\text{ et } CM_2 = 1{,}2",
+              "texte": "On calcule les deux coefficients multiplicateurs."
+            },
+            {
+              "expr": "CM_{global} = 1{,}1 \\times 1{,}2 = 1{,}32",
+              "texte": "On multiplie les deux coefficients (jamais on n'additionne les pourcentages)."
+            }
+          ],
+          "reponse": "Une hausse globale de $32\\%$ (pas $30\\%$ !)",
+          "difficulte": "moyen",
+          "analyse": "Additionner $10\\%+20\\%=30\\%$ serait FAUX : la seconde hausse s'applique à un prix déjà augmenté, ce qui donne un peu plus que la simple somme.",
+          "niveauAcces": "free"
+        },
+        {
           "titre": "Exemple 1",
           "enonce": "Un prix augmente de 20%. Quelle baisse ramène au prix de départ ?",
           "calcul": [
@@ -373,24 +525,22 @@
           ],
           "reponse": "Une baisse d'environ $16{,}7\\%$ (pas 20% !)",
           "id": "evolutions-successives-et-reciproques-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Croire qu'une hausse de 20% est annulée par une baisse de 20%. C'est faux.",
         "Additionner les pourcentages au lieu de multiplier les coefficients."
       ],
-      "astuce": "Retiens bien : pour revenir en arrière, on prend l'INVERSE du coefficient, jamais l'opposé du pourcentage.",
+      "astuce": "Retiens bien : pour revenir en arrière, on prend l'INVERSE du coefficient, jamais l'opposé du pourcentage. Et pour combiner deux évolutions, on MULTIPLIE les coefficients, jamais on n'additionne les pourcentages.",
       "aRetenir": [
-        "$CM_{global} = CM_1 \\times CM_2$",
-        "Évolution réciproque : $CM' = 1/CM$"
+        "$CM_{global} = CM_1 \\times CM_2$ : jamais une addition de pourcentages.",
+        "Évolution réciproque : $CM' = 1/CM$.",
+        "Une hausse de 20% n'est PAS annulée par une baisse de 20% (vérifier : $1{,}2\\times0{,}8=0{,}96\\neq1$)."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        156,
-        157,
-        158
-      ],
+      "quizExerciseIds": [156, 157, 158],
       "schemaVersion": 2,
       "topic_id": "evolutions-successives-et-reciproques",
       "definitions": {
@@ -430,29 +580,51 @@
       "erreursFrequentesDetail": [
         {
           "description": "Croire qu'une hausse de 20% est annulée par une baisse de 20%. C'est faux.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "La baisse de 20% s'applique à un prix DÉJÀ augmenté, donc à une valeur plus grande que le prix de départ : 20% de cette valeur plus grande dépasse 20% du prix initial.",
+          "comment_detecter": "Le calcul du coefficient multiplicateur global ($1{,}2\\times0{,}8=0{,}96$) n'est pas égal à 1.",
+          "comment_eviter": "Vérifier systématiquement en multipliant les coefficients : seul un résultat exactement égal à 1 annule parfaitement l'évolution de départ."
         },
         {
           "description": "Additionner les pourcentages au lieu de multiplier les coefficients.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Additionner semble plus intuitif et rapide, mais ignore le fait que la seconde évolution porte sur une valeur déjà modifiée.",
+          "comment_detecter": "Le résultat trouvé (30% dans l'exemple des deux hausses) est différent du résultat obtenu en multipliant les coefficients (32%).",
+          "comment_eviter": "Toujours calculer CHAQUE coefficient multiplicateur séparément, puis les multiplier entre eux — jamais additionner les pourcentages directement."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Evolutions successives et évolutions réciproques"
-      ],
+      "synonymes": ["Evolutions successives et évolutions réciproques"],
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras calculer une évolution globale et une évolution réciproque."
       ],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Combiner plusieurs évolutions permet de calculer l'effet total de deux hausses (ou baisses) successives, comme deux augmentations de prix dans l'année — et le résultat surprend souvent.",
+      "intuition": "Les coefficients multiplicateurs se MULTIPLIENT entre eux pour des évolutions successives — jamais les pourcentages ne s'additionnent directement, car chaque évolution s'applique à une valeur déjà modifiée par la précédente.",
+      "apercus": [
+        {
+          "id": "apercu-evolsuccessives-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une évolution réciproque appliquée à une baisse plutôt qu'à une hausse."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi deux hausses de 10% et 20% ne donnent-elles pas une hausse de 30% ?",
+          "piste": "Parce que la seconde hausse s'applique à une valeur déjà augmentée par la première, donnant un peu plus que la simple somme (32% au lieu de 30%)."
+        },
+        {
+          "apres": "exemple:evolutions-successives-et-reciproques-exemple-global",
+          "question": "Pour combiner deux évolutions successives, additionne-t-on ou multiplie-t-on les coefficients ?",
+          "piste": "On multiplie toujours les coefficients multiplicateurs, jamais on n'additionne les pourcentages."
+        }
+      ]
     }
   ]
 }

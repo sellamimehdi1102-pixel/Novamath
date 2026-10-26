@@ -64,12 +64,12 @@
   },
   {
     "enonce": "Un point mobile se déplace en ligne droite à vitesse constante. A l'instant t = 0 s, il se trouve au point A(-6, 2) (coordonnées en mètres). Son vecteur vitesse est $\\vec{v}$ = (-3, 5) m/s. Donner un vecteur directeur de sa trajectoire, puis exprimer sa position M(t) en fonction de t.",
-    "answer": "Vecteur directeur : (-3, 5). Position : M(t) = (-6 + -3t ; 2 + 5t).",
+    "answer": "Vecteur directeur : (-3, 5). Position : M(t) = (-6 - 3t ; 2 + 5t).",
     "hint": "Le vecteur vitesse (constant) d'un mouvement rectiligne est un vecteur directeur de la trajectoire.",
     "solution_steps": [
       "Un mobile se déplaçant en ligne droite à vitesse constante suit une trajectoire rectiligne dont le vecteur vitesse est justement un vecteur directeur.",
       "Vecteur directeur de la trajectoire : $\\vec{v}$ = (-3, 5).",
-      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (-6 + -3t, 2 + 5t)."
+      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (-6 - 3t, 2 + 5t)."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Vecteur directeur d'une droite",
@@ -85,7 +85,7 @@
   },
   {
     "enonce": "Vrai ou faux : la droite D a pour équation y = 4x ; le point M(-7, -28) appartient à D. Justifier.",
-    "answer": "Vrai : M(-7, -28) appartient à D, car 4×(-7)+0 = -28.",
+    "answer": "Vrai : M(-7, -28) appartient à D, car 4×(-7) + 0 = -28.",
     "hint": "Un point (x0, y0) appartient à D : y = ax+b si et seulement si y0 = a×x0 + b.",
     "solution_steps": [
       "On remplace x par -7 dans l'équation de D : y = 4×(-7) + 0 = -28.",
@@ -152,7 +152,7 @@
     "solution_steps": [
       "Comme on connaît deux points (et non un point + une contrainte de pente), la méthode 'coefficient directeur puis point' est la plus directe — le système à deux inconnues donnerait le même résultat mais demande plus de calcul.",
       "Coefficient directeur : a = (yB-yA)/(xB-xA) = (4-(-3))/(9-6) = 7/3.",
-      "Avec A(6,-3) : -3 = 7/3×6 + b, donc b = -17.",
+      "Avec A(6,-3) : -3 = (7/3)×6 + b, donc b = -17.",
       "Equation réduite : y = (7/3)x - 17."
     ],
     "chapter_id": "Chapitre_6",
@@ -215,8 +215,8 @@
     "hint": "Recalculer soi-même le système en égalant les deux expressions de y, plutôt que de faire confiance au résultat proposé.",
     "solution_steps": [
       "Vérification sur D1 : y = -2×0 + 3 = 3, à comparer à 1.",
-      "Résolution correcte du système : -2x+3 = 4x+-3, donc (-2-4)x = -3-3, x = 1.",
-      "y = -2×1+3 = 1."
+      "Résolution correcte du système : -2x + 3 = 4x - 3, donc (-2-4)x = -3-3, x = 1.",
+      "y = -2×1 + 3 = 1."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -231,7 +231,7 @@
     "id": 800010
   },
   {
-    "enonce": "Déterminer la valeur de m sachant que les droites D1 : y = mx + -4 et D2 : y = 6x + 3 sont perpendiculaires.",
+    "enonce": "Déterminer la valeur de m sachant que les droites D1 : y = mx - 4 et D2 : y = 6x + 3 sont perpendiculaires.",
     "answer": "m = -1/6",
     "hint": "Parallèles : mêmes coefficients directeurs. Perpendiculaires : produit des coefficients directeurs égal à -1.",
     "solution_steps": [
@@ -277,8 +277,8 @@
     "hint": "Deux routes rectilignes se croisent ssi les droites qui les modélisent sont sécantes (coefficients directeurs différents).",
     "solution_steps": [
       "Les routes se croisent si les droites sont sécantes, c'est-à-dire si -4 ≠ 4 (coefficients directeurs différents), ce qui est le cas ici.",
-      "On résout -4x+1 = 4x+5 : x = -1/2.",
-      "y = -4×(-1/2)+1 = 3."
+      "On résout -4x + 1 = 4x + 5 : x = -1/2.",
+      "y = -4×(-1/2) + 1 = 3."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -340,7 +340,7 @@
     "hint": "Deux droites parallèles ont le même vecteur normal (a,b) — seul le c change, à déterminer avec le point donné.",
     "solution_steps": [
       "Deux droites parallèles ont le même vecteur normal (à un facteur près) : celui de D est donc (6, 1), comme pour Δ.",
-      "Equation de D : 6x + 1y + c = 0. Avec A(-1,-6) : 6×(-1) + 1×(-6) + c = 0, donc c = 12.",
+      "Equation de D : 6x + y + c = 0. Avec A(-1,-6) : 6×(-1) + 1×(-6) + c = 0, donc c = 12.",
       "Equation de D : 6x + y + 12 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -362,7 +362,7 @@
     "solution_steps": [
       "Le vecteur directeur étant déjà connu, la méthode la plus directe consiste à en déduire immédiatement le vecteur normal, sans passer par l'équation réduite (qui échouerait de plus si ux = 0, cas d'une droite verticale).",
       "Vecteur normal : (-v, u) = (-5, -1).",
-      "Equation : -5x + -1y + c = 0. Avec A(1,0) : c = 5.",
+      "Equation : -5x - y + c = 0. Avec A(1,0) : c = 5.",
       "Equation cartésienne de D : -5x - y + 5 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -463,10 +463,10 @@
   },
   {
     "enonce": "Vrai ou faux : la droite D a pour équation y = -3x - 4 ; le point M(-2, 5) appartient à D. Justifier.",
-    "answer": "Faux : M(-2, 5) n'appartient pas à D, car -3×(-2)+-4 = 2 ≠ 5.",
+    "answer": "Faux : M(-2, 5) n'appartient pas à D, car -3×(-2) - 4 = 2 ≠ 5.",
     "hint": "Un point (x0, y0) appartient à D : y = ax+b si et seulement si y0 = a×x0 + b.",
     "solution_steps": [
-      "On remplace x par -2 dans l'équation de D : y = -3×(-2) + -4 = 2.",
+      "On remplace x par -2 dans l'équation de D : y = -3×(-2) - 4 = 2.",
       "Le point de D d'abscisse -2 a pour ordonnée 2, à comparer à l'ordonnée 5 de M."
     ],
     "chapter_id": "Chapitre_6",
@@ -482,12 +482,12 @@
     "id": 800022
   },
   {
-    "enonce": "Un élève transforme l'équation 3x + -3y + 2 = 0 sous forme réduite et obtient y = -x - 2/3. A-t-il raison ? Sinon, donner la bonne équation réduite.",
+    "enonce": "Un élève transforme l'équation 3x - 3y + 2 = 0 sous forme réduite et obtient y = -x - 2/3. A-t-il raison ? Sinon, donner la bonne équation réduite.",
     "answer": "Faux : la bonne équation réduite est y = x + 2/3.",
     "hint": "Isoler y : by = -ax - c, donc y = (-a/b)x - c/b — le signe change en passant a et c de l'autre côté.",
     "solution_steps": [
       "On isole y : -3y = -3x - 2.",
-      "On divise par -3 : y = (-3/-3)x + (-2/-3) = x + 2/3.",
+      "On divise par -3 : y = (-3/(-3))x + (-2/(-3)) = x + 2/3.",
       "L'élève a oublié de changer le signe de a et de c en les faisant passer de l'autre côté de l'égalité."
     ],
     "chapter_id": "Chapitre_6",
@@ -508,7 +508,7 @@
     "hint": "Parallèle : même coefficient directeur. Perpendiculaire : produit des coefficients directeurs = -1. Puis utiliser le point C pour trouver p.",
     "solution_steps": [
       "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : le coefficient directeur de D' est donc -1/5 = -1/5.",
-      "D' : y = -1/5x + p. Comme C(-3,-1) ∈ D' : -1 = -1/5×(-3) + p, donc p = -8/5.",
+      "D' : y = (-1/5)x + p. Comme C(-3,-1) ∈ D' : -1 = (-1/5)×(-3) + p, donc p = -8/5.",
       "Equation de D' : y = (-1/5)x - 8/5."
     ],
     "chapter_id": "Chapitre_6",
@@ -530,7 +530,7 @@
     "solution_steps": [
       "Comme on connaît deux points (et non un point + une contrainte de pente), la méthode 'coefficient directeur puis point' est la plus directe — le système à deux inconnues donnerait le même résultat mais demande plus de calcul.",
       "Coefficient directeur : a = (yB-yA)/(xB-xA) = (6-3)/(-5-(-2)) = -1.",
-      "Avec A(-2,3) : 3 = -1×(-2) + b, donc b = 1.",
+      "Avec A(-2,3) : 3 = (-1)×(-2) + b, donc b = 1.",
       "Equation réduite : y = -x + 1."
     ],
     "chapter_id": "Chapitre_6",
@@ -592,9 +592,9 @@
     "answer": "Le point proposé est incorrect. Le vrai point d'intersection est (4, -2).",
     "hint": "Recalculer soi-même le système en égalant les deux expressions de y, plutôt que de faire confiance au résultat proposé.",
     "solution_steps": [
-      "Vérification sur D1 : y = 1×5 + -6 = -1, à comparer à -2.",
-      "Résolution correcte du système : 1x+-6 = -1x+2, donc (1-(-1))x = 2-(-6), x = 4.",
-      "y = 1×4+-6 = -2."
+      "Vérification sur D1 : y = 1×5 - 6 = -1, à comparer à -2.",
+      "Résolution correcte du système : x - 6 = -x + 2, donc (1-(-1))x = 2-(-6), x = 4.",
+      "y = 1×4 - 6 = -2."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -609,7 +609,7 @@
     "id": 800028
   },
   {
-    "enonce": "Déterminer la valeur de m sachant que les droites D1 : y = mx + -2 et D2 : y = x + 6 sont parallèles.",
+    "enonce": "Déterminer la valeur de m sachant que les droites D1 : y = mx - 2 et D2 : y = x + 6 sont parallèles.",
     "answer": "m = 1",
     "hint": "Parallèles : mêmes coefficients directeurs. Perpendiculaires : produit des coefficients directeurs égal à -1.",
     "solution_steps": [
@@ -655,8 +655,8 @@
     "hint": "Deux routes rectilignes se croisent ssi les droites qui les modélisent sont sécantes (coefficients directeurs différents).",
     "solution_steps": [
       "Les routes se croisent si les droites sont sécantes, c'est-à-dire si -2 ≠ 3 (coefficients directeurs différents), ce qui est le cas ici.",
-      "On résout -2x+3 = 3x+0 : x = 3/5.",
-      "y = -2×3/5+3 = 9/5."
+      "On résout -2x + 3 = 3x : x = 3/5.",
+      "y = -2×3/5 + 3 = 9/5."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -697,7 +697,7 @@
     "solution_steps": [
       "$\\vec{AB}$ = (6, 1) est un vecteur DIRECTEUR de D, pas un vecteur normal — l'élève a confondu les deux.",
       "Le vecteur normal s'obtient à partir du vecteur directeur (u,v) par (-v, u) : ici (-1, 6).",
-      "Equation : -1x + 6y + c = 0, avec A(3,3) : -1×3 + 6×3 + c = 0, donc c = -15.",
+      "Equation : -x + 6y + c = 0, avec A(3,3) : -1×3 + 6×3 + c = 0, donc c = -15.",
       "Equation correcte : -x + 6y - 15 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -740,7 +740,7 @@
     "solution_steps": [
       "Le vecteur directeur étant déjà connu, la méthode la plus directe consiste à en déduire immédiatement le vecteur normal, sans passer par l'équation réduite (qui échouerait de plus si ux = 0, cas d'une droite verticale).",
       "Vecteur normal : (-v, u) = (-1, 5).",
-      "Equation : -1x + 5y + c = 0. Avec A(-4,2) : c = -14.",
+      "Equation : -x + 5y + c = 0. Avec A(-4,2) : c = -14.",
       "Equation cartésienne de D : -x + 5y - 14 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -820,12 +820,12 @@
   },
   {
     "enonce": "Un point mobile se déplace en ligne droite à vitesse constante. A l'instant t = 0 s, il se trouve au point A(5, 4) (coordonnées en mètres). Son vecteur vitesse est $\\vec{v}$ = (-3, 2) m/s. Donner un vecteur directeur de sa trajectoire, puis exprimer sa position M(t) en fonction de t.",
-    "answer": "Vecteur directeur : (-3, 2). Position : M(t) = (5 + -3t ; 4 + 2t).",
+    "answer": "Vecteur directeur : (-3, 2). Position : M(t) = (5 - 3t ; 4 + 2t).",
     "hint": "Le vecteur vitesse (constant) d'un mouvement rectiligne est un vecteur directeur de la trajectoire.",
     "solution_steps": [
       "Un mobile se déplaçant en ligne droite à vitesse constante suit une trajectoire rectiligne dont le vecteur vitesse est justement un vecteur directeur.",
       "Vecteur directeur de la trajectoire : $\\vec{v}$ = (-3, 2).",
-      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (5 + -3t, 4 + 2t)."
+      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (5 - 3t, 4 + 2t)."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Vecteur directeur d'une droite",
@@ -841,10 +841,10 @@
   },
   {
     "enonce": "Vrai ou faux : la droite D a pour équation y = x - 7 ; le point M(-6, -13) appartient à D. Justifier.",
-    "answer": "Vrai : M(-6, -13) appartient à D, car 1×(-6)+-7 = -13.",
+    "answer": "Vrai : M(-6, -13) appartient à D, car 1×(-6) - 7 = -13.",
     "hint": "Un point (x0, y0) appartient à D : y = ax+b si et seulement si y0 = a×x0 + b.",
     "solution_steps": [
-      "On remplace x par -6 dans l'équation de D : y = 1×(-6) + -7 = -13.",
+      "On remplace x par -6 dans l'équation de D : y = 1×(-6) - 7 = -13.",
       "Le point de D d'abscisse -6 a pour ordonnée -13, ce qui correspond à l'ordonnée -13 de M."
     ],
     "chapter_id": "Chapitre_6",
@@ -860,11 +860,11 @@
     "id": 800040
   },
   {
-    "enonce": "Un élève transforme l'équation 2x + 1y + -1 = 0 sous forme réduite et obtient y = 2x - 1. A-t-il raison ? Sinon, donner la bonne équation réduite.",
+    "enonce": "Un élève transforme l'équation 2x + y - 1 = 0 sous forme réduite et obtient y = 2x - 1. A-t-il raison ? Sinon, donner la bonne équation réduite.",
     "answer": "Faux : la bonne équation réduite est y = -2x + 1.",
     "hint": "Isoler y : by = -ax - c, donc y = (-a/b)x - c/b — le signe change en passant a et c de l'autre côté.",
     "solution_steps": [
-      "On isole y : 1y = -2x - -1.",
+      "On isole y : y = -2x + 1.",
       "On divise par 1 : y = (-2/1)x + (1/1) = -2x + 1.",
       "L'élève a oublié de changer le signe de a et de c en les faisant passer de l'autre côté de l'égalité."
     ],
@@ -908,7 +908,7 @@
     "solution_steps": [
       "Comme on connaît deux points (et non un point + une contrainte de pente), la méthode 'coefficient directeur puis point' est la plus directe — le système à deux inconnues donnerait le même résultat mais demande plus de calcul.",
       "Coefficient directeur : a = (yB-yA)/(xB-xA) = (-8-(-6))/(-5-(-6)) = -2.",
-      "Avec A(-6,-6) : -6 = -2×(-6) + b, donc b = -18.",
+      "Avec A(-6,-6) : -6 = (-2)×(-6) + b, donc b = -18.",
       "Equation réduite : y = -2x - 18."
     ],
     "chapter_id": "Chapitre_6",
@@ -970,9 +970,9 @@
     "answer": "Le point proposé est incorrect. Le vrai point d'intersection est (-1/2, -1).",
     "hint": "Recalculer soi-même le système en égalant les deux expressions de y, plutôt que de faire confiance au résultat proposé.",
     "solution_steps": [
-      "Vérification sur D1 : y = -2×(-3/2) + -2 = 1, à comparer à -1.",
-      "Résolution correcte du système : -2x+-2 = 4x+1, donc (-2-4)x = 1-(-2), x = -1/2.",
-      "y = -2×(-1/2)+-2 = -1."
+      "Vérification sur D1 : y = -2×(-3/2) - 2 = 1, à comparer à -1.",
+      "Résolution correcte du système : -2x - 2 = 4x + 1, donc (-2-4)x = 1-(-2), x = -1/2.",
+      "y = -2×(-1/2) - 2 = -1."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -1033,8 +1033,8 @@
     "hint": "Deux routes rectilignes se croisent ssi les droites qui les modélisent sont sécantes (coefficients directeurs différents).",
     "solution_steps": [
       "Les routes se croisent si les droites sont sécantes, c'est-à-dire si -4 ≠ 1 (coefficients directeurs différents), ce qui est le cas ici.",
-      "On résout -4x+2 = 1x+9 : x = -7/5.",
-      "y = -4×(-7/5)+2 = 38/5."
+      "On résout -4x + 2 = x + 9 : x = -7/5.",
+      "y = -4×(-7/5) + 2 = 38/5."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -1053,7 +1053,7 @@
     "answer": "Faux : M n'appartient pas à D.",
     "hint": "Un point appartient à une droite d'équation cartésienne px+qy+r=0 si et seulement s'il vérifie l'équation (résultat nul).",
     "solution_steps": [
-      "On remplace x et y par 2 et 2/5 dans l'équation : -3×2 + -5×2/5 + 3 = -5.",
+      "On remplace x et y par 2 et 2/5 dans l'équation : -3×2 + (-5)×2/5 + 3 = -5.",
       "Ce résultat est non nul, donc M ne vérifie pas l'équation de D."
     ],
     "chapter_id": "Chapitre_6",
@@ -1075,7 +1075,7 @@
     "solution_steps": [
       "$\\vec{AB}$ = (-6, 1) est un vecteur DIRECTEUR de D, pas un vecteur normal — l'élève a confondu les deux.",
       "Le vecteur normal s'obtient à partir du vecteur directeur (u,v) par (-v, u) : ici (-1, -6).",
-      "Equation : -1x + -6y + c = 0, avec A(6,2) : -1×6 + -6×2 + c = 0, donc c = 18.",
+      "Equation : -x - 6y + c = 0, avec A(6,2) : -1×6 + (-6)×2 + c = 0, donc c = 18.",
       "Equation correcte : -x - 6y + 18 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -1096,7 +1096,7 @@
     "hint": "Deux droites parallèles ont le même vecteur normal (a,b) — seul le c change, à déterminer avec le point donné.",
     "solution_steps": [
       "Deux droites parallèles ont le même vecteur normal (à un facteur près) : celui de D est donc (-2, -1), comme pour Δ.",
-      "Equation de D : -2x + -1y + c = 0. Avec A(5,2) : -2×5 + -1×2 + c = 0, donc c = 12.",
+      "Equation de D : -2x - y + c = 0. Avec A(5,2) : -2×5 + (-1)×2 + c = 0, donc c = 12.",
       "Equation de D : -2x - y + 12 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -1198,12 +1198,12 @@
   },
   {
     "enonce": "Un point mobile se déplace en ligne droite à vitesse constante. A l'instant t = 0 s, il se trouve au point A(6, -5) (coordonnées en mètres). Son vecteur vitesse est $\\vec{v}$ = (-1, 5) m/s. Donner un vecteur directeur de sa trajectoire, puis exprimer sa position M(t) en fonction de t.",
-    "answer": "Vecteur directeur : (-1, 5). Position : M(t) = (6 + -1t ; -5 + 5t).",
+    "answer": "Vecteur directeur : (-1, 5). Position : M(t) = (6 - t ; -5 + 5t).",
     "hint": "Le vecteur vitesse (constant) d'un mouvement rectiligne est un vecteur directeur de la trajectoire.",
     "solution_steps": [
       "Un mobile se déplaçant en ligne droite à vitesse constante suit une trajectoire rectiligne dont le vecteur vitesse est justement un vecteur directeur.",
       "Vecteur directeur de la trajectoire : $\\vec{v}$ = (-1, 5).",
-      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (6 + -1t, -5 + 5t)."
+      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (6 - t, -5 + 5t)."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Vecteur directeur d'une droite",
@@ -1219,7 +1219,7 @@
   },
   {
     "enonce": "Vrai ou faux : la droite D a pour équation y = -2x + 5 ; le point M(-8, 20) appartient à D. Justifier.",
-    "answer": "Faux : M(-8, 20) n'appartient pas à D, car -2×(-8)+5 = 21 ≠ 20.",
+    "answer": "Faux : M(-8, 20) n'appartient pas à D, car -2×(-8) + 5 = 21 ≠ 20.",
     "hint": "Un point (x0, y0) appartient à D : y = ax+b si et seulement si y0 = a×x0 + b.",
     "solution_steps": [
       "On remplace x par -8 dans l'équation de D : y = -2×(-8) + 5 = 21.",
@@ -1238,12 +1238,12 @@
     "id": 800058
   },
   {
-    "enonce": "Un élève transforme l'équation -2x + -5y + 4 = 0 sous forme réduite et obtient y = (2/5)x - 4/5. A-t-il raison ? Sinon, donner la bonne équation réduite.",
+    "enonce": "Un élève transforme l'équation -2x - 5y + 4 = 0 sous forme réduite et obtient y = (2/5)x - 4/5. A-t-il raison ? Sinon, donner la bonne équation réduite.",
     "answer": "Faux : la bonne équation réduite est y = (-2/5)x + 4/5.",
     "hint": "Isoler y : by = -ax - c, donc y = (-a/b)x - c/b — le signe change en passant a et c de l'autre côté.",
     "solution_steps": [
-      "On isole y : -5y = --2x - 4.",
-      "On divise par -5 : y = (2/-5)x + (-4/-5) = (-2/5)x + 4/5.",
+      "On isole y : -5y = 2x - 4.",
+      "On divise par -5 : y = (2/(-5))x + (-4/(-5)) = (-2/5)x + 4/5.",
       "L'élève a oublié de changer le signe de a et de c en les faisant passer de l'autre côté de l'égalité."
     ],
     "chapter_id": "Chapitre_6",
@@ -1263,8 +1263,8 @@
     "answer": "y = (1/2)x - 2",
     "hint": "Parallèle : même coefficient directeur. Perpendiculaire : produit des coefficients directeurs = -1. Puis utiliser le point C pour trouver p.",
     "solution_steps": [
-      "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : le coefficient directeur de D' est donc -1/-2 = 1/2.",
-      "D' : y = 1/2x + p. Comme C(-2,-3) ∈ D' : -3 = 1/2×(-2) + p, donc p = -2.",
+      "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : le coefficient directeur de D' est donc -1/(-2) = 1/2.",
+      "D' : y = (1/2)x + p. Comme C(-2,-3) ∈ D' : -3 = (1/2)×(-2) + p, donc p = -2.",
       "Equation de D' : y = (1/2)x - 2."
     ],
     "chapter_id": "Chapitre_6",
@@ -1349,8 +1349,8 @@
     "hint": "Recalculer soi-même le système en égalant les deux expressions de y, plutôt que de faire confiance au résultat proposé.",
     "solution_steps": [
       "Vérification sur D1 : y = -2×(-3) + 2 = 8, à comparer à 6.",
-      "Résolution correcte du système : -2x+2 = -4x+-2, donc (-2-(-4))x = -2-2, x = -2.",
-      "y = -2×(-2)+2 = 6."
+      "Résolution correcte du système : -2x + 2 = -4x - 2, donc (-2-(-4))x = -2-2, x = -2.",
+      "y = -2×(-2) + 2 = 6."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -1365,7 +1365,7 @@
     "id": 800064
   },
   {
-    "enonce": "Déterminer la valeur de m sachant que les droites D1 : y = mx + -5 et D2 : y = -x + 6 sont parallèles.",
+    "enonce": "Déterminer la valeur de m sachant que les droites D1 : y = mx - 5 et D2 : y = -x + 6 sont parallèles.",
     "answer": "m = -1",
     "hint": "Parallèles : mêmes coefficients directeurs. Perpendiculaires : produit des coefficients directeurs égal à -1.",
     "solution_steps": [
@@ -1411,8 +1411,8 @@
     "hint": "Deux routes rectilignes se croisent ssi les droites qui les modélisent sont sécantes (coefficients directeurs différents).",
     "solution_steps": [
       "Les routes se croisent si les droites sont sécantes, c'est-à-dire si -1 ≠ -4 (coefficients directeurs différents), ce qui est le cas ici.",
-      "On résout -1x+6 = -4x+2 : x = -4/3.",
-      "y = -1×(-4/3)+6 = 22/3."
+      "On résout -x + 6 = -4x + 2 : x = -4/3.",
+      "y = -1×(-4/3) + 6 = 22/3."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -1431,7 +1431,7 @@
     "answer": "Faux : M n'appartient pas à D.",
     "hint": "Un point appartient à une droite d'équation cartésienne px+qy+r=0 si et seulement s'il vérifie l'équation (résultat nul).",
     "solution_steps": [
-      "On remplace x et y par 0 et -3/2 dans l'équation : -3×0 + -4×(-3/2) + -2 = 4.",
+      "On remplace x et y par 0 et -3/2 dans l'équation : -3×0 + (-4)×(-3/2) - 2 = 4.",
       "Ce résultat est non nul, donc M ne vérifie pas l'équation de D."
     ],
     "chapter_id": "Chapitre_6",
@@ -1474,7 +1474,7 @@
     "hint": "Deux droites parallèles ont le même vecteur normal (a,b) — seul le c change, à déterminer avec le point donné.",
     "solution_steps": [
       "Deux droites parallèles ont le même vecteur normal (à un facteur près) : celui de D est donc (-4, -3), comme pour Δ.",
-      "Equation de D : -4x + -3y + c = 0. Avec A(-4,-2) : -4×(-4) + -3×(-2) + c = 0, donc c = -22.",
+      "Equation de D : -4x - 3y + c = 0. Avec A(-4,-2) : -4×(-4) + (-3)×(-2) + c = 0, donc c = -22.",
       "Equation de D : -4x - 3y - 22 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -1496,7 +1496,7 @@
     "solution_steps": [
       "Le vecteur directeur étant déjà connu, la méthode la plus directe consiste à en déduire immédiatement le vecteur normal, sans passer par l'équation réduite (qui échouerait de plus si ux = 0, cas d'une droite verticale).",
       "Vecteur normal : (-v, u) = (-1, 3).",
-      "Equation : -1x + 3y + c = 0. Avec A(0,1) : c = -3.",
+      "Equation : -x + 3y + c = 0. Avec A(0,1) : c = -3.",
       "Equation cartésienne de D : -x + 3y - 3 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -1576,12 +1576,12 @@
   },
   {
     "enonce": "Un point mobile se déplace en ligne droite à vitesse constante. A l'instant t = 0 s, il se trouve au point A(0, -5) (coordonnées en mètres). Son vecteur vitesse est $\\vec{v}$ = (-1, 1) m/s. Donner un vecteur directeur de sa trajectoire, puis exprimer sa position M(t) en fonction de t.",
-    "answer": "Vecteur directeur : (-1, 1). Position : M(t) = (0 + -1t ; -5 + 1t).",
+    "answer": "Vecteur directeur : (-1, 1). Position : M(t) = (-t ; -5 + t).",
     "hint": "Le vecteur vitesse (constant) d'un mouvement rectiligne est un vecteur directeur de la trajectoire.",
     "solution_steps": [
       "Un mobile se déplaçant en ligne droite à vitesse constante suit une trajectoire rectiligne dont le vecteur vitesse est justement un vecteur directeur.",
       "Vecteur directeur de la trajectoire : $\\vec{v}$ = (-1, 1).",
-      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (0 + -1t, -5 + 1t)."
+      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (-t, -5 + t)."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Vecteur directeur d'une droite",
@@ -1597,10 +1597,10 @@
   },
   {
     "enonce": "Vrai ou faux : la droite D a pour équation y = 6x - 4 ; le point M(-7, -43) appartient à D. Justifier.",
-    "answer": "Faux : M(-7, -43) n'appartient pas à D, car 6×(-7)+-4 = -46 ≠ -43.",
+    "answer": "Faux : M(-7, -43) n'appartient pas à D, car 6×(-7) - 4 = -46 ≠ -43.",
     "hint": "Un point (x0, y0) appartient à D : y = ax+b si et seulement si y0 = a×x0 + b.",
     "solution_steps": [
-      "On remplace x par -7 dans l'équation de D : y = 6×(-7) + -4 = -46.",
+      "On remplace x par -7 dans l'équation de D : y = 6×(-7) - 4 = -46.",
       "Le point de D d'abscisse -7 a pour ordonnée -46, à comparer à l'ordonnée -43 de M."
     ],
     "chapter_id": "Chapitre_6",
@@ -1641,8 +1641,8 @@
     "answer": "y = (1/2)x - 3",
     "hint": "Parallèle : même coefficient directeur. Perpendiculaire : produit des coefficients directeurs = -1. Puis utiliser le point C pour trouver p.",
     "solution_steps": [
-      "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : le coefficient directeur de D' est donc -1/-2 = 1/2.",
-      "D' : y = 1/2x + p. Comme C(0,-3) ∈ D' : -3 = 1/2×0 + p, donc p = -3.",
+      "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : le coefficient directeur de D' est donc -1/(-2) = 1/2.",
+      "D' : y = (1/2)x + p. Comme C(0,-3) ∈ D' : -3 = (1/2)×0 + p, donc p = -3.",
       "Equation de D' : y = (1/2)x - 3."
     ],
     "chapter_id": "Chapitre_6",
@@ -1664,7 +1664,7 @@
     "solution_steps": [
       "Comme on connaît deux points (et non un point + une contrainte de pente), la méthode 'coefficient directeur puis point' est la plus directe — le système à deux inconnues donnerait le même résultat mais demande plus de calcul.",
       "Coefficient directeur : a = (yB-yA)/(xB-xA) = (2-1)/(-3-1) = -1/4.",
-      "Avec A(1,1) : 1 = -1/4×1 + b, donc b = 5/4.",
+      "Avec A(1,1) : 1 = (-1/4)×1 + b, donc b = 5/4.",
       "Equation réduite : y = (-1/4)x + 5/4."
     ],
     "chapter_id": "Chapitre_6",
@@ -1727,8 +1727,8 @@
     "hint": "Recalculer soi-même le système en égalant les deux expressions de y, plutôt que de faire confiance au résultat proposé.",
     "solution_steps": [
       "Vérification sur D1 : y = 1×4 + 6 = 10, à comparer à 11.",
-      "Résolution correcte du système : 1x+6 = 2x+1, donc (1-2)x = 1-6, x = 5.",
-      "y = 1×5+6 = 11."
+      "Résolution correcte du système : x + 6 = 2x + 1, donc (1-2)x = 1-6, x = 5.",
+      "y = 1×5 + 6 = 11."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -1789,8 +1789,8 @@
     "hint": "Deux routes rectilignes se croisent ssi les droites qui les modélisent sont sécantes (coefficients directeurs différents).",
     "solution_steps": [
       "Les routes se croisent si les droites sont sécantes, c'est-à-dire si 3 ≠ 2 (coefficients directeurs différents), ce qui est le cas ici.",
-      "On résout 3x+1 = 2x+9 : x = 8.",
-      "y = 3×8+1 = 25."
+      "On résout 3x + 1 = 2x + 9 : x = 8.",
+      "y = 3×8 + 1 = 25."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -1831,7 +1831,7 @@
     "solution_steps": [
       "$\\vec{AB}$ = (-1, -2) est un vecteur DIRECTEUR de D, pas un vecteur normal — l'élève a confondu les deux.",
       "Le vecteur normal s'obtient à partir du vecteur directeur (u,v) par (-v, u) : ici (2, -1).",
-      "Equation : 2x + -1y + c = 0, avec A(2,-1) : 2×2 + -1×(-1) + c = 0, donc c = -5.",
+      "Equation : 2x - y + c = 0, avec A(2,-1) : 2×2 + (-1)×(-1) + c = 0, donc c = -5.",
       "Equation correcte : 2x - y - 5 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -1852,7 +1852,7 @@
     "hint": "Deux droites parallèles ont le même vecteur normal (a,b) — seul le c change, à déterminer avec le point donné.",
     "solution_steps": [
       "Deux droites parallèles ont le même vecteur normal (à un facteur près) : celui de D est donc (-1, 1), comme pour Δ.",
-      "Equation de D : -1x + 1y + c = 0. Avec A(0,6) : -1×0 + 1×6 + c = 0, donc c = -6.",
+      "Equation de D : -x + y + c = 0. Avec A(0,6) : -1×0 + 1×6 + c = 0, donc c = -6.",
       "Equation de D : -x + y - 6 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -1954,12 +1954,12 @@
   },
   {
     "enonce": "Un point mobile se déplace en ligne droite à vitesse constante. A l'instant t = 0 s, il se trouve au point A(3, 3) (coordonnées en mètres). Son vecteur vitesse est $\\vec{v}$ = (-2, 5) m/s. Donner un vecteur directeur de sa trajectoire, puis exprimer sa position M(t) en fonction de t.",
-    "answer": "Vecteur directeur : (-2, 5). Position : M(t) = (3 + -2t ; 3 + 5t).",
+    "answer": "Vecteur directeur : (-2, 5). Position : M(t) = (3 - 2t ; 3 + 5t).",
     "hint": "Le vecteur vitesse (constant) d'un mouvement rectiligne est un vecteur directeur de la trajectoire.",
     "solution_steps": [
       "Un mobile se déplaçant en ligne droite à vitesse constante suit une trajectoire rectiligne dont le vecteur vitesse est justement un vecteur directeur.",
       "Vecteur directeur de la trajectoire : $\\vec{v}$ = (-2, 5).",
-      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (3 + -2t, 3 + 5t)."
+      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (3 - 2t, 3 + 5t)."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Vecteur directeur d'une droite",
@@ -1975,10 +1975,10 @@
   },
   {
     "enonce": "Vrai ou faux : la droite D a pour équation y = x - 6 ; le point M(-5, -10) appartient à D. Justifier.",
-    "answer": "Faux : M(-5, -10) n'appartient pas à D, car 1×(-5)+-6 = -11 ≠ -10.",
+    "answer": "Faux : M(-5, -10) n'appartient pas à D, car 1×(-5) - 6 = -11 ≠ -10.",
     "hint": "Un point (x0, y0) appartient à D : y = ax+b si et seulement si y0 = a×x0 + b.",
     "solution_steps": [
-      "On remplace x par -5 dans l'équation de D : y = 1×(-5) + -6 = -11.",
+      "On remplace x par -5 dans l'équation de D : y = 1×(-5) - 6 = -11.",
       "Le point de D d'abscisse -5 a pour ordonnée -11, à comparer à l'ordonnée -10 de M."
     ],
     "chapter_id": "Chapitre_6",
@@ -1994,12 +1994,12 @@
     "id": 800094
   },
   {
-    "enonce": "Un élève transforme l'équation 1x + -5y + 9 = 0 sous forme réduite et obtient y = (-1/5)x - 9/5. A-t-il raison ? Sinon, donner la bonne équation réduite.",
+    "enonce": "Un élève transforme l'équation x - 5y + 9 = 0 sous forme réduite et obtient y = (-1/5)x - 9/5. A-t-il raison ? Sinon, donner la bonne équation réduite.",
     "answer": "Faux : la bonne équation réduite est y = (1/5)x + 9/5.",
     "hint": "Isoler y : by = -ax - c, donc y = (-a/b)x - c/b — le signe change en passant a et c de l'autre côté.",
     "solution_steps": [
-      "On isole y : -5y = -1x - 9.",
-      "On divise par -5 : y = (-1/-5)x + (-9/-5) = (1/5)x + 9/5.",
+      "On isole y : -5y = -x - 9.",
+      "On divise par -5 : y = (-1/(-5))x + (-9/(-5)) = (1/5)x + 9/5.",
       "L'élève a oublié de changer le signe de a et de c en les faisant passer de l'autre côté de l'égalité."
     ],
     "chapter_id": "Chapitre_6",
@@ -2020,7 +2020,7 @@
     "hint": "Parallèle : même coefficient directeur. Perpendiculaire : produit des coefficients directeurs = -1. Puis utiliser le point C pour trouver p.",
     "solution_steps": [
       "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : le coefficient directeur de D' est donc -1/5 = -1/5.",
-      "D' : y = -1/5x + p. Comme C(3,0) ∈ D' : 0 = -1/5×3 + p, donc p = 3/5.",
+      "D' : y = (-1/5)x + p. Comme C(3,0) ∈ D' : 0 = (-1/5)×3 + p, donc p = 3/5.",
       "Equation de D' : y = (-1/5)x + 3/5."
     ],
     "chapter_id": "Chapitre_6",
@@ -2042,7 +2042,7 @@
     "solution_steps": [
       "Comme on connaît deux points (et non un point + une contrainte de pente), la méthode 'coefficient directeur puis point' est la plus directe — le système à deux inconnues donnerait le même résultat mais demande plus de calcul.",
       "Coefficient directeur : a = (yB-yA)/(xB-xA) = (10-5)/(-8-(-4)) = -5/4.",
-      "Avec A(-4,5) : 5 = -5/4×(-4) + b, donc b = 0.",
+      "Avec A(-4,5) : 5 = (-5/4)×(-4) + b, donc b = 0.",
       "Equation réduite : y = (-5/4)x."
     ],
     "chapter_id": "Chapitre_6",
@@ -2105,8 +2105,8 @@
     "hint": "Recalculer soi-même le système en égalant les deux expressions de y, plutôt que de faire confiance au résultat proposé.",
     "solution_steps": [
       "Vérification sur D1 : y = -5×10/7 + 6 = -8/7, à comparer à 27/7.",
-      "Résolution correcte du système : -5x+6 = 2x+3, donc (-5-2)x = 3-6, x = 3/7.",
-      "y = -5×3/7+6 = 27/7."
+      "Résolution correcte du système : -5x + 6 = 2x + 3, donc (-5-2)x = 3-6, x = 3/7.",
+      "y = -5×3/7 + 6 = 27/7."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -2126,7 +2126,7 @@
     "hint": "Parallèles : mêmes coefficients directeurs. Perpendiculaires : produit des coefficients directeurs égal à -1.",
     "solution_steps": [
       "Deux droites sont perpendiculaires ssi le produit de leurs coefficients directeurs vaut -1.",
-      "Il faut donc m × -2 = -1, soit m = 1/2."
+      "Il faut donc m × (-2) = -1, soit m = 1/2."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -2167,8 +2167,8 @@
     "hint": "Deux routes rectilignes se croisent ssi les droites qui les modélisent sont sécantes (coefficients directeurs différents).",
     "solution_steps": [
       "Les routes se croisent si les droites sont sécantes, c'est-à-dire si 3 ≠ 4 (coefficients directeurs différents), ce qui est le cas ici.",
-      "On résout 3x+6 = 4x+7 : x = -1.",
-      "y = 3×(-1)+6 = 3."
+      "On résout 3x + 6 = 4x + 7 : x = -1.",
+      "y = 3×(-1) + 6 = 3."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -2187,7 +2187,7 @@
     "answer": "Faux : M n'appartient pas à D.",
     "hint": "Un point appartient à une droite d'équation cartésienne px+qy+r=0 si et seulement s'il vérifie l'équation (résultat nul).",
     "solution_steps": [
-      "On remplace x et y par 5 et 5/3 dans l'équation : -1×5 + 3×5/3 + -3 = -3.",
+      "On remplace x et y par 5 et 5/3 dans l'équation : -1×5 + 3×5/3 - 3 = -3.",
       "Ce résultat est non nul, donc M ne vérifie pas l'équation de D."
     ],
     "chapter_id": "Chapitre_6",
@@ -2209,7 +2209,7 @@
     "solution_steps": [
       "$\\vec{AB}$ = (-3, 6) est un vecteur DIRECTEUR de D, pas un vecteur normal — l'élève a confondu les deux.",
       "Le vecteur normal s'obtient à partir du vecteur directeur (u,v) par (-v, u) : ici (-6, -3).",
-      "Equation : -6x + -3y + c = 0, avec A(-2,1) : -6×(-2) + -3×1 + c = 0, donc c = -9.",
+      "Equation : -6x - 3y + c = 0, avec A(-2,1) : -6×(-2) + (-3)×1 + c = 0, donc c = -9.",
       "Equation correcte : -6x - 3y - 9 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -2230,7 +2230,7 @@
     "hint": "Deux droites parallèles ont le même vecteur normal (a,b) — seul le c change, à déterminer avec le point donné.",
     "solution_steps": [
       "Deux droites parallèles ont le même vecteur normal (à un facteur près) : celui de D est donc (-2, -5), comme pour Δ.",
-      "Equation de D : -2x + -5y + c = 0. Avec A(4,6) : -2×4 + -5×6 + c = 0, donc c = 38.",
+      "Equation de D : -2x - 5y + c = 0. Avec A(4,6) : -2×4 + (-5)×6 + c = 0, donc c = 38.",
       "Equation de D : -2x - 5y + 38 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -2332,12 +2332,12 @@
   },
   {
     "enonce": "Un point mobile se déplace en ligne droite à vitesse constante. A l'instant t = 0 s, il se trouve au point A(-3, -2) (coordonnées en mètres). Son vecteur vitesse est $\\vec{v}$ = (-5, -2) m/s. Donner un vecteur directeur de sa trajectoire, puis exprimer sa position M(t) en fonction de t.",
-    "answer": "Vecteur directeur : (-5, -2). Position : M(t) = (-3 + -5t ; -2 + -2t).",
+    "answer": "Vecteur directeur : (-5, -2). Position : M(t) = (-3 - 5t ; -2 - 2t).",
     "hint": "Le vecteur vitesse (constant) d'un mouvement rectiligne est un vecteur directeur de la trajectoire.",
     "solution_steps": [
       "Un mobile se déplaçant en ligne droite à vitesse constante suit une trajectoire rectiligne dont le vecteur vitesse est justement un vecteur directeur.",
       "Vecteur directeur de la trajectoire : $\\vec{v}$ = (-5, -2).",
-      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (-3 + -5t, -2 + -2t)."
+      "Position à l'instant t : M(t) = A + t·$\\vec{v}$ = (-3 - 5t, -2 - 2t)."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Vecteur directeur d'une droite",
@@ -2353,7 +2353,7 @@
   },
   {
     "enonce": "Vrai ou faux : la droite D a pour équation y = 4x + 2 ; le point M(-2, -3) appartient à D. Justifier.",
-    "answer": "Faux : M(-2, -3) n'appartient pas à D, car 4×(-2)+2 = -6 ≠ -3.",
+    "answer": "Faux : M(-2, -3) n'appartient pas à D, car 4×(-2) + 2 = -6 ≠ -3.",
     "hint": "Un point (x0, y0) appartient à D : y = ax+b si et seulement si y0 = a×x0 + b.",
     "solution_steps": [
       "On remplace x par -2 dans l'équation de D : y = 4×(-2) + 2 = -6.",
@@ -2397,8 +2397,8 @@
     "answer": "y = (1/3)x - 14/3",
     "hint": "Parallèle : même coefficient directeur. Perpendiculaire : produit des coefficients directeurs = -1. Puis utiliser le point C pour trouver p.",
     "solution_steps": [
-      "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : le coefficient directeur de D' est donc -1/-3 = 1/3.",
-      "D' : y = 1/3x + p. Comme C(-1,-5) ∈ D' : -5 = 1/3×(-1) + p, donc p = -14/3.",
+      "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : le coefficient directeur de D' est donc -1/(-3) = 1/3.",
+      "D' : y = (1/3)x + p. Comme C(-1,-5) ∈ D' : -5 = (1/3)×(-1) + p, donc p = -14/3.",
       "Equation de D' : y = (1/3)x - 14/3."
     ],
     "chapter_id": "Chapitre_6",
@@ -2420,7 +2420,7 @@
     "solution_steps": [
       "Comme on connaît deux points (et non un point + une contrainte de pente), la méthode 'coefficient directeur puis point' est la plus directe — le système à deux inconnues donnerait le même résultat mais demande plus de calcul.",
       "Coefficient directeur : a = (yB-yA)/(xB-xA) = (-3-2)/(4-1) = -5/3.",
-      "Avec A(1,2) : 2 = -5/3×1 + b, donc b = 11/3.",
+      "Avec A(1,2) : 2 = (-5/3)×1 + b, donc b = 11/3.",
       "Equation réduite : y = (-5/3)x + 11/3."
     ],
     "chapter_id": "Chapitre_6",
@@ -2483,8 +2483,8 @@
     "hint": "Recalculer soi-même le système en égalant les deux expressions de y, plutôt que de faire confiance au résultat proposé.",
     "solution_steps": [
       "Vérification sur D1 : y = -5×6/5 + 3 = -3, à comparer à 2.",
-      "Résolution correcte du système : -5x+3 = 5x+1, donc (-5-5)x = 1-3, x = 1/5.",
-      "y = -5×1/5+3 = 2."
+      "Résolution correcte du système : -5x + 3 = 5x + 1, donc (-5-5)x = 1-3, x = 1/5.",
+      "y = -5×1/5 + 3 = 2."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -2499,7 +2499,7 @@
     "id": 800118
   },
   {
-    "enonce": "Déterminer la valeur de m sachant que les droites D1 : y = mx + -2 et D2 : y = 5x + 2 sont perpendiculaires.",
+    "enonce": "Déterminer la valeur de m sachant que les droites D1 : y = mx - 2 et D2 : y = 5x + 2 sont perpendiculaires.",
     "answer": "m = -1/5",
     "hint": "Parallèles : mêmes coefficients directeurs. Perpendiculaires : produit des coefficients directeurs égal à -1.",
     "solution_steps": [
@@ -2545,8 +2545,8 @@
     "hint": "Deux routes rectilignes se croisent ssi les droites qui les modélisent sont sécantes (coefficients directeurs différents).",
     "solution_steps": [
       "Les routes se croisent si les droites sont sécantes, c'est-à-dire si -3 ≠ 4 (coefficients directeurs différents), ce qui est le cas ici.",
-      "On résout -3x+7 = 4x+1 : x = 6/7.",
-      "y = -3×6/7+7 = 31/7."
+      "On résout -3x + 7 = 4x + 1 : x = 6/7.",
+      "y = -3×6/7 + 7 = 31/7."
     ],
     "chapter_id": "Chapitre_6",
     "notion": "Positions relatives de deux droites",
@@ -2565,7 +2565,7 @@
     "answer": "Vrai : M appartient à D.",
     "hint": "Un point appartient à une droite d'équation cartésienne px+qy+r=0 si et seulement s'il vérifie l'équation (résultat nul).",
     "solution_steps": [
-      "On remplace x et y par -6 et -5 dans l'équation : 4×(-6) + -4×(-5) + 4 = 0.",
+      "On remplace x et y par -6 et -5 dans l'équation : 4×(-6) + (-4)×(-5) + 4 = 0.",
       "Ce résultat est nul, donc M vérifie l'équation de D."
     ],
     "chapter_id": "Chapitre_6",
@@ -2630,7 +2630,7 @@
     "solution_steps": [
       "Le vecteur directeur étant déjà connu, la méthode la plus directe consiste à en déduire immédiatement le vecteur normal, sans passer par l'équation réduite (qui échouerait de plus si ux = 0, cas d'une droite verticale).",
       "Vecteur normal : (-v, u) = (5, -2).",
-      "Equation : 5x + -2y + c = 0. Avec A(4,-5) : c = -30.",
+      "Equation : 5x - 2y + c = 0. Avec A(4,-5) : c = -30.",
       "Equation cartésienne de D : 5x - 2y - 30 = 0."
     ],
     "chapter_id": "Chapitre_6",
@@ -2734,7 +2734,7 @@
     "hint": "Calculer le signe de chaque facteur séparément (ou du numérateur/dénominateur), puis appliquer la règle des signes.",
     "solution_steps": [
       "x - 7 = -15 et x - 4 = -12 pour x = -8.",
-      "Quotient : -15 / -12 = 5/4, qui est positif."
+      "Quotient : -15 / (-12) = 5/4, qui est positif."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'un produit ou d'un quotient",
@@ -2789,14 +2789,14 @@
     "id": 810006
   },
   {
-    "enonce": "Résoudre l'inéquation (x-(6))(x-(-5)) > 0 à l'aide d'un tableau de signes.",
+    "enonce": "Résoudre l'inéquation (x-6)(x-(-5)) > 0 à l'aide d'un tableau de signes.",
     "answer": "]-∞ ; -5[ ∪ ]6 ; +∞[",
     "hint": "Placer les racines des facteurs dans un tableau de signes, puis en déduire le signe du produit sur chaque intervalle.",
     "solution_steps": [
       "Les racines des facteurs sont x = 6 et x = -5, qui partagent la droite réelle en trois intervalles : ]-∞ ; -5[, ]-5 ; 6[ et ]6 ; +∞[.",
       "Un produit de deux facteurs affines change de signe à chaque racine et est du signe du produit des coefficients dominants à l'extérieur des racines (ici +1×+1 = +1, donc positif à l'extérieur).",
       "Tableau de signes : positif sur ]-∞ ; -5[, négatif sur ]-5 ; 6[, positif sur ]6 ; +∞[ (nul en x=-5 et x=6).",
-      "L'ensemble solution de (x-(6))(x-(-5)) > 0 est donc ]-∞ ; -5[ ∪ ]6 ; +∞[."
+      "L'ensemble solution de (x-6)(x-(-5)) > 0 est donc ]-∞ ; -5[ ∪ ]6 ; +∞[."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'un produit ou d'un quotient",
@@ -2899,7 +2899,7 @@
     "hint": "Calculer le signe de chaque facteur séparément (ou du numérateur/dénominateur), puis appliquer la règle des signes.",
     "solution_steps": [
       "x - 7 = -17 et x - 1 = -11 pour x = -10.",
-      "Produit : -17 × -11 = 187, qui est positif."
+      "Produit : -17 × (-11) = 187, qui est positif."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'un produit ou d'un quotient",
@@ -2954,14 +2954,14 @@
     "id": 810014
   },
   {
-    "enonce": "Résoudre l'inéquation (x-(-6))(x-(4)) < 0 à l'aide d'un tableau de signes.",
+    "enonce": "Résoudre l'inéquation (x-(-6))(x-4) < 0 à l'aide d'un tableau de signes.",
     "answer": "]-6 ; 4[",
     "hint": "Placer les racines des facteurs dans un tableau de signes, puis en déduire le signe du produit sur chaque intervalle.",
     "solution_steps": [
       "Les racines des facteurs sont x = -6 et x = 4, qui partagent la droite réelle en trois intervalles : ]-∞ ; -6[, ]-6 ; 4[ et ]4 ; +∞[.",
       "Un produit de deux facteurs affines change de signe à chaque racine et est du signe du produit des coefficients dominants à l'extérieur des racines (ici +1×+1 = +1, donc positif à l'extérieur).",
       "Tableau de signes : positif sur ]-∞ ; -6[, négatif sur ]-6 ; 4[, positif sur ]4 ; +∞[ (nul en x=-6 et x=4).",
-      "L'ensemble solution de (x-(-6))(x-(4)) < 0 est donc ]-6 ; 4[."
+      "L'ensemble solution de (x-(-6))(x-4) < 0 est donc ]-6 ; 4[."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'un produit ou d'un quotient",
@@ -3021,7 +3021,7 @@
     "answer": "k = 7",
     "hint": "Résoudre l'inéquation en fonction de k (en supposant k>0, donc sans changer le sens), puis identifier avec la solution donnée.",
     "solution_steps": [
-      "Comme k > 0, résoudre kx + 7 > 0 donne x > (0-(7))/k = (-7)/k.",
+      "Comme k > 0, résoudre kx + 7 > 0 donne x > (0-7)/k = (-7)/k.",
       "On sait que cette solution est x > -1, donc (-7)/k = -1.",
       "On résout : k = (-7)/(-1) = 7."
     ],
@@ -3064,7 +3064,7 @@
     "hint": "Calculer le signe de chaque facteur séparément (ou du numérateur/dénominateur), puis appliquer la règle des signes.",
     "solution_steps": [
       "x - 8 = -9 et x - 0 = -1 pour x = -1.",
-      "Quotient : -9 / -1 = 9, qui est positif."
+      "Quotient : -9 / (-1) = 9, qui est positif."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'un produit ou d'un quotient",
@@ -3119,14 +3119,14 @@
     "id": 810022
   },
   {
-    "enonce": "Résoudre l'inéquation (x-(-4))(x-(5)) > 0 à l'aide d'un tableau de signes.",
+    "enonce": "Résoudre l'inéquation (x-(-4))(x-5) > 0 à l'aide d'un tableau de signes.",
     "answer": "]-∞ ; -4[ ∪ ]5 ; +∞[",
     "hint": "Placer les racines des facteurs dans un tableau de signes, puis en déduire le signe du produit sur chaque intervalle.",
     "solution_steps": [
       "Les racines des facteurs sont x = -4 et x = 5, qui partagent la droite réelle en trois intervalles : ]-∞ ; -4[, ]-4 ; 5[ et ]5 ; +∞[.",
       "Un produit de deux facteurs affines change de signe à chaque racine et est du signe du produit des coefficients dominants à l'extérieur des racines (ici +1×+1 = +1, donc positif à l'extérieur).",
       "Tableau de signes : positif sur ]-∞ ; -4[, négatif sur ]-4 ; 5[, positif sur ]5 ; +∞[ (nul en x=-4 et x=5).",
-      "L'ensemble solution de (x-(-4))(x-(5)) > 0 est donc ]-∞ ; -4[ ∪ ]5 ; +∞[."
+      "L'ensemble solution de (x-(-4))(x-5) > 0 est donc ]-∞ ; -4[ ∪ ]5 ; +∞[."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'un produit ou d'un quotient",
@@ -3141,7 +3141,7 @@
     "id": 810023
   },
   {
-    "enonce": "Vrai ou faux : x = -2 est solution de l'inéquation -1x + 3 ≥ -4. Justifier.",
+    "enonce": "Vrai ou faux : x = -2 est solution de l'inéquation -x + 3 ≥ -4. Justifier.",
     "answer": "Vrai : x = -2 est solution.",
     "hint": "Remplacer x par la valeur proposée et vérifier si l'inégalité numérique obtenue est vraie.",
     "solution_steps": [
@@ -3161,11 +3161,11 @@
     "id": 810024
   },
   {
-    "enonce": "Un élève résout l'inéquation -1x + 0 > 0 et écrit : \"-1x > 0, donc x > 0\" (il n'a pas changé le sens de l'inégalité). Identifier son erreur et donner l'ensemble solution correct.",
+    "enonce": "Un élève résout l'inéquation -x + 0 > 0 et écrit : \"-x > 0, donc x > 0\" (il n'a pas changé le sens de l'inégalité). Identifier son erreur et donner l'ensemble solution correct.",
     "answer": "Erreur : diviser par un nombre négatif inverse le sens. Solution correcte : x < 0, soit ]-∞ ; 0[.",
     "hint": "Diviser (ou multiplier) les deux membres d'une inéquation par un nombre NÉGATIF inverse le sens de l'inégalité.",
     "solution_steps": [
-      "Après avoir isolé le terme en x, on a bien -1x > 0.",
+      "Après avoir isolé le terme en x, on a bien -x > 0.",
       "Mais -1 est NÉGATIF : en divisant les deux membres par -1, il faut inverser le sens de l'inégalité, donc x < 0 (et non x > 0).",
       "Ensemble solution correct : ]-∞ ; 0[."
     ],
@@ -3186,7 +3186,7 @@
     "answer": "k = 1",
     "hint": "Résoudre l'inéquation en fonction de k (en supposant k>0, donc sans changer le sens), puis identifier avec la solution donnée.",
     "solution_steps": [
-      "Comme k > 0, résoudre kx + 8 > 2 donne x > (2-(8))/k = (-6)/k.",
+      "Comme k > 0, résoudre kx + 8 > 2 donne x > (2-8)/k = (-6)/k.",
       "On sait que cette solution est x > -6, donc (-6)/k = -6.",
       "On résout : k = (-6)/(-6) = 1."
     ],
@@ -3224,7 +3224,7 @@
     "id": 810027
   },
   {
-    "enonce": "Vrai ou faux : pour x = 6, l'expression (x - (-3))/(x - (0)) est positive.",
+    "enonce": "Vrai ou faux : pour x = 6, l'expression (x - (-3))/(x - 0) est positive.",
     "answer": "Vrai : l'expression est positive en x = 6.",
     "hint": "Calculer le signe de chaque facteur séparément (ou du numérateur/dénominateur), puis appliquer la règle des signes.",
     "solution_steps": [
@@ -3284,14 +3284,14 @@
     "id": 810030
   },
   {
-    "enonce": "Résoudre l'inéquation (x-(-1))(x-(2)) > 0 à l'aide d'un tableau de signes.",
+    "enonce": "Résoudre l'inéquation (x-(-1))(x-2) > 0 à l'aide d'un tableau de signes.",
     "answer": "]-∞ ; -1[ ∪ ]2 ; +∞[",
     "hint": "Placer les racines des facteurs dans un tableau de signes, puis en déduire le signe du produit sur chaque intervalle.",
     "solution_steps": [
       "Les racines des facteurs sont x = -1 et x = 2, qui partagent la droite réelle en trois intervalles : ]-∞ ; -1[, ]-1 ; 2[ et ]2 ; +∞[.",
       "Un produit de deux facteurs affines change de signe à chaque racine et est du signe du produit des coefficients dominants à l'extérieur des racines (ici +1×+1 = +1, donc positif à l'extérieur).",
       "Tableau de signes : positif sur ]-∞ ; -1[, négatif sur ]-1 ; 2[, positif sur ]2 ; +∞[ (nul en x=-1 et x=2).",
-      "L'ensemble solution de (x-(-1))(x-(2)) > 0 est donc ]-∞ ; -1[ ∪ ]2 ; +∞[."
+      "L'ensemble solution de (x-(-1))(x-2) > 0 est donc ]-∞ ; -1[ ∪ ]2 ; +∞[."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'un produit ou d'un quotient",
@@ -3351,7 +3351,7 @@
     "answer": "k = 2",
     "hint": "Résoudre l'inéquation en fonction de k (en supposant k>0, donc sans changer le sens), puis identifier avec la solution donnée.",
     "solution_steps": [
-      "Comme k > 0, résoudre kx + 6 > -1 donne x > (-1-(6))/k = (-7)/k.",
+      "Comme k > 0, résoudre kx + 6 > -1 donne x > (-1-6)/k = (-7)/k.",
       "On sait que cette solution est x > -7/2, donc (-7)/k = -7/2.",
       "On résout : k = (-7)/(-7/2) = 2."
     ],
@@ -3389,12 +3389,12 @@
     "id": 810035
   },
   {
-    "enonce": "Vrai ou faux : pour x = -6, l'expression (x - (-7))/(x - (4)) est négative.",
+    "enonce": "Vrai ou faux : pour x = -6, l'expression (x - (-7))/(x - 4) est négative.",
     "answer": "Vrai : l'expression est négative en x = -6.",
     "hint": "Calculer le signe de chaque facteur séparément (ou du numérateur/dénominateur), puis appliquer la règle des signes.",
     "solution_steps": [
       "x - (-7) = 1 et x - 4 = -10 pour x = -6.",
-      "Quotient : 1 / -10 = -1/10, qui est négatif."
+      "Quotient : 1 / (-10) = -1/10, qui est négatif."
     ],
     "chapter_id": "Chapitre_9",
     "notion": "Signe d'un produit ou d'un quotient",
@@ -3471,7 +3471,7 @@
     "id": 810039
   },
   {
-    "enonce": "Vrai ou faux : x = -7 est solution de l'inéquation -1x - 10 < -6. Justifier.",
+    "enonce": "Vrai ou faux : x = -7 est solution de l'inéquation -x - 10 < -6. Justifier.",
     "answer": "Faux : x = -7 n'est pas solution.",
     "hint": "Remplacer x par la valeur proposée et vérifier si l'inégalité numérique obtenue est vraie.",
     "solution_steps": [
@@ -3491,11 +3491,11 @@
     "id": 810040
   },
   {
-    "enonce": "Un élève résout l'inéquation -1x + 8 ≥ -3 et écrit : \"-1x ≥ -11, donc x ≥ 11\" (il n'a pas changé le sens de l'inégalité). Identifier son erreur et donner l'ensemble solution correct.",
+    "enonce": "Un élève résout l'inéquation -x + 8 ≥ -3 et écrit : \"-x ≥ -11, donc x ≥ 11\" (il n'a pas changé le sens de l'inégalité). Identifier son erreur et donner l'ensemble solution correct.",
     "answer": "Erreur : diviser par un nombre négatif inverse le sens. Solution correcte : x ≤ 11, soit ]-∞ ; 11].",
     "hint": "Diviser (ou multiplier) les deux membres d'une inéquation par un nombre NÉGATIF inverse le sens de l'inégalité.",
     "solution_steps": [
-      "Après avoir isolé le terme en x, on a bien -1x ≥ -11.",
+      "Après avoir isolé le terme en x, on a bien -x ≥ -11.",
       "Mais -1 est NÉGATIF : en divisant les deux membres par -1, il faut inverser le sens de l'inégalité, donc x ≤ 11 (et non x ≥ 11).",
       "Ensemble solution correct : ]-∞ ; 11]."
     ],
@@ -3516,7 +3516,7 @@
     "answer": "k = 2",
     "hint": "Résoudre l'inéquation en fonction de k (en supposant k>0, donc sans changer le sens), puis identifier avec la solution donnée.",
     "solution_steps": [
-      "Comme k > 0, résoudre kx + 7 > 8 donne x > (8-(7))/k = (1)/k.",
+      "Comme k > 0, résoudre kx + 7 > 8 donne x > (8-7)/k = (1)/k.",
       "On sait que cette solution est x > 1/2, donc (1)/k = 1/2.",
       "On résout : k = (1)/(1/2) = 2."
     ],
@@ -3554,7 +3554,7 @@
     "id": 810043
   },
   {
-    "enonce": "Vrai ou faux : pour x = 9, l'expression (x - (4))(x - (-5)) est positive.",
+    "enonce": "Vrai ou faux : pour x = 9, l'expression (x - 4)(x - (-5)) est positive.",
     "answer": "Vrai : l'expression est positive en x = 9.",
     "hint": "Calculer le signe de chaque facteur séparément (ou du numérateur/dénominateur), puis appliquer la règle des signes.",
     "solution_steps": [
@@ -3719,7 +3719,7 @@
     "id": 810051
   },
   {
-    "enonce": "Vrai ou faux : pour x = 9, l'expression (x - (3))/(x - (-2)) est négative.",
+    "enonce": "Vrai ou faux : pour x = 9, l'expression (x - 3)/(x - (-2)) est négative.",
     "answer": "Faux : l'expression est positive en x = 9.",
     "hint": "Calculer le signe de chaque facteur séparément (ou du numérateur/dénominateur), puis appliquer la règle des signes.",
     "solution_steps": [
@@ -3846,7 +3846,7 @@
     "answer": "k = 1",
     "hint": "Résoudre l'inéquation en fonction de k (en supposant k>0, donc sans changer le sens), puis identifier avec la solution donnée.",
     "solution_steps": [
-      "Comme k > 0, résoudre kx + 3 > -6 donne x > (-6-(3))/k = (-9)/k.",
+      "Comme k > 0, résoudre kx + 3 > -6 donne x > (-6-3)/k = (-9)/k.",
       "On sait que cette solution est x > -9, donc (-9)/k = -9.",
       "On résout : k = (-9)/(-9) = 1."
     ],
@@ -4049,7 +4049,7 @@
     "id": 810067
   },
   {
-    "enonce": "Vrai ou faux : pour x = 0, l'expression (x - (8))(x - (-2)) est positive.",
+    "enonce": "Vrai ou faux : pour x = 0, l'expression (x - 8)(x - (-2)) est positive.",
     "answer": "Faux : l'expression est négative en x = 0.",
     "hint": "Calculer le signe de chaque facteur séparément (ou du numérateur/dénominateur), puis appliquer la règle des signes.",
     "solution_steps": [

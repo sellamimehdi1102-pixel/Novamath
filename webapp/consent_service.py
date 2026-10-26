@@ -1,6 +1,6 @@
 """
 Consentement (âge, protection des mineurs, cookies, versions de politique)
-pour NovaMath — SEC-04, conformité RGPD/CNIL.
+pour Mathadap — SEC-04, conformité RGPD/CNIL.
 
 Architecture stricte, identique à role_service.py/two_factor_service.py :
 
@@ -126,7 +126,7 @@ def get_public_consent_info(token):
     """Informations minimales exposées à la page publique `/parent/consent/
     <token>` — jamais l'email du parent ni aucune autre donnée personnelle de
     l'enfant au-delà de son pseudo (déjà public partout ailleurs sur
-    NovaMath)."""
+    Mathadap)."""
     row = db.get_parental_consent_request(token)
     if row is None:
         raise InvalidConsentToken("Ce lien de consentement est invalide.")

@@ -89,7 +89,10 @@ export function renderCurriculumCard(curriculum, { isCurrent = false, onEnter } 
   const card = document.createElement("article");
   card.className = "cursus-card card card--interactive";
   if (isCurrent) card.classList.add("is-current");
-  card.setAttribute("aria-label", `${curriculum.label} — Programme officiel`);
+  // `published === false` : programme servi en prévisualisation locale
+  // uniquement (voir curriculum_stats.py) — jamais présenté comme complet.
+  const status = curriculum.published === false ? "En préparation — aperçu local, non publié" : "Programme officiel";
+  card.setAttribute("aria-label", `${curriculum.label} — ${status}`);
 
   const icon = document.createElement("div");
   icon.className = "cursus-card-icon";
@@ -109,7 +112,7 @@ export function renderCurriculumCard(curriculum, { isCurrent = false, onEnter } 
 
   const desc = document.createElement("p");
   desc.className = "cursus-card-desc";
-  desc.textContent = "Programme officiel";
+  desc.textContent = status;
 
   const stats = document.createElement("div");
   stats.className = "cursus-card-stats";
@@ -233,6 +236,20 @@ export function initClassBadge(buttonEl) {
     .then((curricula) => {
       const current = curricula.find((c) => c.classLevel === getStoredClassLevel());
       if (current && labelEl) labelEl.textContent = current.label;
+      // Classe mémorisée qui n'est plus servie par ce serveur (typiquement :
+      // Quatrième choisie pendant une prévisualisation locale, puis site
+      // relancé sans NOVAMATH_PREVIEW_CURRICULA) : chaque page interrogeait
+      // alors une classe refusée (404) — pages vides, badge « Seconde »
+      // trompeur. On oublie ce choix et on recharge une seule fois sur la
+      // classe par défaut (la clé est retirée : aucune boucle possible).
+      if (!current && curricula.length && hasExplicitClassLevel()) {
+        try {
+          localStorage.removeItem(CLASS_LEVEL_KEY);
+        } catch {
+          return;
+        }
+        window.location.reload();
+      }
     })
     .catch(() => {
       /* garde le libellé par défaut déjà affiché dans le HTML */

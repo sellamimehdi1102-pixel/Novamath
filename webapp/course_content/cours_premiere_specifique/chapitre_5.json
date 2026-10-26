@@ -1,0 +1,3458 @@
+{
+  "chapterId": "Chapitre_5",
+  "title": "Dérivation",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "nombre-derive.-tangente",
+      "title": "Nombre dérivé. Tangente",
+      "schemaVersion": 2,
+      "intro": "Comment mesurer la vitesse d'une voiture à un instant précis, ou l'inclinaison d'une courbe en un point ? En calculant une pente moyenne sur un intervalle de plus en plus petit. C'est l'idée du nombre dérivé, l'un des concepts centraux de l'analyse.",
+      "pourquoi": "Le nombre dérivé mesure une variation instantanée : vitesse en physique, coût marginal en économie, pente d'une route en géographie. Il donne aussi l'équation de la tangente, la meilleure droite qui approche une courbe en un point.",
+      "explicationSimple": "Pour $f(x) = x^2$ en $a = 3$ : $\\dfrac{(3 + h)^2 - 9}{h} = 6 + h$. Quand $h$ devient très petit, cela se rapproche de $6$ : $f'(3) = 6$. La tangente au point $(3 ; 9)$ a pour pente $6$ : $y = 6(x - 3) + 9 = 6x - 9$.",
+      "objectif": "À la fin de ce cours, tu sauras calculer un taux de variation, déterminer un nombre dérivé comme limite de ce taux, le lire graphiquement comme une pente et écrire l'équation d'une tangente.",
+      "definition": "Soit $f$ une fonction définie sur un intervalle $I$, $a \\in I$ et $h \\neq 0$ tel que $a + h \\in I$. Le taux de variation de $f$ entre $a$ et $a + h$ est $\\dfrac{f(a + h) - f(a)}{h}$ : c'est la pente de la sécante passant par les points d'abscisses $a$ et $a + h$. Si ce taux se rapproche d'un nombre réel quand $h$ se rapproche de $0$, $f$ est dérivable en $a$ et ce nombre est le nombre dérivé $f'(a)$. La tangente à la courbe au point d'abscisse $a$ est la droite passant par $A(a ; f(a))$ de coefficient directeur $f'(a)$ : $y = f'(a)(x - a) + f(a)$.",
+      "definitions": {
+        "lycee": "Soit $f$ une fonction définie sur un intervalle $I$, $a \\in I$ et $h \\neq 0$ tel que $a + h \\in I$. Le taux de variation de $f$ entre $a$ et $a + h$ est $\\dfrac{f(a + h) - f(a)}{h}$ : c'est la pente de la sécante passant par les points d'abscisses $a$ et $a + h$. Si ce taux se rapproche d'un nombre réel quand $h$ se rapproche de $0$, $f$ est dérivable en $a$ et ce nombre est le nombre dérivé $f'(a)$. La tangente à la courbe au point d'abscisse $a$ est la droite passant par $A(a ; f(a))$ de coefficient directeur $f'(a)$ : $y = f'(a)(x - a) + f(a)$."
+      },
+      "intuition": "Zoome sur une courbe dérivable autour d'un point : elle finit par ressembler à une droite. Cette droite est la tangente, et sa pente est le nombre dérivé.",
+      "reglesImportantes": [
+        "Taux de variation entre $a$ et $a + h$ : $\\dfrac{f(a + h) - f(a)}{h}$, pente de la sécante.",
+        "Nombre dérivé : $f'(a)$ est la limite du taux de variation quand $h$ tend vers $0$ (si elle existe).",
+        "Graphiquement, $f'(a)$ est le coefficient directeur de la tangente au point d'abscisse $a$.",
+        "Équation de la tangente en $a$ : $y = f'(a)(x - a) + f(a)$.",
+        "Tangente horizontale en $a$ $\\iff$ $f'(a) = 0$ ; en cinématique, $f'(a)$ est une vitesse instantanée."
+      ],
+      "formules": [
+        {
+          "id": "formule-taux",
+          "nom": "Taux de variation",
+          "expression": "$\\dfrac{f(a + h) - f(a)}{h}$",
+          "quand_utiliser": "Pour calculer une pente de sécante ou un nombre dérivé.",
+          "erreur_frequente": "Oublier de diviser par $h$.",
+          "astuce": "Développe, simplifie par $h$, puis fais tendre $h$ vers $0$."
+        },
+        {
+          "id": "formule-tangente",
+          "nom": "Équation de la tangente",
+          "expression": "$y = f'(a)(x - a) + f(a)$",
+          "quand_utiliser": "Pour écrire la tangente au point d'abscisse $a$.",
+          "erreur_frequente": "Inverser $f(a)$ et $f'(a)$.",
+          "astuce": "$f'(a)$ multiplie $(x - a)$ ; $f(a)$ s'ajoute."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Écrire l'équation d'une tangente",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je calcule $f(a)$, l'ordonnée du point de contact."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Je calcule $f'(a)$ (taux de variation ou dérivée)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris $y = f'(a)(x - a) + f(a)$ et je développe."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que le point $(a ; f(a))$ est bien sur la droite."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je calcule $f(a)$, l'ordonnée du point de contact."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je calcule $f'(a)$ (taux de variation ou dérivée)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris $y = f'(a)(x - a) + f(a)$ et je développe."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que le point $(a ; f(a))$ est bien sur la droite."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je trouve le point de contact : $(a ; f(a))$."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je trouve la pente : $f'(a)$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je remplace dans $y = f'(a)(x - a) + f(a)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je remplace $x$ par $a$ : je dois retrouver $f(a)$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "$y = f'(a)(x - a) + f(a)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Contrôle au point de contact."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-531",
+          "titre": "Exemple 1 — Calculer un nombre dérivé",
+          "enonce": "Soit $f(x) = -2x^2 + x + 3$. Exprimer le taux de variation $\\dfrac{f(-4 + h) - f(-4)}{h}$ en fonction de $h$ et en déduire $f'(-4)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f(-4) = -32 - 4 + 3 = -33$."
+            },
+            {
+              "expr": "\\dfrac{f(-4 + h) - f(-4)}{h} = \\dfrac{17h - 2h^2}{h} = 17 - 2h",
+              "texte": "$f(-4 + h) = -2(16 - 8h + h^2) - 4 + h + 3 = -33 + 17h - 2h^2$, donc :"
+            },
+            {
+              "expr": "",
+              "texte": "Quand $h$ tend vers $0$, le taux tend vers $17$."
+            }
+          ],
+          "reponse": "$f'(-4) = 17$.",
+          "conclusion": "On simplifie toujours par $h$ AVANT de faire tendre $h$ vers $0$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-555",
+          "titre": "Exemple 2 — Équation de la tangente",
+          "enonce": "Soit $f(x) = x^2 + 6x - 2$. Déterminer une équation de la tangente à sa courbe au point d'abscisse $1$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f(1) = 1 + 6 - 2 = 5$."
+            },
+            {
+              "expr": "",
+              "texte": "$f'(x) = 2x + 6$, donc $f'(1) = 8$."
+            },
+            {
+              "expr": "y = 8(x - 1) + 5 = 8x - 3",
+              "texte": "Tangente :"
+            }
+          ],
+          "reponse": "$y = 8x - 3$.",
+          "conclusion": "Contrôle : pour $x = 1$, $8 - 3 = 5 = f(1)$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-543",
+          "titre": "Exemple 3 — Vitesse instantanée",
+          "enonce": "Un objet en chute libre parcourt $d(t) = 4{,}9t^2$ mètres en $t$ secondes. Calculer sa vitesse moyenne entre $2$ et $2 + h$, puis sa vitesse à l'instant $t = 2$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{d(2 + h) - d(2)}{h} = 19{,}6 + 4{,}9h",
+              "texte": "$d(2 + h) - d(2) = 4{,}9(4h + h^2)$, donc :"
+            },
+            {
+              "expr": "",
+              "texte": "Quand $h$ tend vers $0$ : $d'(2) = 19{,}6$."
+            }
+          ],
+          "reponse": "Vitesse moyenne $19{,}6 + 4{,}9h$ m/s ; vitesse à $t = 2$ : $19{,}6$ m/s.",
+          "conclusion": "Vitesse moyenne = taux de variation ; vitesse instantanée = nombre dérivé.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-567",
+          "titre": "Exemple 4 — Tangente de pente imposée",
+          "enonce": "Soit $f(x) = x^2 - 3x$. En quel point la tangente est-elle parallèle à la droite $y = x$ ? Donner son équation.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pente de la tangente en $a$ : $f'(a) = 2a - 3$."
+            },
+            {
+              "expr": "2a - 3 = 1 \\iff a = 2",
+              "texte": "Parallèle à $y = x$ :"
+            },
+            {
+              "expr": "",
+              "texte": "$f(2) = -2$ : tangente $y = 1 \\times (x - 2) - 2 = x - 4$."
+            }
+          ],
+          "reponse": "Au point $(2 ; -2)$ ; tangente $y = x - 4$.",
+          "conclusion": "Deux droites parallèles ont le même coefficient directeur.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-nombre-derive-inverse",
+          "titre": "Exemple 5 — Nombre dérivé de la fonction inverse",
+          "enonce": "Soit $f(x) = \\dfrac{1}{x}$. Calculer $f'(1)$ à l'aide du taux de variation, puis la tangente en $1$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{f(1 + h) - f(1)}{h} = \\dfrac{\\dfrac{1}{1 + h} - 1}{h} = \\dfrac{-h}{h(1 + h)} = -\\dfrac{1}{1 + h}",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "Quand $h$ tend vers $0$ : $f'(1) = -1$."
+            },
+            {
+              "expr": "",
+              "texte": "Tangente : $y = -(x - 1) + 1 = -x + 2$."
+            }
+          ],
+          "reponse": "$f'(1) = -1$ et $y = -x + 2$.",
+          "conclusion": "Le calcul algébrique du taux est possible pour les fonctions du second degré et la fonction inverse.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-tangentes-par-un-point",
+          "titre": "Exemple 6 — Tangentes passant par un point extérieur",
+          "enonce": "Déterminer les tangentes à la parabole $y = x^2$ qui passent par le point $P(1 ; -3)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Tangente en $a$ : $y = 2a(x - a) + a^2 = 2ax - a^2$."
+            },
+            {
+              "expr": "-3 = 2a - a^2 \\iff a^2 - 2a - 3 = 0 \\iff a = 3 \\text{ ou } a = -1",
+              "texte": "Elle passe par $P$ :"
+            },
+            {
+              "expr": "",
+              "texte": "$a = 3$ : $y = 6x - 9$ ; $a = -1$ : $y = -2x - 1$."
+            }
+          ],
+          "reponse": "Deux tangentes : $y = 6x - 9$ et $y = -2x - 1$.",
+          "conclusion": "On écrit la tangente en un point d'abscisse inconnue $a$, puis on traduit la condition.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Vitesse instantanée d'un véhicule.",
+        "Pente d'une route en un point.",
+        "Coût marginal d'une production."
+      ],
+      "erreursFrequentes": [
+        "Confondre $f(a)$ et $f'(a)$.",
+        "Écrire la tangente $y = f(a)(x - a) + f'(a)$.",
+        "Faire tendre $h$ vers $0$ avant de simplifier.",
+        "Lire une pente sans tenir compte des unités des axes."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre $f(a)$ et $f'(a)$.",
+          "pourquoi": "Les deux notations se ressemblent.",
+          "comment_detecter": "Cherches-tu une ordonnée ou une pente ?",
+          "comment_eviter": "$f(a)$ : où est le point ; $f'(a)$ : comment la courbe penche."
+        },
+        {
+          "description": "Écrire la tangente $y = f(a)(x - a) + f'(a)$.",
+          "pourquoi": "On inverse les rôles.",
+          "comment_detecter": "La droite passe-t-elle par $(a ; f(a))$ ?",
+          "comment_eviter": "Pente $f'(a)$ devant $(x - a)$."
+        },
+        {
+          "description": "Faire tendre $h$ vers $0$ avant de simplifier.",
+          "pourquoi": "On obtient $\\dfrac{0}{0}$.",
+          "comment_detecter": "As-tu divisé par $h$ ?",
+          "comment_eviter": "Simplifie d'abord le quotient."
+        },
+        {
+          "description": "Lire une pente sans tenir compte des unités des axes.",
+          "pourquoi": "Les graduations ne sont pas les mêmes.",
+          "comment_detecter": "Combien vaut une unité sur chaque axe ?",
+          "comment_eviter": "Pente $= \\dfrac{\\Delta y}{\\Delta x}$ en unités du repère."
+        }
+      ],
+      "astuce": "Pour lire $f'(a)$ sur un graphique, choisis deux points bien lisibles de la tangente et calcule « montée sur avancée » : $\\dfrac{\\Delta y}{\\Delta x}$.",
+      "aRetenir": [
+        "Taux de variation $\\dfrac{f(a + h) - f(a)}{h}$ : pente d'une sécante.",
+        "$f'(a)$ : pente de la tangente, limite du taux.",
+        "Tangente : $y = f'(a)(x - a) + f(a)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.2,
+          -1.4,
+          5.6,
+          7.2
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 1,
+            "y": 0.5,
+            "label": "A"
+          },
+          {
+            "x": 3,
+            "y": 4.5,
+            "label": "M₁"
+          },
+          {
+            "x": 2,
+            "y": 2,
+            "label": "M₂",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": -1.5
+            },
+            "to": {
+              "x": 3.6,
+              "y": 5.7
+            },
+            "tooltip": "sécante (AM₁) : pente 2"
+          },
+          {
+            "from": {
+              "x": -0.2,
+              "y": -1.3
+            },
+            "to": {
+              "x": 3.2,
+              "y": 3.8
+            },
+            "reveal": 2,
+            "tooltip": "sécante (AM₂) : pente 1,5"
+          },
+          {
+            "from": {
+              "x": -0.5,
+              "y": -1.0
+            },
+            "to": {
+              "x": 3.5,
+              "y": 3.0
+            },
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "tangente en A : pente 1",
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 3.2,
+            "y": 3.2,
+            "label": "pente 2"
+          },
+          {
+            "x": 2.6,
+            "y": 2.4,
+            "label": "pente 1,5",
+            "reveal": 2
+          },
+          {
+            "x": 3.4,
+            "y": 2.2,
+            "label": "tangente : pente 1",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -1.1,
+                0.605
+              ],
+              [
+                -1.062,
+                0.564
+              ],
+              [
+                -1.025,
+                0.525
+              ],
+              [
+                -0.988,
+                0.488
+              ],
+              [
+                -0.95,
+                0.451
+              ],
+              [
+                -0.913,
+                0.416
+              ],
+              [
+                -0.875,
+                0.383
+              ],
+              [
+                -0.838,
+                0.351
+              ],
+              [
+                -0.8,
+                0.32
+              ],
+              [
+                -0.763,
+                0.291
+              ],
+              [
+                -0.725,
+                0.263
+              ],
+              [
+                -0.688,
+                0.236
+              ],
+              [
+                -0.65,
+                0.211
+              ],
+              [
+                -0.613,
+                0.188
+              ],
+              [
+                -0.575,
+                0.165
+              ],
+              [
+                -0.538,
+                0.144
+              ],
+              [
+                -0.5,
+                0.125
+              ],
+              [
+                -0.463,
+                0.107
+              ],
+              [
+                -0.425,
+                0.09
+              ],
+              [
+                -0.388,
+                0.075
+              ],
+              [
+                -0.35,
+                0.061
+              ],
+              [
+                -0.313,
+                0.049
+              ],
+              [
+                -0.275,
+                0.038
+              ],
+              [
+                -0.238,
+                0.028
+              ],
+              [
+                -0.2,
+                0.02
+              ],
+              [
+                -0.163,
+                0.013
+              ],
+              [
+                -0.125,
+                0.008
+              ],
+              [
+                -0.088,
+                0.004
+              ],
+              [
+                -0.05,
+                0.001
+              ],
+              [
+                -0.013,
+                0.0
+              ],
+              [
+                0.025,
+                0.0
+              ],
+              [
+                0.062,
+                0.002
+              ],
+              [
+                0.1,
+                0.005
+              ],
+              [
+                0.137,
+                0.009
+              ],
+              [
+                0.175,
+                0.015
+              ],
+              [
+                0.212,
+                0.023
+              ],
+              [
+                0.25,
+                0.031
+              ],
+              [
+                0.287,
+                0.041
+              ],
+              [
+                0.325,
+                0.053
+              ],
+              [
+                0.362,
+                0.066
+              ],
+              [
+                0.4,
+                0.08
+              ],
+              [
+                0.438,
+                0.096
+              ],
+              [
+                0.475,
+                0.113
+              ],
+              [
+                0.512,
+                0.131
+              ],
+              [
+                0.55,
+                0.151
+              ],
+              [
+                0.587,
+                0.173
+              ],
+              [
+                0.625,
+                0.195
+              ],
+              [
+                0.662,
+                0.219
+              ],
+              [
+                0.7,
+                0.245
+              ],
+              [
+                0.737,
+                0.272
+              ],
+              [
+                0.775,
+                0.3
+              ],
+              [
+                0.812,
+                0.33
+              ],
+              [
+                0.85,
+                0.361
+              ],
+              [
+                0.887,
+                0.394
+              ],
+              [
+                0.925,
+                0.428
+              ],
+              [
+                0.962,
+                0.463
+              ],
+              [
+                1.0,
+                0.5
+              ],
+              [
+                1.038,
+                0.538
+              ],
+              [
+                1.075,
+                0.578
+              ],
+              [
+                1.112,
+                0.619
+              ],
+              [
+                1.15,
+                0.661
+              ],
+              [
+                1.188,
+                0.705
+              ],
+              [
+                1.225,
+                0.75
+              ],
+              [
+                1.262,
+                0.797
+              ],
+              [
+                1.3,
+                0.845
+              ],
+              [
+                1.337,
+                0.894
+              ],
+              [
+                1.375,
+                0.945
+              ],
+              [
+                1.413,
+                0.998
+              ],
+              [
+                1.45,
+                1.051
+              ],
+              [
+                1.487,
+                1.106
+              ],
+              [
+                1.525,
+                1.163
+              ],
+              [
+                1.562,
+                1.221
+              ],
+              [
+                1.6,
+                1.28
+              ],
+              [
+                1.637,
+                1.341
+              ],
+              [
+                1.675,
+                1.403
+              ],
+              [
+                1.712,
+                1.466
+              ],
+              [
+                1.75,
+                1.531
+              ],
+              [
+                1.788,
+                1.598
+              ],
+              [
+                1.825,
+                1.665
+              ],
+              [
+                1.862,
+                1.734
+              ],
+              [
+                1.9,
+                1.805
+              ],
+              [
+                1.938,
+                1.877
+              ],
+              [
+                1.975,
+                1.95
+              ],
+              [
+                2.012,
+                2.025
+              ],
+              [
+                2.05,
+                2.101
+              ],
+              [
+                2.087,
+                2.179
+              ],
+              [
+                2.125,
+                2.258
+              ],
+              [
+                2.163,
+                2.338
+              ],
+              [
+                2.2,
+                2.42
+              ],
+              [
+                2.237,
+                2.503
+              ],
+              [
+                2.275,
+                2.588
+              ],
+              [
+                2.312,
+                2.674
+              ],
+              [
+                2.35,
+                2.761
+              ],
+              [
+                2.387,
+                2.85
+              ],
+              [
+                2.425,
+                2.94
+              ],
+              [
+                2.462,
+                3.032
+              ],
+              [
+                2.5,
+                3.125
+              ],
+              [
+                2.538,
+                3.219
+              ],
+              [
+                2.575,
+                3.315
+              ],
+              [
+                2.612,
+                3.413
+              ],
+              [
+                2.65,
+                3.511
+              ],
+              [
+                2.688,
+                3.611
+              ],
+              [
+                2.725,
+                3.713
+              ],
+              [
+                2.762,
+                3.816
+              ],
+              [
+                2.8,
+                3.92
+              ],
+              [
+                2.837,
+                4.026
+              ],
+              [
+                2.875,
+                4.133
+              ],
+              [
+                2.913,
+                4.241
+              ],
+              [
+                2.95,
+                4.351
+              ],
+              [
+                2.988,
+                4.463
+              ],
+              [
+                3.025,
+                4.575
+              ],
+              [
+                3.062,
+                4.689
+              ],
+              [
+                3.1,
+                4.805
+              ],
+              [
+                3.137,
+                4.922
+              ],
+              [
+                3.175,
+                5.04
+              ],
+              [
+                3.212,
+                5.16
+              ],
+              [
+                3.25,
+                5.281
+              ],
+              [
+                3.288,
+                5.404
+              ],
+              [
+                3.325,
+                5.528
+              ],
+              [
+                3.363,
+                5.653
+              ],
+              [
+                3.4,
+                5.78
+              ]
+            ],
+            "tooltip": "Courbe de f(x) = x²/2"
+          }
+        ],
+        "steps": [
+          "Sécante pour h = 2",
+          "Sécante pour h = 1",
+          "h → 0 : la tangente"
+        ],
+        "relation": "$\\dfrac{f(1 + h) - f(1)}{h} = 1 + \\dfrac{h}{2}$, qui se rapproche de $f'(1) = 1$",
+        "alt": "Parabole y = x²/2 avec le point A(1 ; 0,5). La sécante vers M₁(3 ; 4,5) a pour pente 2, celle vers M₂(2 ; 2) a pour pente 1,5 ; quand le second point se rapproche de A, les sécantes tournent vers la tangente en A, de pente 1.",
+        "explication": {
+          "resume": "Le nombre dérivé $f'(a)$ est la pente limite des sécantes $(AM)$ quand $M$ se rapproche de $A$ sur la courbe. La droite limite est la tangente.",
+          "lecture": [
+            "$A$ est le point d'abscisse $1$ ; $M_1$ et $M_2$ sont d'abscisses $1 + h$ avec $h = 2$ puis $h = 1$.",
+            "Chaque sécante a pour pente le taux de variation $\\dfrac{f(1 + h) - f(1)}{h}$."
+          ],
+          "observations": [
+            "$h = 2$ : pente $2$ ; $h = 1$ : pente $1{,}5$ ; en général $1 + \\dfrac{h}{2}$.",
+            "Quand $h$ se rapproche de $0$, la pente se rapproche de $1$ : $f'(1) = 1$.",
+            "La tangente en $A$ a pour équation $y = 1 \\times (x - 1) + 0{,}5 = x - 0{,}5$."
+          ],
+          "pieges": [
+            "Confondre $f(a)$ (une ordonnée) et $f'(a)$ (une pente)."
+          ],
+          "aRetenir": [
+            "$f'(a)$ = pente de la tangente en $a$ = limite des pentes des sécantes."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        2246,
+        63101,
+        63105
+      ],
+      "topic_id": "nombre-derive.-tangente",
+      "proprietes": [
+        "Si $f$ est dérivable en $a$, sa courbe admet en $A(a ; f(a))$ une tangente de pente $f'(a)$."
+      ],
+      "vocabulaire_associe": [
+        "taux de variation",
+        "sécante",
+        "nombre dérivé",
+        "tangente",
+        "coefficient directeur",
+        "dérivable"
+      ],
+      "synonymes": [
+        "nombre dérivé",
+        "tangente",
+        "taux d'accroissement",
+        "équation de la tangente"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer un taux de variation.",
+        "Calculer un nombre dérivé par le taux de variation.",
+        "Lire graphiquement un nombre dérivé.",
+        "Déterminer l'équation d'une tangente."
+      ],
+      "prerequis": [
+        "Fonctions de référence (Seconde)",
+        "Équation réduite d'une droite",
+        "Second degré"
+      ],
+      "notions_liees": [
+        "fonction-derivee",
+        "operations-et-derivation"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "dérivation",
+        "nombre dérivé",
+        "tangente",
+        "taux de variation"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "nombre-derive.-tangente-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Vitesse instantanée, tangente de pente imposée, fonction inverse",
+          "description": "Trois exemples rédigés : vitesse instantanée en cinématique, point où la tangente a une pente donnée, nombre dérivé de la fonction inverse."
+        },
+        {
+          "id": "nombre-derive.-tangente-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Tangentes passant par un point, démonstration de l'équation de la tangente",
+          "description": "Un exemple de recherche des tangentes issues d'un point extérieur et la démonstration de l'équation de la tangente."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle est la pente de la tangente en $A$ ?",
+          "piste": "$1$ : c'est $f'(1)$."
+        },
+        {
+          "apres": "methode",
+          "question": "Si $f(2) = 5$ et $f'(2) = -1$, quelle est la tangente en $2$ ?",
+          "piste": "$y = -(x - 2) + 5 = -x + 7$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Équation de la tangente en un point",
+        "etapes": [
+          {
+            "titre": "Hypothèses",
+            "texte": "$f$ est dérivable en $a$ ; la tangente $T$ en $A(a ; f(a))$ est, par définition, la droite passant par $A$ de coefficient directeur $f'(a)$."
+          },
+          {
+            "titre": "Forme de l'équation",
+            "texte": "$T$ n'est pas verticale : elle a une équation de la forme $y = mx + p$ avec $m = f'(a)$."
+          },
+          {
+            "titre": "Ordonnée à l'origine",
+            "texte": "$A \\in T$ donc $f(a) = f'(a) \\times a + p$, d'où $p = f(a) - f'(a)a$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$y = f'(a)x + f(a) - f'(a)a = f'(a)(x - a) + f(a)$."
+          }
+        ],
+        "conclusion": "L'équation de la tangente découle directement de la définition : un point (le point de contact) et une pente (le nombre dérivé)."
+      }
+    },
+    {
+      "id": "fonction-derivee",
+      "title": "Fonction dérivée",
+      "schemaVersion": 2,
+      "intro": "Calculer un nombre dérivé avec le taux de variation est long. Heureusement, pour les fonctions usuelles, il existe une formule donnant $f'(x)$ pour tout $x$ : c'est la fonction dérivée.",
+      "pourquoi": "La fonction dérivée permet d'obtenir instantanément toutes les pentes de tangentes, et surtout, au chapitre suivant, d'étudier les variations d'une fonction.",
+      "explicationSimple": "$f(x) = x^3$ : $f'(x) = 3x^2$, donc la pente de la tangente au point d'abscisse $2$ vaut $f'(2) = 12$, sans aucun calcul de taux.",
+      "objectif": "À la fin de ce cours, tu sauras ce qu'est une fonction dérivable sur un intervalle et sa fonction dérivée, et tu connaîtras les dérivées des fonctions usuelles : constantes, $x$, $x^2$, $x^3$, $x^n$ ($n$ entier relatif), $\\dfrac{1}{x}$ et $\\sqrt{x}$.",
+      "definition": "Une fonction $f$ est dérivable sur un intervalle $I$ si elle est dérivable en tout réel de $I$. Sa fonction dérivée est $f' : x \\mapsto f'(x)$. Dérivées usuelles : $(k)' = 0$ ; $(x)' = 1$ ; $(x^2)' = 2x$ ; $(x^3)' = 3x^2$ ; pour $n$ entier relatif, $(x^n)' = nx^{n-1}$ (sur $\\mathbb{R}$ si $n \\geqslant 1$, sur $\\mathbb{R} \\setminus \\{0\\}$ si $n \\leqslant -1$) ; $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$ sur $\\mathbb{R} \\setminus \\{0\\}$ ; $(\\sqrt{x})' = \\dfrac{1}{2\\sqrt{x}}$ sur $]0 ; +\\infty[$.",
+      "definitions": {
+        "lycee": "Une fonction $f$ est dérivable sur un intervalle $I$ si elle est dérivable en tout réel de $I$. Sa fonction dérivée est $f' : x \\mapsto f'(x)$. Dérivées usuelles : $(k)' = 0$ ; $(x)' = 1$ ; $(x^2)' = 2x$ ; $(x^3)' = 3x^2$ ; pour $n$ entier relatif, $(x^n)' = nx^{n-1}$ (sur $\\mathbb{R}$ si $n \\geqslant 1$, sur $\\mathbb{R} \\setminus \\{0\\}$ si $n \\leqslant -1$) ; $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$ sur $\\mathbb{R} \\setminus \\{0\\}$ ; $(\\sqrt{x})' = \\dfrac{1}{2\\sqrt{x}}$ sur $]0 ; +\\infty[$."
+      },
+      "intuition": "La dérivée « résume » toutes les pentes de la courbe : une seule formule pour une infinité de tangentes.",
+      "reglesImportantes": [
+        "Une constante a une dérivée nulle : $(k)' = 0$.",
+        "$(x^n)' = nx^{n-1}$ pour tout entier relatif $n$ : $(x^2)' = 2x$, $(x^3)' = 3x^2$, $(x^{-1})' = -x^{-2}$.",
+        "$\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$ sur $]-\\infty ; 0[$ et sur $]0 ; +\\infty[$.",
+        "$(\\sqrt{x})' = \\dfrac{1}{2\\sqrt{x}}$ sur $]0 ; +\\infty[$ (la racine carrée est définie en $0$ mais n'y est pas dérivable).",
+        "On dérive une somme de fonctions usuelles terme à terme, et une constante multiplicative se conserve : $(kf)' = kf'$."
+      ],
+      "formules": [
+        {
+          "id": "formule-puissance",
+          "nom": "Puissances",
+          "expression": "$(x^n)' = nx^{n-1}$ ($n \\in \\mathbb{Z}$)",
+          "quand_utiliser": "Pour tous les polynômes et les $\\dfrac{1}{x^n}$.",
+          "erreur_frequente": "Oublier de diminuer l'exposant de $1$.",
+          "astuce": "L'exposant « descend » devant et diminue de $1$."
+        },
+        {
+          "id": "formule-inverse-racine",
+          "nom": "Inverse et racine",
+          "expression": "$\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$ ; $(\\sqrt{x})' = \\dfrac{1}{2\\sqrt{x}}$",
+          "quand_utiliser": "Fonctions de référence.",
+          "erreur_frequente": "Oublier le signe moins ou le $2$.",
+          "astuce": "Vérifie avec $(x^{-1})' = -x^{-2}$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Dériver une somme de fonctions usuelles",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je précise l'intervalle où chaque terme est dérivable."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris chaque terme sous une forme usuelle ($kx^n$, $\\dfrac{k}{x}$, $k\\sqrt{x}$)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je dérive terme à terme."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je simplifie et je contrôle sur une valeur."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je précise l'intervalle où chaque terme est dérivable."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris chaque terme sous une forme usuelle ($kx^n$, $\\dfrac{k}{x}$, $k\\sqrt{x}$)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je dérive terme à terme."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je simplifie et je contrôle sur une valeur."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde chaque morceau séparément."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Pour $x^n$ : je descends l'exposant et je le diminue de $1$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Les nombres seuls disparaissent."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je relis les signes."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Terme à terme : $(x^n)' = nx^{n-1}$, $(1/x)' = -1/x^2$, $(\\sqrt{x})' = 1/(2\\sqrt{x})$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Intervalle de dérivabilité."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-590",
+          "titre": "Exemple 1 — Un polynôme",
+          "enonce": "Calculer la dérivée de $f(x) = -2x^2 - 2x + 3$ sur $\\mathbb{R}$.",
+          "calcul": [
+            {
+              "expr": "f'(x) = -2 \\times 2x - 2 + 0 = -4x - 2",
+              "texte": "Terme à terme :"
+            }
+          ],
+          "reponse": "$f'(x) = -4x - 2$.",
+          "conclusion": "La constante $3$ disparaît.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-608",
+          "titre": "Exemple 2 — Racine et inverse",
+          "enonce": "Calculer la dérivée de $f(x) = 2\\sqrt{x} - \\dfrac{3}{x}$ sur $]0 ; +\\infty[$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$(2\\sqrt{x})' = 2 \\times \\dfrac{1}{2\\sqrt{x}} = \\dfrac{1}{\\sqrt{x}}$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\left(-\\dfrac{3}{x}\\right)' = -3 \\times \\left(-\\dfrac{1}{x^2}\\right) = \\dfrac{3}{x^2}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{1}{\\sqrt{x}} + \\dfrac{3}{x^2}$.",
+          "conclusion": "On se place sur $]0 ; +\\infty[$ : là, les deux termes sont dérivables.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-614",
+          "titre": "Exemple 3 — Puissances négatives",
+          "enonce": "Calculer la dérivée de $f(x) = x^4 - \\dfrac{2}{x^3}$ sur $]0 ; +\\infty[$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{2}{x^3} = 2x^{-3}$, de dérivée $-6x^{-4}$."
+            },
+            {
+              "expr": "f'(x) = 4x^3 + 6x^{-4} = 4x^3 + \\dfrac{6}{x^4}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$f'(x) = 4x^3 + \\dfrac{6}{x^4}$.",
+          "conclusion": "Écrire $\\dfrac{1}{x^n} = x^{-n}$ permet d'utiliser la même règle.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-602",
+          "titre": "Exemple 4 — Tangente horizontale imposée",
+          "enonce": "Déterminer le réel $a$ tel que la courbe de $f(x) = x^3 - ax$ ait une tangente horizontale au point d'abscisse $1$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f'(x) = 3x^2 - a$, donc $f'(1) = 3 - a$."
+            },
+            {
+              "expr": "",
+              "texte": "Tangente horizontale : $f'(1) = 0 \\iff a = 3$."
+            }
+          ],
+          "reponse": "$a = 3$.",
+          "conclusion": "« Tangente horizontale » se traduit par « nombre dérivé nul ».",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-626",
+          "titre": "Exemple 5 — Résoudre $f'(x) = 0$",
+          "enonce": "Soit $f(x) = \\sqrt{x} - x$ sur $]0 ; +\\infty[$. Résoudre $f'(x) = 0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f'(x) = \\dfrac{1}{2\\sqrt{x}} - 1$."
+            },
+            {
+              "expr": "",
+              "texte": "$f'(x) = 0 \\iff 2\\sqrt{x} = 1 \\iff \\sqrt{x} = \\dfrac{1}{2} \\iff x = \\dfrac{1}{4}$."
+            }
+          ],
+          "reponse": "$x = \\dfrac{1}{4}$.",
+          "conclusion": "En ce point, la courbe a une tangente horizontale.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-derivee-inverse-carre",
+          "titre": "Exemple 6 — Dérivée de $\\dfrac{1}{x^2}$ par le taux de variation",
+          "enonce": "Montrer à l'aide du taux de variation que la dérivée de $x \\mapsto \\dfrac{1}{x^2}$ est $x \\mapsto -\\dfrac{2}{x^3}$ (pour $x \\neq 0$).",
+          "calcul": [
+            {
+              "expr": "\\dfrac{1}{(a + h)^2} - \\dfrac{1}{a^2} = \\dfrac{a^2 - (a + h)^2}{a^2(a + h)^2} = \\dfrac{-h(2a + h)}{a^2(a + h)^2}",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "En divisant par $h$ : $-\\dfrac{2a + h}{a^2(a + h)^2}$, qui tend vers $-\\dfrac{2a}{a^4} = -\\dfrac{2}{a^3}$."
+            }
+          ],
+          "reponse": "On retrouve $(x^{-2})' = -2x^{-3}$.",
+          "conclusion": "La formule $(x^n)' = nx^{n-1}$ est confirmée pour $n = -2$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Obtenir toutes les vitesses d'un mobile à partir de sa position.",
+        "Calculer la pente d'un toboggan en tout point.",
+        "Trouver les points où une courbe a une tangente horizontale."
+      ],
+      "erreursFrequentes": [
+        "Écrire $(x^3)' = 3x^3$.",
+        "Oublier le signe de $\\left(\\dfrac{1}{x}\\right)'$.",
+        "Dériver $\\sqrt{x}$ en $0$.",
+        "Garder la constante après dérivation."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $(x^3)' = 3x^3$.",
+          "pourquoi": "On oublie de diminuer l'exposant.",
+          "comment_detecter": "L'exposant a-t-il baissé de $1$ ?",
+          "comment_eviter": "$(x^n)' = nx^{n-1}$."
+        },
+        {
+          "description": "Oublier le signe de $\\left(\\dfrac{1}{x}\\right)'$.",
+          "pourquoi": "On pense que $\\dfrac{1}{x}$ « croît ».",
+          "comment_detecter": "La fonction inverse est-elle décroissante sur $]0 ; +\\infty[$ ?",
+          "comment_eviter": "$-\\dfrac{1}{x^2}$, toujours négatif."
+        },
+        {
+          "description": "Dériver $\\sqrt{x}$ en $0$.",
+          "pourquoi": "On applique la formule partout.",
+          "comment_detecter": "$\\dfrac{1}{2\\sqrt{0}}$ a-t-il un sens ?",
+          "comment_eviter": "$\\sqrt{x}$ est dérivable seulement sur $]0 ; +\\infty[$."
+        },
+        {
+          "description": "Garder la constante après dérivation.",
+          "pourquoi": "On oublie que $(k)' = 0$.",
+          "comment_detecter": "La constante a-t-elle disparu ?",
+          "comment_eviter": "Un terme constant ne fait pas varier la fonction."
+        }
+      ],
+      "astuce": "Avant de dériver, réécris tout en puissances : $\\dfrac{3}{x^2} = 3x^{-2}$, $\\dfrac{1}{x} = x^{-1}$. Une seule règle, $(x^n)' = nx^{n-1}$, suffit alors pour presque tout.",
+      "aRetenir": [
+        "$(x^n)' = nx^{n-1}$ ($n \\in \\mathbb{Z}$).",
+        "$\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$ ; $(\\sqrt{x})' = \\dfrac{1}{2\\sqrt{x}}$ sur $]0 ; +\\infty[$.",
+        "$(k)' = 0$ et $(kf)' = kf'$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3.0,
+          -4.6,
+          6.0,
+          9.2
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 1,
+            "y": 1,
+            "label": "A(1 ; 1)",
+            "reveal": 2
+          },
+          {
+            "x": 1,
+            "y": 2,
+            "label": "B(1 ; 2)",
+            "reveal": 3
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -0.5,
+              "y": -2
+            },
+            "to": {
+              "x": 2.6,
+              "y": 4.2
+            },
+            "reveal": 2,
+            "tooltip": "tangente en A : pente 2",
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.2,
+            "y": 3.4,
+            "label": "tangente de pente 2",
+            "reveal": 2
+          },
+          {
+            "x": -1.6,
+            "y": -3.6,
+            "label": "y = f'(x) = 2x",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -2.1,
+                4.41
+              ],
+              [
+                -2.065,
+                4.264
+              ],
+              [
+                -2.03,
+                4.121
+              ],
+              [
+                -1.995,
+                3.98
+              ],
+              [
+                -1.96,
+                3.842
+              ],
+              [
+                -1.925,
+                3.706
+              ],
+              [
+                -1.89,
+                3.572
+              ],
+              [
+                -1.855,
+                3.441
+              ],
+              [
+                -1.82,
+                3.312
+              ],
+              [
+                -1.785,
+                3.186
+              ],
+              [
+                -1.75,
+                3.062
+              ],
+              [
+                -1.715,
+                2.941
+              ],
+              [
+                -1.68,
+                2.822
+              ],
+              [
+                -1.645,
+                2.706
+              ],
+              [
+                -1.61,
+                2.592
+              ],
+              [
+                -1.575,
+                2.481
+              ],
+              [
+                -1.54,
+                2.372
+              ],
+              [
+                -1.505,
+                2.265
+              ],
+              [
+                -1.47,
+                2.161
+              ],
+              [
+                -1.435,
+                2.059
+              ],
+              [
+                -1.4,
+                1.96
+              ],
+              [
+                -1.365,
+                1.863
+              ],
+              [
+                -1.33,
+                1.769
+              ],
+              [
+                -1.295,
+                1.677
+              ],
+              [
+                -1.26,
+                1.588
+              ],
+              [
+                -1.225,
+                1.501
+              ],
+              [
+                -1.19,
+                1.416
+              ],
+              [
+                -1.155,
+                1.334
+              ],
+              [
+                -1.12,
+                1.254
+              ],
+              [
+                -1.085,
+                1.177
+              ],
+              [
+                -1.05,
+                1.103
+              ],
+              [
+                -1.015,
+                1.03
+              ],
+              [
+                -0.98,
+                0.96
+              ],
+              [
+                -0.945,
+                0.893
+              ],
+              [
+                -0.91,
+                0.828
+              ],
+              [
+                -0.875,
+                0.766
+              ],
+              [
+                -0.84,
+                0.706
+              ],
+              [
+                -0.805,
+                0.648
+              ],
+              [
+                -0.77,
+                0.593
+              ],
+              [
+                -0.735,
+                0.54
+              ],
+              [
+                -0.7,
+                0.49
+              ],
+              [
+                -0.665,
+                0.442
+              ],
+              [
+                -0.63,
+                0.397
+              ],
+              [
+                -0.595,
+                0.354
+              ],
+              [
+                -0.56,
+                0.314
+              ],
+              [
+                -0.525,
+                0.276
+              ],
+              [
+                -0.49,
+                0.24
+              ],
+              [
+                -0.455,
+                0.207
+              ],
+              [
+                -0.42,
+                0.176
+              ],
+              [
+                -0.385,
+                0.148
+              ],
+              [
+                -0.35,
+                0.123
+              ],
+              [
+                -0.315,
+                0.099
+              ],
+              [
+                -0.28,
+                0.078
+              ],
+              [
+                -0.245,
+                0.06
+              ],
+              [
+                -0.21,
+                0.044
+              ],
+              [
+                -0.175,
+                0.031
+              ],
+              [
+                -0.14,
+                0.02
+              ],
+              [
+                -0.105,
+                0.011
+              ],
+              [
+                -0.07,
+                0.005
+              ],
+              [
+                -0.035,
+                0.001
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.035,
+                0.001
+              ],
+              [
+                0.07,
+                0.005
+              ],
+              [
+                0.105,
+                0.011
+              ],
+              [
+                0.14,
+                0.02
+              ],
+              [
+                0.175,
+                0.031
+              ],
+              [
+                0.21,
+                0.044
+              ],
+              [
+                0.245,
+                0.06
+              ],
+              [
+                0.28,
+                0.078
+              ],
+              [
+                0.315,
+                0.099
+              ],
+              [
+                0.35,
+                0.123
+              ],
+              [
+                0.385,
+                0.148
+              ],
+              [
+                0.42,
+                0.176
+              ],
+              [
+                0.455,
+                0.207
+              ],
+              [
+                0.49,
+                0.24
+              ],
+              [
+                0.525,
+                0.276
+              ],
+              [
+                0.56,
+                0.314
+              ],
+              [
+                0.595,
+                0.354
+              ],
+              [
+                0.63,
+                0.397
+              ],
+              [
+                0.665,
+                0.442
+              ],
+              [
+                0.7,
+                0.49
+              ],
+              [
+                0.735,
+                0.54
+              ],
+              [
+                0.77,
+                0.593
+              ],
+              [
+                0.805,
+                0.648
+              ],
+              [
+                0.84,
+                0.706
+              ],
+              [
+                0.875,
+                0.766
+              ],
+              [
+                0.91,
+                0.828
+              ],
+              [
+                0.945,
+                0.893
+              ],
+              [
+                0.98,
+                0.96
+              ],
+              [
+                1.015,
+                1.03
+              ],
+              [
+                1.05,
+                1.102
+              ],
+              [
+                1.085,
+                1.177
+              ],
+              [
+                1.12,
+                1.254
+              ],
+              [
+                1.155,
+                1.334
+              ],
+              [
+                1.19,
+                1.416
+              ],
+              [
+                1.225,
+                1.501
+              ],
+              [
+                1.26,
+                1.588
+              ],
+              [
+                1.295,
+                1.677
+              ],
+              [
+                1.33,
+                1.769
+              ],
+              [
+                1.365,
+                1.863
+              ],
+              [
+                1.4,
+                1.96
+              ],
+              [
+                1.435,
+                2.059
+              ],
+              [
+                1.47,
+                2.161
+              ],
+              [
+                1.505,
+                2.265
+              ],
+              [
+                1.54,
+                2.372
+              ],
+              [
+                1.575,
+                2.481
+              ],
+              [
+                1.61,
+                2.592
+              ],
+              [
+                1.645,
+                2.706
+              ],
+              [
+                1.68,
+                2.822
+              ],
+              [
+                1.715,
+                2.941
+              ],
+              [
+                1.75,
+                3.062
+              ],
+              [
+                1.785,
+                3.186
+              ],
+              [
+                1.82,
+                3.312
+              ],
+              [
+                1.855,
+                3.441
+              ],
+              [
+                1.89,
+                3.572
+              ],
+              [
+                1.925,
+                3.706
+              ],
+              [
+                1.96,
+                3.842
+              ],
+              [
+                1.995,
+                3.98
+              ],
+              [
+                2.03,
+                4.121
+              ],
+              [
+                2.065,
+                4.264
+              ],
+              [
+                2.1,
+                4.41
+              ]
+            ],
+            "tooltip": "Courbe de f(x) = x²"
+          },
+          {
+            "points": [
+              [
+                -2.2,
+                -4.4
+              ],
+              [
+                -2.163,
+                -4.327
+              ],
+              [
+                -2.127,
+                -4.253
+              ],
+              [
+                -2.09,
+                -4.18
+              ],
+              [
+                -2.053,
+                -4.107
+              ],
+              [
+                -2.017,
+                -4.033
+              ],
+              [
+                -1.98,
+                -3.96
+              ],
+              [
+                -1.943,
+                -3.887
+              ],
+              [
+                -1.907,
+                -3.813
+              ],
+              [
+                -1.87,
+                -3.74
+              ],
+              [
+                -1.833,
+                -3.667
+              ],
+              [
+                -1.797,
+                -3.593
+              ],
+              [
+                -1.76,
+                -3.52
+              ],
+              [
+                -1.723,
+                -3.447
+              ],
+              [
+                -1.687,
+                -3.373
+              ],
+              [
+                -1.65,
+                -3.3
+              ],
+              [
+                -1.613,
+                -3.227
+              ],
+              [
+                -1.577,
+                -3.153
+              ],
+              [
+                -1.54,
+                -3.08
+              ],
+              [
+                -1.503,
+                -3.007
+              ],
+              [
+                -1.467,
+                -2.933
+              ],
+              [
+                -1.43,
+                -2.86
+              ],
+              [
+                -1.393,
+                -2.787
+              ],
+              [
+                -1.357,
+                -2.713
+              ],
+              [
+                -1.32,
+                -2.64
+              ],
+              [
+                -1.283,
+                -2.567
+              ],
+              [
+                -1.247,
+                -2.493
+              ],
+              [
+                -1.21,
+                -2.42
+              ],
+              [
+                -1.173,
+                -2.347
+              ],
+              [
+                -1.137,
+                -2.273
+              ],
+              [
+                -1.1,
+                -2.2
+              ],
+              [
+                -1.063,
+                -2.127
+              ],
+              [
+                -1.027,
+                -2.053
+              ],
+              [
+                -0.99,
+                -1.98
+              ],
+              [
+                -0.953,
+                -1.907
+              ],
+              [
+                -0.917,
+                -1.833
+              ],
+              [
+                -0.88,
+                -1.76
+              ],
+              [
+                -0.843,
+                -1.687
+              ],
+              [
+                -0.807,
+                -1.613
+              ],
+              [
+                -0.77,
+                -1.54
+              ],
+              [
+                -0.733,
+                -1.467
+              ],
+              [
+                -0.697,
+                -1.393
+              ],
+              [
+                -0.66,
+                -1.32
+              ],
+              [
+                -0.623,
+                -1.247
+              ],
+              [
+                -0.587,
+                -1.173
+              ],
+              [
+                -0.55,
+                -1.1
+              ],
+              [
+                -0.513,
+                -1.027
+              ],
+              [
+                -0.477,
+                -0.953
+              ],
+              [
+                -0.44,
+                -0.88
+              ],
+              [
+                -0.403,
+                -0.807
+              ],
+              [
+                -0.367,
+                -0.733
+              ],
+              [
+                -0.33,
+                -0.66
+              ],
+              [
+                -0.293,
+                -0.587
+              ],
+              [
+                -0.257,
+                -0.513
+              ],
+              [
+                -0.22,
+                -0.44
+              ],
+              [
+                -0.183,
+                -0.367
+              ],
+              [
+                -0.147,
+                -0.293
+              ],
+              [
+                -0.11,
+                -0.22
+              ],
+              [
+                -0.073,
+                -0.147
+              ],
+              [
+                -0.037,
+                -0.073
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.037,
+                0.073
+              ],
+              [
+                0.073,
+                0.147
+              ],
+              [
+                0.11,
+                0.22
+              ],
+              [
+                0.147,
+                0.293
+              ],
+              [
+                0.183,
+                0.367
+              ],
+              [
+                0.22,
+                0.44
+              ],
+              [
+                0.257,
+                0.513
+              ],
+              [
+                0.293,
+                0.587
+              ],
+              [
+                0.33,
+                0.66
+              ],
+              [
+                0.367,
+                0.733
+              ],
+              [
+                0.403,
+                0.807
+              ],
+              [
+                0.44,
+                0.88
+              ],
+              [
+                0.477,
+                0.953
+              ],
+              [
+                0.513,
+                1.027
+              ],
+              [
+                0.55,
+                1.1
+              ],
+              [
+                0.587,
+                1.173
+              ],
+              [
+                0.623,
+                1.247
+              ],
+              [
+                0.66,
+                1.32
+              ],
+              [
+                0.697,
+                1.393
+              ],
+              [
+                0.733,
+                1.467
+              ],
+              [
+                0.77,
+                1.54
+              ],
+              [
+                0.807,
+                1.613
+              ],
+              [
+                0.843,
+                1.687
+              ],
+              [
+                0.88,
+                1.76
+              ],
+              [
+                0.917,
+                1.833
+              ],
+              [
+                0.953,
+                1.907
+              ],
+              [
+                0.99,
+                1.98
+              ],
+              [
+                1.027,
+                2.053
+              ],
+              [
+                1.063,
+                2.127
+              ],
+              [
+                1.1,
+                2.2
+              ],
+              [
+                1.137,
+                2.273
+              ],
+              [
+                1.173,
+                2.347
+              ],
+              [
+                1.21,
+                2.42
+              ],
+              [
+                1.247,
+                2.493
+              ],
+              [
+                1.283,
+                2.567
+              ],
+              [
+                1.32,
+                2.64
+              ],
+              [
+                1.357,
+                2.713
+              ],
+              [
+                1.393,
+                2.787
+              ],
+              [
+                1.43,
+                2.86
+              ],
+              [
+                1.467,
+                2.933
+              ],
+              [
+                1.503,
+                3.007
+              ],
+              [
+                1.54,
+                3.08
+              ],
+              [
+                1.577,
+                3.153
+              ],
+              [
+                1.613,
+                3.227
+              ],
+              [
+                1.65,
+                3.3
+              ],
+              [
+                1.687,
+                3.373
+              ],
+              [
+                1.723,
+                3.447
+              ],
+              [
+                1.76,
+                3.52
+              ],
+              [
+                1.797,
+                3.593
+              ],
+              [
+                1.833,
+                3.667
+              ],
+              [
+                1.87,
+                3.74
+              ],
+              [
+                1.907,
+                3.813
+              ],
+              [
+                1.943,
+                3.887
+              ],
+              [
+                1.98,
+                3.96
+              ],
+              [
+                2.017,
+                4.033
+              ],
+              [
+                2.053,
+                4.107
+              ],
+              [
+                2.09,
+                4.18
+              ],
+              [
+                2.127,
+                4.253
+              ],
+              [
+                2.163,
+                4.327
+              ],
+              [
+                2.2,
+                4.4
+              ]
+            ],
+            "variant": "b",
+            "reveal": 3,
+            "tooltip": "Droite de f'(x) = 2x"
+          }
+        ],
+        "steps": [
+          "La courbe de f(x) = x²",
+          "La tangente en A a pour pente 2",
+          "f'(1) = 2 : point B de la courbe de f'"
+        ],
+        "relation": "$f(x) = x^2$, $f'(x) = 2x$, $f'(1) = 2$",
+        "alt": "Parabole y = x², tangente au point A(1 ; 1) de pente 2, et droite y = 2x représentant la fonction dérivée : le point B(1 ; 2) de cette droite donne la pente de la tangente en A.",
+        "explication": {
+          "resume": "La fonction dérivée associe à chaque $x$ la pente de la tangente au point d'abscisse $x$. Pour $f(x) = x^2$, cette pente vaut $2x$.",
+          "lecture": [
+            "Courbe de $f$ : la parabole. Courbe de $f'$ : la droite $y = 2x$.",
+            "Pour $x = 1$, la tangente à la parabole a pour pente $2$, et le point de la droite d'abscisse $1$ a pour ordonnée $2$."
+          ],
+          "observations": [
+            "Pour $x < 0$, $f'(x) < 0$ : les tangentes descendent.",
+            "Pour $x > 0$, $f'(x) > 0$ : les tangentes montent.",
+            "En $0$, la tangente est horizontale : $f'(0) = 0$."
+          ],
+          "pieges": [
+            "Lire $f'(1)$ sur la courbe de $f$ comme une ordonnée : $f(1) = 1$ mais $f'(1) = 2$."
+          ],
+          "aRetenir": [
+            "$f'(x)$ = pente de la tangente au point d'abscisse $x$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        590,
+        595,
+        63301
+      ],
+      "topic_id": "fonction-derivee",
+      "proprietes": [
+        "$(x^n)' = nx^{n-1}$ pour tout entier relatif $n$."
+      ],
+      "vocabulaire_associe": [
+        "fonction dérivée",
+        "dérivable sur un intervalle",
+        "dérivées usuelles",
+        "puissance"
+      ],
+      "synonymes": [
+        "dérivée",
+        "f prime",
+        "dérivées usuelles",
+        "tableau des dérivées"
+      ],
+      "objectifs_pedagogiques": [
+        "Définir la fonction dérivée.",
+        "Connaître les dérivées usuelles.",
+        "Dériver une somme de fonctions usuelles.",
+        "Savoir où une fonction usuelle est dérivable."
+      ],
+      "prerequis": [
+        "Nombre dérivé. Tangente",
+        "Puissances entières"
+      ],
+      "notions_liees": [
+        "nombre-derive.-tangente",
+        "operations-et-derivation"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "dérivation",
+        "fonction dérivée",
+        "dérivées usuelles"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fonction-derivee-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Puissances négatives, tangente horizontale, équation $f'(x) = 0$",
+          "description": "Trois exemples rédigés : dérivées de $x^{-n}$, recherche d'un paramètre pour une tangente horizontale, résolution de $f'(x) = 0$."
+        },
+        {
+          "id": "fonction-derivee-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Dérivée de $1/x^2$ par le taux, démonstrations exigées",
+          "description": "Un exemple de calcul par le taux de variation et les démonstrations des dérivées de la fonction carré et de la fonction inverse."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que vaut $f'(-1)$ pour $f(x) = x^2$ ?",
+          "piste": "$-2$ : la tangente descend."
+        },
+        {
+          "apres": "methode",
+          "question": "Dériver $x^{-1}$.",
+          "piste": "$-x^{-2} = -\\dfrac{1}{x^2}$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Dérivées de la fonction carré et de la fonction inverse",
+        "etapes": [
+          {
+            "titre": "Carré : taux de variation",
+            "texte": "Pour tout réel $a$ et $h \\neq 0$ : $\\dfrac{(a + h)^2 - a^2}{h} = \\dfrac{2ah + h^2}{h} = 2a + h$."
+          },
+          {
+            "titre": "Carré : conclusion",
+            "texte": "Quand $h$ tend vers $0$, $2a + h$ tend vers $2a$ : la fonction carré est dérivable sur $\\mathbb{R}$ et $(x^2)' = 2x$."
+          },
+          {
+            "titre": "Inverse : taux de variation",
+            "texte": "Pour $a \\neq 0$ et $h$ petit ($a + h \\neq 0$) : $\\dfrac{1}{a + h} - \\dfrac{1}{a} = \\dfrac{-h}{a(a + h)}$, donc le taux vaut $-\\dfrac{1}{a(a + h)}$."
+          },
+          {
+            "titre": "Inverse : conclusion",
+            "texte": "Quand $h$ tend vers $0$, le taux tend vers $-\\dfrac{1}{a^2}$ : $\\left(\\dfrac{1}{x}\\right)' = -\\dfrac{1}{x^2}$ sur $\\mathbb{R} \\setminus \\{0\\}$."
+          }
+        ],
+        "conclusion": "Les formules usuelles se démontrent toutes à partir du taux de variation."
+      }
+    },
+    {
+      "id": "operations-et-derivation",
+      "title": "Opérations et dérivation",
+      "schemaVersion": 2,
+      "intro": "Les fonctions rencontrées sont souvent construites à partir des fonctions usuelles : sommes, produits, inverses, quotients. Quatre règles permettent de les dériver toutes.",
+      "pourquoi": "Sans ces règles, on ne pourrait dériver ni $x^2\\sqrt{x}$, ni $\\dfrac{2x + 1}{x - 3}$. Avec elles, l'étude des variations de presque toutes les fonctions du programme devient possible.",
+      "explicationSimple": "$f(x) = x^2(x + 1)$ : avec $u = x^2$ et $v = x + 1$, $f'(x) = 2x(x + 1) + x^2 \\times 1 = 3x^2 + 2x$. On retrouve le résultat en développant $f(x) = x^3 + x^2$.",
+      "objectif": "À la fin de ce cours, tu sauras dériver $ku$, $u + v$, $uv$, $\\dfrac{1}{v}$ et $\\dfrac{u}{v}$ en identifiant correctement $u$ et $v$, et tu sauras sur quel ensemble la dérivée est valable.",
+      "definition": "Soient $u$ et $v$ deux fonctions dérivables sur un intervalle $I$ et $k$ un réel. Alors $ku$, $u + v$ et $uv$ sont dérivables sur $I$, avec $(ku)' = ku'$, $(u + v)' = u' + v'$ et $(uv)' = u'v + uv'$. Si de plus $v$ ne s'annule pas sur $I$, $\\dfrac{1}{v}$ et $\\dfrac{u}{v}$ sont dérivables sur $I$, avec $\\left(\\dfrac{1}{v}\\right)' = -\\dfrac{v'}{v^2}$ et $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$.",
+      "definitions": {
+        "lycee": "Soient $u$ et $v$ deux fonctions dérivables sur un intervalle $I$ et $k$ un réel. Alors $ku$, $u + v$ et $uv$ sont dérivables sur $I$, avec $(ku)' = ku'$, $(u + v)' = u' + v'$ et $(uv)' = u'v + uv'$. Si de plus $v$ ne s'annule pas sur $I$, $\\dfrac{1}{v}$ et $\\dfrac{u}{v}$ sont dérivables sur $I$, avec $\\left(\\dfrac{1}{v}\\right)' = -\\dfrac{v'}{v^2}$ et $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$."
+      },
+      "intuition": "Pour un produit, chaque facteur varie « à son tour » pendant que l'autre est figé : d'où deux termes, $u'v$ et $uv'$. La dérivée d'un produit n'est donc pas le produit des dérivées.",
+      "reglesImportantes": [
+        "Constante multiplicative et somme : $(ku)' = ku'$ et $(u + v)' = u' + v'$.",
+        "Dérivée d'un produit : $(uv)' = u'v + uv'$ (et non $u'v'$).",
+        "Dérivée de l'inverse : $\\left(\\dfrac{1}{v}\\right)' = -\\dfrac{v'}{v^2}$ là où $v$ ne s'annule pas.",
+        "Dérivée d'un quotient : $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$ là où $v$ ne s'annule pas ; l'ordre au numérateur compte.",
+        "On identifie toujours $u$ et $v$ par écrit, avec $u'$ et $v'$, avant d'appliquer une formule."
+      ],
+      "formules": [
+        {
+          "id": "formule-produit",
+          "nom": "Dérivée d'un produit",
+          "expression": "$(uv)' = u'v + uv'$",
+          "quand_utiliser": "Pour un produit de deux fonctions.",
+          "erreur_frequente": "Écrire $(uv)' = u'v'$.",
+          "astuce": "Contrôle sur $x \\times x = x^2$ : $1 \\times x + x \\times 1 = 2x$."
+        },
+        {
+          "id": "formule-quotient",
+          "nom": "Dérivée d'un quotient",
+          "expression": "$\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$",
+          "quand_utiliser": "Pour un quotient, là où $v \\neq 0$.",
+          "erreur_frequente": "Inverser l'ordre au numérateur.",
+          "astuce": "« u' v moins u v' sur v carré »."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Dériver une fonction composée d'opérations",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie la structure : somme, produit, inverse ou quotient."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris $u$, $v$, puis $u'$ et $v'$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'applique la formule adaptée et je simplifie (on développe le numérateur, on garde $v^2$ au dénominateur)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je précise l'ensemble de dérivabilité ($v \\neq 0$) et je contrôle sur une valeur."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie la structure : somme, produit, inverse ou quotient."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris $u$, $v$, puis $u'$ et $v'$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'applique la formule adaptée et je simplifie (on développe le numérateur, on garde $v^2$ au dénominateur)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je précise l'ensemble de dérivabilité ($v \\neq 0$) et je contrôle sur une valeur."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde l'opération principale : $+$, $\\times$ ou $\\div$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je nomme les deux morceaux $u$ et $v$ et je les dérive."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je recopie la bonne formule et je remplace."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie qu'aucun dénominateur ne s'annule."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "$(uv)' = u'v + uv'$ ; $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$v \\neq 0$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-639",
+          "titre": "Exemple 1 — Multiplier par une constante",
+          "enonce": "Calculer la dérivée de $f(x) = -5(2x^2 - 3x)$ sur $\\mathbb{R}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$(ku)' = ku'$ avec $k = -5$ et $u(x) = 2x^2 - 3x$, $u'(x) = 4x - 3$."
+            },
+            {
+              "expr": "",
+              "texte": "f'(x) = -5(4x - 3) = -20x + 15"
+            }
+          ],
+          "reponse": "$f'(x) = -20x + 15$.",
+          "conclusion": "Inutile de développer avant de dériver.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-661",
+          "titre": "Exemple 2 — Somme",
+          "enonce": "Calculer la dérivée de $f(x) = (-2x^2 - 4x) + (4x + 1)$ sur $\\mathbb{R}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$(-2x^2 - 4x)' = -4x - 4$ et $(4x + 1)' = 4$."
+            },
+            {
+              "expr": "",
+              "texte": "f'(x) = -4x - 4 + 4 = -4x"
+            }
+          ],
+          "reponse": "$f'(x) = -4x$.",
+          "conclusion": "La dérivée d'une somme est la somme des dérivées.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-673",
+          "titre": "Exemple 3 — Produit",
+          "enonce": "Calculer la dérivée de $f(x) = (-2x)(-2x - 1)$ sur $\\mathbb{R}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$u(x) = -2x$, $u'(x) = -2$ ; $v(x) = -2x - 1$, $v'(x) = -2$."
+            },
+            {
+              "expr": "",
+              "texte": "f'(x) = u'v + uv' = -2(-2x - 1) + (-2x)(-2) = 8x + 2"
+            }
+          ],
+          "reponse": "$f'(x) = 8x + 2$.",
+          "conclusion": "Contrôle : $f(x) = 4x^2 + 2x$, de dérivée $8x + 2$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-inverse",
+          "titre": "Exemple 4 — Inverse",
+          "enonce": "Calculer la dérivée de $f(x) = \\dfrac{1}{x^2 + 3}$ sur $\\mathbb{R}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$v(x) = x^2 + 3$ ne s'annule jamais ; $v'(x) = 2x$."
+            },
+            {
+              "expr": "f'(x) = -\\dfrac{v'(x)}{v(x)^2} = -\\dfrac{2x}{(x^2 + 3)^2}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$f'(x) = -\\dfrac{2x}{(x^2 + 3)^2}$.",
+          "conclusion": "Le signe de $f'(x)$ est celui de $-2x$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-649",
+          "titre": "Exemple 5 — Quotient",
+          "enonce": "Calculer la dérivée de $f(x) = \\dfrac{-x + 4}{5x - 2}$ sur $\\mathbb{R} \\setminus \\left\\{\\dfrac{2}{5}\\right\\}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$u(x) = -x + 4$, $u'(x) = -1$ ; $v(x) = 5x - 2$, $v'(x) = 5$."
+            },
+            {
+              "expr": "u'v - uv' = -(5x - 2) - 5(-x + 4) = -18",
+              "texte": "Numérateur :"
+            },
+            {
+              "expr": "f'(x) = \\dfrac{-18}{(5x - 2)^2}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{-18}{(5x - 2)^2}$.",
+          "conclusion": "On développe le numérateur mais on garde $(5x - 2)^2$ factorisé : son signe est évident.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-685",
+          "titre": "Exemple 6 — Quotient plus délicat",
+          "enonce": "Calculer la dérivée de $f(x) = \\dfrac{-3x - 3}{x + 5}$ sur $\\mathbb{R} \\setminus \\{-5\\}$ et étudier son signe.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$u' = -3$, $v' = 1$."
+            },
+            {
+              "expr": "-3(x + 5) - (-3x - 3) \\times 1 = -12",
+              "texte": "Numérateur :"
+            },
+            {
+              "expr": "",
+              "texte": "$f'(x) = \\dfrac{-12}{(x + 5)^2} < 0$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{-12}{(x + 5)^2}$, strictement négatif.",
+          "conclusion": "Le signe de $f'$ servira à étudier les variations (chapitre suivant).",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-produit-racine",
+          "titre": "Exemple 7 — Produit avec une racine",
+          "enonce": "Calculer la dérivée de $f(x) = x\\sqrt{x}$ sur $]0 ; +\\infty[$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$u(x) = x$, $u' = 1$ ; $v(x) = \\sqrt{x}$, $v'(x) = \\dfrac{1}{2\\sqrt{x}}$."
+            },
+            {
+              "expr": "f'(x) = \\sqrt{x} + \\dfrac{x}{2\\sqrt{x}} = \\sqrt{x} + \\dfrac{\\sqrt{x}}{2} = \\dfrac{3}{2}\\sqrt{x}",
+              "texte": ""
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{3}{2}\\sqrt{x}$.",
+          "conclusion": "$\\dfrac{x}{\\sqrt{x}} = \\sqrt{x}$ pour $x > 0$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-quotient-second-degre",
+          "titre": "Exemple 8 — Quotient d'un trinôme",
+          "enonce": "Calculer la dérivée de $f(x) = \\dfrac{x^2 + 1}{x - 1}$ sur $]1 ; +\\infty[$ et trouver où elle s'annule.",
+          "calcul": [
+            {
+              "expr": "f'(x) = \\dfrac{2x(x - 1) - (x^2 + 1)}{(x - 1)^2} = \\dfrac{x^2 - 2x - 1}{(x - 1)^2}",
+              "texte": "$u' = 2x$, $v' = 1$ :"
+            },
+            {
+              "expr": "",
+              "texte": "$x^2 - 2x - 1 = 0$ : $\\Delta = 8$, racines $1 \\pm \\sqrt{2}$ ; sur $]1 ; +\\infty[$ : $x = 1 + \\sqrt{2}$."
+            }
+          ],
+          "reponse": "$f'(x) = \\dfrac{x^2 - 2x - 1}{(x - 1)^2}$, nul en $1 + \\sqrt{2}$.",
+          "conclusion": "Le second degré et la dérivation se combinent naturellement.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Dériver une recette $R(p) = p \\times q(p)$, produit du prix par la quantité.",
+        "Étudier une puissance $P(t) = \\dfrac{100t}{t^2 + 1}$.",
+        "Calculer la vitesse d'un mobile dont la position est un quotient."
+      ],
+      "erreursFrequentes": [
+        "Écrire $(uv)' = u'v'$.",
+        "Inverser l'ordre au numérateur du quotient.",
+        "Oublier les parenthèses en calculant $u'v - uv'$.",
+        "Oublier l'ensemble où la formule est valable."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $(uv)' = u'v'$.",
+          "pourquoi": "On généralise à tort la règle de la somme.",
+          "comment_detecter": "Contrôle avec $x \\times x$ : que trouves-tu ?",
+          "comment_eviter": "$(uv)' = u'v + uv'$."
+        },
+        {
+          "description": "Inverser l'ordre au numérateur du quotient.",
+          "pourquoi": "On écrit $uv' - u'v$.",
+          "comment_detecter": "Le signe de ta dérivée est-il cohérent avec la courbe ?",
+          "comment_eviter": "Toujours $u'v - uv'$."
+        },
+        {
+          "description": "Oublier les parenthèses en calculant $u'v - uv'$.",
+          "pourquoi": "On distribue mal le signe moins.",
+          "comment_detecter": "As-tu mis $uv'$ entre parenthèses ?",
+          "comment_eviter": "Écris $u'v - (uv')$."
+        },
+        {
+          "description": "Oublier l'ensemble où la formule est valable.",
+          "pourquoi": "On ne regarde pas les valeurs interdites.",
+          "comment_detecter": "$v$ s'annule-t-il ?",
+          "comment_eviter": "Précise toujours l'intervalle."
+        }
+      ],
+      "astuce": "Si une fonction peut se développer facilement (produit de polynômes), développer puis dériver est souvent plus rapide et plus sûr que la règle du produit : les deux méthodes se contrôlent mutuellement.",
+      "aRetenir": [
+        "$(ku)' = ku'$ ; $(u + v)' = u' + v'$.",
+        "$(uv)' = u'v + uv'$.",
+        "$\\left(\\dfrac{1}{v}\\right)' = -\\dfrac{v'}{v^2}$ ; $\\left(\\dfrac{u}{v}\\right)' = \\dfrac{u'v - uv'}{v^2}$ ($v \\neq 0$)."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3.2,
+          -0.8,
+          6.4,
+          2.6
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 1,
+            "y": 0.5,
+            "label": "A(1 ; 0,5)",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -0.6,
+              "y": 1.3
+            },
+            "to": {
+              "x": 3.0,
+              "y": -0.5
+            },
+            "reveal": 3,
+            "tooltip": "tangente en A : pente −0,5",
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.0,
+            "y": 0.9,
+            "label": "pente f'(1) = −1/2",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -3.0,
+                0.1
+              ],
+              [
+                -2.95,
+                0.103
+              ],
+              [
+                -2.9,
+                0.106
+              ],
+              [
+                -2.85,
+                0.11
+              ],
+              [
+                -2.8,
+                0.113
+              ],
+              [
+                -2.75,
+                0.117
+              ],
+              [
+                -2.7,
+                0.121
+              ],
+              [
+                -2.65,
+                0.125
+              ],
+              [
+                -2.6,
+                0.129
+              ],
+              [
+                -2.55,
+                0.133
+              ],
+              [
+                -2.5,
+                0.138
+              ],
+              [
+                -2.45,
+                0.143
+              ],
+              [
+                -2.4,
+                0.148
+              ],
+              [
+                -2.35,
+                0.153
+              ],
+              [
+                -2.3,
+                0.159
+              ],
+              [
+                -2.25,
+                0.165
+              ],
+              [
+                -2.2,
+                0.171
+              ],
+              [
+                -2.15,
+                0.178
+              ],
+              [
+                -2.1,
+                0.185
+              ],
+              [
+                -2.05,
+                0.192
+              ],
+              [
+                -2.0,
+                0.2
+              ],
+              [
+                -1.95,
+                0.208
+              ],
+              [
+                -1.9,
+                0.217
+              ],
+              [
+                -1.85,
+                0.226
+              ],
+              [
+                -1.8,
+                0.236
+              ],
+              [
+                -1.75,
+                0.246
+              ],
+              [
+                -1.7,
+                0.257
+              ],
+              [
+                -1.65,
+                0.269
+              ],
+              [
+                -1.6,
+                0.281
+              ],
+              [
+                -1.55,
+                0.294
+              ],
+              [
+                -1.5,
+                0.308
+              ],
+              [
+                -1.45,
+                0.322
+              ],
+              [
+                -1.4,
+                0.338
+              ],
+              [
+                -1.35,
+                0.354
+              ],
+              [
+                -1.3,
+                0.372
+              ],
+              [
+                -1.25,
+                0.39
+              ],
+              [
+                -1.2,
+                0.41
+              ],
+              [
+                -1.15,
+                0.431
+              ],
+              [
+                -1.1,
+                0.452
+              ],
+              [
+                -1.05,
+                0.476
+              ],
+              [
+                -1.0,
+                0.5
+              ],
+              [
+                -0.95,
+                0.526
+              ],
+              [
+                -0.9,
+                0.552
+              ],
+              [
+                -0.85,
+                0.581
+              ],
+              [
+                -0.8,
+                0.61
+              ],
+              [
+                -0.75,
+                0.64
+              ],
+              [
+                -0.7,
+                0.671
+              ],
+              [
+                -0.65,
+                0.703
+              ],
+              [
+                -0.6,
+                0.735
+              ],
+              [
+                -0.55,
+                0.768
+              ],
+              [
+                -0.5,
+                0.8
+              ],
+              [
+                -0.45,
+                0.832
+              ],
+              [
+                -0.4,
+                0.862
+              ],
+              [
+                -0.35,
+                0.891
+              ],
+              [
+                -0.3,
+                0.917
+              ],
+              [
+                -0.25,
+                0.941
+              ],
+              [
+                -0.2,
+                0.962
+              ],
+              [
+                -0.15,
+                0.978
+              ],
+              [
+                -0.1,
+                0.99
+              ],
+              [
+                -0.05,
+                0.998
+              ],
+              [
+                0.0,
+                1.0
+              ],
+              [
+                0.05,
+                0.998
+              ],
+              [
+                0.1,
+                0.99
+              ],
+              [
+                0.15,
+                0.978
+              ],
+              [
+                0.2,
+                0.962
+              ],
+              [
+                0.25,
+                0.941
+              ],
+              [
+                0.3,
+                0.917
+              ],
+              [
+                0.35,
+                0.891
+              ],
+              [
+                0.4,
+                0.862
+              ],
+              [
+                0.45,
+                0.832
+              ],
+              [
+                0.5,
+                0.8
+              ],
+              [
+                0.55,
+                0.768
+              ],
+              [
+                0.6,
+                0.735
+              ],
+              [
+                0.65,
+                0.703
+              ],
+              [
+                0.7,
+                0.671
+              ],
+              [
+                0.75,
+                0.64
+              ],
+              [
+                0.8,
+                0.61
+              ],
+              [
+                0.85,
+                0.581
+              ],
+              [
+                0.9,
+                0.552
+              ],
+              [
+                0.95,
+                0.526
+              ],
+              [
+                1.0,
+                0.5
+              ],
+              [
+                1.05,
+                0.476
+              ],
+              [
+                1.1,
+                0.452
+              ],
+              [
+                1.15,
+                0.431
+              ],
+              [
+                1.2,
+                0.41
+              ],
+              [
+                1.25,
+                0.39
+              ],
+              [
+                1.3,
+                0.372
+              ],
+              [
+                1.35,
+                0.354
+              ],
+              [
+                1.4,
+                0.338
+              ],
+              [
+                1.45,
+                0.322
+              ],
+              [
+                1.5,
+                0.308
+              ],
+              [
+                1.55,
+                0.294
+              ],
+              [
+                1.6,
+                0.281
+              ],
+              [
+                1.65,
+                0.269
+              ],
+              [
+                1.7,
+                0.257
+              ],
+              [
+                1.75,
+                0.246
+              ],
+              [
+                1.8,
+                0.236
+              ],
+              [
+                1.85,
+                0.226
+              ],
+              [
+                1.9,
+                0.217
+              ],
+              [
+                1.95,
+                0.208
+              ],
+              [
+                2.0,
+                0.2
+              ],
+              [
+                2.05,
+                0.192
+              ],
+              [
+                2.1,
+                0.185
+              ],
+              [
+                2.15,
+                0.178
+              ],
+              [
+                2.2,
+                0.171
+              ],
+              [
+                2.25,
+                0.165
+              ],
+              [
+                2.3,
+                0.159
+              ],
+              [
+                2.35,
+                0.153
+              ],
+              [
+                2.4,
+                0.148
+              ],
+              [
+                2.45,
+                0.143
+              ],
+              [
+                2.5,
+                0.138
+              ],
+              [
+                2.55,
+                0.133
+              ],
+              [
+                2.6,
+                0.129
+              ],
+              [
+                2.65,
+                0.125
+              ],
+              [
+                2.7,
+                0.121
+              ],
+              [
+                2.75,
+                0.117
+              ],
+              [
+                2.8,
+                0.113
+              ],
+              [
+                2.85,
+                0.11
+              ],
+              [
+                2.9,
+                0.106
+              ],
+              [
+                2.95,
+                0.103
+              ],
+              [
+                3.0,
+                0.1
+              ]
+            ],
+            "tooltip": "Courbe de f(x) = 1/(x² + 1)"
+          }
+        ],
+        "steps": [
+          "La courbe de f",
+          "Le point A",
+          "La tangente, de pente −1/2"
+        ],
+        "relation": "$f(x) = \\dfrac{1}{x^2 + 1}$, $f'(x) = -\\dfrac{2x}{(x^2 + 1)^2}$, $f'(1) = -\\dfrac{1}{2}$",
+        "alt": "Courbe en cloche de f(x) = 1/(x² + 1), maximale en 0, et sa tangente au point A(1 ; 0,5), de pente −1/2, d'équation y = −x/2 + 1.",
+        "explication": {
+          "resume": "Les règles de calcul (somme, produit, inverse, quotient) donnent la dérivée de fonctions construites à partir des fonctions usuelles. Ici, la règle de l'inverse : $\\left(\\dfrac{1}{v}\\right)' = -\\dfrac{v'}{v^2}$.",
+          "lecture": [
+            "$v(x) = x^2 + 1$ ne s'annule jamais : $f$ est dérivable sur $\\mathbb{R}$.",
+            "La tangente en $A$ a pour pente $f'(1)$."
+          ],
+          "observations": [
+            "$f'(1) = -\\dfrac{2}{4} = -\\dfrac{1}{2}$ : la courbe descend en $A$.",
+            "Tangente : $y = -\\dfrac{1}{2}(x - 1) + \\dfrac{1}{2} = -\\dfrac{x}{2} + 1$.",
+            "$f'(0) = 0$ : tangente horizontale au sommet de la cloche."
+          ],
+          "pieges": [
+            "Écrire $\\left(\\dfrac{1}{v}\\right)' = \\dfrac{1}{v'}$."
+          ],
+          "aRetenir": [
+            "$\\left(\\dfrac{1}{v}\\right)' = -\\dfrac{v'}{v^2}$ là où $v$ ne s'annule pas."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        661,
+        673,
+        63402
+      ],
+      "topic_id": "operations-et-derivation",
+      "proprietes": [
+        "Somme, produit, inverse et quotient (dénominateur non nul) de fonctions dérivables sont dérivables."
+      ],
+      "vocabulaire_associe": [
+        "produit",
+        "quotient",
+        "inverse",
+        "règle du produit",
+        "règle du quotient"
+      ],
+      "synonymes": [
+        "dérivée d'un produit",
+        "dérivée d'un quotient",
+        "u'v + uv'",
+        "opérations sur les dérivées"
+      ],
+      "objectifs_pedagogiques": [
+        "Dériver $ku$ et $u + v$.",
+        "Dériver un produit.",
+        "Dériver un inverse et un quotient.",
+        "Préciser l'ensemble de dérivabilité."
+      ],
+      "prerequis": [
+        "Fonction dérivée",
+        "Calcul littéral"
+      ],
+      "notions_liees": [
+        "fonction-derivee",
+        "nombre-derive.-tangente"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "dérivation",
+        "produit",
+        "quotient",
+        "inverse"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "operations-et-derivation-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Quotient et signe, produit avec une racine",
+          "description": "Deux exemples rédigés supplémentaires : signe de la dérivée d'un quotient et dérivée de $x\\sqrt{x}$."
+        },
+        {
+          "id": "operations-et-derivation-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Quotient d'un trinôme, démonstration de la dérivée d'un produit",
+          "description": "Un exemple combinant quotient et second degré, et la démonstration de $(uv)' = u'v + uv'$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle est la pente de la tangente en $A$ ?",
+          "piste": "$f'(1) = -\\dfrac{1}{2}$."
+        },
+        {
+          "apres": "methode",
+          "question": "Dériver $\\dfrac{x}{x + 1}$.",
+          "piste": "$\\dfrac{(x + 1) - x}{(x + 1)^2} = \\dfrac{1}{(x + 1)^2}$."
+        }
+      ],
+      "tableauComparatif": {
+        "titre": "Les règles de calcul",
+        "colonnes": [
+          "Forme à reconnaître",
+          "Règle",
+          "Exemple simple",
+          "Piège principal"
+        ],
+        "lignes": [
+          {
+            "forme": "$ku$ et $u + v$",
+            "regle": "$(ku)' = ku'$ ; $(u + v)' = u' + v'$",
+            "exemple": "$(3x^2 + x)' = 6x + 1$",
+            "piege": "Garder une constante additive"
+          },
+          {
+            "forme": "$uv$",
+            "regle": "$u'v + uv'$",
+            "exemple": "$(x^2(x + 1))' = 3x^2 + 2x$",
+            "piege": "Écrire $u'v'$"
+          },
+          {
+            "forme": "$\\dfrac{1}{v}$",
+            "regle": "$-\\dfrac{v'}{v^2}$",
+            "exemple": "$\\left(\\dfrac{1}{x^2 + 1}\\right)' = -\\dfrac{2x}{(x^2 + 1)^2}$",
+            "piege": "Oublier le signe moins"
+          },
+          {
+            "forme": "$\\dfrac{u}{v}$",
+            "regle": "$\\dfrac{u'v - uv'}{v^2}$",
+            "exemple": "$\\left(\\dfrac{x}{x + 1}\\right)' = \\dfrac{1}{(x + 1)^2}$",
+            "piege": "Inverser $u'v$ et $uv'$"
+          }
+        ]
+      },
+      "demonstration": {
+        "titre": "Dérivée d'un produit",
+        "etapes": [
+          {
+            "titre": "Hypothèses",
+            "texte": "$u$ et $v$ sont dérivables en $a$. On étudie le taux de variation de $uv$ entre $a$ et $a + h$."
+          },
+          {
+            "titre": "Astuce",
+            "texte": "On ajoute et on retranche $u(a)v(a + h)$ : $u(a + h)v(a + h) - u(a)v(a) = [u(a + h) - u(a)]v(a + h) + u(a)[v(a + h) - v(a)]$."
+          },
+          {
+            "titre": "Taux de variation",
+            "texte": "En divisant par $h$ : $\\dfrac{u(a + h) - u(a)}{h}\\,v(a + h) + u(a)\\,\\dfrac{v(a + h) - v(a)}{h}$."
+          },
+          {
+            "titre": "Limite",
+            "texte": "Quand $h$ tend vers $0$ : le premier taux tend vers $u'(a)$, $v(a + h)$ vers $v(a)$ (on l'admet pour une fonction dérivable), le second taux vers $v'(a)$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "Le taux tend vers $u'(a)v(a) + u(a)v'(a)$ : $(uv)' = u'v + uv'$."
+          }
+        ],
+        "conclusion": "La dérivée d'un produit a deux termes : chacun correspond à la variation d'un facteur, l'autre étant fixé."
+      }
+    }
+  ]
+}

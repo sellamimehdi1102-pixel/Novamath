@@ -1,0 +1,1998 @@
+{
+  "chapterId": "Chapitre_6",
+  "title": "Calcul littéral",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "expressions-litterales",
+      "title": "Expressions littérales : écrire, lire et calculer",
+      "schemaVersion": 2,
+      "intro": "Une expression littérale est un calcul dans lequel une ou plusieurs lettres désignent des nombres. Elle permet d'écrire une formule ou un programme de calcul valable pour tous les nombres à la fois.",
+      "pourquoi": "Les formules de périmètre, d'aire, de prix ou de vitesse sont des expressions littérales. Savoir les écrire, les lire et les calculer est indispensable en mathématiques, en physique et dans la vie courante (tableur, devis, abonnements).",
+      "explicationSimple": "Une place de cinéma coûte $8$ €. Pour $n$ places, on paie $8 \\times n$, qu'on écrit $8n$ euros. La même formule marche pour $2$, $5$ ou $30$ places.",
+      "objectif": "À la fin de cette leçon, tu sauras écrire une expression littérale à partir d'une situation ou d'un programme de calcul, appliquer les conventions d'écriture, reconnaître si une expression est une somme ou un produit, et la calculer pour une valeur donnée.",
+      "definition": "Une expression littérale est une expression mathématique qui contient une ou plusieurs lettres, appelées variables ou inconnues, représentant des nombres. Par convention, on peut supprimer le signe $\\times$ entre un nombre et une lettre, entre deux lettres, ou devant une parenthèse : $3 \\times x = 3x$, $a \\times b = ab$, $2 \\times (x + 1) = 2(x + 1)$. On écrit aussi $x \\times x = x^2$ et $x \\times x \\times x = x^3$.",
+      "definitions": {
+        "college": "Une expression littérale est un calcul qui contient des lettres. Une lettre remplace un nombre quelconque. $3x$ signifie $3 \\times x$ et $x^2$ signifie $x \\times x$.",
+        "lycee": "Une expression littérale est une expression mathématique qui contient une ou plusieurs lettres, appelées variables ou inconnues, représentant des nombres. Par convention, on peut supprimer le signe $\\times$ entre un nombre et une lettre, entre deux lettres, ou devant une parenthèse : $3 \\times x = 3x$, $a \\times b = ab$, $2 \\times (x + 1) = 2(x + 1)$. On écrit aussi $x \\times x = x^2$ et $x \\times x \\times x = x^3$."
+      },
+      "intuition": "La lettre est comme une case vide dans laquelle on peut glisser n'importe quel nombre : l'expression décrit le calcul à faire, quel que soit le nombre glissé dans la case.",
+      "reglesImportantes": [
+        "On peut supprimer le signe $\\times$ devant une lettre ou une parenthèse : $5 \\times a = 5a$ ; $3 \\times (x - 2) = 3(x - 2)$. On ne le supprime jamais entre deux nombres.",
+        "Le nombre s'écrit devant la lettre : $a \\times 4 = 4a$ ; et $1 \\times x = x$.",
+        "$x \\times x = x^2$ (« $x$ au carré ») et $x \\times x \\times x = x^3$ (« $x$ au cube »).",
+        "Pour calculer une expression pour une valeur de la lettre, on remplace la lettre par cette valeur en rétablissant les signes $\\times$, puis on respecte les priorités opératoires.",
+        "Une expression est une somme (ou une différence) si la dernière opération effectuée est une addition (ou une soustraction), et un produit si c'est une multiplication."
+      ],
+      "formules": [
+        {
+          "id": "formule-convention-produit",
+          "nom": "Conventions d'écriture",
+          "expression": "$3 \\times x = 3x$ ; $x \\times x = x^2$ ; $2 \\times (x + 1) = 2(x + 1)$",
+          "quand_utiliser": "Pour écrire une expression de manière simplifiée.",
+          "erreur_frequente": "Confondre $2x$ (le double de $x$) et $x^2$ ($x$ multiplié par lui-même).",
+          "astuce": "Pour $x = 3$ : $2x = 6$ mais $x^2 = 9$."
+        },
+        {
+          "id": "formule-substitution",
+          "nom": "Calculer pour une valeur",
+          "expression": "si $x = 4$ : $3x + 5 = 3 \\times 4 + 5 = 17$",
+          "quand_utiliser": "Pour calculer la valeur d'une formule ou tester un programme de calcul.",
+          "erreur_frequente": "Écrire $34 + 5$ au lieu de $3 \\times 4 + 5$.",
+          "astuce": "Remets toujours le signe $\\times$ avant de remplacer la lettre ; mets la valeur entre parenthèses si elle est négative."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer une expression pour une valeur donnée",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je réécris l'expression en rétablissant tous les signes $\\times$ cachés."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je remplace chaque lettre par sa valeur, entre parenthèses si elle est négative."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'effectue les calculs dans l'ordre des priorités : puissances, puis multiplications, puis additions et soustractions."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que le résultat est cohérent avec la situation."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je réécris l'expression en rétablissant tous les signes $\\times$ cachés."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je remplace chaque lettre par sa valeur, entre parenthèses si elle est négative."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'effectue les calculs dans l'ordre des priorités : puissances, puis multiplications, puis additions et soustractions."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que le résultat est cohérent avec la situation."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère les lettres et j'écris les $\\times$ qui manquent : $4x$ devient $4 \\times x$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je remplace la lettre par le nombre donné."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule d'abord les carrés, ensuite les multiplications, enfin les additions."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris la phrase de réponse."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Rétablir les $\\times$, remplacer (parenthèses si négatif)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Priorités : puissances, $\\times$ et $\\div$, puis $+$ et $-$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-ecrire-formule",
+          "titre": "Exemple 1 — Écrire une formule",
+          "enonce": "Un abonnement de vélo coûte $15$ € par an, plus $2$ € par trajet. Exprimer le prix annuel $P$ en fonction du nombre $t$ de trajets, puis calculer $P$ pour $40$ trajets.",
+          "calcul": [
+            {
+              "expr": "P = 2t + 15",
+              "texte": "Pour $t$ trajets, on paie $2 \\times t = 2t$ euros en plus des $15$ €."
+            },
+            {
+              "expr": "P = 2 \\times 40 + 15 = 80 + 15 = 95",
+              "texte": "Pour $t = 40$ :"
+            }
+          ],
+          "reponse": "$P = 2t + 15$ ; pour $40$ trajets, l'abonnement coûte $95$ €.",
+          "conclusion": "La même formule donne le prix pour n'importe quel nombre de trajets.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-substitution-carre",
+          "titre": "Exemple 2 — Calculer avec un carré",
+          "enonce": "Calculer $A = 2x^2 - 3x + 1$ pour $x = 4$.",
+          "calcul": [
+            {
+              "expr": "A = 2 \\times 4^2 - 3 \\times 4 + 1",
+              "texte": "On rétablit les signes et on remplace :"
+            },
+            {
+              "expr": "A = 32 - 12 + 1 = 21",
+              "texte": "Puissance d'abord : $4^2 = 16$."
+            }
+          ],
+          "reponse": "Pour $x = 4$, $A = 21$.",
+          "conclusion": "Attention : $2x^2 = 2 \\times x^2$ ; le carré ne porte que sur $x$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-valeur-negative",
+          "titre": "Exemple 3 — Une valeur négative",
+          "enonce": "Calculer $B = x^2 - 5x$ pour $x = -3$.",
+          "calcul": [
+            {
+              "expr": "B = (-3)^2 - 5 \\times (-3)",
+              "texte": "On remplace $x$ par $(-3)$, avec des parenthèses :"
+            },
+            {
+              "expr": "B = 9 - (-15) = 9 + 15 = 24",
+              "texte": "$(-3)^2 = 9$ et $5 \\times (-3) = -15$."
+            }
+          ],
+          "reponse": "Pour $x = -3$, $B = 24$.",
+          "conclusion": "Sans parenthèses, on aurait écrit $-3^2 = -9$, ce qui est faux ici.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-somme-produit",
+          "titre": "Exemple 4 — Somme ou produit ?",
+          "enonce": "Pour chaque expression, dire s'il s'agit d'une somme, d'une différence ou d'un produit : $C = 4(x + 1)$ ; $D = 4x + 1$ ; $E = (x - 2)(x + 5)$ ; $F = x^2 - 7$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "On cherche la dernière opération qu'on effectuerait si l'on remplaçait $x$ par un nombre."
+            },
+            {
+              "expr": "",
+              "texte": "$C$ : on calcule $x + 1$ puis on multiplie par $4$ : produit. $D$ : on ajoute $1$ en dernier : somme."
+            },
+            {
+              "expr": "",
+              "texte": "$E$ : produit de deux parenthèses. $F$ : on soustrait $7$ en dernier : différence."
+            }
+          ],
+          "reponse": "$C$ et $E$ sont des produits ; $D$ est une somme ; $F$ est une différence.",
+          "conclusion": "Reconnaître la structure d'une expression indique s'il faut développer ou factoriser.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-traduire-programme",
+          "titre": "Exemple 5 — Traduire deux programmes",
+          "enonce": "Programme A : « choisir un nombre, ajouter $4$, multiplier le résultat par $3$ ». Programme B : « choisir un nombre, le multiplier par $3$, ajouter $4$ ». Écrire chaque programme sous forme d'une expression en $x$, puis trouver un nombre qui donne des résultats différents.",
+          "calcul": [
+            {
+              "expr": "A = 3(x + 4)",
+              "texte": "Programme A : on ajoute $4$ puis on multiplie le tout par $3$."
+            },
+            {
+              "expr": "B = 3x + 4",
+              "texte": "Programme B : on multiplie $x$ par $3$ puis on ajoute $4$."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = 0$ : $A = 3 \\times 4 = 12$ et $B = 4$."
+            }
+          ],
+          "reponse": "$A = 3(x + 4)$ et $B = 3x + 4$ ; pour $x = 0$, $A = 12$ et $B = 4$ : les programmes sont différents.",
+          "conclusion": "Les parenthèses traduisent l'ordre des opérations : « multiplier le résultat » impose de parenthéser.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Calculer un prix avec une part fixe et une part par article ou par trajet.",
+        "Écrire une formule dans un tableur.",
+        "Traduire un programme de calcul."
+      ],
+      "erreursFrequentes": [
+        "Confondre $2x$ et $x^2$.",
+        "Remplacer la lettre sans rétablir le signe $\\times$ : $3x$ avec $x = 4$ donne « $34$ ».",
+        "Oublier les parenthèses autour d'une valeur négative.",
+        "Traduire « multiplier le résultat par $3$ » sans parenthèses."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre $2x$ et $x^2$.",
+          "pourquoi": "Les deux écritures contiennent un $2$ et un $x$.",
+          "comment_detecter": "Teste avec $x = 5$ : $2x = 10$ et $x^2 = 25$.",
+          "comment_eviter": "$2x = x + x$ (le double) ; $x^2 = x \\times x$ (le carré)."
+        },
+        {
+          "description": "Remplacer la lettre sans rétablir le signe $\\times$ : $3x$ avec $x = 4$ donne « $34$ ».",
+          "pourquoi": "La convention d'écriture cache la multiplication.",
+          "comment_detecter": "Ton résultat contient-il des chiffres « collés » ?",
+          "comment_eviter": "Réécris toujours $3x$ en $3 \\times x$ avant de remplacer."
+        },
+        {
+          "description": "Oublier les parenthèses autour d'une valeur négative.",
+          "pourquoi": "On écrit $-3^2$ au lieu de $(-3)^2$.",
+          "comment_detecter": "Le carré d'un nombre est-il négatif dans ton calcul ?",
+          "comment_eviter": "Mets toujours une valeur négative entre parenthèses."
+        },
+        {
+          "description": "Traduire « multiplier le résultat par $3$ » sans parenthèses.",
+          "pourquoi": "On écrit les opérations dans l'ordre de lecture, sans tenir compte des priorités.",
+          "comment_detecter": "Calcule le programme avec un nombre simple et compare avec ton expression.",
+          "comment_eviter": "Mets entre parenthèses tout ce qui est multiplié."
+        }
+      ],
+      "astuce": "Pour vérifier une expression traduisant un programme de calcul, fais le programme « à la main » avec un nombre simple comme $1$ ou $2$, puis compare avec la valeur de ton expression.",
+      "aRetenir": [
+        "$3x = 3 \\times x$ ; $x^2 = x \\times x$ ; $1x = x$.",
+        "Pour calculer : rétablir les $\\times$, remplacer, respecter les priorités.",
+        "La dernière opération indique si l'expression est une somme ou un produit."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "x",
+            "sousTitre": "Je choisis un nombre"
+          },
+          {
+            "titre": "3 × x = 3x",
+            "sousTitre": "Je le multiplie par 3"
+          },
+          {
+            "titre": "3x + 5",
+            "sousTitre": "J'ajoute 5"
+          },
+          {
+            "titre": "x = 4 → 17",
+            "sousTitre": "Je teste avec 4"
+          }
+        ],
+        "steps": [
+          "Le nombre choisi",
+          "Les opérations",
+          "Une valeur"
+        ],
+        "relation": "Programme « × 3 puis + 5 » : $x \\mapsto 3x + 5$ ; pour $x = 4$ : $3 \\times 4 + 5 = 17$",
+        "alt": "Chaîne : un nombre x, multiplié par 3 donne 3x, auquel on ajoute 5 : 3x + 5 ; pour x = 4 on obtient 17.",
+        "explication": {
+          "resume": "Une lettre remplace un nombre quelconque : le programme de calcul s'écrit alors en une seule expression, valable pour tous les nombres de départ.",
+          "lecture": [
+            "On lit la chaîne de gauche à droite : chaque case applique une opération du programme.",
+            "La dernière case remplace la lettre par une valeur."
+          ],
+          "observations": [
+            "$3 \\times x$ s'écrit plus simplement $3x$ : on peut supprimer le signe $\\times$ devant une lettre.",
+            "L'expression $3x + 5$ résume le programme pour TOUS les nombres de départ.",
+            "Pour $x = 4$, on remplace $x$ par $4$ en rétablissant le signe $\\times$ : $3 \\times 4 + 5 = 17$."
+          ],
+          "pieges": [
+            "Remplacer $x$ par $4$ dans $3x$ et écrire $34$ : il faut rétablir la multiplication, $3 \\times 4 = 12$."
+          ],
+          "aRetenir": [
+            "$3x$ signifie $3 \\times x$.",
+            "Calculer une expression pour une valeur : remplacer la lettre et respecter les priorités."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        46101,
+        46102,
+        46104
+      ],
+      "topic_id": "expressions-litterales",
+      "proprietes": [
+        "Une expression littérale prend une valeur numérique dès qu'on remplace chaque lettre par un nombre."
+      ],
+      "vocabulaire_associe": [
+        "expression littérale",
+        "variable",
+        "lettre",
+        "substitution",
+        "somme",
+        "produit",
+        "programme de calcul"
+      ],
+      "synonymes": [
+        "expression algébrique",
+        "remplacer une lettre par un nombre",
+        "formule littérale"
+      ],
+      "objectifs_pedagogiques": [
+        "Écrire une expression littérale à partir d'une situation.",
+        "Appliquer les conventions d'écriture.",
+        "Calculer une expression pour une valeur donnée.",
+        "Reconnaître une somme ou un produit."
+      ],
+      "prerequis": [
+        "Priorités opératoires",
+        "Nombres relatifs : multiplication",
+        "Puissances d'un nombre"
+      ],
+      "notions_liees": [
+        "reduire-expression",
+        "developper-factoriser",
+        "prouver-calcul-litteral"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "calcul littéral",
+        "expressions",
+        "substitution",
+        "programme de calcul"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "expressions-litterales-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Valeur négative et structure",
+          "description": "Deux exemples rédigés : calculer une expression pour une valeur négative, et reconnaître si une expression est une somme ou un produit."
+        },
+        {
+          "id": "expressions-litterales-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Deux programmes presque identiques",
+          "description": "Un exemple qui traduit deux programmes de calcul et montre le rôle des parenthèses."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que donne le programme de la figure pour $x = 10$ ?",
+          "piste": "$3 \\times 10 + 5 = 35$."
+        },
+        {
+          "apres": "methode",
+          "question": "Combien vaut $x^2 + x$ pour $x = -2$ ?",
+          "piste": "$(-2)^2 + (-2) = 4 - 2 = 2$."
+        }
+      ]
+    },
+    {
+      "id": "reduire-expression",
+      "title": "Réduire une expression littérale",
+      "schemaVersion": 2,
+      "intro": "Une expression comme $2x + 3 + x + 1$ peut s'écrire plus simplement : $3x + 4$. La réduire, c'est l'écrire avec le moins de termes possible, en regroupant les termes de même nature.",
+      "pourquoi": "Une expression réduite est plus lisible, plus rapide à calculer et indispensable pour résoudre des équations ou comparer deux programmes de calcul.",
+      "explicationSimple": "$3$ pommes $+ 2$ pommes $= 5$ pommes, mais $3$ pommes $+ 2$ poires ne font pas $5$ « pommes-poires » : on laisse $3$ pommes $+ 2$ poires. De même $3x + 2x = 5x$ mais $3x + 2$ reste $3x + 2$.",
+      "objectif": "À la fin de cette leçon, tu sauras reconnaître les termes semblables, réduire une somme algébrique, réduire un produit simple et supprimer des parenthèses précédées d'un signe $+$ ou $-$.",
+      "definition": "Réduire une expression littérale, c'est l'écrire sous la forme d'une somme ayant le moins de termes possible. Les termes semblables (même partie littérale : des $x$, des $x^2$, des nombres seuls) se regroupent grâce à la distributivité : $ax + bx = (a + b)x$. Des termes de natures différentes, comme $3x$ et $x^2$ ou $3x$ et $4$, ne peuvent pas se regrouper.",
+      "definitions": {
+        "college": "Réduire, c'est regrouper les termes de même famille : les $x$ ensemble, les $x^2$ ensemble, les nombres ensemble. $5x + 2x = 7x$ mais $5x + 2$ ne se réduit pas.",
+        "lycee": "Réduire une expression littérale, c'est l'écrire sous la forme d'une somme ayant le moins de termes possible. Les termes semblables (même partie littérale : des $x$, des $x^2$, des nombres seuls) se regroupent grâce à la distributivité : $ax + bx = (a + b)x$. Des termes de natures différentes, comme $3x$ et $x^2$ ou $3x$ et $4$, ne peuvent pas se regrouper."
+      },
+      "intuition": "La partie littérale ($x$, $x^2$ ou rien) est comme une unité : on additionne des longueurs en cm avec des cm, pas avec des cm².",
+      "reglesImportantes": [
+        "On additionne (ou soustrait) les coefficients des termes semblables : $7x - 3x = 4x$ ; $x + x = 2x$ ; $2x^2 + 5x^2 = 7x^2$.",
+        "On regroupe séparément les termes en $x^2$, les termes en $x$ et les nombres seuls ; on ne mélange jamais ces familles.",
+        "Pour réduire un produit, on multiplie les nombres entre eux et les lettres entre elles : $3x \\times 4 = 12x$ ; $2x \\times 5x = 10x^2$.",
+        "Une parenthèse précédée du signe $+$ peut être supprimée sans rien changer : $+(a - b) = a - b$.",
+        "Une parenthèse précédée du signe $-$ peut être supprimée en changeant le signe de chaque terme qu'elle contient : $-(a - b + c) = -a + b - c$."
+      ],
+      "formules": [
+        {
+          "id": "formule-termes-semblables",
+          "nom": "Termes semblables",
+          "expression": "$ax + bx = (a + b)x$",
+          "quand_utiliser": "Pour réduire une somme de termes en $x$.",
+          "erreur_frequente": "Écrire $3x + 2 = 5x$.",
+          "astuce": "Range les termes par familles avant de calculer."
+        },
+        {
+          "id": "formule-oppose-parenthese",
+          "nom": "Parenthèse précédée de $-$",
+          "expression": "$-(a + b) = -a - b$ et $-(a - b) = -a + b$",
+          "quand_utiliser": "Pour supprimer une parenthèse précédée d'un signe moins.",
+          "erreur_frequente": "Ne changer que le signe du premier terme.",
+          "astuce": "Le signe $-$ devant la parenthèse s'applique à TOUS les termes."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Réduire une expression",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je supprime les parenthèses éventuelles (attention au signe $-$ devant une parenthèse)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je souligne d'une même couleur les termes semblables : les $x^2$, les $x$, les nombres."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'additionne les coefficients de chaque famille."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'écris le résultat dans l'ordre $x^2$, $x$, nombre, et je vérifie avec une valeur de $x$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je supprime les parenthèses éventuelles (attention au signe $-$ devant une parenthèse)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je souligne d'une même couleur les termes semblables : les $x^2$, les $x$, les nombres."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'additionne les coefficients de chaque famille."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris le résultat dans l'ordre $x^2$, $x$, nombre, et je vérifie avec une valeur de $x$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère les termes avec $x$ et les nombres tout seuls."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je compte combien de $x$ j'ai en tout (avec leurs signes)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule les nombres tout seuls."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris « tant de $x$ + tel nombre »."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Supprimer les parenthèses, regrouper par familles."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Contrôle : remplacer $x$ par $1$ dans les deux écritures."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-reduire-somme",
+          "titre": "Exemple 1 — Réduire une somme",
+          "enonce": "Réduire $A = 5x + 3 - 2x + 7$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Termes en $x$ : $5x - 2x = 3x$."
+            },
+            {
+              "expr": "A = 3x + 10",
+              "texte": "Nombres : $3 + 7 = 10$."
+            }
+          ],
+          "reponse": "$A = 3x + 10$",
+          "conclusion": "Contrôle avec $x = 1$ : $5 + 3 - 2 + 7 = 13$ et $3 + 10 = 13$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-reduire-produit",
+          "titre": "Exemple 2 — Réduire des produits",
+          "enonce": "Réduire $B = 4x \\times 3$, $C = 2x \\times 5x$ et $D = x \\times x + x$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$B = 4 \\times 3 \\times x = 12x$."
+            },
+            {
+              "expr": "",
+              "texte": "$C = 2 \\times 5 \\times x \\times x = 10x^2$."
+            },
+            {
+              "expr": "",
+              "texte": "$D = x^2 + x$ : $x^2$ et $x$ ne sont pas semblables."
+            }
+          ],
+          "reponse": "$B = 12x$ ; $C = 10x^2$ ; $D = x^2 + x$.",
+          "conclusion": "Dans un produit, les lettres se multiplient ; dans une somme, seuls les termes semblables se regroupent.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-reduire-carres",
+          "titre": "Exemple 3 — Trois familles de termes",
+          "enonce": "Réduire $E = 3x^2 - 4x + 1 - x^2 + 6x - 5$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Termes en $x^2$ : $3x^2 - x^2 = 2x^2$."
+            },
+            {
+              "expr": "E = 2x^2 + 2x - 4",
+              "texte": "Termes en $x$ : $-4x + 6x = 2x$ ; nombres : $1 - 5 = -4$."
+            }
+          ],
+          "reponse": "$E = 2x^2 + 2x - 4$",
+          "conclusion": "Le terme $-x^2$ a pour coefficient $-1$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-parenthese-moins",
+          "titre": "Exemple 4 — Une parenthèse précédée de moins",
+          "enonce": "Réduire $F = 7x - (3x - 4) + (2 - x)$.",
+          "calcul": [
+            {
+              "expr": "F = 7x - 3x + 4 + 2 - x",
+              "texte": "$-(3x - 4) = -3x + 4$ et $+(2 - x) = 2 - x$."
+            },
+            {
+              "expr": "F = 3x + 6",
+              "texte": "Termes en $x$ : $7x - 3x - x = 3x$ ; nombres : $4 + 2 = 6$."
+            }
+          ],
+          "reponse": "$F = 3x + 6$",
+          "conclusion": "Contrôle avec $x = 0$ : $0 - (-4) + 2 = 6$ ; et $3 \\times 0 + 6 = 6$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-perimetre-reduit",
+          "titre": "Exemple 5 — Un périmètre réduit",
+          "enonce": "Un triangle a des côtés de longueurs $2x + 1$, $x + 5$ et $3x - 2$ (en cm, avec $x > 1$). Exprimer son périmètre sous forme réduite, puis le calculer pour $x = 4$. Pour quelle valeur de $x$ le triangle est-il isocèle de sommet principal le sommet commun aux côtés $2x + 1$ et $3x - 2$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Périmètre : $(2x + 1) + (x + 5) + (3x - 2) = 6x + 4$."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = 4$ : $6 \\times 4 + 4 = 28$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Isocèle en ce sommet : $2x + 1 = 3x - 2$, donc $x = 3$ (côtés $7$, $8$ et $7$)."
+            }
+          ],
+          "reponse": "Périmètre $6x + 4$ cm ; $28$ cm pour $x = 4$ ; isocèle pour $x = 3$.",
+          "conclusion": "La forme réduite rend le calcul du périmètre immédiat pour toute valeur de $x$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Exprimer le périmètre d'une figure dont les côtés dépendent de $x$.",
+        "Simplifier une formule de prix avant de la saisir dans un tableur.",
+        "Préparer la résolution d'une équation."
+      ],
+      "erreursFrequentes": [
+        "Additionner des termes non semblables : $3x + 4 = 7x$.",
+        "Confondre $x + x = 2x$ et $x \\times x = x^2$.",
+        "Ne changer que le premier signe dans $-(a - b)$.",
+        "Oublier le coefficient $1$ caché : $5x - x = 5$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Additionner des termes non semblables : $3x + 4 = 7x$.",
+          "pourquoi": "On additionne tous les nombres visibles sans regarder la partie littérale.",
+          "comment_detecter": "Teste avec $x = 2$ : $3 \\times 2 + 4 = 10$ alors que $7 \\times 2 = 14$.",
+          "comment_eviter": "Ne regroupe que les termes de même famille."
+        },
+        {
+          "description": "Confondre $x + x = 2x$ et $x \\times x = x^2$.",
+          "pourquoi": "Les deux calculs combinent deux fois la même lettre.",
+          "comment_detecter": "Est-ce une somme ou un produit ?",
+          "comment_eviter": "Somme : on compte les $x$ ; produit : on obtient un carré."
+        },
+        {
+          "description": "Ne changer que le premier signe dans $-(a - b)$.",
+          "pourquoi": "On oublie que le signe moins s'applique à toute la parenthèse.",
+          "comment_detecter": "Compte les termes de la parenthèse : tous doivent changer de signe.",
+          "comment_eviter": "Réécris $-(a - b)$ comme $-1 \\times (a - b)$, puis distribue."
+        },
+        {
+          "description": "Oublier le coefficient $1$ caché : $5x - x = 5$.",
+          "pourquoi": "On pense que $x$ « ne compte pour rien ».",
+          "comment_detecter": "Remplace $x$ par $1$ : $5 - 1 = 4$, pas $5$.",
+          "comment_eviter": "$x = 1x$ : $5x - x = 4x$."
+        }
+      ],
+      "astuce": "Pour contrôler une réduction, remplace $x$ par un nombre simple (par exemple $2$) dans l'expression de départ et dans l'expression réduite : tu dois trouver le même résultat.",
+      "aRetenir": [
+        "On regroupe les termes semblables : $ax + bx = (a + b)x$.",
+        "$x + x = 2x$ mais $x \\times x = x^2$.",
+        "Un signe $-$ devant une parenthèse change le signe de tous ses termes."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.8,
+          -1.2,
+          14.0,
+          6.8
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 4.0
+              },
+              {
+                "x": 2.4,
+                "y": 4.0
+              },
+              {
+                "x": 2.4,
+                "y": 5.0
+              },
+              {
+                "x": 0.0,
+                "y": 5.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une tuile x"
+          },
+          {
+            "points": [
+              {
+                "x": 2.55,
+                "y": 4.0
+              },
+              {
+                "x": 4.949999999999999,
+                "y": 4.0
+              },
+              {
+                "x": 4.949999999999999,
+                "y": 5.0
+              },
+              {
+                "x": 2.55,
+                "y": 5.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une tuile x"
+          },
+          {
+            "points": [
+              {
+                "x": 5.1,
+                "y": 4.0
+              },
+              {
+                "x": 6.1,
+                "y": 4.0
+              },
+              {
+                "x": 6.1,
+                "y": 5.0
+              },
+              {
+                "x": 5.1,
+                "y": 5.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une tuile 1"
+          },
+          {
+            "points": [
+              {
+                "x": 6.25,
+                "y": 4.0
+              },
+              {
+                "x": 7.25,
+                "y": 4.0
+              },
+              {
+                "x": 7.25,
+                "y": 5.0
+              },
+              {
+                "x": 6.25,
+                "y": 5.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une tuile 1"
+          },
+          {
+            "points": [
+              {
+                "x": 7.4,
+                "y": 4.0
+              },
+              {
+                "x": 8.4,
+                "y": 4.0
+              },
+              {
+                "x": 8.4,
+                "y": 5.0
+              },
+              {
+                "x": 7.4,
+                "y": 5.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une tuile 1"
+          },
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 2.4
+              },
+              {
+                "x": 2.4,
+                "y": 2.4
+              },
+              {
+                "x": 2.4,
+                "y": 3.4
+              },
+              {
+                "x": 0.0,
+                "y": 3.4
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une tuile x"
+          },
+          {
+            "points": [
+              {
+                "x": 2.55,
+                "y": 2.4
+              },
+              {
+                "x": 3.55,
+                "y": 2.4
+              },
+              {
+                "x": 3.55,
+                "y": 3.4
+              },
+              {
+                "x": 2.55,
+                "y": 3.4
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une tuile 1"
+          },
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "x": 2.4,
+                "y": 0.0
+              },
+              {
+                "x": 2.4,
+                "y": 1.0
+              },
+              {
+                "x": 0.0,
+                "y": 1.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une tuile x",
+            "reveal": 3
+          },
+          {
+            "points": [
+              {
+                "x": 2.55,
+                "y": 0.0
+              },
+              {
+                "x": 4.949999999999999,
+                "y": 0.0
+              },
+              {
+                "x": 4.949999999999999,
+                "y": 1.0
+              },
+              {
+                "x": 2.55,
+                "y": 1.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une tuile x",
+            "reveal": 3
+          },
+          {
+            "points": [
+              {
+                "x": 5.1,
+                "y": 0.0
+              },
+              {
+                "x": 7.5,
+                "y": 0.0
+              },
+              {
+                "x": 7.5,
+                "y": 1.0
+              },
+              {
+                "x": 5.1,
+                "y": 1.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "une tuile x",
+            "reveal": 3
+          },
+          {
+            "points": [
+              {
+                "x": 7.6499999999999995,
+                "y": 0.0
+              },
+              {
+                "x": 8.649999999999999,
+                "y": 0.0
+              },
+              {
+                "x": 8.649999999999999,
+                "y": 1.0
+              },
+              {
+                "x": 7.6499999999999995,
+                "y": 1.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une tuile 1",
+            "reveal": 3
+          },
+          {
+            "points": [
+              {
+                "x": 8.799999999999999,
+                "y": 0.0
+              },
+              {
+                "x": 9.799999999999999,
+                "y": 0.0
+              },
+              {
+                "x": 9.799999999999999,
+                "y": 1.0
+              },
+              {
+                "x": 8.799999999999999,
+                "y": 1.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une tuile 1",
+            "reveal": 3
+          },
+          {
+            "points": [
+              {
+                "x": 9.95,
+                "y": 0.0
+              },
+              {
+                "x": 10.95,
+                "y": 0.0
+              },
+              {
+                "x": 10.95,
+                "y": 1.0
+              },
+              {
+                "x": 9.95,
+                "y": 1.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une tuile 1",
+            "reveal": 3
+          },
+          {
+            "points": [
+              {
+                "x": 11.1,
+                "y": 0.0
+              },
+              {
+                "x": 12.1,
+                "y": 0.0
+              },
+              {
+                "x": 12.1,
+                "y": 1.0
+              },
+              {
+                "x": 11.1,
+                "y": 1.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "une tuile 1",
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": -1.0,
+            "y": 4.5,
+            "label": "2x + 3"
+          },
+          {
+            "x": -1.0,
+            "y": 2.9,
+            "label": "x + 1"
+          },
+          {
+            "x": 6.0,
+            "y": 1.7,
+            "label": "on regroupe les tuiles de même forme",
+            "reveal": 2
+          },
+          {
+            "x": -1.0,
+            "y": 0.5,
+            "label": "3x + 4",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Deux expressions",
+          "On regroupe",
+          "L'expression réduite"
+        ],
+        "relation": "$(2x + 3) + (x + 1) = 2x + x + 3 + 1 = 3x + 4$",
+        "alt": "Tuiles : 2 bandes x et 3 carrés 1, puis 1 bande x et 1 carré 1 ; regroupées, elles forment 3 bandes x et 4 carrés 1, soit 3x + 4.",
+        "explication": {
+          "resume": "Réduire, c'est regrouper les termes de même nature : les « $x$ » avec les « $x$ », les nombres avec les nombres. On ne peut pas mélanger une bande $x$ et un carré $1$.",
+          "lecture": [
+            "Une bande longue représente $x$ ; un petit carré représente le nombre $1$.",
+            "La dernière ligne rassemble toutes les tuiles des deux premières."
+          ],
+          "observations": [
+            "$2x + x = 3x$ : on compte les bandes.",
+            "$3 + 1 = 4$ : on compte les carrés.",
+            "$3x + 4$ ne se simplifie pas davantage : $3x$ et $4$ ne sont pas de même nature."
+          ],
+          "pieges": [
+            "Écrire $3x + 4 = 7x$ : on ne peut pas additionner des bandes et des carrés."
+          ],
+          "aRetenir": [
+            "On additionne seulement les termes semblables.",
+            "$ax + bx = (a + b)x$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        46201,
+        46202,
+        46204
+      ],
+      "topic_id": "reduire-expression",
+      "proprietes": [
+        "$ax + bx = (a + b)x$ pour tous nombres $a$, $b$ et $x$.",
+        "$-(a + b) = -a - b$."
+      ],
+      "vocabulaire_associe": [
+        "réduire",
+        "terme",
+        "coefficient",
+        "termes semblables",
+        "partie littérale",
+        "opposé"
+      ],
+      "synonymes": [
+        "réduction d'expression",
+        "regrouper les termes",
+        "simplifier une expression"
+      ],
+      "objectifs_pedagogiques": [
+        "Reconnaître les termes semblables.",
+        "Réduire une somme algébrique.",
+        "Réduire un produit simple.",
+        "Supprimer des parenthèses précédées de $+$ ou de $-$."
+      ],
+      "prerequis": [
+        "Expressions littérales : écrire, lire et calculer",
+        "Additionner des nombres relatifs"
+      ],
+      "notions_liees": [
+        "expressions-litterales",
+        "developper-factoriser"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "calcul littéral",
+        "réduire",
+        "termes semblables",
+        "parenthèses"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "reduire-expression-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Trois familles et parenthèse précédée de moins",
+          "description": "Deux exemples rédigés : réduire une expression avec des $x^2$, des $x$ et des nombres, puis supprimer une parenthèse précédée d'un signe moins."
+        },
+        {
+          "id": "reduire-expression-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Un périmètre qui dépend de x",
+          "description": "Un exemple qui réduit le périmètre d'un triangle et cherche quand il est isocèle."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien de bandes et de carrés pour $(x + 2) + (2x + 1)$ ?",
+          "piste": "$3$ bandes et $3$ carrés : $3x + 3$."
+        },
+        {
+          "apres": "methode",
+          "question": "Réduire $6x - (x + 2)$.",
+          "piste": "$6x - x - 2 = 5x - 2$."
+        }
+      ]
+    },
+    {
+      "id": "developper-factoriser",
+      "title": "Développer et factoriser avec la distributivité simple",
+      "schemaVersion": 2,
+      "intro": "La distributivité de la multiplication sur l'addition et la soustraction relie un produit à une somme : $k(a + b) = ka + kb$. Lue dans un sens, elle permet de développer ; lue dans l'autre, de factoriser.",
+      "pourquoi": "Développer permet de réduire une expression et de résoudre des équations ; factoriser permet de faire apparaître un multiple, de simplifier un calcul et de prouver des propriétés. La distributivité sert aussi en calcul mental : $7 \\times 102 = 700 + 14$.",
+      "explicationSimple": "$3$ sacs contenant chacun $x$ billes et $2$ balles contiennent en tout $3x$ billes et $6$ balles : $3(x + 2) = 3x + 6$.",
+      "objectif": "À la fin de cette leçon, tu sauras développer et réduire un produit de la forme $k(a + b)$ ou $k(a - b)$, y compris avec des nombres négatifs, et factoriser une somme dont les termes ont un facteur commun.",
+      "definition": "Pour tous nombres $k$, $a$ et $b$ : $k(a + b) = ka + kb$ et $k(a - b) = ka - kb$ (distributivité simple). Développer un produit, c'est le transformer en somme ; factoriser une somme, c'est la transformer en produit en mettant en évidence un facteur commun à tous ses termes : $ka + kb = k(a + b)$.",
+      "definitions": {
+        "college": "Le nombre devant la parenthèse multiplie chaque terme de la parenthèse : $k(a + b) = ka + kb$. Développer : on enlève la parenthèse. Factoriser : on fait le contraire en mettant le facteur commun devant.",
+        "lycee": "Pour tous nombres $k$, $a$ et $b$ : $k(a + b) = ka + kb$ et $k(a - b) = ka - kb$ (distributivité simple). Développer un produit, c'est le transformer en somme ; factoriser une somme, c'est la transformer en produit en mettant en évidence un facteur commun à tous ses termes : $ka + kb = k(a + b)$."
+      },
+      "intuition": "L'aire d'un rectangle de côtés $k$ et $a + b$ se calcule d'un seul coup, $k(a + b)$, ou en deux morceaux, $ka + kb$ : les deux calculs donnent la même aire.",
+      "reglesImportantes": [
+        "Développer : $k(a + b) = ka + kb$ et $k(a - b) = ka - kb$ ; le facteur $k$ multiplie CHAQUE terme de la parenthèse.",
+        "Avec un facteur négatif, on applique la règle des signes à chaque produit : $-2(x - 5) = -2x + 10$.",
+        "Après avoir développé, on réduit l'expression obtenue.",
+        "Factoriser : on repère un facteur commun à tous les termes, on l'écrit devant une parenthèse, et on met dans la parenthèse ce qui reste de chaque terme : $6x + 15 = 3(2x + 5)$.",
+        "On contrôle une factorisation en la redéveloppant."
+      ],
+      "formules": [
+        {
+          "id": "formule-distributivite",
+          "nom": "Distributivité simple",
+          "expression": "$k(a + b) = ka + kb$ ; $k(a - b) = ka - kb$",
+          "quand_utiliser": "Pour développer un produit ou, lue de droite à gauche, pour factoriser une somme.",
+          "erreur_frequente": "Oublier de multiplier le second terme : $3(x + 2) = 3x + 2$.",
+          "astuce": "Trace des flèches du facteur vers chaque terme de la parenthèse."
+        },
+        {
+          "id": "formule-factoriser",
+          "nom": "Factoriser",
+          "expression": "$ka + kb = k(a + b)$",
+          "quand_utiliser": "Quand tous les termes d'une somme ont un facteur commun.",
+          "erreur_frequente": "Oublier le terme $1$ : $5x + 5 = 5(x + 1)$, pas $5x$.",
+          "astuce": "Divise chaque terme par le facteur commun pour remplir la parenthèse."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Développer puis réduire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère le facteur devant la parenthèse, avec son signe."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je multiplie ce facteur par chaque terme de la parenthèse (règle des signes)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris la somme obtenue, puis je réduis les termes semblables."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie avec une valeur de $x$ que l'expression de départ et le résultat sont égaux."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le facteur devant la parenthèse, avec son signe."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je multiplie ce facteur par chaque terme de la parenthèse (règle des signes)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris la somme obtenue, puis je réduis les termes semblables."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie avec une valeur de $x$ que l'expression de départ et le résultat sont égaux."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je dessine une flèche du nombre devant la parenthèse vers chaque terme à l'intérieur."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je fais chaque multiplication en suivant les flèches."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris les résultats l'un après l'autre avec leurs signes."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je regroupe les termes semblables s'il y en a."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$k(a \\pm b) = ka \\pm kb$, signes compris."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Factoriser : facteur commun devant, quotients dans la parenthèse ; redévelopper pour vérifier."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-developper",
+          "titre": "Exemple 1 — Développer",
+          "enonce": "Développer $A = 4(x + 3)$ et $B = 5(2x - 1)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$A = 4 \\times x + 4 \\times 3 = 4x + 12$."
+            },
+            {
+              "expr": "",
+              "texte": "$B = 5 \\times 2x - 5 \\times 1 = 10x - 5$."
+            }
+          ],
+          "reponse": "$A = 4x + 12$ et $B = 10x - 5$.",
+          "conclusion": "Le facteur multiplie chacun des deux termes.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-factoriser",
+          "titre": "Exemple 2 — Factoriser",
+          "enonce": "Factoriser $C = 6x + 18$ et $D = 7x - 7$.",
+          "calcul": [
+            {
+              "expr": "C = 6(x + 3)",
+              "texte": "$6x = 6 \\times x$ et $18 = 6 \\times 3$ : le facteur commun est $6$."
+            },
+            {
+              "expr": "D = 7(x - 1)",
+              "texte": "$7x = 7 \\times x$ et $7 = 7 \\times 1$ : le facteur commun est $7$."
+            }
+          ],
+          "reponse": "$C = 6(x + 3)$ et $D = 7(x - 1)$.",
+          "conclusion": "Contrôle : $6(x + 3) = 6x + 18$ et $7(x - 1) = 7x - 7$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-developper-negatif",
+          "titre": "Exemple 3 — Un facteur négatif, puis réduire",
+          "enonce": "Développer et réduire $E = 3(2x - 4) - 2(x - 5)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$3(2x - 4) = 6x - 12$."
+            },
+            {
+              "expr": "",
+              "texte": "$-2(x - 5) = -2x + 10$ (règle des signes : $-2 \\times (-5) = 10$)."
+            },
+            {
+              "expr": "E = 6x - 12 - 2x + 10 = 4x - 2",
+              "texte": "Réduction :"
+            }
+          ],
+          "reponse": "$E = 4x - 2$",
+          "conclusion": "Le signe $-$ fait partie du facteur $-2$ : il s'applique aux deux termes.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-factoriser-lettre",
+          "titre": "Exemple 4 — Un facteur commun littéral",
+          "enonce": "Factoriser $F = x^2 + 5x$ et $G = 12x - 8x^2$.",
+          "calcul": [
+            {
+              "expr": "F = x(x + 5)",
+              "texte": "$x^2 = x \\times x$ et $5x = 5 \\times x$ : le facteur commun est $x$."
+            },
+            {
+              "expr": "G = 4x(3 - 2x)",
+              "texte": "$12x = 4x \\times 3$ et $8x^2 = 4x \\times 2x$ : le facteur commun est $4x$."
+            }
+          ],
+          "reponse": "$F = x(x + 5)$ et $G = 4x(3 - 2x)$.",
+          "conclusion": "On cherche le plus grand facteur commun, nombre et lettre compris.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-calcul-mental-distributivite",
+          "titre": "Exemple 5 — Calculer astucieusement",
+          "enonce": "Calculer mentalement $H = 27 \\times 13 + 27 \\times 87$ et $K = 9 \\times 98$, puis expliquer.",
+          "calcul": [
+            {
+              "expr": "H = 27 \\times (13 + 87) = 27 \\times 100 = 2\\,700",
+              "texte": "$H$ : le facteur commun est $27$ :"
+            },
+            {
+              "expr": "K = 9 \\times (100 - 2) = 900 - 18 = 882",
+              "texte": "$K$ : $98 = 100 - 2$ :"
+            }
+          ],
+          "reponse": "$H = 2\\,700$ et $K = 882$.",
+          "conclusion": "Factoriser ou développer astucieusement remplace un calcul long par un calcul simple.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Calculer mentalement $7 \\times 102$ ou $25 \\times 44$.",
+        "Exprimer l'aire d'un rectangle formé de deux parties.",
+        "Montrer qu'un nombre est un multiple de $3$ en le factorisant."
+      ],
+      "erreursFrequentes": [
+        "Ne multiplier que le premier terme : $3(x + 2) = 3x + 2$.",
+        "Se tromper de signe avec un facteur négatif : $-2(x - 5) = -2x - 10$.",
+        "Oublier le terme $1$ en factorisant : $4x + 4 = 4x$.",
+        "Factoriser par un facteur qui n'est pas commun à tous les termes."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Ne multiplier que le premier terme : $3(x + 2) = 3x + 2$.",
+          "pourquoi": "On oublie que le facteur porte sur toute la parenthèse.",
+          "comment_detecter": "Teste avec $x = 0$ : $3 \\times 2 = 6$, pas $2$.",
+          "comment_eviter": "Trace une flèche vers chaque terme."
+        },
+        {
+          "description": "Se tromper de signe avec un facteur négatif : $-2(x - 5) = -2x - 10$.",
+          "pourquoi": "On oublie que $(-2) \\times (-5) = +10$.",
+          "comment_detecter": "Compte les signes $-$ dans chaque produit.",
+          "comment_eviter": "Écris chaque produit avec ses parenthèses : $(-2) \\times (-5)$."
+        },
+        {
+          "description": "Oublier le terme $1$ en factorisant : $4x + 4 = 4x$.",
+          "pourquoi": "On croit que le $4$ « disparaît » une fois mis en facteur.",
+          "comment_detecter": "Redéveloppe : $4 \\times x = 4x$, il manque le $4$.",
+          "comment_eviter": "$4 = 4 \\times 1$ : $4x + 4 = 4(x + 1)$."
+        },
+        {
+          "description": "Factoriser par un facteur qui n'est pas commun à tous les termes.",
+          "pourquoi": "On repère un facteur dans un seul terme.",
+          "comment_detecter": "Chaque terme est-il bien divisible par le facteur choisi ?",
+          "comment_eviter": "Écris chaque terme comme un produit faisant apparaître le facteur commun."
+        }
+      ],
+      "astuce": "Pour développer sans erreur, dessine deux flèches qui partent du facteur et arrivent sur chacun des termes de la parenthèse. Pour factoriser, vérifie toujours en redéveloppant.",
+      "aRetenir": [
+        "$k(a + b) = ka + kb$ et $k(a - b) = ka - kb$.",
+        "Développer : produit → somme ; factoriser : somme → produit.",
+        "Un facteur négatif change le signe de chaque terme."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.4,
+          -1.4,
+          8.8,
+          5.8
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 4.0,
+                "y": 0
+              },
+              {
+                "x": 4.0,
+                "y": 3.0
+              },
+              {
+                "x": 0,
+                "y": 3.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "aire 3 × x = 3x"
+          },
+          {
+            "points": [
+              {
+                "x": 4.0,
+                "y": 0
+              },
+              {
+                "x": 6.0,
+                "y": 0
+              },
+              {
+                "x": 6.0,
+                "y": 3.0
+              },
+              {
+                "x": 4.0,
+                "y": 3.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "aire 3 × 2 = 6"
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.0,
+            "y": 3.45,
+            "label": "x"
+          },
+          {
+            "x": 5.0,
+            "y": 3.45,
+            "label": "2"
+          },
+          {
+            "x": -0.5,
+            "y": 1.5,
+            "label": "3"
+          },
+          {
+            "x": 2.0,
+            "y": 1.5,
+            "label": "3x",
+            "reveal": 2
+          },
+          {
+            "x": 5.0,
+            "y": 1.5,
+            "label": "6",
+            "reveal": 2
+          },
+          {
+            "x": 3.0,
+            "y": -0.7,
+            "label": "3(x + 2) = 3x + 6",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Un rectangle de côtés 3 et x + 2",
+          "Deux rectangles plus petits",
+          "Les deux calculs de l'aire"
+        ],
+        "relation": "$3(x + 2) = 3 \\times x + 3 \\times 2 = 3x + 6$",
+        "alt": "Rectangle de hauteur 3 et de longueur x + 2, partagé en un rectangle 3 sur x (aire 3x) et un rectangle 3 sur 2 (aire 6).",
+        "explication": {
+          "resume": "L'aire du grand rectangle se calcule de deux façons : $3 \\times (x + 2)$ d'un seul coup, ou $3x + 6$ en additionnant les aires des deux parties. Les deux résultats sont égaux : c'est la distributivité.",
+          "lecture": [
+            "La hauteur vaut $3$ ; la longueur est formée de deux morceaux, $x$ et $2$.",
+            "Chaque petit rectangle a la même hauteur $3$."
+          ],
+          "observations": [
+            "Aire de gauche : $3 \\times x = 3x$ ; aire de droite : $3 \\times 2 = 6$.",
+            "Aire totale : $3(x + 2) = 3x + 6$.",
+            "Lue de droite à gauche, l'égalité $3x + 6 = 3(x + 2)$ est une factorisation."
+          ],
+          "pieges": [
+            "Écrire $3(x + 2) = 3x + 2$ : le facteur $3$ multiplie les DEUX termes de la parenthèse."
+          ],
+          "aRetenir": [
+            "$k(a + b) = ka + kb$ et $k(a - b) = ka - kb$.",
+            "Développer : produit → somme ; factoriser : somme → produit."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        46301,
+        46302,
+        46304
+      ],
+      "topic_id": "developper-factoriser",
+      "proprietes": [
+        "$k(a + b) = ka + kb$ pour tous nombres $k$, $a$ et $b$."
+      ],
+      "vocabulaire_associe": [
+        "développer",
+        "factoriser",
+        "distributivité",
+        "facteur commun",
+        "produit",
+        "somme"
+      ],
+      "synonymes": [
+        "distributivité simple",
+        "mettre en facteur",
+        "développer une expression"
+      ],
+      "objectifs_pedagogiques": [
+        "Développer un produit $k(a \\pm b)$.",
+        "Développer avec un facteur négatif et réduire.",
+        "Factoriser une somme ayant un facteur commun.",
+        "Utiliser la distributivité en calcul mental."
+      ],
+      "prerequis": [
+        "Réduire une expression littérale",
+        "Multiplier des nombres relatifs"
+      ],
+      "notions_liees": [
+        "reduire-expression",
+        "prouver-calcul-litteral"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "calcul littéral",
+        "distributivité",
+        "développer",
+        "factoriser"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "developper-factoriser-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Facteur négatif et facteur littéral",
+          "description": "Deux exemples rédigés : développer et réduire une expression avec un facteur négatif, et factoriser par $x$ ou par $4x$."
+        },
+        {
+          "id": "developper-factoriser-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Calcul mental et distributivité",
+          "description": "Un exemple qui utilise la distributivité pour calculer très vite $27 \\times 13 + 27 \\times 87$ et $9 \\times 98$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle est l'aire totale si la hauteur vaut $5$ et la longueur $x + 4$ ?",
+          "piste": "$5(x + 4) = 5x + 20$."
+        },
+        {
+          "apres": "methode",
+          "question": "Factoriser $10x - 15$.",
+          "piste": "$5(2x - 3)$."
+        }
+      ]
+    },
+    {
+      "id": "prouver-calcul-litteral",
+      "title": "Prouver avec le calcul littéral",
+      "schemaVersion": 2,
+      "intro": "Tester un programme de calcul avec quelques nombres permet de deviner une propriété ; le calcul littéral permet de la démontrer pour tous les nombres. À l'inverse, un seul contre-exemple suffit pour prouver qu'une affirmation est fausse.",
+      "pourquoi": "Démontrer est au cœur des mathématiques : une propriété vérifiée sur des milliers d'exemples peut être fausse pour le suivant. Le calcul littéral donne une preuve qui couvre tous les cas d'un seul coup.",
+      "explicationSimple": "Léa affirme : « $n^2 + n + 11$ est toujours premier. » C'est vrai pour $n = 1, 2, 3$… jusqu'à $n = 9$. Mais pour $n = 10$ : $100 + 10 + 11 = 121 = 11 \\times 11$. Un seul contre-exemple suffit : l'affirmation est fausse.",
+      "objectif": "À la fin de cette leçon, tu sauras tester si une égalité est vraie pour une valeur donnée, utiliser un contre-exemple, démontrer qu'un programme de calcul donne toujours le même type de résultat et prouver des propriétés simples des nombres entiers.",
+      "definition": "Une égalité littérale (comme $2(x + 3) - 6 = 2x$) est vraie pour une valeur de $x$ si les deux membres prennent la même valeur. Elle est vraie pour toutes les valeurs de $x$ si l'on peut transformer un membre en l'autre par des calculs valables (développer, réduire, factoriser). Pour montrer qu'une affirmation générale est fausse, il suffit de trouver une valeur pour laquelle elle est fausse : un contre-exemple.",
+      "definitions": {
+        "college": "Tester avec des nombres permet de conjecturer (deviner). Pour prouver que c'est toujours vrai, on calcule avec une lettre. Pour prouver que c'est faux, un seul contre-exemple suffit.",
+        "lycee": "Une égalité littérale (comme $2(x + 3) - 6 = 2x$) est vraie pour une valeur de $x$ si les deux membres prennent la même valeur. Elle est vraie pour toutes les valeurs de $x$ si l'on peut transformer un membre en l'autre par des calculs valables (développer, réduire, factoriser). Pour montrer qu'une affirmation générale est fausse, il suffit de trouver une valeur pour laquelle elle est fausse : un contre-exemple."
+      },
+      "intuition": "Une lettre représente « n'importe quel nombre à la fois » : un calcul fait avec la lettre vaut donc pour tous les nombres, alors qu'un exemple ne vaut que pour un nombre.",
+      "reglesImportantes": [
+        "Pour tester une égalité pour une valeur, on calcule séparément chaque membre avec cette valeur et on compare les résultats.",
+        "Des exemples, même nombreux, ne prouvent pas qu'une propriété est toujours vraie : ils permettent seulement de faire une conjecture.",
+        "Un seul contre-exemple suffit pour prouver qu'une affirmation générale est fausse.",
+        "Pour prouver qu'un programme de calcul donne toujours un certain résultat, on l'applique à une lettre, puis on développe et on réduit.",
+        "Un entier pair s'écrit $2n$, un entier impair $2n + 1$, et un multiple de $3$ s'écrit $3k$, où $n$ et $k$ sont des entiers ; trois entiers consécutifs s'écrivent $n$, $n + 1$, $n + 2$."
+      ],
+      "formules": [
+        {
+          "id": "formule-pair-impair",
+          "nom": "Pairs et impairs",
+          "expression": "pair : $2n$ ; impair : $2n + 1$ ($n$ entier)",
+          "quand_utiliser": "Pour démontrer des propriétés des nombres pairs, impairs ou consécutifs.",
+          "erreur_frequente": "Utiliser la même lettre pour deux nombres différents.",
+          "astuce": "Deux nombres pairs quelconques s'écrivent $2n$ et $2m$."
+        },
+        {
+          "id": "formule-multiple",
+          "nom": "Prouver qu'un nombre est un multiple",
+          "expression": "$A = k \\times (\\ldots)$ avec un entier entre parenthèses",
+          "quand_utiliser": "Pour prouver qu'une expression est toujours un multiple de $k$.",
+          "erreur_frequente": "S'arrêter à un exemple au lieu de factoriser.",
+          "astuce": "Factorise l'expression par $k$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Prouver un résultat sur un programme de calcul",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je teste le programme avec deux ou trois nombres et je formule une conjecture."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'appelle $x$ le nombre de départ et j'écris l'expression obtenue à chaque étape."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je développe et je réduis l'expression finale."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je conclus en une phrase : l'expression obtenue montre la propriété pour tout nombre $x$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je teste le programme avec deux ou trois nombres et je formule une conjecture."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'appelle $x$ le nombre de départ et j'écris l'expression obtenue à chaque étape."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je développe et je réduis l'expression finale."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je conclus en une phrase : l'expression obtenue montre la propriété pour tout nombre $x$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'essaie le programme avec $1$, $2$ et $5$. Que remarque-t-on ?"
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je refais le programme avec la lettre $x$, étape par étape."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'enlève les parenthèses et je regroupe."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je compare le résultat avec ma remarque de départ."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Programme appliqué à $x$, puis développer et réduire."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Faux : un contre-exemple. Vrai pour tout $x$ : un calcul littéral."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-tester-egalite",
+          "titre": "Exemple 1 — Tester une égalité",
+          "enonce": "L'égalité $3x + 4 = 5x - 2$ est-elle vraie pour $x = 3$ ? pour $x = 1$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pour $x = 3$ : $3 \\times 3 + 4 = 13$ et $5 \\times 3 - 2 = 13$ : vraie."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = 1$ : $3 + 4 = 7$ et $5 - 2 = 3$ : fausse."
+            }
+          ],
+          "reponse": "L'égalité est vraie pour $x = 3$ et fausse pour $x = 1$.",
+          "conclusion": "Une égalité littérale peut être vraie pour certaines valeurs seulement.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-contre-exemple",
+          "titre": "Exemple 2 — Un contre-exemple",
+          "enonce": "Tom affirme : « pour tout nombre $x$, $(x + 1)^2 = x^2 + 1$ ». A-t-il raison ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pour $x = 0$ : $(0 + 1)^2 = 1$ et $0^2 + 1 = 1$ : égal."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = 1$ : $(1 + 1)^2 = 4$ et $1^2 + 1 = 2$ : différent."
+            }
+          ],
+          "reponse": "Tom a tort : $x = 1$ est un contre-exemple.",
+          "conclusion": "Un exemple où l'égalité est vraie ne prouve rien ; un contre-exemple prouve qu'elle est fausse.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-programme-preuve",
+          "titre": "Exemple 3 — Démontrer une conjecture",
+          "enonce": "Programme : « choisir un nombre, le multiplier par $4$, ajouter $8$, diviser par $4$, retirer le nombre choisi ». Tester avec $3$ et $10$, puis démontrer la conjecture.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Avec $3$ : $3 \\times 4 + 8 = 20$, $20 \\div 4 = 5$, $5 - 3 = 2$. Avec $10$ : $48 \\div 4 = 12$, $12 - 10 = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Conjecture : le résultat est toujours $2$."
+            },
+            {
+              "expr": "",
+              "texte": "Avec $x$ : $(4x + 8) \\div 4 = x + 2$ (car $4x + 8 = 4(x + 2)$), puis $x + 2 - x = 2$."
+            }
+          ],
+          "reponse": "Le programme donne toujours $2$, quel que soit le nombre choisi.",
+          "conclusion": "La factorisation $4x + 8 = 4(x + 2)$ rend la division par $4$ évidente.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-somme-impairs",
+          "titre": "Exemple 4 — Une propriété des nombres impairs",
+          "enonce": "Démontrer que la somme de deux nombres impairs consécutifs est un multiple de $4$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Deux impairs consécutifs s'écrivent $2n + 1$ et $2n + 3$, avec $n$ entier."
+            },
+            {
+              "expr": "(2n + 1) + (2n + 3) = 4n + 4 = 4(n + 1)",
+              "texte": "Leur somme :"
+            },
+            {
+              "expr": "",
+              "texte": "$n + 1$ est un entier : la somme est un multiple de $4$."
+            }
+          ],
+          "reponse": "$(2n + 1) + (2n + 3) = 4(n + 1)$ : c'est un multiple de $4$.",
+          "conclusion": "Exemple : $7 + 9 = 16 = 4 \\times 4$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-programmes-egaux",
+          "titre": "Exemple 5 — Deux programmes toujours égaux ?",
+          "enonce": "Programme A : « $x$, multiplier par $6$, retirer $9$ ». Programme B : « $x$, retirer $2$, multiplier par $3$, ajouter $3x - 3$ ». Les deux programmes donnent-ils toujours le même résultat ?",
+          "calcul": [
+            {
+              "expr": "A = 6x - 9",
+              "texte": "Programme A :"
+            },
+            {
+              "expr": "B = 3(x - 2) + 3x - 3 = 3x - 6 + 3x - 3 = 6x - 9",
+              "texte": "Programme B :"
+            },
+            {
+              "expr": "",
+              "texte": "Les deux expressions réduites sont identiques."
+            }
+          ],
+          "reponse": "Oui : pour tout $x$, $A = B = 6x - 9$.",
+          "conclusion": "Réduire les deux expressions permet de comparer deux programmes pour tous les nombres d'un coup.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Expliquer un « tour de magie » de calcul mental.",
+        "Montrer qu'un programme de calcul donne toujours le même résultat.",
+        "Démontrer une propriété des nombres pairs ou impairs."
+      ],
+      "erreursFrequentes": [
+        "Croire qu'une propriété est prouvée parce qu'elle marche sur quelques exemples.",
+        "Chercher plusieurs contre-exemples ou une « preuve » de la fausseté.",
+        "Utiliser la même lettre pour deux nombres quelconques.",
+        "Mal traduire une étape du programme de calcul."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Croire qu'une propriété est prouvée parce qu'elle marche sur quelques exemples.",
+          "pourquoi": "Les exemples semblent convaincants.",
+          "comment_detecter": "Ta preuve utilise-t-elle une lettre ?",
+          "comment_eviter": "Les exemples servent à conjecturer ; la preuve se fait avec une lettre."
+        },
+        {
+          "description": "Chercher plusieurs contre-exemples ou une « preuve » de la fausseté.",
+          "pourquoi": "On pense qu'un seul cas ne suffit pas.",
+          "comment_detecter": "As-tu déjà une valeur pour laquelle l'égalité est fausse ?",
+          "comment_eviter": "Un seul contre-exemple, bien calculé, suffit."
+        },
+        {
+          "description": "Utiliser la même lettre pour deux nombres quelconques.",
+          "pourquoi": "On écrit deux pairs comme $2n$ et $2n$, ce qui suppose qu'ils sont égaux.",
+          "comment_detecter": "Tes deux nombres peuvent-ils être différents ?",
+          "comment_eviter": "Prends deux lettres différentes ($2n$ et $2m$), sauf s'ils sont liés (consécutifs)."
+        },
+        {
+          "description": "Mal traduire une étape du programme de calcul.",
+          "pourquoi": "On oublie les parenthèses après « multiplier le résultat ».",
+          "comment_detecter": "Compare avec le test numérique fait au début.",
+          "comment_eviter": "Vérifie ton expression avec un des nombres testés."
+        }
+      ],
+      "astuce": "Commence toujours par tester le programme avec deux ou trois nombres : cela donne la conjecture à démontrer et permet de vérifier ensuite l'expression littérale.",
+      "aRetenir": [
+        "Exemples : conjecture ; calcul littéral : preuve.",
+        "Un contre-exemple suffit pour montrer qu'une affirmation est fausse.",
+        "Pair : $2n$ ; impair : $2n + 1$ ; multiple de $k$ : $k \\times$ entier."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "x",
+            "sousTitre": "Nombre choisi"
+          },
+          {
+            "titre": "x + 3",
+            "sousTitre": "J'ajoute 3"
+          },
+          {
+            "titre": "2(x + 3) = 2x + 6",
+            "sousTitre": "Je multiplie par 2"
+          },
+          {
+            "titre": "2x + 6 − 6 = 2x",
+            "sousTitre": "Je retire 6"
+          }
+        ],
+        "steps": [
+          "Une lettre pour tous les nombres",
+          "On développe",
+          "On conclut"
+        ],
+        "relation": "$2(x + 3) - 6 = 2x + 6 - 6 = 2x$ : le programme donne toujours le double du nombre choisi",
+        "alt": "Programme : choisir x, ajouter 3, multiplier par 2, retirer 6 ; le calcul littéral donne 2x, le double du nombre choisi.",
+        "explication": {
+          "resume": "Essayer quelques nombres permet de conjecturer ; seul le calcul avec une lettre prouve que la propriété est vraie pour TOUS les nombres.",
+          "lecture": [
+            "Chaque case applique une étape du programme à la lettre $x$.",
+            "La dernière case est l'expression développée et réduite."
+          ],
+          "observations": [
+            "Avec $5$ : $(5 + 3) \\times 2 - 6 = 10$ ; avec $7$ : $14$. On conjecture « le double ».",
+            "Avec la lettre : $2(x + 3) - 6 = 2x + 6 - 6 = 2x$.",
+            "$2x$ est le double de $x$, quel que soit $x$ : la conjecture est prouvée."
+          ],
+          "pieges": [
+            "Croire que deux ou trois essais suffisent à prouver une propriété générale."
+          ],
+          "aRetenir": [
+            "Des exemples : on conjecture.",
+            "Une lettre et un calcul : on prouve.",
+            "Un seul contre-exemple suffit pour montrer qu'une propriété est fausse."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        46401,
+        46402,
+        46404
+      ],
+      "topic_id": "prouver-calcul-litteral",
+      "proprietes": [
+        "Une affirmation générale est fausse dès qu'elle admet un contre-exemple."
+      ],
+      "vocabulaire_associe": [
+        "conjecture",
+        "preuve",
+        "démontrer",
+        "contre-exemple",
+        "égalité",
+        "pair",
+        "impair",
+        "consécutifs"
+      ],
+      "synonymes": [
+        "démontrer avec une lettre",
+        "programme de calcul",
+        "tester une égalité"
+      ],
+      "objectifs_pedagogiques": [
+        "Tester une égalité pour une valeur donnée.",
+        "Utiliser un contre-exemple.",
+        "Démontrer une propriété d'un programme de calcul.",
+        "Prouver une propriété des entiers."
+      ],
+      "prerequis": [
+        "Développer et factoriser avec la distributivité simple",
+        "Multiples et diviseurs"
+      ],
+      "notions_liees": [
+        "developper-factoriser",
+        "expressions-litterales"
+      ],
+      "difficulte": "difficile",
+      "tags": [
+        "calcul littéral",
+        "preuve",
+        "programme de calcul",
+        "contre-exemple"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "prouver-calcul-litteral-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Conjecture démontrée et nombres impairs",
+          "description": "Deux exemples rédigés : démontrer qu'un programme donne toujours $2$, et prouver que la somme de deux impairs consécutifs est un multiple de $4$."
+        },
+        {
+          "id": "prouver-calcul-litteral-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Deux programmes toujours égaux",
+          "description": "Un exemple qui compare deux programmes de calcul en réduisant leurs expressions."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que donne le programme de la figure si l'on choisit $-4$ ?",
+          "piste": "$-8$, le double de $-4$."
+        },
+        {
+          "apres": "methode",
+          "question": "L'égalité $x^2 = 2x$ est-elle vraie pour tout $x$ ?",
+          "piste": "Non : pour $x = 1$, $1 \\neq 2$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Pourquoi la somme de trois entiers consécutifs est un multiple de $3$",
+        "etapes": [
+          {
+            "titre": "On nomme",
+            "texte": "Trois entiers consécutifs s'écrivent $n$, $n + 1$ et $n + 2$, où $n$ est un entier."
+          },
+          {
+            "titre": "On réduit",
+            "texte": "$n + (n + 1) + (n + 2) = 3n + 3$."
+          },
+          {
+            "titre": "On factorise",
+            "texte": "$3n + 3 = 3(n + 1)$, et $n + 1$ est un entier."
+          }
+        ],
+        "conclusion": "La somme est égale à $3$ fois un entier : c'est un multiple de $3$, quels que soient les trois entiers consécutifs choisis."
+      }
+    }
+  ]
+}

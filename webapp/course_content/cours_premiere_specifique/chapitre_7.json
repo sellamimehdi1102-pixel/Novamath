@@ -1,0 +1,2454 @@
+{
+  "chapterId": "Chapitre_7",
+  "title": "Suites numériques",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "generalites-sur-les-suites",
+      "title": "Généralités sur les suites",
+      "schemaVersion": 2,
+      "intro": "Une suite numérique est une liste infinie de nombres, rangés dans un ordre précis : le premier, le deuxième, le troisième… Elle sert à décrire des phénomènes qui évoluent par étapes (d'une année à l'autre, d'un mois à l'autre, d'un motif au suivant).",
+      "pourquoi": "Les suites modélisent l'évolution d'un capital, d'une population, d'une quantité de médicament dans le sang ou le nombre d'éléments d'un motif. Elles sont aussi au cœur de nombreux algorithmes.",
+      "explicationSimple": "$u_n = 3n + 1$ : pour $n = 5$, $u_5 = 16$, directement. $u_0 = 2$ et $u_{n+1} = u_n + 3$ : il faut calculer $u_1 = 5$, $u_2 = 8$… pour atteindre $u_5 = 17$. Une formule explicite est un « accès direct », une récurrence un « pas à pas ».",
+      "objectif": "À la fin de ce cours, tu sauras utiliser les notations $u_n$ et $(u_n)$, calculer des termes d'une suite définie explicitement, par récurrence ou par un algorithme, modéliser une situation par une suite et passer d'un mode de génération à un autre.",
+      "definition": "Une suite numérique $(u_n)$ associe à chaque entier naturel $n$ (éventuellement à partir d'un rang $n_0$) un nombre réel noté $u_n$, appelé terme de rang $n$. Elle peut être définie de façon explicite, $u_n = f(n)$ (on calcule directement le terme de rang $n$), par une relation de récurrence, $u_{n+1} = f(u_n)$ avec un premier terme donné (on calcule chaque terme à partir du précédent), par un algorithme, ou par un motif géométrique ou un dénombrement.",
+      "definitions": {
+        "lycee": "Une suite numérique $(u_n)$ associe à chaque entier naturel $n$ (éventuellement à partir d'un rang $n_0$) un nombre réel noté $u_n$, appelé terme de rang $n$. Elle peut être définie de façon explicite, $u_n = f(n)$ (on calcule directement le terme de rang $n$), par une relation de récurrence, $u_{n+1} = f(u_n)$ avec un premier terme donné (on calcule chaque terme à partir du précédent), par un algorithme, ou par un motif géométrique ou un dénombrement."
+      },
+      "intuition": "Une suite est une fonction dont la variable ne prend que des valeurs entières. Sa représentation graphique est donc un nuage de points isolés $(n ; u_n)$, et non une courbe continue.",
+      "reglesImportantes": [
+        "$u_n$ désigne un nombre (le terme de rang $n$) ; $(u_n)$ désigne la suite tout entière.",
+        "Formule explicite $u_n = f(n)$ : on remplace $n$ par sa valeur ; $u_{n+1} = f(n + 1)$, à ne pas confondre avec $u_n + 1$.",
+        "Relation de récurrence $u_{n+1} = f(u_n)$ : il faut le premier terme, puis on calcule les termes un par un.",
+        "Le terme de rang $n$ n'est pas toujours le $n$-ième : si la suite commence à $u_0$, $u_n$ est le $(n+1)$-ième terme.",
+        "Un algorithme (une boucle) permet de calculer un terme, une liste de termes ou un seuil.",
+        "Représentation graphique : on place les points $A_n(n ; u_n)$. Si $u_n = f(n)$, ce sont les points de la courbe de $f$ dont l'abscisse est un entier naturel."
+      ],
+      "formules": [
+        {
+          "id": "formule-explicite",
+          "nom": "Suite explicite",
+          "expression": "$u_n = f(n)$",
+          "quand_utiliser": "Quand on connaît une expression en fonction de $n$.",
+          "erreur_frequente": "Calculer $u_{n+1}$ comme $u_n + 1$.",
+          "astuce": "Remplace $n$ par $n + 1$ dans l'expression."
+        },
+        {
+          "id": "formule-recurrence",
+          "nom": "Suite récurrente",
+          "expression": "$u_0$ donné et $u_{n+1} = f(u_n)$",
+          "quand_utiliser": "Quand chaque étape dépend de la précédente.",
+          "erreur_frequente": "Oublier le premier terme.",
+          "astuce": "Calcule les termes dans l'ordre, sans en sauter."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer des termes d'une suite",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie le mode de génération : explicite, récurrence, algorithme ou motif."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Explicite : je remplace $n$ par le rang voulu. Récurrence : je pars du premier terme et j'applique la relation autant de fois que nécessaire."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je présente chaque calcul sur une ligne : $u_1 = \\ldots$, $u_2 = \\ldots$"
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie la cohérence (sens d'évolution, ordre de grandeur, contexte)."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie le mode de génération : explicite, récurrence, algorithme ou motif."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Explicite : je remplace $n$ par le rang voulu. Récurrence : je pars du premier terme et j'applique la relation autant de fois que nécessaire."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je présente chaque calcul sur une ligne : $u_1 = \\ldots$, $u_2 = \\ldots$"
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie la cohérence (sens d'évolution, ordre de grandeur, contexte)."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde si la formule contient $n$ (explicite) ou $u_n$ (récurrence)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Avec $n$ : je remplace directement. Avec $u_n$ : je calcule étape par étape."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris chaque terme trouvé avant de passer au suivant."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je relis : ai-je calculé le bon rang ?"
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Explicite : $u_k = f(k)$. Récurrence : $u_0 \\to u_1 \\to \\cdots$"
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Attention au rang de départ."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-0",
+          "titre": "Exemple 1 — Une suite définie par récurrence",
+          "enonce": "Soit $u_0 = 0$ et $u_{n+1} = 3u_n + 4$. Calculer $u_1$, $u_2$ et $u_3$.",
+          "calcul": [
+            {
+              "expr": "u_1 = 3 \\times 0 + 4 = 4",
+              "texte": "On applique la relation à partir de $u_0$ :"
+            },
+            {
+              "expr": "u_2 = 3 \\times 4 + 4 = 16",
+              "texte": "Puis :"
+            },
+            {
+              "expr": "u_3 = 3 \\times 16 + 4 = 52",
+              "texte": "Et :"
+            }
+          ],
+          "reponse": "$u_1 = 4$, $u_2 = 16$, $u_3 = 52$.",
+          "conclusion": "Pour calculer $u_3$, il faut d'abord $u_1$ et $u_2$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-24",
+          "titre": "Exemple 2 — Une suite explicite",
+          "enonce": "On considère $u_n = 3n - 1$. Calculer $u_2$, $u_5$ et $u_{100}$, puis exprimer $u_{n+1}$ en fonction de $n$.",
+          "calcul": [
+            {
+              "expr": "u_2 = 5 \\quad u_5 = 14 \\quad u_{100} = 299",
+              "texte": "Remplacements directs :"
+            },
+            {
+              "expr": "u_{n+1} = 3(n + 1) - 1 = 3n + 2",
+              "texte": "En remplaçant $n$ par $n + 1$ :"
+            }
+          ],
+          "reponse": "$u_2 = 5$, $u_5 = 14$, $u_{100} = 299$ et $u_{n+1} = 3n + 2$.",
+          "conclusion": "Une formule explicite donne $u_{100}$ sans calculer les termes précédents.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-12",
+          "titre": "Exemple 3 — Modéliser une évolution",
+          "enonce": "Un club compte $200$ adhérents en 2025. Chaque année, $10\\,\\%$ des adhérents partent et $30$ nouveaux s'inscrivent. On note $a_n$ le nombre d'adhérents l'année $2025 + n$. Exprimer $a_{n+1}$ en fonction de $a_n$ et calculer $a_2$.",
+          "calcul": [
+            {
+              "expr": "a_{n+1} = 0{,}9\\,a_n + 30",
+              "texte": "Garder $90\\,\\%$ revient à multiplier par $0{,}9$, puis on ajoute $30$ :"
+            },
+            {
+              "expr": "a_1 = 0{,}9 \\times 200 + 30 = 210 \\quad a_2 = 0{,}9 \\times 210 + 30 = 219",
+              "texte": "Calculs :"
+            }
+          ],
+          "reponse": "$a_{n+1} = 0{,}9\\,a_n + 30$ et $a_2 = 219$.",
+          "conclusion": "Traduire « $10\\,\\%$ partent » par « on garde $90\\,\\%$ » évite les erreurs.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-36",
+          "titre": "Exemple 4 — Un motif géométrique",
+          "enonce": "Avec des allumettes, on forme une rangée de $n$ triangles équilatéraux accolés (pointes alternativement en haut et en bas). Un triangle utilise $3$ allumettes, deux triangles $5$. Exprimer le nombre $t_n$ d'allumettes en fonction de $n$.",
+          "calcul": [
+            {
+              "expr": "t_{n+1} = t_n + 2",
+              "texte": "Chaque nouveau triangle réutilise un côté du précédent : on ajoute $2$ allumettes."
+            },
+            {
+              "expr": "t_n = 3 + 2(n - 1) = 2n + 1",
+              "texte": "En partant de $t_1 = 3$ :"
+            }
+          ],
+          "reponse": "$t_n = 2n + 1$.",
+          "conclusion": "Le motif donne d'abord la récurrence, puis la formule explicite.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-recurrence-vers-explicite",
+          "titre": "Exemple 5 — De la récurrence à la formule explicite",
+          "enonce": "Soit $u_0 = 1$ et $u_{n+1} = u_n + 2n + 1$. Calculer les premiers termes, conjecturer une formule explicite et la vérifier.",
+          "analyse": "La formule conjecturée vérifie la même relation et a le même premier terme : elle engendre la même suite.",
+          "calcul": [
+            {
+              "expr": "u_1 = 2 \\quad u_2 = 5 \\quad u_3 = 10 \\quad u_4 = 17",
+              "texte": "Termes :"
+            },
+            {
+              "expr": "",
+              "texte": "Conjecture : $u_n = n^2 + 1$ ($1$, $2$, $5$, $10$, $17$)."
+            },
+            {
+              "expr": "(n + 1)^2 + 1 - (n^2 + 1) = 2n + 1 \\text{ et } 0^2 + 1 = 1",
+              "texte": "Vérification :"
+            }
+          ],
+          "reponse": "$u_n = n^2 + 1$.",
+          "conclusion": "Passer d'un mode de génération à un autre est une compétence clé du programme.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Le nombre d'abonnés d'une chaîne vidéo, mois après mois.",
+        "Le solde d'un livret d'épargne chaque année.",
+        "Le nombre de carreaux d'un motif qui grandit."
+      ],
+      "erreursFrequentes": [
+        "Confondre $u_{n+1}$ et $u_n + 1$.",
+        "Confondre le rang et la position.",
+        "Sauter des termes dans une récurrence.",
+        "Relier les points d'une suite par une courbe."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre $u_{n+1}$ et $u_n + 1$.",
+          "pourquoi": "On lit « $n + 1$ » comme « ajouter $1$ ».",
+          "comment_detecter": "As-tu remplacé $n$ par $n + 1$ dans la formule ?",
+          "comment_eviter": "Écris $u_{n+1} = f(n + 1)$ avant de calculer."
+        },
+        {
+          "description": "Confondre le rang et la position.",
+          "pourquoi": "Avec $u_0$ comme premier terme, $u_5$ est le sixième terme.",
+          "comment_detecter": "Quel est le premier indice ?",
+          "comment_eviter": "Note le rang de départ en haut de ta copie."
+        },
+        {
+          "description": "Sauter des termes dans une récurrence.",
+          "pourquoi": "On veut aller vite vers le terme demandé.",
+          "comment_detecter": "As-tu bien calculé tous les termes intermédiaires ?",
+          "comment_eviter": "Fais une ligne par terme."
+        },
+        {
+          "description": "Relier les points d'une suite par une courbe.",
+          "pourquoi": "On confond suite et fonction.",
+          "comment_detecter": "La variable est-elle un entier ?",
+          "comment_eviter": "Une suite se représente par des points isolés."
+        }
+      ],
+      "astuce": "Pour une suite récurrente, un tableur ou une petite boucle Python calcule des dizaines de termes en un instant : c'est l'outil idéal pour conjecturer un comportement.",
+      "aRetenir": [
+        "Explicite : $u_n = f(n)$ ; récurrence : $u_{n+1} = f(u_n)$ et un premier terme.",
+        "$u_{n+1} = f(n + 1)$, jamais $u_n + 1$.",
+        "Représentation graphique : points isolés $(n ; u_n)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -1.6,
+          6.4,
+          4.0
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "segments": [
+          {
+            "from": {
+              "x": 0.0,
+              "y": 0
+            },
+            "to": {
+              "x": 1.6,
+              "y": 0
+            }
+          },
+          {
+            "from": {
+              "x": 0.0,
+              "y": 1.6
+            },
+            "to": {
+              "x": 1.6,
+              "y": 1.6
+            }
+          },
+          {
+            "from": {
+              "x": 1.6,
+              "y": 0
+            },
+            "to": {
+              "x": 1.6,
+              "y": 1.6
+            }
+          },
+          {
+            "from": {
+              "x": 0.0,
+              "y": 0
+            },
+            "to": {
+              "x": 0.0,
+              "y": 1.6
+            }
+          },
+          {
+            "from": {
+              "x": 1.6,
+              "y": 0
+            },
+            "to": {
+              "x": 3.2,
+              "y": 0
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 1.6,
+              "y": 1.6
+            },
+            "to": {
+              "x": 3.2,
+              "y": 1.6
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 3.2,
+              "y": 0
+            },
+            "to": {
+              "x": 3.2,
+              "y": 1.6
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 3.2,
+              "y": 0
+            },
+            "to": {
+              "x": 4.8,
+              "y": 0
+            },
+            "reveal": 3
+          },
+          {
+            "from": {
+              "x": 3.2,
+              "y": 1.6
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.6
+            },
+            "reveal": 3
+          },
+          {
+            "from": {
+              "x": 4.8,
+              "y": 0
+            },
+            "to": {
+              "x": 4.8,
+              "y": 1.6
+            },
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": 0.8,
+            "y": -0.8,
+            "label": "u₁ = 4"
+          },
+          {
+            "x": 2.4,
+            "y": -0.8,
+            "label": "u₂ = 7",
+            "reveal": 2
+          },
+          {
+            "x": 4.0,
+            "y": -0.8,
+            "label": "u₃ = 10",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Un carré : 4 allumettes",
+          "Deux carrés : + 3",
+          "Trois carrés : + 3"
+        ],
+        "relation": "$u_{n+1} = u_n + 3$ et $u_n = 3n + 1$",
+        "alt": "Rangée de carrés faits d'allumettes : un carré utilise 4 allumettes, deux carrés 7, trois carrés 10 ; chaque carré ajouté demande 3 allumettes.",
+        "explication": {
+          "resume": "Une suite peut être engendrée par un motif : on compte, étape par étape, les éléments d'une configuration. Le passage d'une étape à la suivante donne une relation de récurrence ; le comptage direct donne une formule explicite.",
+          "lecture": [
+            "$u_n$ est le nombre d'allumettes pour une rangée de $n$ carrés.",
+            "Chaque étape ajoute un carré à droite."
+          ],
+          "observations": [
+            "Un nouveau carré réutilise le côté de son voisin : il ne faut que $3$ allumettes de plus. D'où $u_{n+1} = u_n + 3$.",
+            "En comptant directement : $1$ allumette verticale à gauche, puis $3$ par carré : $u_n = 3n + 1$.",
+            "Les deux descriptions donnent $u_1 = 4$, $u_2 = 7$, $u_3 = 10$."
+          ],
+          "pieges": [
+            "Compter $4$ allumettes par carré : on oublie que deux carrés voisins partagent un côté."
+          ],
+          "aRetenir": [
+            "Récurrence : comment on passe d'un terme au suivant. Formule explicite : comment on calcule directement le terme de rang $n$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        61101,
+        61107,
+        0
+      ],
+      "topic_id": "generalites-sur-les-suites",
+      "proprietes": [
+        "Une suite définie par récurrence est entièrement déterminée par son premier terme et sa relation."
+      ],
+      "vocabulaire_associe": [
+        "suite",
+        "terme",
+        "rang",
+        "indice",
+        "récurrence",
+        "formule explicite",
+        "premier terme"
+      ],
+      "synonymes": [
+        "suite numérique",
+        "u_n",
+        "terme général",
+        "relation de récurrence"
+      ],
+      "objectifs_pedagogiques": [
+        "Utiliser les notations $u_n$ et $(u_n)$.",
+        "Calculer des termes (explicite, récurrence, algorithme).",
+        "Modéliser une situation par une suite.",
+        "Passer d'un mode de génération à un autre."
+      ],
+      "prerequis": [
+        "Fonctions (Seconde)",
+        "Pourcentages et évolutions",
+        "Boucles en Python (Seconde)"
+      ],
+      "notions_liees": [
+        "sens-de-variation-d-une-suite",
+        "suite-arithmetique",
+        "suite-geometrique"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "suites",
+        "récurrence",
+        "formule explicite",
+        "algorithme",
+        "modélisation"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "generalites-sur-les-suites-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Modéliser, motif",
+          "description": "Deux exemples rédigés : modélisation d'une évolution par une récurrence, motif géométrique."
+        },
+        {
+          "id": "generalites-sur-les-suites-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "De la récurrence à la formule explicite",
+          "description": "Un exemple complet : conjecturer une formule explicite à partir d'une récurrence, puis la justifier."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien d'allumettes pour $10$ carrés ?",
+          "piste": "$u_{10} = 3 \\times 10 + 1 = 31$."
+        },
+        {
+          "apres": "methode",
+          "question": "Si $u_n = n^2$, que vaut $u_{n+1}$ ?",
+          "piste": "$(n + 1)^2 = n^2 + 2n + 1$ (et non $n^2 + 1$)."
+        }
+      ]
+    },
+    {
+      "id": "sens-de-variation-d-une-suite",
+      "title": "Sens de variation d'une suite",
+      "schemaVersion": 2,
+      "intro": "Une suite peut augmenter, diminuer, ou alterner. Étudier son sens de variation, c'est déterminer comment ses termes évoluent d'un rang au suivant.",
+      "pourquoi": "Savoir si une population, un capital ou une quantité de médicament augmente ou diminue est souvent la première question d'une modélisation.",
+      "explicationSimple": "Pour $u_n = 2n + 5$ : $u_{n+1} - u_n = 2$, toujours positif ; chaque terme dépasse le précédent : la suite est strictement croissante.",
+      "objectif": "À la fin de ce cours, tu sauras définir une suite croissante ou décroissante et étudier son sens de variation par la différence $u_{n+1} - u_n$, par le quotient $\\dfrac{u_{n+1}}{u_n}$ (termes strictement positifs) ou à l'aide d'une fonction.",
+      "definition": "Une suite $(u_n)$ est croissante si $u_{n+1} \\geqslant u_n$ pour tout entier naturel $n$, décroissante si $u_{n+1} \\leqslant u_n$ pour tout $n$ (strictement avec des inégalités strictes), constante si $u_{n+1} = u_n$ pour tout $n$. Une suite croissante ou décroissante est dite monotone. On peut aussi étudier ces propriétés à partir d'un certain rang.",
+      "definitions": {
+        "lycee": "Une suite $(u_n)$ est croissante si $u_{n+1} \\geqslant u_n$ pour tout entier naturel $n$, décroissante si $u_{n+1} \\leqslant u_n$ pour tout $n$ (strictement avec des inégalités strictes), constante si $u_{n+1} = u_n$ pour tout $n$. Une suite croissante ou décroissante est dite monotone. On peut aussi étudier ces propriétés à partir d'un certain rang."
+      },
+      "intuition": "Sur le graphique des points $(n ; u_n)$, une suite croissante « monte » quand on avance vers la droite. Le signe de $u_{n+1} - u_n$ dit si chaque pas monte ou descend.",
+      "reglesImportantes": [
+        "Méthode de la différence : on étudie le signe de $u_{n+1} - u_n$ pour tout $n$.",
+        "Méthode du quotient (seulement si tous les termes sont strictement positifs) : on compare $\\dfrac{u_{n+1}}{u_n}$ à $1$.",
+        "Si $u_n = f(n)$ et si $f$ est croissante (resp. décroissante) sur $[0 ; +\\infty[$, alors $(u_n)$ est croissante (resp. décroissante).",
+        "Suite arithmétique : croissante si $r > 0$, décroissante si $r < 0$. Suite géométrique de premier terme positif : croissante si $q > 1$, décroissante si $0 < q < 1$.",
+        "Une suite peut n'être ni croissante ni décroissante, ou ne devenir monotone qu'à partir d'un certain rang."
+      ],
+      "formules": [
+        {
+          "id": "formule-difference",
+          "nom": "Méthode de la différence",
+          "expression": "$u_{n+1} - u_n \\geqslant 0$ pour tout $n$ $\\iff$ $(u_n)$ croissante",
+          "quand_utiliser": "Méthode la plus générale.",
+          "erreur_frequente": "Conclure à partir de quelques termes calculés.",
+          "astuce": "Développe et factorise $u_{n+1} - u_n$."
+        },
+        {
+          "id": "formule-quotient",
+          "nom": "Méthode du quotient",
+          "expression": "$u_n > 0$ et $\\dfrac{u_{n+1}}{u_n} \\geqslant 1$ $\\iff$ $(u_n)$ croissante",
+          "quand_utiliser": "Pour les suites avec des puissances (géométriques).",
+          "erreur_frequente": "L'utiliser quand des termes sont négatifs.",
+          "astuce": "Vérifie d'abord $u_n > 0$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Étudier le sens de variation d'une suite",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je choisis la méthode : différence (cas général), quotient (termes positifs, puissances), fonction associée (forme explicite)."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Je calcule $u_{n+1} - u_n$ (ou le quotient) et je simplifie."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "J'étudie son signe pour tout $n$ (ou à partir d'un certain rang)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je conclus, puis je contrôle sur deux ou trois termes."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je choisis la méthode : différence (cas général), quotient (termes positifs, puissances), fonction associée (forme explicite)."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je calcule $u_{n+1} - u_n$ (ou le quotient) et je simplifie."
+            },
+            {
+              "icone": "scale",
+              "couleur": "orange",
+              "texte": "J'étudie son signe pour tout $n$ (ou à partir d'un certain rang)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je conclus, puis je contrôle sur deux ou trois termes."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris $u_{n+1}$ en remplaçant $n$ par $n + 1$."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je calcule $u_{n+1} - u_n$."
+            },
+            {
+              "icone": "scale",
+              "couleur": "orange",
+              "texte": "Toujours positif : croissante. Toujours négatif : décroissante."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie avec $u_0$, $u_1$, $u_2$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Signe de $u_{n+1} - u_n$ (ou quotient comparé à $1$)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Conclusion, éventuellement à partir d'un rang."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-236",
+          "titre": "Exemple 1 — Par la différence",
+          "enonce": "Étudier le sens de variation de $u_n = n^2 + 3n - 2$.",
+          "calcul": [
+            {
+              "expr": "u_{n+1} - u_n = (n + 1)^2 + 3(n + 1) - 2 - (n^2 + 3n - 2) = 2n + 4",
+              "texte": "Différence :"
+            },
+            {
+              "expr": "",
+              "texte": "Pour tout $n \\geqslant 0$, $2n + 4 > 0$."
+            }
+          ],
+          "reponse": "$(u_n)$ est strictement croissante.",
+          "conclusion": "On ne conclut qu'après avoir étudié le signe pour TOUT entier $n$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-248",
+          "titre": "Exemple 2 — Une suite qui change de sens",
+          "enonce": "Étudier le sens de variation de $u_n = n^2 - 7n + 1$.",
+          "calcul": [
+            {
+              "expr": "u_{n+1} - u_n = 2n - 6",
+              "texte": "Différence :"
+            },
+            {
+              "expr": "",
+              "texte": "$2n - 6 < 0$ pour $n < 3$, $= 0$ pour $n = 3$, $> 0$ pour $n > 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Termes : $u_3 = -11$, $u_4 = -11$, $u_5 = -9$."
+            }
+          ],
+          "reponse": "$(u_n)$ décroît jusqu'au rang $3$, puis est strictement croissante à partir du rang $4$.",
+          "conclusion": "Le signe de la différence peut dépendre de $n$ : on précise le rang.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-260",
+          "titre": "Exemple 3 — Par le quotient",
+          "enonce": "Soit $u_n = \\dfrac{2^n}{n + 1}$. Étudier son sens de variation.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{u_{n+1}}{u_n} = \\dfrac{2^{n+1}}{n + 2} \\times \\dfrac{n + 1}{2^n} = \\dfrac{2(n + 1)}{n + 2}",
+              "texte": "Les termes sont strictement positifs."
+            },
+            {
+              "expr": "",
+              "texte": "$2(n + 1) - (n + 2) = n \\geqslant 0$, avec égalité seulement pour $n = 0$."
+            }
+          ],
+          "reponse": "$u_1 = u_0$, puis $(u_n)$ est strictement croissante à partir du rang $1$.",
+          "conclusion": "Le quotient est adapté quand $n$ apparaît en exposant.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-272",
+          "titre": "Exemple 4 — Avec une fonction",
+          "enonce": "Soit $u_n = \\dfrac{1}{n + 2}$. Déterminer le sens de variation de $(u_n)$ à l'aide de $f(x) = \\dfrac{1}{x + 2}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f$ est strictement décroissante sur $[0 ; +\\infty[$ (inverse d'une fonction positive croissante)."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $n < n + 1$ : $f(n) > f(n + 1)$, donc $u_n > u_{n+1}$."
+            }
+          ],
+          "reponse": "$(u_n)$ est strictement décroissante.",
+          "conclusion": "Attention : cette méthode ne marche que pour une suite explicite $u_n = f(n)$, pas pour une récurrence.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-sens-geometrique-negatif",
+          "titre": "Exemple 5 — Une suite géométrique de premier terme négatif",
+          "enonce": "Soit $u_n = -3 \\times 1{,}5^n$. Quel est son sens de variation ?",
+          "calcul": [
+            {
+              "expr": "u_{n+1} - u_n = -3 \\times 1{,}5^n (1{,}5 - 1) = -1{,}5 \\times 1{,}5^n < 0",
+              "texte": "Différence :"
+            }
+          ],
+          "reponse": "$(u_n)$ est strictement décroissante, bien que $q = 1{,}5 > 1$.",
+          "conclusion": "Pour une suite géométrique, le sens dépend de $q$ ET du signe du premier terme.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-sens-recurrence",
+          "titre": "Exemple 6 — Une récurrence et un contre-exemple",
+          "enonce": "Soit $u_{n+1} = u_n^2$. Étudier le sens de variation selon que $u_0 = 2$ ou $u_0 = 0{,}5$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$u_{n+1} - u_n = u_n(u_n - 1)$."
+            },
+            {
+              "expr": "",
+              "texte": "Avec $u_0 = 2$ : les termes restent supérieurs à $1$ ($2$, $4$, $16$…), la différence est positive."
+            },
+            {
+              "expr": "",
+              "texte": "Avec $u_0 = 0{,}5$ : les termes restent entre $0$ et $1$ ($0{,}5$, $0{,}25$…), la différence est négative."
+            }
+          ],
+          "reponse": "Croissante pour $u_0 = 2$, décroissante pour $u_0 = 0{,}5$.",
+          "conclusion": "La même relation de récurrence peut donner des suites de sens opposés : tout dépend du premier terme.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Savoir si un capital placé augmente chaque année.",
+        "Vérifier qu'une dose de médicament diminue heure après heure.",
+        "Déterminer à partir de quand une entreprise gagne des clients."
+      ],
+      "erreursFrequentes": [
+        "Conclure à partir de quelques termes.",
+        "Utiliser le quotient avec des termes négatifs.",
+        "Utiliser la fonction associée pour une récurrence.",
+        "Oublier le signe du premier terme d'une suite géométrique."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Conclure à partir de quelques termes.",
+          "pourquoi": "Les premiers termes peuvent tromper.",
+          "comment_detecter": "As-tu étudié le signe pour tout $n$ ?",
+          "comment_eviter": "Utilise une méthode générale (différence, quotient, fonction)."
+        },
+        {
+          "description": "Utiliser le quotient avec des termes négatifs.",
+          "pourquoi": "Le quotient ne garde pas l'ordre si $u_n < 0$.",
+          "comment_detecter": "Les termes sont-ils tous strictement positifs ?",
+          "comment_eviter": "Sinon, utilise la différence."
+        },
+        {
+          "description": "Utiliser la fonction associée pour une récurrence.",
+          "pourquoi": "On confond $u_n = f(n)$ et $u_{n+1} = f(u_n)$.",
+          "comment_detecter": "La suite est-elle explicite ?",
+          "comment_eviter": "Pour une récurrence, étudie $u_{n+1} - u_n$."
+        },
+        {
+          "description": "Oublier le signe du premier terme d'une suite géométrique.",
+          "pourquoi": "On retient seulement « $q > 1$ : croissante ».",
+          "comment_detecter": "$u_0$ est-il positif ?",
+          "comment_eviter": "Calcule $u_{n+1} - u_n = u_0 q^n (q - 1)$."
+        }
+      ],
+      "astuce": "Avant de développer $u_{n+1} - u_n$, écris $u_{n+1}$ en entier entre parenthèses : la plupart des erreurs de signe viennent d'un oubli de parenthèses.",
+      "aRetenir": [
+        "Croissante : $u_{n+1} \\geqslant u_n$ ; décroissante : $u_{n+1} \\leqslant u_n$.",
+        "Méthodes : différence, quotient (termes positifs), fonction associée (explicite).",
+        "On peut conclure « à partir d'un certain rang »."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -0.8,
+          6.8,
+          7.2
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 0,
+            "y": 3.0,
+            "label": "u₀"
+          },
+          {
+            "x": 1,
+            "y": 1.5,
+            "label": "u₁"
+          },
+          {
+            "x": 2,
+            "y": 1.0,
+            "label": "u₂"
+          },
+          {
+            "x": 3,
+            "y": 1.5,
+            "label": "u₃"
+          },
+          {
+            "x": 4,
+            "y": 3.0,
+            "label": "u₄"
+          },
+          {
+            "x": 5,
+            "y": 5.5,
+            "label": "u₅"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 3.0
+            },
+            "to": {
+              "x": 1,
+              "y": 1.5
+            },
+            "reveal": 2,
+            "tooltip": "variation d'un terme au suivant"
+          },
+          {
+            "from": {
+              "x": 1,
+              "y": 1.5
+            },
+            "to": {
+              "x": 2,
+              "y": 1.0
+            },
+            "reveal": 2,
+            "tooltip": "variation d'un terme au suivant"
+          },
+          {
+            "from": {
+              "x": 2,
+              "y": 1.0
+            },
+            "to": {
+              "x": 3,
+              "y": 1.5
+            },
+            "reveal": 3,
+            "tooltip": "variation d'un terme au suivant"
+          },
+          {
+            "from": {
+              "x": 3,
+              "y": 1.5
+            },
+            "to": {
+              "x": 4,
+              "y": 3.0
+            },
+            "reveal": 3,
+            "tooltip": "variation d'un terme au suivant"
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 3.0
+            },
+            "to": {
+              "x": 5,
+              "y": 5.5
+            },
+            "reveal": 3,
+            "tooltip": "variation d'un terme au suivant"
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.0,
+            "y": 0.2,
+            "label": "décroissante",
+            "reveal": 2
+          },
+          {
+            "x": 4.6,
+            "y": 2.6,
+            "label": "croissante",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Les termes de la suite",
+          "Elle décroît jusqu'au rang 2",
+          "Puis elle croît"
+        ],
+        "relation": "$u_n = \\dfrac{1}{2}n^2 - 2n + 3$ : $u_{n+1} - u_n = n - \\dfrac{3}{2}$",
+        "alt": "Points (n ; u_n) pour u_n = 0,5n² − 2n + 3 et n de 0 à 5 : 3 ; 1,5 ; 1 ; 1,5 ; 3 ; 5,5. La suite décroît de u₀ à u₂ puis croît à partir de u₂.",
+        "explication": {
+          "resume": "Une suite se représente par des points isolés $(n ; u_n)$ : on ne relie pas les points par une courbe. Le signe de $u_{n+1} - u_n$ dit si l'on monte ou si l'on descend d'un point au suivant.",
+          "lecture": [
+            "En abscisse : le rang $n$ (entier naturel) ; en ordonnée : la valeur du terme $u_n$.",
+            "Les segments ne servent qu'à visualiser le passage d'un terme au suivant."
+          ],
+          "observations": [
+            "$u_{n+1} - u_n = n - 1{,}5$ : négatif pour $n = 0$ et $n = 1$, positif dès $n = 2$.",
+            "La suite est strictement décroissante de $u_0$ à $u_2$, puis strictement croissante à partir du rang $2$.",
+            "Elle n'est donc ni croissante ni décroissante sur $\\mathbb{N}$."
+          ],
+          "pieges": [
+            "Conclure sur le sens de variation à partir des deux premiers termes seulement."
+          ],
+          "aRetenir": [
+            "$(u_n)$ croissante : $u_{n+1} \\geqslant u_n$ pour tout $n$ ; décroissante : $u_{n+1} \\leqslant u_n$ pour tout $n$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        236,
+        239,
+        61201
+      ],
+      "topic_id": "sens-de-variation-d-une-suite",
+      "proprietes": [
+        "Si $u_n = f(n)$ avec $f$ croissante sur $[0 ; +\\infty[$, alors $(u_n)$ est croissante."
+      ],
+      "vocabulaire_associe": [
+        "croissante",
+        "décroissante",
+        "monotone",
+        "constante",
+        "à partir d'un certain rang"
+      ],
+      "synonymes": [
+        "sens de variation",
+        "suite croissante",
+        "suite décroissante",
+        "monotonie"
+      ],
+      "objectifs_pedagogiques": [
+        "Définir une suite croissante, décroissante, monotone.",
+        "Étudier le signe de $u_{n+1} - u_n$.",
+        "Utiliser le quotient pour des termes positifs.",
+        "Utiliser les variations d'une fonction pour une suite explicite."
+      ],
+      "prerequis": [
+        "Généralités sur les suites",
+        "Fonctions et variations (Seconde)"
+      ],
+      "notions_liees": [
+        "generalites-sur-les-suites",
+        "suite-arithmetique",
+        "suite-geometrique"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "suites",
+        "sens de variation",
+        "monotonie"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "sens-de-variation-d-une-suite-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Quotient, fonction associée, géométrique de premier terme négatif",
+          "description": "Trois exemples rédigés : méthode du quotient, méthode de la fonction associée et le piège d'une suite géométrique de premier terme négatif."
+        },
+        {
+          "id": "sens-de-variation-d-une-suite-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Une même récurrence, deux sens de variation",
+          "description": "Un exemple qui montre l'influence du premier terme, et la démonstration du lien entre variations d'une fonction et d'une suite explicite."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "La suite de la figure est-elle croissante ?",
+          "piste": "Non : elle décroît jusqu'au rang $2$, puis croît."
+        },
+        {
+          "apres": "methode",
+          "question": "$u_n = 5 - 2n$ est-elle croissante ?",
+          "piste": "Non, décroissante : $u_{n+1} - u_n = -2$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Variations d'une suite explicite $u_n = f(n)$",
+        "etapes": [
+          {
+            "titre": "Hypothèse",
+            "texte": "$f$ est croissante sur $[0 ; +\\infty[$ et $u_n = f(n)$ pour tout entier naturel $n$."
+          },
+          {
+            "titre": "Comparaison de deux rangs consécutifs",
+            "texte": "Pour tout $n$, $n < n + 1$, et ces deux nombres sont dans $[0 ; +\\infty[$."
+          },
+          {
+            "titre": "Utilisation de la croissance de $f$",
+            "texte": "$f$ croissante conserve l'ordre : $f(n) \\leqslant f(n + 1)$, c'est-à-dire $u_n \\leqslant u_{n+1}$."
+          },
+          {
+            "titre": "Limite de la méthode",
+            "texte": "La réciproque est fausse : $u_n = \\cos(2\\pi n) = 1$ est constante alors que la fonction cosinus n'est pas monotone."
+          }
+        ],
+        "conclusion": "La suite hérite du sens de variation de la fonction (sur $[0 ; +\\infty[$). Cette méthode ne s'applique pas à une suite définie par récurrence."
+      }
+    },
+    {
+      "id": "suite-arithmetique",
+      "title": "Suite arithmétique",
+      "schemaVersion": 2,
+      "intro": "Une suite arithmétique augmente (ou diminue) chaque fois de la même quantité. C'est le modèle des évolutions à accroissements constants : un abonnement mensuel, une épargne régulière, un loyer qui augmente d'un montant fixe.",
+      "pourquoi": "Reconnaître une évolution « linéaire » permet de prévoir directement la valeur à n'importe quelle étape, sans calculer toutes les étapes intermédiaires.",
+      "explicationSimple": "Une plante mesure $12$ cm et grandit de $1{,}5$ cm par semaine : $h_0 = 12$, $h_{n+1} = h_n + 1{,}5$, donc $h_n = 12 + 1{,}5n$. Au bout de $10$ semaines : $27$ cm.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître une suite arithmétique, calculer son terme général, déterminer sa raison à partir de deux termes, faire le lien avec les fonctions affines et modéliser une situation à croissance linéaire.",
+      "definition": "Une suite $(u_n)$ est arithmétique s'il existe un réel $r$, appelé raison, tel que pour tout entier naturel $n$ : $u_{n+1} = u_n + r$. Son terme général est $u_n = u_0 + nr$ et, plus généralement, pour tous entiers $n$ et $p$ : $u_n = u_p + (n - p)r$.",
+      "definitions": {
+        "lycee": "Une suite $(u_n)$ est arithmétique s'il existe un réel $r$, appelé raison, tel que pour tout entier naturel $n$ : $u_{n+1} = u_n + r$. Son terme général est $u_n = u_0 + nr$ et, plus généralement, pour tous entiers $n$ et $p$ : $u_n = u_p + (n - p)r$."
+      },
+      "intuition": "Une suite arithmétique est une fonction affine regardée seulement aux entiers : ses points $(n ; u_n)$ sont alignés, et la raison est le coefficient directeur de la droite.",
+      "reglesImportantes": [
+        "Définition : $u_{n+1} = u_n + r$ pour tout $n$ ; la raison $r$ est constante.",
+        "Pour prouver qu'une suite est arithmétique, on montre que $u_{n+1} - u_n$ est une constante (indépendante de $n$).",
+        "Terme général : $u_n = u_0 + nr$ ; si le premier terme est $u_1$ : $u_n = u_1 + (n - 1)r$.",
+        "Entre deux termes : $u_n - u_p = (n - p)r$, ce qui permet de trouver la raison à partir de deux termes.",
+        "Sens de variation : strictement croissante si $r > 0$, strictement décroissante si $r < 0$, constante si $r = 0$."
+      ],
+      "formules": [
+        {
+          "id": "formule-terme-general-arith",
+          "nom": "Terme général",
+          "expression": "$u_n = u_0 + nr = u_p + (n - p)r$",
+          "quand_utiliser": "Pour calculer directement un terme.",
+          "erreur_frequente": "Écrire $u_n = u_1 + nr$ quand le premier terme est $u_1$.",
+          "astuce": "Compte le nombre de « pas » entre les deux rangs."
+        },
+        {
+          "id": "formule-raison-arith",
+          "nom": "Raison à partir de deux termes",
+          "expression": "$r = \\dfrac{u_n - u_p}{n - p}$",
+          "quand_utiliser": "Quand on connaît deux termes quelconques.",
+          "erreur_frequente": "Diviser par $n$ au lieu de $n - p$.",
+          "astuce": "C'est un « coefficient directeur »."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Travailler avec une suite arithmétique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je vérifie que $u_{n+1} - u_n$ est constant (ou je reconnais « on ajoute toujours le même nombre »)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'identifie la raison $r$ et un terme connu ($u_0$, $u_1$ ou $u_p$)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris le terme général $u_n = u_p + (n - p)r$ et je calcule."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle avec un terme connu."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je vérifie que $u_{n+1} - u_n$ est constant (ou je reconnais « on ajoute toujours le même nombre »)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'identifie la raison $r$ et un terme connu ($u_0$, $u_1$ ou $u_p$)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris le terme général $u_n = u_p + (n - p)r$ et je calcule."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle avec un terme connu."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde de combien on augmente à chaque étape : c'est $r$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je repère le premier terme."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour aller au rang $n$, j'ajoute $n$ fois $r$ au premier terme."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je recalcule $u_1$ avec ma formule pour vérifier."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "$u_n = u_p + (n - p)r$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Signe de $r$ : sens de variation."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-59",
+          "titre": "Exemple 1 — Terme général",
+          "enonce": "Soit $(u_n)$ arithmétique de premier terme $u_0 = -15$ et de raison $r = -6$. Donner $u_n$ en fonction de $n$ et calculer $u_6$.",
+          "calcul": [
+            {
+              "expr": "u_n = u_0 + nr = -15 - 6n",
+              "texte": "Terme général :"
+            },
+            {
+              "expr": "u_6 = -15 - 36 = -51",
+              "texte": "Pour $n = 6$ :"
+            }
+          ],
+          "reponse": "$u_n = -15 - 6n$ et $u_6 = -51$.",
+          "conclusion": "La raison négative rend la suite décroissante.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-71",
+          "titre": "Exemple 2 — Raison à partir de deux termes",
+          "enonce": "Une suite arithmétique vérifie $u_3 = 10$ et $u_{11} = 42$. Déterminer $r$, $u_0$, puis $u_{20}$.",
+          "calcul": [
+            {
+              "expr": "8r = 42 - 10 = 32 \\iff r = 4",
+              "texte": "Entre $u_3$ et $u_{11}$, il y a $8$ pas :"
+            },
+            {
+              "expr": "u_0 = u_3 - 3r = 10 - 12 = -2",
+              "texte": "Premier terme :"
+            },
+            {
+              "expr": "u_{20} = -2 + 20 \\times 4 = 78",
+              "texte": "Terme cherché :"
+            }
+          ],
+          "reponse": "$r = 4$, $u_0 = -2$, $u_{20} = 78$.",
+          "conclusion": "On compte les « pas » : $11 - 3 = 8$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-95",
+          "titre": "Exemple 3 — Reconnaître une suite arithmétique",
+          "enonce": "La suite définie par $v_n = -3n + 3$ est-elle arithmétique ? Et $w_n = n^2$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$v_{n+1} - v_n = -3(n + 1) + 3 - (-3n + 3) = -3$ : constante."
+            },
+            {
+              "expr": "",
+              "texte": "$w_{n+1} - w_n = 2n + 1$ : dépend de $n$."
+            }
+          ],
+          "reponse": "$(v_n)$ est arithmétique de raison $-3$ ; $(w_n)$ ne l'est pas.",
+          "conclusion": "Une seule différence non constante suffit à prouver qu'une suite n'est pas arithmétique (par exemple $w_1 - w_0 = 1 \\neq w_2 - w_1 = 3$).",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-83",
+          "titre": "Exemple 4 — Modélisation linéaire",
+          "enonce": "Un loyer de $650$ € augmente chaque année de $15$ €. Au bout de combien d'années dépassera-t-il $800$ € ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$L_n = 650 + 15n$ (arithmétique de raison $15$)."
+            },
+            {
+              "expr": "650 + 15n > 800 \\iff n > 10",
+              "texte": "Inéquation :"
+            },
+            {
+              "expr": "",
+              "texte": "$L_{10} = 800$ (pas strictement plus) et $L_{11} = 815$."
+            }
+          ],
+          "reponse": "Au bout de $11$ ans.",
+          "conclusion": "Traduire « dépasser » par une inégalité stricte.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-arith-premier-terme-u1",
+          "titre": "Exemple 5 — Premier terme $u_1$",
+          "enonce": "Les places d'une salle sont disposées en rangées : $20$ places au premier rang, puis $2$ de plus à chaque rang. Combien de places au $15$e rang ?",
+          "calcul": [
+            {
+              "expr": "p_n = p_1 + (n - 1) \\times 2",
+              "texte": "$p_1 = 20$, raison $2$ :"
+            },
+            {
+              "expr": "p_{15} = 20 + 14 \\times 2 = 48",
+              "texte": "Pour $n = 15$ :"
+            }
+          ],
+          "reponse": "$48$ places.",
+          "conclusion": "Du rang $1$ au rang $15$ il y a $14$ pas, pas $15$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-arith-affine",
+          "titre": "Exemple 6 — Suite arithmétique et fonction affine",
+          "enonce": "On sait que les points $(n ; u_n)$ sont sur une droite et que $u_2 = 7$, $u_6 = -1$. Exprimer $u_n$ et étudier la suite.",
+          "calcul": [
+            {
+              "expr": "r = \\dfrac{-1 - 7}{6 - 2} = -2",
+              "texte": "Des points alignés : $(u_n)$ est arithmétique, de raison égale au coefficient directeur :"
+            },
+            {
+              "expr": "",
+              "texte": "$u_n = u_2 + (n - 2)r = 7 - 2(n - 2) = 11 - 2n$."
+            }
+          ],
+          "reponse": "$u_n = 11 - 2n$ : suite arithmétique strictement décroissante.",
+          "conclusion": "Raison d'une suite arithmétique et coefficient directeur d'une droite sont un même calcul de « taux de variation ».",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Un abonnement à tarif fixe mensuel.",
+        "Une épargne de la même somme chaque mois.",
+        "Une pile de gobelets qui grandit de la même hauteur à chaque gobelet."
+      ],
+      "erreursFrequentes": [
+        "Confondre raison et premier terme.",
+        "Écrire $u_n = u_1 + nr$.",
+        "Conclure qu'une suite est arithmétique avec deux écarts égaux.",
+        "Diviser par $n$ au lieu de $n - p$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre raison et premier terme.",
+          "pourquoi": "Les deux nombres apparaissent dans l'énoncé.",
+          "comment_detecter": "Lequel s'ajoute à chaque étape ?",
+          "comment_eviter": "La raison est ce qu'on AJOUTE ; le premier terme est le point de départ."
+        },
+        {
+          "description": "Écrire $u_n = u_1 + nr$.",
+          "pourquoi": "On applique la formule avec $u_0$ à une suite qui commence à $u_1$.",
+          "comment_detecter": "Ta formule redonne-t-elle $u_1$ pour $n = 1$ ?",
+          "comment_eviter": "Utilise $u_n = u_p + (n - p)r$."
+        },
+        {
+          "description": "Conclure qu'une suite est arithmétique avec deux écarts égaux.",
+          "pourquoi": "On vérifie seulement $u_1 - u_0 = u_2 - u_1$.",
+          "comment_detecter": "As-tu montré que l'écart est constant pour TOUT $n$ ?",
+          "comment_eviter": "Calcule $u_{n+1} - u_n$ en général."
+        },
+        {
+          "description": "Diviser par $n$ au lieu de $n - p$.",
+          "pourquoi": "On oublie le rang de départ.",
+          "comment_detecter": "Combien de pas sépare les deux termes ?",
+          "comment_eviter": "$r = \\dfrac{u_n - u_p}{n - p}$."
+        }
+      ],
+      "astuce": "Pour une suite arithmétique, pense « escalier régulier » : la raison est la hauteur d'une marche, et $n - p$ le nombre de marches entre deux termes.",
+      "aRetenir": [
+        "$u_{n+1} = u_n + r$.",
+        "$u_n = u_0 + nr = u_p + (n - p)r$.",
+        "Points alignés ; $r > 0$ : croissante, $r < 0$ : décroissante."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -0.8,
+          6.0,
+          9.2
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 0,
+            "y": 1.0,
+            "label": "u₀"
+          },
+          {
+            "x": 1,
+            "y": 2.5,
+            "label": "u₁"
+          },
+          {
+            "x": 2,
+            "y": 4.0,
+            "label": "u₂"
+          },
+          {
+            "x": 3,
+            "y": 5.5,
+            "label": "u₃"
+          },
+          {
+            "x": 4,
+            "y": 7.0,
+            "label": "u₄"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 1.0
+            },
+            "to": {
+              "x": 1,
+              "y": 1.0
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 1,
+              "y": 2.5
+            },
+            "to": {
+              "x": 2,
+              "y": 2.5
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 2,
+              "y": 4.0
+            },
+            "to": {
+              "x": 3,
+              "y": 4.0
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 3,
+              "y": 5.5
+            },
+            "to": {
+              "x": 4,
+              "y": 5.5
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 1,
+              "y": 1.0
+            },
+            "to": {
+              "x": 1,
+              "y": 2.5
+            },
+            "reveal": 2,
+            "tooltip": "+ 1,5"
+          },
+          {
+            "from": {
+              "x": 2,
+              "y": 2.5
+            },
+            "to": {
+              "x": 2,
+              "y": 4.0
+            },
+            "reveal": 2,
+            "tooltip": "+ 1,5"
+          },
+          {
+            "from": {
+              "x": 3,
+              "y": 4.0
+            },
+            "to": {
+              "x": 3,
+              "y": 5.5
+            },
+            "reveal": 2,
+            "tooltip": "+ 1,5"
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 5.5
+            },
+            "to": {
+              "x": 4,
+              "y": 7.0
+            },
+            "reveal": 2,
+            "tooltip": "+ 1,5"
+          },
+          {
+            "from": {
+              "x": -0.4,
+              "y": 0.4
+            },
+            "to": {
+              "x": 4.6,
+              "y": 7.9
+            },
+            "reveal": 3,
+            "tooltip": "droite y = 1,5x + 1",
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.5,
+            "y": 4.4,
+            "label": "+1,5",
+            "reveal": 2
+          },
+          {
+            "x": 3.0,
+            "y": 7.9,
+            "label": "y = 1,5x + 1",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Les termes",
+          "On ajoute toujours 1,5",
+          "Les points sont alignés"
+        ],
+        "relation": "$u_n = 1 + 1{,}5n$",
+        "alt": "Points (n ; u_n) de la suite arithmétique u_n = 1 + 1,5n : (0 ; 1), (1 ; 2,5), (2 ; 4), (3 ; 5,5), (4 ; 7), alignés sur la droite d'équation y = 1,5x + 1.",
+        "explication": {
+          "resume": "Une suite arithmétique augmente (ou diminue) toujours de la même quantité, la raison. Ses points sont alignés : c'est la version « en escalier » d'une fonction affine.",
+          "lecture": [
+            "Chaque marche a la même hauteur : la raison $r = 1{,}5$.",
+            "Le premier terme $u_0 = 1$ est l'ordonnée à l'origine de la droite."
+          ],
+          "observations": [
+            "$u_{n+1} - u_n = 1{,}5$ pour tout $n$.",
+            "$u_n = 1 + 1{,}5n$ : c'est la fonction affine $x \\mapsto 1{,}5x + 1$ prise aux entiers.",
+            "Raison positive : la suite est croissante."
+          ],
+          "pieges": [
+            "Croire que les termes d'une suite géométrique sont aussi alignés : ils ne le sont pas."
+          ],
+          "aRetenir": [
+            "$u_n = u_0 + nr$ : suite arithmétique ↔ fonction affine de coefficient directeur $r$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        59,
+        61301,
+        61302
+      ],
+      "topic_id": "suite-arithmetique",
+      "proprietes": [
+        "Les points $(n ; u_n)$ d'une suite arithmétique sont alignés."
+      ],
+      "vocabulaire_associe": [
+        "suite arithmétique",
+        "raison",
+        "terme général",
+        "croissance linéaire",
+        "accroissement constant"
+      ],
+      "synonymes": [
+        "suite arithmétique",
+        "raison r",
+        "u_n = u_0 + nr"
+      ],
+      "objectifs_pedagogiques": [
+        "Reconnaître une suite arithmétique.",
+        "Calculer son terme général.",
+        "Déterminer la raison à partir de deux termes.",
+        "Modéliser une croissance linéaire."
+      ],
+      "prerequis": [
+        "Généralités sur les suites",
+        "Fonctions affines (Seconde)"
+      ],
+      "notions_liees": [
+        "suite-geometrique",
+        "sens-de-variation-d-une-suite"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "suites",
+        "arithmétique",
+        "raison",
+        "terme général",
+        "modélisation"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "suite-arithmetique-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Reconnaître, modéliser, premier terme u₁",
+          "description": "Trois exemples rédigés : prouver qu'une suite est (ou n'est pas) arithmétique, modélisation d'un loyer, terme général avec un premier terme $u_1$."
+        },
+        {
+          "id": "suite-arithmetique-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Lien avec les fonctions affines, démonstration du terme général",
+          "description": "Un exemple qui relie raison et coefficient directeur, et la démonstration du terme général d'une suite arithmétique."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que vaut $u_{10}$ pour la suite de la figure ?",
+          "piste": "$u_{10} = 1 + 15 = 16$."
+        },
+        {
+          "apres": "methode",
+          "question": "$u_4 = 9$ et $u_7 = 18$ : quelle est la raison ?",
+          "piste": "$r = \\dfrac{18 - 9}{3} = 3$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Terme général d'une suite arithmétique",
+        "etapes": [
+          {
+            "titre": "Hypothèse",
+            "texte": "$(u_n)$ est arithmétique de raison $r$ : pour tout $k$, $u_{k+1} - u_k = r$."
+          },
+          {
+            "titre": "Somme des accroissements",
+            "texte": "Pour $n \\geqslant 1$, on écrit les $n$ égalités $u_1 - u_0 = r$, $u_2 - u_1 = r$, …, $u_n - u_{n-1} = r$."
+          },
+          {
+            "titre": "Télescopage",
+            "texte": "En les additionnant membre à membre, les termes intermédiaires s'annulent deux à deux : $u_n - u_0 = nr$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "Donc $u_n = u_0 + nr$, formule encore vraie pour $n = 0$. De même, $u_n - u_p = (n - p)r$ en additionnant les égalités du rang $p$ au rang $n - 1$."
+          }
+        ],
+        "conclusion": "Le terme de rang $n$ s'obtient en ajoutant $n$ fois la raison au premier terme."
+      }
+    },
+    {
+      "id": "suite-geometrique",
+      "title": "Suite géométrique",
+      "schemaVersion": 2,
+      "intro": "Une suite géométrique est multipliée chaque fois par le même nombre. C'est le modèle des évolutions à taux constant : un capital placé à intérêts composés, une population qui croît de $2\\,\\%$ par an, une substance radioactive qui se désintègre.",
+      "pourquoi": "Une évolution en pourcentage constant ne fait pas « ajouter » la même quantité : elle « multiplie ». La reconnaître évite des erreurs de prévision considérables à long terme.",
+      "explicationSimple": "Un capital de $1\\,000$ € placé à $3\\,\\%$ par an est multiplié chaque année par $1{,}03$ : $C_n = 1\\,000 \\times 1{,}03^n$. Après $10$ ans : environ $1\\,343{,}92$ €.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître une suite géométrique, calculer son terme général, retrouver sa raison à partir de deux termes, étudier son sens de variation et modéliser une évolution à taux constant.",
+      "definition": "Une suite $(u_n)$ est géométrique s'il existe un réel $q$, appelé raison, tel que pour tout entier naturel $n$ : $u_{n+1} = q \\times u_n$. Son terme général est $u_n = u_0 \\times q^n$ et, plus généralement, $u_n = u_p \\times q^{n-p}$. Une évolution de $t\\,\\%$ à chaque étape correspond à une suite géométrique de raison $q = 1 + \\dfrac{t}{100}$ (avec $t < 0$ pour une baisse).",
+      "definitions": {
+        "lycee": "Une suite $(u_n)$ est géométrique s'il existe un réel $q$, appelé raison, tel que pour tout entier naturel $n$ : $u_{n+1} = q \\times u_n$. Son terme général est $u_n = u_0 \\times q^n$ et, plus généralement, $u_n = u_p \\times q^{n-p}$. Une évolution de $t\\,\\%$ à chaque étape correspond à une suite géométrique de raison $q = 1 + \\dfrac{t}{100}$ (avec $t < 0$ pour une baisse)."
+      },
+      "intuition": "Dans une suite géométrique, ce qui est constant n'est pas l'écart entre deux termes mais le rapport $\\dfrac{u_{n+1}}{u_n}$. Les écarts grandissent (ou diminuent) eux-mêmes : c'est une croissance « exponentielle ».",
+      "reglesImportantes": [
+        "Définition : $u_{n+1} = q\\,u_n$ pour tout $n$.",
+        "Pour prouver qu'une suite à termes non nuls est géométrique, on montre que $\\dfrac{u_{n+1}}{u_n}$ est constant, ou on écrit directement $u_{n+1} = q\\,u_n$.",
+        "Terme général : $u_n = u_0 \\times q^n = u_p \\times q^{n-p}$.",
+        "Retrouver la raison : $u_n = u_p \\times q^{n-p}$, donc $q^{n-p} = \\dfrac{u_n}{u_p}$ (on en tire $q$, en tenant compte du signe des termes).",
+        "Évolution à taux constant $t\\,\\%$ : raison $1 + \\dfrac{t}{100}$ ; hausse de $5\\,\\%$ : $q = 1{,}05$ ; baisse de $5\\,\\%$ : $q = 0{,}95$.",
+        "Sens de variation pour $u_0 > 0$ : croissante si $q > 1$, décroissante si $0 < q < 1$ ; pour $u_0 < 0$, c'est l'inverse."
+      ],
+      "formules": [
+        {
+          "id": "formule-terme-general-geo",
+          "nom": "Terme général",
+          "expression": "$u_n = u_0 \\times q^n = u_p \\times q^{n-p}$",
+          "quand_utiliser": "Pour calculer directement un terme.",
+          "erreur_frequente": "Écrire $u_0 \\times q \\times n$.",
+          "astuce": "La raison est en exposant : $q^n$."
+        },
+        {
+          "id": "formule-taux-raison",
+          "nom": "Taux et raison",
+          "expression": "$q = 1 + \\dfrac{t}{100}$",
+          "quand_utiliser": "Pour une évolution de $t\\,\\%$ par étape.",
+          "erreur_frequente": "Prendre $q = t$ ou $q = 0{,}05$ pour $+5\\,\\%$.",
+          "astuce": "Hausse de $5\\,\\%$ : $\\times 1{,}05$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Travailler avec une suite géométrique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je reconnais « on multiplie toujours par le même nombre » (ou un pourcentage constant)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'identifie la raison $q$ (éventuellement $1 + \\dfrac{t}{100}$) et un terme connu."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris $u_n = u_p \\times q^{n-p}$ et je calcule."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle l'ordre de grandeur et le sens de variation (signe de $u_0$, position de $q$ par rapport à $1$)."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je reconnais « on multiplie toujours par le même nombre » (ou un pourcentage constant)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'identifie la raison $q$ (éventuellement $1 + \\dfrac{t}{100}$) et un terme connu."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris $u_n = u_p \\times q^{n-p}$ et je calcule."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle l'ordre de grandeur et le sens de variation (signe de $u_0$, position de $q$ par rapport à $1$)."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je cherche par quoi on multiplie à chaque étape : c'est $q$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je repère le premier terme."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour aller au rang $n$, je multiplie $n$ fois par $q$ : $u_0 \\times q^n$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie avec $u_1 = u_0 \\times q$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "$u_n = u_0 q^n$ ; hausse de $t\\,\\%$ : $q = 1 + \\dfrac{t}{100}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Sens : signe de $u_0$ et de $q - 1$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-118",
+          "titre": "Exemple 1 — Terme général",
+          "enonce": "Soit $(u_n)$ géométrique de premier terme $u_0 = 4$ et de raison $q = 3$. Donner $u_n$ en fonction de $n$ et calculer $u_6$.",
+          "calcul": [
+            {
+              "expr": "u_n = 4 \\times 3^n",
+              "texte": "Terme général :"
+            },
+            {
+              "expr": "u_6 = 4 \\times 729 = 2\\,916",
+              "texte": "Pour $n = 6$ :"
+            }
+          ],
+          "reponse": "$u_n = 4 \\times 3^n$ et $u_6 = 2\\,916$.",
+          "conclusion": "La puissance porte sur la raison, pas sur le premier terme.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-154",
+          "titre": "Exemple 2 — Retrouver la raison à partir de deux termes",
+          "enonce": "Une suite géométrique à termes strictement positifs vérifie $u_0 = 3$ et $u_3 = 81$. Déterminer sa raison.",
+          "calcul": [
+            {
+              "expr": "u_3 = u_0 \\times q^3 \\iff q^3 = \\dfrac{81}{3} = 27",
+              "texte": "Terme général :"
+            },
+            {
+              "expr": "q = 3 \\text{ car } 3^3 = 27",
+              "texte": "Les termes sont positifs, donc $q > 0$ :"
+            }
+          ],
+          "reponse": "$q = 3$.",
+          "conclusion": "Le rapport de deux termes donne une puissance de $q$ ; le nombre de « pas » donne l'exposant.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-142",
+          "titre": "Exemple 3 — Reconnaître une suite géométrique",
+          "enonce": "La suite $w_n = 3 \\times 2^{2n+1}$ est-elle géométrique ? Si oui, préciser sa raison et son premier terme.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{w_{n+1}}{w_n} = \\dfrac{3 \\times 2^{2n+3}}{3 \\times 2^{2n+1}} = 2^2 = 4",
+              "texte": "Quotient de deux termes consécutifs :"
+            },
+            {
+              "expr": "w_0 = 3 \\times 2 = 6",
+              "texte": "Premier terme :"
+            }
+          ],
+          "reponse": "Oui : raison $4$, premier terme $6$.",
+          "conclusion": "Les règles de calcul sur les puissances font apparaître la raison.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-130",
+          "titre": "Exemple 4 — Évolution à taux constant",
+          "enonce": "Un appartement acheté $180\\,000$ € perd $2\\,\\%$ de sa valeur chaque année. Quelle est sa valeur au bout de $5$ ans ? Au bout de combien d'années passe-t-elle sous $150\\,000$ € ?",
+          "calcul": [
+            {
+              "expr": "V_n = 180\\,000 \\times 0{,}98^n",
+              "texte": "Baisse de $2\\,\\%$ : $q = 0{,}98$ :"
+            },
+            {
+              "expr": "",
+              "texte": "$V_5 = 180\\,000 \\times 0{,}98^5 \\approx 162\\,705{,}74$ €."
+            },
+            {
+              "expr": "",
+              "texte": "Calculatrice : $V_9 \\approx 150\\,074{,}60$ et $V_{10} \\approx 147\\,073{,}11$."
+            }
+          ],
+          "reponse": "Environ $162\\,706$ € au bout de $5$ ans ; elle passe sous $150\\,000$ € au bout de $10$ ans.",
+          "conclusion": "Une baisse de $2\\,\\%$ par an pendant $10$ ans ne fait PAS baisser de $20\\,\\%$ : $0{,}98^{10} \\approx 0{,}817$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-geo-auxiliaire",
+          "titre": "Exemple 5 — Une suite auxiliaire géométrique",
+          "enonce": "Soit $u_0 = 1$ et $u_{n+1} = 2u_n + 3$. On pose $v_n = u_n + 3$. Montrer que $(v_n)$ est géométrique, puis exprimer $u_n$.",
+          "calcul": [
+            {
+              "expr": "v_{n+1} = u_{n+1} + 3 = 2u_n + 6 = 2(u_n + 3) = 2v_n",
+              "texte": "Calcul de $v_{n+1}$ :"
+            },
+            {
+              "expr": "",
+              "texte": "$(v_n)$ est géométrique de raison $2$, de premier terme $v_0 = 4$ : $v_n = 4 \\times 2^n$."
+            },
+            {
+              "expr": "u_n = v_n - 3 = 4 \\times 2^n - 3",
+              "texte": "Donc :"
+            }
+          ],
+          "reponse": "$u_n = 4 \\times 2^n - 3$.",
+          "conclusion": "Contrôle : $u_1 = 5$ et $4 \\times 2 - 3 = 5$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-geo-comparaison",
+          "titre": "Exemple 6 — Linéaire ou exponentiel ?",
+          "enonce": "Offre A : salaire de $2\\,000$ € augmenté de $60$ € chaque année. Offre B : salaire de $2\\,000$ € augmenté de $2{,}5\\,\\%$ chaque année. À partir de quelle année B devient-elle plus intéressante ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$a_n = 2\\,000 + 60n$ (arithmétique) et $b_n = 2\\,000 \\times 1{,}025^n$ (géométrique)."
+            },
+            {
+              "expr": "",
+              "texte": "$a_{4} = 2\\,240$ et $b_{4} \\approx 2\\,207{,}63$ ; $a_{6} = 2\\,360$ et $b_{6} \\approx 2\\,319{,}39$."
+            },
+            {
+              "expr": "",
+              "texte": "$a_{8} = 2\\,480$ et $b_{8} \\approx 2\\,436{,}81$ ; $a_{13} = 2\\,780$ et $b_{13} \\approx 2\\,757{,}0$ ; $a_{14} = 2\\,840$ et $b_{14} \\approx 2\\,825{,}9$ ; $a_{15} = 2\\,900$ et $b_{15} \\approx 2\\,896{,}6$ ; $a_{16} = 2\\,960$ et $b_{16} \\approx 2\\,969{,}0$."
+            }
+          ],
+          "reponse": "B dépasse A à partir de la $16$e année.",
+          "conclusion": "Une croissance géométrique finit toujours par dépasser une croissance arithmétique, même si elle part « moins vite ».",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Les intérêts composés d'un livret.",
+        "La décroissance radioactive d'un élément.",
+        "La dépréciation d'une voiture d'occasion."
+      ],
+      "erreursFrequentes": [
+        "Prendre $q = 0{,}03$ pour une hausse de $3\\,\\%$.",
+        "Écrire $u_n = u_0 \\times q \\times n$.",
+        "Ajouter les pourcentages successifs.",
+        "Oublier le signe du premier terme pour le sens de variation."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Prendre $q = 0{,}03$ pour une hausse de $3\\,\\%$.",
+          "pourquoi": "On confond le taux et le coefficient multiplicateur.",
+          "comment_detecter": "Multiplier par $0{,}03$ fait-il augmenter ?",
+          "comment_eviter": "Hausse de $t\\,\\%$ : $q = 1 + \\dfrac{t}{100}$."
+        },
+        {
+          "description": "Écrire $u_n = u_0 \\times q \\times n$.",
+          "pourquoi": "On confond avec la suite arithmétique.",
+          "comment_detecter": "La raison est-elle en exposant ?",
+          "comment_eviter": "$u_n = u_0 \\times q^n$."
+        },
+        {
+          "description": "Ajouter les pourcentages successifs.",
+          "pourquoi": "On pense que $10$ hausses de $2\\,\\%$ font $20\\,\\%$.",
+          "comment_detecter": "As-tu multiplié les coefficients ?",
+          "comment_eviter": "$1{,}02^{10} \\approx 1{,}219$, soit $+21{,}9\\,\\%$."
+        },
+        {
+          "description": "Oublier le signe du premier terme pour le sens de variation.",
+          "pourquoi": "On retient seulement « $q > 1$ : croissante ».",
+          "comment_detecter": "$u_0$ est-il positif ?",
+          "comment_eviter": "Calcule $u_{n+1} - u_n = u_0q^n(q - 1)$."
+        }
+      ],
+      "astuce": "Pour comparer deux évolutions, écris toujours les coefficients multiplicateurs : $+5\\,\\%$ devient $\\times 1{,}05$, $-5\\,\\%$ devient $\\times 0{,}95$. Les calculs successifs se font alors par multiplication.",
+      "aRetenir": [
+        "$u_{n+1} = q\\,u_n$ ; $u_n = u_0 q^n = u_p q^{n-p}$.",
+        "Taux constant $t\\,\\%$ : $q = 1 + \\dfrac{t}{100}$.",
+        "Pour $u_0 > 0$ : $q > 1$ croissante, $0 < q < 1$ décroissante."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -0.8,
+          5.6,
+          9.6
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 0,
+            "y": 0.5,
+            "label": ""
+          },
+          {
+            "x": 1,
+            "y": 1.0,
+            "label": ""
+          },
+          {
+            "x": 2,
+            "y": 2.0,
+            "label": ""
+          },
+          {
+            "x": 3,
+            "y": 4.0,
+            "label": ""
+          },
+          {
+            "x": 4,
+            "y": 8.0,
+            "label": ""
+          },
+          {
+            "x": 0,
+            "y": 8.0,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 1,
+            "y": 4.0,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 2,
+            "y": 2.0,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 3,
+            "y": 1.0,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 4,
+            "y": 0.5,
+            "label": "",
+            "reveal": 2
+          }
+        ],
+        "texts": [
+          {
+            "x": 3.5,
+            "y": 3.0,
+            "label": "× 2"
+          },
+          {
+            "x": 1.5,
+            "y": 4.8,
+            "label": "× 0,5",
+            "reveal": 2
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                0.5
+              ],
+              [
+                0.1,
+                0.5358867312681466
+              ],
+              [
+                0.2,
+                0.5743491774985175
+              ],
+              [
+                0.3,
+                0.6155722066724582
+              ],
+              [
+                0.4,
+                0.6597539553864471
+              ],
+              [
+                0.5,
+                0.7071067811865476
+              ],
+              [
+                0.6,
+                0.757858283255199
+              ],
+              [
+                0.7,
+                0.8122523963562355
+              ],
+              [
+                0.8,
+                0.8705505632961241
+              ],
+              [
+                0.9,
+                0.9330329915368074
+              ],
+              [
+                1.0,
+                1.0
+              ],
+              [
+                1.1,
+                1.0717734625362931
+              ],
+              [
+                1.2,
+                1.1486983549970349
+              ],
+              [
+                1.3,
+                1.2311444133449163
+              ],
+              [
+                1.4,
+                1.3195079107728942
+              ],
+              [
+                1.5,
+                1.4142135623730951
+              ],
+              [
+                1.6,
+                1.5157165665103982
+              ],
+              [
+                1.7,
+                1.624504792712471
+              ],
+              [
+                1.8,
+                1.7411011265922482
+              ],
+              [
+                1.9,
+                1.8660659830736148
+              ],
+              [
+                2.0,
+                2.0
+              ],
+              [
+                2.1,
+                2.1435469250725863
+              ],
+              [
+                2.2,
+                2.29739670999407
+              ],
+              [
+                2.3,
+                2.462288826689832
+              ],
+              [
+                2.4,
+                2.6390158215457884
+              ],
+              [
+                2.5,
+                2.8284271247461903
+              ],
+              [
+                2.6,
+                3.0314331330207964
+              ],
+              [
+                2.7,
+                3.2490095854249423
+              ],
+              [
+                2.8,
+                3.482202253184496
+              ],
+              [
+                2.9,
+                3.7321319661472296
+              ],
+              [
+                3.0,
+                4.0
+              ],
+              [
+                3.1,
+                4.2870938501451725
+              ],
+              [
+                3.2,
+                4.59479341998814
+              ],
+              [
+                3.3,
+                4.924577653379664
+              ],
+              [
+                3.4,
+                5.278031643091577
+              ],
+              [
+                3.5,
+                5.656854249492381
+              ],
+              [
+                3.6,
+                6.062866266041593
+              ],
+              [
+                3.7,
+                6.498019170849885
+              ],
+              [
+                3.8,
+                6.964404506368992
+              ],
+              [
+                3.9,
+                7.464263932294459
+              ],
+              [
+                4.0,
+                8.0
+              ]
+            ],
+            "dashed": true,
+            "reveal": 3,
+            "tooltip": "x ↦ 0,5 × 2^x"
+          },
+          {
+            "points": [
+              [
+                0.0,
+                8.0
+              ],
+              [
+                0.1,
+                7.464263932294459
+              ],
+              [
+                0.2,
+                6.964404506368993
+              ],
+              [
+                0.3,
+                6.498019170849885
+              ],
+              [
+                0.4,
+                6.062866266041592
+              ],
+              [
+                0.5,
+                5.656854249492381
+              ],
+              [
+                0.6,
+                5.278031643091577
+              ],
+              [
+                0.7,
+                4.924577653379665
+              ],
+              [
+                0.8,
+                4.5947934199881395
+              ],
+              [
+                0.9,
+                4.2870938501451725
+              ],
+              [
+                1.0,
+                4.0
+              ],
+              [
+                1.1,
+                3.7321319661472296
+              ],
+              [
+                1.2,
+                3.4822022531844965
+              ],
+              [
+                1.3,
+                3.249009585424942
+              ],
+              [
+                1.4,
+                3.0314331330207964
+              ],
+              [
+                1.5,
+                2.8284271247461903
+              ],
+              [
+                1.6,
+                2.6390158215457884
+              ],
+              [
+                1.7,
+                2.4622888266898326
+              ],
+              [
+                1.8,
+                2.2973967099940698
+              ],
+              [
+                1.9,
+                2.1435469250725863
+              ],
+              [
+                2.0,
+                2.0
+              ],
+              [
+                2.1,
+                1.8660659830736148
+              ],
+              [
+                2.2,
+                1.741101126592248
+              ],
+              [
+                2.3,
+                1.6245047927124712
+              ],
+              [
+                2.4,
+                1.5157165665103982
+              ],
+              [
+                2.5,
+                1.4142135623730951
+              ],
+              [
+                2.6,
+                1.3195079107728942
+              ],
+              [
+                2.7,
+                1.231144413344916
+              ],
+              [
+                2.8,
+                1.148698354997035
+              ],
+              [
+                2.9,
+                1.0717734625362931
+              ],
+              [
+                3.0,
+                1.0
+              ],
+              [
+                3.1,
+                0.9330329915368074
+              ],
+              [
+                3.2,
+                0.870550563296124
+              ],
+              [
+                3.3,
+                0.8122523963562356
+              ],
+              [
+                3.4,
+                0.7578582832551991
+              ],
+              [
+                3.5,
+                0.7071067811865476
+              ],
+              [
+                3.6,
+                0.6597539553864471
+              ],
+              [
+                3.7,
+                0.615572206672458
+              ],
+              [
+                3.8,
+                0.5743491774985175
+              ],
+              [
+                3.9,
+                0.5358867312681466
+              ],
+              [
+                4.0,
+                0.5
+              ]
+            ],
+            "dashed": true,
+            "variant": "b",
+            "reveal": 3,
+            "tooltip": "x ↦ 8 × 0,5^x"
+          }
+        ],
+        "steps": [
+          "q = 2 : croissante",
+          "q = 0,5 : décroissante",
+          "Pas d'alignement : croissance exponentielle"
+        ],
+        "relation": "$u_n = 0{,}5 \\times 2^n$ et $v_n = 8 \\times 0{,}5^n$",
+        "alt": "Points de u_n = 0,5 × 2^n (0,5 ; 1 ; 2 ; 4 ; 8) et de v_n = 8 × 0,5^n (8 ; 4 ; 2 ; 1 ; 0,5) pour n de 0 à 4 ; les points ne sont pas alignés, ils suivent des courbes exponentielles.",
+        "explication": {
+          "resume": "Une suite géométrique est multipliée par le même nombre, la raison $q$, à chaque étape. Ses termes ne sont pas alignés : l'écart entre deux termes consécutifs grandit (ou diminue) lui aussi.",
+          "lecture": [
+            "Points pleins de la première série : $u_n = 0{,}5 \\times 2^n$ ; seconde série : $v_n = 8 \\times 0{,}5^n$.",
+            "Les courbes pointillées relient les points pour guider l'œil : ce sont des fonctions exponentielles."
+          ],
+          "observations": [
+            "$u_{n+1} = 2u_n$ : les termes doublent, l'écart double aussi.",
+            "$v_{n+1} = 0{,}5\\,v_n$ : les termes sont divisés par deux et se rapprochent de $0$.",
+            "Une évolution à taux constant ($+100\\,\\%$ ou $-50\\,\\%$ ici) donne une suite géométrique."
+          ],
+          "pieges": [
+            "Confondre « ajouter » (arithmétique) et « multiplier » (géométrique)."
+          ],
+          "aRetenir": [
+            "$u_n = u_0 \\times q^n$ ; pour $u_0 > 0$ : croissante si $q > 1$, décroissante si $0 < q < 1$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        118,
+        61407,
+        61401
+      ],
+      "topic_id": "suite-geometrique",
+      "proprietes": [
+        "Une évolution à taux constant est modélisée par une suite géométrique."
+      ],
+      "vocabulaire_associe": [
+        "suite géométrique",
+        "raison",
+        "coefficient multiplicateur",
+        "taux d'évolution",
+        "croissance exponentielle"
+      ],
+      "synonymes": [
+        "suite géométrique",
+        "raison q",
+        "u_n = u_0 q^n",
+        "intérêts composés"
+      ],
+      "objectifs_pedagogiques": [
+        "Reconnaître une suite géométrique.",
+        "Calculer son terme général.",
+        "Retrouver la raison à partir de deux termes.",
+        "Modéliser une évolution à taux constant."
+      ],
+      "prerequis": [
+        "Généralités sur les suites",
+        "Puissances",
+        "Pourcentages et coefficients multiplicateurs"
+      ],
+      "notions_liees": [
+        "suite-arithmetique"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "suites",
+        "géométrique",
+        "raison",
+        "pourcentages",
+        "modélisation"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "suite-geometrique-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Reconnaître, taux constant, suite auxiliaire",
+          "description": "Trois exemples rédigés : reconnaître une suite géométrique, modéliser une dépréciation et utiliser une suite auxiliaire."
+        },
+        {
+          "id": "suite-geometrique-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Linéaire contre exponentiel, démonstration du terme général",
+          "description": "Un exemple qui compare une croissance arithmétique et une croissance géométrique, et la démonstration du terme général."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que vaut $u_5$ pour $u_n = 0{,}5 \\times 2^n$ ?",
+          "piste": "$u_5 = 0{,}5 \\times 32 = 16$."
+        },
+        {
+          "apres": "methode",
+          "question": "Quelle raison pour une baisse de $8\\,\\%$ par an ?",
+          "piste": "$q = 0{,}92$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Terme général d'une suite géométrique",
+        "etapes": [
+          {
+            "titre": "Hypothèse",
+            "texte": "$(u_n)$ est géométrique de raison $q$ : pour tout $k$, $u_{k+1} = q\\,u_k$."
+          },
+          {
+            "titre": "Itération",
+            "texte": "$u_1 = q u_0$, $u_2 = q u_1 = q^2 u_0$, $u_3 = q u_2 = q^3 u_0$ : à chaque rang, on multiplie une fois de plus par $q$."
+          },
+          {
+            "titre": "Produit des égalités",
+            "texte": "Si les termes sont non nuls, on multiplie membre à membre $\\dfrac{u_1}{u_0} = q$, …, $\\dfrac{u_n}{u_{n-1}} = q$ : les termes intermédiaires se simplifient et $\\dfrac{u_n}{u_0} = q^n$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$u_n = u_0 \\times q^n$ (vrai aussi pour $n = 0$ et lorsque $u_0 = 0$ ou $q = 0$, la suite étant alors nulle à partir du rang $1$)."
+          }
+        ],
+        "conclusion": "Le terme de rang $n$ s'obtient en multipliant $n$ fois le premier terme par la raison."
+      }
+    }
+  ]
+}

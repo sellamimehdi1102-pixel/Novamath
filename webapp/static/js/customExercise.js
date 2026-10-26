@@ -9,7 +9,7 @@
 import { api } from "./api.js";
 import { hasFeature } from "./features.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
-import { setMathContent } from "./mathrender.js";
+import { setMathContent, formatStepLabels } from "./mathrender.js";
 import { icon } from "./icons.js";
 
 const $ = (id) => document.getElementById(id);
@@ -41,7 +41,9 @@ function groupByClassLevel(notions) {
 
 function selectorHtml(notionsForClass) {
   const notionOptions = notionsForClass
-    .map((n, i) => `<option value="${i}">${n.chapter_id} — ${n.notion}</option>`)
+    // Libellé lisible (« Chapitre 6 », jamais l'identifiant « Chapitre_6 ») ;
+    // la valeur reste l'index, chapter_id/notion sont transmis tels quels.
+    .map((n, i) => `<option value="${i}">${String(n.chapter_id).replace(/_/g, " ")} — ${n.notion}</option>`)
     .join("");
   return `
     <label class="sub" for="custom-ex-notion">Notion</label>
@@ -90,7 +92,7 @@ function renderExercise(ex) {
     box.hidden = nowHidden;
     if (!nowHidden && !box.dataset.filled) {
       box.dataset.filled = "1";
-      const steps = (ex.solution_steps || []).map((s) => `<li>${s}</li>`).join("");
+      const steps = (ex.solution_steps || []).map((s) => `<li>${formatStepLabels(s)}</li>`).join("");
       box.innerHTML = `<div><strong>Réponse :</strong></div><div id="custom-ex-answer"></div>${steps ? `<ol>${steps}</ol>` : ""}`;
       setMathContent($("custom-ex-answer"), ex.answer);
     }

@@ -1,0 +1,1768 @@
+{
+  "chapterId": "Chapitre_9",
+  "title": "Théorème de Thalès",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "thales-configuration-rapports",
+      "title": "Configuration de Thalès et égalité des rapports",
+      "schemaVersion": 2,
+      "intro": "Quand on coupe un triangle par une droite parallèle à l'un de ses côtés, on obtient un petit triangle « emboîté » dans le grand, de même forme. Le théorème de Thalès dit que leurs côtés sont proportionnels.",
+      "pourquoi": "Le théorème de Thalès permet de calculer des longueurs inaccessibles (hauteur d'un arbre, largeur d'une rivière) et il est à la base des agrandissements, des plans et des cartes.",
+      "explicationSimple": "Un toboggan a une échelle verticale. Si l'on fixe une barre horizontale à mi-hauteur, parallèle au sol, elle forme un petit triangle deux fois plus petit que le grand : toutes ses longueurs sont divisées par $2$.",
+      "objectif": "À la fin de cette leçon, tu sauras reconnaître une configuration de Thalès (triangles emboîtés), identifier les côtés qui se correspondent et écrire l'égalité des trois rapports dans le bon ordre.",
+      "definition": "Théorème de Thalès (triangles emboîtés). Soit $ABC$ un triangle, $M$ un point du segment $[AB]$ et $N$ un point du segment $[AC]$. Si les droites $(MN)$ et $(BC)$ sont parallèles, alors $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$. Autrement dit, les longueurs des côtés du triangle $AMN$ sont proportionnelles à celles des côtés correspondants du triangle $ABC$.",
+      "definitions": {
+        "college": "Dans un triangle $ABC$, si $M$ est sur $[AB]$, $N$ sur $[AC]$ et $(MN)$ parallèle à $(BC)$, alors $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$.",
+        "lycee": "Théorème de Thalès (triangles emboîtés). Soit $ABC$ un triangle, $M$ un point du segment $[AB]$ et $N$ un point du segment $[AC]$. Si les droites $(MN)$ et $(BC)$ sont parallèles, alors $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$. Autrement dit, les longueurs des côtés du triangle $AMN$ sont proportionnelles à celles des côtés correspondants du triangle $ABC$."
+      },
+      "intuition": "Le petit triangle est une « photo réduite » du grand : il a la même forme. Le rapport de réduction est le même pour les trois côtés.",
+      "reglesImportantes": [
+        "Configuration : deux triangles qui ont un sommet commun $A$, les points $A$, $M$, $B$ alignés et $A$, $N$, $C$ alignés, et $(MN) \\parallel (BC)$.",
+        "Les côtés correspondants sont : $AM$ et $AB$ ; $AN$ et $AC$ ; $MN$ et $BC$.",
+        "On écrit toujours les côtés du petit triangle au numérateur et ceux du grand triangle au dénominateur.",
+        "Les trois rapports sont égaux ; leur valeur commune $k$ est comprise entre $0$ et $1$ quand $M$ et $N$ sont sur les côtés.",
+        "Le théorème ne s'applique que si l'on sait que les droites sont parallèles (donné par l'énoncé ou démontré)."
+      ],
+      "formules": [
+        {
+          "id": "formule-thales",
+          "nom": "Théorème de Thalès",
+          "expression": "$\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$",
+          "quand_utiliser": "Dans des triangles emboîtés avec $(MN) \\parallel (BC)$.",
+          "erreur_frequente": "Mettre $MB$ au lieu de $AB$ au dénominateur.",
+          "astuce": "Au dénominateur, les côtés complets du grand triangle, qui partent de $A$ (sauf $BC$)."
+        },
+        {
+          "id": "formule-correspondance",
+          "nom": "Côtés correspondants",
+          "expression": "petit $AMN$ ↔ grand $ABC$ : $A \\to A$, $M \\to B$, $N \\to C$",
+          "quand_utiliser": "Pour écrire les rapports dans le bon ordre.",
+          "erreur_frequente": "Associer $AM$ à $AC$.",
+          "astuce": "$M$ est sur $[AB]$, donc $AM$ correspond à $AB$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Écrire l'égalité de Thalès",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère le sommet commun et les deux triangles emboîtés."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je vérifie les hypothèses : points alignés et droites parallèles."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris les trois rapports : petit triangle en haut, grand triangle en bas, côtés correspondants face à face."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que chaque rapport est inférieur à $1$ (le petit sur le grand)."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le sommet commun et les deux triangles emboîtés."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je vérifie les hypothèses : points alignés et droites parallèles."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris les trois rapports : petit triangle en haut, grand triangle en bas, côtés correspondants face à face."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que chaque rapport est inférieur à $1$ (le petit sur le grand)."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je colorie le petit triangle et le grand triangle."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je cherche les deux droites parallèles."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris : côté du petit / côté du grand, trois fois."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je relis : chaque fraction est-elle plus petite que $1$ ?"
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Sommet commun, alignements, parallèles."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$\\dfrac{\\text{petit}}{\\text{grand}}$ pour les trois paires de côtés."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-ecrire-rapports",
+          "titre": "Exemple 1 — Écrire les rapports",
+          "enonce": "Dans le triangle $RST$, $E$ est sur $[RS]$, $F$ est sur $[RT]$ et $(EF) \\parallel (ST)$. Écrire l'égalité des rapports.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le sommet commun est $R$ ; le petit triangle est $REF$, le grand est $RST$."
+            },
+            {
+              "expr": "",
+              "texte": "Correspondances : $RE \\leftrightarrow RS$, $RF \\leftrightarrow RT$, $EF \\leftrightarrow ST$."
+            }
+          ],
+          "reponse": "$\\dfrac{RE}{RS} = \\dfrac{RF}{RT} = \\dfrac{EF}{ST}$",
+          "conclusion": "Les noms changent, mais la structure est toujours la même.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-verifier-rapports",
+          "titre": "Exemple 2 — Les trois rapports sont égaux",
+          "enonce": "Dans la configuration de la figure, $AM = 2{,}6$, $AB = 6{,}5$, $AN = 3$, $AC = 7{,}5$, $MN = 2{,}8$ et $BC = 7$. Calculer les trois rapports.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{AM}{AB} = \\dfrac{2{,}6}{6{,}5} = 0{,}4$ ; $\\dfrac{AN}{AC} = \\dfrac{3}{7{,}5} = 0{,}4$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{MN}{BC} = \\dfrac{2{,}8}{7} = 0{,}4$."
+            }
+          ],
+          "reponse": "Les trois rapports valent $0{,}4$.",
+          "conclusion": "Le petit triangle est une réduction de rapport $0{,}4$ du grand.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-identifier-configuration",
+          "titre": "Exemple 3 — Retrouver la configuration",
+          "enonce": "Sur une figure, les points $K$, $L$, $P$ sont alignés dans cet ordre, les points $K$, $J$, $Q$ aussi, et $(LJ) \\parallel (PQ)$. Écrire l'égalité de Thalès.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le sommet commun est $K$ : il est sur les deux alignements."
+            },
+            {
+              "expr": "",
+              "texte": "Petit triangle : $KLJ$ ; grand triangle : $KPQ$."
+            }
+          ],
+          "reponse": "$\\dfrac{KL}{KP} = \\dfrac{KJ}{KQ} = \\dfrac{LJ}{PQ}$",
+          "conclusion": "Le sommet commun est le point qui appartient aux deux alignements.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-erreur-mb",
+          "titre": "Exemple 4 — Une erreur fréquente",
+          "enonce": "Yanis écrit $\\dfrac{AM}{MB} = \\dfrac{AN}{NC}$ dans la configuration de la figure. Avec les longueurs de l'exemple 2, ces rapports sont-ils égaux à $\\dfrac{MN}{BC}$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$MB = 6{,}5 - 2{,}6 = 3{,}9$ et $NC = 7{,}5 - 3 = 4{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{AM}{MB} = \\dfrac{2{,}6}{3{,}9} = \\dfrac{2}{3}$ ; $\\dfrac{AN}{NC} = \\dfrac{3}{4{,}5} = \\dfrac{2}{3}$."
+            },
+            {
+              "expr": "",
+              "texte": "Mais $\\dfrac{MN}{BC} = 0{,}4 \\neq \\dfrac{2}{3}$."
+            }
+          ],
+          "reponse": "Ces deux rapports sont égaux entre eux, mais pas égaux à $\\dfrac{MN}{BC}$ : l'écriture de Yanis ne permet pas de calculer $MN$.",
+          "conclusion": "Pour utiliser $MN$, il faut les rapports $\\dfrac{AM}{AB}$ et $\\dfrac{AN}{AC}$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-thales-coordonnees",
+          "titre": "Exemple 5 — Le rapport se lit partout",
+          "enonce": "Dans la configuration de Thalès, on sait seulement que $AM = \\dfrac{2}{5}AB$. Exprimer $AN$ en fonction de $AC$ et $MN$ en fonction de $BC$, puis en déduire $\\dfrac{MB}{AB}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{AM}{AB} = \\dfrac{2}{5}$, donc tous les rapports valent $\\dfrac{2}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "$AN = \\dfrac{2}{5}AC$ et $MN = \\dfrac{2}{5}BC$."
+            },
+            {
+              "expr": "",
+              "texte": "$MB = AB - AM = AB - \\dfrac{2}{5}AB = \\dfrac{3}{5}AB$."
+            }
+          ],
+          "reponse": "$AN = \\dfrac{2}{5}AC$, $MN = \\dfrac{2}{5}BC$ et $\\dfrac{MB}{AB} = \\dfrac{3}{5}$.",
+          "conclusion": "Le coefficient de réduction suffit à décrire toute la configuration.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Une barre de renfort parallèle au sol sur un chevalet.",
+        "Les étagères parallèles d'une bibliothèque en forme de triangle.",
+        "La hauteur d'un arbre mesurée grâce à son ombre."
+      ],
+      "erreursFrequentes": [
+        "Écrire $MB$ au lieu de $AB$ au dénominateur.",
+        "Mélanger les côtés correspondants.",
+        "Appliquer le théorème sans parallèles.",
+        "Inverser petit et grand dans un seul rapport."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $MB$ au lieu de $AB$ au dénominateur.",
+          "pourquoi": "On compare les deux « morceaux » du côté au lieu du morceau et du côté entier.",
+          "comment_detecter": "Le dénominateur est-il un côté complet du grand triangle ?",
+          "comment_eviter": "Les dénominateurs sont $AB$, $AC$ et $BC$, les côtés du grand triangle."
+        },
+        {
+          "description": "Mélanger les côtés correspondants.",
+          "pourquoi": "On associe $AM$ à $AC$.",
+          "comment_detecter": "$M$ et $B$ sont-ils sur la même droite issue de $A$ ?",
+          "comment_eviter": "Repère les alignements : $A$, $M$, $B$ d'un côté ; $A$, $N$, $C$ de l'autre."
+        },
+        {
+          "description": "Appliquer le théorème sans parallèles.",
+          "pourquoi": "La figure « a l'air » d'avoir des parallèles.",
+          "comment_detecter": "L'énoncé dit-il que les droites sont parallèles ?",
+          "comment_eviter": "Cite toujours l'hypothèse de parallélisme."
+        },
+        {
+          "description": "Inverser petit et grand dans un seul rapport.",
+          "pourquoi": "On écrit $\\dfrac{AM}{AB} = \\dfrac{AC}{AN}$.",
+          "comment_detecter": "Tous tes rapports sont-ils inférieurs à $1$ ?",
+          "comment_eviter": "Petit en haut, grand en bas, pour les trois rapports."
+        }
+      ],
+      "astuce": "Colorie le petit triangle d'une couleur et le grand d'une autre : chaque rapport s'écrit « côté coloré petit / côté coloré grand ».",
+      "aRetenir": [
+        "Triangles emboîtés, points alignés, droites parallèles.",
+        "$\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$.",
+        "Petit triangle au numérateur, grand au dénominateur."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.2,
+          -1.2,
+          9.4,
+          8.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 2.5,
+            "y": 6.0,
+            "label": "A"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 7.0,
+            "y": 0.0,
+            "label": "C"
+          },
+          {
+            "x": 1.5,
+            "y": 3.6,
+            "label": "M"
+          },
+          {
+            "x": 4.3,
+            "y": 3.6,
+            "label": "N"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B"
+          },
+          {
+            "from": "A",
+            "to": "C"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "variant": "hypotenuse",
+            "tooltip": "(BC) parallèle à (MN)"
+          },
+          {
+            "from": "M",
+            "to": "N",
+            "variant": "hypotenuse",
+            "reveal": 2,
+            "tooltip": "(MN) parallèle à (BC)"
+          }
+        ],
+        "texts": [
+          {
+            "x": 0.7,
+            "y": 4.9,
+            "label": "2,6",
+            "reveal": 2
+          },
+          {
+            "x": 3.95,
+            "y": 5.1,
+            "label": "3",
+            "reveal": 2
+          },
+          {
+            "x": 2.9,
+            "y": 4.0,
+            "label": "2,8",
+            "reveal": 2
+          },
+          {
+            "x": 0.6,
+            "y": 1.8,
+            "label": "AB = 6,5",
+            "reveal": 3
+          },
+          {
+            "x": 5.9,
+            "y": 2.4,
+            "label": "AC = 7,5",
+            "reveal": 3
+          },
+          {
+            "x": 3.5,
+            "y": -0.6,
+            "label": "BC = 7",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Le triangle ABC",
+          "M sur [AB], N sur [AC], (MN) // (BC)",
+          "Les trois rapports"
+        ],
+        "relation": "$\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$ : ici $\\dfrac{2{,}6}{6{,}5} = \\dfrac{3}{7{,}5} = \\dfrac{2{,}8}{7} = 0{,}4$",
+        "alt": "Triangle ABC ; M est sur [AB], N sur [AC] et (MN) est parallèle à (BC). AM = 2,6 ; AN = 3 ; MN = 2,8 ; AB = 6,5 ; AC = 7,5 ; BC = 7 : les trois rapports valent 0,4.",
+        "explication": {
+          "resume": "Quand une droite parallèle à un côté coupe les deux autres côtés d'un triangle, elle forme un petit triangle dont les côtés sont proportionnels à ceux du grand.",
+          "lecture": [
+            "Le grand triangle est $ABC$ ; le petit triangle $AMN$ a le même sommet $A$.",
+            "Les deux segments mis en évidence, $[MN]$ et $[BC]$, sont parallèles."
+          ],
+          "observations": [
+            "$\\dfrac{AM}{AB} = \\dfrac{2{,}6}{6{,}5} = 0{,}4$ ; $\\dfrac{AN}{AC} = \\dfrac{3}{7{,}5} = 0{,}4$ ; $\\dfrac{MN}{BC} = \\dfrac{2{,}8}{7} = 0{,}4$.",
+            "Les trois rapports sont égaux : les longueurs du petit triangle sont proportionnelles à celles du grand.",
+            "Au numérateur : les côtés du petit triangle ; au dénominateur : les côtés correspondants du grand."
+          ],
+          "pieges": [
+            "Écrire $\\dfrac{AM}{MB}$ : $MB$ n'est pas un côté du grand triangle. Les rapports comparent $AM$ à $AB$, pas à $MB$."
+          ],
+          "aRetenir": [
+            "Petit triangle au numérateur, grand triangle au dénominateur.",
+            "Les côtés qui se correspondent sont « en face » des mêmes sommets."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        49101,
+        49102,
+        49104
+      ],
+      "topic_id": "thales-configuration-rapports",
+      "proprietes": [
+        "Si $M \\in [AB]$, $N \\in [AC]$ et $(MN) \\parallel (BC)$, alors $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$."
+      ],
+      "vocabulaire_associe": [
+        "théorème de Thalès",
+        "triangles emboîtés",
+        "parallèles",
+        "rapport",
+        "côtés correspondants",
+        "proportionnel"
+      ],
+      "synonymes": [
+        "Thalès",
+        "égalité de Thalès",
+        "triangles emboîtés"
+      ],
+      "objectifs_pedagogiques": [
+        "Reconnaître une configuration de triangles emboîtés.",
+        "Identifier les côtés correspondants.",
+        "Écrire l'égalité des trois rapports.",
+        "Vérifier les hypothèses du théorème."
+      ],
+      "prerequis": [
+        "Proportionnalité",
+        "Droites parallèles",
+        "Fractions"
+      ],
+      "notions_liees": [
+        "thales-calculer-longueur",
+        "thales-reciproque"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie",
+        "Thalès",
+        "proportionnalité",
+        "triangles"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "thales-configuration-rapports-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Retrouver la configuration, éviter l'erreur MB",
+          "description": "Deux exemples rédigés : écrire l'égalité dans une figure aux lettres inhabituelles, et comprendre pourquoi $\\dfrac{AM}{MB}$ ne convient pas."
+        },
+        {
+          "id": "thales-configuration-rapports-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Le coefficient décrit toute la figure",
+          "description": "Un exemple qui exprime toutes les longueurs à partir du seul rapport $\\dfrac{2}{5}$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel côté du grand triangle correspond à $[AN]$ ?",
+          "piste": "$[AC]$."
+        },
+        {
+          "apres": "methode",
+          "question": "Dans $EFG$ avec $H \\in [EF]$, $K \\in [EG]$, $(HK) \\parallel (FG)$ : quel est le premier rapport ?",
+          "piste": "$\\dfrac{EH}{EF}$."
+        }
+      ]
+    },
+    {
+      "id": "thales-calculer-longueur",
+      "title": "Calculer une longueur avec le théorème de Thalès",
+      "schemaVersion": 2,
+      "intro": "Le théorème de Thalès sert surtout à calculer des longueurs : si l'on connaît trois longueurs bien placées, on calcule la quatrième par un produit en croix.",
+      "pourquoi": "C'est ainsi qu'on mesure des distances inaccessibles : la hauteur d'un bâtiment à partir de son ombre, la largeur d'une rivière, la longueur d'une poutre de charpente.",
+      "explicationSimple": "Si $\\dfrac{AM}{AB} = \\dfrac{2}{5}$ et $BC = 10$ cm, alors $MN = \\dfrac{2}{5} \\times 10 = 4$ cm.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer une longueur manquante dans une configuration de Thalès, rédiger le raisonnement complet et calculer une longueur par différence ($MB = AB - AM$).",
+      "definition": "Dans une configuration de Thalès ($M \\in [AB]$, $N \\in [AC]$, $(MN) \\parallel (BC)$), l'égalité $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$ permet de calculer une longueur inconnue dès qu'un rapport est entièrement connu : on garde ce rapport et celui qui contient l'inconnue, puis on applique le produit en croix.",
+      "definitions": {
+        "college": "On écrit les trois rapports, on remplace par les longueurs connues, on garde deux rapports (dont un complet) et on fait un produit en croix.",
+        "lycee": "Dans une configuration de Thalès ($M \\in [AB]$, $N \\in [AC]$, $(MN) \\parallel (BC)$), l'égalité $\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}$ permet de calculer une longueur inconnue dès qu'un rapport est entièrement connu : on garde ce rapport et celui qui contient l'inconnue, puis on applique le produit en croix."
+      },
+      "intuition": "Un rapport complètement connu donne le coefficient de réduction ; il suffit ensuite de l'appliquer à la longueur qu'on veut transformer.",
+      "reglesImportantes": [
+        "Rédaction : on cite les hypothèses (points alignés, droites parallèles), puis on écrit l'égalité de Thalès.",
+        "On remplace les longueurs connues ; on garde le rapport entièrement connu et celui qui contient l'inconnue.",
+        "Produit en croix : si $\\dfrac{a}{b} = \\dfrac{x}{c}$, alors $x = \\dfrac{a \\times c}{b}$.",
+        "Si l'énoncé donne $MB$ ou $NC$, on calcule d'abord $AB = AM + MB$ ou $AC = AN + NC$.",
+        "On contrôle : une longueur du petit triangle doit être plus petite que la longueur correspondante du grand."
+      ],
+      "formules": [
+        {
+          "id": "formule-produit-croix-thales",
+          "nom": "Produit en croix",
+          "expression": "$\\dfrac{AM}{AB} = \\dfrac{MN}{BC} \\Rightarrow MN = \\dfrac{AM \\times BC}{AB}$",
+          "quand_utiliser": "Pour calculer une longueur du petit triangle.",
+          "erreur_frequente": "Multiplier les deux longueurs d'un même rapport.",
+          "astuce": "On multiplie « en diagonale » et on divise par la longueur restante."
+        },
+        {
+          "id": "formule-grand-cote",
+          "nom": "Longueur du grand triangle",
+          "expression": "$\\dfrac{AM}{AB} = \\dfrac{MN}{BC} \\Rightarrow BC = \\dfrac{MN \\times AB}{AM}$",
+          "quand_utiliser": "Pour calculer une longueur du grand triangle.",
+          "erreur_frequente": "Obtenir une longueur du grand triangle plus petite que celle du petit.",
+          "astuce": "Contrôle : $BC > MN$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer une longueur avec Thalès",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'écris les hypothèses : les points alignés et les droites parallèles."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris l'égalité des trois rapports et je remplace les longueurs connues."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je garde deux rapports, dont un entièrement connu, et je fais un produit en croix."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que le résultat est cohérent (petit < grand) et je conclus avec l'unité."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris les hypothèses : les points alignés et les droites parallèles."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris l'égalité des trois rapports et je remplace les longueurs connues."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je garde deux rapports, dont un entièrement connu, et je fais un produit en croix."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que le résultat est cohérent (petit < grand) et je conclus avec l'unité."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je recopie : « $M \\in [AB]$, $N \\in [AC]$ et $(MN) \\parallel (BC)$ »."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris les trois fractions et je remplace par les nombres que je connais."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je choisis la fraction complète et celle avec l'inconnue."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je calcule avec le produit en croix et j'écris l'unité."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Hypothèses, égalité des rapports, produit en croix."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Contrôle : petit < grand."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-calculer-mn",
+          "titre": "Exemple 1 — Une longueur du petit triangle",
+          "enonce": "Dans le triangle $ABC$, $M \\in [AB]$, $N \\in [AC]$, $(MN) \\parallel (BC)$, $AM = 3$ cm, $AB = 7{,}5$ cm et $BC = 10$ cm. Calculer $MN$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = \\dfrac{MN}{BC}",
+              "texte": "Les points $A$, $M$, $B$ et $A$, $N$, $C$ sont alignés et $(MN) \\parallel (BC)$ : d'après le théorème de Thalès,"
+            },
+            {
+              "expr": "\\dfrac{3}{7{,}5} = \\dfrac{MN}{10}",
+              "texte": "On remplace :"
+            },
+            {
+              "expr": "MN = \\dfrac{3 \\times 10}{7{,}5} = 4 \\text{ cm}",
+              "texte": "Produit en croix :"
+            }
+          ],
+          "reponse": "$MN = 4$ cm.",
+          "conclusion": "Contrôle : $MN = 4 < BC = 10$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-calculer-ac",
+          "titre": "Exemple 2 — Une longueur du grand triangle",
+          "enonce": "Même configuration avec $AM = 4$ cm, $AB = 10$ cm et $AN = 3{,}2$ cm. Calculer $AC$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{AM}{AB} = \\dfrac{AN}{AC}",
+              "texte": "D'après le théorème de Thalès :"
+            },
+            {
+              "expr": "\\dfrac{4}{10} = \\dfrac{3{,}2}{AC}",
+              "texte": "On remplace :"
+            },
+            {
+              "expr": "AC = \\dfrac{10 \\times 3{,}2}{4} = 8 \\text{ cm}",
+              "texte": "Produit en croix :"
+            }
+          ],
+          "reponse": "$AC = 8$ cm.",
+          "conclusion": "Contrôle : $AC = 8 > AN = 3{,}2$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-par-difference",
+          "titre": "Exemple 3 — Une longueur par différence",
+          "enonce": "$M \\in [AB]$, $N \\in [AC]$, $(MN) \\parallel (BC)$, $AM = 5$ cm, $MB = 3$ cm et $AN = 6$ cm. Calculer $AC$ puis $NC$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$AB = AM + MB = 8$ cm."
+            },
+            {
+              "expr": "\\dfrac{5}{8} = \\dfrac{6}{AC} \\quad \\text{donc} \\quad AC = \\dfrac{8 \\times 6}{5} = 9{,}6 \\text{ cm}",
+              "texte": "Thalès :"
+            },
+            {
+              "expr": "",
+              "texte": "$NC = AC - AN = 9{,}6 - 6 = 3{,}6$ cm."
+            }
+          ],
+          "reponse": "$AC = 9{,}6$ cm et $NC = 3{,}6$ cm.",
+          "conclusion": "On ne met jamais $MB$ dans les rapports : on calcule d'abord $AB$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-ombre-arbre",
+          "titre": "Exemple 4 — La hauteur d'un arbre",
+          "enonce": "Un bâton vertical de $1{,}5$ m a une ombre de $2$ m ; au même moment, l'ombre d'un arbre mesure $12$ m. Les rayons du soleil sont parallèles. Quelle est la hauteur de l'arbre ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "L'extrémité des ombres et les pieds sont alignés ; le bâton et l'arbre sont verticaux, donc parallèles : configuration de Thalès."
+            },
+            {
+              "expr": "\\dfrac{2}{12} = \\dfrac{1{,}5}{h}",
+              "texte": "Rapports :"
+            },
+            {
+              "expr": "h = \\dfrac{12 \\times 1{,}5}{2} = 9 \\text{ m}",
+              "texte": "Produit en croix :"
+            }
+          ],
+          "reponse": "L'arbre mesure $9$ m.",
+          "conclusion": "Thalès permet de mesurer une hauteur inaccessible avec un simple bâton.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-calculs",
+          "titre": "Exemple 5 — Deux longueurs et un périmètre",
+          "enonce": "Dans $ABC$, $M \\in [AB]$, $N \\in [AC]$, $(MN) \\parallel (BC)$, $AB = 12$ cm, $AC = 9$ cm, $BC = 15$ cm et $AM = 8$ cm. Calculer le périmètre du triangle $AMN$ et celui du trapèze $MNCB$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Rapport : $\\dfrac{AM}{AB} = \\dfrac{8}{12} = \\dfrac{2}{3}$."
+            },
+            {
+              "expr": "",
+              "texte": "$AN = \\dfrac{2}{3} \\times 9 = 6$ cm et $MN = \\dfrac{2}{3} \\times 15 = 10$ cm ; périmètre de $AMN$ : $8 + 6 + 10 = 24$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Trapèze : $MB = 4$, $NC = 3$ ; périmètre : $10 + 3 + 15 + 4 = 32$ cm."
+            }
+          ],
+          "reponse": "Périmètre de $AMN$ : $24$ cm ; périmètre de $MNCB$ : $32$ cm.",
+          "conclusion": "Le périmètre du petit triangle est aussi multiplié par $\\dfrac{2}{3}$ : $36 \\times \\dfrac{2}{3} = 24$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Mesurer la hauteur d'un arbre grâce à son ombre.",
+        "Calculer la longueur d'une barre de renfort.",
+        "Estimer une distance inaccessible."
+      ],
+      "erreursFrequentes": [
+        "Utiliser $MB$ au lieu de $AB$.",
+        "Garder deux rapports qui contiennent chacun une inconnue.",
+        "Se tromper dans le produit en croix.",
+        "Oublier de justifier l'utilisation du théorème."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Utiliser $MB$ au lieu de $AB$.",
+          "pourquoi": "On lit directement les longueurs sur la figure.",
+          "comment_detecter": "As-tu la longueur du côté complet ?",
+          "comment_eviter": "Calcule d'abord $AB = AM + MB$."
+        },
+        {
+          "description": "Garder deux rapports qui contiennent chacun une inconnue.",
+          "pourquoi": "On choisit mal les rapports.",
+          "comment_detecter": "Un de tes deux rapports est-il entièrement connu ?",
+          "comment_eviter": "Garde le rapport complet et celui de l'inconnue."
+        },
+        {
+          "description": "Se tromper dans le produit en croix.",
+          "pourquoi": "On multiplie les deux nombres d'une même fraction.",
+          "comment_detecter": "Le résultat respecte-t-il « petit < grand » ?",
+          "comment_eviter": "Multiplie en diagonale, divise par le nombre restant."
+        },
+        {
+          "description": "Oublier de justifier l'utilisation du théorème.",
+          "pourquoi": "On écrit directement les calculs.",
+          "comment_detecter": "As-tu cité l'alignement et le parallélisme ?",
+          "comment_eviter": "Commence par « Les points … sont alignés et les droites … sont parallèles »."
+        }
+      ],
+      "astuce": "Avant de calculer, estime : si le petit triangle semble deux fois plus petit, la longueur cherchée doit être environ la moitié de la longueur correspondante.",
+      "aRetenir": [
+        "Hypothèses, égalité des rapports, produit en croix.",
+        "Côtés complets du grand triangle au dénominateur.",
+        "Contrôle : une longueur du petit triangle est plus petite que celle du grand."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "AM/AB = AN/AC = MN/BC",
+            "sousTitre": "Égalité de Thalès"
+          },
+          {
+            "titre": "2,6 / 6,5 = MN / 7",
+            "sousTitre": "On garde les rapports utiles"
+          },
+          {
+            "titre": "MN = 7 × 2,6 ÷ 6,5",
+            "sousTitre": "Produit en croix"
+          },
+          {
+            "titre": "MN = 2,8 cm",
+            "sousTitre": "Résultat"
+          }
+        ],
+        "steps": [
+          "Les rapports",
+          "Le produit en croix",
+          "Le résultat"
+        ],
+        "relation": "$\\dfrac{2{,}6}{6{,}5} = \\dfrac{MN}{7}$ donc $MN = \\dfrac{7 \\times 2{,}6}{6{,}5} = 2{,}8$ cm",
+        "alt": "Chaîne : AM/AB = AN/AC = MN/BC, puis 2,6/6,5 = MN/7, puis MN = 7 × 2,6 ÷ 6,5 = 2,8 cm.",
+        "explication": {
+          "resume": "Pour calculer une longueur, on écrit l'égalité des trois rapports, on remplace par les longueurs connues, puis on garde les deux rapports qui contiennent une seule inconnue et on fait un produit en croix.",
+          "lecture": [
+            "On lit la chaîne de gauche à droite."
+          ],
+          "observations": [
+            "Le rapport $\\dfrac{AN}{AC}$ n'est pas utile ici : on n'en a pas besoin pour calculer $MN$.",
+            "Le produit en croix donne $MN = \\dfrac{7 \\times 2{,}6}{6{,}5}$.",
+            "Contrôle : $MN < BC$, car le petit triangle est une réduction du grand."
+          ],
+          "pieges": [
+            "Remplacer $AB$ par $MB$ : il faut la longueur entière du côté du grand triangle."
+          ],
+          "aRetenir": [
+            "Écrire les trois rapports, remplacer, garder deux rapports, produit en croix."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        49201,
+        49202,
+        49204
+      ],
+      "topic_id": "thales-calculer-longueur",
+      "proprietes": [
+        "$MN = \\dfrac{AM \\times BC}{AB}$ dans une configuration de Thalès."
+      ],
+      "vocabulaire_associe": [
+        "théorème de Thalès",
+        "produit en croix",
+        "longueur",
+        "hypothèse",
+        "rapport"
+      ],
+      "synonymes": [
+        "calculer avec Thalès",
+        "longueur manquante Thalès"
+      ],
+      "objectifs_pedagogiques": [
+        "Rédiger l'utilisation du théorème.",
+        "Calculer une longueur par produit en croix.",
+        "Calculer une longueur par différence.",
+        "Résoudre un problème de hauteur inaccessible."
+      ],
+      "prerequis": [
+        "Configuration de Thalès et égalité des rapports",
+        "Calculer une quatrième proportionnelle"
+      ],
+      "notions_liees": [
+        "thales-configuration-rapports",
+        "thales-reciproque",
+        "agrandissement-reduction"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie",
+        "Thalès",
+        "calcul de longueur"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "thales-calculer-longueur-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Longueur par différence, hauteur d'un arbre",
+          "description": "Deux exemples rédigés : calculer $AC$ quand l'énoncé donne $MB$, et mesurer la hauteur d'un arbre grâce aux ombres."
+        },
+        {
+          "id": "thales-calculer-longueur-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Périmètres du triangle et du trapèze",
+          "description": "Un exemple qui calcule deux longueurs puis deux périmètres dans la même configuration."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Avec $AM = 2{,}6$, $AB = 6{,}5$ et $AC = 7{,}5$, combien vaut $AN$ ?",
+          "piste": "$AN = 7{,}5 \\times 0{,}4 = 3$."
+        },
+        {
+          "apres": "methode",
+          "question": "Si $\\dfrac{AM}{AB} = \\dfrac{1}{3}$ et $BC = 12$, combien vaut $MN$ ?",
+          "piste": "$4$."
+        }
+      ]
+    },
+    {
+      "id": "thales-reciproque",
+      "title": "Réciproque du théorème de Thalès : démontrer un parallélisme",
+      "schemaVersion": 2,
+      "intro": "Le théorème de Thalès part du parallélisme pour obtenir des rapports égaux. Sa réciproque fait l'inverse : à partir de rapports égaux, elle permet de démontrer que deux droites sont parallèles.",
+      "pourquoi": "Démontrer un parallélisme est utile en construction (une étagère est-elle bien horizontale ?), en architecture et dans de nombreux problèmes de géométrie.",
+      "explicationSimple": "Sur une échelle double, on fixe une tablette à $\\dfrac{1}{3}$ de la longueur de chaque montant depuis le sommet : la tablette est forcément parallèle au sol.",
+      "objectif": "À la fin de cette leçon, tu sauras utiliser la réciproque du théorème de Thalès pour démontrer que deux droites sont parallèles, et le théorème direct pour démontrer qu'elles ne le sont pas.",
+      "definition": "Réciproque du théorème de Thalès (triangles emboîtés). Soit $ABC$ un triangle, $M$ un point du segment $[AB]$ et $N$ un point du segment $[AC]$. Si $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$, alors les droites $(MN)$ et $(BC)$ sont parallèles. À l'inverse, si $\\dfrac{AM}{AB} \\neq \\dfrac{AN}{AC}$, les droites $(MN)$ et $(BC)$ ne sont pas parallèles (sinon, d'après le théorème de Thalès, les rapports seraient égaux).",
+      "definitions": {
+        "college": "Si $M$ est sur $[AB]$, $N$ sur $[AC]$ et $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$, alors $(MN)$ et $(BC)$ sont parallèles. Si les deux rapports sont différents, elles ne le sont pas.",
+        "lycee": "Réciproque du théorème de Thalès (triangles emboîtés). Soit $ABC$ un triangle, $M$ un point du segment $[AB]$ et $N$ un point du segment $[AC]$. Si $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$, alors les droites $(MN)$ et $(BC)$ sont parallèles. À l'inverse, si $\\dfrac{AM}{AB} \\neq \\dfrac{AN}{AC}$, les droites $(MN)$ et $(BC)$ ne sont pas parallèles (sinon, d'après le théorème de Thalès, les rapports seraient égaux)."
+      },
+      "intuition": "Deux rapports égaux signifient que $M$ et $N$ sont « au même niveau » sur leurs côtés : le segment $[MN]$ est donc « horizontal » par rapport à $[BC]$.",
+      "reglesImportantes": [
+        "Pour démontrer un parallélisme, on calcule séparément $\\dfrac{AM}{AB}$ et $\\dfrac{AN}{AC}$, puis on les compare.",
+        "Les deux rapports se calculent indépendamment ; on n'écrit pas l'égalité avant de l'avoir démontrée.",
+        "On n'utilise pas le rapport $\\dfrac{MN}{BC}$ : il fait intervenir les droites dont on étudie le parallélisme.",
+        "Il faut que $M \\in [AB]$ et $N \\in [AC]$ (points dans le même ordre sur les deux côtés).",
+        "Si les rapports sont différents, on conclut avec le théorème de Thalès (par l'absurde) que les droites ne sont pas parallèles."
+      ],
+      "formules": [
+        {
+          "id": "formule-reciproque",
+          "nom": "Réciproque",
+          "expression": "$\\dfrac{AM}{AB} = \\dfrac{AN}{AC} \\Rightarrow (MN) \\parallel (BC)$",
+          "quand_utiliser": "Pour démontrer que deux droites sont parallèles.",
+          "erreur_frequente": "Écrire directement l'égalité des rapports comme une évidence.",
+          "astuce": "Calcule chaque rapport sur une ligne séparée."
+        },
+        {
+          "id": "formule-comparer-fractions",
+          "nom": "Comparer deux rapports",
+          "expression": "$\\dfrac{a}{b} = \\dfrac{c}{d} \\iff a \\times d = b \\times c$",
+          "quand_utiliser": "Pour comparer deux rapports sans calculatrice.",
+          "erreur_frequente": "Comparer des valeurs arrondies.",
+          "astuce": "Utilise les produits en croix ou des fractions irréductibles."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Démontrer que deux droites sont parallèles",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je vérifie que $M \\in [AB]$ et $N \\in [AC]$."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je calcule $\\dfrac{AM}{AB}$ d'un côté et $\\dfrac{AN}{AC}$ de l'autre."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je compare les deux rapports (valeurs exactes ou produits en croix)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Égaux : réciproque, droites parallèles. Différents : théorème de Thalès, droites non parallèles."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je vérifie que $M \\in [AB]$ et $N \\in [AC]$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule $\\dfrac{AM}{AB}$ d'un côté et $\\dfrac{AN}{AC}$ de l'autre."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je compare les deux rapports (valeurs exactes ou produits en croix)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Égaux : réciproque, droites parallèles. Différents : théorème de Thalès, droites non parallèles."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère les deux points alignés sur chaque côté."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule le premier rapport."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule le second rapport, séparément."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "S'ils sont égaux, les droites sont parallèles."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Calculer $\\dfrac{AM}{AB}$ et $\\dfrac{AN}{AC}$ séparément."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Égaux : parallèles ; différents : non parallèles."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-reciproque-oui",
+          "titre": "Exemple 1 — Des droites parallèles",
+          "enonce": "$M \\in [AB]$ et $N \\in [AC]$, avec $AM = 2{,}6$ cm, $AB = 6{,}5$ cm, $AN = 3$ cm et $AC = 7{,}5$ cm. Les droites $(MN)$ et $(BC)$ sont-elles parallèles ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{AM}{AB} = \\dfrac{2{,}6}{6{,}5} = 0{,}4$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{AN}{AC} = \\dfrac{3}{7{,}5} = 0{,}4$."
+            },
+            {
+              "expr": "",
+              "texte": "Les rapports sont égaux et les points sont alignés dans le même ordre."
+            }
+          ],
+          "reponse": "D'après la réciproque du théorème de Thalès, $(MN) \\parallel (BC)$.",
+          "conclusion": "On a calculé chaque rapport séparément avant de comparer.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-reciproque-non",
+          "titre": "Exemple 2 — Des droites non parallèles",
+          "enonce": "$M \\in [AB]$ et $P \\in [AC]$, avec $AM = 2{,}6$ cm, $AB = 6{,}5$ cm, $AP = 4{,}5$ cm et $AC = 7{,}5$ cm. Les droites $(MP)$ et $(BC)$ sont-elles parallèles ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{AM}{AB} = 0{,}4$ et $\\dfrac{AP}{AC} = \\dfrac{4{,}5}{7{,}5} = 0{,}6$."
+            },
+            {
+              "expr": "",
+              "texte": "$0{,}4 \\neq 0{,}6$."
+            }
+          ],
+          "reponse": "Si $(MP)$ et $(BC)$ étaient parallèles, les rapports seraient égaux d'après le théorème de Thalès : elles ne sont donc pas parallèles.",
+          "conclusion": "Pour conclure « non parallèles », on utilise le théorème direct.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-reciproque-fractions",
+          "titre": "Exemple 3 — Avec des fractions",
+          "enonce": "$E \\in [RS]$ et $F \\in [RT]$, avec $RE = 4$, $RS = 7$, $RF = 6$ et $RT = 10{,}5$. Les droites $(EF)$ et $(ST)$ sont-elles parallèles ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{RE}{RS} = \\dfrac{4}{7}$ et $\\dfrac{RF}{RT} = \\dfrac{6}{10{,}5} = \\dfrac{12}{21} = \\dfrac{4}{7}$."
+            },
+            {
+              "expr": "",
+              "texte": "Produits en croix : $4 \\times 10{,}5 = 42$ et $7 \\times 6 = 42$."
+            }
+          ],
+          "reponse": "Les rapports sont égaux : $(EF) \\parallel (ST)$ d'après la réciproque du théorème de Thalès.",
+          "conclusion": "Avec des valeurs arrondies ($0{,}571$), on ne pourrait pas conclure : il faut des valeurs exactes.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-etagere",
+          "titre": "Exemple 4 — Une étagère",
+          "enonce": "Une étagère en forme de triangle a deux montants $[AB]$ et $[AC]$ de $1{,}8$ m et $1{,}5$ m. Une planche est fixée en $M$ sur $[AB]$ à $1{,}2$ m de $A$, et en $N$ sur $[AC]$ à $1$ m de $A$. La planche est-elle parallèle à la base $[BC]$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{AM}{AB} = \\dfrac{1{,}2}{1{,}8} = \\dfrac{2}{3}$ et $\\dfrac{AN}{AC} = \\dfrac{1}{1{,}5} = \\dfrac{2}{3}$."
+            },
+            {
+              "expr": "",
+              "texte": "Les rapports sont égaux."
+            }
+          ],
+          "reponse": "La planche est parallèle à la base, d'après la réciproque du théorème de Thalès.",
+          "conclusion": "Si la base est horizontale, la planche l'est aussi.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-trouver-position",
+          "titre": "Exemple 5 — Placer un point pour obtenir un parallélisme",
+          "enonce": "Dans le triangle $ABC$, $AB = 9$ cm, $AC = 12$ cm et $M \\in [AB]$ avec $AM = 6$ cm. Où placer $N$ sur $[AC]$ pour que $(MN) \\parallel (BC)$ ? Justifier que la position est unique.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Il faut $\\dfrac{AN}{AC} = \\dfrac{AM}{AB} = \\dfrac{6}{9} = \\dfrac{2}{3}$, donc $AN = \\dfrac{2}{3} \\times 12 = 8$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Réciproque : avec $AN = 8$, les rapports sont égaux, donc $(MN) \\parallel (BC)$."
+            },
+            {
+              "expr": "",
+              "texte": "Théorème direct : si $(MN) \\parallel (BC)$, alors forcément $AN = 8$ cm. La position est unique."
+            }
+          ],
+          "reponse": "On place $N$ sur $[AC]$ à $8$ cm de $A$ ; c'est la seule position possible.",
+          "conclusion": "Le théorème et sa réciproque ensemble donnent une condition nécessaire et suffisante.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Vérifier qu'une étagère est parallèle à la base d'un meuble.",
+        "Contrôler un tracé de plan.",
+        "Placer une barre de renfort parallèle."
+      ],
+      "erreursFrequentes": [
+        "Écrire l'égalité des rapports avant de l'avoir vérifiée.",
+        "Utiliser $\\dfrac{MN}{BC}$ dans la réciproque.",
+        "Comparer des valeurs arrondies.",
+        "Conclure « non parallèles » avec la réciproque."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire l'égalité des rapports avant de l'avoir vérifiée.",
+          "pourquoi": "On recopie la formule du théorème direct.",
+          "comment_detecter": "As-tu calculé chaque rapport séparément ?",
+          "comment_eviter": "Calcule $\\dfrac{AM}{AB}$, puis $\\dfrac{AN}{AC}$, puis compare."
+        },
+        {
+          "description": "Utiliser $\\dfrac{MN}{BC}$ dans la réciproque.",
+          "pourquoi": "On pense qu'il faut les trois rapports.",
+          "comment_detecter": "Ce rapport contient-il les droites dont on étudie le parallélisme ?",
+          "comment_eviter": "Seuls $\\dfrac{AM}{AB}$ et $\\dfrac{AN}{AC}$ sont utilisés."
+        },
+        {
+          "description": "Comparer des valeurs arrondies.",
+          "pourquoi": "La calculatrice affiche $0{,}571\\ldots$ et $0{,}57$.",
+          "comment_detecter": "Tes deux valeurs sont-elles exactes ?",
+          "comment_eviter": "Compare des fractions ou fais les produits en croix."
+        },
+        {
+          "description": "Conclure « non parallèles » avec la réciproque.",
+          "pourquoi": "On confond les deux théorèmes.",
+          "comment_detecter": "Quel théorème permet de conclure quand les rapports sont différents ?",
+          "comment_eviter": "Rapports différents : c'est le théorème direct (par l'absurde) qui conclut."
+        }
+      ],
+      "astuce": "Pour comparer $\\dfrac{a}{b}$ et $\\dfrac{c}{d}$ sans erreur d'arrondi, compare les produits en croix $a \\times d$ et $b \\times c$.",
+      "aRetenir": [
+        "Rapports égaux $\\Rightarrow$ droites parallèles (réciproque).",
+        "Rapports différents $\\Rightarrow$ droites non parallèles (théorème direct).",
+        "Calculer chaque rapport séparément, avec des valeurs exactes."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.2,
+          -1.2,
+          9.4,
+          8.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 2.5,
+            "y": 6.0,
+            "label": "A"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 7.0,
+            "y": 0.0,
+            "label": "C"
+          },
+          {
+            "x": 1.5,
+            "y": 3.6,
+            "label": "M"
+          },
+          {
+            "x": 4.3,
+            "y": 3.6,
+            "label": "N"
+          },
+          {
+            "x": 5.2,
+            "y": 2.4,
+            "label": "P"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B"
+          },
+          {
+            "from": "A",
+            "to": "C"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "variant": "hypotenuse"
+          },
+          {
+            "from": "M",
+            "to": "N",
+            "variant": "hypotenuse",
+            "reveal": 2,
+            "tooltip": "AM/AB = AN/AC = 0,4 : (MN) // (BC)"
+          },
+          {
+            "from": "M",
+            "to": "P",
+            "reveal": 3,
+            "tooltip": "AM/AB = 0,4 mais AP/AC = 0,6 : (MP) n'est pas parallèle à (BC)",
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 5.6,
+            "y": 3.2,
+            "label": "AP = 4,5",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Les points alignés",
+          "Rapports égaux : parallèles",
+          "Rapports différents : pas parallèles"
+        ],
+        "relation": "$\\dfrac{AM}{AB} = \\dfrac{AN}{AC} = 0{,}4$ donc $(MN) \\parallel (BC)$ ; $\\dfrac{AP}{AC} = 0{,}6 \\neq 0{,}4$ donc $(MP)$ n'est pas parallèle à $(BC)$",
+        "alt": "Triangle ABC avec M sur [AB], N et P sur [AC] : AM/AB = AN/AC = 0,4 donc (MN) est parallèle à (BC) ; AP/AC = 0,6 donc (MP) ne l'est pas.",
+        "explication": {
+          "resume": "La réciproque du théorème de Thalès permet de démontrer que deux droites sont parallèles : il suffit que les points soient alignés dans le même ordre et que deux rapports soient égaux.",
+          "lecture": [
+            "$M$ est sur $[AB]$ ; $N$ et $P$ sont sur $[AC]$.",
+            "Le segment $[MN]$ est mis en évidence ; le segment $[MP]$ est en pointillés."
+          ],
+          "observations": [
+            "$\\dfrac{AM}{AB} = 0{,}4$ et $\\dfrac{AN}{AC} = 0{,}4$ : égalité, donc $(MN) \\parallel (BC)$.",
+            "$\\dfrac{AP}{AC} = \\dfrac{4{,}5}{7{,}5} = 0{,}6 \\neq 0{,}4$ : $(MP)$ n'est pas parallèle à $(BC)$.",
+            "On compare $\\dfrac{AM}{AB}$ et $\\dfrac{AN}{AC}$, jamais le troisième rapport (qui contient la longueur des droites à étudier)."
+          ],
+          "pieges": [
+            "Conclure au parallélisme « parce que ça se voit » : il faut calculer et comparer deux rapports."
+          ],
+          "aRetenir": [
+            "Rapports égaux et points alignés dans le même ordre : droites parallèles.",
+            "Rapports différents : droites non parallèles (par le théorème direct)."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        49301,
+        49302,
+        49304
+      ],
+      "topic_id": "thales-reciproque",
+      "proprietes": [
+        "Si $M \\in [AB]$, $N \\in [AC]$ et $\\dfrac{AM}{AB} = \\dfrac{AN}{AC}$, alors $(MN) \\parallel (BC)$."
+      ],
+      "vocabulaire_associe": [
+        "réciproque",
+        "parallèles",
+        "rapport",
+        "produit en croix",
+        "démontrer"
+      ],
+      "synonymes": [
+        "réciproque de Thalès",
+        "démontrer que deux droites sont parallèles avec Thalès"
+      ],
+      "objectifs_pedagogiques": [
+        "Énoncer la réciproque du théorème de Thalès.",
+        "Démontrer que deux droites sont parallèles.",
+        "Démontrer que deux droites ne sont pas parallèles.",
+        "Comparer des rapports avec des valeurs exactes."
+      ],
+      "prerequis": [
+        "Calculer une longueur avec le théorème de Thalès",
+        "Comparer des fractions"
+      ],
+      "notions_liees": [
+        "thales-calculer-longueur",
+        "thales-configuration-rapports"
+      ],
+      "difficulte": "difficile",
+      "tags": [
+        "géométrie",
+        "Thalès",
+        "réciproque",
+        "parallélisme"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "thales-reciproque-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Fractions exactes et étagère",
+          "description": "Deux exemples rédigés : comparer des rapports en fractions, et vérifier qu'une planche est parallèle à une base."
+        },
+        {
+          "id": "thales-reciproque-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Placer un point pour obtenir le parallélisme",
+          "description": "Un exemple qui utilise le théorème et sa réciproque pour trouver l'unique position d'un point."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pourquoi $(MP)$ n'est-elle pas parallèle à $(BC)$ ?",
+          "piste": "Car $\\dfrac{AP}{AC} = 0{,}6 \\neq 0{,}4 = \\dfrac{AM}{AB}$."
+        },
+        {
+          "apres": "methode",
+          "question": "$\\dfrac{3}{5}$ et $\\dfrac{4{,}5}{7{,}5}$ sont-ils égaux ?",
+          "piste": "Oui : $3 \\times 7{,}5 = 22{,}5 = 5 \\times 4{,}5$."
+        }
+      ]
+    },
+    {
+      "id": "agrandissement-reduction",
+      "title": "Agrandissement et réduction",
+      "schemaVersion": 2,
+      "intro": "Dans une configuration de Thalès, le petit triangle est une réduction du grand. Plus généralement, un agrandissement ou une réduction multiplie toutes les longueurs par un même nombre $k$. Les aires, elles, sont multipliées par $k^2$.",
+      "pourquoi": "Plans, cartes, maquettes, photos agrandies : comprendre comment évoluent longueurs et aires évite des erreurs coûteuses (quantité de peinture, prix d'un terrain, taille d'une affiche).",
+      "explicationSimple": "Si l'on double les côtés d'un carré de $3$ cm, on obtient un carré de $6$ cm. Son aire passe de $9$ cm² à $36$ cm² : elle est multipliée par $4 = 2^2$, pas par $2$.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer et utiliser le rapport $k$ d'un agrandissement ou d'une réduction, et calculer l'effet sur les longueurs, les périmètres et les aires.",
+      "definition": "Un agrandissement ou une réduction de rapport $k$ ($k > 0$) est une transformation qui multiplie toutes les longueurs par $k$ et conserve les angles. Si $k > 1$, c'est un agrandissement ; si $0 < k < 1$, c'est une réduction. Les périmètres sont multipliés par $k$ et les aires par $k^2$. Dans une configuration de Thalès, le triangle $AMN$ est une réduction du triangle $ABC$ de rapport $k = \\dfrac{AM}{AB}$.",
+      "definitions": {
+        "college": "Agrandir ou réduire de rapport $k$, c'est multiplier toutes les longueurs par $k$. Les angles ne changent pas. Les aires sont multipliées par $k \\times k = k^2$.",
+        "lycee": "Un agrandissement ou une réduction de rapport $k$ ($k > 0$) est une transformation qui multiplie toutes les longueurs par $k$ et conserve les angles. Si $k > 1$, c'est un agrandissement ; si $0 < k < 1$, c'est une réduction. Les périmètres sont multipliés par $k$ et les aires par $k^2$. Dans une configuration de Thalès, le triangle $AMN$ est une réduction du triangle $ABC$ de rapport $k = \\dfrac{AM}{AB}$."
+      },
+      "intuition": "Une aire se mesure avec des petits carrés : quand on agrandit de rapport $2$, chaque petit carré devient un carré de côté double, qui contient $4$ petits carrés.",
+      "reglesImportantes": [
+        "Le rapport $k$ se calcule en divisant une longueur de la figure obtenue par la longueur correspondante de la figure de départ.",
+        "Toutes les longueurs (et les périmètres) sont multipliées par $k$.",
+        "Les aires sont multipliées par $k^2$.",
+        "Les angles, le parallélisme et les angles droits sont conservés.",
+        "$k > 1$ : agrandissement ; $0 < k < 1$ : réduction ; $k = 1$ : figure de même taille."
+      ],
+      "formules": [
+        {
+          "id": "formule-rapport-k",
+          "nom": "Rapport d'agrandissement-réduction",
+          "expression": "$k = \\dfrac{\\text{longueur obtenue}}{\\text{longueur de départ}}$",
+          "quand_utiliser": "Pour trouver le rapport à partir de deux longueurs correspondantes.",
+          "erreur_frequente": "Diviser dans le mauvais sens.",
+          "astuce": "Réduction : $k < 1$ ; agrandissement : $k > 1$."
+        },
+        {
+          "id": "formule-aire-k2",
+          "nom": "Effet sur les aires",
+          "expression": "$\\mathcal{A}' = k^2 \\times \\mathcal{A}$",
+          "quand_utiliser": "Pour calculer l'aire d'une figure agrandie ou réduite.",
+          "erreur_frequente": "Multiplier l'aire par $k$.",
+          "astuce": "Une aire est un produit de deux longueurs : $k \\times k$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Utiliser un rapport d'agrandissement ou de réduction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère deux longueurs correspondantes et je calcule $k$ (obtenue ÷ départ)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Pour une longueur ou un périmètre, je multiplie par $k$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Pour une aire, je multiplie par $k^2$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle : agrandissement, résultats plus grands ; réduction, plus petits."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère deux longueurs correspondantes et je calcule $k$ (obtenue ÷ départ)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Pour une longueur ou un périmètre, je multiplie par $k$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour une aire, je multiplie par $k^2$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle : agrandissement, résultats plus grands ; réduction, plus petits."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je trouve par combien on a multiplié une longueur."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je multiplie les autres longueurs par ce même nombre."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour une aire, je multiplie deux fois par ce nombre."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris l'unité (cm ou cm²)."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Longueurs $\\times k$, aires $\\times k^2$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Angles conservés."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-rapport-longueur",
+          "titre": "Exemple 1 — Trouver le rapport",
+          "enonce": "Une photo de $10$ cm sur $15$ cm est agrandie : la largeur passe à $25$ cm. Quel est le rapport ? Quelle est la nouvelle longueur ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$k = \\dfrac{25}{10} = 2{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "Nouvelle longueur : $15 \\times 2{,}5 = 37{,}5$ cm."
+            }
+          ],
+          "reponse": "Rapport $2{,}5$ ; la photo agrandie mesure $25$ cm sur $37{,}5$ cm.",
+          "conclusion": "$k > 1$ : c'est bien un agrandissement.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-aire-reduite",
+          "titre": "Exemple 2 — L'aire d'une réduction",
+          "enonce": "Un triangle a une aire de $21$ cm². On le réduit avec le rapport $0{,}4$. Quelle est l'aire du triangle réduit ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Les aires sont multipliées par $k^2 = 0{,}4^2 = 0{,}16$."
+            },
+            {
+              "expr": "",
+              "texte": "$21 \\times 0{,}16 = 3{,}36$ cm²."
+            }
+          ],
+          "reponse": "L'aire du triangle réduit est $3{,}36$ cm².",
+          "conclusion": "C'est le triangle $AMN$ de la figure.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-plan-maison",
+          "titre": "Exemple 3 — Un plan",
+          "enonce": "Sur un plan à l'échelle $\\dfrac{1}{50}$, une chambre est un rectangle de $8$ cm sur $6$ cm. Quelle est son aire réelle, en m² ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dimensions réelles : $8 \\times 50 = 400$ cm $= 4$ m et $6 \\times 50 = 300$ cm $= 3$ m."
+            },
+            {
+              "expr": "",
+              "texte": "Aire réelle : $4 \\times 3 = 12$ m²."
+            }
+          ],
+          "reponse": "La chambre a une aire de $12$ m².",
+          "conclusion": "Autre méthode : aire sur le plan $48$ cm², multipliée par $50^2 = 2\\,500$ : $120\\,000$ cm² $= 12$ m².",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-retrouver-k",
+          "titre": "Exemple 4 — Retrouver le rapport à partir des aires",
+          "enonce": "Un carré d'aire $16$ cm² est agrandi en un carré d'aire $100$ cm². Quel est le rapport d'agrandissement ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Rapport des aires : $\\dfrac{100}{16} = 6{,}25 = k^2$."
+            },
+            {
+              "expr": "",
+              "texte": "$k = 2{,}5$, car $2{,}5^2 = 6{,}25$ (côtés : $4$ cm puis $10$ cm)."
+            }
+          ],
+          "reponse": "Le rapport d'agrandissement est $2{,}5$.",
+          "conclusion": "Le rapport des aires est le carré du rapport des longueurs.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-thales-aire",
+          "titre": "Exemple 5 — Thalès et aires",
+          "enonce": "Dans le triangle $ABC$ d'aire $45$ cm², $M \\in [AB]$, $N \\in [AC]$, $(MN) \\parallel (BC)$ et $AM = \\dfrac{1}{3}AB$. Calculer l'aire du triangle $AMN$, puis celle du trapèze $MNCB$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "D'après Thalès, $AMN$ est une réduction de $ABC$ de rapport $k = \\dfrac{1}{3}$."
+            },
+            {
+              "expr": "",
+              "texte": "Aire de $AMN$ : $45 \\times \\left(\\dfrac{1}{3}\\right)^2 = 45 \\times \\dfrac{1}{9} = 5$ cm²."
+            },
+            {
+              "expr": "",
+              "texte": "Aire du trapèze : $45 - 5 = 40$ cm²."
+            }
+          ],
+          "reponse": "Aire de $AMN$ : $5$ cm² ; aire de $MNCB$ : $40$ cm².",
+          "conclusion": "Le petit triangle ne représente que $\\dfrac{1}{9}$ de l'aire, alors que ses côtés sont le tiers des côtés du grand.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Agrandir une photo ou une affiche.",
+        "Lire un plan de maison.",
+        "Construire une maquette."
+      ],
+      "erreursFrequentes": [
+        "Multiplier l'aire par $k$ au lieu de $k^2$.",
+        "Calculer $k$ dans le mauvais sens.",
+        "Croire que les angles sont multipliés par $k$.",
+        "Oublier de convertir les unités d'aire."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Multiplier l'aire par $k$ au lieu de $k^2$.",
+          "pourquoi": "On applique la même règle qu'aux longueurs.",
+          "comment_detecter": "Double les côtés d'un carré de $1$ cm : quelle aire obtiens-tu ?",
+          "comment_eviter": "Aires : $\\times k^2$."
+        },
+        {
+          "description": "Calculer $k$ dans le mauvais sens.",
+          "pourquoi": "On divise la longueur de départ par la longueur obtenue.",
+          "comment_detecter": "Agrandissement : $k$ est-il bien supérieur à $1$ ?",
+          "comment_eviter": "$k$ = longueur obtenue ÷ longueur de départ."
+        },
+        {
+          "description": "Croire que les angles sont multipliés par $k$.",
+          "pourquoi": "On généralise la règle des longueurs.",
+          "comment_detecter": "Un angle droit reste-t-il droit après agrandissement ?",
+          "comment_eviter": "Les angles sont conservés."
+        },
+        {
+          "description": "Oublier de convertir les unités d'aire.",
+          "pourquoi": "On confond cm² et m².",
+          "comment_detecter": "$1$ m² $= 10\\,000$ cm².",
+          "comment_eviter": "Convertis les longueurs avant de calculer l'aire, ou utilise $1$ m² $= 10\\,000$ cm²."
+        }
+      ],
+      "astuce": "Pour retenir la règle des aires, pense au carré de côté $1$ : agrandi de rapport $3$, il devient un carré de côté $3$, qui contient $3 \\times 3 = 9$ carrés de départ.",
+      "aRetenir": [
+        "Longueurs et périmètres $\\times k$.",
+        "Aires $\\times k^2$.",
+        "Angles conservés ; $k > 1$ agrandissement, $k < 1$ réduction."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.2,
+          -1.2,
+          9.4,
+          8.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 2.5,
+            "y": 6.0,
+            "label": "A"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 7.0,
+            "y": 0.0,
+            "label": "C"
+          },
+          {
+            "x": 1.5,
+            "y": 3.6,
+            "label": "M"
+          },
+          {
+            "x": 4.3,
+            "y": 3.6,
+            "label": "N"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              "A",
+              "B",
+              "C"
+            ],
+            "variant": "b",
+            "tooltip": "Triangle ABC : aire = 21 cm²"
+          },
+          {
+            "points": [
+              "A",
+              "M",
+              "N"
+            ],
+            "variant": "a",
+            "reveal": 2,
+            "tooltip": "Triangle AMN : réduction de rapport 0,4, aire = 3,36 cm²"
+          }
+        ],
+        "texts": [
+          {
+            "x": 3.5,
+            "y": 1.5,
+            "label": "aire 21 cm²"
+          },
+          {
+            "x": 2.6,
+            "y": 4.6,
+            "label": "× 0,4",
+            "reveal": 2
+          },
+          {
+            "x": 6.4,
+            "y": 5.6,
+            "label": "aire × 0,4² = 3,36 cm²",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Le grand triangle",
+          "Une réduction de rapport 0,4",
+          "L'aire est multipliée par 0,4²"
+        ],
+        "relation": "Réduction de rapport $k = 0{,}4$ : longueurs $\\times 0{,}4$, aire $\\times 0{,}4^2 = 0{,}16$ ; $21 \\times 0{,}16 = 3{,}36$ cm²",
+        "alt": "Triangle ABC d'aire 21 cm² et triangle AMN, réduction de rapport 0,4 : ses longueurs sont multipliées par 0,4 et son aire par 0,16, soit 3,36 cm².",
+        "explication": {
+          "resume": "Le petit triangle $AMN$ est une réduction du grand triangle $ABC$ de rapport $k = 0{,}4$ : toutes les longueurs sont multipliées par $k$, et l'aire est multipliée par $k^2$.",
+          "lecture": [
+            "Le grand triangle a une base $BC = 7$ cm et une hauteur $6$ cm : son aire vaut $21$ cm².",
+            "Le petit triangle a des côtés $0{,}4$ fois plus longs."
+          ],
+          "observations": [
+            "Base de $AMN$ : $2{,}8$ cm ; hauteur : $0{,}4 \\times 6 = 2{,}4$ cm ; aire : $\\dfrac{2{,}8 \\times 2{,}4}{2} = 3{,}36$ cm².",
+            "$\\dfrac{3{,}36}{21} = 0{,}16 = 0{,}4^2$.",
+            "Les angles sont conservés : les deux triangles ont la même forme."
+          ],
+          "pieges": [
+            "Multiplier l'aire par $k$ au lieu de $k^2$ : l'aire ne serait que $8{,}4$ cm², ce qui est faux."
+          ],
+          "aRetenir": [
+            "Longueurs $\\times k$ ; aires $\\times k^2$ ; angles conservés.",
+            "$k > 1$ : agrandissement ; $0 < k < 1$ : réduction."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        49401,
+        49402,
+        49404
+      ],
+      "topic_id": "agrandissement-reduction",
+      "proprietes": [
+        "Dans un agrandissement ou une réduction de rapport $k$, les aires sont multipliées par $k^2$."
+      ],
+      "vocabulaire_associe": [
+        "agrandissement",
+        "réduction",
+        "rapport",
+        "coefficient",
+        "aire",
+        "échelle"
+      ],
+      "synonymes": [
+        "agrandissement réduction",
+        "rapport k",
+        "coefficient d'agrandissement"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer un rapport d'agrandissement ou de réduction.",
+        "Calculer des longueurs et des périmètres.",
+        "Calculer des aires avec $k^2$.",
+        "Relier Thalès et réduction."
+      ],
+      "prerequis": [
+        "Configuration de Thalès et égalité des rapports",
+        "Aires usuelles",
+        "Puissances d'un nombre"
+      ],
+      "notions_liees": [
+        "thales-calculer-longueur",
+        "espace-agrandissement-volumes"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie",
+        "agrandissement",
+        "réduction",
+        "aires"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "agrandissement-reduction-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Plan de maison et rapport des aires",
+          "description": "Deux exemples rédigés : calculer une aire réelle à partir d'un plan, et retrouver le rapport à partir de deux aires."
+        },
+        {
+          "id": "agrandissement-reduction-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Thalès et aires",
+          "description": "Un exemple qui calcule l'aire d'un triangle emboîté et celle du trapèze restant."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle serait l'aire du petit triangle si $k = 0{,}5$ ?",
+          "piste": "$21 \\times 0{,}25 = 5{,}25$ cm²."
+        },
+        {
+          "apres": "methode",
+          "question": "Un rectangle de $12$ cm² est agrandi de rapport $3$ : quelle aire ?",
+          "piste": "$12 \\times 9 = 108$ cm²."
+        }
+      ]
+    }
+  ]
+}

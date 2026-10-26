@@ -163,10 +163,18 @@ def list_filters():
 
 # ── KPI Utilisateurs ─────────────────────────────────────────────────────────
 def _users_kpis(since_iso, until_iso):
+    """Audit admin (2026-10-20) : "Utilisateurs inscrits"/"Nouveaux
+    utilisateurs"/"Utilisateurs actifs" ne doivent jamais inclure les
+    sessions invitées (auth_provider='guest', créées automatiquement pour
+    tout visiteur anonyme) — un pic de visiteurs gonflait silencieusement
+    ces 3 KPI. `guest_accounts` les expose séparément (jamais caché, jamais
+    mélangé) pour que l'admin voie aussi ce volume sans le confondre avec
+    de vrais comptes."""
     return {
-        "total_registered": _ok(db.count_users(), note="Total actuel, tous comptes confondus (non filtré par la période)."),
-        "new_users": _ok(db.count_users_created_since(since_iso, until_iso)),
-        "active_users": _ok(db.count_users_active_since(since_iso, until_iso)),
+        "total_registered": _ok(db.count_registered_users(), note="Comptes réellement inscrits (hors sessions invitées), total actuel non filtré par la période."),
+        "guest_accounts": _ok(db.count_guest_users(), note="Sessions invitées actuellement en base (nettoyées automatiquement après 2h d'inactivité) — jamais compté comme un compte inscrit."),
+        "new_users": _ok(db.count_users_created_since(since_iso, until_iso, include_guests=False)),
+        "active_users": _ok(db.count_users_active_since(since_iso, until_iso, include_guests=False)),
         "logins": _ok(db.count_security_events_since("login_success", since_iso, until_iso)),
     }
 
@@ -224,7 +232,10 @@ def _support_kpis(since_iso, until_iso):
 
 # ── KPI Abonnements ────────────────────────────────────────────────────────────
 def _subscriptions_kpis():
-    by_plan = db.count_users_by_plan()
+    # include_guests=False (audit admin 2026-10-20) : un invité a toujours
+    # plan="free" par défaut, ce qui gonflait silencieusement le compteur
+    # "Free" affiché ici.
+    by_plan = db.count_users_by_plan(include_guests=False)
     note = "État actuel des comptes (non filtré par la période sélectionnée) — aucun historique des changements de plan n'est stocké au-delà des événements Stripe déjà exploités par le module Abonnements."
     return {
         "free": _ok(by_plan.get("free", 0), note=note),
@@ -339,7 +350,6 @@ def charts(window="30j", date_from=None, date_to=None):
     ]
 
     by_category = db.support_tickets_count_by_category()
-    by_priority = db.support_tickets_count_by_priority()
     support_overview = support_service.overview_stats()
     by_status = {
         "open": support_overview["open_count"], "in_progress": support_overview["in_progress_count"],
@@ -378,8 +388,13 @@ def charts(window="30j", date_from=None, date_to=None):
         "support": {
             "tickets_per_day": _series_wrap(db.support_tickets_count_by_day(since_iso, until_iso), _NO_TICKETS_REASON),
             "by_category": _ok(by_category, note=_TICKETS_NOT_PERIOD_SCOPED_NOTE) if by_category else _na(_NO_TICKETS_AT_ALL_REASON),
-            "by_priority": _ok(by_priority, note=_TICKETS_NOT_PERIOD_SCOPED_NOTE) if by_priority else _na(_NO_TICKETS_AT_ALL_REASON),
             "by_status": _ok(by_status, note="État actuel (non filtré par la période sélectionnée)."),
+            # `by_priority` a été retiré (audit admin 2026-10-20) : calculé
+            # ici mais jamais lu par admin-analytics.js::renderSupportCharts
+            # (recherche exhaustive, aucun autre consommateur — export PDF/
+            # CSV/Excel, tests — ne le référence) ; db.support_tickets_
+            # count_by_priority() reste disponible pour un futur besoin,
+            # jamais supprimée (sert potentiellement ailleurs).
         },
     }, None
 
@@ -412,8 +427,6 @@ def rankings(window="30j", date_from=None, date_to=None, limit=10):
 
     engine_rows = db.ai_request_logs_by_engine_since(since_iso, until_iso)
 
-    by_category = db.support_tickets_count_by_category()
-    by_priority = db.support_tickets_count_by_priority()
     top_admins = db.support_tickets_by_assigned_admin_since(since_iso, until_iso)[:limit]
 
     return {
@@ -423,11 +436,11 @@ def rankings(window="30j", date_from=None, date_to=None, limit=10):
                 "Aucun appel IA enregistré sur cette période (ai_request_logs)."
             ),
             "top_chatbot_users": _ok(top_chatbot_users) if top_chatbot_users else _na(_NO_CONVERSATIONS_REASON),
-            "top_active_reason": (
-                "Top utilisateurs actifs / Top temps passé : déjà disponibles dans le module Utilisateurs "
-                "(/admin/users, triable par « Dernière connexion »/« Temps total ») — réutilisés tels quels, "
-                "aucune donnée dupliquée ici."
-            ),
+            # Raccourci à une phrase (Chantier Analytics, 2026-10-22) — le
+            # détail complet (triable par "Dernière connexion"/"Temps
+            # total") reste exclusivement dans /admin/users, jamais dupliqué
+            # ici.
+            "top_active_reason": "Top utilisateurs actifs / temps passé : voir le module Utilisateurs.",
         },
         "ai": {
             "top_providers": _ok(top_providers[:limit]) if top_providers else _na(_NO_AI_USAGE_REASON),
@@ -436,11 +449,23 @@ def rankings(window="30j", date_from=None, date_to=None, limit=10):
                 "Aucun appel IA/moteur local enregistré sur cette période (ai_request_logs)."
             ),
             "top_cost": _ok(top_cost) if top_cost else _na(_NO_AI_USAGE_REASON),
-            "top_tokens": _ok(top_models) if top_models else _na(_NO_AI_USAGE_REASON),
+            # `top_tokens` a été retiré (audit admin 2026-10-20) : doublon
+            # EXACT de `top_models` ci-dessus (même liste `top_models`,
+            # jamais une valeur distincte) et jamais lu par
+            # admin-analytics.js (seul `top_models` l'est, recherche
+            # exhaustive confirmée — aucun export/test ne le référence non
+            # plus).
         },
         "support": {
-            "top_categories": _ok(by_category, note=_TICKETS_NOT_PERIOD_SCOPED_NOTE) if by_category else _na(_NO_TICKETS_AT_ALL_REASON),
-            "top_priorities": _ok(by_priority, note=_TICKETS_NOT_PERIOD_SCOPED_NOTE) if by_priority else _na(_NO_TICKETS_AT_ALL_REASON),
+            # `top_categories`/`top_priorities` ont été retirés (audit admin
+            # 2026-10-20) : calculés (db.support_tickets_count_by_category/
+            # _priority) mais jamais lus par admin-analytics.js — la seule
+            # répartition par catégorie réellement affichée est
+            # charts().support.by_category (camembert), pas ce classement.
+            # Recherche exhaustive : aucun export CSV/Excel/PDF, aucun test,
+            # aucun autre consommateur ne les référence. Les deux fonctions
+            # db.py restent disponibles telles quelles (servent déjà à
+            # charts()/potentiellement ailleurs), jamais supprimées.
             "top_admins": _ok(top_admins) if top_admins else _na("Aucun ticket assigné sur cette période."),
             # Le "temps moyen de première réponse / résolution" n'est plus
             # renvoyé ici : doublon exact de la carte équivalente du module
@@ -518,7 +543,7 @@ def delete_saved_view(admin_user_id, view_id):
 # Whitelist stricte des clés épinglables — une clé par carte KPI réelle de
 # overview() (Partie 3 du chantier fondations), jamais une chaîne libre.
 PINNABLE_KPIS = (
-    "users.total_registered", "users.new_users", "users.active_users", "users.logins",
+    "users.total_registered", "users.guest_accounts", "users.new_users", "users.active_users", "users.logins",
     "chatbot.conversations", "chatbot.user_messages", "chatbot.assistant_messages",
     "ai.calls", "ai.tokens", "ai.cost_usd", "ai.avg_latency_ms", "ai.success_rate_pct",
     "ai.errors", "ai.fallbacks",
@@ -625,8 +650,11 @@ def list_alerts(window="30j", date_from=None, date_to=None):
                 "message": f"{service['name']} est indisponible.",
             })
 
-    current_users = db.count_users_created_since(since_iso, until_iso)
-    previous_users = db.count_users_created_since(previous_since, previous_until)
+    # include_guests=False (audit admin 2026-10-20) : un pic de visiteurs
+    # anonymes (sessions invitées) ne doit jamais déclencher une alerte
+    # "forte création de comptes", qui concerne de vraies inscriptions.
+    current_users = db.count_users_created_since(since_iso, until_iso, include_guests=False)
+    previous_users = db.count_users_created_since(previous_since, previous_until, include_guests=False)
     users_change = _pct_change(current_users, previous_users)
     if users_change is not None and users_change >= ALERT_NEW_USERS_INCREASE_PCT:
         alerts.append({

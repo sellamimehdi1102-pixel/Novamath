@@ -61,24 +61,63 @@
           ],
           "reponse": "$P(6) = 0{,}5$",
           "id": "loi-de-probabilite-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "loi-de-probabilite-exemple-invalide",
+          "titre": "Exemple 2 — Reconnaître une loi invalide",
+          "enonce": "Un tableau donne $P(1)=P(2)=P(3)=P(4)=0{,}3$. Est-ce une loi de probabilité valable ?",
+          "calcul": [
+            {
+              "expr": "0{,}3+0{,}3+0{,}3+0{,}3 = 1{,}2",
+              "texte": "On additionne toutes les probabilités données."
+            }
+          ],
+          "reponse": "Non : la somme vaut $1{,}2 \\neq 1$, ce n'est pas une loi de probabilité valable.",
+          "difficulte": "moyen",
+          "analyse": "Il suffit qu'UNE seule des deux conditions (somme=1, chaque valeur entre 0 et 1) soit violée pour que ce ne soit pas une vraie loi de probabilité.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Donner une probabilité négative ou supérieure à 1.",
         "Oublier de vérifier que la somme de toutes les probabilités fait bien 1."
       ],
-      "astuce": "Le réflexe de base : additionne toujours toutes les probabilités pour vérifier que ça fait 1.",
+      "astuce": "Le réflexe de base : additionne toujours toutes les probabilités pour vérifier que ça fait exactement 1.",
       "aRetenir": [
-        "$\\sum p_i = 1$",
-        "$0 \\leq p_i \\leq 1$"
+        "$\\sum p_i = 1$ et $0 \\leq p_i \\leq 1$ pour chaque résultat.",
+        "Si l'une de ces deux conditions est violée, ce n'est pas une loi de probabilité valable."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        180,
-        181,
-        182
-      ],
+      "figure": {
+        "kind": "pie",
+        "slices": [
+          {
+            "label": "1-5 (10% chacun)",
+            "value": 50
+          },
+          {
+            "label": "6 (50%)",
+            "value": 50
+          }
+        ],
+        "alt": "Un dé truqué où les faces 1 à 5 ont chacune 10% de chances, et la face 6 a 50% de chances : le total fait bien 100%.",
+        "explication": {
+          "comprendre": "Chaque part du disque représente la probabilité d'un résultat ; la totalité du disque représente 100%, soit une probabilité de 1.",
+          "etapes": [
+            {
+              "titre": "Les faces 1 à 5",
+              "texte": "10% chacune, soit 50% au total."
+            },
+            {
+              "titre": "La face 6",
+              "texte": "50%, pour compléter jusqu'à 100%."
+            }
+          ],
+          "resume": "La somme de toutes les parts fait toujours 100% (soit une probabilité totale de 1)."
+        }
+      },
+      "quizExerciseIds": [180, 181, 182],
       "schemaVersion": 2,
       "topic_id": "loi-de-probabilite",
       "definitions": {
@@ -118,29 +157,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Donner une probabilité négative ou supérieure à 1.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Une probabilité peut parfois être confondue avec un nombre d'occurrences ou un coefficient, qui eux ne sont pas bornés.",
+          "comment_detecter": "Une des valeurs données est négative, ou strictement supérieure à 1.",
+          "comment_eviter": "Vérifier SYSTÉMATIQUEMENT que chaque probabilité est bien comprise entre 0 et 1 avant toute autre vérification."
         },
         {
           "description": "Oublier de vérifier que la somme de toutes les probabilités fait bien 1.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "On se concentre parfois sur chaque valeur individuellement, sans faire le total final.",
+          "comment_detecter": "La somme calculée est différente de 1 (ni légèrement au-dessus, ni au-dessous).",
+          "comment_eviter": "Prendre l'habitude d'additionner TOUTES les probabilités à la fin, systématiquement."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Loi de probabilité"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras vérifier une loi de probabilité."
-      ],
+      "synonymes": ["Loi de probabilité"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras vérifier une loi de probabilité."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Vérifier qu'une loi de probabilité est cohérente est indispensable avant de l'utiliser : un tableau de probabilités mal construit (qui ne somme pas à 1) donnerait des résultats absurdes.",
+      "intuition": "Une loi de probabilité répartit TOUTE la certitude (100%, soit 1) entre les résultats possibles : il ne peut rien « manquer » ni rien être « en trop », d'où la somme toujours égale à 1.",
+      "apercus": [
+        {
+          "id": "apercu-loiproba-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Compléter une loi de probabilité à trois valeurs inconnues liées entre elles."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi faut-il vérifier qu'une loi de probabilité est cohérente avant de l'utiliser ?",
+          "piste": "Un tableau mal construit (qui ne somme pas à 1) donnerait des résultats absurdes dans tous les calculs suivants."
+        },
+        {
+          "apres": "exemple:loi-de-probabilite-exemple-invalide",
+          "question": "Que doit-on vérifier pour savoir si un tableau de probabilités est valable ?",
+          "piste": "Que chaque valeur est entre 0 et 1, ET que la somme de toutes les valeurs fait exactement 1."
+        }
+      ]
     },
     {
       "id": "notion-devenement",
@@ -214,24 +273,44 @@
           ],
           "reponse": "$P(A) = \\dfrac{1}{2}$",
           "id": "notion-devenement-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "notion-devenement-exemple-non-equiprobable",
+          "titre": "Exemple 2 — Résultats non équiprobables (approfondissement)",
+          "enonce": "Un dé truqué vérifie $P(2)=0{,}1$, $P(4)=0{,}3$, $P(6)=0{,}1$. Calcule la probabilité de l'évènement « obtenir un nombre pair ».",
+          "calcul": [
+            {
+              "expr": "A = \\{2,4,6\\}",
+              "texte": "On liste les résultats pairs."
+            },
+            {
+              "expr": "P(A) = 0{,}1+0{,}3+0{,}1",
+              "texte": "On additionne leurs probabilités (ici différentes, pas de raccourci possible)."
+            },
+            {
+              "expr": "= 0{,}5",
+              "texte": "On calcule."
+            }
+          ],
+          "reponse": "$P(A) = 0{,}5$",
+          "difficulte": "difficile",
+          "analyse": "Contrairement à l'exemple 1 (dé équilibré, raccourci possible), ici chaque probabilité est différente : il faut vraiment les additionner une par une.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Oublier un résultat dans la liste de l'évènement.",
         "Confondre le nombre de résultats et leur probabilité."
       ],
-      "astuce": "Pour un dé équilibré à 6 faces, chaque résultat a une probabilité de $1/6$.",
+      "astuce": "Pour un dé équilibré à 6 faces, chaque résultat a une probabilité de $1/6$ — mais ce raccourci ne marche que si tous les résultats sont équiprobables.",
       "aRetenir": [
-        "Évènement = ensemble de résultats",
-        "$P(A)$ = somme des probabilités de ses résultats"
+        "Évènement = ensemble de résultats.",
+        "$P(A)$ = somme des probabilités de ses résultats, équiprobables ou non."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        183,
-        184,
-        185
-      ],
+      "quizExerciseIds": [183, 184, 185],
       "schemaVersion": 2,
       "topic_id": "notion-devenement",
       "definitions": {
@@ -271,29 +350,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Oublier un résultat dans la liste de l'évènement.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Certains résultats correspondant à l'évènement peuvent être moins évidents que d'autres.",
+          "comment_detecter": "La somme des probabilités obtenue semble trop petite par rapport à l'évènement décrit.",
+          "comment_eviter": "Lister EXPLICITEMENT et systématiquement tous les résultats avant de commencer à additionner."
         },
         {
           "description": "Confondre le nombre de résultats et leur probabilité.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Compter « 3 résultats » peut faire croire, à tort, que la probabilité est 3 (ou liée directement au nombre 3).",
+          "comment_detecter": "La probabilité annoncée est un nombre entier supérieur à 1.",
+          "comment_eviter": "Se souvenir qu'il faut ADDITIONNER les probabilités de chaque résultat, pas seulement les compter."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Notion d'évènement"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras calculer la probabilité d'un évènement."
-      ],
+      "synonymes": ["Notion d'évènement"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras calculer la probabilité d'un évènement."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "La notion d'évènement permet de parler de probabilités pour des questions complexes (« obtenir un nombre pair ») plutôt que de se limiter à des résultats uniques.",
+      "intuition": "Un évènement regroupe plusieurs résultats élémentaires : sa probabilité s'obtient simplement en additionnant les probabilités de chacun de ces résultats, qu'ils soient équiprobables ou non.",
+      "apercus": [
+        {
+          "id": "apercu-evenement-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Calculer la probabilité d'un évènement avec des résultats non équiprobables."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi la notion d'évènement est-elle utile ?",
+          "piste": "Elle permet de parler de probabilités pour des questions complexes, pas seulement pour un résultat unique."
+        },
+        {
+          "apres": "exemple:notion-devenement-exemple-1",
+          "question": "Pour un dé équilibré, peut-on utiliser le raccourci « nombre de résultats × 1/6 » ?",
+          "piste": "Oui, mais uniquement parce que tous les résultats sont équiprobables — ce raccourci ne marche pas sinon."
+        }
+      ]
     },
     {
       "id": "operations-sur-les-evenements",
@@ -359,24 +458,67 @@
           ],
           "reponse": "$P(\\bar A) = 0{,}4$",
           "id": "operations-sur-les-evenements-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "operations-sur-les-evenements-exemple-union",
+          "titre": "Exemple 2 — Calculer une union",
+          "enonce": "$P(A) = 0{,}4$, $P(B) = 0{,}5$, $P(A \\cap B) = 0{,}2$. Calcule $P(A \\cup B)$.",
+          "calcul": [
+            {
+              "expr": "P(A\\cup B) = P(A)+P(B)-P(A\\cap B)",
+              "texte": "On applique la formule de l'union."
+            },
+            {
+              "expr": "= 0{,}4+0{,}5-0{,}2",
+              "texte": "On remplace par les valeurs connues."
+            },
+            {
+              "expr": "= 0{,}7",
+              "texte": "On calcule."
+            }
+          ],
+          "reponse": "$P(A \\cup B) = 0{,}7$",
+          "difficulte": "difficile",
+          "analyse": "Sans la soustraction de $P(A\\cap B)=0{,}2$, on aurait obtenu $0{,}9$ : les résultats communs à $A$ et $B$ auraient été comptés deux fois.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Oublier de soustraire $P(A \\cap B)$ dans la formule de l'union.",
         "Confondre \"et\" (intersection) avec \"ou\" (union)."
       ],
-      "astuce": "Pour un évènement du type \"au moins un\", pense d'abord à calculer le contraire : c'est souvent plus simple.",
+      "astuce": "Pour un évènement du type \"au moins un\", pense d'abord à calculer le contraire : c'est souvent plus simple. Pour une union, n'oublie jamais de soustraire l'intersection.",
       "aRetenir": [
-        "$P(\\bar A)=1-P(A)$",
-        "$P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$"
+        "$P(\\bar A)=1-P(A)$ (le contraire).",
+        "$P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$ : on soustrait l'intersection pour ne pas la compter deux fois."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        186,
-        187,
-        188
-      ],
+      "figure": {
+        "kind": "venn",
+        "sets": ["A", "B"],
+        "overlapLabel": "A∩B",
+        "alt": "Deux évènements A et B qui se recouvrent partiellement : leur intersection (A∩B) est comptée une seule fois dans l'union.",
+        "explication": {
+          "comprendre": "La zone commune aux deux cercles (A∩B) ne doit être comptée qu'une seule fois dans P(A∪B).",
+          "etapes": [
+            {
+              "titre": "Cercle A",
+              "texte": "Tous les résultats de A."
+            },
+            {
+              "titre": "Cercle B",
+              "texte": "Tous les résultats de B."
+            },
+            {
+              "titre": "Zone commune",
+              "texte": "A∩B, à ne compter qu'une fois."
+            }
+          ],
+          "resume": "P(A∪B) = P(A) + P(B) - P(A∩B), pour ne jamais compter deux fois la zone commune."
+        }
+      },
+      "quizExerciseIds": [186, 187, 188],
       "schemaVersion": 2,
       "topic_id": "operations-sur-les-evenements",
       "definitions": {
@@ -416,29 +558,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Oublier de soustraire $P(A \\cap B)$ dans la formule de l'union.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Additionner $P(A)$ et $P(B)$ semble naturel pour « A ou B », sans penser aux résultats comptés deux fois.",
+          "comment_detecter": "Le résultat de $P(A\\cup B)$ est supérieur à ce qu'on obtiendrait en comptant directement les résultats concernés.",
+          "comment_eviter": "Toujours vérifier s'il existe des résultats communs à $A$ et $B$ (intersection non nulle) avant de conclure."
         },
         {
           "description": "Confondre \"et\" (intersection) avec \"ou\" (union).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Les symboles $\\cap$ et $\\cup$ se ressemblent visuellement, et le langage courant utilise parfois « et » de façon ambiguë.",
+          "comment_detecter": "Le résultat trouvé est plus petit que $P(A)$ et $P(B)$, alors qu'une union doit être plus grande que chacune des deux.",
+          "comment_eviter": "Union ($\\cup$, « ou ») = plus grand ensemble. Intersection ($\\cap$, « et ») = plus petit ensemble, inclus dans les deux."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Opérations sur les évènements"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras utiliser le contraire, l'union et l'intersection."
-      ],
+      "synonymes": ["Opérations sur les évènements"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras utiliser le contraire, l'union et l'intersection."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Ces règles permettent de calculer la probabilité d'évènements combinés (« A ou B », « ni A ni B ») sans devoir recompter tous les résultats à la main.",
+      "intuition": "Dans $P(A)+P(B)$, les résultats communs à $A$ et $B$ sont comptés DEUX FOIS : c'est pour cela qu'on soustrait $P(A\\cap B)$ une fois, pour ne les compter qu'une seule fois.",
+      "apercus": [
+        {
+          "id": "apercu-operationsevenements-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Un évènement « au moins un » résolu en passant par le contraire."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi ces règles sont-elles utiles ?",
+          "piste": "Elles permettent de calculer une probabilité combinée sans recompter tous les résultats à la main."
+        },
+        {
+          "apres": "exemple:operations-sur-les-evenements-exemple-union",
+          "question": "Pourquoi soustrait-on P(A∩B) dans la formule de l'union ?",
+          "piste": "Parce que les résultats communs à A et B sont comptés deux fois dans P(A)+P(B), il faut les retirer une fois."
+        }
+      ]
     },
     {
       "id": "echantillon-et-simulation",
@@ -484,7 +646,26 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "echantillon-et-simulation-exemple-petit-echantillon",
+          "titre": "Exemple 1 — Un petit échantillon fluctue beaucoup",
+          "enonce": "On lance une pièce équilibrée seulement 10 fois et on obtient 8 piles (soit 80%). Est-ce que cela prouve que la pièce est truquée ?",
+          "calcul": [
+            {
+              "expr": "\\text{théorique} = 50\\%",
+              "texte": "On attend 50% de pile en théorie."
+            },
+            {
+              "expr": "\\text{observé sur 10 lancers} = 80\\%",
+              "texte": "C'est très éloigné de la théorie, mais l'échantillon est TRÈS petit."
+            }
+          ],
+          "reponse": "Non : avec seulement 10 lancers, un tel écart reste possible par simple hasard — il ne prouve rien.",
+          "difficulte": "moyen",
+          "analyse": "Avec un petit échantillon, la fréquence observée peut s'éloigner beaucoup de la théorie sans que cela remette en cause l'hypothèse de départ.",
+          "niveauAcces": "free"
+        },
+        {
+          "titre": "Exemple 2 — Un grand échantillon se rapproche de la théorie",
           "enonce": "On lance une pièce 1000 fois et on obtient 51% de pile. Est-ce surprenant ?",
           "calcul": [
             {
@@ -498,23 +679,22 @@
           ],
           "reponse": "Non, c'est un résultat tout à fait normal",
           "id": "echantillon-et-simulation-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free",
+          "analyse": "Comparé à l'exemple 1 (10 lancers), ici le très grand nombre de lancers (1000) rend la fréquence observée beaucoup plus proche de la théorie."
         }
       ],
       "erreursFrequentes": [
         "Croire qu'un petit échantillon donne un résultat toujours fiable.",
         "Confondre la fréquence observée (qui varie) et la probabilité théorique (fixe)."
       ],
-      "astuce": "Plus l'échantillon est grand, plus tu peux faire confiance au résultat observé.",
+      "astuce": "Plus l'échantillon est grand, plus tu peux faire confiance au résultat observé — un petit échantillon peut fluctuer énormément sans rien prouver.",
       "aRetenir": [
-        "Grand échantillon = fréquence proche de la théorie"
+        "Grand échantillon = fréquence proche de la théorie ; petit échantillon = fluctuation possible importante.",
+        "Ne jamais confondre fréquence observée (qui varie) et probabilité théorique (fixe)."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        174,
-        175,
-        176
-      ],
+      "quizExerciseIds": [174, 175, 176],
       "schemaVersion": 2,
       "topic_id": "echantillon-et-simulation",
       "definitions": {
@@ -554,29 +734,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Croire qu'un petit échantillon donne un résultat toujours fiable.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "On a tendance à faire confiance à n'importe quelle observation, sans tenir compte de la taille de l'échantillon qui l'a produite.",
+          "comment_detecter": "Une conclusion forte (« la pièce est truquée ») est tirée à partir de seulement quelques lancers.",
+          "comment_eviter": "Toujours regarder la taille de l'échantillon avant de faire confiance à un résultat observé : plus il est petit, moins il est fiable."
         },
         {
           "description": "Confondre la fréquence observée (qui varie) et la probabilité théorique (fixe).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "Les deux sont des nombres qui ressemblent à un pourcentage, et il est facile de les mélanger.",
+          "comment_detecter": "On utilise la fréquence observée d'UN échantillon précis comme si c'était LA probabilité théorique, valable pour tous les échantillons.",
+          "comment_eviter": "La probabilité théorique est UNIQUE et fixe ; la fréquence observée change à chaque nouvel échantillon."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Echantillon et simulation"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras ce qui se passe quand on répète une expérience."
-      ],
+      "synonymes": ["Echantillon et simulation"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras ce qui se passe quand on répète une expérience."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Comprendre la fluctuation d'échantillonnage évite de tirer des conclusions hâtives sur une pièce ou un dé à partir d'un petit nombre d'essais.",
+      "intuition": "Avec un petit échantillon, le résultat observé peut s'éloigner beaucoup de la théorie, juste par hasard — plus l'échantillon grandit, plus cet écart a tendance à se réduire.",
+      "apercus": [
+        {
+          "id": "apercu-echantillon-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Comparer deux échantillons de tailles différentes issus de la même expérience."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi faut-il être prudent avant de conclure à partir d'un petit échantillon ?",
+          "piste": "Un petit échantillon peut s'éloigner beaucoup de la théorie par simple hasard, sans que cela prouve quoi que ce soit."
+        },
+        {
+          "apres": "exemple:echantillon-et-simulation-exemple-petit-echantillon",
+          "question": "80% de piles sur 10 lancers prouve-t-il que la pièce est truquée ?",
+          "piste": "Non : avec un échantillon aussi petit, un tel écart reste parfaitement possible par hasard."
+        }
+      ]
     },
     {
       "id": "fluctuation-et-estimation",
@@ -646,23 +846,70 @@
           ],
           "reponse": "$[0{,}4\\,;0{,}6]$",
           "id": "fluctuation-et-estimation-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "fluctuation-et-estimation-exemple-decision",
+          "titre": "Exemple 2 — Prendre une décision avec l'intervalle",
+          "enonce": "Avec l'intervalle $[0{,}4\\,;0{,}6]$ trouvé précédemment ($p=0{,}5$, $n=100$), une pièce donne une fréquence observée de $0{,}38$ pile. Le résultat est-il cohérent avec l'hypothèse « pièce équilibrée » ?",
+          "calcul": [
+            {
+              "expr": "0{,}38 < 0{,}4",
+              "texte": "On compare la fréquence observée aux bornes de l'intervalle."
+            }
+          ],
+          "reponse": "Non : $0{,}38$ est en dehors de l'intervalle $[0{,}4\\,;0{,}6]$, le résultat est surprenant si la pièce était vraiment équilibrée.",
+          "difficulte": "difficile",
+          "analyse": "« Surprenant » ne veut pas dire « impossible » : cela signifie juste que ce résultat serait rare si l'hypothèse de départ était vraie, ce qui pousse à la remettre en question.",
+          "niveauAcces": "free"
         }
       ],
       "erreursFrequentes": [
         "Utiliser cette formule avec un échantillon trop petit (moins de 25).",
         "Croire qu'un résultat hors de l'intervalle est forcément faux : c'est juste peu probable."
       ],
-      "astuce": "Sortir de l'intervalle ne prouve rien à 100% : ça veut juste dire que le résultat est surprenant si l'hypothèse est vraie.",
+      "astuce": "Sortir de l'intervalle ne prouve rien à 100% : ça veut juste dire que le résultat est surprenant si l'hypothèse est vraie, ce qui pousse à s'interroger.",
       "aRetenir": [
-        "Intervalle : $\\left[p-\\frac{1}{\\sqrt n}\\,;p+\\frac{1}{\\sqrt n}\\right]$"
+        "Intervalle : $\\left[p-\\frac{1}{\\sqrt n}\\,;p+\\frac{1}{\\sqrt n}\\right]$, valable pour $n\\geqslant25$.",
+        "Dans l'intervalle : résultat cohérent. En dehors : résultat surprenant (mais pas impossible)."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        177,
-        178,
-        179
-      ],
+      "figure": {
+        "kind": "numberline",
+        "min": 0.2,
+        "max": 0.8,
+        "highlight": {
+          "from": 0.4,
+          "to": 0.6
+        },
+        "marks": [
+          {
+            "value": 0.38,
+            "label": "observé = 0,38",
+            "filled": true
+          },
+          {
+            "value": 0.5,
+            "label": "p = 0,5"
+          }
+        ],
+        "alt": "L'intervalle de fluctuation [0,4 ; 0,6] est centré sur p=0,5 ; la fréquence observée 0,38 tombe en dehors de cet intervalle.",
+        "explication": {
+          "comprendre": "Le trait épais représente la zone de résultats jugés normaux ; un point en dehors signale un résultat surprenant.",
+          "etapes": [
+            {
+              "titre": "L'intervalle [0,4 ; 0,6]",
+              "texte": "La zone de résultats cohérents avec p=0,5."
+            },
+            {
+              "titre": "Le point 0,38",
+              "texte": "En dehors de la zone : surprenant."
+            }
+          ],
+          "resume": "Un résultat hors de l'intervalle remet en question l'hypothèse de départ, sans la réfuter totalement."
+        }
+      },
+      "quizExerciseIds": [177, 178, 179],
       "schemaVersion": 2,
       "topic_id": "fluctuation-et-estimation",
       "definitions": {
@@ -702,29 +949,49 @@
       "erreursFrequentesDetail": [
         {
           "description": "Utiliser cette formule avec un échantillon trop petit (moins de 25).",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "La formule de l'intervalle de fluctuation n'est fiable qu'à partir d'un effectif suffisamment grand.",
+          "comment_detecter": "La valeur de $n$ utilisée dans le calcul est inférieure à 25.",
+          "comment_eviter": "Vérifier que $n\\geqslant25$ avant d'utiliser cette formule (et idéalement $p$ pas trop proche de 0 ou de 1)."
         },
         {
           "description": "Croire qu'un résultat hors de l'intervalle est forcément faux : c'est juste peu probable.",
-          "pourquoi": "",
-          "comment_detecter": "",
-          "comment_eviter": ""
+          "pourquoi": "« Surprenant » est souvent interprété à tort comme une certitude absolue.",
+          "comment_detecter": "La conclusion affirme avec certitude que l'hypothèse de départ est fausse, sans nuance.",
+          "comment_eviter": "Toujours formuler la conclusion avec prudence : un résultat hors intervalle REMET EN QUESTION l'hypothèse, sans la réfuter avec certitude."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Fluctuation et estimation"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras utiliser un intervalle de fluctuation."
-      ],
+      "synonymes": ["Fluctuation et estimation"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras utiliser un intervalle de fluctuation."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "L'intervalle de fluctuation permet de décider, de façon rigoureuse, si un résultat observé remet en cause une hypothèse (par exemple, qu'une pièce est équilibrée) ou s'il reste normal.",
+      "intuition": "L'intervalle de fluctuation trace une « zone de confort » autour de la probabilité théorique : si le résultat observé reste dans cette zone, rien d'anormal ; s'il en sort, le résultat devient surprenant.",
+      "apercus": [
+        {
+          "id": "apercu-fluctuation-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Calculer un intervalle de fluctuation avec un échantillon beaucoup plus grand."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert concrètement l'intervalle de fluctuation ?",
+          "piste": "À décider, de façon rigoureuse, si un résultat observé remet en cause une hypothèse (comme l'équilibre d'une pièce)."
+        },
+        {
+          "apres": "exemple:fluctuation-et-estimation-exemple-decision",
+          "question": "Un résultat hors de l'intervalle prouve-t-il avec certitude que l'hypothèse est fausse ?",
+          "piste": "Non : il la rend seulement surprenante, donc à remettre en question — pas impossible pour autant."
+        }
+      ]
     }
   ]
 }

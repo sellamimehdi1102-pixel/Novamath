@@ -21,7 +21,7 @@ import difflib
 import re
 import unicodedata
 
-from .. import retrieval_engine
+from .. import knowledge_engine, retrieval_engine
 from . import search_service
 
 
@@ -735,6 +735,12 @@ def _detect_chapter(text, context_summary, class_level=None, learning_context=No
         and _learning_context_class_matches(learning_context, class_level)
     ):
         return learning_context["chapter_id"], learning_context.get("notion_id"), "inherited"
+
+    # Chapitre prévu mais pas encore rédigé (voir knowledge_engine.
+    # planned_chapter_subjects) : ni le contexte hérité ni la statistique
+    # globale de l'élève ne doivent y substituer une notion rédigée.
+    if knowledge_engine.planned_chapter_subjects(text, class_level):
+        return None, None, "none"
 
     matches = search_service.search(text, scope=[search_service.SCOPE_COURS], limit=_TITLE_RERANK_CANDIDATES, class_level=class_level)
     best = _rerank_by_title(text, matches)

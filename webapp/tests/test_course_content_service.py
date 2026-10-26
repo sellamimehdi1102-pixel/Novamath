@@ -197,6 +197,220 @@ class TestFilterNotionFigureResteFree(unittest.TestCase):
         self.assertEqual(result["figure"], _RICH_NOTION["figure"])
 
 
+# ── Refonte pédagogique des cours (2026-10-23) : classification explicite
+# par exemple (`niveauAcces`), au lieu du seul repli positionnel. Notion avec
+# 3 exemples "essentiels" (une règle chacun) classés "free", et 2 exemples
+# "variante/piège" classés "premium" — exactement le cas réel du cours pilote
+# "Composition de fonctions et dérivation" (3 règles : puissance, racine,
+# inverse, chacune avec un exemple gratuit, plus 2 exemples Premium).
+_MULTI_REGLE_NOTION = {
+    "id": "notion-multi-regle",
+    "title": "Notion à plusieurs règles essentielles",
+    "intro": "Intro",
+    "definition": "Définition",
+    "reglesImportantes": ["Règle A", "Règle B", "Règle C"],
+    "exemples": [
+        {"id": "ex-a", "enonce": "Règle A — essentiel", "niveauAcces": "free"},
+        {"id": "ex-b", "enonce": "Règle B — essentiel", "niveauAcces": "free"},
+        {"id": "ex-piege-a", "enonce": "Règle A — piège", "niveauAcces": "premium"},
+        {"id": "ex-c", "enonce": "Règle C — essentiel", "niveauAcces": "free"},
+        {"id": "ex-approfondi", "enonce": "Approfondissement", "niveauAcces": "ultra"},
+    ],
+    "quizExerciseIds": [1],
+}
+
+
+class TestFilterNotionNiveauAccesExplicite(unittest.TestCase):
+    """Un exemple classé explicitement (niveauAcces) n'est plus soumis au
+    repli positionnel : sa position dans la liste n'a plus d'importance."""
+
+    def test_free_recoit_tous_les_exemples_classes_free_quelle_que_soit_leur_position(self):
+        result = filter_notion(_MULTI_REGLE_NOTION, Plan.FREE)
+        ids = [ex["id"] for ex in result["exemples"]]
+        self.assertEqual(ids, ["ex-a", "ex-b", "ex-c"])
+
+    def test_free_ne_recoit_ni_lexemple_premium_ni_lexemple_ultra(self):
+        result = filter_notion(_MULTI_REGLE_NOTION, Plan.FREE)
+        ids = [ex["id"] for ex in result["exemples"]]
+        self.assertNotIn("ex-piege-a", ids)
+        self.assertNotIn("ex-approfondi", ids)
+
+    def test_free_aucune_fuite_de_contenu_payant_dans_la_reponse_serialisee(self):
+        """Le contenu texte d'un exemple payant ne doit apparaître NULLE
+        PART dans la réponse Free, pas seulement absent de `exemples` — vérifié
+        sur la sérialisation JSON complète, pas seulement sur la clé."""
+        import json as _json
+        result = filter_notion(_MULTI_REGLE_NOTION, Plan.FREE)
+        serialized = _json.dumps(result, ensure_ascii=False)
+        self.assertNotIn("Règle A — piège", serialized)
+        self.assertNotIn("Approfondissement", serialized)
+        self.assertNotIn("ex-piege-a", serialized)
+        self.assertNotIn("ex-approfondi", serialized)
+
+    def test_premium_recoit_free_et_premium_mais_pas_ultra(self):
+        result = filter_notion(_MULTI_REGLE_NOTION, Plan.PREMIUM)
+        ids = [ex["id"] for ex in result["exemples"]]
+        self.assertEqual(set(ids), {"ex-a", "ex-b", "ex-piege-a", "ex-c"})
+        self.assertNotIn("ex-approfondi", ids)
+
+    def test_premium_aucune_fuite_de_contenu_ultra(self):
+        import json as _json
+        result = filter_notion(_MULTI_REGLE_NOTION, Plan.PREMIUM)
+        serialized = _json.dumps(result, ensure_ascii=False)
+        self.assertNotIn("Approfondissement", serialized)
+        self.assertNotIn("ex-approfondi", serialized)
+
+    def test_ultra_recoit_absolument_tous_les_exemples(self):
+        result = filter_notion(_MULTI_REGLE_NOTION, Plan.ULTRA)
+        ids = [ex["id"] for ex in result["exemples"]]
+        self.assertEqual(set(ids), {"ex-a", "ex-b", "ex-piege-a", "ex-c", "ex-approfondi"})
+
+    def test_locked_content_free_signale_premium_et_ultra_avec_le_bon_compte(self):
+        locked = filter_notion(_MULTI_REGLE_NOTION, Plan.FREE)["locked_content"]
+        self.assertTrue(locked["premium"])
+        self.assertEqual(locked["premium_extra_examples"], 1)
+        self.assertTrue(locked["ultra"])
+
+    def test_locked_content_premium_signale_uniquement_ultra(self):
+        locked = filter_notion(_MULTI_REGLE_NOTION, Plan.PREMIUM)["locked_content"]
+        self.assertFalse(locked["premium"])
+        self.assertEqual(locked["premium_extra_examples"], 0)
+        self.assertTrue(locked["ultra"])
+
+    def test_questionseclair_ancree_sur_un_exemple_retire_disparait_en_free(self):
+        """Bug trouvé lors de l'audit du pilote : une question éclair ancrée
+        sur un exemple Premium/Ultra (apres="exemple:<id>") ne doit jamais
+        rester visible une fois cet exemple retiré — sinon son id et son
+        énoncé (qui peut décrire indirectement le contenu verrouillé) fuient
+        dans la réponse Free."""
+        notion = {
+            **_MULTI_REGLE_NOTION,
+            "questionsEclair": [
+                {"apres": "pourquoi", "question": "Q libre", "piste": "P"},
+                {"apres": "exemple:ex-a", "question": "Q sur exemple free", "piste": "P"},
+                {"apres": "exemple:ex-piege-a", "question": "Q sur exemple premium", "piste": "P"},
+                {"apres": "exemple:ex-approfondi", "question": "Q sur exemple ultra", "piste": "P"},
+            ],
+        }
+        result = filter_notion(notion, Plan.FREE)
+        anchors = [q["apres"] for q in result["questionsEclair"]]
+        self.assertEqual(anchors, ["pourquoi", "exemple:ex-a"])
+        serialized = __import__("json").dumps(result, ensure_ascii=False)
+        self.assertNotIn("Q sur exemple premium", serialized)
+        self.assertNotIn("Q sur exemple ultra", serialized)
+
+    def test_questionseclair_ancree_sur_un_exemple_vise_reste_visible_si_lexemple_est_accessible(self):
+        notion = {
+            **_MULTI_REGLE_NOTION,
+            "questionsEclair": [{"apres": "exemple:ex-piege-a", "question": "Q", "piste": "P"}],
+        }
+        result = filter_notion(notion, Plan.PREMIUM)
+        self.assertEqual([q["apres"] for q in result["questionsEclair"]], ["exemple:ex-piege-a"])
+
+    def test_une_valeur_niveauacces_invalide_retombe_sur_le_repli_positionnel(self):
+        """Une faute de frappe ("Free" au lieu de "free", etc.) ne doit
+        jamais exposer accidentellement du contenu : repli sur la règle
+        positionnelle historique, jamais un défaut permissif."""
+        notion = {
+            **_MINIMAL_NOTION,
+            "exemples": [
+                {"id": "ex1", "enonce": "Un", "niveauAcces": "Free"},
+                {"id": "ex2", "enonce": "Deux", "niveauAcces": "bogus"},
+            ],
+        }
+        result = filter_notion(notion, Plan.FREE)
+        ids = [ex["id"] for ex in result["exemples"]]
+        # Repli positionnel : index 0 = free (gardé), index 1 = premium (retiré).
+        self.assertEqual(ids, ["ex1"])
+
+
+# ── Rendre visibles les contenus Premium/Ultra verrouillés (2026-10-23) :
+# champsLibresForces (champs scalaires exemptés du verrou Premium pour une
+# notion précise) et apercus (métadonnées publiques décrivant un contenu
+# verrouillé, jamais le contenu lui-même). ──────────────────────────────────
+_NOTION_AVEC_CHAMPS_FORCES = {
+    **_MINIMAL_NOTION,
+    "explicationSimple": "Explication essentielle pour cette notion.",
+    "intuition": "Intuition essentielle pour cette notion.",
+    "aRetenir": ["Point essentiel 1"],
+    "erreursFrequentesDetail": [{"description": "Erreur", "pourquoi": "..."}],
+    "erreursFrequentes": ["Erreur"],
+    "exemplesConcrets": ["Concret essentiel"],
+    "champsLibresForces": ["explicationSimple", "intuition", "aRetenir"],
+    # erreursFrequentesDetail et exemplesConcrets ne sont volontairement PAS
+    # dans la liste : doivent rester Premium, pour vérifier que seuls les
+    # champs explicitement listés sont exemptés.
+}
+
+_NOTION_AVEC_APERCUS = {
+    **_MINIMAL_NOTION,
+    "exemples": [{"id": "ex-free", "enonce": "Libre", "niveauAcces": "free"}],
+    "demonstration": {"titre": "Pourquoi ?", "etapes": [{"texte": "..."}], "conclusion": "..."},
+    "apercus": [
+        {"id": "ap1", "section": "exemple", "niveau": "premium", "titre": "2 exemples de plus", "description": "Deux exemples supplémentaires."},
+        {"id": "ap2", "section": "exemple", "niveau": "ultra", "titre": "La démonstration", "description": "Pourquoi la formule est vraie."},
+        {"id": "ap-invalide", "section": "exemple", "niveau": "gold", "titre": "Palier inexistant", "description": "..."},
+    ],
+}
+
+
+class TestFilterNotionChampsLibresForces(unittest.TestCase):
+    def test_un_champ_liste_dans_champslibresforces_reste_visible_en_free(self):
+        result = filter_notion(_NOTION_AVEC_CHAMPS_FORCES, Plan.FREE)
+        self.assertEqual(result["explicationSimple"], _NOTION_AVEC_CHAMPS_FORCES["explicationSimple"])
+        self.assertEqual(result["intuition"], _NOTION_AVEC_CHAMPS_FORCES["intuition"])
+        self.assertEqual(result["aRetenir"], _NOTION_AVEC_CHAMPS_FORCES["aRetenir"])
+
+    def test_un_champ_non_liste_reste_premium_meme_si_dautres_sont_forces(self):
+        result = filter_notion(_NOTION_AVEC_CHAMPS_FORCES, Plan.FREE)
+        self.assertNotIn("erreursFrequentesDetail", result)
+        self.assertNotIn("exemplesConcrets", result)
+
+    def test_sans_champslibresforces_comportement_strictement_inchange(self):
+        """Non-régression explicite : une notion sans ce champ (152 des 153
+        notions existantes) garde exactement le comportement d'avant."""
+        notion = {k: v for k, v in _NOTION_AVEC_CHAMPS_FORCES.items() if k != "champsLibresForces"}
+        result = filter_notion(notion, Plan.FREE)
+        self.assertNotIn("explicationSimple", result)
+        self.assertNotIn("intuition", result)
+        self.assertNotIn("aRetenir", result)
+
+
+class TestFilterNotionApercus(unittest.TestCase):
+    def test_free_recoit_les_apercus_premium_et_ultra(self):
+        result = filter_notion(_NOTION_AVEC_APERCUS, Plan.FREE)
+        niveaux = {a["niveau"] for a in result["apercus"]}
+        self.assertEqual(niveaux, {"premium", "ultra"})
+
+    def test_premium_ne_recoit_que_lapercu_ultra(self):
+        result = filter_notion(_NOTION_AVEC_APERCUS, Plan.PREMIUM)
+        niveaux = {a["niveau"] for a in result["apercus"]}
+        self.assertEqual(niveaux, {"ultra"})
+
+    def test_ultra_ne_recoit_aucun_apercu(self):
+        result = filter_notion(_NOTION_AVEC_APERCUS, Plan.ULTRA)
+        self.assertNotIn("apercus", result)
+
+    def test_un_apercu_avec_un_niveau_invalide_est_ignore(self):
+        result = filter_notion(_NOTION_AVEC_APERCUS, Plan.FREE)
+        ids = [a["id"] for a in result["apercus"]]
+        self.assertNotIn("ap-invalide", ids)
+
+    def test_un_apercu_ne_contient_jamais_le_contenu_protege_lui_meme(self):
+        """Un aperçu n'est que métadonnée (titre/description) — jamais le
+        contenu réel (ici la démonstration) ne doit apparaître dans la
+        réponse Free, ni dans l'aperçu ni ailleurs."""
+        result = filter_notion(_NOTION_AVEC_APERCUS, Plan.FREE)
+        serialized = __import__("json").dumps(result, ensure_ascii=False)
+        self.assertNotIn("Pourquoi ?", serialized)  # titre interne de demonstration, pas de l'apercu
+        self.assertNotIn("etapes", str(result.get("demonstration", {})))
+        self.assertNotIn("demonstration", result)
+
+    def test_notion_sans_apercus_ne_recoit_pas_cette_cle(self):
+        result = filter_notion(_MINIMAL_NOTION, Plan.FREE)
+        self.assertNotIn("apercus", result)
+
+
 class ApiCourseContentTestCase(unittest.TestCase):
     def setUp(self):
         self.client = server.app.test_client()
@@ -225,12 +439,25 @@ class TestApiCourseContentAuth(ApiCourseContentTestCase):
 
 class TestApiCourseContentParPlan(ApiCourseContentTestCase):
     def test_free_recoit_le_contenu_essentiel_uniquement(self):
-        resp = self.client.get("/api/course-content/seconde/Chapitre_1", headers=self.headers)
-        self.assertEqual(resp.status_code, 200)
-        notion = resp.get_json()["notions"][0]
-        self.assertNotIn("aRetenir", notion)
-        self.assertNotIn("demonstration", notion)
-        self.assertLessEqual(len(notion["exemples"]), 1)
+        # Seconde, Première ET Troisième ont désormais chacune leur contenu
+        # classé notion par notion (refontes pédagogiques successives) : plus
+        # aucun chapitre réel ne témoigne du comportement par défaut (aucun
+        # champsLibresForces, aucun niveauAcces explicite, repli positionnel
+        # sur les exemples). On teste donc directement filter_notion() avec
+        # une notion synthétique non classée, robuste à toute évolution future
+        # du contenu réel — c'est exactement ce que ce test cherche à vérifier :
+        # le COMPORTEMENT PAR DÉFAUT du filtrage, pas un contenu précis.
+        notion_non_classee = {
+            "id": "notion-test-non-classee",
+            "title": "Notion de test",
+            "aRetenir": ["Un point à retenir."],
+            "demonstration": {"titre": "Démonstration", "etapes": [], "conclusion": ""},
+            "exemples": [{"id": "ex1", "titre": "Exemple 1"}, {"id": "ex2", "titre": "Exemple 2"}],
+        }
+        filtered = filter_notion(notion_non_classee, Plan.FREE)
+        self.assertNotIn("aRetenir", filtered)
+        self.assertNotIn("demonstration", filtered)
+        self.assertLessEqual(len(filtered["exemples"]), 1)
 
     def test_premium_recoit_free_plus_premium(self):
         _set_plan(self.user["id"], "premium")
@@ -280,9 +507,16 @@ class TestApiCourseContentOwner(ApiCourseContentTestCase):
     def test_owner_test_free_recoit_le_contenu_free(self):
         owner_test_plan_service.set_test_plan(self.user, "free")
         owner_test_plan_service.set_unlimited_quotas(self.user, False)
-        resp = self.client.get("/api/course-content/seconde/Chapitre_1", headers=self.headers)
+        # Toutes les classes ont désormais leur contenu classé notion par
+        # notion (voir le commentaire de test_free_recoit_le_contenu_essentiel_uniquement) :
+        # `demonstration` reste le seul champ TOUJOURS réservé à Ultra sans
+        # exception possible (aucun override champsLibresForces ne s'applique
+        # à lui, voir course_content_service.py), donc son absence en plan
+        # free est une assertion robuste à tout contenu réel, contrairement à
+        # `aRetenir` qui peut désormais être exempté notion par notion.
+        resp = self.client.get("/api/course-content/troisieme/Chapitre_1", headers=self.headers)
         notion = resp.get_json()["notions"][0]
-        self.assertNotIn("aRetenir", notion)
+        self.assertNotIn("demonstration", notion)
 
     def test_owner_test_ultra_recoit_tout(self):
         owner_test_plan_service.set_test_plan(self.user, "ultra")

@@ -71,6 +71,11 @@ def _gen_coordonnees_vecteur(rng: random.Random) -> Optional[dict]:
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_BASE}
 
 
+def _p(v) -> str:
+    """Nombre en LaTeX, parenthésé seulement s'il est négatif (jamais « + -7 » ni « - -2 »)."""
+    return f"({latex(v)})" if v < 0 else latex(v)
+
+
 # ── Famille 2 — Milieu d'un segment ─────────────────────────────────────────
 
 def _gen_milieu(rng: random.Random) -> Optional[dict]:
@@ -81,7 +86,7 @@ def _gen_milieu(rng: random.Random) -> Optional[dict]:
     answer = f"$I\\left({latex(xi)} ; {latex(yi)}\\right)$"
     steps = [
         "Étape 1 — Les coordonnées du milieu sont $x_I = \\dfrac{x_A + x_B}{2}$ et $y_I = \\dfrac{y_A + y_B}{2}$.",
-        f"Étape 2 — $x_I = \\dfrac{{{xa} + {xb}}}{{2}} = {latex(xi)}$ et $y_I = \\dfrac{{{ya} + {yb}}}{{2}} = {latex(yi)}$.",
+        f"Étape 2 — $x_I = \\dfrac{{{xa} + {_p(xb)}}}{{2}} = {latex(xi)}$ et $y_I = \\dfrac{{{ya} + {_p(yb)}}}{{2}} = {latex(yi)}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_MILIEU}
 
@@ -121,7 +126,7 @@ def _gen_colinearite_test(rng: random.Random) -> Optional[dict]:
     answer = f"{'Oui, ils sont colinéaires' if colineaires else 'Non, ils ne sont pas colinéaires'} (déterminant $= {latex(det)}$)"
     steps = [
         "Étape 1 — $\\vec{u}(a ; b)$ et $\\vec{v}(c ; d)$ sont colinéaires si et seulement si $ad - bc = 0$.",
-        f"Étape 2 — $ad - bc = {a} \\times ({latex(d)}) - {b} \\times ({latex(c)}) = {latex(det)}$, donc "
+        f"Étape 2 — $ad - bc = {a} \\times {_p(d)} - {_p(b)} \\times {_p(c)} = {latex(det)}$, donc "
         f"{'ils sont colinéaires.' if colineaires else 'ils ne sont pas colinéaires.'}",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_COLINEARITE}
@@ -143,7 +148,7 @@ def _gen_determiner_parametre(rng: random.Random) -> Optional[dict]:
     answer = f"$m = {latex(m)}$"
     steps = [
         "Étape 1 — $\\vec{u}(a ; b)$ et $\\vec{v}(c ; m)$ sont colinéaires si et seulement si $a \\times m - b \\times c = 0$.",
-        f"Étape 2 — ${a} \\times m - {b} \\times {c} = 0 \\Longrightarrow m = \\dfrac{{{b} \\times {c}}}{{{a}}} = {latex(m)}$.",
+        f"Étape 2 — ${a} \\times m - {_p(b)} \\times {_p(c)} = 0 \\Longrightarrow m = \\dfrac{{{b} \\times {_p(c)}}}{{{a}}} = {latex(m)}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_COLINEARITE}
 

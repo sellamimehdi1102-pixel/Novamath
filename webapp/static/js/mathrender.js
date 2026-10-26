@@ -23,8 +23,28 @@ const RAW_PATTERNS = [
 // plus parser (throwOnError:false → rendu vide à la place de "x²").
 const MATH_SEGMENT = /(\$\$[^$]+\$\$|\$[^$]+\$)/g;
 
+// « Étape N — intitulé » → « Étape N : intitulé » (présentation seulement ;
+// les banques gardent leur texte). Séparateurs —, – et -, ce dernier
+// seulement s'il n'est pas suivi d'un chiffre (jamais « Étape 1 - 3 »).
+const STEP_LABEL_RE = /(^|[\s>(])(Étape\s+\d+)\s*(?:[—–]\s*|-\s+(?=\D|$))/g;
+
+function formatStepLabelsPlain(str) {
+  return str.replace(STEP_LABEL_RE, "$1$2 : ");
+}
+
+/** Même transformation, pour du texte avec formules $...$ affiché sans
+ * passer par setMathContent (listes d'étapes en innerHTML) : les formules
+ * ne sont jamais modifiées. */
+export function formatStepLabels(text) {
+  if (!text) return text;
+  return String(text)
+    .split(MATH_SEGMENT)
+    .map((part, i) => (i % 2 === 1 ? part : formatStepLabelsPlain(part)))
+    .join("");
+}
+
 function prettifyPlainText(str) {
-  let out = str;
+  let out = formatStepLabelsPlain(str);
   for (const [pattern, replacement] of RAW_PATTERNS) {
     out = out.replace(pattern, replacement);
   }
@@ -100,7 +120,10 @@ export function extractMathSegments(text) {
   const nonce = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
   const segments = [];
   const protectedText = text.replace(MATH_SEGMENT_RE, (match) => {
-    const placeholder = ` MATHSEG-${nonce}-${segments.length} `;
+    // Terminateur `-Z` : « …-1-Z » n'est jamais un préfixe de « …-10-Z »,
+    // ce qui permet la restauration de secours sur le jeton nu (voir
+    // restoreMathSegments).
+    const placeholder = ` MATHSEG-${nonce}-${segments.length}-Z `;
     segments.push({ placeholder, original: match });
     return placeholder;
   });
@@ -116,7 +139,12 @@ export function restoreMathSegments(html, segments) {
   if (!segments || !segments.length) return html;
   let out = html;
   for (const { placeholder, original } of segments) {
-    out = out.split(placeholder).join(_escapeMathText(original));
+    const escaped = _escapeMathText(original);
+    out = out.split(placeholder).join(escaped);
+    // Markdown retire l'espace de tête d'un élément de liste ("- $a$ — …"
+    // donne "<li>MATHSEG-…") : sans ce repli, le jeton restait affiché tel
+    // quel à l'écran au lieu de la formule.
+    out = out.split(placeholder.trim()).join(escaped);
   }
   return out;
 }

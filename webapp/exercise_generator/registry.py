@@ -46,11 +46,14 @@ exige donc TOUJOURS (class_level, chapter_id, notion, family_id) — exactement
 le tuple déjà renvoyé par available_notions(), que le frontend doit
 reproduire tel quel plutôt que d'envoyer family_id seul.
 """
+import curriculum_registry
 from exercise_generator import (
     derivatives, exponentielle, geometrie_reperee, probabilites_conditionnelles,
     produit_scalaire, second_degre, suites, tangente, trigonometrie, variables_aleatoires,
     variations,
 )
+from exercise_generator_premiere_specifique import programme_1es
+from exercise_generator_quatrieme import relatifs, fractions_sommes, fractions_produits, arithmetique, puissances, calcul_litteral, equations, pythagore, thales_emboites, cosinus, translations_plan, triangles_egaux, espace_volumes, proportionnalite_grandeurs, notion_fonction, statistiques_quatrieme, probabilites_quatrieme
 from exercise_generator_seconde import droites, pourcentages_evolutions, signes, vecteurs_seconde
 from exercise_generator_troisieme import (
     developper_distributivite, divisibilite, equation_premier_degre, factoriser_somme,
@@ -59,6 +62,10 @@ from exercise_generator_troisieme import (
 )
 
 _MODULES_BY_CLASS_LEVEL = {
+    # Chantier "Quatrième — chapitre pilote Pythagore" (2026-10-24) : classe
+    # NON PUBLIÉE — ces familles ne sont listées ni exécutées que si
+    # "quatrieme" est servie (prévisualisation locale), voir _is_served().
+    "quatrieme": (relatifs, fractions_sommes, fractions_produits, arithmetique, puissances, calcul_litteral, equations, pythagore, thales_emboites, cosinus, translations_plan, triangles_egaux, espace_volumes, proportionnalite_grandeurs, notion_fonction, statistiques_quatrieme, probabilites_quatrieme),
     # nombres_relatifs/proportionnalite/statistiques/probabilites_troisieme/
     # thales (Chapitre_2/6/9/10/14) : nouveaux générateurs créés par la
     # mission "rééquilibrage global de toutes les classes" (2026-09-01).
@@ -87,7 +94,28 @@ _MODULES_BY_CLASS_LEVEL = {
         trigonometrie, produit_scalaire, geometrie_reperee, probabilites_conditionnelles,
         variables_aleatoires,
     ),
+    # Première spécifique (séparée de "premiere" le 2026-10-26, adaptée au
+    # manuel « Première ES/L » le même jour ; NON PUBLIÉE — servie seulement en
+    # prévisualisation, voir _is_served) : package indépendant
+    # exercise_generator_premiere_specifique/, exposé par les vues de
+    # programme_1es.py (familles conservées, rattachées aux 9 chapitres du
+    # manuel ; les familles hors manuel ne sont ni listées ni générées).
+    "premiere_specifique": programme_1es.VUES,
 }
+
+# Notions retirées d'un programme officiel : leurs familles restent dans le
+# code (réversible) mais ne sont plus proposées ni générées à la demande.
+# Première spécifique, programme 2026 : la dérivée de x ↦ g(ax + b) n'est plus
+# au programme ; les FONCTIONS cosinus et sinus non plus. Aucune entrée pour
+# la Première historique ("premiere"), servie à l'identique.
+NOTIONS_HORS_PROGRAMME = {
+    ("premiere_specifique", "Composition de fonctions et dérivation"),
+    ("premiere_specifique", "Fonctions cosinus et sinus"),
+}
+
+
+def _retired(class_level, notion):
+    return (class_level, notion) in NOTIONS_HORS_PROGRAMME
 
 
 def _notion_of(module, family):
@@ -96,19 +124,35 @@ def _notion_of(module, family):
     return getattr(family, "notion", None) or module.NOTION
 
 
+def _is_served(class_level):
+    """Publication des classes (chantier "préparation de la Quatrième",
+    2026-10-24) : POST /api/practice/generate et /options ne valident pas
+    eux-mêmes `class_level` contre curriculum_registry (contrairement aux
+    autres routes de server.py) — ce module est donc leur point de contrôle.
+    Un générateur déclaré ici pour une classe non publiée (en préparation)
+    ne doit jamais être listé ni exécuté. Lu à chaque appel (attribut du
+    module, jamais une copie figée à l'import)."""
+    return class_level in curriculum_registry.CURRICULUM_REGISTRY
+
+
 def available_notions(class_level=None):
     """{(class_level, chapter_id, notion): [{"family_id", "label", "level"}, ...]}
     — tout ce qui peut réellement être généré à la demande aujourd'hui.
-    `class_level=None` renvoie les 3 classes ; sinon limité à celle demandée
-    (renvoie {} pour une classe qui n'a aucun générateur, jamais une
-    exception). Construit à chaque appel à partir de FAMILIES (léger,
-    aucune E/S, uniquement des attributs déjà en mémoire)."""
+    `class_level=None` renvoie toutes les classes servies ; sinon limité à
+    celle demandée (renvoie {} pour une classe qui n'a aucun générateur ou
+    qui n'est pas servie, jamais une exception). Construit à chaque appel à
+    partir de FAMILIES (léger, aucune E/S, uniquement des attributs déjà en
+    mémoire)."""
     out = {}
     levels = (class_level,) if class_level else tuple(_MODULES_BY_CLASS_LEVEL)
     for level in levels:
+        if not _is_served(level):
+            continue
         for module in _MODULES_BY_CLASS_LEVEL.get(level, ()):
             for family in module.FAMILIES:
                 key = (level, module.CHAPTER_ID, _notion_of(module, family))
+                if _retired(level, key[2]):
+                    continue
                 out.setdefault(key, []).append({
                     "family_id": family.id,
                     "label": family.label,
@@ -120,7 +164,10 @@ def available_notions(class_level=None):
 def _find_module(class_level, chapter_id, notion, family_id):
     """Résout SANS AMBIGUÏTÉ le module propriétaire d'une famille, à partir
     du tuple complet (voir docstring du module ci-dessus — family_id seul ne
-    suffit pas). None si aucune correspondance exacte."""
+    suffit pas). None si aucune correspondance exacte ou si la classe n'est
+    pas servie (voir _is_served)."""
+    if not _is_served(class_level) or _retired(class_level, notion):
+        return None
     for module in _MODULES_BY_CLASS_LEVEL.get(class_level, ()):
         if module.CHAPTER_ID != chapter_id:
             continue

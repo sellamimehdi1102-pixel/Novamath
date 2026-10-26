@@ -56,6 +56,15 @@ def _small(rng: random.Random, lo=-9, hi=9) -> int:
 # où `notes` documente en français les paramètres tirés, pour construire
 # l'énoncé et les explications sans dupliquer la logique de tirage.
 
+def _p(v) -> str:
+    """Facteur en LaTeX, entre parenthèses s'il s'affiche avec un signe moins ou
+    s'il est une somme (jamais « \\times -3 », « + -2 » ni « -5^2 »)."""
+    s = v if isinstance(v, str) else latex(v)
+    if not (s.lstrip().startswith("-") or getattr(v, "is_Add", False)):
+        return s
+    return f"\\left({s}\\right)" if "\\frac" in s else f"({s})"
+
+
 def _gen_constante(rng):
     c = _small(rng, -12, 12)
     return S(c), {"c": c}
@@ -419,7 +428,7 @@ def _gen_compo_regle_chaine(rng):
         f"Étape 1 — $u'(x) = {latex(uprime_expr)}$.",
         f"Étape 2 — ${vprime_latex}$, donc $v'\\big(u(x)\\big) = {latex(vprime_t.subs(t, u_expr))}$.",
         f"Étape 3 — $f'(x) = u'(x)\\times v'\\big(u(x)\\big) = {latex(uprime_expr)} \\times "
-        f"{latex(vprime_t.subs(t, u_expr))} = {latex(fprime_via_chain)}$.",
+        f"{_p(vprime_t.subs(t, u_expr))} = {latex(fprime_via_chain)}$.",
     ]
     answer = f"$f'(x) = {latex(fprime_via_chain)}$"
     hint = "Calculer u'(x) et v'(t) séparément, remplacer t par u(x) dans v'(t), puis multiplier par u'(x) — ne jamais dériver directement l'expression composée sans ces étapes."

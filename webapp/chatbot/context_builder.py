@@ -1,6 +1,6 @@
 """
 Construit un résumé compact (jamais les données brutes) de la situation
-NovaMath de l'élève : niveau, précision, notions faibles, chapitre en cours...
+Mathadap de l'élève : niveau, précision, notions faibles, chapitre en cours...
 Ce résumé est ce qui est injecté dans le prompt système (voir
 prompt_builder.py) — pas l'historique complet ni la banque d'exercices
 entière, pour rester proche de l'esprit RAG (contexte minimal) même si le

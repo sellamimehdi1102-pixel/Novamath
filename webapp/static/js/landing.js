@@ -86,6 +86,13 @@ function refreshSiteStats(classLevel) {
 // (voir webapp/curriculum_registry.py) — jamais de niveau inventé qui
 // n'existe pas encore côté backend (ex: Terminale, pas encore au registre).
 const SHOWCASE_CONVERSATIONS = {
+  // Quatrième : en préparation (non publiée), servie seulement en
+  // prévisualisation locale — exemple tiré du chapitre 8 (Pythagore).
+  quatrieme: [
+    "Le triangle ABC a des côtés de 6, 8 et 10 cm. Est-il rectangle ?",
+    "Je compare 10² avec 6² + 8² ?",
+    "Exactement — 10² = 100 et 6² + 8² = 36 + 64 = 100. D'après la réciproque du théorème de Pythagore, ABC est rectangle.",
+  ],
   troisieme: [
     "Comment savoir si les droites (MN) et (BC) sont parallèles ?",
     "Il faut comparer les rapports du théorème de Thalès ?",
@@ -100,6 +107,13 @@ const SHOWCASE_CONVERSATIONS = {
     "Pourquoi la dérivée s'annule en x = 2 ?",
     "Parce que c'est un maximum",
     "Exactement — la tangente y est horizontale. On le vérifie en étudiant le signe de f' avant et après x = 2.",
+  ],
+  // Première spécifique : non publiée, servie seulement en prévisualisation
+  // locale — exemple tiré du chapitre 1 (pourcentages).
+  premiere_specifique: [
+    "Un prix augmente de 10 % puis baisse de 10 %. Revient-il à sa valeur de départ ?",
+    "Il faut multiplier les coefficients ?",
+    "Exactement — 1,1 × 0,9 = 0,99 : le prix final est 1 % plus bas que le prix de départ.",
   ],
 };
 

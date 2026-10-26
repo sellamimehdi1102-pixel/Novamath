@@ -67,6 +67,34 @@ def _disp(n) -> str:
     return f"({s})" if s.startswith("-") else s
 
 
+def _pm(n) -> str:
+    """Terme ajouté avec son signe : « + 4 », « - 4 » (jamais « + -4 »)."""
+    s = _fmt_num(n)
+    return f"- {s[1:]}" if s.startswith("-") else f"+ {s}"
+
+
+def _lin(*terms) -> str:
+    """Combinaison linéaire entière lisible : _lin((3, "x"), (-1, "y"), (2, "")) -> « 3x - y + 2 »
+    (termes nuls omis, coefficient ±1 non affiché, jamais « + -3y » ni « 1x »)."""
+    out = ""
+    for coef, var in terms:
+        if coef == 0:
+            continue
+        mag = abs(coef)
+        body = f"{'' if (mag == 1 and var) else mag}{var}"
+        if not out:
+            out = f"-{body}" if coef < 0 else body
+        else:
+            out += f" {'-' if coef < 0 else '+'} {body}"
+    return out or "0"
+
+
+def _dispf(r) -> str:
+    """Nombre parenthésé s'il est négatif ou fractionnaire (« (-1/2)×3 », jamais « -1/2×3 »)."""
+    s = _fmt_num(r)
+    return f"({s})" if (s.startswith("-") or "/" in s) else s
+
+
 def _fmt_affine(a, b, var="x") -> str:
     """Formate a*var + b façon "2x + 4" / "(2/3)x - 1" (style déjà utilisé
     dans exercises_bank.json — voir scan des exemples existants)."""
@@ -202,9 +230,9 @@ def _gen_vecteur_contexte(rng):
         "Un mobile se déplaçant en ligne droite à vitesse constante suit une trajectoire rectiligne dont "
         "le vecteur vitesse est justement un vecteur directeur.",
         f"Vecteur directeur de la trajectoire : $\\vec{{v}}$ = ({vx}, {vy}).",
-        f"Position à l'instant t : M(t) = A + t·$\\vec{{v}}$ = ({x0} + {vx}t, {y0} + {vy}t).",
+        f"Position à l'instant t : M(t) = A + t·$\\vec{{v}}$ = ({_lin((x0, ''), (vx, 't'))}, {_lin((y0, ''), (vy, 't'))}).",
     ]
-    answer = f"Vecteur directeur : ({vx}, {vy}). Position : M(t) = ({x0} + {vx}t ; {y0} + {vy}t)."
+    answer = f"Vecteur directeur : ({vx}, {vy}). Position : M(t) = ({_lin((x0, ''), (vx, 't'))} ; {_lin((y0, ''), (vy, 't'))})."
     hint = "Le vecteur vitesse (constant) d'un mouvement rectiligne est un vecteur directeur de la trajectoire."
     return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
 
@@ -222,13 +250,13 @@ def _gen_eq_reduite_erreur(rng):
     if (wrong_slope, wrong_intercept) == (correct_slope, correct_intercept):
         return None
     enonce = (
-        f"Un élève transforme l'équation {a}x + {b}y + {c} = 0 sous forme réduite et obtient "
+        f"Un élève transforme l'équation {_fmt_cart(a, b, c)} sous forme réduite et obtient "
         f"y = {_fmt_affine(wrong_slope, wrong_intercept)}. A-t-il raison ? Sinon, donner la bonne "
         "équation réduite."
     )
     steps = [
-        f"On isole y : {b}y = -{a}x - {c}.",
-        f"On divise par {b} : y = ({-a}/{b})x + ({-c}/{b}) = {_fmt_affine(correct_slope, correct_intercept)}.",
+        f"On isole y : {_lin((b, 'y'))} = {_lin((-a, 'x'), (-c, ''))}.",
+        f"On divise par {b} : y = ({-a}/{_disp(b)})x + ({-c}/{_disp(b)}) = {_fmt_affine(correct_slope, correct_intercept)}.",
         "L'élève a oublié de changer le signe de a et de c en les faisant passer de l'autre côté de "
         "l'égalité.",
     ]
@@ -249,14 +277,14 @@ def _gen_eq_reduite_vf(rng):
         "appartient à D. Justifier."
     )
     steps = [
-        f"On remplace x par {x0} dans l'équation de D : y = {a}×{_disp(x0)} + {b} = {true_y}.",
+        f"On remplace x par {x0} dans l'équation de D : y = {a}×{_disp(x0)} {_pm(b)} = {true_y}.",
         f"Le point de D d'abscisse {x0} a pour ordonnée {true_y}, "
         f"{'ce qui correspond' if is_true else 'à comparer'} à l'ordonnée {y_test} de M.",
     ]
     if is_true:
-        answer = f"Vrai : M({x0}, {y_test}) appartient à D, car {a}×{_disp(x0)}+{b} = {y_test}."
+        answer = f"Vrai : M({x0}, {y_test}) appartient à D, car {a}×{_disp(x0)} {_pm(b)} = {y_test}."
     else:
-        answer = f"Faux : M({x0}, {y_test}) n'appartient pas à D, car {a}×{_disp(x0)}+{b} = {true_y} ≠ {y_test}."
+        answer = f"Faux : M({x0}, {y_test}) n'appartient pas à D, car {a}×{_disp(x0)} {_pm(b)} = {true_y} ≠ {y_test}."
     hint = "Un point (x0, y0) appartient à D : y = ax+b si et seulement si y0 = a×x0 + b."
     return {"enonce": enonce, "answer": answer, "steps": steps, "hint": hint}
 
@@ -282,14 +310,14 @@ def _gen_eq_reduite_inverse(rng):
     steps = (
         [
             "Deux droites perpendiculaires ont des coefficients directeurs dont le produit vaut -1 : "
-            f"le coefficient directeur de D' est donc -1/{a} = {_fmt_num(slope)}.",
+            f"le coefficient directeur de D' est donc -1/{_disp(a)} = {_fmt_num(slope)}.",
         ]
         if perpendicular
         else [
             f"Deux droites parallèles ont le même coefficient directeur : celui de D' est donc {a}.",
         ]
     ) + [
-        f"D' : y = {_fmt_num(slope)}x + p. Comme C({cx},{cy}) ∈ D' : {cy} = {_fmt_num(slope)}×{_disp(cx)} + p, "
+        f"D' : y = {_fmt_affine(slope, 0)} + p. Comme C({cx},{cy}) ∈ D' : {cy} = {_dispf(slope)}×{_disp(cx)} + p, "
         f"donc p = {_fmt_num(intercept)}.",
         f"Equation de D' : y = {_fmt_affine(slope, intercept)}.",
     ]
@@ -317,7 +345,7 @@ def _gen_eq_reduite_choix_methode(rng):
         "'coefficient directeur puis point' est la plus directe — le système à deux inconnues donnerait "
         "le même résultat mais demande plus de calcul.",
         f"Coefficient directeur : a = (yB-yA)/(xB-xA) = ({by}-{_disp(ay)})/({bx}-{_disp(ax)}) = {_fmt_num(slope)}.",
-        f"Avec A({ax},{ay}) : {ay} = {_fmt_num(slope)}×{_disp(ax)} + b, donc b = {_fmt_num(intercept)}.",
+        f"Avec A({ax},{ay}) : {ay} = {_dispf(slope)}×{_disp(ax)} + b, donc b = {_fmt_num(intercept)}.",
         f"Equation réduite : y = {_fmt_affine(slope, intercept)}.",
     ]
     answer = f"Méthode la plus directe : coefficient directeur puis point. y = {_fmt_affine(slope, intercept)}"
@@ -395,11 +423,11 @@ def _gen_positions_erreur(rng):
         f"{_fmt_num(wrong_point[1])}). Vérifier ce résultat et corriger si besoin."
     )
     steps = [
-        f"Vérification sur D1 : y = {a1}×{_disp(wrong_point[0])} + {b1} = "
+        f"Vérification sur D1 : y = {a1}×{_disp(wrong_point[0])} {_pm(b1)} = "
         f"{_fmt_num(a1 * wrong_point[0] + b1)}, à comparer à {_fmt_num(wrong_point[1])}.",
-        f"Résolution correcte du système : {a1}x+{b1} = {a2}x+{b2}, donc "
+        f"Résolution correcte du système : {_lin((a1, 'x'), (b1, ''))} = {_lin((a2, 'x'), (b2, ''))}, donc "
         f"({a1}-{_disp(a2)})x = {b2}-{_disp(b1)}, x = {_fmt_num(x_true)}.",
-        f"y = {a1}×{_disp(x_true)}+{b1} = {_fmt_num(y_true)}.",
+        f"y = {a1}×{_disp(x_true)} {_pm(b1)} = {_fmt_num(y_true)}.",
     ]
     answer = f"Le point proposé est incorrect. Le vrai point d'intersection est ({_fmt_num(x_true)}, {_fmt_num(y_true)})."
     hint = "Recalculer soi-même le système en égalant les deux expressions de y, plutôt que de faire confiance au résultat proposé."
@@ -416,7 +444,7 @@ def _gen_positions_inverse(rng):
     else:
         target = solve(Eq(m_sym * a2, -1), m_sym)[0]
     enonce = (
-        f"Déterminer la valeur de m sachant que les droites D1 : y = mx + {b1} et "
+        f"Déterminer la valeur de m sachant que les droites D1 : y = mx{' ' + _pm(b1) if b1 else ''} et "
         f"D2 : y = {_fmt_affine(a2, b2)} sont {relation}."
     )
     if relation == "parallèles":
@@ -427,7 +455,7 @@ def _gen_positions_inverse(rng):
     else:
         steps = [
             "Deux droites sont perpendiculaires ssi le produit de leurs coefficients directeurs vaut -1.",
-            f"Il faut donc m × {a2} = -1, soit m = {_fmt_num(target)}.",
+            f"Il faut donc m × {_disp(a2)} = -1, soit m = {_fmt_num(target)}.",
         ]
     answer = f"m = {_fmt_num(target)}"
     hint = "Parallèles : mêmes coefficients directeurs. Perpendiculaires : produit des coefficients directeurs égal à -1."
@@ -473,8 +501,8 @@ def _gen_positions_contexte(rng):
     steps = [
         f"Les routes se croisent si les droites sont sécantes, c'est-à-dire si {a1} ≠ {a2} (coefficients "
         "directeurs différents), ce qui est le cas ici.",
-        f"On résout {a1}x+{b1} = {a2}x+{b2} : x = {_fmt_num(sol[x_sym])}.",
-        f"y = {a1}×{_disp(sol[x_sym])}+{b1} = {_fmt_num(sol[y_sym])}.",
+        f"On résout {_lin((a1, 'x'), (b1, ''))} = {_lin((a2, 'x'), (b2, ''))} : x = {_fmt_num(sol[x_sym])}.",
+        f"y = {a1}×{_disp(sol[x_sym])} {_pm(b1)} = {_fmt_num(sol[y_sym])}.",
     ]
     answer = f"Oui, les routes se croisent au point ({_fmt_num(sol[x_sym])}, {_fmt_num(sol[y_sym])})."
     hint = "Deux routes rectilignes se croisent ssi les droites qui les modélisent sont sécantes (coefficients directeurs différents)."
@@ -500,7 +528,7 @@ def _gen_eq_cart_vf(rng):
     )
     steps = [
         f"On remplace x et y par {x0} et {_fmt_num(y_test)} dans l'équation : "
-        f"{p}×{_disp(x0)} + {q}×{_disp(y_test)} + {r} = {lhs}.",
+        f"{p}×{_disp(x0)} + {_disp(q)}×{_disp(y_test)} {_pm(r)} = {lhs}.",
         f"Ce résultat est {'nul' if lhs == 0 else 'non nul'}, donc M {'vérifie' if lhs == 0 else 'ne vérifie pas'} "
         "l'équation de D.",
     ]
@@ -531,8 +559,8 @@ def _gen_eq_cart_erreur(rng):
         "confondu les deux.",
         f"Le vecteur normal s'obtient à partir du vecteur directeur (u,v) par (-v, u) : ici "
         f"({normal[0]}, {normal[1]}).",
-        f"Equation : {normal[0]}x + {normal[1]}y + c = 0, avec A({ax},{ay}) : "
-        f"{normal[0]}×{_disp(ax)} + {normal[1]}×{_disp(ay)} + c = 0, donc c = {correct_c}.",
+        f"Equation : {_lin((normal[0], 'x'), (normal[1], 'y'))} + c = 0, avec A({ax},{ay}) : "
+        f"{normal[0]}×{_disp(ax)} + {_disp(normal[1])}×{_disp(ay)} + c = 0, donc c = {correct_c}.",
         f"Equation correcte : {_fmt_cart(normal[0], normal[1], correct_c)}.",
     ]
     answer = f"Erreur : AB est un vecteur directeur, pas normal. Equation correcte : {_fmt_cart(normal[0], normal[1], correct_c)}"
@@ -552,7 +580,7 @@ def _gen_eq_cart_inverse(rng):
     steps = [
         f"Deux droites parallèles ont le même vecteur normal (à un facteur près) : celui de D est donc "
         f"({p}, {q}), comme pour Δ.",
-        f"Equation de D : {p}x + {q}y + c = 0. Avec A({ax},{ay}) : {p}×{_disp(ax)} + {q}×{_disp(ay)} + c = 0, "
+        f"Equation de D : {_lin((p, 'x'), (q, 'y'))} + c = 0. Avec A({ax},{ay}) : {p}×{_disp(ax)} + {_disp(q)}×{_disp(ay)} + c = 0, "
         f"donc c = {new_c}.",
         f"Equation de D : {_fmt_cart(p, q, new_c)}.",
     ]
@@ -578,7 +606,7 @@ def _gen_eq_cart_choix_methode(rng):
         "immédiatement le vecteur normal, sans passer par l'équation réduite (qui échouerait de plus "
         "si ux = 0, cas d'une droite verticale).",
         f"Vecteur normal : (-v, u) = ({normal[0]}, {normal[1]}).",
-        f"Equation : {normal[0]}x + {normal[1]}y + c = 0. Avec A({ax},{ay}) : c = {c}.",
+        f"Equation : {_lin((normal[0], 'x'), (normal[1], 'y'))} + c = 0. Avec A({ax},{ay}) : c = {c}.",
         f"Equation cartésienne de D : {_fmt_cart(normal[0], normal[1], c)}.",
     ]
     answer = f"Méthode la plus directe : déduire le vecteur normal du vecteur directeur. {_fmt_cart(normal[0], normal[1], c)}"

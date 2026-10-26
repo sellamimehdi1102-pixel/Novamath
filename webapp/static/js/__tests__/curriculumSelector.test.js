@@ -87,6 +87,18 @@ describe("curriculumSelector.js — renderCurriculumCard", () => {
     const card = renderCurriculumCard(CURRICULA[0]);
     expect(card.getAttribute("aria-label")).toBe("Seconde — Programme officiel");
   });
+
+  it("programme en prévisualisation (published: false) : annoncé en préparation, jamais « Programme officiel »", () => {
+    const card = renderCurriculumCard({
+      ...CURRICULA[0],
+      classLevel: "quatrieme",
+      label: "Quatrième",
+      published: false,
+    });
+    expect(card.querySelector(".cursus-card-desc").textContent).toBe("En préparation — aperçu local, non publié");
+    expect(card.getAttribute("aria-label")).toBe("Quatrième — En préparation — aperçu local, non publié");
+    expect(card.textContent).not.toContain("Programme officiel");
+  });
 });
 
 describe("curriculumSelector.js — initClassBadge", () => {
@@ -139,5 +151,51 @@ describe("curriculumSelector.js — initClassBadge", () => {
     btn.click();
     btn.click();
     expect(document.querySelector(".class-badge-panel")).toBeNull();
+  });
+
+  describe("classe mémorisée qui n'est plus servie (prévisualisation arrêtée)", () => {
+    function stubReload() {
+      const original = window.location;
+      const reload = vi.fn();
+      Object.defineProperty(window, "location", { value: { ...original, reload }, writable: true, configurable: true });
+      return {
+        reload,
+        restore: () =>
+          Object.defineProperty(window, "location", { value: original, writable: true, configurable: true }),
+      };
+    }
+
+    it("oublie le choix et recharge une seule fois sur la classe par défaut", async () => {
+      const { reload, restore } = stubReload();
+      localStorage.setItem(CLASS_LEVEL_KEY, "quatrieme");
+      mockGetCurricula.mockResolvedValue(CURRICULA);
+      const initClassBadgeFresh = await freshInitClassBadge();
+      initClassBadgeFresh(buildButton());
+      await new Promise((r) => setTimeout(r, 0));
+      expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBeNull();
+      expect(reload).toHaveBeenCalledTimes(1);
+      restore();
+    });
+
+    it("ne touche à rien quand la classe mémorisée est servie, ou si la liste n'a pas pu être chargée", async () => {
+      const { reload, restore } = stubReload();
+      localStorage.setItem(CLASS_LEVEL_KEY, "premiere");
+      mockGetCurricula.mockResolvedValue(CURRICULA);
+      let initClassBadgeFresh = await freshInitClassBadge();
+      const btn = buildButton();
+      initClassBadgeFresh(btn);
+      await new Promise((r) => setTimeout(r, 0));
+      expect(btn.querySelector(".class-badge-label").textContent).toBe("Première");
+
+      localStorage.setItem(CLASS_LEVEL_KEY, "quatrieme");
+      mockGetCurricula.mockRejectedValue(new Error("réseau"));
+      initClassBadgeFresh = await freshInitClassBadge();
+      initClassBadgeFresh(buildButton());
+      await new Promise((r) => setTimeout(r, 0));
+      expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("quatrieme");
+      expect(reload).not.toHaveBeenCalled();
+      localStorage.removeItem(CLASS_LEVEL_KEY);
+      restore();
+    });
   });
 });

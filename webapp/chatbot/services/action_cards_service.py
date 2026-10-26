@@ -116,6 +116,11 @@ def build_cards(
         elif r["type"] == "exercices":
             if intent_chapter_id and r["chapter_id"] != intent_chapter_id:
                 continue
+            # Aucun chapitre connu et aucun mot de sujet (« ne fait pas 2/7 ») :
+            # le résultat n'est qu'une coïncidence de vocabulaire (voir
+            # search_service.has_topic_word).
+            if not intent_chapter_id and not search_service.has_topic_word(user_message):
+                continue
             # Bug corrigé (répétition de la même question tout au long de la
             # série lancée depuis le bouton "Commencer un entraînement") :
             # `[r["exercise_id"]]` ne transmettait qu'UN SEUL exercice au
