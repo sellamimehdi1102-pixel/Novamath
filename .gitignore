@@ -26,6 +26,13 @@ data/stats_store.legacy.json
 # règle nécessitent `git rm --cached` (action distincte, jamais automatique
 # — voir rapport d'audit).
 data/support_attachments/
+# Rapports d'analyse générés (PDF mensuels) et sauvegardes ponctuelles de la
+# base (ex. avant correction des rôles) : données réelles potentiellement
+# privées, jamais à versionner.
+data/analytics_reports/
+data/backups_roles_fix/
+# Base locale parasite à la racine (la vraie base est data/novamath.db).
+/novamath.db
 
 # Ajouts SEC-07 (infrastructure de déploiement) — voir DEPLOYMENT.md.
 *.pyo
