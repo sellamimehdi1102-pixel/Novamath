@@ -136,6 +136,78 @@ _PROGRAMME_2026_MODULES = (
 )
 
 
+# Complément ADDITIF (2026-10-27, plancher de 300 exercices servis par
+# chapitre, voir tests/test_exercise_chapter_balance.py) : tout ce qui précède
+# reste produit à l'identique ; pour chaque chapitre encore sous la cible (310,
+# marge comprise, exercices curés + générés), des tirages supplémentaires des
+# générateurs existants (graines DISTINCTES) sont débarrassés de tout énoncé
+# déjà existant (pool généré et banque curée), puis prélevés à tour de rôle
+# dans chaque famille du chapitre. Identifiants : `offset + 1000 × rang + 500
+# + k` dans le bloc propre à chaque famille (modules à bloc par famille), ou
+# un bloc dédié du module (`suites` : GENERATED_ID_OFFSET + 5 000).
+# (chapitre, nombre ajouté, ((source, graine), ...)) — figé dès la première
+# écriture.
+_COMPLEMENT_PLANCHER = (
+    ("Chapitre_2", 60, (("automatismes", 20261302), ("fonctions_reference_1es", 20261303))),
+    ("Chapitre_4", 19, (("automatismes", 20261304), ("statistiques_1es", 20261305))),
+    ("Chapitre_7", 11, (("suites", 20261306),)),
+    ("Chapitre_9", 96, (("loi_binomiale_1es", 20261307),)),
+)
+# Plafonds d'ajout par famille : au Chapitre_9, quatre familles sont épuisées
+# (bernoulli, coefficients, cumul, bornes : tout leur espace d'énoncés est
+# déjà servi) ; sans plafond, les deux familles à patron d'énoncé unique
+# (proba_binomiale, decision) dépasseraient 20 % du chapitre (voir
+# tests/test_exercise_chapter_balance.py::TestAucunTemplateTextuelDominant).
+_COMPLEMENT_PLAFONDS = {"Chapitre_9": {"proba_binomiale": 35, "decision": 36}}
+_COMPLEMENT_SOURCES = {
+    "automatismes": lambda seed: programme_1es.adapter_pool(automatismes.generate_pool(per_family=80, seed=seed)),
+    "suites": lambda seed: programme_1es.adapter_pool(suites.generate_pool(per_family=40, seed=seed)),
+    "fonctions_reference_1es": lambda seed: fonctions_reference_1es.generate_pool(per_family=80, seed=seed),
+    "statistiques_1es": lambda seed: statistiques_1es.generate_pool(per_family=80, seed=seed),
+    "loi_binomiale_1es": lambda seed: loi_binomiale_1es.generate_pool(per_family=80, seed=seed),
+}
+_COMPLEMENT_BLOC_MODULE = {"suites": suites.GENERATED_ID_OFFSET + 5000}
+
+
+def _complement_chapitre(chapitre: str, n_extra: int, sources, existing: set[str], combined: list[dict]) -> list[dict]:
+    """Exercices ajoutés à un chapitre : énoncés tous nouveaux, prélevés famille
+    après famille, numérotés sans jamais réutiliser un identifiant existant."""
+    candidats: dict[str, list[dict]] = {}
+    origine: dict[str, str] = {}
+    for source, seed in sources:
+        for ex in _COMPLEMENT_SOURCES[source](seed):
+            if ex["chapter_id"] != chapitre or ex["enonce"] in existing:
+                continue
+            if any(ex["enonce"] == autre["enonce"] for autre in candidats.get(ex["family"], ())):
+                continue
+            candidats.setdefault(ex["family"], []).append(ex)
+            origine.setdefault(ex["family"], source)
+    for fam, plafond in _COMPLEMENT_PLAFONDS.get(chapitre, {}).items():
+        if fam in candidats:
+            del candidats[fam][plafond:]
+    familles = list(candidats)
+    retenus, idx = [], 0
+    while len(retenus) < n_extra and any(candidats.values()):
+        bucket = candidats[familles[idx % len(familles)]]
+        if bucket:
+            retenus.append(bucket.pop(0))
+        idx += 1
+    blocs_famille: dict[str, set[int]] = {}
+    for ex in combined:
+        blocs_famille.setdefault(ex["family"], set()).add(ex["id"] // 1000)
+    compteur: dict[str, int] = {}
+    for ex in retenus:
+        fam, source = ex["family"], origine[ex["family"]]
+        if source in _COMPLEMENT_BLOC_MODULE:
+            ex["id"] = _COMPLEMENT_BLOC_MODULE[source] + compteur.get(source, 0)
+            compteur[source] = compteur.get(source, 0) + 1
+        else:
+            (bloc,) = blocs_famille[fam]  # une famille = un bloc de 1 000 identifiants
+            ex["id"] = bloc * 1000 + 500 + compteur.get(fam, 0)
+            compteur[fam] = compteur.get(fam, 0) + 1
+    return retenus
+
+
 def _check_family_calibration(pool: list[dict], module_name: str) -> list[str]:
     """Vérifie que la difficulté réelle moyenne croît avec le niveau déclaré
     de la famille — garde-fou contre une famille "difficile" qui génèrerait
@@ -355,6 +427,17 @@ def main() -> None:
         all_problems.extend(_check_family_calibration(pool_1es, f"{name} (manuel 1ES/L)"))
         per_module_counts[f"{name} (manuel 1ES/L)"] = len(pool_1es)
         combined.extend(pool_1es)
+
+    # Complément ADDITIF au plancher de 300 exercices par chapitre (voir
+    # _COMPLEMENT_PLANCHER).
+    _existing_all = {ex["enonce"] for ex in combined} | _curated
+    for chapitre, n_extra, sources in _COMPLEMENT_PLANCHER:
+        extra = _complement_chapitre(chapitre, n_extra, sources, _existing_all, combined)
+        if len(extra) != n_extra:
+            all_problems.append(f"[complément {chapitre}] {len(extra)} exercices nouveaux au lieu de {n_extra}")
+        per_module_counts[f"complément {chapitre} (plancher 300)"] = len(extra)
+        _existing_all |= {ex["enonce"] for ex in extra}
+        combined.extend(extra)
 
     # Collision d'id : garde-fou explicite (ne devrait jamais se déclencher
     # tant que les GENERATED_ID_OFFSET restent distincts et suffisamment

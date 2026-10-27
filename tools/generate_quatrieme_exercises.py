@@ -52,6 +52,55 @@ MODULES = (
     ("probabilites_quatrieme", probabilites_quatrieme, 25, 40170001),
 )
 
+# Complément ADDITIF (2026-10-27, plancher de 300 exercices servis par
+# chapitre, voir tests/test_exercise_chapter_balance.py) : MODULES ci-dessus
+# reste figé (mêmes tirages, mêmes identifiants) ; pour chaque chapitre encore
+# sous la cible (310, marge comprise, exercices curés + générés), un pool
+# supplémentaire est tiré avec une graine DISTINCTE, débarrassé de tout énoncé
+# déjà existant (pool généré et banque curée), puis prélevé à tour de rôle
+# dans chaque famille (diversité et équilibre des niveaux conservés) et
+# numéroté dans un bloc dédié du chapitre (GENERATED_ID_OFFSET + 5 000).
+# (nom, module, graine, nombre d'exercices ajoutés) — figé dès la première
+# écriture, comme MODULES.
+EXTENSION_ID_BLOCK = 5_000
+EXTENSION_PER_FAMILY = 40
+EXTENSIONS = (
+    ("relatifs", relatifs, 940010001, 30),
+    ("fractions_sommes", fractions_sommes, 940020001, 34),
+    ("fractions_produits", fractions_produits, 940030001, 51),
+    ("arithmetique", arithmetique, 940040001, 38),
+    ("puissances", puissances, 940050001, 39),
+    ("calcul_litteral", calcul_litteral, 940060001, 16),
+    ("equations", equations, 940070001, 16),
+    ("thales_emboites", thales_emboites, 940090001, 41),
+    ("cosinus", cosinus, 940100001, 42),
+    ("translations_plan", translations_plan, 940110001, 48),
+    ("triangles_egaux", triangles_egaux, 940120001, 92),
+    ("espace_volumes", espace_volumes, 940130001, 42),
+    ("proportionnalite_grandeurs", proportionnalite_grandeurs, 940140001, 41),
+    ("notion_fonction", notion_fonction, 940150001, 77),
+    ("statistiques_quatrieme", statistiques_quatrieme, 940160001, 78),
+    ("probabilites_quatrieme", probabilites_quatrieme, 940170001, 42),
+)
+
+
+def build_extension(module, seed: int, n_extra: int, existing_enonces: set[str]) -> list[dict]:
+    """Exercices supplémentaires d'un module : énoncés tous nouveaux,
+    prélevés famille après famille, identifiants dans le bloc d'extension."""
+    raw = module.generate_pool(per_family=EXTENSION_PER_FAMILY, seed=seed)
+    by_family = {f.id: [e for e in raw if e["family"] == f.id and e["enonce"] not in existing_enonces]
+                 for f in module.FAMILIES}
+    picked, idx = [], 0
+    while len(picked) < n_extra and any(by_family.values()):
+        bucket = by_family[module.FAMILIES[idx % len(module.FAMILIES)].id]
+        if bucket:
+            picked.append(bucket.pop(0))
+        idx += 1
+    offset = module.GENERATED_ID_OFFSET + EXTENSION_ID_BLOCK
+    for i, ex in enumerate(picked):
+        ex["id"] = offset + i
+    return picked
+
 
 def build_pool() -> tuple[list[dict], list[str]]:
     problems: list[str] = []
@@ -68,6 +117,17 @@ def build_pool() -> tuple[list[dict], list[str]]:
         if avgs != sorted(avgs):
             problems.append(f"[{name}] difficulté réelle non croissante avec le niveau déclaré")
         combined.extend(pool)
+
+    curated_enonces = (
+        {e["enonce"] for e in json.loads(CURATED_PATH.read_text(encoding="utf-8"))} if CURATED_PATH.exists() else set()
+    )
+    existing = {ex["enonce"] for ex in combined} | curated_enonces
+    for name, module, seed, n_extra in EXTENSIONS:
+        extra = build_extension(module, seed, n_extra, existing)
+        if len(extra) != n_extra:
+            problems.append(f"[{name}] extension : {len(extra)} exercices nouveaux au lieu de {n_extra}")
+        existing |= {ex["enonce"] for ex in extra}
+        combined.extend(extra)
 
     ids = [ex["id"] for ex in combined]
     if len(ids) != len(set(ids)):

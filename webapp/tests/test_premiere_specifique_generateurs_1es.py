@@ -41,6 +41,17 @@ def maths(texte):
     return re.findall(r"\$([^$]*)\$", texte)
 
 
+def _charger_outil():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "generate_premiere_specifique_exercises", ROOT / "tools" / "generate_premiere_specifique_exercises.py",
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def verifier(ex):
     fam, en, ans = ex["family"], ex["enonce"], ex["answer"]
     if fam == "proportion":
@@ -147,9 +158,22 @@ class TestPoolServi(unittest.TestCase):
         frais = {}
         for module, seed in MODULES:
             frais.update({e["id"]: e for e in module.generate_pool(per_family=24, seed=seed)})
+        # Complément au plancher de 300 exercices par chapitre (2026-10-27) :
+        # chaque exercice ajouté est un tirage des générateurs existants avec
+        # les graines du complément, à l'identique hors identifiant.
+        outil = _charger_outil()
+        complement = {}
+        for _chapitre, _n, sources in outil._COMPLEMENT_PLANCHER:
+            for source, seed in sources:
+                for e in outil._COMPLEMENT_SOURCES[source](seed):
+                    complement.setdefault(e["enonce"], e)
         for e in servi:
             with self.subTest(id=e["id"]):
-                self.assertEqual(e, frais[e["id"]])
+                if e["id"] in frais:
+                    self.assertEqual(e, frais[e["id"]])
+                else:
+                    self.assertEqual({**e, "id": None}, {**complement[e["enonce"]], "id": None})
+                    self.assertEqual(e["id"] % 1000 // 500, 1, "identifiant hors de la moitié haute du bloc de sa famille")
 
 
 if __name__ == "__main__":

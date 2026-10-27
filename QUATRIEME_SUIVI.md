@@ -452,3 +452,13 @@ Pool régénéré, 400 tirages par famille vérifiés, tests de la Quatrième r�
 - **Tests finaux :** pytest complet 2 861 réussis, 2 échecs (les 2 connus de `test_escalade_pedagogique`), 140 ignorés ; suites du chatbot après la dernière correction : 1 553 réussis, mêmes 2 échecs ; Vitest 948/948 ; ruff (règles CI et F), ESLint, Prettier propres ; `npm run build` réussi.
 - **Instance de test 5391 :** arrêtée, aucun processus résiduel.
 - **5050 :** toujours occupé par l'ancien serveur de l'utilisateur (PID 6772, `webapp/server.py`, 22/10) ; le lanceur le signale et refuse de démarrer sans l'arrêter. Vite PID 24808 toujours sur 5173. Validation sur 5050 à faire après leur arrêt par l'utilisateur.
+
+## Complément au plancher de 300 exercices par chapitre (2026-10-27)
+
+Préalable à la publication : la règle `test_exercise_chapter_balance.py` (au moins 300 exercices servis par chapitre, toute classe publiée) n'était respectée que par le chapitre 8 (324).
+
+- **Méthode (ajout pur)** : `tools/generate_quatrieme_exercises.py`, liste `EXTENSIONS`. Les 3 350 exercices générés existants sont reproduits à l'identique (mêmes tirages, mêmes identifiants) ; pour chaque chapitre, un tirage supplémentaire du générateur existant (graine distincte) est débarrassé de tout énoncé déjà servi (pool généré et banque curée), puis prélevé famille après famille ; identifiants dans le bloc `GENERATED_ID_OFFSET + 5 000` du chapitre. Aucun exercice existant modifié, aucun nouveau générateur.
+- **Volume** : +727 exercices générés (3 350 → 4 077) ; 16 chapitres portés à 310 (marge de 10), le chapitre 8 reste à 324. Total servi : 4 557 → 5 284.
+- **Équilibre** : la répartition des niveaux des ajouts reproduit celle de chaque chapitre (global : 39/46/14/1 % contre 37/43/18/2 %) ; patron d'énoncé dominant ≤ 12 % par chapitre.
+- **Vérifications** : chaque exercice généré, ajouts compris, est recalculé par son vérificateur indépendant (`tests/quatrieme_verificateurs.py`, via `test_pool_servi_deterministe_et_identifiants_reserves`) ; rendu KaTeX strict des ajouts sans erreur ; tests de volume, diversité structurelle et patrons textuels réussis avec la classe servie.
+- **Statut** : la classe reste non publiée (`published=False`).
