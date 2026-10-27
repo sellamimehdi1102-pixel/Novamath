@@ -47,6 +47,11 @@ def _fmt(v) -> str:
     return str(v)
 
 
+def _pf(v) -> str:
+    """Comme _fmt, parenthésé seulement si négatif (jamais « - -3 », « + -2 » ni « (4) »)."""
+    return f"({_fmt(v)})" if v < 0 else _fmt(v)
+
+
 def _point(x, y) -> str:
     return f"({_fmt(x)}\\,;\\,{_fmt(y)})"
 
@@ -63,8 +68,8 @@ def _gen_symetrie_centrale(rng: random.Random) -> Optional[dict]:
     )
     steps = [
         "Étape 1 — Si $A'$ est le symétrique de $A$ par rapport à $O$, alors $O$ est le milieu de $[AA']$.",
-        f"Étape 2 — $x_{{A'}} = 2x_O - x_A = 2\\times({xo}) - ({xa}) = {xa2}$ et "
-        f"$y_{{A'}} = 2y_O - y_A = 2\\times({yo}) - ({ya}) = {ya2}$.",
+        f"Étape 2 — $x_{{A'}} = 2x_O - x_A = 2\\times {_pf(xo)} - {_pf(xa)} = {xa2}$ et "
+        f"$y_{{A'}} = 2y_O - y_A = 2\\times {_pf(yo)} - {_pf(ya)} = {ya2}$.",
     ]
     answer = f"$A'{_point(xa2, ya2)}$"
     hint = "Le centre de symétrie est le milieu du segment reliant un point et son image : utiliser x_A' = 2x_O - x_A."
@@ -91,12 +96,12 @@ def _gen_symetrie_axiale(rng: random.Random) -> Optional[dict]:
     if axe == "horizontal":
         steps = [
             f"Étape 1 — Par symétrie par rapport à une droite horizontale $y={k}$, l'abscisse ne change pas : $x_{{A'}}=x_A={xa}$.",
-            f"Étape 2 — L'ordonnée est symétrique par rapport à {k} : $y_{{A'}} = 2\\times{k} - {ya} = {ya2}$.",
+            f"Étape 2 — L'ordonnée est symétrique par rapport à {k} : $y_{{A'}} = 2\\times {_pf(k)} - {_pf(ya)} = {ya2}$.",
         ]
     else:
         steps = [
             f"Étape 1 — Par symétrie par rapport à une droite verticale $x={k}$, l'ordonnée ne change pas : $y_{{A'}}=y_A={ya}$.",
-            f"Étape 2 — L'abscisse est symétrique par rapport à {k} : $x_{{A'}} = 2\\times{k} - {xa} = {xa2}$.",
+            f"Étape 2 — L'abscisse est symétrique par rapport à {k} : $x_{{A'}} = 2\\times {_pf(k)} - {_pf(xa)} = {xa2}$.",
         ]
     answer = f"$A'{_point(xa2, ya2)}$"
     hint = "Sur un axe vertical x=k, seule l'abscisse change (symétrique de x_A par rapport à k) ; sur un axe horizontal y=k, seule l'ordonnée change."
@@ -117,7 +122,7 @@ def _gen_translation(rng: random.Random) -> Optional[dict]:
     steps = [
         f"Étape 1 — La translation de vecteur $\\vec{{u}}(a\\,;\\,b)$ transforme $A(x_A\\,;\\,y_A)$ en "
         f"$A'(x_A+a\\,;\\,y_A+b)$.",
-        f"Étape 2 — $x_{{A'}} = {xa} + ({a}) = {xa2}$ et $y_{{A'}} = {ya} + ({b}) = {ya2}$.",
+        f"Étape 2 — $x_{{A'}} = {xa} + {_pf(a)} = {xa2}$ et $y_{{A'}} = {ya} + {_pf(b)} = {ya2}$.",
     ]
     answer = f"$A'{_point(xa2, ya2)}$"
     hint = "Ajouter simplement les coordonnées du vecteur à celles du point de départ."
@@ -146,17 +151,17 @@ def _gen_rotation(rng: random.Random) -> Optional[dict]:
     if angle == 180:
         steps = [
             "Étape 1 — Une rotation de centre $O$ et d'angle $180°$ est la symétrie centrale de centre $O$ : $(x\\,;\\,y) \\mapsto (-x\\,;\\,-y)$.",
-            f"Étape 2 — $x_{{A'}} = -({xa}) = {xa2}$ et $y_{{A'}} = -({ya}) = {ya2}$.",
+            f"Étape 2 — $x_{{A'}} = -{_pf(xa)} = {xa2}$ et $y_{{A'}} = -{_pf(ya)} = {ya2}$.",
         ]
     elif angle == 90:
         steps = [
             "Étape 1 — Une rotation de centre $O$ et d'angle $90°$ (sens direct) transforme $(x\\,;\\,y)$ en $(-y\\,;\\,x)$.",
-            f"Étape 2 — $x_{{A'}} = -({ya}) = {xa2}$ et $y_{{A'}} = {xa} = {ya2}$.",
+            f"Étape 2 — $x_{{A'}} = -{_pf(ya)} = {xa2}$ et $y_{{A'}} = {xa} = {ya2}$.",
         ]
     else:
         steps = [
             "Étape 1 — Une rotation de centre $O$ et d'angle $-90°$ (sens indirect) transforme $(x\\,;\\,y)$ en $(y\\,;\\,-x)$.",
-            f"Étape 2 — $x_{{A'}} = {ya} = {xa2}$ et $y_{{A'}} = -({xa}) = {ya2}$.",
+            f"Étape 2 — $x_{{A'}} = {ya} = {xa2}$ et $y_{{A'}} = -{_pf(xa)} = {ya2}$.",
         ]
     answer = f"$A'{_point(xa2, ya2)}$"
     hint = "Une rotation de centre O d'angle 90°, -90° ou 180° a une formule directe sur les coordonnées — pas besoin de trigonométrie ici."
@@ -179,8 +184,8 @@ def _gen_homothetie(rng: random.Random) -> Optional[dict]:
     steps = [
         "Étape 1 — L'homothétie de centre $O$ et de rapport $k$ transforme $A$ en $A'$ tel que "
         "$\\vec{OA'} = k\\,\\vec{OA}$, soit $x_{A'} = x_O + k(x_A-x_O)$ et $y_{A'} = y_O + k(y_A-y_O)$.",
-        f"Étape 2 — $x_{{A'}} = {xo} + {_fmt(k)}\\times({xa}-({xo})) = {_fmt(xa2)}$ et "
-        f"$y_{{A'}} = {yo} + {_fmt(k)}\\times({ya}-({yo})) = {_fmt(ya2)}$.",
+        f"Étape 2 — $x_{{A'}} = {xo} + {_pf(k)}\\times({xa}-{_pf(xo)}) = {_fmt(xa2)}$ et "
+        f"$y_{{A'}} = {yo} + {_pf(k)}\\times({ya}-{_pf(yo)}) = {_fmt(ya2)}$.",
     ]
     answer = f"$A'{_point(xa2, ya2)}$"
     hint = "Utiliser la relation vectorielle OA' = k·OA, composante par composante, en partant du centre O."
@@ -205,7 +210,7 @@ def _gen_effet_homothetie(rng: random.Random) -> Optional[dict]:
         f"Étape 1 — Une homothétie de rapport $k$ multiplie toutes les LONGUEURS par $|k|$ : "
         f"$|{_fmt(k)}| \\times {_fmt(longueur)} = {_fmt(longueur_image)}$ cm.",
         f"Étape 2 — Une homothétie de rapport $k$ multiplie les AIRES par $k^2$ : "
-        f"${_fmt(k)}^2 \\times {_fmt(aire)} = {_fmt(aire_image)}$ cm².",
+        f"${_pf(k)}^2 \\times {_fmt(aire)} = {_fmt(aire_image)}$ cm².",
     ]
     answer = f"Longueur image $= {_fmt(longueur_image)}$ cm ; aire image $= {_fmt(aire_image)}$ cm²"
     hint = "Longueurs : facteur |k|. Aires : facteur k² (jamais k pour l'aire, même si k est négatif)."

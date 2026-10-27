@@ -1,0 +1,1625 @@
+{
+  "chapterId": "Chapitre_17",
+  "title": "Probabilités",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "proba-vocabulaire",
+      "title": "Expériences aléatoires et vocabulaire",
+      "schemaVersion": 2,
+      "intro": "Lancer un dé, tirer une carte, faire tourner une roue : le résultat dépend du hasard. On parle d'expérience aléatoire. Cette leçon donne le vocabulaire qui permet de décrire précisément ces situations.",
+      "pourquoi": "Le vocabulaire des probabilités est indispensable pour parler correctement du hasard dans les jeux, la météo, les assurances ou les sciences.",
+      "explicationSimple": "On tire une boule d'une urne qui contient des boules blanches et grises numérotées de $1$ à $5$. Si on s'intéresse à la couleur, les issues sont « blanche » et « grise » ; si on s'intéresse au numéro, ce sont $1$, $2$, $3$, $4$ et $5$.",
+      "objectif": "À la fin de cette leçon, tu sauras reconnaître une expérience aléatoire, lister ses issues, décrire un événement par les issues qui le réalisent, et reconnaître un événement certain ou impossible.",
+      "definition": "Une expérience aléatoire est une expérience dont on connaît tous les résultats possibles, mais dont on ne peut pas prévoir le résultat. Chaque résultat possible est une issue. Un événement est une condition qui, selon l'issue obtenue, est réalisée ou non ; on le décrit par l'ensemble des issues qui le réalisent. Un événement certain est réalisé par toutes les issues ; un événement impossible n'est réalisé par aucune.",
+      "definitions": {
+        "college": "Expérience aléatoire : on ne peut pas prévoir le résultat. Issue : un résultat possible. Événement : une phrase réalisée par certaines issues (toutes : certain ; aucune : impossible).",
+        "lycee": "Une expérience aléatoire est une expérience dont on connaît tous les résultats possibles, mais dont on ne peut pas prévoir le résultat. Chaque résultat possible est une issue. Un événement est une condition qui, selon l'issue obtenue, est réalisée ou non ; on le décrit par l'ensemble des issues qui le réalisent. Un événement certain est réalisé par toutes les issues ; un événement impossible n'est réalisé par aucune."
+      },
+      "intuition": "Avant l'expérience, on fait la liste de tout ce qui peut arriver (les issues) ; un événement, c'est une « question » dont la réponse dépend de l'issue : est-ce pair ? est-ce rouge ?",
+      "reglesImportantes": [
+        "On décrit une expérience aléatoire en précisant ce que l'on observe (la couleur, le numéro, la somme…).",
+        "Les issues dépendent de ce que l'on observe : avec la même urne, on peut s'intéresser à la couleur ou au numéro.",
+        "Un événement est décrit par une phrase et par la liste des issues qui le réalisent.",
+        "Un événement certain est toujours réalisé ; un événement impossible ne l'est jamais.",
+        "Deux événements sont incompatibles s'ils ne peuvent pas être réalisés en même temps."
+      ],
+      "formules": [
+        {
+          "id": "formule-evenement-issues",
+          "nom": "Événement et issues",
+          "expression": "événement « pair » $= \\{2 ; 4 ; 6\\}$ pour un dé",
+          "quand_utiliser": "Pour décrire précisément un événement.",
+          "erreur_frequente": "Oublier une issue qui réalise l'événement.",
+          "astuce": "Passe en revue toutes les issues une par une."
+        },
+        {
+          "id": "formule-certain-impossible",
+          "nom": "Événements particuliers",
+          "expression": "certain : toutes les issues ; impossible : aucune issue",
+          "quand_utiliser": "Pour reconnaître les cas extrêmes.",
+          "erreur_frequente": "Confondre « peu probable » et « impossible ».",
+          "astuce": "Impossible : aucune issue ne convient, pas même une."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Décrire une expérience aléatoire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je précise ce que l'on observe dans l'expérience."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris la liste de toutes les issues possibles."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Pour un événement, je liste les issues qui le réalisent."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie s'il est certain (toutes), impossible (aucune) ou ni l'un ni l'autre."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je précise ce que l'on observe dans l'expérience."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris la liste de toutes les issues possibles."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour un événement, je liste les issues qui le réalisent."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie s'il est certain (toutes), impossible (aucune) ou ni l'un ni l'autre."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je me demande : qu'est-ce qu'on regarde ? (couleur, numéro…)"
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris tous les résultats possibles."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'entoure ceux qui conviennent à l'événement."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Tous entourés : certain ; aucun : impossible."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Observation, liste des issues, issues favorables."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Certain : toutes ; impossible : aucune."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-issues-de",
+          "titre": "Exemple 1 — Un dé",
+          "enonce": "On lance un dé à six faces et on note le nombre obtenu. Donner les issues, puis les issues qui réalisent l'événement « obtenir un multiple de $3$ ».",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Issues : $1$, $2$, $3$, $4$, $5$, $6$."
+            },
+            {
+              "expr": "",
+              "texte": "Multiples de $3$ : $3$ et $6$."
+            }
+          ],
+          "reponse": "Issues : $1$ à $6$ ; l'événement est réalisé par $3$ et $6$.",
+          "conclusion": "Un événement peut être réalisé par plusieurs issues.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-urne-officielle",
+          "titre": "Exemple 2 — Couleur ou numéro",
+          "enonce": "Une urne contient des boules blanches numérotées $1$, $2$, $3$ et des boules grises numérotées $4$, $5$. On tire une boule. Quelles sont les issues si l'on s'intéresse à la couleur ? au numéro ? Donner un événement certain et un événement impossible.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Couleur : « blanche » ou « grise ». Numéro : $1$, $2$, $3$, $4$ ou $5$."
+            },
+            {
+              "expr": "",
+              "texte": "Certain : « obtenir un numéro inférieur à $6$ ». Impossible : « obtenir une boule rouge »."
+            }
+          ],
+          "reponse": "Issues (couleur) : blanche, grise ; issues (numéro) : $1$ à $5$.",
+          "conclusion": "C'est l'exemple des attendus officiels de 4e.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-roue",
+          "titre": "Exemple 3 — Une roue",
+          "enonce": "Une roue est partagée en $8$ secteurs identiques numérotés de $1$ à $8$. On la fait tourner. Décrire l'événement « obtenir un nombre premier » et l'événement « obtenir un nombre supérieur à $8$ ».",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nombres premiers entre $1$ et $8$ : $2$, $3$, $5$, $7$."
+            },
+            {
+              "expr": "",
+              "texte": "Aucun numéro n'est supérieur à $8$."
+            }
+          ],
+          "reponse": "« Premier » : $\\{2 ; 3 ; 5 ; 7\\}$ ; « supérieur à $8$ » est impossible.",
+          "conclusion": "$1$ n'est pas un nombre premier.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-incompatibles",
+          "titre": "Exemple 4 — Événements incompatibles",
+          "enonce": "On tire une carte dans un jeu de $32$ cartes. Les événements « tirer un cœur » et « tirer un pique » sont-ils incompatibles ? Et « tirer un cœur » et « tirer un roi » ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Une carte ne peut pas être à la fois cœur et pique : incompatibles."
+            },
+            {
+              "expr": "",
+              "texte": "Le roi de cœur réalise les deux : pas incompatibles."
+            }
+          ],
+          "reponse": "Cœur et pique : incompatibles ; cœur et roi : non.",
+          "conclusion": "Il suffit d'une issue commune pour que deux événements ne soient pas incompatibles.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-des-issues",
+          "titre": "Exemple 5 — Deux pièces",
+          "enonce": "On lance deux pièces, une rouge et une bleue, et on note les faces obtenues. Lister les issues. L'événement « obtenir au moins une fois pile » est-il réalisé par plus de la moitié des issues ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Issues : (pile ; pile), (pile ; face), (face ; pile), (face ; face)."
+            },
+            {
+              "expr": "",
+              "texte": "« Au moins un pile » : les trois premières issues."
+            }
+          ],
+          "reponse": "$4$ issues ; « au moins un pile » est réalisé par $3$ issues sur $4$, donc par plus de la moitié.",
+          "conclusion": "Distinguer les deux pièces permet de lister correctement les issues.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Lancer un dé ou une pièce dans un jeu.",
+        "Tirer au sort l'ordre de passage d'un exposé.",
+        "La loterie d'une kermesse."
+      ],
+      "erreursFrequentes": [
+        "Confondre issue et événement.",
+        "Oublier des issues.",
+        "Confondre « peu probable » et « impossible ».",
+        "Ne pas préciser ce que l'on observe."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre issue et événement.",
+          "pourquoi": "On appelle « issue » une phrase comme « obtenir un nombre pair ».",
+          "comment_detecter": "Ta réponse est-elle un seul résultat ou un ensemble de résultats ?",
+          "comment_eviter": "Issue : un résultat ; événement : un ensemble d'issues."
+        },
+        {
+          "description": "Oublier des issues.",
+          "pourquoi": "On liste les issues de mémoire.",
+          "comment_detecter": "Ta liste est-elle complète ?",
+          "comment_eviter": "Procède dans l'ordre (de $1$ à $6$, toutes les couleurs…)."
+        },
+        {
+          "description": "Confondre « peu probable » et « impossible ».",
+          "pourquoi": "On dit « impossible » pour un événement rare.",
+          "comment_detecter": "Y a-t-il au moins une issue qui le réalise ?",
+          "comment_eviter": "Impossible signifie : aucune issue."
+        },
+        {
+          "description": "Ne pas préciser ce que l'on observe.",
+          "pourquoi": "On mélange couleur et numéro.",
+          "comment_detecter": "Qu'est-ce que l'énoncé demande d'observer ?",
+          "comment_eviter": "Les issues dépendent de l'observation choisie."
+        }
+      ],
+      "astuce": "Pour lister les issues de deux lancers, fais un tableau à double entrée : premier lancer en ligne, second en colonne.",
+      "aRetenir": [
+        "Expérience aléatoire, issues, événements.",
+        "Un événement est un ensemble d'issues.",
+        "Certain : toutes les issues ; impossible : aucune."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "Lancer un dé à 6 faces",
+            "sousTitre": "Expérience aléatoire"
+          },
+          {
+            "titre": "1, 2, 3, 4, 5, 6",
+            "sousTitre": "Les issues possibles"
+          },
+          {
+            "titre": "« obtenir un nombre pair »",
+            "sousTitre": "Un événement : 2, 4, 6"
+          },
+          {
+            "titre": "« obtenir 7 » : impossible",
+            "sousTitre": "« obtenir moins de 7 » : certain"
+          }
+        ],
+        "steps": [
+          "L'expérience",
+          "Les issues",
+          "Des événements"
+        ],
+        "relation": "Expérience : lancer un dé ; issues : $1$ à $6$ ; l'événement « pair » est réalisé par les issues $2$, $4$, $6$",
+        "alt": "Chaîne : lancer d'un dé à 6 faces, issues 1 à 6, événement « obtenir un nombre pair » (2, 4, 6), événement impossible « obtenir 7 » et événement certain « obtenir moins de 7 ».",
+        "explication": {
+          "resume": "Une expérience aléatoire a plusieurs résultats possibles, les issues, et on ne peut pas prévoir lequel sortira. Un événement est un ensemble d'issues ; il est réalisé si l'issue obtenue en fait partie.",
+          "lecture": [
+            "On lit de gauche à droite : l'expérience, ses issues, puis des événements."
+          ],
+          "observations": [
+            "« Obtenir un nombre pair » est réalisé par $3$ issues : $2$, $4$ et $6$.",
+            "« Obtenir $7$ » n'est réalisé par aucune issue : c'est un événement impossible.",
+            "« Obtenir moins de $7$ » est réalisé par toutes les issues : c'est un événement certain."
+          ],
+          "pieges": [
+            "Confondre une issue (un résultat) et un événement (un ensemble de résultats)."
+          ],
+          "aRetenir": [
+            "Issue : un résultat possible.",
+            "Événement : un ensemble d'issues ; impossible (aucune), certain (toutes)."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        57101,
+        57102,
+        57104
+      ],
+      "topic_id": "proba-vocabulaire",
+      "proprietes": [
+        "Un événement certain est réalisé par toutes les issues ; un événement impossible par aucune."
+      ],
+      "vocabulaire_associe": [
+        "expérience aléatoire",
+        "issue",
+        "événement",
+        "événement certain",
+        "événement impossible",
+        "incompatible"
+      ],
+      "synonymes": [
+        "vocabulaire des probabilités",
+        "issues d'une expérience"
+      ],
+      "objectifs_pedagogiques": [
+        "Reconnaître une expérience aléatoire.",
+        "Lister les issues.",
+        "Décrire un événement par ses issues.",
+        "Reconnaître un événement certain ou impossible."
+      ],
+      "prerequis": [
+        "Fractions",
+        "Nombres premiers"
+      ],
+      "notions_liees": [
+        "proba-calculer",
+        "proba-contraire"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "probabilités",
+        "vocabulaire",
+        "événement"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proba-vocabulaire-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Une roue et des événements incompatibles",
+          "description": "Deux exemples rédigés : décrire des événements sur une roue numérotée, et reconnaître des événements incompatibles avec un jeu de cartes."
+        },
+        {
+          "id": "proba-vocabulaire-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Deux pièces",
+          "description": "Un exemple qui liste les issues d'une expérience à deux pièces."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "L'événement « obtenir un nombre inférieur à $3$ » est réalisé par quelles issues ?",
+          "piste": "$1$ et $2$."
+        },
+        {
+          "apres": "methode",
+          "question": "« Obtenir $0$ avec un dé » est-il impossible ?",
+          "piste": "Oui : aucune face ne porte $0$."
+        }
+      ]
+    },
+    {
+      "id": "proba-calculer",
+      "title": "Calculer une probabilité",
+      "schemaVersion": 2,
+      "intro": "La probabilité d'un événement mesure ses chances de se réaliser par un nombre compris entre $0$ et $1$. Quand toutes les issues ont la même chance, on la calcule en comptant.",
+      "pourquoi": "Calculer des probabilités permet de comparer des jeux, d'évaluer des risques et de prendre des décisions raisonnées plutôt qu'au hasard.",
+      "explicationSimple": "Une urne contient $1$ boule rouge et $4$ boules orange. Il y a $4$ chances sur $5$ de tirer une boule orange : $P(\\text{orange}) = \\dfrac{4}{5} = 0{,}8 = 80\\,\\%$.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer la probabilité d'un événement dans une situation d'équiprobabilité, l'exprimer sous plusieurs formes (fraction, décimal, pourcentage, « chances sur ») et savoir qu'elle est comprise entre $0$ et $1$.",
+      "definition": "La probabilité d'un événement $A$, notée $P(A)$, est un nombre compris entre $0$ et $1$ qui mesure les chances de réalisation de $A$. Lorsque toutes les issues d'une expérience ont la même probabilité (équiprobabilité), $P(A) = \\dfrac{\\text{nombre d'issues qui réalisent } A}{\\text{nombre total d'issues}}$. Un événement impossible a pour probabilité $0$, un événement certain a pour probabilité $1$.",
+      "definitions": {
+        "college": "Quand toutes les issues ont la même chance : probabilité $=$ nombre d'issues favorables $\\div$ nombre d'issues possibles. C'est un nombre entre $0$ et $1$.",
+        "lycee": "La probabilité d'un événement $A$, notée $P(A)$, est un nombre compris entre $0$ et $1$ qui mesure les chances de réalisation de $A$. Lorsque toutes les issues d'une expérience ont la même probabilité (équiprobabilité), $P(A) = \\dfrac{\\text{nombre d'issues qui réalisent } A}{\\text{nombre total d'issues}}$. Un événement impossible a pour probabilité $0$, un événement certain a pour probabilité $1$."
+      },
+      "intuition": "Une probabilité de $0{,}8$ signifie que, si l'on répète l'expérience un grand nombre de fois, l'événement se réalise environ $8$ fois sur $10$.",
+      "reglesImportantes": [
+        "En situation d'équiprobabilité : $P(A) = \\dfrac{\\text{issues favorables}}{\\text{issues possibles}}$.",
+        "Une probabilité est toujours comprise entre $0$ (impossible) et $1$ (certain).",
+        "Une probabilité peut s'écrire sous forme de fraction, de nombre décimal, de pourcentage ou de « chances sur ».",
+        "La somme des probabilités de toutes les issues vaut $1$.",
+        "Pour savoir si les issues sont équiprobables, on vérifie qu'aucune n'est favorisée (dé équilibré, boules indiscernables au toucher…)."
+      ],
+      "formules": [
+        {
+          "id": "formule-probabilite",
+          "nom": "Probabilité (équiprobabilité)",
+          "expression": "$P(A) = \\dfrac{\\text{nombre d'issues favorables}}{\\text{nombre d'issues possibles}}$",
+          "quand_utiliser": "Quand toutes les issues ont la même chance.",
+          "erreur_frequente": "Diviser par le nombre d'issues défavorables.",
+          "astuce": "Le dénominateur compte TOUTES les issues."
+        },
+        {
+          "id": "formule-formes-proba",
+          "nom": "Formes d'une probabilité",
+          "expression": "$\\dfrac{4}{5} = 0{,}8 = 80\\,\\% = $ « $4$ chances sur $5$ »",
+          "quand_utiliser": "Pour comparer des probabilités données sous des formes différentes.",
+          "erreur_frequente": "Écrire une probabilité supérieure à $1$, comme « $80$ ».",
+          "astuce": "Une probabilité n'est jamais plus grande que $1$ (ou $100\\,\\%$)."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer une probabilité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je vérifie que les issues sont équiprobables et je compte le nombre total d'issues."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je compte les issues qui réalisent l'événement."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule le quotient issues favorables $\\div$ issues possibles et je simplifie."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que le résultat est entre $0$ et $1$ et je l'écris sous la forme demandée."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je vérifie que les issues sont équiprobables et je compte le nombre total d'issues."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je compte les issues qui réalisent l'événement."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule le quotient issues favorables $\\div$ issues possibles et je simplifie."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que le résultat est entre $0$ et $1$ et je l'écris sous la forme demandée."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je compte toutes les possibilités."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je compte celles qui me conviennent."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris la fraction : celles qui conviennent sur toutes."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je simplifie et je vérifie que c'est plus petit que $1$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$P = \\dfrac{\\text{favorables}}{\\text{possibles}}$ (équiprobabilité)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$0 \\leq P \\leq 1$ ; fraction, décimal, pourcentage."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-urne-orange",
+          "titre": "Exemple 1 — L'urne",
+          "enonce": "Une urne contient $1$ boule rouge et $4$ boules orange, indiscernables au toucher. On tire une boule au hasard. Calculer la probabilité de tirer une boule orange, sous trois formes.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$5$ issues équiprobables, dont $4$ orange."
+            },
+            {
+              "expr": "",
+              "texte": "$P(\\text{orange}) = \\dfrac{4}{5} = 0{,}8 = 80\\,\\%$."
+            }
+          ],
+          "reponse": "$P(\\text{orange}) = \\dfrac{4}{5} = 0{,}8 = 80\\,\\%$ : $4$ chances sur $5$.",
+          "conclusion": "C'est l'exemple des attendus officiels de 4e.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-de-pair",
+          "titre": "Exemple 2 — Un dé",
+          "enonce": "On lance un dé équilibré à six faces. Calculer la probabilité d'obtenir un nombre pair, puis un nombre supérieur ou égal à $5$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pair : $2$, $4$, $6$ : $P = \\dfrac{3}{6} = \\dfrac{1}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Au moins $5$ : $5$ et $6$ : $P = \\dfrac{2}{6} = \\dfrac{1}{3}$."
+            }
+          ],
+          "reponse": "$P(\\text{pair}) = \\dfrac{1}{2}$ ; $P(\\text{au moins } 5) = \\dfrac{1}{3}$.",
+          "conclusion": "On simplifie les fractions obtenues.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-cartes",
+          "titre": "Exemple 3 — Un jeu de cartes",
+          "enonce": "On tire une carte au hasard dans un jeu de $32$ cartes. Calculer la probabilité de tirer un roi, puis un cœur, puis une figure (valet, dame ou roi).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$4$ rois : $\\dfrac{4}{32} = \\dfrac{1}{8}$ ; $8$ cœurs : $\\dfrac{8}{32} = \\dfrac{1}{4}$."
+            },
+            {
+              "expr": "",
+              "texte": "$12$ figures : $\\dfrac{12}{32} = \\dfrac{3}{8}$."
+            }
+          ],
+          "reponse": "$P(\\text{roi}) = \\dfrac{1}{8}$ ; $P(\\text{cœur}) = \\dfrac{1}{4}$ ; $P(\\text{figure}) = \\dfrac{3}{8}$.",
+          "conclusion": "Un jeu de $32$ cartes a $4$ couleurs de $8$ cartes.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-comparer-jeux",
+          "titre": "Exemple 4 — Comparer deux jeux",
+          "enonce": "Jeu A : on gagne si l'on tire une boule rouge dans une urne de $3$ rouges et $5$ noires. Jeu B : on gagne si l'on obtient $5$ ou $6$ avec un dé. Quel jeu donne le plus de chances de gagner ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Jeu A : $\\dfrac{3}{8} = 0{,}375$."
+            },
+            {
+              "expr": "",
+              "texte": "Jeu B : $\\dfrac{2}{6} = \\dfrac{1}{3} \\approx 0{,}333$."
+            }
+          ],
+          "reponse": "Le jeu A ($\\dfrac{3}{8} > \\dfrac{1}{3}$).",
+          "conclusion": "Pour comparer, on écrit les probabilités sous forme décimale ou avec un même dénominateur.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-ajouter-boules",
+          "titre": "Exemple 5 — Modifier une urne",
+          "enonce": "Une urne contient $3$ boules rouges et $5$ boules noires. Combien de boules rouges faut-il ajouter pour que la probabilité de tirer une rouge soit égale à $\\dfrac{1}{2}$ ? à $\\dfrac{2}{3}$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pour $\\dfrac{1}{2}$ : autant de rouges que de noires : $5$ rouges, il faut en ajouter $2$."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $\\dfrac{2}{3}$ : deux fois plus de rouges que de noires : $10$ rouges, il faut en ajouter $7$."
+            },
+            {
+              "expr": "",
+              "texte": "Vérification : $\\dfrac{10}{15} = \\dfrac{2}{3}$."
+            }
+          ],
+          "reponse": "Ajouter $2$ boules rouges pour $\\dfrac{1}{2}$, et $7$ pour $\\dfrac{2}{3}$.",
+          "conclusion": "On peut aussi poser une équation : $\\dfrac{3 + x}{8 + x} = \\dfrac{2}{3}$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Évaluer ses chances à un jeu de société.",
+        "Comparer deux tombolas.",
+        "Comprendre une prévision « $70\\,\\%$ de risque de pluie »."
+      ],
+      "erreursFrequentes": [
+        "Diviser par le nombre d'issues défavorables.",
+        "Appliquer la formule sans équiprobabilité.",
+        "Écrire une probabilité supérieure à $1$.",
+        "Ne pas simplifier la fraction."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Diviser par le nombre d'issues défavorables.",
+          "pourquoi": "On écrit $\\dfrac{4}{1}$ pour $4$ orange et $1$ rouge.",
+          "comment_detecter": "Ta probabilité est-elle inférieure à $1$ ?",
+          "comment_eviter": "On divise par le nombre total d'issues."
+        },
+        {
+          "description": "Appliquer la formule sans équiprobabilité.",
+          "pourquoi": "On croit que chaque couleur a une chance sur deux.",
+          "comment_detecter": "Les issues ont-elles vraiment la même chance ?",
+          "comment_eviter": "Compte les objets (boules, faces), pas les couleurs."
+        },
+        {
+          "description": "Écrire une probabilité supérieure à $1$.",
+          "pourquoi": "On donne un pourcentage sans le symbole ($80$ au lieu de $0{,}8$).",
+          "comment_detecter": "Ta probabilité est-elle entre $0$ et $1$ ?",
+          "comment_eviter": "Écris $0{,}8$ ou $80\\,\\%$."
+        },
+        {
+          "description": "Ne pas simplifier la fraction.",
+          "pourquoi": "On laisse $\\dfrac{4}{32}$.",
+          "comment_detecter": "Ta fraction est-elle irréductible ?",
+          "comment_eviter": "Simplifie : $\\dfrac{4}{32} = \\dfrac{1}{8}$."
+        }
+      ],
+      "astuce": "Pour vérifier un ensemble de calculs, additionne les probabilités de toutes les issues : tu dois trouver exactement $1$.",
+      "aRetenir": [
+        "$P = \\dfrac{\\text{favorables}}{\\text{possibles}}$ en cas d'équiprobabilité.",
+        "$0 \\leq P \\leq 1$ ; impossible : $0$ ; certain : $1$.",
+        "Formes : fraction, décimal, pourcentage, « chances sur »."
+      ],
+      "figure": {
+        "kind": "pie",
+        "slices": [
+          {
+            "label": "rouge : 1 chance sur 5",
+            "value": 1,
+            "color": "rouge"
+          },
+          {
+            "label": "orange : 4 chances sur 5",
+            "value": 4,
+            "color": "orange"
+          }
+        ],
+        "steps": [
+          "L'urne : 1 boule rouge, 4 orange",
+          "Les 5 issues sont équiprobables",
+          "P(orange) = 4/5 = 0,8 = 80 %"
+        ],
+        "relation": "$P(\\text{orange}) = \\dfrac{4}{5} = 0{,}8 = 80\\,\\%$ et $P(\\text{rouge}) = \\dfrac{1}{5} = 0{,}2$",
+        "alt": "Diagramme d'une urne de 5 boules : 1 rouge (une part sur cinq) et 4 orange (quatre parts sur cinq).",
+        "explication": {
+          "resume": "Quand toutes les issues ont la même chance de se produire (équiprobabilité), la probabilité d'un événement est le nombre d'issues favorables divisé par le nombre d'issues possibles.",
+          "lecture": [
+            "Chaque boule a la même chance d'être tirée : il y a $5$ issues équiprobables.",
+            "Les parts du disque représentent les chances de chaque couleur."
+          ],
+          "observations": [
+            "$4$ issues sur $5$ donnent une boule orange : $P(\\text{orange}) = \\dfrac{4}{5}$.",
+            "On peut aussi écrire $0{,}8$, $80\\,\\%$ ou « $4$ chances sur $5$ ».",
+            "$P(\\text{rouge}) + P(\\text{orange}) = \\dfrac{1}{5} + \\dfrac{4}{5} = 1$."
+          ],
+          "pieges": [
+            "Croire que les deux couleurs ont chacune une chance sur deux : il y a plus de boules orange."
+          ],
+          "aRetenir": [
+            "$P = \\dfrac{\\text{issues favorables}}{\\text{issues possibles}}$ (équiprobabilité).",
+            "Une probabilité est comprise entre $0$ et $1$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        57201,
+        57202,
+        57204
+      ],
+      "topic_id": "proba-calculer",
+      "proprietes": [
+        "La somme des probabilités de toutes les issues d'une expérience vaut $1$."
+      ],
+      "vocabulaire_associe": [
+        "probabilité",
+        "équiprobabilité",
+        "issue favorable",
+        "chances sur",
+        "fraction",
+        "pourcentage"
+      ],
+      "synonymes": [
+        "calculer une probabilité",
+        "chances de gagner",
+        "probabilité d'un événement"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer une probabilité en situation d'équiprobabilité.",
+        "Exprimer une probabilité sous plusieurs formes.",
+        "Savoir qu'une probabilité est entre $0$ et $1$.",
+        "Comparer deux jeux."
+      ],
+      "prerequis": [
+        "Expériences aléatoires et vocabulaire",
+        "Fractions",
+        "Pourcentages"
+      ],
+      "notions_liees": [
+        "proba-vocabulaire",
+        "proba-contraire"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "probabilités",
+        "calcul",
+        "équiprobabilité"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proba-calculer-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Jeu de cartes et comparaison de jeux",
+          "description": "Deux exemples rédigés : des probabilités dans un jeu de $32$ cartes, et la comparaison de deux jeux de hasard."
+        },
+        {
+          "id": "proba-calculer-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Modifier une urne",
+          "description": "Un exemple qui cherche combien de boules ajouter pour obtenir une probabilité donnée."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle est la probabilité de tirer la boule rouge ?",
+          "piste": "$\\dfrac{1}{5} = 0{,}2$."
+        },
+        {
+          "apres": "methode",
+          "question": "Probabilité d'obtenir $3$ avec un dé équilibré ?",
+          "piste": "$\\dfrac{1}{6}$."
+        }
+      ]
+    },
+    {
+      "id": "proba-contraire",
+      "title": "Événement contraire",
+      "schemaVersion": 2,
+      "intro": "L'événement contraire de $A$ est réalisé exactement quand $A$ ne l'est pas. Sa probabilité se calcule très simplement : $1 - P(A)$.",
+      "pourquoi": "Il est souvent plus facile de calculer la probabilité qu'un événement ne se produise pas : « au moins un », « ne pas gagner », « pas de panne ».",
+      "explicationSimple": "Si la probabilité de gagner à un jeu est $0{,}4$, la probabilité de perdre est $1 - 0{,}4 = 0{,}6$.",
+      "objectif": "À la fin de cette leçon, tu sauras reconnaître deux événements contraires, décrire l'événement contraire d'un événement, et utiliser la relation $P(\\text{non } A) = 1 - P(A)$.",
+      "definition": "L'événement contraire d'un événement $A$, noté « non $A$ » (ou $\\bar{A}$), est l'événement réalisé par toutes les issues qui ne réalisent pas $A$. Deux événements contraires sont incompatibles et l'un des deux est forcément réalisé. On a toujours $P(A) + P(\\text{non } A) = 1$, donc $P(\\text{non } A) = 1 - P(A)$.",
+      "definitions": {
+        "college": "Le contraire de $A$ se réalise quand $A$ ne se réalise pas. $P(\\text{contraire de } A) = 1 - P(A)$.",
+        "lycee": "L'événement contraire d'un événement $A$, noté « non $A$ » (ou $\\bar{A}$), est l'événement réalisé par toutes les issues qui ne réalisent pas $A$. Deux événements contraires sont incompatibles et l'un des deux est forcément réalisé. On a toujours $P(A) + P(\\text{non } A) = 1$, donc $P(\\text{non } A) = 1 - P(A)$."
+      },
+      "intuition": "Les issues se partagent entre celles qui réalisent $A$ et celles qui ne le réalisent pas : les deux probabilités se complètent pour faire $1$, comme deux parts qui forment un tout.",
+      "reglesImportantes": [
+        "Les issues qui réalisent « non $A$ » sont exactement celles qui ne réalisent pas $A$.",
+        "$P(\\text{non } A) = 1 - P(A)$.",
+        "Deux événements contraires sont incompatibles, et à chaque expérience, l'un des deux exactement est réalisé.",
+        "Deux événements incompatibles ne sont pas forcément contraires (avec un dé, « obtenir $1$ » et « obtenir $6$ »).",
+        "Le contraire de « au moins un » est « aucun »."
+      ],
+      "formules": [
+        {
+          "id": "formule-contraire",
+          "nom": "Événement contraire",
+          "expression": "$P(\\text{non } A) = 1 - P(A)$",
+          "quand_utiliser": "Pour calculer la probabilité du contraire d'un événement connu.",
+          "erreur_frequente": "Calculer $P(A) - 1$.",
+          "astuce": "Le résultat doit rester entre $0$ et $1$."
+        },
+        {
+          "id": "formule-au-moins-un",
+          "nom": "« Au moins un »",
+          "expression": "non(« au moins un ») $=$ « aucun »",
+          "quand_utiliser": "Quand l'énoncé contient « au moins ».",
+          "erreur_frequente": "Prendre « un seul » comme contraire.",
+          "astuce": "Le contraire de « au moins un » est « zéro »."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Utiliser l'événement contraire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'écris l'événement contraire par une phrase."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je me demande lequel des deux est le plus simple à calculer."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule sa probabilité, puis j'utilise $P(\\text{non } A) = 1 - P(A)$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que les deux probabilités ont pour somme $1$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris l'événement contraire par une phrase."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je me demande lequel des deux est le plus simple à calculer."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule sa probabilité, puis j'utilise $P(\\text{non } A) = 1 - P(A)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que les deux probabilités ont pour somme $1$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je traduis « ne pas … »."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule la probabilité de l'événement connu."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je fais $1$ moins cette probabilité."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que mon résultat est entre $0$ et $1$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$P(\\bar{A}) = 1 - P(A)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Contraire de « au moins un » : « aucun »."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-gagner-perdre",
+          "titre": "Exemple 1 — Gagner ou perdre",
+          "enonce": "La probabilité de gagner à un jeu est $0{,}4$. Calculer la probabilité de perdre (on ne peut pas faire match nul).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "« Perdre » est le contraire de « gagner »."
+            },
+            {
+              "expr": "",
+              "texte": "$P(\\text{perdre}) = 1 - 0{,}4 = 0{,}6$."
+            }
+          ],
+          "reponse": "$P(\\text{perdre}) = 0{,}6$.",
+          "conclusion": "C'est l'exemple des attendus officiels de 4e.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-de-pas-six",
+          "titre": "Exemple 2 — Ne pas obtenir 6",
+          "enonce": "On lance un dé équilibré. Quelle est la probabilité de ne pas obtenir $6$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(\\text{obtenir } 6) = \\dfrac{1}{6}$."
+            },
+            {
+              "expr": "",
+              "texte": "$P(\\text{ne pas obtenir } 6) = 1 - \\dfrac{1}{6} = \\dfrac{5}{6}$."
+            }
+          ],
+          "reponse": "$P = \\dfrac{5}{6}$.",
+          "conclusion": "On aurait aussi pu compter : $5$ issues sur $6$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-contraire-phrase",
+          "titre": "Exemple 3 — Écrire le contraire",
+          "enonce": "On tire une carte d'un jeu de $32$ cartes. Décrire le contraire de « tirer une carte rouge », puis celui de « tirer un as ou un roi », et calculer leurs probabilités.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Contraire de « rouge » : « noire » ; $P = 1 - \\dfrac{16}{32} = \\dfrac{1}{2}$."
+            },
+            {
+              "expr": "",
+              "texte": "Contraire de « as ou roi » : « ni as ni roi » ; $P = 1 - \\dfrac{8}{32} = \\dfrac{24}{32} = \\dfrac{3}{4}$."
+            }
+          ],
+          "reponse": "$P(\\text{noire}) = \\dfrac{1}{2}$ ; $P(\\text{ni as ni roi}) = \\dfrac{3}{4}$.",
+          "conclusion": "Le contraire de « A ou B » est « ni A ni B ».",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-incompatibles-non-contraires",
+          "titre": "Exemple 4 — Incompatibles mais pas contraires",
+          "enonce": "Avec un dé, les événements « obtenir $1$ » et « obtenir $6$ » sont-ils incompatibles ? contraires ? Et « obtenir un nombre pair » et « obtenir un nombre impair » ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$1$ et $6$ : on ne peut pas obtenir les deux à la fois (incompatibles), mais on peut n'obtenir ni l'un ni l'autre (pas contraires)."
+            },
+            {
+              "expr": "",
+              "texte": "Pair et impair : incompatibles, et l'un des deux est toujours réalisé : contraires."
+            }
+          ],
+          "reponse": "« $1$ » et « $6$ » : incompatibles, pas contraires ; « pair » et « impair » : contraires.",
+          "conclusion": "Contraires $\\Rightarrow$ incompatibles, mais la réciproque est fausse.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-au-moins-un-pile",
+          "titre": "Exemple 5 — Au moins un pile",
+          "enonce": "On lance deux pièces équilibrées. Calculer la probabilité d'obtenir au moins une fois pile, en passant par l'événement contraire.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Issues équiprobables : (P ; P), (P ; F), (F ; P), (F ; F)."
+            },
+            {
+              "expr": "",
+              "texte": "Contraire de « au moins un pile » : « aucun pile », c'est-à-dire (F ; F) : probabilité $\\dfrac{1}{4}$."
+            },
+            {
+              "expr": "",
+              "texte": "$P(\\text{au moins un pile}) = 1 - \\dfrac{1}{4} = \\dfrac{3}{4}$."
+            }
+          ],
+          "reponse": "$P = \\dfrac{3}{4}$.",
+          "conclusion": "Le contraire de « au moins un » est « aucun », souvent plus simple à compter.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "La probabilité de ne pas gagner à une loterie.",
+        "La probabilité qu'un appareil ne tombe pas en panne.",
+        "La probabilité qu'il ne pleuve pas demain."
+      ],
+      "erreursFrequentes": [
+        "Calculer $P(A) - 1$ au lieu de $1 - P(A)$.",
+        "Prendre « un seul » comme contraire de « au moins un ».",
+        "Confondre incompatibles et contraires.",
+        "Mal écrire le contraire d'un « ou »."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Calculer $P(A) - 1$ au lieu de $1 - P(A)$.",
+          "pourquoi": "On inverse l'ordre de la soustraction.",
+          "comment_detecter": "Ton résultat est-il négatif ?",
+          "comment_eviter": "$P(\\text{non } A) = 1 - P(A)$."
+        },
+        {
+          "description": "Prendre « un seul » comme contraire de « au moins un ».",
+          "pourquoi": "On confond les quantificateurs.",
+          "comment_detecter": "« Deux » réalise-t-il « au moins un » ?",
+          "comment_eviter": "Contraire de « au moins un » : « aucun »."
+        },
+        {
+          "description": "Confondre incompatibles et contraires.",
+          "pourquoi": "On pense que deux événements qui ne peuvent pas se produire ensemble sont contraires.",
+          "comment_detecter": "L'un des deux est-il forcément réalisé ?",
+          "comment_eviter": "Contraires : incompatibles ET l'un des deux toujours réalisé."
+        },
+        {
+          "description": "Mal écrire le contraire d'un « ou ».",
+          "pourquoi": "On écrit « pas A ou pas B ».",
+          "comment_detecter": "Le résultat exclut-il bien A et B ?",
+          "comment_eviter": "Contraire de « A ou B » : « ni A ni B »."
+        }
+      ],
+      "astuce": "Dès que tu lis « au moins », pense au contraire : il est souvent plus simple de calculer la probabilité de « aucun ».",
+      "aRetenir": [
+        "$P(\\text{non } A) = 1 - P(A)$.",
+        "Contraires : incompatibles et l'un des deux toujours réalisé.",
+        "Contraire de « au moins un » : « aucun »."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "P(gagner) = 0,4",
+            "sousTitre": "Événement A"
+          },
+          {
+            "titre": "« ne pas gagner » = perdre",
+            "sousTitre": "Événement contraire de A"
+          },
+          {
+            "titre": "P(perdre) = 1 − 0,4 = 0,6",
+            "sousTitre": "P(non A) = 1 − P(A)"
+          }
+        ],
+        "steps": [
+          "L'événement",
+          "Son contraire",
+          "La probabilité du contraire"
+        ],
+        "relation": "$P(\\text{perdre}) = 1 - P(\\text{gagner}) = 1 - 0{,}4 = 0{,}6$",
+        "alt": "Chaîne : la probabilité de gagner vaut 0,4 ; l'événement contraire est perdre ; sa probabilité vaut 1 − 0,4 = 0,6.",
+        "explication": {
+          "resume": "L'événement contraire de $A$ est réalisé exactement quand $A$ ne l'est pas. Les probabilités de deux événements contraires ont pour somme $1$.",
+          "lecture": [
+            "On lit de gauche à droite : un événement, son contraire, puis le calcul."
+          ],
+          "observations": [
+            "À ce jeu, on gagne ou on perd, jamais les deux à la fois : « perdre » est le contraire de « gagner ».",
+            "$0{,}4 + 0{,}6 = 1$.",
+            "Il est souvent plus simple de calculer la probabilité du contraire."
+          ],
+          "pieges": [
+            "Penser que deux événements différents sont forcément contraires : « obtenir $1$ » et « obtenir $6$ » ne le sont pas."
+          ],
+          "aRetenir": [
+            "$P(\\text{non } A) = 1 - P(A)$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        57301,
+        57302,
+        57304
+      ],
+      "topic_id": "proba-contraire",
+      "proprietes": [
+        "$P(A) + P(\\text{non } A) = 1$."
+      ],
+      "vocabulaire_associe": [
+        "événement contraire",
+        "incompatible",
+        "non A",
+        "au moins un",
+        "aucun"
+      ],
+      "synonymes": [
+        "probabilité du contraire",
+        "événement contraire",
+        "1 moins la probabilité"
+      ],
+      "objectifs_pedagogiques": [
+        "Décrire l'événement contraire.",
+        "Utiliser $P(\\text{non } A) = 1 - P(A)$.",
+        "Distinguer incompatibles et contraires.",
+        "Traiter « au moins un »."
+      ],
+      "prerequis": [
+        "Calculer une probabilité"
+      ],
+      "notions_liees": [
+        "proba-calculer",
+        "proba-vocabulaire"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "probabilités",
+        "événement contraire"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proba-contraire-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Écrire un contraire, incompatibles ou contraires",
+          "description": "Deux exemples rédigés : décrire le contraire d'un événement avec « ou », et distinguer des événements incompatibles d'événements contraires."
+        },
+        {
+          "id": "proba-contraire-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Au moins un pile",
+          "description": "Un exemple qui calcule une probabilité « au moins un » grâce à l'événement contraire."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Si $P(\\text{gagner}) = 0{,}25$, que vaut $P(\\text{perdre})$ ?",
+          "piste": "$0{,}75$."
+        },
+        {
+          "apres": "methode",
+          "question": "Contraire de « obtenir au moins un $6$ » avec deux dés ?",
+          "piste": "« N'obtenir aucun $6$ »."
+        }
+      ],
+      "demonstration": {
+        "titre": "Pourquoi $P(\\text{non } A) = 1 - P(A)$ (cas d'équiprobabilité)",
+        "etapes": [
+          {
+            "titre": "Partager les issues",
+            "texte": "Sur $n$ issues équiprobables, $k$ réalisent $A$ et les $n - k$ autres réalisent « non $A$ »."
+          },
+          {
+            "titre": "Calculer",
+            "texte": "$P(A) = \\dfrac{k}{n}$ et $P(\\text{non } A) = \\dfrac{n - k}{n} = \\dfrac{n}{n} - \\dfrac{k}{n}$."
+          },
+          {
+            "titre": "Conclure",
+            "texte": "$\\dfrac{n}{n} = 1$, donc $P(\\text{non } A) = 1 - P(A)$."
+          }
+        ],
+        "conclusion": "Les issues se partagent entre $A$ et son contraire : leurs probabilités ont pour somme $1$."
+      }
+    },
+    {
+      "id": "proba-aires-osselets",
+      "title": "Probabilités et aires, issues non équiprobables",
+      "schemaVersion": 2,
+      "intro": "Toutes les expériences ne sont pas équiprobables : une fléchette tombe plus souvent sur une grande zone que sur une petite, un osselet ne tombe pas de la même façon sur chaque face. On calcule alors les probabilités avec des aires ou à partir de probabilités données.",
+      "pourquoi": "Les situations réelles sont rarement équiprobables. Savoir utiliser des aires ou des probabilités données permet de traiter des cibles, des roues inégales, des osselets ou des dés truqués.",
+      "explicationSimple": "Une roue est partagée en un secteur bleu de $90°$ et un secteur rouge de $270°$. Elle s'arrête au hasard : $P(\\text{bleu}) = \\dfrac{90}{360} = \\dfrac{1}{4}$.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer une probabilité à l'aide d'aires (cibles, roues), utiliser des probabilités données pour chaque issue (osselets, dés truqués) et vérifier que leur somme vaut $1$.",
+      "definition": "Lorsqu'un point est choisi au hasard dans une figure (toutes les parties de même aire ayant la même chance d'être atteintes), la probabilité qu'il tombe dans une zone est $\\dfrac{\\text{aire de la zone}}{\\text{aire totale}}$. Lorsque les issues ne sont pas équiprobables, on donne (ou on mesure) la probabilité de chaque issue ; ces probabilités sont des nombres entre $0$ et $1$ dont la somme vaut $1$, et la probabilité d'un événement est la somme des probabilités des issues qui le réalisent.",
+      "definitions": {
+        "college": "Avec une cible : probabilité $=$ aire de la zone $\\div$ aire totale. Si chaque issue a sa propre probabilité, on additionne celles des issues qui conviennent ; toutes ensemble, elles font $1$.",
+        "lycee": "Lorsqu'un point est choisi au hasard dans une figure (toutes les parties de même aire ayant la même chance d'être atteintes), la probabilité qu'il tombe dans une zone est $\\dfrac{\\text{aire de la zone}}{\\text{aire totale}}$. Lorsque les issues ne sont pas équiprobables, on donne (ou on mesure) la probabilité de chaque issue ; ces probabilités sont des nombres entre $0$ et $1$ dont la somme vaut $1$, et la probabilité d'un événement est la somme des probabilités des issues qui le réalisent."
+      },
+      "intuition": "Plus une zone est grande, plus elle a de chances d'être touchée : la probabilité est proportionnelle à l'aire (ou à l'angle pour une roue).",
+      "reglesImportantes": [
+        "Cible : $P(\\text{zone}) = \\dfrac{\\text{aire de la zone}}{\\text{aire totale}}$ ; roue : $P(\\text{secteur}) = \\dfrac{\\text{angle}}{360°}$.",
+        "Si les issues ont des probabilités données, leur somme vaut $1$ ; cela permet de trouver une probabilité manquante.",
+        "La probabilité d'un événement est la somme des probabilités des issues qui le réalisent.",
+        "On peut toujours utiliser $P(\\text{non } A) = 1 - P(A)$.",
+        "Pour un objet non équilibré (osselet, punaise), les probabilités s'estiment par de nombreux lancers ; on les admet dans les exercices."
+      ],
+      "formules": [
+        {
+          "id": "formule-proba-aire",
+          "nom": "Probabilité et aire",
+          "expression": "$P = \\dfrac{\\text{aire de la zone}}{\\text{aire totale}}$",
+          "quand_utiliser": "Pour une cible ou un point choisi au hasard dans une figure.",
+          "erreur_frequente": "Compter les zones au lieu de comparer leurs aires.",
+          "astuce": "Calcule chaque aire avant de diviser."
+        },
+        {
+          "id": "formule-somme-issues",
+          "nom": "Issues non équiprobables",
+          "expression": "$P(\\text{issue}_1) + P(\\text{issue}_2) + \\ldots = 1$",
+          "quand_utiliser": "Pour trouver une probabilité manquante (osselet, dé truqué).",
+          "erreur_frequente": "Oublier une issue dans la somme.",
+          "astuce": "Vérifie toujours que le total vaut $1$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Probabilités avec des aires ou des probabilités données",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère si l'on utilise des aires (ou des angles) ou des probabilités données pour chaque issue."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je calcule l'aire de la zone et l'aire totale, ou je liste les probabilités des issues."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule le quotient des aires, ou j'additionne les probabilités des issues favorables."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que la somme des probabilités de toutes les issues vaut $1$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère si l'on utilise des aires (ou des angles) ou des probabilités données pour chaque issue."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule l'aire de la zone et l'aire totale, ou je liste les probabilités des issues."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule le quotient des aires, ou j'additionne les probabilités des issues favorables."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que la somme des probabilités de toutes les issues vaut $1$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde si les zones ont la même taille."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule les aires (ou je lis les probabilités données)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je fais aire de la zone sur aire totale (ou j'additionne)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Le total de toutes les probabilités doit faire $1$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Cible : $\\dfrac{\\text{aire}}{\\text{aire totale}}$ ; roue : $\\dfrac{\\text{angle}}{360}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Somme des probabilités des issues : $1$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-cible-carree",
+          "titre": "Exemple 1 — Une cible carrée",
+          "enonce": "Une cible est un carré de côté $6$ contenant un carré de côté $4$, qui contient lui-même un carré central de côté $2$. Une fléchette atteint la cible au hasard. Calculer la probabilité d'atteindre chacune des trois zones.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Aires : centre $4$ ; zone intermédiaire $16 - 4 = 12$ ; zone extérieure $36 - 16 = 20$."
+            },
+            {
+              "expr": "",
+              "texte": "$P(\\text{centre}) = \\dfrac{4}{36} = \\dfrac{1}{9}$ ; $P(\\text{intermédiaire}) = \\dfrac{12}{36} = \\dfrac{1}{3}$ ; $P(\\text{extérieur}) = \\dfrac{20}{36} = \\dfrac{5}{9}$."
+            }
+          ],
+          "reponse": "$\\dfrac{1}{9}$, $\\dfrac{1}{3}$ et $\\dfrac{5}{9}$.",
+          "conclusion": "C'est la cible de la figure du cours ; somme : $1$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-roue-angles",
+          "titre": "Exemple 2 — Une roue inégale",
+          "enonce": "Une roue est partagée en trois secteurs : vert $180°$, jaune $120°$, rouge $60°$. Elle s'arrête au hasard. Calculer la probabilité de chaque couleur.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(\\text{vert}) = \\dfrac{180}{360} = \\dfrac{1}{2}$ ; $P(\\text{jaune}) = \\dfrac{120}{360} = \\dfrac{1}{3}$."
+            },
+            {
+              "expr": "",
+              "texte": "$P(\\text{rouge}) = \\dfrac{60}{360} = \\dfrac{1}{6}$."
+            }
+          ],
+          "reponse": "$\\dfrac{1}{2}$, $\\dfrac{1}{3}$ et $\\dfrac{1}{6}$.",
+          "conclusion": "Somme : $\\dfrac{3}{6} + \\dfrac{2}{6} + \\dfrac{1}{6} = 1$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-osselet",
+          "titre": "Exemple 3 — Un osselet",
+          "enonce": "Un osselet a quatre faces possibles : on admet que $P(\\text{face A}) = 0{,}1$, $P(\\text{face B}) = 0{,}1$ et $P(\\text{face C}) = 0{,}4$. Calculer $P(\\text{face D})$, puis la probabilité d'obtenir la face C ou la face D.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$P(\\text{D}) = 1 - (0{,}1 + 0{,}1 + 0{,}4) = 0{,}4$."
+            },
+            {
+              "expr": "",
+              "texte": "$P(\\text{C ou D}) = 0{,}4 + 0{,}4 = 0{,}8$."
+            }
+          ],
+          "reponse": "$P(\\text{D}) = 0{,}4$ ; $P(\\text{C ou D}) = 0{,}8$.",
+          "conclusion": "Les issues ne sont pas équiprobables : on additionne leurs probabilités.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-de-truque",
+          "titre": "Exemple 4 — Un dé truqué",
+          "enonce": "Un dé est truqué : la face $6$ sort avec une probabilité de $0{,}25$, et les cinq autres faces ont la même probabilité. Calculer la probabilité d'obtenir $1$, puis d'obtenir un nombre pair.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Les cinq autres faces se partagent $1 - 0{,}25 = 0{,}75$ : chacune a $0{,}15$."
+            },
+            {
+              "expr": "",
+              "texte": "$P(\\text{pair}) = P(2) + P(4) + P(6) = 0{,}15 + 0{,}15 + 0{,}25 = 0{,}55$."
+            }
+          ],
+          "reponse": "$P(1) = 0{,}15$ ; $P(\\text{pair}) = 0{,}55$.",
+          "conclusion": "Avec un dé équilibré, on aurait trouvé $\\dfrac{1}{2}$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cible-disque",
+          "titre": "Exemple 5 — Une cible ronde",
+          "enonce": "Une cible est un disque de rayon $30$ cm ; la zone centrale est un disque de même centre et de rayon $10$ cm. Une fléchette atteint la cible au hasard. Calculer la probabilité d'atteindre la zone centrale.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Aire centrale : $\\pi \\times 10^2 = 100\\pi$ ; aire totale : $\\pi \\times 30^2 = 900\\pi$."
+            },
+            {
+              "expr": "",
+              "texte": "$P = \\dfrac{100\\pi}{900\\pi} = \\dfrac{1}{9}$."
+            }
+          ],
+          "reponse": "$P(\\text{centre}) = \\dfrac{1}{9}$.",
+          "conclusion": "Le rayon est divisé par $3$, l'aire par $9$ : on retrouve le rapport des aires d'un agrandissement-réduction ($k^2$).",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Les jeux de fléchettes et les roues de fête foraine.",
+        "Le jeu d'osselets.",
+        "Un dé truqué dans une énigme mathématique."
+      ],
+      "erreursFrequentes": [
+        "Donner la même probabilité à toutes les zones.",
+        "Oublier une issue dans la somme des probabilités.",
+        "Utiliser le rayon au lieu de l'aire dans une cible ronde.",
+        "Utiliser la formule « favorables sur possibles » pour un objet non équilibré."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Donner la même probabilité à toutes les zones.",
+          "pourquoi": "On compte les zones au lieu de comparer leurs aires.",
+          "comment_detecter": "Les zones ont-elles la même aire ?",
+          "comment_eviter": "Calcule l'aire de chaque zone."
+        },
+        {
+          "description": "Oublier une issue dans la somme des probabilités.",
+          "pourquoi": "On ne vérifie pas que le total vaut $1$.",
+          "comment_detecter": "La somme de tes probabilités vaut-elle $1$ ?",
+          "comment_eviter": "Liste toutes les issues avant de calculer."
+        },
+        {
+          "description": "Utiliser le rayon au lieu de l'aire dans une cible ronde.",
+          "pourquoi": "On écrit $\\dfrac{10}{30} = \\dfrac{1}{3}$.",
+          "comment_detecter": "As-tu comparé des aires ou des longueurs ?",
+          "comment_eviter": "Une probabilité de cible est un rapport d'aires."
+        },
+        {
+          "description": "Utiliser la formule « favorables sur possibles » pour un objet non équilibré.",
+          "pourquoi": "On croit que chaque face d'un osselet a une chance sur quatre.",
+          "comment_detecter": "L'objet est-il équilibré ?",
+          "comment_eviter": "Utilise les probabilités données pour chaque issue."
+        }
+      ],
+      "astuce": "Pour une roue, travaille directement avec les angles : un secteur de $90°$ a une probabilité de $\\dfrac{1}{4}$, un secteur de $120°$ de $\\dfrac{1}{3}$.",
+      "aRetenir": [
+        "Cible : rapport d'aires ; roue : rapport d'angles.",
+        "Issues non équiprobables : somme des probabilités $= 1$.",
+        "Probabilité d'un événement : somme des probabilités de ses issues."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3.6,
+          -3.6,
+          7.2,
+          7.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": -3.0,
+                "y": -3.0
+              },
+              {
+                "x": 3.0,
+                "y": -3.0
+              },
+              {
+                "x": 3.0,
+                "y": 3.0
+              },
+              {
+                "x": -3.0,
+                "y": 3.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "zone extérieure : 36 − 16 = 20 unités d'aire"
+          },
+          {
+            "points": [
+              {
+                "x": -2.0,
+                "y": -2.0
+              },
+              {
+                "x": 2.0,
+                "y": -2.0
+              },
+              {
+                "x": 2.0,
+                "y": 2.0
+              },
+              {
+                "x": -2.0,
+                "y": 2.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "zone intermédiaire : 16 − 4 = 12 unités d'aire",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": -1.0,
+                "y": -1.0
+              },
+              {
+                "x": 1.0,
+                "y": -1.0
+              },
+              {
+                "x": 1.0,
+                "y": 1.0
+              },
+              {
+                "x": -1.0,
+                "y": 1.0
+              }
+            ],
+            "variant": "c",
+            "tooltip": "zone centrale : 4 unités d'aire",
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": 0,
+            "y": 2.5,
+            "label": "20/36",
+            "reveal": 2
+          },
+          {
+            "x": 0,
+            "y": 1.5,
+            "label": "12/36",
+            "reveal": 2
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "label": "4/36",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "La cible : un carré de côté 6",
+          "La zone intermédiaire",
+          "La zone centrale"
+        ],
+        "relation": "Fléchette tombant au hasard sur la cible : $P(\\text{centre}) = \\dfrac{4}{36} = \\dfrac{1}{9}$, $P(\\text{intermédiaire}) = \\dfrac{12}{36} = \\dfrac{1}{3}$, $P(\\text{extérieur}) = \\dfrac{20}{36} = \\dfrac{5}{9}$",
+        "alt": "Cible carrée de côté 6 contenant un carré de côté 4, lui-même contenant un carré central de côté 2. Les aires des trois zones sont 4, 12 et 20 sur un total de 36.",
+        "explication": {
+          "resume": "Si une fléchette tombe au hasard sur une cible (toute zone de même aire a la même chance d'être atteinte), la probabilité d'atteindre une zone est le quotient de l'aire de cette zone par l'aire totale.",
+          "lecture": [
+            "La cible est formée de trois carrés emboîtés de côtés $6$, $4$ et $2$.",
+            "Chaque zone est la partie d'un carré qui n'est pas dans le carré plus petit."
+          ],
+          "observations": [
+            "Zone centrale : $2 \\times 2 = 4$ ; intermédiaire : $16 - 4 = 12$ ; extérieure : $36 - 16 = 20$.",
+            "Probabilités : $\\dfrac{4}{36} = \\dfrac{1}{9}$, $\\dfrac{12}{36} = \\dfrac{1}{3}$, $\\dfrac{20}{36} = \\dfrac{5}{9}$.",
+            "Somme : $\\dfrac{4 + 12 + 20}{36} = 1$."
+          ],
+          "pieges": [
+            "Croire que chaque zone a une chance sur trois : les zones n'ont pas la même aire."
+          ],
+          "aRetenir": [
+            "Avec une cible : $P = \\dfrac{\\text{aire de la zone}}{\\text{aire totale}}$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        57401,
+        57402,
+        57404
+      ],
+      "topic_id": "proba-aires-osselets",
+      "proprietes": [
+        "La probabilité qu'un point choisi au hasard tombe dans une zone est le rapport de l'aire de cette zone à l'aire totale."
+      ],
+      "vocabulaire_associe": [
+        "cible",
+        "aire",
+        "secteur",
+        "osselet",
+        "dé truqué",
+        "non équiprobable"
+      ],
+      "synonymes": [
+        "probabilité et aire",
+        "cible",
+        "issues non équiprobables"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer une probabilité avec des aires.",
+        "Calculer une probabilité avec des angles.",
+        "Utiliser des probabilités données (osselets, dé truqué).",
+        "Vérifier que la somme des probabilités vaut $1$."
+      ],
+      "prerequis": [
+        "Calculer une probabilité",
+        "Événement contraire",
+        "Aires usuelles"
+      ],
+      "notions_liees": [
+        "proba-calculer",
+        "proba-contraire",
+        "espace-agrandissement-volumes"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "probabilités",
+        "aires",
+        "cible",
+        "non équiprobable"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proba-aires-osselets-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Osselet et dé truqué",
+          "description": "Deux exemples rédigés : trouver la probabilité manquante d'un osselet, et calculer des probabilités avec un dé truqué."
+        },
+        {
+          "id": "proba-aires-osselets-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Une cible ronde",
+          "description": "Un exemple qui calcule une probabilité par un rapport d'aires de disques."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle est la probabilité de ne pas atteindre le centre ?",
+          "piste": "$1 - \\dfrac{1}{9} = \\dfrac{8}{9}$."
+        },
+        {
+          "apres": "methode",
+          "question": "Un secteur de roue de $45°$ : quelle probabilité ?",
+          "piste": "$\\dfrac{45}{360} = \\dfrac{1}{8}$."
+        }
+      ]
+    }
+  ]
+}

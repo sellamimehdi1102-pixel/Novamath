@@ -274,12 +274,16 @@
   margin-top: -8px;
 }
 
+/* Statistiques + bouton poussés ensemble en bas de carte : sur une même
+   ligne de la grille, ils restent alignés même quand un titre ou une
+   description occupe deux lignes (« Première spécialité Mathématiques »,
+   « En préparation — aperçu local, non publié »). */
 .cursus-card-stats {
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
   padding-top: 18px;
-  margin-top: 4px;
+  margin-top: auto;
   border-top: 1px solid var(--border);
 }
 .cursus-stat {
@@ -300,7 +304,6 @@
 }
 
 .cursus-card-cta {
-  margin-top: auto;
   align-self: flex-start;
 }
 

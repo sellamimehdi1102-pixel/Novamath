@@ -171,14 +171,14 @@ def _gen_facteur_commun_variable(rng):
     b = _nz(rng, -9, 9)
     if b == 0:
         return None
-    enonce = f"Factoriser l'expression ${a}x^2 {'+' if b > 0 else '-'} {abs(b)}x$."
+    enonce = f"Factoriser l'expression ${_cx(a)}x^2 {'+' if b > 0 else '-'} {_cx(abs(b))}x$."
     factored = f"x({_cx(a)}x {'+' if b > 0 else '-'} {abs(b)})"
     check = expand(x * (a * x + b))
     original = expand(a * x**2 + b * x)
     if check != original:
         return None
     steps = [
-        f"Étape 1 — Les deux termes ${a}x^2$ et ${b}x$ contiennent tous les deux le facteur $x$.",
+        f"Étape 1 — Les deux termes ${_cx(a)}x^2$ et ${_cx(b)}x$ contiennent tous les deux le facteur $x$.",
         f"Étape 2 — On met $x$ en facteur : ${factored}$.",
     ]
     answer = f"${factored}$"

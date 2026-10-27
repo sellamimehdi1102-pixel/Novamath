@@ -197,7 +197,7 @@ def _gen_alg_puissance(rng: random.Random) -> Optional[dict]:
     steps = [
         f"Étape 1 — On reconnaît une puissance d'une exponentielle : $\\left(e^{{{a}}}\\right)^{{{m}}}$.",
         f"Étape 2 — On applique la propriété $\\left(e^{{p}}\\right)^{{k}} = e^{{kp}}$ avec $p={a}$ et $k={m}$ : "
-        f"$C = e^{{{m}\\times {a}}} = e^{{{m * a}}}$.",
+        f"$C = e^{{{m}\\times {_p(a)}}} = e^{{{m * a}}}$.",
     ]
     return {
         "enonce": enonce,
@@ -463,7 +463,7 @@ def _gen_not_erreur(rng: random.Random) -> Optional[dict]:
     a, b = _nz(rng, -6, 6), _nz(rng, -6, 6)
     correct = simplify(exp(a) * exp(b))
     enonce = (
-        f"Un élève écrit : « $e^{{{a}}} \\times e^{{{b}}} = e^{{{a}\\times{b}}}$ ». "
+        f"Un élève écrit : « $e^{{{a}}} \\times e^{{{b}}} = e^{{{a}\\times{_p(b)}}}$ ». "
         "Corriger cette erreur en donnant le bon résultat."
     )
     steps = [
@@ -854,7 +854,7 @@ def _gen_ana_signe_expression(rng: random.Random) -> Optional[dict]:
     steps = [
         f"Étape 1 — $g(x) = 0 \\iff e^x = e^{{{c}}} \\iff x = {c}$ par injectivité de l'exponentielle.",
         f"Étape 2 — La fonction exponentielle étant strictement croissante, $e^x > e^{{{c}}}$ pour $x > {c}$ "
-        f"et $e^x < e^{{{c}}}$ pour $x < {c}$ : $g(x)$ est du signe de $(x-{c})$.",
+        f"et $e^x < e^{{{c}}}$ pour $x < {c}$ : $g(x)$ est du signe de $(x{'-' if c >= 0 else '+'}{abs(c)})$.",
     ]
     return {
         "enonce": enonce,
@@ -871,6 +871,40 @@ def _gen_ana_signe_expression(rng: random.Random) -> Optional[dict]:
 # continue (population, désintégration, capitalisation).
 # ═══════════════════════════════════════════════════════════════════════
 
+def _p(v) -> str:
+    """Facteur en LaTeX, entre parenthèses s'il s'affiche avec un signe moins ou
+    s'il est une somme (jamais « \\times -3 », « + -2 » ni « -5^2 »)."""
+    s = v if isinstance(v, str) else latex(v)
+    if not (s.lstrip().startswith("-") or getattr(v, "is_Add", False)):
+        return s
+    return f"\\left({s}\\right)" if "\\frac" in s else f"({s})"
+
+
+def _coef_fois(A) -> str:
+    """« 3 \\times » devant une exponentielle, rien si le coefficient vaut 1."""
+    return "" if A == 1 else f"{A} \\times "
+
+
+def _coef_produit(A) -> str:
+    """« 3\\, » devant une exponentielle dans un produit écrit sans signe, rien si A = 1."""
+    return "" if A == 1 else f"{A}\\,"
+
+
+def _r_fois(r, expr) -> str:
+    """r·expr dans un exposant : « 2n », « n », « -n », « -(n+1) » (jamais « 1n »)."""
+    paren = expr if len(expr) == 1 else f"({expr})"
+    if r == 1:
+        return expr
+    if r == -1:
+        return f"-{paren}"
+    return f"{r}{paren}"
+
+
+def _e_puiss(v) -> str:
+    """e^v, écrit « e » quand v = 1."""
+    return "e" if v == 1 else f"e^{{{v}}}"
+
+
 def _gen_suite_identifier(rng: random.Random) -> Optional[dict]:
     A = _nz(rng, 1, 9)
     r = _nz(rng, -3, 3)
@@ -879,18 +913,18 @@ def _gen_suite_identifier(rng: random.Random) -> Optional[dict]:
     ratio = simplify(u_n.subs(n, n + 1) / u_n)
     u_k = simplify(u_n.subs(n, k))
     enonce = (
-        f"On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = {A} \\times e^{{{r}n}}$. "
+        f"On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = {_coef_fois(A)}e^{{{_r_fois(r, 'n')}}}$. "
         f"Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{{{k}}}$ en fonction de "
-        f"$e^{{{r}}}$."
+        f"${_e_puiss(r)}$."
     )
     steps = [
-        f"Étape 1 — On calcule le rapport $\\dfrac{{u_{{n+1}}}}{{u_n}} = \\dfrac{{{A}\\,e^{{{r}(n+1)}}}}{{{A}\\,e^{{{r}n}}}} = e^{{{r}}}$, "
-        "constant : la suite est donc géométrique de raison $q = e^{" + str(r) + "}$.",
-        f"Étape 2 — On en déduit $u_{{{k}}} = {A} \\times e^{{{r*k}}}$.",
+        f"Étape 1 — On calcule le rapport $\\dfrac{{u_{{n+1}}}}{{u_n}} = \\dfrac{{{_coef_produit(A)}e^{{{_r_fois(r, 'n+1')}}}}}{{{_coef_produit(A)}e^{{{_r_fois(r, 'n')}}}}} = {_e_puiss(r)}$, "
+        "constant : la suite est donc géométrique de raison $q = " + _e_puiss(r) + "$.",
+        f"Étape 2 — On en déduit $u_{{{k}}} = {_coef_fois(A)}e^{{{r*k}}}$.",
     ]
     return {
         "enonce": enonce,
-        "answer": f"$(u_n)$ est géométrique de raison $e^{{{r}}}$ et $u_{{{k}}} = {A} \\times e^{{{r*k}}}$",
+        "answer": f"$(u_n)$ est géométrique de raison ${_e_puiss(r)}$ et $u_{{{k}}} = {_coef_fois(A)}e^{{{r*k}}}$",
         "hint": "Une suite $u_n = A\\,e^{rn}$ est géométrique de raison $e^r$, obtenue en factorisant $u_{n+1}$ par $u_n$.",
         "steps": steps,
         "score": real_difficulty_score([ratio, u_k], extra=1.5),
@@ -988,7 +1022,7 @@ def _gen_suite_sens_variation(rng: random.Random) -> Optional[dict]:
     sens = "croissante" if r > 0 else "décroissante"
     comparaison = ">" if r > 0 else "<"
     enonce = (
-        f"On considère la suite géométrique $u_n = {A} \\times e^{{{latex(r)}n}}$. Sans calculer sa valeur "
+        f"On considère la suite géométrique $u_n = {_coef_fois(A)}e^{{{latex(r)}n}}$. Sans calculer sa valeur "
         f"numérique, déterminer si la raison $q = e^{{{latex(r)}}}$ est supérieure ou inférieure à $1$, et en "
         "déduire le sens de variation de la suite."
     )

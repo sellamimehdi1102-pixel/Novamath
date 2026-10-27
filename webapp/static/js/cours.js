@@ -17,6 +17,7 @@ import {
 } from "./favorites.js";
 import { normalizeText, debounce } from "./searchUtils.js";
 import { openReportTicketPopup } from "./supportTicket.js";
+import { getInProgressSeries } from "./store.js";
 
 initSettingsManager().then(() => bindLiveTranslations());
 bindSettingsButton(document.getElementById("settings-btn"));
@@ -605,6 +606,69 @@ function buildLockedUltraHtml(locked) {
   );
 }
 
+// ── Aperçus publics de contenu verrouillé (notion.apercus, refonte
+// pédagogique des cours, 2026-10-23) — `apercus` vient du backend
+// (course_content_service.py::_filter_apercus), déjà filtré par palier :
+// jamais le contenu protégé lui-même, uniquement un titre/une description
+// rédigés à la main par l'auteur du cours. Remplace, SECTION PAR SECTION,
+// les cartes génériques buildLockedPremiumHtml/buildLockedUltraHtml
+// ci-dessus dès qu'au moins un aperçu existe pour cette section — les
+// notions sans `apercus` (toutes, hors le cours pilote, à ce jour) gardent
+// exactement le rendu générique d'avant (voir chaque appelant). ───────────
+const APERCU_NIVEAU_LABEL = { premium: "Premium", ultra: "Ultra" };
+
+function buildApercusHtml(apercus) {
+  if (!apercus?.length) return "";
+  return apercus
+    .map((a) => {
+      const niveauLabel = APERCU_NIVEAU_LABEL[a.niveau] || a.niveau;
+      return lockedContentCard(
+        a.niveau,
+        `<span data-text="${encodeURIComponent(a.titre || "Contenu verrouillé")}"></span> <span class="cours-locked-niveau">${niveauLabel}</span>`,
+        `
+        <p data-text="${encodeURIComponent(a.description || "")}"></p>
+        <a class="cours-locked-upgrade-link" href="/abonnement.html">Découvrir les abonnements ${icon("arrowRight")}</a>
+      `,
+      );
+    })
+    .join("");
+}
+
+// ── Tableau comparatif (notion.tableauComparatif, optionnel) — synthèse de
+// reconnaissance pour une notion à plusieurs règles proches (ex. "Opérations
+// sur les dérivées" : constante/somme/produit/quotient) : ne remplace jamais
+// les exemples détaillés (buildExempleHtml), vient en complément juste après
+// les règles importantes. `colonnes` est la liste des en-têtes (texte brut,
+// pas de LaTeX) ; chaque ligne de `lignes` est un objet {forme, regle,
+// exemple, piege} où `piege` est optionnel (toutes les règles n'ont pas un
+// piège spécifique). Enveloppé dans .cours-table-wrap (overflow-x: auto)
+// pour rester lisible sur mobile sans faire déborder la page. ─────────────
+function buildTableauComparatifHtml(tableau) {
+  if (!tableau?.lignes?.length) return "";
+  const colonnes = tableau.colonnes?.length
+    ? tableau.colonnes
+    : ["Forme à reconnaître", "Règle", "Exemple simple", "Piège principal"];
+  const rows = tableau.lignes
+    .map(
+      (l) => `
+      <tr>
+        <td data-text="${encodeURIComponent(l.forme || "")}"></td>
+        <td data-text="${encodeURIComponent(l.regle || "")}"></td>
+        <td data-text="${encodeURIComponent(l.exemple || "")}"></td>
+        <td data-text="${encodeURIComponent(l.piege || "—")}"></td>
+      </tr>`,
+    )
+    .join("");
+  return `
+    <div class="cours-subsection-label">${icon("layers")} <span data-text="${encodeURIComponent(tableau.titre || "Tableau de synthèse")}"></span></div>
+    <div class="cours-table-wrap">
+      <table class="cours-table-comparatif">
+        <thead><tr>${colonnes.map((c) => `<th data-text="${encodeURIComponent(c)}"></th>`).join("")}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
 // ── Formules (notion.formules, optionnel) — fiche pédagogique sobre plutôt
 // qu'une carte glass par formule : typographie mise en valeur pour
 // l'expression (rendue via KaTeX comme le reste du cours, voir data-text/
@@ -715,6 +779,13 @@ function notionNavHtml(content, notion) {
 // ── Lecteur de notion : page unique, scroll, sections toujours découpées ───
 function openNotionReader(chapterId, content, notion) {
   function saveProgress(patch) {
+    const current = courseProgress[chapterId]?.[notion.id];
+    // Rouvrir une notion déjà terminée ne la rétrograde jamais en « En cours »
+    // (le serveur fusionne le patch tel quel, voir auth.write_user_course_progress).
+    if (patch.status === "in_progress" && current?.status === "done") return;
+    // Même fusion en mémoire que côté serveur : le retour au chapitre affiche
+    // aussitôt le nouveau statut, sans attendre un rechargement de la page.
+    courseProgress[chapterId] = { ...courseProgress[chapterId], [notion.id]: { ...current, ...patch } };
     api.saveCourseProgress(chapterId, notion.id, patch, getStoredClassLevel()).catch(() => {});
   }
 
@@ -1008,6 +1079,8 @@ function openNotionReader(chapterId, content, notion) {
         : ""
     }
 
+    ${buildTableauComparatifHtml(notion.tableauComparatif)}
+
     ${buildFormulesHtml(notion.formules)}
 
     ${
@@ -1037,13 +1110,17 @@ function openNotionReader(chapterId, content, notion) {
       : "",
   );
 
+  const exempleApercus = notion.apercus?.filter((a) => a.section === "exemple") || [];
+  const exemplePremiumApercusHtml = buildApercusHtml(exempleApercus.filter((a) => a.niveau === "premium"));
+  const exempleUltraApercusHtml = buildApercusHtml(exempleApercus.filter((a) => a.niveau === "ultra"));
+
   const exempleHtml = section(
     "section-exemple",
     "Exemple guidé",
     "penSquare",
     `
     ${notion.exemples?.length ? notion.exemples.map((ex) => buildExempleHtml(ex) + questionsEclairHtml(notion, `exemple:${ex.id}`)).join("") : ""}
-    ${buildLockedPremiumHtml(notion.locked_content)}
+    ${exemplePremiumApercusHtml || buildLockedPremiumHtml(notion.locked_content)}
 
     ${
       notion.demonstration?.etapes?.length
@@ -1064,7 +1141,7 @@ function openNotionReader(chapterId, content, notion) {
     }`
         : ""
     }
-    ${buildLockedUltraHtml(notion.locked_content)}
+    ${exempleUltraApercusHtml || buildLockedUltraHtml(notion.locked_content)}
   `,
   );
 
@@ -1155,12 +1232,26 @@ function openNotionReader(chapterId, content, notion) {
   `,
   );
 
-  // ── CTA "Passer à la pratique" — pointe vers le mini-quiz déjà associé à
-  // la notion (notion.quizExerciseIds, déjà résolu par renderQuiz ci-
-  // dessous) : aucune nouvelle récupération d'exercice, aucune nouvelle
-  // logique de quota/consommation, juste un point d'entrée UX plus visible
-  // vers un contenu déjà rendu plus bas sur la page. Absent si la notion n'a
-  // aucun exercice associé (jamais un bouton qui ne mène nulle part). ──────
+  // ── CTA "Passer à la pratique" — refonte pédagogique des cours (2026-10-23),
+  // point 7 : ouvre une VRAIE série d'entraînement sur cette notion précise
+  // dans l'onglet Entraînement (exercice.html), au lieu de se contenter de
+  // faire défiler jusqu'au mini-quiz embarqué ci-dessus (section "Vérifier
+  // ma compréhension", inchangée). Réutilise exactement le mécanisme déjà
+  // utilisé par le chatbot pour sa carte "Commencer un entraînement" (voir
+  // chatbot.js::navigateToCard, type "notion_series") : même endpoint
+  // (api.exercisesByNotion, correspondance EXACTE sur notion.title — c'est
+  // le texte libre déjà utilisé par la banque d'exercices, voir
+  // search_service.exercises_by_notion), même clé localStorage
+  // ("lumis:pending_series"), même page cible — aucun second système
+  // d'exercices créé, aucun contournement des quotas ni du verrou anti-
+  // double-consommation (tous deux gérés par exercice.js::startSeries/
+  // loadCurrent, jamais dupliqués ici). Présent uniquement si la notion a
+  // au moins un exercice associé (quizExerciseIds) : le CTA reste un point
+  // d'entrée vers une notion qui a RÉELLEMENT des exercices, jamais un
+  // bouton qui ne mène nulle part ; si l'API ne trouve finalement aucun
+  // exercice pour cette notion précise (texte légèrement différent dans la
+  // banque, etc.), un message explicite l'indique plutôt que de démarrer
+  // une série hors sujet. ──────────────────────────────────────────────────
   const pratiqueHtml = section(
     "section-pratique",
     "Passer à la pratique",
@@ -1170,7 +1261,7 @@ function openNotionReader(chapterId, content, notion) {
     <div class="cours-cta-pratique">
       <div class="cours-cta-pratique-text">
         <div class="cours-cta-pratique-title">${icon("penSquare")} Mets cette notion en pratique</div>
-        <p>Réponds au mini-quiz associé pour vérifier que tu as bien compris.</p>
+        <p>Démarre une série d'exercices consacrée à cette notion dans l'onglet Entraînement.</p>
       </div>
       <button type="button" class="btn btn-primary cours-cta-pratique-btn" id="cours-cta-pratique-btn">Commencer les exercices ${icon("arrowRight")}</button>
     </div>
@@ -1247,16 +1338,49 @@ function openNotionReader(chapterId, content, notion) {
       target?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
     });
   });
-  readerView.querySelector("#cours-cta-pratique-btn")?.addEventListener("click", () => {
-    // block:"center" (pas "start") : la zone quiz est proche du bas de page,
-    // donc la cible d'alignement "start" dépasse la hauteur scrollable du
-    // document — le navigateur la clampe à la position déjà atteinte, et le
-    // clic ne produit alors aucun mouvement visible une fois l'utilisateur
-    // réellement descendu jusqu'à ce bouton (bug confirmé : scrollY identique
-    // avant/après clic dans ce cas précis). "center" reste sous cette limite
-    // et fait donc réellement défiler la page.
-    const zone = readerView.querySelector("#cours-quiz-zone");
-    zone?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
+  readerView.querySelector("#cours-cta-pratique-btn")?.addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    if (btn.disabled) return;
+    btn.disabled = true;
+    try {
+      // Vérification Cours → Entraînement, point 8 : exercice.js::init()
+      // remplace SILENCIEUSEMENT une série en pause dès qu'un lancement
+      // explicite est détecté (lumis:pending_series) — comportement déjà
+      // accepté pour les cartes du chatbot, mais une consigne explicite
+      // existe désormais pour CE point d'entrée : jamais de remplacement
+      // silencieux. On demande donc confirmation ICI, avant même d'écrire
+      // quoi que ce soit, si une série est actuellement en pause pour cette
+      // classe (voir store.js::getInProgressSeries) — un refus n'écrit rien
+      // et ne navigue pas.
+      if (
+        getInProgressSeries() &&
+        !confirm("Une série d'entraînement est déjà en cours. La remplacer par une série sur cette notion ?")
+      ) {
+        return;
+      }
+      const { results } = await api.exercisesByNotion(chapterId, notion.title, 10, getStoredClassLevel());
+      if (!results.length) {
+        alert(
+          "Aucun exercice n'est encore disponible spécifiquement pour cette notion. Rends-toi dans l'onglet Entraînement pour t'exercer sur l'ensemble du chapitre.",
+        );
+        return;
+      }
+      localStorage.setItem(
+        "lumis:pending_series",
+        JSON.stringify({
+          mode: "notion",
+          chapterId,
+          notion: notion.title,
+          notions: [notion.title],
+          exerciseIds: results.map((r) => r.exercise_id),
+        }),
+      );
+      window.location.href = "exercice.html";
+    } catch {
+      alert("Impossible de démarrer les exercices pour le moment. Réessaie plus tard.");
+    } finally {
+      btn.disabled = false;
+    }
   });
 
   readerView
@@ -1377,15 +1501,29 @@ function openNotionReader(chapterId, content, notion) {
   readerView.querySelectorAll(".cours-notion-nav-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const target = content.notions.find((n) => n.id === btn.dataset.notion);
-      if (target) openNotionReader(chapterId, content, target);
+      if (!target) return;
+      openNotionReader(chapterId, content, target);
+      // La page (document) est le conteneur de défilement : sans remise à
+      // zéro, la nouvelle notion s'affichait à la position de l'ancienne
+      // (bas de page). Après le rendu, retour immédiat (sans animation) au
+      // titre de la notion.
+      requestAnimationFrame(() => {
+        (document.scrollingElement || document.documentElement).scrollTop = 0;
+      });
     });
   });
 
   saveProgress({ status: "in_progress" });
 
-  if (notion.quizExerciseIds?.length) {
-    renderQuiz(readerView.querySelector("#cours-quiz-zone"));
-  } else {
+  // Bouton "Marquer comme terminée" : toujours un geste explicite de
+  // l'élève — c'est aussi le repli quand le mini-quiz ne peut pas être
+  // chargé du tout (voir renderQuiz), jamais une validation automatique.
+  let markDoneBound = false;
+  function bindMarkDone() {
+    const row = readerView.querySelector("#cours-done-row");
+    if (row) row.hidden = false;
+    if (markDoneBound) return;
+    markDoneBound = true;
     readerView.querySelector("#cours-mark-done-btn")?.addEventListener("click", () => {
       saveProgress({ status: "done" });
       readerView.querySelector("#cours-done-row").innerHTML =
@@ -1393,18 +1531,97 @@ function openNotionReader(chapterId, content, notion) {
     });
   }
 
+  if (notion.quizExerciseIds?.length) {
+    renderQuiz(readerView.querySelector("#cours-quiz-zone"));
+  } else {
+    bindMarkDone();
+  }
+
+  // Chargement des exercices du mini-quiz (correction "mini-quiz
+  // défectueux", 2026-10-24) : auparavant Promise.all — une seule référence
+  // absente (404) faisait disparaître TOUT le quiz, et la leçon était
+  // marquée terminée sans que l'élève ait rien fait. Désormais chaque
+  // exercice est chargé indépendamment (Promise.allSettled) :
+  // - certains exercices disponibles : le quiz se joue avec ceux-là ;
+  // - aucun : message explicite, bouton "Réessayer" si la cause est
+  //   réseau/serveur, et le bouton manuel "Marquer comme terminée" — jamais
+  //   de saveProgress({status:"done"}) déclenché par un échec technique.
+  // "Absent" (404 : exercice inexistant dans la banque de la classe) et
+  // "réseau" (pas de réponse / 5xx) sont distingués et journalisés.
+  function classifyQuizFailure(reason) {
+    if (reason?.status === 404) return "absent";
+    if (reason?.status === undefined || reason.status >= 500) return "reseau";
+    return "indisponible";
+  }
+
+  async function loadQuizExercises() {
+    const classLevel = getStoredClassLevel();
+    const results = await Promise.allSettled(
+      // Promise.resolve().then(...) : même une erreur levée de façon
+      // synchrone par l'appel (réponse inattendue) devient un échec capturé
+      // par allSettled, jamais un rejet non géré.
+      notion.quizExerciseIds.map((id) =>
+        Promise.resolve()
+          .then(() => api.exercise(id, classLevel))
+          .then((r) => r.exercise),
+      ),
+    );
+    const exercises = [];
+    const failures = [];
+    results.forEach((result, i) => {
+      if (result.status === "fulfilled" && result.value) {
+        exercises.push(result.value);
+      } else {
+        const reason = result.status === "rejected" ? result.reason : null;
+        failures.push({
+          id: notion.quizExerciseIds[i],
+          kind: reason ? classifyQuizFailure(reason) : "absent",
+          status: reason?.status ?? null,
+          message: reason?.message ?? "réponse sans exercice",
+        });
+      }
+    });
+    if (failures.length) {
+      console.warn("[mini-quiz] exercice(s) non chargé(s)", {
+        classLevel,
+        chapterId,
+        notionId: notion.id,
+        charges: exercises.length,
+        total: notion.quizExerciseIds.length,
+        failures,
+      });
+    }
+    return { exercises, failures };
+  }
+
+  function renderQuizUnavailable(zone, failures) {
+    const networkIssue = failures.some((f) => f.kind !== "absent");
+    zone.innerHTML = `
+      <div class="card cours-quiz-card cours-quiz-unavailable" role="status">
+        <p>${
+          networkIssue
+            ? "Le mini-quiz n'a pas pu être chargé (problème de connexion ou serveur momentanément indisponible)."
+            : "Le mini-quiz de cette notion est momentanément indisponible."
+        }</p>
+        ${networkIssue ? `<button class="btn btn-ghost btn-sm" id="cours-quiz-retry" type="button">Réessayer</button>` : ""}
+      </div>
+    `;
+    zone.querySelector("#cours-quiz-retry")?.addEventListener("click", () => renderQuiz(zone));
+    bindMarkDone();
+  }
+
   async function renderQuiz(zone) {
     zone.innerHTML = `<div class="skeleton" style="height:140px;"></div>`;
-    let exercises;
-    try {
-      exercises = await Promise.all(
-        notion.quizExerciseIds.map((id) => api.exercise(id, getStoredClassLevel()).then((r) => r.exercise)),
-      );
-    } catch {
-      zone.innerHTML = "";
-      saveProgress({ status: "done" });
+    const { exercises, failures } = await loadQuizExercises();
+    if (!exercises.length) {
+      renderQuizUnavailable(zone, failures);
       return;
     }
+    // Après un "Réessayer" réussi : le quiz redevient le seul chemin de fin
+    // de leçon (comme au premier chargement), sauf si l'élève l'a déjà
+    // terminée manuellement entre-temps.
+    const doneRow = readerView.querySelector("#cours-done-row");
+    if (doneRow && doneRow.querySelector("#cours-mark-done-btn")) doneRow.hidden = true;
     let qIndex = 0;
     let score = 0;
 
@@ -1417,6 +1634,20 @@ function openNotionReader(chapterId, content, notion) {
       }
       const ex = exercises[qIndex];
       const quizPct = Math.round((qIndex / exercises.length) * 100);
+      // Aides des entraînements classiques (exercice.js : btn-hint/btn-method,
+      // mêmes champs hint et solution_steps, mêmes encadrés .callout) ; un
+      // bouton n'apparaît que si l'aide correspondante existe.
+      const hint = (ex.hint || "").trim();
+      const steps = (ex.solution_steps || []).filter((s) => String(s).trim());
+      const aides =
+        hint || steps.length
+          ? `<div class="action-row cours-quiz-aides">
+            ${hint ? `<button class="btn btn-secondary btn-sm" id="cours-quiz-hint" type="button">${icon("lightbulb")} Indice</button>` : ""}
+            ${steps.length ? `<button class="btn btn-secondary btn-sm" id="cours-quiz-method" type="button">${icon("compass")} Point méthode</button>` : ""}
+          </div>
+          <div id="cours-quiz-hint-box" class="callout callout--hint" hidden></div>
+          <div id="cours-quiz-method-box" class="callout callout--method callout--steps" hidden></div>`
+          : "";
       zone.innerHTML = `
         <div class="card cours-quiz-card">
           <div class="cours-quiz-label">
@@ -1424,6 +1655,7 @@ function openNotionReader(chapterId, content, notion) {
             <div class="progress-track cours-quiz-progress"><div class="progress-fill" style="width:${quizPct}%"></div></div>
           </div>
           <div id="cours-quiz-enonce"></div>
+          ${aides}
           <button class="btn btn-ghost btn-sm" id="cours-quiz-reveal" type="button">Voir la réponse</button>
           <div id="cours-quiz-answer" hidden></div>
           <div class="cours-nav-row" id="cours-quiz-verdict" hidden>
@@ -1434,6 +1666,24 @@ function openNotionReader(chapterId, content, notion) {
       `;
       fadeInTransition(zone.querySelector(".cours-quiz-card"));
       setMathContent(zone.querySelector("#cours-quiz-enonce"), ex.enonce);
+      zone.querySelector("#cours-quiz-hint")?.addEventListener("click", (e) => {
+        const box = zone.querySelector("#cours-quiz-hint-box");
+        setMathContent(box, hint);
+        box.hidden = false;
+        e.currentTarget.classList.add("is-revealed");
+      });
+      zone.querySelector("#cours-quiz-method")?.addEventListener("click", (e) => {
+        const box = zone.querySelector("#cours-quiz-method-box");
+        box.innerHTML = "<strong>Méthode :</strong><ol></ol>";
+        const list = box.querySelector("ol");
+        steps.forEach((s) => {
+          const li = document.createElement("li");
+          setMathContent(li, String(s));
+          list.appendChild(li);
+        });
+        box.hidden = false;
+        e.currentTarget.classList.add("is-revealed");
+      });
       zone.querySelector("#cours-quiz-reveal").addEventListener("click", () => {
         const answerEl = zone.querySelector("#cours-quiz-answer");
         answerEl.hidden = false;

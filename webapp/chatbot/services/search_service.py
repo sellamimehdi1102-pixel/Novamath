@@ -16,6 +16,8 @@ import json
 import random
 from pathlib import Path
 
+from sklearn.feature_extraction.text import strip_accents_unicode
+
 import canonical_ids
 import curriculum_registry
 
@@ -50,6 +52,40 @@ VALID_SCOPES = {SCOPE_COURS, SCOPE_EXERCICES}
 FUZZY_CUTOFF = 0.62
 DID_YOU_MEAN_CUTOFF = 0.4
 TFIDF_WEAK_THRESHOLD = 0.12
+
+# Mots de conversation qui ne désignent aucun sujet (audit Quatrième,
+# 2026-10-25) : « pourquoi 1/3 + 1/4 ne fait pas 2/7 » ou « j'ai trouvé
+# (-3)² = -9, c'est faux ? » ne gardent, une fois les nombres et les mots
+# vides retirés, que « fait », « trouvé » ou « faux » — la recherche libre
+# dans la banque proposait alors un exercice de cosinus sans aucun rapport
+# (même comportement en Troisième et en Seconde). Voir has_topic_word.
+_CONVERSATIONAL_WORDS = (
+    "fait", "fais", "faire", "font", "faut", "trouvé", "trouve", "trouver", "faux", "vrai",
+    "juste", "bon", "bien", "donne", "donner", "ça", "ca", "ok", "oui", "non", "aide", "aider",
+    "explique", "expliquer", "comprends", "comprend", "compris", "pense", "crois", "sais",
+    "peux", "veux", "merci", "bonjour", "salut", "encore", "autre", "fois",
+)
+
+
+def _normalize_word(text):
+    return strip_accents_unicode((text or "").lower())
+
+
+_NON_TOPIC_TOKENS = frozenset(
+    {_normalize_word(w) for w in retrieval_engine._STEMMED_STOPWORDS}
+    | {retrieval_engine._light_stem(_normalize_word(w)) for w in _CONVERSATIONAL_WORDS}
+)
+
+
+def has_topic_word(message):
+    """Vrai si `message` contient au moins un mot susceptible de désigner un
+    sujet (ni nombre, ni mot vide, ni mot de conversation). Sans un tel mot,
+    une recherche libre dans toute la banque d'exercices ne peut renvoyer
+    qu'une coïncidence de vocabulaire : les appelants s'en abstiennent."""
+    return any(
+        not t.isdigit() and t not in _NON_TOPIC_TOKENS
+        for t in retrieval_engine._tokenize(_normalize_word(message))
+    )
 # Seuil "fort" (chantier continuité conversationnelle, 2026-08-22) : distingue
 # un sujet FRANCHEMENT identifié (assez net pour l'emporter sur un Current
 # Learning Context déjà établi, voir intent_service._detect_chapter) d'une
@@ -305,6 +341,11 @@ def search(query, scope=None, limit=10, class_level=None):
     propre cache par classe — jamais de mélange entre deux classes."""
     query = (query or "").strip()
     if not query:
+        return []
+    # Chapitre prévu mais pas encore rédigé : aucun cours ni exercice d'un
+    # autre chapitre ne doit lui être substitué (voir knowledge_engine.
+    # planned_chapter_subjects — sans effet pour une classe complète).
+    if knowledge_engine.planned_chapter_subjects(query, class_level):
         return []
     scopes = VALID_SCOPES if not scope else (set(scope) & VALID_SCOPES)
     if not scopes:

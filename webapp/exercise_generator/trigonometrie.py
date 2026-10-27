@@ -256,6 +256,20 @@ def _gen_conversion(rng: random.Random) -> Optional[dict]:
 # pour produire un volume réellement diversifié sans jamais répéter le même
 # énoncé (voir mission "rééquilibrage additif").
 
+def _p(v) -> str:
+    """Facteur en LaTeX, entre parenthèses s'il s'affiche avec un signe moins ou
+    s'il est une somme (jamais « \\times -3 », « + -2 » ni « -5^2 »)."""
+    s = v if isinstance(v, str) else latex(v)
+    if not (s.lstrip().startswith("-") or getattr(v, "is_Add", False)):
+        return s
+    return f"\\left({s}\\right)" if "\\frac" in s else f"({s})"
+
+
+def _cx(a) -> str:
+    """Coefficient devant une variable, sans « 1x » ni « -1x »."""
+    return "" if a == 1 else ("-" if a == -1 else str(a))
+
+
 def _gen_combinaison_lineaire(rng: random.Random) -> Optional[dict]:
     label, theta, c, s = rng.choice(_ANGLES[1:])
     a = _nz(rng, -4, 4)
@@ -265,13 +279,13 @@ def _gen_combinaison_lineaire(rng: random.Random) -> Optional[dict]:
     a_txt = f"-{-a}" if a == -1 else a_txt if a != 1 else "1"
     b_txt = str(abs(b))
     signe_b = "+" if b > 0 else "-"
-    expr_latex = f"{a}\\cos\\left({label}\\right) {signe_b} {b_txt}\\sin\\left({label}\\right)"
+    expr_latex = f"{_cx(a)}\\cos\\left({label}\\right) {signe_b} {_cx(abs(b))}\\sin\\left({label}\\right)"
     enonce = f"Calculer $A = {expr_latex}$ (valeur exacte)."
     answer = f"$A = {latex(valeur)}$"
     steps = [
         f"Étape 1 — On utilise les valeurs exactes $\\cos\\left({label}\\right) = {latex(c)}$ et "
         f"$\\sin\\left({label}\\right) = {latex(s)}$.",
-        f"Étape 2 — $A = {a} \\times {latex(c)} {signe_b} {b_txt} \\times {latex(s)}$.",
+        f"Étape 2 — $A = {a} \\times {_p(c)} {signe_b} {b_txt} \\times {_p(s)}$.",
         f"Étape 3 — Après simplification, {answer}.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_FONCTIONS}
@@ -415,7 +429,7 @@ def _gen_combinaison_deux_angles(rng: random.Random) -> Optional[dict]:
     steps = [
         f"Étape 1 — On utilise $\\cos\\left({label1}\\right) = {latex(c1)}$ et $\\sin\\left({label2}\\right) = {latex(s2)}$ "
         "(deux angles différents, donc deux valeurs à retenir séparément).",
-        f"Étape 2 — $A = {a} \\times {latex(c1)} {signe_b} {abs(b)} \\times {latex(s2)}$.",
+        f"Étape 2 — $A = {a} \\times {_p(c1)} {signe_b} {abs(b)} \\times {_p(s2)}$.",
         f"Étape 3 — Après réduction au même dénominateur si besoin, {answer}.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_FONCTIONS}
@@ -474,7 +488,7 @@ def _gen_formule_duplication(rng: random.Random) -> Optional[dict]:
         )
         steps = [
             f"Étape 1 — $\\cos\\left({label}\\right) = {latex(c)}$ et $\\sin\\left({label}\\right) = {latex(s)}$.",
-            f"Étape 2 — $\\sin(2\\theta) = 2\\sin(\\theta)\\cos(\\theta) = 2\\times {latex(s)}\\times {latex(c)}$.",
+            f"Étape 2 — $\\sin(2\\theta) = 2\\sin(\\theta)\\cos(\\theta) = 2\\times {_p(s)}\\times {_p(c)}$.",
             f"Étape 3 — Après simplification, $\\sin\\left(2\\times {label}\\right) = {latex(valeur)}$.",
         ]
         answer = f"$\\sin\\left(2\\times {label}\\right) = {latex(valeur)}$"

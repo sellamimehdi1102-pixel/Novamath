@@ -4,6 +4,211 @@
   "icon": "layers",
   "notions": [
     {
+      "id": "fonction-exponentielle",
+      "title": "Fonction exponentielle",
+      "schemaVersion": 2,
+      "intro": "La fonction exponentielle est une fonction très particulière : c'est l'unique fonction dérivable sur $\\mathbb{R}$ qui est égale à sa propre dérivée et qui vaut $1$ en $0$. Ce cours te permet d'utiliser cette propriété fondamentale pour dériver des fonctions construites à partir de l'exponentielle, notamment lorsqu'elle est composée avec une autre expression.",
+      "explicationSimple": "Retiens simplement que $\\exp'(x)=\\exp(x)$ : dériver la fonction exponentielle ne change rien. Mais si l'exponentielle porte sur une expression plus compliquée que $x$ seul, comme $\\exp(u(x))$, il faut multiplier par la dérivée $u'(x)$ de cette expression intérieure : $(\\exp(u))' = u' \\times \\exp(u)$.",
+      "objectif": "À la fin de ce cours, tu sauras dériver des fonctions faisant intervenir la fonction exponentielle, y compris lorsqu'elle est composée avec une expression affine ou plus complexe.",
+      "definition": "La fonction exponentielle, notée $\\exp$, est l'unique fonction dérivable sur $\\mathbb{R}$ égale à sa propre dérivée ($\\exp'(x) = \\exp(x)$ pour tout réel $x$) et telle que $\\exp(0)=1$. Pour une fonction composée $x \\mapsto \\exp(u(x))$, où $u$ est une fonction dérivable, la dérivée s'obtient par $(\\exp(u))' = u' \\times \\exp(u)$.",
+      "definitions": {
+        "lycee": "La fonction exponentielle, notée $\\exp$, est l'unique fonction dérivable sur $\\mathbb{R}$ égale à sa propre dérivée ($\\exp'(x) = \\exp(x)$ pour tout réel $x$) et telle que $\\exp(0)=1$. Pour une fonction composée $x \\mapsto \\exp(u(x))$, où $u$ est une fonction dérivable, la dérivée s'obtient par $(\\exp(u))' = u' \\times \\exp(u)$.",
+        "college": "Utiliser la formule de dérivation d'une composée : $(\\exp(u))' = u'\\exp(u)$."
+      },
+      "intuition": "Le piège le plus fréquent consiste à oublier le facteur $u'(x)$ lorsqu'on dérive $\\exp(u(x))$ avec $u(x) \\neq x$ : la règle $\\exp'=\\exp$ ne s'applique directement que lorsque l'exposant est $x$ lui-même ; dès que l'exposant est une expression plus compliquée, il faut impérativement multiplier par sa dérivée.",
+      "reglesImportantes": [
+        "Utiliser la formule de dérivation d'une composée : $(\\exp(u))' = u'\\exp(u)$.",
+        "Utiliser la stricte positivité et la stricte croissance de la fonction exponentielle sur $\\mathbb{R}$.",
+        "Revenir à la définition et aux propriétés fondamentales de la fonction exponentielle."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Fonction exponentielle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : On pose $u(x) = 4x + 3$, avec $u'(x) = 4$."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Étape 2 : On utilise $(\\exp(u))' = u' \\times \\exp(u)$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : Donc $f'(x) = 4 \\times \\exp(4x + 3)$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-885",
+          "titre": "Exemple 1",
+          "enonce": "En utilisant les propriétés fondamentales de la fonction exponentielle, donner $\\exp'(x)$ en fonction de $\\exp(x)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La fonction exponentielle est l'unique fonction dérivable sur $\\mathbb{R}$ égale à sa propre dérivée et valant $1$ en $0$."
+            }
+          ],
+          "reponse": "$\\exp'(x) = \\exp(x)$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-909",
+          "titre": "Exemple 3",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = \\exp(5x + 2)$. Calculer $f'(x)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On pose $u(x) = 5x + 2$, avec $u'(x) = 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : On utilise $(\\exp(u))' = u' \\times \\exp(u)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Donc $f'(x) = 5 \\times \\exp(5x + 2)$."
+            }
+          ],
+          "reponse": "$f'(x) = 5\\exp(5x + 2)$",
+          "difficulte": "moyen",
+          "analyse": "$f(x)=\\exp(u(x))$ avec $u(x)=5x+2 \\neq x$ : c'est une composée, il faut multiplier par $u'(x)$.",
+          "choixMethode": "On identifie $u(x)$ et $u'(x)$, puis on applique $(\\exp(u))'=u'\\times\\exp(u)$.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-897",
+          "titre": "Exemple 2",
+          "enonce": "Justifier que $\\exp(0)=1$ fait partie de la définition de la fonction exponentielle, et non d'un calcul à effectuer.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La fonction exponentielle est l'unique fonction dérivable sur $\\mathbb{R}$ égale à sa propre dérivée et valant $1$ en $0$."
+            }
+          ],
+          "reponse": "$\\exp(0)=1$ est une condition de la définition, pas un résultat de calcul.",
+          "difficulte": "facile",
+          "analyse": "La valeur en $0$ n'est pas calculée : elle fait partie, au même titre que $\\exp'=\\exp$, de la définition même de la fonction exponentielle.",
+          "choixMethode": "On relit la définition : $\\exp$ est l'UNIQUE fonction dérivable sur $\\mathbb{R}$ égale à sa dérivée ET valant $1$ en $0$.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-921",
+          "titre": "Exemple 4",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 12 \\times \\exp(x) -5$. Calculer $f'(x)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise le fait que $\\exp'(x) = \\exp(x)$, la linéarité de la dérivation, et le fait que la dérivée d'une constante est nulle."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $f'(x) = 12 \\times \\exp(x)$."
+            }
+          ],
+          "reponse": "$f'(x) = 12\\exp(x)$",
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier le facteur $u'(x)$ en dérivant $\\exp(u(x))$, et écrire $(\\exp(u))'=\\exp(u)$ au lieu de $u' \\times \\exp(u)$.",
+        "Oublier de conserver un facteur constant multiplicatif devant l'exponentielle lors de la dérivation (par exemple dériver $12\\exp(x)$ en oubliant le $12$).",
+        "Croire que la fonction exponentielle peut être négative ou nulle, alors qu'elle est strictement positive pour tout réel $x$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier le facteur $u'(x)$ en dérivant $\\exp(u(x))$, et écrire $(\\exp(u))'=\\exp(u)$ au lieu de $u' \\times \\exp(u)$.",
+          "pourquoi": "La règle $\\exp'=\\exp$ concerne la fonction exponentielle appliquée directement à $x$ ; dès que l'exposant est une expression $u(x)$ différente de $x$, il s'agit d'une composée de fonctions, qui se dérive avec un facteur $u'(x)$ supplémentaire.",
+          "comment_detecter": "Si l'exposant de l'exponentielle contient autre chose que $x$ seul (par exemple $4x+3$) et que la dérivée obtenue ne comporte aucun facteur numérique devant l'exponentielle, le facteur $u'(x)$ a probablement été oublié.",
+          "comment_eviter": "Toujours identifier explicitement $u(x)$ et calculer $u'(x)$ avant d'appliquer la formule $(\\exp(u))'=u'\\times\\exp(u)$."
+        },
+        {
+          "description": "Oublier de conserver un facteur constant multiplicatif devant l'exponentielle lors de la dérivation (par exemple dériver $12\\exp(x)$ en oubliant le $12$).",
+          "pourquoi": "La dérivation est linéaire : dériver $k \\times g(x)$ (avec $k$ constant) donne $k \\times g'(x)$, le facteur constant $k$ doit toujours être conservé tel quel.",
+          "comment_detecter": "Si le facteur numérique présent devant l'exponentielle dans l'expression de départ a disparu dans la dérivée, il a probablement été oublié.",
+          "comment_eviter": "Traiter le facteur constant à part : dériver uniquement la partie contenant l'exponentielle, puis remultiplier par la constante inchangée."
+        },
+        {
+          "description": "Croire que la fonction exponentielle peut être négative ou nulle, alors qu'elle est strictement positive pour tout réel $x$.",
+          "pourquoi": "La fonction exponentielle est définie de telle sorte qu'elle reste strictement positive sur $\\mathbb{R}$ tout entier : sa courbe ne touche ni ne traverse jamais l'axe des abscisses.",
+          "comment_detecter": "Si un calcul ou un raisonnement suppose que $\\exp(x)$ peut être nul ou négatif (par exemple en simplifiant une fraction en supposant un cas où $\\exp(x)=0$), l'hypothèse est fausse.",
+          "comment_eviter": "Retenir comme un fait acquis que $\\exp(x)>0$ pour tout réel $x$, et l'utiliser notamment pour ne jamais s'inquiéter d'une division par $\\exp(x)$."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "$\\exp'=\\exp$ s'applique directement seulement quand l'exposant est $x$ lui-même — sinon, c'est une composée : $(\\exp(u))'=u'\\exp(u)$.",
+        "$\\exp(x)>0$ pour tout réel $x$ : l'exponentielle ne s'annule et ne devient jamais négative.",
+        "Un facteur constant devant l'exponentielle se conserve tel quel lors de la dérivation (linéarité)."
+      ],
+      "figure": null,
+      "quizExerciseIds": [886, 887, 888],
+      "topic_id": "fonction-exponentielle",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Fonction exponentielle."],
+      "prerequis": ["Opérations et dérivation, composition de fonctions (chapitre 3)"],
+      "notions_liees": ["courbe-representative", "nouvelle-notation-et-nombre-e"],
+      "difficulte": "facile",
+      "tags": ["fonction", "exponentielle"],
+      "pourquoi": "Il existe une fonction très particulière : sa vitesse de variation (sa dérivée) en chaque point est exactement égale à sa propre valeur en ce point. Plus elle est grande, plus elle croît vite.\n\nCette fonction, appelée exponentielle, modélise de nombreux phénomènes (croissance démographique, désintégration radioactive...) où la vitesse de variation dépend de la quantité déjà présente. Tu vas apprendre à l'utiliser et à la dériver, y compris lorsqu'elle est composée avec une autre expression.",
+      "demonstration": {
+        "titre": "Pourquoi exp(x) est-elle toujours strictement positive ?",
+        "etapes": [
+          {
+            "titre": "Elle ne s'annule jamais",
+            "texte": "Si $\\exp(a)=0$ pour un réel $a$, alors pour tout $x$, $\\exp(x)=\\exp(x-a)\\times\\exp(a)=\\exp(x-a)\\times0=0$ : la fonction serait nulle partout, ce qui contredit $\\exp(0)=1$."
+          },
+          {
+            "titre": "Elle garde un signe constant",
+            "texte": "Une fonction dérivable qui ne s'annule jamais garde un signe constant sur $\\mathbb{R}$ (elle ne peut pas passer du positif au négatif sans passer par $0$)."
+          }
+        ],
+        "conclusion": "Comme $\\exp(0)=1>0$ et que $\\exp$ ne s'annule jamais, elle reste strictement positive sur $\\mathbb{R}$ tout entier."
+      },
+      "apercus": [
+        {
+          "id": "apercu-exp-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une dérivée combinant facteur constant et exponentielle, pour automatiser la méthode."
+        },
+        {
+          "id": "apercu-exp-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi exp(x) est toujours strictement positive",
+          "description": "La démonstration complète de la stricte positivité de la fonction exponentielle."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Qu'est-ce qui rend la fonction exponentielle si particulière ?",
+          "piste": "Elle est égale à sa propre dérivée : sa vitesse de variation en chaque point vaut exactement sa valeur en ce point."
+        },
+        {
+          "apres": "intuition",
+          "question": "Quand faut-il multiplier par u'(x) en dérivant une exponentielle ?",
+          "piste": "Dès que l'exposant est une expression u(x) différente de x lui-même : c'est alors une composée, (exp(u))'=u'exp(u)."
+        },
+        {
+          "apres": "methode",
+          "question": "Que vaut exp'(x) directement, sans aucune composée ?",
+          "piste": "exp'(x)=exp(x) : c'est la propriété qui définit la fonction."
+        }
+      ]
+    },
+    {
       "id": "courbe-representative",
       "title": "Courbe représentative",
       "schemaVersion": 2,
@@ -59,7 +264,8 @@
             }
           ],
           "reponse": "La courbe est toujours strictement au-dessus de l'axe des abscisses, car $\\exp(x)>0$ pour tout réel $x$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1192",
@@ -76,7 +282,8 @@
             }
           ],
           "reponse": "$\\exp(5) < \\exp(9)$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1204",
@@ -97,24 +304,32 @@
             }
           ],
           "reponse": "$y = e^{7} x -6$ (coefficients exprimés à l'aide de $e^{7}$)",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1216",
           "titre": "Exemple 4",
-          "enonce": "Comparer $\\exp(3)$ et $\\exp(6)$ sans calculer leurs valeurs, en justifiant à l'aide des variations de la fonction exponentielle.",
+          "enonce": "Le point $A(2\\,;\\,e^{2})$ appartient-il à la courbe représentative de la fonction exponentielle ? Et le point $B(2\\,;\\,8)$ ?",
           "calcul": [
             {
               "expr": "",
-              "texte": "Étape 1 : La fonction exponentielle est strictement croissante sur $\\mathbb{R}$."
+              "texte": "Étape 1 : Un point $(a;b)$ appartient à la courbe de $f$ si et seulement si $b=f(a)$."
             },
             {
               "expr": "",
-              "texte": "Étape 2 : Comme $3 < 6$, on en déduit que $\\exp(3) < \\exp(6)$."
+              "texte": "Étape 2 : $f(2) = e^{2}$. Pour $A$, l'ordonnée est $e^{2} = f(2)$ : $A$ appartient à la courbe."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : Pour $B$, l'ordonnée est $8$, mais $f(2) = e^{2} \\approx 7{,}39 \\neq 8$ : $B$ n'appartient pas à la courbe."
             }
           ],
-          "reponse": "$\\exp(3) < \\exp(6)$",
-          "difficulte": "difficile"
+          "reponse": "$A$ appartient à la courbe ; $B$ n'appartient pas à la courbe.",
+          "difficulte": "facile",
+          "niveauAcces": "free",
+          "analyse": "On compare l'ordonnée proposée à la valeur réelle $f(a)$ : elles doivent être rigoureusement égales.",
+          "choixMethode": "On calcule $f(a)$ et on compare au $b$ proposé : égalité $\\Rightarrow$ le point appartient à la courbe."
         }
       ],
       "erreursFrequentes": [
@@ -144,10 +359,9 @@
       ],
       "astuce": "",
       "aRetenir": [
-        "Un point $(a;b)$ appartient à la courbe d'une fonction $f$ si et seulement si $b=f(a)$.",
-        "Utiliser $y=f'(x_0)(x-x_0)+f(x_0)$ avec $f'=f=\\exp$, puis factoriser par $e^{x_0}$.",
-        "Revenir à la stricte positivité de la fonction exponentielle.",
-        "Utiliser $y=f'(0)(x-0)+f(0)$ avec $f=\\exp$."
+        "La courbe de exp reste TOUJOURS strictement au-dessus de l'axe des abscisses : exp(x)>0 pour tout x.",
+        "La stricte croissance de exp permet de comparer deux valeurs sans les calculer : $a<b \\Rightarrow \\exp(a)<\\exp(b)$.",
+        "L'équation de la tangente, $y=f'(x_0)(x-x_0)+f(x_0)$, se simplifie pour exp car $f'=f$ : on peut tout exprimer avec $e^{x_0}$."
       ],
       "figure": {
         "kind": "geom",
@@ -170,361 +384,96 @@
           }
         ],
         "points": [
-          {"x": 0, "y": 1, "label": "A(0 ; 1)", "tooltip": "exp(0) = 1"}
+          {
+            "x": 0,
+            "y": 1,
+            "label": "A(0 ; 1)",
+            "tooltip": "exp(0) = 1"
+          }
         ],
         "segments": [
-          {"from": {"x": -1, "y": 0}, "to": {"x": 1.7, "y": 2.7}, "dashed": true, "tooltip": "Tangente en A : y = x + 1, de pente exp'(0) = exp(0) = 1"}
+          {
+            "from": {
+              "x": -1,
+              "y": 0
+            },
+            "to": {
+              "x": 1.7,
+              "y": 2.7
+            },
+            "dashed": true,
+            "tooltip": "Tangente en A : y = x + 1, de pente exp'(0) = exp(0) = 1"
+          }
         ],
         "texts": [
-          {"x": 1.1, "y": 3.1, "label": "y = x + 1"}
+          {
+            "x": 1.1,
+            "y": 3.1,
+            "label": "y = x + 1"
+          }
         ],
         "alt": "Courbe représentative de la fonction exponentielle : toujours strictement au-dessus de l'axe des abscisses, avec la tangente au point A(0 ; 1) d'équation y = x + 1 (pente 1, car exp'(0) = exp(0) = 1).",
-        "showCoords": false
+        "showCoords": false,
+        "explication": {
+          "comprendre": "La courbe de exp est toujours au-dessus de l'axe des abscisses et toujours croissante ; sa tangente en A(0;1) a pour pente exp'(0)=exp(0)=1.",
+          "etapes": [
+            {
+              "titre": "La courbe",
+              "texte": "Elle monte sans jamais redescendre, et reste toujours positive."
+            },
+            {
+              "titre": "La tangente en A",
+              "texte": "Pente 1, équation y=x+1."
+            }
+          ],
+          "resume": "La courbe reste toujours au-dessus de sa tangente en 0, sauf au point de contact lui-même."
+        }
       },
-      "quizExerciseIds": [
-        1181,
-        1182,
-        1183
-      ],
+      "quizExerciseIds": [1181, 1182, 1184],
       "topic_id": "courbe-representative",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Courbe représentative."
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Courbe représentative."],
+      "prerequis": [
+        "Fonction exponentielle (notion précédente de ce chapitre)",
+        "Nombre dérivé et tangente (chapitre 3)"
       ],
-      "prerequis": [],
-      "notions_liees": [],
+      "notions_liees": ["fonction-exponentielle", "nouvelle-notation-et-nombre-e"],
       "difficulte": "facile",
-      "tags": [
-        "courbe",
-        "representative"
-      ]
-    },
-    {
-      "id": "fonction-exponentielle",
-      "title": "Fonction exponentielle",
-      "schemaVersion": 2,
-      "intro": "La fonction exponentielle est une fonction très particulière : c'est l'unique fonction dérivable sur $\\mathbb{R}$ qui est égale à sa propre dérivée et qui vaut $1$ en $0$. Ce cours te permet d'utiliser cette propriété fondamentale pour dériver des fonctions construites à partir de l'exponentielle, notamment lorsqu'elle est composée avec une autre expression.",
-      "explicationSimple": "Retiens simplement que $\\exp'(x)=\\exp(x)$ : dériver la fonction exponentielle ne change rien. Mais si l'exponentielle porte sur une expression plus compliquée que $x$ seul, comme $\\exp(u(x))$, il faut multiplier par la dérivée $u'(x)$ de cette expression intérieure : $(\\exp(u))' = u' \\times \\exp(u)$.",
-      "objectif": "À la fin de ce cours, tu sauras dériver des fonctions faisant intervenir la fonction exponentielle, y compris lorsqu'elle est composée avec une expression affine ou plus complexe.",
-      "definition": "La fonction exponentielle, notée $\\exp$, est l'unique fonction dérivable sur $\\mathbb{R}$ égale à sa propre dérivée ($\\exp'(x) = \\exp(x)$ pour tout réel $x$) et telle que $\\exp(0)=1$. Pour une fonction composée $x \\mapsto \\exp(u(x))$, où $u$ est une fonction dérivable, la dérivée s'obtient par $(\\exp(u))' = u' \\times \\exp(u)$.",
-      "definitions": {
-        "lycee": "La fonction exponentielle, notée $\\exp$, est l'unique fonction dérivable sur $\\mathbb{R}$ égale à sa propre dérivée ($\\exp'(x) = \\exp(x)$ pour tout réel $x$) et telle que $\\exp(0)=1$. Pour une fonction composée $x \\mapsto \\exp(u(x))$, où $u$ est une fonction dérivable, la dérivée s'obtient par $(\\exp(u))' = u' \\times \\exp(u)$.",
-        "college": "Utiliser la formule de dérivation d'une composée : $(\\exp(u))' = u'\\exp(u)$."
-      },
-      "intuition": "Le piège le plus fréquent consiste à oublier le facteur $u'(x)$ lorsqu'on dérive $\\exp(u(x))$ avec $u(x) \\neq x$ : la règle $\\exp'=\\exp$ ne s'applique directement que lorsque l'exposant est $x$ lui-même ; dès que l'exposant est une expression plus compliquée, il faut impérativement multiplier par sa dérivée.",
-      "reglesImportantes": [
-        "Utiliser la formule de dérivation d'une composée : $(\\exp(u))' = u'\\exp(u)$.",
-        "Utiliser la stricte positivité et la stricte croissance de la fonction exponentielle sur $\\mathbb{R}$.",
-        "Revenir à la définition et aux propriétés fondamentales de la fonction exponentielle."
-      ],
-      "formules": [],
-      "methode": {
-        "titre": "Méthode — Fonction exponentielle",
-        "etapes": [
-          {
-            "icone": "search",
-            "couleur": "blue",
-            "texte": "Étape 1 : On pose $u(x) = 4x + 3$, avec $u'(x) = 4$."
-          },
-          {
-            "icone": "sliders",
-            "couleur": "purple",
-            "texte": "Étape 2 : On utilise $(\\exp(u))' = u' \\times \\exp(u)$."
-          },
-          {
-            "icone": "check",
-            "couleur": "green",
-            "texte": "Étape 3 : Donc $f'(x) = 4 \\times \\exp(4x + 3)$."
-          }
-        ]
-      },
-      "exemples": [
+      "tags": ["courbe", "representative"],
+      "pourquoi": "Avant de manipuler des formules abstraites sur l'exponentielle, regarder sa courbe aide à comprendre son comportement d'un seul coup d'œil : elle reste toujours au-dessus de l'axe des abscisses, et elle monte sans jamais redescendre.\n\nCe cours exploite ces deux observations visuelles (positivité et croissance stricte) pour comparer des valeurs sans calcul, et pour déterminer l'équation de la tangente en un point donné.",
+      "apercus": [
         {
-          "id": "exemple-885",
-          "titre": "Exemple 1",
-          "enonce": "En utilisant les propriétés fondamentales de la fonction exponentielle, donner $\\exp'(x)$ en fonction de $\\exp(x)$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : La fonction exponentielle est l'unique fonction dérivable sur $\\mathbb{R}$ égale à sa propre dérivée et valant $1$ en $0$."
-            }
-          ],
-          "reponse": "$\\exp'(x) = \\exp(x)$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-897",
-          "titre": "Exemple 2",
-          "enonce": "D'après la définition de la fonction exponentielle, donner $\\exp'(x)$ en fonction de $\\exp(x)$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : La fonction exponentielle est l'unique fonction dérivable sur $\\mathbb{R}$ égale à sa propre dérivée et valant $1$ en $0$."
-            }
-          ],
-          "reponse": "$\\exp'(x) = \\exp(x)$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-909",
-          "titre": "Exemple 3",
-          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = \\exp(5x + 2)$. Calculer $f'(x)$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : On pose $u(x) = 5x + 2$, avec $u'(x) = 5$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : On utilise $(\\exp(u))' = u' \\times \\exp(u)$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : Donc $f'(x) = 5 \\times \\exp(5x + 2)$."
-            }
-          ],
-          "reponse": "$f'(x) = 5\\exp(5x + 2)$",
-          "difficulte": "moyen"
-        },
-        {
-          "id": "exemple-921",
-          "titre": "Exemple 4",
-          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = 12 \\times \\exp(x) -5$. Calculer $f'(x)$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : On utilise le fait que $\\exp'(x) = \\exp(x)$, la linéarité de la dérivation, et le fait que la dérivée d'une constante est nulle."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $f'(x) = 12 \\times \\exp(x)$."
-            }
-          ],
-          "reponse": "$f'(x) = 12\\exp(x)$",
-          "difficulte": "difficile"
+          "id": "apercu-courbe-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une autre comparaison de valeurs par la stricte croissance de l'exponentielle."
         }
       ],
-      "erreursFrequentes": [
-        "Oublier le facteur $u'(x)$ en dérivant $\\exp(u(x))$, et écrire $(\\exp(u))'=\\exp(u)$ au lieu de $u' \\times \\exp(u)$.",
-        "Oublier de conserver un facteur constant multiplicatif devant l'exponentielle lors de la dérivation (par exemple dériver $12\\exp(x)$ en oubliant le $12$).",
-        "Croire que la fonction exponentielle peut être négative ou nulle, alors qu'elle est strictement positive pour tout réel $x$."
-      ],
-      "erreursFrequentesDetail": [
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
         {
-          "description": "Oublier le facteur $u'(x)$ en dérivant $\\exp(u(x))$, et écrire $(\\exp(u))'=\\exp(u)$ au lieu de $u' \\times \\exp(u)$.",
-          "pourquoi": "La règle $\\exp'=\\exp$ concerne la fonction exponentielle appliquée directement à $x$ ; dès que l'exposant est une expression $u(x)$ différente de $x$, il s'agit d'une composée de fonctions, qui se dérive avec un facteur $u'(x)$ supplémentaire.",
-          "comment_detecter": "Si l'exposant de l'exponentielle contient autre chose que $x$ seul (par exemple $4x+3$) et que la dérivée obtenue ne comporte aucun facteur numérique devant l'exponentielle, le facteur $u'(x)$ a probablement été oublié.",
-          "comment_eviter": "Toujours identifier explicitement $u(x)$ et calculer $u'(x)$ avant d'appliquer la formule $(\\exp(u))'=u'\\times\\exp(u)$."
+          "apres": "pourquoi",
+          "question": "Que montre la courbe de exp sans avoir besoin de calculer quoi que ce soit ?",
+          "piste": "Qu'elle reste toujours au-dessus de l'axe des abscisses, et qu'elle monte sans jamais redescendre."
         },
         {
-          "description": "Oublier de conserver un facteur constant multiplicatif devant l'exponentielle lors de la dérivation (par exemple dériver $12\\exp(x)$ en oubliant le $12$).",
-          "pourquoi": "La dérivation est linéaire : dériver $k \\times g(x)$ (avec $k$ constant) donne $k \\times g'(x)$, le facteur constant $k$ doit toujours être conservé tel quel.",
-          "comment_detecter": "Si le facteur numérique présent devant l'exponentielle dans l'expression de départ a disparu dans la dérivée, il a probablement été oublié.",
-          "comment_eviter": "Traiter le facteur constant à part : dériver uniquement la partie contenant l'exponentielle, puis remultiplier par la constante inchangée."
+          "apres": "intuition",
+          "question": "Pourquoi le terme +f(x0) est-il indispensable dans l'équation de la tangente ?",
+          "piste": "Sans lui, la droite obtenue passerait par l'origine au lieu de passer réellement par le point de la courbe d'abscisse x0."
         },
         {
-          "description": "Croire que la fonction exponentielle peut être négative ou nulle, alors qu'elle est strictement positive pour tout réel $x$.",
-          "pourquoi": "La fonction exponentielle est définie de telle sorte qu'elle reste strictement positive sur $\\mathbb{R}$ tout entier : sa courbe ne touche ni ne traverse jamais l'axe des abscisses.",
-          "comment_detecter": "Si un calcul ou un raisonnement suppose que $\\exp(x)$ peut être nul ou négatif (par exemple en simplifiant une fraction en supposant un cas où $\\exp(x)=0$), l'hypothèse est fausse.",
-          "comment_eviter": "Retenir comme un fait acquis que $\\exp(x)>0$ pour tout réel $x$, et l'utiliser notamment pour ne jamais s'inquiéter d'une division par $\\exp(x)$."
+          "apres": "methode",
+          "question": "Pourquoi le coefficient directeur de la tangente à la courbe de exp est-il toujours exp(x0) lui-même ?",
+          "piste": "Parce que exp est sa propre dérivée : f'(x0)=exp(x0)."
+        },
+        {
+          "apres": "figure",
+          "question": "Pourquoi la tangente tracée passe-t-elle par le point (0;1) ?",
+          "piste": "Parce qu'elle est tracée au point d'abscisse x0=0 de la courbe, où exp(0)=1."
         }
-      ],
-      "astuce": "",
-      "aRetenir": [
-        "Utiliser la formule de dérivation d'une composée : $(\\exp(u))' = u'\\exp(u)$.",
-        "Utiliser la stricte positivité et la stricte croissance de la fonction exponentielle sur $\\mathbb{R}$.",
-        "Revenir à la définition et aux propriétés fondamentales de la fonction exponentielle."
-      ],
-      "figure": null,
-      "quizExerciseIds": [
-        886,
-        887,
-        888
-      ],
-      "topic_id": "fonction-exponentielle",
-      "proprietes": [],
-      "vocabulaire_associe": [],
-      "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Fonction exponentielle."
-      ],
-      "prerequis": [],
-      "notions_liees": [],
-      "difficulte": "facile",
-      "tags": [
-        "fonction",
-        "exponentielle"
-      ]
-    },
-    {
-      "id": "lien-avec-les-suites-geometriques",
-      "title": "Lien avec les suites géométriques",
-      "schemaVersion": 2,
-      "intro": "Certaines suites définies à partir de la fonction exponentielle, de la forme $u_n = A \\times e^{kn}$, sont en réalité des suites géométriques déguisées. Ce cours te montre comment le reconnaître, en utilisant la propriété $e^{a} \\times e^{b} = e^{a+b}$ pour faire apparaître le rapport constant $\\dfrac{u_{n+1}}{u_n}$.",
-      "explicationSimple": "Si $u_n = A \\times e^{kn}$, alors $u_{n+1} = A \\times e^{k(n+1)} = A \\times e^{kn} \\times e^{k} = u_n \\times e^{k}$. Le rapport entre deux termes consécutifs est donc toujours le même nombre $e^{k}$ : c'est exactement la définition d'une suite géométrique, de raison $q=e^{k}$.",
-      "objectif": "À la fin de ce cours, tu sauras montrer qu'une suite de la forme $u_n = A \\times e^{kn}$ est géométrique, en identifier la raison et le premier terme, et calculer l'un de ses termes.",
-      "definition": "Une suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = A \\times e^{kn}$ (avec $A$ et $k$ réels) est géométrique de raison $q = e^{k}$ et de premier terme $u_0 = A$, car pour tout $n$, $u_{n+1} = A \\times e^{k(n+1)} = A \\times e^{kn} \\times e^{k} = e^{k} \\times u_n$.",
-      "definitions": {
-        "lycee": "Une suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = A \\times e^{kn}$ (avec $A$ et $k$ réels) est géométrique de raison $q = e^{k}$ et de premier terme $u_0 = A$, car pour tout $n$, $u_{n+1} = A \\times e^{k(n+1)} = A \\times e^{kn} \\times e^{k} = e^{k} \\times u_n$."
-      },
-      "intuition": "Ne te contente jamais d'affirmer que le rapport $\\dfrac{u_{n+1}}{u_n}$ est constant : il faut le démontrer en calculant réellement $u_{n+1}$ à partir de la formule, puis en utilisant $e^{a}\\times e^{b}=e^{a+b}$ pour faire apparaître le facteur $u_n$ et isoler la raison $e^{k}$.",
-      "reglesImportantes": [],
-      "formules": [],
-      "methode": {
-        "titre": "Méthode — Lien avec les suites géométriques",
-        "etapes": [
-          {
-            "icone": "search",
-            "couleur": "blue",
-            "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 1\\times e^{1(n+1)} = 1\\times e^{1n} \\times e^{1} = e^{1} \\times u_n$."
-          },
-          {
-            "icone": "sliders",
-            "couleur": "purple",
-            "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{1}$ et de premier terme $u_0 = 1$."
-          },
-          {
-            "icone": "check",
-            "couleur": "green",
-            "texte": "Étape 3 : $u_{4} = u_0 \\times q^{4} = 1 \\times \\left(e^{1}\\right)^{4} = 1 \\times e^{4}$."
-          }
-        ]
-      },
-      "exemples": [
-        {
-          "id": "exemple-1062",
-          "titre": "Exemple 1",
-          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 1 \\times e^{1n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{4}$ en fonction de $e^{1}$ en simplifiant.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 1\\times e^{1(n+1)} = 1\\times e^{1n} \\times e^{1} = e^{1} \\times u_n$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{1}$ et de premier terme $u_0 = 1$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : $u_{4} = u_0 \\times q^{4} = 1 \\times \\left(e^{1}\\right)^{4} = 1 \\times e^{4}$."
-            }
-          ],
-          "reponse": "$(u_n)$ est géométrique de raison $e^{1}$ et $u_{4} = 1 \\times e^{4}$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-1074",
-          "titre": "Exemple 2",
-          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 3 \\times e^{2n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{2}$ en fonction de $e^{2}$ en simplifiant.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 3\\times e^{2(n+1)} = 3\\times e^{2n} \\times e^{2} = e^{2} \\times u_n$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{2}$ et de premier terme $u_0 = 3$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : $u_{2} = u_0 \\times q^{2} = 3 \\times \\left(e^{2}\\right)^{2} = 3 \\times e^{4}$."
-            }
-          ],
-          "reponse": "$(u_n)$ est géométrique de raison $e^{2}$ et $u_{2} = 3 \\times e^{4}$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-1086",
-          "titre": "Exemple 3",
-          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 3 \\times e^{-1n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{5}$ en fonction de $e^{-1}$ en simplifiant.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 3\\times e^{-1(n+1)} = 3\\times e^{-1n} \\times e^{-1} = e^{-1} \\times u_n$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{-1}$ et de premier terme $u_0 = 3$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : $u_{5} = u_0 \\times q^{5} = 3 \\times \\left(e^{-1}\\right)^{5} = 3 \\times e^{-5}$."
-            }
-          ],
-          "reponse": "$(u_n)$ est géométrique de raison $e^{-1}$ et $u_{5} = 3 \\times e^{-5}$",
-          "difficulte": "moyen"
-        },
-        {
-          "id": "exemple-1098",
-          "titre": "Exemple 4",
-          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 5 \\times e^{3n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{2}$ en fonction de $e^{3}$ en simplifiant.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 5\\times e^{3(n+1)} = 5\\times e^{3n} \\times e^{3} = e^{3} \\times u_n$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{3}$ et de premier terme $u_0 = 5$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : $u_{2} = u_0 \\times q^{2} = 5 \\times \\left(e^{3}\\right)^{2} = 5 \\times e^{6}$."
-            }
-          ],
-          "reponse": "$(u_n)$ est géométrique de raison $e^{3}$ et $u_{2} = 5 \\times e^{6}$",
-          "difficulte": "difficile"
-        }
-      ],
-      "erreursFrequentes": [
-        "Affirmer que $(u_n)$ est géométrique sans démontrer que le rapport $\\dfrac{u_{n+1}}{u_n}$ est bien constant.",
-        "Confondre le premier terme $u_0$ avec le facteur multiplicatif $A$ sans vérifier que $u_0 = A \\times e^{k \\times 0} = A$.",
-        "Mal appliquer la règle des exposants en simplifiant $e^{kn} \\times e^{k}$ en $e^{k(n+1)}$ (erreur de calcul dans la somme des exposants)."
-      ],
-      "erreursFrequentesDetail": [
-        {
-          "description": "Affirmer que $(u_n)$ est géométrique sans démontrer que le rapport $\\dfrac{u_{n+1}}{u_n}$ est bien constant.",
-          "pourquoi": "Une suite n'est géométrique que si le rapport entre deux termes consécutifs est le même pour toute valeur de $n$ : cela ne peut se prouver qu'en calculant $u_{n+1}$ de façon littérale, jamais en se contentant d'un exemple numérique.",
-          "comment_detecter": "Si la conclusion « la suite est géométrique » n'est appuyée par aucun calcul de $u_{n+1}$ en fonction de $u_n$, la démonstration est incomplète.",
-          "comment_eviter": "Toujours écrire explicitement $u_{n+1}$ à partir de la formule donnée, puis factoriser pour faire apparaître $u_n$ multiplié par une constante."
-        },
-        {
-          "description": "Confondre le premier terme $u_0$ avec le facteur multiplicatif $A$ sans vérifier que $u_0 = A \\times e^{k \\times 0} = A$.",
-          "pourquoi": "Dans l'écriture $u_n=A\\times e^{kn}$, le facteur $A$ correspond exactement à $u_0$ seulement parce que $e^{k\\times 0}=e^0=1$ : ce n'est pas automatique, il faut le vérifier.",
-          "comment_detecter": "Si $u_0$ est annoncé sans avoir calculé $A \\times e^{k \\times 0}$, l'identification n'est pas justifiée.",
-          "comment_eviter": "Toujours vérifier le premier terme en remplaçant $n$ par $0$ dans la formule générale, plutôt que de le déduire directement du facteur $A$."
-        },
-        {
-          "description": "Mal appliquer la règle des exposants en simplifiant $e^{kn} \\times e^{k}$ en $e^{k(n+1)}$ (erreur de calcul dans la somme des exposants).",
-          "pourquoi": "La règle des exposants $e^{a}\\times e^{b}=e^{a+b}$ exige d'additionner correctement les deux exposants ; une erreur de calcul dans cette somme (notamment avec des expressions contenant $n$) fausse toute la suite du raisonnement.",
-          "comment_detecter": "Si l'exposant obtenu après simplification de $e^{kn}\\times e^{k}$ n'est pas exactement $k(n+1)$, une erreur de calcul s'est glissée dans la somme des exposants.",
-          "comment_eviter": "Développer explicitement $k(n+1)=kn+k$ avant de comparer avec la somme des exposants obtenue, pour vérifier la cohérence du calcul."
-        }
-      ],
-      "astuce": "",
-      "aRetenir": [],
-      "figure": null,
-      "quizExerciseIds": [
-        1063,
-        1064,
-        1065
-      ],
-      "topic_id": "lien-avec-les-suites-geometriques",
-      "proprietes": [],
-      "vocabulaire_associe": [],
-      "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Lien avec les suites géométriques."
-      ],
-      "prerequis": [],
-      "notions_liees": [],
-      "difficulte": "facile",
-      "tags": [
-        "lien",
-        "suites",
-        "geometriques"
       ]
     },
     {
@@ -539,9 +488,7 @@
         "lycee": "Le nombre $e$, appelé nombre d'Euler, est défini par $e = \\exp(1)$ (environ $2{,}718$). La notation $e^x$ désigne $\\exp(x)$ et obéit aux mêmes règles de calcul que les puissances usuelles. Comme la fonction exponentielle est strictement croissante sur $\\mathbb{R}$ (donc injective : elle ne prend jamais deux fois la même valeur), on a, pour tous réels $u$ et $v$, $e^u = e^v \\iff u = v$."
       },
       "intuition": "L'équivalence $e^u=e^v \\iff u=v$ n'est pas une coïncidence : elle vient uniquement du fait que la fonction exponentielle est strictement croissante, donc ne repasse jamais par la même valeur. Cette justification doit être mentionnée à chaque fois que tu utilises cette équivalence dans une résolution d'équation.",
-      "reglesImportantes": [
-        "La fonction exponentielle étant strictement monotone, $e^u=e^v \\iff u=v$."
-      ],
+      "reglesImportantes": ["La fonction exponentielle étant strictement monotone, $e^u=e^v \\iff u=v$."],
       "formules": [],
       "methode": {
         "titre": "Méthode — Nouvelle notation et nombre e",
@@ -574,24 +521,8 @@
             }
           ],
           "reponse": "$e^{-6}$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-1015",
-          "titre": "Exemple 2",
-          "enonce": "En utilisant la notation $e^x$, simplifier l'expression $e^{0} \\times e^{5}$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : On utilise $e^u \\times e^v = e^{u+v}$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $e^{0}\\times e^{5} = e^{5}$."
-            }
-          ],
-          "reponse": "$e^{5}$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1027",
@@ -608,7 +539,26 @@
             }
           ],
           "reponse": "$\\mathcal{S} = \\{3\\}$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1015",
+          "titre": "Exemple 2",
+          "enonce": "En utilisant la notation $e^x$, simplifier l'expression $e^{0} \\times e^{5}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : On utilise $e^u \\times e^v = e^{u+v}$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $e^{0}\\times e^{5} = e^{5}$."
+            }
+          ],
+          "reponse": "$e^{5}$",
+          "difficulte": "facile",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1039",
@@ -625,7 +575,8 @@
             }
           ],
           "reponse": "$e^{2}$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -654,15 +605,9 @@
         }
       ],
       "astuce": "",
-      "aRetenir": [
-        "La fonction exponentielle étant strictement monotone, $e^u=e^v \\iff u=v$."
-      ],
+      "aRetenir": ["La fonction exponentielle étant strictement monotone, $e^u=e^v \\iff u=v$."],
       "figure": null,
-      "quizExerciseIds": [
-        1004,
-        1005,
-        1006
-      ],
+      "quizExerciseIds": [1004, 1005, 1003],
       "topic_id": "nouvelle-notation-et-nombre-e",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -670,13 +615,58 @@
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras résoudre des exercices sur Nouvelle notation et nombre e."
       ],
-      "prerequis": [],
-      "notions_liees": [],
+      "prerequis": ["Fonction exponentielle (notion précédente de ce chapitre)"],
+      "notions_liees": ["proprietes-algebriques", "proprietes-analytiques"],
       "difficulte": "facile",
-      "tags": [
-        "nouvelle",
-        "notation",
-        "nombre"
+      "tags": ["nouvelle", "notation", "nombre"],
+      "pourquoi": "Écrire $\\exp(x)$ à chaque fois est lourd, et ne rappelle pas immédiatement les règles de calcul sur les puissances que tu connais déjà. La notation $e^x$ change cela : elle fait de l'exponentielle une puissance comme une autre (de base $e\\approx2{,}718$), ce qui permet de réutiliser directement les règles des exposants.",
+      "demonstration": {
+        "titre": "Pourquoi e^u = e^v équivaut-il à u = v ?",
+        "etapes": [
+          {
+            "titre": "Ce que signifie « strictement croissante »",
+            "texte": "Une fonction strictement croissante ne prend jamais deux fois la même valeur : si $u\\neq v$, alors $\\exp(u)\\neq\\exp(v)$ (l'un des deux est forcément plus grand que l'autre)."
+          },
+          {
+            "titre": "On en déduit la réciproque",
+            "texte": "Donc si $\\exp(u)=\\exp(v)$, il est impossible que $u\\neq v$ : on doit nécessairement avoir $u=v$."
+          }
+        ],
+        "conclusion": "C'est cette propriété d'injectivité — consequence directe de la stricte croissance — qui justifie l'équivalence $e^u=e^v \\iff u=v$, utilisée pour résoudre des équations."
+      },
+      "apercus": [
+        {
+          "id": "apercu-notation-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "2 exemples supplémentaires",
+          "description": "D'autres simplifications avec la notation e^x, pour automatiser les règles de calcul."
+        },
+        {
+          "id": "apercu-notation-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi e^u=e^v équivaut à u=v",
+          "description": "La justification complète de cette équivalence à partir de la stricte croissance de l'exponentielle."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Qu'apporte la notation e^x par rapport à exp(x) ?",
+          "piste": "Elle permet de réutiliser directement les règles de calcul connues sur les puissances, comme e^a×e^b=e^(a+b)."
+        },
+        {
+          "apres": "intuition",
+          "question": "Pourquoi e^u=e^v équivaut-il à u=v ?",
+          "piste": "Parce que la fonction exponentielle est strictement croissante, donc injective : elle ne prend jamais deux fois la même valeur pour deux exposants différents."
+        },
+        {
+          "apres": "methode",
+          "question": "Quelle règle de calcul permet de simplifier e^u × e^v ?",
+          "piste": "e^u × e^v = e^(u+v)."
+        }
       ]
     },
     {
@@ -693,24 +683,29 @@
       },
       "intuition": "Ne confonds jamais l'addition et la multiplication des exponentielles : $\\exp(a)\\times\\exp(b)=\\exp(a+b)$, mais $\\exp(a)+\\exp(b)$ ne se simplifie pas du tout de la même façon (il n'existe pas de règle qui transforme une somme d'exponentielles en une seule exponentielle).",
       "reglesImportantes": [
-        "Utiliser $(\\exp(a))^n=\\exp(na)$.",
-        "Utiliser $\\dfrac{1}{\\exp(a)}=\\exp(-a)$.",
-        "Utiliser $\\dfrac{\\exp(a)}{\\exp(b)}=\\exp(a-b)$.",
-        "Utiliser $\\exp(a)\\exp(b)=\\exp(a+b)$."
+        "Produit : $e^a\\times e^b=e^{a+b}$.",
+        "Inverse : $\\dfrac1{e^a}=e^{-a}$.",
+        "Quotient : $\\dfrac{e^a}{e^b}=e^{a-b}$.",
+        "Puissance : $(e^a)^n=e^{na}$ (pour $n$ entier)."
       ],
       "formules": [],
       "methode": {
-        "titre": "Méthode — Propriétés algébriques",
+        "titre": "Méthode — Simplifier une expression avec e^x",
         "etapes": [
           {
             "icone": "search",
             "couleur": "blue",
-            "texte": "Étape 1 : On utilise la relation $\\dfrac{\\exp(a)}{\\exp(b)} = \\exp(a-b)$."
+            "texte": "Étape 1 : repère la structure de l'expression — produit, quotient, inverse, ou puissance d'une exponentielle."
           },
           {
-            "icone": "sliders",
+            "icone": "penSquare",
             "couleur": "purple",
-            "texte": "Étape 2 : $\\dfrac{\\exp(-4)}{\\exp(4)} = \\exp(-4-(4)) = \\exp(-8)$."
+            "texte": "Étape 2 : applique la règle correspondante en additionnant, soustrayant, opposant ou multipliant les exposants selon le cas."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : simplifie l'exposant obtenu, et donne le résultat sous la forme $e^{\\text{exposant simplifié}}$."
           }
         ]
       },
@@ -730,7 +725,10 @@
             }
           ],
           "reponse": "$\\exp(-8)$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "C'est un quotient de deux exponentielles : on soustrait les exposants.",
+          "choixMethode": "On applique $\\dfrac{e^a}{e^b}=e^{a-b}$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-956",
@@ -747,41 +745,68 @@
             }
           ],
           "reponse": "$A = \\exp(-7)$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "C'est un produit de plusieurs exponentielles : on additionne tous les exposants.",
+          "choixMethode": "On applique $e^a\\times e^b=e^{a+b}$ successivement.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-968",
-          "titre": "Exemple 3",
-          "enonce": "Simplifier l'expression $A = \\exp(0) \\times \\exp(-4) \\times \\exp(-2)$.",
+          "titre": "Exemple 3 — Règle de l'inverse",
+          "enonce": "Simplifier l'expression $A = \\dfrac{1}{\\exp(5)}$.",
           "calcul": [
             {
-              "expr": "",
-              "texte": "Étape 1 : On applique successivement $\\exp(u)\\times\\exp(v) = \\exp(u+v)$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $A = \\exp(0-4-2) = \\exp(-6)$."
+              "expr": "A = \\dfrac{1}{e^{5}} = e^{-5}",
+              "texte": "On applique $\\dfrac1{e^a}=e^{-a}$."
             }
           ],
-          "reponse": "$A = \\exp(-6)$",
-          "difficulte": "moyen"
+          "reponse": "$A=e^{-5}$",
+          "difficulte": "moyen",
+          "analyse": "C'est l'inverse d'une exponentielle : on applique directement la règle de l'inverse.",
+          "choixMethode": "On utilise $\\dfrac1{e^a}=e^{-a}$ avec $a=5$.",
+          "interpretation": "Passer à l'inverse change simplement le signe de l'exposant.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-980",
-          "titre": "Exemple 4",
-          "enonce": "Simplifier l'expression $A = \\exp(2) \\times \\exp(-2) \\times \\exp(0)$.",
+          "titre": "Exemple 4 — Règle de la puissance",
+          "enonce": "Simplifier l'expression $A = \\left(\\exp(3)\\right)^{2}$.",
+          "calcul": [
+            {
+              "expr": "A = \\left(e^{3}\\right)^{2} = e^{3\\times2} = e^{6}",
+              "texte": "On applique $(e^a)^n=e^{na}$, puis on calcule $3\\times2=6$."
+            }
+          ],
+          "reponse": "$A=e^{6}$",
+          "difficulte": "difficile",
+          "analyse": "C'est une puissance d'une exponentielle : on multiplie l'exposant par la puissance extérieure.",
+          "choixMethode": "On utilise $(e^a)^n=e^{na}$ avec $a=3$, $n=2$.",
+          "interpretation": "Une puissance extérieure se traduit par une MULTIPLICATION de l'exposant, jamais une addition.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-980-premium",
+          "titre": "Exemple 5 — Combiner plusieurs règles (approfondissement)",
+          "enonce": "Simplifier l'expression $B = \\dfrac{\\left(\\exp(2)\\right)^{3} \\times \\exp(-5)}{\\exp(4)}$.",
           "calcul": [
             {
               "expr": "",
-              "texte": "Étape 1 : On applique successivement $\\exp(u)\\times\\exp(v) = \\exp(u+v)$."
+              "texte": "Étape 1 : $(e^{2})^{3} = e^{2\\times3} = e^{6}$ (règle de la puissance)."
             },
             {
               "expr": "",
-              "texte": "Étape 2 : $A = \\exp(2-2+0) = \\exp(0)$."
+              "texte": "Étape 2 : $e^{6}\\times e^{-5} = e^{6+(-5)} = e^{1}$ (règle du produit)."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $\\dfrac{e^{1}}{e^{4}} = e^{1-4} = e^{-3}$ (règle du quotient)."
             }
           ],
-          "reponse": "$A = \\exp(0)$",
-          "difficulte": "difficile"
+          "reponse": "$B = e^{-3}$",
+          "difficulte": "difficile",
+          "analyse": "On enchaîne les trois règles algébriques (puissance, produit, quotient) dans un seul calcul, en les appliquant une à la fois et dans l'ordre des opérations.",
+          "choixMethode": "On traite d'abord la puissance extérieure, puis le produit, puis le quotient — jamais tout en même temps.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -811,61 +836,74 @@
       ],
       "astuce": "",
       "aRetenir": [
-        "Utiliser $(\\exp(a))^n=\\exp(na)$.",
-        "Utiliser $\\dfrac{1}{\\exp(a)}=\\exp(-a)$.",
-        "Utiliser $\\dfrac{\\exp(a)}{\\exp(b)}=\\exp(a-b)$.",
-        "Utiliser $\\exp(a)\\exp(b)=\\exp(a+b)$."
+        "Produit → on ADDITIONNE les exposants. Quotient → on SOUSTRAIT. Puissance extérieure → on MULTIPLIE.",
+        "L'inverse d'une exponentielle change simplement le signe de l'exposant : $\\dfrac1{e^a}=e^{-a}$.",
+        "Toutes ces règles découlent d'une seule propriété fondamentale : $e^a\\times e^b=e^{a+b}$."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        945,
-        946,
-        947
-      ],
+      "quizExerciseIds": [945, 946, 944],
       "topic_id": "proprietes-algebriques",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Propriétés algébriques."
-      ],
-      "prerequis": [],
-      "notions_liees": [],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Propriétés algébriques."],
+      "prerequis": ["Nouvelle notation et nombre e (notion précédente de ce chapitre)"],
+      "notions_liees": ["nouvelle-notation-et-nombre-e", "proprietes-analytiques", "lien-avec-les-suites-geometriques"],
       "difficulte": "facile",
-      "tags": [
-        "proprietes",
-        "algebriques"
-      ],
+      "tags": ["proprietes", "algebriques"],
       "demonstration": {
-        "titre": "Pourquoi $\\exp(a+b) = \\exp(a) \\times \\exp(b)$ ? — démonstration par fonction auxiliaire",
+        "titre": "Pourquoi exp(a+b) = exp(a) × exp(b) ?",
         "etapes": [
           {
-            "titre": "Étape 1 — On fixe $a$ et on introduit une fonction auxiliaire",
-            "texte": "Soit $a$ un réel fixé. On définit, pour tout réel $x$, la fonction $\\varphi(x) = \\dfrac{\\exp(x+a)}{\\exp(x)}$ (ce quotient est bien défini car $\\exp(x) > 0$ pour tout réel $x$)."
+            "titre": "On fixe un réel $b$ et on dérive par rapport à $x$",
+            "texte": "Posons $g(x)=\\exp(x+b)$. Par la règle de la composée, $g'(x)=1\\times\\exp(x+b)=g(x)$ : $g$ vérifie la même équation différentielle que $\\exp$."
           },
           {
-            "titre": "Étape 2 — On dérive $\\varphi$ avec la formule du quotient",
-            "texte": "$\\varphi'(x) = \\dfrac{\\big(\\exp(x+a)\\big)' \\times \\exp(x) - \\exp(x+a) \\times \\big(\\exp(x)\\big)'}{\\big(\\exp(x)\\big)^2}$. Comme la dérivée de l'exponentielle est elle-même (y compris pour la composée $\\exp(x+a)$, de dérivée $\\exp(x+a)$), on obtient $\\varphi'(x) = \\dfrac{\\exp(x+a)\\exp(x) - \\exp(x+a)\\exp(x)}{\\big(\\exp(x)\\big)^2}$."
+            "titre": "On compare $g$ à une exponentielle multipliée",
+            "texte": "La fonction $h(x)=\\exp(x)\\times\\exp(b)$ vérifie aussi $h'(x)=\\exp(x)\\times\\exp(b)=h(x)$, et $h(0)=\\exp(b)=g(0)$."
           },
           {
-            "titre": "Étape 3 — Le numérateur est nul",
-            "texte": "Le numérateur $\\exp(x+a)\\exp(x) - \\exp(x+a)\\exp(x)$ vaut $0$ pour tout réel $x$, donc $\\varphi'(x) = 0$ pour tout réel $x$."
-          },
-          {
-            "titre": "Étape 4 — $\\varphi$ est donc constante sur $\\mathbb{R}$",
-            "texte": "Une fonction dérivable sur $\\mathbb{R}$ dont la dérivée est nulle partout est constante sur $\\mathbb{R}$. Il existe donc un réel $k$ tel que $\\varphi(x) = k$ pour tout réel $x$."
-          },
-          {
-            "titre": "Étape 5 — On détermine la constante $k$ en évaluant $\\varphi(0)$",
-            "texte": "$\\varphi(0) = \\dfrac{\\exp(0+a)}{\\exp(0)} = \\dfrac{\\exp(a)}{1} = \\exp(a)$. Donc $k = \\exp(a)$, et $\\varphi(x) = \\exp(a)$ pour tout réel $x$."
-          },
-          {
-            "titre": "Étape 6 — On applique ce résultat en $x = b$",
-            "texte": "Pour $x = b$ : $\\varphi(b) = \\dfrac{\\exp(b+a)}{\\exp(b)} = \\exp(a)$, donc $\\exp(a+b) = \\exp(a) \\times \\exp(b)$."
+            "titre": "On conclut par unicité",
+            "texte": "$g$ et $h$ vérifient la même équation différentielle avec la même valeur en $0$ : par l'unicité de la fonction exponentielle (admise en cours), $g=h$, donc $\\exp(x+b)=\\exp(x)\\times\\exp(b)$ pour tout $x$."
           }
         ],
-        "conclusion": "On a bien démontré que, pour tous réels $a$ et $b$, $\\exp(a+b) = \\exp(a) \\times \\exp(b)$ — c'est la propriété fondamentale utilisée dans ce cours."
-      }
+        "conclusion": "En posant $x=a$, on obtient exactement $\\exp(a+b)=\\exp(a)\\times\\exp(b)$ — toutes les autres règles de calcul (inverse, quotient, puissance) se déduisent ensuite de cette seule propriété."
+      },
+      "pourquoi": "La notation $e^x$ n'est utile que si elle obéit aux mêmes règles de calcul que les puissances usuelles. C'est le cas : $e^a\\times e^b=e^{a+b}$, et toutes les autres règles de calcul sur les puissances en découlent. Ce cours te donne les quatre règles essentielles pour simplifier n'importe quelle expression construite avec $e^x$.",
+      "apercus": [
+        {
+          "id": "apercu-algeb-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une puissance d'exponentielle plus délicate, pour automatiser la règle."
+        },
+        {
+          "id": "apercu-algeb-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi exp(a+b) = exp(a) × exp(b)",
+          "description": "La démonstration complète de la propriété fondamentale, à partir de l'équation différentielle qui définit l'exponentielle."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Quelle est LA propriété fondamentale dont découlent toutes les autres règles de calcul sur e^x ?",
+          "piste": "e^a × e^b = e^(a+b)."
+        },
+        {
+          "apres": "intuition",
+          "question": "Que devient l'exposant quand on élève une exponentielle à une puissance n ?",
+          "piste": "Il est multiplié par n : (e^a)^n = e^(na)."
+        },
+        {
+          "apres": "methode",
+          "question": "Quelle opération sur les exposants correspond à un quotient d'exponentielles ?",
+          "piste": "Une soustraction : e^a / e^b = e^(a-b)."
+        }
+      ]
     },
     {
       "id": "proprietes-analytiques",
@@ -887,17 +925,27 @@
       ],
       "formules": [],
       "methode": {
-        "titre": "Méthode — Propriétés analytiques",
+        "titre": "Méthode — Résoudre une inéquation avec des exponentielles",
         "etapes": [
           {
             "icone": "search",
             "couleur": "blue",
-            "texte": "Étape 1 : La fonction exponentielle est strictement croissante sur $\\mathbb{R}$, donc elle conserve l'ordre : $e^u < e^v \\iff u < v$."
+            "texte": "Étape 1 : vérifie que l'inéquation est bien de la forme $e^u \\lessgtr e^v$ (une exponentielle de chaque côté)."
           },
           {
-            "icone": "sliders",
+            "icone": "penSquare",
             "couleur": "purple",
-            "texte": "Étape 2 : $x+3 < 2 \\iff x < -1$."
+            "texte": "Étape 2 : rappelle que la fonction exponentielle est strictement croissante sur $\\mathbb{R}$, donc l'inégalité entre $u$ et $v$ a le MÊME sens qu'entre $e^u$ et $e^v$."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Étape 3 : résous l'inéquation (ou l'équation) $u \\lessgtr v$ obtenue sur les exposants, comme une inéquation classique."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 4 : écris l'ensemble des solutions sous forme d'intervalle."
           }
         ]
       },
@@ -917,24 +965,28 @@
             }
           ],
           "reponse": "$\\mathcal{S} = ]-\\infty ; -1[$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "On compare deux exponentielles : l'inégalité entre les exposants a le même sens, car exp est strictement croissante.",
+          "choixMethode": "On applique $e^u<e^v \\iff u<v$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1133",
           "titre": "Exemple 2",
-          "enonce": "Résoudre dans $\\mathbb{R}$ l'inéquation $e^{x-3} > e^{5}$.",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $e^{2x-1} = e^{3}$.",
           "calcul": [
             {
               "expr": "",
-              "texte": "Étape 1 : La fonction exponentielle est strictement croissante sur $\\mathbb{R}$, donc elle conserve l'ordre : $e^u > e^v \\iff u > v$."
+              "texte": "Étape 1 : La fonction exponentielle est strictement monotone, donc $e^{u}=e^{v} \\iff u=v$."
             },
             {
               "expr": "",
-              "texte": "Étape 2 : $x-3 > 5 \\iff x > 8$."
+              "texte": "Étape 2 : $2x-1 = 3 \\iff 2x = 4 \\iff x = 2$."
             }
           ],
-          "reponse": "$\\mathcal{S} = ]8 ; +\\infty[$",
-          "difficulte": "facile"
+          "reponse": "$\\mathcal{S} = \\{2\\}$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1145",
@@ -951,7 +1003,8 @@
             }
           ],
           "reponse": "$\\mathcal{S} = ]-1 ; +\\infty[$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1157",
@@ -968,7 +1021,8 @@
             }
           ],
           "reponse": "$\\mathcal{S} = ]6 ; +\\infty[$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -998,29 +1052,247 @@
       ],
       "astuce": "Pense à la courbe de l'exponentielle, toujours montante : comparer deux images revient à comparer les abscisses correspondantes, dans le même ordre.",
       "aRetenir": [
-        "Pour tous réels $u$ et $v$ : $e^u < e^v \\iff u < v$.",
-        "Pour tous réels $u$ et $v$ : $e^u = e^v \\iff u = v$.",
-        "La stricte croissance de l'exponentielle ne change jamais le sens d'une inégalité."
+        "La stricte croissance de l'exponentielle ne change JAMAIS le sens d'une inégalité : $u<v \\iff e^u<e^v$.",
+        "Comparer deux exponentielles revient toujours à comparer leurs exposants — jamais besoin d'une valeur numérique approchée.",
+        "Cette règle marche dans les deux sens : pour une égalité ($e^u=e^v \\iff u=v$) comme pour une inégalité."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        1122,
-        1123,
-        1124
-      ],
+      "quizExerciseIds": [1122, 1123, 1124],
       "topic_id": "proprietes-analytiques",
       "proprietes": [],
       "vocabulaire_associe": [],
       "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Propriétés analytiques."
-      ],
-      "prerequis": [],
-      "notions_liees": [],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras résoudre des exercices sur Propriétés analytiques."],
+      "prerequis": ["Propriétés algébriques (notion précédente de ce chapitre)"],
+      "notions_liees": ["proprietes-algebriques", "nouvelle-notation-et-nombre-e"],
       "difficulte": "facile",
-      "tags": [
-        "proprietes",
-        "analytiques"
+      "tags": ["proprietes", "analytiques"],
+      "pourquoi": "Résoudre une inéquation comme $e^{x-3}>e^{5}$ en calculant des valeurs approchées serait peu précis et fastidieux. Comme la fonction exponentielle est strictement croissante, elle ne fait JAMAIS changer le sens d'une inégalité entre les exposants : comparer les exposants suffit, sans jamais calculer $e^{x-3}$ ni $e^5$ numériquement.",
+      "apercus": [
+        {
+          "id": "apercu-analyt-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "2 exemples supplémentaires",
+          "description": "D'autres inéquations à exponentielles, pour automatiser la méthode."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi n'a-t-on jamais besoin de calculer une valeur approchée pour résoudre e^u < e^v ?",
+          "piste": "Parce que comparer les exposants u et v suffit : la stricte croissance de exp garantit que l'inégalité a le même sens des deux côtés."
+        },
+        {
+          "apres": "intuition",
+          "question": "La stricte croissance de exp peut-elle inverser le sens d'une inégalité ?",
+          "piste": "Jamais : une fonction strictement croissante conserve toujours le sens d'une inégalité."
+        },
+        {
+          "apres": "methode",
+          "question": "Quelle est la dernière étape après avoir résolu l'inéquation sur les exposants ?",
+          "piste": "Écrire l'ensemble des solutions sous forme d'intervalle."
+        }
+      ]
+    },
+    {
+      "id": "lien-avec-les-suites-geometriques",
+      "title": "Lien avec les suites géométriques",
+      "schemaVersion": 2,
+      "intro": "Certaines suites définies à partir de la fonction exponentielle, de la forme $u_n = A \\times e^{kn}$, sont en réalité des suites géométriques déguisées. Ce cours te montre comment le reconnaître, en utilisant la propriété $e^{a} \\times e^{b} = e^{a+b}$ pour faire apparaître le rapport constant $\\dfrac{u_{n+1}}{u_n}$.",
+      "explicationSimple": "Si $u_n = A \\times e^{kn}$, alors $u_{n+1} = A \\times e^{k(n+1)} = A \\times e^{kn} \\times e^{k} = u_n \\times e^{k}$. Le rapport entre deux termes consécutifs est donc toujours le même nombre $e^{k}$ : c'est exactement la définition d'une suite géométrique, de raison $q=e^{k}$.",
+      "objectif": "À la fin de ce cours, tu sauras montrer qu'une suite de la forme $u_n = A \\times e^{kn}$ est géométrique, en identifier la raison et le premier terme, et calculer l'un de ses termes.",
+      "definition": "Une suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = A \\times e^{kn}$ (avec $A$ et $k$ réels) est géométrique de raison $q = e^{k}$ et de premier terme $u_0 = A$, car pour tout $n$, $u_{n+1} = A \\times e^{k(n+1)} = A \\times e^{kn} \\times e^{k} = e^{k} \\times u_n$.",
+      "definitions": {
+        "lycee": "Une suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = A \\times e^{kn}$ (avec $A$ et $k$ réels) est géométrique de raison $q = e^{k}$ et de premier terme $u_0 = A$, car pour tout $n$, $u_{n+1} = A \\times e^{k(n+1)} = A \\times e^{kn} \\times e^{k} = e^{k} \\times u_n$."
+      },
+      "intuition": "Ne te contente jamais d'affirmer que le rapport $\\dfrac{u_{n+1}}{u_n}$ est constant : il faut le démontrer en calculant réellement $u_{n+1}$ à partir de la formule, puis en utilisant $e^{a}\\times e^{b}=e^{a+b}$ pour faire apparaître le facteur $u_n$ et isoler la raison $e^{k}$.",
+      "reglesImportantes": [
+        "Une suite $u_n=A\\times e^{kn}$ est géométrique de raison $q=e^{k}$ et de premier terme $u_0=A$.",
+        "Pour le prouver, il faut calculer $u_{n+1}$ littéralement et factoriser pour faire apparaître $u_n$ — jamais se contenter d'une vérification numérique."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Reconnaître une suite géométrique du type A × e^(kn)",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : écris $u_{n+1}$ en remplaçant $n$ par $n+1$ dans l'expression de $u_n$."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Étape 2 : utilise $e^{k(n+1)}=e^{kn}\\times e^{k}$ pour faire apparaître $u_n$ en facteur."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Étape 3 : identifie la raison $q=e^{k}$ et le premier terme $u_0=A$ (en vérifiant $u_0$ par calcul direct)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 4 : calcule le terme demandé avec $u_n=u_0\\times q^n$."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1062",
+          "titre": "Exemple 1",
+          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 1 \\times e^{1n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{4}$ en fonction de $e^{1}$ en simplifiant.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 1\\times e^{1(n+1)} = 1\\times e^{1n} \\times e^{1} = e^{1} \\times u_n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{1}$ et de premier terme $u_0 = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{4} = u_0 \\times q^{4} = 1 \\times \\left(e^{1}\\right)^{4} = 1 \\times e^{4}$."
+            }
+          ],
+          "reponse": "$(u_n)$ est géométrique de raison $e^{1}$ et $u_{4} = 1 \\times e^{4}$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1074",
+          "titre": "Exemple 2",
+          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 3 \\times e^{2n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{2}$ en fonction de $e^{2}$ en simplifiant.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 3\\times e^{2(n+1)} = 3\\times e^{2n} \\times e^{2} = e^{2} \\times u_n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{2}$ et de premier terme $u_0 = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{2} = u_0 \\times q^{2} = 3 \\times \\left(e^{2}\\right)^{2} = 3 \\times e^{4}$."
+            }
+          ],
+          "reponse": "$(u_n)$ est géométrique de raison $e^{2}$ et $u_{2} = 3 \\times e^{4}$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1086",
+          "titre": "Exemple 3",
+          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 3 \\times e^{-1n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{5}$ en fonction de $e^{-1}$ en simplifiant.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 3\\times e^{-1(n+1)} = 3\\times e^{-1n} \\times e^{-1} = e^{-1} \\times u_n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{-1}$ et de premier terme $u_0 = 3$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{5} = u_0 \\times q^{5} = 3 \\times \\left(e^{-1}\\right)^{5} = 3 \\times e^{-5}$."
+            }
+          ],
+          "reponse": "$(u_n)$ est géométrique de raison $e^{-1}$ et $u_{5} = 3 \\times e^{-5}$",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-1098",
+          "titre": "Exemple 4",
+          "enonce": "On considère la suite $(u_n)$ définie pour tout entier naturel $n$ par $u_n = 5 \\times e^{3n}$. Montrer que $(u_n)$ est géométrique et préciser sa raison, puis calculer $u_{2}$ en fonction de $e^{3}$ en simplifiant.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : Pour tout $n$, $u_{n+1} = 5\\times e^{3(n+1)} = 5\\times e^{3n} \\times e^{3} = e^{3} \\times u_n$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : Donc $(u_n)$ est géométrique de raison $q = e^{3}$ et de premier terme $u_0 = 5$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $u_{2} = u_0 \\times q^{2} = 5 \\times \\left(e^{3}\\right)^{2} = 5 \\times e^{6}$."
+            }
+          ],
+          "reponse": "$(u_n)$ est géométrique de raison $e^{3}$ et $u_{2} = 5 \\times e^{6}$",
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
+        }
+      ],
+      "erreursFrequentes": [
+        "Affirmer que $(u_n)$ est géométrique sans démontrer que le rapport $\\dfrac{u_{n+1}}{u_n}$ est bien constant.",
+        "Confondre le premier terme $u_0$ avec le facteur multiplicatif $A$ sans vérifier que $u_0 = A \\times e^{k \\times 0} = A$.",
+        "Mal appliquer la règle des exposants en simplifiant $e^{kn} \\times e^{k}$ en $e^{k(n+1)}$ (erreur de calcul dans la somme des exposants)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Affirmer que $(u_n)$ est géométrique sans démontrer que le rapport $\\dfrac{u_{n+1}}{u_n}$ est bien constant.",
+          "pourquoi": "Une suite n'est géométrique que si le rapport entre deux termes consécutifs est le même pour toute valeur de $n$ : cela ne peut se prouver qu'en calculant $u_{n+1}$ de façon littérale, jamais en se contentant d'un exemple numérique.",
+          "comment_detecter": "Si la conclusion « la suite est géométrique » n'est appuyée par aucun calcul de $u_{n+1}$ en fonction de $u_n$, la démonstration est incomplète.",
+          "comment_eviter": "Toujours écrire explicitement $u_{n+1}$ à partir de la formule donnée, puis factoriser pour faire apparaître $u_n$ multiplié par une constante."
+        },
+        {
+          "description": "Confondre le premier terme $u_0$ avec le facteur multiplicatif $A$ sans vérifier que $u_0 = A \\times e^{k \\times 0} = A$.",
+          "pourquoi": "Dans l'écriture $u_n=A\\times e^{kn}$, le facteur $A$ correspond exactement à $u_0$ seulement parce que $e^{k\\times 0}=e^0=1$ : ce n'est pas automatique, il faut le vérifier.",
+          "comment_detecter": "Si $u_0$ est annoncé sans avoir calculé $A \\times e^{k \\times 0}$, l'identification n'est pas justifiée.",
+          "comment_eviter": "Toujours vérifier le premier terme en remplaçant $n$ par $0$ dans la formule générale, plutôt que de le déduire directement du facteur $A$."
+        },
+        {
+          "description": "Mal appliquer la règle des exposants en simplifiant $e^{kn} \\times e^{k}$ en $e^{k(n+1)}$ (erreur de calcul dans la somme des exposants).",
+          "pourquoi": "La règle des exposants $e^{a}\\times e^{b}=e^{a+b}$ exige d'additionner correctement les deux exposants ; une erreur de calcul dans cette somme (notamment avec des expressions contenant $n$) fausse toute la suite du raisonnement.",
+          "comment_detecter": "Si l'exposant obtenu après simplification de $e^{kn}\\times e^{k}$ n'est pas exactement $k(n+1)$, une erreur de calcul s'est glissée dans la somme des exposants.",
+          "comment_eviter": "Développer explicitement $k(n+1)=kn+k$ avant de comparer avec la somme des exposants obtenue, pour vérifier la cohérence du calcul."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "$u_n=A\\times e^{kn}$ est TOUJOURS géométrique, de raison $e^{k}$ et de premier terme $A$ — à condition de le démontrer, pas seulement l'affirmer.",
+        "La clé de la démonstration : $e^{k(n+1)}=e^{kn}\\times e^{k}$, qui fait apparaître $u_n$ en facteur.",
+        "Une fois la nature géométrique établie, on retrouve tous les outils déjà connus : $u_n=u_0\\times q^n$, somme des termes, sens de variation."
+      ],
+      "figure": null,
+      "quizExerciseIds": [1062, 920029, 920033],
+      "topic_id": "lien-avec-les-suites-geometriques",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Lien avec les suites géométriques."
+      ],
+      "prerequis": ["Propriétés algébriques (notion précédente de ce chapitre)", "Suite géométrique (chapitre 1)"],
+      "notions_liees": ["proprietes-algebriques", "proprietes-analytiques"],
+      "difficulte": "facile",
+      "tags": ["lien", "suites", "geometriques"],
+      "apercus": [
+        {
+          "id": "apercu-liensuite-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "2 exemples supplémentaires",
+          "description": "D'autres suites du type A × e^(kn), pour automatiser la démonstration."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "intuition",
+          "question": "Pourquoi ne suffit-il pas de vérifier que le rapport est constant sur deux termes numériques ?",
+          "piste": "Parce que cela pourrait être une coïncidence sur ces deux valeurs précises : seul un calcul littéral de u_(n+1)/u_n valable pour tout n prouve le caractère géométrique."
+        },
+        {
+          "apres": "methode",
+          "question": "Quelle propriété des exposants permet de faire apparaître u_n dans le calcul de u_(n+1) ?",
+          "piste": "e^(k(n+1)) = e^(kn) × e^k, qui isole exactement u_n = A×e^(kn) en facteur."
+        }
       ]
     }
   ]

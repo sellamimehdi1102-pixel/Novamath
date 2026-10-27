@@ -1,0 +1,2075 @@
+{
+  "chapterId": "Chapitre_13",
+  "title": "Espace : repérage, pyramides, cônes et volumes",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "espace-reperage",
+      "title": "Se repérer dans un pavé droit",
+      "schemaVersion": 2,
+      "intro": "Dans le plan, deux nombres suffisent pour repérer un point. Dans l'espace, il en faut trois : l'abscisse, l'ordonnée et l'altitude. On apprend à se repérer dans un pavé droit.",
+      "pourquoi": "Le repérage dans l'espace sert en architecture, dans les jeux vidéo, en impression 3D, pour localiser un avion (latitude, longitude, altitude) ou un objet dans un entrepôt.",
+      "explicationSimple": "Dans une salle de classe, pour situer une mouche, on peut dire : « à $2$ m du mur de gauche, à $3$ m du tableau, à $1{,}5$ m du sol ». Ce sont ses trois coordonnées.",
+      "objectif": "À la fin de cette leçon, tu sauras lire les coordonnées d'un point d'un pavé droit, placer un point de coordonnées données et calculer les coordonnées des sommets d'un pavé.",
+      "definition": "Dans un pavé droit $ABCDEFGH$, on choisit un sommet comme origine (par exemple $A$) et les trois arêtes issues de ce sommet comme axes. Chaque point $M$ est repéré par trois nombres $(x ; y ; z)$ : son abscisse $x$ (le long de $[AB]$), son ordonnée $y$ (le long de $[AD]$) et son altitude $z$ (le long de $[AE]$). On note $M(x ; y ; z)$ ; l'origine a pour coordonnées $(0 ; 0 ; 0)$.",
+      "definitions": {
+        "college": "Un point de l'espace a trois coordonnées : l'abscisse (en avant), l'ordonnée (en profondeur) et l'altitude (en hauteur). On écrit $M(x ; y ; z)$.",
+        "lycee": "Dans un pavé droit $ABCDEFGH$, on choisit un sommet comme origine (par exemple $A$) et les trois arêtes issues de ce sommet comme axes. Chaque point $M$ est repéré par trois nombres $(x ; y ; z)$ : son abscisse $x$ (le long de $[AB]$), son ordonnée $y$ (le long de $[AD]$) et son altitude $z$ (le long de $[AE]$). On note $M(x ; y ; z)$ ; l'origine a pour coordonnées $(0 ; 0 ; 0)$."
+      },
+      "intuition": "Pour atteindre un point, on avance, puis on se décale en profondeur, puis on monte : trois déplacements, trois nombres.",
+      "reglesImportantes": [
+        "Les coordonnées s'écrivent toujours dans l'ordre : abscisse, ordonnée, altitude.",
+        "Un point de la base du pavé (posé au sol) a une altitude nulle.",
+        "Si le pavé a pour dimensions $L$, $\\ell$ et $h$, ses sommets ont des coordonnées égales à $0$ ou à ces dimensions : par exemple $G(L ; \\ell ; h)$.",
+        "Pour placer $M(x ; y ; z)$, on avance de $x$ parallèlement à l'axe des abscisses, puis de $y$ parallèlement à l'axe des ordonnées, puis on monte de $z$.",
+        "Deux points de même altitude sont dans un même plan horizontal."
+      ],
+      "formules": [
+        {
+          "id": "formule-coordonnees-espace",
+          "nom": "Coordonnées dans l'espace",
+          "expression": "$M(x ; y ; z)$ : abscisse, ordonnée, altitude",
+          "quand_utiliser": "Pour repérer un point dans un pavé droit.",
+          "erreur_frequente": "Inverser ordonnée et altitude.",
+          "astuce": "Altitude = hauteur, toujours en dernier."
+        },
+        {
+          "id": "formule-sommet-oppose",
+          "nom": "Sommet opposé à l'origine",
+          "expression": "$G(L ; \\ell ; h)$",
+          "quand_utiliser": "Pour écrire les coordonnées du sommet le plus éloigné.",
+          "erreur_frequente": "Oublier une dimension.",
+          "astuce": "Les trois coordonnées sont les trois dimensions du pavé."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Lire les coordonnées d'un point",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère l'origine et les trois axes (abscisse, ordonnée, altitude)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je projette le point sur la base pour lire l'abscisse et l'ordonnée."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je lis l'altitude : la hauteur du point au-dessus de la base."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'écris $(x ; y ; z)$ dans cet ordre et je vérifie que chaque valeur est entre $0$ et la dimension correspondante."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère l'origine et les trois axes (abscisse, ordonnée, altitude)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je projette le point sur la base pour lire l'abscisse et l'ordonnée."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je lis l'altitude : la hauteur du point au-dessus de la base."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris $(x ; y ; z)$ dans cet ordre et je vérifie que chaque valeur est entre $0$ et la dimension correspondante."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je pars de l'origine $A$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je compte combien j'avance le long de la première arête."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Puis combien je me décale en profondeur, puis combien je monte."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris les trois nombres entre parenthèses."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$(x ; y ; z)$ = (avancer ; se décaler ; monter)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Base : $z = 0$ ; sommet opposé : $(L ; \\ell ; h)$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-coordonnees-sommets",
+          "titre": "Exemple 1 — Les sommets d'un pavé",
+          "enonce": "Le pavé $ABCDEFGH$ a pour dimensions $AB = 5$, $AD = 3$ et $AE = 4$, l'origine étant $A$. Donner les coordonnées de $B$, $D$, $E$ et $G$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$B$ : on avance de $5$ : $B(5 ; 0 ; 0)$. $D$ : on se décale de $3$ : $D(0 ; 3 ; 0)$."
+            },
+            {
+              "expr": "",
+              "texte": "$E$ : on monte de $4$ : $E(0 ; 0 ; 4)$. $G$ : les trois à la fois : $G(5 ; 3 ; 4)$."
+            }
+          ],
+          "reponse": "$B(5 ; 0 ; 0)$, $D(0 ; 3 ; 0)$, $E(0 ; 0 ; 4)$, $G(5 ; 3 ; 4)$.",
+          "conclusion": "C'est le pavé de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-placer-point",
+          "titre": "Exemple 2 — Placer un point",
+          "enonce": "Dans le même pavé, placer le point $M(2 ; 3 ; 4)$. Sur quelle arête se trouve-t-il ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Altitude $4$ : $M$ est sur la face du dessus $EFGH$."
+            },
+            {
+              "expr": "",
+              "texte": "Ordonnée $3$ : $M$ est au fond, sur l'arête $[HG]$ ; abscisse $2$ : à $2$ unités de $H$."
+            }
+          ],
+          "reponse": "$M$ est sur l'arête $[HG]$, à $2$ unités de $H$.",
+          "conclusion": "Une coordonnée égale à une dimension place le point sur une face du pavé.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-milieu-espace",
+          "titre": "Exemple 3 — Le centre d'une face",
+          "enonce": "Dans le même pavé, donner les coordonnées du centre $I$ de la face du dessus $EFGH$, puis du centre $K$ du pavé.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le centre de $EFGH$ est à mi-longueur et mi-largeur, à l'altitude $4$ : $I(2{,}5 ; 1{,}5 ; 4)$."
+            },
+            {
+              "expr": "",
+              "texte": "Le centre du pavé est aussi à mi-hauteur : $K(2{,}5 ; 1{,}5 ; 2)$."
+            }
+          ],
+          "reponse": "$I(2{,}5 ; 1{,}5 ; 4)$ et $K(2{,}5 ; 1{,}5 ; 2)$.",
+          "conclusion": "Les coordonnées d'un milieu sont les moyennes des coordonnées.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-distance-espace",
+          "titre": "Exemple 4 — Une diagonale du pavé",
+          "enonce": "Dans le pavé de dimensions $5$, $3$ et $4$, calculer la longueur $AC$ puis la longueur de la diagonale $AG$ (au dixième).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans la base, $ABC$ est rectangle en $B$ : $AC^2 = 5^2 + 3^2 = 34$."
+            },
+            {
+              "expr": "",
+              "texte": "$ACG$ est rectangle en $C$ : $AG^2 = AC^2 + CG^2 = 34 + 16 = 50$, donc $AG = \\sqrt{50} \\approx 7{,}1$."
+            }
+          ],
+          "reponse": "$AC = \\sqrt{34} \\approx 5{,}8$ et $AG = \\sqrt{50} \\approx 7{,}1$.",
+          "conclusion": "On applique deux fois le théorème de Pythagore, dans deux triangles rectangles.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-salle-classe",
+          "titre": "Exemple 5 — Une salle de classe",
+          "enonce": "Une salle a la forme d'un pavé de $9$ m de long, $7$ m de large et $3$ m de haut ; l'origine est un coin du sol. Une lampe est fixée au centre du plafond, et une prise sur le mur du fond, à $40$ cm du sol, au milieu du mur. Donner leurs coordonnées (le mur du fond étant celui d'ordonnée $7$), puis l'altitude de la lampe au-dessus de la prise.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Lampe : centre du plafond, $(4{,}5 ; 3{,}5 ; 3)$."
+            },
+            {
+              "expr": "",
+              "texte": "Prise : milieu du mur du fond, à $0{,}4$ m du sol : $(4{,}5 ; 7 ; 0{,}4)$."
+            },
+            {
+              "expr": "",
+              "texte": "Différence d'altitude : $3 - 0{,}4 = 2{,}6$ m."
+            }
+          ],
+          "reponse": "Lampe $(4{,}5 ; 3{,}5 ; 3)$, prise $(4{,}5 ; 7 ; 0{,}4)$ ; la lampe est $2{,}6$ m plus haut.",
+          "conclusion": "Le repérage dans l'espace sert à décrire précisément un plan d'installation.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Localiser un avion : position au sol et altitude.",
+        "Positionner un objet dans un logiciel de modélisation 3D.",
+        "Ranger des cartons dans un entrepôt."
+      ],
+      "erreursFrequentes": [
+        "Écrire les coordonnées dans le désordre.",
+        "Confondre une arête cachée et une arête visible.",
+        "Donner deux coordonnées au lieu de trois.",
+        "Mesurer les longueurs sur le dessin en perspective."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire les coordonnées dans le désordre.",
+          "pourquoi": "On donne l'altitude en premier.",
+          "comment_detecter": "As-tu bien abscisse, ordonnée, altitude ?",
+          "comment_eviter": "Ordre fixe : $(x ; y ; z)$."
+        },
+        {
+          "description": "Confondre une arête cachée et une arête visible.",
+          "pourquoi": "La perspective trompe sur la profondeur.",
+          "comment_detecter": "Ton point est-il devant ou au fond ?",
+          "comment_eviter": "Les pointillés indiquent ce qui est caché, au fond."
+        },
+        {
+          "description": "Donner deux coordonnées au lieu de trois.",
+          "pourquoi": "On raisonne comme dans le plan.",
+          "comment_detecter": "Ton point a-t-il bien une altitude ?",
+          "comment_eviter": "Dans l'espace, toujours trois coordonnées."
+        },
+        {
+          "description": "Mesurer les longueurs sur le dessin en perspective.",
+          "pourquoi": "Les fuyantes sont réduites en perspective cavalière.",
+          "comment_detecter": "Ta mesure correspond-elle à la dimension réelle ?",
+          "comment_eviter": "Utilise les dimensions données, pas les mesures du dessin."
+        }
+      ],
+      "astuce": "Pour lire l'altitude d'un point, « fais tomber » le point verticalement sur la base : la longueur de la chute est l'altitude, et le point d'arrivée donne l'abscisse et l'ordonnée.",
+      "aRetenir": [
+        "Trois coordonnées : abscisse, ordonnée, altitude.",
+        "Origine $(0 ; 0 ; 0)$ ; sommet opposé $(L ; \\ell ; h)$.",
+        "Base : altitude nulle."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.2,
+          -1.2,
+          9.0,
+          7.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "A"
+          },
+          {
+            "x": 5.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 6.061,
+            "y": 1.061,
+            "label": "C"
+          },
+          {
+            "x": 1.061,
+            "y": 1.061,
+            "label": "D"
+          },
+          {
+            "x": 0.0,
+            "y": 4.0,
+            "label": "E"
+          },
+          {
+            "x": 5.0,
+            "y": 4.0,
+            "label": "F"
+          },
+          {
+            "x": 6.061,
+            "y": 5.061,
+            "label": "G"
+          },
+          {
+            "x": 1.061,
+            "y": 5.061,
+            "label": "H"
+          },
+          {
+            "x": 3.061,
+            "y": 5.061,
+            "label": "M"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B"
+          },
+          {
+            "from": "B",
+            "to": "C"
+          },
+          {
+            "from": "E",
+            "to": "F"
+          },
+          {
+            "from": "F",
+            "to": "G"
+          },
+          {
+            "from": "G",
+            "to": "H"
+          },
+          {
+            "from": "H",
+            "to": "E"
+          },
+          {
+            "from": "A",
+            "to": "E"
+          },
+          {
+            "from": "B",
+            "to": "F"
+          },
+          {
+            "from": "C",
+            "to": "G"
+          },
+          {
+            "from": "A",
+            "to": "D",
+            "dashed": true
+          },
+          {
+            "from": "D",
+            "to": "C",
+            "dashed": true
+          },
+          {
+            "from": "D",
+            "to": "H",
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 2.0,
+              "y": 0.0
+            },
+            "to": {
+              "x": 3.061,
+              "y": 1.061
+            },
+            "reveal": 2,
+            "tooltip": "ordonnée 3",
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 3.061,
+              "y": 1.061
+            },
+            "to": {
+              "x": 3.061,
+              "y": 5.061
+            },
+            "reveal": 3,
+            "tooltip": "altitude 4",
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.5,
+            "y": -0.6,
+            "label": "abscisse",
+            "reveal": 2
+          },
+          {
+            "x": -0.37,
+            "y": 0.53,
+            "label": "ordonnée",
+            "reveal": 2
+          },
+          {
+            "x": -0.7,
+            "y": 2.0,
+            "label": "altitude",
+            "reveal": 3
+          },
+          {
+            "x": 3.661,
+            "y": 5.561,
+            "label": "M(2 ; 3 ; 4)",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Le pavé et son repère d'origine A",
+          "Abscisse et ordonnée",
+          "Altitude : le point M(2 ; 3 ; 4)"
+        ],
+        "relation": "Dans le repère d'origine $A$ : abscisse le long de $[AB]$, ordonnée le long de $[AD]$, altitude le long de $[AE]$ ; $M(2 ; 3 ; 4)$",
+        "alt": "Pavé droit ABCDEFGH en perspective cavalière (5 sur 3 sur 4). Le point M a pour abscisse 2, ordonnée 3 et altitude 4 : il est sur l'arête [HG] de la face du dessus.",
+        "explication": {
+          "resume": "Dans un pavé droit, on repère un point par trois nombres : son abscisse, son ordonnée et son altitude, mesurées le long de trois arêtes issues d'un même sommet (l'origine).",
+          "lecture": [
+            "L'origine du repère est le sommet $A$.",
+            "Les arêtes en pointillés sont cachées (perspective cavalière)."
+          ],
+          "observations": [
+            "On avance de $2$ le long de $[AB]$ (abscisse), puis de $3$ parallèlement à $[AD]$ (ordonnée), puis on monte de $4$ (altitude).",
+            "$M(2 ; 3 ; 4)$ se trouve sur la face du dessus, sur l'arête $[HG]$.",
+            "Le sommet $G$ a pour coordonnées $(5 ; 3 ; 4)$, et $A$ a pour coordonnées $(0 ; 0 ; 0)$."
+          ],
+          "pieges": [
+            "Changer l'ordre des coordonnées : on donne toujours (abscisse ; ordonnée ; altitude)."
+          ],
+          "aRetenir": [
+            "Un point de l'espace : trois coordonnées (abscisse ; ordonnée ; altitude).",
+            "L'origine a pour coordonnées $(0 ; 0 ; 0)$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        53101,
+        53102,
+        53104
+      ],
+      "topic_id": "espace-reperage",
+      "proprietes": [
+        "Dans un pavé de dimensions $L$, $\\ell$, $h$ repéré depuis un sommet, le sommet opposé a pour coordonnées $(L ; \\ell ; h)$."
+      ],
+      "vocabulaire_associe": [
+        "abscisse",
+        "ordonnée",
+        "altitude",
+        "repère de l'espace",
+        "origine",
+        "pavé droit",
+        "perspective cavalière"
+      ],
+      "synonymes": [
+        "coordonnées dans l'espace",
+        "repérage dans l'espace",
+        "se repérer dans un pavé"
+      ],
+      "objectifs_pedagogiques": [
+        "Lire les coordonnées d'un point d'un pavé.",
+        "Placer un point de coordonnées données.",
+        "Donner les coordonnées des sommets.",
+        "Calculer une diagonale du pavé."
+      ],
+      "prerequis": [
+        "Repérage dans le plan",
+        "Pavé droit (6e)",
+        "Théorème de Pythagore"
+      ],
+      "notions_liees": [
+        "espace-pyramide-cone",
+        "pythagore-calculer-une-longueur"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "géométrie dans l'espace",
+        "repérage",
+        "coordonnées"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "espace-reperage-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Centre d'une face et diagonale du pavé",
+          "description": "Deux exemples rédigés : les coordonnées des centres d'une face et du pavé, puis la longueur de la grande diagonale."
+        },
+        {
+          "id": "espace-reperage-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Une salle de classe",
+          "description": "Un exemple qui repère une lampe et une prise dans une salle en forme de pavé."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelles sont les coordonnées de $F$ ?",
+          "piste": "$(5 ; 0 ; 4)$."
+        },
+        {
+          "apres": "methode",
+          "question": "Un point de la base a-t-il une altitude ?",
+          "piste": "Oui, elle est nulle : $z = 0$."
+        }
+      ]
+    },
+    {
+      "id": "espace-pyramide-cone",
+      "title": "Pyramides et cônes : perspective et patrons",
+      "schemaVersion": 2,
+      "intro": "La pyramide et le cône de révolution sont des solides « pointus » : un sommet relié à une base. On apprend à les décrire, à les représenter en perspective cavalière et à construire leurs patrons.",
+      "pourquoi": "Pyramides et cônes sont partout : toits, tentes, entonnoirs, cornets de glace, la pyramide du Louvre. Savoir construire leurs patrons permet de les fabriquer en papier ou en métal.",
+      "explicationSimple": "La pyramide du Louvre a une base carrée et quatre faces triangulaires. Un cornet de glace est un cône : sa base est un disque, sa pointe est le sommet.",
+      "objectif": "À la fin de cette leçon, tu sauras décrire une pyramide et un cône (sommet, base, hauteur, faces, arêtes), les représenter en perspective cavalière et construire ou reconnaître leurs patrons.",
+      "definition": "Une pyramide est un solide formé d'une base polygonale et de faces latérales triangulaires qui ont un sommet commun, le sommet de la pyramide. Sa hauteur est le segment issu du sommet, perpendiculaire au plan de la base. Un cône de révolution est le solide obtenu en faisant tourner un triangle rectangle autour de l'un des côtés de l'angle droit ; il a pour base un disque, et le segment qui joint le sommet au centre de la base est sa hauteur. Le patron d'un cône est formé d'un disque et d'un secteur circulaire.",
+      "definitions": {
+        "college": "Pyramide : une base polygonale, des faces triangulaires qui se rejoignent au sommet. Cône : une base en forme de disque et une surface latérale qui se termine en pointe.",
+        "lycee": "Une pyramide est un solide formé d'une base polygonale et de faces latérales triangulaires qui ont un sommet commun, le sommet de la pyramide. Sa hauteur est le segment issu du sommet, perpendiculaire au plan de la base. Un cône de révolution est le solide obtenu en faisant tourner un triangle rectangle autour de l'un des côtés de l'angle droit ; il a pour base un disque, et le segment qui joint le sommet au centre de la base est sa hauteur. Le patron d'un cône est formé d'un disque et d'un secteur circulaire."
+      },
+      "intuition": "On fabrique une pyramide en reliant chaque point du bord de la base à un même point, le sommet. Si la base est un disque, on obtient un cône.",
+      "reglesImportantes": [
+        "Une pyramide dont la base a $n$ côtés possède $n + 1$ faces, $2n$ arêtes et $n + 1$ sommets.",
+        "La hauteur d'une pyramide ou d'un cône est perpendiculaire à la base ; elle ne se confond pas avec une arête latérale.",
+        "En perspective cavalière : les faces frontales sont en vraie grandeur, les fuyantes sont réduites, les arêtes cachées sont en pointillés, et un cercle devient une ellipse.",
+        "Patron d'une pyramide : la base et les faces latérales triangulaires, attachées à la base ; les côtés qui se rejoignent ont la même longueur.",
+        "Patron d'un cône : un disque (la base) et un secteur circulaire dont l'arc a pour longueur le périmètre de la base."
+      ],
+      "formules": [
+        {
+          "id": "formule-elements-pyramide",
+          "nom": "Éléments d'une pyramide",
+          "expression": "base à $n$ côtés : $n + 1$ faces, $2n$ arêtes, $n + 1$ sommets",
+          "quand_utiliser": "Pour décrire une pyramide.",
+          "erreur_frequente": "Oublier la base dans le compte des faces.",
+          "astuce": "Compte les faces latérales ($n$), puis ajoute la base."
+        },
+        {
+          "id": "formule-arc-patron-cone",
+          "nom": "Patron du cône",
+          "expression": "longueur de l'arc du secteur $= 2\\pi r$ (périmètre de la base)",
+          "quand_utiliser": "Pour construire le patron d'un cône.",
+          "erreur_frequente": "Prendre la hauteur du cône comme rayon du secteur.",
+          "astuce": "Le rayon du secteur est la longueur d'une génératrice (du sommet au bord de la base)."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Construire le patron d'une pyramide",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je trace la base en vraie grandeur."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Sur chaque côté de la base, je construis la face latérale triangulaire correspondante."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je vérifie que deux côtés qui doivent se rejoindre ont la même longueur."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie, en imaginant le pliage, que tous les sommets des triangles se rejoignent en un même point."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je trace la base en vraie grandeur."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Sur chaque côté de la base, je construis la face latérale triangulaire correspondante."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je vérifie que deux côtés qui doivent se rejoindre ont la même longueur."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie, en imaginant le pliage, que tous les sommets des triangles se rejoignent en un même point."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je dessine la base (carré, rectangle, triangle…)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je colle un triangle sur chaque côté de la base."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je vérifie les longueurs des arêtes latérales."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'imagine le pliage : les pointes se rejoignent-elles ?"
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Base + une face triangulaire par côté."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Arêtes qui se rejoignent : même longueur."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-decrire-pyramide",
+          "titre": "Exemple 1 — Décrire une pyramide",
+          "enonce": "Décrire la pyramide $SABCD$ de base le rectangle $ABCD$ : nombre de faces, d'arêtes, de sommets, nature des faces.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Base à $4$ côtés : $4$ faces latérales triangulaires + la base : $5$ faces."
+            },
+            {
+              "expr": "",
+              "texte": "Arêtes : $4$ de la base et $4$ latérales : $8$. Sommets : $4 + 1 = 5$."
+            }
+          ],
+          "reponse": "$5$ faces (une base rectangulaire et $4$ triangles), $8$ arêtes, $5$ sommets.",
+          "conclusion": "C'est la pyramide de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-cone-revolution",
+          "titre": "Exemple 2 — Un cône de révolution",
+          "enonce": "On fait tourner un triangle rectangle $SOA$ (rectangle en $O$, $SO = 4$ cm, $OA = 3$ cm) autour de la droite $(SO)$. Quel solide obtient-on ? Préciser sa hauteur, le rayon de sa base et la longueur $SA$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "On obtient un cône de révolution de sommet $S$, de hauteur $SO = 4$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Sa base est un disque de rayon $OA = 3$ cm ; $SA = \\sqrt{16 + 9} = 5$ cm."
+            }
+          ],
+          "reponse": "Un cône de hauteur $4$ cm, de rayon $3$ cm ; $SA = 5$ cm.",
+          "conclusion": "$[SA]$ est une génératrice : elle joint le sommet au bord de la base.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-patron-pyramide",
+          "titre": "Exemple 3 — Reconnaître un patron",
+          "enonce": "Un patron est formé d'un carré de côté $4$ cm et de quatre triangles isocèles dont les côtés égaux mesurent $5$ cm, attachés chacun à un côté du carré. Quel solide obtient-on ? Combien mesure chaque arête latérale ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "En repliant les triangles, leurs sommets se rejoignent au-dessus du carré."
+            },
+            {
+              "expr": "",
+              "texte": "On obtient une pyramide à base carrée ; chaque arête latérale mesure $5$ cm."
+            }
+          ],
+          "reponse": "Une pyramide régulière à base carrée de côté $4$ cm, d'arêtes latérales $5$ cm.",
+          "conclusion": "Dans un patron, deux côtés destinés à se rejoindre doivent avoir la même longueur.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-patron-cone",
+          "titre": "Exemple 4 — Le patron d'un cône",
+          "enonce": "Un cône a une base de rayon $3$ cm et une génératrice de $5$ cm. Son patron est formé d'un disque et d'un secteur circulaire. Quel est le rayon du secteur ? Quelle est la longueur de son arc ? Quel est l'angle du secteur ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le rayon du secteur est la génératrice : $5$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "L'arc s'enroule autour de la base : sa longueur est $2\\pi \\times 3 = 6\\pi$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Le cercle complet de rayon $5$ a pour périmètre $10\\pi$ : le secteur en représente $\\dfrac{6\\pi}{10\\pi} = \\dfrac{3}{5}$, soit $\\dfrac{3}{5} \\times 360° = 216°$."
+            }
+          ],
+          "reponse": "Secteur de rayon $5$ cm, d'arc $6\\pi \\approx 18{,}8$ cm et d'angle $216°$.",
+          "conclusion": "On utilise la proportionnalité entre la longueur d'un arc et son angle.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-pyramide-dans-cube",
+          "titre": "Exemple 5 — Une pyramide dans un cube",
+          "enonce": "Dans un cube $ABCDEFGH$ d'arête $6$ cm, on considère la pyramide de sommet $E$ et de base $ABCD$. Quelle est sa hauteur ? Quelle est la nature de ses faces latérales ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$[EA]$ est perpendiculaire à la base $ABCD$ : la hauteur est $[EA]$, de longueur $6$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Les faces $EAB$ et $EAD$ sont des triangles rectangles isocèles (en $A$)."
+            },
+            {
+              "expr": "",
+              "texte": "Les faces $EBC$ et $EDC$ sont des triangles rectangles (en $B$ et en $D$)."
+            }
+          ],
+          "reponse": "Hauteur $EA = 6$ cm ; quatre faces latérales rectangles : $EAB$, $EAD$ (isocèles en $A$), $EBC$ et $EDC$.",
+          "conclusion": "Le pied de la hauteur d'une pyramide n'est pas toujours le centre de la base.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "La pyramide du Louvre, les toits pyramidaux.",
+        "Les cornets de glace et les entonnoirs.",
+        "Les tentes en forme de cône ou de pyramide."
+      ],
+      "erreursFrequentes": [
+        "Confondre la hauteur et une arête latérale.",
+        "Dessiner les arêtes cachées en trait plein.",
+        "Prendre la hauteur du cône comme rayon du secteur du patron.",
+        "Oublier la base dans le compte des faces."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre la hauteur et une arête latérale.",
+          "pourquoi": "Les deux partent du sommet.",
+          "comment_detecter": "Ton segment est-il perpendiculaire à la base ?",
+          "comment_eviter": "La hauteur arrive perpendiculairement sur la base."
+        },
+        {
+          "description": "Dessiner les arêtes cachées en trait plein.",
+          "pourquoi": "On ne pense pas à la profondeur.",
+          "comment_detecter": "Cette arête est-elle visible depuis l'observateur ?",
+          "comment_eviter": "Arêtes cachées en pointillés."
+        },
+        {
+          "description": "Prendre la hauteur du cône comme rayon du secteur du patron.",
+          "pourquoi": "On confond hauteur et génératrice.",
+          "comment_detecter": "Le rayon du secteur va-t-il du sommet au bord de la base ?",
+          "comment_eviter": "Rayon du secteur = génératrice."
+        },
+        {
+          "description": "Oublier la base dans le compte des faces.",
+          "pourquoi": "On ne compte que les triangles.",
+          "comment_detecter": "As-tu compté la base ?",
+          "comment_eviter": "Faces = $n$ triangles + la base."
+        }
+      ],
+      "astuce": "Pour vérifier un patron, numérote les côtés qui doivent se coller deux à deux : ils doivent avoir la même longueur.",
+      "aRetenir": [
+        "Pyramide : base polygonale, faces latérales triangulaires, un sommet.",
+        "Cône : base en disque ; patron : disque + secteur.",
+        "Perspective cavalière : pointillés pour les arêtes cachées."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.0,
+          -1.0,
+          8.6,
+          7.8
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "A"
+          },
+          {
+            "x": 5.0,
+            "y": 0.0,
+            "label": "B"
+          },
+          {
+            "x": 6.414,
+            "y": 1.414,
+            "label": "C"
+          },
+          {
+            "x": 1.414,
+            "y": 1.414,
+            "label": "D"
+          },
+          {
+            "x": 3.207,
+            "y": 5.207,
+            "label": "S"
+          },
+          {
+            "x": 3.207,
+            "y": 0.707,
+            "label": "O"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "B"
+          },
+          {
+            "from": "B",
+            "to": "C"
+          },
+          {
+            "from": "C",
+            "to": "D",
+            "dashed": true
+          },
+          {
+            "from": "D",
+            "to": "A",
+            "dashed": true
+          },
+          {
+            "from": "S",
+            "to": "A",
+            "reveal": 2
+          },
+          {
+            "from": "S",
+            "to": "B",
+            "reveal": 2
+          },
+          {
+            "from": "S",
+            "to": "C",
+            "reveal": 2
+          },
+          {
+            "from": "S",
+            "to": "D",
+            "reveal": 2,
+            "dashed": true
+          },
+          {
+            "from": "S",
+            "to": "O",
+            "reveal": 3,
+            "tooltip": "hauteur [SO]",
+            "dashed": true
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "reveal": 3,
+            "dashed": true
+          },
+          {
+            "from": "B",
+            "to": "D",
+            "reveal": 3,
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.182,
+            "y": -0.318,
+            "label": "base ABCD"
+          },
+          {
+            "x": 3.507,
+            "y": 2.707,
+            "label": "h",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "La base rectangulaire ABCD",
+          "Le sommet S et les arêtes latérales",
+          "La hauteur [SO]"
+        ],
+        "relation": "Pyramide de sommet $S$ et de base le rectangle $ABCD$ ; $[SO]$ est la hauteur, $O$ centre de la base",
+        "alt": "Pyramide SABCD en perspective cavalière : base rectangulaire ABCD, sommet S, arêtes latérales [SA], [SB], [SC], [SD] ; la hauteur [SO] est en pointillés, O étant le centre du rectangle.",
+        "explication": {
+          "resume": "Une pyramide a une base polygonale et un sommet ; ses faces latérales sont des triangles. Sa hauteur est le segment issu du sommet et perpendiculaire au plan de la base.",
+          "lecture": [
+            "La base est un rectangle ; elle est dessinée comme un parallélogramme en perspective cavalière.",
+            "Les traits en pointillés représentent ce qui est caché."
+          ],
+          "observations": [
+            "La pyramide a $5$ faces : la base et $4$ faces latérales triangulaires.",
+            "Elle a $8$ arêtes et $5$ sommets.",
+            "Ici, le pied de la hauteur est le centre $O$ du rectangle de base."
+          ],
+          "pieges": [
+            "Confondre la hauteur $[SO]$ avec une arête latérale comme $[SA]$ : la hauteur est perpendiculaire à la base."
+          ],
+          "aRetenir": [
+            "Pyramide : base polygonale + faces latérales triangulaires.",
+            "Perspective cavalière : arêtes cachées en pointillés, angles droits de la base non conservés."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        53201,
+        53202,
+        53204
+      ],
+      "topic_id": "espace-pyramide-cone",
+      "proprietes": [
+        "La longueur de l'arc du patron d'un cône est égale au périmètre de sa base."
+      ],
+      "vocabulaire_associe": [
+        "pyramide",
+        "cône de révolution",
+        "sommet",
+        "base",
+        "hauteur",
+        "génératrice",
+        "patron",
+        "perspective cavalière"
+      ],
+      "synonymes": [
+        "patron de pyramide",
+        "patron de cône",
+        "pyramide et cône"
+      ],
+      "objectifs_pedagogiques": [
+        "Décrire une pyramide et un cône.",
+        "Représenter un solide en perspective cavalière.",
+        "Construire ou reconnaître un patron de pyramide.",
+        "Comprendre le patron d'un cône."
+      ],
+      "prerequis": [
+        "Se repérer dans un pavé droit",
+        "Prismes et cylindres (5e)",
+        "Périmètre du cercle"
+      ],
+      "notions_liees": [
+        "espace-reperage",
+        "espace-volumes"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie dans l'espace",
+        "pyramide",
+        "cône",
+        "patron"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "espace-pyramide-cone-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Patrons de pyramide et de cône",
+          "description": "Deux exemples rédigés : reconnaître le patron d'une pyramide, et calculer l'angle du secteur du patron d'un cône."
+        },
+        {
+          "id": "espace-pyramide-cone-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Une pyramide dans un cube",
+          "description": "Un exemple où le pied de la hauteur n'est pas le centre de la base."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien d'arêtes a la pyramide de la figure ?",
+          "piste": "$8$."
+        },
+        {
+          "apres": "methode",
+          "question": "Combien de faces a une pyramide à base hexagonale ?",
+          "piste": "$7$."
+        }
+      ]
+    },
+    {
+      "id": "espace-volumes",
+      "title": "Volume d'une pyramide et d'un cône",
+      "schemaVersion": 2,
+      "intro": "Le volume d'une pyramide ou d'un cône se calcule à partir de l'aire de sa base et de sa hauteur : c'est le tiers du volume du prisme ou du cylindre de même base et de même hauteur.",
+      "pourquoi": "Calculer la contenance d'un entonnoir, d'un cornet, d'un silo, le volume d'un tas de sable conique ou d'une toiture : les volumes de pyramides et de cônes sont très concrets.",
+      "explicationSimple": "Une pyramide de base carrée $6$ cm $\\times 6$ cm et de hauteur $5$ cm a un volume de $\\dfrac{36 \\times 5}{3} = 60$ cm³.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer le volume d'une pyramide et d'un cône (valeur exacte avec $\\pi$, puis valeur approchée) et convertir les unités de volume et de contenance.",
+      "definition": "Le volume d'une pyramide est $V = \\dfrac{\\mathcal{B} \\times h}{3}$, où $\\mathcal{B}$ est l'aire de la base et $h$ la hauteur. Le volume d'un cône de révolution de rayon $r$ et de hauteur $h$ est $V = \\dfrac{\\pi r^2 h}{3}$ (sa base est un disque d'aire $\\pi r^2$). Les longueurs doivent être exprimées dans la même unité ; le volume est alors dans l'unité cube correspondante ($1$ dm³ $= 1$ L).",
+      "definitions": {
+        "college": "Volume d'une pyramide ou d'un cône $=$ aire de la base $\\times$ hauteur $\\div 3$. Pour un cône : $V = \\dfrac{\\pi \\times r^2 \\times h}{3}$.",
+        "lycee": "Le volume d'une pyramide est $V = \\dfrac{\\mathcal{B} \\times h}{3}$, où $\\mathcal{B}$ est l'aire de la base et $h$ la hauteur. Le volume d'un cône de révolution de rayon $r$ et de hauteur $h$ est $V = \\dfrac{\\pi r^2 h}{3}$ (sa base est un disque d'aire $\\pi r^2$). Les longueurs doivent être exprimées dans la même unité ; le volume est alors dans l'unité cube correspondante ($1$ dm³ $= 1$ L)."
+      },
+      "intuition": "Il faut exactement trois pyramides (ou trois cônes) remplis d'eau pour remplir le prisme (ou le cylindre) de même base et de même hauteur.",
+      "reglesImportantes": [
+        "$V_{\\text{pyramide}} = \\dfrac{\\mathcal{B} \\times h}{3}$, avec $\\mathcal{B}$ l'aire de la base.",
+        "$V_{\\text{cône}} = \\dfrac{\\pi r^2 h}{3}$ ; on donne d'abord la valeur exacte (avec $\\pi$), puis une valeur approchée.",
+        "On utilise le rayon, pas le diamètre ; et la hauteur, pas une arête latérale ni une génératrice.",
+        "$1$ m³ $= 1\\,000$ dm³ ; $1$ dm³ $= 1\\,000$ cm³ ; $1$ dm³ $= 1$ L ; $1$ cm³ $= 1$ mL.",
+        "Si l'on connaît le volume et l'aire de la base, on retrouve la hauteur : $h = \\dfrac{3V}{\\mathcal{B}}$."
+      ],
+      "formules": [
+        {
+          "id": "formule-volume-pyramide",
+          "nom": "Volume d'une pyramide",
+          "expression": "$V = \\dfrac{\\mathcal{B} \\times h}{3}$",
+          "quand_utiliser": "Pour toute pyramide (base quelconque).",
+          "erreur_frequente": "Oublier de diviser par $3$.",
+          "astuce": "Une pyramide, c'est un tiers de prisme."
+        },
+        {
+          "id": "formule-volume-cone",
+          "nom": "Volume d'un cône",
+          "expression": "$V = \\dfrac{\\pi r^2 h}{3}$",
+          "quand_utiliser": "Pour un cône de révolution.",
+          "erreur_frequente": "Utiliser le diamètre au lieu du rayon.",
+          "astuce": "Divise le diamètre par $2$ avant d'élever au carré."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer le volume d'une pyramide ou d'un cône",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie la base et je calcule son aire $\\mathcal{B}$ (pour un cône : $\\pi r^2$)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je repère la hauteur $h$ (perpendiculaire à la base), dans la même unité."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule $V = \\dfrac{\\mathcal{B} \\times h}{3}$ : valeur exacte, puis approchée si demandé."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'écris l'unité de volume et je convertis si nécessaire (en litres par exemple)."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie la base et je calcule son aire $\\mathcal{B}$ (pour un cône : $\\pi r^2$)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je repère la hauteur $h$ (perpendiculaire à la base), dans la même unité."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule $V = \\dfrac{\\mathcal{B} \\times h}{3}$ : valeur exacte, puis approchée si demandé."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris l'unité de volume et je convertis si nécessaire (en litres par exemple)."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je calcule l'aire de la base."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je la multiplie par la hauteur."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je divise par $3$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris le résultat en cm³ ou m³."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$V = \\mathcal{B} \\times h \\div 3$ ; cône : $\\pi r^2 h \\div 3$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$1$ dm³ $= 1$ L."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-volume-pyramide",
+          "titre": "Exemple 1 — Une pyramide à base carrée",
+          "enonce": "Calculer le volume d'une pyramide de base carrée de côté $6$ cm et de hauteur $5$ cm.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Aire de la base : $6 \\times 6 = 36$ cm²."
+            },
+            {
+              "expr": "V = \\dfrac{36 \\times 5}{3} = 60 \\text{ cm}^3",
+              "texte": "Volume :"
+            }
+          ],
+          "reponse": "$V = 60$ cm³.",
+          "conclusion": "Le prisme de même base et de même hauteur aurait un volume de $180$ cm³.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-volume-cone",
+          "titre": "Exemple 2 — Un cône",
+          "enonce": "Calculer le volume d'un cône de rayon $3$ cm et de hauteur $4$ cm (valeur exacte, puis arrondie au dixième).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Aire de la base : $\\pi \\times 3^2 = 9\\pi$ cm²."
+            },
+            {
+              "expr": "V = \\dfrac{9\\pi \\times 4}{3} = 12\\pi \\approx 37{,}7 \\text{ cm}^3",
+              "texte": "Volume :"
+            }
+          ],
+          "reponse": "$V = 12\\pi \\approx 37{,}7$ cm³.",
+          "conclusion": "C'est le cône de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-pyramide-rectangle",
+          "titre": "Exemple 3 — Base rectangulaire et litres",
+          "enonce": "Un réservoir en forme de pyramide renversée a une base rectangulaire de $1{,}2$ m sur $0{,}8$ m et une hauteur de $1{,}5$ m. Quelle est sa contenance en litres ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Aire de la base : $1{,}2 \\times 0{,}8 = 0{,}96$ m²."
+            },
+            {
+              "expr": "",
+              "texte": "Volume : $\\dfrac{0{,}96 \\times 1{,}5}{3} = 0{,}48$ m³."
+            },
+            {
+              "expr": "",
+              "texte": "$0{,}48$ m³ $= 480$ dm³ $= 480$ L."
+            }
+          ],
+          "reponse": "Le réservoir contient $480$ L.",
+          "conclusion": "$1$ m³ $= 1\\,000$ L.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cone-diametre",
+          "titre": "Exemple 4 — Attention au diamètre",
+          "enonce": "Un cornet de glace conique a un diamètre de $5$ cm et une hauteur de $12$ cm. Calculer son volume en mL (arrondi à l'unité).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Rayon : $5 \\div 2 = 2{,}5$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Volume : $\\dfrac{\\pi \\times 2{,}5^2 \\times 12}{3} = 25\\pi \\approx 78{,}5$ cm³."
+            },
+            {
+              "expr": "",
+              "texte": "$1$ cm³ $= 1$ mL."
+            }
+          ],
+          "reponse": "Environ $79$ mL.",
+          "conclusion": "Avec le diamètre à la place du rayon, on aurait trouvé un volume $4$ fois trop grand.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-hauteur-inconnue",
+          "titre": "Exemple 5 — Retrouver une hauteur",
+          "enonce": "Un tas de sable conique a un volume de $6$ m³ et une base de rayon $1{,}5$ m. Quelle est sa hauteur (au cm) ? Le sable pèse $1{,}6$ tonne par m³ : quelle est la masse du tas ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$6 = \\dfrac{\\pi \\times 1{,}5^2 \\times h}{3}$, donc $h = \\dfrac{18}{2{,}25\\pi} \\approx 2{,}546$ m, soit environ $2{,}55$ m."
+            },
+            {
+              "expr": "",
+              "texte": "Masse : $6 \\times 1{,}6 = 9{,}6$ tonnes."
+            }
+          ],
+          "reponse": "Hauteur $\\approx 2{,}55$ m ; masse $9{,}6$ tonnes.",
+          "conclusion": "On isole $h$ comme dans une équation : $h = \\dfrac{3V}{\\pi r^2}$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "La contenance d'un entonnoir ou d'un cornet.",
+        "Le volume d'un tas de sable ou de sel.",
+        "Le volume d'air sous un toit en pyramide."
+      ],
+      "erreursFrequentes": [
+        "Oublier de diviser par $3$.",
+        "Utiliser le diamètre au lieu du rayon.",
+        "Prendre une arête latérale ou une génératrice comme hauteur.",
+        "Mal convertir les unités de volume."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de diviser par $3$.",
+          "pourquoi": "On applique la formule du prisme.",
+          "comment_detecter": "Ton volume est-il celui d'un prisme ?",
+          "comment_eviter": "Pyramide et cône : division par $3$."
+        },
+        {
+          "description": "Utiliser le diamètre au lieu du rayon.",
+          "pourquoi": "L'énoncé donne le diamètre.",
+          "comment_detecter": "As-tu divisé par $2$ ?",
+          "comment_eviter": "$r = \\dfrac{d}{2}$, puis $r^2$."
+        },
+        {
+          "description": "Prendre une arête latérale ou une génératrice comme hauteur.",
+          "pourquoi": "On confond les segments issus du sommet.",
+          "comment_detecter": "Ton segment est-il perpendiculaire à la base ?",
+          "comment_eviter": "La hauteur est perpendiculaire à la base."
+        },
+        {
+          "description": "Mal convertir les unités de volume.",
+          "pourquoi": "On convertit comme des longueurs (× $10$).",
+          "comment_detecter": "$1$ m³ vaut-il $10$ ou $1\\,000$ dm³ ?",
+          "comment_eviter": "Volumes : on multiplie par $1\\,000$ à chaque changement d'unité."
+        }
+      ],
+      "astuce": "Pour ne pas oublier le « $\\div 3$ », souviens-toi qu'il faut trois cornets de glace pleins pour remplir un pot cylindrique de même base et de même hauteur.",
+      "aRetenir": [
+        "$V_{\\text{pyramide}} = \\dfrac{\\mathcal{B} \\times h}{3}$.",
+        "$V_{\\text{cône}} = \\dfrac{\\pi r^2 h}{3}$.",
+        "$1$ dm³ $= 1$ L ; $1$ m³ $= 1\\,000$ L."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -4.6,
+          -2.4,
+          9.6,
+          7.8
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 4.0,
+            "label": "S"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "O"
+          },
+          {
+            "x": 3.0,
+            "y": 0.0,
+            "label": "A"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 3.0,
+                "y": 0.0
+              },
+              {
+                "x": 2.974,
+                "y": 0.137
+              },
+              {
+                "x": 2.898,
+                "y": 0.272
+              },
+              {
+                "x": 2.772,
+                "y": 0.402
+              },
+              {
+                "x": 2.598,
+                "y": 0.525
+              },
+              {
+                "x": 2.38,
+                "y": 0.639
+              },
+              {
+                "x": 2.121,
+                "y": 0.742
+              },
+              {
+                "x": 1.826,
+                "y": 0.833
+              },
+              {
+                "x": 1.5,
+                "y": 0.909
+              },
+              {
+                "x": 1.148,
+                "y": 0.97
+              },
+              {
+                "x": 0.776,
+                "y": 1.014
+              },
+              {
+                "x": 0.392,
+                "y": 1.041
+              },
+              {
+                "x": 0.0,
+                "y": 1.05
+              },
+              {
+                "x": -0.392,
+                "y": 1.041
+              },
+              {
+                "x": -0.776,
+                "y": 1.014
+              },
+              {
+                "x": -1.148,
+                "y": 0.97
+              },
+              {
+                "x": -1.5,
+                "y": 0.909
+              },
+              {
+                "x": -1.826,
+                "y": 0.833
+              },
+              {
+                "x": -2.121,
+                "y": 0.742
+              },
+              {
+                "x": -2.38,
+                "y": 0.639
+              },
+              {
+                "x": -2.598,
+                "y": 0.525
+              },
+              {
+                "x": -2.772,
+                "y": 0.402
+              },
+              {
+                "x": -2.898,
+                "y": 0.272
+              },
+              {
+                "x": -2.974,
+                "y": 0.137
+              },
+              {
+                "x": -3.0,
+                "y": 0.0
+              },
+              {
+                "x": -2.974,
+                "y": -0.137
+              },
+              {
+                "x": -2.898,
+                "y": -0.272
+              },
+              {
+                "x": -2.772,
+                "y": -0.402
+              },
+              {
+                "x": -2.598,
+                "y": -0.525
+              },
+              {
+                "x": -2.38,
+                "y": -0.639
+              },
+              {
+                "x": -2.121,
+                "y": -0.742
+              },
+              {
+                "x": -1.826,
+                "y": -0.833
+              },
+              {
+                "x": -1.5,
+                "y": -0.909
+              },
+              {
+                "x": -1.148,
+                "y": -0.97
+              },
+              {
+                "x": -0.776,
+                "y": -1.014
+              },
+              {
+                "x": -0.392,
+                "y": -1.041
+              },
+              {
+                "x": -0.0,
+                "y": -1.05
+              },
+              {
+                "x": 0.392,
+                "y": -1.041
+              },
+              {
+                "x": 0.776,
+                "y": -1.014
+              },
+              {
+                "x": 1.148,
+                "y": -0.97
+              },
+              {
+                "x": 1.5,
+                "y": -0.909
+              },
+              {
+                "x": 1.826,
+                "y": -0.833
+              },
+              {
+                "x": 2.121,
+                "y": -0.742
+              },
+              {
+                "x": 2.38,
+                "y": -0.639
+              },
+              {
+                "x": 2.598,
+                "y": -0.525
+              },
+              {
+                "x": 2.772,
+                "y": -0.402
+              },
+              {
+                "x": 2.898,
+                "y": -0.272
+              },
+              {
+                "x": 2.974,
+                "y": -0.137
+              }
+            ],
+            "variant": "a",
+            "tooltip": "base : disque de rayon 3"
+          }
+        ],
+        "segments": [
+          {
+            "from": "S",
+            "to": {
+              "x": -3.0,
+              "y": 0.0
+            }
+          },
+          {
+            "from": "S",
+            "to": "A"
+          },
+          {
+            "from": "S",
+            "to": "O",
+            "reveal": 2,
+            "tooltip": "hauteur SO = 4",
+            "dashed": true
+          },
+          {
+            "from": "O",
+            "to": "A",
+            "reveal": 2,
+            "tooltip": "rayon OA = 3"
+          }
+        ],
+        "texts": [
+          {
+            "x": 0.5,
+            "y": 2.0,
+            "label": "h = 4",
+            "reveal": 2
+          },
+          {
+            "x": 1.5,
+            "y": -0.5,
+            "label": "r = 3",
+            "reveal": 2
+          },
+          {
+            "x": 0.0,
+            "y": -1.7,
+            "label": "V = π × 3² × 4 ÷ 3 = 12π",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Le cône de révolution",
+          "Rayon et hauteur",
+          "Le volume"
+        ],
+        "relation": "$V = \\dfrac{\\pi r^2 h}{3} = \\dfrac{\\pi \\times 3^2 \\times 4}{3} = 12\\pi \\approx 37{,}7$ cm³",
+        "alt": "Cône de révolution de sommet S, de base un disque de centre O et de rayon OA = 3 (dessiné comme une ellipse), de hauteur SO = 4. Son volume vaut 12π cm³, soit environ 37,7 cm³.",
+        "explication": {
+          "resume": "Le volume d'une pyramide ou d'un cône est le tiers du produit de l'aire de la base par la hauteur. Pour un cône, la base est un disque d'aire $\\pi r^2$.",
+          "lecture": [
+            "La base circulaire est dessinée comme une ellipse (perspective).",
+            "$[SO]$ est la hauteur, $[OA]$ un rayon de la base."
+          ],
+          "observations": [
+            "Aire de la base : $\\pi \\times 3^2 = 9\\pi$ cm².",
+            "Volume : $\\dfrac{9\\pi \\times 4}{3} = 12\\pi \\approx 37{,}7$ cm³.",
+            "Un cylindre de même base et de même hauteur aurait un volume $3$ fois plus grand : $36\\pi$ cm³."
+          ],
+          "pieges": [
+            "Oublier de diviser par $3$, ou utiliser le diamètre au lieu du rayon."
+          ],
+          "aRetenir": [
+            "$V_{\\text{pyramide}} = \\dfrac{\\mathcal{B} \\times h}{3}$ ; $V_{\\text{cône}} = \\dfrac{\\pi r^2 h}{3}$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        53301,
+        53302,
+        53304
+      ],
+      "topic_id": "espace-volumes",
+      "proprietes": [
+        "Le volume d'une pyramide (ou d'un cône) est le tiers du volume du prisme (ou du cylindre) de même base et de même hauteur."
+      ],
+      "vocabulaire_associe": [
+        "volume",
+        "aire de la base",
+        "hauteur",
+        "rayon",
+        "cm³",
+        "litre",
+        "contenance"
+      ],
+      "synonymes": [
+        "volume d'une pyramide",
+        "volume d'un cône",
+        "formule du volume"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer le volume d'une pyramide.",
+        "Calculer le volume d'un cône (valeur exacte et approchée).",
+        "Convertir des unités de volume et de contenance.",
+        "Retrouver une hauteur à partir du volume."
+      ],
+      "prerequis": [
+        "Pyramides et cônes : perspective et patrons",
+        "Aires usuelles",
+        "Conversions d'unités"
+      ],
+      "notions_liees": [
+        "espace-pyramide-cone",
+        "espace-agrandissement-volumes"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie dans l'espace",
+        "volume",
+        "pyramide",
+        "cône"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "espace-volumes-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Réservoir et cornet de glace",
+          "description": "Deux exemples rédigés : la contenance en litres d'un réservoir pyramidal, et le volume d'un cornet dont on connaît le diamètre."
+        },
+        {
+          "id": "espace-volumes-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Un tas de sable",
+          "description": "Un exemple qui retrouve la hauteur d'un cône à partir de son volume, puis calcule une masse."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel serait le volume du cylindre de même base et de même hauteur ?",
+          "piste": "$36\\pi$ cm³."
+        },
+        {
+          "apres": "methode",
+          "question": "Volume d'une pyramide de base $20$ cm² et de hauteur $9$ cm ?",
+          "piste": "$60$ cm³."
+        }
+      ],
+      "demonstration": {
+        "titre": "Pourquoi le facteur $\\dfrac{1}{3}$ : trois pyramides dans un cube",
+        "etapes": [
+          {
+            "titre": "Le cube",
+            "texte": "On considère un cube $ABCDEFGH$ d'arête $a$ ; le sommet $G$ est opposé au sommet $A$."
+          },
+          {
+            "titre": "Trois pyramides",
+            "texte": "Les trois pyramides de sommet $G$ ayant pour bases les faces $ABCD$, $ABFE$ et $ADHE$ (les trois faces qui contiennent $A$) remplissent exactement le cube, sans se chevaucher."
+          },
+          {
+            "titre": "Même volume",
+            "texte": "Ces trois pyramides sont superposables : chacune a une base d'aire $a^2$ et une hauteur $a$. Elles ont donc le même volume, égal au tiers de $a^3$."
+          }
+        ],
+        "conclusion": "Le volume de chaque pyramide est $\\dfrac{a^2 \\times a}{3} = \\dfrac{\\mathcal{B} \\times h}{3}$ : on retrouve le facteur $\\dfrac{1}{3}$."
+      }
+    },
+    {
+      "id": "espace-agrandissement-volumes",
+      "title": "Agrandissement et réduction : longueurs, aires, volumes",
+      "schemaVersion": 2,
+      "intro": "Lorsqu'on agrandit ou réduit un solide avec un rapport $k$, les longueurs sont multipliées par $k$, les aires par $k^2$ et les volumes par $k^3$. Cette règle permet de passer d'une maquette à un objet réel.",
+      "pourquoi": "Maquettes d'architecte, figurines, jouets, emballages de tailles différentes : savoir comment évoluent aires et volumes évite de grosses erreurs (peinture, matière, contenance, prix).",
+      "explicationSimple": "Un cube de $1$ cm d'arête agrandi de rapport $3$ devient un cube de $3$ cm d'arête : sa surface est multipliée par $9$, son volume par $27$.",
+      "objectif": "À la fin de cette leçon, tu sauras utiliser un rapport d'agrandissement ou de réduction pour calculer des longueurs, des aires et des volumes, et retrouver ce rapport à partir de deux grandeurs.",
+      "definition": "Un agrandissement ou une réduction de rapport $k$ ($k > 0$) d'un solide multiplie toutes les longueurs par $k$, toutes les aires par $k^2$ et tous les volumes par $k^3$. Les angles sont conservés. Si $k > 1$, c'est un agrandissement ; si $0 < k < 1$, une réduction.",
+      "definitions": {
+        "college": "Rapport $k$ : longueurs $\\times k$, aires $\\times k \\times k$, volumes $\\times k \\times k \\times k$.",
+        "lycee": "Un agrandissement ou une réduction de rapport $k$ ($k > 0$) d'un solide multiplie toutes les longueurs par $k$, toutes les aires par $k^2$ et tous les volumes par $k^3$. Les angles sont conservés. Si $k > 1$, c'est un agrandissement ; si $0 < k < 1$, une réduction."
+      },
+      "intuition": "Un volume se mesure avec de petits cubes : agrandir de rapport $2$ transforme chaque petit cube en un cube de côté double, qui contient $2 \\times 2 \\times 2 = 8$ petits cubes.",
+      "reglesImportantes": [
+        "Longueurs (arêtes, hauteurs, périmètres) : $\\times k$.",
+        "Aires (faces, surface totale) : $\\times k^2$.",
+        "Volumes (et contenances) : $\\times k^3$.",
+        "Pour retrouver $k$ : on divise deux longueurs correspondantes ; à partir de volumes, on cherche le nombre dont le cube vaut le rapport des volumes.",
+        "Une maquette à l'échelle $\\dfrac{1}{n}$ est une réduction de rapport $k = \\dfrac{1}{n}$."
+      ],
+      "formules": [
+        {
+          "id": "formule-volume-k3",
+          "nom": "Effet sur les volumes",
+          "expression": "$V' = k^3 \\times V$",
+          "quand_utiliser": "Pour calculer le volume d'un solide agrandi ou réduit.",
+          "erreur_frequente": "Multiplier par $k$ ou par $k^2$.",
+          "astuce": "Volume : trois dimensions, donc trois facteurs $k$."
+        },
+        {
+          "id": "formule-trois-effets",
+          "nom": "Les trois effets",
+          "expression": "longueurs $\\times k$ ; aires $\\times k^2$ ; volumes $\\times k^3$",
+          "quand_utiliser": "Pour toute question d'agrandissement-réduction dans l'espace.",
+          "erreur_frequente": "Appliquer le même facteur à toutes les grandeurs.",
+          "astuce": "Regarde l'unité : cm, cm² ou cm³."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Agrandissement et réduction dans l'espace",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je détermine le rapport $k$ (longueur obtenue ÷ longueur de départ, ou échelle)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je repère la nature de la grandeur cherchée : longueur, aire ou volume (grâce à son unité)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je multiplie par $k$, $k^2$ ou $k^3$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle : agrandissement, résultat plus grand ; réduction, plus petit ; et je convertis si nécessaire."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je détermine le rapport $k$ (longueur obtenue ÷ longueur de départ, ou échelle)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je repère la nature de la grandeur cherchée : longueur, aire ou volume (grâce à son unité)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je multiplie par $k$, $k^2$ ou $k^3$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle : agrandissement, résultat plus grand ; réduction, plus petit ; et je convertis si nécessaire."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je trouve par combien on a multiplié une longueur : c'est $k$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Une longueur ? je multiplie par $k$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Une aire ? par $k$ deux fois. Un volume ? par $k$ trois fois."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris l'unité."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "cm : $\\times k$ ; cm² : $\\times k^2$ ; cm³ : $\\times k^3$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Maquette au $\\dfrac{1}{n}$ : $k = \\dfrac{1}{n}$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-cube-agrandi",
+          "titre": "Exemple 1 — Un cube agrandi",
+          "enonce": "Un cube a une arête de $2$ cm. On l'agrandit avec le rapport $3$. Calculer l'arête, l'aire d'une face et le volume du nouveau cube, et comparer avec ceux du cube de départ.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Arête : $2 \\times 3 = 6$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Face : $4$ cm² devient $36$ cm² ($\\times 9 = 3^2$)."
+            },
+            {
+              "expr": "",
+              "texte": "Volume : $8$ cm³ devient $216$ cm³ ($\\times 27 = 3^3$)."
+            }
+          ],
+          "reponse": "Arête $6$ cm, face $36$ cm², volume $216$ cm³ : $\\times 3$, $\\times 9$ et $\\times 27$.",
+          "conclusion": "On peut vérifier directement : $6^3 = 216$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-maquette",
+          "titre": "Exemple 2 — Une maquette",
+          "enonce": "La maquette d'une tour, à l'échelle $\\dfrac{1}{200}$, a une hauteur de $45$ cm et un volume de $1\\,500$ cm³. Quelles sont la hauteur et le volume réels ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Agrandissement de rapport $200$."
+            },
+            {
+              "expr": "",
+              "texte": "Hauteur : $45 \\times 200 = 9\\,000$ cm $= 90$ m."
+            },
+            {
+              "expr": "",
+              "texte": "Volume : $1\\,500 \\times 200^3 = 1\\,500 \\times 8\\,000\\,000 = 12\\,000\\,000\\,000$ cm³ $= 12\\,000$ m³."
+            }
+          ],
+          "reponse": "Hauteur réelle $90$ m ; volume réel $12\\,000$ m³.",
+          "conclusion": "$1$ m³ $= 1\\,000\\,000$ cm³.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-cone-reduit",
+          "titre": "Exemple 3 — Un cône réduit",
+          "enonce": "Un cône a un volume de $540$ cm³. On le coupe par un plan parallèle à sa base, au tiers de sa hauteur en partant du sommet : le petit cône obtenu est une réduction du grand de rapport $\\dfrac{1}{3}$. Quel est son volume ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Rapport $k = \\dfrac{1}{3}$ ; volumes $\\times \\left(\\dfrac{1}{3}\\right)^3 = \\dfrac{1}{27}$."
+            },
+            {
+              "expr": "",
+              "texte": "$540 \\times \\dfrac{1}{27} = 20$ cm³."
+            }
+          ],
+          "reponse": "Le petit cône a un volume de $20$ cm³.",
+          "conclusion": "Le petit cône n'occupe que $\\dfrac{1}{27}$ du volume, bien qu'il ait le tiers de la hauteur.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-retrouver-k-volume",
+          "titre": "Exemple 4 — Retrouver le rapport",
+          "enonce": "Deux bouteilles de même forme ont des contenances de $250$ mL et $2$ L. Quel est le rapport d'agrandissement ? Si la petite mesure $16$ cm de haut, combien mesure la grande ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Rapport des volumes : $\\dfrac{2\\,000}{250} = 8 = k^3$, donc $k = 2$."
+            },
+            {
+              "expr": "",
+              "texte": "Hauteur de la grande : $16 \\times 2 = 32$ cm."
+            }
+          ],
+          "reponse": "$k = 2$ ; la grande bouteille mesure $32$ cm.",
+          "conclusion": "Une contenance $8$ fois plus grande ne demande qu'une taille $2$ fois plus grande.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-peinture-maquette",
+          "titre": "Exemple 5 — Peinture et matière",
+          "enonce": "Pour peindre une statuette, il faut $12$ mL de peinture, et elle contient $150$ cm³ de résine. On fabrique une statue de même forme, $5$ fois plus haute. Quelle quantité de peinture et quel volume de résine faut-il ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "La peinture recouvre une surface : $\\times k^2 = 25$, soit $12 \\times 25 = 300$ mL."
+            },
+            {
+              "expr": "",
+              "texte": "La résine remplit un volume : $\\times k^3 = 125$, soit $150 \\times 125 = 18\\,750$ cm³."
+            }
+          ],
+          "reponse": "$300$ mL de peinture et $18\\,750$ cm³ (soit $18{,}75$ L) de résine.",
+          "conclusion": "La peinture dépend d'une aire ($k^2$), la matière d'un volume ($k^3$).",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Passer d'une maquette à un bâtiment réel.",
+        "Comparer les contenances de bouteilles de même forme.",
+        "Estimer la peinture et la matière d'une statue agrandie."
+      ],
+      "erreursFrequentes": [
+        "Multiplier un volume par $k$.",
+        "Multiplier une aire par $k^3$.",
+        "Se tromper de sens pour $k$ (maquette).",
+        "Oublier de convertir des cm³ en m³ ou en L."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Multiplier un volume par $k$.",
+          "pourquoi": "On applique la règle des longueurs.",
+          "comment_detecter": "Double l'arête d'un cube : son volume double-t-il vraiment ?",
+          "comment_eviter": "Volumes : $\\times k^3$."
+        },
+        {
+          "description": "Multiplier une aire par $k^3$.",
+          "pourquoi": "On confond aire et volume.",
+          "comment_detecter": "Quelle est l'unité : cm² ou cm³ ?",
+          "comment_eviter": "Aires : $\\times k^2$."
+        },
+        {
+          "description": "Se tromper de sens pour $k$ (maquette).",
+          "pourquoi": "On calcule $k = 200$ pour passer du réel à la maquette.",
+          "comment_detecter": "Le résultat doit-il être plus grand ou plus petit ?",
+          "comment_eviter": "De la maquette au réel : $\\times 200$ ; du réel à la maquette : $\\div 200$."
+        },
+        {
+          "description": "Oublier de convertir des cm³ en m³ ou en L.",
+          "pourquoi": "On garde de très grands nombres sans unité adaptée.",
+          "comment_detecter": "$1$ m³ $= 1\\,000\\,000$ cm³.",
+          "comment_eviter": "Choisis une unité adaptée à la fin."
+        }
+      ],
+      "astuce": "Pense aux unités : cm (puissance $1$) → $k$ ; cm² (puissance $2$) → $k^2$ ; cm³ (puissance $3$) → $k^3$. L'exposant de l'unité est celui de $k$.",
+      "aRetenir": [
+        "Longueurs $\\times k$ ; aires $\\times k^2$ ; volumes $\\times k^3$.",
+        "Maquette à l'échelle $\\dfrac{1}{n}$ : $k = \\dfrac{1}{n}$.",
+        "Rapport à partir des volumes : $k^3 = \\dfrac{V'}{V}$."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "Longueurs × k",
+            "sousTitre": "k = 2 : × 2"
+          },
+          {
+            "titre": "Aires × k²",
+            "sousTitre": "k = 2 : × 4"
+          },
+          {
+            "titre": "Volumes × k³",
+            "sousTitre": "k = 2 : × 8"
+          }
+        ],
+        "steps": [
+          "Les longueurs",
+          "Les aires",
+          "Les volumes"
+        ],
+        "relation": "Dans un agrandissement ou une réduction de rapport $k$ : longueurs $\\times k$, aires $\\times k^2$, volumes $\\times k^3$",
+        "alt": "Schéma : dans un agrandissement de rapport k, les longueurs sont multipliées par k, les aires par k² et les volumes par k³ ; pour k = 2 : × 2, × 4, × 8.",
+        "explication": {
+          "resume": "Une longueur, une aire et un volume ne réagissent pas de la même façon à un agrandissement : on multiplie par $k$ une fois, deux fois ou trois fois.",
+          "lecture": [
+            "On lit de gauche à droite : longueurs, aires, volumes."
+          ],
+          "observations": [
+            "Un cube de $1$ cm d'arête agrandi de rapport $2$ devient un cube de $2$ cm d'arête.",
+            "Sa face passe de $1$ cm² à $4$ cm² ; son volume de $1$ cm³ à $8$ cm³.",
+            "Il faut $8$ petits cubes pour remplir le grand."
+          ],
+          "pieges": [
+            "Multiplier un volume par $k$ ou $k^2$ au lieu de $k^3$."
+          ],
+          "aRetenir": [
+            "Longueurs $\\times k$, aires $\\times k^2$, volumes $\\times k^3$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        53401,
+        53402,
+        53404
+      ],
+      "topic_id": "espace-agrandissement-volumes",
+      "proprietes": [
+        "Dans un agrandissement ou une réduction de rapport $k$, les volumes sont multipliés par $k^3$."
+      ],
+      "vocabulaire_associe": [
+        "agrandissement",
+        "réduction",
+        "rapport",
+        "échelle",
+        "maquette",
+        "volume",
+        "aire"
+      ],
+      "synonymes": [
+        "k au cube",
+        "volume et agrandissement",
+        "maquette et échelle"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer une longueur, une aire, un volume après agrandissement ou réduction.",
+        "Utiliser une échelle de maquette.",
+        "Retrouver le rapport à partir de volumes.",
+        "Distinguer aire et volume dans un problème."
+      ],
+      "prerequis": [
+        "Volume d'une pyramide et d'un cône",
+        "Agrandissement et réduction",
+        "Puissances"
+      ],
+      "notions_liees": [
+        "espace-volumes",
+        "agrandissement-reduction"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie dans l'espace",
+        "agrandissement",
+        "réduction",
+        "volume"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "espace-agrandissement-volumes-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Cône réduit et bouteilles",
+          "description": "Deux exemples rédigés : le volume d'un petit cône obtenu par réduction, et le rapport entre deux bouteilles de même forme."
+        },
+        {
+          "id": "espace-agrandissement-volumes-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Peinture et matière d'une statue",
+          "description": "Un exemple qui distingue ce qui dépend d'une aire ($k^2$) et ce qui dépend d'un volume ($k^3$)."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pour $k = 3$, par combien est multiplié un volume ?",
+          "piste": "Par $27$."
+        },
+        {
+          "apres": "methode",
+          "question": "Un solide réduit au rapport $\\dfrac{1}{2}$ : que devient un volume de $80$ cm³ ?",
+          "piste": "$10$ cm³."
+        }
+      ]
+    }
+  ]
+}

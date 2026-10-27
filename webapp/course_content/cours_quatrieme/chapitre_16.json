@@ -1,0 +1,1171 @@
+{
+  "chapterId": "Chapitre_16",
+  "title": "Statistiques",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "stats-diagramme-circulaire",
+      "title": "Diagrammes circulaires",
+      "schemaVersion": 2,
+      "intro": "Un diagramme circulaire (ou « camembert ») représente la répartition d'un effectif total entre plusieurs catégories. Cette leçon apprend à le lire et à le construire en calculant les angles.",
+      "pourquoi": "Les diagrammes circulaires sont utilisés dans les médias, les rapports et les sondages pour montrer d'un coup d'œil des parts : résultats d'élections, budget, répartition d'une population.",
+      "explicationSimple": "Dans un club de $36$ adhérents, $9$ ont $14$ ans : ils représentent $\\dfrac{9}{36} = \\dfrac{1}{4}$ du club, donc un quart du disque, soit $90°$.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer les angles d'un diagramme circulaire à partir des effectifs ou des fréquences, construire le diagramme, et retrouver des effectifs ou des pourcentages à partir des angles.",
+      "definition": "Dans un diagramme circulaire, le disque représente l'effectif total et chaque catégorie est représentée par un secteur dont l'angle est proportionnel à son effectif : angle $= \\dfrac{\\text{effectif}}{\\text{effectif total}} \\times 360°$, ou encore angle $= \\text{fréquence} \\times 360°$. La fréquence d'une catégorie est le quotient de son effectif par l'effectif total ; on l'exprime souvent en pourcentage.",
+      "definitions": {
+        "college": "Chaque part du disque représente une catégorie ; son angle est proportionnel à l'effectif : angle $=$ effectif $\\div$ total $\\times 360°$.",
+        "lycee": "Dans un diagramme circulaire, le disque représente l'effectif total et chaque catégorie est représentée par un secteur dont l'angle est proportionnel à son effectif : angle $= \\dfrac{\\text{effectif}}{\\text{effectif total}} \\times 360°$, ou encore angle $= \\text{fréquence} \\times 360°$. La fréquence d'une catégorie est le quotient de son effectif par l'effectif total ; on l'exprime souvent en pourcentage."
+      },
+      "intuition": "Le disque est un « gâteau » partagé entre les catégories : plus une catégorie est nombreuse, plus sa part est grande. Le gâteau entier fait $360°$.",
+      "reglesImportantes": [
+        "Les angles sont proportionnels aux effectifs : on calcule $\\dfrac{360}{\\text{effectif total}}$, l'angle correspondant à un individu, puis on multiplie.",
+        "Avec des fréquences en pourcentage : angle $= \\dfrac{\\text{pourcentage}}{100} \\times 360°$ ; $10\\,\\%$ correspond à $36°$.",
+        "La somme des angles est $360°$ ; on le vérifie après les calculs.",
+        "Pour lire un diagramme, on retrouve l'effectif d'une catégorie : effectif $= \\dfrac{\\text{angle}}{360} \\times \\text{effectif total}$.",
+        "Un demi-disque ($180°$) correspond à la moitié de l'effectif ; un quart de disque ($90°$) au quart."
+      ],
+      "formules": [
+        {
+          "id": "formule-angle-secteur",
+          "nom": "Angle d'un secteur",
+          "expression": "angle $= \\dfrac{\\text{effectif}}{\\text{effectif total}} \\times 360°$",
+          "quand_utiliser": "Pour construire un diagramme circulaire.",
+          "erreur_frequente": "Oublier de multiplier par $360$.",
+          "astuce": "Vérifie que la somme des angles vaut $360°$."
+        },
+        {
+          "id": "formule-frequence",
+          "nom": "Fréquence",
+          "expression": "fréquence $= \\dfrac{\\text{effectif}}{\\text{effectif total}}$",
+          "quand_utiliser": "Pour comparer des parts, ou pour passer aux pourcentages.",
+          "erreur_frequente": "Diviser l'effectif total par l'effectif.",
+          "astuce": "Une fréquence est comprise entre $0$ et $1$ (entre $0\\,\\%$ et $100\\,\\%$)."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Construire un diagramme circulaire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je calcule l'effectif total."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Pour chaque catégorie, je calcule l'angle : effectif $\\div$ total $\\times 360°$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je vérifie que la somme des angles est $360°$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je trace les secteurs au rapporteur, l'un après l'autre, et j'ajoute une légende."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je calcule l'effectif total."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Pour chaque catégorie, je calcule l'angle : effectif $\\div$ total $\\times 360°$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je vérifie que la somme des angles est $360°$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je trace les secteurs au rapporteur, l'un après l'autre, et j'ajoute une légende."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'additionne tous les effectifs."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule combien de degrés vaut une personne : $360 \\div$ total."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je multiplie par l'effectif de chaque catégorie."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je trace au rapporteur et je colorie avec une légende."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Angle $=$ effectif $\\times \\dfrac{360}{\\text{total}}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Somme : $360°$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-angles-club",
+          "titre": "Exemple 1 — Le club d'échecs",
+          "enonce": "Les adhérents d'un club d'échecs ont $11$ ans ($5$ adhérents), $13$ ans ($20$), $14$ ans ($9$) et $15$ ans ($2$). Calculer les angles du diagramme circulaire.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Effectif total : $5 + 20 + 9 + 2 = 36$ ; un adhérent correspond à $\\dfrac{360}{36} = 10°$."
+            },
+            {
+              "expr": "",
+              "texte": "Angles : $50°$, $200°$, $90°$ et $20°$."
+            },
+            {
+              "expr": "",
+              "texte": "Vérification : $50 + 200 + 90 + 20 = 360$."
+            }
+          ],
+          "reponse": "$11$ ans : $50°$ ; $13$ ans : $200°$ ; $14$ ans : $90°$ ; $15$ ans : $20°$.",
+          "conclusion": "C'est l'exemple officiel des attendus de 4e, représenté dans la figure.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-lire-diagramme",
+          "titre": "Exemple 2 — Lire un diagramme",
+          "enonce": "Dans un diagramme circulaire représentant les $240$ élèves d'un collège selon leur moyen de transport, le secteur « vélo » mesure $45°$. Combien d'élèves viennent à vélo ? Quel pourcentage cela représente-t-il ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{45}{360} = \\dfrac{1}{8}$ : le vélo représente un huitième des élèves."
+            },
+            {
+              "expr": "",
+              "texte": "Effectif : $\\dfrac{240}{8} = 30$ élèves ; pourcentage : $\\dfrac{1}{8} = 12{,}5\\,\\%$."
+            }
+          ],
+          "reponse": "$30$ élèves, soit $12{,}5\\,\\%$.",
+          "conclusion": "On utilise la proportionnalité entre angles et effectifs.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-pourcentages-angles",
+          "titre": "Exemple 3 — Avec des pourcentages",
+          "enonce": "Un sondage donne : $45\\,\\%$ pour A, $30\\,\\%$ pour B, $15\\,\\%$ pour C et le reste sans avis. Calculer les angles du diagramme circulaire.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Sans avis : $100 - 90 = 10\\,\\%$."
+            },
+            {
+              "expr": "",
+              "texte": "$1\\,\\%$ correspond à $3{,}6°$ : A $162°$, B $108°$, C $54°$, sans avis $36°$."
+            }
+          ],
+          "reponse": "A : $162°$ ; B : $108°$ ; C : $54°$ ; sans avis : $36°$.",
+          "conclusion": "Somme : $162 + 108 + 54 + 36 = 360°$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-effectif-total-inconnu",
+          "titre": "Exemple 4 — Retrouver l'effectif total",
+          "enonce": "Dans un diagramme circulaire, le secteur des élèves qui pratiquent la natation mesure $72°$ et représente $18$ élèves. Combien d'élèves ont été interrogés ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$72°$ représente $\\dfrac{72}{360} = \\dfrac{1}{5}$ de l'effectif total."
+            },
+            {
+              "expr": "",
+              "texte": "Effectif total : $18 \\times 5 = 90$ élèves."
+            }
+          ],
+          "reponse": "$90$ élèves ont été interrogés.",
+          "conclusion": "Un angle de $72°$, c'est un cinquième du disque.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-diagramme-trompeur",
+          "titre": "Exemple 5 — Un diagramme trompeur",
+          "enonce": "Un journal publie un diagramme circulaire avec les parts « $40\\,\\%$ », « $35\\,\\%$ » et « $30\\,\\%$ ». Que peut-on en penser ? Si les vraies valeurs sont $8$, $7$ et $5$ personnes, quels sont les angles corrects ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$40 + 35 + 30 = 105\\,\\%$ : c'est impossible, la somme doit valoir $100\\,\\%$."
+            },
+            {
+              "expr": "",
+              "texte": "Avec $8$, $7$ et $5$ personnes (total $20$) : un individu vaut $18°$, donc $144°$, $126°$ et $90°$."
+            }
+          ],
+          "reponse": "Le diagramme est faux (total $105\\,\\%$) ; angles corrects : $144°$, $126°$ et $90°$ (soit $40\\,\\%$, $35\\,\\%$ et $25\\,\\%$).",
+          "conclusion": "Contrôler la somme des parts permet de repérer un graphique erroné.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Les résultats d'une élection.",
+        "La répartition d'un budget familial.",
+        "Les moyens de transport des élèves d'un collège."
+      ],
+      "erreursFrequentes": [
+        "Prendre l'effectif comme angle.",
+        "Se tromper d'effectif total.",
+        "Confondre fréquence et effectif.",
+        "Mesurer les angles à l'œil."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Prendre l'effectif comme angle.",
+          "pourquoi": "On trace $5°$ pour $5$ personnes.",
+          "comment_detecter": "La somme de tes angles vaut-elle $360°$ ?",
+          "comment_eviter": "Multiplie chaque effectif par $\\dfrac{360}{\\text{total}}$."
+        },
+        {
+          "description": "Se tromper d'effectif total.",
+          "pourquoi": "On oublie une catégorie dans l'addition.",
+          "comment_detecter": "As-tu additionné tous les effectifs ?",
+          "comment_eviter": "Calcule et écris l'effectif total avant tout."
+        },
+        {
+          "description": "Confondre fréquence et effectif.",
+          "pourquoi": "On écrit la fréquence $9$ au lieu de $\\dfrac{9}{36}$.",
+          "comment_detecter": "Ta fréquence est-elle entre $0$ et $1$ ?",
+          "comment_eviter": "Fréquence $=$ effectif $\\div$ total."
+        },
+        {
+          "description": "Mesurer les angles à l'œil.",
+          "pourquoi": "On découpe le disque approximativement.",
+          "comment_detecter": "As-tu utilisé un rapporteur ?",
+          "comment_eviter": "Trace chaque secteur au rapporteur à partir du précédent."
+        }
+      ],
+      "astuce": "Retiens quelques repères : $180°$ = la moitié, $90°$ = le quart, $36°$ = $10\\,\\%$, $3{,}6°$ = $1\\,\\%$.",
+      "aRetenir": [
+        "Angle $= \\dfrac{\\text{effectif}}{\\text{total}} \\times 360°$.",
+        "Angle $=$ pourcentage $\\times 3{,}6°$.",
+        "La somme des angles vaut $360°$."
+      ],
+      "figure": {
+        "kind": "pie",
+        "slices": [
+          {
+            "label": "11 ans : 50°",
+            "value": 5
+          },
+          {
+            "label": "13 ans : 200°",
+            "value": 20
+          },
+          {
+            "label": "14 ans : 90°",
+            "value": 9
+          },
+          {
+            "label": "15 ans : 20°",
+            "value": 2
+          }
+        ],
+        "steps": [
+          "Le tableau des effectifs",
+          "Les angles proportionnels aux effectifs",
+          "Le diagramme circulaire"
+        ],
+        "relation": "Angle $= \\dfrac{\\text{effectif}}{\\text{effectif total}} \\times 360°$ : $\\dfrac{5}{36} \\times 360 = 50°$, $\\dfrac{20}{36} \\times 360 = 200°$, $\\dfrac{9}{36} \\times 360 = 90°$, $\\dfrac{2}{36} \\times 360 = 20°$",
+        "alt": "Diagramme circulaire des âges des 36 adhérents d'un club d'échecs : 11 ans (5 adhérents, 50°), 13 ans (20 adhérents, 200°), 14 ans (9 adhérents, 90°), 15 ans (2 adhérents, 20°).",
+        "explication": {
+          "resume": "Dans un diagramme circulaire, chaque secteur représente une catégorie ; son angle est proportionnel à l'effectif (ou à la fréquence) de cette catégorie. Le disque entier ($360°$) représente l'effectif total.",
+          "lecture": [
+            "Chaque secteur correspond à un âge ; l'angle est indiqué dans l'étiquette.",
+            "La somme des angles vaut $360°$."
+          ],
+          "observations": [
+            "$36$ adhérents correspondent à $360°$ : $1$ adhérent correspond à $10°$.",
+            "Les $13$ ans représentent plus de la moitié du club ($200° > 180°$).",
+            "Vérification : $50 + 200 + 90 + 20 = 360$."
+          ],
+          "pieges": [
+            "Prendre l'effectif comme mesure de l'angle (5° pour 5 adhérents) : il faut multiplier par $\\dfrac{360}{36} = 10$."
+          ],
+          "aRetenir": [
+            "Angle $= \\dfrac{\\text{effectif}}{\\text{total}} \\times 360°$.",
+            "Somme des angles : $360°$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        56101,
+        56102,
+        56104
+      ],
+      "topic_id": "stats-diagramme-circulaire",
+      "proprietes": [
+        "L'angle de chaque secteur est proportionnel à l'effectif de la catégorie représentée."
+      ],
+      "vocabulaire_associe": [
+        "diagramme circulaire",
+        "secteur",
+        "angle",
+        "effectif",
+        "effectif total",
+        "fréquence",
+        "pourcentage"
+      ],
+      "synonymes": [
+        "camembert",
+        "diagramme en secteurs",
+        "construire un diagramme circulaire"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer les angles d'un diagramme circulaire.",
+        "Construire un diagramme circulaire.",
+        "Lire un effectif ou un pourcentage sur un diagramme.",
+        "Repérer un diagramme incohérent."
+      ],
+      "prerequis": [
+        "Proportionnalité",
+        "Pourcentages",
+        "Utiliser un rapporteur"
+      ],
+      "notions_liees": [
+        "stats-mediane",
+        "proportionnalite-quatrieme"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "statistiques",
+        "diagramme circulaire",
+        "fréquence",
+        "proportionnalité"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "stats-diagramme-circulaire-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Pourcentages et effectif total",
+          "description": "Deux exemples rédigés : construire un diagramme à partir de pourcentages, et retrouver l'effectif total à partir d'un angle."
+        },
+        {
+          "id": "stats-diagramme-circulaire-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Un diagramme trompeur",
+          "description": "Un exemple qui détecte un diagramme incohérent et le corrige."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel angle aurait un groupe de $18$ adhérents sur $36$ ?",
+          "piste": "$180°$, la moitié du disque."
+        },
+        {
+          "apres": "methode",
+          "question": "Quel angle pour $25\\,\\%$ ?",
+          "piste": "$90°$."
+        }
+      ]
+    },
+    {
+      "id": "stats-mediane",
+      "title": "Médiane d'une série statistique",
+      "schemaVersion": 2,
+      "intro": "La médiane est la valeur qui partage une série de données rangées en deux groupes de même effectif : la moitié des valeurs sont en dessous, la moitié au-dessus. Cette leçon apprend à la calculer pour de petits effectifs.",
+      "pourquoi": "La médiane résume une série sans être faussée par quelques valeurs extrêmes : on parle de salaire médian, d'âge médian, de temps médian d'une course.",
+      "explicationSimple": "Les tailles de $5$ joueurs rangées : $165$, $170$, $172$, $180$, $195$ cm. La valeur du milieu est la $3^e$ : la médiane vaut $172$ cm.",
+      "objectif": "À la fin de cette leçon, tu sauras déterminer la médiane d'une série dont l'effectif total est inférieur ou égal à $30$ (pair ou impair), donnée sous forme de liste, de tableau ou de diagramme en bâtons, et interpréter cette médiane.",
+      "definition": "On range les $n$ valeurs d'une série par ordre croissant. Une médiane est une valeur $M$ telle qu'au moins la moitié des valeurs soient inférieures ou égales à $M$ et au moins la moitié soient supérieures ou égales à $M$. Si $n$ est impair, la médiane est la valeur de rang $\\dfrac{n + 1}{2}$. Si $n$ est pair, on prend en général pour médiane la moyenne des deux valeurs centrales, de rangs $\\dfrac{n}{2}$ et $\\dfrac{n}{2} + 1$.",
+      "definitions": {
+        "college": "On range les valeurs dans l'ordre. La médiane est la valeur du milieu (si l'effectif est impair) ou la moyenne des deux valeurs du milieu (si l'effectif est pair) : la moitié de l'effectif est de chaque côté.",
+        "lycee": "On range les $n$ valeurs d'une série par ordre croissant. Une médiane est une valeur $M$ telle qu'au moins la moitié des valeurs soient inférieures ou égales à $M$ et au moins la moitié soient supérieures ou égales à $M$. Si $n$ est impair, la médiane est la valeur de rang $\\dfrac{n + 1}{2}$. Si $n$ est pair, on prend en général pour médiane la moyenne des deux valeurs centrales, de rangs $\\dfrac{n}{2}$ et $\\dfrac{n}{2} + 1$."
+      },
+      "intuition": "La médiane coupe la série « en son milieu », comme une ligne qui sépare une file d'élèves rangés par taille en deux groupes égaux.",
+      "reglesImportantes": [
+        "On commence toujours par ranger les valeurs par ordre croissant et par calculer l'effectif total $n$.",
+        "Si $n$ est impair : médiane = valeur de rang $\\dfrac{n + 1}{2}$ (par exemple la $8^e$ sur $15$).",
+        "Si $n$ est pair : médiane = moyenne des valeurs de rangs $\\dfrac{n}{2}$ et $\\dfrac{n}{2} + 1$ (par exemple la $10^e$ et la $11^e$ sur $20$).",
+        "Avec un tableau d'effectifs ou un diagramme en bâtons, on utilise les effectifs cumulés pour repérer la ou les valeurs centrales.",
+        "Au moins la moitié des valeurs sont inférieures ou égales à la médiane, et au moins la moitié sont supérieures ou égales."
+      ],
+      "formules": [
+        {
+          "id": "formule-rang-impair",
+          "nom": "Effectif impair",
+          "expression": "médiane $=$ valeur de rang $\\dfrac{n + 1}{2}$",
+          "quand_utiliser": "Quand l'effectif total $n$ est impair.",
+          "erreur_frequente": "Prendre la valeur de rang $\\dfrac{n}{2}$.",
+          "astuce": "Avec $n = 15$ : $\\dfrac{16}{2} = 8$, la $8^e$ valeur."
+        },
+        {
+          "id": "formule-rang-pair",
+          "nom": "Effectif pair",
+          "expression": "médiane $=$ moyenne des valeurs de rangs $\\dfrac{n}{2}$ et $\\dfrac{n}{2} + 1$",
+          "quand_utiliser": "Quand l'effectif total $n$ est pair.",
+          "erreur_frequente": "Ne prendre qu'une seule des deux valeurs centrales.",
+          "astuce": "Avec $n = 20$ : moyenne de la $10^e$ et de la $11^e$ valeur."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Déterminer une médiane",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je range les valeurs par ordre croissant et je calcule l'effectif total $n$."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je détermine le ou les rangs centraux selon la parité de $n$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je repère la ou les valeurs à ces rangs (effectifs cumulés si les données sont groupées)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'en déduis la médiane et je l'interprète : « la moitié des … ont au plus … »."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je range les valeurs par ordre croissant et je calcule l'effectif total $n$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je détermine le ou les rangs centraux selon la parité de $n$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je repère la ou les valeurs à ces rangs (effectifs cumulés si les données sont groupées)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'en déduis la médiane et je l'interprète : « la moitié des … ont au plus … »."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris toutes les valeurs de la plus petite à la plus grande."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je compte combien il y en a."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je barre une valeur à chaque bout, jusqu'à ce qu'il en reste une ou deux au milieu."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "S'il en reste une, c'est la médiane ; s'il en reste deux, je fais leur moyenne."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Ranger ; $n$ impair : rang $\\dfrac{n + 1}{2}$ ; $n$ pair : moyenne des rangs $\\dfrac{n}{2}$ et $\\dfrac{n}{2} + 1$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Interpréter : la moitié en dessous, la moitié au-dessus."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-mediane-impair",
+          "titre": "Exemple 1 — Effectif impair",
+          "enonce": "Voici les temps (en secondes) de $7$ coureurs : $14$ ; $12$ ; $15$ ; $13$ ; $18$ ; $12$ ; $16$. Déterminer la médiane.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Série rangée : $12$ ; $12$ ; $13$ ; $14$ ; $15$ ; $16$ ; $18$."
+            },
+            {
+              "expr": "",
+              "texte": "$n = 7$ (impair) : la médiane est la valeur de rang $\\dfrac{7 + 1}{2} = 4$."
+            }
+          ],
+          "reponse": "La médiane est $14$ s.",
+          "conclusion": "La moitié des coureurs ont un temps d'au plus $14$ s.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-mediane-pair",
+          "titre": "Exemple 2 — Effectif pair",
+          "enonce": "Voici les notes de $8$ élèves : $9$ ; $15$ ; $11$ ; $14$ ; $8$ ; $12$ ; $16$ ; $13$. Déterminer la médiane.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Série rangée : $8$ ; $9$ ; $11$ ; $12$ ; $13$ ; $14$ ; $15$ ; $16$."
+            },
+            {
+              "expr": "",
+              "texte": "$n = 8$ (pair) : valeurs de rangs $4$ et $5$ : $12$ et $13$."
+            },
+            {
+              "expr": "",
+              "texte": "Médiane : $\\dfrac{12 + 13}{2} = 12{,}5$."
+            }
+          ],
+          "reponse": "La médiane est $12{,}5$.",
+          "conclusion": "La médiane n'est pas forcément une valeur de la série.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-mediane-batons",
+          "titre": "Exemple 3 — Avec un diagramme en bâtons",
+          "enonce": "Un diagramme en bâtons donne les notes de $15$ élèves : $8$ (1 élève), $10$ (3), $11$ (2), $12$ (4), $14$ (3), $16$ (2). Déterminer la médiane.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$n = 15$ : la médiane est la $8^e$ valeur."
+            },
+            {
+              "expr": "",
+              "texte": "Effectifs cumulés : $8 \\to 1$ ; $10 \\to 4$ ; $11 \\to 6$ ; $12 \\to 10$. La $8^e$ valeur est $12$."
+            }
+          ],
+          "reponse": "La médiane est $12$.",
+          "conclusion": "C'est la série de la figure du cours.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-mediane-tableau-pair",
+          "titre": "Exemple 4 — Un tableau d'effectifs pair",
+          "enonce": "Nombre de frères et sœurs de $20$ élèves : $0$ (4 élèves), $1$ (7), $2$ (5), $3$ (3), $4$ (1). Déterminer la médiane.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$n = 20$ : la médiane est la moyenne des $10^e$ et $11^e$ valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Effectifs cumulés : $0 \\to 4$ ; $1 \\to 11$. La $10^e$ et la $11^e$ valeur valent $1$."
+            }
+          ],
+          "reponse": "La médiane est $1$.",
+          "conclusion": "Les deux valeurs centrales sont égales : la médiane est $1$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-mediane-officiel-club",
+          "titre": "Exemple 5 — Âge médian du club",
+          "enonce": "Les adhérents du club d'échecs ont $11$ ans ($5$), $13$ ans ($20$), $14$ ans ($9$) et $15$ ans ($2$). L'effectif ($36$) dépasse $30$ ; on peut quand même chercher la médiane. Quelle est-elle ? Interpréter.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$n = 36$ : moyenne des $18^e$ et $19^e$ valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Effectifs cumulés : $11 \\to 5$ ; $13 \\to 25$. Les $18^e$ et $19^e$ valeurs valent $13$."
+            }
+          ],
+          "reponse": "L'âge médian est $13$ ans : au moins la moitié des adhérents ont $13$ ans ou moins, et au moins la moitié ont $13$ ans ou plus.",
+          "conclusion": "La méthode des effectifs cumulés fonctionne quel que soit l'effectif.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Le temps médian d'une course.",
+        "Le salaire médian d'une entreprise.",
+        "La note médiane d'un contrôle."
+      ],
+      "erreursFrequentes": [
+        "Oublier de ranger la série.",
+        "Prendre le milieu des valeurs possibles au lieu du milieu de la série.",
+        "Confondre médiane et moyenne.",
+        "Se tromper de rang pour un effectif pair."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier de ranger la série.",
+          "pourquoi": "On prend la valeur du milieu de la liste donnée.",
+          "comment_detecter": "Ta série est-elle rangée par ordre croissant ?",
+          "comment_eviter": "Range toujours les valeurs avant de chercher le milieu."
+        },
+        {
+          "description": "Prendre le milieu des valeurs possibles au lieu du milieu de la série.",
+          "pourquoi": "Avec un tableau, on prend la valeur centrale du tableau.",
+          "comment_detecter": "As-tu tenu compte des effectifs ?",
+          "comment_eviter": "Utilise les effectifs cumulés."
+        },
+        {
+          "description": "Confondre médiane et moyenne.",
+          "pourquoi": "Les deux « résument » la série.",
+          "comment_detecter": "As-tu fait une somme (moyenne) ou repéré un rang (médiane) ?",
+          "comment_eviter": "Médiane : un rang ; moyenne : une somme divisée par l'effectif."
+        },
+        {
+          "description": "Se tromper de rang pour un effectif pair.",
+          "pourquoi": "On prend une seule valeur.",
+          "comment_detecter": "L'effectif est-il pair ?",
+          "comment_eviter": "Effectif pair : moyenne des deux valeurs centrales."
+        }
+      ],
+      "astuce": "Pour un tableau, écris sous chaque valeur l'effectif cumulé : la médiane est la première valeur dont l'effectif cumulé atteint ou dépasse la moitié de l'effectif total (attention aux cas pairs où les deux valeurs centrales diffèrent).",
+      "aRetenir": [
+        "Ranger les valeurs, calculer l'effectif total $n$.",
+        "$n$ impair : rang $\\dfrac{n + 1}{2}$ ; $n$ pair : moyenne des rangs $\\dfrac{n}{2}$ et $\\dfrac{n}{2} + 1$.",
+        "La moitié des valeurs au plus la médiane, la moitié au moins."
+      ],
+      "figure": {
+        "kind": "bars",
+        "bars": [
+          {
+            "label": "8",
+            "value": 1
+          },
+          {
+            "label": "10",
+            "value": 3
+          },
+          {
+            "label": "11",
+            "value": 2
+          },
+          {
+            "label": "12",
+            "value": 4
+          },
+          {
+            "label": "14",
+            "value": 3
+          },
+          {
+            "label": "16",
+            "value": 2
+          }
+        ],
+        "steps": [
+          "Le diagramme en bâtons (effectif total 15)",
+          "On range les 15 notes",
+          "La 8e note est la médiane"
+        ],
+        "relation": "Effectif total $15$ (impair) : la médiane est la $8^e$ valeur de la série rangée, soit $12$ : au moins la moitié des notes sont $\\leq 12$ et au moins la moitié sont $\\geq 12$",
+        "alt": "Diagramme en bâtons des notes de 15 élèves : 8 (1 élève), 10 (3), 11 (2), 12 (4), 14 (3), 16 (2). La médiane est 12.",
+        "explication": {
+          "resume": "La médiane partage la série rangée par ordre croissant en deux groupes de même effectif. Avec un effectif total impair, c'est la valeur du milieu.",
+          "lecture": [
+            "Chaque bâton indique combien d'élèves ont obtenu la note écrite dessous.",
+            "L'effectif total est $1 + 3 + 2 + 4 + 3 + 2 = 15$."
+          ],
+          "observations": [
+            "$15$ valeurs : la médiane est la $8^e$, car il reste $7$ valeurs de chaque côté.",
+            "Effectifs cumulés : $1$, $4$, $6$, $10$… La $8^e$ valeur est dans le bâton $12$ (de la $7^e$ à la $10^e$).",
+            "Médiane : $12$. Au moins la moitié des élèves ont $12$ ou moins, au moins la moitié ont $12$ ou plus."
+          ],
+          "pieges": [
+            "Prendre la valeur du milieu de la liste des notes possibles ($11$ ou $12$ « au milieu des bâtons ») sans tenir compte des effectifs."
+          ],
+          "aRetenir": [
+            "Ranger, compter, trouver la ou les valeurs du milieu.",
+            "Effectif impair $n$ : valeur de rang $\\dfrac{n + 1}{2}$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        56201,
+        56202,
+        56204
+      ],
+      "topic_id": "stats-mediane",
+      "proprietes": [
+        "Au moins la moitié des valeurs d'une série sont inférieures ou égales à la médiane, et au moins la moitié lui sont supérieures ou égales."
+      ],
+      "vocabulaire_associe": [
+        "médiane",
+        "série rangée",
+        "effectif total",
+        "effectif cumulé",
+        "rang",
+        "valeur centrale"
+      ],
+      "synonymes": [
+        "calculer une médiane",
+        "valeur médiane",
+        "médiane d'une série"
+      ],
+      "objectifs_pedagogiques": [
+        "Ranger une série et compter son effectif.",
+        "Déterminer la médiane (effectif pair ou impair).",
+        "Utiliser les effectifs cumulés.",
+        "Interpréter une médiane."
+      ],
+      "prerequis": [
+        "Diagrammes circulaires",
+        "Moyenne d'une série (5e)",
+        "Diagramme en bâtons"
+      ],
+      "notions_liees": [
+        "stats-diagramme-circulaire",
+        "stats-comparer"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "statistiques",
+        "médiane",
+        "série statistique"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "stats-mediane-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Diagramme en bâtons et tableau",
+          "description": "Deux exemples rédigés : la médiane lue sur un diagramme en bâtons, puis à partir d'un tableau d'effectif pair."
+        },
+        {
+          "id": "stats-mediane-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Âge médian du club",
+          "description": "Un exemple qui utilise les effectifs cumulés sur une série plus grande et interprète le résultat."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien d'élèves ont une note inférieure ou égale à $12$ ?",
+          "piste": "$10$ élèves sur $15$."
+        },
+        {
+          "apres": "methode",
+          "question": "Médiane de $3$ ; $7$ ; $9$ ; $20$ ?",
+          "piste": "$\\dfrac{7 + 9}{2} = 8$."
+        }
+      ]
+    },
+    {
+      "id": "stats-comparer",
+      "title": "Comparer et interpréter des séries",
+      "schemaVersion": 2,
+      "intro": "Pour comparer deux séries ou décrire une série, on utilise plusieurs indicateurs : l'effectif, la fréquence, la moyenne et la médiane. Chacun apporte une information différente ; il faut savoir les interpréter.",
+      "pourquoi": "Les journaux, les scientifiques et les entreprises comparent sans cesse des séries : notes de deux classes, températures de deux villes, salaires. Mal choisir l'indicateur peut conduire à une conclusion fausse.",
+      "explicationSimple": "Dans une classe A de $20$ élèves, $8$ font du sport en club ; dans une classe B de $30$ élèves, $9$. B a plus de sportifs, mais A en a une plus grande proportion : $40\\,\\%$ contre $30\\,\\%$.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer et comparer la moyenne et la médiane de deux séries, calculer des fréquences pour comparer des effectifs différents, et interpréter ces résultats.",
+      "definition": "La moyenne d'une série est le quotient de la somme des valeurs par l'effectif total (avec un tableau : somme des produits valeur $\\times$ effectif, divisée par l'effectif total). La médiane partage la série rangée en deux groupes de même effectif. La moyenne est sensible aux valeurs extrêmes, la médiane beaucoup moins. Pour comparer des groupes d'effectifs différents, on compare des fréquences (ou pourcentages) plutôt que des effectifs.",
+      "definitions": {
+        "college": "Moyenne : on additionne toutes les valeurs et on divise par l'effectif. Médiane : la valeur du milieu. Pour comparer deux groupes de tailles différentes, on utilise des pourcentages.",
+        "lycee": "La moyenne d'une série est le quotient de la somme des valeurs par l'effectif total (avec un tableau : somme des produits valeur $\\times$ effectif, divisée par l'effectif total). La médiane partage la série rangée en deux groupes de même effectif. La moyenne est sensible aux valeurs extrêmes, la médiane beaucoup moins. Pour comparer des groupes d'effectifs différents, on compare des fréquences (ou pourcentages) plutôt que des effectifs."
+      },
+      "intuition": "La moyenne « partage équitablement » le total entre tous ; la médiane regarde « l'individu du milieu ». Si un individu est très différent des autres, les deux indicateurs ne racontent pas la même histoire.",
+      "reglesImportantes": [
+        "Moyenne $= \\dfrac{\\text{somme des valeurs}}{\\text{effectif total}}$ ; avec un tableau, on fait la somme des produits valeur $\\times$ effectif.",
+        "La médiane se calcule sur la série rangée (rang du milieu, ou moyenne des deux rangs du milieu).",
+        "Une valeur extrême modifie fortement la moyenne, mais peu ou pas la médiane.",
+        "Pour comparer deux groupes d'effectifs différents, on compare des fréquences ou des pourcentages.",
+        "Une interprétation se rédige dans le contexte : « la moitié des élèves de la classe A ont une note supérieure ou égale à … »."
+      ],
+      "formules": [
+        {
+          "id": "formule-moyenne-ponderee",
+          "nom": "Moyenne avec un tableau",
+          "expression": "$\\bar{x} = \\dfrac{v_1 n_1 + v_2 n_2 + \\ldots}{n_1 + n_2 + \\ldots}$",
+          "quand_utiliser": "Quand les données sont regroupées en valeurs et effectifs.",
+          "erreur_frequente": "Faire la moyenne des valeurs sans tenir compte des effectifs.",
+          "astuce": "Chaque valeur compte autant de fois que son effectif."
+        },
+        {
+          "id": "formule-frequence-comparaison",
+          "nom": "Comparer des groupes",
+          "expression": "fréquence $= \\dfrac{\\text{effectif de la catégorie}}{\\text{effectif du groupe}}$",
+          "quand_utiliser": "Pour comparer des groupes de tailles différentes.",
+          "erreur_frequente": "Comparer directement des effectifs.",
+          "astuce": "Ramène chaque groupe à $100$ (pourcentage)."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Comparer deux séries",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je calcule l'effectif total de chaque série."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je calcule la moyenne et la médiane de chaque série (ou les fréquences utiles)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je compare les indicateurs et je repère d'éventuelles valeurs extrêmes."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je rédige une conclusion dans le contexte, en citant les indicateurs."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je calcule l'effectif total de chaque série."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule la moyenne et la médiane de chaque série (ou les fréquences utiles)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je compare les indicateurs et je repère d'éventuelles valeurs extrêmes."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je rédige une conclusion dans le contexte, en citant les indicateurs."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je compte les valeurs de chaque série."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule la moyenne, puis je range et je trouve la médiane."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je compare les nombres obtenus."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris une phrase de conclusion."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Moyenne, médiane, fréquences."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Valeurs extrêmes ? Conclusion dans le contexte."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-moyenne-mediane",
+          "titre": "Exemple 1 — Moyenne et médiane",
+          "enonce": "Notes de $6$ élèves : $8$ ; $10$ ; $11$ ; $13$ ; $14$ ; $16$. Calculer la moyenne et la médiane.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Moyenne : $\\dfrac{8 + 10 + 11 + 13 + 14 + 16}{6} = \\dfrac{72}{6} = 12$."
+            },
+            {
+              "expr": "",
+              "texte": "Médiane : moyenne des $3^e$ et $4^e$ valeurs : $\\dfrac{11 + 13}{2} = 12$."
+            }
+          ],
+          "reponse": "Moyenne $12$ et médiane $12$.",
+          "conclusion": "Ici, les deux indicateurs sont égaux : la série est assez « équilibrée ».",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-valeur-extreme",
+          "titre": "Exemple 2 — Une valeur extrême",
+          "enonce": "Salaires de $5$ personnes : $1\\,500$ ; $1\\,600$ ; $1\\,700$ ; $1\\,800$ ; $9\\,000$ €. Calculer la moyenne et la médiane. Quel indicateur décrit le mieux le salaire « typique » ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Moyenne : $\\dfrac{15\\,600}{5} = 3\\,120$ €."
+            },
+            {
+              "expr": "",
+              "texte": "Médiane : $3^e$ valeur, $1\\,700$ €."
+            }
+          ],
+          "reponse": "Moyenne $3\\,120$ €, médiane $1\\,700$ € : la médiane décrit mieux le salaire typique.",
+          "conclusion": "La valeur extrême de $9\\,000$ € tire la moyenne vers le haut.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-frequences-classes",
+          "titre": "Exemple 3 — Comparer avec des fréquences",
+          "enonce": "Classe A : $8$ sportifs sur $20$ élèves ; classe B : $9$ sportifs sur $30$ élèves. Quelle classe a la plus forte proportion de sportifs ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "A : $\\dfrac{8}{20} = 0{,}4 = 40\\,\\%$."
+            },
+            {
+              "expr": "",
+              "texte": "B : $\\dfrac{9}{30} = 0{,}3 = 30\\,\\%$."
+            }
+          ],
+          "reponse": "La classe A ($40\\,\\%$), bien qu'elle ait moins de sportifs en nombre.",
+          "conclusion": "Comparer des effectifs de groupes de tailles différentes peut tromper.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-moyenne-tableau",
+          "titre": "Exemple 4 — Moyenne et médiane à partir d'un tableau",
+          "enonce": "Nombre de frères et sœurs de $20$ élèves : $0$ (4), $1$ (7), $2$ (5), $3$ (3), $4$ (1). Calculer la moyenne et la médiane.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Moyenne : $\\dfrac{0 \\times 4 + 1 \\times 7 + 2 \\times 5 + 3 \\times 3 + 4 \\times 1}{20} = \\dfrac{30}{20} = 1{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "Médiane : $10^e$ et $11^e$ valeurs, toutes deux égales à $1$ : médiane $1$."
+            }
+          ],
+          "reponse": "Moyenne $1{,}5$ et médiane $1$.",
+          "conclusion": "La moyenne n'est pas forcément une valeur possible (on n'a pas $1{,}5$ frère).",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-series-interpretation",
+          "titre": "Exemple 5 — Deux classes au même contrôle",
+          "enonce": "Classe A ($9$ élèves) : $6$ ; $8$ ; $9$ ; $10$ ; $12$ ; $12$ ; $13$ ; $14$ ; $19$. Classe B ($9$ élèves) : $9$ ; $10$ ; $10$ ; $11$ ; $11$ ; $11$ ; $12$ ; $12$ ; $13$. Comparer les moyennes et les médianes, puis décrire la différence entre les deux classes.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "A : somme $103$, moyenne $\\approx 11{,}4$ ; médiane ($5^e$ valeur) $12$."
+            },
+            {
+              "expr": "",
+              "texte": "B : somme $99$, moyenne $11$ ; médiane $11$."
+            },
+            {
+              "expr": "",
+              "texte": "Les notes de B vont de $9$ à $13$ : elles sont très regroupées ; celles de A vont de $6$ à $19$ : elles sont très dispersées."
+            }
+          ],
+          "reponse": "A a une moyenne et une médiane un peu plus élevées, mais des notes beaucoup plus dispersées ; B est plus homogène.",
+          "conclusion": "Deux séries de moyennes proches peuvent être très différentes : il faut regarder toute la série.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Comparer les résultats de deux classes.",
+        "Comprendre un salaire moyen et un salaire médian.",
+        "Comparer des proportions dans deux sondages."
+      ],
+      "erreursFrequentes": [
+        "Calculer une moyenne sans tenir compte des effectifs.",
+        "Comparer des effectifs de groupes de tailles différentes.",
+        "Conclure avec un seul indicateur.",
+        "Interpréter sans contexte."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Calculer une moyenne sans tenir compte des effectifs.",
+          "pourquoi": "On fait la moyenne des valeurs du tableau.",
+          "comment_detecter": "Chaque valeur a-t-elle été comptée autant de fois que son effectif ?",
+          "comment_eviter": "Multiplie chaque valeur par son effectif avant d'additionner."
+        },
+        {
+          "description": "Comparer des effectifs de groupes de tailles différentes.",
+          "pourquoi": "On compare $9$ et $8$ sans regarder les totaux.",
+          "comment_detecter": "Les deux groupes ont-ils le même effectif total ?",
+          "comment_eviter": "Compare des pourcentages."
+        },
+        {
+          "description": "Conclure avec un seul indicateur.",
+          "pourquoi": "On regarde seulement la moyenne.",
+          "comment_detecter": "Y a-t-il une valeur extrême dans la série ?",
+          "comment_eviter": "Compare moyenne et médiane, et regarde la série."
+        },
+        {
+          "description": "Interpréter sans contexte.",
+          "pourquoi": "On écrit « la médiane est $12$ » sans phrase.",
+          "comment_detecter": "Ta conclusion parle-t-elle des élèves, des salaires… ?",
+          "comment_eviter": "Rédige : « la moitié des élèves ont au moins $12$ »."
+        }
+      ],
+      "astuce": "Si la moyenne et la médiane sont très différentes, cherche une valeur extrême : c'est souvent elle qui « tire » la moyenne.",
+      "aRetenir": [
+        "Moyenne : somme ÷ effectif (avec les effectifs pour un tableau).",
+        "Médiane : peu sensible aux valeurs extrêmes.",
+        "Groupes de tailles différentes : comparer des fréquences."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "1 500 ; 1 600 ; 1 700 ; 1 800 ; 9 000",
+            "sousTitre": "Salaires de 5 personnes (€)"
+          },
+          {
+            "titre": "Moyenne : 3 120 €",
+            "sousTitre": "15 600 ÷ 5"
+          },
+          {
+            "titre": "Médiane : 1 700 €",
+            "sousTitre": "3e valeur sur 5"
+          }
+        ],
+        "steps": [
+          "La série",
+          "La moyenne",
+          "La médiane"
+        ],
+        "relation": "Moyenne $= \\dfrac{15\\,600}{5} = 3\\,120$ € ; médiane $= 1\\,700$ € : la valeur extrême $9\\,000$ € tire la moyenne vers le haut, pas la médiane",
+        "alt": "Série de 5 salaires : 1 500, 1 600, 1 700, 1 800 et 9 000 €. La moyenne vaut 3 120 €, la médiane 1 700 €.",
+        "explication": {
+          "resume": "La moyenne et la médiane résument une série de deux façons différentes. Une valeur très grande ou très petite modifie beaucoup la moyenne, mais presque pas la médiane.",
+          "lecture": [
+            "On lit de gauche à droite : la série, sa moyenne, sa médiane."
+          ],
+          "observations": [
+            "Quatre personnes sur cinq gagnent moins de $2\\,000$ €, mais la moyenne dépasse $3\\,000$ €.",
+            "La médiane ($1\\,700$ €) décrit mieux le salaire « du milieu ».",
+            "Si le plus haut salaire passait à $90\\,000$ €, la médiane resterait $1\\,700$ €."
+          ],
+          "pieges": [
+            "Croire que la moyenne représente toujours bien une série : une valeur extrême peut la fausser."
+          ],
+          "aRetenir": [
+            "Moyenne : sensible aux valeurs extrêmes.",
+            "Médiane : partage la série en deux moitiés, peu sensible aux valeurs extrêmes."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        56301,
+        56302,
+        56304
+      ],
+      "topic_id": "stats-comparer",
+      "proprietes": [
+        "La médiane est peu sensible aux valeurs extrêmes, contrairement à la moyenne."
+      ],
+      "vocabulaire_associe": [
+        "moyenne",
+        "médiane",
+        "fréquence",
+        "valeur extrême",
+        "indicateur",
+        "dispersion"
+      ],
+      "synonymes": [
+        "comparer deux séries",
+        "moyenne et médiane",
+        "interpréter une série"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer une moyenne avec des effectifs.",
+        "Comparer moyenne et médiane.",
+        "Comparer des groupes avec des fréquences.",
+        "Interpréter dans le contexte."
+      ],
+      "prerequis": [
+        "Médiane d'une série statistique",
+        "Moyenne (5e)",
+        "Pourcentages"
+      ],
+      "notions_liees": [
+        "stats-mediane",
+        "stats-diagramme-circulaire"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "statistiques",
+        "moyenne",
+        "médiane",
+        "comparaison"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "stats-comparer-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Fréquences et moyenne d'un tableau",
+          "description": "Deux exemples rédigés : comparer deux classes avec des pourcentages, et calculer moyenne et médiane à partir d'un tableau d'effectifs."
+        },
+        {
+          "id": "stats-comparer-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Deux classes au même contrôle",
+          "description": "Un exemple qui compare deux séries de moyennes proches mais de dispersions très différentes."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle serait la médiane si le salaire de $9\\,000$ € devenait $90\\,000$ € ?",
+          "piste": "Toujours $1\\,700$ €."
+        },
+        {
+          "apres": "methode",
+          "question": "$6$ filles sur $15$ et $8$ filles sur $25$ : quelle proportion est la plus grande ?",
+          "piste": "$40\\,\\%$ contre $32\\,\\%$ : la première."
+        }
+      ]
+    }
+  ]
+}

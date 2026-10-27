@@ -11,8 +11,9 @@
       "definition": "Un repère permet de donner à chaque point du plan deux nombres : ses coordonnées $(x\\,;y)$.",
       "reglesImportantes": [
         "Un point $A$ a des coordonnées $(x_A\\,;y_A)$.",
-        "Un vecteur $\\vec{AB}$ a pour coordonnées $(x_B - x_A\\,;\\,y_B - y_A)$.",
-        "On calcule toujours \"arrivée moins départ\"."
+        "Un vecteur $\\vec{AB}$ a pour coordonnées $(x_B - x_A\\,;\\,y_B - y_A)$ : toujours « arrivée moins départ ».",
+        "Pour retrouver un point $B$ à partir de $A$ et de $\\vec{AB}(x\\,;y)$ : $B(x_A+x\\,;\\,y_A+y)$.",
+        "Pour additionner deux vecteurs, on additionne leurs coordonnées une à une."
       ],
       "methode": {
         "titre": "Comment calculer les coordonnées d'un vecteur",
@@ -71,25 +72,64 @@
           ],
           "reponse": "$\\vec{AB}(3\\,;4)$",
           "id": "base-repere-et-coordonnees-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "base-repere-et-coordonnees-exemple-retrouver-point",
+          "titre": "Exemple 2 — Retrouver un point",
+          "enonce": "$A(-3\\,;5)$ et $\\vec{AB}(4\\,;-2)$. Calcule les coordonnées de $B$.",
+          "calcul": [
+            {
+              "expr": "x_B = x_A + x = -3+4",
+              "texte": "C'est l'opération inverse du calcul du vecteur : on ADDITIONNE."
+            },
+            {
+              "expr": "x_B = 1",
+              "texte": "On calcule la coordonnée x de B."
+            },
+            {
+              "expr": "y_B = y_A + y = 5+(-2) = 3",
+              "texte": "On fait de même pour la coordonnée y."
+            }
+          ],
+          "reponse": "$B(1\\,;3)$",
+          "difficulte": "moyen",
+          "analyse": "Retrouver un point à partir d'un vecteur est l'opération INVERSE de calculer un vecteur à partir de deux points.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "base-repere-et-coordonnees-exemple-somme",
+          "titre": "Exemple 3 — Additionner deux vecteurs (approfondissement)",
+          "enonce": "$\\vec u(2\\,;5)$ et $\\vec v(-1\\,;3)$. Calcule les coordonnées de $\\vec u+\\vec v$.",
+          "calcul": [
+            {
+              "expr": "x = 2+(-1) = 1",
+              "texte": "On additionne les coordonnées x."
+            },
+            {
+              "expr": "y = 5+3 = 8",
+              "texte": "On additionne les coordonnées y."
+            }
+          ],
+          "reponse": "$\\vec u+\\vec v\\,(1\\,;8)$",
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Calculer \"départ moins arrivée\" au lieu de \"arrivée moins départ\".",
-        "Oublier le signe négatif d'une coordonnée."
+        "Oublier le signe négatif d'une coordonnée.",
+        "Confondre le calcul du vecteur (on soustrait) avec la recherche d'un point (on additionne)."
       ],
-      "astuce": "Retiens : toujours \"la fin moins le début\", comme pour calculer une différence de température.",
+      "astuce": "Retiens : toujours \"la fin moins le début\" pour un vecteur ; pour retrouver un point, on fait l'inverse : on additionne.",
       "aRetenir": [
-        "$\\vec{AB}(x_B-x_A\\,;y_B-y_A)$",
-        "Toujours arrivée moins départ"
+        "$\\vec{AB}(x_B-x_A\\,;y_B-y_A)$ : toujours arrivée moins départ.",
+        "$B(x_A+x\\,;y_A+y)$ connaissant $A$ et $\\vec{AB}(x;y)$ : l'opération inverse.",
+        "Pour additionner deux vecteurs : on additionne leurs coordonnées une à une."
       ],
       "figure": {
-        "viewBox": [
-          -1,
-          -1,
-          8,
-          6
-        ],
+        "viewBox": [-1, -1, 8, 6],
         "grid": true,
         "axes": true,
         "alt": "Repère avec un vecteur AB",
@@ -111,13 +151,23 @@
             "to": "B",
             "label": "AB"
           }
-        ]
+        ],
+        "explication": {
+          "comprendre": "Les coordonnées de AB s'obtiennent en soustrayant celles de A à celles de B.",
+          "etapes": [
+            {
+              "titre": "Point A",
+              "texte": "Coordonnées de départ."
+            },
+            {
+              "titre": "Point B",
+              "texte": "Coordonnées d'arrivée."
+            }
+          ],
+          "resume": "AB(x_B-x_A ; y_B-y_A) : toujours arrivée moins départ."
+        }
       },
-      "quizExerciseIds": [
-        84,
-        85,
-        86
-      ],
+      "quizExerciseIds": [84, 85, 86],
       "schemaVersion": 2,
       "topic_id": "base-repere-et-coordonnees",
       "definitions": {
@@ -137,12 +187,12 @@
         },
         {
           "id": "base-repere-et-coordonnees-regle-2",
-          "nom": "",
+          "nom": "Coordonnées d'un vecteur",
           "expression": "Un vecteur $\\vec{AB}$ a pour coordonnées $(x_B - x_A\\,;\\,y_B - y_A)$.",
-          "quand_utiliser": "",
+          "quand_utiliser": "Pour calculer les coordonnées de AB connaissant celles de A et B.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Calculer « départ moins arrivée ».",
+          "astuce": "Toujours la fin moins le début, comme une différence de température."
         },
         {
           "id": "base-repere-et-coordonnees-regle-3",
@@ -152,6 +202,15 @@
           "quand_ne_pas_utiliser": "",
           "erreur_frequente": "",
           "astuce": ""
+        },
+        {
+          "id": "base-repere-et-coordonnees-regle-point-depuis-vecteur",
+          "nom": "Retrouver un point",
+          "expression": "$B(x_A+x\\,;\\,y_A+y)$ connaissant $A$ et $\\vec{AB}(x\\,;y)$",
+          "quand_utiliser": "Pour retrouver les coordonnées de B quand on connaît A et le vecteur AB.",
+          "quand_ne_pas_utiliser": "",
+          "erreur_frequente": "Soustraire au lieu d'additionner : c'est l'opération INVERSE de celle qui calcule le vecteur.",
+          "astuce": "C'est l'opération inverse de la règle précédente : on additionne au lieu de soustraire."
         }
       ],
       "erreursFrequentesDetail": [
@@ -166,20 +225,46 @@
           "pourquoi": "",
           "comment_detecter": "",
           "comment_eviter": ""
+        },
+        {
+          "description": "Confondre le calcul du vecteur (on soustrait) avec la recherche d'un point (on additionne).",
+          "pourquoi": "Les deux calculs utilisent les mêmes nombres et se ressemblent beaucoup.",
+          "comment_detecter": "Le résultat obtenu est l'opposé de ce qui était attendu.",
+          "comment_eviter": "Se demander ce qu'on cherche : un VECTEUR (on soustrait les coordonnées de deux points) ou un POINT (on additionne les coordonnées d'un point et d'un vecteur)."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Base, repère et coordonnées"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras calculer les coordonnées d'un vecteur."
-      ],
+      "synonymes": ["Base, repère et coordonnées"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras calculer les coordonnées d'un vecteur."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Un repère permet de transformer la géométrie en calcul : au lieu de dessiner et de mesurer, on peut retrouver exactement la position de n'importe quel point ou vecteur avec de simples opérations.",
+      "intuition": "Les coordonnées d'un vecteur $\\vec{AB}$ mesurent le déplacement horizontal et vertical pour aller de $A$ à $B$ : c'est pour cela qu'on calcule toujours « arrivée moins départ », comme une variation.",
+      "apercus": [
+        {
+          "id": "apercu-coordonnees-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Additionner deux vecteurs donnés par leurs coordonnées."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi un repère est-il utile en géométrie ?",
+          "piste": "Il permet de remplacer des mesures et des dessins par des calculs précis sur des nombres."
+        },
+        {
+          "apres": "exemple:base-repere-et-coordonnees-exemple-retrouver-point",
+          "question": "Pour retrouver B connaissant A et AB, additionne-t-on ou soustrait-on ?",
+          "piste": "On additionne : c'est l'opération inverse du calcul du vecteur, qui lui soustrait."
+        }
+      ]
     },
     {
       "id": "milieu-et-norme",
@@ -235,7 +320,29 @@
       },
       "exemples": [
         {
-          "titre": "Exemple 1",
+          "id": "milieu-et-norme-exemple-milieu",
+          "titre": "Exemple 1 — Coordonnées d'un milieu",
+          "enonce": "$A(-2\\,;5)$, $B(6\\,;1)$. Calcule les coordonnées du milieu $I$ de $[AB]$.",
+          "calcul": [
+            {
+              "expr": "x_I = \\dfrac{x_A+x_B}{2} = \\dfrac{-2+6}{2}",
+              "texte": "On fait la moyenne des deux coordonnées x."
+            },
+            {
+              "expr": "x_I = 2",
+              "texte": "On calcule."
+            },
+            {
+              "expr": "y_I = \\dfrac{y_A+y_B}{2} = \\dfrac{5+1}{2} = 3",
+              "texte": "On fait de même pour la coordonnée y."
+            }
+          ],
+          "reponse": "$I(2\\,;3)$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "titre": "Exemple 2 — Distance entre deux points",
           "enonce": "$A(1\\,;2)$, $B(4\\,;6)$. Calcule $AB$.",
           "calcul": [
             {
@@ -253,25 +360,46 @@
           ],
           "reponse": "$AB = 5$",
           "id": "milieu-et-norme-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "milieu-et-norme-exemple-non-entier",
+          "titre": "Exemple 3 — Une distance qui n'est pas un nombre entier (approfondissement)",
+          "enonce": "$A(0\\,;0)$, $B(2\\,;3)$. Calcule $AB$.",
+          "calcul": [
+            {
+              "expr": "\\vec{AB}(2\\,;3)",
+              "texte": "On calcule les coordonnées du vecteur."
+            },
+            {
+              "expr": "AB = \\sqrt{2^2+3^2} = \\sqrt{4+9}",
+              "texte": "On applique la formule."
+            },
+            {
+              "expr": "AB = \\sqrt{13}",
+              "texte": "13 n'est pas un carré parfait : la réponse reste sous forme de racine."
+            }
+          ],
+          "reponse": "$AB = \\sqrt{13}$",
+          "difficulte": "difficile",
+          "analyse": "Contrairement à l'exemple précédent (qui tombait juste sur 5), la plupart des distances ne sont PAS des nombres entiers : il faut savoir laisser le résultat sous forme de racine carrée.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Oublier de mettre les coordonnées au carré avant d'additionner.",
-        "Oublier la racine carrée à la fin du calcul."
+        "Oublier la racine carrée à la fin du calcul.",
+        "Croire qu'une distance calculée doit toujours tomber sur un nombre entier."
       ],
-      "astuce": "Si tu retrouves un résultat qui ressemble à 3-4-5 ou 6-8-10, c'est souvent un triangle rectangle bien connu.",
+      "astuce": "Pour le milieu, pense « moyenne » ; pour la distance entre deux points, pense « Pythagore ». Et si tu retrouves un résultat du type 3-4-5 ou 6-8-10, c'est souvent un triangle rectangle bien connu.",
       "aRetenir": [
-        "Milieu : moyenne des coordonnées",
-        "$AB=\\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}$"
+        "Milieu $I$ de $[AB]$ : moyenne des coordonnées, $I\\left(\\dfrac{x_A+x_B}2\\,;\\dfrac{y_A+y_B}2\\right)$.",
+        "$AB=\\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}$ (valable seulement dans un repère orthonormé).",
+        "Le résultat d'une distance n'est pas toujours un nombre entier."
       ],
       "figure": {
-        "viewBox": [
-          -1,
-          -1,
-          7,
-          8
-        ],
+        "viewBox": [-1, -1, 7, 8],
         "grid": true,
         "axes": true,
         "alt": "Repère avec le segment AB et son milieu I",
@@ -297,13 +425,23 @@
             "from": "A",
             "to": "B"
           }
-        ]
+        ],
+        "explication": {
+          "comprendre": "Le milieu I est à mi-chemin entre A et B : ses coordonnées sont la moyenne de celles de A et B.",
+          "etapes": [
+            {
+              "titre": "Le segment [AB]",
+              "texte": "Reliant les deux points."
+            },
+            {
+              "titre": "Le milieu I",
+              "texte": "Exactement à mi-chemin."
+            }
+          ],
+          "resume": "I a pour coordonnées la moyenne de celles de A et de B."
+        }
       },
-      "quizExerciseIds": [
-        90,
-        91,
-        92
-      ],
+      "quizExerciseIds": [90, 91, 92],
       "schemaVersion": 2,
       "topic_id": "milieu-et-norme",
       "definitions": {
@@ -314,20 +452,20 @@
       "formules": [
         {
           "id": "milieu-et-norme-regle-1",
-          "nom": "",
+          "nom": "Coordonnées du milieu",
           "expression": "Milieu $I$ de $[AB]$ : $I\\left(\\dfrac{x_A+x_B}{2}\\,;\\dfrac{y_A+y_B}{2}\\right)$",
-          "quand_utiliser": "",
+          "quand_utiliser": "Pour trouver le centre d'un segment.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
-          "astuce": ""
+          "erreur_frequente": "Additionner sans diviser par 2.",
+          "astuce": "Le milieu est juste la moyenne des deux coordonnées x, et la moyenne des deux coordonnées y."
         },
         {
           "id": "milieu-et-norme-regle-2",
-          "nom": "",
+          "nom": "Distance entre deux points",
           "expression": "Distance : $AB = \\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}$",
-          "quand_utiliser": "",
+          "quand_utiliser": "Pour calculer une longueur à partir de coordonnées.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
+          "erreur_frequente": "Oublier la racine carrée, ou oublier de mettre les coordonnées au carré.",
           "astuce": ""
         },
         {
@@ -352,20 +490,48 @@
           "pourquoi": "",
           "comment_detecter": "",
           "comment_eviter": ""
+        },
+        {
+          "description": "Croire qu'une distance calculée doit toujours tomber sur un nombre entier.",
+          "pourquoi": "Les premiers exemples rencontrés donnent souvent des résultats « ronds » (comme 5), ce qui laisse penser que c'est toujours le cas.",
+          "comment_detecter": "L'élève cherche à tout prix une erreur de calcul quand le résultat sous la racine n'est pas un carré parfait.",
+          "comment_eviter": "Accepter qu'une distance s'exprime souvent avec une racine carrée non simplifiable (ex : $\\sqrt{13}$), ce qui est une réponse parfaitement correcte."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Milieu et norme"
-      ],
+      "synonymes": ["Milieu et norme"],
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras calculer les coordonnées d'un milieu et la longueur d'un segment."
       ],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Calculer un milieu ou une distance avec des coordonnées permet de résoudre des problèmes de géométrie (trouver un centre, vérifier une longueur) sans tracer ni mesurer sur un dessin.",
+      "intuition": "Le milieu d'un segment est simplement la MOYENNE des coordonnées de ses extrémités. La distance utilise le théorème de Pythagore : le vecteur $\\vec{AB}$ est l'hypoténuse d'un triangle rectangle dont les côtés sont ses deux coordonnées.",
+      "apercus": [
+        {
+          "id": "apercu-milieunorme-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Une distance dont le résultat reste sous forme de racine carrée non simplifiable."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "À quoi sert de calculer une distance avec des coordonnées plutôt qu'en mesurant ?",
+          "piste": "Cela donne un résultat exact, même pour des points qu'on ne peut pas mesurer directement sur un dessin."
+        },
+        {
+          "apres": "exemple:milieu-et-norme-exemple-non-entier",
+          "question": "Une distance calculée doit-elle toujours être un nombre entier ?",
+          "piste": "Non : la plupart des distances s'expriment avec une racine carrée non simplifiable, comme √13."
+        }
+      ]
     },
     {
       "id": "condition-de-colinearite-repere",
@@ -374,9 +540,9 @@
       "objectif": "À la fin de ce cours, tu sauras utiliser un calcul pour prouver un alignement.",
       "definition": "Deux vecteurs $\\vec{u}(x\\,;y)$ et $\\vec{v}(x'\\,;y')$ sont colinéaires quand $x \\times y' - x' \\times y = 0$.",
       "reglesImportantes": [
-        "Ce calcul s'appelle un déterminant.",
-        "Si le déterminant vaut 0, les vecteurs sont colinéaires.",
-        "Ça sert à prouver un alignement ou un parallélisme."
+        "Pour $\\vec u(x\\,;y)$ et $\\vec v(x'\\,;y')$, le déterminant est $xy'-x'y$.",
+        "Si le déterminant vaut 0, les vecteurs sont colinéaires ; sinon, ils ne le sont PAS.",
+        "Ça sert à prouver un alignement de points, ou un parallélisme de droites (via leurs vecteurs directeurs)."
       ],
       "methode": {
         "titre": "Comment prouver un alignement avec des coordonnées",
@@ -435,24 +601,57 @@
           ],
           "reponse": "Le déterminant vaut 0 : les points sont alignés",
           "id": "condition-de-colinearite-repere-exemple-1",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "condition-de-colinearite-repere-exemple-non-alignes",
+          "titre": "Exemple 2 — Des points NON alignés",
+          "enonce": "$A(0\\,;0)$, $B(2\\,;5)$, $C(3\\,;4)$ sont-ils alignés ?",
+          "calcul": [
+            {
+              "expr": "\\vec{AB}(2\\,;5) \\text{ et } \\vec{AC}(3\\,;4)",
+              "texte": "On calcule les deux vecteurs."
+            },
+            {
+              "expr": "2\\times4 - 3\\times5 = 8-15 = -7",
+              "texte": "On calcule le déterminant."
+            }
+          ],
+          "reponse": "Le déterminant vaut $-7 \\neq 0$ : les points NE sont PAS alignés.",
+          "difficulte": "moyen",
+          "analyse": "Ce test fonctionne dans les deux sens : un déterminant non nul prouve avec certitude que les points ne sont PAS alignés.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "condition-de-colinearite-repere-exemple-paralleles",
+          "titre": "Exemple 3 — Parallélisme de deux droites (approfondissement)",
+          "enonce": "La droite $d_1$ a pour vecteur directeur $\\vec u(2\\,;4)$ et la droite $d_2$ a pour vecteur directeur $\\vec v(1\\,;2)$. Sont-elles parallèles ?",
+          "calcul": [
+            {
+              "expr": "2\\times2 - 1\\times4 = 4-4 = 0",
+              "texte": "On calcule le déterminant des deux vecteurs directeurs."
+            }
+          ],
+          "reponse": "Le déterminant vaut $0$ : les vecteurs directeurs sont colinéaires, donc $d_1$ et $d_2$ sont parallèles.",
+          "difficulte": "difficile",
+          "analyse": "Le même critère de colinéarité s'applique aux vecteurs directeurs de deux droites pour tester leur parallélisme, pas seulement à un alignement de points.",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
         "Se tromper dans l'ordre de la soustraction du déterminant.",
-        "Oublier de calculer les coordonnées des vecteurs avant le déterminant."
+        "Oublier de calculer les coordonnées des vecteurs avant le déterminant.",
+        "Croire que seul un déterminant nul est une conclusion valable, et ne pas savoir conclure quand il n'est pas nul."
       ],
-      "astuce": "Ce même calcul sert aussi à vérifier si deux droites sont parallèles.",
+      "astuce": "Ce même calcul sert aussi à vérifier si deux droites sont parallèles, en l'appliquant à leurs vecteurs directeurs.",
       "aRetenir": [
-        "$\\vec u,\\vec v$ colinéaires $\\Leftrightarrow xy'-x'y=0$"
+        "$\\vec u,\\vec v$ colinéaires $\\iff xy'-x'y=0$.",
+        "Déterminant non nul $\\Rightarrow$ vecteurs NON colinéaires (points non alignés, ou droites non parallèles).",
+        "Ce calcul s'utilise aussi bien pour un alignement de points que pour un parallélisme de droites."
       ],
       "figure": {
-        "viewBox": [
-          -1,
-          -1,
-          5,
-          8
-        ],
+        "viewBox": [-1, -1, 5, 8],
         "grid": true,
         "axes": true,
         "alt": "Repère avec les points A, B, C alignés sur une même droite",
@@ -478,13 +677,23 @@
             "from": "A",
             "to": "C"
           }
-        ]
+        ],
+        "explication": {
+          "comprendre": "Si le déterminant des vecteurs AB et AC vaut 0, les points A, B, C sont alignés.",
+          "etapes": [
+            {
+              "titre": "Vecteur AB",
+              "texte": "Premier vecteur formé par les points."
+            },
+            {
+              "titre": "Vecteur AC",
+              "texte": "Second vecteur formé par les points."
+            }
+          ],
+          "resume": "Déterminant nul = vecteurs colinéaires = points alignés."
+        }
       },
-      "quizExerciseIds": [
-        87,
-        88,
-        89
-      ],
+      "quizExerciseIds": [87, 88, 89],
       "schemaVersion": 2,
       "topic_id": "condition-de-colinearite-repere",
       "definitions": {
@@ -504,11 +713,11 @@
         },
         {
           "id": "condition-de-colinearite-repere-regle-2",
-          "nom": "",
+          "nom": "Critère de colinéarité",
           "expression": "Si le déterminant vaut 0, les vecteurs sont colinéaires.",
-          "quand_utiliser": "",
+          "quand_utiliser": "Pour décider si deux vecteurs sont colinéaires à partir de leurs coordonnées.",
           "quand_ne_pas_utiliser": "",
-          "erreur_frequente": "",
+          "erreur_frequente": "Se tromper dans l'ordre de la soustraction ($xy'-x'y$, jamais $x'y-xy'$ dans l'autre sens — même si le résultat final ne change que de signe, autant être rigoureux).",
           "astuce": ""
         },
         {
@@ -533,20 +742,46 @@
           "pourquoi": "",
           "comment_detecter": "",
           "comment_eviter": ""
+        },
+        {
+          "description": "Croire que seul un déterminant nul est une conclusion valable, et ne pas savoir conclure quand il n'est pas nul.",
+          "pourquoi": "Les premiers exemples rencontrés aboutissent souvent à un déterminant nul (le cas « intéressant » qu'on veut démontrer).",
+          "comment_detecter": "L'élève ne sait pas quoi conclure lorsque le déterminant calculé n'est pas 0.",
+          "comment_eviter": "Se souvenir que le test fonctionne dans les deux sens : déterminant nul $\\Rightarrow$ colinéaires ; déterminant non nul $\\Rightarrow$ PAS colinéaires (donc points non alignés, ou droites non parallèles)."
         }
       ],
       "proprietes": [],
       "vocabulaire_associe": [],
-      "synonymes": [
-        "Condition de colinéarité"
-      ],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras utiliser un calcul pour prouver un alignement."
-      ],
+      "synonymes": ["Condition de colinéarité"],
+      "objectifs_pedagogiques": ["À la fin de ce cours, tu sauras utiliser un calcul pour prouver un alignement."],
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "",
-      "tags": []
+      "tags": [],
+      "pourquoi": "Ce calcul (le déterminant) permet de prouver un alignement de points ou un parallélisme de droites de façon certaine, sans dessiner ni mesurer d'angle : un simple calcul tranche la question.",
+      "intuition": "Le déterminant $xy'-x'y$ compare les « pentes » de deux vecteurs sans jamais diviser par zéro : il vaut 0 exactement quand les deux vecteurs ont la même direction (colinéaires).",
+      "apercus": [
+        {
+          "id": "apercu-determinant-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "1 exemple supplémentaire",
+          "description": "Utiliser le déterminant pour vérifier le parallélisme de deux droites à partir de leurs vecteurs directeurs."
+        }
+      ],
+      "champsLibresForces": ["intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi ce calcul évite-t-il de dessiner ou de mesurer un angle ?",
+          "piste": "Un simple calcul numérique (le déterminant) tranche avec certitude, sans risque d'erreur de dessin."
+        },
+        {
+          "apres": "exemple:condition-de-colinearite-repere-exemple-non-alignes",
+          "question": "Que conclut-on quand le déterminant n'est pas nul ?",
+          "piste": "Que les vecteurs ne sont PAS colinéaires : les points ne sont pas alignés (ou les droites ne sont pas parallèles)."
+        }
+      ]
     }
   ]
 }

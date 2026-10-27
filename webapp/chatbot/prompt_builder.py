@@ -6,6 +6,11 @@ jamais les cours entiers) et préférences utilisateur (longueur de réponse,
 niveau d'explication). Le Rule Engine et le Math Engine court-circuitent déjà
 l'appel LLM en amont (conversation_manager.py) quand ils suffisent seuls.
 """
+import re
+
+import curriculum_registry
+
+from . import knowledge_engine
 from .context_builder import build_context_summary, summary_to_text
 from .services import intent_service, pedagogy_templates
 
@@ -147,6 +152,41 @@ def _explanation_instruction(level):
     }.get(level, "Adapte automatiquement le niveau de vocabulaire à la progression de l'élève décrite ci-dessous.")
 
 
+_SCHOOL_STAGE_LABELS = {"college": "collège", "lycee": "lycée"}
+_PLACEHOLDER_TITLE_RE = re.compile(r"^\s*chapitre[\s_]*\d+\s*$", re.IGNORECASE)
+
+
+def _class_level_instruction(class_level):
+    """Classe active de l'élève (chantier "préparation de la Quatrième",
+    2026-10-24) : `class_level` n'était jusqu'ici utilisé que pour filtrer
+    l'historique (context_builder.scope_by_class_level) — jamais nommé dans
+    le prompt, donc le modèle ignorait si l'élève était en Troisième ou en
+    Première. Libellé, étape de scolarité et chapitres viennent uniquement du
+    registre et des cours existants (aucune liste codée en dur par classe).
+
+    Oriente sans interdire : une demande explicite d'approfondissement reste
+    servie (signalée en une phrase comme dépassant le programme). Vide si
+    `class_level` est absent ou n'est pas une classe servie — jamais de
+    consigne pour une classe inconnue ou non publiée."""
+    profile = curriculum_registry.CURRICULUM_REGISTRY.get(class_level) if class_level else None
+    if profile is None:
+        return ""
+    label = profile.label
+    stage = _SCHOOL_STAGE_LABELS.get(profile.school_stage)
+    lines = [
+        f"CLASSE DE L'ÉLÈVE : {label}{f' ({stage})' if stage else ''} — classe sélectionnée dans Mathadap.",
+        f"- Explique avec le vocabulaire, les notations et les méthodes attendus en {label}, en t'appuyant sur ce que l'élève a pu voir les années précédentes.",
+        f"- N'introduis pas spontanément une notion ou une méthode d'une classe supérieure quand une méthode du programme de {label} suffit.",
+        f"- Si l'élève demande explicitement un approfondissement, une méthode plus avancée ou une notion d'une autre classe, réponds à sa demande : signale simplement, en une phrase, que cela dépasse le programme de {label}, puis explique clairement.",
+    ]
+    # Titres de remplissage ("Chapitre 3", cas actuel des cours de Première)
+    # : aucune information pédagogique pour le modèle, jamais listés.
+    chapitres = [t for t in knowledge_engine.list_chapter_titles(class_level) if not _PLACEHOLDER_TITLE_RE.match(t)]
+    if chapitres:
+        lines.append(f"- Chapitres de {label} travaillés sur Mathadap : {' ; '.join(chapitres)}.")
+    return "\n".join(lines)
+
+
 def build_system_prompt(
     user, chatbot_settings, chapters_summary=None, rag_context=None, mentions_block=None, intent_result=None,
     class_level=None, topic_label=None,
@@ -189,12 +229,15 @@ def build_system_prompt(
     priority_instruction = _EXPLICIT_REQUEST_PRIORITY_INSTRUCTION if needs_priority_rule else ""
     extra_instructions = "\n".join(filter(None, [intent_instruction, priority_instruction, mode_instruction]))
     extra_block = f"\n{extra_instructions}" if extra_instructions else ""
+    class_instruction = _class_level_instruction(class_level)
+    class_block = f"\n\n{class_instruction}" if class_instruction else ""
 
     return (
         f"{BASE_SYSTEM_PROMPT}\n\n"
         f"{_method_instruction(intent_result)}\n\n"
         f"{_length_instruction(response_length)}\n"
         f"{_explanation_instruction(explanation_level)}"
+        f"{class_block}"
         f"{extra_block}\n\n"
         f"{profile_block}"
         f"{mentions_prompt_block}"

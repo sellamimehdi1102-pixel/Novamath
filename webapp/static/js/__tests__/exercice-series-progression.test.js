@@ -146,12 +146,26 @@ describe("exercice.js — progression d'une série « notion » (chatbot ET ongl
 
   it("conserve le chapitre et la notion transmis par la carte tout au long de la série", async () => {
     await mountExerciceWithPendingSeries([101, 102]);
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
     expect($("ex-notion-badge").textContent).toBe("Dérivées");
 
     await answerCurrentQuestion();
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
     expect($("ex-notion-badge").textContent).toBe("Dérivées");
+  });
+
+  it("affiche le titre pédagogique du chapitre, jamais l'identifiant technique, quand l'API le fournit", async () => {
+    mockApi.chapters = vi
+      .fn()
+      .mockResolvedValue({ chapters_meta: [{ id: "Chapitre_8", title: "Théorème de Pythagore" }] });
+    try {
+      await mountExerciceWithPendingSeries([101, 102]);
+      await flushPromises();
+      expect($("ex-chapter-badge").textContent).toBe("Théorème de Pythagore");
+      expect($("ex-chapter-badge").textContent).not.toContain("Chapitre_8");
+    } finally {
+      delete mockApi.chapters;
+    }
   });
 
   it("practiceResult n'est appelé qu'une seule fois par question répondue (pas de double consommation)", async () => {

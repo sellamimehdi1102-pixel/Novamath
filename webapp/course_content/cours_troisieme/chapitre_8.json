@@ -66,7 +66,8 @@
           ],
           "reponse": "$f(x) = 2x + 3$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 2x + 3$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-936",
@@ -89,7 +90,8 @@
           ],
           "reponse": "$f(x) = 3x + 4$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 3x + 4$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-942",
@@ -112,7 +114,8 @@
           ],
           "reponse": "$f(x) = -2x + 14$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = -2x + 14$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-948",
@@ -135,7 +138,8 @@
           ],
           "reponse": "$f(x) = 0,5x + 2$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 0,5x + 2$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -143,10 +147,15 @@
         "la température d'un four selon le temps de chauffe",
         "le salaire selon le nombre d'heures travaillées"
       ],
-      "erreursFrequentes": [
-        "Attention aux signes lors du calcul de $m$ et de $p$ avec des valeurs négatives."
+      "erreursFrequentes": ["Attention aux signes lors du calcul de $m$ et de $p$ avec des valeurs négatives."],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Attention aux signes lors du calcul de $m$ et de $p$ avec des valeurs négatives.",
+          "pourquoi": "La formule $m = \\dfrac{f(x_2)-f(x_1)}{x_2-x_1}$ comporte plusieurs soustractions, et un signe négatif mal recopié change tout le résultat.",
+          "comment_detecter": "En remplaçant $x_1$ et $x_2$ dans l'expression trouvée, on ne retrouve pas les images de départ $f(x_1)$ et $f(x_2)$.",
+          "comment_eviter": "Écrire chaque soustraction avec des parenthèses autour des valeurs négatives avant de calculer, pour ne jamais perdre un signe."
+        }
       ],
-      "erreursFrequentesDetail": [],
       "astuce": "Pour ne pas confondre image et antécédent, retiens que l'image est toujours ce qui sort de la machine, l'antécédent ce qu'on y met.",
       "aRetenir": [
         "On calcule d'abord $m$ à l'aide de la formule des accroissements, puis on trouve $p$ en substituant une des deux images.",
@@ -161,19 +170,35 @@
         "grid": true,
         "axes": true,
         "segments": [
-          {"from": {"x": 0, "y": 3}, "to": {"x": 3, "y": 9}, "variant": "a"}
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 3,
+              "y": 9
+            },
+            "variant": "a"
+          }
         ],
         "points": [
-          {"x": 1, "y": 5, "label": "A", "showCoords": true},
-          {"x": 3, "y": 9, "label": "B", "showCoords": true}
+          {
+            "x": 1,
+            "y": 5,
+            "label": "A",
+            "showCoords": true
+          },
+          {
+            "x": 3,
+            "y": 9,
+            "label": "B",
+            "showCoords": true
+          }
         ],
         "alt": "La droite représentant f(x) = 2x + 3 passe par A(1 ; 5) et B(3 ; 9)."
       },
-      "quizExerciseIds": [
-        931,
-        932,
-        933
-      ],
+      "quizExerciseIds": [931, 942, 933],
       "topic_id": "determiner-une-fonction-affine-a-partir-de-deux-images",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -184,11 +209,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "determiner",
-        "fonction",
-        "affine",
-        "partir"
+      "tags": ["determiner", "fonction", "affine", "partir"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "det-fct-aff-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Déterminer $f$ avec des antécédents négatifs",
+          "description": "Un exemple complet qui montre comment bien gérer les signes dans la formule du coefficient directeur."
+        },
+        {
+          "id": "det-fct-aff-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Un coefficient directeur décimal",
+          "description": "Le même raisonnement appliqué à un cas où $m$ n'est pas un nombre entier."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Si $f(2)=3$ et $f(4)=3$, que peut-on dire du coefficient $m$ ?",
+          "piste": "$m=\\dfrac{3-3}{4-2}=0$ : la fonction est constante, sa droite est horizontale."
+        }
       ]
     },
     {
@@ -254,7 +298,8 @@
           ],
           "reponse": "$m = 3$, $p = 2$ et $f(x) = 3x + 2$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $m = 3$, $p = 2$ et $f(x) = 3x + 2$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1026",
@@ -277,7 +322,8 @@
           ],
           "reponse": "$f(x) = 3x + 1$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 3x + 1$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1032",
@@ -300,7 +346,8 @@
           ],
           "reponse": "Non, $f$ n'est pas linéaire (car $p = 1 \\neq 0$), $f(x) = x + 1$",
           "conclusion": "Nous avons ainsi obtenu le résultat : Non, $f$ n'est pas linéaire (car $p = 1 \\neq 0$), $f(x) = x + 1$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1038",
@@ -323,7 +370,8 @@
           ],
           "reponse": "$f(x) = -0,5x + 4$ et $f(10) = -1$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = -0,5x + 4$ et $f(10) = -1$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -371,19 +419,35 @@
         "grid": true,
         "axes": true,
         "segments": [
-          {"from": {"x": 0, "y": 2}, "to": {"x": 1, "y": 5}, "variant": "a"}
+          {
+            "from": {
+              "x": 0,
+              "y": 2
+            },
+            "to": {
+              "x": 1,
+              "y": 5
+            },
+            "variant": "a"
+          }
         ],
         "points": [
-          {"x": 0, "y": 2, "label": "A", "showCoords": true},
-          {"x": 1, "y": 5, "label": "B", "showCoords": true}
+          {
+            "x": 0,
+            "y": 2,
+            "label": "A",
+            "showCoords": true
+          },
+          {
+            "x": 1,
+            "y": 5,
+            "label": "B",
+            "showCoords": true
+          }
         ],
         "alt": "La droite passant par A(0 ; 2) et B(1 ; 5) représente f(x) = 3x + 2 : p = 2 se lit directement à l'origine."
       },
-      "quizExerciseIds": [
-        1021,
-        1022,
-        1023
-      ],
+      "quizExerciseIds": [1021, 1022, 1023],
       "topic_id": "lecture-graphique-d-une-fonction-affine-ou-lineaire",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -394,11 +458,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "lecture",
-        "graphique",
-        "fonction",
-        "affine"
+      "tags": ["lecture", "graphique", "fonction", "affine"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "lect-graph-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Reconnaître une fonction non linéaire sur un graphique",
+          "description": "Un exemple complet qui montre comment vérifier précisément que $p\\neq 0$."
+        },
+        {
+          "id": "lect-graph-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Un coefficient directeur décimal lu graphiquement",
+          "description": "Un cas où $m$ et $p$ ne sont pas des entiers, pour s'entraîner à une lecture précise."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Peut-on toujours lire $p$ directement sur un graphique ?",
+          "piste": "Non, seulement si le point d'abscisse $0$ est visible sur la figure ; sinon il faut le calculer."
+        }
       ]
     },
     {
@@ -460,7 +543,8 @@
           ],
           "reponse": "$f(x) = 2,8x$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 2,8x$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-996",
@@ -483,7 +567,8 @@
           ],
           "reponse": "$f(x) = 1,8x$ et le résultat demandé est 21,6",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 1,8x$ et le résultat demandé est 21,6",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1002",
@@ -506,7 +591,8 @@
           ],
           "reponse": "$f(x) = 3,5x$ et la réponse est 12 parts",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 3,5x$ et la réponse est 12 parts",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1008",
@@ -529,7 +615,8 @@
           ],
           "reponse": "Le fournisseur B est moins cher (67,5€ contre 75€ chez A)",
           "conclusion": "Nous avons ainsi obtenu le résultat : Le fournisseur B est moins cher (67,5€ contre 75€ chez A)",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -577,21 +664,56 @@
         "grid": true,
         "axes": true,
         "segments": [
-          {"from": {"x": 0, "y": 0}, "to": {"x": 5, "y": 9}, "variant": "a"},
-          {"from": {"x": 5, "y": 0}, "to": {"x": 5, "y": 9}, "dashed": true},
-          {"from": {"x": 0, "y": 9}, "to": {"x": 5, "y": 9}, "dashed": true}
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 5,
+              "y": 9
+            },
+            "variant": "a"
+          },
+          {
+            "from": {
+              "x": 5,
+              "y": 0
+            },
+            "to": {
+              "x": 5,
+              "y": 9
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 9
+            },
+            "to": {
+              "x": 5,
+              "y": 9
+            },
+            "dashed": true
+          }
         ],
         "points": [
-          {"x": 0, "y": 0, "label": "O"},
-          {"x": 5, "y": 9, "label": "A", "showCoords": true}
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 5,
+            "y": 9,
+            "label": "A",
+            "showCoords": true
+          }
         ],
         "alt": "La droite $f(x) = 1,8x$ passe par l'origine : 5 kg de riz coûtent 9€, ce qui donne le coefficient m = 1,8."
       },
-      "quizExerciseIds": [
-        991,
-        992,
-        993
-      ],
+      "quizExerciseIds": [991, 992, 993],
       "topic_id": "modeliser-une-situation-de-proportionnalite-par-une-fonction-lineaire",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -602,11 +724,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "modeliser",
-        "situation",
-        "proportionnalite",
-        "fonction"
+      "tags": ["modeliser", "situation", "proportionnalite", "fonction"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "modele-lin-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Modéliser puis résoudre une équation",
+          "description": "Un exemple complet qui utilise la fonction trouvée pour répondre à une question inverse (trouver $x$)."
+        },
+        {
+          "id": "modele-lin-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Comparer deux tarifs proportionnels",
+          "description": "Un problème qui combine deux fonctions linéaires pour choisir le fournisseur le moins cher."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Une situation de proportionnalité peut-elle se modéliser par $f(x)=mx+p$ avec $p\\neq 0$ ?",
+          "piste": "Non : une situation de proportionnalité donne toujours $f(0)=0$, donc $p=0$ et $f(x)=mx$."
+        }
       ]
     },
     {
@@ -668,7 +809,8 @@
           ],
           "reponse": "$m = 2$, $p = 3$ et $f(4) = 11$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $m = 2$, $p = 3$ et $f(4) = 11$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-906",
@@ -687,7 +829,8 @@
           ],
           "reponse": "$f(2) = 2$ et $f(-3) = -13$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(2) = 2$ et $f(-3) = -13$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-912",
@@ -710,7 +853,8 @@
           ],
           "reponse": "$f(x) = 3x + 1$, donc $m = 3$ et $p = 1$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 3x + 1$, donc $m = 3$ et $p = 1$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-918",
@@ -729,7 +873,8 @@
           ],
           "reponse": "Oui, $A$ appartient à la droite représentant $f$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $A$ appartient à la droite représentant $f$.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -777,21 +922,57 @@
         "grid": true,
         "axes": true,
         "segments": [
-          {"from": {"x": 0, "y": 3}, "to": {"x": 4, "y": 11}, "variant": "a"},
-          {"from": {"x": 4, "y": 0}, "to": {"x": 4, "y": 11}, "dashed": true},
-          {"from": {"x": 0, "y": 11}, "to": {"x": 4, "y": 11}, "dashed": true}
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 4,
+              "y": 11
+            },
+            "variant": "a"
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": 11
+            },
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 11
+            },
+            "to": {
+              "x": 4,
+              "y": 11
+            },
+            "dashed": true
+          }
         ],
         "points": [
-          {"x": 0, "y": 3, "label": "p", "showCoords": false},
-          {"x": 4, "y": 11, "label": "M", "showCoords": true}
+          {
+            "x": 0,
+            "y": 3,
+            "label": "p",
+            "showCoords": false
+          },
+          {
+            "x": 4,
+            "y": 11,
+            "label": "M",
+            "showCoords": true
+          }
         ],
         "alt": "La droite représentant f(x) = 2x + 3 : elle coupe l'axe des ordonnées en p = 3, et passe par M(4 ; 11) car f(4) = 11."
       },
-      "quizExerciseIds": [
-        901,
-        902,
-        903
-      ],
+      "quizExerciseIds": [901, 902, 903],
       "topic_id": "reconnaitre-et-utiliser-une-fonction-affine",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -802,11 +983,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "reconnaitre",
-        "utiliser",
-        "fonction",
-        "affine"
+      "tags": ["reconnaitre", "utiliser", "fonction", "affine"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "reconn-aff-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Identifier $m$ et $p$ après avoir développé une expression",
+          "description": "Un exemple complet qui montre pourquoi il faut développer avant de lire les coefficients."
+        },
+        {
+          "id": "reconn-aff-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Vérifier qu'un point appartient à une droite",
+          "description": "Un exemple qui applique rigoureusement le critère $f(a)=b$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Dans $f(x)=mx+p$, comment retrouve-t-on $p$ directement par le calcul ?",
+          "piste": "$p=f(0)$ : l'ordonnée à l'origine est toujours l'image de $0$."
+        }
       ]
     },
     {
@@ -868,7 +1068,8 @@
           ],
           "reponse": "$m = 3$ et $f(4) = 12$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $m = 3$ et $f(4) = 12$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-966",
@@ -887,7 +1088,8 @@
           ],
           "reponse": "$f(3) = 6$ et $f(-4) = -8$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(3) = 6$ et $f(-4) = -8$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-972",
@@ -910,7 +1112,8 @@
           ],
           "reponse": "$f(x) = 5x$, donc $f$ est linéaire de coefficient $m = 5$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $f(x) = 5x$, donc $f$ est linéaire de coefficient $m = 5$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-978",
@@ -929,7 +1132,8 @@
           ],
           "reponse": "Oui, $A$ appartient à la droite représentant $f$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Oui, $A$ appartient à la droite représentant $f$.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -977,20 +1181,45 @@
         "grid": true,
         "axes": true,
         "segments": [
-          {"from": {"x": 0, "y": 0}, "to": {"x": 4, "y": 12}, "variant": "a"},
-          {"from": {"x": 4, "y": 0}, "to": {"x": 4, "y": 12}, "dashed": true}
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": 12
+            },
+            "variant": "a"
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": 12
+            },
+            "dashed": true
+          }
         ],
         "points": [
-          {"x": 0, "y": 0, "label": "O"},
-          {"x": 4, "y": 12, "label": "M", "showCoords": true}
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 4,
+            "y": 12,
+            "label": "M",
+            "showCoords": true
+          }
         ],
         "alt": "La droite représentant f(x) = 3x passe par l'origine O : c'est le signe caractéristique d'une fonction linéaire."
       },
-      "quizExerciseIds": [
-        961,
-        962,
-        963
-      ],
+      "quizExerciseIds": [961, 962, 963],
       "topic_id": "reconnaitre-et-utiliser-une-fonction-lineaire",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -1001,11 +1230,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "reconnaitre",
-        "utiliser",
-        "fonction",
-        "lineaire"
+      "tags": ["reconnaitre", "utiliser", "fonction", "lineaire"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "reconn-lin-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Prouver qu'une expression avec parenthèses est linéaire",
+          "description": "Un exemple complet qui développe une expression jusqu'à faire disparaître le terme constant."
+        },
+        {
+          "id": "reconn-lin-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Vérifier qu'un point appartient à une droite linéaire",
+          "description": "Le même critère $f(a)=b$ appliqué au cas particulier d'une fonction linéaire."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "$f(x)=2(x+3)-6$ est-elle une fonction linéaire ?",
+          "piste": "Oui : en développant, $f(x)=2x+6-6=2x$, le terme constant disparaît complètement."
+        }
       ]
     }
   ]

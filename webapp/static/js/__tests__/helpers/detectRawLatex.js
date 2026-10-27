@@ -26,6 +26,8 @@ export const RAW_LATEX_PATTERNS = [
   /\\in\b/,
   /\\leq\b/,
   /\\geq\b/,
+  /\\leqslant\b/,
+  /\\geqslant\b/,
   /\\neq\b/,
   /\\times\b/,
   /\\div\b/,
@@ -33,6 +35,12 @@ export const RAW_LATEX_PATTERNS = [
   /\\left\b/,
   /\\right\b/,
   /\\mathbb\b/,
+  // \og / \fg{} : commandes LaTeX de guillemets français (package babel-french),
+  // jamais reconnues par KaTeX ni par aucun délimiteur $...$ — un contenu qui
+  // les contient s'affiche tel quel, lettres comprises (chantier "audit LaTeX
+  // brut", 2026-10-24 : trouvé dans les 12 chapitres de Seconde).
+  /\\og\b/,
+  /\\fg\{?\}?/,
 ];
 
 /** Renvoie la liste des textes de nœuds visibles (hors <script>/<style>/<code>/<pre>,

@@ -30,12 +30,13 @@ class TestValiditeMathematiqueInequations(unittest.TestCase):
         checked = 0
         for ex in _run_n("ineq_vf", 200, seed=1):
             m = re.search(
-                r"x = (-?\d+) est solution de l'inéquation (-?\d+)x ([+-]) (\d+) ([><≥≤]) (-?\d+)",
+                r"x = (-?\d+) est solution de l'inéquation (-?\d*)x ([+-]) (\d+) ([><≥≤]) (-?\d+)",
                 ex["enonce"],
             )
             self.assertIsNotNone(m, ex["enonce"])
             x0, a, sb, b, op, c = m.groups()
-            a, b, c, x0 = int(a), int(b) * (1 if sb == "+" else -1), int(c), int(x0)
+            a = {"": 1, "-": -1}.get(a) or int(a)  # coefficient ±1 affiché « x » / « -x »
+            b, c, x0 = int(b) * (1 if sb == "+" else -1), int(c), int(x0)
             lhs = a * x0 + b
             truth = {">": lhs > c, "≥": lhs >= c, "<": lhs < c, "≤": lhs <= c}[op]
             is_vrai = ex["answer"].startswith("Vrai")

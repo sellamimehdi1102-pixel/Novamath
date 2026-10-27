@@ -1,0 +1,2591 @@
+{
+  "chapterId": "Chapitre_2",
+  "title": "Fractions : comparer, additionner et soustraire",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "fractions-quotients-egaux",
+      "title": "Quotients égaux et simplification",
+      "schemaVersion": 2,
+      "intro": "Un même nombre peut s'écrire avec une infinité de fractions : $\\dfrac{1}{2} = \\dfrac{2}{4} = \\dfrac{50}{100}$. Cette leçon t'apprend à passer d'une écriture à l'autre et à choisir la plus simple.",
+      "pourquoi": "Comparer, additionner ou soustraire des fractions oblige presque toujours à les réécrire avec un autre dénominateur. Et un résultat se donne toujours sous forme simplifiée.",
+      "explicationSimple": "Couper chaque part d'un gâteau en deux double le nombre de parts que tu as ET le nombre total de parts : tu as toujours autant de gâteau. C'est exactement $\\dfrac{3}{4} = \\dfrac{6}{8}$.",
+      "objectif": "À la fin de cette leçon, tu sauras écrire une fraction égale à une fraction donnée avec un dénominateur imposé, simplifier une fraction (positive ou négative) et reconnaître des fractions égales.",
+      "definition": "On ne change pas la valeur d'un quotient en multipliant ou en divisant son numérateur et son dénominateur par un même nombre non nul : $\\dfrac{a}{b} = \\dfrac{a \\times k}{b \\times k}$ ($b \\neq 0$, $k \\neq 0$). Simplifier une fraction, c'est diviser numérateur et dénominateur par un diviseur commun.",
+      "definitions": {
+        "college": "On peut multiplier ou diviser le haut et le bas d'une fraction par le même nombre non nul : la fraction garde la même valeur.",
+        "lycee": "On ne change pas la valeur d'un quotient en multipliant ou en divisant son numérateur et son dénominateur par un même nombre non nul : $\\dfrac{a}{b} = \\dfrac{a \\times k}{b \\times k}$ ($b \\neq 0$, $k \\neq 0$). Simplifier une fraction, c'est diviser numérateur et dénominateur par un diviseur commun."
+      },
+      "intuition": "Une fraction est un rapport : « $3$ sur $4$ » et « $6$ sur $8$ » décrivent la même proportion, comme $3$ filles pour $4$ élèves ou $6$ filles pour $8$ élèves.",
+      "reglesImportantes": [
+        "$\\dfrac{a}{b} = \\dfrac{a \\times k}{b \\times k}$ et $\\dfrac{a}{b} = \\dfrac{a \\div k}{b \\div k}$ pour tout nombre $k$ non nul.",
+        "Pour simplifier, on divise le numérateur et le dénominateur par un diviseur commun ; on peut recommencer jusqu'à ce qu'il n'y en ait plus (fraction irréductible).",
+        "Le signe se gère à part : $\\dfrac{-a}{b} = \\dfrac{a}{-b} = -\\dfrac{a}{b}$ et $\\dfrac{-a}{-b} = \\dfrac{a}{b}$.",
+        "Pour obtenir un dénominateur imposé $d$, on cherche par quel nombre multiplier le dénominateur actuel pour obtenir $d$, puis on multiplie aussi le numérateur.",
+        "Un quotient d'entiers peut aussi s'écrire avec un numérateur et un dénominateur décimaux : $\\dfrac{1{,}5}{2} = \\dfrac{15}{20} = \\dfrac{3}{4}$."
+      ],
+      "formules": [
+        {
+          "id": "formule-quotients-egaux",
+          "nom": "Quotients égaux",
+          "expression": "$\\dfrac{a}{b} = \\dfrac{a \\times k}{b \\times k}$ ($b \\neq 0$, $k \\neq 0$)",
+          "quand_utiliser": "Pour changer le dénominateur d'une fraction, ou pour la simplifier (avec $\\div k$).",
+          "erreur_frequente": "Ajouter le même nombre en haut et en bas : $\\dfrac{2}{3} \\neq \\dfrac{2 + 1}{3 + 1}$.",
+          "astuce": "On multiplie (ou on divise) toujours les DEUX termes par le MÊME nombre."
+        },
+        {
+          "id": "formule-signe-fraction",
+          "nom": "Signe d'une fraction",
+          "expression": "$\\dfrac{-a}{b} = \\dfrac{a}{-b} = -\\dfrac{a}{b}$",
+          "quand_utiliser": "Pour écrire une fraction négative avec un dénominateur positif.",
+          "erreur_frequente": "Écrire $\\dfrac{-6}{-8} = -\\dfrac{3}{4}$.",
+          "astuce": "On règle le signe d'abord, puis on simplifie la fraction positive."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Simplifier une fraction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je règle le signe : la fraction est-elle positive ou négative ?"
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je cherche un diviseur commun au numérateur et au dénominateur (2, 3, 5, 10… grâce aux critères de divisibilité)."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "Je divise les deux termes par ce diviseur, et je recommence tant que c'est possible."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie qu'il n'y a plus de diviseur commun autre que $1$ : la fraction est irréductible."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je règle le signe : la fraction est-elle positive ou négative ?"
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je cherche un diviseur commun au numérateur et au dénominateur (2, 3, 5, 10… grâce aux critères de divisibilité)."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je divise les deux termes par ce diviseur, et je recommence tant que c'est possible."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie qu'il n'y a plus de diviseur commun autre que $1$ : la fraction est irréductible."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris le signe du résultat devant la fraction."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je regarde si les deux nombres sont pairs (divisibles par $2$), puis divisibles par $3$, par $5$…"
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je divise le haut ET le bas par ce nombre."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je recommence jusqu'à ne plus trouver de diviseur commun."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Diviser haut et bas par le plus grand diviseur commun repéré."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Signe devant, fraction irréductible."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-simplifier",
+          "titre": "Exemple 1 — Simplifier une fraction",
+          "enonce": "Simplifier $\\dfrac{36}{48}$ jusqu'à obtenir une fraction irréductible.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{36}{48} = \\dfrac{36 \\div 12}{48 \\div 12} = \\dfrac{3}{4}",
+              "texte": "$36$ et $48$ sont divisibles par $12$ :"
+            },
+            {
+              "expr": "",
+              "texte": "$3$ et $4$ n'ont plus de diviseur commun autre que $1$."
+            }
+          ],
+          "reponse": "$\\dfrac{36}{48} = \\dfrac{3}{4}$",
+          "conclusion": "On peut aussi diviser en plusieurs fois (par $2$, encore par $2$, puis par $3$) : le résultat est le même.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-denominateur-impose",
+          "titre": "Exemple 2 — Imposer un dénominateur",
+          "enonce": "Compléter : $\\dfrac{-5}{6} = \\dfrac{\\ldots}{42}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pour passer de $6$ à $42$, on multiplie par $7$ ($6 \\times 7 = 42$)."
+            },
+            {
+              "expr": "\\dfrac{-5}{6} = \\dfrac{-5 \\times 7}{6 \\times 7} = \\dfrac{-35}{42}",
+              "texte": "On multiplie aussi le numérateur par $7$ :"
+            }
+          ],
+          "reponse": "$\\dfrac{-5}{6} = \\dfrac{-35}{42}$",
+          "conclusion": "Le signe suit le numérateur : $-5 \\times 7 = -35$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-egalite-signes",
+          "titre": "Exemple 3 — Fractions égales et signes",
+          "enonce": "Parmi $\\dfrac{-12}{18}$, $\\dfrac{8}{-12}$, $\\dfrac{-10}{-15}$ et $-\\dfrac{2}{3}$, lesquelles sont égales ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{-12}{18} = -\\dfrac{12}{18} = -\\dfrac{2}{3}$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{8}{-12} = -\\dfrac{8}{12} = -\\dfrac{2}{3}$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{-10}{-15} = \\dfrac{10}{15} = \\dfrac{2}{3}$ : ce nombre est positif."
+            }
+          ],
+          "reponse": "$\\dfrac{-12}{18} = \\dfrac{8}{-12} = -\\dfrac{2}{3}$ ; $\\dfrac{-10}{-15}$ vaut $\\dfrac{2}{3}$, il est différent.",
+          "conclusion": "Toujours régler le signe avant de comparer les écritures.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-decimaux",
+          "titre": "Exemple 4 — Supprimer des virgules",
+          "enonce": "Écrire $\\dfrac{2{,}4}{3{,}6}$ sous forme de fraction irréductible.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{2{,}4}{3{,}6} = \\dfrac{24}{36}",
+              "texte": "On multiplie numérateur et dénominateur par $10$ :"
+            },
+            {
+              "expr": "\\dfrac{24}{36} = \\dfrac{2}{3}",
+              "texte": "On simplifie par $12$ :"
+            }
+          ],
+          "reponse": "$\\dfrac{2{,}4}{3{,}6} = \\dfrac{2}{3}$",
+          "conclusion": "Multiplier par $10$ (ou $100$) les deux termes permet de revenir à des entiers.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-fraction-inconnue",
+          "titre": "Exemple 5 — Une fraction aux conditions imposées",
+          "enonce": "Trouver une fraction égale à $\\dfrac{3}{5}$ dont la somme du numérateur et du dénominateur vaut $64$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Les fractions égales à $\\dfrac{3}{5}$ s'écrivent $\\dfrac{3k}{5k}$ avec $k$ entier non nul."
+            },
+            {
+              "expr": "",
+              "texte": "La somme vaut $3k + 5k = 8k$ ; on veut $8k = 64$, donc $k = 8$."
+            },
+            {
+              "expr": "\\dfrac{3 \\times 8}{5 \\times 8} = \\dfrac{24}{40}",
+              "texte": "Fraction :"
+            }
+          ],
+          "reponse": "$\\dfrac{24}{40}$ (vérification : $24 + 40 = 64$).",
+          "conclusion": "Écrire toutes les fractions égales sous la forme $\\dfrac{3k}{5k}$ transforme le problème en un calcul simple.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Une recette pour $4$ personnes adaptée pour $8$ : les proportions restent les mêmes.",
+        "« $50$ élèves sur $200$ » et « $1$ élève sur $4$ » décrivent la même proportion.",
+        "Les fractions $\\dfrac{25}{100}$, $\\dfrac{1}{4}$ et $0{,}25$ représentent le même nombre."
+      ],
+      "erreursFrequentes": [
+        "Ajouter le même nombre au numérateur et au dénominateur : $\\dfrac{2}{3} = \\dfrac{3}{4}$.",
+        "Ne multiplier que le dénominateur pour atteindre le dénominateur imposé.",
+        "Simplifier en « barrant » des chiffres : $\\dfrac{16}{64} = \\dfrac{1}{4}$ en barrant les $6$.",
+        "S'arrêter avant la fraction irréductible : laisser $\\dfrac{12}{18} = \\dfrac{6}{9}$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Ajouter le même nombre au numérateur et au dénominateur : $\\dfrac{2}{3} = \\dfrac{3}{4}$.",
+          "pourquoi": "Ajouter ne conserve pas les proportions : $\\dfrac{2}{3} \\approx 0{,}67$ mais $\\dfrac{3}{4} = 0{,}75$.",
+          "comment_detecter": "Vérifie à la calculatrice : les deux fractions donnent-elles le même décimal ?",
+          "comment_eviter": "Seules la multiplication et la division par un même nombre conservent la valeur."
+        },
+        {
+          "description": "Ne multiplier que le dénominateur pour atteindre le dénominateur imposé.",
+          "pourquoi": "On pense au dénominateur et on oublie que le numérateur doit suivre.",
+          "comment_detecter": "La nouvelle fraction a-t-elle la même valeur que l'ancienne ?",
+          "comment_eviter": "Écris le facteur sur une flèche, en haut ET en bas de la fraction."
+        },
+        {
+          "description": "Simplifier en « barrant » des chiffres : $\\dfrac{16}{64} = \\dfrac{1}{4}$ en barrant les $6$.",
+          "pourquoi": "Le résultat est ici juste par hasard : on ne simplifie que par des facteurs, jamais par des chiffres.",
+          "comment_detecter": "As-tu réellement divisé les deux nombres par un même diviseur ?",
+          "comment_eviter": "Écris la division : $\\dfrac{16 \\div 16}{64 \\div 16} = \\dfrac{1}{4}$."
+        },
+        {
+          "description": "S'arrêter avant la fraction irréductible : laisser $\\dfrac{12}{18} = \\dfrac{6}{9}$.",
+          "pourquoi": "On a divisé par $2$ mais $6$ et $9$ sont encore divisibles par $3$.",
+          "comment_detecter": "Le numérateur et le dénominateur ont-ils encore un diviseur commun ?",
+          "comment_eviter": "Teste les critères de divisibilité par $2$, $3$, $5$ à chaque étape."
+        }
+      ],
+      "astuce": "Pour simplifier vite, cherche le plus grand diviseur commun : pour $\\dfrac{36}{48}$, divise directement par $12$ au lieu de trois divisions successives.",
+      "aRetenir": [
+        "On multiplie ou on divise le numérateur et le dénominateur par le même nombre non nul : on obtient des quotients égaux.",
+        "Simplification : une fraction irréductible n'a plus de diviseur commun autre que $1$.",
+        "Le signe se place devant la fraction."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.6,
+          -1.2,
+          11.2,
+          5.0
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 2
+              },
+              {
+                "x": 8,
+                "y": 2
+              },
+              {
+                "x": 8,
+                "y": 3
+              },
+              {
+                "x": 0,
+                "y": 3
+              }
+            ],
+            "tooltip": "Unité (3/4)"
+          },
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 2
+              },
+              {
+                "x": 2.0,
+                "y": 2
+              },
+              {
+                "x": 2.0,
+                "y": 3
+              },
+              {
+                "x": 0.0,
+                "y": 3
+              }
+            ],
+            "variant": "a",
+            "tooltip": "3/4 : part colorée"
+          },
+          {
+            "points": [
+              {
+                "x": 2.0,
+                "y": 2
+              },
+              {
+                "x": 4.0,
+                "y": 2
+              },
+              {
+                "x": 4.0,
+                "y": 3
+              },
+              {
+                "x": 2.0,
+                "y": 3
+              }
+            ],
+            "variant": "a",
+            "tooltip": "3/4 : part colorée"
+          },
+          {
+            "points": [
+              {
+                "x": 4.0,
+                "y": 2
+              },
+              {
+                "x": 6.0,
+                "y": 2
+              },
+              {
+                "x": 6.0,
+                "y": 3
+              },
+              {
+                "x": 4.0,
+                "y": 3
+              }
+            ],
+            "variant": "a",
+            "tooltip": "3/4 : part colorée"
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 8,
+                "y": 0
+              },
+              {
+                "x": 8,
+                "y": 1
+              },
+              {
+                "x": 0,
+                "y": 1
+              }
+            ],
+            "tooltip": "Unité (6/8)"
+          },
+          {
+            "points": [
+              {
+                "x": 0.0,
+                "y": 0
+              },
+              {
+                "x": 1.0,
+                "y": 0
+              },
+              {
+                "x": 1.0,
+                "y": 1
+              },
+              {
+                "x": 0.0,
+                "y": 1
+              }
+            ],
+            "variant": "b",
+            "tooltip": "6/8 : part colorée",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 1.0,
+                "y": 0
+              },
+              {
+                "x": 2.0,
+                "y": 0
+              },
+              {
+                "x": 2.0,
+                "y": 1
+              },
+              {
+                "x": 1.0,
+                "y": 1
+              }
+            ],
+            "variant": "b",
+            "tooltip": "6/8 : part colorée",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 2.0,
+                "y": 0
+              },
+              {
+                "x": 3.0,
+                "y": 0
+              },
+              {
+                "x": 3.0,
+                "y": 1
+              },
+              {
+                "x": 2.0,
+                "y": 1
+              }
+            ],
+            "variant": "b",
+            "tooltip": "6/8 : part colorée",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 3.0,
+                "y": 0
+              },
+              {
+                "x": 4.0,
+                "y": 0
+              },
+              {
+                "x": 4.0,
+                "y": 1
+              },
+              {
+                "x": 3.0,
+                "y": 1
+              }
+            ],
+            "variant": "b",
+            "tooltip": "6/8 : part colorée",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 4.0,
+                "y": 0
+              },
+              {
+                "x": 5.0,
+                "y": 0
+              },
+              {
+                "x": 5.0,
+                "y": 1
+              },
+              {
+                "x": 4.0,
+                "y": 1
+              }
+            ],
+            "variant": "b",
+            "tooltip": "6/8 : part colorée",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 5.0,
+                "y": 0
+              },
+              {
+                "x": 6.0,
+                "y": 0
+              },
+              {
+                "x": 6.0,
+                "y": 1
+              },
+              {
+                "x": 5.0,
+                "y": 1
+              }
+            ],
+            "variant": "b",
+            "tooltip": "6/8 : part colorée",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 2.0,
+              "y": 2
+            },
+            "to": {
+              "x": 2.0,
+              "y": 3
+            }
+          },
+          {
+            "from": {
+              "x": 4.0,
+              "y": 2
+            },
+            "to": {
+              "x": 4.0,
+              "y": 3
+            }
+          },
+          {
+            "from": {
+              "x": 6.0,
+              "y": 2
+            },
+            "to": {
+              "x": 6.0,
+              "y": 3
+            }
+          },
+          {
+            "from": {
+              "x": 1.0,
+              "y": 0
+            },
+            "to": {
+              "x": 1.0,
+              "y": 1
+            }
+          },
+          {
+            "from": {
+              "x": 2.0,
+              "y": 0
+            },
+            "to": {
+              "x": 2.0,
+              "y": 1
+            }
+          },
+          {
+            "from": {
+              "x": 3.0,
+              "y": 0
+            },
+            "to": {
+              "x": 3.0,
+              "y": 1
+            }
+          },
+          {
+            "from": {
+              "x": 4.0,
+              "y": 0
+            },
+            "to": {
+              "x": 4.0,
+              "y": 1
+            }
+          },
+          {
+            "from": {
+              "x": 5.0,
+              "y": 0
+            },
+            "to": {
+              "x": 5.0,
+              "y": 1
+            }
+          },
+          {
+            "from": {
+              "x": 6.0,
+              "y": 0
+            },
+            "to": {
+              "x": 6.0,
+              "y": 1
+            }
+          },
+          {
+            "from": {
+              "x": 7.0,
+              "y": 0
+            },
+            "to": {
+              "x": 7.0,
+              "y": 1
+            }
+          },
+          {
+            "from": {
+              "x": 6,
+              "y": -0.3
+            },
+            "to": {
+              "x": 6,
+              "y": 3.3
+            },
+            "reveal": 3,
+            "tooltip": "Même longueur colorée"
+          }
+        ],
+        "texts": [
+          {
+            "x": -0.8,
+            "y": 2.5,
+            "label": "3/4"
+          },
+          {
+            "x": -0.8,
+            "y": 0.5,
+            "label": "6/8",
+            "reveal": 2
+          },
+          {
+            "x": 8.9,
+            "y": 1.5,
+            "label": "même part",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Trois quarts",
+          "Six huitièmes",
+          "Même quantité"
+        ],
+        "relation": "$\\dfrac{3}{4} = \\dfrac{3 \\times 2}{4 \\times 2} = \\dfrac{6}{8}$",
+        "alt": "Deux bandes de même longueur : la première partagée en 4 avec 3 parts colorées, la seconde en 8 avec 6 parts colorées ; les deux parties colorées ont la même longueur.",
+        "explication": {
+          "resume": "Couper chaque quart en deux morceaux égaux double le nombre de parts colorées ET le nombre total de parts : la quantité colorée ne change pas.",
+          "lecture": [
+            "Chaque bande représente l'unité (le nombre $1$).",
+            "La bande du haut est partagée en $4$ parts égales, celle du bas en $8$.",
+            "Le trait vertical montre jusqu'où va la partie colorée."
+          ],
+          "observations": [
+            "Les deux parties colorées ont exactement la même longueur.",
+            "Numérateur et dénominateur ont tous les deux été multipliés par $2$.",
+            "$\\dfrac{3}{4}$ et $\\dfrac{6}{8}$ sont deux écritures du même nombre $0{,}75$."
+          ],
+          "pieges": [
+            "Multiplier seulement le numérateur (ou seulement le dénominateur) : on change alors le nombre."
+          ],
+          "aRetenir": [
+            "$\\dfrac{a}{b} = \\dfrac{a \\times k}{b \\times k}$ pour tout $k \\neq 0$.",
+            "Simplifier, c'est diviser numérateur et dénominateur par un même nombre."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        42101,
+        42102,
+        42105
+      ],
+      "topic_id": "fractions-quotients-egaux",
+      "proprietes": [
+        "Pour tout $k \\neq 0$ : $\\dfrac{a}{b} = \\dfrac{a \\times k}{b \\times k}$."
+      ],
+      "vocabulaire_associe": [
+        "numérateur",
+        "dénominateur",
+        "quotients égaux",
+        "simplifier",
+        "fraction irréductible",
+        "diviseur commun"
+      ],
+      "synonymes": [
+        "fractions égales",
+        "simplification de fractions"
+      ],
+      "objectifs_pedagogiques": [
+        "Écrire une fraction avec un dénominateur imposé.",
+        "Simplifier une fraction jusqu'à la forme irréductible.",
+        "Reconnaître des fractions égales, y compris négatives.",
+        "Transformer un quotient de décimaux en fraction d'entiers."
+      ],
+      "prerequis": [
+        "Écriture fractionnaire d'un quotient (6e, 5e)",
+        "Multiples et diviseurs",
+        "Critères de divisibilité par 2, 3, 5, 9, 10"
+      ],
+      "notions_liees": [
+        "fractions-comparer-ranger",
+        "fractions-additionner-soustraire"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "fractions",
+        "simplification",
+        "quotients égaux"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fractions-quotients-egaux-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Signes et virgules",
+          "description": "Deux exemples rédigés : repérer des fractions égales malgré leurs signes, et supprimer les virgules d'un quotient."
+        },
+        {
+          "id": "fractions-quotients-egaux-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Fraction aux conditions imposées",
+          "description": "Un exemple qui trouve la fraction égale à $\\dfrac{3}{5}$ vérifiant une condition, grâce à l'écriture $\\dfrac{3k}{5k}$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "D'après la figure, que vaut $\\dfrac{3}{4}$ en douzièmes ?",
+          "piste": "On multiplie par $3$ : $\\dfrac{9}{12}$."
+        },
+        {
+          "apres": "methode",
+          "question": "$\\dfrac{45}{60}$ est-elle irréductible ?",
+          "piste": "Non : $45$ et $60$ sont divisibles par $15$, et $\\dfrac{45}{60} = \\dfrac{3}{4}$."
+        }
+      ]
+    },
+    {
+      "id": "fractions-comparer-ranger",
+      "title": "Comparer et ranger des nombres en écriture fractionnaire",
+      "schemaVersion": 2,
+      "intro": "Quel est le plus grand : $\\dfrac{5}{8}$ ou $\\dfrac{7}{12}$ ? Et entre $-\\dfrac{2}{3}$ et $-\\dfrac{3}{4}$ ? Cette leçon donne une méthode sûre pour comparer, ranger et encadrer des nombres en écriture fractionnaire, positifs ou négatifs.",
+      "pourquoi": "Comparer des fractions sert à choisir la meilleure offre, à classer des proportions, à vérifier un résultat (une part ne peut pas dépasser le tout) et à placer des nombres sur une droite graduée.",
+      "explicationSimple": "Des huitièmes se comparent facilement entre eux : $5$ huitièmes, c'est plus que $3$ huitièmes. Mais pour comparer des huitièmes et des douzièmes, il faut d'abord découper l'unité en parts de même taille (des vingt-quatrièmes).",
+      "objectif": "À la fin de cette leçon, tu sauras comparer deux fractions de même dénominateur ou non, comparer une fraction à $1$, comparer des nombres négatifs en écriture fractionnaire, ranger plusieurs nombres et encadrer une fraction entre deux entiers.",
+      "definition": "Deux fractions de même dénominateur positif sont rangées dans le même ordre que leurs numérateurs. Pour comparer deux fractions de dénominateurs différents, on les écrit d'abord avec un même dénominateur. Pour deux nombres négatifs, le plus petit est celui dont la distance à zéro est la plus grande.",
+      "definitions": {
+        "college": "Même dénominateur (positif) : on compare les numérateurs. Sinon, on met d'abord au même dénominateur. Pour les négatifs, l'ordre est inversé par rapport à leurs distances à zéro.",
+        "lycee": "Deux fractions de même dénominateur positif sont rangées dans le même ordre que leurs numérateurs. Pour comparer deux fractions de dénominateurs différents, on les écrit d'abord avec un même dénominateur. Pour deux nombres négatifs, le plus petit est celui dont la distance à zéro est la plus grande."
+      },
+      "intuition": "Pense à des parts de pizza : avec des parts de même taille, celui qui en a le plus a le plus de pizza. Si les tailles diffèrent, il faut d'abord « redécouper » toutes les pizzas de la même façon.",
+      "reglesImportantes": [
+        "Si deux fractions ont le même dénominateur positif, la plus grande est celle qui a le plus grand numérateur.",
+        "Si les dénominateurs sont différents, on écrit les deux fractions avec un dénominateur commun (un multiple commun des deux dénominateurs), puis on compare les numérateurs.",
+        "Une fraction positive est supérieure à $1$ si son numérateur est plus grand que son dénominateur, inférieure à $1$ sinon.",
+        "Un nombre négatif est toujours plus petit qu'un nombre positif ; entre deux négatifs, le plus petit est le plus éloigné de zéro.",
+        "Pour encadrer une fraction entre deux entiers consécutifs, on effectue la division euclidienne du numérateur par le dénominateur : $\\dfrac{17}{5}$ est entre $3$ et $4$ car $17 = 5 \\times 3 + 2$."
+      ],
+      "formules": [
+        {
+          "id": "formule-meme-denominateur",
+          "nom": "Même dénominateur",
+          "expression": "si $b > 0$ : $\\dfrac{a}{b} < \\dfrac{c}{b}$ équivaut à $a < c$",
+          "quand_utiliser": "Pour comparer deux fractions qui ont déjà le même dénominateur positif.",
+          "erreur_frequente": "Comparer les dénominateurs alors que ce sont les numérateurs qui comptent.",
+          "astuce": "Parts de même taille : on compte les parts."
+        },
+        {
+          "id": "formule-ordre-negatifs",
+          "nom": "Ordre des nombres négatifs",
+          "expression": "si $0 < x < y$, alors $-y < -x$",
+          "quand_utiliser": "Pour comparer deux nombres négatifs à partir de leurs distances à zéro.",
+          "erreur_frequente": "Conclure $-\\dfrac{3}{4} > -\\dfrac{2}{3}$ parce que $\\dfrac{3}{4} > \\dfrac{2}{3}$.",
+          "astuce": "Pour les négatifs, l'ordre des distances à zéro s'inverse."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Comparer deux nombres en écriture fractionnaire",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je regarde les signes : un négatif est plus petit qu'un positif."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Si les deux ont le même signe, je cherche un dénominateur commun (souvent le plus grand des dénominateurs s'il est multiple de l'autre)."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "J'écris les deux fractions avec ce dénominateur et je compare les numérateurs (en inversant l'ordre pour deux négatifs)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je conclus avec le symbole $<$ ou $>$ en utilisant les fractions de l'énoncé."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde les signes : un négatif est plus petit qu'un positif."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Si les deux ont le même signe, je cherche un dénominateur commun (souvent le plus grand des dénominateurs s'il est multiple de l'autre)."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "J'écris les deux fractions avec ce dénominateur et je compare les numérateurs (en inversant l'ordre pour deux négatifs)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je conclus avec le symbole $<$ ou $>$ en utilisant les fractions de l'énoncé."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'entoure les nombres négatifs."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je cherche un nombre qui est dans la table de multiplication des deux dénominateurs."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je transforme chaque fraction pour qu'elle ait ce dénominateur."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Le plus grand numérateur donne la plus grande fraction (si elles sont positives)."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Même dénominateur positif, puis comparaison des numérateurs."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Négatifs : ordre inversé des distances à zéro."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-comparer-multiples",
+          "titre": "Exemple 1 — Dénominateurs multiples",
+          "enonce": "Comparer $\\dfrac{5}{6}$ et $\\dfrac{7}{9}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$18$ est un multiple commun de $6$ et de $9$."
+            },
+            {
+              "expr": "\\dfrac{5}{6} = \\dfrac{15}{18} \\quad \\text{et} \\quad \\dfrac{7}{9} = \\dfrac{14}{18}",
+              "texte": "Mise au même dénominateur :"
+            },
+            {
+              "expr": "",
+              "texte": "$15 > 14$, donc $\\dfrac{15}{18} > \\dfrac{14}{18}$."
+            }
+          ],
+          "reponse": "$\\dfrac{5}{6} > \\dfrac{7}{9}$",
+          "conclusion": "On conclut avec les fractions de départ.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-comparer-negatifs",
+          "titre": "Exemple 2 — Deux nombres négatifs",
+          "enonce": "Comparer $-\\dfrac{2}{3}$ et $-\\dfrac{3}{4}$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{2}{3} = \\dfrac{8}{12} \\quad \\text{et} \\quad \\dfrac{3}{4} = \\dfrac{9}{12}",
+              "texte": "On compare d'abord les distances à zéro :"
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{3}{4}$ est la plus grande distance à zéro, donc $-\\dfrac{3}{4}$ est le nombre le plus petit."
+            }
+          ],
+          "reponse": "$-\\dfrac{3}{4} < -\\dfrac{2}{3}$",
+          "conclusion": "Sur la droite graduée, $-\\dfrac{3}{4}$ est plus à gauche que $-\\dfrac{2}{3}$.",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-ranger",
+          "titre": "Exemple 3 — Ranger plusieurs nombres",
+          "enonce": "Ranger dans l'ordre croissant : $\\dfrac{3}{4}$ ; $\\dfrac{2}{3}$ ; $-\\dfrac{1}{2}$ ; $\\dfrac{7}{12}$ ; $-\\dfrac{5}{6}$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{9}{12} ; \\dfrac{8}{12} ; -\\dfrac{6}{12} ; \\dfrac{7}{12} ; -\\dfrac{10}{12}",
+              "texte": "Dénominateur commun $12$ :"
+            },
+            {
+              "expr": "",
+              "texte": "Négatifs : $-\\dfrac{10}{12} < -\\dfrac{6}{12}$ ; positifs : $\\dfrac{7}{12} < \\dfrac{8}{12} < \\dfrac{9}{12}$."
+            }
+          ],
+          "reponse": "$-\\dfrac{5}{6} < -\\dfrac{1}{2} < \\dfrac{7}{12} < \\dfrac{2}{3} < \\dfrac{3}{4}$",
+          "conclusion": "Un seul dénominateur commun pour tous les nombres rend le rangement immédiat.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-encadrer",
+          "titre": "Exemple 4 — Encadrer entre deux entiers",
+          "enonce": "Encadrer $\\dfrac{43}{6}$ et $-\\dfrac{43}{6}$ entre deux entiers consécutifs.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Division euclidienne : $43 = 6 \\times 7 + 1$, donc $\\dfrac{43}{6} = 7 + \\dfrac{1}{6}$."
+            },
+            {
+              "expr": "",
+              "texte": "Ainsi $7 < \\dfrac{43}{6} < 8$."
+            },
+            {
+              "expr": "",
+              "texte": "Pour l'opposé, l'ordre s'inverse : $-8 < -\\dfrac{43}{6} < -7$."
+            }
+          ],
+          "reponse": "$7 < \\dfrac{43}{6} < 8$ et $-8 < -\\dfrac{43}{6} < -7$.",
+          "conclusion": "Le quotient de la division euclidienne donne l'entier juste en dessous.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-comparer-produits-croix",
+          "titre": "Exemple 5 — Comparer sans dénominateur commun évident",
+          "enonce": "Comparer $\\dfrac{13}{17}$ et $\\dfrac{16}{21}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le produit $17 \\times 21 = 357$ est un dénominateur commun."
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{13}{17} = \\dfrac{13 \\times 21}{357} = \\dfrac{273}{357}$ et $\\dfrac{16}{21} = \\dfrac{16 \\times 17}{357} = \\dfrac{272}{357}$."
+            },
+            {
+              "expr": "",
+              "texte": "$273 > 272$."
+            }
+          ],
+          "reponse": "$\\dfrac{13}{17} > \\dfrac{16}{21}$ (de très peu : l'écart vaut $\\dfrac{1}{357}$).",
+          "conclusion": "Le produit des dénominateurs est toujours un dénominateur commun, même quand aucun autre n'est évident.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Comparer deux taux de réussite : $\\dfrac{17}{20}$ dans une classe et $\\dfrac{21}{25}$ dans une autre.",
+        "Choisir la plus grande part d'une boisson : $\\dfrac{3}{4}$ L ou $\\dfrac{5}{8}$ L.",
+        "Classer des variations négatives (baisses de température exprimées en fractions de degré)."
+      ],
+      "erreursFrequentes": [
+        "Comparer les dénominateurs : penser que $\\dfrac{1}{8} > \\dfrac{1}{5}$ parce que $8 > 5$.",
+        "Comparer $\\dfrac{5}{6}$ et $\\dfrac{7}{9}$ en comparant $5$ et $7$ alors que les dénominateurs diffèrent.",
+        "Garder l'ordre des distances à zéro pour des nombres négatifs.",
+        "Se tromper de sens dans les symboles $<$ et $>$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Comparer les dénominateurs : penser que $\\dfrac{1}{8} > \\dfrac{1}{5}$ parce que $8 > 5$.",
+          "pourquoi": "Plus le dénominateur est grand, plus les parts sont petites.",
+          "comment_detecter": "Imagine le gâteau partagé en $8$ ou en $5$ : quelle part est la plus grosse ?",
+          "comment_eviter": "Ne compare jamais les dénominateurs seuls : mets au même dénominateur."
+        },
+        {
+          "description": "Comparer $\\dfrac{5}{6}$ et $\\dfrac{7}{9}$ en comparant $5$ et $7$ alors que les dénominateurs diffèrent.",
+          "pourquoi": "Les numérateurs ne se comparent que pour des parts de même taille.",
+          "comment_detecter": "Les dénominateurs sont-ils égaux ?",
+          "comment_eviter": "Vérifie toujours l'égalité des dénominateurs avant de comparer les numérateurs."
+        },
+        {
+          "description": "Garder l'ordre des distances à zéro pour des nombres négatifs.",
+          "pourquoi": "On oublie que l'ordre s'inverse à gauche de zéro.",
+          "comment_detecter": "Place les deux nombres sur une droite graduée : lequel est le plus à gauche ?",
+          "comment_eviter": "Le négatif le plus loin de zéro est le plus petit."
+        },
+        {
+          "description": "Se tromper de sens dans les symboles $<$ et $>$.",
+          "pourquoi": "On confond « plus petit que » et « plus grand que ».",
+          "comment_detecter": "La pointe du symbole est tournée vers le plus petit nombre.",
+          "comment_eviter": "Relis ta conclusion à voix haute : « $\\dfrac{5}{6}$ est plus grand que $\\dfrac{7}{9}$ »."
+        }
+      ],
+      "astuce": "Pour comparer une fraction à $1$, regarde seulement le numérateur et le dénominateur : $\\dfrac{9}{8} > 1$ car $9 > 8$. Cela permet souvent de comparer sans aucun calcul : $\\dfrac{9}{8} > \\dfrac{7}{9}$.",
+      "aRetenir": [
+        "Même dénominateur positif : on compare les numérateurs.",
+        "Sinon : on met au même dénominateur.",
+        "Pour savoir quelle fraction est la plus grande ou la plus petite, on compare les fractions écrites avec le même dénominateur.",
+        "Entre deux négatifs, le plus petit est le plus éloigné de zéro."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -6.6,
+          -1.6,
+          13.2,
+          3.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": -4.5,
+            "y": 0,
+            "label": "-3/4"
+          },
+          {
+            "x": -4.0,
+            "y": 0,
+            "label": "-2/3"
+          },
+          {
+            "x": 2.0,
+            "y": 0,
+            "label": "1/3"
+          },
+          {
+            "x": 2.5,
+            "y": 0,
+            "label": "5/12"
+          },
+          {
+            "x": 4.5,
+            "y": 0,
+            "label": "3/4"
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "label": "0"
+          },
+          {
+            "x": 6.0,
+            "y": 0,
+            "label": "1"
+          },
+          {
+            "x": -6.0,
+            "y": 0,
+            "label": "-1"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -6.3,
+              "y": 0
+            },
+            "to": {
+              "x": 6.3,
+              "y": 0
+            },
+            "tooltip": "Droite graduée en douzièmes"
+          },
+          {
+            "from": {
+              "x": -6.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": -6.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -5.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": -5.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -5.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": -5.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -4.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": -4.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -4.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": -4.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -3.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": -3.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -3.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": -3.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -2.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": -2.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -2.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": -2.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -1.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": -1.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -1.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": -1.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": -0.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": -0.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 0.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": 0.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 0.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": 0.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 1.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": 1.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 1.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": 1.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 2.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": 2.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 2.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": 2.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 3.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": 3.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 3.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": 3.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 4.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": 4.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 4.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": 4.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 5.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": 5.0,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 5.5,
+              "y": -0.08
+            },
+            "to": {
+              "x": 5.5,
+              "y": 0.08
+            }
+          },
+          {
+            "from": {
+              "x": 6.0,
+              "y": -0.08
+            },
+            "to": {
+              "x": 6.0,
+              "y": 0.08
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.4,
+            "y": 0.9,
+            "label": "1/3 < 5/12",
+            "reveal": 2
+          },
+          {
+            "x": -4.0,
+            "y": -1.0,
+            "label": "-3/4 < -2/3",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "La droite graduée",
+          "Deux positifs",
+          "Deux négatifs"
+        ],
+        "relation": "$\\dfrac{1}{3} = \\dfrac{4}{12} < \\dfrac{5}{12}$ et $-\\dfrac{3}{4} = -\\dfrac{9}{12} < -\\dfrac{8}{12} = -\\dfrac{2}{3}$",
+        "alt": "Droite graduée de −1 à 1 en douzièmes, sur laquelle sont placés −3/4, −2/3, 1/3, 5/12 et 3/4.",
+        "explication": {
+          "resume": "Sur une droite graduée, le plus petit des deux nombres est toujours celui qui est le plus à gauche — y compris pour les nombres négatifs.",
+          "lecture": [
+            "L'unité est partagée en $12$ parts égales : chaque petit trait représente $\\dfrac{1}{12}$.",
+            "Les nombres négatifs sont à gauche de $0$, les positifs à droite."
+          ],
+          "observations": [
+            "$\\dfrac{1}{3}$ est au 4e trait et $\\dfrac{5}{12}$ au 5e : $\\dfrac{1}{3} < \\dfrac{5}{12}$.",
+            "$-\\dfrac{3}{4}$ est plus loin de $0$ que $-\\dfrac{2}{3}$ : il est plus petit.",
+            "Les points de $-\\dfrac{3}{4}$ et $\\dfrac{3}{4}$ sont symétriques par rapport à $0$."
+          ],
+          "pieges": [
+            "Penser que $-\\dfrac{3}{4} > -\\dfrac{2}{3}$ parce que $\\dfrac{3}{4} > \\dfrac{2}{3}$ : pour les négatifs, l'ordre s'inverse."
+          ],
+          "aRetenir": [
+            "Même dénominateur positif : on compare les numérateurs.",
+            "Deux négatifs : le plus petit est le plus éloigné de zéro."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        42201,
+        42202,
+        42206
+      ],
+      "topic_id": "fractions-comparer-ranger",
+      "proprietes": [
+        "Pour $b > 0$ : $\\dfrac{a}{b} < \\dfrac{c}{b}$ si et seulement si $a < c$."
+      ],
+      "vocabulaire_associe": [
+        "comparer",
+        "ranger",
+        "ordre croissant",
+        "dénominateur commun",
+        "encadrer",
+        "distance à zéro"
+      ],
+      "synonymes": [
+        "comparaison de fractions",
+        "ranger des fractions"
+      ],
+      "objectifs_pedagogiques": [
+        "Comparer deux fractions de même dénominateur ou non.",
+        "Comparer une fraction à $1$.",
+        "Comparer des nombres négatifs en écriture fractionnaire.",
+        "Ranger plusieurs nombres.",
+        "Encadrer une fraction entre deux entiers consécutifs."
+      ],
+      "prerequis": [
+        "Quotients égaux et simplification",
+        "Ordre des nombres relatifs",
+        "Division euclidienne"
+      ],
+      "notions_liees": [
+        "fractions-quotients-egaux",
+        "fractions-additionner-soustraire"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "fractions",
+        "comparaison",
+        "ordre",
+        "relatifs"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fractions-comparer-ranger-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Ranger et encadrer",
+          "description": "Deux exemples rédigés : ranger cinq nombres positifs et négatifs, et encadrer une fraction et son opposé entre deux entiers."
+        },
+        {
+          "id": "fractions-comparer-ranger-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Comparer deux fractions très proches",
+          "description": "Un exemple où le produit des dénominateurs sert de dénominateur commun pour départager deux fractions presque égales."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Sur la droite graduée, $\\dfrac{3}{4}$ est-il plus grand que $\\dfrac{5}{12}$ ?",
+          "piste": "Oui : $\\dfrac{3}{4} = \\dfrac{9}{12}$ est plus à droite."
+        },
+        {
+          "apres": "methode",
+          "question": "Sans calcul, compare $\\dfrac{11}{10}$ et $\\dfrac{9}{10}$.",
+          "piste": "Même dénominateur : $11 > 9$, donc $\\dfrac{11}{10} > \\dfrac{9}{10}$."
+        }
+      ]
+    },
+    {
+      "id": "fractions-additionner-soustraire",
+      "title": "Additionner et soustraire des fractions",
+      "schemaVersion": 2,
+      "intro": "Additionner des fractions demande une seule précaution : que les parts aient la même taille. Cette leçon t'apprend à mettre au même dénominateur pour additionner et soustraire, avec des nombres positifs ou négatifs.",
+      "pourquoi": "Ces calculs sont partout : temps (un quart d'heure plus une demi-heure), recettes, partages, probabilités (chapitre 17) et calcul littéral.",
+      "explicationSimple": "Trois septièmes plus deux septièmes, c'est cinq septièmes, comme trois pommes plus deux pommes font cinq pommes : le « septième » joue le rôle de l'unité de compte, il ne s'additionne pas.",
+      "objectif": "À la fin de cette leçon, tu sauras additionner et soustraire deux ou trois fractions (de même dénominateur ou non, positives ou négatives), et donner le résultat sous forme irréductible.",
+      "definition": "Pour additionner (ou soustraire) deux fractions de même dénominateur, on additionne (ou on soustrait) les numérateurs et on garde le dénominateur : $\\dfrac{a}{d} + \\dfrac{b}{d} = \\dfrac{a + b}{d}$. Si les dénominateurs sont différents, on écrit d'abord les fractions avec un dénominateur commun.",
+      "definitions": {
+        "college": "On met les fractions au même dénominateur, on additionne (ou on soustrait) les numérateurs, on garde le dénominateur, puis on simplifie.",
+        "lycee": "Pour additionner (ou soustraire) deux fractions de même dénominateur, on additionne (ou on soustrait) les numérateurs et on garde le dénominateur : $\\dfrac{a}{d} + \\dfrac{b}{d} = \\dfrac{a + b}{d}$. Si les dénominateurs sont différents, on écrit d'abord les fractions avec un dénominateur commun."
+      },
+      "intuition": "Le dénominateur est le nom des parts (des tiers, des quarts, des douzièmes). On ne peut additionner que des parts qui portent le même nom ; sinon, on les renomme d'abord (on les redécoupe).",
+      "reglesImportantes": [
+        "Même dénominateur : $\\dfrac{a}{d} + \\dfrac{b}{d} = \\dfrac{a + b}{d}$ et $\\dfrac{a}{d} - \\dfrac{b}{d} = \\dfrac{a - b}{d}$ ; on n'additionne jamais les dénominateurs.",
+        "Si un dénominateur est un multiple de l'autre, on prend le plus grand comme dénominateur commun : $\\dfrac{2}{3} + \\dfrac{1}{6} = \\dfrac{4}{6} + \\dfrac{1}{6}$.",
+        "Sinon, on prend un multiple commun des deux dénominateurs (le plus petit possible, ou à défaut leur produit).",
+        "Les règles des nombres relatifs s'appliquent aux numérateurs : $\\dfrac{3}{8} - \\dfrac{7}{8} = \\dfrac{-4}{8} = -\\dfrac{1}{2}$.",
+        "Un nombre entier s'écrit comme une fraction : $2 = \\dfrac{2}{1} = \\dfrac{10}{5}$. On simplifie toujours le résultat final."
+      ],
+      "formules": [
+        {
+          "id": "formule-somme-meme-denominateur",
+          "nom": "Somme de fractions de même dénominateur",
+          "expression": "$\\dfrac{a}{d} + \\dfrac{b}{d} = \\dfrac{a + b}{d}$",
+          "quand_utiliser": "Dès que les fractions ont le même dénominateur.",
+          "erreur_frequente": "Écrire $\\dfrac{a}{d} + \\dfrac{b}{d} = \\dfrac{a + b}{d + d}$.",
+          "astuce": "Le dénominateur est un « nom de parts » : il reste inchangé."
+        },
+        {
+          "id": "formule-somme-denominateurs-differents",
+          "nom": "Somme de fractions quelconques",
+          "expression": "$\\dfrac{a}{b} + \\dfrac{c}{d} = \\dfrac{a \\times d}{b \\times d} + \\dfrac{c \\times b}{d \\times b} = \\dfrac{ad + bc}{bd}$",
+          "quand_utiliser": "Quand aucun dénominateur commun plus simple n'apparaît.",
+          "erreur_frequente": "Oublier de multiplier aussi les numérateurs.",
+          "astuce": "Le produit des dénominateurs est toujours un dénominateur commun ; on simplifie ensuite."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Additionner ou soustraire deux fractions",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je compare les dénominateurs : égaux, multiples l'un de l'autre, ou quelconques ?"
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je choisis un dénominateur commun et j'écris chaque fraction avec ce dénominateur."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "J'additionne ou je soustrais les numérateurs (règles des relatifs) en gardant le dénominateur commun."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je simplifie le résultat et je vérifie son ordre de grandeur."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je compare les dénominateurs : égaux, multiples l'un de l'autre, ou quelconques ?"
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je choisis un dénominateur commun et j'écris chaque fraction avec ce dénominateur."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "J'additionne ou je soustrais les numérateurs (règles des relatifs) en gardant le dénominateur commun."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je simplifie le résultat et je vérifie son ordre de grandeur."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Les deux nombres du bas sont-ils pareils ? Si oui, je passe à l'étape 3."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Sinon, je cherche un nombre présent dans les deux tables de multiplication et je transforme les fractions."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je calcule les nombres du haut ; le nombre du bas ne change pas."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je simplifie si c'est possible."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Dénominateur commun, numérateurs additionnés, dénominateur conservé."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Résultat irréductible."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-somme-multiple",
+          "titre": "Exemple 1 — Un dénominateur multiple de l'autre",
+          "enonce": "Calculer $\\dfrac{2}{3} + \\dfrac{5}{12}$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{2}{3} = \\dfrac{8}{12}",
+              "texte": "$12$ est un multiple de $3$ :"
+            },
+            {
+              "expr": "\\dfrac{8}{12} + \\dfrac{5}{12} = \\dfrac{13}{12}",
+              "texte": "Somme :"
+            }
+          ],
+          "reponse": "$\\dfrac{2}{3} + \\dfrac{5}{12} = \\dfrac{13}{12}$",
+          "conclusion": "$\\dfrac{13}{12}$ est irréductible ; il est un peu plus grand que $1$, ce qui est cohérent.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-difference-negative",
+          "titre": "Exemple 2 — Une différence négative",
+          "enonce": "Calculer $\\dfrac{3}{4} - \\dfrac{5}{6}$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{3}{4} = \\dfrac{9}{12} \\quad \\dfrac{5}{6} = \\dfrac{10}{12}",
+              "texte": "Multiple commun de $4$ et $6$ : $12$."
+            },
+            {
+              "expr": "\\dfrac{9}{12} - \\dfrac{10}{12} = \\dfrac{-1}{12} = -\\dfrac{1}{12}",
+              "texte": "Différence :"
+            }
+          ],
+          "reponse": "$\\dfrac{3}{4} - \\dfrac{5}{6} = -\\dfrac{1}{12}$",
+          "conclusion": "On retire plus qu'on n'a : le résultat est négatif.",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-entier-et-fraction",
+          "titre": "Exemple 3 — Un entier et des relatifs",
+          "enonce": "Calculer $-2 + \\dfrac{7}{5} - \\left(-\\dfrac{3}{10}\\right)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Soustraire $-\\dfrac{3}{10}$, c'est ajouter $\\dfrac{3}{10}$."
+            },
+            {
+              "expr": "-\\dfrac{20}{10} + \\dfrac{14}{10} + \\dfrac{3}{10} = \\dfrac{-20 + 14 + 3}{10} = \\dfrac{-3}{10}",
+              "texte": "Dénominateur commun $10$ :"
+            }
+          ],
+          "reponse": "$-\\dfrac{3}{10}$",
+          "conclusion": "On écrit l'entier $-2$ sous la forme $-\\dfrac{20}{10}$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-plus-petit-multiple",
+          "titre": "Exemple 4 — Choisir le plus petit multiple commun",
+          "enonce": "Calculer $\\dfrac{5}{6} + \\dfrac{7}{8}$ avec le plus petit dénominateur commun possible.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Multiples de $8$ : $8, 16, 24\\ldots$ ; $24$ est aussi un multiple de $6$."
+            },
+            {
+              "expr": "\\dfrac{20}{24} + \\dfrac{21}{24} = \\dfrac{41}{24}",
+              "texte": "Mise au même dénominateur :"
+            }
+          ],
+          "reponse": "$\\dfrac{41}{24}$",
+          "conclusion": "Avec $6 \\times 8 = 48$, on aurait obtenu $\\dfrac{82}{48}$, qu'il aurait fallu simplifier.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-somme-telescopique",
+          "titre": "Exemple 5 — Une somme astucieuse",
+          "enonce": "Calculer $\\left(1 - \\dfrac{1}{2}\\right) + \\left(\\dfrac{1}{2} - \\dfrac{1}{3}\\right) + \\left(\\dfrac{1}{3} - \\dfrac{1}{4}\\right)$, puis $\\dfrac{1}{2} + \\dfrac{1}{6} + \\dfrac{1}{12}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans la première somme, $-\\dfrac{1}{2}$ et $+\\dfrac{1}{2}$ s'annulent, de même que $-\\dfrac{1}{3}$ et $+\\dfrac{1}{3}$ : il reste $1 - \\dfrac{1}{4} = \\dfrac{3}{4}$."
+            },
+            {
+              "expr": "",
+              "texte": "Or $1 - \\dfrac{1}{2} = \\dfrac{1}{2}$, $\\dfrac{1}{2} - \\dfrac{1}{3} = \\dfrac{1}{6}$ et $\\dfrac{1}{3} - \\dfrac{1}{4} = \\dfrac{1}{12}$ : c'est la même somme."
+            },
+            {
+              "expr": "\\dfrac{6}{12} + \\dfrac{2}{12} + \\dfrac{1}{12} = \\dfrac{9}{12} = \\dfrac{3}{4}",
+              "texte": "Vérification directe :"
+            }
+          ],
+          "reponse": "Les deux sommes valent $\\dfrac{3}{4}$.",
+          "conclusion": "Écrire chaque fraction comme une différence fait disparaître presque tous les termes.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Un quart d'heure plus une demi-heure : $\\dfrac{1}{4} + \\dfrac{1}{2} = \\dfrac{3}{4}$ d'heure.",
+        "Une recette qui demande $\\dfrac{2}{3}$ de tasse de farine puis $\\dfrac{1}{4}$ de tasse de plus.",
+        "Calculer la part d'un budget qui reste après plusieurs dépenses."
+      ],
+      "erreursFrequentes": [
+        "Additionner les dénominateurs : $\\dfrac{1}{3} + \\dfrac{1}{4} = \\dfrac{2}{7}$.",
+        "Changer le dénominateur sans changer le numérateur : $\\dfrac{2}{3} = \\dfrac{2}{12}$.",
+        "Se tromper de signe avec une fraction négative : $\\dfrac{1}{6} - \\dfrac{5}{6} = \\dfrac{4}{6}$.",
+        "Oublier de simplifier le résultat : laisser $\\dfrac{9}{12}$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Additionner les dénominateurs : $\\dfrac{1}{3} + \\dfrac{1}{4} = \\dfrac{2}{7}$.",
+          "pourquoi": "On applique la même opération en haut et en bas, comme pour une multiplication.",
+          "comment_detecter": "Le résultat $\\dfrac{2}{7}$ est plus petit que $\\dfrac{1}{3}$ : impossible pour une somme de nombres positifs.",
+          "comment_eviter": "Mets d'abord au même dénominateur ; le dénominateur commun ne s'additionne pas."
+        },
+        {
+          "description": "Changer le dénominateur sans changer le numérateur : $\\dfrac{2}{3} = \\dfrac{2}{12}$.",
+          "pourquoi": "On oublie que les deux termes doivent être multipliés par le même nombre.",
+          "comment_detecter": "La fraction transformée a-t-elle gardé sa valeur ?",
+          "comment_eviter": "Écris le facteur multiplicatif en haut et en bas."
+        },
+        {
+          "description": "Se tromper de signe avec une fraction négative : $\\dfrac{1}{6} - \\dfrac{5}{6} = \\dfrac{4}{6}$.",
+          "pourquoi": "On soustrait le plus petit numérateur du plus grand par habitude.",
+          "comment_detecter": "On retire $\\dfrac{5}{6}$ à $\\dfrac{1}{6}$ : le résultat peut-il être positif ?",
+          "comment_eviter": "Calcule $1 - 5 = -4$ comme une soustraction de relatifs."
+        },
+        {
+          "description": "Oublier de simplifier le résultat : laisser $\\dfrac{9}{12}$.",
+          "pourquoi": "On s'arrête dès que le calcul est fini.",
+          "comment_detecter": "Le numérateur et le dénominateur ont-ils un diviseur commun ?",
+          "comment_eviter": "Termine toujours par l'étape « simplification »."
+        }
+      ],
+      "astuce": "Avant de calculer, estime le résultat : $\\dfrac{2}{3} + \\dfrac{5}{12}$, c'est un peu plus que $\\dfrac{1}{2} + \\dfrac{1}{2} = 1$. Un résultat comme $\\dfrac{7}{15}$ serait donc forcément faux.",
+      "aRetenir": [
+        "On additionne seulement des fractions de même dénominateur.",
+        "On garde le dénominateur commun ; on additionne les numérateurs.",
+        "Règles des relatifs pour les numérateurs, puis simplification."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -1.6,
+          13.6,
+          4.0
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 12,
+                "y": 0
+              },
+              {
+                "x": 12,
+                "y": 1.2
+              },
+              {
+                "x": 0,
+                "y": 1.2
+              }
+            ],
+            "tooltip": "Unité partagée en 12"
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 1,
+                "y": 0
+              },
+              {
+                "x": 1,
+                "y": 1.2
+              },
+              {
+                "x": 0,
+                "y": 1.2
+              }
+            ],
+            "variant": "a",
+            "tooltip": "1/3 = 4/12",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 1,
+                "y": 0
+              },
+              {
+                "x": 2,
+                "y": 0
+              },
+              {
+                "x": 2,
+                "y": 1.2
+              },
+              {
+                "x": 1,
+                "y": 1.2
+              }
+            ],
+            "variant": "a",
+            "tooltip": "1/3 = 4/12",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 2,
+                "y": 0
+              },
+              {
+                "x": 3,
+                "y": 0
+              },
+              {
+                "x": 3,
+                "y": 1.2
+              },
+              {
+                "x": 2,
+                "y": 1.2
+              }
+            ],
+            "variant": "a",
+            "tooltip": "1/3 = 4/12",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 3,
+                "y": 0
+              },
+              {
+                "x": 4,
+                "y": 0
+              },
+              {
+                "x": 4,
+                "y": 1.2
+              },
+              {
+                "x": 3,
+                "y": 1.2
+              }
+            ],
+            "variant": "a",
+            "tooltip": "1/3 = 4/12",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 4,
+                "y": 0
+              },
+              {
+                "x": 5,
+                "y": 0
+              },
+              {
+                "x": 5,
+                "y": 1.2
+              },
+              {
+                "x": 4,
+                "y": 1.2
+              }
+            ],
+            "variant": "b",
+            "tooltip": "1/4 = 3/12",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 5,
+                "y": 0
+              },
+              {
+                "x": 6,
+                "y": 0
+              },
+              {
+                "x": 6,
+                "y": 1.2
+              },
+              {
+                "x": 5,
+                "y": 1.2
+              }
+            ],
+            "variant": "b",
+            "tooltip": "1/4 = 3/12",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 6,
+                "y": 0
+              },
+              {
+                "x": 7,
+                "y": 0
+              },
+              {
+                "x": 7,
+                "y": 1.2
+              },
+              {
+                "x": 6,
+                "y": 1.2
+              }
+            ],
+            "variant": "b",
+            "tooltip": "1/4 = 3/12",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1,
+              "y": 0
+            },
+            "to": {
+              "x": 1,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 2,
+              "y": 0
+            },
+            "to": {
+              "x": 2,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 3,
+              "y": 0
+            },
+            "to": {
+              "x": 3,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 4,
+              "y": 0
+            },
+            "to": {
+              "x": 4,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 5,
+              "y": 0
+            },
+            "to": {
+              "x": 5,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 6,
+              "y": 0
+            },
+            "to": {
+              "x": 6,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 7,
+              "y": 0
+            },
+            "to": {
+              "x": 7,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 8,
+              "y": 0
+            },
+            "to": {
+              "x": 8,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 9,
+              "y": 0
+            },
+            "to": {
+              "x": 9,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 10,
+              "y": 0
+            },
+            "to": {
+              "x": 10,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 11,
+              "y": 0
+            },
+            "to": {
+              "x": 11,
+              "y": 1.2
+            }
+          },
+          {
+            "from": {
+              "x": 7,
+              "y": -0.4
+            },
+            "to": {
+              "x": 7,
+              "y": 1.6
+            },
+            "reveal": 3,
+            "tooltip": "7 douzièmes"
+          }
+        ],
+        "texts": [
+          {
+            "x": 2,
+            "y": 1.8,
+            "label": "1/3 = 4/12",
+            "reveal": 2
+          },
+          {
+            "x": 5.5,
+            "y": 1.8,
+            "label": "1/4 = 3/12",
+            "reveal": 2
+          },
+          {
+            "x": 7.0,
+            "y": -0.9,
+            "label": "7/12",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Douze parts",
+          "Un tiers et un quart",
+          "La somme"
+        ],
+        "relation": "$\\dfrac{1}{3} + \\dfrac{1}{4} = \\dfrac{4}{12} + \\dfrac{3}{12} = \\dfrac{7}{12}$",
+        "alt": "Bande partagée en 12 parts égales : 4 parts colorées représentent 1/3, 3 parts d'une autre couleur représentent 1/4 ; ensemble elles forment 7/12.",
+        "explication": {
+          "resume": "On ne peut additionner que des parts de même taille : on découpe donc l'unité en douzièmes, qui conviennent à la fois aux tiers et aux quarts.",
+          "lecture": [
+            "La bande entière est l'unité, partagée en $12$ parts égales.",
+            "Un tiers occupe $4$ parts, un quart en occupe $3$."
+          ],
+          "observations": [
+            "Ensemble, les parts colorées occupent $4 + 3 = 7$ parts sur $12$.",
+            "$12$ est un multiple commun de $3$ et de $4$.",
+            "Additionner les dénominateurs ($3 + 4 = 7$) n'aurait aucun sens : on ne change pas la taille des parts en les assemblant."
+          ],
+          "pieges": [
+            "Écrire $\\dfrac{1}{3} + \\dfrac{1}{4} = \\dfrac{2}{7}$ : le résultat serait plus petit que $\\dfrac{1}{3}$, ce qui est absurde."
+          ],
+          "aRetenir": [
+            "On additionne des fractions de même dénominateur.",
+            "On garde le dénominateur commun et on additionne les numérateurs."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        42301,
+        42302,
+        42306
+      ],
+      "topic_id": "fractions-additionner-soustraire",
+      "proprietes": [
+        "$\\dfrac{a}{d} + \\dfrac{b}{d} = \\dfrac{a + b}{d}$ et $\\dfrac{a}{d} - \\dfrac{b}{d} = \\dfrac{a - b}{d}$ ($d \\neq 0$)."
+      ],
+      "vocabulaire_associe": [
+        "somme",
+        "différence",
+        "dénominateur commun",
+        "multiple commun",
+        "fraction irréductible"
+      ],
+      "synonymes": [
+        "addition de fractions",
+        "soustraction de fractions"
+      ],
+      "objectifs_pedagogiques": [
+        "Additionner et soustraire des fractions de même dénominateur.",
+        "Mettre au même dénominateur.",
+        "Calculer avec des fractions négatives et des entiers.",
+        "Simplifier le résultat."
+      ],
+      "prerequis": [
+        "Quotients égaux",
+        "Multiples communs",
+        "Addition et soustraction de relatifs"
+      ],
+      "notions_liees": [
+        "fractions-quotients-egaux",
+        "fractions-comparer-ranger",
+        "fractions-problemes-sommes"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "fractions",
+        "addition",
+        "soustraction",
+        "relatifs"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fractions-additionner-soustraire-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Entiers, relatifs et plus petit multiple commun",
+          "description": "Deux exemples rédigés : une somme avec un entier et une fraction négative, et le choix du plus petit dénominateur commun."
+        },
+        {
+          "id": "fractions-additionner-soustraire-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Somme astucieuse et démonstration",
+          "description": "Un exemple de somme où les termes s'annulent deux à deux, et la démonstration de la règle d'addition."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Sur la bande, combien de douzièmes manque-t-il pour atteindre l'unité ?",
+          "piste": "$12 - 7 = 5$ douzièmes : $\\dfrac{5}{12}$."
+        },
+        {
+          "apres": "methode",
+          "question": "Quel dénominateur commun choisir pour $\\dfrac{1}{4} + \\dfrac{3}{10}$ ?",
+          "piste": "$20$, multiple commun de $4$ et de $10$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Démonstration — pourquoi garde-t-on le dénominateur ?",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Le sens de $\\dfrac{a}{d}$",
+            "texte": "$\\dfrac{a}{d}$ est le nombre qui, multiplié par $d$, donne $a$ : $\\dfrac{a}{d} \\times d = a$. De même $\\dfrac{b}{d} \\times d = b$."
+          },
+          {
+            "titre": "Étape 2 — On multiplie la somme par $d$",
+            "texte": "Par distributivité : $\\left(\\dfrac{a}{d} + \\dfrac{b}{d}\\right) \\times d = \\dfrac{a}{d} \\times d + \\dfrac{b}{d} \\times d = a + b$."
+          },
+          {
+            "titre": "Étape 3 — Conclusion",
+            "texte": "La somme est donc le nombre qui, multiplié par $d$, donne $a + b$ : c'est $\\dfrac{a + b}{d}$."
+          }
+        ],
+        "conclusion": "La règle « on additionne les numérateurs, on garde le dénominateur » découle directement de la définition du quotient et de la distributivité."
+      }
+    },
+    {
+      "id": "fractions-problemes-sommes",
+      "title": "Résoudre des problèmes avec des sommes de fractions",
+      "schemaVersion": 2,
+      "intro": "Dans beaucoup de situations, un tout est partagé en plusieurs parts exprimées par des fractions. Cette leçon t'apprend à modéliser ces situations, à calculer la part restante et à vérifier la cohérence d'une répartition.",
+      "pourquoi": "Budgets, emplois du temps, sondages, répartitions de terrains : savoir additionner des parts et calculer ce qui reste permet de résoudre des problèmes concrets et de repérer une répartition impossible.",
+      "explicationSimple": "Si tu dépenses le tiers de ton argent de poche puis le quart, tu as dépensé $\\dfrac{1}{3} + \\dfrac{1}{4} = \\dfrac{7}{12}$ de ton argent : il t'en reste $\\dfrac{5}{12}$.",
+      "objectif": "À la fin de cette leçon, tu sauras traduire un énoncé par une somme ou une différence de fractions, calculer la fraction restante d'un tout, comparer des parts et rédiger une réponse avec une phrase.",
+      "definition": "Lorsqu'un tout est partagé en plusieurs parts, ce tout correspond au nombre $1$. La part restante est égale à $1$ moins la somme des parts connues ; une répartition est impossible si la somme des parts dépasse $1$.",
+      "definitions": {
+        "college": "Le tout vaut $1$. Part restante $= 1 -$ (somme des parts connues). Si la somme des parts dépasse $1$, la répartition est impossible.",
+        "lycee": "Lorsqu'un tout est partagé en plusieurs parts, ce tout correspond au nombre $1$. La part restante est égale à $1$ moins la somme des parts connues ; une répartition est impossible si la somme des parts dépasse $1$."
+      },
+      "intuition": "Le tout est comme un gâteau entier : toutes les parts réunies doivent reconstituer exactement le gâteau, ni plus, ni moins.",
+      "reglesImportantes": [
+        "Le tout (la totalité) correspond au nombre $1$, qu'on écrit avec le dénominateur commun : $1 = \\dfrac{12}{12}$.",
+        "Part restante $= 1 -$ (somme des parts connues).",
+        "La somme de toutes les parts d'un tout vaut exactement $1$ ; si elle dépasse $1$, l'énoncé est incohérent.",
+        "Attention à la référence : « le quart du reste » n'est pas « le quart du tout » (ce cas, qui demande une multiplication, est traité au chapitre 3).",
+        "On termine par une phrase réponse qui précise de quoi la fraction est la part."
+      ],
+      "formules": [
+        {
+          "id": "formule-part-restante",
+          "nom": "Part restante",
+          "expression": "$\\text{reste} = 1 - (p_1 + p_2 + \\ldots)$",
+          "quand_utiliser": "Quand toutes les parts connues sont des fractions du même tout.",
+          "erreur_frequente": "Oublier de soustraire à $1$ et donner la somme des parts comme réponse.",
+          "astuce": "Écris $1$ avec le dénominateur commun avant de soustraire."
+        },
+        {
+          "id": "formule-total-parts",
+          "nom": "Cohérence d'une répartition",
+          "expression": "$p_1 + p_2 + \\ldots + p_n = 1$",
+          "quand_utiliser": "Pour vérifier une répartition complète ou retrouver une part manquante.",
+          "erreur_frequente": "Accepter une répartition dont la somme dépasse $1$.",
+          "astuce": "Additionne toutes les parts à la fin pour contrôler."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre un problème de parts",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie le tout et je vérifie que toutes les fractions sont des parts de ce même tout."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris l'opération qui répond à la question (somme des parts, ou $1$ moins cette somme)."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "Je calcule avec un dénominateur commun et je simplifie."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle (une part entre $0$ et $1$, total égal à $1$) et je rédige une phrase réponse."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie le tout et je vérifie que toutes les fractions sont des parts de ce même tout."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris l'opération qui répond à la question (somme des parts, ou $1$ moins cette somme)."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je calcule avec un dénominateur commun et je simplifie."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle (une part entre $0$ et $1$, total égal à $1$) et je rédige une phrase réponse."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je souligne dans l'énoncé chaque fraction et ce qu'elle représente."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris le calcul avant de le faire."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je mets toutes les fractions au même dénominateur, $1$ compris."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je réponds par une phrase."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Tout $= 1$ ; reste $= 1 -$ somme des parts."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Contrôle : total des parts égal à $1$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-part-restante",
+          "titre": "Exemple 1 — La part restante",
+          "enonce": "Dans un club, $\\dfrac{1}{3}$ des adhérents font du football, $\\dfrac{1}{4}$ de la danse et $\\dfrac{1}{6}$ du judo. Les autres font de la natation. Quelle fraction des adhérents fait de la natation ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{1}{3} + \\dfrac{1}{4} + \\dfrac{1}{6} = \\dfrac{4}{12} + \\dfrac{3}{12} + \\dfrac{2}{12} = \\dfrac{9}{12}",
+              "texte": "Parts connues :"
+            },
+            {
+              "expr": "1 - \\dfrac{9}{12} = \\dfrac{12}{12} - \\dfrac{9}{12} = \\dfrac{3}{12} = \\dfrac{1}{4}",
+              "texte": "Part restante :"
+            }
+          ],
+          "reponse": "Un quart des adhérents fait de la natation.",
+          "conclusion": "Contrôle : $\\dfrac{4}{12} + \\dfrac{3}{12} + \\dfrac{2}{12} + \\dfrac{3}{12} = 1$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-repartition-impossible",
+          "titre": "Exemple 2 — Une répartition impossible",
+          "enonce": "Un sondage indique que $\\dfrac{2}{5}$ des élèves viennent à pied, $\\dfrac{1}{3}$ en bus et $\\dfrac{3}{10}$ en voiture, chaque élève n'utilisant qu'un seul moyen. Ce sondage est-il cohérent ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{2}{5} + \\dfrac{1}{3} + \\dfrac{3}{10} = \\dfrac{12}{30} + \\dfrac{10}{30} + \\dfrac{9}{30} = \\dfrac{31}{30}",
+              "texte": "Somme des parts :"
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{31}{30} > 1$ : les parts dépassent le tout."
+            }
+          ],
+          "reponse": "Le sondage est incohérent : les parts représentent plus que la totalité des élèves.",
+          "conclusion": "La somme des parts d'un tout ne peut jamais dépasser $1$.",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-temps",
+          "titre": "Exemple 3 — Un emploi du temps",
+          "enonce": "Léa passe $\\dfrac{1}{3}$ de sa journée à dormir, $\\dfrac{7}{24}$ au collège et $\\dfrac{1}{8}$ en activités. Quelle fraction de la journée lui reste-t-il ? Combien d'heures cela représente-t-il ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{8}{24} + \\dfrac{7}{24} + \\dfrac{3}{24} = \\dfrac{18}{24}",
+              "texte": "Somme :"
+            },
+            {
+              "expr": "1 - \\dfrac{18}{24} = \\dfrac{6}{24} = \\dfrac{1}{4}",
+              "texte": "Reste :"
+            },
+            {
+              "expr": "",
+              "texte": "Un quart de $24$ heures, c'est $6$ heures."
+            }
+          ],
+          "reponse": "Il lui reste $\\dfrac{1}{4}$ de sa journée, soit $6$ heures.",
+          "conclusion": "Le dénominateur $24$ est naturel ici : un vingt-quatrième de journée, c'est une heure.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-comparer-parts",
+          "titre": "Exemple 4 — Comparer deux répartitions",
+          "enonce": "Deux associations répartissent leur budget. La première consacre $\\dfrac{3}{8}$ aux sorties et $\\dfrac{1}{3}$ au matériel ; la seconde $\\dfrac{5}{12}$ aux sorties et $\\dfrac{1}{4}$ au matériel. Laquelle garde la plus grande part de son budget en réserve ?",
+          "calcul": [
+            {
+              "expr": "1 - \\left(\\dfrac{9}{24} + \\dfrac{8}{24}\\right) = \\dfrac{7}{24}",
+              "texte": "Réserve de la première :"
+            },
+            {
+              "expr": "1 - \\left(\\dfrac{10}{24} + \\dfrac{6}{24}\\right) = \\dfrac{8}{24}",
+              "texte": "Réserve de la seconde :"
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{8}{24} > \\dfrac{7}{24}$."
+            }
+          ],
+          "reponse": "La seconde association garde la plus grande part en réserve ($\\dfrac{1}{3}$ contre $\\dfrac{7}{24}$).",
+          "conclusion": "On compare des fractions de budgets différents : la question porte sur les parts, pas sur les montants.",
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-part-manquante-inconnue",
+          "titre": "Exemple 5 — Retrouver une part inconnue",
+          "enonce": "Un terrain est partagé en trois parcelles. La première occupe $\\dfrac{5}{12}$ du terrain ; la deuxième occupe $\\dfrac{1}{6}$ de plus que la troisième. Quelle fraction du terrain occupe chaque parcelle ?",
+          "calcul": [
+            {
+              "expr": "1 - \\dfrac{5}{12} = \\dfrac{7}{12}",
+              "texte": "Les deux dernières parcelles occupent ensemble :"
+            },
+            {
+              "expr": "",
+              "texte": "Si on retire l'écart $\\dfrac{1}{6} = \\dfrac{2}{12}$, il reste $\\dfrac{5}{12}$, partagé en deux parts égales : la troisième occupe la moitié de $\\dfrac{5}{12}$, soit $\\dfrac{5}{24}$."
+            },
+            {
+              "expr": "\\dfrac{5}{24} + \\dfrac{4}{24} = \\dfrac{9}{24} = \\dfrac{3}{8}",
+              "texte": "La deuxième :"
+            }
+          ],
+          "reponse": "Parcelles : $\\dfrac{5}{12}$, $\\dfrac{3}{8}$ et $\\dfrac{5}{24}$ (total : $\\dfrac{10}{24} + \\dfrac{9}{24} + \\dfrac{5}{24} = 1$).",
+          "conclusion": "Retirer l'écart pour obtenir deux parts égales est une méthode classique ; on pourra la formaliser avec une équation au chapitre 7.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Répartir un budget de vacances entre transport, logement et loisirs.",
+        "Organiser une journée en fractions de $24$ heures.",
+        "Vérifier les résultats d'un sondage dont les réponses s'excluent."
+      ],
+      "erreursFrequentes": [
+        "Donner la somme des parts connues comme réponse alors que la question porte sur la part restante.",
+        "Additionner des fractions qui ne portent pas sur le même tout.",
+        "Oublier d'écrire $1$ avec le dénominateur commun : $1 - \\dfrac{9}{12} = \\dfrac{8}{12}$.",
+        "Ne pas répondre à la question posée (oublier la conversion en heures, en euros…)."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Donner la somme des parts connues comme réponse alors que la question porte sur la part restante.",
+          "pourquoi": "On s'arrête au premier calcul.",
+          "comment_detecter": "Relis la question : demande-t-on les parts connues ou ce qui reste ?",
+          "comment_eviter": "Écris d'abord l'opération complète : $1 - (\\ldots)$."
+        },
+        {
+          "description": "Additionner des fractions qui ne portent pas sur le même tout.",
+          "pourquoi": "« Le quart du reste » n'est pas « le quart du total ».",
+          "comment_detecter": "Chaque fraction est-elle une part du même tout ?",
+          "comment_eviter": "Repère pour chaque fraction le mot « de » qui suit : « le quart DE quoi ? »."
+        },
+        {
+          "description": "Oublier d'écrire $1$ avec le dénominateur commun : $1 - \\dfrac{9}{12} = \\dfrac{8}{12}$.",
+          "pourquoi": "On soustrait $1$ au numérateur au lieu d'écrire $1 = \\dfrac{12}{12}$.",
+          "comment_detecter": "La part restante plus les parts connues redonne-t-elle $1$ ?",
+          "comment_eviter": "Écris toujours $1 = \\dfrac{d}{d}$ avant de soustraire."
+        },
+        {
+          "description": "Ne pas répondre à la question posée (oublier la conversion en heures, en euros…).",
+          "pourquoi": "On s'arrête à la fraction alors qu'on demande une quantité.",
+          "comment_detecter": "L'unité de la réponse correspond-elle à la question ?",
+          "comment_eviter": "Termine par une phrase réponse avec l'unité demandée."
+        }
+      ],
+      "astuce": "Termine toujours par le contrôle « total $= 1$ » : additionne toutes les parts, réponse comprise. Si tu n'obtiens pas $1$, il y a une erreur.",
+      "aRetenir": [
+        "Le tout correspond au nombre $1$.",
+        "Part restante $= 1 -$ somme des parts connues.",
+        "Les parts d'un tout ont une somme égale à $1$ : sinon, l'énoncé est incohérent."
+      ],
+      "figure": {
+        "kind": "pie",
+        "slices": [
+          {
+            "label": "Football : 1/3",
+            "value": 4
+          },
+          {
+            "label": "Danse : 1/4",
+            "value": 3
+          },
+          {
+            "label": "Judo : 1/6",
+            "value": 2
+          },
+          {
+            "label": "Reste : 1/4",
+            "value": 3
+          }
+        ],
+        "steps": [
+          "Le tout",
+          "Les parts connues",
+          "La part restante"
+        ],
+        "relation": "$1 - \\left(\\dfrac{1}{3} + \\dfrac{1}{4} + \\dfrac{1}{6}\\right) = \\dfrac{12}{12} - \\dfrac{9}{12} = \\dfrac{3}{12} = \\dfrac{1}{4}$",
+        "alt": "Diagramme circulaire d'un club de sport : football un tiers, danse un quart, judo un sixième, et le reste un quart.",
+        "explication": {
+          "resume": "Le disque entier représente tous les adhérents du club. Les parts connues sont des fractions de ce tout ; la part restante est ce qui manque pour atteindre $1$.",
+          "lecture": [
+            "Le disque complet correspond au nombre $1$ (la totalité).",
+            "Chaque secteur est proportionnel à la fraction qu'il représente."
+          ],
+          "observations": [
+            "$\\dfrac{1}{3} + \\dfrac{1}{4} + \\dfrac{1}{6} = \\dfrac{4}{12} + \\dfrac{3}{12} + \\dfrac{2}{12} = \\dfrac{9}{12}$.",
+            "Il reste $\\dfrac{3}{12} = \\dfrac{1}{4}$ du disque.",
+            "Les secteurs « danse » et « reste » ont la même taille : ils représentent la même fraction."
+          ],
+          "pieges": [
+            "Oublier que le tout vaut $1$, c'est-à-dire $\\dfrac{12}{12}$."
+          ],
+          "aRetenir": [
+            "Part restante $= 1 -$ somme des parts connues.",
+            "On met toutes les fractions au même dénominateur avant d'additionner."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        42401,
+        42402,
+        42405
+      ],
+      "topic_id": "fractions-problemes-sommes",
+      "proprietes": [
+        "La somme des parts d'un tout vaut $1$."
+      ],
+      "vocabulaire_associe": [
+        "tout",
+        "part",
+        "reste",
+        "répartition",
+        "fraction de"
+      ],
+      "synonymes": [
+        "problèmes de fractions",
+        "partage d'un tout"
+      ],
+      "objectifs_pedagogiques": [
+        "Traduire un problème de parts par un calcul.",
+        "Calculer la part restante d'un tout.",
+        "Contrôler la cohérence d'une répartition.",
+        "Comparer des parts et rédiger une réponse."
+      ],
+      "prerequis": [
+        "Additionner et soustraire des fractions",
+        "Comparer des fractions"
+      ],
+      "notions_liees": [
+        "fractions-additionner-soustraire",
+        "fractions-comparer-ranger"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "fractions",
+        "problèmes",
+        "addition"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fractions-problemes-sommes-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Emploi du temps et comparaison de budgets",
+          "description": "Deux exemples rédigés : une journée exprimée en vingt-quatrièmes, et la comparaison des réserves de deux budgets."
+        },
+        {
+          "id": "fractions-problemes-sommes-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Retrouver une part inconnue",
+          "description": "Un exemple où l'on retrouve deux parts dont on connaît la somme et l'écart."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle fraction des adhérents ne fait pas de football ?",
+          "piste": "$1 - \\dfrac{1}{3} = \\dfrac{2}{3}$."
+        },
+        {
+          "apres": "methode",
+          "question": "Comment écrire $1$ pour le soustraire à $\\dfrac{7}{15}$ ?",
+          "piste": "$1 = \\dfrac{15}{15}$, donc il reste $\\dfrac{8}{15}$."
+        }
+      ]
+    }
+  ]
+}

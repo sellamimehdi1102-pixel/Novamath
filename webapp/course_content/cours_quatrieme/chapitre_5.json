@@ -1,0 +1,1970 @@
+{
+  "chapterId": "Chapitre_5",
+  "title": "Puissances",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "puissances-d-un-nombre",
+      "title": "Puissances d'un nombre",
+      "schemaVersion": 2,
+      "intro": "Écrire $2 \\times 2 \\times 2 \\times 2 \\times 2 \\times 2 \\times 2 \\times 2 \\times 2 \\times 2$ est long ; on écrit plutôt $2^{10}$. Cette leçon définit les puissances d'un nombre et apprend à les calculer, y compris avec des nombres négatifs.",
+      "pourquoi": "Les puissances simplifient l'écriture des produits répétés : aires ($c^2$), volumes ($c^3$), doublements successifs (populations, intérêts), et elles préparent l'écriture scientifique.",
+      "explicationSimple": "$5^3$, c'est « $5$ multiplié par lui-même trois fois » : $5 \\times 5 \\times 5 = 125$. L'exposant compte combien de fois $5$ apparaît dans le produit.",
+      "objectif": "À la fin de cette leçon, tu sauras écrire un produit de facteurs égaux sous forme de puissance, calculer une puissance d'un nombre relatif, et respecter la priorité des puissances dans un calcul.",
+      "definition": "Pour tout nombre $a$ et tout entier $n \\geq 1$, la puissance $n$-ième de $a$, notée $a^n$, est le produit de $n$ facteurs égaux à $a$ : $a^n = a \\times a \\times \\ldots \\times a$. Le nombre $n$ s'appelle l'exposant. On a $a^1 = a$ ; $a^2$ se lit « $a$ au carré » et $a^3$ « $a$ au cube ».",
+      "definitions": {
+        "college": "$a^n$ est le produit de $n$ facteurs égaux à $a$. L'exposant $n$ compte les facteurs.",
+        "lycee": "Pour tout nombre $a$ et tout entier $n \\geq 1$, la puissance $n$-ième de $a$, notée $a^n$, est le produit de $n$ facteurs égaux à $a$ : $a^n = a \\times a \\times \\ldots \\times a$. Le nombre $n$ s'appelle l'exposant. On a $a^1 = a$ ; $a^2$ se lit « $a$ au carré » et $a^3$ « $a$ au cube »."
+      },
+      "intuition": "Une feuille pliée en deux, puis encore en deux… : après $n$ pliages, elle a $2^n$ épaisseurs. Après $10$ pliages, il y en aurait déjà $1\\,024$ !",
+      "reglesImportantes": [
+        "$a^n = a \\times a \\times \\ldots \\times a$ ($n$ facteurs) et $a^1 = a$.",
+        "Une puissance d'un nombre positif est positive.",
+        "Une puissance d'un nombre négatif est positive si l'exposant est pair, négative si l'exposant est impair : $(-2)^4 = 16$, $(-2)^3 = -8$.",
+        "Attention aux parenthèses : $(-3)^2 = 9$ mais $-3^2 = -(3^2) = -9$.",
+        "Dans un calcul, les puissances sont prioritaires sur les multiplications et les additions : $2 \\times 3^2 = 2 \\times 9 = 18$."
+      ],
+      "formules": [
+        {
+          "id": "formule-puissance",
+          "nom": "Définition d'une puissance",
+          "expression": "$a^n = \\underbrace{a \\times a \\times \\ldots \\times a}_{n \\text{ facteurs}}$",
+          "quand_utiliser": "Pour écrire ou calculer un produit de facteurs égaux.",
+          "erreur_frequente": "Calculer $a^n$ comme $a \\times n$.",
+          "astuce": "L'exposant compte des facteurs, il ne multiplie pas."
+        },
+        {
+          "id": "formule-signe-puissance",
+          "nom": "Signe d'une puissance",
+          "expression": "$(-a)^n$ est positif si $n$ est pair, négatif si $n$ est impair",
+          "quand_utiliser": "Pour prévoir le signe d'une puissance d'un nombre négatif.",
+          "erreur_frequente": "Oublier les parenthèses : $-a^n \\neq (-a)^n$ quand $n$ est pair.",
+          "astuce": "Compte les facteurs négatifs, comme au chapitre 1."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer une puissance",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie la base (le nombre répété, avec ou sans parenthèses) et l'exposant."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Si la base est négative, je détermine le signe grâce à la parité de l'exposant."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "Je calcule le produit des facteurs, deux par deux."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie le signe et l'ordre de grandeur."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie la base (le nombre répété, avec ou sans parenthèses) et l'exposant."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Si la base est négative, je détermine le signe grâce à la parité de l'exposant."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je calcule le produit des facteurs, deux par deux."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie le signe et l'ordre de grandeur."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris la puissance sous forme de produit : $3^4 = 3 \\times 3 \\times 3 \\times 3$."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Je compte les facteurs négatifs s'il y en a."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je multiplie pas à pas : $3 \\times 3 = 9$, $9 \\times 3 = 27$, $27 \\times 3 = 81$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris le résultat avec son signe."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Signe : exposant pair, positif ; impair, signe de la base."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Puissances prioritaires sur $\\times$ et $+$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-ecrire-puissance",
+          "titre": "Exemple 1 — Écrire et calculer une puissance",
+          "enonce": "Écrire $7 \\times 7 \\times 7$ sous forme d'une puissance, puis calculer.",
+          "calcul": [
+            {
+              "expr": "7 \\times 7 \\times 7 = 7^3",
+              "texte": "Le facteur $7$ apparaît $3$ fois :"
+            },
+            {
+              "expr": "7^3 = 49 \\times 7 = 343",
+              "texte": "Calcul :"
+            }
+          ],
+          "reponse": "$7 \\times 7 \\times 7 = 7^3 = 343$",
+          "conclusion": "On lit « $7$ au cube ».",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-puissances-negatives",
+          "titre": "Exemple 2 — Puissances d'un nombre négatif",
+          "enonce": "Calculer $(-3)^4$, $(-3)^3$ et $-3^4$.",
+          "calcul": [
+            {
+              "expr": "(-3)^4 = 81",
+              "texte": "$(-3)^4$ : quatre facteurs négatifs, résultat positif :"
+            },
+            {
+              "expr": "(-3)^3 = -27",
+              "texte": "$(-3)^3$ : trois facteurs négatifs, résultat négatif :"
+            },
+            {
+              "expr": "-3^4 = -81",
+              "texte": "$-3^4$ est l'opposé de $3^4$ :"
+            }
+          ],
+          "reponse": "$(-3)^4 = 81$ ; $(-3)^3 = -27$ ; $-3^4 = -81$.",
+          "conclusion": "Sans parenthèses, l'exposant ne porte que sur $3$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-priorite-puissance",
+          "titre": "Exemple 3 — Priorité des puissances",
+          "enonce": "Calculer $A = 5 - 2 \\times 3^2$ et $B = (5 - 2 \\times 3)^2$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$A$ : la puissance d'abord, $3^2 = 9$, puis $2 \\times 9 = 18$, puis $5 - 18 = -13$."
+            },
+            {
+              "expr": "",
+              "texte": "$B$ : la parenthèse d'abord, $5 - 6 = -1$, puis $(-1)^2 = 1$."
+            }
+          ],
+          "reponse": "$A = -13$ et $B = 1$.",
+          "conclusion": "La puissance passe avant la multiplication, mais après les parenthèses.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-fraction-puissance",
+          "titre": "Exemple 4 — Puissance d'une fraction",
+          "enonce": "Calculer $\\left(\\dfrac{2}{3}\\right)^3$ et $\\left(-\\dfrac{1}{2}\\right)^5$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\left(\\dfrac{2}{3}\\right)^3 = \\dfrac{2 \\times 2 \\times 2}{3 \\times 3 \\times 3} = \\dfrac{8}{27}$."
+            },
+            {
+              "expr": "-\\dfrac{1}{32}",
+              "texte": "$\\left(-\\dfrac{1}{2}\\right)^5$ : cinq facteurs négatifs, résultat négatif :"
+            }
+          ],
+          "reponse": "$\\dfrac{8}{27}$ et $-\\dfrac{1}{32}$.",
+          "conclusion": "On élève le numérateur et le dénominateur à la même puissance.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-echiquier",
+          "titre": "Exemple 5 — La légende de l'échiquier",
+          "enonce": "On pose $1$ grain de riz sur la première case d'un échiquier, $2$ sur la deuxième, $4$ sur la troisième, en doublant à chaque case. Combien de grains sur la $11^e$ case ? Combien au total sur les $11$ premières cases ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Sur la case $k$, il y a $2^{k-1}$ grains : sur la $11^e$, $2^{10} = 1\\,024$ grains."
+            },
+            {
+              "expr": "",
+              "texte": "Total : $1 + 2 + 4 + \\ldots + 1\\,024$. On remarque : $1 + 1 = 2$, $1 + 1 + 2 = 4$, $1 + 1 + 2 + 4 = 8$ : le total plus $1$ double à chaque case."
+            },
+            {
+              "expr": "",
+              "texte": "Donc $1 + 2 + \\ldots + 2^{10} = 2^{11} - 1 = 2\\,048 - 1 = 2\\,047$."
+            }
+          ],
+          "reponse": "$1\\,024$ grains sur la $11^e$ case et $2\\,047$ au total.",
+          "conclusion": "Les doublements grandissent si vite que la $64^e$ case contiendrait plus de $9 \\times 10^{18}$ grains !",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "L'aire d'un carré de côté $c$ vaut $c^2$, le volume d'un cube $c^3$.",
+        "Une population de bactéries qui double toutes les heures : $2^n$ fois plus après $n$ heures.",
+        "Un octet compte $2^8 = 256$ valeurs possibles."
+      ],
+      "erreursFrequentes": [
+        "Calculer $a^n$ comme $a \\times n$ : $5^3 = 15$.",
+        "Écrire $-4^2 = 16$.",
+        "Calculer $2 \\times 3^2$ comme $(2 \\times 3)^2 = 36$.",
+        "Se tromper de signe : $(-2)^5 = 32$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Calculer $a^n$ comme $a \\times n$ : $5^3 = 15$.",
+          "pourquoi": "On confond l'exposant avec un facteur.",
+          "comment_detecter": "Écris le produit en entier : $5 \\times 5 \\times 5$.",
+          "comment_eviter": "L'exposant compte le nombre de facteurs."
+        },
+        {
+          "description": "Écrire $-4^2 = 16$.",
+          "pourquoi": "Le carré ne porte que sur $4$ ; le signe « $-$ » s'applique après.",
+          "comment_detecter": "Y a-t-il des parenthèses autour de $-4$ ?",
+          "comment_eviter": "$-4^2 = -16$ ; $(-4)^2 = 16$."
+        },
+        {
+          "description": "Calculer $2 \\times 3^2$ comme $(2 \\times 3)^2 = 36$.",
+          "pourquoi": "On ne respecte pas la priorité des puissances.",
+          "comment_detecter": "La puissance porte-t-elle sur $3$ ou sur $2 \\times 3$ ?",
+          "comment_eviter": "Calcule d'abord $3^2 = 9$, puis $2 \\times 9 = 18$."
+        },
+        {
+          "description": "Se tromper de signe : $(-2)^5 = 32$.",
+          "pourquoi": "On oublie que l'exposant est impair.",
+          "comment_detecter": "Combien de facteurs négatifs ?",
+          "comment_eviter": "Exposant impair et base négative : résultat négatif."
+        }
+      ],
+      "astuce": "Retiens quelques puissances usuelles : $2^5 = 32$, $2^{10} = 1\\,024$, $3^4 = 81$, $5^3 = 125$ et les carrés jusqu'à $12^2 = 144$. Elles reviennent sans cesse.",
+      "aRetenir": [
+        "$a^n$ : produit de $n$ facteurs égaux à $a$.",
+        "Base négative : exposant pair, positif ; impair, négatif.",
+        "$-a^2 \\neq (-a)^2$ ; les puissances sont prioritaires."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -2.4,
+          -0.6,
+          11.4,
+          4.4
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 3.0
+              },
+              {
+                "x": 1.0,
+                "y": 3.0
+              },
+              {
+                "x": 1.0,
+                "y": 3.7
+              },
+              {
+                "x": 0,
+                "y": 3.7
+              }
+            ],
+            "variant": "a",
+            "tooltip": "2 puissance 1 = 2"
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 2.0
+              },
+              {
+                "x": 2.0,
+                "y": 2.0
+              },
+              {
+                "x": 2.0,
+                "y": 2.7
+              },
+              {
+                "x": 0,
+                "y": 2.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "2 puissance 2 = 4"
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 1.0
+              },
+              {
+                "x": 4.0,
+                "y": 1.0
+              },
+              {
+                "x": 4.0,
+                "y": 1.7
+              },
+              {
+                "x": 0,
+                "y": 1.7
+              }
+            ],
+            "variant": "a",
+            "tooltip": "2 puissance 3 = 8",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0.0
+              },
+              {
+                "x": 8.0,
+                "y": 0.0
+              },
+              {
+                "x": 8.0,
+                "y": 0.7
+              },
+              {
+                "x": 0,
+                "y": 0.7
+              }
+            ],
+            "variant": "b",
+            "tooltip": "2 puissance 4 = 16",
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": -1.2,
+            "y": 3.35,
+            "label": "2¹ = 2"
+          },
+          {
+            "x": -1.2,
+            "y": 2.35,
+            "label": "2² = 4"
+          },
+          {
+            "x": -1.2,
+            "y": 1.35,
+            "label": "2³ = 8",
+            "reveal": 2
+          },
+          {
+            "x": -1.2,
+            "y": 0.35,
+            "label": "2⁴ = 16",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "2 et 4",
+          "On double encore",
+          "Quatre facteurs 2"
+        ],
+        "relation": "$2^4 = 2 \\times 2 \\times 2 \\times 2 = 16$ : chaque facteur $2$ supplémentaire double la longueur",
+        "alt": "Quatre barres de longueurs 2, 4, 8 et 16 : chaque barre est deux fois plus longue que la précédente.",
+        "explication": {
+          "resume": "Une puissance est un produit de facteurs égaux. Chaque facteur $2$ supplémentaire double le résultat : la croissance est très rapide.",
+          "lecture": [
+            "Chaque barre représente une puissance de $2$ ; sa longueur est proportionnelle à sa valeur.",
+            "L'exposant indique le nombre de facteurs $2$ multipliés."
+          ],
+          "observations": [
+            "$2^1 = 2$, $2^2 = 4$, $2^3 = 8$, $2^4 = 16$.",
+            "Passer de $2^3$ à $2^4$ revient à multiplier par $2$, pas à ajouter $2$.",
+            "$2^{10} = 1\\,024$ : au bout de dix doublements, on dépasse mille."
+          ],
+          "pieges": [
+            "Confondre $2^4$ avec $2 \\times 4 = 8$ : l'exposant n'est pas un facteur."
+          ],
+          "aRetenir": [
+            "$a^n = a \\times a \\times \\ldots \\times a$ ($n$ facteurs).",
+            "$a^1 = a$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        45101,
+        45102,
+        45104
+      ],
+      "topic_id": "puissances-d-un-nombre",
+      "proprietes": [
+        "$a^n = a \\times a \\times \\ldots \\times a$ ($n$ facteurs), $a^1 = a$."
+      ],
+      "vocabulaire_associe": [
+        "puissance",
+        "exposant",
+        "base",
+        "carré",
+        "cube"
+      ],
+      "synonymes": [
+        "puissances d'un nombre",
+        "notation puissance"
+      ],
+      "objectifs_pedagogiques": [
+        "Écrire un produit de facteurs égaux sous forme de puissance.",
+        "Calculer une puissance d'un nombre relatif.",
+        "Distinguer $(-a)^n$ et $-a^n$.",
+        "Respecter la priorité des puissances."
+      ],
+      "prerequis": [
+        "Multiplier des nombres relatifs",
+        "Signe d'un produit de plusieurs facteurs",
+        "Priorités opératoires"
+      ],
+      "notions_liees": [
+        "puissances-de-dix",
+        "relatifs-signe-produit-plusieurs-facteurs"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "puissances",
+        "calcul",
+        "relatifs"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "puissances-d-un-nombre-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Priorités et puissances de fractions",
+          "description": "Deux exemples rédigés : la priorité des puissances dans un calcul, et la puissance d'une fraction positive ou négative."
+        },
+        {
+          "id": "puissances-d-un-nombre-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "La légende de l'échiquier",
+          "description": "Un exemple sur les doublements successifs et la somme $1 + 2 + 4 + \\ldots$"
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle serait la longueur de la barre représentant $2^5$ ?",
+          "piste": "$2^5 = 32$ : deux fois la barre de $2^4 = 16$."
+        },
+        {
+          "apres": "methode",
+          "question": "Calculer $(-1)^{2027}$.",
+          "piste": "Exposant impair : $-1$."
+        }
+      ]
+    },
+    {
+      "id": "puissances-de-dix",
+      "title": "Puissances de 10",
+      "schemaVersion": 2,
+      "intro": "Les puissances de $10$ permettent d'écrire facilement de très grands et de très petits nombres. Cette leçon étudie $10^n$ pour un exposant positif ou négatif, et les calculs qu'elles simplifient.",
+      "pourquoi": "Les sciences manipulent des nombres immenses (distances dans l'espace) ou minuscules (taille des atomes). Les puissances de $10$ permettent de les écrire, de les comparer et de calculer avec eux sans erreur de zéros.",
+      "explicationSimple": "$10^3 = 1\\,000$ (trois zéros). En divisant par $10$ à chaque fois : $10^2 = 100$, $10^1 = 10$, $10^0 = 1$, $10^{-1} = 0{,}1$, $10^{-2} = 0{,}01$…",
+      "objectif": "À la fin de cette leçon, tu sauras écrire une puissance de $10$ sous forme décimale et inversement, multiplier un nombre par $10^n$ ou $10^{-n}$, et calculer des produits et des quotients de puissances de $10$.",
+      "definition": "Pour tout entier $n \\geq 1$ : $10^n = 10 \\times 10 \\times \\ldots \\times 10$ ($n$ facteurs), qui s'écrit avec un $1$ suivi de $n$ zéros ; $10^{-n} = \\dfrac{1}{10^n}$, qui s'écrit $0{,}0\\ldots01$ avec le chiffre $1$ en $n$-ième position après la virgule. Par convention, $10^0 = 1$.",
+      "definitions": {
+        "college": "$10^n$ : un $1$ suivi de $n$ zéros. $10^{-n} = \\dfrac{1}{10^n}$ : le $1$ est au $n$-ième rang après la virgule. $10^0 = 1$.",
+        "lycee": "Pour tout entier $n \\geq 1$ : $10^n = 10 \\times 10 \\times \\ldots \\times 10$ ($n$ facteurs), qui s'écrit avec un $1$ suivi de $n$ zéros ; $10^{-n} = \\dfrac{1}{10^n}$, qui s'écrit $0{,}0\\ldots01$ avec le chiffre $1$ en $n$-ième position après la virgule. Par convention, $10^0 = 1$."
+      },
+      "intuition": "L'exposant indique le déplacement de la virgule : multiplier par $10^3$ déplace la virgule de $3$ rangs vers la droite, multiplier par $10^{-3}$ la déplace de $3$ rangs vers la gauche.",
+      "reglesImportantes": [
+        "$10^n = 1\\,0\\ldots0$ ($n$ zéros) et $10^{-n} = 0{,}0\\ldots01$ ($1$ au $n$-ième rang après la virgule) ; $10^0 = 1$.",
+        "Multiplier un nombre par $10^n$ décale sa virgule de $n$ rangs vers la droite ; par $10^{-n}$, de $n$ rangs vers la gauche.",
+        "$10^m \\times 10^p = 10^{m + p}$ : on additionne les exposants (car on compte des facteurs $10$).",
+        "$\\dfrac{10^m}{10^p} = 10^{m - p}$ : on soustrait les exposants.",
+        "$10^{-n}$ est un nombre positif : l'exposant négatif ne rend pas le nombre négatif."
+      ],
+      "formules": [
+        {
+          "id": "formule-produit-puissances-10",
+          "nom": "Produit de puissances de 10",
+          "expression": "$10^m \\times 10^p = 10^{m + p}$",
+          "quand_utiliser": "Pour multiplier des puissances de $10$, avec des exposants positifs ou négatifs.",
+          "erreur_frequente": "Multiplier les exposants : $10^2 \\times 10^3 = 10^6$.",
+          "astuce": "On compte les facteurs $10$ : $2 + 3 = 5$."
+        },
+        {
+          "id": "formule-quotient-puissances-10",
+          "nom": "Quotient de puissances de 10",
+          "expression": "$\\dfrac{10^m}{10^p} = 10^{m - p}$",
+          "quand_utiliser": "Pour diviser des puissances de $10$.",
+          "erreur_frequente": "Diviser les exposants ou les soustraire dans le mauvais ordre.",
+          "astuce": "Exposant du haut moins exposant du bas."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Multiplier un nombre par une puissance de 10",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère le signe de l'exposant : positif, le nombre grandit ; négatif, il diminue."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Je déplace la virgule d'autant de rangs que l'indique l'exposant (vers la droite si positif, vers la gauche si négatif)."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "Je complète avec des zéros si nécessaire."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie l'ordre de grandeur du résultat."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le signe de l'exposant : positif, le nombre grandit ; négatif, il diminue."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Je déplace la virgule d'autant de rangs que l'indique l'exposant (vers la droite si positif, vers la gauche si négatif)."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je complète avec des zéros si nécessaire."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie l'ordre de grandeur du résultat."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris le nombre en faisant apparaître sa virgule ($45 = 45{,}0$)."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Exposant positif : je décale la virgule vers la droite ; négatif : vers la gauche."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "J'ajoute des zéros pour remplir les rangs vides."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je retire les zéros inutiles."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "$\\times 10^n$ : virgule de $n$ rangs à droite ; $\\times 10^{-n}$ : à gauche."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$10^m \\times 10^p = 10^{m+p}$ ; $10^m \\div 10^p = 10^{m-p}$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-ecriture-decimale",
+          "titre": "Exemple 1 — Écriture décimale",
+          "enonce": "Écrire sous forme décimale : $10^5$, $10^{-4}$ et $10^0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$10^5$ : un $1$ suivi de $5$ zéros, $100\\,000$."
+            },
+            {
+              "expr": "",
+              "texte": "$10^{-4} = \\dfrac{1}{10^4} = \\dfrac{1}{10\\,000} = 0{,}000\\,1$ (le $1$ au $4^e$ rang après la virgule)."
+            },
+            {
+              "expr": "",
+              "texte": "$10^0 = 1$."
+            }
+          ],
+          "reponse": "$10^5 = 100\\,000$ ; $10^{-4} = 0{,}000\\,1$ ; $10^0 = 1$.",
+          "conclusion": "L'exposant négatif donne un nombre petit, mais positif.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-multiplier",
+          "titre": "Exemple 2 — Multiplier par une puissance de 10",
+          "enonce": "Calculer $4{,}7 \\times 10^3$ et $52 \\times 10^{-2}$.",
+          "calcul": [
+            {
+              "expr": "4{,}7 \\times 10^3 = 4\\,700",
+              "texte": "$4{,}7 \\times 10^3$ : la virgule avance de $3$ rangs vers la droite,"
+            },
+            {
+              "expr": "52 \\times 10^{-2} = 0{,}52",
+              "texte": "$52 \\times 10^{-2}$ : la virgule recule de $2$ rangs vers la gauche,"
+            }
+          ],
+          "reponse": "$4\\,700$ et $0{,}52$.",
+          "conclusion": "Multiplier par $10^{-2}$ revient à diviser par $100$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-produit-quotient",
+          "titre": "Exemple 3 — Produits et quotients",
+          "enonce": "Écrire sous la forme $10^n$ : $A = 10^4 \\times 10^{-7}$ et $B = \\dfrac{10^3}{10^{-2}}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$A = 10^{4 + (-7)} = 10^{-3}$."
+            },
+            {
+              "expr": "",
+              "texte": "$B = 10^{3 - (-2)} = 10^{3 + 2} = 10^5$."
+            }
+          ],
+          "reponse": "$A = 10^{-3}$ et $B = 10^5$.",
+          "conclusion": "Les règles des relatifs s'appliquent aux exposants.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-calcul-mixte",
+          "titre": "Exemple 4 — Un calcul complet",
+          "enonce": "Calculer $C = \\dfrac{10^5 \\times 10^{-3}}{10^{-4}}$ et donner le résultat en écriture décimale.",
+          "calcul": [
+            {
+              "expr": "10^{5 + (-3)} = 10^2",
+              "texte": "Numérateur :"
+            },
+            {
+              "expr": "\\dfrac{10^2}{10^{-4}} = 10^{2 - (-4)} = 10^6",
+              "texte": "Quotient :"
+            },
+            {
+              "expr": "",
+              "texte": "Écriture décimale : $1\\,000\\,000$."
+            }
+          ],
+          "reponse": "$C = 10^6 = 1\\,000\\,000$.",
+          "conclusion": "On calcule les exposants pas à pas, en respectant les signes.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-pourquoi-zero",
+          "titre": "Exemple 5 — Pourquoi $10^0 = 1$ et $10^{-n} = \\dfrac{1}{10^n}$ ?",
+          "enonce": "Expliquer, avec la règle $\\dfrac{10^m}{10^p} = 10^{m - p}$, pourquoi il est naturel de poser $10^0 = 1$ et $10^{-2} = \\dfrac{1}{100}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{10^3}{10^3} = 1$, et la règle donnerait $10^{3 - 3} = 10^0$ : pour que la règle reste vraie, il faut $10^0 = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{10^1}{10^3} = \\dfrac{10}{1\\,000} = \\dfrac{1}{100}$, et la règle donnerait $10^{1 - 3} = 10^{-2}$ : il faut donc $10^{-2} = \\dfrac{1}{100}$."
+            }
+          ],
+          "reponse": "Ces conventions sont les seules qui gardent la règle des quotients vraie dans tous les cas.",
+          "conclusion": "En mathématiques, on choisit les définitions pour que les règles restent cohérentes.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Un milliard s'écrit $10^9$.",
+        "Un micromètre vaut $10^{-6}$ m.",
+        "Les tailles de fichiers : un mégaoctet vaut environ $10^6$ octets."
+      ],
+      "erreursFrequentes": [
+        "Croire que $10^{-3}$ est un nombre négatif.",
+        "Écrire $10^{-4} = 0{,}0001$ avec un mauvais nombre de zéros, par exemple $0{,}00001$.",
+        "Multiplier les exposants : $10^2 \\times 10^3 = 10^6$.",
+        "Se tromper de sens en déplaçant la virgule."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Croire que $10^{-3}$ est un nombre négatif.",
+          "pourquoi": "On confond l'exposant négatif et le signe du nombre.",
+          "comment_detecter": "$10^{-3} = \\dfrac{1}{1\\,000}$ : une fraction de nombres positifs.",
+          "comment_eviter": "$10^{-n}$ est toujours positif et plus petit que $1$."
+        },
+        {
+          "description": "Écrire $10^{-4} = 0{,}0001$ avec un mauvais nombre de zéros, par exemple $0{,}00001$.",
+          "pourquoi": "On compte les zéros au lieu de compter la position du $1$.",
+          "comment_detecter": "À quel rang après la virgule se trouve le $1$ ?",
+          "comment_eviter": "Le $1$ est au $4^e$ rang après la virgule : $0{,}000\\,1$."
+        },
+        {
+          "description": "Multiplier les exposants : $10^2 \\times 10^3 = 10^6$.",
+          "pourquoi": "On applique une opération au hasard sur les exposants.",
+          "comment_detecter": "Écris les produits : deux facteurs $10$ puis trois facteurs $10$, combien en tout ?",
+          "comment_eviter": "Produit : on additionne les exposants."
+        },
+        {
+          "description": "Se tromper de sens en déplaçant la virgule.",
+          "pourquoi": "On mélange la droite et la gauche.",
+          "comment_detecter": "Le résultat doit-il être plus grand ou plus petit que le nombre de départ ?",
+          "comment_eviter": "Exposant positif : plus grand ; négatif : plus petit."
+        }
+      ],
+      "astuce": "Pour $10^{-n}$, pense « le $1$ arrive au $n$-ième rang après la virgule » : $10^{-1} = 0{,}1$ (dixième), $10^{-2} = 0{,}01$ (centième), $10^{-3} = 0{,}001$ (millième).",
+      "aRetenir": [
+        "$10^n$ : un $1$ suivi de $n$ zéros ; $10^{-n} = \\dfrac{1}{10^n}$ ; $10^0 = 1$.",
+        "$\\times 10^n$ : virgule vers la droite ; $\\times 10^{-n}$ : vers la gauche.",
+        "$10^m \\times 10^p = 10^{m+p}$ et $\\dfrac{10^m}{10^p} = 10^{m-p}$."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "10³ = 1 000",
+            "sousTitre": "trois zéros"
+          },
+          {
+            "titre": "10¹ = 10",
+            "sousTitre": "÷ 10 ÷ 10"
+          },
+          {
+            "titre": "10⁰ = 1",
+            "sousTitre": "÷ 10"
+          },
+          {
+            "titre": "10⁻¹ = 0,1",
+            "sousTitre": "÷ 10"
+          },
+          {
+            "titre": "10⁻³ = 0,001",
+            "sousTitre": "÷ 10 ÷ 10"
+          }
+        ],
+        "steps": [
+          "Exposants positifs",
+          "L'exposant 0",
+          "Exposants négatifs"
+        ],
+        "relation": "$10^{-n} = \\dfrac{1}{10^n} = 0{,}0\\ldots01$ (le chiffre $1$ est en $n$-ième position après la virgule)",
+        "alt": "Chaîne de puissances de 10 : 10³ = 1 000, 10¹ = 10, 10⁰ = 1, 10⁻¹ = 0,1, 10⁻³ = 0,001 ; à chaque étape vers la droite, on divise par 10.",
+        "explication": {
+          "resume": "Diminuer l'exposant de $1$, c'est diviser par $10$. En continuant au-delà de $10^0 = 1$, on obtient les puissances d'exposant négatif.",
+          "lecture": [
+            "On lit la chaîne de gauche à droite : chaque flèche correspond à une ou plusieurs divisions par $10$."
+          ],
+          "observations": [
+            "$10^3 = 1\\,000$ s'écrit avec $3$ zéros.",
+            "$10^0 = 1$ : c'est ce qu'on obtient en divisant $10$ par $10$.",
+            "$10^{-3} = 0{,}001$ : le $1$ est en troisième position après la virgule."
+          ],
+          "pieges": [
+            "Croire que $10^{-3}$ est négatif : c'est un nombre positif, petit ($0{,}001$)."
+          ],
+          "aRetenir": [
+            "$10^n$ : un $1$ suivi de $n$ zéros.",
+            "$10^{-n} = \\dfrac{1}{10^n}$.",
+            "$10^0 = 1$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        45201,
+        45202,
+        45204
+      ],
+      "topic_id": "puissances-de-dix",
+      "proprietes": [
+        "$10^m \\times 10^p = 10^{m + p}$ et $\\dfrac{10^m}{10^p} = 10^{m - p}$."
+      ],
+      "vocabulaire_associe": [
+        "puissance de 10",
+        "exposant positif",
+        "exposant négatif",
+        "écriture décimale"
+      ],
+      "synonymes": [
+        "puissances de dix",
+        "puissances de 10 d'exposant négatif"
+      ],
+      "objectifs_pedagogiques": [
+        "Écrire une puissance de $10$ sous forme décimale et inversement.",
+        "Multiplier un nombre par $10^n$ ou $10^{-n}$.",
+        "Calculer des produits et quotients de puissances de $10$."
+      ],
+      "prerequis": [
+        "Puissances d'un nombre",
+        "Multiplier et diviser par 10, 100, 1 000",
+        "Nombres relatifs"
+      ],
+      "notions_liees": [
+        "puissances-d-un-nombre",
+        "ecriture-scientifique"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "puissances",
+        "puissances de 10",
+        "décimaux"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "puissances-de-dix-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Produits et quotients de puissances de 10",
+          "description": "Deux exemples rédigés : des produits et quotients avec exposants négatifs, puis un calcul complet."
+        },
+        {
+          "id": "puissances-de-dix-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi $10^0 = 1$ ?",
+          "description": "Un exemple qui justifie les conventions $10^0 = 1$ et $10^{-n} = \\dfrac{1}{10^n}$ par la règle des quotients."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que vaut $10^{-2}$ ?",
+          "piste": "$0{,}01$ : on divise $1$ deux fois par $10$."
+        },
+        {
+          "apres": "methode",
+          "question": "Calculer $3{,}2 \\times 10^{-1}$.",
+          "piste": "La virgule recule d'un rang : $0{,}32$."
+        }
+      ]
+    },
+    {
+      "id": "ecriture-scientifique",
+      "title": "Écriture scientifique d'un nombre",
+      "schemaVersion": 2,
+      "intro": "La distance Terre-Soleil vaut environ $150\\,000\\,000\\,000$ m ; la masse d'un électron est voisine de $0{,}000\\,000\\,000\\,000\\,000\\,000\\,000\\,000\\,000\\,000\\,91$ kg. L'écriture scientifique rend ces nombres lisibles.",
+      "pourquoi": "L'écriture scientifique est utilisée par les calculatrices, en physique et en SVT. Elle permet de lire immédiatement l'ordre de grandeur d'un nombre et de comparer facilement deux nombres très grands ou très petits.",
+      "explicationSimple": "On place la virgule juste après le premier chiffre non nul, puis on compte de combien de rangs elle a bougé : c'est l'exposant (positif si le nombre est grand, négatif s'il est plus petit que $1$).",
+      "objectif": "À la fin de cette leçon, tu sauras écrire un nombre décimal en écriture scientifique et inversement, interpréter l'affichage d'une calculatrice, et comparer deux nombres écrits en écriture scientifique.",
+      "definition": "L'écriture scientifique d'un nombre décimal positif est son écriture sous la forme $a \\times 10^n$, où $a$ est un nombre décimal ayant un seul chiffre non nul avant la virgule ($1 \\leq a < 10$) et $n$ un entier relatif.",
+      "definitions": {
+        "college": "$a \\times 10^n$ avec $1 \\leq a < 10$ (un seul chiffre non nul avant la virgule) et $n$ entier.",
+        "lycee": "L'écriture scientifique d'un nombre décimal positif est son écriture sous la forme $a \\times 10^n$, où $a$ est un nombre décimal ayant un seul chiffre non nul avant la virgule ($1 \\leq a < 10$) et $n$ un entier relatif."
+      },
+      "intuition": "L'exposant donne la « taille » du nombre (son ordre de grandeur) et le nombre $a$ donne la précision : $3{,}9 \\times 10^9$, c'est « environ $4$ milliards ».",
+      "reglesImportantes": [
+        "Le nombre $a$ vérifie $1 \\leq a < 10$ : par exemple $3{,}9$, $7{,}83$ ou $1$, mais jamais $39$ ni $0{,}39$.",
+        "Pour un nombre supérieur ou égal à $10$, l'exposant est positif ; pour un nombre compris entre $0$ et $1$, il est négatif ; pour un nombre entre $1$ et $10$, il vaut $0$.",
+        "L'exposant est le nombre de rangs dont on a déplacé la virgule (compté positivement vers la gauche, négativement vers la droite).",
+        "Pour comparer deux nombres positifs en écriture scientifique, on compare d'abord les exposants ; s'ils sont égaux, on compare les nombres $a$.",
+        "Une calculatrice affiche par exemple « $2{,}5E-7$ » ou « $2{,}5 \\times 10^{-7}$ » pour $0{,}000\\,000\\,25$."
+      ],
+      "formules": [
+        {
+          "id": "formule-ecriture-scientifique",
+          "nom": "Écriture scientifique",
+          "expression": "$a \\times 10^n$, avec $1 \\leq a < 10$ et $n$ entier relatif",
+          "quand_utiliser": "Pour écrire un nombre très grand ou très petit.",
+          "erreur_frequente": "Laisser plusieurs chiffres avant la virgule : $39 \\times 10^8$.",
+          "astuce": "Un seul chiffre non nul avant la virgule."
+        },
+        {
+          "id": "formule-comparaison-scientifique",
+          "nom": "Comparer deux écritures scientifiques",
+          "expression": "si $n < m$, alors $a \\times 10^n < b \\times 10^m$",
+          "quand_utiliser": "Pour comparer deux nombres positifs écrits en écriture scientifique.",
+          "erreur_frequente": "Comparer d'abord les nombres $a$ et $b$.",
+          "astuce": "L'exposant l'emporte toujours sur le nombre $a$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Écrire un nombre en écriture scientifique",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère le premier chiffre non nul du nombre."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "Je place la virgule juste après ce chiffre : j'obtiens le nombre $a$ (entre $1$ et $10$)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je compte de combien de rangs la virgule s'est déplacée : c'est la valeur de l'exposant, positif si le nombre de départ est grand, négatif s'il est plus petit que $1$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie en revenant à l'écriture décimale."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le premier chiffre non nul du nombre."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Je place la virgule juste après ce chiffre : j'obtiens le nombre $a$ (entre $1$ et $10$)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je compte de combien de rangs la virgule s'est déplacée : c'est la valeur de l'exposant, positif si le nombre de départ est grand, négatif s'il est plus petit que $1$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie en revenant à l'écriture décimale."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'entoure le premier chiffre qui n'est pas un zéro."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "J'écris ce chiffre, une virgule, puis les chiffres suivants (sans les zéros de fin)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je compte les sauts de la virgule entre l'ancienne et la nouvelle position."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Grand nombre : exposant positif ; petit nombre : exposant négatif."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Virgule après le premier chiffre non nul ; exposant = nombre de rangs."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Comparer : exposants d'abord, puis mantisses."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-grand-nombre",
+          "titre": "Exemple 1 — Un très grand nombre",
+          "enonce": "Donner l'écriture scientifique de $3\\,900\\,000\\,000$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Premier chiffre non nul : $3$ ; on écrit $3{,}9$."
+            },
+            {
+              "expr": "3\\,900\\,000\\,000 = 3{,}9 \\times 10^9",
+              "texte": "La virgule (après le dernier $0$) a reculé de $9$ rangs :"
+            }
+          ],
+          "reponse": "$3{,}9 \\times 10^9$",
+          "conclusion": "Vérification : $3{,}9 \\times 1\\,000\\,000\\,000 = 3\\,900\\,000\\,000$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-petit-nombre",
+          "titre": "Exemple 2 — Un très petit nombre",
+          "enonce": "Donner l'écriture scientifique de $0{,}000\\,783$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Premier chiffre non nul : $7$ ; on écrit $7{,}83$."
+            },
+            {
+              "expr": "0{,}000\\,783 = 7{,}83 \\times 10^{-4}",
+              "texte": "La virgule a avancé de $4$ rangs vers la droite :"
+            }
+          ],
+          "reponse": "$7{,}83 \\times 10^{-4}$",
+          "conclusion": "Le nombre est plus petit que $1$ : l'exposant est négatif.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-corriger-ecriture",
+          "titre": "Exemple 3 — Corriger une écriture",
+          "enonce": "Écrire en écriture scientifique $45 \\times 10^6$ et $0{,}6 \\times 10^{-3}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$45 = 4{,}5 \\times 10^1$, donc $45 \\times 10^6 = 4{,}5 \\times 10^1 \\times 10^6 = 4{,}5 \\times 10^7$."
+            },
+            {
+              "expr": "",
+              "texte": "$0{,}6 = 6 \\times 10^{-1}$, donc $0{,}6 \\times 10^{-3} = 6 \\times 10^{-4}$."
+            }
+          ],
+          "reponse": "$4{,}5 \\times 10^7$ et $6 \\times 10^{-4}$.",
+          "conclusion": "On écrit d'abord le nombre devant la puissance en écriture scientifique, puis on regroupe les puissances de $10$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-comparer",
+          "titre": "Exemple 4 — Comparer deux distances",
+          "enonce": "Comparer $a = 9{,}5 \\times 10^{12}$ et $b = 1{,}2 \\times 10^{13}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Les exposants diffèrent : $12 < 13$."
+            },
+            {
+              "expr": "",
+              "texte": "Donc $a < b$, même si $9{,}5 > 1{,}2$ ; en effet $b = 12 \\times 10^{12}$."
+            }
+          ],
+          "reponse": "$a < b$",
+          "conclusion": "L'exposant décide en premier.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-produit-scientifique",
+          "titre": "Exemple 5 — Calculer en écriture scientifique",
+          "enonce": "Calculer $(3 \\times 10^5) \\times (4 \\times 10^{-8})$ et donner le résultat en écriture scientifique.",
+          "calcul": [
+            {
+              "expr": "(3 \\times 4) \\times (10^5 \\times 10^{-8}) = 12 \\times 10^{-3}",
+              "texte": "On regroupe :"
+            },
+            {
+              "expr": "12 \\times 10^{-3} = 1{,}2 \\times 10^{-2}",
+              "texte": "$12 = 1{,}2 \\times 10^1$ :"
+            }
+          ],
+          "reponse": "$1{,}2 \\times 10^{-2}$",
+          "conclusion": "On multiplie les nombres entre eux et les puissances de $10$ entre elles, puis on réajuste.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "La vitesse de la lumière : environ $3 \\times 10^8$ m/s.",
+        "La taille d'un globule rouge : environ $7 \\times 10^{-6}$ m.",
+        "Le nombre d'habitants sur Terre : environ $8 \\times 10^9$."
+      ],
+      "erreursFrequentes": [
+        "Laisser plusieurs chiffres avant la virgule : $39 \\times 10^8$.",
+        "Se tromper de signe d'exposant : $0{,}000\\,5 = 5 \\times 10^{4}$.",
+        "Comparer les nombres $a$ avant les exposants.",
+        "Mal compter les rangs : $52\\,000 = 5{,}2 \\times 10^3$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Laisser plusieurs chiffres avant la virgule : $39 \\times 10^8$.",
+          "pourquoi": "C'est une écriture juste du nombre, mais pas son écriture scientifique.",
+          "comment_detecter": "Le nombre devant la puissance de $10$ est-il compris entre $1$ et $10$ ?",
+          "comment_eviter": "Réécris $39 = 3{,}9 \\times 10$ et regroupe : $3{,}9 \\times 10^9$."
+        },
+        {
+          "description": "Se tromper de signe d'exposant : $0{,}000\\,5 = 5 \\times 10^{4}$.",
+          "pourquoi": "On compte bien les rangs mais on oublie que le nombre est plus petit que $1$.",
+          "comment_detecter": "Le nombre de départ est-il plus grand ou plus petit que $1$ ?",
+          "comment_eviter": "Nombre plus petit que $1$ : exposant négatif."
+        },
+        {
+          "description": "Comparer les nombres $a$ avant les exposants.",
+          "pourquoi": "On oublie que l'exposant représente l'ordre de grandeur.",
+          "comment_detecter": "Les exposants sont-ils égaux ?",
+          "comment_eviter": "Compare d'abord les exposants."
+        },
+        {
+          "description": "Mal compter les rangs : $52\\,000 = 5{,}2 \\times 10^3$.",
+          "pourquoi": "On compte les zéros au lieu des rangs de la virgule.",
+          "comment_detecter": "Reviens à l'écriture décimale : $5{,}2 \\times 1\\,000 = 5\\,200$.",
+          "comment_eviter": "Compte tous les chiffres après le premier : $52\\,000 = 5{,}2 \\times 10^4$."
+        }
+      ],
+      "astuce": "Pour un grand nombre entier, l'exposant est le nombre de chiffres moins un : $3\\,900\\,000\\,000$ a $10$ chiffres, donc l'exposant est $9$.",
+      "aRetenir": [
+        "Écriture scientifique : $a \\times 10^n$, avec $1 \\leq a < 10$.",
+        "Nombre grand : exposant positif ; nombre plus petit que $1$ : exposant négatif.",
+        "Pour comparer : exposants d'abord."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "3 900 000 000",
+            "sousTitre": "Écriture décimale"
+          },
+          {
+            "titre": "3,9 × 1 000 000 000",
+            "sousTitre": "Un seul chiffre avant la virgule"
+          },
+          {
+            "titre": "3,9 × 10⁹",
+            "sousTitre": "Écriture scientifique"
+          }
+        ],
+        "steps": [
+          "Le nombre",
+          "On place la virgule",
+          "On compte les rangs"
+        ],
+        "relation": "$3\\,900\\,000\\,000 = 3{,}9 \\times 10^9$ et $0{,}000\\,783 = 7{,}83 \\times 10^{-4}$",
+        "alt": "Schéma : 3 900 000 000 devient 3,9 × 1 000 000 000, puis 3,9 × 10⁹.",
+        "explication": {
+          "resume": "L'écriture scientifique d'un nombre est $a \\times 10^n$ avec un seul chiffre non nul avant la virgule de $a$ ($1 \\leq a < 10$).",
+          "lecture": [
+            "On lit le schéma de gauche à droite."
+          ],
+          "observations": [
+            "Pour passer de $3\\,900\\,000\\,000$ à $3{,}9$, la virgule recule de $9$ rangs : l'exposant vaut $9$.",
+            "Pour un nombre inférieur à $1$, comme $0{,}000\\,783$, la virgule avance de $4$ rangs : l'exposant vaut $-4$.",
+            "Le nombre $a$ reste entre $1$ (inclus) et $10$ (exclu)."
+          ],
+          "pieges": [
+            "Écrire $39 \\times 10^8$ : c'est juste, mais ce n'est pas l'écriture scientifique ($39 \\geq 10$)."
+          ],
+          "aRetenir": [
+            "$a \\times 10^n$ avec $1 \\leq a < 10$.",
+            "Grand nombre : exposant positif ; nombre entre $0$ et $1$ : exposant négatif."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        45301,
+        45302,
+        45304
+      ],
+      "topic_id": "ecriture-scientifique",
+      "proprietes": [
+        "Tout nombre décimal positif non nul a une unique écriture scientifique $a \\times 10^n$, avec $1 \\leq a < 10$."
+      ],
+      "vocabulaire_associe": [
+        "écriture scientifique",
+        "notation scientifique",
+        "exposant",
+        "ordre de grandeur"
+      ],
+      "synonymes": [
+        "notation scientifique",
+        "écriture scientifique"
+      ],
+      "objectifs_pedagogiques": [
+        "Écrire un nombre en écriture scientifique.",
+        "Revenir à l'écriture décimale.",
+        "Corriger une écriture qui n'est pas scientifique.",
+        "Comparer deux nombres en écriture scientifique."
+      ],
+      "prerequis": [
+        "Puissances de 10",
+        "Multiplier et diviser par une puissance de 10"
+      ],
+      "notions_liees": [
+        "puissances-de-dix",
+        "prefixes-ordres-grandeur"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "puissances",
+        "écriture scientifique"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "ecriture-scientifique-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Corriger une écriture et comparer",
+          "description": "Deux exemples rédigés : rendre scientifique une écriture comme $45 \\times 10^6$, et comparer deux distances astronomiques."
+        },
+        {
+          "id": "ecriture-scientifique-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Calculer en écriture scientifique",
+          "description": "Un exemple de produit de deux nombres en écriture scientifique, avec réajustement du résultat."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien vaut l'exposant pour $250\\,000$ ?",
+          "piste": "$250\\,000 = 2{,}5 \\times 10^5$ : l'exposant vaut $5$."
+        },
+        {
+          "apres": "methode",
+          "question": "Écriture scientifique de $0{,}02$ ?",
+          "piste": "$2 \\times 10^{-2}$."
+        }
+      ]
+    },
+    {
+      "id": "prefixes-ordres-grandeur",
+      "title": "Préfixes, ordres de grandeur et comparaisons",
+      "schemaVersion": 2,
+      "intro": "Nanomètre, micromètre, mégaoctet, gigawatt : ces préfixes correspondent à des puissances de $10$. Cette leçon les relie aux puissances de $10$ et apprend à comparer des grandeurs très différentes grâce aux ordres de grandeur.",
+      "pourquoi": "Les préfixes sont utilisés en physique, en informatique, en médecine. Savoir les convertir et estimer un ordre de grandeur permet de vérifier un résultat et de comprendre des informations scientifiques.",
+      "explicationSimple": "« Kilo » veut dire mille : $1$ km $= 10^3$ m. « Micro » veut dire un millionième : $1$ µm $= 10^{-6}$ m. Remplacer le préfixe par sa puissance de $10$ suffit pour convertir.",
+      "objectif": "À la fin de cette leçon, tu sauras associer les préfixes de nano à giga aux puissances de $10$, convertir des grandeurs exprimées avec ces préfixes, et comparer des grandeurs grâce à leurs ordres de grandeur.",
+      "definition": "Les préfixes du système international multiplient l'unité par une puissance de $10$ : giga (G) $= 10^9$, méga (M) $= 10^6$, kilo (k) $= 10^3$, milli (m) $= 10^{-3}$, micro ($\\mu$) $= 10^{-6}$, nano (n) $= 10^{-9}$. L'ordre de grandeur d'une grandeur est la puissance de $10$ qui apparaît dans son écriture scientifique : il indique sa « taille » approximative.",
+      "definitions": {
+        "college": "Préfixes : giga $10^9$, méga $10^6$, kilo $10^3$, milli $10^{-3}$, micro $10^{-6}$, nano $10^{-9}$. L'ordre de grandeur est la puissance de $10$ de l'écriture scientifique.",
+        "lycee": "Les préfixes du système international multiplient l'unité par une puissance de $10$ : giga (G) $= 10^9$, méga (M) $= 10^6$, kilo (k) $= 10^3$, milli (m) $= 10^{-3}$, micro ($\\mu$) $= 10^{-6}$, nano (n) $= 10^{-9}$. L'ordre de grandeur d'une grandeur est la puissance de $10$ qui apparaît dans son écriture scientifique : il indique sa « taille » approximative."
+      },
+      "intuition": "Un préfixe est un raccourci : écrire « $3$ GW » au lieu de « $3 \\times 10^9$ W », c'est comme écrire « $3$ milliards » au lieu de « $3\\,000\\,000\\,000$ ».",
+      "reglesImportantes": [
+        "giga (G) $= 10^9$ ; méga (M) $= 10^6$ ; kilo (k) $= 10^3$.",
+        "milli (m) $= 10^{-3}$ ; micro ($\\mu$) $= 10^{-6}$ ; nano (n) $= 10^{-9}$.",
+        "Pour convertir, on remplace le préfixe par la puissance de $10$ correspondante : $7$ Mm $= 7 \\times 10^6$ m ; $3$ $\\mu$L $= 3 \\times 10^{-6}$ L.",
+        "L'ordre de grandeur se lit dans l'écriture scientifique : $3{,}8 \\times 10^8$ m est de l'ordre de $10^8$ m, c'est-à-dire « quelques centaines de millions de mètres ».",
+        "Pour comparer deux grandeurs, on les exprime dans la même unité puis on compare leurs écritures scientifiques ; leur quotient indique « combien de fois » l'une est plus grande."
+      ],
+      "formules": [
+        {
+          "id": "formule-prefixes",
+          "nom": "Préfixes usuels",
+          "expression": "G $= 10^9$, M $= 10^6$, k $= 10^3$, m $= 10^{-3}$, $\\mu = 10^{-6}$, n $= 10^{-9}$",
+          "quand_utiliser": "Pour convertir des grandeurs exprimées avec ces préfixes.",
+          "erreur_frequente": "Confondre m (milli) et M (méga).",
+          "astuce": "Les préfixes de « grand » s'écrivent en majuscule (sauf k)."
+        },
+        {
+          "id": "formule-rapport",
+          "nom": "Combien de fois plus grand ?",
+          "expression": "rapport $= \\dfrac{\\text{grande valeur}}{\\text{petite valeur}}$ (même unité)",
+          "quand_utiliser": "Pour comparer deux grandeurs de tailles très différentes.",
+          "erreur_frequente": "Faire la différence au lieu du quotient.",
+          "astuce": "Avec des puissances de $10$ : on soustrait les exposants."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Convertir avec un préfixe",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère le préfixe et je le remplace par sa puissance de $10$."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris la grandeur dans l'unité de base : nombre $\\times 10^{n}$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Si on veut un autre préfixe, je divise par la puissance de $10$ de ce préfixe (soustraction des exposants)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'écris le résultat en écriture scientifique et je vérifie sa vraisemblance."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le préfixe et je le remplace par sa puissance de $10$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris la grandeur dans l'unité de base : nombre $\\times 10^{n}$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Si on veut un autre préfixe, je divise par la puissance de $10$ de ce préfixe (soustraction des exposants)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris le résultat en écriture scientifique et je vérifie sa vraisemblance."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je cherche le préfixe dans le tableau (giga, méga, kilo, milli, micro, nano)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je remplace le préfixe par « $\\times 10^{\\ldots}$ »."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule avec les règles des puissances de $10$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je me demande si le résultat est raisonnable."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Préfixe $\\to$ puissance de $10$ ; changement de préfixe : différence des exposants."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Ordre de grandeur pour contrôler."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-convertir",
+          "titre": "Exemple 1 — Convertir avec des préfixes",
+          "enonce": "Exprimer $3$ microlitres en litres, puis $7$ mégamètres en mètres.",
+          "calcul": [
+            {
+              "expr": "3 \\text{ }\\mu\\text{L} = 3 \\times 10^{-6} \\text{ L}",
+              "texte": "micro $= 10^{-6}$ :"
+            },
+            {
+              "expr": "7 \\text{ Mm} = 7 \\times 10^6 \\text{ m}",
+              "texte": "méga $= 10^6$ :"
+            }
+          ],
+          "reponse": "$3 \\times 10^{-6}$ L et $7 \\times 10^6$ m.",
+          "conclusion": "On remplace simplement le préfixe par sa puissance de $10$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-changer-prefixe",
+          "titre": "Exemple 2 — Passer d'un préfixe à un autre",
+          "enonce": "Un fichier pèse $2{,}5$ Go (gigaoctets). Combien de mégaoctets (Mo) cela représente-t-il ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$2{,}5$ Go $= 2{,}5 \\times 10^9$ octets."
+            },
+            {
+              "expr": "\\dfrac{2{,}5 \\times 10^9}{10^6} = 2{,}5 \\times 10^3 = 2\\,500",
+              "texte": "En mégaoctets :"
+            }
+          ],
+          "reponse": "$2{,}5$ Go $= 2\\,500$ Mo.",
+          "conclusion": "Entre giga et méga, il y a un facteur $10^3 = 1\\,000$.",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-combien-de-fois",
+          "titre": "Exemple 3 — Combien de fois plus grand ?",
+          "enonce": "Une bactérie mesure environ $2$ µm et un virus environ $100$ nm. Combien de fois la bactérie est-elle plus longue que le virus ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "En mètres : bactérie $2 \\times 10^{-6}$ m ; virus $100 \\times 10^{-9} = 10^{-7}$ m."
+            },
+            {
+              "expr": "\\dfrac{2 \\times 10^{-6}}{10^{-7}} = 2 \\times 10^{-6 - (-7)} = 2 \\times 10^1 = 20",
+              "texte": "Rapport :"
+            }
+          ],
+          "reponse": "La bactérie est environ $20$ fois plus longue que le virus.",
+          "conclusion": "On met les deux grandeurs dans la même unité avant de faire le quotient.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-ordre-grandeur",
+          "titre": "Exemple 4 — Ordres de grandeur",
+          "enonce": "Donner l'ordre de grandeur (en mètres) de la distance Terre-Lune ($384\\,400$ km) et de la taille d'une fourmi ($4$ mm).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Terre-Lune : $384\\,400$ km $= 3{,}844 \\times 10^8$ m, de l'ordre de quelques centaines de millions de mètres."
+            },
+            {
+              "expr": "",
+              "texte": "Fourmi : $4$ mm $= 4 \\times 10^{-3}$ m, de l'ordre de quelques millimètres."
+            },
+            {
+              "expr": "",
+              "texte": "Rapport des ordres de grandeur : $\\dfrac{10^8}{10^{-3}} = 10^{8 - (-3)} = 10^{11}$."
+            }
+          ],
+          "reponse": "Terre-Lune : quelques $10^8$ m ; fourmi : quelques $10^{-3}$ m ; environ $10^{11}$ fois plus grand.",
+          "conclusion": "L'écriture scientifique donne immédiatement l'ordre de grandeur.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-lumiere",
+          "titre": "Exemple 5 — Le trajet de la lumière",
+          "enonce": "La lumière parcourt environ $3 \\times 10^8$ m par seconde. La distance Terre-Soleil vaut environ $1{,}5 \\times 10^{11}$ m. Combien de temps la lumière du Soleil met-elle pour nous parvenir ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{1{,}5 \\times 10^{11}}{3 \\times 10^8} = 0{,}5 \\times 10^3 = 500 \\text{ s}",
+              "texte": "Durée $=$ distance $\\div$ vitesse :"
+            },
+            {
+              "expr": "",
+              "texte": "$500$ s $= 8$ min $20$ s."
+            }
+          ],
+          "reponse": "Environ $500$ secondes, soit $8$ minutes et $20$ secondes.",
+          "conclusion": "Quand on regarde le Soleil, on le voit tel qu'il était il y a plus de $8$ minutes.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "La capacité d'une clé USB (gigaoctets) ou d'une photo (mégaoctets).",
+        "La taille d'un virus (nanomètres) ou d'une cellule (micromètres).",
+        "La puissance d'une centrale électrique (mégawatts, gigawatts)."
+      ],
+      "erreursFrequentes": [
+        "Confondre m (milli, $10^{-3}$) et M (méga, $10^6$).",
+        "Comparer deux grandeurs exprimées dans des unités différentes.",
+        "Calculer une différence pour répondre à « combien de fois plus grand ».",
+        "Se tromper dans la soustraction des exposants : $10^{-6} \\div 10^{-7} = 10^{-13}$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre m (milli, $10^{-3}$) et M (méga, $10^6$).",
+          "pourquoi": "Les deux préfixes s'écrivent avec la même lettre.",
+          "comment_detecter": "La lettre est-elle minuscule ou majuscule ?",
+          "comment_eviter": "Majuscule M : méga (grand) ; minuscule m : milli (petit)."
+        },
+        {
+          "description": "Comparer deux grandeurs exprimées dans des unités différentes.",
+          "pourquoi": "On compare $2$ µm et $100$ nm en comparant $2$ et $100$.",
+          "comment_detecter": "Les deux grandeurs sont-elles dans la même unité ?",
+          "comment_eviter": "Convertis tout dans l'unité de base (le mètre, le litre…)."
+        },
+        {
+          "description": "Calculer une différence pour répondre à « combien de fois plus grand ».",
+          "pourquoi": "On confond « de combien » et « combien de fois ».",
+          "comment_detecter": "La question porte-t-elle sur un écart ou sur un rapport ?",
+          "comment_eviter": "« Combien de fois » : on divise."
+        },
+        {
+          "description": "Se tromper dans la soustraction des exposants : $10^{-6} \\div 10^{-7} = 10^{-13}$.",
+          "pourquoi": "On additionne au lieu de soustraire, ou on oublie les signes.",
+          "comment_detecter": "Applique $10^{m - p}$ : $-6 - (-7) = 1$.",
+          "comment_eviter": "Écris la soustraction avec des parenthèses."
+        }
+      ],
+      "astuce": "Retiens l'échelle par paliers de $10^3$ : giga, méga, kilo, (unité), milli, micro, nano. Passer d'un palier au suivant, c'est multiplier ou diviser par $1\\,000$.",
+      "aRetenir": [
+        "giga $10^9$, méga $10^6$, kilo $10^3$, milli $10^{-3}$, micro $10^{-6}$, nano $10^{-9}$.",
+        "On convertit en remplaçant le préfixe par sa puissance de $10$.",
+        "« Combien de fois » : quotient, après avoir mis la même unité."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.0,
+          -1.5,
+          12.0,
+          6.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 3.4,
+            "label": "10^{-10}"
+          },
+          {
+            "x": 4.0,
+            "y": 3.4,
+            "label": "10^{-6}"
+          },
+          {
+            "x": 7.0,
+            "y": 3.4,
+            "label": "10^{-3}"
+          },
+          {
+            "x": 10.0,
+            "y": 3.4,
+            "label": "10^{0}"
+          },
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "10^{0}"
+          },
+          {
+            "x": 4.0,
+            "y": 0.0,
+            "label": "10^{4}"
+          },
+          {
+            "x": 7.0,
+            "y": 0.0,
+            "label": "10^{7}"
+          },
+          {
+            "x": 9.0,
+            "y": 0.0,
+            "label": "10^{9}"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -0.4,
+              "y": 3.4
+            },
+            "to": {
+              "x": 10.4,
+              "y": 3.4
+            },
+            "tooltip": "De 10⁻¹⁰ m à 1 m"
+          },
+          {
+            "from": {
+              "x": -0.4,
+              "y": 0.0
+            },
+            "to": {
+              "x": 9.4,
+              "y": 0.0
+            },
+            "tooltip": "De 1 m à 10⁹ m"
+          },
+          {
+            "from": {
+              "x": 0.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 0.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 1.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 1.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 2.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 2.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 3.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 3.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 4.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 4.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 5.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 5.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 6.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 6.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 7.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 7.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 8.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 8.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 9.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 9.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 10.0,
+              "y": 3.28
+            },
+            "to": {
+              "x": 10.0,
+              "y": 3.52
+            }
+          },
+          {
+            "from": {
+              "x": 0.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 0.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 1.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 1.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 2.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 2.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 3.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 3.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 4.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 4.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 5.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 5.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 6.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 6.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 7.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 7.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 8.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 8.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 9.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 9.0,
+              "y": 0.12
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 0.0,
+            "y": 4.2,
+            "label": "atome",
+            "reveal": 2
+          },
+          {
+            "x": 4.0,
+            "y": 4.2,
+            "label": "bactérie",
+            "reveal": 2
+          },
+          {
+            "x": 7.0,
+            "y": 4.2,
+            "label": "fourmi",
+            "reveal": 2
+          },
+          {
+            "x": 10.0,
+            "y": 4.2,
+            "label": "humain",
+            "reveal": 2
+          },
+          {
+            "x": 0.0,
+            "y": 0.8,
+            "label": "humain",
+            "reveal": 3
+          },
+          {
+            "x": 4.0,
+            "y": 0.8,
+            "label": "ville",
+            "reveal": 3
+          },
+          {
+            "x": 7.0,
+            "y": 0.8,
+            "label": "Terre",
+            "reveal": 3
+          },
+          {
+            "x": 9.0,
+            "y": 0.8,
+            "label": "Terre → Lune",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "L'échelle",
+          "Les tout petits objets",
+          "Les très grands objets"
+        ],
+        "relation": "Distance Terre-Lune $\\approx 3{,}8 \\times 10^8$ m ; taille d'un atome $\\approx 10^{-10}$ m : un rapport de près de $10^{18}$",
+        "alt": "Deux axes gradués en puissances de 10 : en haut de 10⁻¹⁰ à 1 mètre (atome, bactérie, fourmi, humain), en bas de 1 à 10⁹ mètres (humain, ville, Terre, distance Terre-Lune).",
+        "explication": {
+          "resume": "Sur cette échelle, chaque graduation correspond à une multiplication par $10$ : elle permet de comparer des tailles extrêmement différentes.",
+          "lecture": [
+            "Chaque graduation est une puissance de $10$ (en mètres) : l'axe du haut va de $10^{-10}$ m à $1$ m, celui du bas de $1$ m à $10^9$ m.",
+            "Chaque objet est placé à la puissance de $10$ de l'écriture scientifique de sa taille : c'est son ordre de grandeur."
+          ],
+          "observations": [
+            "Une bactérie ($10^{-6}$ m) est environ $10\\,000$ fois plus grande qu'un atome ($10^{-10}$ m).",
+            "Un humain mesure de l'ordre de $1$ m, soit $10^0$ m.",
+            "Passer d'une graduation à la suivante multiplie la taille par $10$, et non par $2$."
+          ],
+          "pieges": [
+            "Croire que les écarts sont réguliers en mètres : ils le sont en puissances de $10$."
+          ],
+          "aRetenir": [
+            "Ordre de grandeur : la puissance de $10$ de l'écriture scientifique.",
+            "Pour comparer, on compare d'abord les exposants."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        45401,
+        45402,
+        45405
+      ],
+      "topic_id": "prefixes-ordres-grandeur",
+      "proprietes": [
+        "Les préfixes du système international multiplient l'unité par une puissance de $10$."
+      ],
+      "vocabulaire_associe": [
+        "préfixe",
+        "giga",
+        "méga",
+        "kilo",
+        "milli",
+        "micro",
+        "nano",
+        "ordre de grandeur"
+      ],
+      "synonymes": [
+        "préfixes du système international",
+        "ordres de grandeur"
+      ],
+      "objectifs_pedagogiques": [
+        "Associer les préfixes de nano à giga aux puissances de $10$.",
+        "Convertir des grandeurs avec des préfixes.",
+        "Déterminer un ordre de grandeur.",
+        "Comparer deux grandeurs (combien de fois plus grand)."
+      ],
+      "prerequis": [
+        "Écriture scientifique",
+        "Puissances de 10",
+        "Conversions d'unités (6e, 5e)"
+      ],
+      "notions_liees": [
+        "ecriture-scientifique",
+        "puissances-de-dix"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "puissances",
+        "préfixes",
+        "ordres de grandeur",
+        "conversions"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "prefixes-ordres-grandeur-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Bactérie, virus et ordres de grandeur",
+          "description": "Deux exemples rédigés : comparer la taille d'une bactérie et d'un virus, et estimer des ordres de grandeur."
+        },
+        {
+          "id": "prefixes-ordres-grandeur-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Le trajet de la lumière du Soleil",
+          "description": "Un exemple qui calcule la durée du trajet de la lumière avec des puissances de $10$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien de fois une fourmi ($10^{-3}$ m) est-elle plus grande qu'une bactérie ($10^{-6}$ m) ?",
+          "piste": "$10^{-3} \\div 10^{-6} = 10^3$ : environ $1\\,000$ fois."
+        },
+        {
+          "apres": "methode",
+          "question": "$5$ nm, c'est combien de mètres ?",
+          "piste": "$5 \\times 10^{-9}$ m."
+        }
+      ]
+    }
+  ]
+}

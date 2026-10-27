@@ -266,6 +266,13 @@ def _class_bank(class_level):
                 chapter_id = course.get("chapterId")
                 if chapter_id and course.get("title"):
                     chapter_meta[chapter_id] = {"title": course["title"]}
+                    # Ordre pédagogique des notions, sur option déclarée dans
+                    # le registre (voir notion_order_from_courses) — clé
+                    # interne, jamais exposée telle quelle par /api/chapters.
+                    if profile.notion_order_from_courses:
+                        chapter_meta[chapter_id]["notion_order"] = [
+                            n.get("title") for n in course.get("notions", []) if n.get("title")
+                        ]
 
         # Alignement par "id" (pas par position) : une banque naturelle sans
         # ce champ, ou mal alignée, ne doit jamais planter — elle est
@@ -788,6 +795,10 @@ def api_chapters():
         meta = chapter_meta.get(chapter_id, {})
         chapter_exercises = [(i, e) for i, e in enumerate(bank) if e.get("chapter_id") == chapter_id]
         notions = sorted(set(e.get("notion") for _, e in chapter_exercises if e.get("notion")))
+        notion_order = meta.get("notion_order")
+        if notion_order:
+            rank = {title: i for i, title in enumerate(notion_order)}
+            notions.sort(key=lambda n: (rank.get(n, len(rank)), n))
         diff_counts = {d: 0 for d in difficulty_levels}
         for _, e in chapter_exercises:
             d = e.get("difficulty")
@@ -3795,4 +3806,8 @@ if __name__ == "__main__":
     # Serveur de dev uniquement (reloader/debugger Werkzeug). En production,
     # ce bloc n'est jamais exécuté : lancer via `gunicorn webapp.server:app`
     # (voir README / .env.example), qui importe `app` directement ci-dessus.
-    app.run(debug=config.DEBUG, port=int(os.environ.get("PORT", 5050)), threaded=True)
+    # dev_server : port réservé en exclusivité (jamais deux serveurs sur
+    # 127.0.0.1:5050 sous Windows), instance inscrite pour run_preview.py.
+    import dev_server
+
+    dev_server.run(app, debug=config.DEBUG)

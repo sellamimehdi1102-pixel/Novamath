@@ -51,6 +51,11 @@ def _disp(n) -> str:
     return f"({s})" if s.startswith("-") else s
 
 
+def _ax(a) -> str:
+    """Terme ax sans coefficient ±1 affiché (« x », « -x », jamais « 1x » ni « -1x »)."""
+    return f"{'' if a == 1 else '-' if a == -1 else a}x"
+
+
 def _fmt_interval(op: str, bound) -> str:
     b = _fmt_num(bound)
     if op == ">":
@@ -78,7 +83,7 @@ def _gen_ineq_vf(rng):
     is_solution = ops_py[op]
     enonce = (
         f"Vrai ou faux : x = {x0} est solution de l'inéquation "
-        f"{a}x {'+' if b >= 0 else '-'} {abs(b)} {op} {c}. Justifier."
+        f"{_ax(a)} {'+' if b >= 0 else '-'} {abs(b)} {op} {c}. Justifier."
     )
     steps = [
         f"On remplace x par {x0} : {a}×{_disp(x0)} {'+' if b >= 0 else '-'} {abs(b)} = {lhs}.",
@@ -99,12 +104,12 @@ def _gen_ineq_erreur(rng):
     correct_op = _FLIP[op]
     wrong_op = op
     enonce = (
-        f"Un élève résout l'inéquation {a}x {'+' if b >= 0 else '-'} {abs(b)} {op} {c} et écrit : "
-        f"\"{a}x {op} {c - b}, donc x {wrong_op} {_fmt_num(bound)}\" (il n'a pas changé le sens de "
+        f"Un élève résout l'inéquation {_ax(a)} {'+' if b >= 0 else '-'} {abs(b)} {op} {c} et écrit : "
+        f"\"{_ax(a)} {op} {c - b}, donc x {wrong_op} {_fmt_num(bound)}\" (il n'a pas changé le sens de "
         "l'inégalité). Identifier son erreur et donner l'ensemble solution correct."
     )
     steps = [
-        f"Après avoir isolé le terme en x, on a bien {a}x {op} {c - b}.",
+        f"Après avoir isolé le terme en x, on a bien {_ax(a)} {op} {c - b}.",
         f"Mais {a} est NÉGATIF : en divisant les deux membres par {a}, il faut inverser le sens de "
         f"l'inégalité, donc x {correct_op} {_fmt_num(bound)} (et non x {wrong_op} {_fmt_num(bound)}).",
         f"Ensemble solution correct : {_fmt_interval(correct_op, bound)}.",
@@ -125,7 +130,7 @@ def _gen_ineq_inverse(rng):
         "déterminer la valeur de k."
     )
     steps = [
-        f"Comme k > 0, résoudre kx {'+' if b >= 0 else '-'} {abs(b)} > {c} donne x > ({c}-({b}))/k = "
+        f"Comme k > 0, résoudre kx {'+' if b >= 0 else '-'} {abs(b)} > {c} donne x > ({c}-{_disp(b)})/k = "
         f"({c - b})/k.",
         f"On sait que cette solution est x > {_fmt_num(s)}, donc ({c - b})/k = {_fmt_num(s)}.",
         f"On résout : k = ({c - b})/({_fmt_num(s)}) = {m}.",
@@ -169,12 +174,12 @@ def _gen_signe_vf(rng):
     fb = x0 - b
     if is_product:
         val = fa * fb
-        expr_txt = f"(x - ({a}))(x - ({b}))" if (a < 0 or b < 0) else f"(x-{a})(x-{b})"
+        expr_txt = f"(x - {_disp(a)})(x - {_disp(b)})" if (a < 0 or b < 0) else f"(x-{a})(x-{b})"
     else:
         if fb == 0:
             return None
         val = Rational(fa, fb)
-        expr_txt = f"(x - ({a}))/(x - ({b}))" if (a < 0 or b < 0) else f"(x-{a})/(x-{b})"
+        expr_txt = f"(x - {_disp(a)})/(x - {_disp(b)})" if (a < 0 or b < 0) else f"(x-{a})/(x-{b})"
     if val == 0:
         return None  # ni positif ni négatif : hors du champ de cette famille (racine exacte)
     is_positive = val > 0
@@ -185,7 +190,7 @@ def _gen_signe_vf(rng):
     )
     steps = [
         f"x - {_disp(a)} = {fa} et x - {_disp(b)} = {fb} pour x = {x0}.",
-        f"{'Produit' if is_product else 'Quotient'} : {fa} {'×' if is_product else '/'} {fb} = {_fmt_num(val)}, "
+        f"{'Produit' if is_product else 'Quotient'} : {fa} {'×' if is_product else '/'} {_disp(fb)} = {_fmt_num(val)}, "
         f"qui est {'positif' if is_positive else 'négatif'}.",
     ]
     answer = f"{'Vrai' if is_true else 'Faux'} : l'expression est {'positive' if is_positive else 'négative'} en x = {x0}."
@@ -247,7 +252,7 @@ def _gen_signe_tableau(rng):
     lo, hi = min(a, b), max(a, b)
     want_positive = rng.random() < 0.5
     op = ">" if want_positive else "<"
-    expr_txt = f"(x-({a}))(x-({b}))" if (a < 0 or b < 0) else f"(x-{a})(x-{b})"
+    expr_txt = f"(x-{_disp(a)})(x-{_disp(b)})" if (a < 0 or b < 0) else f"(x-{a})(x-{b})"
     enonce = f"Résoudre l'inéquation {expr_txt} {op} 0 à l'aide d'un tableau de signes."
     steps = [
         f"Les racines des facteurs sont x = {a} et x = {b}, qui partagent la droite réelle en trois "

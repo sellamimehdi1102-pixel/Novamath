@@ -4,232 +4,6 @@
   "icon": "layers",
   "notions": [
     {
-      "id": "nombre-derive-et-extremums-locaux",
-      "title": "Nombre dérivé et extremums locaux",
-      "schemaVersion": 2,
-      "intro": "Un extremum local d'une fonction $f$ est une valeur où $f$ atteint, localement (au voisinage d'un point), un maximum ou un minimum. Ce cours te montre comment repérer ces extremums à l'aide de la dérivée $f'$ : on utilise le fait que $f'$ s'annule et change de signe exactement aux abscisses où $f$ admet un extremum local.",
-      "explicationSimple": "Imagine la courbe de $f$ comme un parcours en montagne : à chaque sommet ou creux, la pente devient momentanément horizontale, ce qui correspond à $f'(x)=0$. Mais attention, une pente horizontale ne suffit pas : il faut aussi que la pente change réellement de sens (elle montait puis redescend, ou l'inverse) pour qu'il y ait vraiment un sommet ou un creux.",
-      "objectif": "À la fin de ce cours, tu sauras déterminer les extremums locaux d'une fonction en étudiant les valeurs où sa dérivée s'annule en changeant de signe, puis en calculant l'image correspondante.",
-      "definition": "Une fonction $f$, dérivable sur un intervalle, admet un extremum local (maximum local ou minimum local) en une valeur $x_0$ si sa dérivée $f'$ s'annule en $x_0$ en changeant de signe : si $f'$ passe du signe $+$ au signe $-$ en $x_0$, $f$ admet un maximum local égal à $f(x_0)$ ; si $f'$ passe du signe $-$ au signe $+$ en $x_0$, $f$ admet un minimum local égal à $f(x_0)$.",
-      "definitions": {
-        "lycee": "Une fonction $f$, dérivable sur un intervalle, admet un extremum local (maximum local ou minimum local) en une valeur $x_0$ si sa dérivée $f'$ s'annule en $x_0$ en changeant de signe : si $f'$ passe du signe $+$ au signe $-$ en $x_0$, $f$ admet un maximum local égal à $f(x_0)$ ; si $f'$ passe du signe $-$ au signe $+$ en $x_0$, $f$ admet un minimum local égal à $f(x_0)$."
-      },
-      "intuition": "Le fait que $f'(x_0)=0$ ne suffit jamais à lui seul pour affirmer un extremum local : il faut impérativement vérifier que $f'$ change réellement de signe de part et d'autre de $x_0$ (sinon $f'$ peut s'annuler sans que $f$ ne change de sens de variation, par exemple pour $f(x)=x^3$ en $x=0$).",
-      "reglesImportantes": [],
-      "formules": [],
-      "methode": {
-        "titre": "Méthode — Nombre dérivé et extremums locaux",
-        "etapes": [
-          {
-            "icone": "search",
-            "couleur": "blue",
-            "texte": "Étape 1 : En posant $u = x$, $f(x) = (u^3-12u)+0$, donc $f'(x) = 3(u^2-2^2) = 3(x+2)(x-2)$."
-          },
-          {
-            "icone": "sliders",
-            "couleur": "purple",
-            "texte": "Étape 2 : $f'(x)=0$ pour $x=-2$ ou $x=2$, et le signe de $f'$ change en chacune de ces valeurs."
-          },
-          {
-            "icone": "check",
-            "couleur": "green",
-            "texte": "Étape 3 : En $x=-2$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-2) = 16$."
-          },
-          {
-            "icone": "compass",
-            "couleur": "orange",
-            "texte": "Étape 4 : En $x=2$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(2) = -16$."
-          }
-        ]
-      },
-      "exemples": [
-        {
-          "id": "exemple-826",
-          "titre": "Exemple 1",
-          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = (x)^3 - 12(x) +0$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : En posant $u = x$, $f(x) = (u^3-12u)+0$, donc $f'(x) = 3(u^2-2^2) = 3(x+2)(x-2)$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $f'(x)=0$ pour $x=-2$ ou $x=2$, et le signe de $f'$ change en chacune de ces valeurs."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : En $x=-2$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-2) = 16$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 4 : En $x=2$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(2) = -16$."
-            }
-          ],
-          "reponse": "Maximum local $16$ en $x=-2$ ; minimum local $-16$ en $x=2$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-838",
-          "titre": "Exemple 2",
-          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = −\\left[(x+3)^3 - 3(x+3)\\right] +0$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : En posant $u = x+3$, $f(x) = -1(u^3-3u)+0$, donc $f'(x) = -3(u^2-1^2) = -3(x+4)(x+2)$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $f'(x)=0$ pour $x=-4$ ou $x=-2$, et le signe de $f'$ change en chacune de ces valeurs."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : En $x=-2$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-2) = 2$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 4 : En $x=-4$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(-4) = -2$."
-            }
-          ],
-          "reponse": "Maximum local $2$ en $x=-2$ ; minimum local $-2$ en $x=-4$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-850",
-          "titre": "Exemple 3",
-          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = −\\left[(x-3)^3 - 147(x-3)\\right] +6$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : En posant $u = x-3$, $f(x) = -1(u^3-147u)+6$, donc $f'(x) = -3(u^2-7^2) = -3(x+4)(x-10)$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $f'(x)=0$ pour $x=-4$ ou $x=10$, et le signe de $f'$ change en chacune de ces valeurs."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : En $x=10$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(10) = 692$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 4 : En $x=-4$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(-4) = -680$."
-            }
-          ],
-          "reponse": "Maximum local $692$ en $x=10$ ; minimum local $-680$ en $x=-4$",
-          "difficulte": "moyen"
-        },
-        {
-          "id": "exemple-862",
-          "titre": "Exemple 4",
-          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = −\\left[(x+3)^3 - 12(x+3)\\right] -5$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : En posant $u = x+3$, $f(x) = -1(u^3-12u)-5$, donc $f'(x) = -3(u^2-2^2) = -3(x+5)(x+1)$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $f'(x)=0$ pour $x=-5$ ou $x=-1$, et le signe de $f'$ change en chacune de ces valeurs."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : En $x=-1$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-1) = 11$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 4 : En $x=-5$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(-5) = -21$."
-            }
-          ],
-          "reponse": "Maximum local $11$ en $x=-1$ ; minimum local $-21$ en $x=-5$",
-          "difficulte": "difficile"
-        }
-      ],
-      "erreursFrequentes": [
-        "Affirmer un extremum local dès que $f'(x_0)=0$, sans vérifier que $f'$ change réellement de signe en $x_0$.",
-        "Confondre maximum local (la dérivée passe du signe $+$ au signe $-$) et minimum local (elle passe du signe $-$ au signe $+$).",
-        "Donner uniquement l'abscisse $x_0$ comme réponse, en oubliant de calculer la valeur de l'extremum $f(x_0)$."
-      ],
-      "erreursFrequentesDetail": [
-        {
-          "description": "Affirmer un extremum local dès que $f'(x_0)=0$, sans vérifier que $f'$ change réellement de signe en $x_0$.",
-          "pourquoi": "Une dérivée peut s'annuler en un point sans changer de signe (par exemple $f(x)=x^3$ en $x=0$) : dans ce cas, $f$ continue de croître ou décroître, sans extremum local.",
-          "comment_detecter": "Si le signe de $f'$ est identique juste avant et juste après $x_0$, il n'y a pas d'extremum local, même si $f'(x_0)=0$.",
-          "comment_eviter": "Toujours dresser un tableau de signes complet de $f'$ autour de chaque valeur qui l'annule, et vérifier explicitement qu'un changement de signe a lieu."
-        },
-        {
-          "description": "Confondre maximum local (la dérivée passe du signe $+$ au signe $-$) et minimum local (elle passe du signe $-$ au signe $+$).",
-          "pourquoi": "Le sens du changement de signe de $f'$ détermine directement le type d'extremum : de $+$ vers $-$, la fonction cesse de croître pour décroître, ce qui donne un sommet, donc un maximum.",
-          "comment_detecter": "Si la conclusion « maximum local » est associée à un passage de $f'$ du signe $-$ au signe $+$ (ou l'inverse pour un minimum), la conclusion est inversée.",
-          "comment_eviter": "Mémoriser la règle en l'associant à une image : $+$ puis $-$, la courbe monte puis descend, donc un maximum ; $-$ puis $+$, elle descend puis remonte, donc un minimum."
-        },
-        {
-          "description": "Donner uniquement l'abscisse $x_0$ comme réponse, en oubliant de calculer la valeur de l'extremum $f(x_0)$.",
-          "pourquoi": "Un extremum local est une valeur de la fonction $f(x_0)$, et non l'abscisse $x_0$ elle-même : les deux informations sont nécessaires pour répondre complètement.",
-          "comment_detecter": "Si la réponse finale ne mentionne que la valeur de $x_0$ sans calculer $f(x_0)$, la réponse est incomplète.",
-          "comment_eviter": "Toujours terminer la méthode par le calcul explicite de $f(x_0)$, qui est la valeur réelle de l'extremum local."
-        }
-      ],
-      "astuce": "",
-      "aRetenir": [],
-      "figure": {
-        "kind": "geom",
-        "viewBox": [-4, -19, 8, 38],
-        "grid": true,
-        "axes": true,
-        "curves": [
-          {
-            "points": [
-              [-3.5, -0.875],
-              [-3, 9],
-              [-2.5, 14.375],
-              [-2, 16],
-              [-1.5, 14.625],
-              [-1, 11],
-              [-0.5, 5.875],
-              [0, 0],
-              [0.5, -5.875],
-              [1, -11],
-              [1.5, -14.625],
-              [2, -16],
-              [2.5, -14.375],
-              [3, -9],
-              [3.5, 0.875]
-            ]
-          }
-        ],
-        "points": [
-          {"x": -2, "y": 16, "label": "Maximum local", "tooltip": "f'(-2)=0 : la dérivée change de signe de + à -"},
-          {"x": 2, "y": -16, "label": "Minimum local", "tooltip": "f'(2)=0 : la dérivée change de signe de - à +"}
-        ],
-        "segments": [
-          {"from": {"x": -2.8, "y": 16}, "to": {"x": -1.2, "y": 16}, "tooltip": "Tangente horizontale en x=-2 : f'(-2)=0"},
-          {"from": {"x": 1.2, "y": -16}, "to": {"x": 2.8, "y": -16}, "tooltip": "Tangente horizontale en x=2 : f'(2)=0"}
-        ],
-        "alt": "Courbe de f(x) = x^3 - 12x : elle admet un maximum local égal à 16 en x=-2 (tangente horizontale) et un minimum local égal à -16 en x=2 (tangente horizontale), conformément à l'exemple 1 de la méthode."
-      },
-      "quizExerciseIds": [
-        827,
-        828,
-        829
-      ],
-      "topic_id": "nombre-derive-et-extremums-locaux",
-      "proprietes": [],
-      "vocabulaire_associe": [],
-      "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Nombre dérivé et extremums locaux."
-      ],
-      "prerequis": [],
-      "notions_liees": [],
-      "difficulte": "facile",
-      "tags": [
-        "nombre",
-        "derive",
-        "extremums",
-        "locaux"
-      ]
-    },
-    {
       "id": "variations-d-une-fonction",
       "title": "Variations d'une fonction",
       "schemaVersion": 2,
@@ -241,25 +15,33 @@
         "lycee": "Soit $f$ une fonction dérivable sur un intervalle $I$. Si $f'(x) \\geqslant 0$ pour tout $x$ de $I$, alors $f$ est croissante sur $I$ ; si $f'(x) \\leqslant 0$ pour tout $x$ de $I$, alors $f$ est décroissante sur $I$. Lorsque $f'$ s'écrit comme un produit de plusieurs facteurs, on étudie le signe de chaque facteur séparément dans un tableau de signes, puis on en déduit le signe du produit sur chaque intervalle délimité par les valeurs qui annulent $f'$."
       },
       "intuition": "Le lien entre signe de $f'$ et variations de $f$ se retient dans un seul sens, qu'il ne faut jamais inverser : $f'$ positive signifie $f$ croissante (et non l'inverse). Une astuce pour ne pas se tromper : pense à la pente d'une route — une pente positive fait monter, une pente négative fait descendre.",
-      "reglesImportantes": [],
+      "reglesImportantes": [
+        "Si $f'(x)\\geqslant0$ sur un intervalle $I$, alors $f$ est croissante sur $I$ ; si $f'(x)\\leqslant0$ sur $I$, alors $f$ est décroissante sur $I$.",
+        "Pour étudier le signe d'un produit de facteurs (dont une constante), étudier le signe de chaque facteur séparément dans un tableau de signes, puis combiner (règle des signes d'un produit)."
+      ],
       "formules": [],
       "methode": {
-        "titre": "Méthode — Variations d'une fonction",
+        "titre": "Méthode — Déduire les variations à partir du signe de f'",
         "etapes": [
           {
             "icone": "search",
             "couleur": "blue",
-            "texte": "Étape 1 : $f'(x)$ s'annule en $x=-5$ et $x=-3$, qui partagent $\\mathbb{R}$ en trois intervalles."
+            "texte": "Étape 1 : trouve les valeurs qui annulent chaque facteur de $f'(x)$ — elles partagent $\\mathbb{R}$ (ou l'intervalle d'étude) en plusieurs sous-intervalles."
           },
           {
-            "icone": "sliders",
+            "icone": "penSquare",
             "couleur": "purple",
-            "texte": "Étape 2 : En étudiant le signe du produit $(x+5)(x+3)$ multiplié par $-2$, on obtient le signe de $f'$ sur chaque intervalle."
+            "texte": "Étape 2 : construis un tableau de signes avec une ligne par facteur (y compris le coefficient constant), et multiplie les signes pour obtenir celui de $f'$ sur chaque intervalle."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Étape 3 : traduis le signe de $f'$ en sens de variation de $f$ sur chaque intervalle (positif = croissante, négatif = décroissante)."
           },
           {
             "icone": "check",
             "couleur": "green",
-            "texte": "Étape 3 : $f$ est donc décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -3]$, puis décroissante sur $[-3 ; +\\infty[$, car $f$ est croissante là où $f'\\geqslant 0$ et décroissante là où $f'\\leqslant 0$."
+            "texte": "Étape 4 : présente le résultat sous forme de phrase (ou de tableau de variations), en précisant les bornes de chaque intervalle."
           }
         ]
       },
@@ -283,28 +65,10 @@
             }
           ],
           "reponse": "$f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -3]$, puis décroissante sur $[-3 ; +\\infty[$.",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-779",
-          "titre": "Exemple 2",
-          "enonce": "Soit $f$ une fonction dérivable sur $\\mathbb{R}$ telle que, pour tout réel $x$, $f'(x) = -4(x+5)(x+2)$. Étudier le signe de $f'(x)$ puis en déduire les variations de $f$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : $f'(x)$ s'annule en $x=-5$ et $x=-2$, qui partagent $\\mathbb{R}$ en trois intervalles."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : En étudiant le signe du produit $(x+5)(x+2)$ multiplié par $-4$, on obtient le signe de $f'$ sur chaque intervalle."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 3 : $f$ est donc décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -2]$, puis décroissante sur $[-2 ; +\\infty[$, car $f$ est croissante là où $f'\\geqslant 0$ et décroissante là où $f'\\leqslant 0$."
-            }
-          ],
-          "reponse": "$f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -2]$, puis décroissante sur $[-2 ; +\\infty[$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "$f'(x)$ est déjà factorisée sous la forme d'un produit : un coefficient constant et deux facteurs affines.",
+          "choixMethode": "On trouve les valeurs qui annulent chaque facteur, puis on construit le tableau de signes complet (coefficient compris).",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-791",
@@ -325,7 +89,32 @@
             }
           ],
           "reponse": "$f$ est décroissante sur $]-\\infty ; -6]$, croissante sur $[-6 ; 0]$, puis décroissante sur $[0 ; +\\infty[$.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "analyse": "Même méthode, avec un facteur $(x-0)$ qui s'annule en $x=0$ — à ne pas négliger malgré sa simplicité apparente.",
+          "choixMethode": "On trouve les valeurs qui annulent chaque facteur, puis on construit le tableau de signes complet (coefficient compris).",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-779",
+          "titre": "Exemple 2",
+          "enonce": "Soit $f$ une fonction dérivable sur $\\mathbb{R}$ telle que, pour tout réel $x$, $f'(x) = -4(x+5)(x+2)$. Étudier le signe de $f'(x)$ puis en déduire les variations de $f$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $f'(x)$ s'annule en $x=-5$ et $x=-2$, qui partagent $\\mathbb{R}$ en trois intervalles."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : En étudiant le signe du produit $(x+5)(x+2)$ multiplié par $-4$, on obtient le signe de $f'$ sur chaque intervalle."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $f$ est donc décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -2]$, puis décroissante sur $[-2 ; +\\infty[$, car $f$ est croissante là où $f'\\geqslant 0$ et décroissante là où $f'\\leqslant 0$."
+            }
+          ],
+          "reponse": "$f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -2]$, puis décroissante sur $[-2 ; +\\infty[$.",
+          "difficulte": "facile",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-803",
@@ -346,7 +135,8 @@
             }
           ],
           "reponse": "$f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -1]$, puis décroissante sur $[-1 ; +\\infty[$.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -375,7 +165,11 @@
         }
       ],
       "astuce": "",
-      "aRetenir": [],
+      "aRetenir": [
+        "Le signe de $f'$ se lit sur $f$ et jamais l'inverse : $f'\\geqslant0 \\Rightarrow f$ croissante (jamais le contraire).",
+        "Un coefficient constant négatif devant un produit de facteurs INVERSE le signe global : ne jamais l'oublier dans le tableau de signes.",
+        "Les valeurs qui annulent $f'$ délimitent les intervalles de variation — ce sont les bornes du tableau de variations."
+      ],
       "figure": {
         "kind": "geom",
         "viewBox": [-7.5, -0.5, 8, 6.5],
@@ -407,21 +201,53 @@
           }
         ],
         "points": [
-          {"x": -5, "y": 1, "label": "x=-5", "tooltip": "f'(-5)=0 : la dérivée change de signe de - à +"},
-          {"x": -3, "y": 3, "label": "x=-3", "tooltip": "f'(-3)=0 : la dérivée change de signe de + à -"}
+          {
+            "x": -5,
+            "y": 1,
+            "label": "x=-5",
+            "tooltip": "f'(-5)=0 : la dérivée change de signe de - à +"
+          },
+          {
+            "x": -3,
+            "y": 3,
+            "label": "x=-3",
+            "tooltip": "f'(-3)=0 : la dérivée change de signe de + à -"
+          }
         ],
         "texts": [
-          {"x": -6.6, "y": 4.4, "label": "f décroissante (f'<0)"},
-          {"x": -4.6, "y": 2.9, "label": "f croissante (f'>0)"},
-          {"x": -2.3, "y": 2.7, "label": "f décroissante (f'<0)"}
+          {
+            "x": -6.6,
+            "y": 4.4,
+            "label": "f décroissante (f'<0)"
+          },
+          {
+            "x": -4.6,
+            "y": 2.9,
+            "label": "f croissante (f'>0)"
+          },
+          {
+            "x": -2.3,
+            "y": 2.7,
+            "label": "f décroissante (f'<0)"
+          }
         ],
-        "alt": "Courbe (en pointillés sur les portions décroissantes, en trait plein sur la portion croissante) illustrant l'exemple 1 : avec f'(x) = -2(x+5)(x+3), f est décroissante sur ]-∞ ; -5], croissante sur [-5 ; -3], puis décroissante sur [-3 ; +∞[."
+        "alt": "Courbe (en pointillés sur les portions décroissantes, en trait plein sur la portion croissante) illustrant l'exemple 1 : avec f'(x) = -2(x+5)(x+3), f est décroissante sur ]-∞ ; -5], croissante sur [-5 ; -3], puis décroissante sur [-3 ; +∞[.",
+        "explication": {
+          "comprendre": "Le signe de $f'$ change aux valeurs qui l'annulent : la courbe passe alors de décroissante à croissante, ou l'inverse.",
+          "etapes": [
+            {
+              "titre": "Les portions décroissantes",
+              "texte": "f' y est négative."
+            },
+            {
+              "titre": "La portion croissante",
+              "texte": "f' y est positive."
+            }
+          ],
+          "resume": "Repérer les valeurs qui annulent f' permet de découper la courbe en portions de sens de variation constant."
+        }
       },
-      "quizExerciseIds": [
-        768,
-        769,
-        770
-      ],
+      "quizExerciseIds": [768, 767, 775],
       "topic_id": "variations-d-une-fonction",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -429,12 +255,401 @@
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras résoudre des exercices sur Variations d'une fonction."
       ],
-      "prerequis": [],
-      "notions_liees": [],
+      "prerequis": [
+        "Opérations et dérivation, composition de fonctions (chapitre 3)",
+        "Étudier le signe d'un produit de facteurs affines"
+      ],
+      "notions_liees": ["nombre-derive-et-extremums-locaux"],
       "difficulte": "facile",
-      "tags": [
-        "variations",
-        "fonction"
+      "tags": ["variations", "fonction"],
+      "pourquoi": "La température au cours d'une journée monte le matin, atteint un maximum en milieu de journée, puis redescend le soir. Comment savoir, SANS tracer toute la courbe, sur quels intervalles de temps elle monte et sur quels intervalles elle descend ?\n\nTu sais déjà que $f'(x)$ donne la pente de la courbe de $f$ en $x$. Il suffit donc d'étudier le SIGNE de $f'$ : là où elle est positive, $f$ monte ; là où elle est négative, $f$ descend.",
+      "demonstration": {
+        "titre": "Pourquoi le signe de f' donne-t-il le sens de variation de f ?",
+        "etapes": [
+          {
+            "titre": "Ce que signifie f'(x) > 0",
+            "texte": "$f'(x)$ est la limite du taux de variation $\\dfrac{f(x+h)-f(x)}{h}$ : si $f'(x)>0$, ce taux reste positif pour $h$ proche de $0$, donc $f(x+h)>f(x)$ pour $h>0$ petit."
+          },
+          {
+            "titre": "Ce que cela donne entre deux points de l'intervalle",
+            "texte": "Si $f'$ reste positive sur tout un intervalle, cette tendance locale « $f$ augmente quand $x$ augmente » se maintient d'un point à l'autre de l'intervalle, pas seulement localement."
+          }
+        ],
+        "conclusion": "C'est ce résultat — admis ici, démontré rigoureusement en Terminale à l'aide du théorème des accroissements finis — qui justifie que $f'\\geqslant0$ sur un intervalle entraîne $f$ croissante sur ce même intervalle, et inversement pour $f'\\leqslant0$."
+      },
+      "apercus": [
+        {
+          "id": "apercu-var-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "2 exemples supplémentaires",
+          "description": "D'autres études de signe avec des racines différentes, pour automatiser la construction du tableau de signes."
+        },
+        {
+          "id": "apercu-var-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi le signe de f' donne le sens de variation",
+          "description": "L'explication du lien entre signe de la dérivée et sens de variation, à partir de la définition du nombre dérivé."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi étudier le signe de f' plutôt que de comparer directement les valeurs de f ?",
+          "piste": "Parce que f'(x) donne directement la pente en x : son signe dit si f monte ou descend, sans avoir à comparer de nombreuses valeurs de f entre elles."
+        },
+        {
+          "apres": "intuition",
+          "question": "Si f'(x) est négative sur un intervalle, que peut-on dire de f sur ce même intervalle ?",
+          "piste": "f est décroissante sur cet intervalle : la pente de sa courbe y est négative, la courbe y descend."
+        },
+        {
+          "apres": "methode",
+          "question": "Pourquoi faut-il inclure le coefficient constant dans le tableau de signes ?",
+          "piste": "Parce qu'un coefficient négatif inverse le signe global du produit : l'oublier donnerait un signe faux pour f', donc une conclusion inversée sur les variations de f."
+        },
+        {
+          "apres": "figure",
+          "question": "Sur ce graphique, que signifient les portions en pointillés ?",
+          "piste": "Les portions où f est décroissante (f'<0) ; la portion en trait plein correspond à l'intervalle où f est croissante (f'>0)."
+        }
+      ]
+    },
+    {
+      "id": "nombre-derive-et-extremums-locaux",
+      "title": "Nombre dérivé et extremums locaux",
+      "schemaVersion": 2,
+      "intro": "Un extremum local d'une fonction $f$ est une valeur où $f$ atteint, localement (au voisinage d'un point), un maximum ou un minimum. Ce cours te montre comment repérer ces extremums à l'aide de la dérivée $f'$ : on utilise le fait que $f'$ s'annule et change de signe exactement aux abscisses où $f$ admet un extremum local.",
+      "explicationSimple": "Imagine la courbe de $f$ comme un parcours en montagne : à chaque sommet ou creux, la pente devient momentanément horizontale, ce qui correspond à $f'(x)=0$. Mais attention, une pente horizontale ne suffit pas : il faut aussi que la pente change réellement de sens (elle montait puis redescend, ou l'inverse) pour qu'il y ait vraiment un sommet ou un creux.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer les extremums locaux d'une fonction en étudiant les valeurs où sa dérivée s'annule en changeant de signe, puis en calculant l'image correspondante.",
+      "definition": "Une fonction $f$, dérivable sur un intervalle, admet un extremum local (maximum local ou minimum local) en une valeur $x_0$ si sa dérivée $f'$ s'annule en $x_0$ en changeant de signe : si $f'$ passe du signe $+$ au signe $-$ en $x_0$, $f$ admet un maximum local égal à $f(x_0)$ ; si $f'$ passe du signe $-$ au signe $+$ en $x_0$, $f$ admet un minimum local égal à $f(x_0)$.",
+      "definitions": {
+        "lycee": "Une fonction $f$, dérivable sur un intervalle, admet un extremum local (maximum local ou minimum local) en une valeur $x_0$ si sa dérivée $f'$ s'annule en $x_0$ en changeant de signe : si $f'$ passe du signe $+$ au signe $-$ en $x_0$, $f$ admet un maximum local égal à $f(x_0)$ ; si $f'$ passe du signe $-$ au signe $+$ en $x_0$, $f$ admet un minimum local égal à $f(x_0)$."
+      },
+      "intuition": "Le fait que $f'(x_0)=0$ ne suffit jamais à lui seul pour affirmer un extremum local : il faut impérativement vérifier que $f'$ change réellement de signe de part et d'autre de $x_0$ (sinon $f'$ peut s'annuler sans que $f$ ne change de sens de variation, par exemple pour $f(x)=x^3$ en $x=0$).",
+      "reglesImportantes": [
+        "$f$ admet un extremum local en $x_0$ si $f'(x_0)=0$ ET si $f'$ change de signe en $x_0$ : de $+$ à $-$ pour un maximum local, de $-$ à $+$ pour un minimum local.",
+        "$f'(x_0)=0$ SANS changement de signe de $f'$ : il n'y a PAS d'extremum local (exemple classique : $f(x)=x^3$ en $x_0=0$, où $f'(x)=3x^2\\geqslant0$ ne change jamais de signe).",
+        "La valeur de l'extremum local est $f(x_0)$ — jamais $x_0$ lui-même."
+      ],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Trouver les extremums locaux avec la dérivée",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : calcule $f'(x)$, puis factorise-la si possible pour faire apparaître ses valeurs qui l'annulent."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Étape 2 : étudie le signe de $f'(x)$ sur chaque intervalle délimité par ces valeurs."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Étape 3 : pour chaque valeur $x_0$ qui annule $f'$, vérifie si le signe de $f'$ change réellement de part et d'autre — sinon, pas d'extremum à cet endroit."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 4 : calcule $f(x_0)$ pour chaque extremum trouvé, et précise s'il s'agit d'un maximum ou d'un minimum local selon le sens du changement de signe."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-826",
+          "titre": "Exemple 1 — Fonction cubique simple",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = (x)^3 - 12(x) +0$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : En posant $u = x$, $f(x) = (u^3-12u)+0$, donc $f'(x) = 3(u^2-2^2) = 3(x+2)(x-2)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $f'(x)=0$ pour $x=-2$ ou $x=2$, et le signe de $f'$ change en chacune de ces valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : En $x=-2$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-2) = 16$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : En $x=2$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(2) = -16$."
+            }
+          ],
+          "reponse": "Maximum local $16$ en $x=-2$ ; minimum local $-16$ en $x=2$",
+          "difficulte": "facile",
+          "analyse": "On doit d'abord calculer $f'(x)$ (par la règle du polynôme), la factoriser, puis étudier son signe pour conclure sur les extremums.",
+          "choixMethode": "On dérive, on factorise (reconnaissant une différence de carrés), on étudie le signe, puis on calcule les images des valeurs qui annulent $f'$.",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-838",
+          "titre": "Exemple 2",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = (x+3)^3 - 5$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire si $f$ admet un extremum local en $x=-3$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : En posant $u=x+3$, $f(x)=u^3-5$, donc $f'(x) = 3u^2 = 3(x+3)^2$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $f'(x)=3(x+3)^2$ est un carré multiplié par $3>0$ : il est TOUJOURS positif ou nul, et ne s'annule qu'en $x=-3$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : $f'$ ne change jamais de signe (elle reste $\\geqslant0$ avant et après $x=-3$) : $f$ n'admet donc PAS d'extremum local en $x=-3$, bien que $f'(-3)=0$."
+            }
+          ],
+          "reponse": "Pas d'extremum local en $x=-3$ (bien que $f'(-3)=0$)",
+          "difficulte": "facile",
+          "analyse": "C'est le piège classique : $f'(x_0)=0$ ne suffit pas à garantir un extremum local. Il faut en plus que $f'$ change réellement de signe autour de $x_0$, ce qui n'est pas le cas ici car $f'(x)=3(x+3)^2\\geqslant0$ partout.",
+          "choixMethode": "On dérive, on reconnaît que $f'(x)=3(x+3)^2$ est un carré (toujours $\\geqslant0$), donc ne change jamais de signe : pas d'extremum local malgré $f'(-3)=0$.",
+          "niveauAcces": "free",
+          "interpretation": "Ne jamais conclure à un extremum local uniquement parce que $f'(x_0)=0$ : il faut vérifier le changement de signe."
+        },
+        {
+          "id": "exemple-850",
+          "titre": "Exemple 3",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = −\\left[(x-3)^3 - 147(x-3)\\right] +6$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : En posant $u = x-3$, $f(x) = -1(u^3-147u)+6$, donc $f'(x) = -3(u^2-7^2) = -3(x+4)(x-10)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $f'(x)=0$ pour $x=-4$ ou $x=10$, et le signe de $f'$ change en chacune de ces valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : En $x=10$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(10) = 692$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : En $x=-4$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(-4) = -680$."
+            }
+          ],
+          "reponse": "Maximum local $692$ en $x=10$ ; minimum local $-680$ en $x=-4$",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-862",
+          "titre": "Exemple 4",
+          "enonce": "Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = −\\left[(x+3)^3 - 12(x+3)\\right] -5$. 1) Calculer $f'(x)$ et la factoriser. 2) Étudier le signe de $f'(x)$ et en déduire les extremums locaux de $f$ (abscisses et valeurs).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : En posant $u = x+3$, $f(x) = -1(u^3-12u)-5$, donc $f'(x) = -3(u^2-2^2) = -3(x+5)(x+1)$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $f'(x)=0$ pour $x=-5$ ou $x=-1$, et le signe de $f'$ change en chacune de ces valeurs."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 3 : En $x=-1$, $f'$ change de signe de $+$ à $-$ : $f$ admet un maximum local, égal à $f(-1) = 11$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 4 : En $x=-5$, $f'$ change de signe de $-$ à $+$ : $f$ admet un minimum local, égal à $f(-5) = -21$."
+            }
+          ],
+          "reponse": "Maximum local $11$ en $x=-1$ ; minimum local $-21$ en $x=-5$",
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
+        }
+      ],
+      "erreursFrequentes": [
+        "Affirmer un extremum local dès que $f'(x_0)=0$, sans vérifier que $f'$ change réellement de signe en $x_0$.",
+        "Confondre maximum local (la dérivée passe du signe $+$ au signe $-$) et minimum local (elle passe du signe $-$ au signe $+$).",
+        "Donner uniquement l'abscisse $x_0$ comme réponse, en oubliant de calculer la valeur de l'extremum $f(x_0)$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Affirmer un extremum local dès que $f'(x_0)=0$, sans vérifier que $f'$ change réellement de signe en $x_0$.",
+          "pourquoi": "Une dérivée peut s'annuler en un point sans changer de signe (par exemple $f(x)=x^3$ en $x=0$) : dans ce cas, $f$ continue de croître ou décroître, sans extremum local.",
+          "comment_detecter": "Si le signe de $f'$ est identique juste avant et juste après $x_0$, il n'y a pas d'extremum local, même si $f'(x_0)=0$.",
+          "comment_eviter": "Toujours dresser un tableau de signes complet de $f'$ autour de chaque valeur qui l'annule, et vérifier explicitement qu'un changement de signe a lieu."
+        },
+        {
+          "description": "Confondre maximum local (la dérivée passe du signe $+$ au signe $-$) et minimum local (elle passe du signe $-$ au signe $+$).",
+          "pourquoi": "Le sens du changement de signe de $f'$ détermine directement le type d'extremum : de $+$ vers $-$, la fonction cesse de croître pour décroître, ce qui donne un sommet, donc un maximum.",
+          "comment_detecter": "Si la conclusion « maximum local » est associée à un passage de $f'$ du signe $-$ au signe $+$ (ou l'inverse pour un minimum), la conclusion est inversée.",
+          "comment_eviter": "Mémoriser la règle en l'associant à une image : $+$ puis $-$, la courbe monte puis descend, donc un maximum ; $-$ puis $+$, elle descend puis remonte, donc un minimum."
+        },
+        {
+          "description": "Donner uniquement l'abscisse $x_0$ comme réponse, en oubliant de calculer la valeur de l'extremum $f(x_0)$.",
+          "pourquoi": "Un extremum local est une valeur de la fonction $f(x_0)$, et non l'abscisse $x_0$ elle-même : les deux informations sont nécessaires pour répondre complètement.",
+          "comment_detecter": "Si la réponse finale ne mentionne que la valeur de $x_0$ sans calculer $f(x_0)$, la réponse est incomplète.",
+          "comment_eviter": "Toujours terminer la méthode par le calcul explicite de $f(x_0)$, qui est la valeur réelle de l'extremum local."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "$f'(x_0)=0$ est nécessaire mais JAMAIS suffisant pour un extremum local : il faut en plus un vrai changement de signe.",
+        "Maximum local : $f'$ passe de $+$ à $-$. Minimum local : $f'$ passe de $-$ à $+$. (Retenir l'image d'un sommet ou d'un creux.)",
+        "La réponse complète d'un extremum local comprend TOUJOURS deux informations : l'abscisse $x_0$ ET la valeur $f(x_0)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [-4, -19, 8, 38],
+        "grid": true,
+        "axes": true,
+        "curves": [
+          {
+            "points": [
+              [-3.5, -0.875],
+              [-3, 9],
+              [-2.5, 14.375],
+              [-2, 16],
+              [-1.5, 14.625],
+              [-1, 11],
+              [-0.5, 5.875],
+              [0, 0],
+              [0.5, -5.875],
+              [1, -11],
+              [1.5, -14.625],
+              [2, -16],
+              [2.5, -14.375],
+              [3, -9],
+              [3.5, 0.875]
+            ]
+          }
+        ],
+        "points": [
+          {
+            "x": -2,
+            "y": 16,
+            "label": "Maximum local",
+            "tooltip": "f'(-2)=0 : la dérivée change de signe de + à -"
+          },
+          {
+            "x": 2,
+            "y": -16,
+            "label": "Minimum local",
+            "tooltip": "f'(2)=0 : la dérivée change de signe de - à +"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -2.8,
+              "y": 16
+            },
+            "to": {
+              "x": -1.2,
+              "y": 16
+            },
+            "tooltip": "Tangente horizontale en x=-2 : f'(-2)=0"
+          },
+          {
+            "from": {
+              "x": 1.2,
+              "y": -16
+            },
+            "to": {
+              "x": 2.8,
+              "y": -16
+            },
+            "tooltip": "Tangente horizontale en x=2 : f'(2)=0"
+          }
+        ],
+        "alt": "Courbe de f(x) = x^3 - 12x : elle admet un maximum local égal à 16 en x=-2 (tangente horizontale) et un minimum local égal à -16 en x=2 (tangente horizontale), conformément à l'exemple 1 de la méthode.",
+        "explication": {
+          "comprendre": "Chaque extremum local correspond à une tangente horizontale (pente nulle) ET à un vrai changement de sens de la courbe de part et d'autre.",
+          "etapes": [
+            {
+              "titre": "Le maximum local",
+              "texte": "La courbe monte avant, descend après : f' passe de + à -."
+            },
+            {
+              "titre": "Le minimum local",
+              "texte": "La courbe descend avant, monte après : f' passe de - à +."
+            }
+          ],
+          "resume": "Une tangente horizontale isolée (sans changement de sens) ne suffit jamais à elle seule à garantir un extremum local."
+        }
+      },
+      "quizExerciseIds": [827, 826, 848],
+      "topic_id": "nombre-derive-et-extremums-locaux",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Nombre dérivé et extremums locaux."
+      ],
+      "prerequis": [
+        "Variations d'une fonction (notion précédente de ce chapitre)",
+        "Opérations et dérivation, composition de fonctions (chapitre 3)"
+      ],
+      "notions_liees": ["variations-d-une-fonction"],
+      "difficulte": "facile",
+      "tags": ["nombre", "derive", "extremums", "locaux"],
+      "pourquoi": "Une entreprise modélise son profit en fonction du prix de vente par une fonction $f$. Le profit maximal est atteint à un prix précis — un sommet de la courbe de $f$. Comment trouver exactement ce prix, sans tracer toute la courbe point par point ?\n\nTu as vu qu'un sommet (ou un creux) correspond à une tangente horizontale, donc à $f'(x_0)=0$. Mais $f'(x_0)=0$ seul ne suffit pas toujours : il faut aussi que $f'$ change réellement de signe en $x_0$.",
+      "demonstration": {
+        "titre": "Pourquoi f'(x₀)=0 ne suffit-il pas toujours ? — le cas f(x)=x³",
+        "etapes": [
+          {
+            "titre": "On calcule la dérivée",
+            "texte": "Pour $f(x)=x^3$, $f'(x)=3x^2$, qui s'annule bien en $x_0=0$."
+          },
+          {
+            "titre": "On étudie son signe",
+            "texte": "$3x^2\\geqslant0$ pour tout $x$ réel (un carré n'est jamais négatif) : $f'$ ne change JAMAIS de signe, elle reste positive ou nulle partout."
+          },
+          {
+            "titre": "On en déduit le comportement de f",
+            "texte": "$f$ est donc croissante sur $\\mathbb{R}$ tout entier (y compris autour de $0$) : la courbe ne fait ni sommet ni creux en $x_0=0$, elle continue simplement à monter, avec juste un aplatissement local de la pente."
+          }
+        ],
+        "conclusion": "C'est exactement pour cette raison que la condition « $f'(x_0)=0$ » doit toujours être complétée par la vérification d'un VRAI changement de signe avant de conclure à un extremum local."
+      },
+      "apercus": [
+        {
+          "id": "apercu-extrem-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "2 exemples supplémentaires",
+          "description": "D'autres fonctions cubiques avec des changements de variable différents, pour automatiser la méthode."
+        },
+        {
+          "id": "apercu-extrem-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi f'(x₀)=0 ne suffit pas toujours",
+          "description": "Le contre-exemple classique f(x)=x³, qui montre qu'un changement de signe réel est indispensable."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi une tangente horizontale (f'(x₀)=0) ne garantit-elle pas toujours un sommet ou un creux ?",
+          "piste": "Parce qu'il faut aussi que la pente change réellement de sens autour de ce point — sinon la courbe continue dans le même sens, juste avec un aplatissement momentané."
+        },
+        {
+          "apres": "intuition",
+          "question": "Quel est l'exemple classique où f'(x₀)=0 sans extremum local ?",
+          "piste": "f(x)=x³ en x₀=0 : f'(x)=3x² ne change jamais de signe, donc f reste croissante malgré f'(0)=0."
+        },
+        {
+          "apres": "methode",
+          "question": "Que faut-il calculer en dernier, après avoir trouvé un extremum local ?",
+          "piste": "La valeur f(x₀) elle-même : c'est elle l'extremum, pas l'abscisse x₀."
+        },
+        {
+          "apres": "figure",
+          "question": "Sur ce graphique, que représentent les deux segments horizontaux tracés sur la courbe ?",
+          "piste": "Les tangentes horizontales aux points où f'(x)=0, c'est-à-dire aux extremums locaux de f."
+        }
       ]
     }
   ]

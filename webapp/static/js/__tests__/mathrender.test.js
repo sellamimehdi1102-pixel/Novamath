@@ -5,7 +5,14 @@
 // laissant passer le HTML "de mise en forme" produit par marked (voir audit
 // production, "Rendu Markdown" priorité 3).
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { sanitizeChatHtml, setRenderedHtmlContent, extractMathSegments, restoreMathSegments } from "../mathrender.js";
+import {
+  sanitizeChatHtml,
+  setRenderedHtmlContent,
+  extractMathSegments,
+  restoreMathSegments,
+  formatStepLabels,
+  setMathContent,
+} from "../mathrender.js";
 
 // Simule UNIQUEMENT la règle CommonMark pertinente (marked.js) : un antislash
 // suivi de "(", ")", "[" ou "]" est un échappement — le rendu final ne
@@ -153,6 +160,24 @@ describe("extractMathSegments / restoreMathSegments", () => {
     expect(extractMathSegments(text).segments).toHaveLength(4);
   });
 
+  it("formule en tête d'élément de liste : Markdown retire l'espace du jeton, la formule est quand même restaurée", () => {
+    // Reproduit marked.parse("-  JETON  — D'une part.") === "<li>JETON  — D'une part.</li>"
+    // (observé dans le navigateur, réponse locale du chatbot en Quatrième) :
+    // le jeton y perd son espace de tête et restait affiché tel quel.
+    const formulas = Array.from({ length: 11 }, (_, i) => `$x_{${i}}$`);
+    const text = formulas.map((f) => `- ${f} — étape`).join("\n");
+    const { text: protectedText, segments } = extractMathSegments(text);
+    const html = protectedText
+      .split("\n")
+      .map((line) => `<li>${line.replace(/^-\s+/, "")}</li>`)
+      .join("");
+    const restored = restoreMathSegments(html, segments);
+    expect(restored).not.toContain("MATHSEG");
+    formulas.forEach((f) => expect(restored).toContain(`<li>${f}`));
+    // « …-1-Z » n'est jamais un préfixe de « …-10-Z » : chaque formule à sa place.
+    expect(restored.indexOf("$x_{10}$")).toBeGreaterThan(restored.indexOf("$x_{1}$"));
+  });
+
   it("texte normal contenant des antislashs (hors de toute formule) n'est jamais touché", () => {
     const text = "Le chemin est C:\\Users\\eleve, attention à bien l'écrire ainsi.";
     expect(extractMathSegments(text).segments).toHaveLength(0);
@@ -205,5 +230,27 @@ describe("renderMathIn (délimiteurs KaTeX configurés)", () => {
     expect(pairs).toContain("$$$$");
     expect(pairs).toContain("$$");
     expect(seen[0].throwOnError).toBe(false);
+  });
+});
+
+// ── « Étape N — intitulé » affiché « Étape N : intitulé » (2026-10-26) ──────
+describe("formatStepLabels / setMathContent — séparateur des étapes", () => {
+  it("remplace —, – et - utilisés comme séparateurs", () => {
+    expect(formatStepLabels("Étape 1 — Calculer la proportion.")).toBe("Étape 1 : Calculer la proportion.");
+    expect(formatStepLabels("Étape 2 – Déterminer le résultat.")).toBe("Étape 2 : Déterminer le résultat.");
+    expect(formatStepLabels("Étape 3 - Conclure.")).toBe("Étape 3 : Conclure.");
+    expect(formatStepLabels("Étape 12 — $x = 2$.")).toBe("Étape 12 : $x = 2$.");
+  });
+  it("ne touche ni aux formules, ni aux soustractions, ni aux nombres négatifs", () => {
+    expect(formatStepLabels("$7 - 3 = 4$ et $x \\in [-2 ; 5]$")).toBe("$7 - 3 = 4$ et $x \\in [-2 ; 5]$");
+    expect(formatStepLabels("Étape 1 - 3 vaut -2")).toBe("Étape 1 - 3 vaut -2");
+    expect(formatStepLabels("Étape 1 -3x")).toBe("Étape 1 -3x");
+    expect(formatStepLabels("$\text{Étape 1 — a}$")).toBe("$\text{Étape 1 — a}$");
+    expect(formatStepLabels("Exemple 1 — Une suite")).toBe("Exemple 1 — Une suite");
+  });
+  it("s'applique au rendu partagé setMathContent", () => {
+    const el = document.createElement("div");
+    setMathContent(el, "Étape 1 — $f(x) = 0$ et 5 - 2 = 3");
+    expect(el.innerHTML).toBe("Étape 1 : $f(x) = 0$ et 5 - 2 = 3");
   });
 });

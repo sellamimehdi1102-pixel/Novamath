@@ -4,6 +4,7 @@
 import { api } from "./api.js";
 import { icon } from "./icons.js";
 import { setMathContent } from "./mathrender.js";
+import { getStoredClassLevel } from "./curriculumSelector.js";
 
 let chaptersMetaCache = null;
 const exerciseCache = new Map();
@@ -12,7 +13,10 @@ const exerciseCache = new Map();
 export async function getChaptersMeta() {
   if (chaptersMetaCache) return chaptersMetaCache;
   try {
-    const data = await api.chapters();
+    // Titres de la classe ACTIVE : sans `class_level`, /api/chapters renvoie
+    // ceux de la Seconde, et « Chapitre 8 » d'une autre classe s'affichait
+    // avec le titre du chapitre 8 de Seconde.
+    const data = await api.chapters(getStoredClassLevel());
     chaptersMetaCache = data.chapters_meta || [];
   } catch {
     chaptersMetaCache = [];
@@ -95,17 +99,22 @@ async function toggleReview(row, series) {
   reviewRow.appendChild(cell);
   row.after(reviewRow);
 
+  // Banque de la classe de la série (même repli "seconde" que store.js pour
+  // les séries non taguées) : un même id peut exister dans plusieurs banques
+  // avec un contenu différent, ou n'exister que hors Seconde.
+  const classLevel = series.class_level || "seconde";
   const details = await Promise.all(
     series.questions.map(async (q) => {
-      if (!exerciseCache.has(q.exercise_id)) {
+      const key = `${classLevel}:${q.exercise_id}`;
+      if (!exerciseCache.has(key)) {
         try {
-          const data = await api.exercise(q.exercise_id);
-          exerciseCache.set(q.exercise_id, data.exercise);
+          const data = await api.exercise(q.exercise_id, classLevel);
+          exerciseCache.set(key, data.exercise);
         } catch {
-          exerciseCache.set(q.exercise_id, null);
+          exerciseCache.set(key, null);
         }
       }
-      return { q, ex: exerciseCache.get(q.exercise_id) };
+      return { q, ex: exerciseCache.get(key) };
     }),
   );
 

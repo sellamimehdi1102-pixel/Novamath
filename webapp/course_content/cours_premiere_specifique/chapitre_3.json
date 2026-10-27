@@ -1,0 +1,4352 @@
+{
+  "chapterId": "Chapitre_3",
+  "title": "Polynômes du second degré",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "fonction-polynome-de-degre-2",
+      "title": "Fonction polynôme de degré 2",
+      "schemaVersion": 2,
+      "intro": "En Seconde, tu as étudié la fonction carré et les identités remarquables. En Première, on étudie toutes les fonctions de la forme $x \\mapsto ax^2 + bx + c$ : leur courbe est une parabole, et une écriture bien choisie, la forme canonique, révèle immédiatement son sommet et ses variations.",
+      "pourquoi": "Les fonctions du second degré décrivent des trajectoires (lancer d'une balle), des aires, des coûts ou des bénéfices. Savoir trouver leur sommet, c'est savoir résoudre un problème d'optimisation.",
+      "explicationSimple": "$f(x) = (x - 3)^2 - 4$ : un carré est toujours positif ou nul, donc $f(x)$ vaut au moins $-4$, et vaut exactement $-4$ quand $x = 3$. Le sommet de la parabole est $(3 ; -4)$. La forme canonique « lit » le sommet sans aucun calcul.",
+      "objectif": "À la fin de ce cours, tu sauras reconnaître une fonction polynôme du second degré, l'écrire sous forme canonique par complétion du carré, en déduire le sommet, l'axe de symétrie et le tableau de variations de la parabole.",
+      "definition": "Une fonction polynôme du second degré est une fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = ax^2 + bx + c$, où $a$, $b$, $c$ sont des réels avec $a \\neq 0$ ; l'expression $ax^2 + bx + c$ est un trinôme. Toute fonction de ce type peut s'écrire sous la forme canonique $f(x) = a(x - \\alpha)^2 + \\beta$, avec $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$. Sa courbe représentative est une parabole de sommet $S(\\alpha ; \\beta)$, symétrique par rapport à la droite d'équation $x = \\alpha$.",
+      "definitions": {
+        "lycee": "Une fonction polynôme du second degré est une fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = ax^2 + bx + c$, où $a$, $b$, $c$ sont des réels avec $a \\neq 0$ ; l'expression $ax^2 + bx + c$ est un trinôme. Toute fonction de ce type peut s'écrire sous la forme canonique $f(x) = a(x - \\alpha)^2 + \\beta$, avec $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$. Sa courbe représentative est une parabole de sommet $S(\\alpha ; \\beta)$, symétrique par rapport à la droite d'équation $x = \\alpha$."
+      },
+      "intuition": "La forme canonique dit comment la parabole de $x \\mapsto ax^2$ a été déplacée : de $\\alpha$ horizontalement et de $\\beta$ verticalement. Le coefficient $a$ règle l'ouverture et le sens : plus $|a|$ est grand, plus la parabole est resserrée.",
+      "reglesImportantes": [
+        "Une fonction polynôme du second degré s'écrit $f(x) = ax^2 + bx + c$ avec $a \\neq 0$ : si $a = 0$, ce n'est plus du second degré.",
+        "Complétion du carré : $x^2 + 2kx = (x + k)^2 - k^2$. Exemple : $x^2 - 6x = (x - 3)^2 - 9$.",
+        "Forme canonique d'un trinôme : $f(x) = a(x - \\alpha)^2 + \\beta$ avec $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$ ; le sommet de la parabole est $S(\\alpha ; \\beta)$.",
+        "Tableau de variations d'un trinôme : si $a > 0$, $f$ est décroissante sur $]-\\infty ; \\alpha]$, croissante sur $[\\alpha ; +\\infty[$, et admet un minimum $\\beta$ en $\\alpha$.",
+        "Si $a < 0$, $f$ est croissante sur $]-\\infty ; \\alpha]$, décroissante sur $[\\alpha ; +\\infty[$, et admet un maximum $\\beta$ en $\\alpha$.",
+        "La parabole est symétrique par rapport à la droite d'équation $x = \\alpha$ ; la courbe de $x \\mapsto f(x - m)$ est celle de $f$ décalée de $m$ horizontalement."
+      ],
+      "formules": [
+        {
+          "id": "formule-forme-canonique",
+          "nom": "Forme canonique",
+          "expression": "$ax^2 + bx + c = a(x - \\alpha)^2 + \\beta$, $\\alpha = -\\dfrac{b}{2a}$, $\\beta = f(\\alpha)$",
+          "quand_utiliser": "Pour trouver le sommet, l'extremum et les variations.",
+          "erreur_frequente": "Écrire $\\alpha = \\dfrac{b}{2a}$ en oubliant le signe moins.",
+          "astuce": "Contrôle : $f(\\alpha)$ doit être la plus petite (ou la plus grande) valeur de $f$."
+        },
+        {
+          "id": "formule-completion-carre",
+          "nom": "Complétion du carré",
+          "expression": "$x^2 + 2kx = (x + k)^2 - k^2$",
+          "quand_utiliser": "Pour obtenir la forme canonique quand $a = 1$ (ou après avoir factorisé $a$).",
+          "erreur_frequente": "Oublier de retrancher $k^2$.",
+          "astuce": "Développe $(x + k)^2$ pour voir le terme en trop."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Étudier une fonction polynôme du second degré",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie $a$, $b$, $c$ et le signe de $a$ (sens de la parabole)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je calcule $\\alpha = -\\dfrac{b}{2a}$, puis $\\beta = f(\\alpha)$ (ou je complète le carré)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris la forme canonique $a(x - \\alpha)^2 + \\beta$ et je lis le sommet $S(\\alpha ; \\beta)$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je dresse le tableau de variations et je contrôle en développant la forme canonique."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie $a$, $b$, $c$ et le signe de $a$ (sens de la parabole)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule $\\alpha = -\\dfrac{b}{2a}$, puis $\\beta = f(\\alpha)$ (ou je complète le carré)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris la forme canonique $a(x - \\alpha)^2 + \\beta$ et je lis le sommet $S(\\alpha ; \\beta)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je dresse le tableau de variations et je contrôle en développant la forme canonique."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde le nombre devant $x^2$ : positif, la parabole sourit ; négatif, elle fait la grimace."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule $-b$ divisé par $2a$ : c'est l'abscisse du sommet."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule l'image de ce nombre : c'est l'ordonnée du sommet."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris le tableau : la flèche change de sens au sommet."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$\\alpha = -\\dfrac{b}{2a}$, $\\beta = f(\\alpha)$, $f(x) = a(x - \\alpha)^2 + \\beta$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Variations selon le signe de $a$, extremum $\\beta$ en $\\alpha$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-canonique-completion",
+          "titre": "Exemple 1 — Forme canonique par complétion du carré",
+          "enonce": "Écrire $f(x) = x^2 - 6x + 5$ sous forme canonique et donner le sommet de sa parabole.",
+          "analyse": "Le terme $-6x$ est le double produit de $(x - 3)^2$.",
+          "calcul": [
+            {
+              "expr": "x^2 - 6x = (x - 3)^2 - 9",
+              "texte": "On complète le carré :"
+            },
+            {
+              "expr": "f(x) = (x - 3)^2 - 9 + 5 = (x - 3)^2 - 4",
+              "texte": "On reporte :"
+            },
+            {
+              "expr": "",
+              "texte": "Contrôle : $-\\dfrac{b}{2a} = \\dfrac{6}{2} = 3$ et $f(3) = 9 - 18 + 5 = -4$."
+            }
+          ],
+          "reponse": "$f(x) = (x - 3)^2 - 4$ ; sommet $S(3 ; -4)$.",
+          "conclusion": "La forme canonique donne le sommet sans calcul supplémentaire.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-variations-maximum",
+          "titre": "Exemple 2 — Variations et maximum",
+          "enonce": "Dresser le tableau de variations de $f(x) = -2x^2 + 8x - 3$.",
+          "choixMethode": "Pas besoin d'écrire toute la forme canonique : $\\alpha$ et $\\beta$ suffisent pour les variations.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$a = -2 < 0$ : la parabole est tournée vers le bas, $f$ admet un maximum."
+            },
+            {
+              "expr": "\\alpha = -\\dfrac{8}{2 \\times (-2)} = 2",
+              "texte": "Abscisse du sommet :"
+            },
+            {
+              "expr": "\\beta = f(2) = -8 + 16 - 3 = 5",
+              "texte": "Ordonnée du sommet :"
+            }
+          ],
+          "reponse": "$f$ est croissante sur $]-\\infty ; 2]$, décroissante sur $[2 ; +\\infty[$ ; son maximum vaut $5$, atteint en $x = 2$.",
+          "conclusion": "Le signe de $a$ décide si le sommet est un minimum ou un maximum.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-canonique-a-different-de-1",
+          "titre": "Exemple 3 — Complétion du carré avec $a \\neq 1$",
+          "enonce": "Écrire $g(x) = 2x^2 + 12x + 13$ sous forme canonique.",
+          "analyse": "On ne complète le carré qu'à l'intérieur de la parenthèse, et on n'oublie pas de multiplier le $-9$ par $2$.",
+          "calcul": [
+            {
+              "expr": "g(x) = 2(x^2 + 6x) + 13",
+              "texte": "On factorise $2$ dans les termes en $x$ :"
+            },
+            {
+              "expr": "x^2 + 6x = (x + 3)^2 - 9",
+              "texte": "Complétion :"
+            },
+            {
+              "expr": "g(x) = 2(x + 3)^2 - 18 + 13 = 2(x + 3)^2 - 5",
+              "texte": "Donc :"
+            }
+          ],
+          "reponse": "$g(x) = 2(x + 3)^2 - 5$ ; sommet $(-3 ; -5)$.",
+          "conclusion": "Contrôle en développant : $2(x^2 + 6x + 9) - 5 = 2x^2 + 12x + 13$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-retrouver-expression",
+          "titre": "Exemple 4 — Retrouver une fonction à partir de sa parabole",
+          "enonce": "Une parabole a pour sommet $S(1 ; -2)$ et passe par $A(3 ; 6)$. Déterminer la fonction polynôme du second degré correspondante.",
+          "calcul": [
+            {
+              "expr": "f(x) = a(x - 1)^2 - 2",
+              "texte": "Le sommet donne la forme :"
+            },
+            {
+              "expr": "f(3) = 4a - 2 = 6 \\iff a = 2",
+              "texte": "$A$ est sur la parabole :"
+            },
+            {
+              "expr": "f(x) = 2(x - 1)^2 - 2 = 2x^2 - 4x",
+              "texte": "Forme développée :"
+            }
+          ],
+          "reponse": "$f(x) = 2(x - 1)^2 - 2 = 2x^2 - 4x$.",
+          "conclusion": "Deux informations suffisent quand l'une est le sommet : il ne reste qu'une inconnue, $a$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-translation",
+          "titre": "Exemple 5 — Courbe de $x \\mapsto f(x - m)$",
+          "enonce": "Soit $f(x) = x^2 - 4x + 1$ et $g(x) = f(x - 3)$. Comparer les sommets des paraboles de $f$ et de $g$.",
+          "calcul": [
+            {
+              "expr": "f(x) = (x - 2)^2 - 3",
+              "texte": "Forme canonique de $f$ :"
+            },
+            {
+              "expr": "g(x) = f(x - 3) = (x - 3 - 2)^2 - 3 = (x - 5)^2 - 3",
+              "texte": "Donc :"
+            },
+            {
+              "expr": "",
+              "texte": "Sommets : $(2 ; -3)$ pour $f$, $(5 ; -3)$ pour $g$."
+            }
+          ],
+          "reponse": "Le sommet passe de $(2 ; -3)$ à $(5 ; -3)$ : la parabole de $g$ est celle de $f$ décalée de $3$ vers la droite.",
+          "conclusion": "Remplacer $x$ par $x - 3$ décale la courbe de $3$ unités vers la droite (et non vers la gauche).",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-symetrie-preuve",
+          "titre": "Exemple 6 — Comparer des images sans les calculer",
+          "enonce": "Soit $f(x) = 3(x + 1)^2 - 7$. Ranger $f(-4)$, $f(0)$ et $f(1{,}5)$ dans l'ordre croissant, sans calculer ces images.",
+          "analyse": "La forme canonique montre que $f(x)$ ne dépend que de la distance de $x$ à l'axe de symétrie.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$a = 3 > 0$ : $f(x) = 3(x + 1)^2 - 7$ augmente quand l'écart $|x + 1|$ augmente."
+            },
+            {
+              "expr": "",
+              "texte": "Écarts à $-1$ : $|-4 + 1| = 3$, $|0 + 1| = 1$, $|1{,}5 + 1| = 2{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "Plus l'écart est petit, plus l'image est petite."
+            }
+          ],
+          "reponse": "$f(0) < f(1{,}5) < f(-4)$.",
+          "conclusion": "Contrôle : $f(0) = -4$, $f(1{,}5) = 11{,}75$, $f(-4) = 20$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "La trajectoire d'un ballon lancé en l'air (le sommet est la hauteur maximale).",
+        "Le coût moyen de production, minimal pour une certaine quantité.",
+        "L'aire d'un enclos de périmètre donné, maximale pour certaines dimensions."
+      ],
+      "erreursFrequentes": [
+        "Écrire $\\alpha = \\dfrac{b}{2a}$ au lieu de $-\\dfrac{b}{2a}$.",
+        "Lire le sommet de $(x + 2)^2 - 1$ en $(2 ; -1)$.",
+        "Oublier de multiplier par $a$ le carré retranché lors de la complétion.",
+        "Inverser les variations quand $a < 0$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $\\alpha = \\dfrac{b}{2a}$ au lieu de $-\\dfrac{b}{2a}$.",
+          "pourquoi": "On retient la fraction mais pas le signe.",
+          "comment_detecter": "Le sommet trouvé est-il vraiment le point le plus bas (ou le plus haut) ? Compare $f(\\alpha)$ avec une autre image.",
+          "comment_eviter": "Récite la formule complète : « moins $b$ sur deux $a$ »."
+        },
+        {
+          "description": "Lire le sommet de $(x + 2)^2 - 1$ en $(2 ; -1)$.",
+          "pourquoi": "On recopie le nombre de la parenthèse sans changer son signe.",
+          "comment_detecter": "Quelle valeur de $x$ annule la parenthèse ?",
+          "comment_eviter": "Écris $(x + 2) = (x - (-2))$ : $\\alpha = -2$."
+        },
+        {
+          "description": "Oublier de multiplier par $a$ le carré retranché lors de la complétion.",
+          "pourquoi": "On écrit $2(x + 3)^2 - 9 + 13$ au lieu de $2(x + 3)^2 - 18 + 13$.",
+          "comment_detecter": "Développe ta forme canonique : retrouves-tu l'expression de départ ?",
+          "comment_eviter": "Garde les crochets : $2\\left[(x + 3)^2 - 9\\right] + 13$."
+        },
+        {
+          "description": "Inverser les variations quand $a < 0$.",
+          "pourquoi": "On applique toujours le cas « décroissante puis croissante ».",
+          "comment_detecter": "Le sommet est-il un maximum ou un minimum ?",
+          "comment_eviter": "Dessine rapidement l'allure de la parabole avant d'écrire le tableau."
+        }
+      ],
+      "astuce": "Avant de chercher la forme canonique, regarde le signe de $a$ et esquisse la parabole : tu sauras déjà si tu cherches un minimum ou un maximum, et tu repéreras immédiatement un tableau de variations incohérent.",
+      "aRetenir": [
+        "$f(x) = ax^2 + bx + c$, $a \\neq 0$ ; courbe : une parabole.",
+        "Forme canonique $a(x - \\alpha)^2 + \\beta$, $\\alpha = -\\dfrac{b}{2a}$, $\\beta = f(\\alpha)$.",
+        "Sommet de la parabole $S(\\alpha ; \\beta)$, axe de symétrie $x = \\alpha$.",
+        "$a > 0$ : minimum ; $a < 0$ : maximum."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.4,
+          -5.2,
+          8.8,
+          12.4
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 3,
+            "y": -4,
+            "label": "S(3 ; -4)",
+            "reveal": 2
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "label": "A",
+            "reveal": 3
+          },
+          {
+            "x": 5,
+            "y": 0,
+            "label": "B",
+            "reveal": 3
+          },
+          {
+            "x": 0,
+            "y": 5,
+            "label": "C"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 3,
+              "y": -5
+            },
+            "to": {
+              "x": 3,
+              "y": 7
+            },
+            "variant": "hypotenuse",
+            "reveal": 2,
+            "tooltip": "Axe de symétrie x = 3"
+          }
+        ],
+        "texts": [
+          {
+            "x": 3.9,
+            "y": 6.2,
+            "label": "x = 3",
+            "reveal": 2
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -0.3,
+                6.89
+              ],
+              [
+                -0.245,
+                6.53
+              ],
+              [
+                -0.19,
+                6.176
+              ],
+              [
+                -0.135,
+                5.828
+              ],
+              [
+                -0.08,
+                5.486
+              ],
+              [
+                -0.025,
+                5.151
+              ],
+              [
+                0.03,
+                4.821
+              ],
+              [
+                0.085,
+                4.497
+              ],
+              [
+                0.14,
+                4.18
+              ],
+              [
+                0.195,
+                3.868
+              ],
+              [
+                0.25,
+                3.562
+              ],
+              [
+                0.305,
+                3.263
+              ],
+              [
+                0.36,
+                2.97
+              ],
+              [
+                0.415,
+                2.682
+              ],
+              [
+                0.47,
+                2.401
+              ],
+              [
+                0.525,
+                2.126
+              ],
+              [
+                0.58,
+                1.856
+              ],
+              [
+                0.635,
+                1.593
+              ],
+              [
+                0.69,
+                1.336
+              ],
+              [
+                0.745,
+                1.085
+              ],
+              [
+                0.8,
+                0.84
+              ],
+              [
+                0.855,
+                0.601
+              ],
+              [
+                0.91,
+                0.368
+              ],
+              [
+                0.965,
+                0.141
+              ],
+              [
+                1.02,
+                -0.08
+              ],
+              [
+                1.075,
+                -0.294
+              ],
+              [
+                1.13,
+                -0.503
+              ],
+              [
+                1.185,
+                -0.706
+              ],
+              [
+                1.24,
+                -0.902
+              ],
+              [
+                1.295,
+                -1.093
+              ],
+              [
+                1.35,
+                -1.277
+              ],
+              [
+                1.405,
+                -1.456
+              ],
+              [
+                1.46,
+                -1.628
+              ],
+              [
+                1.515,
+                -1.795
+              ],
+              [
+                1.57,
+                -1.955
+              ],
+              [
+                1.625,
+                -2.109
+              ],
+              [
+                1.68,
+                -2.258
+              ],
+              [
+                1.735,
+                -2.4
+              ],
+              [
+                1.79,
+                -2.536
+              ],
+              [
+                1.845,
+                -2.666
+              ],
+              [
+                1.9,
+                -2.79
+              ],
+              [
+                1.955,
+                -2.908
+              ],
+              [
+                2.01,
+                -3.02
+              ],
+              [
+                2.065,
+                -3.126
+              ],
+              [
+                2.12,
+                -3.226
+              ],
+              [
+                2.175,
+                -3.319
+              ],
+              [
+                2.23,
+                -3.407
+              ],
+              [
+                2.285,
+                -3.489
+              ],
+              [
+                2.34,
+                -3.564
+              ],
+              [
+                2.395,
+                -3.634
+              ],
+              [
+                2.45,
+                -3.698
+              ],
+              [
+                2.505,
+                -3.755
+              ],
+              [
+                2.56,
+                -3.806
+              ],
+              [
+                2.615,
+                -3.852
+              ],
+              [
+                2.67,
+                -3.891
+              ],
+              [
+                2.725,
+                -3.924
+              ],
+              [
+                2.78,
+                -3.952
+              ],
+              [
+                2.835,
+                -3.973
+              ],
+              [
+                2.89,
+                -3.988
+              ],
+              [
+                2.945,
+                -3.997
+              ],
+              [
+                3.0,
+                -4.0
+              ],
+              [
+                3.055,
+                -3.997
+              ],
+              [
+                3.11,
+                -3.988
+              ],
+              [
+                3.165,
+                -3.973
+              ],
+              [
+                3.22,
+                -3.952
+              ],
+              [
+                3.275,
+                -3.924
+              ],
+              [
+                3.33,
+                -3.891
+              ],
+              [
+                3.385,
+                -3.852
+              ],
+              [
+                3.44,
+                -3.806
+              ],
+              [
+                3.495,
+                -3.755
+              ],
+              [
+                3.55,
+                -3.697
+              ],
+              [
+                3.605,
+                -3.634
+              ],
+              [
+                3.66,
+                -3.564
+              ],
+              [
+                3.715,
+                -3.489
+              ],
+              [
+                3.77,
+                -3.407
+              ],
+              [
+                3.825,
+                -3.319
+              ],
+              [
+                3.88,
+                -3.226
+              ],
+              [
+                3.935,
+                -3.126
+              ],
+              [
+                3.99,
+                -3.02
+              ],
+              [
+                4.045,
+                -2.908
+              ],
+              [
+                4.1,
+                -2.79
+              ],
+              [
+                4.155,
+                -2.666
+              ],
+              [
+                4.21,
+                -2.536
+              ],
+              [
+                4.265,
+                -2.4
+              ],
+              [
+                4.32,
+                -2.258
+              ],
+              [
+                4.375,
+                -2.109
+              ],
+              [
+                4.43,
+                -1.955
+              ],
+              [
+                4.485,
+                -1.795
+              ],
+              [
+                4.54,
+                -1.628
+              ],
+              [
+                4.595,
+                -1.456
+              ],
+              [
+                4.65,
+                -1.277
+              ],
+              [
+                4.705,
+                -1.093
+              ],
+              [
+                4.76,
+                -0.902
+              ],
+              [
+                4.815,
+                -0.706
+              ],
+              [
+                4.87,
+                -0.503
+              ],
+              [
+                4.925,
+                -0.294
+              ],
+              [
+                4.98,
+                -0.08
+              ],
+              [
+                5.035,
+                0.141
+              ],
+              [
+                5.09,
+                0.368
+              ],
+              [
+                5.145,
+                0.601
+              ],
+              [
+                5.2,
+                0.84
+              ],
+              [
+                5.255,
+                1.085
+              ],
+              [
+                5.31,
+                1.336
+              ],
+              [
+                5.365,
+                1.593
+              ],
+              [
+                5.42,
+                1.856
+              ],
+              [
+                5.475,
+                2.126
+              ],
+              [
+                5.53,
+                2.401
+              ],
+              [
+                5.585,
+                2.682
+              ],
+              [
+                5.64,
+                2.97
+              ],
+              [
+                5.695,
+                3.263
+              ],
+              [
+                5.75,
+                3.562
+              ],
+              [
+                5.805,
+                3.868
+              ],
+              [
+                5.86,
+                4.18
+              ],
+              [
+                5.915,
+                4.497
+              ],
+              [
+                5.97,
+                4.821
+              ],
+              [
+                6.025,
+                5.151
+              ],
+              [
+                6.08,
+                5.486
+              ],
+              [
+                6.135,
+                5.828
+              ],
+              [
+                6.19,
+                6.176
+              ],
+              [
+                6.245,
+                6.53
+              ],
+              [
+                6.3,
+                6.89
+              ]
+            ],
+            "tooltip": "Parabole de f(x) = x² − 6x + 5"
+          }
+        ],
+        "steps": [
+          "La parabole de f",
+          "Le sommet et l'axe",
+          "Deux points symétriques"
+        ],
+        "relation": "$f(x) = x^2 - 6x + 5 = (x - 3)^2 - 4$",
+        "alt": "Parabole tournée vers le haut, de sommet S(3 ; −4), d'axe de symétrie la droite d'équation x = 3 ; elle coupe l'axe des abscisses en A(1 ; 0) et B(5 ; 0), symétriques par rapport à l'axe, et l'axe des ordonnées en C(0 ; 5).",
+        "explication": {
+          "resume": "La courbe d'une fonction polynôme du second degré est une parabole. Sa forme canonique $a(x - \\alpha)^2 + \\beta$ donne directement le sommet $S(\\alpha ; \\beta)$ et l'axe de symétrie $x = \\alpha$.",
+          "lecture": [
+            "La courbe représente $f(x) = x^2 - 6x + 5$, qui s'écrit aussi $(x - 3)^2 - 4$.",
+            "Le point le plus bas est le sommet $S(3 ; -4)$ : c'est le minimum de $f$."
+          ],
+          "observations": [
+            "$f(x) = (x - 3)^2 - 4 \\geqslant -4$ car un carré est positif ou nul : le minimum $-4$ est atteint pour $x = 3$.",
+            "$A(1 ; 0)$ et $B(5 ; 0)$ sont à égale distance de l'axe $x = 3$ et ont la même ordonnée.",
+            "Le point $C(0 ; 5)$ a pour ordonnée le coefficient $c = 5$ de la forme développée."
+          ],
+          "pieges": [
+            "Lire $\\alpha = -3$ dans $(x - 3)^2$ : le sommet a pour abscisse $3$, le nombre qui annule la parenthèse."
+          ],
+          "aRetenir": [
+            "Sommet : $S(\\alpha ; \\beta)$ avec $\\alpha = -\\dfrac{b}{2a}$ et $\\beta = f(\\alpha)$.",
+            "Axe de symétrie : la droite d'équation $x = \\alpha$.",
+            "$a > 0$ : parabole tournée vers le haut (minimum) ; $a < 0$ : vers le bas (maximum)."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        62105,
+        62109,
+        62106
+      ],
+      "topic_id": "fonction-polynome-de-degre-2",
+      "proprietes": [
+        "Toute fonction polynôme du second degré admet une forme canonique $a(x - \\alpha)^2 + \\beta$.",
+        "La parabole est symétrique par rapport à la droite d'équation $x = \\alpha$."
+      ],
+      "vocabulaire_associe": [
+        "trinôme",
+        "parabole",
+        "sommet",
+        "axe de symétrie",
+        "forme canonique",
+        "complétion du carré",
+        "extremum"
+      ],
+      "synonymes": [
+        "forme canonique",
+        "sommet de la parabole",
+        "tableau de variations du second degré",
+        "fonction trinôme"
+      ],
+      "objectifs_pedagogiques": [
+        "Reconnaître une fonction polynôme du second degré et ses coefficients.",
+        "Écrire une forme canonique par complétion du carré dans des cas simples.",
+        "Déterminer le sommet, l'axe de symétrie et les variations.",
+        "Interpréter la courbe de $x \\mapsto f(x - m)$."
+      ],
+      "prerequis": [
+        "Fonction carré (Seconde)",
+        "Identités remarquables",
+        "Lecture d'un tableau de variations"
+      ],
+      "notions_liees": [
+        "equations-du-second-degre",
+        "proprietes-d-un-trinome"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "second degré",
+        "parabole",
+        "forme canonique",
+        "variations",
+        "sommet"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fonction-polynome-de-degre-2-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Complétion avec a ≠ 1, retrouver une fonction, translation",
+          "description": "Trois exemples rédigés : forme canonique quand $a \\neq 1$, fonction retrouvée à partir du sommet et d'un point, effet de $x \\mapsto f(x - m)$."
+        },
+        {
+          "id": "fonction-polynome-de-degre-2-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Comparer des images grâce à la symétrie, démonstration des variations",
+          "description": "Un exemple qui range des images sans les calculer, et la démonstration du sens de variation de $x \\mapsto a(x - \\alpha)^2 + \\beta$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel est le sommet de la parabole de $f(x) = (x + 1)^2 + 2$ ?",
+          "piste": "$S(-1 ; 2)$."
+        },
+        {
+          "apres": "methode",
+          "question": "$f(x) = -x^2 + 4x$ admet-elle un minimum ou un maximum ?",
+          "piste": "Un maximum, car $a = -1 < 0$ ; il vaut $f(2) = 4$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Sens de variation de $x \\mapsto a(x - \\alpha)^2 + \\beta$ pour $a > 0$",
+        "etapes": [
+          {
+            "titre": "Hypothèses",
+            "texte": "$f(x) = a(x - \\alpha)^2 + \\beta$ avec $a > 0$. On compare $f(u)$ et $f(v)$ pour deux réels $u < v$."
+          },
+          {
+            "titre": "Sur $[\\alpha ; +\\infty[$",
+            "texte": "Si $\\alpha \\leqslant u < v$, alors $0 \\leqslant u - \\alpha < v - \\alpha$. La fonction carré étant strictement croissante sur $[0 ; +\\infty[$, $(u - \\alpha)^2 < (v - \\alpha)^2$."
+          },
+          {
+            "titre": "Multiplication par $a > 0$",
+            "texte": "On multiplie par $a > 0$ (le sens de l'inégalité est conservé) puis on ajoute $\\beta$ : $f(u) < f(v)$. Donc $f$ est strictement croissante sur $[\\alpha ; +\\infty[$."
+          },
+          {
+            "titre": "Sur $]-\\infty ; \\alpha]$",
+            "texte": "Si $u < v \\leqslant \\alpha$, alors $u - \\alpha < v - \\alpha \\leqslant 0$ ; la fonction carré étant strictement décroissante sur $]-\\infty ; 0]$, $(u - \\alpha)^2 > (v - \\alpha)^2$, d'où $f(u) > f(v)$ : $f$ est strictement décroissante sur $]-\\infty ; \\alpha]$."
+          },
+          {
+            "titre": "Cas $a < 0$",
+            "texte": "Multiplier par $a < 0$ renverse les inégalités : les deux sens de variation s'échangent."
+          }
+        ],
+        "conclusion": "Pour $a > 0$, $f$ est décroissante puis croissante, de minimum $\\beta = f(\\alpha)$ ; pour $a < 0$, croissante puis décroissante, de maximum $\\beta$."
+      }
+    },
+    {
+      "id": "equations-du-second-degre",
+      "title": "Équations du second degré",
+      "schemaVersion": 2,
+      "intro": "Résoudre $ax^2 + bx + c = 0$, c'est trouver les abscisses des points où la parabole coupe l'axe des abscisses. Un seul nombre, le discriminant, indique s'il y a zéro, une ou deux solutions, et des formules les donnent toutes.",
+      "pourquoi": "Beaucoup de problèmes (dimensions d'un rectangle d'aire donnée, instant où une balle touche le sol, prix qui annule un bénéfice) conduisent à une équation du second degré.",
+      "explicationSimple": "Pour $x^2 - 2x - 3 = 0$ : $\\Delta = (-2)^2 - 4 \\times 1 \\times (-3) = 16$. C'est positif, donc deux solutions : $\\dfrac{2 - 4}{2} = -1$ et $\\dfrac{2 + 4}{2} = 3$. On vérifie : $1 + 2 - 3 = 0$ et $9 - 6 - 3 = 0$.",
+      "objectif": "À la fin de ce cours, tu sauras calculer le discriminant, résoudre une équation du second degré dans tous les cas, reconnaître les cas qui se résolvent sans discriminant, et comprendre d'où viennent les formules.",
+      "definition": "Pour résoudre une équation du second degré $ax^2 + bx + c = 0$ (avec $a \\neq 0$), on calcule son discriminant $\\Delta = b^2 - 4ac$. Si $\\Delta > 0$, l'équation a deux solutions $x_1 = \\dfrac{-b - \\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b + \\sqrt{\\Delta}}{2a}$ ; si $\\Delta = 0$, une solution $x_0 = -\\dfrac{b}{2a}$ ; si $\\Delta < 0$, aucune solution réelle. Les solutions sont les racines du trinôme.",
+      "definitions": {
+        "lycee": "Pour résoudre une équation du second degré $ax^2 + bx + c = 0$ (avec $a \\neq 0$), on calcule son discriminant $\\Delta = b^2 - 4ac$. Si $\\Delta > 0$, l'équation a deux solutions $x_1 = \\dfrac{-b - \\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b + \\sqrt{\\Delta}}{2a}$ ; si $\\Delta = 0$, une solution $x_0 = -\\dfrac{b}{2a}$ ; si $\\Delta < 0$, aucune solution réelle. Les solutions sont les racines du trinôme."
+      },
+      "intuition": "Le discriminant mesure la position du sommet par rapport à l'axe des abscisses : la forme canonique s'écrit $a\\left[(x - \\alpha)^2 - \\dfrac{\\Delta}{4a^2}\\right]$. Si $\\Delta < 0$, le crochet est une somme de nombres positifs : il ne peut pas s'annuler.",
+      "reglesImportantes": [
+        "Pour résoudre une équation du second degré, on l'écrit d'abord sous la forme $ax^2 + bx + c = 0$ (tout dans un seul membre).",
+        "Formule du discriminant : $\\Delta = b^2 - 4ac$ ; on remplace $a$, $b$, $c$ entre parenthèses pour garder les signes.",
+        "Le signe du discriminant donne le nombre de solutions. $\\Delta > 0$ : deux solutions $\\dfrac{-b \\pm \\sqrt{\\Delta}}{2a}$ ; $\\Delta = 0$ : une solution $-\\dfrac{b}{2a}$ ; $\\Delta < 0$ : aucune solution réelle.",
+        "Si $b = 0$ ou $c = 0$, ou si une identité remarquable apparaît, on peut résoudre plus vite sans discriminant (factorisation directe).",
+        "Pour résoudre jusqu'au bout, on donne les solutions sous forme exacte simplifiée, puis éventuellement des valeurs approchées."
+      ],
+      "formules": [
+        {
+          "id": "formule-discriminant",
+          "nom": "Discriminant et solutions",
+          "expression": "$\\Delta = b^2 - 4ac$ ; $x_{1,2} = \\dfrac{-b \\pm \\sqrt{\\Delta}}{2a}$ si $\\Delta > 0$",
+          "quand_utiliser": "Pour résoudre toute équation du second degré.",
+          "erreur_frequente": "Calculer $-b^2$ au lieu de $(-b)^2$ quand $b$ est négatif.",
+          "astuce": "Écris toujours $b^2 = (b)^2$ avec parenthèses."
+        },
+        {
+          "id": "formule-racine-double",
+          "nom": "Racine double",
+          "expression": "$\\Delta = 0$ : $x_0 = -\\dfrac{b}{2a}$ et $ax^2 + bx + c = a(x - x_0)^2$",
+          "quand_utiliser": "Quand le discriminant est nul.",
+          "erreur_frequente": "Chercher deux solutions.",
+          "astuce": "La parabole touche l'axe en son sommet."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre une équation du second degré",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je ramène l'équation à $ax^2 + bx + c = 0$ et je regarde si un cas particulier ($b = 0$, $c = 0$, identité remarquable) permet de factoriser directement."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Sinon, je calcule $\\Delta = b^2 - 4ac$ en mettant les valeurs entre parenthèses."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Selon le signe de $\\Delta$, j'applique la formule correspondante et je simplifie les racines carrées."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie au moins une solution dans l'équation de départ et j'écris l'ensemble des solutions $\\mathcal{S}$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je ramène l'équation à $ax^2 + bx + c = 0$ et je regarde si un cas particulier ($b = 0$, $c = 0$, identité remarquable) permet de factoriser directement."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Sinon, je calcule $\\Delta = b^2 - 4ac$ en mettant les valeurs entre parenthèses."
+            },
+            {
+              "icone": "scale",
+              "couleur": "orange",
+              "texte": "Selon le signe de $\\Delta$, j'applique la formule correspondante et je simplifie les racines carrées."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie au moins une solution dans l'équation de départ et j'écris l'ensemble des solutions $\\mathcal{S}$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je mets tout du même côté du signe $=$ pour avoir « $\\ldots = 0$ »."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je calcule $b \\times b - 4 \\times a \\times c$."
+            },
+            {
+              "icone": "scale",
+              "couleur": "orange",
+              "texte": "Négatif : pas de solution. Nul : une. Positif : deux, avec la formule."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je remplace $x$ par ma solution pour vérifier que j'obtiens $0$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "$\\Delta = b^2 - 4ac$, puis $x = \\dfrac{-b \\pm \\sqrt{\\Delta}}{2a}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Vérification et ensemble $\\mathcal{S}$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-413",
+          "titre": "Exemple 1 — Cas $\\Delta > 0$ : deux solutions",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $2x^2 - 5x - 3 = 0$.",
+          "analyse": "Aucun cas particulier : on passe par le discriminant.",
+          "calcul": [
+            {
+              "expr": "\\Delta = (-5)^2 - 4 \\times 2 \\times (-3) = 25 + 24 = 49",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "x_1 = \\dfrac{5 - 7}{4} = -\\dfrac{1}{2} \\quad x_2 = \\dfrac{5 + 7}{4} = 3",
+              "texte": "$\\Delta > 0$ et $\\sqrt{49} = 7$ :"
+            },
+            {
+              "expr": "",
+              "texte": "Vérification pour $3$ : $18 - 15 - 3 = 0$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left\\{-\\dfrac{1}{2} ; 3\\right\\}$",
+          "conclusion": "Un discriminant carré parfait donne des solutions rationnelles.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-425",
+          "titre": "Exemple 2 — Cas $\\Delta = 0$ et cas $\\Delta < 0$",
+          "enonce": "Résoudre a) $x^2 - 6x + 9 = 0$ ; b) $3x^2 + x + 2 = 0$.",
+          "calcul": [
+            {
+              "expr": "\\Delta = 36 - 36 = 0 \\text{ : une solution } x_0 = \\dfrac{6}{2} = 3",
+              "texte": "a)"
+            },
+            {
+              "expr": "",
+              "texte": "On reconnaît d'ailleurs $(x - 3)^2 = 0$."
+            },
+            {
+              "expr": "\\Delta = 1 - 24 = -23 < 0 \\text{ : aucune solution réelle}",
+              "texte": "b)"
+            }
+          ],
+          "reponse": "a) $\\mathcal{S} = \\{3\\}$ ; b) $\\mathcal{S} = \\varnothing$.",
+          "conclusion": "Le signe de $\\Delta$ suffit à savoir combien de solutions chercher.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-racines-irrationnelles",
+          "titre": "Exemple 3 — Solutions avec une racine carrée",
+          "enonce": "Résoudre $x^2 - 4x + 1 = 0$.",
+          "calcul": [
+            {
+              "expr": "\\Delta = 16 - 4 = 12 \\text{ et } \\sqrt{12} = 2\\sqrt{3}",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "x = \\dfrac{4 \\pm 2\\sqrt{3}}{2} = 2 \\pm \\sqrt{3}",
+              "texte": "Solutions :"
+            },
+            {
+              "expr": "",
+              "texte": "Valeurs approchées : $0{,}27$ et $3{,}73$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left\\{2 - \\sqrt{3} ; 2 + \\sqrt{3}\\right\\}$",
+          "conclusion": "On simplifie $\\sqrt{12}$ avant de simplifier la fraction.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-sans-discriminant",
+          "titre": "Exemple 4 — Sans discriminant",
+          "enonce": "Résoudre a) $3x^2 - 12 = 0$ ; b) $5x^2 + 7x = 0$.",
+          "choixMethode": "Quand $b = 0$ ou $c = 0$, la factorisation directe est plus rapide et plus sûre.",
+          "calcul": [
+            {
+              "expr": "3x^2 = 12 \\iff x^2 = 4 \\iff x = -2 \\text{ ou } x = 2",
+              "texte": "a)"
+            },
+            {
+              "expr": "x(5x + 7) = 0 \\iff x = 0 \\text{ ou } x = -\\dfrac{7}{5}",
+              "texte": "b) Facteur commun :"
+            }
+          ],
+          "reponse": "a) $\\{-2 ; 2\\}$ ; b) $\\left\\{-\\dfrac{7}{5} ; 0\\right\\}$.",
+          "conclusion": "Le discriminant marche toujours, mais n'est pas toujours le plus efficace.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-se-ramener",
+          "titre": "Exemple 5 — Se ramener à la forme $ax^2 + bx + c = 0$",
+          "enonce": "Résoudre $(x + 1)(x - 2) = 4$.",
+          "analyse": "Un produit égal à $4$ (et non à $0$) ne permet pas de conclure facteur par facteur.",
+          "calcul": [
+            {
+              "expr": "x^2 - x - 2 = 4 \\iff x^2 - x - 6 = 0",
+              "texte": "On développe et on regroupe :"
+            },
+            {
+              "expr": "\\Delta = 1 + 24 = 25",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "x = \\dfrac{1 - 5}{2} = -2 \\quad x = \\dfrac{1 + 5}{2} = 3",
+              "texte": "Solutions :"
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\{-2 ; 3\\}$",
+          "conclusion": "On ne peut utiliser « produit nul » que si le second membre vaut $0$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-parametre-racine-double",
+          "titre": "Exemple 6 — Un paramètre",
+          "enonce": "Pour quelles valeurs de $m$ l'équation $x^2 + mx + 4 = 0$ admet-elle une unique solution ? Donner cette solution.",
+          "calcul": [
+            {
+              "expr": "\\Delta = m^2 - 16",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "\\Delta = 0 \\iff m^2 = 16 \\iff m = 4 \\text{ ou } m = -4",
+              "texte": "Unique solution :"
+            },
+            {
+              "expr": "",
+              "texte": "Pour $m = 4$ : $x_0 = -2$ ; pour $m = -4$ : $x_0 = 2$."
+            }
+          ],
+          "reponse": "$m = 4$ (solution $-2$) ou $m = -4$ (solution $2$).",
+          "conclusion": "Contrôle : $x^2 + 4x + 4 = (x + 2)^2$ et $x^2 - 4x + 4 = (x - 2)^2$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Calculer à quel instant une balle lancée touche le sol.",
+        "Trouver les dimensions d'un terrain connaissant son périmètre et son aire.",
+        "Déterminer les quantités pour lesquelles un bénéfice est nul (seuil de rentabilité)."
+      ],
+      "erreursFrequentes": [
+        "Calculer $-b^2$ au lieu de $b^2$ quand $b$ est négatif.",
+        "Oublier le signe de $a$ dans $4ac$.",
+        "Diviser seulement $\\sqrt{\\Delta}$ par $2a$.",
+        "Utiliser la règle du produit nul alors que le second membre n'est pas nul."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Calculer $-b^2$ au lieu de $b^2$ quand $b$ est négatif.",
+          "pourquoi": "On écrit $-7^2 = -49$ au lieu de $(-7)^2 = 49$.",
+          "comment_detecter": "Ton discriminant est-il plus petit que $-4ac$ ?",
+          "comment_eviter": "Un carré est toujours positif : $b^2 \\geqslant 0$."
+        },
+        {
+          "description": "Oublier le signe de $a$ dans $4ac$.",
+          "pourquoi": "Pour $-x^2 + 3x + 4$, on prend $a = 1$.",
+          "comment_detecter": "As-tu bien recopié $a$ avec son signe ?",
+          "comment_eviter": "Écris $a$, $b$, $c$ sur une ligne avant tout calcul."
+        },
+        {
+          "description": "Diviser seulement $\\sqrt{\\Delta}$ par $2a$.",
+          "pourquoi": "On écrit $-b \\pm \\dfrac{\\sqrt{\\Delta}}{2a}$.",
+          "comment_detecter": "La barre de fraction couvre-t-elle tout le numérateur ?",
+          "comment_eviter": "Écris d'abord $\\dfrac{-b \\pm \\sqrt{\\Delta}}{2a}$ en entier."
+        },
+        {
+          "description": "Utiliser la règle du produit nul alors que le second membre n'est pas nul.",
+          "pourquoi": "On lit $(x + 1)(x - 2) = 4$ comme $x + 1 = 4$ ou $x - 2 = 4$.",
+          "comment_detecter": "Le second membre vaut-il $0$ ?",
+          "comment_eviter": "Ramène toujours l'équation à « $\\ldots = 0$ » avant de factoriser."
+        }
+      ],
+      "astuce": "Contrôle express quand $\\Delta > 0$ : la somme des deux solutions doit valoir $-\\dfrac{b}{a}$. Pour $2x^2 - 5x - 3 = 0$, $-\\dfrac{1}{2} + 3 = \\dfrac{5}{2}$ : c'est juste.",
+      "aRetenir": [
+        "Formule du discriminant : $\\Delta = b^2 - 4ac$.",
+        "Résoudre $ax^2 + bx + c = 0$ : si $\\Delta > 0$, $x = \\dfrac{-b \\pm \\sqrt{\\Delta}}{2a}$ ; si $\\Delta = 0$, $x = -\\dfrac{b}{2a}$ ; si $\\Delta < 0$, $\\mathcal{S} = \\varnothing$.",
+        "Cas $b = 0$, $c = 0$ ou identité remarquable : résoudre en factorisant directement."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -2.2,
+          -4.8,
+          6.4,
+          13.2
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": -1,
+            "y": 0,
+            "label": "-1"
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "label": "3"
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "label": "1",
+            "reveal": 2
+          }
+        ],
+        "texts": [
+          {
+            "x": 3.4,
+            "y": -3.6,
+            "label": "Δ > 0 : deux racines"
+          },
+          {
+            "x": -1.4,
+            "y": 4.4,
+            "label": "Δ = 0 : une racine",
+            "reveal": 2
+          },
+          {
+            "x": 1.0,
+            "y": 7.6,
+            "label": "Δ < 0 : aucune racine",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -1.8,
+                3.84
+              ],
+              [
+                -1.753,
+                3.581
+              ],
+              [
+                -1.707,
+                3.326
+              ],
+              [
+                -1.66,
+                3.076
+              ],
+              [
+                -1.613,
+                2.83
+              ],
+              [
+                -1.567,
+                2.588
+              ],
+              [
+                -1.52,
+                2.35
+              ],
+              [
+                -1.473,
+                2.117
+              ],
+              [
+                -1.427,
+                1.889
+              ],
+              [
+                -1.38,
+                1.664
+              ],
+              [
+                -1.333,
+                1.444
+              ],
+              [
+                -1.287,
+                1.229
+              ],
+              [
+                -1.24,
+                1.018
+              ],
+              [
+                -1.193,
+                0.811
+              ],
+              [
+                -1.147,
+                0.608
+              ],
+              [
+                -1.1,
+                0.41
+              ],
+              [
+                -1.053,
+                0.216
+              ],
+              [
+                -1.007,
+                0.027
+              ],
+              [
+                -0.96,
+                -0.158
+              ],
+              [
+                -0.913,
+                -0.339
+              ],
+              [
+                -0.867,
+                -0.516
+              ],
+              [
+                -0.82,
+                -0.688
+              ],
+              [
+                -0.773,
+                -0.855
+              ],
+              [
+                -0.727,
+                -1.019
+              ],
+              [
+                -0.68,
+                -1.178
+              ],
+              [
+                -0.633,
+                -1.332
+              ],
+              [
+                -0.587,
+                -1.482
+              ],
+              [
+                -0.54,
+                -1.628
+              ],
+              [
+                -0.493,
+                -1.77
+              ],
+              [
+                -0.447,
+                -1.907
+              ],
+              [
+                -0.4,
+                -2.04
+              ],
+              [
+                -0.353,
+                -2.168
+              ],
+              [
+                -0.307,
+                -2.293
+              ],
+              [
+                -0.26,
+                -2.412
+              ],
+              [
+                -0.213,
+                -2.528
+              ],
+              [
+                -0.167,
+                -2.639
+              ],
+              [
+                -0.12,
+                -2.746
+              ],
+              [
+                -0.073,
+                -2.848
+              ],
+              [
+                -0.027,
+                -2.946
+              ],
+              [
+                0.02,
+                -3.04
+              ],
+              [
+                0.067,
+                -3.129
+              ],
+              [
+                0.113,
+                -3.214
+              ],
+              [
+                0.16,
+                -3.294
+              ],
+              [
+                0.207,
+                -3.371
+              ],
+              [
+                0.253,
+                -3.442
+              ],
+              [
+                0.3,
+                -3.51
+              ],
+              [
+                0.347,
+                -3.573
+              ],
+              [
+                0.393,
+                -3.632
+              ],
+              [
+                0.44,
+                -3.686
+              ],
+              [
+                0.487,
+                -3.736
+              ],
+              [
+                0.533,
+                -3.782
+              ],
+              [
+                0.58,
+                -3.824
+              ],
+              [
+                0.627,
+                -3.861
+              ],
+              [
+                0.673,
+                -3.893
+              ],
+              [
+                0.72,
+                -3.922
+              ],
+              [
+                0.767,
+                -3.946
+              ],
+              [
+                0.813,
+                -3.965
+              ],
+              [
+                0.86,
+                -3.98
+              ],
+              [
+                0.907,
+                -3.991
+              ],
+              [
+                0.953,
+                -3.998
+              ],
+              [
+                1.0,
+                -4.0
+              ],
+              [
+                1.047,
+                -3.998
+              ],
+              [
+                1.093,
+                -3.991
+              ],
+              [
+                1.14,
+                -3.98
+              ],
+              [
+                1.187,
+                -3.965
+              ],
+              [
+                1.233,
+                -3.946
+              ],
+              [
+                1.28,
+                -3.922
+              ],
+              [
+                1.327,
+                -3.893
+              ],
+              [
+                1.373,
+                -3.861
+              ],
+              [
+                1.42,
+                -3.824
+              ],
+              [
+                1.467,
+                -3.782
+              ],
+              [
+                1.513,
+                -3.736
+              ],
+              [
+                1.56,
+                -3.686
+              ],
+              [
+                1.607,
+                -3.632
+              ],
+              [
+                1.653,
+                -3.573
+              ],
+              [
+                1.7,
+                -3.51
+              ],
+              [
+                1.747,
+                -3.442
+              ],
+              [
+                1.793,
+                -3.371
+              ],
+              [
+                1.84,
+                -3.294
+              ],
+              [
+                1.887,
+                -3.214
+              ],
+              [
+                1.933,
+                -3.129
+              ],
+              [
+                1.98,
+                -3.04
+              ],
+              [
+                2.027,
+                -2.946
+              ],
+              [
+                2.073,
+                -2.848
+              ],
+              [
+                2.12,
+                -2.746
+              ],
+              [
+                2.167,
+                -2.639
+              ],
+              [
+                2.213,
+                -2.528
+              ],
+              [
+                2.26,
+                -2.412
+              ],
+              [
+                2.307,
+                -2.293
+              ],
+              [
+                2.353,
+                -2.168
+              ],
+              [
+                2.4,
+                -2.04
+              ],
+              [
+                2.447,
+                -1.907
+              ],
+              [
+                2.493,
+                -1.77
+              ],
+              [
+                2.54,
+                -1.628
+              ],
+              [
+                2.587,
+                -1.482
+              ],
+              [
+                2.633,
+                -1.332
+              ],
+              [
+                2.68,
+                -1.178
+              ],
+              [
+                2.727,
+                -1.019
+              ],
+              [
+                2.773,
+                -0.855
+              ],
+              [
+                2.82,
+                -0.688
+              ],
+              [
+                2.867,
+                -0.516
+              ],
+              [
+                2.913,
+                -0.339
+              ],
+              [
+                2.96,
+                -0.158
+              ],
+              [
+                3.007,
+                0.027
+              ],
+              [
+                3.053,
+                0.216
+              ],
+              [
+                3.1,
+                0.41
+              ],
+              [
+                3.147,
+                0.608
+              ],
+              [
+                3.193,
+                0.811
+              ],
+              [
+                3.24,
+                1.018
+              ],
+              [
+                3.287,
+                1.229
+              ],
+              [
+                3.333,
+                1.444
+              ],
+              [
+                3.38,
+                1.664
+              ],
+              [
+                3.427,
+                1.889
+              ],
+              [
+                3.473,
+                2.117
+              ],
+              [
+                3.52,
+                2.35
+              ],
+              [
+                3.567,
+                2.588
+              ],
+              [
+                3.613,
+                2.83
+              ],
+              [
+                3.66,
+                3.076
+              ],
+              [
+                3.707,
+                3.326
+              ],
+              [
+                3.753,
+                3.581
+              ],
+              [
+                3.8,
+                3.84
+              ]
+            ],
+            "tooltip": "y = x² − 2x − 3 : Δ = 16 > 0"
+          },
+          {
+            "points": [
+              [
+                -1.8,
+                7.84
+              ],
+              [
+                -1.753,
+                7.581
+              ],
+              [
+                -1.707,
+                7.326
+              ],
+              [
+                -1.66,
+                7.076
+              ],
+              [
+                -1.613,
+                6.83
+              ],
+              [
+                -1.567,
+                6.588
+              ],
+              [
+                -1.52,
+                6.35
+              ],
+              [
+                -1.473,
+                6.117
+              ],
+              [
+                -1.427,
+                5.889
+              ],
+              [
+                -1.38,
+                5.664
+              ],
+              [
+                -1.333,
+                5.444
+              ],
+              [
+                -1.287,
+                5.229
+              ],
+              [
+                -1.24,
+                5.018
+              ],
+              [
+                -1.193,
+                4.811
+              ],
+              [
+                -1.147,
+                4.608
+              ],
+              [
+                -1.1,
+                4.41
+              ],
+              [
+                -1.053,
+                4.216
+              ],
+              [
+                -1.007,
+                4.027
+              ],
+              [
+                -0.96,
+                3.842
+              ],
+              [
+                -0.913,
+                3.661
+              ],
+              [
+                -0.867,
+                3.484
+              ],
+              [
+                -0.82,
+                3.312
+              ],
+              [
+                -0.773,
+                3.145
+              ],
+              [
+                -0.727,
+                2.981
+              ],
+              [
+                -0.68,
+                2.822
+              ],
+              [
+                -0.633,
+                2.668
+              ],
+              [
+                -0.587,
+                2.518
+              ],
+              [
+                -0.54,
+                2.372
+              ],
+              [
+                -0.493,
+                2.23
+              ],
+              [
+                -0.447,
+                2.093
+              ],
+              [
+                -0.4,
+                1.96
+              ],
+              [
+                -0.353,
+                1.832
+              ],
+              [
+                -0.307,
+                1.707
+              ],
+              [
+                -0.26,
+                1.588
+              ],
+              [
+                -0.213,
+                1.472
+              ],
+              [
+                -0.167,
+                1.361
+              ],
+              [
+                -0.12,
+                1.254
+              ],
+              [
+                -0.073,
+                1.152
+              ],
+              [
+                -0.027,
+                1.054
+              ],
+              [
+                0.02,
+                0.96
+              ],
+              [
+                0.067,
+                0.871
+              ],
+              [
+                0.113,
+                0.786
+              ],
+              [
+                0.16,
+                0.706
+              ],
+              [
+                0.207,
+                0.629
+              ],
+              [
+                0.253,
+                0.558
+              ],
+              [
+                0.3,
+                0.49
+              ],
+              [
+                0.347,
+                0.427
+              ],
+              [
+                0.393,
+                0.368
+              ],
+              [
+                0.44,
+                0.314
+              ],
+              [
+                0.487,
+                0.264
+              ],
+              [
+                0.533,
+                0.218
+              ],
+              [
+                0.58,
+                0.176
+              ],
+              [
+                0.627,
+                0.139
+              ],
+              [
+                0.673,
+                0.107
+              ],
+              [
+                0.72,
+                0.078
+              ],
+              [
+                0.767,
+                0.054
+              ],
+              [
+                0.813,
+                0.035
+              ],
+              [
+                0.86,
+                0.02
+              ],
+              [
+                0.907,
+                0.009
+              ],
+              [
+                0.953,
+                0.002
+              ],
+              [
+                1.0,
+                0.0
+              ],
+              [
+                1.047,
+                0.002
+              ],
+              [
+                1.093,
+                0.009
+              ],
+              [
+                1.14,
+                0.02
+              ],
+              [
+                1.187,
+                0.035
+              ],
+              [
+                1.233,
+                0.054
+              ],
+              [
+                1.28,
+                0.078
+              ],
+              [
+                1.327,
+                0.107
+              ],
+              [
+                1.373,
+                0.139
+              ],
+              [
+                1.42,
+                0.176
+              ],
+              [
+                1.467,
+                0.218
+              ],
+              [
+                1.513,
+                0.264
+              ],
+              [
+                1.56,
+                0.314
+              ],
+              [
+                1.607,
+                0.368
+              ],
+              [
+                1.653,
+                0.427
+              ],
+              [
+                1.7,
+                0.49
+              ],
+              [
+                1.747,
+                0.558
+              ],
+              [
+                1.793,
+                0.629
+              ],
+              [
+                1.84,
+                0.706
+              ],
+              [
+                1.887,
+                0.786
+              ],
+              [
+                1.933,
+                0.871
+              ],
+              [
+                1.98,
+                0.96
+              ],
+              [
+                2.027,
+                1.054
+              ],
+              [
+                2.073,
+                1.152
+              ],
+              [
+                2.12,
+                1.254
+              ],
+              [
+                2.167,
+                1.361
+              ],
+              [
+                2.213,
+                1.472
+              ],
+              [
+                2.26,
+                1.588
+              ],
+              [
+                2.307,
+                1.707
+              ],
+              [
+                2.353,
+                1.832
+              ],
+              [
+                2.4,
+                1.96
+              ],
+              [
+                2.447,
+                2.093
+              ],
+              [
+                2.493,
+                2.23
+              ],
+              [
+                2.54,
+                2.372
+              ],
+              [
+                2.587,
+                2.518
+              ],
+              [
+                2.633,
+                2.668
+              ],
+              [
+                2.68,
+                2.822
+              ],
+              [
+                2.727,
+                2.981
+              ],
+              [
+                2.773,
+                3.145
+              ],
+              [
+                2.82,
+                3.312
+              ],
+              [
+                2.867,
+                3.484
+              ],
+              [
+                2.913,
+                3.661
+              ],
+              [
+                2.96,
+                3.842
+              ],
+              [
+                3.007,
+                4.027
+              ],
+              [
+                3.053,
+                4.216
+              ],
+              [
+                3.1,
+                4.41
+              ],
+              [
+                3.147,
+                4.608
+              ],
+              [
+                3.193,
+                4.811
+              ],
+              [
+                3.24,
+                5.018
+              ],
+              [
+                3.287,
+                5.229
+              ],
+              [
+                3.333,
+                5.444
+              ],
+              [
+                3.38,
+                5.664
+              ],
+              [
+                3.427,
+                5.889
+              ],
+              [
+                3.473,
+                6.117
+              ],
+              [
+                3.52,
+                6.35
+              ],
+              [
+                3.567,
+                6.588
+              ],
+              [
+                3.613,
+                6.83
+              ],
+              [
+                3.66,
+                7.076
+              ],
+              [
+                3.707,
+                7.326
+              ],
+              [
+                3.753,
+                7.581
+              ],
+              [
+                3.8,
+                7.84
+              ]
+            ],
+            "variant": "b",
+            "reveal": 2,
+            "tooltip": "y = x² − 2x + 1 : Δ = 0"
+          },
+          {
+            "points": [
+              [
+                -1.52,
+                8.35
+              ],
+              [
+                -1.473,
+                8.117
+              ],
+              [
+                -1.427,
+                7.889
+              ],
+              [
+                -1.38,
+                7.664
+              ],
+              [
+                -1.333,
+                7.444
+              ],
+              [
+                -1.287,
+                7.229
+              ],
+              [
+                -1.24,
+                7.018
+              ],
+              [
+                -1.193,
+                6.811
+              ],
+              [
+                -1.147,
+                6.608
+              ],
+              [
+                -1.1,
+                6.41
+              ],
+              [
+                -1.053,
+                6.216
+              ],
+              [
+                -1.007,
+                6.027
+              ],
+              [
+                -0.96,
+                5.842
+              ],
+              [
+                -0.913,
+                5.661
+              ],
+              [
+                -0.867,
+                5.484
+              ],
+              [
+                -0.82,
+                5.312
+              ],
+              [
+                -0.773,
+                5.145
+              ],
+              [
+                -0.727,
+                4.981
+              ],
+              [
+                -0.68,
+                4.822
+              ],
+              [
+                -0.633,
+                4.668
+              ],
+              [
+                -0.587,
+                4.518
+              ],
+              [
+                -0.54,
+                4.372
+              ],
+              [
+                -0.493,
+                4.23
+              ],
+              [
+                -0.447,
+                4.093
+              ],
+              [
+                -0.4,
+                3.96
+              ],
+              [
+                -0.353,
+                3.832
+              ],
+              [
+                -0.307,
+                3.707
+              ],
+              [
+                -0.26,
+                3.588
+              ],
+              [
+                -0.213,
+                3.472
+              ],
+              [
+                -0.167,
+                3.361
+              ],
+              [
+                -0.12,
+                3.254
+              ],
+              [
+                -0.073,
+                3.152
+              ],
+              [
+                -0.027,
+                3.054
+              ],
+              [
+                0.02,
+                2.96
+              ],
+              [
+                0.067,
+                2.871
+              ],
+              [
+                0.113,
+                2.786
+              ],
+              [
+                0.16,
+                2.706
+              ],
+              [
+                0.207,
+                2.629
+              ],
+              [
+                0.253,
+                2.558
+              ],
+              [
+                0.3,
+                2.49
+              ],
+              [
+                0.347,
+                2.427
+              ],
+              [
+                0.393,
+                2.368
+              ],
+              [
+                0.44,
+                2.314
+              ],
+              [
+                0.487,
+                2.264
+              ],
+              [
+                0.533,
+                2.218
+              ],
+              [
+                0.58,
+                2.176
+              ],
+              [
+                0.627,
+                2.139
+              ],
+              [
+                0.673,
+                2.107
+              ],
+              [
+                0.72,
+                2.078
+              ],
+              [
+                0.767,
+                2.054
+              ],
+              [
+                0.813,
+                2.035
+              ],
+              [
+                0.86,
+                2.02
+              ],
+              [
+                0.907,
+                2.009
+              ],
+              [
+                0.953,
+                2.002
+              ],
+              [
+                1.0,
+                2.0
+              ],
+              [
+                1.047,
+                2.002
+              ],
+              [
+                1.093,
+                2.009
+              ],
+              [
+                1.14,
+                2.02
+              ],
+              [
+                1.187,
+                2.035
+              ],
+              [
+                1.233,
+                2.054
+              ],
+              [
+                1.28,
+                2.078
+              ],
+              [
+                1.327,
+                2.107
+              ],
+              [
+                1.373,
+                2.139
+              ],
+              [
+                1.42,
+                2.176
+              ],
+              [
+                1.467,
+                2.218
+              ],
+              [
+                1.513,
+                2.264
+              ],
+              [
+                1.56,
+                2.314
+              ],
+              [
+                1.607,
+                2.368
+              ],
+              [
+                1.653,
+                2.427
+              ],
+              [
+                1.7,
+                2.49
+              ],
+              [
+                1.747,
+                2.558
+              ],
+              [
+                1.793,
+                2.629
+              ],
+              [
+                1.84,
+                2.706
+              ],
+              [
+                1.887,
+                2.786
+              ],
+              [
+                1.933,
+                2.871
+              ],
+              [
+                1.98,
+                2.96
+              ],
+              [
+                2.027,
+                3.054
+              ],
+              [
+                2.073,
+                3.152
+              ],
+              [
+                2.12,
+                3.254
+              ],
+              [
+                2.167,
+                3.361
+              ],
+              [
+                2.213,
+                3.472
+              ],
+              [
+                2.26,
+                3.588
+              ],
+              [
+                2.307,
+                3.707
+              ],
+              [
+                2.353,
+                3.832
+              ],
+              [
+                2.4,
+                3.96
+              ],
+              [
+                2.447,
+                4.093
+              ],
+              [
+                2.493,
+                4.23
+              ],
+              [
+                2.54,
+                4.372
+              ],
+              [
+                2.587,
+                4.518
+              ],
+              [
+                2.633,
+                4.668
+              ],
+              [
+                2.68,
+                4.822
+              ],
+              [
+                2.727,
+                4.981
+              ],
+              [
+                2.773,
+                5.145
+              ],
+              [
+                2.82,
+                5.312
+              ],
+              [
+                2.867,
+                5.484
+              ],
+              [
+                2.913,
+                5.661
+              ],
+              [
+                2.96,
+                5.842
+              ],
+              [
+                3.007,
+                6.027
+              ],
+              [
+                3.053,
+                6.216
+              ],
+              [
+                3.1,
+                6.41
+              ],
+              [
+                3.147,
+                6.608
+              ],
+              [
+                3.193,
+                6.811
+              ],
+              [
+                3.24,
+                7.018
+              ],
+              [
+                3.287,
+                7.229
+              ],
+              [
+                3.333,
+                7.444
+              ],
+              [
+                3.38,
+                7.664
+              ],
+              [
+                3.427,
+                7.889
+              ],
+              [
+                3.473,
+                8.117
+              ],
+              [
+                3.52,
+                8.35
+              ]
+            ],
+            "variant": "c",
+            "reveal": 3,
+            "tooltip": "y = x² − 2x + 3 : Δ = −8 < 0"
+          }
+        ],
+        "steps": [
+          "Δ > 0",
+          "Δ = 0",
+          "Δ < 0"
+        ],
+        "relation": "$x^2 - 2x + c = 0$ : $\\Delta = 4 - 4c$",
+        "alt": "Trois paraboles de même axe x = 1 : y = x² − 2x − 3 coupe l'axe des abscisses en −1 et 3 ; y = x² − 2x + 1 le touche en 1 ; y = x² − 2x + 3 reste au-dessus.",
+        "explication": {
+          "resume": "Les solutions de $ax^2 + bx + c = 0$ sont les abscisses des points où la parabole coupe l'axe des abscisses. Le signe de $\\Delta$ dit combien il y en a.",
+          "lecture": [
+            "Les trois courbes ne diffèrent que par le terme constant : elles sont translatées verticalement l'une de l'autre.",
+            "On compte les points communs avec l'axe des abscisses."
+          ],
+          "observations": [
+            "$c = -3$ : $\\Delta = 16 > 0$, deux points d'intersection ($x = -1$ et $x = 3$).",
+            "$c = 1$ : $\\Delta = 0$, la parabole touche l'axe en un seul point, son sommet ($x = 1$).",
+            "$c = 3$ : $\\Delta = -8 < 0$, la parabole reste au-dessus de l'axe : aucune solution réelle."
+          ],
+          "pieges": [
+            "Croire qu'une équation sans solution réelle est « fausse » : elle n'a simplement aucune solution dans $\\mathbb{R}$."
+          ],
+          "aRetenir": [
+            "$\\Delta > 0$ : deux solutions ; $\\Delta = 0$ : une solution ; $\\Delta < 0$ : aucune solution réelle."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        62201,
+        62202,
+        62211
+      ],
+      "topic_id": "equations-du-second-degre",
+      "proprietes": [
+        "Le nombre de solutions de $ax^2 + bx + c = 0$ dépend uniquement du signe de $\\Delta$."
+      ],
+      "vocabulaire_associe": [
+        "discriminant",
+        "racine",
+        "solution",
+        "racine double",
+        "équation du second degré"
+      ],
+      "synonymes": [
+        "delta",
+        "discriminant",
+        "résoudre ax²+bx+c=0",
+        "formule quadratique"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer un discriminant.",
+        "Résoudre une équation du second degré dans les trois cas.",
+        "Choisir une résolution directe quand c'est possible.",
+        "Comprendre la démonstration des formules."
+      ],
+      "prerequis": [
+        "Fonction polynôme de degré 2",
+        "Racine carrée",
+        "Équation produit nul"
+      ],
+      "notions_liees": [
+        "fonction-polynome-de-degre-2",
+        "proprietes-d-un-trinome",
+        "signe-du-trinome-et-inequations"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "second degré",
+        "discriminant",
+        "équation",
+        "racines"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "equations-du-second-degre-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Racines carrées, cas sans discriminant, se ramener à la forme réduite",
+          "description": "Trois exemples rédigés : solutions irrationnelles simplifiées, résolutions directes quand $b = 0$ ou $c = 0$, équation à réorganiser."
+        },
+        {
+          "id": "equations-du-second-degre-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Paramètre et démonstration des formules",
+          "description": "Un exemple avec paramètre (racine double) et la démonstration complète de la résolution de l'équation du second degré."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien de solutions a $x^2 - 2x + 5 = 0$ ?",
+          "piste": "Aucune : $\\Delta = 4 - 20 = -16 < 0$."
+        },
+        {
+          "apres": "methode",
+          "question": "Faut-il un discriminant pour résoudre $x^2 = 7$ ?",
+          "piste": "Non : $x = \\sqrt{7}$ ou $x = -\\sqrt{7}$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Résolution de l'équation du second degré",
+        "etapes": [
+          {
+            "titre": "Forme canonique",
+            "texte": "Pour $a \\neq 0$ : $ax^2 + bx + c = a\\left[x^2 + \\dfrac{b}{a}x\\right] + c = a\\left[\\left(x + \\dfrac{b}{2a}\\right)^2 - \\dfrac{b^2}{4a^2}\\right] + c$, par complétion du carré."
+          },
+          {
+            "titre": "Apparition de $\\Delta$",
+            "texte": "En mettant au même dénominateur : $ax^2 + bx + c = a\\left[\\left(x + \\dfrac{b}{2a}\\right)^2 - \\dfrac{b^2 - 4ac}{4a^2}\\right] = a\\left[\\left(x + \\dfrac{b}{2a}\\right)^2 - \\dfrac{\\Delta}{4a^2}\\right]$."
+          },
+          {
+            "titre": "Cas $\\Delta < 0$",
+            "texte": "Alors $-\\dfrac{\\Delta}{4a^2} > 0$ : le crochet est la somme d'un carré et d'un nombre strictement positif, il ne s'annule jamais. Comme $a \\neq 0$, l'équation n'a pas de solution."
+          },
+          {
+            "titre": "Cas $\\Delta = 0$",
+            "texte": "L'équation équivaut à $\\left(x + \\dfrac{b}{2a}\\right)^2 = 0$, c'est-à-dire $x = -\\dfrac{b}{2a}$."
+          },
+          {
+            "titre": "Cas $\\Delta > 0$",
+            "texte": "$\\dfrac{\\Delta}{4a^2} = \\left(\\dfrac{\\sqrt{\\Delta}}{2a}\\right)^2$, et le crochet est une différence de deux carrés : $\\left(x + \\dfrac{b}{2a} - \\dfrac{\\sqrt{\\Delta}}{2a}\\right)\\left(x + \\dfrac{b}{2a} + \\dfrac{\\sqrt{\\Delta}}{2a}\\right)$. Il s'annule si et seulement si $x = \\dfrac{-b + \\sqrt{\\Delta}}{2a}$ ou $x = \\dfrac{-b - \\sqrt{\\Delta}}{2a}$."
+          }
+        ],
+        "conclusion": "Les formules du cours ne sont pas « magiques » : elles découlent de la complétion du carré et de la factorisation d'une différence de deux carrés. Au passage, on obtient la factorisation $ax^2 + bx + c = a(x - x_1)(x - x_2)$ quand $\\Delta > 0$."
+      }
+    },
+    {
+      "id": "proprietes-d-un-trinome",
+      "title": "Racines et factorisation d'un trinôme",
+      "schemaVersion": 2,
+      "intro": "Le signe du discriminant ne dit pas seulement combien l'équation $ax^2 + bx + c = 0$ a de solutions : il dit aussi si le trinôme peut s'écrire comme un produit de facteurs du premier degré. Cette forme factorisée permet de lire les racines et d'étudier le signe.",
+      "pourquoi": "La forme factorisée est l'outil de base pour résoudre une équation produit, dresser un tableau de signes ou reconnaître les racines d'un trinôme d'un seul coup d'œil.",
+      "explicationSimple": "$P(x) = 2x^2 - 2x - 12$ : $\\Delta = 4 + 96 = 100 > 0$, racines $\\dfrac{2 - 10}{4} = -2$ et $\\dfrac{2 + 10}{4} = 3$, donc $P(x) = 2(x + 2)(x - 3)$.",
+      "objectif": "À la fin de ce cours, tu sauras déterminer les racines d'un trinôme, le factoriser selon le signe de son discriminant, passer de la forme factorisée à la forme développée, et justifier qu'un trinôme de discriminant négatif ne se factorise pas.",
+      "definition": "Un réel $x_0$ est une racine du trinôme $P(x) = ax^2 + bx + c$ (avec $a \\neq 0$) lorsque $P(x_0) = 0$. Soit $\\Delta = b^2 - 4ac$ son discriminant. Si $\\Delta > 0$, $P$ a deux racines distinctes $x_1 = \\dfrac{-b - \\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b + \\sqrt{\\Delta}}{2a}$, et pour tout réel $x$ : $P(x) = a(x - x_1)(x - x_2)$. Si $\\Delta = 0$, $P$ a une seule racine, dite double, $x_0 = -\\dfrac{b}{2a}$, et $P(x) = a(x - x_0)^2$. Si $\\Delta < 0$, $P$ n'a aucune racine réelle et ne peut pas s'écrire comme produit de facteurs du premier degré.",
+      "definitions": {
+        "lycee": "Un réel $x_0$ est une racine du trinôme $P(x) = ax^2 + bx + c$ (avec $a \\neq 0$) lorsque $P(x_0) = 0$. Soit $\\Delta = b^2 - 4ac$ son discriminant. Si $\\Delta > 0$, $P$ a deux racines distinctes $x_1 = \\dfrac{-b - \\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b + \\sqrt{\\Delta}}{2a}$, et pour tout réel $x$ : $P(x) = a(x - x_1)(x - x_2)$. Si $\\Delta = 0$, $P$ a une seule racine, dite double, $x_0 = -\\dfrac{b}{2a}$, et $P(x) = a(x - x_0)^2$. Si $\\Delta < 0$, $P$ n'a aucune racine réelle et ne peut pas s'écrire comme produit de facteurs du premier degré."
+      },
+      "intuition": "Une racine $r$ correspond à un facteur $(x - r)$ : ce facteur s'annule exactement en $r$. Deux racines donnent deux facteurs ; aucune racine, aucun facteur.",
+      "reglesImportantes": [
+        "Racine : $x_0$ est racine de $P$ si et seulement si $P(x_0) = 0$.",
+        "Si $\\Delta > 0$ : $ax^2 + bx + c = a(x - x_1)(x - x_2)$ ; on n'oublie jamais le coefficient $a$.",
+        "Si $\\Delta = 0$ : $ax^2 + bx + c = a(x - x_0)^2$ avec $x_0 = -\\dfrac{b}{2a}$ (racine double).",
+        "Si $\\Delta < 0$ : pas de racine réelle, donc pas de factorisation en facteurs du premier degré.",
+        "Une racine $r$ donne le facteur $(x - r)$ : la racine $3$ donne $(x - 3)$, la racine $-5$ donne $(x + 5)$.",
+        "Cas rapides sans discriminant : facteur commun (si $c = 0$), identité remarquable."
+      ],
+      "formules": [
+        {
+          "id": "formule-forme-factorisee",
+          "nom": "Forme factorisée",
+          "expression": "$ax^2 + bx + c = a(x - x_1)(x - x_2)$ ($\\Delta > 0$)",
+          "quand_utiliser": "Pour lire les racines, étudier un signe, résoudre.",
+          "erreur_frequente": "Écrire $(x - x_1)(x - x_2)$ sans le coefficient $a$.",
+          "astuce": "Développe mentalement le terme en $x^2$ : il doit valoir $ax^2$."
+        },
+        {
+          "id": "formule-racine-double",
+          "nom": "Racine double",
+          "expression": "$ax^2 + bx + c = a(x - x_0)^2$ avec $x_0 = -\\dfrac{b}{2a}$ ($\\Delta = 0$)",
+          "quand_utiliser": "Quand le discriminant est nul.",
+          "erreur_frequente": "Écrire $(x - x_0)$ sans le carré.",
+          "astuce": "Une racine double « compte deux fois » : le facteur est au carré."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Factoriser un trinôme",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je cherche un cas rapide : facteur commun ($c = 0$) ou identité remarquable."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Sinon, je calcule $\\Delta = b^2 - 4ac$ en remplaçant $a$, $b$, $c$ entre parenthèses."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "Selon le signe de $\\Delta$ : deux racines, une racine double, ou aucune racine (pas de factorisation)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'écris $a(x - x_1)(x - x_2)$ ou $a(x - x_0)^2$ et je contrôle en développant."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je cherche un cas rapide : facteur commun ($c = 0$) ou identité remarquable."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Sinon, je calcule $\\Delta = b^2 - 4ac$ en remplaçant $a$, $b$, $c$ entre parenthèses."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Selon le signe de $\\Delta$ : deux racines, une racine double, ou aucune racine (pas de factorisation)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris $a(x - x_1)(x - x_2)$ ou $a(x - x_0)^2$ et je contrôle en développant."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris $a$, $b$ et $c$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule $\\Delta$."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je calcule les racines avec les formules."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris le produit sans oublier le nombre $a$ devant."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$\\Delta$, puis les racines."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$a(x - x_1)(x - x_2)$ ou $a(x - x_0)^2$, contrôle en développant."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-factoriser-delta-positif",
+          "titre": "Exemple 1 — Factoriser quand $\\Delta > 0$",
+          "enonce": "Factoriser $P(x) = 2x^2 - 2x - 12$.",
+          "calcul": [
+            {
+              "expr": "\\Delta = (-2)^2 - 4 \\times 2 \\times (-12) = 4 + 96 = 100",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "x_1 = \\dfrac{2 - 10}{4} = -2 \\quad x_2 = \\dfrac{2 + 10}{4} = 3",
+              "texte": "Racines :"
+            },
+            {
+              "expr": "P(x) = 2(x + 2)(x - 3)",
+              "texte": "Factorisation :"
+            }
+          ],
+          "reponse": "$P(x) = 2(x + 2)(x - 3)$",
+          "conclusion": "Contrôle : $2(x + 2)(x - 3) = 2(x^2 - x - 6) = 2x^2 - 2x - 12$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-factoriser-racine-double",
+          "titre": "Exemple 2 — Racine double",
+          "enonce": "Factoriser $Q(x) = 4x^2 - 12x + 9$.",
+          "calcul": [
+            {
+              "expr": "\\Delta = (-12)^2 - 4 \\times 4 \\times 9 = 144 - 144 = 0",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "x_0 = -\\dfrac{-12}{2 \\times 4} = \\dfrac{3}{2}",
+              "texte": "Racine double :"
+            },
+            {
+              "expr": "Q(x) = 4\\left(x - \\dfrac{3}{2}\\right)^2 = (2x - 3)^2",
+              "texte": "Factorisation :"
+            }
+          ],
+          "reponse": "$Q(x) = 4\\left(x - \\dfrac{3}{2}\\right)^2$",
+          "conclusion": "On reconnaît aussi l'identité remarquable $(2x - 3)^2$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-forme-factorisee-developper",
+          "titre": "Exemple 3 — De la forme factorisée à la forme développée",
+          "enonce": "Soit $f(x) = 3(x - 1)(x + 4)$. Donner les racines de $f$ et développer $f(x)$.",
+          "calcul": [
+            {
+              "expr": "f(x) = 0 \\iff x = 1 \\text{ ou } x = -4",
+              "texte": "Racines :"
+            },
+            {
+              "expr": "f(x) = 3(x^2 + 3x - 4) = 3x^2 + 9x - 12",
+              "texte": "Développement :"
+            }
+          ],
+          "reponse": "Racines $1$ et $-4$ ; $f(x) = 3x^2 + 9x - 12$.",
+          "conclusion": "La forme factorisée donne les racines sans calcul.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-fonction-s-annulant",
+          "titre": "Exemple 4 — Une fonction qui s'annule en deux réels donnés",
+          "enonce": "Déterminer la fonction polynôme du second degré $f$ qui s'annule en $-2$ et en $3$ et telle que $f(0) = 12$.",
+          "calcul": [
+            {
+              "expr": "f(x) = a(x + 2)(x - 3), \\; a \\neq 0",
+              "texte": "Forme imposée par les racines :"
+            },
+            {
+              "expr": "a \\times 2 \\times (-3) = 12 \\iff a = -2",
+              "texte": "Condition $f(0) = 12$ :"
+            },
+            {
+              "expr": "f(x) = -2(x + 2)(x - 3) = -2x^2 + 2x + 12",
+              "texte": "Donc :"
+            }
+          ],
+          "reponse": "$f(x) = -2(x + 2)(x - 3)$",
+          "conclusion": "Les racines fixent tout sauf $a$ ; une condition de plus détermine $a$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-identites",
+          "titre": "Exemple 5 — Factoriser avec une identité remarquable",
+          "enonce": "Factoriser a) $4x^2 - 9$ ; b) $9x^2 - 12x + 4$, puis donner les racines.",
+          "calcul": [
+            {
+              "expr": "4x^2 - 9 = (2x - 3)(2x + 3)",
+              "texte": "a) Différence de deux carrés :"
+            },
+            {
+              "expr": "",
+              "texte": "Racines : $\\dfrac{3}{2}$ et $-\\dfrac{3}{2}$."
+            },
+            {
+              "expr": "9x^2 - 12x + 4 = (3x - 2)^2 \\text{, racine double } \\dfrac{2}{3}",
+              "texte": "b) Carré :"
+            }
+          ],
+          "reponse": "a) $(2x - 3)(2x + 3)$ ; b) $(3x - 2)^2$.",
+          "conclusion": "Une identité remarquable donne directement la forme factorisée.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-pas-de-factorisation",
+          "titre": "Exemple 6 — Un trinôme qui ne se factorise pas",
+          "enonce": "Montrer que $R(x) = x^2 + x + 1$ ne peut pas s'écrire $(x - r)(x - s)$ avec $r$ et $s$ réels.",
+          "analyse": "Un facteur $(x - r)$ fournit toujours la racine $r$.",
+          "calcul": [
+            {
+              "expr": "\\Delta = 1^2 - 4 \\times 1 \\times 1 = -3 < 0",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "",
+              "texte": "$R$ n'a donc aucune racine réelle : $R(x) \\neq 0$ pour tout réel $x$."
+            },
+            {
+              "expr": "",
+              "texte": "Si l'on avait $R(x) = (x - r)(x - s)$, alors $R(r) = 0$ : $r$ serait une racine. C'est impossible."
+            }
+          ],
+          "reponse": "$R(x)$ ne se factorise pas en facteurs du premier degré.",
+          "conclusion": "Le raisonnement est un raisonnement par l'absurde.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Lire les points où une trajectoire touche le sol.",
+        "Factoriser une expression avant d'en étudier le signe.",
+        "Construire une fonction qui s'annule en deux valeurs données."
+      ],
+      "erreursFrequentes": [
+        "Oublier le coefficient $a$ dans la forme factorisée.",
+        "Écrire $(x + 3)$ pour la racine $3$.",
+        "Chercher une forme factorisée quand $\\Delta < 0$.",
+        "Oublier le carré quand $\\Delta = 0$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier le coefficient $a$ dans la forme factorisée.",
+          "pourquoi": "On retient seulement « $(x - x_1)(x - x_2)$ ».",
+          "comment_detecter": "Le terme en $x^2$ du développement vaut-il bien $ax^2$ ?",
+          "comment_eviter": "Écris toujours la lettre $a$ d'abord, puis remplace-la."
+        },
+        {
+          "description": "Écrire $(x + 3)$ pour la racine $3$.",
+          "pourquoi": "On recopie la racine sans changer le signe.",
+          "comment_detecter": "Le facteur s'annule-t-il bien pour la racine ?",
+          "comment_eviter": "Racine $r$ $\\Rightarrow$ facteur $(x - r)$ : $3 \\to (x - 3)$, $-5 \\to (x + 5)$."
+        },
+        {
+          "description": "Chercher une forme factorisée quand $\\Delta < 0$.",
+          "pourquoi": "On croit que tout trinôme se factorise.",
+          "comment_detecter": "Le discriminant est-il positif ou nul ?",
+          "comment_eviter": "Si $\\Delta < 0$, le trinôme n'a pas de racine : il ne se factorise pas."
+        },
+        {
+          "description": "Oublier le carré quand $\\Delta = 0$.",
+          "pourquoi": "On écrit $a(x - x_0)$.",
+          "comment_detecter": "Le développement redonne-t-il un terme en $x^2$ ?",
+          "comment_eviter": "Racine double : $a(x - x_0)^2$."
+        }
+      ],
+      "astuce": "Avant de calculer $\\Delta$, teste $x = 1$ : si $a + b + c = 0$, alors $1$ est racine. Puis contrôle toujours ta factorisation en développant.",
+      "aRetenir": [
+        "Pour factoriser un trinôme, on calcule son discriminant : ses racines et sa factorisation dépendent du signe de $\\Delta$.",
+        "$\\Delta > 0$ : $a(x - x_1)(x - x_2)$ ; $\\Delta = 0$ : $a(x - x_0)^2$ ; $\\Delta < 0$ : pas de factorisation.",
+        "Une racine $r$ correspond au facteur $(x - r)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -5.0,
+          -5.0,
+          8.0,
+          12.0
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": -3,
+            "y": 0,
+            "label": "x₁ = -3",
+            "reveal": 2
+          },
+          {
+            "x": 1,
+            "y": 0,
+            "label": "x₂ = 1",
+            "reveal": 2
+          },
+          {
+            "x": -1,
+            "y": -4,
+            "label": "S(-1 ; -4)",
+            "reveal": 3
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -1,
+              "y": -4.6
+            },
+            "to": {
+              "x": -1,
+              "y": 6.6
+            },
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "Axe x = −1, milieu des racines"
+          }
+        ],
+        "texts": [
+          {
+            "x": -3.0,
+            "y": 5.4,
+            "label": "Δ = 16 > 0",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -4.3,
+                6.89
+              ],
+              [
+                -4.245,
+                6.53
+              ],
+              [
+                -4.19,
+                6.176
+              ],
+              [
+                -4.135,
+                5.828
+              ],
+              [
+                -4.08,
+                5.486
+              ],
+              [
+                -4.025,
+                5.151
+              ],
+              [
+                -3.97,
+                4.821
+              ],
+              [
+                -3.915,
+                4.497
+              ],
+              [
+                -3.86,
+                4.18
+              ],
+              [
+                -3.805,
+                3.868
+              ],
+              [
+                -3.75,
+                3.562
+              ],
+              [
+                -3.695,
+                3.263
+              ],
+              [
+                -3.64,
+                2.97
+              ],
+              [
+                -3.585,
+                2.682
+              ],
+              [
+                -3.53,
+                2.401
+              ],
+              [
+                -3.475,
+                2.126
+              ],
+              [
+                -3.42,
+                1.856
+              ],
+              [
+                -3.365,
+                1.593
+              ],
+              [
+                -3.31,
+                1.336
+              ],
+              [
+                -3.255,
+                1.085
+              ],
+              [
+                -3.2,
+                0.84
+              ],
+              [
+                -3.145,
+                0.601
+              ],
+              [
+                -3.09,
+                0.368
+              ],
+              [
+                -3.035,
+                0.141
+              ],
+              [
+                -2.98,
+                -0.08
+              ],
+              [
+                -2.925,
+                -0.294
+              ],
+              [
+                -2.87,
+                -0.503
+              ],
+              [
+                -2.815,
+                -0.706
+              ],
+              [
+                -2.76,
+                -0.902
+              ],
+              [
+                -2.705,
+                -1.093
+              ],
+              [
+                -2.65,
+                -1.278
+              ],
+              [
+                -2.595,
+                -1.456
+              ],
+              [
+                -2.54,
+                -1.628
+              ],
+              [
+                -2.485,
+                -1.795
+              ],
+              [
+                -2.43,
+                -1.955
+              ],
+              [
+                -2.375,
+                -2.109
+              ],
+              [
+                -2.32,
+                -2.258
+              ],
+              [
+                -2.265,
+                -2.4
+              ],
+              [
+                -2.21,
+                -2.536
+              ],
+              [
+                -2.155,
+                -2.666
+              ],
+              [
+                -2.1,
+                -2.79
+              ],
+              [
+                -2.045,
+                -2.908
+              ],
+              [
+                -1.99,
+                -3.02
+              ],
+              [
+                -1.935,
+                -3.126
+              ],
+              [
+                -1.88,
+                -3.226
+              ],
+              [
+                -1.825,
+                -3.319
+              ],
+              [
+                -1.77,
+                -3.407
+              ],
+              [
+                -1.715,
+                -3.489
+              ],
+              [
+                -1.66,
+                -3.564
+              ],
+              [
+                -1.605,
+                -3.634
+              ],
+              [
+                -1.55,
+                -3.698
+              ],
+              [
+                -1.495,
+                -3.755
+              ],
+              [
+                -1.44,
+                -3.806
+              ],
+              [
+                -1.385,
+                -3.852
+              ],
+              [
+                -1.33,
+                -3.891
+              ],
+              [
+                -1.275,
+                -3.924
+              ],
+              [
+                -1.22,
+                -3.952
+              ],
+              [
+                -1.165,
+                -3.973
+              ],
+              [
+                -1.11,
+                -3.988
+              ],
+              [
+                -1.055,
+                -3.997
+              ],
+              [
+                -1.0,
+                -4.0
+              ],
+              [
+                -0.945,
+                -3.997
+              ],
+              [
+                -0.89,
+                -3.988
+              ],
+              [
+                -0.835,
+                -3.973
+              ],
+              [
+                -0.78,
+                -3.952
+              ],
+              [
+                -0.725,
+                -3.924
+              ],
+              [
+                -0.67,
+                -3.891
+              ],
+              [
+                -0.615,
+                -3.852
+              ],
+              [
+                -0.56,
+                -3.806
+              ],
+              [
+                -0.505,
+                -3.755
+              ],
+              [
+                -0.45,
+                -3.697
+              ],
+              [
+                -0.395,
+                -3.634
+              ],
+              [
+                -0.34,
+                -3.564
+              ],
+              [
+                -0.285,
+                -3.489
+              ],
+              [
+                -0.23,
+                -3.407
+              ],
+              [
+                -0.175,
+                -3.319
+              ],
+              [
+                -0.12,
+                -3.226
+              ],
+              [
+                -0.065,
+                -3.126
+              ],
+              [
+                -0.01,
+                -3.02
+              ],
+              [
+                0.045,
+                -2.908
+              ],
+              [
+                0.1,
+                -2.79
+              ],
+              [
+                0.155,
+                -2.666
+              ],
+              [
+                0.21,
+                -2.536
+              ],
+              [
+                0.265,
+                -2.4
+              ],
+              [
+                0.32,
+                -2.258
+              ],
+              [
+                0.375,
+                -2.109
+              ],
+              [
+                0.43,
+                -1.955
+              ],
+              [
+                0.485,
+                -1.795
+              ],
+              [
+                0.54,
+                -1.628
+              ],
+              [
+                0.595,
+                -1.456
+              ],
+              [
+                0.65,
+                -1.277
+              ],
+              [
+                0.705,
+                -1.093
+              ],
+              [
+                0.76,
+                -0.902
+              ],
+              [
+                0.815,
+                -0.706
+              ],
+              [
+                0.87,
+                -0.503
+              ],
+              [
+                0.925,
+                -0.294
+              ],
+              [
+                0.98,
+                -0.08
+              ],
+              [
+                1.035,
+                0.141
+              ],
+              [
+                1.09,
+                0.368
+              ],
+              [
+                1.145,
+                0.601
+              ],
+              [
+                1.2,
+                0.84
+              ],
+              [
+                1.255,
+                1.085
+              ],
+              [
+                1.31,
+                1.336
+              ],
+              [
+                1.365,
+                1.593
+              ],
+              [
+                1.42,
+                1.856
+              ],
+              [
+                1.475,
+                2.126
+              ],
+              [
+                1.53,
+                2.401
+              ],
+              [
+                1.585,
+                2.682
+              ],
+              [
+                1.64,
+                2.97
+              ],
+              [
+                1.695,
+                3.263
+              ],
+              [
+                1.75,
+                3.562
+              ],
+              [
+                1.805,
+                3.868
+              ],
+              [
+                1.86,
+                4.18
+              ],
+              [
+                1.915,
+                4.497
+              ],
+              [
+                1.97,
+                4.821
+              ],
+              [
+                2.025,
+                5.151
+              ],
+              [
+                2.08,
+                5.486
+              ],
+              [
+                2.135,
+                5.828
+              ],
+              [
+                2.19,
+                6.176
+              ],
+              [
+                2.245,
+                6.53
+              ],
+              [
+                2.3,
+                6.89
+              ]
+            ],
+            "tooltip": "Parabole de f(x) = (x + 3)(x − 1)"
+          }
+        ],
+        "steps": [
+          "La courbe",
+          "Les racines",
+          "Deux racines car Δ > 0 ; sommet au milieu"
+        ],
+        "relation": "$x^2 + 2x - 3 = (x + 3)(x - 1)$",
+        "alt": "Parabole de f(x) = (x + 3)(x − 1), qui coupe l'axe des abscisses en −3 et 1 ; son discriminant vaut 16, strictement positif ; son axe de symétrie x = −1 passe par le milieu des racines.",
+        "explication": {
+          "resume": "Quand le discriminant est strictement positif, le trinôme a deux racines et s'écrit $a(x - x_1)(x - x_2)$ : les racines se lisent alors sur la forme factorisée.",
+          "lecture": [
+            "$f(x) = (x + 3)(x - 1) = x^2 + 2x - 3$ : $a = 1$, $b = 2$, $c = -3$.",
+            "Les racines sont les abscisses des points d'intersection avec l'axe des abscisses."
+          ],
+          "observations": [
+            "$\\Delta = 2^2 - 4 \\times 1 \\times (-3) = 16 > 0$ : deux racines.",
+            "$x_1 = \\dfrac{-2 - 4}{2} = -3$ et $x_2 = \\dfrac{-2 + 4}{2} = 1$.",
+            "L'axe de symétrie passe par le milieu des racines : $\\dfrac{-3 + 1}{2} = -1 = -\\dfrac{b}{2a}$."
+          ],
+          "pieges": [
+            "Oublier le coefficient $a$ dans la forme factorisée : $2x^2 + 4x - 6 = 2(x + 3)(x - 1)$, pas $(x + 3)(x - 1)$."
+          ],
+          "aRetenir": [
+            "$ax^2 + bx + c = a(x - x_1)(x - x_2)$ quand $\\Delta > 0$.",
+            "Si $\\Delta < 0$, pas de racine : pas de factorisation."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        62301,
+        62303,
+        62302
+      ],
+      "topic_id": "proprietes-d-un-trinome",
+      "proprietes": [
+        "Si $\\Delta > 0$, $ax^2 + bx + c = a(x - x_1)(x - x_2)$.",
+        "Si $\\Delta < 0$, le trinôme ne se factorise pas."
+      ],
+      "vocabulaire_associe": [
+        "racine",
+        "racine double",
+        "forme factorisée",
+        "discriminant"
+      ],
+      "synonymes": [
+        "factoriser un trinôme",
+        "racines d'un trinôme",
+        "racine double",
+        "forme factorisée"
+      ],
+      "objectifs_pedagogiques": [
+        "Déterminer les racines d'un trinôme.",
+        "Factoriser selon le signe du discriminant.",
+        "Passer de la forme factorisée à la forme développée.",
+        "Justifier qu'un trinôme ne se factorise pas."
+      ],
+      "prerequis": [
+        "Équations du second degré",
+        "Développement et identités remarquables"
+      ],
+      "notions_liees": [
+        "equations-du-second-degre",
+        "signe-du-trinome-et-inequations"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "second degré",
+        "factorisation",
+        "racines"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proprietes-d-un-trinome-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Forme développée, fonction imposée par ses racines, identités remarquables",
+          "description": "Trois exemples rédigés : développer une forme factorisée, fonction s'annulant en deux réels avec une condition, factorisation par identité remarquable."
+        },
+        {
+          "id": "proprietes-d-un-trinome-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Trinôme non factorisable, démonstration",
+          "description": "Pourquoi un trinôme de discriminant négatif ne se factorise pas, et la démonstration de la factorisation lorsque $\\Delta > 0$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelles sont les racines de $5(x - 2)(x + 7)$ ?",
+          "piste": "$2$ et $-7$."
+        },
+        {
+          "apres": "methode",
+          "question": "$x^2 + 4$ se factorise-t-il ?",
+          "piste": "Non : $\\Delta = -16 < 0$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Factorisation d'un trinôme de discriminant positif",
+        "etapes": [
+          {
+            "titre": "Forme canonique",
+            "texte": "$P(x) = a\\left[\\left(x + \\dfrac{b}{2a}\\right)^2 - \\dfrac{\\Delta}{4a^2}\\right]$ (en factorisant la forme canonique par $a \\neq 0$)."
+          },
+          {
+            "titre": "Différence de deux carrés",
+            "texte": "Si $\\Delta > 0$, $\\dfrac{\\Delta}{4a^2} = \\left(\\dfrac{\\sqrt{\\Delta}}{2a}\\right)^2$ : le crochet est de la forme $A^2 - B^2 = (A - B)(A + B)$."
+          },
+          {
+            "titre": "Factorisation",
+            "texte": "$P(x) = a\\left(x + \\dfrac{b}{2a} - \\dfrac{\\sqrt{\\Delta}}{2a}\\right)\\left(x + \\dfrac{b}{2a} + \\dfrac{\\sqrt{\\Delta}}{2a}\\right) = a(x - x_2)(x - x_1)$."
+          },
+          {
+            "titre": "Racines",
+            "texte": "Un produit est nul si et seulement si l'un de ses facteurs l'est : les racines sont $x_1 = \\dfrac{-b - \\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b + \\sqrt{\\Delta}}{2a}$."
+          }
+        ],
+        "conclusion": "La forme canonique et une identité remarquable suffisent à obtenir la forme factorisée."
+      }
+    },
+    {
+      "id": "signe-du-trinome-et-inequations",
+      "title": "Signe du trinôme et inéquations du second degré",
+      "schemaVersion": 2,
+      "intro": "Savoir où un trinôme est positif ou négatif permet de résoudre des inéquations, de trouver un domaine de définition ou de comparer deux courbes. Une règle unique, liée aux racines et au signe de $a$, couvre tous les cas.",
+      "pourquoi": "On a besoin du signe d'un trinôme pour savoir quand un bénéfice est positif, quand une balle est au-dessus d'une certaine hauteur, ou plus tard pour étudier les variations d'une fonction à l'aide de sa dérivée.",
+      "explicationSimple": "Pour $f(x) = 2(x + 3)(x - 1)$ : les racines sont $-3$ et $1$, et $a = 2$ est positif. Donc $f(x)$ est positif « dehors » (avant $-3$ et après $1$) et négatif « dedans » (entre $-3$ et $1$). C'est exactement ce que montre la parabole : tournée vers le haut, elle passe sous l'axe entre ses racines.",
+      "objectif": "À la fin de ce cours, tu sauras dresser le tableau de signes d'un trinôme (factorisé ou non), résoudre une inéquation du second degré et étudier la position relative d'une parabole et d'une droite.",
+      "definition": "Soit $f(x) = ax^2 + bx + c$ avec $a \\neq 0$. Si $\\Delta > 0$, de racines $x_1 < x_2$, $f(x)$ est du signe de $a$ sur $]-\\infty ; x_1[ \\cup ]x_2 ; +\\infty[$, du signe contraire de $a$ sur $]x_1 ; x_2[$, et s'annule en $x_1$ et $x_2$. Si $\\Delta = 0$, $f(x)$ est du signe de $a$ pour tout $x \\neq x_0$ et s'annule en $x_0$. Si $\\Delta < 0$, $f(x)$ est du signe de $a$ pour tout réel $x$.",
+      "definitions": {
+        "lycee": "Soit $f(x) = ax^2 + bx + c$ avec $a \\neq 0$. Si $\\Delta > 0$, de racines $x_1 < x_2$, $f(x)$ est du signe de $a$ sur $]-\\infty ; x_1[ \\cup ]x_2 ; +\\infty[$, du signe contraire de $a$ sur $]x_1 ; x_2[$, et s'annule en $x_1$ et $x_2$. Si $\\Delta = 0$, $f(x)$ est du signe de $a$ pour tout $x \\neq x_0$ et s'annule en $x_0$. Si $\\Delta < 0$, $f(x)$ est du signe de $a$ pour tout réel $x$."
+      },
+      "intuition": "La parabole d'un trinôme avec $a > 0$ est tournée vers le haut : elle ne peut être sous l'axe des abscisses qu'entre ses deux points d'intersection. Avec $a < 0$, c'est l'inverse.",
+      "reglesImportantes": [
+        "Pour un trinôme factorisé, on peut faire un tableau de signes facteur par facteur, puis appliquer la règle des signes d'un produit. Rappel : avec $a \\neq 0$, $ax + b$ s'annule en $-\\dfrac{b}{a}$, est du signe de $a$ à droite de cette valeur et du signe contraire à gauche.",
+        "Signe d'un trinôme : il est du signe de $a$ à l'extérieur des racines et du signe contraire entre les racines.",
+        "Si $\\Delta = 0$ : signe de $a$ partout, sauf en la racine double où il s'annule. Si $\\Delta < 0$ : signe de $a$ partout.",
+        "Pour résoudre une inéquation du second degré, on ramène tout dans un membre ($\\ldots > 0$, $\\ldots \\leqslant 0$…), on étudie le signe du trinôme, puis on lit l'ensemble des solutions de l'inéquation.",
+        "On ne divise jamais les deux membres d'une inéquation par une expression dont le signe est inconnu (par exemple par $x$).",
+        "Position relative d'une parabole et d'une droite (ou de deux courbes $y = f(x)$ et $y = g(x)$) : on étudie le signe de $f(x) - g(x)$."
+      ],
+      "formules": [
+        {
+          "id": "formule-signe-trinome",
+          "nom": "Signe d'un trinôme ($\\Delta > 0$)",
+          "expression": "signe de $a$ à l'extérieur de $[x_1 ; x_2]$, signe contraire entre $x_1$ et $x_2$",
+          "quand_utiliser": "Pour toute étude de signe ou inéquation du second degré.",
+          "erreur_frequente": "Appliquer « positif entre les racines » sans regarder le signe de $a$.",
+          "astuce": "Fais une esquisse de la parabole."
+        },
+        {
+          "id": "formule-position-relative",
+          "nom": "Position relative",
+          "expression": "$\\mathcal{C}_f$ au-dessus de $\\mathcal{C}_g \\iff f(x) - g(x) > 0$",
+          "quand_utiliser": "Pour comparer une parabole et une droite (ou deux paraboles).",
+          "erreur_frequente": "Comparer seulement en quelques points.",
+          "astuce": "Les points d'intersection sont les racines de $f(x) - g(x)$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre une inéquation du second degré",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je ramène l'inéquation à la forme « trinôme comparé à $0$ »."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Je cherche les racines du trinôme (factorisation ou discriminant)."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "J'applique la règle du signe (ou je dresse un tableau de signes)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je lis l'ensemble des solutions, en faisant attention aux crochets (inégalité stricte ou large)."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je ramène l'inéquation à la forme « trinôme comparé à $0$ »."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je cherche les racines du trinôme (factorisation ou discriminant)."
+            },
+            {
+              "icone": "scale",
+              "couleur": "orange",
+              "texte": "J'applique la règle du signe (ou je dresse un tableau de signes)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je lis l'ensemble des solutions, en faisant attention aux crochets (inégalité stricte ou large)."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je mets tout du même côté pour comparer à $0$."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je trouve où le trinôme vaut $0$."
+            },
+            {
+              "icone": "scale",
+              "couleur": "orange",
+              "texte": "Je dessine la parabole : vers le haut si $a > 0$, vers le bas si $a < 0$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je lis sur le dessin où elle est au-dessus (ou au-dessous) de l'axe."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Racines, signe de $a$ : signe de $a$ dehors, contraire dedans."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Crochets fermés si l'inégalité est large."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-tableau-signes-factorise",
+          "titre": "Exemple 1 — Signe d'une forme factorisée",
+          "enonce": "Étudier le signe de $f(x) = 2(x + 3)(x - 1)$ sur $\\mathbb{R}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Racines : $-3$ et $1$ ; $a = 2 > 0$."
+            },
+            {
+              "expr": "f(x) > 0 \\text{ sur } ]-\\infty ; -3[ \\cup ]1 ; +\\infty[",
+              "texte": "Signe de $a$ à l'extérieur des racines :"
+            },
+            {
+              "expr": "f(x) < 0 \\text{ sur } ]-3 ; 1[",
+              "texte": "Signe contraire entre les racines :"
+            }
+          ],
+          "reponse": "$f(x) > 0$ sur $]-\\infty ; -3[ \\cup ]1 ; +\\infty[$, $f(x) < 0$ sur $]-3 ; 1[$, $f(-3) = f(1) = 0$.",
+          "conclusion": "Le tableau de signes de la figure aboutit au même résultat, facteur par facteur.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-inequation-a-negatif",
+          "titre": "Exemple 2 — Une inéquation avec $a < 0$",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'inéquation $-x^2 + x + 6 > 0$.",
+          "calcul": [
+            {
+              "expr": "\\Delta = 1 + 24 = 25 \\text{ ; } x = \\dfrac{-1 \\pm 5}{-2} \\text{ : } 3 \\text{ et } -2",
+              "texte": "Racines :"
+            },
+            {
+              "expr": "",
+              "texte": "$a = -1 < 0$ : le trinôme est positif entre les racines."
+            },
+            {
+              "expr": "",
+              "texte": "Inégalité stricte : crochets ouverts."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = ]-2 ; 3[$",
+          "conclusion": "Avec $a < 0$, la parabole est au-dessus de l'axe seulement entre ses racines.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-discriminant-negatif",
+          "titre": "Exemple 3 — Discriminant négatif",
+          "enonce": "Résoudre a) $x^2 + x + 1 > 0$ ; b) $x^2 + x + 1 \\leqslant 0$.",
+          "calcul": [
+            {
+              "expr": "\\Delta = 1 - 4 = -3 < 0",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "",
+              "texte": "Le trinôme a le signe de $a = 1$ pour tout réel : il est toujours strictement positif."
+            }
+          ],
+          "reponse": "a) $\\mathcal{S} = \\mathbb{R}$ ; b) $\\mathcal{S} = \\varnothing$.",
+          "conclusion": "Sans racine, la parabole ne traverse jamais l'axe des abscisses.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-ramener-a-zero",
+          "titre": "Exemple 4 — Ramener à zéro",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'inéquation $3x^2 \\leqslant 2x + 1$.",
+          "calcul": [
+            {
+              "expr": "3x^2 - 2x - 1 \\leqslant 0",
+              "texte": "On ramène à $0$ :"
+            },
+            {
+              "expr": "",
+              "texte": "Racine évidente $1$ ; produit $-\\dfrac{1}{3}$, donc l'autre racine est $-\\dfrac{1}{3}$."
+            },
+            {
+              "expr": "",
+              "texte": "$a = 3 > 0$ : négatif entre les racines, inégalité large."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\left[-\\dfrac{1}{3} ; 1\\right]$",
+          "conclusion": "On ne compare jamais directement deux expressions : on étudie le signe de leur différence.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-position-relative",
+          "titre": "Exemple 5 — Position d'une parabole et d'une droite",
+          "enonce": "Étudier la position relative de $\\mathcal{P} : y = x^2 - 1$ et $\\mathcal{D} : y = x + 1$.",
+          "calcul": [
+            {
+              "expr": "d(x) = x^2 - 1 - (x + 1) = x^2 - x - 2 = (x - 2)(x + 1)",
+              "texte": "Différence :"
+            },
+            {
+              "expr": "",
+              "texte": "$d(x) > 0$ à l'extérieur de $-1$ et $2$, $d(x) < 0$ entre."
+            },
+            {
+              "expr": "",
+              "texte": "Points communs : $(-1 ; 0)$ et $(2 ; 3)$."
+            }
+          ],
+          "reponse": "$\\mathcal{P}$ est au-dessus de $\\mathcal{D}$ sur $]-\\infty ; -1[ \\cup ]2 ; +\\infty[$, en dessous sur $]-1 ; 2[$ ; elles se coupent en $(-1 ; 0)$ et $(2 ; 3)$.",
+          "conclusion": "Le signe de la différence répond à la question « quelle courbe est au-dessus ? ».",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-parametre-signe",
+          "titre": "Exemple 6 — Un trinôme toujours positif",
+          "enonce": "Déterminer les réels $m$ pour lesquels $x^2 - 2mx + m + 2 > 0$ pour tout réel $x$.",
+          "analyse": "On étudie le signe d'un trinôme… dont le discriminant est lui-même un trinôme en $m$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$a = 1 > 0$ : il faut et il suffit que le trinôme n'ait pas de racine, soit $\\Delta < 0$."
+            },
+            {
+              "expr": "\\Delta = 4m^2 - 4(m + 2) = 4(m^2 - m - 2) = 4(m - 2)(m + 1)",
+              "texte": "Discriminant :"
+            },
+            {
+              "expr": "",
+              "texte": "$\\Delta < 0 \\iff (m - 2)(m + 1) < 0 \\iff -1 < m < 2$."
+            }
+          ],
+          "reponse": "$m \\in ]-1 ; 2[$",
+          "conclusion": "Contrôle : pour $m = 0$, $x^2 + 2 > 0$ ; pour $m = 3$, $x^2 - 6x + 5$ s'annule en $1$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Déterminer les quantités produites pour lesquelles une entreprise est rentable.",
+        "Savoir pendant combien de temps un projectile est au-dessus d'une hauteur donnée.",
+        "Trouver où une racine carrée $\\sqrt{-x^2 + x + 6}$ est définie."
+      ],
+      "erreursFrequentes": [
+        "Appliquer « positif à l'extérieur des racines » quand $a < 0$.",
+        "Diviser par $x$ dans $x^2 > 4x$.",
+        "Se tromper de crochets aux racines.",
+        "Écrire $x^2 < 9 \\iff x < 3$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Appliquer « positif à l'extérieur des racines » quand $a < 0$.",
+          "pourquoi": "On retient une seule configuration de la parabole.",
+          "comment_detecter": "Quel est le signe de $a$ ?",
+          "comment_eviter": "Retiens « signe de $a$ à l'extérieur »."
+        },
+        {
+          "description": "Diviser par $x$ dans $x^2 > 4x$.",
+          "pourquoi": "On simplifie comme dans une équation.",
+          "comment_detecter": "Le signe de $x$ est-il connu ?",
+          "comment_eviter": "Ramène à $x^2 - 4x > 0$ et factorise."
+        },
+        {
+          "description": "Se tromper de crochets aux racines.",
+          "pourquoi": "On ne distingue pas $<$ et $\\leqslant$.",
+          "comment_detecter": "La racine annule le trinôme : vérifie-t-elle l'inégalité ?",
+          "comment_eviter": "Inégalité large : crochets fermés aux racines ; stricte : ouverts."
+        },
+        {
+          "description": "Écrire $x^2 < 9 \\iff x < 3$.",
+          "pourquoi": "On « prend la racine » comme dans une égalité.",
+          "comment_detecter": "Que vaut $(-5)^2$ ?",
+          "comment_eviter": "Factorise : $x^2 - 9 = (x - 3)(x + 3)$, négatif sur $]-3 ; 3[$."
+        }
+      ],
+      "astuce": "Dessine toujours une mini-parabole à côté de ton calcul : son ouverture (signe de $a$) et ses points sur l'axe (racines) suffisent à lire le signe sans risque d'erreur.",
+      "aRetenir": [
+        "Signe de $a$ à l'extérieur des racines, signe contraire entre.",
+        "$\\Delta < 0$ : signe de $a$ partout ; $\\Delta = 0$ : signe de $a$ sauf en $x_0$.",
+        "Inéquation : tout dans un membre, signe, lecture des crochets.",
+        "Position relative : signe de $f(x) - g(x)$."
+      ],
+      "figure": {
+        "kind": "tableau",
+        "xs": [
+          "-\\infty",
+          "-3",
+          "1",
+          "+\\infty"
+        ],
+        "rows": [
+          {
+            "type": "signe",
+            "label": "x + 3",
+            "signs": [
+              "-",
+              "+",
+              "+"
+            ],
+            "marks": [
+              "",
+              "0",
+              "",
+              ""
+            ]
+          },
+          {
+            "type": "signe",
+            "label": "x - 1",
+            "signs": [
+              "-",
+              "-",
+              "+"
+            ],
+            "marks": [
+              "",
+              "",
+              "0",
+              ""
+            ]
+          },
+          {
+            "type": "signe",
+            "label": "f(x)",
+            "signs": [
+              "+",
+              "-",
+              "+"
+            ],
+            "marks": [
+              "",
+              "0",
+              "0",
+              ""
+            ]
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Signe de x + 3",
+          "Signe de x − 1",
+          "Signe du produit"
+        ],
+        "relation": "$f(x) = 2(x + 3)(x - 1) = 2x^2 + 4x - 6$",
+        "alt": "Tableau de signes : x + 3 est négatif avant −3 et positif après ; x − 1 est négatif avant 1 et positif après ; le produit f(x) = 2(x + 3)(x − 1) est positif sur ]−∞ ; −3[, négatif sur ]−3 ; 1[, positif sur ]1 ; +∞[, et nul en −3 et 1.",
+        "explication": {
+          "resume": "Pour étudier le signe d'un trinôme factorisé, on étudie le signe de chaque facteur, puis on applique la règle des signes d'un produit. On retrouve la règle générale : signe de $a$ à l'extérieur des racines, signe contraire entre elles.",
+          "lecture": [
+            "Chaque ligne donne le signe d'un facteur ; la dernière celle du produit.",
+            "Les « 0 » sont placés sous les valeurs qui annulent chaque facteur."
+          ],
+          "observations": [
+            "Sur $]-\\infty ; -3[$ : deux facteurs négatifs et $2 > 0$, le produit est positif.",
+            "Sur $]-3 ; 1[$ : un seul facteur négatif, le produit est négatif.",
+            "Sur $]1 ; +\\infty[$ : tout est positif."
+          ],
+          "pieges": [
+            "Oublier le coefficient $2$ : ici il est positif et ne change rien, mais un coefficient négatif inverserait tous les signes de la dernière ligne."
+          ],
+          "aRetenir": [
+            "Signe de $a$ à l'extérieur des racines, signe contraire entre les racines."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        62401,
+        62404,
+        62403
+      ],
+      "topic_id": "signe-du-trinome-et-inequations",
+      "proprietes": [
+        "Un trinôme est du signe de $a$ à l'extérieur de ses racines et du signe contraire entre elles."
+      ],
+      "vocabulaire_associe": [
+        "signe",
+        "tableau de signes",
+        "inéquation",
+        "position relative",
+        "racine"
+      ],
+      "synonymes": [
+        "signe du trinôme",
+        "inéquation du second degré",
+        "tableau de signes",
+        "au-dessus en dessous"
+      ],
+      "objectifs_pedagogiques": [
+        "Étudier le signe d'un trinôme donné sous forme factorisée.",
+        "Appliquer la règle du signe dans les trois cas.",
+        "Résoudre une inéquation du second degré.",
+        "Étudier la position relative d'une parabole et d'une droite."
+      ],
+      "prerequis": [
+        "Équations du second degré",
+        "Propriétés d'un trinôme",
+        "Tableau de signes d'un produit (Seconde)"
+      ],
+      "notions_liees": [
+        "equations-du-second-degre",
+        "proprietes-d-un-trinome"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "second degré",
+        "signe",
+        "inéquation",
+        "tableau de signes",
+        "position relative"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "signe-du-trinome-et-inequations-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Discriminant négatif, inéquation à réorganiser, position relative",
+          "description": "Trois exemples rédigés : trinôme sans racine, inéquation ramenée à zéro, position d'une parabole par rapport à une droite."
+        },
+        {
+          "id": "signe-du-trinome-et-inequations-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Trinôme toujours positif, démonstration de la règle du signe",
+          "description": "Un exemple avec paramètre et la démonstration de la règle du signe à partir de la forme factorisée et de la forme canonique."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel est le signe de $f(0)$ dans le tableau ?",
+          "piste": "Négatif : $0$ est entre les racines $-3$ et $1$ ($f(0) = -6$)."
+        },
+        {
+          "apres": "methode",
+          "question": "Résoudre $(x - 2)(x - 5) \\leqslant 0$.",
+          "piste": "$[2 ; 5]$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Règle du signe d'un trinôme",
+        "etapes": [
+          {
+            "titre": "Cas $\\Delta > 0$",
+            "texte": "$f(x) = a(x - x_1)(x - x_2)$ avec $x_1 < x_2$. Pour $x < x_1$, les deux facteurs sont négatifs, leur produit est positif ; pour $x > x_2$, ils sont positifs. Entre $x_1$ et $x_2$, $x - x_1 > 0$ et $x - x_2 < 0$ : le produit est négatif."
+          },
+          {
+            "titre": "Conséquence",
+            "texte": "En multipliant par $a$, $f(x)$ a le signe de $a$ à l'extérieur des racines et le signe contraire entre elles."
+          },
+          {
+            "titre": "Cas $\\Delta = 0$",
+            "texte": "$f(x) = a(x - x_0)^2$ : le carré est strictement positif pour $x \\neq x_0$, donc $f(x)$ a le signe de $a$, et $f(x_0) = 0$."
+          },
+          {
+            "titre": "Cas $\\Delta < 0$",
+            "texte": "Forme canonique : $f(x) = a\\left[(x - \\alpha)^2 - \\dfrac{\\Delta}{4a^2}\\right]$. Le crochet est la somme d'un carré et du nombre strictement positif $-\\dfrac{\\Delta}{4a^2}$ : il est strictement positif, donc $f(x)$ a le signe de $a$."
+          }
+        ],
+        "conclusion": "La règle du signe découle de la règle des signes d'un produit (forme factorisée) et, quand il n'y a pas de racine, de la forme canonique."
+      }
+    }
+  ]
+}

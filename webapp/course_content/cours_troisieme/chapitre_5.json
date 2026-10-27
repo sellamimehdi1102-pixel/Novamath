@@ -75,7 +75,8 @@
           ],
           "reponse": "Le nombre cherché est $7$.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Le nombre cherché est $7$.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-606",
@@ -102,7 +103,8 @@
           ],
           "reponse": "Sami a 12 ans.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Sami a 12 ans.",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-612",
@@ -129,7 +131,8 @@
           ],
           "reponse": "Inès a aujourd'hui 9 ans.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Inès a aujourd'hui 9 ans.",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-618",
@@ -156,7 +159,8 @@
           ],
           "reponse": "Elsa a 6 ans.",
           "conclusion": "Nous avons ainsi obtenu le résultat : Elsa a 6 ans.",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -199,11 +203,7 @@
         "Exprime l'âge de Léo en fonction de celui d'Inès, puis traduis la situation dans 4 ans."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        601,
-        602,
-        603
-      ],
+      "quizExerciseIds": [601, 602, 603],
       "topic_id": "modeliser-un-probleme-par-une-equation-ou-une-inequation",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -214,11 +214,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "modeliser",
-        "probleme",
-        "equation",
-        "inequation"
+      "tags": ["modeliser", "probleme", "equation", "inequation"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "modeliser-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Un problème d'âges avec un décalage dans le temps",
+          "description": "Un exemple complet qui montre comment traduire 'dans 4 ans' sans se tromper de quantité."
+        },
+        {
+          "id": "modeliser-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Un problème d'âges à deux inconnues liées",
+          "description": "Un problème plus complexe avec deux personnes et deux moments différents, pour s'entraîner sur un cas proche du brevet."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Comment traduire 'au maximum 100 euros' en inéquation avec $x$ le prix ?",
+          "piste": "'Au maximum' autorise l'égalité : on écrit $x \\leqslant 100$, pas $x < 100$."
+        }
       ]
     },
     {
@@ -285,7 +304,8 @@
           ],
           "reponse": "$x > 6$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x > 6$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-576",
@@ -304,7 +324,8 @@
           ],
           "reponse": "$x < 5$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x < 5$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-582",
@@ -323,7 +344,8 @@
           ],
           "reponse": "$x \\leqslant -1,5$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x \\leqslant -1,5$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-588",
@@ -346,7 +368,8 @@
           ],
           "reponse": "$x \\geqslant 3$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x \\geqslant 3$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -360,7 +383,32 @@
         "Développe la parenthèse en faisant attention au signe négatif.",
         "Développe la parenthèse en faisant attention aux signes."
       ],
-      "erreursFrequentesDetail": [],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Attention : en divisant par un nombre négatif, il faut changer le sens de l'inégalité.",
+          "pourquoi": "L'inéquation se manipule comme une équation pour l'addition et la soustraction, ce qui laisse croire que la même règle s'applique aussi à la multiplication et à la division.",
+          "comment_detecter": "Teste une valeur : si le résultat obtenu rejette une solution qui devrait être acceptée (ou l'inverse), le sens n'a pas été changé alors qu'il aurait dû l'être.",
+          "comment_eviter": "Avant de diviser ou multiplier, regarder le signe du nombre utilisé : négatif → le symbole $<$ devient $>$ (et inversement), positif → rien ne change."
+        },
+        {
+          "description": "Regroupe les $x$ d'un côté ; attention au signe lors de la division finale.",
+          "pourquoi": "Après avoir regroupé les $x$ d'un même côté, le coefficient obtenu peut être négatif sans qu'on y prête attention.",
+          "comment_detecter": "Le coefficient devant $x$ juste avant la division finale n'a pas été vérifié (positif ou négatif).",
+          "comment_eviter": "S'arrêter systématiquement juste avant la dernière division pour regarder le signe du coefficient de $x$."
+        },
+        {
+          "description": "Développe la parenthèse en faisant attention au signe négatif.",
+          "pourquoi": "Un signe moins devant une parenthèse doit être distribué à chacun de ses termes, ce qui est parfois oublié pour le second terme.",
+          "comment_detecter": "Un des deux termes de la parenthèse développée n'a pas changé de signe alors que l'autre si.",
+          "comment_eviter": "Réécrire le signe moins comme une multiplication par $-1$ avant de distribuer à chaque terme de la parenthèse."
+        },
+        {
+          "description": "Développe la parenthèse en faisant attention aux signes.",
+          "pourquoi": "Plusieurs parenthèses à développer dans la même inéquation augmentent le risque d'erreur de signe sur l'une d'elles.",
+          "comment_detecter": "En redéveloppant séparément chaque parenthèse, le résultat obtenu diffère de celui utilisé dans la résolution.",
+          "comment_eviter": "Développer et vérifier chaque parenthèse une par une, avant de continuer la résolution."
+        }
+      ],
       "astuce": "Retranche 3 puis divise par $-2$ : n'oublie pas de changer le sens.",
       "aRetenir": [
         "Ajoute $2x$ aux deux membres pour regrouper l'inconnue.",
@@ -386,11 +434,7 @@
         },
         "alt": "Solution de l'inéquation x + 5 > 11 : tous les nombres strictement supérieurs à 6."
       },
-      "quizExerciseIds": [
-        571,
-        572,
-        573
-      ],
+      "quizExerciseIds": [571, 572, 573],
       "topic_id": "resoudre-une-inequation-du-premier-degre",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -401,11 +445,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "resoudre",
-        "inequation",
-        "premier",
-        "degre"
+      "tags": ["resoudre", "inequation", "premier", "degre"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "ineq-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Une inéquation où il faut diviser par un nombre négatif",
+          "description": "Un exemple complet qui montre précisément quand et pourquoi le sens de l'inégalité change."
+        },
+        {
+          "id": "ineq-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Une inéquation avec $x$ des deux côtés",
+          "description": "Un cas plus long qui combine regroupement des termes et division par un nombre négatif."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Si $-2x \\geqslant 6$, que devient l'inégalité une fois divisée par $-2$ ?",
+          "piste": "On divise par un nombre négatif : le sens change, donc $x \\leqslant -3$."
+        }
       ]
     },
     {
@@ -472,7 +535,8 @@
           ],
           "reponse": "$x = 5$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x = 5$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-546",
@@ -491,7 +555,8 @@
           ],
           "reponse": "$x = 1$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x = 1$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-552",
@@ -510,7 +575,8 @@
           ],
           "reponse": "$x = 7$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x = 7$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-558",
@@ -533,17 +599,29 @@
           ],
           "reponse": "$x = 4$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $x = 4$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Attention, ici le terme en $x$ est précédé d'un signe moins.",
         "Développe la parenthèse en faisant attention aux signes."
       ],
-      "erreursFrequentesDetail": [],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Attention, ici le terme en $x$ est précédé d'un signe moins.",
+          "pourquoi": "Quand on fait passer un terme négatif de l'autre côté du signe $=$, il est facile d'oublier de changer son signe.",
+          "comment_detecter": "En remplaçant $x$ par la solution trouvée dans l'équation de départ, les deux membres ne sont pas égaux.",
+          "comment_eviter": "Toujours écrire explicitement l'opération appliquée aux deux membres (« on ajoute », « on retranche »), jamais seulement déplacer un terme de tête."
+        },
+        {
+          "description": "Développe la parenthèse en faisant attention aux signes.",
+          "pourquoi": "Un facteur devant une parenthèse (surtout négatif) doit être distribué à chacun des termes qu'elle contient.",
+          "comment_detecter": "Un seul des deux termes de la parenthèse a été multiplié par le facteur extérieur.",
+          "comment_eviter": "Développer complètement chaque parenthèse avant de commencer à regrouper les termes en $x$."
+        }
+      ],
       "astuce": "Pour bien retenir une méthode, refais-la sur un exemple très simple avant de l'appliquer à un exercice plus compliqué.",
       "aRetenir": [
         "Ajoute $3x$ aux deux membres pour regrouper l'inconnue d'un seul côté.",
@@ -554,11 +632,7 @@
         "Regroupe d'abord les $x$ en retranchant $4x$ aux deux membres."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        541,
-        542,
-        543
-      ],
+      "quizExerciseIds": [541, 542, 543],
       "topic_id": "resoudre-une-equation-du-premier-degre",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -569,11 +643,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "resoudre",
-        "equation",
-        "premier",
-        "degre"
+      "tags": ["resoudre", "equation", "premier", "degre"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "eq-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Une équation avec $x$ des deux côtés",
+          "description": "Un exemple complet qui montre comment regrouper tous les termes en $x$ d'un seul côté."
+        },
+        {
+          "id": "eq-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Une équation avec des coefficients décimaux",
+          "description": "Le même raisonnement appliqué à des nombres à virgule, pour vérifier qu'il fonctionne toujours."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Dans l'équation $3x - 5 = 2x + 2$, quelle opération permet de regrouper les $x$ d'un seul côté ?",
+          "piste": "On retranche $2x$ aux deux membres : $3x-2x-5=2$, soit $x-5=2$."
+        }
       ]
     }
   ]

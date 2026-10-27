@@ -151,6 +151,10 @@ def _exercise_fallback(chapter_id, user_message, class_level=None):
         )
         if results:
             return results[0]
+    # Sans mot de sujet (« ne fait pas », « c'est faux ? »), la recherche libre
+    # ne trouverait qu'un exercice sans rapport : clarification neutre.
+    if not search_service.has_topic_word(user_message):
+        return None
     results = search_service.search(
         user_message, scope=[search_service.SCOPE_EXERCICES], limit=1, class_level=class_level,
     )

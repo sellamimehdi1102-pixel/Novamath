@@ -71,7 +71,8 @@
           ],
           "reponse": "$-8$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-8$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-156",
@@ -94,7 +95,8 @@
           ],
           "reponse": "$-6$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-6$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-162",
@@ -117,7 +119,8 @@
           ],
           "reponse": "$-11$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-11$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-168",
@@ -140,12 +143,11 @@
           ],
           "reponse": "$-15,6$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-15,6$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Oublier de transformer une soustraction en addition de l'opposé, et se tromper de signe en calculant directement $a - (-b)$.",
         "Additionner les distances à zéro au lieu de les soustraire lorsque les deux nombres ont des signes différents.",
@@ -180,12 +182,53 @@
         "Calcule d'abord le contenu de chaque parenthèse avant de t'occuper des additions et soustractions restantes.",
         "Quand les deux nombres ont le même signe, on additionne leurs distances à zéro et on garde ce signe commun."
       ],
-      "figure": null,
-      "quizExerciseIds": [
-        151,
-        152,
-        153
-      ],
+      "figure": {
+        "kind": "numberline",
+        "min": -8,
+        "max": 8,
+        "marks": [
+          {
+            "value": -3,
+            "label": "-3",
+            "filled": true
+          },
+          {
+            "value": 0,
+            "label": "0",
+            "filled": true
+          },
+          {
+            "value": 5,
+            "label": "+5",
+            "filled": false
+          },
+          {
+            "value": 2,
+            "label": "-3+5=2",
+            "filled": true
+          }
+        ],
+        "alt": "Sur la droite graduée, partir de -3 et avancer de 5 (flèche vers la droite) amène en 2.",
+        "explication": {
+          "comprendre": "Additionner un nombre positif, c'est avancer vers la droite sur la droite graduée ; additionner un nombre négatif, c'est reculer vers la gauche.",
+          "etapes": [
+            {
+              "titre": "Point de départ",
+              "texte": "On se place au point $-3$."
+            },
+            {
+              "titre": "Déplacement",
+              "texte": "Ajouter $+5$ fait avancer de $5$ graduations vers la droite."
+            },
+            {
+              "titre": "Arrivée",
+              "texte": "On arrive en $2$, donc $-3+5=2$."
+            }
+          ],
+          "resume": "Chaque addition est un déplacement sur la droite graduée : vers la droite pour un nombre positif, vers la gauche pour un nombre négatif."
+        }
+      },
+      "quizExerciseIds": [151, 152, 153],
       "topic_id": "addition-et-soustraction-de-nombres-relatifs",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -196,11 +239,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "addition",
-        "soustraction",
-        "nombres",
-        "relatifs"
+      "tags": ["addition", "soustraction", "nombres", "relatifs"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "add-sous-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Une somme algébrique à 4 termes",
+          "description": "Un exemple complet avec plusieurs soustractions à transformer avant de regrouper les termes."
+        },
+        {
+          "id": "add-sous-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Un calcul avec des nombres décimaux relatifs",
+          "description": "La même méthode appliquée à des nombres à virgule, pour vérifier qu'elle fonctionne dans tous les cas."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "$5 - (-2)$ est-il égal à $5 - 2$ ou à $5 + 2$ ?",
+          "piste": "Soustraire un nombre négatif revient toujours à ajouter son opposé : $5-(-2) = 5+2 = 7$."
+        }
       ]
     },
     {
@@ -266,7 +328,8 @@
           ],
           "reponse": "$-20$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-20$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-186",
@@ -289,7 +352,8 @@
           ],
           "reponse": "$30$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $30$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-192",
@@ -312,7 +376,8 @@
           ],
           "reponse": "$-24$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-24$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-198",
@@ -335,12 +400,11 @@
           ],
           "reponse": "$-120$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-120$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
-      "exemplesConcrets": [
-        "de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"
-      ],
+      "exemplesConcrets": ["de nombreux problèmes de la vie courante qui se ramènent à ce type de calcul"],
       "erreursFrequentes": [
         "Oublier de compter le nombre de facteurs négatifs et se tromper de signe dans un produit de plusieurs facteurs.",
         "Additionner les signes au lieu d'appliquer la règle des signes (par exemple penser que $(-) \\times (-) \\times (-)$ donne un résultat positif).",
@@ -376,11 +440,7 @@
         "Compte soigneusement le nombre de facteurs négatifs avant de multiplier les distances à zéro."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        181,
-        182,
-        183
-      ],
+      "quizExerciseIds": [181, 182, 183],
       "topic_id": "multiplication-et-division-de-nombres-relatifs",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -391,11 +451,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "multiplication",
-        "division",
-        "nombres",
-        "relatifs"
+      "tags": ["multiplication", "division", "nombres", "relatifs"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "mult-div-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Un produit de trois facteurs négatifs",
+          "description": "Un exemple qui montre comment compter les facteurs négatifs quand il y en a plus de deux."
+        },
+        {
+          "id": "mult-div-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Un produit de quatre facteurs mélangeant signes et valeurs",
+          "description": "Un calcul complet combinant plusieurs facteurs positifs et négatifs, pour s'entraîner sur un cas réaliste."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Le produit $(-1)\\times(-1)\\times(-1)\\times(-1)\\times(-1)$ est-il positif ou négatif ?",
+          "piste": "Compte le nombre de facteurs négatifs : il y en a $5$, un nombre impair, donc le résultat est négatif."
+        }
       ]
     },
     {
@@ -466,7 +545,8 @@
           ],
           "reponse": "$-8$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-8$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-216",
@@ -489,7 +569,8 @@
           ],
           "reponse": "$16$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $16$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-222",
@@ -512,7 +593,8 @@
           ],
           "reponse": "$-\\dfrac{1}{8}$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $-\\dfrac{1}{8}$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-228",
@@ -535,7 +617,8 @@
           ],
           "reponse": "$\\dfrac{1}{25}$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $\\dfrac{1}{25}$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -578,11 +661,7 @@
         "Calcule d'abord le contenu des crochets, puis les puissances restantes, dans l'ordre des priorités."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        211,
-        212,
-        213
-      ],
+      "quizExerciseIds": [211, 212, 213],
       "topic_id": "puissances-d-un-nombre-relatif",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -593,10 +672,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "puissances",
-        "nombre",
-        "relatif"
+      "tags": ["puissances", "nombre", "relatif"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "puiss-rel-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Un exposant négatif",
+          "description": "Comment transformer un exposant négatif en inverse d'une puissance positive, étape par étape."
+        },
+        {
+          "id": "puiss-rel-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Un exposant négatif avec une base plus grande",
+          "description": "Le même raisonnement appliqué à une base différente, pour vérifier que la méthode est bien comprise."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "$-2^2$ et $(-2)^2$ donnent-ils le même résultat ?",
+          "piste": "Non : $-2^2=-4$ (seul le $2$ est élevé au carré), alors que $(-2)^2=4$ (c'est tout $-2$ qui est élevé au carré)."
+        }
       ]
     },
     {
@@ -658,7 +757,8 @@
           ],
           "reponse": "$10\\,000$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $10\\,000$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-246",
@@ -681,7 +781,8 @@
           ],
           "reponse": "$4\\,000$",
           "conclusion": "Nous avons ainsi obtenu le résultat : $4\\,000$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-252",
@@ -704,7 +805,8 @@
           ],
           "reponse": "$1,5 \\times 10^8$ km",
           "conclusion": "Nous avons ainsi obtenu le résultat : $1,5 \\times 10^8$ km",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-258",
@@ -727,7 +829,8 @@
           ],
           "reponse": "$5,97 \\times 10^{24}$ kg",
           "conclusion": "Nous avons ainsi obtenu le résultat : $5,97 \\times 10^{24}$ kg",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
         }
       ],
       "exemplesConcrets": [
@@ -770,11 +873,7 @@
         "Déplace la virgule jusqu'à obtenir un nombre compris entre $1$ et $10$, et compte les rangs de déplacement."
       ],
       "figure": null,
-      "quizExerciseIds": [
-        241,
-        242,
-        243
-      ],
+      "quizExerciseIds": [241, 242, 243],
       "topic_id": "puissances-de-10-et-ecriture-scientifique",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -785,10 +884,30 @@
       "prerequis": [],
       "notions_liees": [],
       "difficulte": "facile",
-      "tags": [
-        "puissances",
-        "ecriture",
-        "scientifique"
+      "tags": ["puissances", "ecriture", "scientifique"],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "apercus": [
+        {
+          "id": "ecr-sci-premium-1",
+          "section": "exemples",
+          "niveau": "premium",
+          "titre": "Écrire une très grande distance en écriture scientifique",
+          "description": "Un exemple complet sur un nombre à neuf chiffres, pour bien compter les rangs de déplacement de la virgule."
+        },
+        {
+          "id": "ecr-sci-ultra-1",
+          "section": "exemples",
+          "niveau": "ultra",
+          "titre": "Écrire un nombre extrêmement grand (masse de la Terre)",
+          "description": "Un exemple avec un très grand nombre de chiffres, pour s'entraîner sur un cas proche de ceux rencontrés en sciences."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "methode",
+          "question": "Dans l'écriture scientifique $7{,}2 \\times 10^{-5}$, le nombre est-il grand ou petit ?",
+          "piste": "Un exposant négatif signifie qu'on a déplacé la virgule vers la gauche à partir d'un petit nombre : $7{,}2\\times10^{-5}$ est un nombre très petit (proche de zéro)."
+        }
       ]
     }
   ]

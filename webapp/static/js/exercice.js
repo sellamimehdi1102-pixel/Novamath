@@ -1,7 +1,7 @@
 import { api } from "./api.js";
 import { initSettingsManager, getSettings, onSettingsChange } from "./settingsManager.js";
 import { bindSettingsButton } from "./settingsPopup.js";
-import { setMathContent } from "./mathrender.js";
+import { setMathContent, formatStepLabels } from "./mathrender.js";
 import { fireConfetti, shakeElement, fadeInTransition } from "./animations.js";
 import {
   recordAnswer,
@@ -20,6 +20,23 @@ import { ICONS } from "./icons.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
 import { openReportTicketPopup } from "./supportTicket.js";
 import { DIFF_EMOJI, DIFF_LABEL_SHORT, DIFF_BADGE } from "./difficultyLevels.js";
+import { getChapterTitles } from "./seriesview.js";
+
+// Titres pédagogiques des chapitres de la classe active (2026-10-24) : la
+// pastille et le récapitulatif affichaient l'identifiant technique brut
+// (« Chapitre_8 »). Repli « Chapitre 8 » tant que les titres ne sont pas
+// chargés ou si la requête échoue.
+let chapterTitles = {};
+function chapterName(chapterId) {
+  if (!chapterId) return "";
+  return chapterTitles[chapterId] || chapterId.replace(/_/g, " ");
+}
+getChapterTitles()
+  .then((titles) => {
+    chapterTitles = titles || {};
+    if (current) $("ex-chapter-badge").textContent = chapterName(current.chapter_id);
+  })
+  .catch(() => {});
 
 const settingsManagerReady = initSettingsManager();
 settingsManagerReady.then(() => bindLiveTranslations());
@@ -449,7 +466,7 @@ function renderExercise() {
   $("series-progress-fill").style.width = `${(seriesIndex / SERIES_TOTAL) * 100}%`;
   renderSeriesDots();
 
-  $("ex-chapter-badge").textContent = current.chapter_id;
+  $("ex-chapter-badge").textContent = chapterName(current.chapter_id);
   $("ex-notion-badge").textContent = current.notion || "";
   $("ex-xp-badge").textContent = `+${DIFF_XP[current.difficulty] || 10} XP`;
   const diffBadge = $("ex-difficulty-badge");
@@ -678,13 +695,13 @@ function showRecap(record) {
   renderRecapIcon(record);
   $("recap-title").textContent = record.score >= record.total * 0.7 ? "Belle série !" : "Série terminée";
   $("recap-sub").textContent =
-    `Mode : ${record.mode}${record.chapterId ? " · " + record.chapterId : ""}${record.notion ? " · " + record.notion : ""}`;
+    `Mode : ${record.mode}${record.chapterId ? " · " + chapterName(record.chapterId) : ""}${record.notion ? " · " + record.notion : ""}`;
   $("recap-score").textContent = `${record.score}/${record.total}`;
   $("recap-accuracy").textContent = `${record.accuracy}%`;
   const minutes = Math.round(record.durationTotal_s / 60);
   $("recap-time").textContent = minutes >= 1 ? `${minutes} min` : `${record.durationTotal_s} s`;
 
-  const notions = [...new Set(record.questions.map((q) => `${q.chapter} : ${q.notion}`))];
+  const notions = [...new Set(record.questions.map((q) => `${chapterName(q.chapter)} : ${q.notion}`))];
   $("recap-notions").innerHTML = notions.length
     ? `<strong>Notions travaillées :</strong><br>${notions.map((n) => `<span class="badge badge--neutral" style="margin:4px 4px 0 0; display:inline-block;">${n}</span>`).join("")}`
     : "";
@@ -769,7 +786,7 @@ function showMethod() {
   const steps = current.solution_steps || [];
   const el = $("ex-method");
   if (steps.length) {
-    el.innerHTML = `<strong>Méthode :</strong><ol>${steps.map((s) => `<li>${s}</li>`).join("")}</ol>`;
+    el.innerHTML = `<strong>Méthode :</strong><ol>${steps.map((s) => `<li>${formatStepLabels(s)}</li>`).join("")}</ol>`;
   } else {
     el.innerHTML = "Aucune méthode détaillée disponible pour cet exercice.";
   }

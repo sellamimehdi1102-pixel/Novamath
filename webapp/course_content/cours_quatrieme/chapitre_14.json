@@ -1,0 +1,1627 @@
+{
+  "chapterId": "Chapitre_14",
+  "title": "Proportionnalité et grandeurs composées",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "proportionnalite-quatrieme",
+      "title": "Calculer une quatrième proportionnelle",
+      "schemaVersion": 2,
+      "intro": "Dans une situation de proportionnalité, connaître trois valeurs suffit pour calculer la quatrième. Cette leçon rassemble les procédures possibles et leurs applications : recettes, prix, échelles et pourcentages.",
+      "pourquoi": "La quatrième proportionnelle est l'outil le plus utilisé en mathématiques appliquées : adapter une recette, calculer un prix, lire une carte, appliquer une remise ou une augmentation.",
+      "explicationSimple": "$8$ briques pèsent $13{,}6$ kg. Une brique pèse donc $13{,}6 \\div 8 = 1{,}7$ kg, et $6$ briques pèsent $6 \\times 1{,}7 = 10{,}2$ kg.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer une quatrième proportionnelle par la procédure de ton choix (passage à l'unité, coefficient, produit en croix, combinaison), appliquer une échelle et calculer ou appliquer un pourcentage.",
+      "definition": "Deux grandeurs sont proportionnelles si l'on obtient les valeurs de l'une en multipliant celles de l'autre par un même nombre non nul, appelé coefficient de proportionnalité. Dans un tableau de proportionnalité à deux colonnes $\\begin{array}{c|c} a & c \\\\ b & d \\end{array}$, les produits en croix sont égaux : $a \\times d = b \\times c$. On en déduit la quatrième proportionnelle : $d = \\dfrac{b \\times c}{a}$.",
+      "definitions": {
+        "college": "Deux grandeurs sont proportionnelles quand on passe de l'une à l'autre en multipliant toujours par le même nombre. Si trois valeurs sont connues, on calcule la quatrième.",
+        "lycee": "Deux grandeurs sont proportionnelles si l'on obtient les valeurs de l'une en multipliant celles de l'autre par un même nombre non nul, appelé coefficient de proportionnalité. Dans un tableau de proportionnalité à deux colonnes $\\begin{array}{c|c} a & c \\\\ b & d \\end{array}$, les produits en croix sont égaux : $a \\times d = b \\times c$. On en déduit la quatrième proportionnelle : $d = \\dfrac{b \\times c}{a}$."
+      },
+      "intuition": "Dans une situation de proportionnalité, « deux fois plus » d'une grandeur donne « deux fois plus » de l'autre ; « la moitié » donne « la moitié ». Toutes les procédures exploitent cette règle.",
+      "reglesImportantes": [
+        "Passage à l'unité : on calcule la valeur pour $1$, puis on multiplie.",
+        "Coefficient : on cherche le nombre $k$ par lequel on multiplie une ligne pour obtenir l'autre.",
+        "Produit en croix : si $\\dfrac{a}{b} = \\dfrac{c}{d}$, alors $d = \\dfrac{b \\times c}{a}$.",
+        "Échelle : distance sur le plan $=$ échelle $\\times$ distance réelle, dans la même unité.",
+        "Pourcentage : prendre $t\\,\\%$ d'une quantité, c'est la multiplier par $\\dfrac{t}{100}$ ; augmenter de $t\\,\\%$, c'est multiplier par $1 + \\dfrac{t}{100}$ ; diminuer de $t\\,\\%$, c'est multiplier par $1 - \\dfrac{t}{100}$."
+      ],
+      "formules": [
+        {
+          "id": "formule-produit-en-croix",
+          "nom": "Quatrième proportionnelle",
+          "expression": "$\\dfrac{a}{b} = \\dfrac{c}{d} \\Rightarrow d = \\dfrac{b \\times c}{a}$",
+          "quand_utiliser": "Pour calculer une valeur manquante dans un tableau de proportionnalité.",
+          "erreur_frequente": "Multiplier les deux mauvaises cases.",
+          "astuce": "Les deux nombres multipliés sont en diagonale ; on divise par le troisième."
+        },
+        {
+          "id": "formule-pourcentage",
+          "nom": "Pourcentage",
+          "expression": "$t\\,\\%$ de $Q = \\dfrac{t}{100} \\times Q$",
+          "quand_utiliser": "Pour prendre une part exprimée en pourcentage.",
+          "erreur_frequente": "Diviser par $t$ au lieu de multiplier par $\\dfrac{t}{100}$.",
+          "astuce": "$10\\,\\%$, c'est diviser par $10$ ; $50\\,\\%$, c'est prendre la moitié."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer une quatrième proportionnelle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je vérifie que la situation est bien de proportionnalité."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je range les trois valeurs connues dans un tableau à deux colonnes, avec les unités."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je choisis une procédure : passage à l'unité, coefficient, produit en croix ou combinaison de colonnes."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle l'ordre de grandeur du résultat et je conclus avec l'unité."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je vérifie que la situation est bien de proportionnalité."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je range les trois valeurs connues dans un tableau à deux colonnes, avec les unités."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je choisis une procédure : passage à l'unité, coefficient, produit en croix ou combinaison de colonnes."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle l'ordre de grandeur du résultat et je conclus avec l'unité."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je cherche combien vaut « une » unité (une brique, un kilo, un litre)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je divise pour trouver la valeur d'une unité."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je multiplie par le nombre d'unités demandé."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que le résultat est raisonnable."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$d = \\dfrac{b \\times c}{a}$ ou passage à l'unité."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Pourcentage : $\\times \\dfrac{t}{100}$ ; hausse : $\\times\\left(1 + \\dfrac{t}{100}\\right)$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-briques",
+          "titre": "Exemple 1 — Les briques",
+          "enonce": "Huit briques identiques pèsent $13{,}6$ kg. Calculer la masse de six de ces briques.",
+          "calcul": [
+            {
+              "expr": "13{,}6 \\div 8 = 1{,}7 \\text{ kg}",
+              "texte": "Une brique pèse :"
+            },
+            {
+              "expr": "6 \\times 1{,}7 = 10{,}2 \\text{ kg}",
+              "texte": "Six briques pèsent :"
+            }
+          ],
+          "reponse": "Six briques pèsent $10{,}2$ kg.",
+          "conclusion": "Contrôle : six briques, c'est un peu moins que huit, donc un peu moins de $13{,}6$ kg.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-pourcentage",
+          "titre": "Exemple 2 — Appliquer un pourcentage",
+          "enonce": "Un jean coûte $64$ €. Il est soldé à $-25\\,\\%$. Quel est son nouveau prix ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{25}{100} \\times 64 = 16 \\text{ euros}",
+              "texte": "Remise :"
+            },
+            {
+              "expr": "64 - 16 = 48 \\text{ euros}",
+              "texte": "Nouveau prix :"
+            }
+          ],
+          "reponse": "Le jean coûte $48$ €.",
+          "conclusion": "Autre méthode : $64 \\times 0{,}75 = 48$ (on paie $75\\,\\%$ du prix).",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-echelle",
+          "titre": "Exemple 3 — Une échelle",
+          "enonce": "Sur une carte à l'échelle $\\dfrac{1}{25\\,000}$, deux villages sont distants de $7{,}2$ cm. Quelle est la distance réelle, en km ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$1$ cm sur la carte représente $25\\,000$ cm en réalité."
+            },
+            {
+              "expr": "7{,}2 \\times 25\\,000 = 180\\,000 \\text{ cm}",
+              "texte": "Distance réelle :"
+            },
+            {
+              "expr": "",
+              "texte": "$180\\,000$ cm $= 1\\,800$ m $= 1{,}8$ km."
+            }
+          ],
+          "reponse": "Les villages sont à $1{,}8$ km l'un de l'autre.",
+          "conclusion": "Une échelle est un coefficient de proportionnalité entre distances sur la carte et distances réelles.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-calculer-pourcentage",
+          "titre": "Exemple 4 — Calculer un pourcentage",
+          "enonce": "Dans un collège de $480$ élèves, $132$ pratiquent un sport en club. Quel pourcentage des élèves cela représente-t-il ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{132}{480} = 0{,}275",
+              "texte": "Proportion :"
+            },
+            {
+              "expr": "0{,}275 \\times 100 = 27{,}5",
+              "texte": "En pourcentage :"
+            }
+          ],
+          "reponse": "$27{,}5\\,\\%$ des élèves pratiquent un sport en club.",
+          "conclusion": "Un pourcentage est une proportion écrite avec le dénominateur $100$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-evolutions-successives",
+          "titre": "Exemple 5 — Deux évolutions successives",
+          "enonce": "Un prix de $200$ € augmente de $10\\,\\%$, puis le nouveau prix baisse de $10\\,\\%$. Revient-on au prix de départ ?",
+          "calcul": [
+            {
+              "expr": "200 \\times 1{,}1 = 220 \\text{ euros}",
+              "texte": "Après la hausse :"
+            },
+            {
+              "expr": "220 \\times 0{,}9 = 198 \\text{ euros}",
+              "texte": "Après la baisse :"
+            },
+            {
+              "expr": "",
+              "texte": "$198 \\neq 200$ : la baisse porte sur un prix plus grand, elle retire $22$ € au lieu de $20$ €."
+            }
+          ],
+          "reponse": "Non : le prix final est $198$ €, soit $1\\,\\%$ de moins qu'au départ.",
+          "conclusion": "Les pourcentages successifs se multiplient ($1{,}1 \\times 0{,}9 = 0{,}99$), ils ne s'additionnent pas.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Adapter une recette au nombre d'invités.",
+        "Calculer un prix soldé ou une augmentation.",
+        "Lire une distance sur une carte."
+      ],
+      "erreursFrequentes": [
+        "Utiliser la proportionnalité dans une situation qui n'en est pas une.",
+        "Se tromper dans le produit en croix.",
+        "Mélanger les unités dans une échelle.",
+        "Additionner des pourcentages successifs."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Utiliser la proportionnalité dans une situation qui n'en est pas une.",
+          "pourquoi": "On applique un réflexe sans vérifier.",
+          "comment_detecter": "L'âge et la taille, le prix d'un forfait avec abonnement : est-ce « deux fois plus pour deux fois plus » ?",
+          "comment_eviter": "Vérifie toujours d'abord que la situation est de proportionnalité."
+        },
+        {
+          "description": "Se tromper dans le produit en croix.",
+          "pourquoi": "On multiplie deux nombres de la même colonne.",
+          "comment_detecter": "Le résultat est-il de l'ordre de grandeur attendu ?",
+          "comment_eviter": "Écris le tableau avec les unités ; multiplie en diagonale, divise par le nombre restant."
+        },
+        {
+          "description": "Mélanger les unités dans une échelle.",
+          "pourquoi": "On compare des cm avec des km.",
+          "comment_detecter": "Les deux distances sont-elles dans la même unité ?",
+          "comment_eviter": "Convertis tout dans la même unité avant d'appliquer l'échelle."
+        },
+        {
+          "description": "Additionner des pourcentages successifs.",
+          "pourquoi": "On croit que $+10\\,\\%$ puis $-10\\,\\%$ se compensent.",
+          "comment_detecter": "Le second pourcentage porte-t-il sur la même quantité ?",
+          "comment_eviter": "Multiplie les coefficients : $1{,}1 \\times 0{,}9 = 0{,}99$."
+        }
+      ],
+      "astuce": "Pour un calcul mental, combine les colonnes : si $8$ objets coûtent $12$ €, alors $4$ coûtent $6$ € (moitié) et $12$ coûtent $12 + 6 = 18$ €.",
+      "aRetenir": [
+        "Plusieurs procédures : unité, coefficient, produit en croix, combinaisons.",
+        "$t\\,\\%$ de $Q$ : $\\dfrac{t}{100} \\times Q$.",
+        "Hausse de $t\\,\\%$ : $\\times\\left(1 + \\dfrac{t}{100}\\right)$ ; baisse : $\\times\\left(1 - \\dfrac{t}{100}\\right)$."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "8 briques → 13,6 kg",
+            "sousTitre": "Donnée"
+          },
+          {
+            "titre": "1 brique → 1,7 kg",
+            "sousTitre": "÷ 8 (passage à l'unité)"
+          },
+          {
+            "titre": "6 briques → 10,2 kg",
+            "sousTitre": "× 6"
+          }
+        ],
+        "steps": [
+          "La donnée",
+          "Une brique",
+          "Six briques"
+        ],
+        "relation": "$\\dfrac{13{,}6}{8} \\times 6 = 1{,}7 \\times 6 = 10{,}2$ kg, ou directement $6 \\times 13{,}6 \\div 8 = 10{,}2$ kg",
+        "alt": "Chaîne : 8 briques pèsent 13,6 kg, donc une brique pèse 1,7 kg, donc 6 briques pèsent 10,2 kg.",
+        "explication": {
+          "resume": "Quand deux grandeurs sont proportionnelles, on peut calculer une valeur manquante (une quatrième proportionnelle) par la procédure de son choix : passage à l'unité, coefficient, produit en croix, combinaison de colonnes.",
+          "lecture": [
+            "Chaque case associe un nombre de briques et une masse.",
+            "On lit la chaîne de gauche à droite."
+          ],
+          "observations": [
+            "Diviser par $8$ donne la masse d'une brique : $1{,}7$ kg.",
+            "Multiplier par $6$ donne la masse de six briques : $10{,}2$ kg.",
+            "Autre procédure : $6$ briques $= 8$ briques $- 2$ briques, soit $13{,}6 - 3{,}4 = 10{,}2$ kg."
+          ],
+          "pieges": [
+            "Soustraire au lieu de diviser : $8 - 2 = 6$ briques ne donne pas $13{,}6 - 2$ kg."
+          ],
+          "aRetenir": [
+            "Passage à l'unité : diviser, puis multiplier.",
+            "Toutes les procédures justes donnent le même résultat."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        54101,
+        54102,
+        54104
+      ],
+      "topic_id": "proportionnalite-quatrieme",
+      "proprietes": [
+        "Dans un tableau de proportionnalité, les produits en croix sont égaux."
+      ],
+      "vocabulaire_associe": [
+        "proportionnalité",
+        "coefficient",
+        "quatrième proportionnelle",
+        "produit en croix",
+        "échelle",
+        "pourcentage"
+      ],
+      "synonymes": [
+        "règle de trois",
+        "produit en croix",
+        "pourcentage d'une quantité"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer une quatrième proportionnelle.",
+        "Utiliser une échelle.",
+        "Appliquer et calculer un pourcentage.",
+        "Enchaîner deux évolutions en pourcentage."
+      ],
+      "prerequis": [
+        "Fractions : multiplier et diviser",
+        "Proportionnalité (5e)"
+      ],
+      "notions_liees": [
+        "proportionnalite-reconnaitre",
+        "proportionnalite-formules"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "proportionnalité",
+        "pourcentages",
+        "échelle",
+        "quatrième proportionnelle"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proportionnalite-quatrieme-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Échelle et pourcentage d'un effectif",
+          "description": "Deux exemples rédigés : calculer une distance réelle à partir d'une carte, et exprimer une proportion en pourcentage."
+        },
+        {
+          "id": "proportionnalite-quatrieme-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Deux évolutions successives",
+          "description": "Un exemple qui montre qu'une hausse puis une baisse de $10\\,\\%$ ne se compensent pas."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien pèsent $12$ briques ?",
+          "piste": "$12 \\times 1{,}7 = 20{,}4$ kg."
+        },
+        {
+          "apres": "methode",
+          "question": "Combien font $30\\,\\%$ de $250$ ?",
+          "piste": "$0{,}3 \\times 250 = 75$."
+        }
+      ]
+    },
+    {
+      "id": "proportionnalite-reconnaitre",
+      "title": "Reconnaître une situation de proportionnalité",
+      "schemaVersion": 2,
+      "intro": "Toutes les situations ne sont pas de proportionnalité. Avant d'utiliser un produit en croix, il faut savoir reconnaître la proportionnalité, dans un tableau ou sur un graphique.",
+      "pourquoi": "Appliquer la proportionnalité à tort conduit à des résultats faux : un forfait avec abonnement, la taille en fonction de l'âge ou le périmètre d'un carré en fonction de son aire ne sont pas proportionnels.",
+      "explicationSimple": "Le prix de pommes à $1{,}50$ € le kilo est proportionnel à la masse : $2$ kg coûtent $3$ €, $4$ kg coûtent $6$ €. Un taxi qui facture $3$ € de prise en charge plus $0{,}50$ € par km n'est pas proportionnel : $0$ km coûte déjà $3$ €.",
+      "objectif": "À la fin de cette leçon, tu sauras reconnaître une situation de proportionnalité dans un tableau (même quotient dans chaque colonne) et sur un graphique (points alignés avec l'origine), et déterminer le coefficient.",
+      "definition": "Un tableau de valeurs est un tableau de proportionnalité si les quotients $\\dfrac{y}{x}$ de chaque colonne sont tous égaux ; ce quotient commun est le coefficient de proportionnalité. Dans un repère, une situation est de proportionnalité si et seulement si les points qui la représentent sont alignés avec l'origine du repère.",
+      "definitions": {
+        "college": "On reconnaît la proportionnalité quand on multiplie toujours par le même nombre pour passer d'une ligne à l'autre du tableau. Sur un graphique, les points sont sur une droite qui passe par l'origine.",
+        "lycee": "Un tableau de valeurs est un tableau de proportionnalité si les quotients $\\dfrac{y}{x}$ de chaque colonne sont tous égaux ; ce quotient commun est le coefficient de proportionnalité. Dans un repère, une situation est de proportionnalité si et seulement si les points qui la représentent sont alignés avec l'origine du repère."
+      },
+      "intuition": "Dans une situation de proportionnalité, « rien » donne « rien » : $0$ kg coûte $0$ €. C'est pourquoi la droite passe par l'origine.",
+      "reglesImportantes": [
+        "Dans un tableau, on calcule les quotients $\\dfrac{y}{x}$ de toutes les colonnes : s'ils sont égaux, c'est un tableau de proportionnalité.",
+        "Un seul quotient différent suffit pour conclure que ce n'est pas un tableau de proportionnalité.",
+        "Sur un graphique, une situation de proportionnalité est représentée par des points alignés avec l'origine.",
+        "Des points alignés sur une droite qui ne passe pas par l'origine ne représentent PAS une situation de proportionnalité.",
+        "Le coefficient de proportionnalité se lit sur le graphique : c'est la valeur de $y$ quand $x = 1$."
+      ],
+      "formules": [
+        {
+          "id": "formule-meme-quotient",
+          "nom": "Même quotient dans chaque colonne",
+          "expression": "$\\dfrac{y_1}{x_1} = \\dfrac{y_2}{x_2} = \\ldots = k$",
+          "quand_utiliser": "Pour tester un tableau de valeurs.",
+          "erreur_frequente": "Vérifier seulement deux colonnes sur cinq.",
+          "astuce": "Calcule tous les quotients, ou repère une colonne qui fait exception."
+        },
+        {
+          "id": "formule-graphique-origine",
+          "nom": "Critère graphique",
+          "expression": "proportionnalité $\\iff$ points alignés avec l'origine",
+          "quand_utiliser": "Pour lire une situation sur un graphique.",
+          "erreur_frequente": "Oublier la condition « avec l'origine ».",
+          "astuce": "Prolonge la droite : passe-t-elle par $O$ ?"
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Reconnaître la proportionnalité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Dans un tableau, je calcule le quotient $\\dfrac{y}{x}$ de chaque colonne."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je compare : tous égaux, c'est de la proportionnalité ; un seul différent, ce n'est pas le cas."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Sur un graphique, je vérifie que les points sont alignés ET que la droite passe par l'origine."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je conclus en donnant le coefficient s'il existe."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Dans un tableau, je calcule le quotient $\\dfrac{y}{x}$ de chaque colonne."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je compare : tous égaux, c'est de la proportionnalité ; un seul différent, ce n'est pas le cas."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Sur un graphique, je vérifie que les points sont alignés ET que la droite passe par l'origine."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je conclus en donnant le coefficient s'il existe."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je divise le nombre du bas par celui du haut dans chaque colonne."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je regarde si je trouve toujours le même résultat."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Sur un graphique : les points sont-ils sur une droite qui part de $O$ ?"
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris ma conclusion par une phrase."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Quotients $\\dfrac{y}{x}$ tous égaux ?"
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Graphique : droite passant par l'origine."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-tableau-oui",
+          "titre": "Exemple 1 — Un tableau de proportionnalité",
+          "enonce": "Le tableau donne le prix payé en fonction de la masse de cerises : $2$ kg → $9$ € ; $3$ kg → $13{,}5$ € ; $5$ kg → $22{,}5$ €. Est-ce une situation de proportionnalité ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{9}{2} = 4{,}5 \\quad \\dfrac{13{,}5}{3} = 4{,}5 \\quad \\dfrac{22{,}5}{5} = 4{,}5",
+              "texte": "Quotients :"
+            },
+            {
+              "expr": "",
+              "texte": "Tous les quotients valent $4{,}5$."
+            }
+          ],
+          "reponse": "Oui : c'est une situation de proportionnalité de coefficient $4{,}5$ (prix au kilo : $4{,}50$ €).",
+          "conclusion": "Le coefficient a un sens : c'est le prix d'un kilo.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-tableau-non",
+          "titre": "Exemple 2 — Un tableau qui n'est pas de proportionnalité",
+          "enonce": "Un forfait de téléphone coûte : $10$ Go → $12$ € ; $20$ Go → $18$ € ; $40$ Go → $30$ €. Le prix est-il proportionnel au volume de données ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{12}{10} = 1{,}2 \\quad \\dfrac{18}{20} = 0{,}9",
+              "texte": "Quotients :"
+            },
+            {
+              "expr": "",
+              "texte": "$1{,}2 \\neq 0{,}9$."
+            }
+          ],
+          "reponse": "Non : le prix n'est pas proportionnel au volume.",
+          "conclusion": "Un seul couple de quotients différents suffit pour conclure.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-graphique",
+          "titre": "Exemple 3 — Lire un graphique",
+          "enonce": "On représente deux situations dans un repère : la situation A par des points sur une droite passant par l'origine et par le point $(4 ; 6)$ ; la situation B par des points sur une droite passant par $(0 ; 3)$ et $(4 ; 5)$. Laquelle est une situation de proportionnalité ? Donner son coefficient.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "A : points alignés avec l'origine ; coefficient $\\dfrac{6}{4} = 1{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "B : la droite coupe l'axe vertical en $3$, pas à l'origine."
+            }
+          ],
+          "reponse": "Seule A est une situation de proportionnalité, de coefficient $1{,}5$.",
+          "conclusion": "C'est la situation de la figure du cours.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-geometrie",
+          "titre": "Exemple 4 — En géométrie",
+          "enonce": "Le périmètre d'un carré est-il proportionnel à la longueur de son côté ? Et son aire ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Périmètre : $P = 4c$ : coefficient $4$, c'est proportionnel."
+            },
+            {
+              "expr": "",
+              "texte": "Aire : $A = c^2$ ; pour $c = 1$, $A = 1$ ; pour $c = 2$, $A = 4$ : quotients $1$ et $2$ différents."
+            }
+          ],
+          "reponse": "Le périmètre est proportionnel au côté ; l'aire ne l'est pas.",
+          "conclusion": "Doubler le côté double le périmètre mais multiplie l'aire par $4$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-completer-tableau",
+          "titre": "Exemple 5 — Compléter et justifier",
+          "enonce": "Les grandeurs $x$ et $y$ sont proportionnelles. Pour $x = 6$, $y = 15$. Calculer $y$ pour $x = 10$, puis $x$ pour $y = 4$. Placer les trois points dans un repère : que remarque-t-on ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Coefficient : $k = \\dfrac{15}{6} = 2{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "Pour $x = 10$ : $y = 25$. Pour $y = 4$ : $x = \\dfrac{4}{2{,}5} = 1{,}6$."
+            },
+            {
+              "expr": "",
+              "texte": "Les points $(1{,}6 ; 4)$, $(6 ; 15)$ et $(10 ; 25)$ sont alignés avec l'origine, sur la droite d'équation $y = 2{,}5x$."
+            }
+          ],
+          "reponse": "$y = 25$ pour $x = 10$ ; $x = 1{,}6$ pour $y = 4$ ; les points sont alignés avec l'origine.",
+          "conclusion": "Le coefficient permet de passer dans les deux sens : multiplier par $k$, ou diviser par $k$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Vérifier si un tarif est proportionnel à la quantité achetée.",
+        "Lire un graphique de consommation.",
+        "Comparer périmètre et aire d'une figure."
+      ],
+      "erreursFrequentes": [
+        "Conclure à la proportionnalité parce que les deux grandeurs augmentent ensemble.",
+        "Croire que des points alignés suffisent.",
+        "Calculer $\\dfrac{x}{y}$ pour certaines colonnes et $\\dfrac{y}{x}$ pour d'autres.",
+        "Vérifier deux colonnes seulement quand le tableau en a cinq."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Conclure à la proportionnalité parce que les deux grandeurs augmentent ensemble.",
+          "pourquoi": "« Plus… plus… » ne suffit pas.",
+          "comment_detecter": "Calcule les quotients : sont-ils égaux ?",
+          "comment_eviter": "La proportionnalité exige un même quotient dans chaque colonne, pas seulement une croissance."
+        },
+        {
+          "description": "Croire que des points alignés suffisent.",
+          "pourquoi": "On oublie la condition sur l'origine.",
+          "comment_detecter": "Prolonge la droite : passe-t-elle par $O$ ?",
+          "comment_eviter": "Vérifie l'alignement AVEC l'origine."
+        },
+        {
+          "description": "Calculer $\\dfrac{x}{y}$ pour certaines colonnes et $\\dfrac{y}{x}$ pour d'autres.",
+          "pourquoi": "On mélange le sens des quotients.",
+          "comment_detecter": "As-tu toujours divisé la même ligne par l'autre ?",
+          "comment_eviter": "Choisis un sens et garde-le pour toutes les colonnes."
+        },
+        {
+          "description": "Vérifier deux colonnes seulement quand le tableau en a cinq.",
+          "pourquoi": "On généralise trop vite.",
+          "comment_detecter": "Toutes les colonnes ont-elles été testées ?",
+          "comment_eviter": "Calcule le quotient de chaque colonne."
+        }
+      ],
+      "astuce": "Sur un graphique, pose une règle sur les points : si elle passe aussi par l'origine du repère, la situation est de proportionnalité.",
+      "aRetenir": [
+        "Tableau : quotients $\\dfrac{y}{x}$ tous égaux.",
+        "Graphique : points alignés avec l'origine.",
+        "Un seul contre-exemple suffit pour conclure « non »."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.6,
+          -0.6,
+          6.4,
+          7.6
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 1,
+            "y": 1.5,
+            "label": "",
+            "tooltip": "situation A : x = 1, y = 1.5"
+          },
+          {
+            "x": 2,
+            "y": 3.0,
+            "label": "",
+            "tooltip": "situation A : x = 2, y = 3.0"
+          },
+          {
+            "x": 4,
+            "y": 6.0,
+            "label": "",
+            "tooltip": "situation A : x = 4, y = 6.0"
+          },
+          {
+            "x": 1,
+            "y": 3.5,
+            "label": "",
+            "tooltip": "situation B : x = 1, y = 3.5"
+          },
+          {
+            "x": 2,
+            "y": 4.0,
+            "label": "",
+            "tooltip": "situation B : x = 2, y = 4.0"
+          },
+          {
+            "x": 4,
+            "y": 5.0,
+            "label": "",
+            "tooltip": "situation B : x = 4, y = 5.0"
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 4.6,
+              "y": 6.9
+            },
+            "tooltip": "situation A : y = 1,5x"
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 3
+            },
+            "to": {
+              "x": 5.6,
+              "y": 5.8
+            },
+            "variant": "b",
+            "tooltip": "situation B : y = 0,5x + 3",
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 4.9,
+            "y": 6.6,
+            "label": "A"
+          },
+          {
+            "x": 5.6,
+            "y": 5.3,
+            "label": "B"
+          },
+          {
+            "x": 3.6,
+            "y": 1.6,
+            "label": "B ne passe pas par O",
+            "reveal": 2
+          },
+          {
+            "x": 3.6,
+            "y": 0.8,
+            "label": "A passe par O",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Situation A",
+          "Situation B",
+          "Ce qui les distingue"
+        ],
+        "relation": "A : $y = 1{,}5x$, points alignés avec l'origine (proportionnalité) ; B : $y = 0{,}5x + 3$, droite qui ne passe pas par l'origine",
+        "alt": "Repère : la situation A est représentée par des points alignés sur une droite passant par l'origine ; la situation B par des points alignés sur une droite qui coupe l'axe vertical en 3.",
+        "explication": {
+          "resume": "Une situation est de proportionnalité si, et seulement si, sa représentation graphique est formée de points alignés avec l'origine du repère.",
+          "lecture": [
+            "En abscisse : la première grandeur ; en ordonnée : la seconde.",
+            "La droite pleine représente la situation A, la droite en pointillés la situation B."
+          ],
+          "observations": [
+            "A : quand $x$ double, $y$ double ($2 \\to 3$, $4 \\to 6$) ; la droite passe par l'origine.",
+            "B : les points sont alignés, mais la droite coupe l'axe vertical en $3$ : ce n'est pas une situation de proportionnalité.",
+            "Pour B, $\\dfrac{3{,}5}{1} \\neq \\dfrac{5}{4}$ : les quotients ne sont pas égaux."
+          ],
+          "pieges": [
+            "Croire que des points alignés suffisent : il faut aussi que la droite passe par l'origine."
+          ],
+          "aRetenir": [
+            "Proportionnalité $\\iff$ points alignés AVEC l'origine.",
+            "Le coefficient de proportionnalité se lit comme $\\dfrac{y}{x}$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        54201,
+        54202,
+        54204
+      ],
+      "topic_id": "proportionnalite-reconnaitre",
+      "proprietes": [
+        "Une situation est de proportionnalité si et seulement si sa représentation graphique est formée de points alignés avec l'origine."
+      ],
+      "vocabulaire_associe": [
+        "proportionnalité",
+        "coefficient",
+        "quotient",
+        "repère",
+        "origine",
+        "droite"
+      ],
+      "synonymes": [
+        "est-ce proportionnel",
+        "tableau de proportionnalité",
+        "graphique de proportionnalité"
+      ],
+      "objectifs_pedagogiques": [
+        "Tester un tableau de proportionnalité.",
+        "Reconnaître la proportionnalité sur un graphique.",
+        "Déterminer un coefficient.",
+        "Reconnaître une situation non proportionnelle."
+      ],
+      "prerequis": [
+        "Calculer une quatrième proportionnelle",
+        "Se repérer dans un repère"
+      ],
+      "notions_liees": [
+        "proportionnalite-quatrieme",
+        "proportionnalite-formules"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "proportionnalité",
+        "graphique",
+        "tableau",
+        "coefficient"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proportionnalite-reconnaitre-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Graphique et géométrie",
+          "description": "Deux exemples rédigés : lire une situation de proportionnalité sur un graphique, et étudier le périmètre et l'aire d'un carré."
+        },
+        {
+          "id": "proportionnalite-reconnaitre-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Compléter un tableau dans les deux sens",
+          "description": "Un exemple qui utilise le coefficient pour compléter un tableau, puis vérifie l'alignement avec l'origine."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel prix paierait-on pour $3$ kg dans la situation A ?",
+          "piste": "$1{,}5 \\times 3 = 4{,}5$."
+        },
+        {
+          "apres": "methode",
+          "question": "Le tableau $1 \\to 4$ ; $2 \\to 8$ ; $3 \\to 11$ est-il de proportionnalité ?",
+          "piste": "Non : $\\dfrac{11}{3} \\neq 4$."
+        }
+      ]
+    },
+    {
+      "id": "proportionnalite-formules",
+      "title": "Utiliser une formule de proportionnalité",
+      "schemaVersion": 2,
+      "intro": "De nombreuses formules de sciences et de géométrie expriment une proportionnalité : la distance parcourue à vitesse constante, la longueur d'un cercle, la tension aux bornes d'une résistance. Savoir les utiliser, c'est savoir calculer une grandeur à partir des autres.",
+      "pourquoi": "Ces formules servent en physique-chimie, en technologie et en géographie : temps de trajet, longueur d'une piste circulaire, choix d'une résistance.",
+      "explicationSimple": "Un vélo roule à $15$ km/h. En $2$ h, il parcourt $15 \\times 2 = 30$ km. Pour parcourir $45$ km, il lui faut $45 \\div 15 = 3$ h.",
+      "objectif": "À la fin de cette leçon, tu sauras utiliser une formule de proportionnalité (vitesse, longueur d'un cercle ou d'un arc, loi d'Ohm) pour calculer chacune des grandeurs, avec des unités cohérentes et des durées en heures et minutes.",
+      "definition": "Une formule $y = k \\times x$ exprime que la grandeur $y$ est proportionnelle à la grandeur $x$, de coefficient $k$. Exemples : $d = v \\times t$ (à vitesse $v$ constante, la distance est proportionnelle à la durée) ; $L = \\pi \\times D$ (la longueur d'un cercle est proportionnelle à son diamètre) ; $U = R \\times I$ (loi d'Ohm : la tension est proportionnelle à l'intensité) ; la longueur d'un arc de cercle est proportionnelle à la mesure de son angle au centre.",
+      "definitions": {
+        "college": "Une formule comme $d = v \\times t$ relie trois grandeurs ; si on en connaît deux, on calcule la troisième. La vitesse moyenne est $v = \\dfrac{d}{t}$.",
+        "lycee": "Une formule $y = k \\times x$ exprime que la grandeur $y$ est proportionnelle à la grandeur $x$, de coefficient $k$. Exemples : $d = v \\times t$ (à vitesse $v$ constante, la distance est proportionnelle à la durée) ; $L = \\pi \\times D$ (la longueur d'un cercle est proportionnelle à son diamètre) ; $U = R \\times I$ (loi d'Ohm : la tension est proportionnelle à l'intensité) ; la longueur d'un arc de cercle est proportionnelle à la mesure de son angle au centre."
+      },
+      "intuition": "Dans chaque formule, le coefficient a un sens physique : la vitesse, le nombre $\\pi$, la résistance. Il indique « combien on obtient pour une unité ».",
+      "reglesImportantes": [
+        "$d = v \\times t$, $v = \\dfrac{d}{t}$ et $t = \\dfrac{d}{v}$, avec des unités cohérentes (km, h et km/h ; ou m, s et m/s).",
+        "Une durée en heures et minutes se convertit en heures décimales : $1$ h $15$ min $= 1{,}25$ h ; $20$ min $= \\dfrac{1}{3}$ h.",
+        "Longueur d'un cercle : $L = \\pi \\times D = 2 \\times \\pi \\times r$.",
+        "La longueur d'un arc est proportionnelle à son angle au centre : un arc de $90°$ mesure le quart du cercle.",
+        "Loi d'Ohm : $U = R \\times I$ ($U$ en volts, $R$ en ohms, $I$ en ampères)."
+      ],
+      "formules": [
+        {
+          "id": "formule-vitesse",
+          "nom": "Vitesse moyenne",
+          "expression": "$v = \\dfrac{d}{t}$ ; $d = v \\times t$ ; $t = \\dfrac{d}{v}$",
+          "quand_utiliser": "Pour un trajet à vitesse constante ou pour calculer une vitesse moyenne.",
+          "erreur_frequente": "Écrire $1$ h $30$ min $= 1{,}30$ h.",
+          "astuce": "Convertis les minutes : $30$ min $= 0{,}5$ h."
+        },
+        {
+          "id": "formule-arc",
+          "nom": "Longueur d'un arc",
+          "expression": "$\\ell = \\dfrac{\\alpha}{360} \\times 2\\pi r$",
+          "quand_utiliser": "Pour un arc de cercle d'angle au centre $\\alpha$ (en degrés).",
+          "erreur_frequente": "Oublier le facteur $\\dfrac{\\alpha}{360}$.",
+          "astuce": "Un arc de $180°$ est un demi-cercle."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Utiliser une formule de proportionnalité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie la formule et les grandeurs connues, avec leurs unités."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je convertis pour avoir des unités cohérentes (par exemple les minutes en heures)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'isole la grandeur cherchée et je calcule."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie l'ordre de grandeur et je donne le résultat avec son unité."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie la formule et les grandeurs connues, avec leurs unités."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je convertis pour avoir des unités cohérentes (par exemple les minutes en heures)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'isole la grandeur cherchée et je calcule."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie l'ordre de grandeur et je donne le résultat avec son unité."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris la formule, par exemple $d = v \\times t$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je remplace les lettres que je connais par leurs valeurs."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule la lettre qui reste."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris l'unité du résultat."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$d = vt$ ; $L = \\pi D$ ; $U = RI$ ; arc $= \\dfrac{\\alpha}{360} \\times 2\\pi r$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Unités cohérentes, durées en heures décimales."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-distance",
+          "titre": "Exemple 1 — Une distance",
+          "enonce": "Une voiture roule à $80$ km/h pendant $2$ h $30$ min. Quelle distance parcourt-elle ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$2$ h $30$ min $= 2{,}5$ h."
+            },
+            {
+              "expr": "d = 80 \\times 2{,}5 = 200 \\text{ km}",
+              "texte": "Distance :"
+            }
+          ],
+          "reponse": "Elle parcourt $200$ km.",
+          "conclusion": "On a converti la durée en heures décimales avant de calculer.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-vitesse-moyenne",
+          "titre": "Exemple 2 — Une vitesse moyenne",
+          "enonce": "Un randonneur parcourt $18$ km en $4$ h $30$ min. Quelle est sa vitesse moyenne ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$4$ h $30$ min $= 4{,}5$ h."
+            },
+            {
+              "expr": "v = \\dfrac{18}{4{,}5} = 4 \\text{ km/h}",
+              "texte": "Vitesse moyenne :"
+            }
+          ],
+          "reponse": "Sa vitesse moyenne est $4$ km/h.",
+          "conclusion": "La vitesse moyenne ne dit rien des arrêts ou des accélérations pendant le trajet.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-duree",
+          "titre": "Exemple 3 — Une durée en heures et minutes",
+          "enonce": "Un train roule à $240$ km/h. Combien de temps met-il pour parcourir $340$ km ? Donner la réponse en heures et minutes.",
+          "calcul": [
+            {
+              "expr": "t = \\dfrac{340}{240} = \\dfrac{17}{12} \\text{ h}",
+              "texte": "Durée :"
+            },
+            {
+              "expr": "",
+              "texte": "$\\dfrac{17}{12}$ h $= 1$ h $+ \\dfrac{5}{12}$ h, et $\\dfrac{5}{12} \\times 60 = 25$ min."
+            }
+          ],
+          "reponse": "Il met $1$ h $25$ min.",
+          "conclusion": "Pour convertir une fraction d'heure en minutes, on la multiplie par $60$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cercle-ohm",
+          "titre": "Exemple 4 — Cercle et loi d'Ohm",
+          "enonce": "a) Une roue a un diamètre de $70$ cm. Quelle distance parcourt-elle en un tour (arrondi au cm) ? b) Une résistance de $220$ Ω est traversée par un courant de $0{,}05$ A. Quelle est la tension à ses bornes ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "a) $L = \\pi \\times 70 \\approx 219{,}9$ cm, soit environ $220$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "b) $U = R \\times I = 220 \\times 0{,}05 = 11$ V."
+            }
+          ],
+          "reponse": "a) Environ $220$ cm par tour ; b) $11$ V.",
+          "conclusion": "La longueur parcourue est proportionnelle au nombre de tours ; la tension est proportionnelle à l'intensité.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-arc-piste",
+          "titre": "Exemple 5 — Une piste d'athlétisme",
+          "enonce": "Un virage de piste est un demi-cercle de rayon $36{,}5$ m, et un arc de $60°$ d'un cercle de rayon $30$ m sert de chemin. Calculer la longueur du virage et celle du chemin, au dixième de mètre.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{180}{360} \\times 2 \\times \\pi \\times 36{,}5 = 36{,}5\\pi \\approx 114{,}7 \\text{ m}",
+              "texte": "Virage (arc de $180°$) :"
+            },
+            {
+              "expr": "\\dfrac{60}{360} \\times 2 \\times \\pi \\times 30 = 10\\pi \\approx 31{,}4 \\text{ m}",
+              "texte": "Chemin (arc de $60°$) :"
+            }
+          ],
+          "reponse": "Virage : environ $114{,}7$ m ; chemin : environ $31{,}4$ m.",
+          "conclusion": "La longueur d'un arc est proportionnelle à son angle : $60°$ est le sixième d'un tour complet.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Estimer la durée d'un trajet.",
+        "Calculer la distance parcourue par une roue.",
+        "Choisir une résistance en technologie."
+      ],
+      "erreursFrequentes": [
+        "Écrire $1$ h $30$ min $= 1{,}30$ h.",
+        "Utiliser des unités incompatibles (km/h avec des minutes).",
+        "Confondre rayon et diamètre dans $L = \\pi D$.",
+        "Calculer $v = d \\times t$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $1$ h $30$ min $= 1{,}30$ h.",
+          "pourquoi": "On confond la notation sexagésimale et la notation décimale.",
+          "comment_detecter": "$30$ min, est-ce $0{,}30$ h ou la moitié d'une heure ?",
+          "comment_eviter": "$30$ min $= 0{,}5$ h ; $15$ min $= 0{,}25$ h ; $45$ min $= 0{,}75$ h."
+        },
+        {
+          "description": "Utiliser des unités incompatibles (km/h avec des minutes).",
+          "pourquoi": "On remplace directement sans convertir.",
+          "comment_detecter": "Les unités de la formule se correspondent-elles ?",
+          "comment_eviter": "Convertis d'abord toutes les grandeurs."
+        },
+        {
+          "description": "Confondre rayon et diamètre dans $L = \\pi D$.",
+          "pourquoi": "Les deux mesures sont souvent données.",
+          "comment_detecter": "Est-ce le diamètre ou le rayon qui est donné ?",
+          "comment_eviter": "$D = 2r$ : $L = \\pi D = 2\\pi r$."
+        },
+        {
+          "description": "Calculer $v = d \\times t$.",
+          "pourquoi": "On mémorise mal la formule.",
+          "comment_detecter": "Le résultat a-t-il l'unité d'une vitesse ?",
+          "comment_eviter": "Une vitesse s'exprime en km/h : c'est des km DIVISÉS par des h."
+        }
+      ],
+      "astuce": "Pour retrouver la bonne formule, regarde l'unité : une vitesse en km/h est une distance (km) divisée par une durée (h), donc $v = \\dfrac{d}{t}$.",
+      "aRetenir": [
+        "$d = v \\times t$ ; durées en heures décimales.",
+        "$L = \\pi D$ ; un arc est proportionnel à son angle.",
+        "$U = R \\times I$."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "v = 80 km/h",
+            "sousTitre": "Vitesse constante"
+          },
+          {
+            "titre": "t = 2,5 h",
+            "sousTitre": "Durée"
+          },
+          {
+            "titre": "d = 80 × 2,5",
+            "sousTitre": "d = v × t"
+          },
+          {
+            "titre": "d = 200 km",
+            "sousTitre": "Distance parcourue"
+          }
+        ],
+        "steps": [
+          "Les données",
+          "La formule",
+          "Le résultat"
+        ],
+        "relation": "À vitesse constante, la distance est proportionnelle à la durée : $d = v \\times t$ ; ici $80 \\times 2{,}5 = 200$ km",
+        "alt": "Chaîne : vitesse 80 km/h, durée 2,5 h, distance = 80 × 2,5 = 200 km.",
+        "explication": {
+          "resume": "Une formule comme $d = v \\times t$ traduit une proportionnalité : la vitesse $v$ est le coefficient qui relie la durée à la distance.",
+          "lecture": [
+            "Chaque case donne une grandeur et son unité.",
+            "La formule relie les trois grandeurs."
+          ],
+          "observations": [
+            "En $1$ h, on parcourt $80$ km ; en $2{,}5$ h, $2{,}5$ fois plus : $200$ km.",
+            "Les unités doivent être cohérentes : km/h avec des heures.",
+            "$2$ h $30$ min $= 2{,}5$ h (et non $2{,}30$ h)."
+          ],
+          "pieges": [
+            "Écrire $2$ h $30$ min $= 2{,}3$ h : $30$ min est une demi-heure, soit $0{,}5$ h."
+          ],
+          "aRetenir": [
+            "$d = v \\times t$ ; $v = \\dfrac{d}{t}$ ; $t = \\dfrac{d}{v}$.",
+            "Vérifier la cohérence des unités."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        54301,
+        54302,
+        54304
+      ],
+      "topic_id": "proportionnalite-formules",
+      "proprietes": [
+        "À vitesse constante, la distance parcourue est proportionnelle à la durée."
+      ],
+      "vocabulaire_associe": [
+        "vitesse moyenne",
+        "distance",
+        "durée",
+        "longueur d'un cercle",
+        "arc",
+        "loi d'Ohm",
+        "coefficient"
+      ],
+      "synonymes": [
+        "formule de la vitesse",
+        "d = v × t",
+        "calculer une vitesse moyenne"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer une distance, une vitesse ou une durée.",
+        "Convertir une durée en heures décimales.",
+        "Calculer la longueur d'un cercle ou d'un arc.",
+        "Utiliser la loi d'Ohm."
+      ],
+      "prerequis": [
+        "Calculer une quatrième proportionnelle",
+        "Périmètre du cercle (6e)",
+        "Équations"
+      ],
+      "notions_liees": [
+        "proportionnalite-quatrieme",
+        "grandeurs-composees"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "proportionnalité",
+        "vitesse",
+        "formules",
+        "cercle"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proportionnalite-formules-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Durée en heures et minutes, cercle et loi d'Ohm",
+          "description": "Deux exemples rédigés : convertir une durée de trajet en heures et minutes, puis calculer un tour de roue et une tension."
+        },
+        {
+          "id": "proportionnalite-formules-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Une piste d'athlétisme",
+          "description": "Un exemple qui calcule la longueur d'arcs de cercle grâce à la proportionnalité avec l'angle."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle distance en $45$ min à $80$ km/h ?",
+          "piste": "$80 \\times 0{,}75 = 60$ km."
+        },
+        {
+          "apres": "methode",
+          "question": "Combien d'heures pour $150$ km à $60$ km/h ?",
+          "piste": "$150 \\div 60 = 2{,}5$ h, soit $2$ h $30$ min."
+        }
+      ]
+    },
+    {
+      "id": "grandeurs-composees",
+      "title": "Grandeurs composées : vitesses et débits",
+      "schemaVersion": 2,
+      "intro": "Une vitesse (km/h, m/s) ou un débit (L/min, m³/s) est une grandeur composée : c'est le quotient de deux grandeurs. Pour la convertir, on convertit séparément chacune des deux unités.",
+      "pourquoi": "Comparer la vitesse d'un sprinteur (en m/s) et celle d'une voiture (en km/h), ou le débit d'un robinet (en L/min) et celui d'une rivière (en m³/s), demande de savoir convertir ces grandeurs.",
+      "explicationSimple": "$36$ km/h, c'est $36\\,000$ m en $3\\,600$ s, soit $10$ m chaque seconde : $36$ km/h $= 10$ m/s.",
+      "objectif": "À la fin de cette leçon, tu sauras convertir des vitesses (km/h ↔ m/s) et des débits (m³/s ↔ L/min, L/h…), et utiliser un débit pour calculer un volume ou une durée.",
+      "definition": "Une grandeur composée est obtenue en divisant une grandeur par une autre, de nature différente. La vitesse moyenne est une distance divisée par une durée ($v = \\dfrac{d}{t}$) ; le débit est un volume divisé par une durée ($Q = \\dfrac{V}{t}$). Pour convertir une grandeur composée, on exprime le numérateur et le dénominateur dans les nouvelles unités, puis on effectue la division.",
+      "definitions": {
+        "college": "km/h veut dire « kilomètres par heure » : c'est une division. Pour convertir, on change l'unité du haut et celle du bas, puis on divise.",
+        "lycee": "Une grandeur composée est obtenue en divisant une grandeur par une autre, de nature différente. La vitesse moyenne est une distance divisée par une durée ($v = \\dfrac{d}{t}$) ; le débit est un volume divisé par une durée ($Q = \\dfrac{V}{t}$). Pour convertir une grandeur composée, on exprime le numérateur et le dénominateur dans les nouvelles unités, puis on effectue la division."
+      },
+      "intuition": "« Par » signifie « divisé par » : $12$ L/min, c'est $12$ litres chaque minute. En une heure ($60$ min), on obtient $60$ fois plus : $720$ L/h.",
+      "reglesImportantes": [
+        "Pour convertir une grandeur composée, on convertit l'unité du numérateur et celle du dénominateur, puis on refait la division.",
+        "$1$ km/h $= \\dfrac{1\\,000 \\text{ m}}{3\\,600 \\text{ s}}$ : pour passer des km/h aux m/s, on divise par $3{,}6$ ; dans l'autre sens, on multiplie par $3{,}6$.",
+        "$1$ m³ $= 1\\,000$ L et $1$ L $= 1$ dm³.",
+        "$1$ m³/s $= 1\\,000$ L/s $= 60\\,000$ L/min.",
+        "Avec un débit $Q$ : volume $V = Q \\times t$ et durée $t = \\dfrac{V}{Q}$, en unités cohérentes."
+      ],
+      "formules": [
+        {
+          "id": "formule-kmh-ms",
+          "nom": "km/h et m/s",
+          "expression": "$v_{\\text{m/s}} = \\dfrac{v_{\\text{km/h}}}{3{,}6}$ ; $v_{\\text{km/h}} = 3{,}6 \\times v_{\\text{m/s}}$",
+          "quand_utiliser": "Pour convertir une vitesse.",
+          "erreur_frequente": "Multiplier par $3{,}6$ au lieu de diviser.",
+          "astuce": "Une vitesse en m/s est toujours un nombre plus petit qu'en km/h."
+        },
+        {
+          "id": "formule-debit",
+          "nom": "Débit",
+          "expression": "$Q = \\dfrac{V}{t}$ ; $1$ m³/s $= 60\\,000$ L/min",
+          "quand_utiliser": "Pour un écoulement (robinet, pompe, rivière).",
+          "erreur_frequente": "Oublier que $1$ m³ $= 1\\,000$ L.",
+          "astuce": "Convertis séparément le volume et la durée."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Convertir une grandeur composée",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'écris la grandeur comme une division : par exemple $54$ km/h $= \\dfrac{54 \\text{ km}}{1 \\text{ h}}$."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je convertis le numérateur dans la nouvelle unité (km → m)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je convertis le dénominateur dans la nouvelle unité (h → s), puis j'effectue la division."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie l'ordre de grandeur (une vitesse en m/s est plus petite qu'en km/h)."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris la grandeur comme une division : par exemple $54$ km/h $= \\dfrac{54 \\text{ km}}{1 \\text{ h}}$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je convertis le numérateur dans la nouvelle unité (km → m)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je convertis le dénominateur dans la nouvelle unité (h → s), puis j'effectue la division."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie l'ordre de grandeur (une vitesse en m/s est plus petite qu'en km/h)."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je lis « par » comme « divisé par »."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je convertis la quantité du haut (km en m, m³ en L)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je convertis la durée du bas (h en s, min en s)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je divise et j'écris la nouvelle unité."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "km/h → m/s : $\\div 3{,}6$ ; m/s → km/h : $\\times 3{,}6$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$1$ m³/s $= 60\\,000$ L/min."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-kmh-vers-ms",
+          "titre": "Exemple 1 — Des km/h aux m/s",
+          "enonce": "Convertir $90$ km/h en m/s.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$90$ km/h $= \\dfrac{90\\,000 \\text{ m}}{3\\,600 \\text{ s}}$."
+            },
+            {
+              "expr": "\\dfrac{90\\,000}{3\\,600} = 25",
+              "texte": "Division :"
+            }
+          ],
+          "reponse": "$90$ km/h $= 25$ m/s.",
+          "conclusion": "Contrôle : $90 \\div 3{,}6 = 25$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-ms-vers-kmh",
+          "titre": "Exemple 2 — Des m/s aux km/h",
+          "enonce": "Un sprinteur court à $10$ m/s. Quelle est sa vitesse en km/h ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "En $1$ h $= 3\\,600$ s, il parcourrait $10 \\times 3\\,600 = 36\\,000$ m $= 36$ km."
+            },
+            {
+              "expr": "",
+              "texte": "Donc $10$ m/s $= 36$ km/h."
+            }
+          ],
+          "reponse": "$10$ m/s $= 36$ km/h.",
+          "conclusion": "Contrôle : $10 \\times 3{,}6 = 36$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-debit-robinet",
+          "titre": "Exemple 3 — Le débit d'un robinet",
+          "enonce": "Un robinet a un débit de $12$ L/min. Exprimer ce débit en L/h, puis en m³/s.",
+          "calcul": [
+            {
+              "expr": "12 \\times 60 = 720 \\text{ L/h}",
+              "texte": "En L/h :"
+            },
+            {
+              "expr": "\\dfrac{0{,}012}{60} = 0{,}000\\,2 = 2 \\times 10^{-4} \\text{ m}^3\\text{/s}",
+              "texte": "En m³/s : $12$ L $= 0{,}012$ m³ et $1$ min $= 60$ s."
+            }
+          ],
+          "reponse": "$12$ L/min $= 720$ L/h $= 2 \\times 10^{-4}$ m³/s.",
+          "conclusion": "L'écriture scientifique est adaptée aux très petits débits.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-remplissage",
+          "titre": "Exemple 4 — Remplir une piscine",
+          "enonce": "Une piscine de $45$ m³ est remplie par un tuyau de débit $25$ L/min. Combien de temps faut-il pour la remplir ? Donner la réponse en heures et minutes.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$45$ m³ $= 45\\,000$ L."
+            },
+            {
+              "expr": "t = \\dfrac{45\\,000}{25} = 1\\,800 \\text{ min}",
+              "texte": "Durée :"
+            },
+            {
+              "expr": "",
+              "texte": "$1\\,800$ min $= 30$ h."
+            }
+          ],
+          "reponse": "Il faut $30$ h pour remplir la piscine.",
+          "conclusion": "Un débit relie le volume et la durée comme une vitesse relie la distance et la durée.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-riviere",
+          "titre": "Exemple 5 — Comparer des débits",
+          "enonce": "Une rivière a un débit moyen de $1{,}2$ m³/s. Une pompe d'irrigation débite $40\\,000$ L/h. Combien de pompes faudrait-il pour égaler le débit de la rivière ?",
+          "calcul": [
+            {
+              "expr": "1\\,200 \\times 3\\,600 = 4\\,320\\,000 \\text{ L, soit } 4\\,320\\,000 \\text{ L/h}",
+              "texte": "Rivière : $1{,}2$ m³/s $= 1\\,200$ L/s ; en une heure ($3\\,600$ s), elle débite :"
+            },
+            {
+              "expr": "\\dfrac{4\\,320\\,000}{40\\,000} = 108",
+              "texte": "Nombre de pompes :"
+            }
+          ],
+          "reponse": "Il faudrait $108$ pompes.",
+          "conclusion": "Pour comparer deux grandeurs composées, on les exprime d'abord dans la même unité.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Comparer la vitesse d'un coureur et celle d'un véhicule.",
+        "Calculer la durée de remplissage d'une baignoire ou d'une piscine.",
+        "Comprendre les débits d'une rivière dans un bulletin de crue."
+      ],
+      "erreursFrequentes": [
+        "Multiplier par $3{,}6$ pour passer des km/h aux m/s.",
+        "Ne convertir qu'une seule des deux unités.",
+        "Oublier que $1$ m³ $= 1\\,000$ L.",
+        "Diviser par $60$ pour passer des heures aux secondes."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Multiplier par $3{,}6$ pour passer des km/h aux m/s.",
+          "pourquoi": "On se trompe de sens.",
+          "comment_detecter": "$90$ km/h deviendrait $324$ m/s : plus vite qu'un avion de ligne !",
+          "comment_eviter": "km/h → m/s : on divise par $3{,}6$."
+        },
+        {
+          "description": "Ne convertir qu'une seule des deux unités.",
+          "pourquoi": "On convertit les km en m mais pas les h en s.",
+          "comment_detecter": "As-tu changé l'unité du haut ET celle du bas ?",
+          "comment_eviter": "Écris la grandeur comme une division et convertis les deux termes."
+        },
+        {
+          "description": "Oublier que $1$ m³ $= 1\\,000$ L.",
+          "pourquoi": "On confond les unités de volume et de capacité.",
+          "comment_detecter": "Le volume obtenu est-il réaliste ?",
+          "comment_eviter": "$1$ m³ $= 1\\,000$ dm³ $= 1\\,000$ L."
+        },
+        {
+          "description": "Diviser par $60$ pour passer des heures aux secondes.",
+          "pourquoi": "On oublie l'étape des minutes.",
+          "comment_detecter": "Combien de secondes dans une heure ?",
+          "comment_eviter": "$1$ h $= 60$ min $= 3\\,600$ s."
+        }
+      ],
+      "astuce": "Pour vérifier une conversion de vitesse, retiens un repère : $36$ km/h $= 10$ m/s. Ainsi $72$ km/h $= 20$ m/s et $108$ km/h $= 30$ m/s.",
+      "aRetenir": [
+        "On convertit le numérateur et le dénominateur séparément.",
+        "km/h → m/s : $\\div 3{,}6$ ; m/s → km/h : $\\times 3{,}6$.",
+        "$1$ m³ $= 1\\,000$ L ; $1$ m³/s $= 60\\,000$ L/min."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "72 km/h",
+            "sousTitre": "72 km en 1 h"
+          },
+          {
+            "titre": "72 000 m en 3 600 s",
+            "sousTitre": "1 km = 1 000 m ; 1 h = 3 600 s"
+          },
+          {
+            "titre": "72 000 ÷ 3 600",
+            "sousTitre": "mètres par seconde"
+          },
+          {
+            "titre": "20 m/s",
+            "sousTitre": "Résultat"
+          }
+        ],
+        "steps": [
+          "La vitesse en km/h",
+          "On convertit chaque unité",
+          "On divise"
+        ],
+        "relation": "$72$ km/h $= \\dfrac{72\\,000 \\text{ m}}{3\\,600 \\text{ s}} = 20$ m/s ; plus généralement, diviser par $3{,}6$",
+        "alt": "Chaîne : 72 km/h signifie 72 000 m en 3 600 s, soit 72 000 ÷ 3 600 = 20 m/s.",
+        "explication": {
+          "resume": "Une grandeur composée (vitesse, débit) est une grandeur divisée par une autre. Pour la convertir, on convertit séparément chacune des deux unités, puis on refait la division.",
+          "lecture": [
+            "On lit de gauche à droite : la vitesse, puis ses deux unités converties, puis la division."
+          ],
+          "observations": [
+            "$72$ km $= 72\\,000$ m et $1$ h $= 3\\,600$ s.",
+            "$72\\,000 \\div 3\\,600 = 20$ : on parcourt $20$ m chaque seconde.",
+            "Diviser par $3\\,600$ puis multiplier par $1\\,000$ revient à diviser par $3{,}6$."
+          ],
+          "pieges": [
+            "Diviser par $60$ seulement : une heure compte $3\\,600$ secondes."
+          ],
+          "aRetenir": [
+            "km/h → m/s : diviser par $3{,}6$ ; m/s → km/h : multiplier par $3{,}6$.",
+            "On convertit le numérateur et le dénominateur séparément."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        54401,
+        54402,
+        54404
+      ],
+      "topic_id": "grandeurs-composees",
+      "proprietes": [
+        "$1$ km/h $= \\dfrac{1}{3{,}6}$ m/s."
+      ],
+      "vocabulaire_associe": [
+        "grandeur composée",
+        "vitesse",
+        "débit",
+        "conversion",
+        "m/s",
+        "km/h"
+      ],
+      "synonymes": [
+        "convertir une vitesse",
+        "convertir un débit",
+        "km/h en m/s"
+      ],
+      "objectifs_pedagogiques": [
+        "Convertir km/h en m/s et inversement.",
+        "Convertir un débit.",
+        "Calculer un volume ou une durée à partir d'un débit.",
+        "Comparer deux grandeurs composées."
+      ],
+      "prerequis": [
+        "Utiliser une formule de proportionnalité",
+        "Conversions d'unités de longueur, de durée et de volume"
+      ],
+      "notions_liees": [
+        "proportionnalite-formules",
+        "prefixes-ordres-grandeur"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "grandeurs composées",
+        "vitesse",
+        "débit",
+        "conversions"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "grandeurs-composees-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Débit d'un robinet et remplissage",
+          "description": "Deux exemples rédigés : convertir un débit en L/h et en m³/s, puis calculer la durée de remplissage d'une piscine."
+        },
+        {
+          "id": "grandeurs-composees-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Rivière et pompes",
+          "description": "Un exemple qui compare deux débits exprimés dans des unités différentes."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien font $54$ km/h en m/s ?",
+          "piste": "$54 \\div 3{,}6 = 15$ m/s."
+        },
+        {
+          "apres": "methode",
+          "question": "Combien de litres par minute pour $3$ m³/h ?",
+          "piste": "$3\\,000 \\div 60 = 50$ L/min."
+        }
+      ]
+    }
+  ]
+}

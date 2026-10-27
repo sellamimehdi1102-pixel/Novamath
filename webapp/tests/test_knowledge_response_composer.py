@@ -11,7 +11,9 @@ import dataclasses
 import random
 import time
 import unittest
+from unittest import mock
 
+from chatbot import knowledge_engine
 from chatbot.services import intent_service, knowledge_response_composer as krc, response_strategy as rs
 
 REAL_USER = {"id": 1, "pseudo": "Testeur", "level": 1}
@@ -455,13 +457,31 @@ class TestFormulesCalculDelimitees(KnowledgeComposerTestCase):
     "Milieu et distance", chapitre_5.json, exemple "A(1;2), B(4;6)" —
     identique à la capture fournie) : avant correction, `\\vec{AB}(3;4)` et
     `AB = \\sqrt{3^2+4^2}` apparaissaient SANS aucun délimiteur dans le texte
-    composé, donc jamais reconnus par KaTeX côté frontend."""
+    composé, donc jamais reconnus par KaTeX côté frontend.
+
+    La notion "milieu-et-norme" a depuis reçu 2 exemples supplémentaires
+    (refonte pédagogique Seconde, 2026-10-23 : la règle du milieu n'avait
+    aucun exemple) — `knowledge_engine.get_exemple()` tire désormais parmi 3
+    exemples (`random.choice`, non injectable via `rng`), donc un test qui
+    fige l'exemple exact "milieu-et-norme-exemple-1" doit figer ce tirage, sous
+    peine d'échouer ~2 fois sur 3 au hasard (c'est l'invariant de délimitation
+    qui compte ici, pas QUEL exemple est tiré)."""
 
     def test_calcul_expr_toujours_delimite_dans_le_texte_compose(self):
-        draft = self.compose(
-            "Donne-moi un exemple sur le milieu et la distance entre deux points",
-            ctx=student_context(class_level="seconde"),
-        )
+        exemple_cible = "milieu-et-norme-exemple-1"
+        reel_choice = random.choice
+
+        def choice_deterministe(pool):
+            for item in pool:
+                if isinstance(item, dict) and item.get("id") == exemple_cible:
+                    return item
+            return reel_choice(pool)
+
+        with mock.patch.object(knowledge_engine.random, "choice", side_effect=choice_deterministe):
+            draft = self.compose(
+                "Donne-moi un exemple sur le milieu et la distance entre deux points",
+                ctx=student_context(class_level="seconde"),
+            )
         self.assertEqual(draft.topic_id, "milieu-et-norme")
         # Chaque expression de calcul complète ("\vec{AB}(3;4)",
         # "AB = \sqrt{3^2+4^2}") doit être intégralement délimitée — jamais

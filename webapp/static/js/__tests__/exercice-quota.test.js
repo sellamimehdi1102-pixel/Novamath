@@ -252,7 +252,7 @@ describe("exercice.js — absence de double-consommation lors d'une reprise", ()
 
     expect(mockApi.practiceLoad).not.toHaveBeenCalled();
     expect($("screen-ex").hidden).toBe(false);
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
   });
 
   it("reprise avec un exercice persisté qui ne correspond plus à seriesQueue[seriesIndex] : retombe sur un vrai appel réseau", async () => {
@@ -286,7 +286,7 @@ describe("exercice.js — absence de double-consommation lors d'une reprise", ()
     await flushPromises();
 
     expect(mockApi.practiceLoad).toHaveBeenCalledTimes(1);
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
   });
 });
 
@@ -318,7 +318,7 @@ describe("exercice.js — verrou anti double-clic (exerciseActionInFlight)", () 
 
     expect(mockApi.practiceLoad).toHaveBeenCalledTimes(1);
     expect($("screen-ex").hidden).toBe(false);
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
     // Le verrou est bien libéré une fois le flux terminé.
     expect($("btn-next-ex").disabled).toBe(false);
   });

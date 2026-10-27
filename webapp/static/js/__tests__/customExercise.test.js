@@ -115,6 +115,8 @@ describe("customExercise.js — sélection et génération", () => {
     const options = document.querySelectorAll("#custom-ex-notion option");
     expect(options.length).toBe(1);
     expect(options[0].textContent).toContain("Droites");
+    expect(options[0].textContent).not.toContain("_");
+    expect(options[0].textContent).toContain("Chapitre 6");
   });
 
   it("aucune notion pour la classe active -> message, pas de sélecteur", async () => {

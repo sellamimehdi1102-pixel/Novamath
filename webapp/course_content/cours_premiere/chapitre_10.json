@@ -4,6 +4,198 @@
   "icon": "layers",
   "notions": [
     {
+      "id": "variables-aleatoires-reelles",
+      "title": "Variables aléatoires réelles",
+      "schemaVersion": 2,
+      "intro": "Dans cette leçon, tu vas apprendre ce qu'est une variable aléatoire réelle et sa loi de probabilité, et à utiliser le fait que la somme de toutes les probabilités vaut $1$ pour déterminer une probabilité manquante ou calculer la probabilité d'un intervalle de valeurs.\n\nCette notion permet de décrire, de façon organisée, tous les résultats numériques possibles d'une expérience aléatoire et leurs chances de se produire, ce qui est la base de toute étude de probabilités (calcul d'espérance, de variance, etc.).",
+      "explicationSimple": "Une variable aléatoire réelle $X$ associe un nombre à chaque résultat possible d'une expérience aléatoire (par exemple, le gain à un jeu, ou le nombre obtenu en lançant un dé). Sa loi de probabilité liste toutes les valeurs que $X$ peut prendre, avec la probabilité de chacune. Comme l'expérience produit obligatoirement l'une de ces valeurs (et une seule à la fois), les probabilités de toutes les valeurs possibles s'additionnent forcément pour donner $1$ : c'est une certitude, comme le fait qu'un événement se réalise toujours ou ne se réalise jamais avec probabilité $1$. Cette propriété permet, si l'on connaît toutes les probabilités sauf une, de retrouver la dernière par soustraction.",
+      "objectif": "À la fin de ce cours, tu sauras utiliser le fait que la somme des probabilités d'une variable aléatoire vaut $1$ pour déterminer une probabilité manquante, et calculer la probabilité qu'une variable aléatoire prenne une valeur dans un intervalle donné (par exemple $P(X\\leqslant 4)$).",
+      "definition": "Une variable aléatoire réelle $X$ associe à chaque issue d'une expérience aléatoire un nombre réel. Sa loi de probabilité décrit, pour chacune des valeurs possibles $x_1,\\dots,x_n$, la probabilité $P(X=x_i)$ que $X$ prenne cette valeur. Comme ces événements $(X=x_1), \\dots, (X=x_n)$ sont deux à deux incompatibles (ils ne peuvent pas se produire en même temps) et couvrent toutes les issues possibles de l'expérience, la somme de toutes ces probabilités vaut toujours $1$ : $\\sum_i P(X=x_i)=1$.",
+      "definitions": {
+        "lycee": "Une variable aléatoire réelle $X$ associe à chaque issue d'une expérience aléatoire un nombre réel. Sa loi de probabilité décrit, pour chacune des valeurs possibles $x_1,\\dots,x_n$, la probabilité $P(X=x_i)$ que $X$ prenne cette valeur. Comme ces événements $(X=x_1), \\dots, (X=x_n)$ sont deux à deux incompatibles (ils ne peuvent pas se produire en même temps) et couvrent toutes les issues possibles de l'expérience, la somme de toutes ces probabilités vaut toujours $1$ : $\\sum_i P(X=x_i)=1$.",
+        "college": "Additionner les probabilités de toutes les valeurs concernées."
+      },
+      "intuition": "L'erreur la plus fréquente en calculant $P(X\\leqslant a)$ est d'additionner les probabilités de toutes les valeurs de $X$ au lieu de ne garder que celles inférieures ou égales à $a$, ou inversement d'oublier la valeur $a$ elle-même (qui doit être incluse, car l'inégalité est large). Avant de sommer, relis toujours la liste des valeurs possibles de $X$ et souligne uniquement celles qui vérifient la condition de l'énoncé.",
+      "reglesImportantes": ["Additionner les probabilités de toutes les valeurs concernées."],
+      "formules": [],
+      "methode": {
+        "titre": "Méthode — Utiliser une loi de probabilité",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Étape 1 : identifie ce qui est demandé — une probabilité manquante, ou la probabilité d'un intervalle de valeurs comme $P(X\\leqslant a)$."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Étape 2 (probabilité manquante) : soustrais de $1$ la somme de toutes les probabilités déjà connues."
+          },
+          {
+            "icone": "scale",
+            "couleur": "orange",
+            "texte": "Étape 2 bis (intervalle) : repère, parmi toutes les valeurs possibles de $X$, celles qui vérifient la condition — en incluant $a$ si l'inégalité est large."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Étape 3 : additionne les probabilités correspondantes."
+          }
+        ]
+      },
+      "exemples": [
+        {
+          "id": "exemple-1884",
+          "titre": "Exemple 1",
+          "enonce": "Une variable aléatoire $X$ peut prendre les valeurs $-4$, $0$, $5$ et $7$. On donne $P(X=-4) = \\dfrac{1}{5}$, $P(X=0) = \\dfrac{1}{5}$, $P(X=5) = \\dfrac{1}{10}$. Déterminer $P(X=7)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La somme des probabilités d'une loi de probabilité vaut $1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(X=7) = 1 - \\left(\\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{10}\\right) = \\dfrac{1}{2}$."
+            }
+          ],
+          "reponse": "$P(X=7) = \\dfrac{1}{2}$",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1908",
+          "titre": "Exemple 3",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-5)=\\dfrac{3}{20}$, $P(X=-3)=\\dfrac{1}{5}$, $P(X=0)=\\dfrac{1}{5}$, $P(X=5)=\\dfrac{9}{20}$. Calculer $P(X \\leqslant 0)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $P(X\\leqslant 0)$ est la somme des probabilités pour toutes les valeurs de $X$ inférieures ou égales à $0$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(X\\leqslant 0) = \\dfrac{3}{20} + \\dfrac{1}{5} + \\dfrac{1}{5} = \\dfrac{11}{20}$."
+            }
+          ],
+          "reponse": "$P(X \\leqslant 0) = \\dfrac{11}{20}$",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-1896",
+          "titre": "Exemple 2",
+          "enonce": "Une variable aléatoire $X$ peut prendre les valeurs $-4$, $-2$, $-1$ et $2$. On donne $P(X=-4) = \\dfrac{1}{4}$, $P(X=-2) = \\dfrac{21}{100}$, $P(X=2) = \\dfrac{49}{100}$. Déterminer $P(X=-1)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : La somme des probabilités d'une loi de probabilité vaut $1$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(X=-1) = 1 - \\left(\\dfrac{1}{4} + \\dfrac{21}{100} + \\dfrac{49}{100}\\right) = \\dfrac{1}{20}$."
+            }
+          ],
+          "reponse": "$P(X=-1) = \\dfrac{1}{20}$",
+          "difficulte": "facile",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-1920",
+          "titre": "Exemple 4",
+          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-2)=\\dfrac{1}{5}$, $P(X=2)=\\dfrac{1}{5}$, $P(X=4)=\\dfrac{1}{5}$, $P(X=6)=\\dfrac{2}{5}$. Calculer $P(X \\leqslant 4)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Étape 1 : $P(X\\leqslant 4)$ est la somme des probabilités pour toutes les valeurs de $X$ inférieures ou égales à $4$."
+            },
+            {
+              "expr": "",
+              "texte": "Étape 2 : $P(X\\leqslant 4) = \\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{5} = \\dfrac{3}{5}$."
+            }
+          ],
+          "reponse": "$P(X \\leqslant 4) = \\dfrac{3}{5}$",
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
+        }
+      ],
+      "erreursFrequentes": [
+        "Oublier une valeur possible de $X$ dans le calcul de la probabilité manquante, et soustraire de $1$ une somme incomplète des probabilités déjà connues.",
+        "Pour calculer $P(X \\leqslant a)$, additionner les probabilités de toutes les valeurs de $X$ au lieu de ne garder que celles inférieures ou égales à $a$.",
+        "Oublier d'inclure la valeur $a$ elle-même dans le calcul de $P(X \\leqslant a)$, alors que l'inégalité large signifie que $a$ doit être comptée."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Oublier une valeur possible de $X$ dans le calcul de la probabilité manquante, et soustraire de $1$ une somme incomplète des probabilités déjà connues.",
+          "pourquoi": "La relation $\\sum_i P(X=x_i)=1$ n'est vraie que si on additionne les probabilités de TOUTES les valeurs possibles de $X$ ; en oublier une fausse le résultat de la soustraction.",
+          "comment_detecter": "Recompte le nombre de valeurs possibles de $X$ annoncées dans l'énoncé et vérifie que chacune apparaît bien dans la somme effectuée avant la soustraction.",
+          "comment_eviter": "Liste d'abord toutes les valeurs possibles de $X$ et leurs probabilités connues avant de calculer la somme à soustraire de $1$."
+        },
+        {
+          "description": "Pour calculer $P(X \\leqslant a)$, additionner les probabilités de toutes les valeurs de $X$ au lieu de ne garder que celles inférieures ou égales à $a$.",
+          "pourquoi": "$P(X \\leqslant a)$ ne concerne que les issues où $X$ prend une valeur inférieure ou égale à $a$ : additionner toutes les probabilités reviendrait à calculer $P(X\\leqslant +\\infty) = 1$, ce qui ne répond pas à la question posée.",
+          "comment_detecter": "Si le résultat obtenu vaut exactement $1$ alors que $a$ n'est pas la plus grande valeur possible de $X$, certaines valeurs non concernées ont probablement été incluses par erreur.",
+          "comment_eviter": "Souligne dans la liste des valeurs possibles de $X$ uniquement celles qui sont inférieures ou égales à $a$ avant d'additionner leurs probabilités."
+        },
+        {
+          "description": "Oublier d'inclure la valeur $a$ elle-même dans le calcul de $P(X \\leqslant a)$, alors que l'inégalité large signifie que $a$ doit être comptée.",
+          "pourquoi": "Le symbole $\\leqslant$ est une inégalité large : l'événement $(X \\leqslant a)$ inclut le cas où $X$ est exactement égal à $a$, ce n'est donc pas la même chose que $(X < a)$.",
+          "comment_detecter": "Si $a$ figure bien parmi les valeurs possibles de $X$ mais que $P(X=a)$ n'apparaît pas dans la somme calculée pour $P(X\\leqslant a)$, cette valeur a été oubliée à tort.",
+          "comment_eviter": "Relis systématiquement le symbole de l'inégalité (large ou stricte) avant de dresser la liste des valeurs à additionner, et inclus $a$ dès que l'inégalité est large."
+        }
+      ],
+      "astuce": "",
+      "aRetenir": [
+        "La somme de toutes les probabilités d'une loi de probabilité vaut TOUJOURS 1 — c'est une certitude, pas une coïncidence.",
+        "P(X≤a) ne garde QUE les valeurs inférieures ou égales à a, jamais toutes les valeurs de X.",
+        "Une inégalité large (≤) inclut la valeur a elle-même ; une inégalité stricte (<) l'exclut."
+      ],
+      "figure": null,
+      "quizExerciseIds": [1884, 1889, 2064],
+      "topic_id": "variables-aleatoires-reelles",
+      "proprietes": [],
+      "vocabulaire_associe": [],
+      "synonymes": [],
+      "objectifs_pedagogiques": [
+        "À la fin de ce cours, tu sauras résoudre des exercices sur Variables aléatoires réelles."
+      ],
+      "prerequis": [],
+      "notions_liees": ["esperance-–-variance-–-ecart-type"],
+      "difficulte": "facile",
+      "tags": ["variables", "aleatoires", "reelles"],
+      "pourquoi": "Le gain à un jeu, le nombre obtenu en lançant un dé, le nombre de bonnes réponses dans un QCM : dans chaque cas, le résultat d'une expérience aléatoire est associé à un NOMBRE. Décrire toutes les valeurs possibles de ce nombre, et leurs chances respectives, est la base de toute étude de probabilités.",
+      "apercus": [
+        {
+          "id": "apercu-varalea-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "2 exemples supplémentaires",
+          "description": "D'autres lois de probabilité, pour automatiser le calcul d'une probabilité manquante et d'un intervalle."
+        }
+      ],
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
+        {
+          "apres": "pourquoi",
+          "question": "Pourquoi associe-t-on un nombre à chaque résultat d'une expérience aléatoire ?",
+          "piste": "Pour pouvoir décrire de façon organisée toutes les issues possibles et leurs chances, et ensuite calculer des indicateurs comme l'espérance."
+        },
+        {
+          "apres": "intuition",
+          "question": "Pourquoi la somme des probabilités d'une loi de probabilité vaut-elle toujours 1 ?",
+          "piste": "Parce que les événements (X=x_1), ..., (X=x_n) sont deux à deux incompatibles et couvrent absolument toutes les issues possibles : l'un d'eux se réalise toujours, avec certitude."
+        },
+        {
+          "apres": "methode",
+          "question": "Faut-il inclure la valeur a dans le calcul de P(X≤a) ?",
+          "piste": "Oui : l'inégalité est large (≤), donc a doit être comptée."
+        },
+        {
+          "apres": "figure",
+          "question": "Que vérifie-t-on toujours sur un diagramme en bâtons représentant une loi de probabilité ?",
+          "piste": "Que la somme des hauteurs de tous les bâtons vaut 1."
+        }
+      ]
+    },
+    {
       "id": "esperance-–-variance-–-ecart-type",
       "title": "Espérance – Variance – Écart-type",
       "schemaVersion": 2,
@@ -70,7 +262,10 @@
             }
           ],
           "reponse": "$V(X) = \\dfrac{204}{25}$ et $\\sigma(X) = \\sqrt{\\dfrac{204}{25}}$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "On doit calculer $V(X)$ à partir d'une loi de probabilité donnée directement, sans transformation affine.",
+          "choixMethode": "On calcule $E(X)$, puis $E(X^2)$, puis $V(X)=E(X^2)-(E(X))^2$, et enfin $\\sigma(X)=\\sqrt{V(X)}$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1954",
@@ -87,7 +282,10 @@
             }
           ],
           "reponse": "$E(Y) = -\\dfrac{5}{4}$ et $V(Y) = \\dfrac{891}{16}$",
-          "difficulte": "facile"
+          "difficulte": "facile",
+          "analyse": "On connaît déjà $E(X)$ et $V(X)$ : il s'agit d'appliquer les formules de transformation affine, sans refaire le calcul depuis la loi de probabilité.",
+          "choixMethode": "On applique $E(aX+b)=aE(X)+b$ et $V(aX+b)=a^2V(X)$.",
+          "niveauAcces": "free"
         },
         {
           "id": "exemple-1966",
@@ -104,7 +302,8 @@
             }
           ],
           "reponse": "$E(Y) = 1$ et $V(Y) = 2$",
-          "difficulte": "moyen"
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
         },
         {
           "id": "exemple-1978",
@@ -129,7 +328,8 @@
             }
           ],
           "reponse": "$V(X) = 22$ et $\\sigma(X) = \\sqrt{22}$",
-          "difficulte": "difficile"
+          "difficulte": "difficile",
+          "niveauAcces": "premium"
         }
       ],
       "erreursFrequentes": [
@@ -158,18 +358,38 @@
         }
       ],
       "astuce": "",
-      "aRetenir": [
-        "Utiliser $E(X)=\\sum x_ip_i$.",
-        "Utiliser $V(X)=E(X^2)-(E(X))^2$ puis $\\sigma(X)=\\sqrt{V(X)}$."
-      ],
+      "aRetenir": ["Utiliser $E(X)=\\sum x_ip_i$.", "Utiliser $V(X)=E(X^2)-(E(X))^2$ puis $\\sigma(X)=\\sqrt{V(X)}$."],
       "figure": {
         "kind": "bars",
         "bars": [
-          {"label": "x = -1", "value": 0.6},
-          {"label": "x = 3", "value": 0.2},
-          {"label": "x = 6", "value": 0.2}
+          {
+            "label": "x = -1",
+            "value": 0.6
+          },
+          {
+            "label": "x = 3",
+            "value": 0.2
+          },
+          {
+            "label": "x = 6",
+            "value": 0.2
+          }
         ],
-        "alt": "Diagramme en bâtons de la loi de probabilité de X : P(X=-1) = 0,6, P(X=3) = 0,2 et P(X=6) = 0,2. Ces trois probabilités somment à 1."
+        "alt": "Diagramme en bâtons de la loi de probabilité de X : P(X=-1) = 0,6, P(X=3) = 0,2 et P(X=6) = 0,2. Ces trois probabilités somment à 1.",
+        "explication": {
+          "comprendre": "Chaque bâton représente une valeur possible de X et sa probabilité ; ces hauteurs servent directement au calcul de E(X) et V(X).",
+          "etapes": [
+            {
+              "titre": "Les valeurs",
+              "texte": "x=-1, x=3, x=6."
+            },
+            {
+              "titre": "Les probabilités",
+              "texte": "0,6 ; 0,2 ; 0,2 — leur somme vaut 1."
+            }
+          ],
+          "resume": "C'est cette répartition qui déterminera si X est très dispersée (grande variance) ou très concentrée (petite variance)."
+        }
       },
       "demonstration": {
         "titre": "Pourquoi $E(aX+b) = aE(X) + b$ ? — démonstration",
@@ -193,11 +413,7 @@
         ],
         "conclusion": "On obtient donc $E(aX+b) = aE(X) + b$ : ajouter une constante $b$ décale l'espérance de $b$, et multiplier par $a$ multiplie l'espérance par $a$, exactement comme une transformation affine des valeurs de $X$."
       },
-      "quizExerciseIds": [
-        1943,
-        1944,
-        1945
-      ],
+      "quizExerciseIds": [2074, 1944, 1945],
       "topic_id": "esperance-–-variance-–-ecart-type",
       "proprietes": [],
       "vocabulaire_associe": [],
@@ -205,167 +421,49 @@
       "objectifs_pedagogiques": [
         "À la fin de ce cours, tu sauras calculer l'espérance, la variance et l'écart-type d'une variable aléatoire, et utiliser les formules de linéarité $E(aX+b)=aE(X)+b$ et $V(aX+b)=a^2V(X)$."
       ],
-      "prerequis": [],
-      "notions_liees": [],
+      "prerequis": ["Variables aléatoires réelles (notion précédente de ce chapitre)"],
+      "notions_liees": ["variables-aleatoires-reelles"],
       "difficulte": "facile",
-      "tags": [
-        "esperance",
-        "variance",
-        "ecart",
-        "type"
-      ]
-    },
-    {
-      "id": "variables-aleatoires-reelles",
-      "title": "Variables aléatoires réelles",
-      "schemaVersion": 2,
-      "intro": "Dans cette leçon, tu vas apprendre ce qu'est une variable aléatoire réelle et sa loi de probabilité, et à utiliser le fait que la somme de toutes les probabilités vaut $1$ pour déterminer une probabilité manquante ou calculer la probabilité d'un intervalle de valeurs.\n\nCette notion permet de décrire, de façon organisée, tous les résultats numériques possibles d'une expérience aléatoire et leurs chances de se produire, ce qui est la base de toute étude de probabilités (calcul d'espérance, de variance, etc.).",
-      "explicationSimple": "Une variable aléatoire réelle $X$ associe un nombre à chaque résultat possible d'une expérience aléatoire (par exemple, le gain à un jeu, ou le nombre obtenu en lançant un dé). Sa loi de probabilité liste toutes les valeurs que $X$ peut prendre, avec la probabilité de chacune. Comme l'expérience produit obligatoirement l'une de ces valeurs (et une seule à la fois), les probabilités de toutes les valeurs possibles s'additionnent forcément pour donner $1$ : c'est une certitude, comme le fait qu'un événement se réalise toujours ou ne se réalise jamais avec probabilité $1$. Cette propriété permet, si l'on connaît toutes les probabilités sauf une, de retrouver la dernière par soustraction.",
-      "objectif": "À la fin de ce cours, tu sauras utiliser le fait que la somme des probabilités d'une variable aléatoire vaut $1$ pour déterminer une probabilité manquante, et calculer la probabilité qu'une variable aléatoire prenne une valeur dans un intervalle donné (par exemple $P(X\\leqslant 4)$).",
-      "definition": "Une variable aléatoire réelle $X$ associe à chaque issue d'une expérience aléatoire un nombre réel. Sa loi de probabilité décrit, pour chacune des valeurs possibles $x_1,\\dots,x_n$, la probabilité $P(X=x_i)$ que $X$ prenne cette valeur. Comme ces événements $(X=x_1), \\dots, (X=x_n)$ sont deux à deux incompatibles (ils ne peuvent pas se produire en même temps) et couvrent toutes les issues possibles de l'expérience, la somme de toutes ces probabilités vaut toujours $1$ : $\\sum_i P(X=x_i)=1$.",
-      "definitions": {
-        "lycee": "Une variable aléatoire réelle $X$ associe à chaque issue d'une expérience aléatoire un nombre réel. Sa loi de probabilité décrit, pour chacune des valeurs possibles $x_1,\\dots,x_n$, la probabilité $P(X=x_i)$ que $X$ prenne cette valeur. Comme ces événements $(X=x_1), \\dots, (X=x_n)$ sont deux à deux incompatibles (ils ne peuvent pas se produire en même temps) et couvrent toutes les issues possibles de l'expérience, la somme de toutes ces probabilités vaut toujours $1$ : $\\sum_i P(X=x_i)=1$.",
-        "college": "Additionner les probabilités de toutes les valeurs concernées."
-      },
-      "intuition": "L'erreur la plus fréquente en calculant $P(X\\leqslant a)$ est d'additionner les probabilités de toutes les valeurs de $X$ au lieu de ne garder que celles inférieures ou égales à $a$, ou inversement d'oublier la valeur $a$ elle-même (qui doit être incluse, car l'inégalité est large). Avant de sommer, relis toujours la liste des valeurs possibles de $X$ et souligne uniquement celles qui vérifient la condition de l'énoncé.",
-      "reglesImportantes": [
-        "Additionner les probabilités de toutes les valeurs concernées."
-      ],
-      "formules": [],
-      "methode": {
-        "titre": "Méthode — Variables aléatoires réelles",
-        "etapes": [
-          {
-            "icone": "search",
-            "couleur": "blue",
-            "texte": "Étape 1 : La somme des probabilités d'une loi de probabilité vaut $1$."
-          },
-          {
-            "icone": "sliders",
-            "couleur": "purple",
-            "texte": "Étape 2 : $P(X=7) = 1 - \\left(\\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{10}\\right) = \\dfrac{1}{2}$."
-          }
-        ]
-      },
-      "exemples": [
+      "tags": ["esperance", "variance", "ecart", "type"],
+      "pourquoi": "Si tu répétais un jeu de hasard un très grand nombre de fois, quel gain moyen peux-tu attendre ? Et à quel point les résultats varient-ils d'une partie à l'autre, autour de cette moyenne ? L'espérance répond à la première question, la variance et l'écart-type à la seconde.",
+      "apercus": [
         {
-          "id": "exemple-1884",
-          "titre": "Exemple 1",
-          "enonce": "Une variable aléatoire $X$ peut prendre les valeurs $-4$, $0$, $5$ et $7$. On donne P(X=-4) = \\dfrac{1}{5}, P(X=0) = \\dfrac{1}{5}, P(X=5) = \\dfrac{1}{10}. Déterminer $P(X=7)$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : La somme des probabilités d'une loi de probabilité vaut $1$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $P(X=7) = 1 - \\left(\\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{10}\\right) = \\dfrac{1}{2}$."
-            }
-          ],
-          "reponse": "$P(X=7) = \\dfrac{1}{2}$",
-          "difficulte": "facile"
+          "id": "apercu-espvar-exemples-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "2 exemples supplémentaires",
+          "description": "D'autres calculs de variance et de transformations affines, pour automatiser les deux méthodes."
         },
         {
-          "id": "exemple-1896",
-          "titre": "Exemple 2",
-          "enonce": "Une variable aléatoire $X$ peut prendre les valeurs $-4$, $-2$, $-1$ et $2$. On donne P(X=-4) = \\dfrac{1}{4}, P(X=-2) = \\dfrac{21}{100}, P(X=2) = \\dfrac{49}{100}. Déterminer $P(X=-1)$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : La somme des probabilités d'une loi de probabilité vaut $1$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $P(X=-1) = 1 - \\left(\\dfrac{1}{4} + \\dfrac{21}{100} + \\dfrac{49}{100}\\right) = \\dfrac{1}{20}$."
-            }
-          ],
-          "reponse": "$P(X=-1) = \\dfrac{1}{20}$",
-          "difficulte": "facile"
-        },
-        {
-          "id": "exemple-1908",
-          "titre": "Exemple 3",
-          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-5)=\\dfrac{3}{20}$, $P(X=-3)=\\dfrac{1}{5}$, $P(X=0)=\\dfrac{1}{5}$, $P(X=5)=\\dfrac{9}{20}$. Calculer $P(X \\leqslant 0)$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : $P(X\\leqslant 0)$ est la somme des probabilités pour toutes les valeurs de $X$ inférieures ou égales à $0$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $P(X\\leqslant 0) = \\dfrac{3}{20} + \\dfrac{1}{5} + \\dfrac{1}{5} = \\dfrac{11}{20}$."
-            }
-          ],
-          "reponse": "$P(X \\leqslant 0) = \\dfrac{11}{20}$",
-          "difficulte": "moyen"
-        },
-        {
-          "id": "exemple-1920",
-          "titre": "Exemple 4",
-          "enonce": "La loi de probabilité d'une variable aléatoire $X$ est donnée par $P(X=-2)=\\dfrac{1}{5}$, $P(X=2)=\\dfrac{1}{5}$, $P(X=4)=\\dfrac{1}{5}$, $P(X=6)=\\dfrac{2}{5}$. Calculer $P(X \\leqslant 4)$.",
-          "calcul": [
-            {
-              "expr": "",
-              "texte": "Étape 1 : $P(X\\leqslant 4)$ est la somme des probabilités pour toutes les valeurs de $X$ inférieures ou égales à $4$."
-            },
-            {
-              "expr": "",
-              "texte": "Étape 2 : $P(X\\leqslant 4) = \\dfrac{1}{5} + \\dfrac{1}{5} + \\dfrac{1}{5} = \\dfrac{3}{5}$."
-            }
-          ],
-          "reponse": "$P(X \\leqslant 4) = \\dfrac{3}{5}$",
-          "difficulte": "difficile"
+          "id": "apercu-espvar-demonstration-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pourquoi E(aX+b) = aE(X) + b",
+          "description": "La démonstration complète de la formule de linéarité de l'espérance."
         }
       ],
-      "erreursFrequentes": [
-        "Oublier une valeur possible de $X$ dans le calcul de la probabilité manquante, et soustraire de $1$ une somme incomplète des probabilités déjà connues.",
-        "Pour calculer $P(X \\leqslant a)$, additionner les probabilités de toutes les valeurs de $X$ au lieu de ne garder que celles inférieures ou égales à $a$.",
-        "Oublier d'inclure la valeur $a$ elle-même dans le calcul de $P(X \\leqslant a)$, alors que l'inégalité large signifie que $a$ doit être comptée."
-      ],
-      "erreursFrequentesDetail": [
+      "champsLibresForces": ["explicationSimple", "intuition", "erreursFrequentesDetail", "aRetenir"],
+      "questionsEclair": [
         {
-          "description": "Oublier une valeur possible de $X$ dans le calcul de la probabilité manquante, et soustraire de $1$ une somme incomplète des probabilités déjà connues.",
-          "pourquoi": "La relation $\\sum_i P(X=x_i)=1$ n'est vraie que si on additionne les probabilités de TOUTES les valeurs possibles de $X$ ; en oublier une fausse le résultat de la soustraction.",
-          "comment_detecter": "Recompte le nombre de valeurs possibles de $X$ annoncées dans l'énoncé et vérifie que chacune apparaît bien dans la somme effectuée avant la soustraction.",
-          "comment_eviter": "Liste d'abord toutes les valeurs possibles de $X$ et leurs probabilités connues avant de calculer la somme à soustraire de $1$."
+          "apres": "pourquoi",
+          "question": "Que mesure l'espérance, et que mesurent la variance et l'écart-type ?",
+          "piste": "L'espérance mesure la valeur moyenne attendue ; la variance et l'écart-type mesurent la dispersion des résultats autour de cette moyenne."
         },
         {
-          "description": "Pour calculer $P(X \\leqslant a)$, additionner les probabilités de toutes les valeurs de $X$ au lieu de ne garder que celles inférieures ou égales à $a$.",
-          "pourquoi": "$P(X \\leqslant a)$ ne concerne que les issues où $X$ prend une valeur inférieure ou égale à $a$ : additionner toutes les probabilités reviendrait à calculer $P(X\\leqslant +\\infty) = 1$, ce qui ne répond pas à la question posée.",
-          "comment_detecter": "Si le résultat obtenu vaut exactement $1$ alors que $a$ n'est pas la plus grande valeur possible de $X$, certaines valeurs non concernées ont probablement été incluses par erreur.",
-          "comment_eviter": "Souligne dans la liste des valeurs possibles de $X$ uniquement celles qui sont inférieures ou égales à $a$ avant d'additionner leurs probabilités."
+          "apres": "intuition",
+          "question": "Pourquoi le terme b disparaît-il dans la formule V(aX+b)=a²V(X) ?",
+          "piste": "Parce qu'ajouter une constante b décale toutes les valeurs de la même façon, sans changer l'écart entre elles : la dispersion reste donc inchangée."
         },
         {
-          "description": "Oublier d'inclure la valeur $a$ elle-même dans le calcul de $P(X \\leqslant a)$, alors que l'inégalité large signifie que $a$ doit être comptée.",
-          "pourquoi": "Le symbole $\\leqslant$ est une inégalité large : l'événement $(X \\leqslant a)$ inclut le cas où $X$ est exactement égal à $a$, ce n'est donc pas la même chose que $(X < a)$.",
-          "comment_detecter": "Si $a$ figure bien parmi les valeurs possibles de $X$ mais que $P(X=a)$ n'apparaît pas dans la somme calculée pour $P(X\\leqslant a)$, cette valeur a été oubliée à tort.",
-          "comment_eviter": "Relis systématiquement le symbole de l'inégalité (large ou stricte) avant de dresser la liste des valeurs à additionner, et inclus $a$ dès que l'inégalité est large."
+          "apres": "methode",
+          "question": "Quelle est la différence entre E(X²) et (E(X))² ?",
+          "piste": "E(X²) est l'espérance du carré de X (on élève chaque valeur au carré avant de multiplier par sa probabilité) ; (E(X))² est le carré de l'espérance déjà calculée — ce sont deux quantités différentes."
+        },
+        {
+          "apres": "figure",
+          "question": "Que représente ce diagramme en bâtons ?",
+          "piste": "La loi de probabilité de X : la hauteur de chaque bâton donne la probabilité de la valeur correspondante."
         }
-      ],
-      "astuce": "",
-      "aRetenir": [
-        "Additionner les probabilités de toutes les valeurs concernées."
-      ],
-      "figure": null,
-      "quizExerciseIds": [
-        1885,
-        1886,
-        1887
-      ],
-      "topic_id": "variables-aleatoires-reelles",
-      "proprietes": [],
-      "vocabulaire_associe": [],
-      "synonymes": [],
-      "objectifs_pedagogiques": [
-        "À la fin de ce cours, tu sauras résoudre des exercices sur Variables aléatoires réelles."
-      ],
-      "prerequis": [],
-      "notions_liees": [],
-      "difficulte": "facile",
-      "tags": [
-        "variables",
-        "aleatoires",
-        "reelles"
       ]
     }
   ]

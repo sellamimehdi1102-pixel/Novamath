@@ -1,0 +1,1871 @@
+{
+  "chapterId": "Chapitre_6",
+  "title": "Dérivation et variations",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "variations-d-une-fonction",
+      "title": "Variations d'une fonction",
+      "schemaVersion": 2,
+      "intro": "Au chapitre précédent, la dérivée donnait la pente des tangentes. Ici, elle devient un outil d'étude : son signe dit si la fonction monte ou descend. C'est la méthode la plus générale pour obtenir un tableau de variations.",
+      "pourquoi": "Connaître les variations d'une fonction, c'est connaître sa forme : valeurs maximales et minimales, zones de croissance, nombre de solutions d'une équation.",
+      "explicationSimple": "$f(x) = x^2 - 8x + 3$ : $f'(x) = 2x - 8$ est négatif avant $4$ et positif après. Donc $f$ décroît puis croît, avec un minimum en $4$ : $f(4) = -13$.",
+      "objectif": "À la fin de ce cours, tu sauras relier le signe de $f'$ au sens de variation de $f$ sur un intervalle, dresser un tableau de variations complet et reconnaître une fonction constante.",
+      "definition": "Soit $f$ une fonction dérivable sur un intervalle $I$ (théorème admis). Si $f'(x) > 0$ pour tout $x$ de $I$ (sauf éventuellement en des points isolés où $f'$ s'annule), alors $f$ est strictement croissante sur $I$ ; si $f'(x) < 0$, $f$ est strictement décroissante sur $I$ ; si $f'(x) = 0$ pour tout $x$ de $I$, $f$ est constante sur $I$. Réciproquement, si $f$ est croissante (resp. décroissante) sur $I$, alors $f' \\geqslant 0$ (resp. $f' \\leqslant 0$) sur $I$.",
+      "definitions": {
+        "lycee": "Soit $f$ une fonction dérivable sur un intervalle $I$ (théorème admis). Si $f'(x) > 0$ pour tout $x$ de $I$ (sauf éventuellement en des points isolés où $f'$ s'annule), alors $f$ est strictement croissante sur $I$ ; si $f'(x) < 0$, $f$ est strictement décroissante sur $I$ ; si $f'(x) = 0$ pour tout $x$ de $I$, $f$ est constante sur $I$. Réciproquement, si $f$ est croissante (resp. décroissante) sur $I$, alors $f' \\geqslant 0$ (resp. $f' \\leqslant 0$) sur $I$."
+      },
+      "intuition": "La dérivée est la « pente instantanée » : si toutes les pentes d'un morceau de courbe sont positives, ce morceau monte.",
+      "reglesImportantes": [
+        "Sur un intervalle : $f' > 0$ $\\Rightarrow$ $f$ strictement croissante ; $f' < 0$ $\\Rightarrow$ $f$ strictement décroissante.",
+        "Sur un intervalle : $f' = 0$ partout $\\iff$ $f$ constante.",
+        "Le théorème porte sur un INTERVALLE : sur $\\mathbb{R} \\setminus \\{0\\}$, il s'applique séparément à $]-\\infty ; 0[$ et à $]0 ; +\\infty[$.",
+        "Méthode : calculer $f'(x)$, le factoriser, étudier son signe, puis dresser le tableau de variations avec les valeurs aux points remarquables.",
+        "Le signe de $f'$ s'étudie avec les outils connus : premier degré, trinôme (règle du signe), quotient (signe du numérateur si le dénominateur est un carré)."
+      ],
+      "formules": [
+        {
+          "id": "formule-signe-variations",
+          "nom": "Signe et variations",
+          "expression": "$f' > 0$ sur $I$ $\\Rightarrow$ $f \\nearrow$ ; $f' < 0$ sur $I$ $\\Rightarrow$ $f \\searrow$",
+          "quand_utiliser": "Pour toute étude de variations.",
+          "erreur_frequente": "Lire le signe de $f$ au lieu de celui de $f'$.",
+          "astuce": "Écris toujours une ligne « signe de $f'(x)$ »."
+        },
+        {
+          "id": "formule-constante",
+          "nom": "Fonction constante",
+          "expression": "$f' = 0$ sur un intervalle $\\iff$ $f$ constante",
+          "quand_utiliser": "Pour justifier qu'une quantité ne varie pas.",
+          "erreur_frequente": "Oublier la condition d'intervalle.",
+          "astuce": "Exemple : $f(x) = \\cos^2 x + \\sin^2 x$ a une dérivée nulle."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Étudier les variations d'une fonction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je précise l'intervalle d'étude et je calcule $f'(x)$."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Je factorise $f'(x)$ et j'étudie son signe (tableau de signes si besoin)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je dresse le tableau de variations : flèche montante où $f' > 0$, descendante où $f' < 0$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je calcule les valeurs aux points où $f'$ s'annule et je contrôle sur une valeur intermédiaire."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je précise l'intervalle d'étude et je calcule $f'(x)$."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je factorise $f'(x)$ et j'étudie son signe (tableau de signes si besoin)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je dresse le tableau de variations : flèche montante où $f' > 0$, descendante où $f' < 0$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je calcule les valeurs aux points où $f'$ s'annule et je contrôle sur une valeur intermédiaire."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je dérive la fonction."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je cherche où la dérivée est positive et où elle est négative."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Positive : la fonction monte. Négative : elle descend."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je calcule les valeurs aux « sommets » des flèches."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "$f'$, signe, flèches."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Valeurs aux points critiques."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-767",
+          "titre": "Exemple 1 — La dérivée est donnée factorisée",
+          "enonce": "Soit $f$ dérivable sur $\\mathbb{R}$ avec $f'(x) = -2(x + 5)(x + 3)$. Étudier les variations de $f$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f'$ est un trinôme de racines $-5$ et $-3$, de coefficient $-2 < 0$ : négatif à l'extérieur des racines, positif entre."
+            },
+            {
+              "expr": "",
+              "texte": "$f$ est décroissante sur $]-\\infty ; -5]$, croissante sur $[-5 ; -3]$, décroissante sur $[-3 ; +\\infty[$."
+            }
+          ],
+          "reponse": "Décroissante, puis croissante sur $[-5 ; -3]$, puis décroissante.",
+          "conclusion": "Minimum local en $-5$, maximum local en $-3$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-791",
+          "titre": "Exemple 2 — Une fonction polynôme de degré 3",
+          "enonce": "Étudier les variations de $f(x) = x^3 - 3x$ sur $\\mathbb{R}$.",
+          "calcul": [
+            {
+              "expr": "f'(x) = 3x^2 - 3 = 3(x - 1)(x + 1)",
+              "texte": "Dérivée :"
+            },
+            {
+              "expr": "",
+              "texte": "$f' > 0$ hors de $[-1 ; 1]$, $f' < 0$ sur $]-1 ; 1[$."
+            },
+            {
+              "expr": "",
+              "texte": "$f(-1) = 2$ et $f(1) = -2$."
+            }
+          ],
+          "reponse": "$f$ croissante sur $]-\\infty ; -1]$, décroissante sur $[-1 ; 1]$, croissante sur $[1 ; +\\infty[$.",
+          "conclusion": "C'est le tableau de la figure.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-779",
+          "titre": "Exemple 3 — Une fonction homographique",
+          "enonce": "Étudier les variations de $f(x) = \\dfrac{3x + 1}{x - 2}$ sur $]2 ; +\\infty[$.",
+          "calcul": [
+            {
+              "expr": "f'(x) = \\dfrac{3(x - 2) - (3x + 1)}{(x - 2)^2} = \\dfrac{-7}{(x - 2)^2}",
+              "texte": "Quotient :"
+            },
+            {
+              "expr": "",
+              "texte": "$f'(x) < 0$ sur $]2 ; +\\infty[$."
+            }
+          ],
+          "reponse": "$f$ est strictement décroissante sur $]2 ; +\\infty[$.",
+          "conclusion": "Le dénominateur est un carré : seul le signe du numérateur compte.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-803",
+          "titre": "Exemple 4 — Somme et inverse",
+          "enonce": "Étudier les variations de $f(x) = x + \\dfrac{9}{x}$ sur $]0 ; +\\infty[$.",
+          "calcul": [
+            {
+              "expr": "f'(x) = 1 - \\dfrac{9}{x^2} = \\dfrac{(x - 3)(x + 3)}{x^2}",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "Sur $]0 ; +\\infty[$, du signe de $x - 3$ ; $f(3) = 6$."
+            }
+          ],
+          "reponse": "Décroissante sur $]0 ; 3]$, croissante sur $[3 ; +\\infty[$ ; minimum $6$.",
+          "conclusion": "On factorise toujours $f'(x)$ avant d'étudier son signe.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-variations-racine",
+          "titre": "Exemple 5 — Avec une racine carrée",
+          "enonce": "Étudier les variations de $f(x) = x - 2\\sqrt{x}$ sur $]0 ; +\\infty[$.",
+          "calcul": [
+            {
+              "expr": "f'(x) = 1 - \\dfrac{1}{\\sqrt{x}} = \\dfrac{\\sqrt{x} - 1}{\\sqrt{x}}",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "Du signe de $\\sqrt{x} - 1$ : négatif sur $]0 ; 1[$, positif sur $]1 ; +\\infty[$ ; $f(1) = -1$."
+            }
+          ],
+          "reponse": "Décroissante sur $]0 ; 1]$, croissante sur $[1 ; +\\infty[$ ; minimum $-1$.",
+          "conclusion": "$\\sqrt{x} - 1 > 0 \\iff x > 1$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-fonction-constante",
+          "titre": "Exemple 6 — Démontrer qu'une expression est constante",
+          "enonce": "Soit $f(x) = \\dfrac{x^2}{x^2 + 1} + \\dfrac{1}{x^2 + 1}$ sur $\\mathbb{R}$. Calculer $f'(x)$ et en déduire une expression simple de $f$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f(x) = \\dfrac{x^2 + 1}{x^2 + 1}$ ; mais par la dérivation : $f'(x) = \\dfrac{2x(x^2 + 1) - 2x \\cdot x^2}{(x^2 + 1)^2} - \\dfrac{2x}{(x^2 + 1)^2} = 0$."
+            },
+            {
+              "expr": "",
+              "texte": "$f$ est constante sur l'intervalle $\\mathbb{R}$, égale à $f(0) = 1$."
+            }
+          ],
+          "reponse": "$f(x) = 1$ pour tout réel $x$.",
+          "conclusion": "La caractérisation des fonctions constantes permet de démontrer une identité.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Savoir quand la température d'un four monte ou descend.",
+        "Étudier l'évolution d'un bénéfice selon la production.",
+        "Prévoir le nombre de solutions d'une équation."
+      ],
+      "erreursFrequentes": [
+        "Lire le signe de $f$ au lieu de celui de $f'$.",
+        "Appliquer le théorème sur une réunion d'intervalles.",
+        "Oublier les valeurs aux extremités des flèches.",
+        "Étudier le signe d'une dérivée non factorisée."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Lire le signe de $f$ au lieu de celui de $f'$.",
+          "pourquoi": "On confond la fonction et sa dérivée.",
+          "comment_detecter": "Ta ligne de signes porte-t-elle sur $f'(x)$ ?",
+          "comment_eviter": "Le tableau commence toujours par le signe de $f'(x)$."
+        },
+        {
+          "description": "Appliquer le théorème sur une réunion d'intervalles.",
+          "pourquoi": "On oublie l'hypothèse « intervalle ».",
+          "comment_detecter": "Le domaine est-il d'un seul tenant ?",
+          "comment_eviter": "Étudie chaque intervalle séparément."
+        },
+        {
+          "description": "Oublier les valeurs aux extremités des flèches.",
+          "pourquoi": "On s'arrête au sens de variation.",
+          "comment_detecter": "Ton tableau a-t-il ses valeurs ?",
+          "comment_eviter": "Calcule $f$ aux points où $f'$ s'annule."
+        },
+        {
+          "description": "Étudier le signe d'une dérivée non factorisée.",
+          "pourquoi": "On ne voit pas les racines.",
+          "comment_detecter": "As-tu factorisé $f'(x)$ ?",
+          "comment_eviter": "Factorise d'abord (racines, facteur commun)."
+        }
+      ],
+      "astuce": "Après avoir dressé le tableau, calcule $f$ en une valeur intermédiaire : si elle n'est pas entre les valeurs annoncées par les flèches, il y a une erreur.",
+      "aRetenir": [
+        "Étudier les variations d'une fonction avec la dérivée : sur un intervalle, $f' > 0$ : croissante ; $f' < 0$ : décroissante ; $f' = 0$ : constante.",
+        "Méthode : $f'$, factorisation, signe, tableau, valeurs."
+      ],
+      "figure": {
+        "kind": "tableau",
+        "xs": [
+          "-\\infty",
+          "-1",
+          "1",
+          "+\\infty"
+        ],
+        "rows": [
+          {
+            "type": "signe",
+            "label": "f'(x)",
+            "signs": [
+              "+",
+              "-",
+              "+"
+            ],
+            "marks": [
+              "",
+              "0",
+              "0",
+              ""
+            ]
+          },
+          {
+            "type": "variation",
+            "label": "f(x)",
+            "values": [
+              "",
+              "2",
+              "-2",
+              ""
+            ],
+            "levels": [
+              "bas",
+              "haut",
+              "bas",
+              "haut"
+            ]
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Signe de f'",
+          "Sens de variation",
+          "Extremums locaux"
+        ],
+        "relation": "$f(x) = x^3 - 3x$, $f'(x) = 3(x - 1)(x + 1)$",
+        "alt": "Tableau de variations de f(x) = x³ − 3x : f'(x) positif sur ]−∞ ; −1[, négatif sur ]−1 ; 1[, positif sur ]1 ; +∞[ ; f croissante jusqu'à f(−1) = 2, décroissante jusqu'à f(1) = −2, puis croissante.",
+        "explication": {
+          "resume": "Sur un intervalle, le signe de la dérivée donne le sens de variation : $f' > 0$, la fonction croît ; $f' < 0$, elle décroît. Le tableau de variations rassemble ces informations.",
+          "lecture": [
+            "Première ligne : les valeurs de $x$ où $f'$ s'annule.",
+            "Deuxième ligne : le signe de $f'(x)$ ; troisième : les flèches de variation."
+          ],
+          "observations": [
+            "$f'(x) = 3x^2 - 3 = 3(x - 1)(x + 1)$.",
+            "$f$ croît, puis décroît, puis croît.",
+            "Maximum local $f(-1) = 2$, minimum local $f(1) = -2$."
+          ],
+          "pieges": [
+            "Placer les flèches d'après le signe de $f$ au lieu de celui de $f'$."
+          ],
+          "aRetenir": [
+            "$f' > 0$ sur un intervalle $\\Rightarrow$ $f$ strictement croissante sur cet intervalle."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        767,
+        64101,
+        64104
+      ],
+      "topic_id": "variations-d-une-fonction",
+      "proprietes": [
+        "Sur un intervalle, une fonction de dérivée strictement positive est strictement croissante."
+      ],
+      "vocabulaire_associe": [
+        "variations",
+        "croissante",
+        "décroissante",
+        "tableau de variations",
+        "signe de la dérivée"
+      ],
+      "synonymes": [
+        "sens de variation d'une fonction",
+        "tableau de variations",
+        "étude des variations"
+      ],
+      "objectifs_pedagogiques": [
+        "Relier signe de $f'$ et variations.",
+        "Dresser un tableau de variations.",
+        "Reconnaître une fonction constante."
+      ],
+      "prerequis": [
+        "Dérivation",
+        "Signe d'un trinôme",
+        "Tableau de signes"
+      ],
+      "notions_liees": [
+        "nombre-derive-et-extremums-locaux"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "variations",
+        "dérivation",
+        "tableau de variations"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "variations-d-une-fonction-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Fonction homographique, somme et inverse, racine carrée",
+          "description": "Trois exemples rédigés : variations d'une homographique, de $x + \\dfrac{9}{x}$ et d'une fonction avec racine carrée."
+        },
+        {
+          "id": "variations-d-une-fonction-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Démontrer une identité, démonstration du sens direct",
+          "description": "Un exemple où la dérivée nulle prouve qu'une expression est constante, et la démonstration : $f$ croissante $\\Rightarrow$ $f' \\geqslant 0$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Que vaut $f'(0)$ pour $f(x) = x^3 - 3x$ ?",
+          "piste": "$-3$ : $f$ décroît en $0$."
+        },
+        {
+          "apres": "methode",
+          "question": "Si $f'(x) = (x - 2)^2$, $f$ est-elle croissante ?",
+          "piste": "Oui, sur $\\mathbb{R}$ : $f' \\geqslant 0$ et ne s'annule qu'en $2$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Si $f$ est croissante et dérivable sur $I$, alors $f' \\geqslant 0$ sur $I$",
+        "etapes": [
+          {
+            "titre": "Hypothèses",
+            "texte": "$f$ est croissante et dérivable sur l'intervalle $I$ ; $a \\in I$."
+          },
+          {
+            "titre": "Signe du taux",
+            "texte": "Pour $h > 0$ (avec $a + h \\in I$) : $f(a + h) \\geqslant f(a)$, donc $\\dfrac{f(a + h) - f(a)}{h} \\geqslant 0$. Pour $h < 0$ : $f(a + h) \\leqslant f(a)$ et le quotient est encore positif ou nul."
+          },
+          {
+            "titre": "Passage à la limite",
+            "texte": "Le nombre dérivé $f'(a)$ est la limite de ces taux, tous positifs ou nuls : il est positif ou nul."
+          },
+          {
+            "titre": "Remarque",
+            "texte": "La réciproque « $f' > 0$ $\\Rightarrow$ $f$ croissante » est le théorème admis du cours."
+          }
+        ],
+        "conclusion": "Le signe des taux de variation passe à leur limite, le nombre dérivé."
+      }
+    },
+    {
+      "id": "nombre-derive-et-extremums-locaux",
+      "title": "Nombre dérivé et extremums locaux",
+      "schemaVersion": 2,
+      "intro": "Un maximum ou un minimum local est un « sommet » ou un « creux » de la courbe. En ces points, la tangente est horizontale : c'est la clé de tous les problèmes d'optimisation.",
+      "pourquoi": "Maximiser un bénéfice, minimiser un coût, trouver les dimensions optimales d'un objet : tous ces problèmes reviennent à chercher un extremum.",
+      "explicationSimple": "Pour $f(x) = x^3 - 12x$ : $f'(x) = 3(x - 2)(x + 2)$ change de signe en $-2$ (de $+$ à $-$ : maximum $f(-2) = 16$) et en $2$ (de $-$ à $+$ : minimum $f(2) = -16$).",
+      "objectif": "À la fin de ce cours, tu sauras déterminer les extremums locaux d'une fonction dérivable, savoir pourquoi $f'(a) = 0$ ne suffit pas, et résoudre un problème d'optimisation.",
+      "definition": "$f$ admet un maximum local en $a$ s'il existe un intervalle ouvert $J$ contenant $a$ tel que $f(x) \\leqslant f(a)$ pour tout $x$ de $J$ (minimum local : $f(x) \\geqslant f(a)$). Si $f$ est dérivable sur un intervalle ouvert et admet un extremum local en $a$, alors $f'(a) = 0$ : la tangente en $a$ est horizontale. Réciproquement, si $f'$ s'annule en $a$ en changeant de signe, $f$ admet un extremum local en $a$. Si $f'$ s'annule sans changer de signe (exemple : $x^3$ en $0$), il n'y a pas d'extremum.",
+      "definitions": {
+        "lycee": "$f$ admet un maximum local en $a$ s'il existe un intervalle ouvert $J$ contenant $a$ tel que $f(x) \\leqslant f(a)$ pour tout $x$ de $J$ (minimum local : $f(x) \\geqslant f(a)$). Si $f$ est dérivable sur un intervalle ouvert et admet un extremum local en $a$, alors $f'(a) = 0$ : la tangente en $a$ est horizontale. Réciproquement, si $f'$ s'annule en $a$ en changeant de signe, $f$ admet un extremum local en $a$. Si $f'$ s'annule sans changer de signe (exemple : $x^3$ en $0$), il n'y a pas d'extremum."
+      },
+      "intuition": "Au sommet d'une colline, le sol est « plat » un instant. Mais un palier plat au milieu d'une montée n'est pas un sommet : c'est le cas de $x^3$ en $0$.",
+      "reglesImportantes": [
+        "Extremum local en $a$ (intérieur à l'intervalle) $\\Rightarrow$ $f'(a) = 0$ (tangente horizontale).",
+        "$f'(a) = 0$ ne suffit pas : il faut que $f'$ change de signe en $a$.",
+        "$f'$ passe de $+$ à $-$ en $a$ : maximum local ; de $-$ à $+$ : minimum local.",
+        "Sur un intervalle fermé, le maximum ou le minimum peut aussi être atteint à une borne : on compare les valeurs.",
+        "Optimisation : on exprime la grandeur à optimiser en fonction d'une variable, on précise son domaine, puis on étudie les variations."
+      ],
+      "formules": [
+        {
+          "id": "formule-extremum",
+          "nom": "Condition d'extremum",
+          "expression": "$f'$ s'annule ET change de signe en $a$ $\\Rightarrow$ extremum local en $a$",
+          "quand_utiliser": "Pour justifier un extremum.",
+          "erreur_frequente": "S'arrêter à $f'(a) = 0$.",
+          "astuce": "Contre-exemple à retenir : $x^3$ en $0$."
+        },
+        {
+          "id": "formule-optimisation",
+          "nom": "Optimisation",
+          "expression": "maximum de $f$ sur $[a ; b]$ : plus grande valeur parmi $f(a)$, $f(b)$ et les maximums locaux",
+          "quand_utiliser": "Pour les problèmes concrets avec un domaine borné.",
+          "erreur_frequente": "Oublier les bornes.",
+          "astuce": "Compare toujours avec les valeurs aux bornes."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre un problème d'optimisation",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je choisis la variable, je précise son domaine et j'exprime la grandeur à optimiser."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "purple",
+            "texte": "Je calcule la dérivée et j'étudie son signe."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je dresse le tableau de variations et je lis l'extremum (en comparant avec les bornes)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je conclus dans le contexte, avec l'unité."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je choisis la variable, je précise son domaine et j'exprime la grandeur à optimiser."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je calcule la dérivée et j'étudie son signe."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je dresse le tableau de variations et je lis l'extremum (en comparant avec les bornes)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je conclus dans le contexte, avec l'unité."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'écris la quantité à rendre la plus grande (ou petite) avec une seule lettre."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Je dérive et je cherche où la dérivée change de signe."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Au changement de signe : maximum ou minimum."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que la valeur trouvée a du sens."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "penSquare",
+              "couleur": "purple",
+              "texte": "Signe de $f'$ : changement de signe = extremum."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Bornes et contexte."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-826",
+          "titre": "Exemple 1 — Extremums d'une fonction de degré 3",
+          "enonce": "Déterminer les extremums locaux de $f(x) = x^3 - 12x$.",
+          "calcul": [
+            {
+              "expr": "f'(x) = 3x^2 - 12 = 3(x - 2)(x + 2)",
+              "texte": "Dérivée :"
+            },
+            {
+              "expr": "",
+              "texte": "$f'$ passe de $+$ à $-$ en $-2$ et de $-$ à $+$ en $2$."
+            },
+            {
+              "expr": "",
+              "texte": "$f(-2) = 16$ et $f(2) = -16$."
+            }
+          ],
+          "reponse": "Maximum local $16$ en $-2$ ; minimum local $-16$ en $2$.",
+          "conclusion": "Les extremums sont aux points où $f'$ change de signe.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-838",
+          "titre": "Exemple 2 — Une tangente horizontale sans extremum",
+          "enonce": "Soit $f(x) = (x + 3)^3 - 5$. Montrer que $f'(-3) = 0$. La fonction admet-elle un extremum en $-3$ ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f'(x) = 3(x + 3)^2$, donc $f'(-3) = 0$ : tangente horizontale en $-3$."
+            },
+            {
+              "expr": "",
+              "texte": "Mais $f'(x) \\geqslant 0$ de part et d'autre de $-3$ : $f'$ ne change pas de signe, $f$ est croissante sur $\\mathbb{R}$."
+            }
+          ],
+          "reponse": "$f$ n'admet pas d'extremum en $-3$, bien que $f'(-3) = 0$.",
+          "conclusion": "$f'(a) = 0$ est nécessaire mais pas suffisant.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-850",
+          "titre": "Exemple 3 — Volume maximal d'une boîte",
+          "enonce": "Avec un carré de carton de $12$ cm de côté, on découpe aux coins quatre carrés de côté $x$ puis on plie. Quelle valeur de $x$ donne le volume maximal ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$V(x) = x(12 - 2x)^2$, $0 < x < 6$."
+            },
+            {
+              "expr": "V'(x) = 12x^2 - 96x + 144 = 12(x - 2)(x - 6)",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "Sur $]0 ; 6[$ : $V' > 0$ avant $2$, $V' < 0$ après : maximum $V(2) = 128$."
+            }
+          ],
+          "reponse": "$x = 2$ cm, volume maximal $128$ cm³.",
+          "conclusion": "La racine $6$ est hors du domaine utile (volume nul).",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-862",
+          "titre": "Exemple 4 — Maximum sur un intervalle fermé",
+          "enonce": "Déterminer le maximum de $f(x) = -x^3 + 3x$ sur $[0 ; 3]$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$f'(x) = -3(x - 1)(x + 1)$ : sur $[0 ; 3]$, positif avant $1$, négatif après."
+            },
+            {
+              "expr": "",
+              "texte": "$f(1) = 2$ ; aux bornes : $f(0) = 0$ et $f(3) = -18$."
+            }
+          ],
+          "reponse": "Le maximum vaut $2$, atteint en $x = 1$.",
+          "conclusion": "On compare le maximum local avec les valeurs aux bornes.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cout-moyen",
+          "titre": "Exemple 5 — Coût moyen minimal",
+          "enonce": "Le coût de production de $q$ objets ($q > 0$) est $C(q) = q^2 + 100$. Pour quelle production le coût moyen $\\dfrac{C(q)}{q}$ est-il minimal ?",
+          "calcul": [
+            {
+              "expr": "M(q) = q + \\dfrac{100}{q}, \\quad M'(q) = 1 - \\dfrac{100}{q^2} = \\dfrac{(q - 10)(q + 10)}{q^2}",
+              "texte": "Coût moyen :"
+            },
+            {
+              "expr": "",
+              "texte": "Sur $]0 ; +\\infty[$ : négatif avant $10$, positif après ; $M(10) = 20$."
+            }
+          ],
+          "reponse": "Pour $q = 10$ objets, le coût moyen minimal vaut $20$.",
+          "conclusion": "Au minimum du coût moyen, coût moyen et coût marginal sont égaux : $C'(10) = 20$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-distance-minimale",
+          "titre": "Exemple 6 — Distance minimale",
+          "enonce": "Déterminer le point de la droite $y = 2x$ le plus proche du point $A(5 ; 0)$.",
+          "calcul": [
+            {
+              "expr": "AM^2 = (x - 5)^2 + 4x^2 = 5x^2 - 10x + 25",
+              "texte": "Pour $M(x ; 2x)$ :"
+            },
+            {
+              "expr": "",
+              "texte": "$(AM^2)' = 10x - 10$, nul en $1$, négatif avant, positif après : minimum en $x = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "$AM^2 = 20$, donc $AM = 2\\sqrt{5}$."
+            }
+          ],
+          "reponse": "Le point $M(1 ; 2)$, à la distance $2\\sqrt{5}$ de $A$.",
+          "conclusion": "Minimiser $AM^2$ revient à minimiser $AM$ (et évite la racine carrée).",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Dimensions d'une boîte de volume maximal.",
+        "Production qui minimise un coût moyen.",
+        "Prix de vente qui maximise une recette."
+      ],
+      "erreursFrequentes": [
+        "Conclure à un extremum dès que $f'(a) = 0$.",
+        "Oublier les bornes d'un intervalle fermé.",
+        "Confondre l'abscisse et la valeur de l'extremum.",
+        "Garder une solution hors du domaine."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Conclure à un extremum dès que $f'(a) = 0$.",
+          "pourquoi": "On oublie la condition de changement de signe.",
+          "comment_detecter": "$f'$ change-t-il de signe en $a$ ?",
+          "comment_eviter": "Pense au contre-exemple $x^3$."
+        },
+        {
+          "description": "Oublier les bornes d'un intervalle fermé.",
+          "pourquoi": "On ne regarde que les points où $f' = 0$.",
+          "comment_detecter": "As-tu calculé $f$ aux bornes ?",
+          "comment_eviter": "Compare toutes les valeurs candidates."
+        },
+        {
+          "description": "Confondre l'abscisse et la valeur de l'extremum.",
+          "pourquoi": "On répond « le maximum est $2$ » au lieu de « il vaut $f(2)$ ».",
+          "comment_detecter": "La question demande-t-elle « où » ou « combien » ?",
+          "comment_eviter": "Donne les deux : atteint en $a$, vaut $f(a)$."
+        },
+        {
+          "description": "Garder une solution hors du domaine.",
+          "pourquoi": "On oublie les contraintes du problème.",
+          "comment_detecter": "La valeur est-elle dans le domaine ?",
+          "comment_eviter": "Précise le domaine dès le début."
+        }
+      ],
+      "astuce": "Pour un problème d'optimisation, dessine la situation et teste deux ou trois valeurs de la variable : tu sauras si tu cherches un maximum ou un minimum et tu détecteras une expression fausse.",
+      "aRetenir": [
+        "Extremum local intérieur $\\Rightarrow$ $f'(a) = 0$.",
+        "$f'$ s'annule ET change de signe $\\Rightarrow$ extremum.",
+        "Sur $[a ; b]$ : comparer avec les bornes."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -2.6,
+          -3.4,
+          5.2,
+          6.8
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": -1,
+            "y": 2,
+            "label": "max local",
+            "reveal": 2
+          },
+          {
+            "x": 1,
+            "y": -2,
+            "label": "min local",
+            "reveal": 2
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O",
+            "reveal": 3
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -2.0,
+              "y": 2
+            },
+            "to": {
+              "x": 0.0,
+              "y": 2
+            },
+            "reveal": 2,
+            "tooltip": "tangente horizontale en −1",
+            "dashed": true
+          },
+          {
+            "from": {
+              "x": 0.0,
+              "y": -2
+            },
+            "to": {
+              "x": 2.0,
+              "y": -2
+            },
+            "reveal": 2,
+            "tooltip": "tangente horizontale en 1",
+            "dashed": true
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.5,
+            "y": 2.6,
+            "label": "y = x³ : pas d'extremum en 0",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -2.108,
+                -3.047
+              ],
+              [
+                -2.07,
+                -2.66
+              ],
+              [
+                -2.032,
+                -2.291
+              ],
+              [
+                -1.993,
+                -1.94
+              ],
+              [
+                -1.955,
+                -1.607
+              ],
+              [
+                -1.917,
+                -1.291
+              ],
+              [
+                -1.878,
+                -0.992
+              ],
+              [
+                -1.84,
+                -0.71
+              ],
+              [
+                -1.802,
+                -0.443
+              ],
+              [
+                -1.763,
+                -0.193
+              ],
+              [
+                -1.725,
+                0.042
+              ],
+              [
+                -1.687,
+                0.262
+              ],
+              [
+                -1.648,
+                0.466
+              ],
+              [
+                -1.61,
+                0.657
+              ],
+              [
+                -1.572,
+                0.833
+              ],
+              [
+                -1.533,
+                0.995
+              ],
+              [
+                -1.495,
+                1.144
+              ],
+              [
+                -1.457,
+                1.279
+              ],
+              [
+                -1.418,
+                1.402
+              ],
+              [
+                -1.38,
+                1.512
+              ],
+              [
+                -1.342,
+                1.61
+              ],
+              [
+                -1.303,
+                1.696
+              ],
+              [
+                -1.265,
+                1.771
+              ],
+              [
+                -1.227,
+                1.834
+              ],
+              [
+                -1.188,
+                1.887
+              ],
+              [
+                -1.15,
+                1.929
+              ],
+              [
+                -1.112,
+                1.961
+              ],
+              [
+                -1.073,
+                1.983
+              ],
+              [
+                -1.035,
+                1.996
+              ],
+              [
+                -0.997,
+                2.0
+              ],
+              [
+                -0.958,
+                1.995
+              ],
+              [
+                -0.92,
+                1.981
+              ],
+              [
+                -0.882,
+                1.96
+              ],
+              [
+                -0.843,
+                1.93
+              ],
+              [
+                -0.805,
+                1.893
+              ],
+              [
+                -0.767,
+                1.849
+              ],
+              [
+                -0.728,
+                1.799
+              ],
+              [
+                -0.69,
+                1.741
+              ],
+              [
+                -0.652,
+                1.678
+              ],
+              [
+                -0.613,
+                1.609
+              ],
+              [
+                -0.575,
+                1.535
+              ],
+              [
+                -0.537,
+                1.455
+              ],
+              [
+                -0.498,
+                1.371
+              ],
+              [
+                -0.46,
+                1.283
+              ],
+              [
+                -0.422,
+                1.19
+              ],
+              [
+                -0.383,
+                1.094
+              ],
+              [
+                -0.345,
+                0.994
+              ],
+              [
+                -0.307,
+                0.891
+              ],
+              [
+                -0.268,
+                0.786
+              ],
+              [
+                -0.23,
+                0.678
+              ],
+              [
+                -0.192,
+                0.568
+              ],
+              [
+                -0.153,
+                0.456
+              ],
+              [
+                -0.115,
+                0.343
+              ],
+              [
+                -0.077,
+                0.23
+              ],
+              [
+                -0.038,
+                0.115
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.038,
+                -0.115
+              ],
+              [
+                0.077,
+                -0.23
+              ],
+              [
+                0.115,
+                -0.343
+              ],
+              [
+                0.153,
+                -0.456
+              ],
+              [
+                0.192,
+                -0.568
+              ],
+              [
+                0.23,
+                -0.678
+              ],
+              [
+                0.268,
+                -0.786
+              ],
+              [
+                0.307,
+                -0.891
+              ],
+              [
+                0.345,
+                -0.994
+              ],
+              [
+                0.383,
+                -1.094
+              ],
+              [
+                0.422,
+                -1.19
+              ],
+              [
+                0.46,
+                -1.283
+              ],
+              [
+                0.498,
+                -1.371
+              ],
+              [
+                0.537,
+                -1.455
+              ],
+              [
+                0.575,
+                -1.535
+              ],
+              [
+                0.613,
+                -1.609
+              ],
+              [
+                0.652,
+                -1.678
+              ],
+              [
+                0.69,
+                -1.741
+              ],
+              [
+                0.728,
+                -1.799
+              ],
+              [
+                0.767,
+                -1.849
+              ],
+              [
+                0.805,
+                -1.893
+              ],
+              [
+                0.843,
+                -1.93
+              ],
+              [
+                0.882,
+                -1.96
+              ],
+              [
+                0.92,
+                -1.981
+              ],
+              [
+                0.958,
+                -1.995
+              ],
+              [
+                0.997,
+                -2.0
+              ],
+              [
+                1.035,
+                -1.996
+              ],
+              [
+                1.073,
+                -1.983
+              ],
+              [
+                1.112,
+                -1.961
+              ],
+              [
+                1.15,
+                -1.929
+              ],
+              [
+                1.188,
+                -1.887
+              ],
+              [
+                1.227,
+                -1.834
+              ],
+              [
+                1.265,
+                -1.771
+              ],
+              [
+                1.303,
+                -1.696
+              ],
+              [
+                1.342,
+                -1.61
+              ],
+              [
+                1.38,
+                -1.512
+              ],
+              [
+                1.418,
+                -1.402
+              ],
+              [
+                1.457,
+                -1.279
+              ],
+              [
+                1.495,
+                -1.144
+              ],
+              [
+                1.533,
+                -0.995
+              ],
+              [
+                1.572,
+                -0.833
+              ],
+              [
+                1.61,
+                -0.657
+              ],
+              [
+                1.648,
+                -0.466
+              ],
+              [
+                1.687,
+                -0.262
+              ],
+              [
+                1.725,
+                -0.042
+              ],
+              [
+                1.763,
+                0.193
+              ],
+              [
+                1.802,
+                0.443
+              ],
+              [
+                1.84,
+                0.71
+              ],
+              [
+                1.878,
+                0.992
+              ],
+              [
+                1.917,
+                1.291
+              ],
+              [
+                1.955,
+                1.607
+              ],
+              [
+                1.993,
+                1.94
+              ],
+              [
+                2.032,
+                2.291
+              ],
+              [
+                2.07,
+                2.66
+              ],
+              [
+                2.108,
+                3.047
+              ]
+            ],
+            "tooltip": "y = x³ − 3x"
+          },
+          {
+            "points": [
+              [
+                -1.4,
+                -2.744
+              ],
+              [
+                -1.377,
+                -2.609
+              ],
+              [
+                -1.353,
+                -2.479
+              ],
+              [
+                -1.33,
+                -2.353
+              ],
+              [
+                -1.307,
+                -2.231
+              ],
+              [
+                -1.283,
+                -2.114
+              ],
+              [
+                -1.26,
+                -2.0
+              ],
+              [
+                -1.237,
+                -1.891
+              ],
+              [
+                -1.213,
+                -1.786
+              ],
+              [
+                -1.19,
+                -1.685
+              ],
+              [
+                -1.167,
+                -1.588
+              ],
+              [
+                -1.143,
+                -1.495
+              ],
+              [
+                -1.12,
+                -1.405
+              ],
+              [
+                -1.097,
+                -1.319
+              ],
+              [
+                -1.073,
+                -1.237
+              ],
+              [
+                -1.05,
+                -1.158
+              ],
+              [
+                -1.027,
+                -1.082
+              ],
+              [
+                -1.003,
+                -1.01
+              ],
+              [
+                -0.98,
+                -0.941
+              ],
+              [
+                -0.957,
+                -0.876
+              ],
+              [
+                -0.933,
+                -0.813
+              ],
+              [
+                -0.91,
+                -0.754
+              ],
+              [
+                -0.887,
+                -0.697
+              ],
+              [
+                -0.863,
+                -0.643
+              ],
+              [
+                -0.84,
+                -0.593
+              ],
+              [
+                -0.817,
+                -0.545
+              ],
+              [
+                -0.793,
+                -0.499
+              ],
+              [
+                -0.77,
+                -0.457
+              ],
+              [
+                -0.747,
+                -0.416
+              ],
+              [
+                -0.723,
+                -0.378
+              ],
+              [
+                -0.7,
+                -0.343
+              ],
+              [
+                -0.677,
+                -0.31
+              ],
+              [
+                -0.653,
+                -0.279
+              ],
+              [
+                -0.63,
+                -0.25
+              ],
+              [
+                -0.607,
+                -0.223
+              ],
+              [
+                -0.583,
+                -0.198
+              ],
+              [
+                -0.56,
+                -0.176
+              ],
+              [
+                -0.537,
+                -0.155
+              ],
+              [
+                -0.513,
+                -0.135
+              ],
+              [
+                -0.49,
+                -0.118
+              ],
+              [
+                -0.467,
+                -0.102
+              ],
+              [
+                -0.443,
+                -0.087
+              ],
+              [
+                -0.42,
+                -0.074
+              ],
+              [
+                -0.397,
+                -0.062
+              ],
+              [
+                -0.373,
+                -0.052
+              ],
+              [
+                -0.35,
+                -0.043
+              ],
+              [
+                -0.327,
+                -0.035
+              ],
+              [
+                -0.303,
+                -0.028
+              ],
+              [
+                -0.28,
+                -0.022
+              ],
+              [
+                -0.257,
+                -0.017
+              ],
+              [
+                -0.233,
+                -0.013
+              ],
+              [
+                -0.21,
+                -0.009
+              ],
+              [
+                -0.187,
+                -0.007
+              ],
+              [
+                -0.163,
+                -0.004
+              ],
+              [
+                -0.14,
+                -0.003
+              ],
+              [
+                -0.117,
+                -0.002
+              ],
+              [
+                -0.093,
+                -0.001
+              ],
+              [
+                -0.07,
+                -0.0
+              ],
+              [
+                -0.047,
+                -0.0
+              ],
+              [
+                -0.023,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.023,
+                0.0
+              ],
+              [
+                0.047,
+                0.0
+              ],
+              [
+                0.07,
+                0.0
+              ],
+              [
+                0.093,
+                0.001
+              ],
+              [
+                0.117,
+                0.002
+              ],
+              [
+                0.14,
+                0.003
+              ],
+              [
+                0.163,
+                0.004
+              ],
+              [
+                0.187,
+                0.007
+              ],
+              [
+                0.21,
+                0.009
+              ],
+              [
+                0.233,
+                0.013
+              ],
+              [
+                0.257,
+                0.017
+              ],
+              [
+                0.28,
+                0.022
+              ],
+              [
+                0.303,
+                0.028
+              ],
+              [
+                0.327,
+                0.035
+              ],
+              [
+                0.35,
+                0.043
+              ],
+              [
+                0.373,
+                0.052
+              ],
+              [
+                0.397,
+                0.062
+              ],
+              [
+                0.42,
+                0.074
+              ],
+              [
+                0.443,
+                0.087
+              ],
+              [
+                0.467,
+                0.102
+              ],
+              [
+                0.49,
+                0.118
+              ],
+              [
+                0.513,
+                0.135
+              ],
+              [
+                0.537,
+                0.155
+              ],
+              [
+                0.56,
+                0.176
+              ],
+              [
+                0.583,
+                0.198
+              ],
+              [
+                0.607,
+                0.223
+              ],
+              [
+                0.63,
+                0.25
+              ],
+              [
+                0.653,
+                0.279
+              ],
+              [
+                0.677,
+                0.31
+              ],
+              [
+                0.7,
+                0.343
+              ],
+              [
+                0.723,
+                0.378
+              ],
+              [
+                0.747,
+                0.416
+              ],
+              [
+                0.77,
+                0.457
+              ],
+              [
+                0.793,
+                0.499
+              ],
+              [
+                0.817,
+                0.545
+              ],
+              [
+                0.84,
+                0.593
+              ],
+              [
+                0.863,
+                0.643
+              ],
+              [
+                0.887,
+                0.697
+              ],
+              [
+                0.91,
+                0.754
+              ],
+              [
+                0.933,
+                0.813
+              ],
+              [
+                0.957,
+                0.876
+              ],
+              [
+                0.98,
+                0.941
+              ],
+              [
+                1.003,
+                1.01
+              ],
+              [
+                1.027,
+                1.082
+              ],
+              [
+                1.05,
+                1.158
+              ],
+              [
+                1.073,
+                1.237
+              ],
+              [
+                1.097,
+                1.319
+              ],
+              [
+                1.12,
+                1.405
+              ],
+              [
+                1.143,
+                1.495
+              ],
+              [
+                1.167,
+                1.588
+              ],
+              [
+                1.19,
+                1.685
+              ],
+              [
+                1.213,
+                1.786
+              ],
+              [
+                1.237,
+                1.891
+              ],
+              [
+                1.26,
+                2.0
+              ],
+              [
+                1.283,
+                2.114
+              ],
+              [
+                1.307,
+                2.231
+              ],
+              [
+                1.33,
+                2.353
+              ],
+              [
+                1.353,
+                2.479
+              ],
+              [
+                1.377,
+                2.609
+              ],
+              [
+                1.4,
+                2.744
+              ]
+            ],
+            "variant": "c",
+            "reveal": 3,
+            "dashed": true,
+            "tooltip": "y = x³ : f'(0) = 0 sans extremum"
+          }
+        ],
+        "steps": [
+          "La courbe de x³ − 3x",
+          "Tangentes horizontales aux extremums",
+          "Contre-exemple : x³"
+        ],
+        "relation": "Extremum local en $a$ (intérieur) $\\Rightarrow$ $f'(a) = 0$ ; la réciproque est fausse",
+        "alt": "Courbe de x³ − 3x avec un maximum local en (−1 ; 2) et un minimum local en (1 ; −2), où les tangentes sont horizontales ; en pointillé, la courbe de x³ qui a une tangente horizontale en 0 sans extremum.",
+        "explication": {
+          "resume": "En un extremum local situé à l'intérieur de l'intervalle, la tangente est horizontale : $f'(a) = 0$. Mais une tangente horizontale ne suffit pas : il faut que $f'$ change de signe.",
+          "lecture": [
+            "Les tangentes en $-1$ et $1$ sont horizontales.",
+            "La courbe de $x^3$ a aussi une tangente horizontale en $0$."
+          ],
+          "observations": [
+            "$f'$ change de signe en $-1$ (de $+$ à $-$) : maximum local.",
+            "$f'$ change de signe en $1$ (de $-$ à $+$) : minimum local.",
+            "Pour $x^3$, $f'(x) = 3x^2$ ne change pas de signe en $0$ : pas d'extremum."
+          ],
+          "pieges": [
+            "Conclure à un extremum dès que $f'(a) = 0$."
+          ],
+          "aRetenir": [
+            "$f'$ s'annule en changeant de signe en $a$ $\\Rightarrow$ extremum local en $a$ ; extremum local en $a$ (intérieur) $\\Rightarrow$ $f'(a) = 0$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        64201,
+        64202,
+        64207
+      ],
+      "topic_id": "nombre-derive-et-extremums-locaux",
+      "proprietes": [
+        "En un extremum local intérieur, le nombre dérivé est nul."
+      ],
+      "vocabulaire_associe": [
+        "extremum",
+        "maximum local",
+        "minimum local",
+        "tangente horizontale",
+        "optimisation"
+      ],
+      "synonymes": [
+        "extremum local",
+        "maximum",
+        "minimum",
+        "optimisation",
+        "tangente horizontale"
+      ],
+      "objectifs_pedagogiques": [
+        "Déterminer les extremums locaux.",
+        "Savoir que $f'(a) = 0$ ne suffit pas.",
+        "Résoudre un problème d'optimisation."
+      ],
+      "prerequis": [
+        "Variations d'une fonction",
+        "Dérivation"
+      ],
+      "notions_liees": [
+        "variations-d-une-fonction"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "extremums",
+        "optimisation",
+        "dérivation"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "nombre-derive-et-extremums-locaux-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Boîte de volume maximal, intervalle fermé, coût moyen",
+          "description": "Trois exemples rédigés : volume maximal, maximum sur un intervalle fermé (bornes), coût moyen minimal."
+        },
+        {
+          "id": "nombre-derive-et-extremums-locaux-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Distance minimale, démonstration de f'(a) = 0",
+          "description": "Un problème de distance minimale et la démonstration : en un extremum local intérieur, $f'(a) = 0$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pourquoi $x^3$ n'a-t-elle pas d'extremum en $0$ ?",
+          "piste": "$f'(x) = 3x^2$ ne change pas de signe."
+        },
+        {
+          "apres": "methode",
+          "question": "Si $f'$ passe de $-$ à $+$ en $a$ ?",
+          "piste": "Minimum local en $a$."
+        }
+      ],
+      "demonstration": {
+        "titre": "En un maximum local intérieur, le nombre dérivé est nul",
+        "etapes": [
+          {
+            "titre": "Hypothèses",
+            "texte": "$f$ est dérivable en $a$ et admet un maximum local en $a$ : $f(a + h) \\leqslant f(a)$ pour $h$ assez petit."
+          },
+          {
+            "titre": "À droite",
+            "texte": "Pour $h > 0$ : $\\dfrac{f(a + h) - f(a)}{h} \\leqslant 0$ ; à la limite, $f'(a) \\leqslant 0$."
+          },
+          {
+            "titre": "À gauche",
+            "texte": "Pour $h < 0$ : le numérateur est négatif ou nul et le dénominateur négatif, donc le taux est positif ou nul ; à la limite, $f'(a) \\geqslant 0$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$f'(a) \\leqslant 0$ et $f'(a) \\geqslant 0$, donc $f'(a) = 0$. (Même raisonnement pour un minimum.)"
+          }
+        ],
+        "conclusion": "La tangente est horizontale en un extremum local situé à l'intérieur de l'intervalle."
+      }
+    }
+  ]
+}

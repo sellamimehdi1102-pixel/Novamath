@@ -19,6 +19,7 @@ Deux usages :
 import json
 import random
 import re
+import unicodedata
 
 import curriculum_registry
 
@@ -306,7 +307,44 @@ def all_documents(class_level=None):
     return _load_notions(class_level)
 
 
+# ── Chapitre prévu mais pas encore rédigé (chantier « Quatrième — chapitre
+# pilote visible », 2026-10-24) ─────────────────────────────────────────────
+# retrieval_engine.search ignore les mots absents du vocabulaire de l'index
+# AVANT de normaliser la requête : « Explique-moi le théorème de Thalès »
+# posée en Quatrième (seul le chapitre de Pythagore est rédigé) ne gardait
+# que « théorème » et obtenait un score FORT (0,23) sur la réciproque de
+# Pythagore — réponse locale hors sujet, présentée comme la notion demandée.
+# Garde déclarative et étroite, placée ici parce que TOUTE recherche de cours
+# passe par search() (détection d'intention, sonde de stratégie, contexte
+# RAG, mode dégradé, définition directe, /api/search) : seuls les titres de
+# chapitres PRÉVUS mais non rédigés, déclarés par la classe elle-même dans
+# curriculum_registry.py (planned_chapter_titles — vide pour toute classe
+# complète, donc aucun effet sur elles), peuvent écarter les résultats, et
+# seulement pour un mot absent de tous les cours déjà rédigés de la classe.
+# Le message continue alors vers le fournisseur IA, qui reçoit la liste
+# réelle des chapitres.
+def _subject_tokens(text):
+    folded = "".join(c for c in unicodedata.normalize("NFKD", text or "") if not unicodedata.combining(c)).lower()
+    return set(retrieval_engine._tokenize(folded)) - set(retrieval_engine._STEMMED_STOPWORDS)
+
+
+def planned_chapter_subjects(text, class_level=None):
+    """Mots de `text` qui désignent un chapitre prévu mais non rédigé de
+    `class_level` (ensemble vide = rien à signaler)."""
+    profile = curriculum_registry.CURRICULUM_REGISTRY.get(_resolve_class_level(class_level))
+    if profile is None or not profile.planned_chapter_titles:
+        return set()
+    planned = set()
+    for title in profile.planned_chapter_titles:
+        planned |= _subject_tokens(title)
+    index = _get_index(class_level)
+    own_vocabulary = index.vectorizer.vocabulary_ if index.vectorizer is not None else {}
+    return {t for t in _subject_tokens(text) & planned if t not in own_vocabulary}
+
+
 def search(query, top_k=3, min_score=0.12, class_level=None):
+    if planned_chapter_subjects(query, class_level):
+        return []
     return retrieval_engine.search(_get_index(class_level), query, top_k=top_k, min_score=min_score)
 
 
@@ -386,6 +424,24 @@ def get_chapter_title(chapter_id, class_level=None):
         if doc["chapter_id"] == chapter_id:
             return doc["chapter_title"]
     return None
+
+
+def list_chapter_titles(class_level=None):
+    """Titres des chapitres de cours de `class_level`, dans l'ordre de leur
+    numéro ("Chapitre_2" avant "Chapitre_10") — liste vide pour une classe
+    sans cours. Même source (index déjà mis en cache) que get_chapter_title :
+    utilisé pour situer le programme de la classe dans le prompt système
+    (voir prompt_builder.py::_class_level_instruction)."""
+    titles = {}
+    for doc in _get_by_ids(class_level).values():
+        if doc["chapter_title"]:
+            titles.setdefault(doc["chapter_id"], doc["chapter_title"])
+
+    def _chapter_num(chapter_id):
+        digits = re.findall(r"\d+", chapter_id)
+        return int(digits[0]) if digits else 0
+
+    return [titles[cid] for cid in sorted(titles, key=_chapter_num)]
 
 
 def chapter_context_block(chapter_id, class_level=None, max_notions=3):

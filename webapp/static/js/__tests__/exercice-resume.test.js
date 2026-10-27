@@ -100,7 +100,7 @@ describe("exercice.js — reprise automatique d'une série (Chantier 6)", () => 
     expect(mockApi.practiceLoad).toHaveBeenCalled();
     expect($("screen-ex").hidden).toBe(false);
     expect($("empty-state").hidden).toBe(true);
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
     // Le paramètre ?resume=1 est nettoyé de l'URL après usage.
     expect(window.location.search).toBe("");
   });
@@ -112,7 +112,7 @@ describe("exercice.js — reprise automatique d'une série (Chantier 6)", () => 
 
     expect(mockApi.practiceLoad).toHaveBeenCalled();
     expect($("screen-ex").hidden).toBe(false);
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
   });
 
   it("aucune série en pause : écran vide dans tous les cas (comportement inchangé)", async () => {
@@ -155,7 +155,7 @@ describe("exercice.js — reprise automatique d'une série (Chantier 6)", () => 
 
     expect(mockApi.practiceLoad).toHaveBeenCalled();
     expect($("screen-ex").hidden).toBe(false);
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
   });
 
   it("Chantier 9 — un vrai F5 (type reload) reprend toujours automatiquement, même avec l'API Navigation Timing active", async () => {
@@ -170,7 +170,7 @@ describe("exercice.js — reprise automatique d'une série (Chantier 6)", () => 
 
     expect(mockApi.practiceLoad).toHaveBeenCalled();
     expect($("screen-ex").hidden).toBe(false);
-    expect($("ex-chapter-badge").textContent).toBe("Chapitre_8");
+    expect($("ex-chapter-badge").textContent).toBe("Chapitre 8");
   });
 
   it("quitter une série (bouton Quitter) empêche la reprise silencieuse au prochain clic générique, même onglet", async () => {

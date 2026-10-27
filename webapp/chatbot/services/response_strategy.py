@@ -125,6 +125,27 @@ RESERVED_FUTURE_ENGINES = {ENGINE_EXERCISE, ENGINE_COMPOSER, ENGINE_QUIZ, ENGINE
 # déjà appliqué à Math Engine pour INDICE ci-dessous.
 _NO_LOCAL_COMPOSER_INTENTS = {intent_service.INDICE, intent_service.REVISION}
 
+# Demande d'une AUTRE APPROCHE de la notion en cours, sans aucun mot de sujet
+# ("encore une autre façon", "une autre méthode ?"). Ancrée sur tout le
+# message : "explique les vecteurs d'une autre façon" n'est pas concernée.
+# Voir decide_strategy(), étape 5 : la sonde TF-IDF brute ne peut rien
+# trouver de fiable sur ces mots (son score dépend seulement du volume des
+# cours indexés), alors que la notion à présenter autrement est déjà connue.
+_OTHER_APPROACH_RE = re.compile(
+    r"^(?:encore\s+)?une\s+autre\s+(?:fa[çc]on|mani[eè]re|m[ée]thode|approche|explication)\s*[.!?]*$",
+    re.IGNORECASE,
+)
+
+
+def _is_other_approach_on_inherited_notion(user_message, intent_result):
+    """Vrai si l'élève demande une autre approche de la notion DÉJÀ active
+    (topic_confidence "inherited", voir intent_service._detect_chapter)."""
+    return bool(
+        intent_result.get("topic_confidence") == "inherited"
+        and intent_result.get("notion_id")
+        and _OTHER_APPROACH_RE.match((user_message or "").strip())
+    )
+
 # Chantier "fiabilité mathématique" (audit du 2026-10-17, routage Phase B) :
 # Knowledge/Search ne peuvent QUE présenter une notion de cours déjà écrite —
 # jamais calculer ni vérifier une instance concrète. Confirmé par l'audit :
@@ -659,6 +680,11 @@ def decide_strategy(
         (False, None) if knowledge_search_blocked
         else _probe_search_service(user_message, intent, class_level=student_context.get("class_level"))
     )
+    # Autre approche demandée sur la notion déjà active : le Search Service
+    # compose sur cette notion héritée (chapter_id/topic_id ci-dessus, jamais
+    # écrasés car "inherited"), sans dépendre du score brut de la sonde.
+    if not found and not knowledge_search_blocked and _is_other_approach_on_inherited_notion(user_message, intent_result):
+        found = True
     if found:
         if intent_result.get("topic_confidence") != "inherited":
             topic_id = match.get("notion_id") or topic_id

@@ -1440,6 +1440,17 @@ async function refreshQuota() {
 // d'appel réseau) : mis à jour au chargement de la page, la classe active ne
 // changeant qu'après un rechargement complet (voir curriculumSelector.js).
 const CLASS_SUGGESTIONS = {
+  // Quatrième (en préparation, non publiée — visible uniquement en
+  // prévisualisation locale) : une question par grand domaine de l'année
+  // (nombres, calcul littéral, géométrie, fonctions, données).
+  quatrieme: [
+    "Comment multiplier deux nombres relatifs ?",
+    "Comment additionner deux fractions ?",
+    "Comment résoudre une équation ?",
+    "Explique-moi le théorème de Pythagore",
+    "Comment utiliser le théorème de Thalès ?",
+    "Comment calculer une probabilité ?",
+  ],
   troisieme: [
     "Explique-moi le théorème de Pythagore",
     "Comment reconnaître une situation de Thalès ?",
@@ -1463,6 +1474,16 @@ const CLASS_SUGGESTIONS = {
     "Qu'est-ce que le produit scalaire ?",
     "Comment utiliser un arbre de probabilités ?",
     "Explique-moi la fonction exponentielle",
+  ],
+  // Première spécifique (manuel « Première ES/L », non publiée —
+  // prévisualisation locale uniquement) : une question par grand chapitre.
+  premiere_specifique: [
+    "Comment calculer un taux d'évolution ?",
+    "Comment déterminer le signe d'un trinôme ?",
+    "Comment calculer les quartiles d'une série ?",
+    "Explique-moi le nombre dérivé",
+    "Comment calculer l'espérance d'une variable aléatoire ?",
+    "Comment utiliser la loi binomiale ?",
   ],
 };
 const DEFAULT_SUGGESTIONS = [

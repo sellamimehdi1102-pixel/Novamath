@@ -1,0 +1,51 @@
+{
+  // Terminal > Exécuter la tâche… (ou Ctrl+Maj+P > « Tasks: Run Task »).
+  // Une seule adresse locale : http://127.0.0.1:5050 (voir tools/run_preview.py).
+  // Relancer une tâche de démarrage alors que Mathadap tourne déjà ne crée
+  // jamais un second serveur : le lanceur rappelle l'adresse, ou explique
+  // comment redémarrer si le mode demandé est différent.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Mathadap : démarrer (http://127.0.0.1:5050)",
+      "type": "shell",
+      "command": "python tools/run_preview.py",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Mathadap : démarrer avec données de test (http://127.0.0.1:5050)",
+      "type": "shell",
+      "command": "python tools/run_preview.py --donnees-test",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Mathadap : redémarrage contrôlé",
+      "type": "shell",
+      "command": "python tools/run_preview.py --redemarrer",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "Mathadap : statut",
+      "type": "shell",
+      "command": "python tools/run_preview.py --statut",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Mathadap : arrêter",
+      "type": "shell",
+      "command": "python tools/run_preview.py --arreter",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    }
+  ]
+}

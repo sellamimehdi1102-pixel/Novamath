@@ -1,0 +1,1420 @@
+{
+  "chapterId": "Chapitre_1",
+  "title": "Pourcentages",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "proportions-et-pourcentages",
+      "title": "Proportions et pourcentages",
+      "schemaVersion": 2,
+      "intro": "Avant de parler d'évolutions, il faut savoir comparer une partie à un tout. Une proportion, souvent exprimée en pourcentage, mesure la part d'une sous-population dans une population.",
+      "pourquoi": "Les proportions sont partout : résultats d'élections, parts de marché, composition d'un groupe. Elles permettent de comparer des groupes de tailles différentes.",
+      "explicationSimple": "Un club compte $480$ adhérents, dont $216$ filles : la proportion de filles est $\\dfrac{216}{480} = 0{,}45$, soit $45\\,\\%$.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une proportion et l'écrire en pourcentage, calculer $p\\,\\%$ d'une quantité, retrouver un effectif total et calculer la proportion d'une proportion.",
+      "definition": "La proportion (ou part) d'une partie $A$ dans un ensemble $E$ est le quotient $p = \\dfrac{n_A}{n_E}$ de l'effectif de $A$ par l'effectif total de $E$. Une proportion est toujours comprise entre $0$ (soit $0\\,\\%$) et $1$ (soit $100\\,\\%$). Calculer $p\\,\\%$ d'une quantité, c'est la multiplier par $\\dfrac{p}{100}$. Si $A$ est une partie de $B$, elle-même partie de $E$, la proportion de $A$ dans $E$ est le produit de la proportion de $A$ dans $B$ par la proportion de $B$ dans $E$.",
+      "definitions": {
+        "lycee": "La proportion (ou part) d'une partie $A$ dans un ensemble $E$ est le quotient $p = \\dfrac{n_A}{n_E}$ de l'effectif de $A$ par l'effectif total de $E$. Une proportion est toujours comprise entre $0$ (soit $0\\,\\%$) et $1$ (soit $100\\,\\%$). Calculer $p\\,\\%$ d'une quantité, c'est la multiplier par $\\dfrac{p}{100}$. Si $A$ est une partie de $B$, elle-même partie de $E$, la proportion de $A$ dans $E$ est le produit de la proportion de $A$ dans $B$ par la proportion de $B$ dans $E$."
+      },
+      "intuition": "Une proportion répond à la question « combien sur $100$ ? » : $45\\,\\%$, c'est $45$ sur $100$.",
+      "reglesImportantes": [
+        "Proportion : $p = \\dfrac{\\text{effectif de la partie}}{\\text{effectif total}}$, avec $0 \\leqslant p \\leqslant 1$.",
+        "Pourcentage : $p = 0{,}45$ s'écrit $45\\,\\%$.",
+        "$p\\,\\%$ d'une quantité $Q$ : $Q \\times \\dfrac{p}{100}$.",
+        "Effectif total : si une partie d'effectif $n_A$ représente une proportion $p$, alors $n_E = \\dfrac{n_A}{p}$.",
+        "Proportion d'une proportion : on multiplie les proportions."
+      ],
+      "formules": [
+        {
+          "id": "formule-proportion",
+          "nom": "Proportion",
+          "expression": "$p = \\dfrac{n_A}{n_E}$",
+          "quand_utiliser": "Pour comparer une partie au tout.",
+          "erreur_frequente": "Diviser par l'effectif d'une autre partie.",
+          "astuce": "Le dénominateur est toujours l'effectif total."
+        },
+        {
+          "id": "formule-pourcentage-de",
+          "nom": "$p\\,\\%$ d'une quantité",
+          "expression": "$Q \\times \\dfrac{p}{100}$",
+          "quand_utiliser": "Pour calculer une part.",
+          "erreur_frequente": "Diviser par $p$ au lieu de multiplier.",
+          "astuce": "$15\\,\\%$ de $340$ : $340 \\times 0{,}15$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer et utiliser une proportion",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie l'ensemble de référence (le tout) et la partie étudiée."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je divise l'effectif de la partie par l'effectif total."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris le résultat en décimal puis en pourcentage."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que le résultat est entre $0$ et $1$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie l'ensemble de référence (le tout) et la partie étudiée."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je divise l'effectif de la partie par l'effectif total."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris le résultat en décimal puis en pourcentage."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que le résultat est entre $0$ et $1$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère « parmi qui » : c'est le tout."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je fais partie ÷ tout."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je multiplie par $100$ pour le pourcentage."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Le pourcentage est entre $0$ et $100$."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Partie ÷ tout."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Entre $0$ et $1$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-proportion-club",
+          "titre": "Exemple 1 — Calculer une proportion",
+          "enonce": "Un club compte $480$ adhérents, dont $216$ filles. Quelle est la proportion de filles ? de garçons ?",
+          "calcul": [
+            {
+              "expr": "p = \\dfrac{216}{480} = 0{,}45",
+              "texte": ""
+            },
+            {
+              "expr": "",
+              "texte": "Garçons : $1 - 0{,}45 = 0{,}55$."
+            }
+          ],
+          "reponse": "$45\\,\\%$ de filles et $55\\,\\%$ de garçons.",
+          "conclusion": "C'est la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-pourcentage-de",
+          "titre": "Exemple 2 — Calculer $p\\,\\%$ d'une quantité",
+          "enonce": "Calculer $15\\,\\%$ de $340$ €.",
+          "calcul": [
+            {
+              "expr": "340 \\times \\dfrac{15}{100} = 340 \\times 0{,}15 = 51",
+              "texte": ""
+            }
+          ],
+          "reponse": "$51$ €.",
+          "conclusion": "On multiplie par $\\dfrac{p}{100}$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-effectif-total",
+          "titre": "Exemple 3 — Retrouver un effectif total",
+          "enonce": "Dans une classe, $18$ élèves représentent $40\\,\\%$ de l'effectif. Combien d'élèves compte la classe ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$18 = n_E \\times 0{,}4$, donc $n_E = \\dfrac{18}{0{,}4} = 45$."
+            }
+          ],
+          "reponse": "$45$ élèves.",
+          "conclusion": "On divise la partie par la proportion.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-proportion-de-proportion",
+          "titre": "Exemple 4 — Proportion d'une proportion",
+          "enonce": "Dans une entreprise, $60\\,\\%$ des salariés sont des femmes, et $25\\,\\%$ d'entre elles sont cadres. Quelle proportion des salariés sont des femmes cadres ?",
+          "calcul": [
+            {
+              "expr": "0{,}6 \\times 0{,}25 = 0{,}15",
+              "texte": ""
+            }
+          ],
+          "reponse": "$15\\,\\%$ des salariés.",
+          "conclusion": "« $25\\,\\%$ d'entre elles » : proportion dans les femmes, pas dans l'entreprise.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-comparer-proportions",
+          "titre": "Exemple 5 — Comparer des groupes de tailles différentes",
+          "enonce": "Classe A : $12$ élèves sur $25$ pratiquent un sport. Classe B : $14$ sur $30$. Quelle classe est la plus sportive ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "A : $\\dfrac{12}{25} = 0{,}48$ ; B : $\\dfrac{14}{30} \\approx 0{,}467$."
+            }
+          ],
+          "reponse": "La classe A ($48\\,\\%$ contre environ $46{,}7\\,\\%$).",
+          "conclusion": "On compare des proportions, pas des effectifs.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-fusion-groupes",
+          "titre": "Exemple 6 — Réunir deux groupes",
+          "enonce": "Un groupe de $200$ personnes compte $30\\,\\%$ de fumeurs ; un autre de $300$ personnes en compte $50\\,\\%$. Quelle est la proportion de fumeurs dans les deux groupes réunis ?",
+          "analyse": "Les deux groupes n'ont pas le même effectif.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Fumeurs : $200 \\times 0{,}3 + 300 \\times 0{,}5 = 60 + 150 = 210$."
+            },
+            {
+              "expr": "p = \\dfrac{210}{500} = 0{,}42",
+              "texte": ""
+            }
+          ],
+          "reponse": "$42\\,\\%$ (et non $40\\,\\%$, moyenne des deux pourcentages).",
+          "conclusion": "On revient aux effectifs avant de calculer la nouvelle proportion.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Part des votes d'un candidat.",
+        "Proportion de pièces défectueuses.",
+        "Composition d'une population."
+      ],
+      "erreursFrequentes": [
+        "Diviser par l'effectif d'une autre partie.",
+        "Faire la moyenne de deux pourcentages de groupes différents.",
+        "Additionner des proportions emboîtées.",
+        "Trouver une proportion supérieure à $1$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Diviser par l'effectif d'une autre partie.",
+          "pourquoi": "On compare filles et garçons au lieu de filles et total.",
+          "comment_detecter": "Quel est l'ensemble de référence ?",
+          "comment_eviter": "Le dénominateur est l'effectif total."
+        },
+        {
+          "description": "Faire la moyenne de deux pourcentages de groupes différents.",
+          "pourquoi": "On oublie les effectifs.",
+          "comment_detecter": "Les groupes ont-ils la même taille ?",
+          "comment_eviter": "Reviens aux effectifs."
+        },
+        {
+          "description": "Additionner des proportions emboîtées.",
+          "pourquoi": "« $25\\,\\%$ des $60\\,\\%$ » lu comme $85\\,\\%$.",
+          "comment_detecter": "La deuxième proportion porte-t-elle sur le tout ?",
+          "comment_eviter": "On multiplie : $0{,}6 \\times 0{,}25$."
+        },
+        {
+          "description": "Trouver une proportion supérieure à $1$.",
+          "pourquoi": "Numérateur et dénominateur inversés.",
+          "comment_detecter": "La partie est-elle plus petite que le tout ?",
+          "comment_eviter": "Partie ÷ tout."
+        }
+      ],
+      "astuce": "Repère le mot « parmi » ou « d'entre eux » : il désigne l'ensemble de référence, donc le dénominateur.",
+      "aRetenir": [
+        "Proportions et pourcentages : $p = \\dfrac{n_A}{n_E}$, entre $0$ et $1$.",
+        "$p\\,\\%$ de $Q$ : $Q \\times \\dfrac{p}{100}$.",
+        "Proportion d'une proportion : produit."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.6,
+          -1.4,
+          11.2,
+          5.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "segments": [
+          {
+            "from": {
+              "x": 0,
+              "y": 0
+            },
+            "to": {
+              "x": 10,
+              "y": 0
+            }
+          },
+          {
+            "from": {
+              "x": 10,
+              "y": 0
+            },
+            "to": {
+              "x": 10,
+              "y": 2
+            }
+          },
+          {
+            "from": {
+              "x": 10,
+              "y": 2
+            },
+            "to": {
+              "x": 0,
+              "y": 2
+            }
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 2
+            },
+            "to": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "from": {
+              "x": 4.5,
+              "y": 0
+            },
+            "to": {
+              "x": 4.5,
+              "y": 2
+            },
+            "reveal": 2
+          }
+        ],
+        "texts": [
+          {
+            "x": 5.0,
+            "y": 2.7,
+            "label": "480 adhérents"
+          },
+          {
+            "x": 2.25,
+            "y": 1.0,
+            "label": "216 filles",
+            "reveal": 2
+          },
+          {
+            "x": 7.25,
+            "y": 1.0,
+            "label": "264 garçons",
+            "reveal": 2
+          },
+          {
+            "x": 2.25,
+            "y": -0.6,
+            "label": "45 %",
+            "reveal": 3
+          },
+          {
+            "x": 7.25,
+            "y": -0.6,
+            "label": "55 %",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "L'ensemble de référence : 480 adhérents",
+          "La partie étudiée : 216 filles",
+          "Proportion : 216 / 480 = 0,45, soit 45 %"
+        ],
+        "relation": "$p = \\dfrac{\\text{effectif de la partie}}{\\text{effectif total}}$",
+        "alt": "Rectangle représentant 480 adhérents d'un club, partagé en 216 filles (45 %) et 264 garçons (55 %).",
+        "explication": {
+          "resume": "Une proportion compare l'effectif d'une partie à l'effectif total : c'est un nombre entre $0$ et $1$, souvent écrit en pourcentage.",
+          "lecture": [
+            "Le rectangle entier représente l'ensemble de référence.",
+            "La partie colorée en premier représente les filles."
+          ],
+          "observations": [
+            "$\\dfrac{216}{480} = 0{,}45 = 45\\,\\%$.",
+            "La proportion de garçons est $1 - 0{,}45 = 0{,}55$.",
+            "Les deux proportions ont pour somme $1$."
+          ],
+          "pieges": [
+            "Diviser par l'effectif de l'autre partie ($\\dfrac{216}{264}$) au lieu de l'effectif total."
+          ],
+          "aRetenir": [
+            "Une proportion se calcule toujours par rapport à l'ensemble de référence."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        81101,
+        81102,
+        81103
+      ],
+      "topic_id": "proportions-et-pourcentages",
+      "proprietes": [
+        "Une proportion est comprise entre $0$ et $1$."
+      ],
+      "vocabulaire_associe": [
+        "proportion",
+        "part",
+        "pourcentage",
+        "effectif",
+        "ensemble de référence"
+      ],
+      "synonymes": [
+        "proportion",
+        "pourcentage d'une quantité",
+        "part d'une population",
+        "proportion de proportion",
+        "calculer un pourcentage"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer une proportion.",
+        "Calculer $p\\,\\%$ d'une quantité.",
+        "Calculer une proportion de proportion."
+      ],
+      "prerequis": [
+        "Fractions et pourcentages (collège)"
+      ],
+      "notions_liees": [
+        "evolutions-et-taux",
+        "indices-base-100"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "pourcentages",
+        "proportions"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "proportions-et-pourcentages-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Effectif total, proportion de proportion, comparaison",
+          "description": "Trois exemples rédigés : retrouver un effectif total, proportion d'une proportion, comparer deux groupes."
+        },
+        {
+          "id": "proportions-et-pourcentages-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Réunir deux groupes, démonstration",
+          "description": "La proportion dans deux groupes réunis et la démonstration de la règle des proportions emboîtées."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle est la proportion de garçons sur la figure ?",
+          "piste": "$55\\,\\%$."
+        },
+        {
+          "apres": "methode",
+          "question": "$20\\,\\%$ de $150$ ?",
+          "piste": "$30$."
+        }
+      ],
+      "demonstration": {
+        "titre": "La proportion d'une proportion est le produit des proportions",
+        "etapes": [
+          {
+            "titre": "Données",
+            "texte": "$A \\subset B \\subset E$, d'effectifs $n_A$, $n_B$, $n_E$ ; $p_1 = \\dfrac{n_A}{n_B}$ et $p_2 = \\dfrac{n_B}{n_E}$."
+          },
+          {
+            "titre": "Produit",
+            "texte": "$p_1 \\times p_2 = \\dfrac{n_A}{n_B} \\times \\dfrac{n_B}{n_E}$."
+          },
+          {
+            "titre": "Simplification",
+            "texte": "On simplifie par $n_B \\neq 0$ : $p_1 \\times p_2 = \\dfrac{n_A}{n_E}$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$\\dfrac{n_A}{n_E}$ est la proportion de $A$ dans $E$."
+          }
+        ],
+        "conclusion": "C'est pourquoi « $25\\,\\%$ de $60\\,\\%$ » se calcule par un produit."
+      }
+    },
+    {
+      "id": "evolutions-et-taux",
+      "title": "Évolutions et taux",
+      "schemaVersion": 2,
+      "intro": "Quand une grandeur change de valeur (prix, population, salaire), on mesure son évolution en pourcentage. Le coefficient multiplicateur relie la valeur de départ à la valeur d'arrivée et permet d'enchaîner les évolutions.",
+      "pourquoi": "Les évolutions en pourcentage sont partout (prix, populations, placements) et préparent l'étude des suites géométriques (chapitre 7).",
+      "explicationSimple": "Une hausse de $15\\,\\%$ sur $80$ € : $80 \\times 1{,}15 = 92$ €. Une baisse de $20\\,\\%$ : on multiplie par $0{,}8$.",
+      "objectif": "À la fin de ce cours, tu sauras appliquer un taux d'évolution, calculer un taux, retrouver une valeur initiale, composer des évolutions successives et calculer un taux réciproque.",
+      "definition": "Quand une grandeur passe d'une valeur de départ $V_D$ à une valeur d'arrivée $V_A$, le taux d'évolution est $t = \\dfrac{V_A - V_D}{V_D}$ et le coefficient multiplicateur est $c = \\dfrac{V_A}{V_D} = 1 + t$. Augmenter de $t\\,\\%$, c'est multiplier par $1 + \\dfrac{t}{100}$ ; diminuer de $t\\,\\%$, c'est multiplier par $1 - \\dfrac{t}{100}$. Des évolutions successives correspondent au produit des coefficients multiplicateurs ; l'évolution réciproque a pour coefficient $\\dfrac{1}{c}$. Une proportion d'une proportion se calcule par un produit.",
+      "definitions": {
+        "lycee": "Quand une grandeur passe d'une valeur de départ $V_D$ à une valeur d'arrivée $V_A$, le taux d'évolution est $t = \\dfrac{V_A - V_D}{V_D}$ et le coefficient multiplicateur est $c = \\dfrac{V_A}{V_D} = 1 + t$. Augmenter de $t\\,\\%$, c'est multiplier par $1 + \\dfrac{t}{100}$ ; diminuer de $t\\,\\%$, c'est multiplier par $1 - \\dfrac{t}{100}$. Des évolutions successives correspondent au produit des coefficients multiplicateurs ; l'évolution réciproque a pour coefficient $\\dfrac{1}{c}$. Une proportion d'une proportion se calcule par un produit."
+      },
+      "intuition": "On raisonne toujours en coefficients multiplicateurs : ils se multiplient, alors que les taux ne s'additionnent pas.",
+      "reglesImportantes": [
+        "Taux d'évolution : $t = \\dfrac{V_A - V_D}{V_D}$ ; coefficient multiplicateur $c = 1 + t$.",
+        "Hausse de $t\\,\\%$ : $\\times \\left(1 + \\dfrac{t}{100}\\right)$ ; baisse : $\\times \\left(1 - \\dfrac{t}{100}\\right)$.",
+        "Valeur initiale : $V_D = \\dfrac{V_A}{c}$.",
+        "Évolutions successives : on multiplie les coefficients multiplicateurs.",
+        "Taux réciproque : coefficient $\\dfrac{1}{c}$ ; proportion de proportion : produit."
+      ],
+      "formules": [
+        {
+          "id": "formule-taux",
+          "nom": "Taux",
+          "expression": "$t = \\dfrac{V_A - V_D}{V_D}$",
+          "quand_utiliser": "Pour calculer un taux d'évolution.",
+          "erreur_frequente": "Diviser par $V_A$.",
+          "astuce": "On divise toujours par la valeur de départ."
+        },
+        {
+          "id": "formule-coef",
+          "nom": "Coefficient",
+          "expression": "$c = 1 + t$",
+          "quand_utiliser": "Pour appliquer ou composer des évolutions.",
+          "erreur_frequente": "Additionner les taux.",
+          "astuce": "Les coefficients se multiplient."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Traiter une évolution",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "J'identifie la valeur de départ, la valeur d'arrivée et le taux éventuel."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je traduis le taux en coefficient multiplicateur."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je multiplie (évolution), je divise (valeur initiale) ou je compose (évolutions successives)."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je reviens à un taux et je vérifie l'ordre de grandeur."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'identifie la valeur de départ, la valeur d'arrivée et le taux éventuel."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je traduis le taux en coefficient multiplicateur."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je multiplie (évolution), je divise (valeur initiale) ou je compose (évolutions successives)."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je reviens à un taux et je vérifie l'ordre de grandeur."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère le départ et l'arrivée."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris le coefficient : $1 + t$ ou $1 - t$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Hausse : résultat plus grand ; baisse : plus petit."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Taux → coefficient."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Les coefficients se multiplient."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-auto-appliquer",
+          "titre": "Exemple 1 — Appliquer un taux",
+          "enonce": "Un article à $80$ € augmente de $15\\,\\%$. Nouveau prix ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$80 \\times 1{,}15 = 92$."
+            }
+          ],
+          "reponse": "$92$ €.",
+          "conclusion": "Coefficient $1{,}15$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-auto-taux",
+          "titre": "Exemple 2 — Calculer un taux",
+          "enonce": "Une population passe de $250$ à $200$. Taux d'évolution ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{200 - 250}{250} = -0{,}2$."
+            }
+          ],
+          "reponse": "$-20\\,\\%$.",
+          "conclusion": "On divise par la valeur de départ.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-auto-initiale",
+          "titre": "Exemple 3 — Retrouver une valeur initiale",
+          "enonce": "Après une hausse de $25\\,\\%$, un prix vaut $150$ €. Quel était le prix initial ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{150}{1{,}25} = 120$."
+            }
+          ],
+          "reponse": "$120$ €.",
+          "conclusion": "On divise par le coefficient.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-auto-successives",
+          "titre": "Exemple 4 — Évolutions successives",
+          "enonce": "Hausse de $10\\,\\%$ puis baisse de $10\\,\\%$ : taux global ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$1{,}1 \\times 0{,}9 = 0{,}99$."
+            }
+          ],
+          "reponse": "$-1\\,\\%$.",
+          "conclusion": "Les taux ne s'additionnent pas.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-auto-proportion",
+          "titre": "Exemple 5 — Proportion de proportion",
+          "enonce": "$40\\,\\%$ des élèves sont internes, et $25\\,\\%$ des internes font du sport en club. Proportion d'internes sportifs ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$0{,}4 \\times 0{,}25 = 0{,}1$."
+            }
+          ],
+          "reponse": "$10\\,\\%$ des élèves.",
+          "conclusion": "On multiplie les proportions.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-auto-reciproque",
+          "titre": "Exemple 6 — Taux réciproque",
+          "enonce": "Après une hausse de $25\\,\\%$, quelle baisse ramène à la valeur initiale ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\dfrac{1}{1{,}25} = 0{,}8$."
+            }
+          ],
+          "reponse": "Une baisse de $20\\,\\%$.",
+          "conclusion": "Le taux réciproque n'est pas l'opposé du taux.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Soldes et augmentations de prix.",
+        "Évolution d'une population.",
+        "Placement à intérêts composés."
+      ],
+      "erreursFrequentes": [
+        "Additionner des taux successifs.",
+        "Diviser par la valeur d'arrivée.",
+        "Croire qu'une baisse de 25 % annule une hausse de 25 %.",
+        "Écrire 1,5 pour une hausse de 5 %."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Additionner des taux successifs.",
+          "pourquoi": "Confusion addition / multiplication.",
+          "comment_detecter": "Les évolutions s'appliquent-elles à la même valeur ?",
+          "comment_eviter": "Multiplie les coefficients."
+        },
+        {
+          "description": "Diviser par la valeur d'arrivée.",
+          "pourquoi": "Mauvaise référence.",
+          "comment_detecter": "Quelle est la valeur de départ ?",
+          "comment_eviter": "$t = \\dfrac{V_A - V_D}{V_D}$."
+        },
+        {
+          "description": "Croire qu'une baisse de 25 % annule une hausse de 25 %.",
+          "pourquoi": "Taux réciproque.",
+          "comment_detecter": "Que vaut $1{,}25 \\times 0{,}75$ ?",
+          "comment_eviter": "$0{,}9375$ : il manque $6{,}25\\,\\%$."
+        },
+        {
+          "description": "Écrire 1,5 pour une hausse de 5 %.",
+          "pourquoi": "Conversion du pourcentage.",
+          "comment_detecter": "Combien vaut $5\\,\\%$ en décimal ?",
+          "comment_eviter": "$1 + 0{,}05 = 1{,}05$."
+        }
+      ],
+      "astuce": "Retiens quelques coefficients par cœur : $+50\\,\\% \\to 1{,}5$ ; $-50\\,\\% \\to 0{,}5$ ; $+100\\,\\% \\to 2$ ; $-20\\,\\% \\to 0{,}8$.",
+      "aRetenir": [
+        "Évolutions et taux : coefficient multiplicateur $c = 1 + t$.",
+        "Évolutions successives : produit des coefficients.",
+        "Taux réciproque : coefficient $\\dfrac{1}{c}$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.4,
+          -0.8,
+          11.2,
+          4.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.8,
+            "y": 2,
+            "label": "100"
+          },
+          {
+            "x": 5,
+            "y": 2,
+            "label": "110",
+            "reveal": 2
+          },
+          {
+            "x": 9.2,
+            "y": 2,
+            "label": "99",
+            "reveal": 3
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1.4,
+              "y": 2
+            },
+            "to": {
+              "x": 4.4,
+              "y": 2
+            },
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 5.6,
+              "y": 2
+            },
+            "to": {
+              "x": 8.6,
+              "y": 2
+            },
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.9,
+            "y": 2.8,
+            "label": "× 1,1",
+            "reveal": 2
+          },
+          {
+            "x": 7.1,
+            "y": 2.8,
+            "label": "× 0,9",
+            "reveal": 3
+          },
+          {
+            "x": 5.0,
+            "y": 0.4,
+            "label": "100 × 1,1 × 0,9 = 99",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Une valeur de départ : 100",
+          "Hausse de 10 % : on multiplie par 1,1",
+          "Baisse de 10 % : on multiplie par 0,9 ; bilan −1 %"
+        ],
+        "relation": "Évolutions successives : les coefficients multiplicateurs se multiplient",
+        "alt": "Schéma : 100 devient 110 après une hausse de 10 % (× 1,1), puis 99 après une baisse de 10 % (× 0,9). Le taux global est −1 %.",
+        "explication": {
+          "resume": "Augmenter de $t\\,\\%$, c'est multiplier par $1 + \\dfrac{t}{100}$ ; diminuer de $t\\,\\%$, c'est multiplier par $1 - \\dfrac{t}{100}$. Des évolutions successives se composent en multipliant les coefficients.",
+          "lecture": [
+            "Chaque flèche est une évolution ; son coefficient est écrit au-dessus.",
+            "Le bilan se lit en comparant la valeur finale à la valeur de départ."
+          ],
+          "observations": [
+            "$1{,}1 \\times 0{,}9 = 0{,}99$ : baisse globale de $1\\,\\%$.",
+            "Une hausse puis une baisse de même taux ne se compensent pas.",
+            "Pour revenir à $100$ depuis $110$, il faut multiplier par $\\dfrac{1}{1{,}1}$."
+          ],
+          "pieges": [
+            "Additionner les taux : $+10\\,\\% - 10\\,\\% \\neq 0\\,\\%$."
+          ],
+          "aRetenir": [
+            "Coefficient multiplicateur $c = 1 + t$ ; taux $t = c - 1$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        73101,
+        73102,
+        73103
+      ],
+      "topic_id": "evolutions-et-taux",
+      "proprietes": [
+        "Une hausse puis une baisse de même taux donnent une baisse globale."
+      ],
+      "vocabulaire_associe": [
+        "taux d'évolution",
+        "coefficient multiplicateur",
+        "pourcentage",
+        "évolution réciproque"
+      ],
+      "synonymes": [
+        "pourcentage d'évolution",
+        "coefficient multiplicateur",
+        "hausse en pourcentage",
+        "baisse en pourcentage",
+        "évolutions successives",
+        "taux réciproque"
+      ],
+      "objectifs_pedagogiques": [
+        "Appliquer et calculer un taux.",
+        "Composer des évolutions.",
+        "Calculer un taux réciproque."
+      ],
+      "prerequis": [
+        "Proportions et pourcentages"
+      ],
+      "notions_liees": [
+        "proportions-et-pourcentages",
+        "indices-base-100"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "pourcentages",
+        "évolutions"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "evolutions-et-taux-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Valeur initiale, évolutions successives, proportions",
+          "description": "Trois exemples rédigés : retrouver une valeur initiale, composer deux évolutions, proportion de proportion."
+        },
+        {
+          "id": "evolutions-et-taux-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Taux réciproque, démonstration",
+          "description": "Le taux réciproque d'une hausse et la démonstration de la règle des évolutions successives."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel est le taux global sur la figure ?",
+          "piste": "$-1\\,\\%$."
+        },
+        {
+          "apres": "methode",
+          "question": "Coefficient d'une baisse de 30 % ?",
+          "piste": "$0{,}7$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Le taux global de deux évolutions successives vaut $t_1 + t_2 + t_1t_2$",
+        "etapes": [
+          {
+            "titre": "Première évolution",
+            "texte": "$V_1 = V_0(1 + t_1)$."
+          },
+          {
+            "titre": "Seconde évolution",
+            "texte": "$V_2 = V_1(1 + t_2) = V_0(1 + t_1)(1 + t_2)$."
+          },
+          {
+            "titre": "Développement",
+            "texte": "$(1 + t_1)(1 + t_2) = 1 + t_1 + t_2 + t_1t_2$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "Le taux global est $t_1 + t_2 + t_1t_2$ : ce n'est la somme des taux que si $t_1t_2 = 0$."
+          }
+        ],
+        "conclusion": "C'est pourquoi on multiplie les coefficients au lieu d'additionner les taux."
+      }
+    },
+    {
+      "id": "indices-base-100",
+      "title": "Indices base 100",
+      "schemaVersion": 2,
+      "intro": "Pour suivre l'évolution d'une grandeur dans le temps, on la compare souvent à une valeur de référence à laquelle on attribue l'indice $100$ : les autres valeurs deviennent des indices, faciles à comparer.",
+      "pourquoi": "Les indices sont utilisés par la statistique publique (prix à la consommation, production industrielle) : ils permettent de lire immédiatement une évolution en pourcentage depuis une date de référence.",
+      "explicationSimple": "Un prix passe de $1{,}20$ € à $1{,}38$ €. Avec $1{,}20$ € comme référence (indice $100$) : $I = 100 \\times \\dfrac{1{,}38}{1{,}20} = 115$ ; le prix a augmenté de $15\\,\\%$.",
+      "objectif": "À la fin de ce cours, tu sauras calculer un indice base $100$, en déduire un taux d'évolution, retrouver une valeur à partir de son indice et comparer des évolutions grâce aux indices.",
+      "definition": "Soient $y_1$ et $y_2$ deux valeurs d'une même grandeur. Définir l'indice base $100$ correspondant à $y_1$, c'est associer à $y_1$ l'indice $I_1 = 100$ ; l'indice $I_2$ associé à $y_2$ est alors obtenu par proportionnalité : $\\dfrac{I_2}{I_1} = \\dfrac{y_2}{y_1}$, donc $I_2 = 100 \\times \\dfrac{y_2}{y_1}$. Le taux d'évolution de $y_1$ à $y_2$ est $t = \\dfrac{I_2 - 100}{100}$.",
+      "definitions": {
+        "lycee": "Soient $y_1$ et $y_2$ deux valeurs d'une même grandeur. Définir l'indice base $100$ correspondant à $y_1$, c'est associer à $y_1$ l'indice $I_1 = 100$ ; l'indice $I_2$ associé à $y_2$ est alors obtenu par proportionnalité : $\\dfrac{I_2}{I_1} = \\dfrac{y_2}{y_1}$, donc $I_2 = 100 \\times \\dfrac{y_2}{y_1}$. Le taux d'évolution de $y_1$ à $y_2$ est $t = \\dfrac{I_2 - 100}{100}$."
+      },
+      "intuition": "Un indice, c'est la valeur ramenée « sur $100$ » : $115$ veut dire « $115$ pour $100$ au départ ».",
+      "reglesImportantes": [
+        "Indice de référence : $I_1 = 100$ pour la valeur $y_1$.",
+        "Indice d'une autre valeur : $I_2 = 100 \\times \\dfrac{y_2}{y_1}$.",
+        "Taux d'évolution depuis la référence : $t = \\dfrac{I_2 - 100}{100}$ ; indice $115$ : $+15\\,\\%$, indice $87$ : $-13\\,\\%$.",
+        "Valeur à partir de l'indice : $y_2 = y_1 \\times \\dfrac{I_2}{100}$.",
+        "Un indice n'a pas d'unité ; deux indices de même base se comparent directement."
+      ],
+      "formules": [
+        {
+          "id": "formule-indice",
+          "nom": "Indice base 100",
+          "expression": "$I_2 = 100 \\times \\dfrac{y_2}{y_1}$",
+          "quand_utiliser": "Pour transformer une valeur en indice.",
+          "erreur_frequente": "Inverser $y_1$ et $y_2$.",
+          "astuce": "La valeur de référence est au dénominateur."
+        },
+        {
+          "id": "formule-indice-taux",
+          "nom": "Indice et taux",
+          "expression": "$t = \\dfrac{I - 100}{100}$",
+          "quand_utiliser": "Pour lire une évolution depuis la référence.",
+          "erreur_frequente": "Lire l'écart entre deux indices quelconques comme un pourcentage.",
+          "astuce": "L'écart se lit par rapport à $100$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer et interpréter un indice",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère la valeur de référence $y_1$ (indice $100$)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je calcule $I_2 = 100 \\times \\dfrac{y_2}{y_1}$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'interprète : $I_2 - 100$ est l'évolution en pourcentage depuis la référence."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle : indice supérieur à $100$ pour une hausse, inférieur pour une baisse."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère la valeur de référence $y_1$ (indice $100$)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule $I_2 = 100 \\times \\dfrac{y_2}{y_1}$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'interprète : $I_2 - 100$ est l'évolution en pourcentage depuis la référence."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle : indice supérieur à $100$ pour une hausse, inférieur pour une baisse."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je trouve l'année (ou la valeur) qui vaut $100$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je divise la nouvelle valeur par la valeur de référence."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je multiplie par $100$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Plus de $100$ : hausse ; moins de $100$ : baisse."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$100 \\times \\dfrac{y_2}{y_1}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Écart à $100$ = évolution en %."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-calcul-indice",
+          "titre": "Exemple 1 — Calculer un indice",
+          "enonce": "Un prix vaut $1{,}20$ € en 2015 et $1{,}38$ € en 2020. Calculer l'indice du prix en 2020, base $100$ en 2015, et interpréter.",
+          "calcul": [
+            {
+              "expr": "I = 100 \\times \\dfrac{1{,}38}{1{,}20} = 115",
+              "texte": ""
+            }
+          ],
+          "reponse": "Indice $115$ : le prix a augmenté de $15\\,\\%$ entre 2015 et 2020.",
+          "conclusion": "C'est la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-indice-baisse",
+          "titre": "Exemple 2 — Un indice inférieur à 100",
+          "enonce": "L'indice d'une production vaut $87$ (base $100$ en 2019). Interpréter.",
+          "calcul": [
+            {
+              "expr": "t = \\dfrac{87 - 100}{100} = -0{,}13",
+              "texte": ""
+            }
+          ],
+          "reponse": "La production a baissé de $13\\,\\%$ depuis 2019.",
+          "conclusion": "Un indice inférieur à $100$ traduit une baisse.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-valeur-depuis-indice",
+          "titre": "Exemple 3 — Retrouver une valeur",
+          "enonce": "Une ville comptait $2\\,400$ habitants en 2010 (indice $100$). En 2020, l'indice vaut $108{,}5$. Combien d'habitants en 2020 ?",
+          "calcul": [
+            {
+              "expr": "y_2 = 2\\,400 \\times \\dfrac{108{,}5}{100} = 2\\,604",
+              "texte": ""
+            }
+          ],
+          "reponse": "$2\\,604$ habitants.",
+          "conclusion": "On multiplie la valeur de référence par $\\dfrac{I}{100}$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-comparer-indices",
+          "titre": "Exemple 4 — Comparer deux évolutions",
+          "enonce": "Le loyer A passe de $500$ € à $620$ € ; le loyer B de $750$ € à $900$ €. Comparer leurs évolutions grâce aux indices (base $100$ au départ).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "A : $100 \\times \\dfrac{620}{500} = 124$ ; B : $100 \\times \\dfrac{900}{750} = 120$."
+            }
+          ],
+          "reponse": "Le loyer A a davantage augmenté ($+24\\,\\%$ contre $+20\\,\\%$).",
+          "conclusion": "Les indices effacent la différence de niveau de départ.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-changer-base",
+          "titre": "Exemple 5 — Changer d'année de référence",
+          "enonce": "Base $100$ en 2018, un indice vaut $110$ en 2020 et $121$ en 2022. Quel est l'indice de 2022 en prenant 2020 comme base $100$ ?",
+          "calcul": [
+            {
+              "expr": "I = 100 \\times \\dfrac{121}{110} = 110",
+              "texte": ""
+            }
+          ],
+          "reponse": "Indice $110$ : $+10\\,\\%$ entre 2020 et 2022.",
+          "conclusion": "Les indices sont proportionnels aux valeurs : on peut changer de base.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-indice-evolutions",
+          "titre": "Exemple 6 — Indice et évolutions successives",
+          "enonce": "Base $100$ en 2020. Une grandeur augmente de $20\\,\\%$ en 2021 puis baisse de $10\\,\\%$ en 2022. Quel est son indice en 2022 ? Quelle est l'évolution globale ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Indice 2021 : $100 \\times 1{,}2 = 120$ ; indice 2022 : $120 \\times 0{,}9 = 108$."
+            }
+          ],
+          "reponse": "Indice $108$ : hausse globale de $8\\,\\%$, et non de $10\\,\\%$.",
+          "conclusion": "L'indice applique les coefficients multiplicateurs successifs.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Indice des prix à la consommation.",
+        "Évolution d'une population depuis un recensement.",
+        "Comparaison de loyers."
+      ],
+      "erreursFrequentes": [
+        "Lire l'écart entre deux indices quelconques comme un pourcentage.",
+        "Inverser valeur de référence et nouvelle valeur.",
+        "Donner une unité à un indice.",
+        "Additionner des évolutions au lieu de les enchaîner."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Lire l'écart entre deux indices quelconques comme un pourcentage.",
+          "pourquoi": "Indices $110$ et $121$ : « $+11\\,\\%$ ».",
+          "comment_detecter": "Le premier indice vaut-il $100$ ?",
+          "comment_eviter": "Calcule $100 \\times \\dfrac{121}{110}$."
+        },
+        {
+          "description": "Inverser valeur de référence et nouvelle valeur.",
+          "pourquoi": "On divise par la mauvaise valeur.",
+          "comment_detecter": "Quelle valeur correspond à l'indice $100$ ?",
+          "comment_eviter": "La référence est au dénominateur."
+        },
+        {
+          "description": "Donner une unité à un indice.",
+          "pourquoi": "On recopie l'unité de la grandeur.",
+          "comment_detecter": "Un indice est-il un prix ?",
+          "comment_eviter": "Un indice est un nombre sans unité."
+        },
+        {
+          "description": "Additionner des évolutions au lieu de les enchaîner.",
+          "pourquoi": "« $+20\\,\\%$ puis $-10\\,\\%$ » lu comme $+10\\,\\%$.",
+          "comment_detecter": "Les coefficients se multiplient-ils ?",
+          "comment_eviter": "$1{,}2 \\times 0{,}9 = 1{,}08$."
+        }
+      ],
+      "astuce": "Pour lire un indice, retire $100$ : indice $123$, hausse de $23\\,\\%$ ; indice $94$, baisse de $6\\,\\%$ — toujours depuis la date de référence.",
+      "aRetenir": [
+        "Indices base 100 : $I_2 = 100 \\times \\dfrac{y_2}{y_1}$.",
+        "Indice $I$ : évolution de $(I - 100)\\,\\%$ depuis la référence.",
+        "Valeur : $y_2 = y_1 \\times \\dfrac{I_2}{100}$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.6,
+          -1.6,
+          11.6,
+          5.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "segments": [
+          {
+            "from": {
+              "x": 0.5,
+              "y": 1.5
+            },
+            "to": {
+              "x": 10.5,
+              "y": 1.5
+            }
+          },
+          {
+            "from": {
+              "x": 1.0,
+              "y": 1.2
+            },
+            "to": {
+              "x": 1.0,
+              "y": 1.8
+            }
+          },
+          {
+            "from": {
+              "x": 5.25,
+              "y": 1.2
+            },
+            "to": {
+              "x": 5.25,
+              "y": 1.8
+            }
+          },
+          {
+            "from": {
+              "x": 9.5,
+              "y": 1.2
+            },
+            "to": {
+              "x": 9.5,
+              "y": 1.8
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.0,
+            "y": 0.6,
+            "label": "2015"
+          },
+          {
+            "x": 5.25,
+            "y": 0.6,
+            "label": "2018"
+          },
+          {
+            "x": 9.5,
+            "y": 0.6,
+            "label": "2020"
+          },
+          {
+            "x": 1.0,
+            "y": 2.5,
+            "label": "1,20 €",
+            "reveal": 1
+          },
+          {
+            "x": 5.25,
+            "y": 2.5,
+            "label": "1,29 €",
+            "reveal": 2
+          },
+          {
+            "x": 9.5,
+            "y": 2.5,
+            "label": "1,38 €",
+            "reveal": 2
+          },
+          {
+            "x": 1.0,
+            "y": 3.4,
+            "label": "indice 100",
+            "reveal": 2
+          },
+          {
+            "x": 5.25,
+            "y": 3.4,
+            "label": "indice 107,5",
+            "reveal": 3
+          },
+          {
+            "x": 9.5,
+            "y": 3.4,
+            "label": "indice 115",
+            "reveal": 3
+          },
+          {
+            "x": 5.5,
+            "y": -1.0,
+            "label": "indice = 100 × valeur / valeur de référence",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Une grandeur suivie dans le temps",
+          "On associe l'indice 100 à l'année de référence",
+          "Les autres indices se calculent par proportionnalité"
+        ],
+        "relation": "$I_2 = 100 \\times \\dfrac{y_2}{y_1}$",
+        "alt": "Frise chronologique : prix de 1,20 € en 2015 (indice 100), 1,29 € en 2018 (indice 107,5) et 1,38 € en 2020 (indice 115).",
+        "explication": {
+          "resume": "Un indice base 100 transforme une grandeur en un nombre « sur 100 » par rapport à une date de référence : l'écart à 100 se lit directement comme un pourcentage d'évolution.",
+          "lecture": [
+            "L'année 2015 est l'année de référence : indice $100$.",
+            "Les indices des autres années sont proportionnels aux prix."
+          ],
+          "observations": [
+            "$100 \\times \\dfrac{1{,}29}{1{,}20} = 107{,}5$ : hausse de $7{,}5\\,\\%$ depuis 2015.",
+            "$100 \\times \\dfrac{1{,}38}{1{,}20} = 115$ : hausse de $15\\,\\%$.",
+            "Un indice n'a pas d'unité."
+          ],
+          "pieges": [
+            "Lire l'écart entre deux indices quelconques comme un pourcentage : seul l'écart à l'indice $100$ de référence se lit ainsi."
+          ],
+          "aRetenir": [
+            "Indice $I$ : évolution de $(I - 100)\\,\\%$ depuis la date de référence."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        81301,
+        81302,
+        81303
+      ],
+      "topic_id": "indices-base-100",
+      "proprietes": [
+        "Les indices sont proportionnels aux valeurs de la grandeur."
+      ],
+      "vocabulaire_associe": [
+        "indice",
+        "base 100",
+        "valeur de référence",
+        "taux d'évolution"
+      ],
+      "synonymes": [
+        "indice base 100",
+        "indice",
+        "année de référence",
+        "calculer un indice",
+        "indice des prix"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer un indice base 100.",
+        "En déduire un taux d'évolution.",
+        "Retrouver une valeur à partir de son indice."
+      ],
+      "prerequis": [
+        "Évolutions et taux"
+      ],
+      "notions_liees": [
+        "proportions-et-pourcentages",
+        "evolutions-et-taux"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "pourcentages",
+        "indices"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "indices-base-100-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Valeur depuis un indice, comparaison, changement de base",
+          "description": "Trois exemples rédigés : retrouver une valeur, comparer deux évolutions, changer d'année de référence."
+        },
+        {
+          "id": "indices-base-100-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Indice et évolutions successives, démonstration",
+          "description": "Un indice obtenu par évolutions successives et la démonstration du lien entre indice et taux d'évolution."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quelle est la hausse du prix entre 2015 et 2018 ?",
+          "piste": "$7{,}5\\,\\%$."
+        },
+        {
+          "apres": "methode",
+          "question": "Indice $92$ : évolution depuis la référence ?",
+          "piste": "Baisse de $8\\,\\%$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Le taux d'évolution depuis la référence vaut $\\dfrac{I_2 - 100}{100}$",
+        "etapes": [
+          {
+            "titre": "Taux",
+            "texte": "Le taux d'évolution de $y_1$ à $y_2$ est $t = \\dfrac{y_2 - y_1}{y_1} = \\dfrac{y_2}{y_1} - 1$."
+          },
+          {
+            "titre": "Indice",
+            "texte": "Par définition, $\\dfrac{y_2}{y_1} = \\dfrac{I_2}{100}$."
+          },
+          {
+            "titre": "Substitution",
+            "texte": "$t = \\dfrac{I_2}{100} - 1 = \\dfrac{I_2 - 100}{100}$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "L'écart de l'indice à $100$ donne directement le taux d'évolution en pourcentage."
+          }
+        ],
+        "conclusion": "C'est tout l'intérêt de la base $100$."
+      }
+    }
+  ]
+}

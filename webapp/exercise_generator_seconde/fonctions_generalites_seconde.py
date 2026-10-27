@@ -33,6 +33,11 @@ def _fmt(v) -> str:
     return str(v)
 
 
+def _pf(v) -> str:
+    """Comme _fmt, parenthésé seulement si négatif (« -3 \\times (-5) », jamais « -3 \\times -5 »)."""
+    return f"({_fmt(v)})" if v < 0 else _fmt(v)
+
+
 def _fmt_affine(a: Fraction, b: int) -> str:
     a_txt = "-" if a == -1 else ("" if a == 1 else _fmt(a))
     b_txt = f"+ {b}" if b > 0 else (f"- {abs(b)}" if b < 0 else "")
@@ -53,7 +58,7 @@ def _gen_image_antecedent(rng: random.Random) -> Optional[dict]:
         enonce = f"Soit $f(x) = {expr}$. Calculer l'image de ${x0}$ par $f$, c'est-à-dire $f({x0})$."
         steps = [
             f"Étape 1 — On remplace $x$ par ${x0}$ dans l'expression de $f$.",
-            f"Étape 2 — $f({x0}) = {_fmt(a)} \\times {x0} {'+' if b >= 0 else '-'} {abs(b)} = {_fmt(y0)}$.",
+            f"Étape 2 — $f({x0}) = {_fmt(a)} \\times {_pf(x0)} {'+' if b >= 0 else '-'} {abs(b)} = {_fmt(y0)}$.",
         ]
         answer = f"$f({x0}) = {_fmt(y0)}$"
         hint = "L'image de x0 par f est f(x0) : on remplace x par x0 dans l'expression."
@@ -201,7 +206,7 @@ def _gen_resolution_graphique(rng: random.Random) -> Optional[dict]:
         )
         steps = [
             f"Étape 1 — Résoudre $f(x) = {k}$ revient à trouver l'abscisse du point de $\\mathcal{{C}}_f$ d'ordonnée ${k}$.",
-            f"Étape 2 — ${a}x {'+' if b>=0 else '-'} {abs(b)} = {k}$, donc $x = {_fmt(x0)}$.",
+            f"Étape 2 — ${expr} = {k}$, donc $x = {_fmt(x0)}$.",
         ]
         answer = f"$S = \\{{{_fmt(x0)}\\}}$"
     else:
@@ -217,7 +222,7 @@ def _gen_resolution_graphique(rng: random.Random) -> Optional[dict]:
             sens_final = "<" if a > 0 else ">"
         steps = [
             f"Étape 1 — $f$ est {'croissante' if a > 0 else 'décroissante'} car $a = {a}$ est {'positif' if a>0 else 'négatif'}.",
-            f"Étape 2 — $f(x) {symb} {k} \\iff {a}x {'+' if b>=0 else '-'} {abs(b)} {symb} {k} \\iff x {sens_final} {_fmt(x0)}$"
+            f"Étape 2 — $f(x) {symb} {k} \\iff {expr} {symb} {k} \\iff x {sens_final} {_fmt(x0)}$"
             + (" (le sens s'inverse car $a<0$)." if a < 0 else " (le sens est conservé car $a>0$)."),
         ]
         if sens_final == ">":

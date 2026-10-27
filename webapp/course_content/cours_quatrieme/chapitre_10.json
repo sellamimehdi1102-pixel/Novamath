@@ -1,0 +1,1757 @@
+{
+  "chapterId": "Chapitre_10",
+  "title": "Cosinus",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "cosinus-cotes",
+      "title": "Nommer les côtés d'un triangle rectangle",
+      "schemaVersion": 2,
+      "intro": "Avant de parler de cosinus, il faut savoir nommer les côtés d'un triangle rectangle par rapport à l'un de ses angles aigus : l'hypoténuse, le côté adjacent et le côté opposé.",
+      "pourquoi": "Choisir le bon côté est la première étape de tout calcul de cosinus. Une erreur de nom de côté entraîne un résultat faux, même si le calcul est juste.",
+      "explicationSimple": "Dans un triangle rectangle en $C$, pour l'angle en $A$ : $[AB]$ est l'hypoténuse (en face de $C$), $[AC]$ est le côté adjacent (il touche $A$), $[BC]$ est le côté opposé (il est en face de $A$).",
+      "objectif": "À la fin de cette leçon, tu sauras repérer l'hypoténuse d'un triangle rectangle et, pour un angle aigu donné, nommer le côté adjacent et le côté opposé.",
+      "definition": "Dans un triangle rectangle, l'hypoténuse est le côté opposé à l'angle droit ; c'est le plus long des trois côtés. Pour un angle aigu de ce triangle, le côté adjacent est le côté de l'angle qui n'est pas l'hypoténuse, et le côté opposé est le côté qui ne passe pas par le sommet de cet angle.",
+      "definitions": {
+        "college": "Hypoténuse : en face de l'angle droit. Côté adjacent à un angle aigu : il touche l'angle et ce n'est pas l'hypoténuse. Côté opposé : il est en face de l'angle.",
+        "lycee": "Dans un triangle rectangle, l'hypoténuse est le côté opposé à l'angle droit ; c'est le plus long des trois côtés. Pour un angle aigu de ce triangle, le côté adjacent est le côté de l'angle qui n'est pas l'hypoténuse, et le côté opposé est le côté qui ne passe pas par le sommet de cet angle."
+      },
+      "intuition": "« Adjacent » veut dire « à côté de » : le côté adjacent est collé à l'angle, comme l'hypoténuse, mais il n'est pas l'hypoténuse.",
+      "reglesImportantes": [
+        "L'hypoténuse est toujours en face de l'angle droit ; elle ne dépend pas de l'angle aigu étudié.",
+        "Le côté adjacent à un angle aigu est l'un des deux côtés de cet angle : celui qui n'est pas l'hypoténuse.",
+        "Le côté opposé à un angle aigu est le côté qui ne contient pas le sommet de cet angle.",
+        "Le côté adjacent à l'un des angles aigus est le côté opposé à l'autre angle aigu.",
+        "Les deux angles aigus d'un triangle rectangle sont complémentaires : leur somme vaut $90°$."
+      ],
+      "formules": [
+        {
+          "id": "formule-hypotenuse",
+          "nom": "Hypoténuse",
+          "expression": "côté en face de l'angle droit",
+          "quand_utiliser": "Pour repérer l'hypoténuse dans tout triangle rectangle.",
+          "erreur_frequente": "Prendre le côté le plus « en bas » de la figure.",
+          "astuce": "Cherche le codage de l'angle droit : l'hypoténuse est en face."
+        },
+        {
+          "id": "formule-adjacent",
+          "nom": "Côté adjacent à $\\widehat{A}$",
+          "expression": "côté de $\\widehat{A}$ qui n'est pas l'hypoténuse",
+          "quand_utiliser": "Pour préparer un calcul de cosinus.",
+          "erreur_frequente": "Confondre côté adjacent et côté opposé.",
+          "astuce": "Le côté adjacent passe par le sommet de l'angle."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Nommer les côtés d'un triangle rectangle",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère l'angle droit et j'en déduis l'hypoténuse (le côté en face)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je repère l'angle aigu étudié et ses deux côtés."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Parmi ces deux côtés, celui qui n'est pas l'hypoténuse est le côté adjacent."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Le troisième côté, qui ne touche pas l'angle, est le côté opposé."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère l'angle droit et j'en déduis l'hypoténuse (le côté en face)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je repère l'angle aigu étudié et ses deux côtés."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Parmi ces deux côtés, celui qui n'est pas l'hypoténuse est le côté adjacent."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Le troisième côté, qui ne touche pas l'angle, est le côté opposé."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je trouve le petit carré de l'angle droit."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je trace en couleur le côté en face : l'hypoténuse."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je pose le doigt sur l'angle étudié : l'autre côté qui le touche est adjacent."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Le côté qui reste est opposé."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Hypoténuse en face de l'angle droit ; adjacent touche l'angle."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Opposé : en face de l'angle."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-nommer-cotes",
+          "titre": "Exemple 1 — Nommer les côtés",
+          "enonce": "Le triangle $ABC$ est rectangle en $C$. Pour l'angle $\\widehat{BAC}$, nommer l'hypoténuse, le côté adjacent et le côté opposé.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "L'angle droit est en $C$ : l'hypoténuse est $[AB]$."
+            },
+            {
+              "expr": "",
+              "texte": "Les côtés de l'angle $\\widehat{BAC}$ sont $[AB]$ et $[AC]$ : le côté adjacent est $[AC]$."
+            },
+            {
+              "expr": "",
+              "texte": "Le côté qui ne touche pas $A$ est $[BC]$ : c'est le côté opposé."
+            }
+          ],
+          "reponse": "Hypoténuse $[AB]$ ; côté adjacent $[AC]$ ; côté opposé $[BC]$.",
+          "conclusion": "C'est la situation de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-autre-angle",
+          "titre": "Exemple 2 — L'autre angle aigu",
+          "enonce": "Dans le même triangle $ABC$ rectangle en $C$, nommer le côté adjacent et le côté opposé à l'angle $\\widehat{ABC}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Les côtés de l'angle $\\widehat{ABC}$ sont $[BA]$ et $[BC]$ ; $[BA]$ est l'hypoténuse."
+            },
+            {
+              "expr": "",
+              "texte": "Côté adjacent : $[BC]$ ; côté opposé : $[AC]$."
+            }
+          ],
+          "reponse": "Pour $\\widehat{ABC}$ : côté adjacent $[BC]$, côté opposé $[AC]$.",
+          "conclusion": "Changer d'angle échange le côté adjacent et le côté opposé ; l'hypoténuse ne change pas.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-triangle-tourne",
+          "titre": "Exemple 3 — Un triangle tourné",
+          "enonce": "Le triangle $RST$ est rectangle en $R$, dessiné « pointe en bas ». Nommer l'hypoténuse, puis le côté adjacent à l'angle $\\widehat{RST}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "L'angle droit est en $R$ : l'hypoténuse est le côté en face, $[ST]$."
+            },
+            {
+              "expr": "",
+              "texte": "Côtés de l'angle en $S$ : $[SR]$ et $[ST]$ ; le côté adjacent est $[SR]$."
+            }
+          ],
+          "reponse": "Hypoténuse $[ST]$ ; côté adjacent à $\\widehat{RST}$ : $[SR]$.",
+          "conclusion": "La position du dessin ne change rien : on raisonne avec l'angle droit.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-angles-complementaires",
+          "titre": "Exemple 4 — Angles complémentaires",
+          "enonce": "Dans un triangle rectangle, un angle aigu mesure $35°$. Combien mesure l'autre angle aigu ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "La somme des angles d'un triangle vaut $180°$ et l'angle droit mesure $90°$."
+            },
+            {
+              "expr": "",
+              "texte": "Les deux angles aigus totalisent $90°$ : $90 - 35 = 55°$."
+            }
+          ],
+          "reponse": "L'autre angle aigu mesure $55°$.",
+          "conclusion": "Les deux angles aigus d'un triangle rectangle sont complémentaires.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-plus-long",
+          "titre": "Exemple 5 — Pourquoi l'hypoténuse est le plus long côté",
+          "enonce": "Dans un triangle $ABC$ rectangle en $C$, expliquer pourquoi $AB > AC$ en utilisant le théorème de Pythagore.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pythagore : $AB^2 = AC^2 + BC^2$."
+            },
+            {
+              "expr": "",
+              "texte": "$BC^2 > 0$, donc $AB^2 > AC^2$."
+            },
+            {
+              "expr": "",
+              "texte": "Les longueurs sont positives, donc $AB > AC$."
+            }
+          ],
+          "reponse": "L'hypoténuse est plus longue que chacun des deux autres côtés.",
+          "conclusion": "C'est pour cela que le quotient « côté adjacent / hypoténuse » est toujours inférieur à $1$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Une échelle posée contre un mur : l'échelle est l'hypoténuse.",
+        "Une rampe d'accès : la rampe est l'hypoténuse, le sol le côté adjacent à l'angle d'inclinaison.",
+        "Un toit en pente."
+      ],
+      "erreursFrequentes": [
+        "Prendre pour hypoténuse un côté de l'angle droit.",
+        "Confondre côté adjacent et côté opposé.",
+        "Garder le même côté adjacent pour les deux angles aigus.",
+        "Chercher un côté adjacent à l'angle droit."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Prendre pour hypoténuse un côté de l'angle droit.",
+          "pourquoi": "On choisit le côté le plus « horizontal » ou le plus long à l'œil.",
+          "comment_detecter": "Ton hypoténuse est-elle en face de l'angle droit ?",
+          "comment_eviter": "Repère d'abord le codage de l'angle droit."
+        },
+        {
+          "description": "Confondre côté adjacent et côté opposé.",
+          "pourquoi": "On ne regarde pas quel angle est étudié.",
+          "comment_detecter": "Ton côté adjacent passe-t-il par le sommet de l'angle ?",
+          "comment_eviter": "Pose le doigt sur l'angle étudié."
+        },
+        {
+          "description": "Garder le même côté adjacent pour les deux angles aigus.",
+          "pourquoi": "On oublie que les noms dépendent de l'angle.",
+          "comment_detecter": "As-tu changé d'angle ?",
+          "comment_eviter": "Refais la méthode pour chaque angle."
+        },
+        {
+          "description": "Chercher un côté adjacent à l'angle droit.",
+          "pourquoi": "On applique le vocabulaire à n'importe quel angle.",
+          "comment_detecter": "L'angle étudié est-il aigu ?",
+          "comment_eviter": "Côté adjacent et cosinus concernent les angles aigus du triangle rectangle."
+        }
+      ],
+      "astuce": "Repasse en couleur l'hypoténuse en premier : il ne reste alors qu'un seul côté qui touche l'angle étudié, c'est le côté adjacent.",
+      "aRetenir": [
+        "Hypoténuse : en face de l'angle droit, le plus long côté.",
+        "Côté adjacent : touche l'angle étudié, n'est pas l'hypoténuse.",
+        "Les noms des côtés dépendent de l'angle aigu choisi."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.0,
+          -1.2,
+          6.4,
+          5.0
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "A"
+          },
+          {
+            "x": 4.0,
+            "y": 3.0,
+            "label": "B"
+          },
+          {
+            "x": 4.0,
+            "y": 0.0,
+            "label": "C"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 4.0,
+                "y": 0.0
+              },
+              {
+                "x": 3.68,
+                "y": 0.0
+              },
+              {
+                "x": 3.68,
+                "y": 0.32
+              },
+              {
+                "x": 4.0,
+                "y": 0.32
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "C",
+            "reveal": 2,
+            "tooltip": "[AC] : côté adjacent à l'angle A"
+          },
+          {
+            "from": "A",
+            "to": "B",
+            "variant": "hypotenuse",
+            "reveal": 3,
+            "tooltip": "[AB] : hypoténuse"
+          },
+          {
+            "from": "B",
+            "to": "C",
+            "tooltip": "[BC] : côté opposé à l'angle A"
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.0,
+            "y": -0.55,
+            "label": "côté adjacent",
+            "reveal": 2
+          },
+          {
+            "x": 1.4,
+            "y": 2.0,
+            "label": "hypoténuse",
+            "reveal": 3
+          }
+        ],
+        "arcs": [
+          {
+            "center": "A",
+            "radius": 0.8,
+            "startDeg": 0,
+            "endDeg": 36.87,
+            "tooltip": "angle aigu de sommet A"
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Le triangle rectangle et l'angle A",
+          "Le côté adjacent à A",
+          "L'hypoténuse"
+        ],
+        "relation": "Pour l'angle $\\widehat{BAC}$ : $[AC]$ est le côté adjacent, $[AB]$ l'hypoténuse, $[BC]$ le côté opposé",
+        "alt": "Triangle ABC rectangle en C ; l'angle aigu en A est marqué d'un arc. [AC] est le côté adjacent à l'angle A, [AB] est l'hypoténuse, [BC] est le côté opposé.",
+        "explication": {
+          "resume": "Dans un triangle rectangle, on nomme les côtés par rapport à un angle aigu : l'hypoténuse est en face de l'angle droit, le côté adjacent est l'autre côté qui forme l'angle étudié.",
+          "lecture": [
+            "Le petit carré en $C$ code l'angle droit.",
+            "L'arc en $A$ marque l'angle aigu étudié."
+          ],
+          "observations": [
+            "$[AB]$, en face de l'angle droit, est l'hypoténuse : c'est le plus long côté.",
+            "$[AC]$ forme l'angle $\\widehat{BAC}$ avec l'hypoténuse : c'est le côté adjacent.",
+            "$[BC]$ ne touche pas le sommet $A$ : c'est le côté opposé à l'angle $\\widehat{BAC}$."
+          ],
+          "pieges": [
+            "Le côté adjacent dépend de l'angle choisi : pour l'angle en $B$, le côté adjacent est $[BC]$."
+          ],
+          "aRetenir": [
+            "Hypoténuse : en face de l'angle droit.",
+            "Côté adjacent : côté de l'angle étudié qui n'est pas l'hypoténuse."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        50101,
+        50102,
+        50104
+      ],
+      "topic_id": "cosinus-cotes",
+      "proprietes": [
+        "Dans un triangle rectangle, les deux angles aigus sont complémentaires."
+      ],
+      "vocabulaire_associe": [
+        "hypoténuse",
+        "côté adjacent",
+        "côté opposé",
+        "angle aigu",
+        "triangle rectangle",
+        "complémentaire"
+      ],
+      "synonymes": [
+        "côté adjacent",
+        "nommer les côtés d'un triangle rectangle"
+      ],
+      "objectifs_pedagogiques": [
+        "Repérer l'hypoténuse.",
+        "Nommer le côté adjacent à un angle aigu.",
+        "Nommer le côté opposé.",
+        "Utiliser la complémentarité des angles aigus."
+      ],
+      "prerequis": [
+        "Théorème de Pythagore",
+        "Somme des angles d'un triangle"
+      ],
+      "notions_liees": [
+        "cosinus-definition",
+        "pythagore-hypotenuse-et-egalite"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "géométrie",
+        "triangle rectangle",
+        "cosinus",
+        "vocabulaire"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "cosinus-cotes-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Triangle tourné et angles complémentaires",
+          "description": "Deux exemples rédigés : nommer les côtés d'un triangle dessiné dans une position inhabituelle, et calculer l'autre angle aigu."
+        },
+        {
+          "id": "cosinus-cotes-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "L'hypoténuse est le plus long côté",
+          "description": "Un exemple qui démontre, avec le théorème de Pythagore, que l'hypoténuse est plus longue que les autres côtés."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Pour l'angle en $B$, quel est le côté adjacent ?",
+          "piste": "$[BC]$."
+        },
+        {
+          "apres": "methode",
+          "question": "Triangle $EFG$ rectangle en $F$ : quelle est l'hypoténuse ?",
+          "piste": "$[EG]$."
+        }
+      ]
+    },
+    {
+      "id": "cosinus-definition",
+      "title": "Le cosinus d'un angle aigu",
+      "schemaVersion": 2,
+      "intro": "Dans un triangle rectangle, le quotient « côté adjacent / hypoténuse » ne dépend que de l'angle aigu, pas de la taille du triangle. Ce nombre s'appelle le cosinus de l'angle.",
+      "pourquoi": "Le cosinus relie un angle à des longueurs : il permet de calculer une longueur à partir d'un angle, ou un angle à partir de longueurs, sans avoir à tout mesurer.",
+      "explicationSimple": "Dans le triangle $ABC$ rectangle en $C$ avec $AC = 4$ et $AB = 5$ : $\\cos \\widehat{A} = \\dfrac{4}{5} = 0{,}8$.",
+      "objectif": "À la fin de cette leçon, tu sauras définir le cosinus d'un angle aigu, écrire la formule dans un triangle rectangle donné, calculer un cosinus et utiliser la calculatrice en mode degrés.",
+      "definition": "Dans un triangle rectangle, le cosinus d'un angle aigu est le quotient de la longueur du côté adjacent à cet angle par la longueur de l'hypoténuse : $\\cos \\widehat{A} = \\dfrac{\\text{côté adjacent à } \\widehat{A}}{\\text{hypoténuse}}$. Ce nombre ne dépend que de la mesure de l'angle ; il est compris strictement entre $0$ et $1$ et n'a pas d'unité.",
+      "definitions": {
+        "college": "$\\cos \\widehat{A} = \\dfrac{\\text{côté adjacent}}{\\text{hypoténuse}}$. C'est un nombre sans unité, entre $0$ et $1$.",
+        "lycee": "Dans un triangle rectangle, le cosinus d'un angle aigu est le quotient de la longueur du côté adjacent à cet angle par la longueur de l'hypoténuse : $\\cos \\widehat{A} = \\dfrac{\\text{côté adjacent à } \\widehat{A}}{\\text{hypoténuse}}$. Ce nombre ne dépend que de la mesure de l'angle ; il est compris strictement entre $0$ et $1$ et n'a pas d'unité."
+      },
+      "intuition": "Plus l'angle est petit, plus le côté adjacent est proche de l'hypoténuse, et plus le cosinus est proche de $1$. Plus l'angle se rapproche de $90°$, plus le cosinus se rapproche de $0$.",
+      "reglesImportantes": [
+        "$\\cos \\widehat{A} = \\dfrac{\\text{côté adjacent à } \\widehat{A}}{\\text{hypoténuse}}$, dans un triangle RECTANGLE.",
+        "Le cosinus d'un angle aigu est compris strictement entre $0$ et $1$.",
+        "Le cosinus ne dépend que de l'angle : deux triangles rectangles qui ont un angle aigu égal ont le même cosinus pour cet angle.",
+        "Plus un angle aigu est grand, plus son cosinus est petit.",
+        "À la calculatrice, en mode degrés : touche cos ; par exemple $\\cos 60° = 0{,}5$."
+      ],
+      "formules": [
+        {
+          "id": "formule-cosinus",
+          "nom": "Cosinus",
+          "expression": "$\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$",
+          "quand_utiliser": "Dans un triangle rectangle, pour un angle aigu.",
+          "erreur_frequente": "Mettre l'hypoténuse au numérateur.",
+          "astuce": "Le cosinus est inférieur à $1$ : le plus grand côté est en bas."
+        },
+        {
+          "id": "formule-cos-60",
+          "nom": "Valeur remarquable",
+          "expression": "$\\cos 60° = 0{,}5$",
+          "quand_utiliser": "Pour vérifier que la calculatrice est bien en mode degrés.",
+          "erreur_frequente": "Obtenir $-0{,}95$ : la calculatrice est en radians.",
+          "astuce": "Teste $\\cos 60$ avant un exercice."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Écrire et calculer un cosinus",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je vérifie que le triangle est rectangle et je repère l'hypoténuse."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je repère le côté adjacent à l'angle étudié."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'écris $\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$ avec les noms des côtés, puis je remplace."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je vérifie que le résultat est entre $0$ et $1$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je vérifie que le triangle est rectangle et je repère l'hypoténuse."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je repère le côté adjacent à l'angle étudié."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris $\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$ avec les noms des côtés, puis je remplace."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie que le résultat est entre $0$ et $1$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je trouve l'angle droit et l'hypoténuse."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je trouve le côté qui touche l'angle et qui n'est pas l'hypoténuse."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'écris la fraction : côté adjacent en haut, hypoténuse en bas."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Mon résultat est-il plus petit que $1$ ?"
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$\\cos = \\dfrac{\\text{adj}}{\\text{hyp}}$, triangle rectangle."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$0 < \\cos < 1$ ; calculatrice en degrés."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-ecrire-cos",
+          "titre": "Exemple 1 — Écrire le cosinus",
+          "enonce": "Le triangle $ABC$ est rectangle en $C$. Écrire $\\cos \\widehat{BAC}$ et $\\cos \\widehat{ABC}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Hypoténuse : $[AB]$. Côté adjacent à $\\widehat{BAC}$ : $[AC]$ ; à $\\widehat{ABC}$ : $[BC]$."
+            }
+          ],
+          "reponse": "$\\cos \\widehat{BAC} = \\dfrac{AC}{AB}$ et $\\cos \\widehat{ABC} = \\dfrac{BC}{AB}$.",
+          "conclusion": "Le dénominateur, l'hypoténuse, est le même pour les deux angles.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-calculer-cos",
+          "titre": "Exemple 2 — Calculer un cosinus",
+          "enonce": "Le triangle $EFG$ est rectangle en $F$, avec $EF = 6$ cm et $EG = 7{,}5$ cm. Calculer $\\cos \\widehat{FEG}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Hypoténuse : $[EG]$ ; côté adjacent à $\\widehat{FEG}$ : $[EF]$."
+            },
+            {
+              "expr": "\\cos \\widehat{FEG} = \\dfrac{EF}{EG} = \\dfrac{6}{7{,}5} = 0{,}8",
+              "texte": "Calcul :"
+            }
+          ],
+          "reponse": "$\\cos \\widehat{FEG} = 0{,}8$.",
+          "conclusion": "Le résultat est bien compris entre $0$ et $1$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-calculatrice",
+          "titre": "Exemple 3 — Utiliser la calculatrice",
+          "enonce": "Donner une valeur arrondie au millième de $\\cos 25°$ et de $\\cos 70°$. Que remarque-t-on ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "En mode degrés : $\\cos 25° \\approx 0{,}906$ et $\\cos 70° \\approx 0{,}342$."
+            },
+            {
+              "expr": "",
+              "texte": "$70° > 25°$ et $\\cos 70° < \\cos 25°$."
+            }
+          ],
+          "reponse": "$\\cos 25° \\approx 0{,}906$ ; $\\cos 70° \\approx 0{,}342$ : le cosinus diminue quand l'angle augmente.",
+          "conclusion": "Vérifie d'abord que $\\cos 60$ affiche $0{,}5$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cos-pythagore",
+          "titre": "Exemple 4 — Avec Pythagore",
+          "enonce": "Le triangle $KLM$ est rectangle en $L$, avec $KL = 5$ cm et $LM = 12$ cm. Calculer $\\cos \\widehat{LKM}$ sous forme de fraction.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Hypoténuse $[KM]$ : $KM^2 = 5^2 + 12^2 = 169$, donc $KM = 13$ cm."
+            },
+            {
+              "expr": "\\cos \\widehat{LKM} = \\dfrac{KL}{KM} = \\dfrac{5}{13}",
+              "texte": "Cosinus :"
+            }
+          ],
+          "reponse": "$\\cos \\widehat{LKM} = \\dfrac{5}{13}$.",
+          "conclusion": "Il faut parfois calculer l'hypoténuse avant de calculer le cosinus.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cos-ne-depend-que-angle",
+          "titre": "Exemple 5 — Le cosinus ne dépend que de l'angle",
+          "enonce": "Deux triangles rectangles $ABC$ (rectangle en $C$) et $AEF$ (rectangle en $E$) ont le même angle aigu en $A$, avec $C$ sur $[AE]$ et $B$ sur $[AF]$. On sait que $AC = 3$, $AB = 5$ et $AF = 12$. Calculer $AE$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Dans $ABC$ : $\\cos \\widehat{A} = \\dfrac{3}{5}$. Dans $AEF$ : $\\cos \\widehat{A} = \\dfrac{AE}{12}$."
+            },
+            {
+              "expr": "\\dfrac{AE}{12} = \\dfrac{3}{5}",
+              "texte": "Même angle, même cosinus :"
+            },
+            {
+              "expr": "",
+              "texte": "$AE = 12 \\times \\dfrac{3}{5} = 7{,}2$."
+            }
+          ],
+          "reponse": "$AE = 7{,}2$.",
+          "conclusion": "On retrouve le résultat que donnerait le théorème de Thalès, puisque $(BC)$ et $(FE)$ sont parallèles.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Calculer la longueur d'une rampe d'accès à partir de son inclinaison.",
+        "Mesurer la pente d'un toit.",
+        "Régler l'angle d'une échelle contre un mur."
+      ],
+      "erreursFrequentes": [
+        "Écrire $\\dfrac{\\text{hypoténuse}}{\\text{adjacent}}$.",
+        "Utiliser le cosinus dans un triangle non rectangle.",
+        "Calculatrice en radians.",
+        "Donner une unité au cosinus."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $\\dfrac{\\text{hypoténuse}}{\\text{adjacent}}$.",
+          "pourquoi": "On inverse la fraction.",
+          "comment_detecter": "Ton cosinus est-il supérieur à $1$ ?",
+          "comment_eviter": "Le plus grand côté, l'hypoténuse, est toujours au dénominateur."
+        },
+        {
+          "description": "Utiliser le cosinus dans un triangle non rectangle.",
+          "pourquoi": "On applique la formule à n'importe quel triangle.",
+          "comment_detecter": "Le triangle a-t-il un angle droit ?",
+          "comment_eviter": "Vérifie toujours la présence de l'angle droit."
+        },
+        {
+          "description": "Calculatrice en radians.",
+          "pourquoi": "Le mode n'a pas été vérifié.",
+          "comment_detecter": "$\\cos 60$ affiche-t-il $0{,}5$ ?",
+          "comment_eviter": "Mets la calculatrice en mode degrés (D ou DEG)."
+        },
+        {
+          "description": "Donner une unité au cosinus.",
+          "pourquoi": "On confond le cosinus avec une longueur.",
+          "comment_detecter": "Un quotient de deux longueurs a-t-il une unité ?",
+          "comment_eviter": "Le cosinus est un nombre sans unité."
+        }
+      ],
+      "astuce": "Pour vérifier ta formule, contrôle que le cosinus calculé est bien entre $0$ et $1$ : si tu obtiens plus que $1$, tu as inversé la fraction.",
+      "aRetenir": [
+        "$\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$, dans un triangle rectangle.",
+        "$0 < \\cos \\widehat{A} < 1$, sans unité.",
+        "Calculatrice en mode degrés : $\\cos 60° = 0{,}5$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.0,
+          -1.2,
+          10.4,
+          8.2
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0.0,
+            "y": 0.0,
+            "label": "A"
+          },
+          {
+            "x": 4.0,
+            "y": 0.0,
+            "label": "C"
+          },
+          {
+            "x": 4.0,
+            "y": 3.0,
+            "label": "B"
+          },
+          {
+            "x": 8.0,
+            "y": 0.0,
+            "label": "E"
+          },
+          {
+            "x": 8.0,
+            "y": 6.0,
+            "label": "F"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 4.0,
+                "y": 0.0
+              },
+              {
+                "x": 3.68,
+                "y": 0.0
+              },
+              {
+                "x": 3.68,
+                "y": 0.32
+              },
+              {
+                "x": 4.0,
+                "y": 0.32
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit"
+          },
+          {
+            "points": [
+              {
+                "x": 8.0,
+                "y": 0.0
+              },
+              {
+                "x": 7.68,
+                "y": 0.0
+              },
+              {
+                "x": 7.68,
+                "y": 0.32
+              },
+              {
+                "x": 8.0,
+                "y": 0.32
+              }
+            ],
+            "variant": "marker",
+            "tooltip": "Codage de l'angle droit"
+          }
+        ],
+        "segments": [
+          {
+            "from": "A",
+            "to": "E"
+          },
+          {
+            "from": "A",
+            "to": "F",
+            "variant": "hypotenuse"
+          },
+          {
+            "from": "B",
+            "to": "C"
+          },
+          {
+            "from": "F",
+            "to": "E",
+            "reveal": 2
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.0,
+            "y": -0.55,
+            "label": "AC = 4"
+          },
+          {
+            "x": 1.6,
+            "y": 1.7,
+            "label": "AB = 5"
+          },
+          {
+            "x": 6.0,
+            "y": -0.55,
+            "label": "AE = 8",
+            "reveal": 2
+          },
+          {
+            "x": 4.9,
+            "y": 4.4,
+            "label": "AF = 10",
+            "reveal": 2
+          },
+          {
+            "x": 6.4,
+            "y": 1.6,
+            "label": "4/5 = 8/10 = 0,8",
+            "reveal": 3
+          }
+        ],
+        "arcs": [
+          {
+            "center": "A",
+            "radius": 0.8,
+            "startDeg": 0,
+            "endDeg": 36.87
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Un triangle rectangle",
+          "Un triangle agrandi, même angle",
+          "Même cosinus"
+        ],
+        "relation": "$\\cos \\widehat{A} = \\dfrac{AC}{AB} = \\dfrac{4}{5} = \\dfrac{AE}{AF} = \\dfrac{8}{10} = 0{,}8$",
+        "alt": "Deux triangles rectangles de même angle en A, l'un de côtés 4 et 5, l'autre de côtés 8 et 10 : le quotient côté adjacent sur hypoténuse vaut 0,8 dans les deux.",
+        "explication": {
+          "resume": "Le quotient « côté adjacent / hypoténuse » ne dépend pas de la taille du triangle, seulement de l'angle : c'est pour cela qu'on peut lui donner un nom, le cosinus de l'angle.",
+          "lecture": [
+            "Les deux triangles ont le même angle en $A$ et un angle droit.",
+            "Le grand triangle est un agrandissement de rapport $2$ du petit."
+          ],
+          "observations": [
+            "$\\dfrac{AC}{AB} = \\dfrac{4}{5} = 0{,}8$ et $\\dfrac{AE}{AF} = \\dfrac{8}{10} = 0{,}8$.",
+            "Les côtés $(BC)$ et $(FE)$ sont tous deux perpendiculaires à $(AE)$, donc parallèles : c'est une configuration de Thalès.",
+            "Le cosinus est toujours compris entre $0$ et $1$, car le côté adjacent est plus court que l'hypoténuse."
+          ],
+          "pieges": [
+            "Croire que le cosinus est une longueur : c'est un quotient de deux longueurs, sans unité."
+          ],
+          "aRetenir": [
+            "Le cosinus ne dépend que de l'angle.",
+            "$0 < \\cos \\widehat{A} < 1$ pour un angle aigu."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        50201,
+        50202,
+        50204
+      ],
+      "topic_id": "cosinus-definition",
+      "proprietes": [
+        "Le cosinus d'un angle aigu ne dépend que de sa mesure et vérifie $0 < \\cos \\widehat{A} < 1$."
+      ],
+      "vocabulaire_associe": [
+        "cosinus",
+        "angle aigu",
+        "côté adjacent",
+        "hypoténuse",
+        "quotient",
+        "mode degrés"
+      ],
+      "synonymes": [
+        "cos",
+        "définition du cosinus",
+        "cosinus d'un angle"
+      ],
+      "objectifs_pedagogiques": [
+        "Définir le cosinus d'un angle aigu.",
+        "Écrire la formule dans un triangle donné.",
+        "Calculer un cosinus.",
+        "Utiliser la calculatrice en mode degrés."
+      ],
+      "prerequis": [
+        "Nommer les côtés d'un triangle rectangle",
+        "Théorème de Thalès"
+      ],
+      "notions_liees": [
+        "cosinus-cotes",
+        "cosinus-calculer-longueur",
+        "thales-configuration-rapports"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie",
+        "cosinus",
+        "triangle rectangle"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "cosinus-definition-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Calculatrice et cosinus avec Pythagore",
+          "description": "Deux exemples rédigés : lire des cosinus à la calculatrice, et calculer un cosinus après avoir trouvé l'hypoténuse."
+        },
+        {
+          "id": "cosinus-definition-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Le cosinus ne dépend que de l'angle",
+          "description": "Un exemple qui utilise deux triangles rectangles de même angle pour calculer une longueur."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien vaut $\\cos \\widehat{A}$ dans le grand triangle ?",
+          "piste": "$\\dfrac{8}{10} = 0{,}8$."
+        },
+        {
+          "apres": "methode",
+          "question": "Triangle rectangle avec côté adjacent $3$ et hypoténuse $6$ : quel cosinus ?",
+          "piste": "$0{,}5$ (angle de $60°$)."
+        }
+      ],
+      "demonstration": {
+        "titre": "Pourquoi le cosinus ne dépend que de l'angle",
+        "etapes": [
+          {
+            "titre": "Deux triangles",
+            "texte": "On considère deux triangles $ABC$ et $AEF$ rectangles en $C$ et $E$, avec le même angle aigu en $A$, $C$ sur $[AE]$ et $B$ sur $[AF]$."
+          },
+          {
+            "titre": "Des parallèles",
+            "texte": "$(BC)$ et $(FE)$ sont toutes deux perpendiculaires à $(AE)$ : elles sont parallèles."
+          },
+          {
+            "titre": "Thalès",
+            "texte": "D'après le théorème de Thalès, $\\dfrac{AC}{AE} = \\dfrac{AB}{AF}$, donc $\\dfrac{AC}{AB} = \\dfrac{AE}{AF}$."
+          }
+        ],
+        "conclusion": "Le quotient « côté adjacent / hypoténuse » est le même dans les deux triangles : il ne dépend que de l'angle en $A$."
+      }
+    },
+    {
+      "id": "cosinus-calculer-longueur",
+      "title": "Utiliser le cosinus pour trouver un côté",
+      "schemaVersion": 2,
+      "intro": "Si l'on connaît un angle aigu d'un triangle rectangle et la longueur d'un côté, le cosinus permet de calculer le côté adjacent ou l'hypoténuse.",
+      "pourquoi": "On calcule ainsi la longueur d'une rampe, la hauteur atteinte par une échelle ou la distance horizontale parcourue en montant une pente, sans tout mesurer.",
+      "explicationSimple": "Une échelle de $5$ m fait un angle de $70°$ avec le sol. La distance entre le pied de l'échelle et le mur est le côté adjacent : $5 \\times \\cos 70° \\approx 1{,}71$ m.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer le côté adjacent ou l'hypoténuse d'un triangle rectangle à partir d'un angle aigu, avec la calculatrice en mode degrés et un arrondi correct.",
+      "definition": "Dans un triangle rectangle, la relation $\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$ s'écrit aussi : $\\text{adjacent} = \\text{hypoténuse} \\times \\cos \\widehat{A}$, ou $\\text{hypoténuse} = \\dfrac{\\text{adjacent}}{\\cos \\widehat{A}}$. On en déduit l'un des deux côtés quand on connaît l'autre et l'angle.",
+      "definitions": {
+        "college": "Côté adjacent $=$ hypoténuse $\\times \\cos$ ; hypoténuse $=$ côté adjacent $\\div \\cos$.",
+        "lycee": "Dans un triangle rectangle, la relation $\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$ s'écrit aussi : $\\text{adjacent} = \\text{hypoténuse} \\times \\cos \\widehat{A}$, ou $\\text{hypoténuse} = \\dfrac{\\text{adjacent}}{\\cos \\widehat{A}}$. On en déduit l'un des deux côtés quand on connaît l'autre et l'angle."
+      },
+      "intuition": "Le cosinus est un coefficient de réduction : il indique quelle fraction de l'hypoténuse « se projette » sur le côté adjacent.",
+      "reglesImportantes": [
+        "On écrit d'abord le cosinus de l'angle connu avec les noms des côtés du triangle.",
+        "On remplace par les valeurs connues ; il reste une seule inconnue.",
+        "Inconnue au numérateur du cosinus : on multiplie par ce cosinus.",
+        "Inconnue au dénominateur du cosinus : on divise par ce cosinus (produit en croix).",
+        "On n'arrondit qu'à la fin du calcul, calculatrice en mode degrés, et on contrôle la cohérence du résultat."
+      ],
+      "formules": [
+        {
+          "id": "formule-adjacent-calcul",
+          "nom": "Côté adjacent",
+          "expression": "$\\text{adjacent} = \\text{hypoténuse} \\times \\cos \\widehat{A}$",
+          "quand_utiliser": "Quand on connaît l'hypoténuse et l'angle.",
+          "erreur_frequente": "Diviser au lieu de multiplier.",
+          "astuce": "Le côté adjacent doit être plus court que l'hypoténuse."
+        },
+        {
+          "id": "formule-hypotenuse-calcul",
+          "nom": "Hypoténuse",
+          "expression": "$\\text{hypoténuse} = \\dfrac{\\text{adjacent}}{\\cos \\widehat{A}}$",
+          "quand_utiliser": "Quand on connaît le côté adjacent et l'angle.",
+          "erreur_frequente": "Multiplier au lieu de diviser.",
+          "astuce": "L'hypoténuse doit être plus longue que le côté adjacent."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer une longueur avec le cosinus",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère l'angle connu, l'hypoténuse et le côté adjacent ; je vérifie que l'un est connu et l'autre cherché."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris $\\cos \\widehat{A} = \\dfrac{\\ldots}{\\ldots}$ avec les noms des côtés, puis je remplace."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "J'isole la longueur cherchée (multiplication ou produit en croix) et je calcule en mode degrés."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'arrondis comme demandé et je vérifie que l'hypoténuse est le plus long côté."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère l'angle connu, l'hypoténuse et le côté adjacent ; je vérifie que l'un est connu et l'autre cherché."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris $\\cos \\widehat{A} = \\dfrac{\\ldots}{\\ldots}$ avec les noms des côtés, puis je remplace."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'isole la longueur cherchée (multiplication ou produit en croix) et je calcule en mode degrés."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'arrondis comme demandé et je vérifie que l'hypoténuse est le plus long côté."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "J'entoure l'angle connu et je nomme les côtés."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris la formule du cosinus avec les lettres."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je remplace par les nombres et je calcule la longueur qui manque."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'écris le résultat arrondi avec l'unité."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "adj $=$ hyp $\\times \\cos$ ; hyp $=$ adj $\\div \\cos$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Mode degrés ; arrondi final ; hyp > adj."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-calcul-adjacent",
+          "titre": "Exemple 1 — Calculer le côté adjacent",
+          "enonce": "Le triangle $ABC$ est rectangle en $C$, $AB = 7$ cm et $\\widehat{BAC} = 40°$. Calculer $AC$, arrondi au dixième.",
+          "calcul": [
+            {
+              "expr": "\\cos 40° = \\dfrac{AC}{7}",
+              "texte": "$\\cos \\widehat{BAC} = \\dfrac{AC}{AB}$, donc"
+            },
+            {
+              "expr": "",
+              "texte": "$AC = 7 \\times \\cos 40° \\approx 5{,}36$ cm."
+            }
+          ],
+          "reponse": "$AC \\approx 5{,}4$ cm.",
+          "conclusion": "Contrôle : $5{,}4 < 7$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-calcul-hypotenuse",
+          "titre": "Exemple 2 — Calculer l'hypoténuse",
+          "enonce": "Le triangle $EFG$ est rectangle en $F$, $EF = 4$ cm et $\\widehat{FEG} = 55°$. Calculer $EG$, arrondi au dixième.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\cos 55° = \\dfrac{EF}{EG} = \\dfrac{4}{EG}$."
+            },
+            {
+              "expr": "EG = \\dfrac{4}{\\cos 55°} \\approx 6{,}97 \\text{ cm}",
+              "texte": "Produit en croix :"
+            }
+          ],
+          "reponse": "$EG \\approx 7{,}0$ cm.",
+          "conclusion": "Contrôle : $7{,}0 > 4$, l'hypoténuse est bien le plus long côté.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-echelle",
+          "titre": "Exemple 3 — Une échelle",
+          "enonce": "Une échelle de $6$ m est posée contre un mur vertical ; elle fait un angle de $72°$ avec le sol horizontal. À quelle distance du mur se trouve le pied de l'échelle (au centimètre) ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le triangle formé par le mur, le sol et l'échelle est rectangle au pied du mur ; l'échelle est l'hypoténuse."
+            },
+            {
+              "expr": "6 \\times \\cos 72° \\approx 1{,}854 \\text{ m}",
+              "texte": "Distance au mur (côté adjacent à l'angle de $72°$) :"
+            }
+          ],
+          "reponse": "Le pied de l'échelle est à environ $1{,}85$ m du mur.",
+          "conclusion": "Les constructeurs recommandent un angle compris entre $65°$ et $75°$ avec le sol : à $72°$, l'échelle respecte cette recommandation.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-rampe",
+          "titre": "Exemple 4 — Une rampe d'accès",
+          "enonce": "Une rampe doit couvrir une distance horizontale de $4{,}2$ m avec une inclinaison de $5°$ par rapport au sol. Quelle est la longueur de la rampe (au centimètre) ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "La distance horizontale est le côté adjacent à l'angle de $5°$ ; la rampe est l'hypoténuse."
+            },
+            {
+              "expr": "\\dfrac{4{,}2}{\\cos 5°} \\approx 4{,}216 \\text{ m}",
+              "texte": "Longueur :"
+            }
+          ],
+          "reponse": "La rampe mesure environ $4{,}22$ m.",
+          "conclusion": "Pour un petit angle, l'hypoténuse est à peine plus longue que le côté adjacent.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cos-et-pythagore",
+          "titre": "Exemple 5 — Cosinus puis Pythagore",
+          "enonce": "Le triangle $KLM$ est rectangle en $L$, $KM = 10$ cm et $\\widehat{LKM} = 30°$. Calculer $KL$ puis $LM$ (au dixième).",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$KL = 10 \\times \\cos 30° \\approx 8{,}66$ cm : on garde la valeur non arrondie dans la mémoire de la calculatrice."
+            },
+            {
+              "expr": "",
+              "texte": "Pythagore avec cette valeur non arrondie : $LM^2 = KM^2 - KL^2 = 100 - KL^2$, la calculatrice affiche $25$."
+            },
+            {
+              "expr": "",
+              "texte": "$LM = \\sqrt{25} = 5$ cm."
+            }
+          ],
+          "reponse": "$KL \\approx 8{,}7$ cm et $LM \\approx 5{,}0$ cm.",
+          "conclusion": "Avec la valeur arrondie $KL \\approx 8{,}7$, on aurait obtenu $LM^2 \\approx 100 - 75{,}69 = 24{,}31$ et $LM \\approx 4{,}9$ cm : arrondir trop tôt fausse le résultat final.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Placer une échelle en sécurité.",
+        "Concevoir une rampe pour fauteuil roulant.",
+        "Calculer la distance horizontale d'une montée en téléphérique."
+      ],
+      "erreursFrequentes": [
+        "Diviser par le cosinus pour obtenir le côté adjacent.",
+        "Arrondir le cosinus avant de terminer le calcul.",
+        "Utiliser le mauvais angle.",
+        "Calculatrice en radians."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Diviser par le cosinus pour obtenir le côté adjacent.",
+          "pourquoi": "On applique mal le produit en croix.",
+          "comment_detecter": "Le côté adjacent obtenu est-il plus long que l'hypoténuse ?",
+          "comment_eviter": "Adjacent $=$ hypoténuse $\\times$ cosinus."
+        },
+        {
+          "description": "Arrondir le cosinus avant de terminer le calcul.",
+          "pourquoi": "On recopie $\\cos 40° \\approx 0{,}8$.",
+          "comment_detecter": "As-tu utilisé la valeur de la calculatrice ?",
+          "comment_eviter": "Garde la valeur exacte de la calculatrice jusqu'au résultat final."
+        },
+        {
+          "description": "Utiliser le mauvais angle.",
+          "pourquoi": "On utilise l'autre angle aigu.",
+          "comment_detecter": "Le côté adjacent correspond-il bien à l'angle donné ?",
+          "comment_eviter": "Repère l'angle de l'énoncé avant de nommer les côtés."
+        },
+        {
+          "description": "Calculatrice en radians.",
+          "pourquoi": "Le mode n'a pas été vérifié.",
+          "comment_detecter": "$\\cos 60$ donne-t-il $0{,}5$ ?",
+          "comment_eviter": "Passe en mode degrés."
+        }
+      ],
+      "astuce": "Avant de calculer, estime : pour un angle de $60°$, le côté adjacent mesure exactement la moitié du plus long côté ($\\cos 60° = 0{,}5$). Cela donne un ordre de grandeur pour les angles voisins.",
+      "aRetenir": [
+        "Adjacent $=$ hypoténuse $\\times \\cos$.",
+        "Hypoténuse $=$ adjacent $\\div \\cos$.",
+        "Mode degrés, arrondi à la fin, contrôle de cohérence."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "cos 40° = AC / AB",
+            "sousTitre": "Définition"
+          },
+          {
+            "titre": "cos 40° = AC / 7",
+            "sousTitre": "On remplace AB = 7 cm"
+          },
+          {
+            "titre": "AC = 7 × cos 40°",
+            "sousTitre": "On isole AC"
+          },
+          {
+            "titre": "AC ≈ 5,4 cm",
+            "sousTitre": "Calculatrice, en degrés"
+          }
+        ],
+        "steps": [
+          "La formule",
+          "On isole la longueur",
+          "On calcule"
+        ],
+        "relation": "$\\cos 40° = \\dfrac{AC}{7}$ donc $AC = 7 \\times \\cos 40° \\approx 5{,}4$ cm",
+        "alt": "Chaîne : cos 40° = AC/AB, puis cos 40° = AC/7, puis AC = 7 × cos 40°, soit environ 5,4 cm.",
+        "explication": {
+          "resume": "Si l'on connaît un angle aigu et un côté, la formule du cosinus permet de calculer un autre côté : côté adjacent $=$ hypoténuse $\\times$ cosinus, ou hypoténuse $=$ côté adjacent $\\div$ cosinus.",
+          "lecture": [
+            "On lit de gauche à droite : formule, remplacement, isolement, calcul."
+          ],
+          "observations": [
+            "$\\cos 40° \\approx 0{,}766$.",
+            "$7 \\times 0{,}766 \\approx 5{,}36$, arrondi à $5{,}4$ cm.",
+            "Contrôle : $AC < AB$, le côté adjacent est plus court que l'hypoténuse."
+          ],
+          "pieges": [
+            "Calculatrice réglée en radians ou en grades : $\\cos 40$ donnerait un autre nombre."
+          ],
+          "aRetenir": [
+            "Côté adjacent $=$ hypoténuse $\\times \\cos$.",
+            "Hypoténuse $=$ côté adjacent $\\div \\cos$.",
+            "La calculatrice doit être en mode degrés."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        50301,
+        50302,
+        50304
+      ],
+      "topic_id": "cosinus-calculer-longueur",
+      "proprietes": [
+        "Dans un triangle rectangle, adjacent $=$ hypoténuse $\\times \\cos \\widehat{A}$."
+      ],
+      "vocabulaire_associe": [
+        "cosinus",
+        "côté adjacent",
+        "hypoténuse",
+        "arrondi",
+        "mode degrés"
+      ],
+      "synonymes": [
+        "calculer une longueur avec cos",
+        "cosinus et longueur"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer un côté adjacent.",
+        "Calculer une hypoténuse.",
+        "Arrondir correctement.",
+        "Résoudre un problème concret avec le cosinus."
+      ],
+      "prerequis": [
+        "Le cosinus d'un angle aigu",
+        "Produit en croix"
+      ],
+      "notions_liees": [
+        "cosinus-definition",
+        "cosinus-calculer-angle"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie",
+        "cosinus",
+        "calcul de longueur"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "cosinus-calculer-longueur-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Échelle et rampe d'accès",
+          "description": "Deux exemples rédigés : la distance entre le pied d'une échelle et le mur, puis la longueur d'une rampe inclinée de $5°$."
+        },
+        {
+          "id": "cosinus-calculer-longueur-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Cosinus puis Pythagore",
+          "description": "Un exemple qui enchaîne le cosinus et le théorème de Pythagore sans perdre de précision."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Avec $AB = 10$ et un angle de $40°$, combien vaut $AC$ environ ?",
+          "piste": "$10 \\times \\cos 40° \\approx 7{,}7$."
+        },
+        {
+          "apres": "methode",
+          "question": "Hypoténuse $8$, angle $60°$ : côté adjacent ?",
+          "piste": "$8 \\times 0{,}5 = 4$."
+        }
+      ]
+    },
+    {
+      "id": "cosinus-calculer-angle",
+      "title": "Calculer un angle avec le cosinus",
+      "schemaVersion": 2,
+      "intro": "Si l'on connaît le côté adjacent et l'hypoténuse d'un triangle rectangle, on calcule le cosinus de l'angle, puis la calculatrice donne l'angle grâce à sa touche « cos⁻¹ ».",
+      "pourquoi": "On mesure ainsi l'inclinaison d'une pente, d'un toit ou d'une rampe à partir de longueurs faciles à mesurer.",
+      "explicationSimple": "Dans le triangle $ABC$ rectangle en $C$ avec $AC = 4$ et $AB = 5$ : $\\cos \\widehat{A} = 0{,}8$ et $\\cos^{-1}(0{,}8) \\approx 36{,}9°$.",
+      "objectif": "À la fin de cette leçon, tu sauras calculer la mesure d'un angle aigu d'un triangle rectangle à partir du côté adjacent et de l'hypoténuse, avec la touche cos⁻¹ de la calculatrice, et arrondir le résultat.",
+      "definition": "Pour un angle aigu $\\widehat{A}$, si l'on connaît $\\cos \\widehat{A}$, la calculatrice donne la mesure de $\\widehat{A}$ avec la touche « cos⁻¹ » (notée aussi « Arccos » ou « acs ») : elle renvoie l'unique angle compris entre $0°$ et $90°$ dont le cosinus est la valeur donnée.",
+      "definitions": {
+        "college": "On calcule $\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$, puis on tape « cos⁻¹ » (seconde fonction de la touche cos) pour obtenir l'angle.",
+        "lycee": "Pour un angle aigu $\\widehat{A}$, si l'on connaît $\\cos \\widehat{A}$, la calculatrice donne la mesure de $\\widehat{A}$ avec la touche « cos⁻¹ » (notée aussi « Arccos » ou « acs ») : elle renvoie l'unique angle compris entre $0°$ et $90°$ dont le cosinus est la valeur donnée."
+      },
+      "intuition": "La touche cos transforme un angle en nombre ; la touche cos⁻¹ fait le chemin inverse : elle transforme le nombre en angle.",
+      "reglesImportantes": [
+        "Pour calculer un angle, on calcule d'abord $\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$, de préférence sous forme de fraction exacte.",
+        "On obtient l'angle avec la touche cos⁻¹ (seconde fonction de cos), en mode degrés.",
+        "On peut taper directement cos⁻¹(adjacent ÷ hypoténuse) pour éviter un arrondi intermédiaire.",
+        "Le résultat est un angle aigu (entre $0°$ et $90°$) ; on l'arrondit comme demandé.",
+        "L'autre angle aigu s'obtient par complémentarité : $90° - \\widehat{A}$."
+      ],
+      "formules": [
+        {
+          "id": "formule-arccos",
+          "nom": "Angle à partir du cosinus",
+          "expression": "$\\widehat{A} = \\cos^{-1}\\left(\\dfrac{\\text{adjacent}}{\\text{hypoténuse}}\\right)$",
+          "quand_utiliser": "Quand on connaît le côté adjacent et l'hypoténuse.",
+          "erreur_frequente": "Taper cos au lieu de cos⁻¹.",
+          "astuce": "Le résultat doit être un angle entre $0°$ et $90°$."
+        },
+        {
+          "id": "formule-complementaire",
+          "nom": "Autre angle aigu",
+          "expression": "$\\widehat{B} = 90° - \\widehat{A}$",
+          "quand_utiliser": "Pour obtenir le second angle aigu sans nouveau calcul de cosinus.",
+          "erreur_frequente": "Faire $180° - \\widehat{A}$.",
+          "astuce": "Le troisième angle est droit : il reste $90°$ à partager."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Calculer un angle avec le cosinus",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère l'angle cherché, son côté adjacent et l'hypoténuse (tous deux connus)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris $\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$ et je remplace."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Je calcule l'angle avec la touche cos⁻¹ en mode degrés."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'arrondis et je vérifie que l'angle est aigu et cohérent avec la figure."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère l'angle cherché, son côté adjacent et l'hypoténuse (tous deux connus)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris $\\cos \\widehat{A} = \\dfrac{\\text{adjacent}}{\\text{hypoténuse}}$ et je remplace."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Je calcule l'angle avec la touche cos⁻¹ en mode degrés."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'arrondis et je vérifie que l'angle est aigu et cohérent avec la figure."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je nomme les côtés autour de l'angle cherché."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je calcule la fraction côté adjacent / hypoténuse."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "J'appuie sur SECONDE puis COS pour obtenir cos⁻¹, et je tape la fraction."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'arrondis au degré ou au dixième."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$\\widehat{A} = \\cos^{-1}\\left(\\dfrac{\\text{adj}}{\\text{hyp}}\\right)$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Mode degrés ; angle entre $0°$ et $90°$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-calcul-angle",
+          "titre": "Exemple 1 — Calculer un angle",
+          "enonce": "Le triangle $ABC$ est rectangle en $C$, $AC = 4$ cm et $AB = 5$ cm. Calculer $\\widehat{BAC}$, arrondi au dixième de degré.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\cos \\widehat{BAC} = \\dfrac{AC}{AB} = \\dfrac{4}{5} = 0{,}8$."
+            },
+            {
+              "expr": "",
+              "texte": "Calculatrice : $\\cos^{-1}(0{,}8) \\approx 36{,}87°$."
+            }
+          ],
+          "reponse": "$\\widehat{BAC} \\approx 36{,}9°$.",
+          "conclusion": "C'est la situation de la figure du cours.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-angle-60",
+          "titre": "Exemple 2 — Un angle remarquable",
+          "enonce": "Le triangle $EFG$ est rectangle en $F$, $EF = 3{,}5$ cm et $EG = 7$ cm. Calculer $\\widehat{FEG}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\cos \\widehat{FEG} = \\dfrac{3{,}5}{7} = 0{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\cos^{-1}(0{,}5) = 60°$."
+            }
+          ],
+          "reponse": "$\\widehat{FEG} = 60°$.",
+          "conclusion": "Quand le côté adjacent est la moitié de l'hypoténuse, l'angle mesure exactement $60°$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-pente-toit",
+          "titre": "Exemple 3 — L'inclinaison d'un toit",
+          "enonce": "Un pan de toit mesure $5{,}2$ m de long ; sa projection horizontale mesure $4{,}5$ m. Calculer l'angle d'inclinaison du toit avec l'horizontale, au degré près.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le pan de toit est l'hypoténuse, la projection horizontale le côté adjacent à l'angle d'inclinaison."
+            },
+            {
+              "expr": "",
+              "texte": "$\\cos \\alpha = \\dfrac{4{,}5}{5{,}2} \\approx 0{,}8654$ ; cos⁻¹ donne $\\alpha \\approx 30{,}07°$."
+            }
+          ],
+          "reponse": "Le toit est incliné d'environ $30°$.",
+          "conclusion": "On tape directement $\\cos^{-1}(4{,}5 \\div 5{,}2)$ pour ne pas arrondir en route.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-deux-angles",
+          "titre": "Exemple 4 — Les deux angles aigus",
+          "enonce": "Le triangle $RST$ est rectangle en $S$, $RS = 6$ cm et $RT = 9$ cm. Calculer $\\widehat{SRT}$ puis $\\widehat{STR}$ au degré près.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$\\cos \\widehat{SRT} = \\dfrac{6}{9}$ ; cos⁻¹ donne $\\widehat{SRT} \\approx 48{,}19°$, soit $48°$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\widehat{STR} = 90° - 48{,}19° \\approx 41{,}81°$, soit $42°$."
+            }
+          ],
+          "reponse": "$\\widehat{SRT} \\approx 48°$ et $\\widehat{STR} \\approx 42°$.",
+          "conclusion": "On calcule l'autre angle à partir de la valeur non arrondie.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-angle-avec-pythagore",
+          "titre": "Exemple 5 — Pythagore puis cosinus",
+          "enonce": "Le triangle $KLM$ est rectangle en $L$, $KL = 8$ cm et $LM = 6$ cm. Calculer $\\widehat{LKM}$ au dixième de degré.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Pythagore : $KM^2 = 64 + 36 = 100$, donc $KM = 10$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "$\\cos \\widehat{LKM} = \\dfrac{8}{10} = 0{,}8$ ; cos⁻¹ donne $36{,}87°$."
+            }
+          ],
+          "reponse": "$\\widehat{LKM} \\approx 36{,}9°$.",
+          "conclusion": "Le triangle $8$-$6$-$10$ est un agrandissement du triangle $4$-$3$-$5$ : il a les mêmes angles.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Mesurer l'inclinaison d'un toit.",
+        "Vérifier la pente d'une rampe.",
+        "Calculer l'angle d'une échelle."
+      ],
+      "erreursFrequentes": [
+        "Taper cos au lieu de cos⁻¹.",
+        "Arrondir le cosinus avant d'utiliser cos⁻¹.",
+        "Inverser adjacent et hypoténuse.",
+        "Calculer l'autre angle avec $180° - \\widehat{A}$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Taper cos au lieu de cos⁻¹.",
+          "pourquoi": "On utilise la touche habituelle.",
+          "comment_detecter": "Le résultat est-il un angle (entre $0$ et $90$) ?",
+          "comment_eviter": "cos⁻¹ s'obtient souvent avec SECONDE (ou SHIFT) puis COS."
+        },
+        {
+          "description": "Arrondir le cosinus avant d'utiliser cos⁻¹.",
+          "pourquoi": "On recopie une valeur arrondie.",
+          "comment_detecter": "Ton angle diffère-t-il de celui obtenu avec la fraction exacte ?",
+          "comment_eviter": "Tape directement cos⁻¹(adjacent ÷ hypoténuse)."
+        },
+        {
+          "description": "Inverser adjacent et hypoténuse.",
+          "pourquoi": "La fraction donne un nombre supérieur à $1$.",
+          "comment_detecter": "La calculatrice affiche-t-elle une erreur ?",
+          "comment_eviter": "L'hypoténuse est toujours au dénominateur."
+        },
+        {
+          "description": "Calculer l'autre angle avec $180° - \\widehat{A}$.",
+          "pourquoi": "On oublie l'angle droit.",
+          "comment_detecter": "La somme des trois angles vaut-elle $180°$ ?",
+          "comment_eviter": "Autre angle aigu $= 90° - \\widehat{A}$."
+        }
+      ],
+      "astuce": "Pour calculer un angle d'un triangle rectangle, pense au cosinus dès que tu connais le côté adjacent et l'hypoténuse. Une erreur de calculatrice (« Math ERROR ») avec cos⁻¹ signifie presque toujours que la fraction est supérieure à $1$ : tu as inversé côté adjacent et hypoténuse.",
+      "aRetenir": [
+        "Calculer un angle : $\\widehat{A} = \\cos^{-1}\\left(\\dfrac{\\text{adjacent}}{\\text{hypoténuse}}\\right)$.",
+        "Mode degrés ; pas d'arrondi intermédiaire avant de calculer l'angle.",
+        "Pour calculer un angle d'un triangle rectangle à partir de deux longueurs, on utilise le cosinus.",
+        "Autre angle aigu : $90° - \\widehat{A}$."
+      ],
+      "figure": {
+        "kind": "pipeline",
+        "nodes": [
+          {
+            "titre": "cos Â = AC / AB",
+            "sousTitre": "Définition"
+          },
+          {
+            "titre": "cos Â = 4 / 5 = 0,8",
+            "sousTitre": "On remplace"
+          },
+          {
+            "titre": "Â = arccos(0,8)",
+            "sousTitre": "Touche cos⁻¹ ou Arccos"
+          },
+          {
+            "titre": "Â ≈ 36,9°",
+            "sousTitre": "Arrondi au dixième"
+          }
+        ],
+        "steps": [
+          "Le cosinus",
+          "La touche réciproque",
+          "L'angle"
+        ],
+        "relation": "$\\cos \\widehat{A} = \\dfrac{4}{5} = 0{,}8$ donc $\\widehat{A} \\approx 36{,}9°$",
+        "alt": "Chaîne : cos Â = AC/AB = 4/5 = 0,8, puis on utilise la touche cos⁻¹ (Arccos) de la calculatrice : Â ≈ 36,9°.",
+        "explication": {
+          "resume": "Si l'on connaît le côté adjacent et l'hypoténuse, on calcule le cosinus, puis la calculatrice donne l'angle grâce à la touche « cos⁻¹ » (ou « Arccos », « acs »).",
+          "lecture": [
+            "On lit de gauche à droite."
+          ],
+          "observations": [
+            "$\\cos \\widehat{A} = 0{,}8$.",
+            "La touche cos⁻¹ donne l'angle aigu dont le cosinus vaut $0{,}8$ : environ $36{,}87°$.",
+            "Vérification : $\\cos 36{,}9° \\approx 0{,}8$."
+          ],
+          "pieges": [
+            "Taper $\\cos(0{,}8)$ au lieu de $\\cos^{-1}(0{,}8)$ : on obtiendrait un nombre, pas un angle."
+          ],
+          "aRetenir": [
+            "$\\cos \\widehat{A}$ connu $\\Rightarrow$ $\\widehat{A}$ avec la touche cos⁻¹.",
+            "Mode degrés, arrondi demandé."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        50401,
+        50402,
+        50404
+      ],
+      "topic_id": "cosinus-calculer-angle",
+      "proprietes": [
+        "Pour un angle aigu, cos⁻¹ renvoie l'unique angle entre $0°$ et $90°$ ayant un cosinus donné."
+      ],
+      "vocabulaire_associe": [
+        "cosinus",
+        "cos⁻¹",
+        "Arccos",
+        "angle aigu",
+        "arrondi",
+        "complémentaire"
+      ],
+      "synonymes": [
+        "calculer un angle avec cos",
+        "Arccos",
+        "touche cos⁻¹"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer un cosinus à partir de deux longueurs.",
+        "Obtenir un angle avec cos⁻¹.",
+        "Arrondir un angle.",
+        "Calculer l'autre angle aigu."
+      ],
+      "prerequis": [
+        "Le cosinus d'un angle aigu",
+        "Théorème de Pythagore"
+      ],
+      "notions_liees": [
+        "cosinus-definition",
+        "cosinus-calculer-longueur"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "géométrie",
+        "cosinus",
+        "calcul d'angle"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "cosinus-calculer-angle-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Inclinaison d'un toit et deux angles aigus",
+          "description": "Deux exemples rédigés : calculer la pente d'un toit, puis les deux angles aigus d'un triangle rectangle."
+        },
+        {
+          "id": "cosinus-calculer-angle-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Pythagore puis cosinus",
+          "description": "Un exemple qui calcule d'abord l'hypoténuse avant de trouver l'angle."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel angle donne $\\cos^{-1}(0{,}8)$, au degré près ?",
+          "piste": "$37°$."
+        },
+        {
+          "apres": "methode",
+          "question": "Côté adjacent $5$, hypoténuse $10$ : quel angle ?",
+          "piste": "$60°$."
+        }
+      ]
+    }
+  ]
+}

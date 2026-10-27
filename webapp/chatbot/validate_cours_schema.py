@@ -20,12 +20,79 @@ Ne modifie jamais les fichiers : lecture seule, sort avec un code non nul si
 des erreurs sont trouvées.
 """
 import json
+import re
 import sys
 from pathlib import Path
 
 from .knowledge_engine import COURS_DIR, DIFFICULTE_LEVELS
 
 REQUIRED_NOTION_FIELDS = ("id", "title", "definition")
+
+# ── Détection de LaTeX brut dans le contenu des cours (chantier "audit LaTeX
+# brut", 2026-10-24) — causé par du contenu JSON jamais prévu pour être rendu
+# tel quel, pas par le pipeline de rendu (mathrender.js), qui est correct.
+# Trois signaux fiables, sans faux positif connu dans ce projet :
+#   1. `\og` / `\fg{}` : commandes LaTeX de guillemets français (babel-french),
+#      jamais reconnues par KaTeX et jamais entourées de $...$ — toujours une
+#      erreur de contenu, aucun usage légitime possible ici.
+#   2. Un nombre impair de `$` dans une chaîne : un délimiteur mathématique
+#      resté ouvert, donc un texte qui bascule entre LaTeX et texte français
+#      au mauvais endroit.
+#   3. Des accolades déséquilibrées À L'INTÉRIEUR d'un segment $...$/$$...$$ :
+#      KaTeX (throwOnError: false) affiche alors une erreur ou rien du tout.
+# Les champs `calcul[].expr` et `figure.relation`/`figure.explication.*` sont
+# volontairement inclus : ce sont des chaînes JSON comme les autres, le seul
+# traitement spécial (`calcul[].expr` auto-entouré de $...$ par cours.js) ne
+# change rien à l'équilibrage interne des accolades ni à la légitimité de
+# \og/\fg.
+_OG_FG_RE = re.compile(r"\\og\b|\\fg\{?\}?")
+_MATH_SEGMENT_RE = re.compile(r"\$\$([^$]+)\$\$|\$([^$]+)\$")
+
+
+def _braces_balanced(expr):
+    depth = 0
+    for ch in expr:
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth < 0:
+                return False
+    return depth == 0
+
+
+def _scan_string_for_raw_latex(path_desc, value, issues):
+    if _OG_FG_RE.search(value):
+        issues.append(f"{path_desc} : commande LaTeX « \\og »/« \\fg{{}} » non supportée par KaTeX (jamais de rendu) — {value[:120]!r}")
+    if value.count("$") % 2 != 0:
+        issues.append(f"{path_desc} : nombre impair de « $ » (délimiteur mathématique non fermé) — {value[:120]!r}")
+        return
+    for m in _MATH_SEGMENT_RE.finditer(value):
+        expr = m.group(1) or m.group(2) or ""
+        if not _braces_balanced(expr):
+            issues.append(f"{path_desc} : accolades déséquilibrées dans un segment $...$ — {expr[:120]!r}")
+
+
+def find_raw_latex_issues(notion, prefix):
+    """Parcourt récursivement tous les champs texte d'une notion et signale
+    tout ce qui s'afficherait comme du LaTeX brut à l'élève (voir les 3
+    signaux ci-dessus). Lecture seule, aucun faux positif connu — utilisé par
+    validate_all() et par les tests de non-régression (webapp/tests)."""
+    issues = []
+
+    def walk(path_desc, v):
+        if isinstance(v, str):
+            if "\\" in v or "$" in v:
+                _scan_string_for_raw_latex(path_desc, v, issues)
+        elif isinstance(v, dict):
+            for k, vv in v.items():
+                walk(f"{path_desc}.{k}", vv)
+        elif isinstance(v, list):
+            for i, vv in enumerate(v):
+                walk(f"{path_desc}[{i}]", vv)
+
+    walk(prefix, notion)
+    return issues
 
 # Schéma complet KE v2 (généralisation aux 12 chapitres, migrate_ke_v2.py) :
 # chaque notion en schemaVersion 2 doit posséder TOUS ces champs, avec le bon
@@ -122,6 +189,7 @@ def validate_all(cours_dir=None):
         for notion in chapter.get("notions", []):
             notion_count += 1
             _check_base_structure(chapter_file, notion, errors)
+            errors.extend(find_raw_latex_issues(notion, f"{chapter_file.name} / notion {notion.get('id', '?')}"))
             if notion.get("schemaVersion") == 2:
                 v2_count += 1
                 _check_v2_invariants(chapter_file, notion, errors)

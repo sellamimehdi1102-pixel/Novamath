@@ -1,0 +1,3728 @@
+{
+  "chapterId": "Chapitre_2",
+  "title": "Fonctions numériques",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "fonctions-et-representations",
+      "title": "Rappels sur les fonctions",
+      "schemaVersion": 2,
+      "intro": "On reprend les notions de base sur les fonctions vues en Seconde : image, antécédents, sens de variation et courbe représentative. Elles servent dans tous les chapitres d'analyse de l'année.",
+      "pourquoi": "Lire une courbe, comparer des images grâce au sens de variation ou vérifier qu'un point est sur une courbe sont des gestes que l'on utilise constamment, de l'étude du second degré à la dérivation.",
+      "explicationSimple": "Pour $f(x) = x^2 - 3x$ : l'image de $-2$ est $f(-2) = 4 + 6 = 10$. Si $f$ est strictement croissante sur $[0 ; 5]$, alors $f(1) < f(4)$ sans aucun calcul.",
+      "objectif": "À la fin de ce cours, tu sauras calculer une image, chercher des antécédents, utiliser les définitions de fonction croissante ou décroissante pour comparer des images, et décider si un point appartient à une courbe.",
+      "definition": "Une fonction $f$ définie sur une partie $D$ de $\\mathbb{R}$ associe à tout réel $x$ de $D$ un unique réel $f(x)$, appelé image de $x$ ; un antécédent d'un réel $y$ est un réel $x$ de $D$ tel que $f(x) = y$. Soit $I$ un intervalle inclus dans $D$ : $f$ est croissante sur $I$ si pour tous $a < b$ de $I$, $f(a) \\leqslant f(b)$ ; strictement croissante si $f(a) < f(b)$ ; décroissante si $f(a) \\geqslant f(b)$ ; strictement décroissante si $f(a) > f(b)$. Une fonction croissante ou décroissante sur $I$ est dite monotone sur $I$. La courbe représentative de $f$ est l'ensemble des points $M(x ; y)$ tels que $x \\in D$ et $y = f(x)$.",
+      "definitions": {
+        "lycee": "Une fonction $f$ définie sur une partie $D$ de $\\mathbb{R}$ associe à tout réel $x$ de $D$ un unique réel $f(x)$, appelé image de $x$ ; un antécédent d'un réel $y$ est un réel $x$ de $D$ tel que $f(x) = y$. Soit $I$ un intervalle inclus dans $D$ : $f$ est croissante sur $I$ si pour tous $a < b$ de $I$, $f(a) \\leqslant f(b)$ ; strictement croissante si $f(a) < f(b)$ ; décroissante si $f(a) \\geqslant f(b)$ ; strictement décroissante si $f(a) > f(b)$. Une fonction croissante ou décroissante sur $I$ est dite monotone sur $I$. La courbe représentative de $f$ est l'ensemble des points $M(x ; y)$ tels que $x \\in D$ et $y = f(x)$."
+      },
+      "intuition": "Une fonction croissante « conserve l'ordre » : si $a < b$, alors $f(a) \\leqslant f(b)$ ; une fonction décroissante « renverse l'ordre ».",
+      "reglesImportantes": [
+        "Image : chaque $x$ de $D$ a une seule image $f(x)$ ; un réel peut avoir zéro, un ou plusieurs antécédents.",
+        "Strictement croissante sur $I$ : pour tous $a < b$ de $I$, $f(a) < f(b)$ (l'ordre est conservé).",
+        "Strictement décroissante sur $I$ : pour tous $a < b$ de $I$, $f(a) > f(b)$ (l'ordre est renversé).",
+        "Un point $M(x ; y)$ est sur la courbe de $f$ si et seulement si $x \\in D$ et $y = f(x)$.",
+        "Sur un intervalle où $f$ est strictement monotone, une valeur est atteinte au plus une fois."
+      ],
+      "formules": [
+        {
+          "id": "formule-croissante",
+          "nom": "Croissante",
+          "expression": "$a < b \\Rightarrow f(a) \\leqslant f(b)$",
+          "quand_utiliser": "Pour comparer des images.",
+          "erreur_frequente": "Oublier que c'est sur un intervalle.",
+          "astuce": "L'ordre des images suit l'ordre des antécédents."
+        },
+        {
+          "id": "formule-courbe",
+          "nom": "Point de la courbe",
+          "expression": "$M(x ; y) \\in \\mathcal{C}_f \\iff x \\in D \\text{ et } y = f(x)$",
+          "quand_utiliser": "Pour tester l'appartenance d'un point.",
+          "erreur_frequente": "Oublier la condition $x \\in D$.",
+          "astuce": "Deux conditions à vérifier."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Utiliser une fonction et sa courbe",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère l'ensemble de définition $D$ et l'expression (ou la courbe) de $f$."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Image : je remplace $x$ ; antécédents : je résous $f(x) = y$."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Comparaison : j'utilise le sens de variation sur l'intervalle concerné."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Point de la courbe : je vérifie $x \\in D$ et $y = f(x)$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère l'ensemble de définition $D$ et l'expression (ou la courbe) de $f$."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Image : je remplace $x$ ; antécédents : je résous $f(x) = y$."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Comparaison : j'utilise le sens de variation sur l'intervalle concerné."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Point de la courbe : je vérifie $x \\in D$ et $y = f(x)$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde sur quel ensemble $f$ est définie."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je remplace $x$ par la valeur, avec des parenthèses."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour comparer, je regarde si la fonction monte ou descend."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie mon résultat sur la courbe."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Image, antécédents, sens de variation."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$x \\in D$ et $y = f(x)$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-auto-image",
+          "titre": "Exemple 1 — Image",
+          "enonce": "$f(x) = x^2 - 3x$. Calculer l'image de $-2$.",
+          "calcul": [
+            {
+              "expr": "f(-2) = (-2)^2 - 3 \\times (-2) = 4 + 6",
+              "texte": ""
+            }
+          ],
+          "reponse": "$f(-2) = 10$.",
+          "conclusion": "Parenthèses autour des nombres négatifs.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-auto-antecedents",
+          "titre": "Exemple 2 — Antécédents",
+          "enonce": "Quels sont les antécédents de $4$ par la fonction carré ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$x^2 = 4$ équivaut à $x = 2$ ou $x = -2$."
+            }
+          ],
+          "reponse": "$-2$ et $2$.",
+          "conclusion": "Un réel peut avoir plusieurs antécédents.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-point-courbe",
+          "titre": "Exemple 3 — Un point est-il sur la courbe ?",
+          "enonce": "$f$ est définie sur $[-3 ; 3]$ par $f(x) = x^2 - 2x - 1$. Les points $A(3 ; 2)$ et $B(4 ; 7)$ sont-ils sur sa courbe ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$3 \\in [-3 ; 3]$ et $f(3) = 9 - 6 - 1 = 2$ : $A$ est sur la courbe."
+            },
+            {
+              "expr": "",
+              "texte": "$4 \\notin [-3 ; 3]$ : $B$ n'est pas sur la courbe."
+            }
+          ],
+          "reponse": "$A$ est sur la courbe, $B$ non.",
+          "conclusion": "C'est la figure du cours : la condition $x \\in D$ compte.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-comparer-images",
+          "titre": "Exemple 4 — Comparer des images",
+          "enonce": "$f$ est strictement décroissante sur $[0 ; 5]$. Comparer $f(1{,}3)$ et $f(2{,}7)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$1{,}3 < 2{,}7$, et ces deux nombres sont dans $[0 ; 5]$."
+            },
+            {
+              "expr": "",
+              "texte": "$f$ renverse l'ordre : $f(1{,}3) > f(2{,}7)$."
+            }
+          ],
+          "reponse": "$f(1{,}3) > f(2{,}7)$.",
+          "conclusion": "Le sens de variation suffit, sans connaître $f$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-auto-variations",
+          "titre": "Exemple 5 — Nombre de solutions",
+          "enonce": "$f$ croît de $-3$ à $5$ sur $[-2 ; 1]$ puis décroît jusqu'à $0$ sur $[1 ; 4]$. Combien de solutions l'équation $f(x) = 2$ a-t-elle ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$2$ est atteint une fois sur $[-2 ; 1]$ (entre $-3$ et $5$) et une fois sur $[1 ; 4]$ (entre $5$ et $0$)."
+            }
+          ],
+          "reponse": "$2$ solutions.",
+          "conclusion": "On compte intervalle par intervalle.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-prouver-decroissance",
+          "titre": "Exemple 6 — Démontrer un sens de variation",
+          "enonce": "Démontrer que $g(x) = -2x + 3$ est strictement décroissante sur $\\mathbb{R}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Soient $a < b$. $g(a) - g(b) = -2a + 3 + 2b - 3 = 2(b - a)$."
+            },
+            {
+              "expr": "",
+              "texte": "$b - a > 0$, donc $g(a) - g(b) > 0$, soit $g(a) > g(b)$."
+            }
+          ],
+          "reponse": "$g$ est strictement décroissante sur $\\mathbb{R}$.",
+          "conclusion": "On étudie le signe de $g(a) - g(b)$ : c'est la définition qui sert de preuve.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Lire un graphique de températures.",
+        "Comparer deux tarifs sans tout calculer.",
+        "Vérifier une valeur sur un relevé."
+      ],
+      "erreursFrequentes": [
+        "Écrire $-2^2 = 4$.",
+        "Confondre image et antécédent.",
+        "Comparer des images avec le sens de variation hors de l'intervalle.",
+        "Oublier l'ensemble de définition pour un point de la courbe."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Écrire $-2^2 = 4$.",
+          "pourquoi": "Priorité du carré.",
+          "comment_detecter": "Le signe moins est-il dans la parenthèse ?",
+          "comment_eviter": "$(-2)^2 = 4$ mais $-2^2 = -4$."
+        },
+        {
+          "description": "Confondre image et antécédent.",
+          "pourquoi": "Sens de lecture.",
+          "comment_detecter": "Te donne-t-on $x$ ou $y$ ?",
+          "comment_eviter": "Image : $f(x)$ ; antécédent : $x$."
+        },
+        {
+          "description": "Comparer des images avec le sens de variation hors de l'intervalle.",
+          "pourquoi": "On oublie l'intervalle.",
+          "comment_detecter": "Les deux nombres sont-ils dans le même intervalle de monotonie ?",
+          "comment_eviter": "Le sens de variation ne vaut que sur l'intervalle."
+        },
+        {
+          "description": "Oublier l'ensemble de définition pour un point de la courbe.",
+          "pourquoi": "On ne vérifie que $y = f(x)$.",
+          "comment_detecter": "L'abscisse est-elle dans $D$ ?",
+          "comment_eviter": "Deux conditions."
+        }
+      ],
+      "astuce": "Pour comparer deux images, demande-toi d'abord : les deux nombres sont-ils dans un même intervalle où $f$ est monotone ? Si oui, le sens de variation suffit.",
+      "aRetenir": [
+        "Rappels sur les fonctions : image unique, antécédents éventuellement multiples.",
+        "Croissante : conserve l'ordre ; décroissante : le renverse.",
+        "Point de la courbe : $x \\in D$ et $y = f(x)$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -3.6,
+          -2.8,
+          8.0,
+          12.0
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 3,
+            "y": 2,
+            "label": "A(3 ; 2)",
+            "reveal": 2
+          },
+          {
+            "x": 4,
+            "y": 7,
+            "label": "B(4 ; 7)",
+            "reveal": 3
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 3,
+              "y": 0
+            },
+            "to": {
+              "x": 3,
+              "y": 2
+            },
+            "dashed": true,
+            "reveal": 2
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 2
+            },
+            "to": {
+              "x": 3,
+              "y": 2
+            },
+            "dashed": true,
+            "reveal": 2
+          }
+        ],
+        "texts": [
+          {
+            "x": -2.0,
+            "y": 8.6,
+            "label": "f définie sur [−3 ; 3]"
+          },
+          {
+            "x": 4.0,
+            "y": 8.0,
+            "label": "4 ∉ [−3 ; 3]",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -2.35,
+                9.223
+              ],
+              [
+                -2.3,
+                8.89
+              ],
+              [
+                -2.25,
+                8.562
+              ],
+              [
+                -2.2,
+                8.24
+              ],
+              [
+                -2.15,
+                7.922
+              ],
+              [
+                -2.1,
+                7.61
+              ],
+              [
+                -2.05,
+                7.302
+              ],
+              [
+                -2.0,
+                7.0
+              ],
+              [
+                -1.95,
+                6.702
+              ],
+              [
+                -1.9,
+                6.41
+              ],
+              [
+                -1.85,
+                6.123
+              ],
+              [
+                -1.8,
+                5.84
+              ],
+              [
+                -1.75,
+                5.562
+              ],
+              [
+                -1.7,
+                5.29
+              ],
+              [
+                -1.65,
+                5.022
+              ],
+              [
+                -1.6,
+                4.76
+              ],
+              [
+                -1.55,
+                4.503
+              ],
+              [
+                -1.5,
+                4.25
+              ],
+              [
+                -1.45,
+                4.002
+              ],
+              [
+                -1.4,
+                3.76
+              ],
+              [
+                -1.35,
+                3.523
+              ],
+              [
+                -1.3,
+                3.29
+              ],
+              [
+                -1.25,
+                3.062
+              ],
+              [
+                -1.2,
+                2.84
+              ],
+              [
+                -1.15,
+                2.622
+              ],
+              [
+                -1.1,
+                2.41
+              ],
+              [
+                -1.05,
+                2.203
+              ],
+              [
+                -1.0,
+                2.0
+              ],
+              [
+                -0.95,
+                1.803
+              ],
+              [
+                -0.9,
+                1.61
+              ],
+              [
+                -0.85,
+                1.423
+              ],
+              [
+                -0.8,
+                1.24
+              ],
+              [
+                -0.75,
+                1.062
+              ],
+              [
+                -0.7,
+                0.89
+              ],
+              [
+                -0.65,
+                0.722
+              ],
+              [
+                -0.6,
+                0.56
+              ],
+              [
+                -0.55,
+                0.402
+              ],
+              [
+                -0.5,
+                0.25
+              ],
+              [
+                -0.45,
+                0.103
+              ],
+              [
+                -0.4,
+                -0.04
+              ],
+              [
+                -0.35,
+                -0.177
+              ],
+              [
+                -0.3,
+                -0.31
+              ],
+              [
+                -0.25,
+                -0.438
+              ],
+              [
+                -0.2,
+                -0.56
+              ],
+              [
+                -0.15,
+                -0.678
+              ],
+              [
+                -0.1,
+                -0.79
+              ],
+              [
+                -0.05,
+                -0.898
+              ],
+              [
+                0.0,
+                -1.0
+              ],
+              [
+                0.05,
+                -1.097
+              ],
+              [
+                0.1,
+                -1.19
+              ],
+              [
+                0.15,
+                -1.277
+              ],
+              [
+                0.2,
+                -1.36
+              ],
+              [
+                0.25,
+                -1.438
+              ],
+              [
+                0.3,
+                -1.51
+              ],
+              [
+                0.35,
+                -1.578
+              ],
+              [
+                0.4,
+                -1.64
+              ],
+              [
+                0.45,
+                -1.698
+              ],
+              [
+                0.5,
+                -1.75
+              ],
+              [
+                0.55,
+                -1.797
+              ],
+              [
+                0.6,
+                -1.84
+              ],
+              [
+                0.65,
+                -1.877
+              ],
+              [
+                0.7,
+                -1.91
+              ],
+              [
+                0.75,
+                -1.938
+              ],
+              [
+                0.8,
+                -1.96
+              ],
+              [
+                0.85,
+                -1.978
+              ],
+              [
+                0.9,
+                -1.99
+              ],
+              [
+                0.95,
+                -1.998
+              ],
+              [
+                1.0,
+                -2.0
+              ],
+              [
+                1.05,
+                -1.998
+              ],
+              [
+                1.1,
+                -1.99
+              ],
+              [
+                1.15,
+                -1.977
+              ],
+              [
+                1.2,
+                -1.96
+              ],
+              [
+                1.25,
+                -1.938
+              ],
+              [
+                1.3,
+                -1.91
+              ],
+              [
+                1.35,
+                -1.878
+              ],
+              [
+                1.4,
+                -1.84
+              ],
+              [
+                1.45,
+                -1.797
+              ],
+              [
+                1.5,
+                -1.75
+              ],
+              [
+                1.55,
+                -1.698
+              ],
+              [
+                1.6,
+                -1.64
+              ],
+              [
+                1.65,
+                -1.577
+              ],
+              [
+                1.7,
+                -1.51
+              ],
+              [
+                1.75,
+                -1.438
+              ],
+              [
+                1.8,
+                -1.36
+              ],
+              [
+                1.85,
+                -1.278
+              ],
+              [
+                1.9,
+                -1.19
+              ],
+              [
+                1.95,
+                -1.097
+              ],
+              [
+                2.0,
+                -1.0
+              ],
+              [
+                2.05,
+                -0.897
+              ],
+              [
+                2.1,
+                -0.79
+              ],
+              [
+                2.15,
+                -0.677
+              ],
+              [
+                2.2,
+                -0.56
+              ],
+              [
+                2.25,
+                -0.438
+              ],
+              [
+                2.3,
+                -0.31
+              ],
+              [
+                2.35,
+                -0.178
+              ],
+              [
+                2.4,
+                -0.04
+              ],
+              [
+                2.45,
+                0.103
+              ],
+              [
+                2.5,
+                0.25
+              ],
+              [
+                2.55,
+                0.402
+              ],
+              [
+                2.6,
+                0.56
+              ],
+              [
+                2.65,
+                0.723
+              ],
+              [
+                2.7,
+                0.89
+              ],
+              [
+                2.75,
+                1.062
+              ],
+              [
+                2.8,
+                1.24
+              ],
+              [
+                2.85,
+                1.422
+              ],
+              [
+                2.9,
+                1.61
+              ],
+              [
+                2.95,
+                1.803
+              ],
+              [
+                3.0,
+                2.0
+              ]
+            ],
+            "tooltip": "Courbe de f(x) = x² − 2x − 1 sur [−3 ; 3]"
+          }
+        ],
+        "steps": [
+          "La courbe de f sur son ensemble de définition",
+          "A(3 ; 2) : f(3) = 2, A est sur la courbe",
+          "B(4 ; 7) : 4 n'est pas dans [−3 ; 3], B n'est pas sur la courbe"
+        ],
+        "relation": "$M(x ; y) \\in \\mathcal{C}_f \\iff x \\in D$ et $y = f(x)$",
+        "alt": "Courbe de f(x) = x² − 2x − 1 tracée sur [−3 ; 3] ; le point A(3 ; 2) est sur la courbe car f(3) = 2 ; le point B(4 ; 7) n'y est pas car 4 n'appartient pas à l'ensemble de définition, bien que 4² − 2 × 4 − 1 = 7.",
+        "explication": {
+          "resume": "La courbe représentative d'une fonction $f$ définie sur $D$ est l'ensemble des points $M(x ; y)$ tels que $x \\in D$ et $y = f(x)$ : il faut vérifier les deux conditions.",
+          "lecture": [
+            "La courbe n'est tracée que sur l'ensemble de définition $[-3 ; 3]$.",
+            "Les pointillés indiquent la lecture de l'image de $3$."
+          ],
+          "observations": [
+            "$f(3) = 9 - 6 - 1 = 2$ : $A$ est sur la courbe.",
+            "$4^2 - 2 \\times 4 - 1 = 7$, mais $4 \\notin [-3 ; 3]$ : $B$ n'est pas sur la courbe.",
+            "Chaque abscisse de $D$ a une seule image : un seul point de la courbe par abscisse."
+          ],
+          "pieges": [
+            "Oublier de vérifier que l'abscisse appartient à l'ensemble de définition."
+          ],
+          "aRetenir": [
+            "Un point est sur la courbe si son abscisse est dans $D$ et si $y = f(x)$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        73301,
+        73303,
+        82101
+      ],
+      "topic_id": "fonctions-et-representations",
+      "proprietes": [
+        "Chaque nombre de l'ensemble de définition a une seule image."
+      ],
+      "vocabulaire_associe": [
+        "fonction",
+        "image",
+        "antécédent",
+        "croissante",
+        "décroissante",
+        "monotone",
+        "courbe représentative"
+      ],
+      "synonymes": [
+        "image d'un nombre",
+        "antécédent",
+        "fonction croissante",
+        "fonction décroissante",
+        "courbe représentative",
+        "point sur une courbe"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer images et antécédents.",
+        "Utiliser le sens de variation pour comparer.",
+        "Tester l'appartenance d'un point à une courbe."
+      ],
+      "prerequis": [
+        "Fonctions (Seconde)"
+      ],
+      "notions_liees": [
+        "fonction-racine-carree",
+        "fonction-cube"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "fonctions"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fonctions-et-representations-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Point de la courbe, comparaison d'images, nombre de solutions",
+          "description": "Trois exemples rédigés : appartenance d'un point à une courbe, comparaison d'images par le sens de variation, nombre de solutions."
+        },
+        {
+          "id": "fonctions-et-representations-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Démontrer un sens de variation, démonstration",
+          "description": "Prouver la décroissance d'une fonction affine par la définition, et la décroissance de la fonction carré sur $]-\\infty ; 0]$."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Le point $(0 ; -1)$ est-il sur la courbe de la figure ?",
+          "piste": "Oui : $f(0) = -1$ et $0 \\in [-3 ; 3]$."
+        },
+        {
+          "apres": "methode",
+          "question": "$f$ croissante, $a < b$ : comparer $f(a)$ et $f(b)$.",
+          "piste": "$f(a) \\leqslant f(b)$."
+        }
+      ],
+      "demonstration": {
+        "titre": "La fonction carré est strictement décroissante sur $]-\\infty ; 0]$",
+        "etapes": [
+          {
+            "titre": "Choix",
+            "texte": "Soient $a < b \\leqslant 0$."
+          },
+          {
+            "titre": "Factorisation",
+            "texte": "$a^2 - b^2 = (a - b)(a + b)$."
+          },
+          {
+            "titre": "Signes",
+            "texte": "$a - b < 0$ et $a + b < 0$ (deux nombres négatifs, dont au moins un non nul) : le produit est strictement positif."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$a^2 > b^2$ : la fonction carré renverse l'ordre sur $]-\\infty ; 0]$."
+          }
+        ],
+        "conclusion": "La définition du sens de variation se démontre en étudiant le signe d'une différence."
+      }
+    },
+    {
+      "id": "fonction-racine-carree",
+      "title": "Fonction racine carrée",
+      "schemaVersion": 2,
+      "intro": "La fonction racine carrée associe à tout nombre positif le nombre positif dont il est le carré. C'est une nouvelle fonction de référence, liée à la fonction carré.",
+      "pourquoi": "La racine carrée apparaît dans les longueurs (Pythagore), les formules du second degré ($\\sqrt{\\Delta}$) et les dérivées ($\\dfrac{1}{2\\sqrt{x}}$). Connaître sa courbe et son sens de variation permet de comparer et de résoudre sans calculatrice.",
+      "explicationSimple": "$\\sqrt{9} = 3$ car $3 \\geqslant 0$ et $3^2 = 9$. Comme la fonction est croissante, $\\sqrt{2} < \\sqrt{3}$.",
+      "objectif": "À la fin de ce cours, tu connaîtras l'ensemble de définition, le sens de variation et la courbe de la fonction racine carrée, et tu sauras comparer des racines carrées et résoudre des équations ou inéquations simples.",
+      "definition": "La fonction racine carrée est la fonction $f$ définie sur $[0 ; +\\infty[$ par $f(x) = \\sqrt{x}$, où $\\sqrt{x}$ est l'unique nombre positif dont le carré vaut $x$. Elle n'est définie que pour $x \\geqslant 0$, et $\\sqrt{x} \\geqslant 0$. Elle est strictement croissante sur $[0 ; +\\infty[$. Dans un repère orthonormé, sa courbe est symétrique de la courbe de $x \\mapsto x^2$ sur $[0 ; +\\infty[$ par rapport à la droite d'équation $y = x$ (les fonctions carré et racine carrée sont réciproques l'une de l'autre sur $[0 ; +\\infty[$).",
+      "definitions": {
+        "lycee": "La fonction racine carrée est la fonction $f$ définie sur $[0 ; +\\infty[$ par $f(x) = \\sqrt{x}$, où $\\sqrt{x}$ est l'unique nombre positif dont le carré vaut $x$. Elle n'est définie que pour $x \\geqslant 0$, et $\\sqrt{x} \\geqslant 0$. Elle est strictement croissante sur $[0 ; +\\infty[$. Dans un repère orthonormé, sa courbe est symétrique de la courbe de $x \\mapsto x^2$ sur $[0 ; +\\infty[$ par rapport à la droite d'équation $y = x$ (les fonctions carré et racine carrée sont réciproques l'une de l'autre sur $[0 ; +\\infty[$)."
+      },
+      "intuition": "La racine carrée « défait » le carré pour les nombres positifs : $\\sqrt{x^2} = x$ si $x \\geqslant 0$.",
+      "reglesImportantes": [
+        "Ensemble de définition : $[0 ; +\\infty[$ ; une racine carrée est toujours positive ou nulle.",
+        "Pour $x \\geqslant 0$ : $(\\sqrt{x})^2 = x$ et $\\sqrt{x^2} = x$.",
+        "Strictement croissante : pour $0 \\leqslant a < b$, $\\sqrt{a} < \\sqrt{b}$.",
+        "Pour $a \\geqslant 0$ : $\\sqrt{x} = a \\iff x = a^2$.",
+        "Courbe : symétrique de la demi-parabole $y = x^2$ ($x \\geqslant 0$) par rapport à la droite $y = x$."
+      ],
+      "formules": [
+        {
+          "id": "formule-racine",
+          "nom": "Racine carrée",
+          "expression": "$\\sqrt{x} \\geqslant 0$ et $(\\sqrt{x})^2 = x$ ($x \\geqslant 0$)",
+          "quand_utiliser": "Pour calculer et simplifier.",
+          "erreur_frequente": "Écrire $\\sqrt{x}$ pour $x < 0$.",
+          "astuce": "Pas de racine carrée d'un nombre négatif."
+        },
+        {
+          "id": "formule-racine-croissante",
+          "nom": "Sens de variation",
+          "expression": "$0 \\leqslant a < b \\Rightarrow \\sqrt{a} < \\sqrt{b}$",
+          "quand_utiliser": "Pour comparer des racines.",
+          "erreur_frequente": "Renverser l'ordre.",
+          "astuce": "La racine conserve l'ordre."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Comparer ou résoudre avec la racine carrée",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je vérifie que les nombres sous la racine sont positifs."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Pour comparer, je compare les nombres sous la racine (la fonction est croissante)."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Pour résoudre $\\sqrt{x} = a$ ($a \\geqslant 0$), j'élève au carré : $x = a^2$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle que la solution est dans $[0 ; +\\infty[$."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je vérifie que les nombres sous la racine sont positifs."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Pour comparer, je compare les nombres sous la racine (la fonction est croissante)."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour résoudre $\\sqrt{x} = a$ ($a \\geqslant 0$), j'élève au carré : $x = a^2$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle que la solution est dans $[0 ; +\\infty[$."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Sous la racine, le nombre doit être positif."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Plus le nombre est grand, plus sa racine est grande."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "$\\sqrt{x} = 3$ : $x = 9$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie en recalculant la racine."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Croissante sur $[0 ; +\\infty[$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$\\sqrt{x} = a \\iff x = a^2$ ($a \\geqslant 0$)."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-racine-comparer",
+          "titre": "Exemple 1 — Comparer sans calculatrice",
+          "enonce": "Comparer $\\sqrt{7}$ et $\\sqrt{11}$, puis $\\sqrt{0{,}49}$ et $0{,}7$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$7 < 11$ et la fonction racine est croissante : $\\sqrt{7} < \\sqrt{11}$."
+            },
+            {
+              "expr": "",
+              "texte": "$0{,}7^2 = 0{,}49$ et $0{,}7 \\geqslant 0$ : $\\sqrt{0{,}49} = 0{,}7$."
+            }
+          ],
+          "reponse": "$\\sqrt{7} < \\sqrt{11}$ ; $\\sqrt{0{,}49} = 0{,}7$.",
+          "conclusion": "On compare les nombres sous la racine.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-racine-equation",
+          "titre": "Exemple 2 — Résoudre $\\sqrt{x} = 3$",
+          "enonce": "Résoudre dans $[0 ; +\\infty[$ l'équation $\\sqrt{x} = 3$, puis l'équation $\\sqrt{x} = -2$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$3 \\geqslant 0$ : $\\sqrt{x} = 3 \\iff x = 9$."
+            },
+            {
+              "expr": "",
+              "texte": "Une racine carrée est positive : $\\sqrt{x} = -2$ n'a pas de solution."
+            }
+          ],
+          "reponse": "$x = 9$ ; pas de solution pour $\\sqrt{x} = -2$.",
+          "conclusion": "Penser au signe avant d'élever au carré.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-racine-inequation",
+          "titre": "Exemple 3 — Une inéquation",
+          "enonce": "Résoudre $\\sqrt{x} \\leqslant 2$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$x$ doit être dans $[0 ; +\\infty[$."
+            },
+            {
+              "expr": "",
+              "texte": "$2 = \\sqrt{4}$ et la fonction est strictement croissante : $\\sqrt{x} \\leqslant \\sqrt{4} \\iff x \\leqslant 4$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = [0 ; 4]$.",
+          "conclusion": "Ne pas oublier la condition $x \\geqslant 0$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-racine-ordre",
+          "titre": "Exemple 4 — Ranger $x$, $x^2$ et $\\sqrt{x}$",
+          "enonce": "Ranger $0{,}25$, $0{,}25^2$ et $\\sqrt{0{,}25}$ dans l'ordre croissant, puis faire de même pour $4$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$0{,}25^2 = 0{,}0625$ et $\\sqrt{0{,}25} = 0{,}5$ : $0{,}0625 < 0{,}25 < 0{,}5$."
+            },
+            {
+              "expr": "",
+              "texte": "$\\sqrt{4} = 2$ et $4^2 = 16$ : $2 < 4 < 16$."
+            }
+          ],
+          "reponse": "Entre $0$ et $1$ : $x^2 < x < \\sqrt{x}$ ; au-delà de $1$ : $\\sqrt{x} < x < x^2$.",
+          "conclusion": "On le voit sur la figure : les courbes se croisent en $(1 ; 1)$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-racine-tableau",
+          "titre": "Exemple 5 — Encadrer une racine",
+          "enonce": "Sachant que $2 \\leqslant x \\leqslant 9$, encadrer $\\sqrt{x}$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "La fonction racine est croissante : $\\sqrt{2} \\leqslant \\sqrt{x} \\leqslant \\sqrt{9}$."
+            }
+          ],
+          "reponse": "$\\sqrt{2} \\leqslant \\sqrt{x} \\leqslant 3$ (soit environ $1{,}41 \\leqslant \\sqrt{x} \\leqslant 3$).",
+          "conclusion": "Une fonction croissante conserve les encadrements.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-racine-symetrie",
+          "titre": "Exemple 6 — Pourquoi la symétrie ?",
+          "enonce": "Montrer que si le point $M(a ; b)$ est sur la courbe de la racine carrée, alors $M'(b ; a)$ est sur la parabole $y = x^2$, avec $b \\geqslant 0$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$M$ sur la courbe : $a \\geqslant 0$ et $b = \\sqrt{a}$, donc $b \\geqslant 0$ et $b^2 = a$."
+            },
+            {
+              "expr": "",
+              "texte": "Le point $M'(b ; a)$ vérifie donc $a = b^2$ : il est sur la parabole $y = x^2$, avec une abscisse positive."
+            }
+          ],
+          "reponse": "$M'$ est sur la demi-parabole ; $M$ et $M'$ sont symétriques par rapport à la droite $y = x$.",
+          "conclusion": "Échanger abscisse et ordonnée, c'est appliquer la symétrie par rapport à $y = x$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Côté d'un carré d'aire donnée.",
+        "Distance de freinage et vitesse.",
+        "Diagonale d'un écran."
+      ],
+      "erreursFrequentes": [
+        "Calculer la racine carrée d'un nombre négatif.",
+        "Écrire $\\sqrt{x^2} = x$ pour tout $x$.",
+        "Écrire $\\sqrt{a + b} = \\sqrt{a} + \\sqrt{b}$.",
+        "Résoudre $\\sqrt{x} = -2$ par $x = 4$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Calculer la racine carrée d'un nombre négatif.",
+          "pourquoi": "On oublie l'ensemble de définition.",
+          "comment_detecter": "Le nombre sous la racine est-il positif ?",
+          "comment_eviter": "$\\sqrt{x}$ n'existe que pour $x \\geqslant 0$."
+        },
+        {
+          "description": "Écrire $\\sqrt{x^2} = x$ pour tout $x$.",
+          "pourquoi": "On oublie le signe.",
+          "comment_detecter": "Que vaut $\\sqrt{(-3)^2}$ ?",
+          "comment_eviter": "$\\sqrt{9} = 3$ : l'égalité $\\sqrt{x^2} = x$ n'est vraie que pour $x \\geqslant 0$."
+        },
+        {
+          "description": "Écrire $\\sqrt{a + b} = \\sqrt{a} + \\sqrt{b}$.",
+          "pourquoi": "Fausse règle de calcul.",
+          "comment_detecter": "Teste avec $a = 9$ et $b = 16$.",
+          "comment_eviter": "$\\sqrt{25} = 5$ mais $3 + 4 = 7$."
+        },
+        {
+          "description": "Résoudre $\\sqrt{x} = -2$ par $x = 4$.",
+          "pourquoi": "On élève au carré sans réfléchir.",
+          "comment_detecter": "Une racine carrée peut-elle être négative ?",
+          "comment_eviter": "Pas de solution."
+        }
+      ],
+      "astuce": "Pour vérifier $\\sqrt{x} = a$, contrôle deux choses : $a \\geqslant 0$ et $a^2 = x$.",
+      "aRetenir": [
+        "Fonction racine carrée : définie sur $[0 ; +\\infty[$, positive, strictement croissante.",
+        "Courbe symétrique de $y = x^2$ ($x \\geqslant 0$) par rapport à $y = x$.",
+        "$\\sqrt{x} = a \\iff x = a^2$ si $a \\geqslant 0$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -0.8,
+          8.6,
+          8.0
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 1,
+            "y": 1,
+            "label": "",
+            "reveal": 2
+          },
+          {
+            "x": 4,
+            "y": 2,
+            "label": "(4 ; 2)",
+            "reveal": 2
+          },
+          {
+            "x": 2,
+            "y": 4,
+            "label": "(2 ; 4)",
+            "reveal": 3
+          }
+        ],
+        "texts": [
+          {
+            "x": 6.4,
+            "y": 2.2,
+            "label": "y = √x"
+          },
+          {
+            "x": 2.2,
+            "y": 6.6,
+            "label": "y = x²",
+            "reveal": 3
+          },
+          {
+            "x": 6.6,
+            "y": 6.0,
+            "label": "y = x",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.063,
+                0.252
+              ],
+              [
+                0.127,
+                0.356
+              ],
+              [
+                0.19,
+                0.436
+              ],
+              [
+                0.253,
+                0.503
+              ],
+              [
+                0.317,
+                0.563
+              ],
+              [
+                0.38,
+                0.616
+              ],
+              [
+                0.443,
+                0.666
+              ],
+              [
+                0.507,
+                0.712
+              ],
+              [
+                0.57,
+                0.755
+              ],
+              [
+                0.633,
+                0.796
+              ],
+              [
+                0.697,
+                0.835
+              ],
+              [
+                0.76,
+                0.872
+              ],
+              [
+                0.823,
+                0.907
+              ],
+              [
+                0.887,
+                0.942
+              ],
+              [
+                0.95,
+                0.975
+              ],
+              [
+                1.013,
+                1.007
+              ],
+              [
+                1.077,
+                1.038
+              ],
+              [
+                1.14,
+                1.068
+              ],
+              [
+                1.203,
+                1.097
+              ],
+              [
+                1.267,
+                1.125
+              ],
+              [
+                1.33,
+                1.153
+              ],
+              [
+                1.393,
+                1.18
+              ],
+              [
+                1.457,
+                1.207
+              ],
+              [
+                1.52,
+                1.233
+              ],
+              [
+                1.583,
+                1.258
+              ],
+              [
+                1.647,
+                1.283
+              ],
+              [
+                1.71,
+                1.308
+              ],
+              [
+                1.773,
+                1.332
+              ],
+              [
+                1.837,
+                1.355
+              ],
+              [
+                1.9,
+                1.378
+              ],
+              [
+                1.963,
+                1.401
+              ],
+              [
+                2.027,
+                1.424
+              ],
+              [
+                2.09,
+                1.446
+              ],
+              [
+                2.153,
+                1.467
+              ],
+              [
+                2.217,
+                1.489
+              ],
+              [
+                2.28,
+                1.51
+              ],
+              [
+                2.343,
+                1.531
+              ],
+              [
+                2.407,
+                1.551
+              ],
+              [
+                2.47,
+                1.572
+              ],
+              [
+                2.533,
+                1.592
+              ],
+              [
+                2.597,
+                1.611
+              ],
+              [
+                2.66,
+                1.631
+              ],
+              [
+                2.723,
+                1.65
+              ],
+              [
+                2.787,
+                1.669
+              ],
+              [
+                2.85,
+                1.688
+              ],
+              [
+                2.913,
+                1.707
+              ],
+              [
+                2.977,
+                1.725
+              ],
+              [
+                3.04,
+                1.744
+              ],
+              [
+                3.103,
+                1.762
+              ],
+              [
+                3.167,
+                1.78
+              ],
+              [
+                3.23,
+                1.797
+              ],
+              [
+                3.293,
+                1.815
+              ],
+              [
+                3.357,
+                1.832
+              ],
+              [
+                3.42,
+                1.849
+              ],
+              [
+                3.483,
+                1.866
+              ],
+              [
+                3.547,
+                1.883
+              ],
+              [
+                3.61,
+                1.9
+              ],
+              [
+                3.673,
+                1.917
+              ],
+              [
+                3.737,
+                1.933
+              ],
+              [
+                3.8,
+                1.949
+              ],
+              [
+                3.863,
+                1.966
+              ],
+              [
+                3.927,
+                1.982
+              ],
+              [
+                3.99,
+                1.997
+              ],
+              [
+                4.053,
+                2.013
+              ],
+              [
+                4.117,
+                2.029
+              ],
+              [
+                4.18,
+                2.045
+              ],
+              [
+                4.243,
+                2.06
+              ],
+              [
+                4.307,
+                2.075
+              ],
+              [
+                4.37,
+                2.09
+              ],
+              [
+                4.433,
+                2.106
+              ],
+              [
+                4.497,
+                2.121
+              ],
+              [
+                4.56,
+                2.135
+              ],
+              [
+                4.623,
+                2.15
+              ],
+              [
+                4.687,
+                2.165
+              ],
+              [
+                4.75,
+                2.179
+              ],
+              [
+                4.813,
+                2.194
+              ],
+              [
+                4.877,
+                2.208
+              ],
+              [
+                4.94,
+                2.223
+              ],
+              [
+                5.003,
+                2.237
+              ],
+              [
+                5.067,
+                2.251
+              ],
+              [
+                5.13,
+                2.265
+              ],
+              [
+                5.193,
+                2.279
+              ],
+              [
+                5.257,
+                2.293
+              ],
+              [
+                5.32,
+                2.307
+              ],
+              [
+                5.383,
+                2.32
+              ],
+              [
+                5.447,
+                2.334
+              ],
+              [
+                5.51,
+                2.347
+              ],
+              [
+                5.573,
+                2.361
+              ],
+              [
+                5.637,
+                2.374
+              ],
+              [
+                5.7,
+                2.387
+              ],
+              [
+                5.763,
+                2.401
+              ],
+              [
+                5.827,
+                2.414
+              ],
+              [
+                5.89,
+                2.427
+              ],
+              [
+                5.953,
+                2.44
+              ],
+              [
+                6.017,
+                2.453
+              ],
+              [
+                6.08,
+                2.466
+              ],
+              [
+                6.143,
+                2.479
+              ],
+              [
+                6.207,
+                2.491
+              ],
+              [
+                6.27,
+                2.504
+              ],
+              [
+                6.333,
+                2.517
+              ],
+              [
+                6.397,
+                2.529
+              ],
+              [
+                6.46,
+                2.542
+              ],
+              [
+                6.523,
+                2.554
+              ],
+              [
+                6.587,
+                2.566
+              ],
+              [
+                6.65,
+                2.579
+              ],
+              [
+                6.713,
+                2.591
+              ],
+              [
+                6.777,
+                2.603
+              ],
+              [
+                6.84,
+                2.615
+              ],
+              [
+                6.903,
+                2.627
+              ],
+              [
+                6.967,
+                2.639
+              ],
+              [
+                7.03,
+                2.651
+              ],
+              [
+                7.093,
+                2.663
+              ],
+              [
+                7.157,
+                2.675
+              ],
+              [
+                7.22,
+                2.687
+              ],
+              [
+                7.283,
+                2.699
+              ],
+              [
+                7.347,
+                2.71
+              ],
+              [
+                7.41,
+                2.722
+              ],
+              [
+                7.473,
+                2.734
+              ],
+              [
+                7.537,
+                2.745
+              ],
+              [
+                7.6,
+                2.757
+              ]
+            ],
+            "tooltip": "y = √x"
+          },
+          {
+            "points": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.023,
+                0.001
+              ],
+              [
+                0.045,
+                0.002
+              ],
+              [
+                0.068,
+                0.005
+              ],
+              [
+                0.09,
+                0.008
+              ],
+              [
+                0.113,
+                0.013
+              ],
+              [
+                0.135,
+                0.018
+              ],
+              [
+                0.158,
+                0.025
+              ],
+              [
+                0.18,
+                0.032
+              ],
+              [
+                0.203,
+                0.041
+              ],
+              [
+                0.225,
+                0.051
+              ],
+              [
+                0.248,
+                0.061
+              ],
+              [
+                0.27,
+                0.073
+              ],
+              [
+                0.293,
+                0.086
+              ],
+              [
+                0.315,
+                0.099
+              ],
+              [
+                0.338,
+                0.114
+              ],
+              [
+                0.36,
+                0.13
+              ],
+              [
+                0.383,
+                0.146
+              ],
+              [
+                0.405,
+                0.164
+              ],
+              [
+                0.428,
+                0.183
+              ],
+              [
+                0.45,
+                0.203
+              ],
+              [
+                0.473,
+                0.223
+              ],
+              [
+                0.495,
+                0.245
+              ],
+              [
+                0.517,
+                0.268
+              ],
+              [
+                0.54,
+                0.292
+              ],
+              [
+                0.562,
+                0.316
+              ],
+              [
+                0.585,
+                0.342
+              ],
+              [
+                0.608,
+                0.369
+              ],
+              [
+                0.63,
+                0.397
+              ],
+              [
+                0.653,
+                0.426
+              ],
+              [
+                0.675,
+                0.456
+              ],
+              [
+                0.698,
+                0.487
+              ],
+              [
+                0.72,
+                0.518
+              ],
+              [
+                0.743,
+                0.551
+              ],
+              [
+                0.765,
+                0.585
+              ],
+              [
+                0.787,
+                0.62
+              ],
+              [
+                0.81,
+                0.656
+              ],
+              [
+                0.833,
+                0.693
+              ],
+              [
+                0.855,
+                0.731
+              ],
+              [
+                0.878,
+                0.77
+              ],
+              [
+                0.9,
+                0.81
+              ],
+              [
+                0.922,
+                0.851
+              ],
+              [
+                0.945,
+                0.893
+              ],
+              [
+                0.968,
+                0.936
+              ],
+              [
+                0.99,
+                0.98
+              ],
+              [
+                1.013,
+                1.025
+              ],
+              [
+                1.035,
+                1.071
+              ],
+              [
+                1.058,
+                1.118
+              ],
+              [
+                1.08,
+                1.166
+              ],
+              [
+                1.103,
+                1.216
+              ],
+              [
+                1.125,
+                1.266
+              ],
+              [
+                1.148,
+                1.317
+              ],
+              [
+                1.17,
+                1.369
+              ],
+              [
+                1.193,
+                1.422
+              ],
+              [
+                1.215,
+                1.476
+              ],
+              [
+                1.238,
+                1.531
+              ],
+              [
+                1.26,
+                1.588
+              ],
+              [
+                1.282,
+                1.645
+              ],
+              [
+                1.305,
+                1.703
+              ],
+              [
+                1.328,
+                1.762
+              ],
+              [
+                1.35,
+                1.823
+              ],
+              [
+                1.373,
+                1.884
+              ],
+              [
+                1.395,
+                1.946
+              ],
+              [
+                1.418,
+                2.009
+              ],
+              [
+                1.44,
+                2.074
+              ],
+              [
+                1.462,
+                2.139
+              ],
+              [
+                1.485,
+                2.205
+              ],
+              [
+                1.508,
+                2.273
+              ],
+              [
+                1.53,
+                2.341
+              ],
+              [
+                1.552,
+                2.41
+              ],
+              [
+                1.575,
+                2.481
+              ],
+              [
+                1.598,
+                2.552
+              ],
+              [
+                1.62,
+                2.624
+              ],
+              [
+                1.643,
+                2.698
+              ],
+              [
+                1.665,
+                2.772
+              ],
+              [
+                1.688,
+                2.848
+              ],
+              [
+                1.71,
+                2.924
+              ],
+              [
+                1.733,
+                3.002
+              ],
+              [
+                1.755,
+                3.08
+              ],
+              [
+                1.778,
+                3.16
+              ],
+              [
+                1.8,
+                3.24
+              ],
+              [
+                1.823,
+                3.322
+              ],
+              [
+                1.845,
+                3.404
+              ],
+              [
+                1.868,
+                3.488
+              ],
+              [
+                1.89,
+                3.572
+              ],
+              [
+                1.913,
+                3.658
+              ],
+              [
+                1.935,
+                3.744
+              ],
+              [
+                1.958,
+                3.832
+              ],
+              [
+                1.98,
+                3.92
+              ],
+              [
+                2.002,
+                4.01
+              ],
+              [
+                2.025,
+                4.101
+              ],
+              [
+                2.048,
+                4.192
+              ],
+              [
+                2.07,
+                4.285
+              ],
+              [
+                2.093,
+                4.379
+              ],
+              [
+                2.115,
+                4.473
+              ],
+              [
+                2.138,
+                4.569
+              ],
+              [
+                2.16,
+                4.666
+              ],
+              [
+                2.183,
+                4.763
+              ],
+              [
+                2.205,
+                4.862
+              ],
+              [
+                2.228,
+                4.962
+              ],
+              [
+                2.25,
+                5.062
+              ],
+              [
+                2.273,
+                5.164
+              ],
+              [
+                2.295,
+                5.267
+              ],
+              [
+                2.318,
+                5.371
+              ],
+              [
+                2.34,
+                5.476
+              ],
+              [
+                2.362,
+                5.581
+              ],
+              [
+                2.385,
+                5.688
+              ],
+              [
+                2.408,
+                5.796
+              ],
+              [
+                2.43,
+                5.905
+              ],
+              [
+                2.453,
+                6.015
+              ],
+              [
+                2.475,
+                6.126
+              ],
+              [
+                2.498,
+                6.238
+              ],
+              [
+                2.52,
+                6.35
+              ],
+              [
+                2.542,
+                6.464
+              ],
+              [
+                2.565,
+                6.579
+              ],
+              [
+                2.587,
+                6.695
+              ],
+              [
+                2.61,
+                6.812
+              ],
+              [
+                2.633,
+                6.93
+              ],
+              [
+                2.655,
+                7.049
+              ],
+              [
+                2.678,
+                7.169
+              ]
+            ],
+            "variant": "b",
+            "reveal": 3,
+            "tooltip": "y = x²"
+          },
+          {
+            "points": [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.058,
+                0.058
+              ],
+              [
+                0.117,
+                0.117
+              ],
+              [
+                0.175,
+                0.175
+              ],
+              [
+                0.233,
+                0.233
+              ],
+              [
+                0.292,
+                0.292
+              ],
+              [
+                0.35,
+                0.35
+              ],
+              [
+                0.408,
+                0.408
+              ],
+              [
+                0.467,
+                0.467
+              ],
+              [
+                0.525,
+                0.525
+              ],
+              [
+                0.583,
+                0.583
+              ],
+              [
+                0.642,
+                0.642
+              ],
+              [
+                0.7,
+                0.7
+              ],
+              [
+                0.758,
+                0.758
+              ],
+              [
+                0.817,
+                0.817
+              ],
+              [
+                0.875,
+                0.875
+              ],
+              [
+                0.933,
+                0.933
+              ],
+              [
+                0.992,
+                0.992
+              ],
+              [
+                1.05,
+                1.05
+              ],
+              [
+                1.108,
+                1.108
+              ],
+              [
+                1.167,
+                1.167
+              ],
+              [
+                1.225,
+                1.225
+              ],
+              [
+                1.283,
+                1.283
+              ],
+              [
+                1.342,
+                1.342
+              ],
+              [
+                1.4,
+                1.4
+              ],
+              [
+                1.458,
+                1.458
+              ],
+              [
+                1.517,
+                1.517
+              ],
+              [
+                1.575,
+                1.575
+              ],
+              [
+                1.633,
+                1.633
+              ],
+              [
+                1.692,
+                1.692
+              ],
+              [
+                1.75,
+                1.75
+              ],
+              [
+                1.808,
+                1.808
+              ],
+              [
+                1.867,
+                1.867
+              ],
+              [
+                1.925,
+                1.925
+              ],
+              [
+                1.983,
+                1.983
+              ],
+              [
+                2.042,
+                2.042
+              ],
+              [
+                2.1,
+                2.1
+              ],
+              [
+                2.158,
+                2.158
+              ],
+              [
+                2.217,
+                2.217
+              ],
+              [
+                2.275,
+                2.275
+              ],
+              [
+                2.333,
+                2.333
+              ],
+              [
+                2.392,
+                2.392
+              ],
+              [
+                2.45,
+                2.45
+              ],
+              [
+                2.508,
+                2.508
+              ],
+              [
+                2.567,
+                2.567
+              ],
+              [
+                2.625,
+                2.625
+              ],
+              [
+                2.683,
+                2.683
+              ],
+              [
+                2.742,
+                2.742
+              ],
+              [
+                2.8,
+                2.8
+              ],
+              [
+                2.858,
+                2.858
+              ],
+              [
+                2.917,
+                2.917
+              ],
+              [
+                2.975,
+                2.975
+              ],
+              [
+                3.033,
+                3.033
+              ],
+              [
+                3.092,
+                3.092
+              ],
+              [
+                3.15,
+                3.15
+              ],
+              [
+                3.208,
+                3.208
+              ],
+              [
+                3.267,
+                3.267
+              ],
+              [
+                3.325,
+                3.325
+              ],
+              [
+                3.383,
+                3.383
+              ],
+              [
+                3.442,
+                3.442
+              ],
+              [
+                3.5,
+                3.5
+              ],
+              [
+                3.558,
+                3.558
+              ],
+              [
+                3.617,
+                3.617
+              ],
+              [
+                3.675,
+                3.675
+              ],
+              [
+                3.733,
+                3.733
+              ],
+              [
+                3.792,
+                3.792
+              ],
+              [
+                3.85,
+                3.85
+              ],
+              [
+                3.908,
+                3.908
+              ],
+              [
+                3.967,
+                3.967
+              ],
+              [
+                4.025,
+                4.025
+              ],
+              [
+                4.083,
+                4.083
+              ],
+              [
+                4.142,
+                4.142
+              ],
+              [
+                4.2,
+                4.2
+              ],
+              [
+                4.258,
+                4.258
+              ],
+              [
+                4.317,
+                4.317
+              ],
+              [
+                4.375,
+                4.375
+              ],
+              [
+                4.433,
+                4.433
+              ],
+              [
+                4.492,
+                4.492
+              ],
+              [
+                4.55,
+                4.55
+              ],
+              [
+                4.608,
+                4.608
+              ],
+              [
+                4.667,
+                4.667
+              ],
+              [
+                4.725,
+                4.725
+              ],
+              [
+                4.783,
+                4.783
+              ],
+              [
+                4.842,
+                4.842
+              ],
+              [
+                4.9,
+                4.9
+              ],
+              [
+                4.958,
+                4.958
+              ],
+              [
+                5.017,
+                5.017
+              ],
+              [
+                5.075,
+                5.075
+              ],
+              [
+                5.133,
+                5.133
+              ],
+              [
+                5.192,
+                5.192
+              ],
+              [
+                5.25,
+                5.25
+              ],
+              [
+                5.308,
+                5.308
+              ],
+              [
+                5.367,
+                5.367
+              ],
+              [
+                5.425,
+                5.425
+              ],
+              [
+                5.483,
+                5.483
+              ],
+              [
+                5.542,
+                5.542
+              ],
+              [
+                5.6,
+                5.6
+              ],
+              [
+                5.658,
+                5.658
+              ],
+              [
+                5.717,
+                5.717
+              ],
+              [
+                5.775,
+                5.775
+              ],
+              [
+                5.833,
+                5.833
+              ],
+              [
+                5.892,
+                5.892
+              ],
+              [
+                5.95,
+                5.95
+              ],
+              [
+                6.008,
+                6.008
+              ],
+              [
+                6.067,
+                6.067
+              ],
+              [
+                6.125,
+                6.125
+              ],
+              [
+                6.183,
+                6.183
+              ],
+              [
+                6.242,
+                6.242
+              ],
+              [
+                6.3,
+                6.3
+              ],
+              [
+                6.358,
+                6.358
+              ],
+              [
+                6.417,
+                6.417
+              ],
+              [
+                6.475,
+                6.475
+              ],
+              [
+                6.533,
+                6.533
+              ],
+              [
+                6.592,
+                6.592
+              ],
+              [
+                6.65,
+                6.65
+              ],
+              [
+                6.708,
+                6.708
+              ],
+              [
+                6.767,
+                6.767
+              ],
+              [
+                6.825,
+                6.825
+              ],
+              [
+                6.883,
+                6.883
+              ],
+              [
+                6.942,
+                6.942
+              ],
+              [
+                7.0,
+                7.0
+              ]
+            ],
+            "reveal": 3,
+            "dashed": true,
+            "tooltip": "droite y = x"
+          }
+        ],
+        "steps": [
+          "La courbe de la racine carrée sur [0 ; +∞[",
+          "Elle monte toujours : la fonction est strictement croissante",
+          "Symétrique de la parabole y = x² (x ⩾ 0) par rapport à la droite y = x"
+        ],
+        "relation": "$\\sqrt{4} = 2$ et $2^2 = 4$ : $(4 ; 2)$ et $(2 ; 4)$ sont symétriques par rapport à $y = x$",
+        "alt": "Courbe de la fonction racine carrée, partant de l'origine et croissante ; elle passe par (1 ; 1) et (4 ; 2). La parabole y = x² pour x ⩾ 0 et la droite y = x sont tracées : les deux courbes sont symétriques par rapport à cette droite.",
+        "explication": {
+          "resume": "La fonction racine carrée est définie sur $[0 ; +\\infty[$ et strictement croissante. Sa courbe est la symétrique, par rapport à la droite $y = x$, de la demi-parabole $y = x^2$ ($x \\geqslant 0$).",
+          "lecture": [
+            "La courbe commence à l'origine : $\\sqrt{0} = 0$.",
+            "Elle monte de moins en moins vite."
+          ],
+          "observations": [
+            "$\\sqrt{1} = 1$, $\\sqrt{4} = 2$ : les valeurs restent positives.",
+            "Le point $(4 ; 2)$ de la courbe de $\\sqrt{x}$ correspond au point $(2 ; 4)$ de la parabole.",
+            "Pour $x$ entre $0$ et $1$, $\\sqrt{x} \\geqslant x$ ; pour $x \\geqslant 1$, $\\sqrt{x} \\leqslant x$."
+          ],
+          "pieges": [
+            "Chercher la racine carrée d'un nombre négatif : elle n'existe pas dans $\\mathbb{R}$."
+          ],
+          "aRetenir": [
+            "$\\sqrt{x}$ : définie et positive sur $[0 ; +\\infty[$, strictement croissante."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        82201,
+        82202,
+        82203
+      ],
+      "topic_id": "fonction-racine-carree",
+      "proprietes": [
+        "La fonction racine carrée est strictement croissante sur $[0 ; +\\infty[$."
+      ],
+      "vocabulaire_associe": [
+        "racine carrée",
+        "ensemble de définition",
+        "strictement croissante",
+        "symétrie"
+      ],
+      "synonymes": [
+        "fonction racine carrée",
+        "racine carrée",
+        "courbe de racine de x",
+        "racine carrée croissante"
+      ],
+      "objectifs_pedagogiques": [
+        "Connaître la courbe et les variations de la racine carrée.",
+        "Comparer des racines carrées.",
+        "Résoudre $\\sqrt{x} = a$ et $\\sqrt{x} \\leqslant a$."
+      ],
+      "prerequis": [
+        "Rappels sur les fonctions",
+        "Fonction carré (Seconde)"
+      ],
+      "notions_liees": [
+        "fonctions-et-representations",
+        "fonction-cube"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "fonctions de référence",
+        "racine carrée"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fonction-racine-carree-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Inéquation, ordre de $x$, $x^2$, $\\sqrt{x}$, encadrement",
+          "description": "Trois exemples rédigés : résoudre $\\sqrt{x} \\leqslant 2$, ranger $x$, $x^2$ et $\\sqrt{x}$, encadrer une racine carrée."
+        },
+        {
+          "id": "fonction-racine-carree-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Symétrie des courbes, démonstration",
+          "description": "Pourquoi la courbe de la racine est symétrique de la parabole, et la démonstration de la croissance de la racine carrée."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Par quel point passent les trois courbes de la figure, à part l'origine ?",
+          "piste": "$(1 ; 1)$."
+        },
+        {
+          "apres": "methode",
+          "question": "Résoudre $\\sqrt{x} = 5$.",
+          "piste": "$x = 25$."
+        }
+      ],
+      "demonstration": {
+        "titre": "La fonction racine carrée est strictement croissante sur $[0 ; +\\infty[$",
+        "etapes": [
+          {
+            "titre": "Choix",
+            "texte": "Soient $0 \\leqslant a < b$ ; alors $\\sqrt{a} + \\sqrt{b} > 0$ (car $\\sqrt{b} > 0$)."
+          },
+          {
+            "titre": "Quantité conjuguée",
+            "texte": "$\\sqrt{b} - \\sqrt{a} = \\dfrac{(\\sqrt{b} - \\sqrt{a})(\\sqrt{b} + \\sqrt{a})}{\\sqrt{b} + \\sqrt{a}} = \\dfrac{b - a}{\\sqrt{b} + \\sqrt{a}}$."
+          },
+          {
+            "titre": "Signe",
+            "texte": "$b - a > 0$ et $\\sqrt{b} + \\sqrt{a} > 0$, donc $\\sqrt{b} - \\sqrt{a} > 0$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$\\sqrt{a} < \\sqrt{b}$ : la fonction conserve l'ordre."
+          }
+        ],
+        "conclusion": "Multiplier par la quantité conjuguée fait apparaître $b - a$, dont on connaît le signe."
+      }
+    },
+    {
+      "id": "fonction-cube",
+      "title": "Fonction cube",
+      "schemaVersion": 2,
+      "intro": "La fonction cube associe à tout réel $x$ son cube $x^3$. Contrairement au carré, un cube peut être négatif : la fonction cube est croissante sur tout $\\mathbb{R}$.",
+      "pourquoi": "Les volumes varient comme le cube des longueurs ; la fonction cube est aussi l'exemple type d'une fonction strictement croissante dont la dérivée s'annule (chapitre 6).",
+      "explicationSimple": "$2^3 = 8$ et $(-2)^3 = -8$ : des cubes opposés. Comme la fonction est croissante, $(-3)^3 < (-2)^3$, c'est-à-dire $-27 < -8$.",
+      "objectif": "À la fin de ce cours, tu connaîtras le sens de variation, le signe et la courbe de la fonction cube, et tu sauras comparer des cubes et résoudre des équations et inéquations simples.",
+      "definition": "La fonction cube est la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = x^3$. Elle est strictement croissante sur $\\mathbb{R}$. Son signe : $x^3 < 0 \\iff x < 0$, $x^3 > 0 \\iff x > 0$ et $x^3 = 0 \\iff x = 0$. Pour tout réel $x$, $(-x)^3 = -x^3$ : deux nombres opposés ont des images opposées, donc la courbe de la fonction cube est symétrique par rapport à l'origine du repère.",
+      "definitions": {
+        "lycee": "La fonction cube est la fonction $f$ définie sur $\\mathbb{R}$ par $f(x) = x^3$. Elle est strictement croissante sur $\\mathbb{R}$. Son signe : $x^3 < 0 \\iff x < 0$, $x^3 > 0 \\iff x > 0$ et $x^3 = 0 \\iff x = 0$. Pour tout réel $x$, $(-x)^3 = -x^3$ : deux nombres opposés ont des images opposées, donc la courbe de la fonction cube est symétrique par rapport à l'origine du repère."
+      },
+      "intuition": "Le cube conserve l'ordre ET le signe : plus le nombre est grand, plus son cube est grand, sur tout $\\mathbb{R}$.",
+      "reglesImportantes": [
+        "Strictement croissante sur $\\mathbb{R}$ : pour tous réels $a < b$, $a^3 < b^3$.",
+        "Signe : $x^3$ a le même signe que $x$.",
+        "Symétrie : $(-x)^3 = -x^3$ ; la courbe est symétrique par rapport à l'origine.",
+        "Équation : pour tout réel $k$, l'équation $x^3 = k$ a une unique solution.",
+        "Inéquation : $x^3 < a^3 \\iff x < a$."
+      ],
+      "formules": [
+        {
+          "id": "formule-cube-oppose",
+          "nom": "Cube d'un opposé",
+          "expression": "$(-x)^3 = -x^3$",
+          "quand_utiliser": "Pour calculer le cube d'un négatif.",
+          "erreur_frequente": "Croire que $(-x)^3$ est positif.",
+          "astuce": "Un nombre impair de facteurs négatifs donne un résultat négatif."
+        },
+        {
+          "id": "formule-cube-croissante",
+          "nom": "Sens de variation",
+          "expression": "$a < b \\iff a^3 < b^3$",
+          "quand_utiliser": "Pour comparer ou résoudre.",
+          "erreur_frequente": "Renverser l'ordre pour les négatifs.",
+          "astuce": "Le cube conserve l'ordre sur tout $\\mathbb{R}$."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Comparer et résoudre avec la fonction cube",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je repère les nombres à comparer, ou j'écris le second membre comme un cube."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'utilise la croissance stricte : l'ordre des cubes est celui des nombres."
+          },
+          {
+            "icone": "target",
+            "couleur": "orange",
+            "texte": "Pour $x^3 = a^3$, l'unique solution est $x = a$."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle le signe : $x^3$ et $x$ ont le même signe."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je repère les nombres à comparer, ou j'écris le second membre comme un cube."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'utilise la croissance stricte : l'ordre des cubes est celui des nombres."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Pour $x^3 = a^3$, l'unique solution est $x = a$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle le signe : $x^3$ et $x$ ont le même signe."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je calcule le cube : le nombre multiplié trois fois par lui-même."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Un nombre négatif a un cube négatif."
+            },
+            {
+              "icone": "target",
+              "couleur": "orange",
+              "texte": "Plus le nombre est grand, plus son cube est grand."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je vérifie avec la courbe."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Croissante sur $\\mathbb{R}$, même signe que $x$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "$(-x)^3 = -x^3$."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-cube-calcul",
+          "titre": "Exemple 1 — Calculer des cubes",
+          "enonce": "Calculer $(-2)^3$, $0{,}5^3$ et $(-0{,}1)^3$.",
+          "calcul": [
+            {
+              "expr": "(-2)^3 = -8 \\quad 0{,}5^3 = 0{,}125 \\quad (-0{,}1)^3 = -0{,}001",
+              "texte": ""
+            }
+          ],
+          "reponse": "$-8$ ; $0{,}125$ ; $-0{,}001$.",
+          "conclusion": "Le cube d'un négatif est négatif.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-cube-comparer",
+          "titre": "Exemple 2 — Comparer sans calculer",
+          "enonce": "Comparer $(-1{,}5)^3$ et $(-1{,}4)^3$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$-1{,}5 < -1{,}4$ et la fonction cube est strictement croissante."
+            }
+          ],
+          "reponse": "$(-1{,}5)^3 < (-1{,}4)^3$.",
+          "conclusion": "Contrairement au carré, le cube conserve l'ordre même pour les négatifs.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-cube-equation",
+          "titre": "Exemple 3 — Résoudre $x^3 = -8$",
+          "enonce": "Résoudre dans $\\mathbb{R}$ l'équation $x^3 = -8$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$-8 = (-2)^3$."
+            },
+            {
+              "expr": "",
+              "texte": "La fonction cube est strictement croissante : la seule solution est $x = -2$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = \\{-2\\}$.",
+          "conclusion": "Une seule solution, contrairement à $x^2 = 4$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cube-inequation",
+          "titre": "Exemple 4 — Une inéquation",
+          "enonce": "Résoudre $x^3 > 27$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$27 = 3^3$, et la fonction cube est strictement croissante : $x^3 > 3^3 \\iff x > 3$."
+            }
+          ],
+          "reponse": "$\\mathcal{S} = ]3 ; +\\infty[$.",
+          "conclusion": "On compare les nombres, puisque le cube conserve l'ordre.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cube-signe",
+          "titre": "Exemple 5 — Étudier un signe",
+          "enonce": "Dresser le tableau de signes de $x^3$ sur $\\mathbb{R}$, puis donner le signe de $(x - 1)^3$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "$x^3 < 0$ pour $x < 0$, $x^3 = 0$ en $0$, $x^3 > 0$ pour $x > 0$."
+            },
+            {
+              "expr": "",
+              "texte": "$(x - 1)^3$ a le signe de $x - 1$ : négatif pour $x < 1$, positif pour $x > 1$."
+            }
+          ],
+          "reponse": "$x^3$ a le signe de $x$ ; $(x - 1)^3$ celui de $x - 1$.",
+          "conclusion": "Le cube ne change pas le signe.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-cube-symetrie",
+          "titre": "Exemple 6 — Symétrie de la courbe",
+          "enonce": "Le point $M(1{,}2 ; 1{,}728)$ est sur la courbe de la fonction cube. Justifier que son symétrique par rapport à l'origine y est aussi.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Le symétrique de $M$ par rapport à $O$ est $M'(-1{,}2 ; -1{,}728)$."
+            },
+            {
+              "expr": "",
+              "texte": "$(-1{,}2)^3 = -1{,}2^3 = -1{,}728$ : $M'$ est sur la courbe."
+            }
+          ],
+          "reponse": "$M'(-1{,}2 ; -1{,}728)$ est sur la courbe.",
+          "conclusion": "C'est vrai pour tout point : $(-x)^3 = -x^3$.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Volume d'un cube d'arête $x$.",
+        "Comparer des volumes d'objets semblables.",
+        "Modèles de croissance rapide."
+      ],
+      "erreursFrequentes": [
+        "Croire que $x^3$ est toujours positif.",
+        "Trouver deux solutions à $x^3 = 8$.",
+        "Écrire $(-2)^3 = -6$.",
+        "Renverser l'ordre pour les négatifs."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Croire que $x^3$ est toujours positif.",
+          "pourquoi": "Confusion avec le carré.",
+          "comment_detecter": "Que vaut $(-1)^3$ ?",
+          "comment_eviter": "$x^3$ a le signe de $x$."
+        },
+        {
+          "description": "Trouver deux solutions à $x^3 = 8$.",
+          "pourquoi": "Confusion avec $x^2 = 4$.",
+          "comment_detecter": "La fonction cube est-elle strictement croissante ?",
+          "comment_eviter": "Une seule solution : $2$."
+        },
+        {
+          "description": "Écrire $(-2)^3 = -6$.",
+          "pourquoi": "On multiplie par $3$ au lieu d'élever au cube.",
+          "comment_detecter": "Que signifie l'exposant $3$ ?",
+          "comment_eviter": "$(-2)^3 = (-2) \\times (-2) \\times (-2) = -8$."
+        },
+        {
+          "description": "Renverser l'ordre pour les négatifs.",
+          "pourquoi": "Réflexe du carré.",
+          "comment_detecter": "La fonction cube est-elle croissante sur $]-\\infty ; 0]$ ?",
+          "comment_eviter": "Oui : l'ordre est conservé."
+        }
+      ],
+      "astuce": "Pour un négatif, calcule le cube de son opposé puis change le signe : $(-3)^3 = -(3^3) = -27$.",
+      "aRetenir": [
+        "Fonction cube : strictement croissante sur $\\mathbb{R}$.",
+        "$x^3$ a le même signe que $x$.",
+        "Courbe symétrique par rapport à l'origine : $(-x)^3 = -x^3$."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -2.6,
+          -4.2,
+          5.2,
+          8.4
+        ],
+        "grid": false,
+        "axes": true,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "O"
+          },
+          {
+            "x": 1.5,
+            "y": 3.375,
+            "label": "M(1,5 ; 3,375)",
+            "reveal": 2
+          },
+          {
+            "x": -1.5,
+            "y": -3.375,
+            "label": "M'(−1,5 ; −3,375)",
+            "reveal": 3
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -1.5,
+              "y": -3.375
+            },
+            "to": {
+              "x": 1.5,
+              "y": 3.375
+            },
+            "dashed": true,
+            "reveal": 3,
+            "tooltip": "O est le milieu de [MM']"
+          }
+        ],
+        "texts": [
+          {
+            "x": 1.2,
+            "y": 1.0,
+            "label": "y = x³"
+          }
+        ],
+        "emphasis": true,
+        "curves": [
+          {
+            "points": [
+              [
+                -1.595,
+                -4.058
+              ],
+              [
+                -1.567,
+                -3.851
+              ],
+              [
+                -1.54,
+                -3.652
+              ],
+              [
+                -1.512,
+                -3.46
+              ],
+              [
+                -1.485,
+                -3.275
+              ],
+              [
+                -1.458,
+                -3.096
+              ],
+              [
+                -1.43,
+                -2.924
+              ],
+              [
+                -1.402,
+                -2.759
+              ],
+              [
+                -1.375,
+                -2.6
+              ],
+              [
+                -1.347,
+                -2.447
+              ],
+              [
+                -1.32,
+                -2.3
+              ],
+              [
+                -1.292,
+                -2.159
+              ],
+              [
+                -1.265,
+                -2.024
+              ],
+              [
+                -1.237,
+                -1.895
+              ],
+              [
+                -1.21,
+                -1.772
+              ],
+              [
+                -1.182,
+                -1.653
+              ],
+              [
+                -1.155,
+                -1.541
+              ],
+              [
+                -1.127,
+                -1.433
+              ],
+              [
+                -1.1,
+                -1.331
+              ],
+              [
+                -1.072,
+                -1.234
+              ],
+              [
+                -1.045,
+                -1.141
+              ],
+              [
+                -1.018,
+                -1.053
+              ],
+              [
+                -0.99,
+                -0.97
+              ],
+              [
+                -0.962,
+                -0.892
+              ],
+              [
+                -0.935,
+                -0.817
+              ],
+              [
+                -0.907,
+                -0.747
+              ],
+              [
+                -0.88,
+                -0.681
+              ],
+              [
+                -0.853,
+                -0.62
+              ],
+              [
+                -0.825,
+                -0.562
+              ],
+              [
+                -0.797,
+                -0.507
+              ],
+              [
+                -0.77,
+                -0.457
+              ],
+              [
+                -0.742,
+                -0.409
+              ],
+              [
+                -0.715,
+                -0.366
+              ],
+              [
+                -0.687,
+                -0.325
+              ],
+              [
+                -0.66,
+                -0.287
+              ],
+              [
+                -0.633,
+                -0.253
+              ],
+              [
+                -0.605,
+                -0.221
+              ],
+              [
+                -0.577,
+                -0.193
+              ],
+              [
+                -0.55,
+                -0.166
+              ],
+              [
+                -0.522,
+                -0.143
+              ],
+              [
+                -0.495,
+                -0.121
+              ],
+              [
+                -0.467,
+                -0.102
+              ],
+              [
+                -0.44,
+                -0.085
+              ],
+              [
+                -0.412,
+                -0.07
+              ],
+              [
+                -0.385,
+                -0.057
+              ],
+              [
+                -0.357,
+                -0.046
+              ],
+              [
+                -0.33,
+                -0.036
+              ],
+              [
+                -0.302,
+                -0.028
+              ],
+              [
+                -0.275,
+                -0.021
+              ],
+              [
+                -0.248,
+                -0.015
+              ],
+              [
+                -0.22,
+                -0.011
+              ],
+              [
+                -0.193,
+                -0.007
+              ],
+              [
+                -0.165,
+                -0.004
+              ],
+              [
+                -0.137,
+                -0.003
+              ],
+              [
+                -0.11,
+                -0.001
+              ],
+              [
+                -0.083,
+                -0.001
+              ],
+              [
+                -0.055,
+                -0.0
+              ],
+              [
+                -0.028,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.027,
+                0.0
+              ],
+              [
+                0.055,
+                0.0
+              ],
+              [
+                0.082,
+                0.001
+              ],
+              [
+                0.11,
+                0.001
+              ],
+              [
+                0.138,
+                0.003
+              ],
+              [
+                0.165,
+                0.004
+              ],
+              [
+                0.193,
+                0.007
+              ],
+              [
+                0.22,
+                0.011
+              ],
+              [
+                0.248,
+                0.015
+              ],
+              [
+                0.275,
+                0.021
+              ],
+              [
+                0.302,
+                0.028
+              ],
+              [
+                0.33,
+                0.036
+              ],
+              [
+                0.357,
+                0.046
+              ],
+              [
+                0.385,
+                0.057
+              ],
+              [
+                0.413,
+                0.07
+              ],
+              [
+                0.44,
+                0.085
+              ],
+              [
+                0.468,
+                0.102
+              ],
+              [
+                0.495,
+                0.121
+              ],
+              [
+                0.522,
+                0.143
+              ],
+              [
+                0.55,
+                0.166
+              ],
+              [
+                0.578,
+                0.193
+              ],
+              [
+                0.605,
+                0.221
+              ],
+              [
+                0.632,
+                0.253
+              ],
+              [
+                0.66,
+                0.287
+              ],
+              [
+                0.688,
+                0.325
+              ],
+              [
+                0.715,
+                0.366
+              ],
+              [
+                0.742,
+                0.409
+              ],
+              [
+                0.77,
+                0.457
+              ],
+              [
+                0.797,
+                0.507
+              ],
+              [
+                0.825,
+                0.562
+              ],
+              [
+                0.853,
+                0.62
+              ],
+              [
+                0.88,
+                0.681
+              ],
+              [
+                0.907,
+                0.747
+              ],
+              [
+                0.935,
+                0.817
+              ],
+              [
+                0.962,
+                0.892
+              ],
+              [
+                0.99,
+                0.97
+              ],
+              [
+                1.017,
+                1.053
+              ],
+              [
+                1.045,
+                1.141
+              ],
+              [
+                1.072,
+                1.234
+              ],
+              [
+                1.1,
+                1.331
+              ],
+              [
+                1.127,
+                1.433
+              ],
+              [
+                1.155,
+                1.541
+              ],
+              [
+                1.183,
+                1.653
+              ],
+              [
+                1.21,
+                1.772
+              ],
+              [
+                1.238,
+                1.895
+              ],
+              [
+                1.265,
+                2.024
+              ],
+              [
+                1.292,
+                2.159
+              ],
+              [
+                1.32,
+                2.3
+              ],
+              [
+                1.348,
+                2.447
+              ],
+              [
+                1.375,
+                2.6
+              ],
+              [
+                1.402,
+                2.759
+              ],
+              [
+                1.43,
+                2.924
+              ],
+              [
+                1.458,
+                3.096
+              ],
+              [
+                1.485,
+                3.275
+              ],
+              [
+                1.513,
+                3.46
+              ],
+              [
+                1.54,
+                3.652
+              ],
+              [
+                1.567,
+                3.851
+              ],
+              [
+                1.595,
+                4.058
+              ]
+            ],
+            "tooltip": "y = x³"
+          }
+        ],
+        "steps": [
+          "La courbe de la fonction cube",
+          "Un point M de la courbe",
+          "Son symétrique par rapport à O est aussi sur la courbe : (−x)³ = −x³"
+        ],
+        "relation": "$(-x)^3 = -x^3$ : la courbe est symétrique par rapport à l'origine",
+        "alt": "Courbe de la fonction cube, strictement croissante, passant par l'origine ; le point M(1,5 ; 3,375) et son symétrique M'(−1,5 ; −3,375) par rapport à l'origine sont tous deux sur la courbe.",
+        "explication": {
+          "resume": "La fonction cube est strictement croissante sur $\\mathbb{R}$ ; $x^3$ a le signe de $x$. Deux nombres opposés ont des cubes opposés : la courbe est symétrique par rapport à l'origine.",
+          "lecture": [
+            "La courbe passe par l'origine et monte sur tout $\\mathbb{R}$.",
+            "Elle est très « plate » près de $0$."
+          ],
+          "observations": [
+            "$1{,}5^3 = 3{,}375$ et $(-1{,}5)^3 = -3{,}375$.",
+            "$O$ est le milieu de $[MM']$.",
+            "$x^3 < 0$ pour $x < 0$, $x^3 > 0$ pour $x > 0$."
+          ],
+          "pieges": [
+            "Croire que $x^3$ est toujours positif, comme $x^2$."
+          ],
+          "aRetenir": [
+            "$x^3$ a le même signe que $x$ ; courbe symétrique par rapport à $O$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        82301,
+        82302,
+        82303
+      ],
+      "topic_id": "fonction-cube",
+      "proprietes": [
+        "La fonction cube est strictement croissante sur $\\mathbb{R}$.",
+        "$(-x)^3 = -x^3$."
+      ],
+      "vocabulaire_associe": [
+        "cube",
+        "strictement croissante",
+        "signe",
+        "symétrie par rapport à l'origine"
+      ],
+      "synonymes": [
+        "fonction cube",
+        "x au cube",
+        "courbe de x³",
+        "signe de x³"
+      ],
+      "objectifs_pedagogiques": [
+        "Connaître la courbe et les variations de la fonction cube.",
+        "Utiliser le signe de $x^3$.",
+        "Résoudre $x^3 = k$ et $x^3 < a^3$."
+      ],
+      "prerequis": [
+        "Rappels sur les fonctions",
+        "Puissances"
+      ],
+      "notions_liees": [
+        "fonctions-et-representations",
+        "fonction-racine-carree"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "fonctions de référence",
+        "cube"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fonction-cube-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Équation, inéquation, signe",
+          "description": "Trois exemples rédigés : résoudre $x^3 = -8$, résoudre $x^3 > 27$, étudier le signe de $(x - 1)^3$."
+        },
+        {
+          "id": "fonction-cube-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Symétrie de la courbe, démonstration",
+          "description": "La symétrie de la courbe par rapport à l'origine, et la démonstration de la croissance de la fonction cube."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Quel est le symétrique du point $(1 ; 1)$ sur la courbe ?",
+          "piste": "$(-1 ; -1)$."
+        },
+        {
+          "apres": "methode",
+          "question": "Signe de $(-0{,}3)^3$ ?",
+          "piste": "Négatif."
+        }
+      ],
+      "demonstration": {
+        "titre": "La fonction cube est strictement croissante sur $\\mathbb{R}$",
+        "etapes": [
+          {
+            "titre": "Factorisation",
+            "texte": "Pour tous réels $a$ et $b$ : $b^3 - a^3 = (b - a)(a^2 + ab + b^2)$."
+          },
+          {
+            "titre": "Second facteur",
+            "texte": "$a^2 + ab + b^2 = \\left(a + \\dfrac{b}{2}\\right)^2 + \\dfrac{3b^2}{4}$ : c'est une somme de deux carrés, nulle seulement si $a = b = 0$."
+          },
+          {
+            "titre": "Signe",
+            "texte": "Si $a < b$, alors $b - a > 0$ et $a$, $b$ ne sont pas tous deux nuls, donc $a^2 + ab + b^2 > 0$."
+          },
+          {
+            "titre": "Conclusion",
+            "texte": "$b^3 - a^3 > 0$, c'est-à-dire $a^3 < b^3$."
+          }
+        ],
+        "conclusion": "Une factorisation et une forme canonique suffisent à établir la croissance."
+      }
+    }
+  ]
+}

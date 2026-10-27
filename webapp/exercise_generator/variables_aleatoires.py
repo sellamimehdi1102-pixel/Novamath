@@ -64,13 +64,22 @@ def _table_latex(values, probs) -> str:
 
 # ── Famille 1 — Calcul de l'espérance ───────────────────────────────────────
 
+def _p(v) -> str:
+    """Facteur en LaTeX, entre parenthèses s'il s'affiche avec un signe moins ou
+    s'il est une somme (jamais « \\times -3 », « + -2 » ni « -5^2 »)."""
+    s = v if isinstance(v, str) else latex(v)
+    if not (s.lstrip().startswith("-") or getattr(v, "is_Add", False)):
+        return s
+    return f"\\left({s}\\right)" if "\\frac" in s else f"({s})"
+
+
 def _gen_esperance(rng: random.Random) -> Optional[dict]:
     values, probs = _loi_3_valeurs(rng)
     esperance = sum(v * p for v, p in zip(values, probs))
     table = _table_latex(values, probs)
     enonce = f"Une variable aléatoire $X$ suit la loi de probabilité suivante : {table}. Calculer $E(X)$."
     answer = f"$E(X) = {latex(esperance)}$"
-    terms = " + ".join(f"{v} \\times {latex(p)}" for v, p in zip(values, probs))
+    terms = " + ".join(f"{v if i == 0 else _p(v)} \\times {latex(p)}" for i, (v, p) in enumerate(zip(values, probs)))
     steps = [
         "Étape 1 — On utilise la formule $E(X) = \\sum x_i \\times P(X=x_i)$.",
         f"Étape 2 — $E(X) = {terms} = {latex(esperance)}$.",
@@ -137,8 +146,8 @@ def _gen_transformation_affine(rng: random.Random) -> Optional[dict]:
     )
     answer = f"$E(Y) = {latex(e_result)}$, $V(Y) = {latex(v_result)}$"
     steps = [
-        f"Étape 1 — Pour $Y=aX+b$, $E(Y) = a\\,E(X) + b = {a} \\times {latex(ex)} + ({b}) = {latex(e_result)}$.",
-        f"Étape 2 — $V(Y) = a^2\\,V(X) = {a}^2 \\times {latex(vx)} = {latex(v_result)}$.",
+        f"Étape 1 — Pour $Y=aX+b$, $E(Y) = a\\,E(X) + b = {a} \\times {_p(ex)} + {_p(b)} = {latex(e_result)}$.",
+        f"Étape 2 — $V(Y) = a^2\\,V(X) = {_p(a)}^2 \\times {latex(vx)} = {latex(v_result)}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_ESPERANCE}
 
@@ -205,7 +214,7 @@ def _gen_esperance_effectifs(rng: random.Random) -> Optional[dict]:
         f"{table}. On choisit un individu au hasard dans cette population. Calculer $E(X)$."
     )
     answer = f"$E(X) = {latex(esperance)}$"
-    termes = " + ".join(f"{v} \\times \\dfrac{{{e}}}{{{total}}}" for v, e in zip(values, effectifs))
+    termes = " + ".join(f"{v if i == 0 else _p(v)} \\times \\dfrac{{{e}}}{{{total}}}" for i, (v, e) in enumerate(zip(values, effectifs)))
     steps = [
         f"Étape 1 — On convertit chaque effectif en probabilité : $P(X=x_i) = \\dfrac{{\\text{{effectif}}}}{{{total}}}$.",
         f"Étape 2 — On applique $E(X) = \\sum x_i \\times P(X=x_i) = {termes} = {latex(esperance)}$.",
@@ -233,7 +242,7 @@ def _gen_esperance_inverse(rng: random.Random) -> Optional[dict]:
     steps = [
         f"Étape 1 — $E(X) = x_1 \\times P(X=x_1) + x_2 \\times P(X=x_2)$, donc "
         f"${latex(esperance)} = {x1} \\times {latex(p1)} + x_2 \\times {latex(p2)}$.",
-        f"Étape 2 — ${latex(esperance)} - {latex(x1 * p1)} = x_2 \\times {latex(p2)}$, soit "
+        f"Étape 2 — ${latex(esperance)} - {_p(x1 * p1)} = x_2 \\times {latex(p2)}$, soit "
         f"$x_2 = \\dfrac{{{latex(esperance - x1 * p1)}}}{{{latex(p2)}}} = {x2}$.",
     ]
     return {"enonce": enonce, "answer": answer, "steps": steps, "notion": NOTION_VARIABLES}

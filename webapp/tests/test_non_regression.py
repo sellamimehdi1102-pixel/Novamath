@@ -9,8 +9,10 @@ import unittest
 
 from chatbot import knowledge_engine, math_engine, rule_engine
 from chatbot.services import search_service
-from chatbot.validate_cours_schema import validate_all as validate_cours
+from chatbot.validate_cours_schema import COURS_DIR, validate_all as validate_cours
 from validate_topic_crosswalk import validate as validate_crosswalk
+
+COURS_PREMIERE_DIR = COURS_DIR.parent / "cours_premiere"
 
 
 class TestValidateursDeSchema(unittest.TestCase):
@@ -29,6 +31,24 @@ class TestValidateursDeSchema(unittest.TestCase):
         errors, warnings, stats = validate_crosswalk()
         self.assertEqual(errors, [])
         self.assertEqual(stats["entries"], 52)
+
+
+class TestAucunLatexBrutDansLesCoursSecondeEtPremiere(unittest.TestCase):
+    """Non-régression (chantier "audit LaTeX brut", 2026-10-24) : les cours de
+    Seconde et Première ne doivent plus jamais afficher du code LaTeX non
+    rendu à l'élève (ex. '\\og ... \\fg{}', des commandes KaTeX jamais entre
+    $...$, ou des délimiteurs $ mal équilibrés). validate_cours_schema inclut
+    ce contrôle (find_raw_latex_issues) pour TOUTE future refonte de cours."""
+
+    def test_seconde_sans_latex_brut(self):
+        errors, stats = validate_cours(COURS_DIR)
+        self.assertEqual(errors, [])
+        self.assertEqual(stats["notions"], 52)
+
+    def test_premiere_sans_latex_brut(self):
+        errors, stats = validate_cours(COURS_PREMIERE_DIR)
+        self.assertEqual(errors, [])
+        self.assertEqual(stats["notions"], 34)
 
 
 class TestRuleEngineEtMathEngineInchanges(unittest.TestCase):
@@ -72,12 +92,23 @@ class TestKnowledgeEngineV2AccesseursNonRegresses(unittest.TestCase):
         """Après migration, les formules ne sont plus vides : elles ont été
         automatiquement scaffoldées depuis reglesImportantes (contenu réel,
         pas fabriqué) — seul le champ "expression" est rempli, le reste
-        ("nom", "quand_utiliser"...) reste vide, à charge d'un professeur."""
-        notion = knowledge_engine.get_notion("Chapitre_1", "racine-carree")
+        ("nom", "quand_utiliser"...) reste vide, à charge d'un professeur.
+
+        Notion synthétique (plutôt qu'une notion réelle du cours, dont le
+        contenu est progressivement enrichi par les refontes pédagogiques,
+        ce qui finit par remplir "nom" et casser cette hypothèse de fixture)
+        pour tester uniquement l'invariant du mécanisme de scaffolding lui-
+        même : get_formules() renvoie exactement ce qui est stocké, jamais
+        plus ni moins que ce que l'auteur a écrit."""
+        notion = {
+            "regles": ["Règle A", "Règle B", "Règle C"],
+            "formules": [
+                {"nom": "", "expression": "Règle A", "quand_utiliser": "", "quand_ne_pas_utiliser": "", "erreur_frequente": "", "astuce": ""},
+                {"nom": "", "expression": "Règle B", "quand_utiliser": "", "quand_ne_pas_utiliser": "", "erreur_frequente": "", "astuce": ""},
+                {"nom": "", "expression": "Règle C", "quand_utiliser": "", "quand_ne_pas_utiliser": "", "erreur_frequente": "", "astuce": ""},
+            ],
+        }
         formules = knowledge_engine.get_formules(notion)
-        # notion["regles"] : nom du champ dans le document indexé par
-        # knowledge_engine._load_notions() (traduit depuis "reglesImportantes"
-        # du JSON brut).
         self.assertEqual(len(formules), len(notion["regles"]))
         for f in formules:
             self.assertTrue(f["expression"])

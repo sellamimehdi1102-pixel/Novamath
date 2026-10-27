@@ -1,0 +1,1900 @@
+{
+  "chapterId": "Chapitre_3",
+  "title": "Fractions : multiplier et diviser",
+  "icon": "layers",
+  "notions": [
+    {
+      "id": "fractions-multiplier",
+      "title": "Multiplier des fractions",
+      "schemaVersion": 2,
+      "intro": "Multiplier des fractions est plus simple que les additionner : pas besoin de dénominateur commun. Cette leçon t'apprend la règle, les simplifications astucieuses et le calcul d'une fraction d'une quantité.",
+      "pourquoi": "« Les trois quarts de… », « la moitié de… » : prendre une fraction d'une quantité est l'une des opérations les plus fréquentes, dans les recettes, les réductions, les échelles et les probabilités.",
+      "explicationSimple": "Prendre les $\\dfrac{2}{3}$ des $\\dfrac{3}{4}$ d'une pizza, c'est découper la pizza en $3 \\times 4 = 12$ parts et en garder $2 \\times 3 = 6$ : c'est $\\dfrac{6}{12}$, la moitié de la pizza.",
+      "objectif": "À la fin de cette leçon, tu sauras multiplier des fractions (positives ou négatives), simplifier avant de calculer, et calculer une fraction d'une quantité.",
+      "definition": "Pour multiplier deux fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux : $\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$ ($b \\neq 0$, $d \\neq 0$). Prendre la fraction $\\dfrac{a}{b}$ d'une quantité, c'est multiplier cette quantité par $\\dfrac{a}{b}$.",
+      "definitions": {
+        "college": "On multiplie les numérateurs ensemble et les dénominateurs ensemble. « Les $\\dfrac{a}{b}$ de » se traduit par « $\\dfrac{a}{b} \\times$ ».",
+        "lycee": "Pour multiplier deux fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux : $\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$ ($b \\neq 0$, $d \\neq 0$). Prendre la fraction $\\dfrac{a}{b}$ d'une quantité, c'est multiplier cette quantité par $\\dfrac{a}{b}$."
+      },
+      "intuition": "Multiplier par une fraction plus petite que $1$, c'est prendre seulement une partie : le résultat diminue. Multiplier par $\\dfrac{3}{2}$, c'est prendre une fois et demie : le résultat augmente.",
+      "reglesImportantes": [
+        "$\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$ : pas de dénominateur commun à chercher.",
+        "Un entier se multiplie au numérateur : $k \\times \\dfrac{a}{b} = \\dfrac{k \\times a}{b}$.",
+        "On simplifie AVANT d'effectuer les produits, en décomposant numérateurs et dénominateurs : $\\dfrac{4}{9} \\times \\dfrac{3}{8} = \\dfrac{4 \\times 3}{3 \\times 3 \\times 4 \\times 2} = \\dfrac{1}{6}$.",
+        "La règle des signes du produit s'applique : $-\\dfrac{2}{5} \\times \\dfrac{-3}{7} = \\dfrac{6}{35}$.",
+        "Les $\\dfrac{a}{b}$ d'une quantité $Q$ valent $\\dfrac{a}{b} \\times Q = \\dfrac{a \\times Q}{b}$ ; on peut aussi calculer $Q \\div b$ puis multiplier par $a$."
+      ],
+      "formules": [
+        {
+          "id": "formule-produit-fractions",
+          "nom": "Produit de deux fractions",
+          "expression": "$\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$",
+          "quand_utiliser": "Pour tout produit de fractions, de même dénominateur ou non.",
+          "erreur_frequente": "Chercher un dénominateur commun comme pour une addition.",
+          "astuce": "« Haut fois haut, bas fois bas »."
+        },
+        {
+          "id": "formule-fraction-quantite",
+          "nom": "Fraction d'une quantité",
+          "expression": "$\\dfrac{a}{b} \\text{ de } Q = \\dfrac{a}{b} \\times Q$",
+          "quand_utiliser": "Quand l'énoncé parle des « $\\dfrac{a}{b}$ de » quelque chose.",
+          "erreur_frequente": "Diviser par $a$ et multiplier par $b$ (inversion des rôles).",
+          "astuce": "On divise par le dénominateur (le nombre de parts), on multiplie par le numérateur (le nombre de parts prises)."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Multiplier des fractions",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je détermine le signe du produit (règle des signes)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "J'écris le produit des numérateurs sur le produit des dénominateurs, sans effectuer les multiplications."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "Je simplifie les facteurs communs au numérateur et au dénominateur."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "J'effectue les produits restants et je vérifie que la fraction est irréductible."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je détermine le signe du produit (règle des signes)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris le produit des numérateurs sur le produit des dénominateurs, sans effectuer les multiplications."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je simplifie les facteurs communs au numérateur et au dénominateur."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "J'effectue les produits restants et je vérifie que la fraction est irréductible."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je regarde les signes des fractions."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "J'écris « haut fois haut » sur « bas fois bas »."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "Je barre les nombres qui apparaissent à la fois en haut et en bas."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je calcule ce qui reste."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "$\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{ac}{bd}$, en simplifiant avant de calculer."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Signe d'abord, fraction irréductible ensuite."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-produit-simplification",
+          "titre": "Exemple 1 — Simplifier avant de calculer",
+          "enonce": "Calculer $\\dfrac{4}{9} \\times \\dfrac{15}{8}$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{4 \\times 15}{9 \\times 8}",
+              "texte": "On écrit le produit sans l'effectuer :"
+            },
+            {
+              "expr": "\\dfrac{4 \\times 3 \\times 5}{3 \\times 3 \\times 4 \\times 2}",
+              "texte": "On décompose :"
+            },
+            {
+              "expr": "\\dfrac{5}{3 \\times 2} = \\dfrac{5}{6}",
+              "texte": "On simplifie par $4$ et par $3$ :"
+            }
+          ],
+          "reponse": "$\\dfrac{4}{9} \\times \\dfrac{15}{8} = \\dfrac{5}{6}$",
+          "conclusion": "Simplifier avant de multiplier évite de manipuler $\\dfrac{60}{72}$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-fraction-quantite",
+          "titre": "Exemple 2 — Une fraction d'une quantité",
+          "enonce": "Un pull coûte $48$ €. Pendant les soldes, il est vendu aux $\\dfrac{3}{4}$ de son prix. Quel est son nouveau prix ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{3}{4} \\times 48 = \\dfrac{3 \\times 48}{4}",
+              "texte": "Les $\\dfrac{3}{4}$ de $48$ :"
+            },
+            {
+              "expr": "",
+              "texte": "$48 \\div 4 = 12$, puis $3 \\times 12 = 36$."
+            }
+          ],
+          "reponse": "Le pull coûte $36$ €.",
+          "conclusion": "Diviser d'abord par $4$ garde des nombres simples.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-produit-signes",
+          "titre": "Exemple 3 — Produit de trois facteurs avec des signes",
+          "enonce": "Calculer $-\\dfrac{5}{6} \\times \\dfrac{9}{-10} \\times \\left(-\\dfrac{4}{3}\\right)$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Facteurs négatifs : trois, donc le produit est négatif."
+            },
+            {
+              "expr": "\\dfrac{5 \\times 9 \\times 4}{6 \\times 10 \\times 3} = \\dfrac{5 \\times 3 \\times 3 \\times 2 \\times 2}{2 \\times 3 \\times 2 \\times 5 \\times 3} = 1",
+              "texte": "Distances à zéro :"
+            }
+          ],
+          "reponse": "Le produit vaut $-1$.",
+          "conclusion": "Tous les facteurs se simplifient : la décomposition rend le calcul immédiat.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-fraction-de-fraction",
+          "titre": "Exemple 4 — Une fraction d'une fraction",
+          "enonce": "Dans un collège, $\\dfrac{2}{5}$ des élèves sont demi-pensionnaires, et parmi eux, $\\dfrac{3}{4}$ mangent à la cantine le vendredi. Quelle fraction des élèves du collège mange à la cantine le vendredi ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{3}{4} \\times \\dfrac{2}{5} = \\dfrac{6}{20} = \\dfrac{3}{10}",
+              "texte": "On prend les $\\dfrac{3}{4}$ des $\\dfrac{2}{5}$ :"
+            }
+          ],
+          "reponse": "$\\dfrac{3}{10}$ des élèves mangent à la cantine le vendredi.",
+          "conclusion": "« Parmi eux » indique que la fraction porte sur une partie, pas sur le tout.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-agrandissement-aire",
+          "titre": "Exemple 5 — Effet d'une réduction sur une aire",
+          "enonce": "On réduit toutes les longueurs d'un rectangle de $12$ cm sur $8$ cm aux $\\dfrac{3}{4}$. Par quelle fraction l'aire est-elle multipliée ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Nouvelles dimensions : $\\dfrac{3}{4} \\times 12 = 9$ cm et $\\dfrac{3}{4} \\times 8 = 6$ cm."
+            },
+            {
+              "expr": "",
+              "texte": "Aires : $12 \\times 8 = 96$ cm² puis $9 \\times 6 = 54$ cm²."
+            },
+            {
+              "expr": "\\dfrac{54}{96} = \\dfrac{9}{16} = \\dfrac{3}{4} \\times \\dfrac{3}{4}",
+              "texte": "Rapport :"
+            }
+          ],
+          "reponse": "L'aire est multipliée par $\\dfrac{9}{16}$, c'est-à-dire par $\\left(\\dfrac{3}{4}\\right)^2$.",
+          "conclusion": "Une réduction de rapport $k$ multiplie les aires par $k \\times k$ (on le retrouvera aux chapitres 9 et 13).",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Calculer le prix soldé d'un article vendu aux $\\dfrac{4}{5}$ de son prix.",
+        "Adapter une recette : les $\\dfrac{2}{3}$ de $\\dfrac{3}{4}$ L de lait.",
+        "Calculer une distance réelle à partir d'une carte à l'échelle."
+      ],
+      "erreursFrequentes": [
+        "Mettre au même dénominateur avant de multiplier : $\\dfrac{1}{2} \\times \\dfrac{1}{3} = \\dfrac{3}{6} \\times \\dfrac{2}{6} = \\dfrac{6}{6}$.",
+        "Multiplier un entier au numérateur ET au dénominateur : $3 \\times \\dfrac{2}{5} = \\dfrac{6}{15}$.",
+        "Simplifier en barrant des termes d'une somme : $\\dfrac{3 + 4}{3} = 4$.",
+        "Oublier le signe : $-\\dfrac{2}{3} \\times \\dfrac{3}{4} = \\dfrac{1}{2}$."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Mettre au même dénominateur avant de multiplier : $\\dfrac{1}{2} \\times \\dfrac{1}{3} = \\dfrac{3}{6} \\times \\dfrac{2}{6} = \\dfrac{6}{6}$.",
+          "pourquoi": "On confond la règle de l'addition et celle de la multiplication.",
+          "comment_detecter": "Le résultat $1$ est absurde : la moitié d'un tiers est plus petite qu'un tiers.",
+          "comment_eviter": "Pour un produit : haut fois haut, bas fois bas, sans dénominateur commun."
+        },
+        {
+          "description": "Multiplier un entier au numérateur ET au dénominateur : $3 \\times \\dfrac{2}{5} = \\dfrac{6}{15}$.",
+          "pourquoi": "Un entier s'écrit $\\dfrac{3}{1}$ : seul le numérateur est multiplié.",
+          "comment_detecter": "$\\dfrac{6}{15} = \\dfrac{2}{5}$ : on n'aurait rien multiplié du tout.",
+          "comment_eviter": "Écris l'entier sous la forme $\\dfrac{3}{1}$ avant d'appliquer la règle."
+        },
+        {
+          "description": "Simplifier en barrant des termes d'une somme : $\\dfrac{3 + 4}{3} = 4$.",
+          "pourquoi": "On ne simplifie que des facteurs d'un produit.",
+          "comment_detecter": "Le numérateur est-il un produit ou une somme ?",
+          "comment_eviter": "Calcule d'abord la somme ($\\dfrac{7}{3}$), puis simplifie s'il y a un facteur commun."
+        },
+        {
+          "description": "Oublier le signe : $-\\dfrac{2}{3} \\times \\dfrac{3}{4} = \\dfrac{1}{2}$.",
+          "pourquoi": "On applique la règle de calcul mais pas la règle des signes.",
+          "comment_detecter": "Combien y a-t-il de facteurs négatifs ?",
+          "comment_eviter": "Écris le signe du résultat en premier."
+        }
+      ],
+      "astuce": "Pour calculer une fraction d'une quantité de tête, divise d'abord par le dénominateur : les $\\dfrac{5}{6}$ de $42$, c'est $42 \\div 6 = 7$, puis $5 \\times 7 = 35$.",
+      "aRetenir": [
+        "$\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$.",
+        "On simplifie avant d'effectuer les produits.",
+        "« Les $\\dfrac{a}{b}$ de » se traduit par une multiplication."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -1.4,
+          -1.4,
+          9.4,
+          8.8
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 6.0,
+                "y": 0
+              },
+              {
+                "x": 6.0,
+                "y": 6.0
+              },
+              {
+                "x": 0,
+                "y": 6.0
+              }
+            ],
+            "tooltip": "Le carré unité (aire 1)"
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 4.5,
+                "y": 0
+              },
+              {
+                "x": 4.5,
+                "y": 6.0
+              },
+              {
+                "x": 0,
+                "y": 6.0
+              }
+            ],
+            "variant": "a",
+            "tooltip": "3/4 du carré",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 4.5,
+                "y": 0
+              },
+              {
+                "x": 4.5,
+                "y": 4.0
+              },
+              {
+                "x": 0,
+                "y": 4.0
+              }
+            ],
+            "variant": "b",
+            "tooltip": "2/3 de ces 3/4",
+            "reveal": 3
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 1.5,
+              "y": 0
+            },
+            "to": {
+              "x": 1.5,
+              "y": 6.0
+            }
+          },
+          {
+            "from": {
+              "x": 3.0,
+              "y": 0
+            },
+            "to": {
+              "x": 3.0,
+              "y": 6.0
+            }
+          },
+          {
+            "from": {
+              "x": 4.5,
+              "y": 0
+            },
+            "to": {
+              "x": 4.5,
+              "y": 6.0
+            }
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 2.0
+            },
+            "to": {
+              "x": 6.0,
+              "y": 2.0
+            }
+          },
+          {
+            "from": {
+              "x": 0,
+              "y": 4.0
+            },
+            "to": {
+              "x": 6.0,
+              "y": 4.0
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.25,
+            "y": -0.6,
+            "label": "3/4 de la largeur",
+            "reveal": 2
+          },
+          {
+            "x": 6.9,
+            "y": 2.0,
+            "label": "2/3",
+            "reveal": 3
+          },
+          {
+            "x": 3.0,
+            "y": 6.6,
+            "label": "carré unité : 12 petits rectangles"
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Le carré unité",
+          "Trois quarts",
+          "Deux tiers de ces trois quarts"
+        ],
+        "relation": "$\\dfrac{2}{3} \\times \\dfrac{3}{4} = \\dfrac{2 \\times 3}{3 \\times 4} = \\dfrac{6}{12} = \\dfrac{1}{2}$",
+        "alt": "Carré unité partagé en 4 colonnes et 3 lignes : 3 colonnes sont colorées (3/4), puis 2 lignes de ces colonnes (2/3 de 3/4), soit 6 petits rectangles sur 12.",
+        "explication": {
+          "resume": "Prendre les $\\dfrac{2}{3}$ de $\\dfrac{3}{4}$, c'est colorier une partie d'une partie : on obtient $6$ petits rectangles sur $12$, soit $\\dfrac{1}{2}$ du carré.",
+          "lecture": [
+            "Le grand carré représente l'unité (son aire vaut $1$).",
+            "Les traits verticaux le partagent en quarts, les traits horizontaux en tiers.",
+            "Chaque petit rectangle vaut donc $\\dfrac{1}{12}$ du carré."
+          ],
+          "observations": [
+            "$\\dfrac{3}{4}$ du carré : $3$ colonnes, soit $9$ petits rectangles.",
+            "$\\dfrac{2}{3}$ de ces colonnes : $2$ lignes sur $3$, soit $6$ petits rectangles.",
+            "Le nombre de petits rectangles colorés est $2 \\times 3$ ; leur nombre total est $3 \\times 4$."
+          ],
+          "pieges": [
+            "Croire que multiplier rend toujours plus grand : multiplier par une fraction inférieure à $1$ donne un résultat plus petit."
+          ],
+          "aRetenir": [
+            "$\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$.",
+            "« Les $\\dfrac{2}{3}$ de » se traduit par « $\\dfrac{2}{3} \\times$ »."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        43101,
+        43102,
+        43105
+      ],
+      "topic_id": "fractions-multiplier",
+      "proprietes": [
+        "$\\dfrac{a}{b} \\times \\dfrac{c}{d} = \\dfrac{a \\times c}{b \\times d}$ ($b \\neq 0$, $d \\neq 0$)."
+      ],
+      "vocabulaire_associe": [
+        "produit",
+        "facteur",
+        "numérateur",
+        "dénominateur",
+        "fraction d'une quantité"
+      ],
+      "synonymes": [
+        "multiplication de fractions",
+        "produit de fractions"
+      ],
+      "objectifs_pedagogiques": [
+        "Multiplier des fractions positives ou négatives.",
+        "Simplifier un produit avant de le calculer.",
+        "Calculer une fraction d'une quantité.",
+        "Calculer une fraction d'une fraction."
+      ],
+      "prerequis": [
+        "Quotients égaux et simplification",
+        "Règle des signes du produit",
+        "Multiplier des entiers"
+      ],
+      "notions_liees": [
+        "fractions-inverse-diviser",
+        "fractions-calculs-problemes"
+      ],
+      "difficulte": "facile",
+      "tags": [
+        "fractions",
+        "multiplication",
+        "quantité"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fractions-multiplier-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Signes et fraction d'une fraction",
+          "description": "Deux exemples rédigés : un produit de trois fractions avec des signes, et la fraction d'une partie d'un collège."
+        },
+        {
+          "id": "fractions-multiplier-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Réduction et aire, et démonstration de la règle",
+          "description": "Un exemple sur l'effet d'une réduction sur une aire, et la démonstration de la règle du produit."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Sur la figure, combien de petits rectangles représenteraient $\\dfrac{1}{3} \\times \\dfrac{3}{4}$ ?",
+          "piste": "$1 \\times 3 = 3$ petits rectangles sur $12$, soit $\\dfrac{1}{4}$."
+        },
+        {
+          "apres": "methode",
+          "question": "Que valent les $\\dfrac{2}{7}$ de $35$ ?",
+          "piste": "$35 \\div 7 = 5$, puis $2 \\times 5 = 10$."
+        }
+      ],
+      "demonstration": {
+        "titre": "Démonstration — pourquoi multiplie-t-on « haut fois haut, bas fois bas » ?",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Le sens des quotients",
+            "texte": "$\\dfrac{a}{b} \\times b = a$ et $\\dfrac{c}{d} \\times d = c$ (par définition du quotient)."
+          },
+          {
+            "titre": "Étape 2 — On multiplie le produit par $b \\times d$",
+            "texte": "En réordonnant les facteurs : $\\left(\\dfrac{a}{b} \\times \\dfrac{c}{d}\\right) \\times (b \\times d) = \\left(\\dfrac{a}{b} \\times b\\right) \\times \\left(\\dfrac{c}{d} \\times d\\right) = a \\times c$."
+          },
+          {
+            "titre": "Étape 3 — Conclusion",
+            "texte": "Le produit $\\dfrac{a}{b} \\times \\dfrac{c}{d}$ est donc le nombre qui, multiplié par $b \\times d$, donne $a \\times c$ : c'est $\\dfrac{a \\times c}{b \\times d}$."
+          }
+        ],
+        "conclusion": "La règle n'est pas une recette : elle découle de la définition du quotient et de la possibilité de réordonner les facteurs d'un produit."
+      }
+    },
+    {
+      "id": "fractions-inverse-diviser",
+      "title": "Inverse et division de fractions",
+      "schemaVersion": 2,
+      "intro": "Diviser par une fraction peut sembler mystérieux. Une seule idée suffit : diviser par un nombre, c'est multiplier par son inverse. Cette leçon définit l'inverse et en déduit la division des fractions.",
+      "pourquoi": "La division par une fraction répond à des questions concrètes : combien de verres de $\\dfrac{1}{4}$ L dans une bouteille de $1{,}5$ L ? Elle sert aussi à résoudre des équations comme $\\dfrac{3}{4}x = 6$ et à calculer avec des vitesses ou des échelles.",
+      "explicationSimple": "Combien de demi-litres dans $3$ litres ? $6$, car il y en a $2$ par litre : diviser par $\\dfrac{1}{2}$, c'est multiplier par $2$. Le même raisonnement fonctionne pour toutes les fractions.",
+      "objectif": "À la fin de cette leçon, tu sauras trouver l'inverse d'un nombre non nul (entier, décimal ou fraction, positif ou négatif) et diviser par une fraction en multipliant par son inverse.",
+      "definition": "Deux nombres sont inverses l'un de l'autre lorsque leur produit est égal à $1$. Tout nombre non nul $x$ a un inverse, noté $\\dfrac{1}{x}$ ; l'inverse de $\\dfrac{a}{b}$ ($a \\neq 0$, $b \\neq 0$) est $\\dfrac{b}{a}$. Diviser par un nombre non nul revient à multiplier par son inverse : $\\dfrac{a}{b} \\div \\dfrac{c}{d} = \\dfrac{a}{b} \\times \\dfrac{d}{c}$.",
+      "definitions": {
+        "college": "L'inverse d'une fraction s'obtient en échangeant numérateur et dénominateur ; un nombre et son inverse ont pour produit $1$. Diviser par une fraction, c'est multiplier par son inverse.",
+        "lycee": "Deux nombres sont inverses l'un de l'autre lorsque leur produit est égal à $1$. Tout nombre non nul $x$ a un inverse, noté $\\dfrac{1}{x}$ ; l'inverse de $\\dfrac{a}{b}$ ($a \\neq 0$, $b \\neq 0$) est $\\dfrac{b}{a}$. Diviser par un nombre non nul revient à multiplier par son inverse : $\\dfrac{a}{b} \\div \\dfrac{c}{d} = \\dfrac{a}{b} \\times \\dfrac{d}{c}$."
+      },
+      "intuition": "Inverse et opposé sont deux « partenaires » différents d'un nombre : l'opposé permet de revenir à $0$ par une addition, l'inverse permet de revenir à $1$ par une multiplication.",
+      "reglesImportantes": [
+        "L'inverse de $\\dfrac{a}{b}$ est $\\dfrac{b}{a}$ (pour $a \\neq 0$) ; l'inverse d'un entier $n \\neq 0$ est $\\dfrac{1}{n}$.",
+        "Un nombre et son inverse ont le même signe : l'inverse de $-\\dfrac{2}{3}$ est $-\\dfrac{3}{2}$.",
+        "$0$ n'a pas d'inverse, car aucun nombre multiplié par $0$ ne donne $1$.",
+        "Diviser par un nombre non nul, c'est multiplier par son inverse : $\\dfrac{a}{b} \\div \\dfrac{c}{d} = \\dfrac{a}{b} \\times \\dfrac{d}{c}$.",
+        "Un quotient de fractions peut s'écrire avec une grande barre : $\\dfrac{\\;\\dfrac{a}{b}\\;}{\\dfrac{c}{d}} = \\dfrac{a}{b} \\times \\dfrac{d}{c}$."
+      ],
+      "formules": [
+        {
+          "id": "formule-inverse",
+          "nom": "Inverse d'une fraction",
+          "expression": "l'inverse de $\\dfrac{a}{b}$ est $\\dfrac{b}{a}$, car $\\dfrac{a}{b} \\times \\dfrac{b}{a} = 1$",
+          "quand_utiliser": "Pour tout nombre non nul écrit sous forme de fraction.",
+          "erreur_frequente": "Confondre inverse et opposé : l'inverse de $\\dfrac{2}{3}$ n'est pas $-\\dfrac{2}{3}$.",
+          "astuce": "On retourne la fraction, le signe ne change pas."
+        },
+        {
+          "id": "formule-division-fractions",
+          "nom": "Diviser par une fraction",
+          "expression": "$\\dfrac{a}{b} \\div \\dfrac{c}{d} = \\dfrac{a}{b} \\times \\dfrac{d}{c}$",
+          "quand_utiliser": "Pour toute division par un nombre non nul.",
+          "erreur_frequente": "Retourner la première fraction au lieu de la seconde.",
+          "astuce": "On garde la première, on change la division en multiplication, on retourne la seconde."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Diviser par une fraction",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Je vérifie que le diviseur n'est pas nul et je repère la fraction par laquelle on divise."
+          },
+          {
+            "icone": "sliders",
+            "couleur": "purple",
+            "texte": "J'écris l'inverse du diviseur (je retourne la fraction, le signe reste le même)."
+          },
+          {
+            "icone": "layers",
+            "couleur": "orange",
+            "texte": "Je remplace la division par la multiplication par cet inverse."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je calcule le produit en simplifiant, puis je contrôle l'ordre de grandeur."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je vérifie que le diviseur n'est pas nul et je repère la fraction par laquelle on divise."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "J'écris l'inverse du diviseur (je retourne la fraction, le signe reste le même)."
+            },
+            {
+              "icone": "layers",
+              "couleur": "orange",
+              "texte": "Je remplace la division par la multiplication par cet inverse."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je calcule le produit en simplifiant, puis je contrôle l'ordre de grandeur."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je recopie la première fraction sans la changer."
+            },
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Je remplace « $\\div$ » par « $\\times$ »."
+            },
+            {
+              "icone": "layers",
+              "couleur": "orange",
+              "texte": "Je retourne la deuxième fraction."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je multiplie comme d'habitude."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "sliders",
+              "couleur": "purple",
+              "texte": "Diviser par $\\dfrac{c}{d}$ = multiplier par $\\dfrac{d}{c}$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Simplifier avant de calculer."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-inverses",
+          "titre": "Exemple 1 — Trouver des inverses",
+          "enonce": "Donner l'inverse de $\\dfrac{5}{7}$, de $-4$ et de $0{,}2$.",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Inverse de $\\dfrac{5}{7}$ : on retourne la fraction, $\\dfrac{7}{5}$."
+            },
+            {
+              "expr": "",
+              "texte": "Inverse de $-4$ : $-\\dfrac{1}{4}$, car $(-4) \\times \\left(-\\dfrac{1}{4}\\right) = 1$."
+            },
+            {
+              "expr": "",
+              "texte": "$0{,}2 = \\dfrac{1}{5}$, donc son inverse est $5$ (vérification : $0{,}2 \\times 5 = 1$)."
+            }
+          ],
+          "reponse": "$\\dfrac{7}{5}$ ; $-\\dfrac{1}{4}$ ; $5$.",
+          "conclusion": "On vérifie toujours en multipliant : le produit doit valoir $1$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-division",
+          "titre": "Exemple 2 — Diviser deux fractions",
+          "enonce": "Calculer $\\dfrac{3}{8} \\div \\dfrac{9}{4}$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{3}{8} \\times \\dfrac{4}{9}",
+              "texte": "On multiplie par l'inverse de $\\dfrac{9}{4}$ :"
+            },
+            {
+              "expr": "\\dfrac{3 \\times 4}{2 \\times 4 \\times 3 \\times 3} = \\dfrac{1}{6}",
+              "texte": "On simplifie :"
+            }
+          ],
+          "reponse": "$\\dfrac{3}{8} \\div \\dfrac{9}{4} = \\dfrac{1}{6}$",
+          "conclusion": "Le résultat est plus petit que $\\dfrac{3}{8}$ car on divise par un nombre plus grand que $1$.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-verres",
+          "titre": "Exemple 3 — Combien de verres ?",
+          "enonce": "Combien de verres de $\\dfrac{3}{20}$ L peut-on remplir avec une bouteille de $1{,}5$ L ?",
+          "calcul": [
+            {
+              "expr": "\\dfrac{3}{2} \\div \\dfrac{3}{20} = \\dfrac{3}{2} \\times \\dfrac{20}{3} = \\dfrac{20}{2} = 10",
+              "texte": "On cherche combien de fois $\\dfrac{3}{20}$ est contenu dans $1{,}5 = \\dfrac{3}{2}$ :"
+            }
+          ],
+          "reponse": "On peut remplir $10$ verres.",
+          "conclusion": "La question « combien de fois… dans… » se traduit par une division.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-grande-barre",
+          "titre": "Exemple 4 — Une fraction de fractions",
+          "enonce": "Calculer $\\dfrac{\\;-\\dfrac{5}{6}\\;}{\\dfrac{10}{9}}$.",
+          "calcul": [
+            {
+              "expr": "-\\dfrac{5}{6} \\times \\dfrac{9}{10}",
+              "texte": "C'est le quotient de $-\\dfrac{5}{6}$ par $\\dfrac{10}{9}$ :"
+            },
+            {
+              "expr": "-\\dfrac{5 \\times 3 \\times 3}{2 \\times 3 \\times 2 \\times 5} = -\\dfrac{3}{4}",
+              "texte": "Signes contraires : négatif."
+            }
+          ],
+          "reponse": "$-\\dfrac{3}{4}$",
+          "conclusion": "La grande barre de fraction signifie une division.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-equation-fraction",
+          "titre": "Exemple 5 — Retrouver un nombre",
+          "enonce": "Les $\\dfrac{3}{4}$ d'un nombre valent $\\dfrac{9}{10}$. Quel est ce nombre ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "On cherche $x$ tel que $\\dfrac{3}{4} \\times x = \\dfrac{9}{10}$, donc $x = \\dfrac{9}{10} \\div \\dfrac{3}{4}$."
+            },
+            {
+              "expr": "\\dfrac{9}{10} \\times \\dfrac{4}{3} = \\dfrac{36}{30} = \\dfrac{6}{5}",
+              "texte": "Calcul :"
+            },
+            {
+              "expr": "\\dfrac{3}{4} \\times \\dfrac{6}{5} = \\dfrac{18}{20} = \\dfrac{9}{10}",
+              "texte": "Vérification :"
+            }
+          ],
+          "reponse": "Le nombre est $\\dfrac{6}{5}$, soit $1{,}2$.",
+          "conclusion": "Remonter d'une fraction d'un nombre vers le nombre lui-même demande une division : c'est la première étape vers les équations.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Combien de tartes de $\\dfrac{1}{8}$ de kilo de pâte avec $\\dfrac{3}{2}$ kg ?",
+        "Une voiture parcourt $\\dfrac{3}{4}$ de km en $\\dfrac{1}{2}$ minute : combien de km par minute ?",
+        "Retrouver le prix initial d'un article à partir de son prix soldé."
+      ],
+      "erreursFrequentes": [
+        "Confondre inverse et opposé : donner $-\\dfrac{3}{5}$ comme inverse de $\\dfrac{3}{5}$.",
+        "Retourner la première fraction au lieu du diviseur : $\\dfrac{3}{8} \\div \\dfrac{9}{4} = \\dfrac{8}{3} \\times \\dfrac{9}{4}$.",
+        "Changer le signe en prenant l'inverse : inverse de $-\\dfrac{2}{3}$ égal à $\\dfrac{3}{2}$.",
+        "Penser qu'une division donne toujours un résultat plus petit."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Confondre inverse et opposé : donner $-\\dfrac{3}{5}$ comme inverse de $\\dfrac{3}{5}$.",
+          "pourquoi": "Les deux notions « retournent » le nombre, mais pas de la même façon.",
+          "comment_detecter": "Le produit du nombre et de ton résultat vaut-il $1$ ?",
+          "comment_eviter": "Inverse : produit égal à $1$, on retourne la fraction. Opposé : somme égale à $0$, on change le signe."
+        },
+        {
+          "description": "Retourner la première fraction au lieu du diviseur : $\\dfrac{3}{8} \\div \\dfrac{9}{4} = \\dfrac{8}{3} \\times \\dfrac{9}{4}$.",
+          "pourquoi": "On retient « on retourne » sans savoir quelle fraction retourner.",
+          "comment_detecter": "Quelle est la fraction PAR laquelle on divise ?",
+          "comment_eviter": "Seul le diviseur (après le signe $\\div$) est retourné."
+        },
+        {
+          "description": "Changer le signe en prenant l'inverse : inverse de $-\\dfrac{2}{3}$ égal à $\\dfrac{3}{2}$.",
+          "pourquoi": "On mélange inverse et opposé.",
+          "comment_detecter": "$\\left(-\\dfrac{2}{3}\\right) \\times \\dfrac{3}{2} = -1$, pas $1$.",
+          "comment_eviter": "Un nombre et son inverse ont toujours le même signe."
+        },
+        {
+          "description": "Penser qu'une division donne toujours un résultat plus petit.",
+          "pourquoi": "C'est vrai seulement quand on divise par un nombre plus grand que $1$.",
+          "comment_detecter": "Le diviseur est-il plus petit que $1$ ?",
+          "comment_eviter": "Diviser par un nombre entre $0$ et $1$ augmente le résultat : $3 \\div \\dfrac{1}{4} = 12$."
+        }
+      ],
+      "astuce": "Pour vérifier une division, multiplie : si $\\dfrac{a}{b} \\div \\dfrac{c}{d} = q$, alors $q \\times \\dfrac{c}{d}$ doit redonner $\\dfrac{a}{b}$.",
+      "aRetenir": [
+        "Inverse de $\\dfrac{a}{b}$ : $\\dfrac{b}{a}$ ; même signe ; $0$ n'a pas d'inverse.",
+        "Diviser par un nombre, c'est multiplier par son inverse.",
+        "Vérification : quotient $\\times$ diviseur $=$ dividende."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -1.8,
+          11.0,
+          3.6
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [
+          {
+            "x": 0,
+            "y": 0,
+            "label": "0"
+          },
+          {
+            "x": 3.0,
+            "y": 0,
+            "label": "1"
+          },
+          {
+            "x": 6.0,
+            "y": 0,
+            "label": "2"
+          },
+          {
+            "x": 9.0,
+            "y": 0,
+            "label": "3"
+          }
+        ],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0.04,
+                "y": 0.25
+              },
+              {
+                "x": 0.71,
+                "y": 0.25
+              },
+              {
+                "x": 0.71,
+                "y": 0.6
+              },
+              {
+                "x": 0.04,
+                "y": 0.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "Quart n° 1",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 0.79,
+                "y": 0.25
+              },
+              {
+                "x": 1.46,
+                "y": 0.25
+              },
+              {
+                "x": 1.46,
+                "y": 0.6
+              },
+              {
+                "x": 0.79,
+                "y": 0.6
+              }
+            ],
+            "variant": "b",
+            "tooltip": "Quart n° 2",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 1.54,
+                "y": 0.25
+              },
+              {
+                "x": 2.21,
+                "y": 0.25
+              },
+              {
+                "x": 2.21,
+                "y": 0.6
+              },
+              {
+                "x": 1.54,
+                "y": 0.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "Quart n° 3",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 2.29,
+                "y": 0.25
+              },
+              {
+                "x": 2.96,
+                "y": 0.25
+              },
+              {
+                "x": 2.96,
+                "y": 0.6
+              },
+              {
+                "x": 2.29,
+                "y": 0.6
+              }
+            ],
+            "variant": "b",
+            "tooltip": "Quart n° 4",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 3.04,
+                "y": 0.25
+              },
+              {
+                "x": 3.71,
+                "y": 0.25
+              },
+              {
+                "x": 3.71,
+                "y": 0.6
+              },
+              {
+                "x": 3.04,
+                "y": 0.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "Quart n° 5",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 3.79,
+                "y": 0.25
+              },
+              {
+                "x": 4.46,
+                "y": 0.25
+              },
+              {
+                "x": 4.46,
+                "y": 0.6
+              },
+              {
+                "x": 3.79,
+                "y": 0.6
+              }
+            ],
+            "variant": "b",
+            "tooltip": "Quart n° 6",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 4.54,
+                "y": 0.25
+              },
+              {
+                "x": 5.21,
+                "y": 0.25
+              },
+              {
+                "x": 5.21,
+                "y": 0.6
+              },
+              {
+                "x": 4.54,
+                "y": 0.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "Quart n° 7",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 5.29,
+                "y": 0.25
+              },
+              {
+                "x": 5.96,
+                "y": 0.25
+              },
+              {
+                "x": 5.96,
+                "y": 0.6
+              },
+              {
+                "x": 5.29,
+                "y": 0.6
+              }
+            ],
+            "variant": "b",
+            "tooltip": "Quart n° 8",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 6.04,
+                "y": 0.25
+              },
+              {
+                "x": 6.71,
+                "y": 0.25
+              },
+              {
+                "x": 6.71,
+                "y": 0.6
+              },
+              {
+                "x": 6.04,
+                "y": 0.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "Quart n° 9",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 6.79,
+                "y": 0.25
+              },
+              {
+                "x": 7.46,
+                "y": 0.25
+              },
+              {
+                "x": 7.46,
+                "y": 0.6
+              },
+              {
+                "x": 6.79,
+                "y": 0.6
+              }
+            ],
+            "variant": "b",
+            "tooltip": "Quart n° 10",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 7.54,
+                "y": 0.25
+              },
+              {
+                "x": 8.21,
+                "y": 0.25
+              },
+              {
+                "x": 8.21,
+                "y": 0.6
+              },
+              {
+                "x": 7.54,
+                "y": 0.6
+              }
+            ],
+            "variant": "a",
+            "tooltip": "Quart n° 11",
+            "reveal": 2
+          },
+          {
+            "points": [
+              {
+                "x": 8.29,
+                "y": 0.25
+              },
+              {
+                "x": 8.96,
+                "y": 0.25
+              },
+              {
+                "x": 8.96,
+                "y": 0.6
+              },
+              {
+                "x": 8.29,
+                "y": 0.6
+              }
+            ],
+            "variant": "b",
+            "tooltip": "Quart n° 12",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": -0.3,
+              "y": 0
+            },
+            "to": {
+              "x": 9.4,
+              "y": 0
+            },
+            "tooltip": "Droite graduée en quarts"
+          },
+          {
+            "from": {
+              "x": 0.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 0.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 0.75,
+              "y": -0.12
+            },
+            "to": {
+              "x": 0.75,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 1.5,
+              "y": -0.12
+            },
+            "to": {
+              "x": 1.5,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 2.25,
+              "y": -0.12
+            },
+            "to": {
+              "x": 2.25,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 3.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 3.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 3.75,
+              "y": -0.12
+            },
+            "to": {
+              "x": 3.75,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 4.5,
+              "y": -0.12
+            },
+            "to": {
+              "x": 4.5,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 5.25,
+              "y": -0.12
+            },
+            "to": {
+              "x": 5.25,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 6.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 6.0,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 6.75,
+              "y": -0.12
+            },
+            "to": {
+              "x": 6.75,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 7.5,
+              "y": -0.12
+            },
+            "to": {
+              "x": 7.5,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 8.25,
+              "y": -0.12
+            },
+            "to": {
+              "x": 8.25,
+              "y": 0.12
+            }
+          },
+          {
+            "from": {
+              "x": 9.0,
+              "y": -0.12
+            },
+            "to": {
+              "x": 9.0,
+              "y": 0.12
+            }
+          }
+        ],
+        "texts": [
+          {
+            "x": 4.5,
+            "y": 1.2,
+            "label": "12 quarts",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "De 0 à 3",
+          "On découpe en quarts",
+          "On compte les quarts"
+        ],
+        "relation": "$3 \\div \\dfrac{1}{4} = 3 \\times 4 = 12$",
+        "alt": "Droite graduée de 0 à 3, découpée en quarts : douze petites bandes d'un quart remplissent l'intervalle de 0 à 3.",
+        "explication": {
+          "resume": "Diviser $3$ par $\\dfrac{1}{4}$, c'est chercher combien de quarts on peut mettre dans $3$ : il y en a $4$ par unité, donc $12$.",
+          "lecture": [
+            "Chaque graduation correspond à un quart.",
+            "Chaque bande colorée représente un morceau de longueur $\\dfrac{1}{4}$."
+          ],
+          "observations": [
+            "Entre $0$ et $1$, il y a $4$ quarts ; entre $0$ et $3$, il y en a $3 \\times 4 = 12$.",
+            "Diviser par $\\dfrac{1}{4}$ revient donc à multiplier par $4$, l'inverse de $\\dfrac{1}{4}$.",
+            "Le résultat ($12$) est plus grand que $3$ : diviser par un nombre plus petit que $1$ augmente le résultat."
+          ],
+          "pieges": [
+            "Penser qu'une division donne toujours un résultat plus petit."
+          ],
+          "aRetenir": [
+            "Diviser par une fraction, c'est multiplier par son inverse.",
+            "$a \\div \\dfrac{c}{d} = a \\times \\dfrac{d}{c}$."
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        43201,
+        43202,
+        43206
+      ],
+      "topic_id": "fractions-inverse-diviser",
+      "proprietes": [
+        "Pour $c \\neq 0$ et $d \\neq 0$ : $\\dfrac{a}{b} \\div \\dfrac{c}{d} = \\dfrac{a}{b} \\times \\dfrac{d}{c}$."
+      ],
+      "vocabulaire_associe": [
+        "inverse",
+        "opposé",
+        "quotient",
+        "diviseur",
+        "dividende"
+      ],
+      "synonymes": [
+        "division de fractions",
+        "inverse d'un nombre"
+      ],
+      "objectifs_pedagogiques": [
+        "Trouver l'inverse d'un nombre non nul.",
+        "Distinguer inverse et opposé.",
+        "Diviser par une fraction.",
+        "Résoudre un problème de division (« combien de fois »)."
+      ],
+      "prerequis": [
+        "Multiplier des fractions",
+        "Diviser des nombres relatifs",
+        "Opposé d'un nombre"
+      ],
+      "notions_liees": [
+        "fractions-multiplier",
+        "fractions-calculs-problemes"
+      ],
+      "difficulte": "moyen",
+      "tags": [
+        "fractions",
+        "division",
+        "inverse"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fractions-inverse-diviser-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Verres à remplir et grande barre de fraction",
+          "description": "Deux exemples rédigés : un problème « combien de fois » et un quotient de fractions écrit avec une grande barre."
+        },
+        {
+          "id": "fractions-inverse-diviser-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Retrouver un nombre et démonstration",
+          "description": "Un exemple où l'on retrouve un nombre dont on connaît une fraction, et la démonstration de la règle de division."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Combien de quarts y a-t-il dans $5$ ?",
+          "piste": "$5 \\div \\dfrac{1}{4} = 5 \\times 4 = 20$."
+        },
+        {
+          "apres": "methode",
+          "question": "Quel est l'inverse de $-\\dfrac{7}{2}$ ?",
+          "piste": "$-\\dfrac{2}{7}$ (même signe)."
+        }
+      ],
+      "demonstration": {
+        "titre": "Démonstration — pourquoi diviser revient-il à multiplier par l'inverse ?",
+        "etapes": [
+          {
+            "titre": "Étape 1 — Ce que l'on cherche",
+            "texte": "Le quotient $q = \\dfrac{a}{b} \\div \\dfrac{c}{d}$ est le nombre tel que $q \\times \\dfrac{c}{d} = \\dfrac{a}{b}$."
+          },
+          {
+            "titre": "Étape 2 — On teste le candidat",
+            "texte": "Avec $q = \\dfrac{a}{b} \\times \\dfrac{d}{c}$ : $q \\times \\dfrac{c}{d} = \\dfrac{a}{b} \\times \\left(\\dfrac{d}{c} \\times \\dfrac{c}{d}\\right) = \\dfrac{a}{b} \\times 1 = \\dfrac{a}{b}$."
+          },
+          {
+            "titre": "Étape 3 — Conclusion",
+            "texte": "Ce nombre vérifie bien la définition : $\\dfrac{a}{b} \\div \\dfrac{c}{d} = \\dfrac{a}{b} \\times \\dfrac{d}{c}$."
+          }
+        ],
+        "conclusion": "Tout repose sur une seule égalité : un nombre multiplié par son inverse donne $1$."
+      }
+    },
+    {
+      "id": "fractions-calculs-problemes",
+      "title": "Enchaîner les opérations et résoudre des problèmes",
+      "schemaVersion": 2,
+      "intro": "Tu sais maintenant faire les quatre opérations avec des fractions. Cette leçon les combine : priorités opératoires, fractions d'un reste, et problèmes à plusieurs étapes.",
+      "pourquoi": "Les problèmes réels mélangent les opérations : on dépense une fraction d'une somme, puis une fraction de ce qui reste… Savoir choisir la bonne opération et la mener sans erreur est l'objectif final du travail sur les fractions.",
+      "explicationSimple": "Si tu dépenses le tiers de ton argent puis le quart de ce qui reste, la deuxième dépense est plus petite qu'un quart de ton argent de départ : elle porte sur un « petit tout » (le reste).",
+      "objectif": "À la fin de cette leçon, tu sauras calculer une expression contenant des fractions et plusieurs opérations, traduire « une fraction du reste » par un calcul, et résoudre un problème en plusieurs étapes.",
+      "definition": "Avec les fractions, les priorités opératoires sont les mêmes qu'avec les autres nombres : parenthèses, puis multiplications et divisions, puis additions et soustractions. Dans un problème, une fraction « de » une quantité se traduit par une multiplication ; « une fraction du reste » s'applique à ce qui reste, pas au tout.",
+      "definitions": {
+        "college": "Mêmes priorités qu'avec les nombres décimaux. « Une fraction de… » : multiplication. « Une fraction du reste » : on calcule d'abord le reste.",
+        "lycee": "Avec les fractions, les priorités opératoires sont les mêmes qu'avec les autres nombres : parenthèses, puis multiplications et divisions, puis additions et soustractions. Dans un problème, une fraction « de » une quantité se traduit par une multiplication ; « une fraction du reste » s'applique à ce qui reste, pas au tout."
+      },
+      "intuition": "Dans un problème de fractions, la question clé est toujours « de quoi cette fraction est-elle une part ? ». Répondre à cette question indique s'il faut additionner (même tout) ou multiplier (fraction d'une partie).",
+      "reglesImportantes": [
+        "Priorités : parenthèses, puis $\\times$ et $\\div$, puis $+$ et $-$ ; les fractions ne changent rien à ces règles.",
+        "On calcule chaque étape sous forme de fraction irréductible avant de passer à la suivante.",
+        "« La fraction $p$ d'une quantité $Q$ » se calcule par $p \\times Q$.",
+        "« La fraction $q$ du reste » : on calcule d'abord le reste ($1 - p$ du tout), puis on prend $q \\times (1 - p)$.",
+        "Pour retrouver un tout dont on connaît une fraction, on divise par cette fraction (multiplication par l'inverse)."
+      ],
+      "formules": [
+        {
+          "id": "formule-fraction-du-reste",
+          "nom": "Fraction du reste",
+          "expression": "part $= q \\times (1 - p)$",
+          "quand_utiliser": "Quand une seconde fraction porte sur ce qui reste après une première part $p$.",
+          "erreur_frequente": "Additionner directement $p + q$.",
+          "astuce": "Dessine une bande : le reste est une nouvelle unité."
+        },
+        {
+          "id": "formule-tout-a-partir-partie",
+          "nom": "Retrouver le tout",
+          "expression": "si $p \\times T = A$, alors $T = A \\div p$",
+          "quand_utiliser": "Quand on connaît une part $A$ et la fraction $p$ qu'elle représente.",
+          "erreur_frequente": "Multiplier $A$ par $p$ au lieu de diviser.",
+          "astuce": "Le tout est plus grand que la part : vérifie que ton résultat l'est aussi."
+        }
+      ],
+      "methode": {
+        "titre": "Méthode — Résoudre un problème avec des fractions",
+        "etapes": [
+          {
+            "icone": "search",
+            "couleur": "blue",
+            "texte": "Pour chaque fraction de l'énoncé, je repère de quel tout elle est une part."
+          },
+          {
+            "icone": "layers",
+            "couleur": "purple",
+            "texte": "Je choisis l'opération : même tout, j'additionne ; part d'une partie, je multiplie ; tout inconnu, je divise."
+          },
+          {
+            "icone": "penSquare",
+            "couleur": "orange",
+            "texte": "J'écris le calcul complet avec ses parenthèses, puis je le mène en respectant les priorités."
+          },
+          {
+            "icone": "check",
+            "couleur": "green",
+            "texte": "Je contrôle la cohérence (une part ne dépasse pas le tout) et je rédige la réponse."
+          }
+        ],
+        "etapesParNiveau": {
+          "normal": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Pour chaque fraction de l'énoncé, je repère de quel tout elle est une part."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je choisis l'opération : même tout, j'additionne ; part d'une partie, je multiplie ; tout inconnu, je divise."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "J'écris le calcul complet avec ses parenthèses, puis je le mène en respectant les priorités."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je contrôle la cohérence (une part ne dépasse pas le tout) et je rédige la réponse."
+            }
+          ],
+          "debutant": [
+            {
+              "icone": "search",
+              "couleur": "blue",
+              "texte": "Je fais un schéma en bande du tout."
+            },
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "Je colorie chaque part dans l'ordre de l'énoncé."
+            },
+            {
+              "icone": "penSquare",
+              "couleur": "orange",
+              "texte": "J'écris un calcul par étape."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Je réponds par une phrase."
+            }
+          ],
+          "rapide": [
+            {
+              "icone": "layers",
+              "couleur": "purple",
+              "texte": "« de » : $\\times$ ; « du reste » : $\\times (1 - p)$ ; tout inconnu : $\\div$."
+            },
+            {
+              "icone": "check",
+              "couleur": "green",
+              "texte": "Priorités opératoires habituelles."
+            }
+          ]
+        }
+      },
+      "exemples": [
+        {
+          "id": "exemple-priorites-fractions",
+          "titre": "Exemple 1 — Priorités avec des fractions",
+          "enonce": "Calculer $A = \\dfrac{1}{2} + \\dfrac{3}{4} \\times \\dfrac{2}{9}$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{3}{4} \\times \\dfrac{2}{9} = \\dfrac{6}{36} = \\dfrac{1}{6}",
+              "texte": "Multiplication d'abord :"
+            },
+            {
+              "expr": "A = \\dfrac{1}{2} + \\dfrac{1}{6} = \\dfrac{3}{6} + \\dfrac{1}{6} = \\dfrac{4}{6} = \\dfrac{2}{3}",
+              "texte": "Addition :"
+            }
+          ],
+          "reponse": "$A = \\dfrac{2}{3}$",
+          "conclusion": "Comme avec les décimaux, la multiplication passe avant l'addition.",
+          "difficulte": "facile",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-reste",
+          "titre": "Exemple 2 — Le quart du reste",
+          "enonce": "Lou consacre $\\dfrac{1}{3}$ de son salaire au loyer, puis le quart de ce qui reste aux courses. Quelle fraction de son salaire lui reste-t-il ?",
+          "calcul": [
+            {
+              "expr": "1 - \\dfrac{1}{3} = \\dfrac{2}{3}",
+              "texte": "Après le loyer, il reste :"
+            },
+            {
+              "expr": "\\dfrac{1}{4} \\times \\dfrac{2}{3} = \\dfrac{2}{12} = \\dfrac{1}{6}",
+              "texte": "Courses : le quart de ce reste,"
+            },
+            {
+              "expr": "\\dfrac{2}{3} - \\dfrac{1}{6} = \\dfrac{4}{6} - \\dfrac{1}{6} = \\dfrac{3}{6} = \\dfrac{1}{2}",
+              "texte": "Il reste :"
+            }
+          ],
+          "reponse": "Il lui reste la moitié de son salaire.",
+          "conclusion": "Le quart du reste vaut $\\dfrac{1}{6}$ du salaire, pas $\\dfrac{1}{4}$.",
+          "difficulte": "moyen",
+          "niveauAcces": "free"
+        },
+        {
+          "id": "exemple-tout-inconnu",
+          "titre": "Exemple 3 — Retrouver le tout",
+          "enonce": "Après avoir parcouru les $\\dfrac{5}{8}$ d'un trajet, il reste $24$ km à faire. Quelle est la longueur du trajet ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Il reste $1 - \\dfrac{5}{8} = \\dfrac{3}{8}$ du trajet, soit $24$ km."
+            },
+            {
+              "expr": "24 \\div \\dfrac{3}{8} = 24 \\times \\dfrac{8}{3} = 64",
+              "texte": "Le trajet mesure :"
+            }
+          ],
+          "reponse": "Le trajet mesure $64$ km.",
+          "conclusion": "Contrôle : les $\\dfrac{3}{8}$ de $64$ valent bien $24$.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-expression-complexe",
+          "titre": "Exemple 4 — Une expression complète",
+          "enonce": "Calculer $B = \\left(\\dfrac{2}{3} - \\dfrac{5}{6}\\right) \\div \\left(1 - \\dfrac{3}{4}\\right)$.",
+          "calcul": [
+            {
+              "expr": "\\dfrac{4}{6} - \\dfrac{5}{6} = -\\dfrac{1}{6}",
+              "texte": "Première parenthèse :"
+            },
+            {
+              "expr": "1 - \\dfrac{3}{4} = \\dfrac{1}{4}",
+              "texte": "Seconde parenthèse :"
+            },
+            {
+              "expr": "-\\dfrac{1}{6} \\div \\dfrac{1}{4} = -\\dfrac{1}{6} \\times 4 = -\\dfrac{4}{6} = -\\dfrac{2}{3}",
+              "texte": "Quotient :"
+            }
+          ],
+          "reponse": "$B = -\\dfrac{2}{3}$",
+          "conclusion": "On calcule chaque parenthèse séparément avant de diviser.",
+          "difficulte": "moyen",
+          "niveauAcces": "premium"
+        },
+        {
+          "id": "exemple-heritage",
+          "titre": "Exemple 5 — Un partage en plusieurs étapes",
+          "enonce": "Une somme est partagée entre trois enfants. Le premier reçoit les $\\dfrac{2}{5}$ de la somme, le deuxième les $\\dfrac{2}{3}$ du reste, et le troisième reçoit $1\\,200$ €. Quelle est la somme partagée ?",
+          "calcul": [
+            {
+              "expr": "",
+              "texte": "Après le premier : il reste $\\dfrac{3}{5}$ de la somme."
+            },
+            {
+              "expr": "",
+              "texte": "Le deuxième reçoit $\\dfrac{2}{3} \\times \\dfrac{3}{5} = \\dfrac{2}{5}$ ; il reste $\\dfrac{3}{5} - \\dfrac{2}{5} = \\dfrac{1}{5}$ pour le troisième."
+            },
+            {
+              "expr": "1\\,200 \\div \\dfrac{1}{5} = 6\\,000",
+              "texte": "$\\dfrac{1}{5}$ de la somme vaut $1\\,200$ € :"
+            }
+          ],
+          "reponse": "La somme partagée est de $6\\,000$ €.",
+          "conclusion": "Contrôle : $2\\,400 + 2\\,400 + 1\\,200 = 6\\,000$ €.",
+          "difficulte": "difficile",
+          "niveauAcces": "ultra"
+        }
+      ],
+      "exemplesConcrets": [
+        "Calculer ce qu'il reste d'un salaire après plusieurs dépenses successives.",
+        "Retrouver la longueur d'un trajet à partir de la distance restante.",
+        "Partager un héritage ou un gain en plusieurs étapes."
+      ],
+      "erreursFrequentes": [
+        "Ajouter une fraction du reste à la première fraction : $\\dfrac{1}{3} + \\dfrac{1}{4}$ pour « le tiers puis le quart du reste ».",
+        "Ne pas respecter les priorités : $\\dfrac{1}{2} + \\dfrac{3}{4} \\times \\dfrac{2}{9} = \\dfrac{5}{4} \\times \\dfrac{2}{9}$.",
+        "Multiplier au lieu de diviser pour retrouver le tout : $24 \\times \\dfrac{3}{8} = 9$ km pour la longueur totale.",
+        "Oublier de simplifier à chaque étape et se retrouver avec de très grands nombres."
+      ],
+      "erreursFrequentesDetail": [
+        {
+          "description": "Ajouter une fraction du reste à la première fraction : $\\dfrac{1}{3} + \\dfrac{1}{4}$ pour « le tiers puis le quart du reste ».",
+          "pourquoi": "Les deux fractions ne portent pas sur le même tout.",
+          "comment_detecter": "La deuxième fraction s'applique-t-elle au tout ou au reste ?",
+          "comment_eviter": "Calcule le reste, puis multiplie : $\\dfrac{1}{4} \\times \\dfrac{2}{3}$."
+        },
+        {
+          "description": "Ne pas respecter les priorités : $\\dfrac{1}{2} + \\dfrac{3}{4} \\times \\dfrac{2}{9} = \\dfrac{5}{4} \\times \\dfrac{2}{9}$.",
+          "pourquoi": "On calcule dans l'ordre de lecture.",
+          "comment_detecter": "Y a-t-il une multiplication à effectuer en premier ?",
+          "comment_eviter": "Souligne les opérations prioritaires avant de calculer."
+        },
+        {
+          "description": "Multiplier au lieu de diviser pour retrouver le tout : $24 \\times \\dfrac{3}{8} = 9$ km pour la longueur totale.",
+          "pourquoi": "On reconnaît une fraction et on multiplie par réflexe.",
+          "comment_detecter": "Le tout peut-il être plus petit que la partie connue ($24$ km) ?",
+          "comment_eviter": "Si $p \\times T = A$, alors $T = A \\div p$."
+        },
+        {
+          "description": "Oublier de simplifier à chaque étape et se retrouver avec de très grands nombres.",
+          "pourquoi": "On reporte des fractions non simplifiées dans la suite du calcul.",
+          "comment_detecter": "Tes numérateurs et dénominateurs deviennent-ils énormes ?",
+          "comment_eviter": "Simplifie chaque résultat intermédiaire."
+        }
+      ],
+      "astuce": "Dans un problème de partage, fais un schéma en bande : la longueur totale est le tout, et chaque étape colorie une partie. Le schéma montre immédiatement sur quel « tout » porte chaque fraction.",
+      "aRetenir": [
+        "Mêmes priorités qu'avec les décimaux.",
+        "« Fraction de » : multiplication ; « fraction du reste » : on calcule d'abord le reste.",
+        "Tout inconnu : on divise la part connue par la fraction qu'elle représente."
+      ],
+      "figure": {
+        "kind": "geom",
+        "viewBox": [
+          -0.8,
+          -2.0,
+          13.6,
+          4.4
+        ],
+        "grid": false,
+        "axes": false,
+        "points": [],
+        "polygons": [
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 12.0,
+                "y": 0
+              },
+              {
+                "x": 12.0,
+                "y": 1.2
+              },
+              {
+                "x": 0,
+                "y": 1.2
+              }
+            ],
+            "tooltip": "Le salaire entier"
+          },
+          {
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 4.0,
+                "y": 0
+              },
+              {
+                "x": 4.0,
+                "y": 1.2
+              },
+              {
+                "x": 0,
+                "y": 1.2
+              }
+            ],
+            "variant": "a",
+            "tooltip": "Loyer : 1/3"
+          },
+          {
+            "points": [
+              {
+                "x": 4.0,
+                "y": 0
+              },
+              {
+                "x": 6.0,
+                "y": 0
+              },
+              {
+                "x": 6.0,
+                "y": 1.2
+              },
+              {
+                "x": 4.0,
+                "y": 1.2
+              }
+            ],
+            "variant": "b",
+            "tooltip": "Courses : 1/4 du reste = 1/6",
+            "reveal": 2
+          }
+        ],
+        "segments": [
+          {
+            "from": {
+              "x": 4.0,
+              "y": -0.3
+            },
+            "to": {
+              "x": 4.0,
+              "y": 1.5
+            }
+          },
+          {
+            "from": {
+              "x": 4.0,
+              "y": 1.9
+            },
+            "to": {
+              "x": 12.0,
+              "y": 1.9
+            },
+            "reveal": 2,
+            "tooltip": "Le reste : 2/3 du salaire"
+          },
+          {
+            "from": {
+              "x": 6.0,
+              "y": -0.6
+            },
+            "to": {
+              "x": 12.0,
+              "y": -0.6
+            },
+            "reveal": 3,
+            "tooltip": "Ce qui reste à la fin : 1/2"
+          }
+        ],
+        "texts": [
+          {
+            "x": 2.0,
+            "y": 0.6,
+            "label": "1/3"
+          },
+          {
+            "x": 8.0,
+            "y": 2.4,
+            "label": "reste : 2/3",
+            "reveal": 2
+          },
+          {
+            "x": 5.0,
+            "y": 0.6,
+            "label": "1/6",
+            "reveal": 2
+          },
+          {
+            "x": 9.0,
+            "y": -1.2,
+            "label": "il reste 1/2",
+            "reveal": 3
+          }
+        ],
+        "emphasis": true,
+        "steps": [
+          "Le loyer",
+          "Le quart du reste",
+          "Ce qui reste"
+        ],
+        "relation": "$\\dfrac{1}{4} \\times \\left(1 - \\dfrac{1}{3}\\right) = \\dfrac{1}{4} \\times \\dfrac{2}{3} = \\dfrac{1}{6}$, puis $1 - \\dfrac{1}{3} - \\dfrac{1}{6} = \\dfrac{1}{2}$",
+        "alt": "Bande représentant un salaire : le premier tiers est le loyer ; le quart de la partie restante (un sixième du salaire) est consacré aux courses ; il reste la moitié du salaire.",
+        "explication": {
+          "resume": "« Le quart du reste » n'est pas le quart du salaire : c'est le quart des $\\dfrac{2}{3}$ restants, soit $\\dfrac{1}{6}$ du salaire.",
+          "lecture": [
+            "La bande entière représente le salaire (le nombre $1$).",
+            "L'accolade du haut délimite le reste après le loyer."
+          ],
+          "observations": [
+            "Après le loyer, il reste $\\dfrac{2}{3}$ du salaire.",
+            "Le quart de ce reste mesure $\\dfrac{1}{4} \\times \\dfrac{2}{3} = \\dfrac{1}{6}$ de la bande.",
+            "À la fin, il reste $1 - \\dfrac{1}{3} - \\dfrac{1}{6} = \\dfrac{1}{2}$ du salaire."
+          ],
+          "pieges": [
+            "Additionner $\\dfrac{1}{3}$ et $\\dfrac{1}{4}$ : le quart ne porte pas sur le même tout."
+          ],
+          "aRetenir": [
+            "« Une fraction d'une quantité » se calcule par une multiplication.",
+            "Toujours se demander : de quoi cette fraction est-elle une part ?"
+          ]
+        }
+      },
+      "quizExerciseIds": [
+        43301,
+        43302,
+        43305
+      ],
+      "topic_id": "fractions-calculs-problemes",
+      "proprietes": [
+        "La fraction $q$ du reste après une part $p$ représente $q \\times (1 - p)$ du tout."
+      ],
+      "vocabulaire_associe": [
+        "priorité",
+        "reste",
+        "partage",
+        "tout",
+        "fraction de"
+      ],
+      "synonymes": [
+        "problèmes de fractions",
+        "calculs avec fractions"
+      ],
+      "objectifs_pedagogiques": [
+        "Calculer une expression avec fractions et priorités.",
+        "Traduire « une fraction du reste ».",
+        "Retrouver un tout à partir d'une partie.",
+        "Résoudre un problème à plusieurs étapes."
+      ],
+      "prerequis": [
+        "Multiplier des fractions",
+        "Diviser par une fraction",
+        "Additionner et soustraire des fractions"
+      ],
+      "notions_liees": [
+        "fractions-multiplier",
+        "fractions-inverse-diviser",
+        "fractions-problemes-sommes"
+      ],
+      "difficulte": "difficile",
+      "tags": [
+        "fractions",
+        "priorités",
+        "problèmes"
+      ],
+      "champsLibresForces": [],
+      "apercus": [
+        {
+          "id": "fractions-calculs-problemes-premium",
+          "section": "exemple",
+          "niveau": "premium",
+          "titre": "Tout inconnu et expression complète",
+          "description": "Deux exemples rédigés : retrouver la longueur d'un trajet à partir du reste, et une expression avec deux parenthèses et un quotient."
+        },
+        {
+          "id": "fractions-calculs-problemes-ultra",
+          "section": "exemple",
+          "niveau": "ultra",
+          "titre": "Un partage en plusieurs étapes",
+          "description": "Un exemple de partage entre trois personnes où l'on retrouve la somme totale."
+        }
+      ],
+      "questionsEclair": [
+        {
+          "apres": "figure",
+          "question": "Sur la bande, quelle fraction du salaire représente le reste après le loyer ?",
+          "piste": "$1 - \\dfrac{1}{3} = \\dfrac{2}{3}$."
+        },
+        {
+          "apres": "methode",
+          "question": "Que vaut la moitié du reste après avoir retiré $\\dfrac{2}{5}$ ?",
+          "piste": "$\\dfrac{1}{2} \\times \\dfrac{3}{5} = \\dfrac{3}{10}$."
+        }
+      ]
+    }
+  ]
+}
