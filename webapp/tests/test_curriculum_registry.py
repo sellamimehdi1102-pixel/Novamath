@@ -25,12 +25,14 @@ from curriculum_registry import (
 
 class TestRegistryContent(unittest.TestCase):
     def test_deux_profils_presents(self):
-        self.assertEqual(set(CURRICULUM_REGISTRY.keys()), {"seconde", "premiere", "troisieme"})
+        self.assertEqual(set(CURRICULUM_REGISTRY.keys()), {"quatrieme", "troisieme", "seconde", "premiere", "premiere_specifique"})
 
     def test_labels_affichage(self):
         self.assertEqual(CURRICULUM_REGISTRY["seconde"].label, "Seconde")
         self.assertEqual(CURRICULUM_REGISTRY["premiere"].label, "Première spécialité Mathématiques")
         self.assertEqual(CURRICULUM_REGISTRY["troisieme"].label, "Troisième")
+        self.assertEqual(CURRICULUM_REGISTRY["quatrieme"].label, "Quatrième")
+        self.assertEqual(CURRICULUM_REGISTRY["premiere_specifique"].label, "Première spécifique")
 
     def test_registre_immuable(self):
         with self.assertRaises(TypeError):
