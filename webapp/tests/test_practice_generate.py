@@ -176,7 +176,7 @@ class TestOptionsListeReelle(PracticeGenerateTestCase):
     def test_contient_au_moins_les_3_classes_avec_generateur(self):
         resp = self.client.get("/api/practice/generate/options", headers=self.headers)
         levels = {n["class_level"] for n in resp.get_json()["notions"]}
-        self.assertEqual(levels, {"troisieme", "seconde", "premiere"})
+        self.assertEqual(levels, {"quatrieme", "troisieme", "seconde", "premiere", "premiere_specifique"})
 
     def test_chaque_notion_a_au_moins_une_famille(self):
         resp = self.client.get("/api/practice/generate/options", headers=self.headers)

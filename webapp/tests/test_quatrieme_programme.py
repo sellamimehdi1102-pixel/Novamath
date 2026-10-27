@@ -98,9 +98,10 @@ class TestOrganisation(unittest.TestCase):
         self.assertEqual(report.chapters, len(COURSES))
         self.assertEqual(report.notions, len(ALL_NOTIONS))
 
-    def test_classe_toujours_non_publiee(self):
-        self.assertIs(PROFILE.published, False)
-        self.assertNotIn("quatrieme", curriculum_registry.CURRICULUM_REGISTRY)
+    def test_classe_publiee(self):
+        # Publication officielle (2026-10-27).
+        self.assertIs(PROFILE.published, True)
+        self.assertIn("quatrieme", curriculum_registry.CURRICULUM_REGISTRY)
 
 
 # ═════════════════════════════════════════════════════════════════════════

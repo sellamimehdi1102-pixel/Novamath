@@ -77,11 +77,12 @@ class TestExpositionApresAdaptation(unittest.TestCase):
                 self.assertEqual((ex["chapter_id"], ex["notion"]), (chapitre, notion))
 
 
-class TestNonPublieeHorsPrevisualisation(unittest.TestCase):
-    def test_generation_refusee_quand_la_classe_n_est_pas_servie(self):
-        self.assertEqual(registry.available_notions("premiere_specifique"), {})
+class TestPublieeSansPrevisualisation(unittest.TestCase):
+    # Publication officielle (2026-10-27) : générateurs servis par défaut.
+    def test_generation_ouverte_sans_previsualisation(self):
+        self.assertNotEqual(registry.available_notions("premiere_specifique"), {})
         fid, (chapitre, notion) = next(iter(programme_1es.ADAPTATION[automatismes].items()))
-        self.assertIsNone(registry.generate("premiere_specifique", chapitre, notion, fid, seed=7))
+        self.assertIsNotNone(registry.generate("premiere_specifique", chapitre, notion, fid, seed=7))
 
 
 if __name__ == "__main__":
