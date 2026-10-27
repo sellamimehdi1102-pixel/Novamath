@@ -47,7 +47,7 @@ class TestApiCurricula(unittest.TestCase):
         resp = self.client.get("/api/curricula")
         self.assertEqual(resp.status_code, 200)
         ids = {c["classLevel"] for c in resp.get_json()}
-        self.assertEqual(ids, {"seconde", "premiere", "troisieme"})
+        self.assertEqual(ids, {"quatrieme", "troisieme", "seconde", "premiere", "premiere_specifique"})
 
 
 if __name__ == "__main__":

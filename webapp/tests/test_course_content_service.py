@@ -527,7 +527,7 @@ class TestApiCourseContentOwner(ApiCourseContentTestCase):
 
 
 class TestApiCourseContentCompatibilite(ApiCourseContentTestCase):
-    def test_37_chapitres_se_chargent_pour_les_trois_plans(self):
+    def test_63_chapitres_se_chargent_pour_les_trois_plans(self):
         checked = 0
         for plan in (None, "premium", "ultra"):
             if plan:
@@ -538,7 +538,8 @@ class TestApiCourseContentCompatibilite(ApiCourseContentTestCase):
                     resp = self.client.get(f"/api/course-content/{class_level}/Chapitre_{num}", headers=self.headers)
                     self.assertEqual(resp.status_code, 200, f"{class_level}/Chapitre_{num} (plan={plan})")
                     checked += 1
-        self.assertEqual(checked, 37 * 3)
+        # 5 classes publiées (2026-10-27) : 17 + 15 + 12 + 10 + 9 chapitres.
+        self.assertEqual(checked, 63 * 3)
 
     def test_une_figure_reste_accessible_en_free(self):
         """§10 du chantier : les figures restent Free par défaut, jamais

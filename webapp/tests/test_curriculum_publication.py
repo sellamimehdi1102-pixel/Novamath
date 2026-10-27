@@ -55,18 +55,21 @@ class TestPublicationParDefaut(unittest.TestCase):
                 self.assertIs(CURRICULUM_REGISTRY_ALL[profile_id].published, True)
 
     def test_registre_servi_identique_au_registre_complet_et_dans_le_meme_ordre(self):
-        # Chantier "Quatrième — chapitre pilote" : "quatrieme" est en
-        # préparation ; les trois classes existantes restent servies, dans
-        # le même ordre qu'avant son ajout. Séparation des deux Premières
-        # (2026-10-26) : "premiere_specifique" est aussi en préparation.
-        self.assertEqual(list(CURRICULUM_REGISTRY), ["troisieme", "seconde", "premiere"])
+        # Publication officielle (2026-10-27) : "quatrieme" et
+        # "premiere_specifique" sont publiées ; les cinq classes sont servies
+        # dans l'ordre du registre (ordre du sélecteur), aucune n'est en
+        # préparation.
+        self.assertEqual(
+            list(CURRICULUM_REGISTRY),
+            ["quatrieme", "troisieme", "seconde", "premiere", "premiere_specifique"],
+        )
         self.assertEqual(
             list(CURRICULUM_REGISTRY),
             [p for p, profile in CURRICULUM_REGISTRY_ALL.items() if profile.published is True],
         )
         self.assertEqual(
             [p for p, profile in CURRICULUM_REGISTRY_ALL.items() if profile.published is not True],
-            ["quatrieme", "premiere_specifique"],
+            [],
         )
 
     def test_published_vaut_true_par_defaut(self):
@@ -251,7 +254,8 @@ class TestClasseNonPublieeInaccessible(_HiddenClassHTTPCase):
         resp = self.client.get("/api/curricula")
         self.assertEqual(resp.status_code, 200)
         ids = [c["classLevel"] for c in resp.get_json()]
-        self.assertEqual(ids, ["troisieme", "seconde", "premiere"])
+        self.assertEqual(ids, ["quatrieme", "troisieme", "seconde", "premiere", "premiere_specifique"])
+        self.assertNotIn(HIDDEN, ids)
         self.assertEqual(self.client.get(f"/api/site/stats?class_level={HIDDEN}").status_code, 404)
 
     def test_routes_get_refusent_la_classe(self):
@@ -304,7 +308,7 @@ class TestClasseNonPublieeInaccessible(_HiddenClassHTTPCase):
         self.assertEqual(refuse.status_code, 404)
 
     def test_classes_existantes_toujours_servies(self):
-        for class_level in ("troisieme", "seconde", "premiere"):
+        for class_level in ("quatrieme", "troisieme", "seconde", "premiere", "premiere_specifique"):
             with self.subTest(class_level=class_level):
                 self.assertEqual(self.client.get(f"/api/chapters?class_level={class_level}", headers=self.headers).status_code, 200)
                 self.assertEqual(self.client.get(f"/api/course-content/{class_level}/Chapitre_1", headers=self.headers).status_code, 200)

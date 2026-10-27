@@ -108,12 +108,9 @@ _PROFILES: tuple[CurriculumProfile, ...] = (
     CurriculumProfile(
         id="quatrieme",
         label="Quatrième",
-        # Chantier "Quatrième — chapitre pilote Pythagore" (2026-10-24) :
-        # EN PRÉPARATION (published=False) — absent de CURRICULUM_REGISTRY,
-        # donc de /api/curricula, du sélecteur et de toutes les routes élève ;
-        # consultable uniquement sur une instance locale lancée avec
-        # NOVAMATH_PREVIEW_CURRICULA=quatrieme (refusé en production, voir
-        # validate_registry()). Programme de référence : cycle 4 (BO n°31 du
+        # Chantier "Quatrième — chapitre pilote Pythagore" (2026-10-24),
+        # PUBLIÉE le 2026-10-27 (published=True, voir QUATRIEME_SUIVI.md).
+        # Programme de référence : cycle 4 (BO n°31 du
         # 30 juillet 2020) et repères annuels de 4e (BO n°22 du 29 mai 2019),
         # applicables en 2026-2027. Cours rédigés à la main (jamais via
         # generate_cours_from_bank.py). Numérotation DÉFINITIVE (ordre annuel,
@@ -149,7 +146,7 @@ _PROFILES: tuple[CurriculumProfile, ...] = (
         # tools/generate_quatrieme_exercises.py. Additif : les exercices
         # curés restent servis en premier et portent seuls les mini-quiz.
         generated_exercise_bank=PROJECT_ROOT / "exercises_generated_quatrieme.json",
-        published=False,
+        published=True,
         notion_order_from_courses=True,
         # Les 17 chapitres de la numérotation ci-dessus sont rédigés : plus
         # aucun chapitre « prévu » à annoncer.
@@ -224,14 +221,13 @@ _PROFILES: tuple[CurriculumProfile, ...] = (
         # PREMIERE_SPECIALITE_SUIVI.md) : classe INDÉPENDANTE de la Première
         # historique — ses propres cours, banques, pool généré
         # (webapp/exercise_generator_premiere_specifique/) et sa propre
-        # progression (rangée par class_level). EN PRÉPARATION
-        # (published=False) : consultable uniquement sur une instance locale
-        # lancée avec NOVAMATH_PREVIEW_CURRICULA=premiere_specifique.
-        # 13 chapitres : 1 suites · 2 second degré · 3 dérivation ·
-        # 4 variations · 5 exponentielle · 6 trigonométrie · 7 produit
-        # scalaire · 8 géométrie repérée · 9 probabilités conditionnelles ·
-        # 10 variables aléatoires · 11 vocabulaire ensembliste et logique ·
-        # 12 algorithmique (listes) · 13 automatismes. Les identifiants
+        # progression (rangée par class_level). PUBLIÉE le 2026-10-27
+        # (published=True). Adaptée au manuel « Première ES/L » le 2026-10-26
+        # (voir PREMIERE_SPECIFIQUE_SUIVI.md) : 9 chapitres, 29 notions —
+        # 1 pourcentages · 2 fonctions numériques · 3 polynômes du second
+        # degré · 4 statistiques · 5 dérivation · 6 dérivation et variations ·
+        # 7 suites numériques · 8 variables aléatoires · 9 loi de Bernoulli
+        # et loi binomiale. Les identifiants
         # d'exercices et de notions reprennent ceux de la Première
         # historique : sans conflit, chaque banque et chaque progression
         # étant résolue par classe (voir server.py::_class_bank).
@@ -248,7 +244,7 @@ _PROFILES: tuple[CurriculumProfile, ...] = (
         assets_dir=None,
         # Écrit par tools/generate_premiere_specifique_exercises.py.
         generated_exercise_bank=PROJECT_ROOT / "exercises_generated_premiere_specifique.json",
-        published=False,
+        published=True,
         school_stage="lycee",
     ),
 )

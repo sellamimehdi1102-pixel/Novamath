@@ -77,9 +77,10 @@ BANK_SOURCE = _load_bank_source()
 # Registre et publication
 # ═════════════════════════════════════════════════════════════════════════
 class TestRegistreQuatrieme(unittest.TestCase):
-    def test_profil_declare_non_publie(self):
+    def test_profil_declare_publie(self):
+        # Publication officielle (2026-10-27).
         self.assertEqual(PROFILE.label, "Quatrième")
-        self.assertIs(PROFILE.published, False)
+        self.assertIs(PROFILE.published, True)
         self.assertEqual(PROFILE.school_stage, "college")
         self.assertEqual(list(CURRICULUM_REGISTRY_ALL)[:2], ["quatrieme", "troisieme"])
 
@@ -95,19 +96,26 @@ class TestRegistreQuatrieme(unittest.TestCase):
                 self.assertFalse(CURRICULUM_REGISTRY_ALL[class_level].notion_order_from_courses)
                 self.assertEqual(CURRICULUM_REGISTRY_ALL[class_level].planned_chapter_titles, ())
 
-    def test_absente_du_registre_servi_par_defaut(self):
-        self.assertNotIn("quatrieme", CURRICULUM_REGISTRY)
-        self.assertEqual(list(CURRICULUM_REGISTRY), ["troisieme", "seconde", "premiere"])
+    def test_servie_par_defaut_sans_previsualisation(self):
+        self.assertIn("quatrieme", CURRICULUM_REGISTRY)
+        self.assertEqual(
+            list(CURRICULUM_REGISTRY), ["quatrieme", "troisieme", "seconde", "premiere", "premiere_specifique"],
+        )
 
-    def test_previsualisation_place_la_quatrieme_avant_la_troisieme(self):
-        served = served_registry(CURRICULUM_REGISTRY_ALL, frozenset({"quatrieme"}))
-        self.assertEqual(list(served), ["quatrieme", "troisieme", "seconde", "premiere"])
+    def test_registre_servi_place_la_quatrieme_avant_la_troisieme(self):
+        served = served_registry(CURRICULUM_REGISTRY_ALL)
+        self.assertEqual(list(served)[:2], ["quatrieme", "troisieme"])
 
-    def test_previsualisation_valide_en_local_refusee_en_production(self):
-        validate_registry(CURRICULUM_REGISTRY_ALL, frozenset({"quatrieme"}), environ={"FLASK_ENV": "development"})
+    def test_previsualisation_inutile_refusee_une_fois_publiee(self):
+        # Classe publiée : la prévisualiser est une erreur de configuration
+        # (en local), et toute prévisualisation reste interdite en production.
+        with self.assertRaises(CurriculumIntegrityError) as ctx:
+            validate_registry(CURRICULUM_REGISTRY_ALL, frozenset({"quatrieme"}), environ={"FLASK_ENV": "development"})
+        self.assertIn("déjà publié", str(ctx.exception))
         with self.assertRaises(CurriculumIntegrityError) as ctx:
             validate_registry(CURRICULUM_REGISTRY_ALL, frozenset({"quatrieme"}), environ={"FLASK_ENV": "production"})
         self.assertIn("interdit en production", str(ctx.exception))
+        validate_registry(CURRICULUM_REGISTRY_ALL, frozenset(), environ={"FLASK_ENV": "production"})
 
     def test_ressources_declarees_existent(self):
         self.assertTrue(PROFILE.courses_dir.is_dir())
@@ -116,10 +124,10 @@ class TestRegistreQuatrieme(unittest.TestCase):
         # Aucune reformulation « langage naturel » pour l'instant (toléré).
         self.assertFalse(PROFILE.natural_bank.exists())
 
-    def test_generateurs_inaccessibles_sans_previsualisation(self):
-        self.assertEqual(generator_registry.available_notions("quatrieme"), {})
+    def test_generateurs_accessibles_sans_previsualisation(self):
+        self.assertNotEqual(generator_registry.available_notions("quatrieme"), {})
         family = pythagore.FAMILIES[0]
-        self.assertIsNone(generator_registry.generate("quatrieme", pythagore.CHAPTER_ID, family.notion, family.id, seed=1))
+        self.assertIsNotNone(generator_registry.generate("quatrieme", pythagore.CHAPTER_ID, family.notion, family.id, seed=1))
 
 
 # ═════════════════════════════════════════════════════════════════════════
@@ -756,9 +764,14 @@ class _QuatriemeHTTPCase(unittest.TestCase):
             db.set_stripe_subscription(self.user["id"], "sub_test", plan, "active")
 
 
-class TestQuatriemeInvisibleSansPrevisualisation(_QuatriemeHTTPCase):
-    def test_absente_des_api_et_routes_refusees(self):
-        self.assertNotIn("quatrieme", [c["classLevel"] for c in self.client.get("/api/curricula").get_json()])
+class TestQuatriemePublieeSansPrevisualisation(_QuatriemeHTTPCase):
+    """Publication officielle (2026-10-27) : un élève ordinaire (compte
+    Free, aucune prévisualisation) accède à la Quatrième par les routes
+    normales."""
+
+    def test_presente_dans_les_api_et_routes_ouvertes(self):
+        curricula = {c["classLevel"]: c for c in self.client.get("/api/curricula").get_json()}
+        self.assertIs(curricula["quatrieme"]["published"], True)
         for url in (
             "/api/chapters?class_level=quatrieme",
             "/api/course-content/quatrieme/Chapitre_8",
@@ -770,17 +783,24 @@ class TestQuatriemeInvisibleSansPrevisualisation(_QuatriemeHTTPCase):
             "/api/chapters?class_level=quatrieme&preview=true",
         ):
             with self.subTest(url=url):
-                self.assertEqual(self.client.get(url, headers=self.headers).status_code, 404)
+                self.assertEqual(self.client.get(url, headers=self.headers).status_code, 200)
         body = {"class_level": "quatrieme", "chapterId": "Chapitre_8", "notionId": NOTION_IDS[0], "patch": {"status": "done"}}
-        self.assertEqual(self.client.post("/api/course-progress", json=body, headers=self.headers).status_code, 404)
+        self.assertEqual(self.client.post("/api/course-progress", json=body, headers=self.headers).status_code, 200)
 
-    def test_generation_ultra_refusee(self):
-        self._plan("ultra")
-        options = self.client.get("/api/practice/generate/options", headers=self.headers).get_json()["notions"]
-        self.assertNotIn("quatrieme", {o["class_level"] for o in options})
+    def test_generation_reservee_a_ultra_comme_les_autres_classes(self):
         f = pythagore.FAMILIES[2]
         body = {"class_level": "quatrieme", "chapter_id": "Chapitre_8", "notion": f.notion, "family_id": f.id}
-        self.assertEqual(self.client.post("/api/practice/generate", json=body, headers=self.headers).status_code, 404)
+        # Free : même refus que pour une classe déjà publiée (droits inchangés).
+        refus = self.client.post("/api/practice/generate", json=body, headers=self.headers).status_code
+        self.assertIn(refus, (401, 402, 403))
+        troisieme = self.client.post(
+            "/api/practice/generate", json={**body, "class_level": "troisieme"}, headers=self.headers,
+        ).status_code
+        self.assertEqual(refus, troisieme)
+        self._plan("ultra")
+        options = self.client.get("/api/practice/generate/options", headers=self.headers).get_json()["notions"]
+        self.assertIn("quatrieme", {o["class_level"] for o in options})
+        self.assertEqual(self.client.post("/api/practice/generate", json=body, headers=self.headers).status_code, 200)
 
     def test_classes_existantes_inchangees(self):
         for class_level in ("troisieme", "seconde", "premiere"):
@@ -793,7 +813,9 @@ class TestQuatriemeEnPrevisualisation(_QuatriemeHTTPCase):
 
     def test_selecteur_et_chapitres(self):
         curricula = self.client.get("/api/curricula").get_json()
-        self.assertEqual([c["classLevel"] for c in curricula], ["quatrieme", "troisieme", "seconde", "premiere"])
+        self.assertEqual(
+            [c["classLevel"] for c in curricula], ["quatrieme", "troisieme", "seconde", "premiere", "premiere_specifique"],
+        )
         data = self.client.get("/api/chapters?class_level=quatrieme").get_json()
         self.assertIn("Chapitre_8", data["chapters"])
         meta = next(c for c in data["chapters_meta"] if c["id"] == "Chapitre_8")
@@ -801,9 +823,10 @@ class TestQuatriemeEnPrevisualisation(_QuatriemeHTTPCase):
         self.assertEqual(meta["n_exercises"], len(CURATED) + len(GENERATED))
         self.assertEqual({n["notion"] for n in meta["notions_detail"]}, TITLES)
         self.assertEqual(sorted(int(d) for d in meta["difficulties_available"]), [1, 2, 3, 4])
-        # Carte du sélecteur : jamais présentée comme un programme officiel complet.
+        # Carte du sélecteur : publiée (2026-10-27), présentée comme programme officiel.
         self.assertEqual({c["classLevel"]: c["published"] for c in curricula},
-                         {"quatrieme": False, "troisieme": True, "seconde": True, "premiere": True})
+                         {"quatrieme": True, "troisieme": True, "seconde": True, "premiere": True,
+                          "premiere_specifique": True})
 
     def test_notions_dans_l_ordre_pedagogique_du_cours(self):
         chapters_meta = self.client.get("/api/chapters?class_level=quatrieme").get_json()["chapters_meta"]
