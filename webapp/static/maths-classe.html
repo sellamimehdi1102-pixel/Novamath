@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Gabarit des pages publiques par classe (/maths-quatrieme, ...) : jamais
+     servi tel quel (404 sur /maths-classe.html, voir server.py). Le serveur
+     remplace les deux marqueurs ci-dessous (voir webapp/seo_pages.py) ; ce
+     fichier passe par le build Vite uniquement pour ses feuilles de style et
+     son script hashés. -->
+    <!--SEO:HEAD-->
+    <meta name="application-name" content="Mathadap" />
+    <meta name="theme-color" content="#6a5cf5" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/landing.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/classe-seo.css" />
+  </head>
+  <body>
+    <!--SEO:BODY-->
+    <script type="module" src="js/classePage.js"></script>
+  </body>
+</html>

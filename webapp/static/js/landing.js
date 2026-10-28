@@ -41,9 +41,8 @@ function refreshClassLabels(classLevel) {
     .then((curricula) => {
       const current = curricula.find((c) => c.classLevel === classLevel);
       if (!current) return;
-      document.querySelectorAll("#stats-class-label, #faq-class-label").forEach((el) => {
-        el.textContent = current.label;
-      });
+      const labelEl = document.getElementById("stats-class-label");
+      if (labelEl) labelEl.textContent = current.label;
     })
     .catch(() => {});
 }
@@ -52,9 +51,6 @@ function refreshSiteStats(classLevel) {
   api
     .getSiteStats(classLevel)
     .then((stats) => {
-      const faqEl = document.getElementById("faq-chapter-count");
-      if (faqEl && stats.chapters) faqEl.textContent = stats.chapters;
-
       document.querySelectorAll(".stat-item[data-stat]").forEach((item) => {
         const key = item.dataset.stat;
         const value = stats[key];

@@ -25,9 +25,13 @@ const PAGES = [
   "mentions-legales.html",
   "confidentialite.html",
   "cgu.html",
+  // Gabarit des pages publiques par classe (/maths-quatrieme, ...), rempli
+  // par le serveur (voir webapp/seo_pages.py) — jamais servi tel quel.
+  "maths-classe.html",
   // Outil de diagnostic temporaire (voir server.py::_serve_debug_runtime),
-  // gardé par config.DEBUG côté serveur — jamais accessible en production
-  // même si le fichier est présent dans static-dist/.
+  // gardé par config.DEBUG côté serveur (/debug-runtime ET /debug-runtime.html)
+  // — jamais accessible en production même si le fichier est présent dans
+  // static-dist/.
   "debug-runtime.html",
 ];
 

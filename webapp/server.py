@@ -61,6 +61,7 @@ import privacy_service
 import quota_service
 import rate_limit_service
 import security_headers_service
+import seo_pages
 import settings_service
 import stripe_service
 import stripe_webhook_service
@@ -711,7 +712,11 @@ for _page in PROTECTED_PAGES:
 # environnement qui bloque avec un environnement qui fonctionne. Gardée par
 # config.DEBUG (jamais accessible en production, où DEBUG est toujours faux —
 # voir config.py::DEBUG) : 404 sinon, comme si la route n'existait pas.
+# `/debug-runtime.html` déclarée explicitement elle aussi : sans cette règle,
+# le handler statique de Flask (static_url_path="") servait le fichier tel
+# quel en production, sans passer par la garde config.DEBUG ci-dessous.
 @app.route("/debug-runtime")
+@app.route("/debug-runtime.html")
 def _serve_debug_runtime():
     if not config.DEBUG:
         abort(404)
@@ -767,6 +772,75 @@ def _serve_landing():
 
 app.add_url_rule("/", endpoint="landing_root", view_func=_serve_landing)
 app.add_url_rule("/index.html", endpoint="landing_index_html", view_func=_serve_landing)
+
+
+# ── Pages publiques par classe (référencement naturel) ──────────────────────
+# /maths-quatrieme, /maths-troisieme, ... : HTML rendu côté serveur (voir
+# seo_pages.py), accessible sans compte. N'expose que des données déjà
+# publiques (titres de chapitres/notions de /api/chapters, compteurs de
+# /api/site/stats) — jamais un cours, un exercice ni une donnée élève.
+_class_outline_cache = {}
+
+
+def _public_chapter_outline(class_level):
+    """Titres et notions des chapitres, dans l'ordre du programme — mêmes
+    valeurs que /api/chapters (title/notions_cours), titre générique
+    « Chapitre N » remplacé comme dans l'application (chapterTitleByNotions.js)."""
+    if class_level not in _class_outline_cache:
+        res = _class_bank(class_level)
+        bank, chapter_meta = res["bank"], res["chapter_meta"]
+        outline = []
+        for chapter_id in res["chapters"]:
+            if not chapter_id:
+                continue
+            meta = chapter_meta.get(chapter_id, {})
+            notions = sorted({e["notion"] for e in bank if e.get("chapter_id") == chapter_id and e.get("notion")})
+            notion_order = meta.get("notion_order")
+            if notion_order:
+                rank = {title: i for i, title in enumerate(notion_order)}
+                notions.sort(key=lambda n: (rank.get(n, len(rank)), n))
+            notions = list(meta.get("notions_cours", notions))
+            raw_title = meta.get("title", chapter_id.replace("_", " "))
+            outline.append({"title": seo_pages.resolve_chapter_title(raw_title, notions), "notions": notions})
+        _class_outline_cache[class_level] = outline
+    return _class_outline_cache[class_level]
+
+
+def _public_class_stats(class_level):
+    # Mêmes sources que /api/site/stats (Seconde : BANK historique).
+    if class_level == "seconde":
+        return {
+            "totalExercises": len(BANK),
+            "notions": len(set(e.get("notion") for e in BANK if e.get("notion"))),
+            "difficultyLevels": len(DIFFICULTY_LEVELS),
+        }
+    return curriculum_stats.compute_stats(class_level)
+
+
+def _serve_class_seo_page(class_level):
+    if class_level not in curriculum_registry.CURRICULUM_REGISTRY:
+        abort(404)
+    user = get_current_user()
+    logged_in = user is not None and user["auth_provider"] != "guest"
+    template = (Path(app.static_folder) / "maths-classe.html").read_text(encoding="utf-8")
+    html = seo_pages.render_page(
+        template, class_level, _public_chapter_outline(class_level), _public_class_stats(class_level), logged_in,
+    )
+    return Response(html, mimetype="text/html")
+
+
+for _level, _seo_page in seo_pages.CLASS_PAGES.items():
+    app.add_url_rule(
+        f"/{_seo_page['slug']}", endpoint=f"seo_class_{_level}",
+        view_func=lambda level=_level: _serve_class_seo_page(level),
+    )
+
+
+# Gabarit brut (marqueurs <!--SEO:...--> non remplacés) : jamais servi tel
+# quel par le handler statique.
+@app.route("/maths-classe.html")
+def _hide_class_page_template():
+    abort(404)
 
 
 @app.route("/api/chapters")
@@ -1280,7 +1354,7 @@ ALLOWED_AVATAR_PREFIXES = (
     "data:image/gif;base64,",
 )
 MAX_AVATAR_LEN = 300_000  # ~220 Ko décodé, largement suffisant pour un avatar de profil
-CLASSE_CHOICES = {"Troisième", "Seconde", "Première", "Terminale", "Autre"}
+CLASSE_CHOICES = {"Quatrième", "Troisième", "Seconde", "Première", "Terminale", "Autre"}
 
 
 def _read_reviews():
