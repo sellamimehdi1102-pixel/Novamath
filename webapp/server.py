@@ -901,6 +901,10 @@ def api_chapters():
                 # Additif : ids exposés pour permettre de lancer une série ciblée sur
                 # une seule notion depuis chapitres.html (aucune logique de sélection modifiée).
                 "exercise_ids": [e["id"] for _, e in n_exs],
+                # Additif, aligné sur exercise_ids : difficulté de chaque
+                # exercice, lue par exercice.js pour choisir l'exercice suivant
+                # d'une série adaptative (voir adaptiveDifficulty.js).
+                "exercise_difficulties": [e.get("difficulty") for _, e in n_exs],
             })
         chapters_meta.append({
             "id": chapter_id,

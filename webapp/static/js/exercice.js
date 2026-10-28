@@ -20,7 +20,8 @@ import { ICONS } from "./icons.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
 import { openReportTicketPopup } from "./supportTicket.js";
 import { DIFF_EMOJI, DIFF_LABEL_SHORT, DIFF_BADGE } from "./difficultyLevels.js";
-import { getChapterTitles } from "./seriesview.js";
+import { getChapterTitles, getChaptersMeta } from "./seriesview.js";
+import { pickNextExercise, workedNotionsByWeakness, notionKey } from "./adaptiveDifficulty.js";
 
 // Titres pédagogiques des chapitres de la classe active (2026-10-24) : la
 // pastille et le récapitulatif affichaient l'identifiant technique brut
@@ -215,6 +216,13 @@ function shuffle(arr) {
 }
 
 function updateLevelLine() {
+  if (seriesConfig?.adaptive && current) {
+    const label = DIFF_LABEL_SHORT[current.difficulty];
+    $("level-line").textContent = label
+      ? `Difficulté adaptée à tes résultats sur « ${current.notion} » : ${label}`
+      : "Difficulté adaptée à tes résultats sur chaque notion.";
+    return;
+  }
   try {
     const lvl = JSON.parse(localStorage.getItem("lumis:last_level"));
     if (lvl) {
@@ -225,6 +233,97 @@ function updateLevelLine() {
     /* pas de niveau connu */
   }
   $("level-line").textContent = "Choisis un chapitre pour commencer à t'entraîner.";
+}
+
+// ── Séries adaptatives (séries par notion, Révisions, Objectif du jour) ─────
+// L'exercice suivant est choisi APRÈS chaque réponse (voir adaptiveDifficulty.js :
+// niveau par notion, paliers de 5 réponses), au lieu d'une série tirée au
+// hasard au départ. Les autres modes (Examen blanc, Défi chronométré, Erreurs
+// précédentes, « Recommencer » une série passée) gardent leur comportement.
+// Sans métadonnées de difficulté (/api/chapters indisponible), repli sur le
+// tirage historique — jamais de série bloquée.
+const REVISION_MAX_NOTIONS = 4;
+let exerciseIndex = null;
+
+/** id -> {id, chapter, notion, difficulty} pour la classe active, depuis
+ * /api/chapters (mis en cache par seriesview.js). */
+async function loadExerciseIndex() {
+  if (exerciseIndex) return exerciseIndex;
+  const meta = await getChaptersMeta();
+  const map = new Map();
+  meta.forEach((ch) => {
+    (ch.notions_detail || []).forEach((n) => {
+      const diffs = n.exercise_difficulties || [];
+      (n.exercise_ids || []).forEach((id, i) => {
+        map.set(id, { id, chapter: ch.id, notion: n.notion, difficulty: diffs[i] ?? null });
+      });
+    });
+  });
+  exerciseIndex = map;
+  return map;
+}
+
+function isAdaptiveRequest(m, config) {
+  if (m === "revisions" || m === "objectif") return !config.exerciseIds;
+  return m === "notion" && Array.isArray(config.notions) && Array.isArray(config.exerciseIds);
+}
+
+function dailyGoalRemaining(history) {
+  const goal = Math.max(1, Number(getSettings()?.learning?.dailyGoalExercises) || 10);
+  const today = new Date().toISOString().slice(0, 10);
+  return Math.max(0, goal - history.filter((h) => h.date === today).length);
+}
+
+/** Candidats, ordre de priorité des notions et longueur d'une série
+ * adaptative — ou null si rien n'est disponible. */
+async function buildAdaptivePlan(m, config) {
+  const index = await loadExerciseIndex();
+  if (!index.size) return null;
+  const { history } = scopedStats(getState(), getStoredClassLevel());
+  let ids;
+  let order;
+  let total = SERIES_TOTAL;
+  if (m === "notion") {
+    ids = [...new Set(config.exerciseIds)].filter((id) => index.has(id));
+    order = [];
+    config.notions.forEach((notion) => {
+      ids.forEach((id) => {
+        const c = index.get(id);
+        const key = notionKey(c.chapter, c.notion);
+        if (c.notion === notion && !order.includes(key)) order.push(key);
+      });
+    });
+  } else {
+    // Révisions : les notions déjà travaillées les plus fragiles.
+    // Objectif du jour : toutes les notions travaillées (les plus fragiles
+    // d'abord), le temps d'atteindre l'objectif quotidien.
+    const worked = workedNotionsByWeakness(history);
+    const selected = m === "revisions" ? worked.slice(0, REVISION_MAX_NOTIONS) : worked;
+    order = selected.map((w) => w.key);
+    const keys = new Set(order);
+    ids = [...index.values()].filter((c) => keys.has(notionKey(c.chapter, c.notion))).map((c) => c.id);
+    if (m === "objectif") total = dailyGoalRemaining(history) || SERIES_TOTAL;
+  }
+  if (!ids.length) return null;
+  return { ids, order, total: Math.min(total, ids.length) };
+}
+
+/** Ajoute à la file l'exercice dû à `seriesIndex` s'il n'y est pas encore.
+ * Renvoie false quand plus aucun exercice inédit n'est disponible. */
+function queueNextAdaptive() {
+  const adaptive = seriesConfig.adaptive;
+  if (!adaptive || seriesQueue.length > seriesIndex) return true;
+  const candidates = adaptive.ids.map((id) => exerciseIndex?.get(id)).filter(Boolean);
+  const { history } = scopedStats(getState(), getStoredClassLevel());
+  const next = pickNextExercise({
+    candidates,
+    history,
+    usedIds: [...seriesQueue, ...(adaptive.excluded || [])],
+    notionOrder: adaptive.order,
+  });
+  if (!next) return false;
+  seriesQueue.push(next.id);
+  return true;
 }
 
 /** Construit le pool d'ids d'une série, à partir des ids distincts
@@ -257,7 +356,7 @@ function buildSeriesPool(currentMode) {
 function emptyMessageFor(m) {
   if (m === "erreurs") return "Aucune erreur enregistrée pour l'instant — bravo ! Reviens ici après une série.";
   if (m === "notion") return "Aucun exercice disponible pour cette notion.";
-  return "Fais d'abord une évaluation initiale (page Exercices) pour débloquer l'entraînement.";
+  return "Commence par une notion depuis la page Exercices : tes révisions se construisent ensuite à partir de tes résultats.";
 }
 
 function showEmpty(message) {
@@ -284,7 +383,17 @@ async function startSeries(newMode, config = {}) {
     // même si une série précédente reprise avait temporairement réaligné
     // SERIES_TOTAL sur un ancien total (voir resumeSeries()).
     SERIES_TOTAL = trainingSettings.questionsPerSeries || 10;
-    const ids = buildSeriesPool(mode);
+    let ids = [];
+    const plan = isAdaptiveRequest(mode, config) ? await buildAdaptivePlan(mode, config) : null;
+    if (plan) {
+      seriesConfig = { ...config, adaptive: { ids: plan.ids, order: plan.order, excluded: [] } };
+      SERIES_TOTAL = plan.total;
+      seriesQueue = [];
+      seriesIndex = 0;
+      if (queueNextAdaptive()) ids = seriesQueue.slice();
+    } else {
+      ids = buildSeriesPool(mode);
+    }
     if (!ids.length) {
       showEmpty(emptyMessageFor(mode));
       return;
@@ -354,6 +463,13 @@ async function resumeSeries(snapshot) {
     // de vérité de ce qui a réellement été facturé (voir loadCurrent/
     // persistProgress). Toute incertitude (snapshot absent, id différent)
     // retombe sur un vrai appel réseau, jamais sur une supposition côté client.
+    if (seriesConfig.adaptive) {
+      await loadExerciseIndex();
+      if (!queueNextAdaptive()) {
+        finishSeries();
+        return;
+      }
+    }
     const cached = snapshot.currentExercise;
     if (cached && cached.id === seriesQueue[seriesIndex]) {
       current = cached;
@@ -488,6 +604,7 @@ function renderExercise() {
 
   $("empty-state").hidden = true;
   $("screen-ex").hidden = false;
+  if (seriesConfig?.adaptive) updateLevelLine();
   fadeInTransition($("screen-ex"));
   startChronoIfNeeded();
   timer.start();
@@ -513,6 +630,19 @@ async function loadCurrent() {
   } catch (err) {
     if (err.isQuotaExceeded && err.quota === "exercises_daily") {
       showExercisesQuotaExceeded(err);
+      return;
+    }
+    if (err.status === 404 && seriesConfig.adaptive) {
+      seriesConfig.adaptive.excluded = [...(seriesConfig.adaptive.excluded || []), id];
+      seriesQueue.splice(seriesIndex, 1);
+      if (queueNextAdaptive()) {
+        await loadCurrent();
+        return;
+      }
+      $("screen-ex").classList.remove("is-loading");
+      SERIES_TOTAL = seriesIndex;
+      if (draft.questions.length) finishSeries();
+      else showEmpty("Les exercices de cette série sont introuvables. Relance une nouvelle série.");
       return;
     }
     if (err.status === 404) {
@@ -645,6 +775,10 @@ async function handleVerdict(isCorrect) {
     }
 
     seriesIndex += 1;
+    if (seriesIndex < SERIES_TOTAL && !queueNextAdaptive()) {
+      // Série adaptative : plus aucun exercice inédit sur ces notions.
+      SERIES_TOTAL = seriesIndex;
+    }
     if (seriesIndex >= SERIES_TOTAL) {
       finishSeries();
     } else {
