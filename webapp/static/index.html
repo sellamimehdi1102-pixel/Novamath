@@ -3,21 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mathadap — Mathématiques adaptatives, de la Troisième à la Première</title>
+    <title>Mathadap — Cours et exercices de maths, de la 4e à la 1re</title>
     <meta
       name="description"
-      content="Mathadap t'entraîne avec des exercices adaptés par IA et te fait progresser en mathématiques, de la Troisième à la Première."
+      content="Cours et exercices de maths corrigés de la Quatrième à la Première, adaptés à ton niveau par l'IA : méthode pas à pas, suivi de progression et assistant IA."
     />
     <meta name="application-name" content="Mathadap" />
     <meta name="apple-mobile-web-app-title" content="Mathadap" />
     <meta name="theme-color" content="#6a5cf5" />
     <link rel="canonical" href="https://mathadap.com/" />
-    <meta property="og:title" content="Mathadap — Apprentissage adaptatif des mathématiques" />
+    <meta property="og:title" content="Mathadap — Cours et exercices de maths, de la 4e à la 1re" />
     <meta
       property="og:description"
-      content="Mathadap est une plateforme intelligente d'apprentissage des mathématiques utilisant l'intelligence artificielle pour adapter les exercices au niveau de chaque élève."
+      content="Cours et exercices de maths corrigés de la Quatrième à la Première, adaptés à ton niveau par l'IA : méthode pas à pas, suivi de progression et assistant IA."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mathadap" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="https://mathadap.com/" />
     <!-- Image dédiée au partage social (webapp/static/public/og-image.png, 1200x630,
      PNG réel) — jamais assets/logo.svg : ce fichier est trop petit pour le seuil
      d'inlining de Vite et se retrouvait réécrit en `data:image/svg+xml,...`,
@@ -26,18 +29,27 @@
      JAMAIS hashé/transformé par Vite, voir vite.config.js). -->
     <meta property="og:image" content="https://mathadap.com/og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mathadap — Apprentissage adaptatif des mathématiques" />
+    <meta name="twitter:title" content="Mathadap — Cours et exercices de maths, de la 4e à la 1re" />
     <meta
       name="twitter:description"
-      content="Mathadap t'entraîne avec des exercices adaptés par IA et te fait progresser en mathématiques, de la Troisième à la Première."
+      content="Cours et exercices de maths corrigés de la Quatrième à la Première, adaptés à ton niveau par l'IA : méthode pas à pas, suivi de progression et assistant IA."
     />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Mathadap",
-        "url": "https://mathadap.com/",
-        "inLanguage": "fr"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "Mathadap",
+            "url": "https://mathadap.com/",
+            "inLanguage": "fr"
+          },
+          {
+            "@type": "Organization",
+            "name": "Mathadap",
+            "url": "https://mathadap.com/"
+          }
+        ]
       }
     </script>
     <link rel="manifest" href="manifest.json" />
@@ -51,6 +63,7 @@
     <link rel="stylesheet" href="css/auth.css" />
     <link rel="stylesheet" href="css/abonnement.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/classe-seo.css" />
   </head>
   <body>
     <nav class="topnav">
@@ -109,8 +122,8 @@
         </div>
         <h1>Comprends les maths.<br /><span class="gradient-text">Pas seulement les réponses.</span></h1>
         <p class="lead">
-          Mathadap choisit les exercices qu'il te faut et t'explique chaque méthode en français clair — pas en code
-          mathématique.
+          De la Quatrième à la Première, Mathadap choisit les exercices qu'il te faut et t'explique chaque méthode en
+          français clair — pas en code mathématique.
         </p>
         <div class="hero-cta">
           <button class="btn btn-primary btn-lg js-start-guest" type="button">
@@ -238,13 +251,13 @@
       <div class="stat-item" data-stat="totalExercises" data-format="exercises">
         <div class="stat-value tabular" data-count-target="0">0</div>
         <div class="stat-label">exercices</div>
-        <p class="stat-desc">Une immense base d'exercices couvrant tout le programme officiel.</p>
+        <p class="stat-desc">Une large base d'exercices, organisée chapitre par chapitre.</p>
       </div>
       <div class="stat-item" data-stat="chapters" data-format="chapters">
         <div class="stat-value tabular" data-count-target="0">0</div>
         <div class="stat-label">chapitres</div>
         <p class="stat-desc">
-          L'intégralité du programme de <span id="stats-class-label">Seconde</span> organisée de manière progressive.
+          Les chapitres de <span id="stats-class-label">Seconde</span>, organisés de manière progressive.
         </p>
       </div>
       <div class="stat-item" data-stat="notions" data-format="notions">
@@ -257,6 +270,51 @@
         <div class="stat-label">niveaux de difficulté</div>
         <p class="stat-desc">Progresse du niveau découverte jusqu'au niveau expert.</p>
       </div>
+    </section>
+
+    <section class="section" id="classes">
+      <div class="section-header">
+        <span class="section-tag">Classes</span>
+        <h2>Les maths du collège au lycée</h2>
+        <p>Cinq classes, chacune avec ses propres cours, exercices et suivi de progression.</p>
+      </div>
+      <ul class="seo-levels seo-levels--home">
+        <li>
+          <a class="seo-level-link card" href="/maths-quatrieme">
+            <span class="seo-level-stage">Collège</span>
+            <span class="seo-level-name">Maths Quatrième</span>
+            <span class="seo-level-desc">Relatifs, fractions, puissances, Pythagore, Thalès</span>
+          </a>
+        </li>
+        <li>
+          <a class="seo-level-link card" href="/maths-troisieme">
+            <span class="seo-level-stage">Collège</span>
+            <span class="seo-level-name">Maths Troisième</span>
+            <span class="seo-level-desc">Fonctions affines, trigonométrie, équations, probabilités</span>
+          </a>
+        </li>
+        <li>
+          <a class="seo-level-link card" href="/maths-seconde">
+            <span class="seo-level-stage">Lycée</span>
+            <span class="seo-level-name">Maths Seconde</span>
+            <span class="seo-level-desc">Vecteurs, fonctions de référence, droites, inéquations</span>
+          </a>
+        </li>
+        <li>
+          <a class="seo-level-link card" href="/maths-premiere-specialite">
+            <span class="seo-level-stage">Lycée</span>
+            <span class="seo-level-name">Maths Première spécialité</span>
+            <span class="seo-level-desc">Suites, second degré, dérivation, exponentielle</span>
+          </a>
+        </li>
+        <li>
+          <a class="seo-level-link card" href="/maths-premiere-specifique">
+            <span class="seo-level-stage">Lycée</span>
+            <span class="seo-level-name">Maths Première spécifique</span>
+            <span class="seo-level-desc">Pourcentages, statistiques, suites, loi binomiale (ex-ES/L)</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
     <section class="section" id="comment-ca-marche">
@@ -716,6 +774,8 @@
             <div class="form-field">
               <label for="review-classe">Classe</label>
               <select id="review-classe">
+                <option>Quatrième</option>
+                <option>Troisième</option>
                 <option>Seconde</option>
                 <option>Première</option>
                 <option>Terminale</option>
@@ -922,8 +982,8 @@
             </svg>
           </div>
           <div class="faq-answer">
-            L'intégralité du programme de mathématiques de <span id="faq-class-label">Seconde</span>, réparti en
-            <span id="faq-chapter-count">12</span> chapitres.
+            Cinq classes du collège au lycée : Quatrième, Troisième, Seconde, Première spécialité et Première
+            spécifique. Chaque classe a ses propres chapitres, cours et exercices ; tu peux en changer à tout moment.
           </div>
         </div>
       </div>
@@ -954,10 +1014,13 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Ressources</h4>
+          <h4>Classes</h4>
           <ul>
-            <li><a href="#comment-ca-marche">Comment ça marche</a></li>
-            <li><a href="#faq">FAQ</a></li>
+            <li><a href="/maths-quatrieme">Maths Quatrième</a></li>
+            <li><a href="/maths-troisieme">Maths Troisième</a></li>
+            <li><a href="/maths-seconde">Maths Seconde</a></li>
+            <li><a href="/maths-premiere-specialite">Maths Première spécialité</a></li>
+            <li><a href="/maths-premiere-specifique">Maths Première spécifique</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -971,7 +1034,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Mathadap — Projet pédagogique.</span>
-        <span>Fait avec soin pour les lycéens.</span>
+        <span>Fait avec soin pour les collégiens et les lycéens.</span>
       </div>
     </footer>
 

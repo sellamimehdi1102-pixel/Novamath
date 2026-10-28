@@ -1,0 +1,292 @@
+/* ── Pages publiques par classe (/maths-quatrieme, ...) et section « Choisis
+   ta classe » de l'accueil. Réutilise les jetons (tokens.css), les boutons,
+   cartes et badges (base.css) ainsi que .section-header, .cta-final et
+   .site-footer (landing.css) — seuls les blocs propres à ces pages sont ici. */
+
+.seo-page {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Fil d'Ariane */
+.seo-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 24px 0 0;
+  margin: 0;
+  list-style: none;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+.seo-breadcrumb li + li::before {
+  content: "›";
+  margin-right: 6px;
+}
+.seo-breadcrumb a {
+  color: var(--text-muted);
+}
+.seo-breadcrumb a:hover {
+  color: var(--accent-text);
+}
+
+/* En-tête */
+.seo-hero {
+  max-width: 780px;
+  padding: 40px 0 48px;
+}
+.seo-hero h1 {
+  margin: 18px 0 16px;
+  font-size: clamp(2rem, 4.4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.seo-lead {
+  color: var(--text-secondary);
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+.seo-notice {
+  margin-top: 20px;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft-bg);
+  color: var(--text-secondary);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+.seo-cta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+.seo-cta--center {
+  justify-content: center;
+  margin-top: 0;
+}
+.seo-cta-note {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+/* Chiffres clés */
+.seo-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  padding-bottom: 24px;
+}
+.seo-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.seo-stat strong {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.seo-stat span {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+/* Sections */
+.seo-section {
+  padding: 72px 0 0;
+}
+.seo-section .section-header {
+  margin-bottom: 36px;
+}
+
+/* Chapitres */
+.seo-chapters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.seo-chapter {
+  padding: 20px 22px;
+}
+.seo-chapter h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+.seo-chapter-num {
+  flex-shrink: 0;
+  min-width: 26px;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+.seo-notions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* Objectifs */
+.seo-focus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.seo-focus {
+  padding: 22px 24px;
+}
+.seo-focus h3 {
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+.seo-focus p {
+  color: var(--text-muted);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+/* Méthode */
+.seo-features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.seo-features li {
+  padding-left: 22px;
+  position: relative;
+}
+.seo-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.seo-features strong {
+  color: var(--text);
+}
+
+/* FAQ (sans JavaScript : <details>) */
+.seo-faq {
+  max-width: 780px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.seo-faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.seo-faq-item summary {
+  padding: 18px 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.seo-faq-item p {
+  padding: 0 4px 20px;
+  color: var(--text-muted);
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+/* Liens vers les classes (pages de classe et accueil) */
+.seo-levels {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0 0 80px;
+  list-style: none;
+}
+.seo-level-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+  padding: 18px 20px;
+  color: var(--text);
+  transition: border-color var(--transition-fast);
+}
+.seo-level-link:hover {
+  border-color: var(--border-hover);
+}
+.seo-level-stage {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.seo-level-name {
+  font-weight: 600;
+}
+.seo-level-desc {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+/* Variante accueil : dans une .section (landing.css), au-dessus de ses blobs. */
+.seo-levels--home {
+  position: relative;
+  z-index: 1;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-bottom: 0;
+}
+.seo-footer-tagline {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+@media (max-width: 860px) {
+  .seo-focus-grid {
+    grid-template-columns: 1fr;
+  }
+  .seo-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .seo-page {
+    padding: 0 16px;
+  }
+  .seo-chapters {
+    grid-template-columns: 1fr;
+  }
+  .seo-section {
+    padding-top: 56px;
+  }
+  .seo-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

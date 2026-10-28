@@ -38,11 +38,33 @@ describe("landing.js — FAQ accordéon", () => {
   });
 });
 
-describe("landing.js — libellé de classe (bandeau + FAQ)", () => {
-  it("met à jour #stats-class-label et #faq-class-label avec le libellé du cursus actif", async () => {
+describe("landing.js — libellé de classe (bandeau)", () => {
+  it("met à jour #stats-class-label avec le libellé du cursus actif", async () => {
     await mountLanding();
     expect(document.getElementById("stats-class-label").textContent).toBe("Seconde");
-    expect(document.getElementById("faq-class-label").textContent).toBe("Seconde");
+  });
+});
+
+describe("index.html — couverture des classes (contenu statique, lisible sans JS)", () => {
+  it("la FAQ annonce les cinq classes, jamais une seule classe dynamique", async () => {
+    await mountLanding();
+    expect(document.getElementById("faq-class-label")).toBeNull();
+    const faq = document.getElementById("faq").textContent.replace(/\s+/g, " ");
+    for (const label of ["Quatrième", "Troisième", "Seconde", "Première spécialité", "Première spécifique"]) {
+      expect(faq).toContain(label);
+    }
+  });
+
+  it("propose un lien explorable vers chacune des cinq pages de classe", async () => {
+    await mountLanding();
+    const hrefs = [...document.querySelectorAll("#classes a")].map((a) => a.getAttribute("href"));
+    expect(hrefs).toEqual([
+      "/maths-quatrieme",
+      "/maths-troisieme",
+      "/maths-seconde",
+      "/maths-premiere-specialite",
+      "/maths-premiere-specifique",
+    ]);
   });
 });
 
@@ -50,11 +72,6 @@ describe("landing.js — statistiques du bandeau (/api/site/stats)", () => {
   it("appelle getSiteStats avec la classe active", async () => {
     await mountLanding();
     expect(mockApi.getSiteStats).toHaveBeenCalledWith("seconde");
-  });
-
-  it("met à jour le nombre de chapitres dans la FAQ", async () => {
-    await mountLanding();
-    expect(document.getElementById("faq-chapter-count").textContent).toBe("12");
   });
 
   it("anime les compteurs jusqu'à la valeur cible", async () => {

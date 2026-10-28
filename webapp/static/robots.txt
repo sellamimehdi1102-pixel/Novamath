@@ -1,3 +1,8 @@
+# robots.txt n'est PAS une protection : les pages personnelles ci-dessous
+# exigent toutes une session côté serveur (server.py::_serve_protected,
+# /admin) — ces règles évitent seulement d'y envoyer les robots.
+# /api/ n'est volontairement pas bloqué : Google en a besoin pour afficher
+# l'accueil comme un visiteur (statistiques, liste des classes).
 User-agent: *
 Disallow: /admin
 Disallow: /dashboard.html
@@ -12,4 +17,4 @@ Disallow: /parent-consent.html
 Disallow: /debug-runtime.html
 Allow: /
 
-Sitemap: /sitemap.xml
+Sitemap: https://mathadap.com/sitemap.xml
