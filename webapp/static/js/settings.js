@@ -434,7 +434,7 @@ function renderTraining() {
   const t = settings.training;
   return `
     <h2>${icon("sliders")} Entraînement</h2>
-    <p class="settings-panel-desc">Ajuste le déroulement de tes séries d'exercices.</p>
+    <p class="settings-panel-desc">Ajuste le déroulement de tes séries de questions.</p>
 
     <div class="settings-section">
       <div class="settings-section-title">Nombre de questions par série</div>
@@ -476,7 +476,7 @@ function renderLearning() {
     <div class="settings-section">
       <div class="settings-section-title">Objectif quotidien</div>
       <div class="setting-row">
-        <div class="setting-row-text"><span class="label">Nombre d'exercices souhaités</span></div>
+        <div class="setting-row-text"><span class="label">Nombre de questions souhaitées</span></div>
         <div class="setting-row-control"><input type="number" min="1" max="100" id="input-daily-exercises" value="${l.dailyGoalExercises}" style="width:80px;" class="learning-input"></div>
       </div>
     </div>
@@ -836,19 +836,19 @@ const HELP_PAGES = {
   faq: {
     title: "FAQ — Questions fréquentes",
     body: `
-      <p><strong>Le contenu des exercices est-il disponible en anglais ?</strong><br>Non : l'interface (menus, boutons, paramètres) est traduite en anglais, mais les énoncés d'exercices restent en français.</p>
+      <p><strong>Le contenu des questions est-il disponible en anglais ?</strong><br>Non : l'interface (menus, boutons, paramètres) est traduite en anglais, mais les énoncés des questions restent en français.</p>
       <p><strong>Pourquoi mes préférences ne sont-elles pas sauvegardées en mode invité ?</strong><br>Un compte invité est temporaire par conception : ses données sont automatiquement supprimées à la fin de la session. Crée un compte pour conserver ta progression durablement.</p>
-      <p><strong>Comment changer le nombre d'exercices par série ?</strong><br>Paramètres → Entraînement → « Nombre de questions par série ». Le changement s'applique immédiatement à toutes les prochaines séries, depuis n'importe quelle page.</p>
+      <p><strong>Comment changer le nombre de questions par série ?</strong><br>Paramètres → Entraînement → « Nombre de questions par série ». Le changement s'applique immédiatement à toutes les prochaines séries, depuis n'importe quelle page.</p>
       <p><strong>Le chronomètre reste actif alors que je l'ai désactivé, que faire ?</strong><br>Ce comportement a été corrigé : la désactivation est désormais appliquée en direct, y compris pendant une série déjà en cours d'affichage.</p>
       <p><strong>Comment supprimer mon compte ?</strong><br>Page Profil → « Supprimer définitivement le compte ». Cette action est irréversible.</p>`,
   },
   guide: {
     title: "Guide utilisateur",
     body: `
-      <p><strong>Démarrer une série</strong> — depuis Entraînement, choisis un mode (Révisions, Objectif du jour, Examen blanc, Défi chronométré, Erreurs précédentes) puis lance-la. Depuis Exercices, ouvre un chapitre, sélectionne une ou plusieurs notions puis clique sur « Commencer la série ».</p>
+      <p><strong>Démarrer une série</strong> — depuis Entraînement, choisis un mode (Révisions, Objectif du jour, Examen blanc, Défi chronométré, Erreurs précédentes) puis lance-la. Depuis Questions, ouvre un chapitre, sélectionne une ou plusieurs notions puis clique sur « Commencer la série ».</p>
       <p><strong>Reprendre une série interrompue</strong> — le Dashboard affiche une carte « Continuer » tant qu'une série n'est pas terminée.</p>
       <p><strong>Personnaliser l'apparence</strong> — Paramètres → Apparence permet de changer le thème clair/sombre, la couleur d'accent, la taille du texte et les animations ; chaque changement s'applique instantanément à tout le site.</p>
-      <p><strong>Suivre ses objectifs</strong> — Paramètres → Apprentissage définit l'objectif quotidien (nombre d'exercices, temps), visible en temps réel sur le Dashboard.</p>`,
+      <p><strong>Suivre ses objectifs</strong> — Paramètres → Apprentissage définit l'objectif quotidien (nombre de questions, temps), visible en temps réel sur le Dashboard.</p>`,
   },
 };
 

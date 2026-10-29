@@ -1261,9 +1261,9 @@ function openNotionReader(chapterId, content, notion) {
     <div class="cours-cta-pratique">
       <div class="cours-cta-pratique-text">
         <div class="cours-cta-pratique-title">${icon("penSquare")} Mets cette notion en pratique</div>
-        <p>Démarre une série d'exercices consacrée à cette notion dans l'onglet Entraînement.</p>
+        <p>Démarre une série de questions consacrée à cette notion dans l'onglet Entraînement.</p>
       </div>
-      <button type="button" class="btn btn-primary cours-cta-pratique-btn" id="cours-cta-pratique-btn">Commencer les exercices ${icon("arrowRight")}</button>
+      <button type="button" class="btn btn-primary cours-cta-pratique-btn" id="cours-cta-pratique-btn">Commencer les questions ${icon("arrowRight")}</button>
     </div>
   `
       : "",
@@ -1361,7 +1361,7 @@ function openNotionReader(chapterId, content, notion) {
       const { results } = await api.exercisesByNotion(chapterId, notion.title, 10, getStoredClassLevel());
       if (!results.length) {
         alert(
-          "Aucun exercice n'est encore disponible spécifiquement pour cette notion. Rends-toi dans l'onglet Entraînement pour t'exercer sur l'ensemble du chapitre.",
+          "Aucune question n'est encore disponible spécifiquement pour cette notion. Rends-toi dans l'onglet Entraînement pour t'exercer sur l'ensemble du chapitre.",
         );
         return;
       }
@@ -1377,7 +1377,7 @@ function openNotionReader(chapterId, content, notion) {
       );
       window.location.href = "exercice.html";
     } catch {
-      alert("Impossible de démarrer les exercices pour le moment. Réessaie plus tard.");
+      alert("Impossible de démarrer la série pour le moment. Réessaie plus tard.");
     } finally {
       btn.disabled = false;
     }

@@ -10,7 +10,7 @@ import { getSettings, onSettingsChange } from "./settingsManager.js";
 const DICT = {
   fr: {
     "nav.dashboard": "Dashboard",
-    "nav.exercices": "Exercices",
+    "nav.exercices": "Questions",
     "nav.cours": "Cours",
     "nav.entrainement": "Entraînement",
     "nav.chatbot": "Chatbot",
@@ -25,7 +25,7 @@ const DICT = {
     "settings.cat.language": "Langue",
     "settings.cat.chatbot": "Chatbot",
     "settings.cat.help": "Aide & À propos",
-    "exercise.notice_fr_only": "Le contenu des exercices reste en français quelle que soit la langue de l'interface.",
+    "exercise.notice_fr_only": "Le contenu des questions reste en français quelle que soit la langue de l'interface.",
     chatbot_card_view_course: "Voir le cours",
     chatbot_card_practice: "Commencer un entraînement",
     chatbot_card_review_weak: "Revoir cette notion",
@@ -45,7 +45,7 @@ const DICT = {
   },
   en: {
     "nav.dashboard": "Dashboard",
-    "nav.exercices": "Exercises",
+    "nav.exercices": "Questions",
     "nav.cours": "Courses",
     "nav.entrainement": "Practice",
     "nav.chatbot": "Chatbot",

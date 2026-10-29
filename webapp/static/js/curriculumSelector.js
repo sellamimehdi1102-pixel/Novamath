@@ -13,7 +13,30 @@ import { ICONS } from "./icons.js";
 export const CLASS_LEVEL_KEY = "novamath:class_level";
 const DEFAULT_CLASS_LEVEL = "seconde";
 
+// Classe imposée pour la durée de l'onglet (liens /maths-<classe>) : survit au
+// rechargement, ne modifie jamais la préférence persistante ci-dessous, et
+// s'efface dès que l'élève choisit lui-même une classe (setStoredClassLevel).
+export const CLASS_LEVEL_SESSION_KEY = "novamath:class_level_session";
+
+export function setSessionClassLevel(classLevel) {
+  try {
+    sessionStorage.setItem(CLASS_LEVEL_SESSION_KEY, classLevel);
+  } catch {
+    /* stockage de session indisponible : la classe ne survivra pas au rechargement */
+  }
+}
+
+function getSessionClassLevel() {
+  try {
+    return sessionStorage.getItem(CLASS_LEVEL_SESSION_KEY);
+  } catch {
+    return null;
+  }
+}
+
 export function getStoredClassLevel() {
+  const forThisTab = getSessionClassLevel();
+  if (forThisTab) return forThisTab;
   try {
     return localStorage.getItem(CLASS_LEVEL_KEY) || DEFAULT_CLASS_LEVEL;
   } catch {
@@ -22,6 +45,11 @@ export function getStoredClassLevel() {
 }
 
 export function setStoredClassLevel(classLevel) {
+  try {
+    sessionStorage.removeItem(CLASS_LEVEL_SESSION_KEY);
+  } catch {
+    /* ignore */
+  }
   try {
     localStorage.setItem(CLASS_LEVEL_KEY, classLevel);
   } catch {
@@ -45,6 +73,7 @@ export function setStoredClassLevel(classLevel) {
 // choisir-classe.html, jamais une boucle (voir auth.js::redirectAfterSignup,
 // appelé une seule fois après inscription).
 export function hasExplicitClassLevel() {
+  if (getSessionClassLevel()) return true;
   try {
     return localStorage.getItem(CLASS_LEVEL_KEY) !== null;
   } catch {
@@ -117,7 +146,7 @@ export function renderCurriculumCard(curriculum, { isCurrent = false, onEnter } 
   const stats = document.createElement("div");
   stats.className = "cursus-card-stats";
   stats.append(
-    statRow(curriculum.totalExercises, "exercices"),
+    statRow(curriculum.totalExercises, "questions"),
     statRow(curriculum.chapters, "chapitres"),
     statRow(curriculum.notions, "notions"),
   );

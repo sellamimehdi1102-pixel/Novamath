@@ -323,7 +323,7 @@ describe("settings.js — catégorie Apprentissage (nettoyage)", () => {
     const container = await mountSettings();
     container.querySelector('[data-cat="learning"]').click();
     const panel = container.querySelector("#settings-panel");
-    expect(panel.innerHTML).toContain("Nombre d'exercices souhaités");
+    expect(panel.innerHTML).toContain("Nombre de questions souhaitées");
     expect(panel.querySelector("#input-daily-exercises")).not.toBeNull();
   });
 });

@@ -174,15 +174,15 @@ function dailyGoalMotivation({ done, remaining, reached, streak }) {
       : "Objectif atteint aujourd'hui — prends un instant pour souffler.";
   }
   if (done === 0 && streak > 0) {
-    return `Ta série de ${streak} jour${streak > 1 ? "s" : ""} t'attend — un exercice suffit pour la préserver.`;
+    return `Ta série de ${streak} jour${streak > 1 ? "s" : ""} t'attend — une question suffit pour la préserver.`;
   }
   if (done === 0) {
-    return "Un premier exercice suffit pour lancer ta journée.";
+    return "Une première question suffit pour lancer ta journée.";
   }
   if (remaining <= 2) {
     return "Tu y es presque — encore un petit effort.";
   }
-  return "Continue, chaque exercice compte pour ta progression.";
+  return "Continue, chaque question compte pour ta progression.";
 }
 
 function renderDailyGoal(history, streak) {
@@ -193,11 +193,11 @@ function renderDailyGoal(history, streak) {
   const remaining = Math.max(0, goal - done);
   const reached = done >= goal;
 
-  $("daily-goal-value").textContent = `${done} / ${goal} exercice${goal > 1 ? "s" : ""}`;
+  $("daily-goal-value").textContent = `${done} / ${goal} question${goal > 1 ? "s" : ""}`;
   $("daily-goal-fill").style.width = `${pct}%`;
   $("daily-goal-sub").textContent = reached
     ? "Objectif atteint aujourd'hui — bravo !"
-    : `Encore ${remaining} exercice${remaining > 1 ? "s" : ""} pour atteindre ton objectif`;
+    : `Encore ${remaining} question${remaining > 1 ? "s" : ""} pour atteindre ton objectif`;
   $("daily-goal-motivation").textContent = dailyGoalMotivation({ done, remaining, reached, streak });
   $("daily-goal-card").classList.toggle("is-reached", reached);
 }
@@ -701,7 +701,7 @@ function renderHeroPriority(history) {
     el.innerHTML = `
       <div class="hero-priority-eyebrow">Ton prochain objectif</div>
       <h2 class="hero-priority-title">Bienvenue sur Mathadap</h2>
-      <p class="hero-priority-reason">Choisis un chapitre pour faire ta première série d'exercices — tes recommandations personnalisées apparaîtront ici dès que tu auras commencé.</p>
+      <p class="hero-priority-reason">Choisis un chapitre pour faire ta première série de questions — tes recommandations personnalisées apparaîtront ici dès que tu auras commencé.</p>
       <a href="chapitres.html" class="btn btn-primary btn-lg">Choisir un chapitre ${icon("arrowRight")}</a>
     `;
     return;
@@ -721,7 +721,7 @@ function renderHeroPriority(history) {
   el.innerHTML = `
     <div class="hero-priority-eyebrow">À travailler maintenant</div>
     <h2 class="hero-priority-title">${weakest.notion}</h2>
-    <p class="hero-priority-reason">${chapterTitle} — tu réussis actuellement <strong>${pct}%</strong> des exercices sur cette notion. Elle fait partie des points à renforcer.</p>
+    <p class="hero-priority-reason">${chapterTitle} — tu réussis actuellement <strong>${pct}%</strong> des questions sur cette notion. Elle fait partie des points à renforcer.</p>
     <button type="button" class="btn btn-primary btn-lg btn-goto-chapter" data-chapter="${weakest.chapter}" data-notion="${weakest.notion}">Travailler cette notion ${icon("arrowRight")}</button>
   `;
   bindGotoChapterButtons(el);

@@ -142,10 +142,10 @@ function buildSummarySection(doc, ctx, y) {
   const bestStreak = ctx.dataSummary?.bestStreak ?? streak;
 
   const cells = [
-    ["Exercices réalisés", String(total)],
-    ["Exercices réussis", String(correct)],
+    ["Questions réalisées", String(total)],
+    ["Questions réussies", String(correct)],
     ["Taux de réussite", `${rate}%`],
-    ["Temps moyen / exercice", formatDurationShort(avgDuration)],
+    ["Temps moyen / question", formatDurationShort(avgDuration)],
     ["Niveau estimé", `Niveau ${level}`],
     ["Série actuelle", `${streak} jour(s)`],
     ["Meilleure série", `${bestStreak} jour(s)`],
@@ -277,7 +277,7 @@ function buildDailyGoalSection(doc, ctx, y) {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9.5);
   doc.setTextColor(PALETTE.text);
-  doc.text(`${done} / ${goal} exercices réalisés aujourd'hui`, PAGE.margin, y + 4);
+  doc.text(`${done} / ${goal} questions réalisées aujourd'hui`, PAGE.margin, y + 4);
   progressBar(doc, PAGE.margin + 220, y - 2, PAGE.w - PAGE.margin * 2 - 220 - 50, 9, rate, ctx.accent);
   doc.setFontSize(8.5);
   doc.setTextColor(PALETTE.muted);
@@ -288,7 +288,7 @@ function buildDailyGoalSection(doc, ctx, y) {
 function buildRecentHistorySection(doc, ctx, y) {
   y = sectionTitle(doc, ctx, y, "Historique récent");
   const recent = ctx.state.history.slice(-12).reverse();
-  if (!recent.length) return emptyNotice(doc, y, "Aucun exercice réalisé pour l'instant.");
+  if (!recent.length) return emptyNotice(doc, y, "Aucune question réalisée pour l'instant.");
 
   recent.forEach((h) => {
     y = ensureSpace(doc, ctx, y, 16);

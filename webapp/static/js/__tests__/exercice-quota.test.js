@@ -99,16 +99,16 @@ describe("exercice.js — indicateur de quota d'exercices", () => {
     await mountExerciceWithDefaultQuota();
     expect(mockApi.getQuota).toHaveBeenCalled();
     expect($("exercises-quota-indicator").hidden).toBe(false);
-    expect($("exercises-quota-value").textContent).toBe("17 exercices restants aujourd'hui");
+    expect($("exercises-quota-value").textContent).toBe("17 questions restantes aujourd'hui");
   });
 
-  it("affiche 'Exercices illimités' pour un plan Ultra (unlimited: true)", async () => {
+  it("affiche 'Questions illimitées' pour un plan Ultra (unlimited: true)", async () => {
     mockApi.getQuota.mockReset();
     mockApi.getQuota.mockResolvedValue({
       exercises_daily: { used: 12, remaining: null, limit: null, unlimited: true },
     });
     await mountExercice();
-    expect($("exercises-quota-value").textContent).toBe("Exercices illimités");
+    expect($("exercises-quota-value").textContent).toBe("Questions illimitées");
     expect($("exercises-quota-indicator").classList.contains("is-unlimited")).toBe(true);
   });
 
@@ -118,7 +118,7 @@ describe("exercice.js — indicateur de quota d'exercices", () => {
       exercises_daily: { used: 58, remaining: 2, limit: 60, unlimited: false },
     });
     await mountExercice();
-    expect($("exercises-quota-value").textContent).toBe("2 exercices restants aujourd'hui");
+    expect($("exercises-quota-value").textContent).toBe("2 questions restantes aujourd'hui");
   });
 });
 
@@ -151,7 +151,7 @@ describe("exercice.js — gestion du HTTP 429 (quota épuisé)", () => {
     expect($("screen-ex").hidden).toBe(true);
     expect($("empty-state").hidden).toBe(false);
     expect($("empty-state").querySelector("p").textContent).toBe(
-      "Tu as atteint ta limite de 20 exercices aujourd'hui. Elle sera réinitialisée demain.",
+      "Tu as atteint ta limite de 20 questions aujourd'hui. Elle sera réinitialisée demain.",
     );
     // Aucune erreur technique brute (message JS, stack, JSON) affichée.
     expect($("empty-state").querySelector("p").textContent).not.toMatch(/error|Error|undefined|\[object/);
@@ -207,7 +207,7 @@ describe("exercice.js — gestion du HTTP 429 (quota épuisé)", () => {
     expect(mockApi.practiceLoad).toHaveBeenCalledTimes(4);
     expect($("screen-ex").hidden).toBe(true);
     expect($("empty-state").hidden).toBe(false);
-    expect($("empty-state").querySelector("p").textContent).toContain("limite de 20 exercices");
+    expect($("empty-state").querySelector("p").textContent).toContain("limite de 20 questions");
   });
 });
 
@@ -481,7 +481,7 @@ describe("exercice.js — verrou anti double-clic (exerciseActionInFlight)", () 
     await flushPromises();
 
     expect($("empty-state").querySelector("p").textContent).toBe(
-      "Tu as atteint ta limite de 20 exercices aujourd'hui. Elle sera réinitialisée demain.",
+      "Tu as atteint ta limite de 20 questions aujourd'hui. Elle sera réinitialisée demain.",
     );
     // Verrou libéré : les boutons ne restent pas bloqués après un 429.
     expect($("btn-next-ex").disabled).toBe(false);

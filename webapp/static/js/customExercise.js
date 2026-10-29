@@ -19,8 +19,8 @@ function lockedHtml() {
     <div class="dashboard-locked-card">
       ${icon("lock")}
       <div>
-        <div class="dashboard-locked-title">Exercice sur mesure — Ultra</div>
-        <div class="dashboard-locked-desc">Demande un exercice généré à la demande sur la notion de ton choix, avec correction immédiate.</div>
+        <div class="dashboard-locked-title">Question sur mesure — Ultra</div>
+        <div class="dashboard-locked-desc">Demande une question générée à la demande sur la notion de ton choix, avec correction immédiate.</div>
       </div>
     </div>`;
 }
@@ -49,11 +49,11 @@ function selectorHtml(notionsForClass) {
   return `
     <label class="sub" for="custom-ex-notion">Notion</label>
     <select id="custom-ex-notion" class="custom-exercise-select">${notionOptions}</select>
-    <label class="sub" for="custom-ex-family">Type d'exercice</label>
+    <label class="sub" for="custom-ex-family">Type de question</label>
     <select id="custom-ex-family" class="custom-exercise-select"></select>
     <div class="custom-exercise-actions">
       <button type="button" id="custom-ex-generate" class="btn btn-primary btn-sm">
-        ${icon("sparkles")} Générer un exercice
+        ${icon("sparkles")} Générer une question
       </button>
     </div>
     <div id="custom-ex-result"></div>
@@ -136,7 +136,7 @@ async function handleGenerate(classLevel, notionsForClass) {
   } catch {
     const resultEl = $("custom-ex-result");
     if (resultEl)
-      resultEl.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">Impossible de générer un exercice pour l'instant.</p>`;
+      resultEl.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem;">Impossible de générer une question pour l'instant.</p>`;
   } finally {
     btn.disabled = false;
   }

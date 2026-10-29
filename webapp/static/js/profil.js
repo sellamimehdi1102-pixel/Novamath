@@ -333,7 +333,7 @@ function renderRadar(history) {
   const mastery = masteryByChapter(history);
   const chapters = Object.keys(mastery).sort();
   if (!chapters.length) {
-    svg.innerHTML = `<text x="150" y="130" text-anchor="middle" fill="var(--text-faint)" font-size="13">Fais des exercices pour voir ton radar</text>`;
+    svg.innerHTML = `<text x="150" y="130" text-anchor="middle" fill="var(--text-faint)" font-size="13">Réponds à des questions pour voir ton radar</text>`;
     return;
   }
   const cx = 150,
@@ -403,7 +403,7 @@ function renderHeatmap(history) {
     .map((day) => {
       const c = counts[day] || 0;
       const level = c === 0 ? 0 : c === 1 ? 1 : c <= 3 ? 2 : c <= 5 ? 3 : 4;
-      return `<div class="heatmap-cell" data-level="${level}" title="${day} : ${c} exercice(s)"></div>`;
+      return `<div class="heatmap-cell" data-level="${level}" title="${day} : ${c} question(s)"></div>`;
     })
     .join("");
 }

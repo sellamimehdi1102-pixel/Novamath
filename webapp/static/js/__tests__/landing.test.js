@@ -59,11 +59,11 @@ describe("index.html — couverture des classes (contenu statique, lisible sans 
     await mountLanding();
     const hrefs = [...document.querySelectorAll("#classes a")].map((a) => a.getAttribute("href"));
     expect(hrefs).toEqual([
-      "/maths-quatrieme",
-      "/maths-troisieme",
-      "/maths-seconde",
-      "/maths-premiere-specialite",
-      "/maths-premiere-specifique",
+      "/choisir-classe.html?classe=quatrieme",
+      "/choisir-classe.html?classe=troisieme",
+      "/choisir-classe.html?classe=seconde",
+      "/choisir-classe.html?classe=premiere",
+      "/choisir-classe.html?classe=premiere_specifique",
     ]);
   });
 });

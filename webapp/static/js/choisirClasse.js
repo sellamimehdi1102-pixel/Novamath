@@ -1,8 +1,11 @@
 import { bindThemeToggle } from "./theme.js";
+import { api } from "./api.js";
+import { resetGuestLocalState } from "./store.js";
 import {
   fetchCurricula,
   getStoredClassLevel,
   setStoredClassLevel,
+  setSessionClassLevel,
   renderCurriculumCard,
   ALLOWED_NEXT_PAGES,
 } from "./curriculumSelector.js";
@@ -36,8 +39,31 @@ function enterCurriculum(classLevel) {
   window.location.href = `/${next || "dashboard.html"}`;
 }
 
+// Liens /maths-<classe> (redirigés ici par le serveur) : classe présélectionnée
+// pour cet onglet, puis ouverture des questions — en mode invité si aucun
+// compte n'est connecté. Une classe inconnue ou un échec réseau retombent sur
+// le sélecteur habituel ci-dessous.
+async function enterFromLink(curricula) {
+  const requested = new URLSearchParams(window.location.search).get("classe");
+  if (!requested || !curricula.some((c) => c.classLevel === requested)) return false;
+  try {
+    try {
+      await api.me();
+    } catch {
+      resetGuestLocalState();
+      await api.enterGuest();
+    }
+  } catch {
+    return false;
+  }
+  setSessionClassLevel(requested);
+  window.location.replace("/chapitres.html");
+  return true;
+}
+
 fetchCurricula()
-  .then((curricula) => {
+  .then(async (curricula) => {
+    if (await enterFromLink(curricula)) return;
     const current = getStoredClassLevel();
     grid.innerHTML = "";
     grid.setAttribute("aria-busy", "false");

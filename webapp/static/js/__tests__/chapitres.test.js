@@ -204,7 +204,7 @@ describe("chapitres.js — accueil éditorial invité (Phase 5, onboarding)", ()
       mockScopedStats.mockReturnValue({ history: [] });
     });
     expect($subtitle().textContent).toBe(
-      "Choisis un chapitre ci-dessous pour commencer ta toute première série d'exercices.",
+      "Choisis un chapitre ci-dessous pour commencer ta toute première série de questions.",
     );
   });
 

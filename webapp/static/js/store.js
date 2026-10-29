@@ -76,9 +76,9 @@ const XP_MULT = { 1: 1, 2: 1.3, 3: 1.6, 4: 1.9, 5: 2.2 };
 const LEVEL_THRESHOLDS = [0, 100, 250, 450, 700, 1000, 1400, 1900, 2500, 3200, 4000];
 
 const BADGE_DEFS = [
-  { id: "ex_10", label: "10 exercices", test: (s) => s.history.length >= 10 },
-  { id: "ex_50", label: "50 exercices", test: (s) => s.history.length >= 50 },
-  { id: "ex_100", label: "100 exercices", test: (s) => s.history.length >= 100 },
+  { id: "ex_10", label: "10 questions", test: (s) => s.history.length >= 10 },
+  { id: "ex_50", label: "50 questions", test: (s) => s.history.length >= 50 },
+  { id: "ex_100", label: "100 questions", test: (s) => s.history.length >= 100 },
   { id: "streak_7", label: "Série de 7 jours", test: (s) => computeStreak(s.history) >= 7 },
   { id: "streak_30", label: "Série de 30 jours", test: (s) => computeStreak(s.history) >= 30 },
   {

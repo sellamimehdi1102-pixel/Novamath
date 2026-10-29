@@ -60,7 +60,7 @@ function refreshSiteStats(classLevel) {
         const labelEl = item.querySelector(".stat-label");
 
         if (item.dataset.format === "exercises") {
-          labelEl.textContent = "exercices";
+          labelEl.textContent = "questions";
           valueEl.dataset.prefix = "Plus de ";
         }
 

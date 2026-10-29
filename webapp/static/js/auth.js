@@ -648,7 +648,7 @@ function stripQueryParams(names) {
   if (!next) return;
   const labels = {
     "dashboard.html": "ton dashboard",
-    "chapitres.html": "les exercices",
+    "chapitres.html": "les questions",
     "exercice.html": "l'entraînement",
     "profil.html": "ton profil",
   };
