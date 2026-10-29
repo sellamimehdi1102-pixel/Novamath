@@ -355,8 +355,8 @@ function buildSeriesPool(currentMode) {
 
 function emptyMessageFor(m) {
   if (m === "erreurs") return "Aucune erreur enregistrée pour l'instant — bravo ! Reviens ici après une série.";
-  if (m === "notion") return "Aucun exercice disponible pour cette notion.";
-  return "Commence par une notion depuis la page Exercices : tes révisions se construisent ensuite à partir de tes résultats.";
+  if (m === "notion") return "Aucune question disponible pour cette notion.";
+  return "Commence par une notion depuis la page Questions : tes révisions se construisent ensuite à partir de tes résultats.";
 }
 
 function showEmpty(message) {
@@ -546,8 +546,8 @@ async function refreshExercisesQuota() {
       !q.unlimited && q.remaining > 0 && q.remaining <= Math.ceil(q.limit * 0.15),
     );
     quotaValue.textContent = q.unlimited
-      ? "Exercices illimités"
-      : `${q.remaining} exercice${q.remaining === 1 ? "" : "s"} restant${q.remaining === 1 ? "" : "s"} aujourd'hui`;
+      ? "Questions illimitées"
+      : `${q.remaining} question${q.remaining === 1 ? "" : "s"} restante${q.remaining === 1 ? "" : "s"} aujourd'hui`;
   } catch {
     /* silencieux : l'indicateur reste dans son dernier état connu */
   }
@@ -566,7 +566,7 @@ function showExercisesQuotaExceeded(err) {
   $("screen-ex").classList.remove("is-loading");
   $("screen-recap").hidden = true;
   $("empty-state").hidden = false;
-  const limitText = err.limit != null ? `ta limite de ${err.limit} exercices` : "ta limite d'exercices";
+  const limitText = err.limit != null ? `ta limite de ${err.limit} questions` : "ta limite de questions";
   $("empty-state").querySelector("p").textContent =
     `Tu as atteint ${limitText} aujourd'hui. Elle sera réinitialisée demain.`;
   refreshExercisesQuota();
@@ -642,7 +642,7 @@ async function loadCurrent() {
       $("screen-ex").classList.remove("is-loading");
       SERIES_TOTAL = seriesIndex;
       if (draft.questions.length) finishSeries();
-      else showEmpty("Les exercices de cette série sont introuvables. Relance une nouvelle série.");
+      else showEmpty("Les questions de cette série sont introuvables. Relance une nouvelle série.");
       return;
     }
     if (err.status === 404) {
@@ -653,7 +653,7 @@ async function loadCurrent() {
         if (draft.questions.length) {
           finishSeries();
         } else {
-          showEmpty("Les exercices de cette série sont introuvables. Relance une nouvelle série.");
+          showEmpty("Les questions de cette série sont introuvables. Relance une nouvelle série.");
         }
         return;
       }
@@ -716,7 +716,7 @@ function renderHistory() {
       strip.appendChild(dot);
     });
   if (!state.history.length) {
-    strip.innerHTML = `<span style="color:var(--text-muted); font-size:0.85rem;">Aucun exercice fait pour l'instant.</span>`;
+    strip.innerHTML = `<span style="color:var(--text-muted); font-size:0.85rem;">Aucune question faite pour l'instant.</span>`;
   }
 }
 
@@ -851,10 +851,10 @@ $("ex-btn-no").addEventListener("click", () => handleVerdict(false));
 $("btn-report-exercise").addEventListener("click", () => {
   if (!current) return;
   openReportTicketPopup({
-    sourceLabel: "Exercice",
+    sourceLabel: "Question",
     defaultCategory: "bug",
     contextLines: [
-      { label: "Exercice", value: current.id },
+      { label: "Question", value: current.id },
       { label: "Chapitre", value: current.chapter_id },
       { label: "Classe", value: getStoredClassLevel() },
       { label: "Réponse utilisateur", value: lastVerdictLabel || "non renseignée (signalé avant réponse)" },
@@ -922,7 +922,7 @@ function showMethod() {
   if (steps.length) {
     el.innerHTML = `<strong>Méthode :</strong><ol>${steps.map((s) => `<li>${formatStepLabels(s)}</li>`).join("")}</ol>`;
   } else {
-    el.innerHTML = "Aucune méthode détaillée disponible pour cet exercice.";
+    el.innerHTML = "Aucune méthode détaillée disponible pour cette question.";
   }
   if (window.renderMathInElement) {
     window.renderMathInElement(el, { delimiters: [{ left: "$", right: "$", display: false }], throwOnError: false });

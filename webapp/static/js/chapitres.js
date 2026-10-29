@@ -87,7 +87,7 @@ function chapterIcon() {
 // pertinente, ne voit aucun changement (texte historique de la page
 // conservé). Aucune nouvelle carte/composant : seul le texte du sous-titre
 // déjà présent est adapté. ─────────────────────────────────────────────────
-const GUEST_WELCOME_TEXT = "Choisis un chapitre ci-dessous pour commencer ta toute première série d'exercices.";
+const GUEST_WELCOME_TEXT = "Choisis un chapitre ci-dessous pour commencer ta toute première série de questions.";
 let defaultSubtitleText = null;
 
 function updateGuestWelcome(isGuest, hasHistory) {
@@ -255,7 +255,7 @@ function renderChapters(chaptersMeta) {
           </div>
           <div class="progress-track"><div class="progress-fill" style="width:${nCoveragePct}%"></div></div>
           <div class="notion-meta">
-            <span>${nm.count}/${n.n_exercises} exercices faits · Accuracy ${nAccuracyPct}% · Temps moyen ${avgDuration(state.history, ch.id, n.notion)}</span>
+            <span>${nm.count}/${n.n_exercises} questions faites · Accuracy ${nAccuracyPct}% · Temps moyen ${avgDuration(state.history, ch.id, n.notion)}</span>
             <span>Dernier entraînement : ${formatDate(nm.last)}</span>
           </div>
           <div class="notion-meta">
@@ -290,7 +290,7 @@ function renderChapters(chaptersMeta) {
       </div>
       <div class="chapter-meta-row">
         <span>${icon("clock")} ~${estMinutes} min restantes</span>
-        <span>${icon("penSquare")} ${ch.n_exercises} exercices</span>
+        <span>${icon("penSquare")} ${ch.n_exercises} questions</span>
         <span>${icon("layers")} ${ch.n_notions} notions</span>
       </div>
       <div style="display:flex; gap:8px; margin-bottom:12px;">
@@ -449,7 +449,7 @@ function ensureSelectionBar() {
       </div>
       <div class="series-selection-stat">
         <strong id="series-selection-exercises">0</strong>
-        <span>exercice<span class="plural-s"></span></span>
+        <span>question<span class="plural-s"></span></span>
       </div>
     </div>
     <button type="button" class="btn btn-primary series-selection-launch" id="series-selection-launch">

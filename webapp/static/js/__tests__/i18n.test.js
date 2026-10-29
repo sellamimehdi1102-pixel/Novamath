@@ -97,7 +97,7 @@ describe("i18n.js — bindLiveTranslations", () => {
   it("applique les traductions immédiatement à l'appel", () => {
     document.body.innerHTML = '<span data-i18n="nav.exercices"></span>';
     bindLiveTranslations();
-    expect(document.querySelector("span").textContent).toBe("Exercices");
+    expect(document.querySelector("span").textContent).toBe("Questions");
   });
 
   it("s'enregistre auprès de onSettingsChange pour réagir aux changements de langue", () => {

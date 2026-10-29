@@ -127,7 +127,7 @@ async function toggleReview(row, series) {
     if (ex) {
       setMathContent(enonce, ex.enonce);
     } else {
-      enonce.textContent = "(exercice indisponible)";
+      enonce.textContent = "(question indisponible)";
     }
 
     const badge = document.createElement("span");

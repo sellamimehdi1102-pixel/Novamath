@@ -781,11 +781,9 @@ app.add_url_rule("/", endpoint="landing_root", view_func=_serve_landing)
 app.add_url_rule("/index.html", endpoint="landing_index_html", view_func=_serve_landing)
 
 
-# ── Pages publiques par classe (référencement naturel) ──────────────────────
-# /maths-quatrieme, /maths-troisieme, ... : HTML rendu côté serveur (voir
-# seo_pages.py), accessible sans compte. N'expose que des données déjà
-# publiques (titres de chapitres/notions de /api/chapters, compteurs de
-# /api/site/stats) — jamais un cours, un exercice ni une donnée élève.
+# ── Titres de chapitres lisibles (sélecteur « Question sur mesure ») ────────
+# Mêmes valeurs que /api/chapters, titre générique « Chapitre N » remplacé comme
+# dans l'application (chapterTitleByNotions.js).
 _class_outline_cache = {}
 
 
@@ -817,41 +815,19 @@ def _public_chapter_outline(class_level):
     return _class_outline_cache[class_level]
 
 
-def _public_class_stats(class_level):
-    # Mêmes sources que /api/site/stats (Seconde : BANK historique).
-    if class_level == "seconde":
-        return {
-            "totalExercises": len(BANK),
-            "notions": len(set(e.get("notion") for e in BANK if e.get("notion"))),
-            "difficultyLevels": len(DIFFICULTY_LEVELS),
-        }
-    return curriculum_stats.compute_stats(class_level)
+# Les anciennes pages /maths-<classe> n'existent plus : leurs URL (déjà
+# indexées ou partagées) redirigent définitivement vers le sélecteur de classe,
+# qui présélectionne la classe pour l'onglet et ouvre les questions, en mode
+# invité si aucun compte n'est connecté (voir static/js/choisirClasse.js).
+def _redirect_class_page(class_level):
+    return redirect(f"/choisir-classe.html?classe={class_level}", code=301)
 
 
-def _serve_class_seo_page(class_level):
-    if class_level not in curriculum_registry.CURRICULUM_REGISTRY:
-        abort(404)
-    user = get_current_user()
-    logged_in = user is not None and user["auth_provider"] != "guest"
-    template = (Path(app.static_folder) / "maths-classe.html").read_text(encoding="utf-8")
-    html = seo_pages.render_page(
-        template, class_level, _public_chapter_outline(class_level), _public_class_stats(class_level), logged_in,
-    )
-    return Response(html, mimetype="text/html")
-
-
-for _level, _seo_page in seo_pages.CLASS_PAGES.items():
+for _slug, _level in seo_pages.SLUG_TO_CLASS_LEVEL.items():
     app.add_url_rule(
-        f"/{_seo_page['slug']}", endpoint=f"seo_class_{_level}",
-        view_func=lambda level=_level: _serve_class_seo_page(level),
+        f"/{_slug}", endpoint=f"class_page_redirect_{_level}",
+        view_func=lambda level=_level: _redirect_class_page(level),
     )
-
-
-# Gabarit brut (marqueurs <!--SEO:...--> non remplacés) : jamais servi tel
-# quel par le handler statique.
-@app.route("/maths-classe.html")
-def _hide_class_page_template():
-    abort(404)
 
 
 @app.route("/api/chapters")

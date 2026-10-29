@@ -778,7 +778,17 @@ def enter_guest():
     par inactivité côté serveur (GUEST_IDLE_TTL_MINUTES) : la session invité ne
     survit ni à la fermeture du navigateur ni à une longue absence. Les invités
     déjà expirés sont purgés à chaque nouvelle entrée (pas de tâche planifiée
-    disponible dans ce projet, un nettoyage paresseux suffit largement)."""
+    disponible dans ce projet, un nettoyage paresseux suffit largement).
+
+    Réutilisation : si la requête porte déjà une session valide (invité non
+    expiré, ou compte réel), aucun nouveau compte n'est créé — l'utilisateur
+    courant est renvoyé tel quel (200) et ses cookies ne sont pas touchés. Un
+    rechargement, un second onglet ou un lien /maths-<classe> ouvert en cours
+    de session ne génèrent donc plus d'invité supplémentaire (et ne remplacent
+    plus la session d'un compte connecté)."""
+    existing = get_current_user()
+    if existing is not None:
+        return jsonify({"user": _public_user(existing)}), 200
     db.cleanup_expired_guests()
     user_id = db.create_guest_user(secrets.token_hex(8))
     token = db.create_session(user_id, days=GUEST_SESSION_DAYS, user_agent=request.headers.get("User-Agent"))
