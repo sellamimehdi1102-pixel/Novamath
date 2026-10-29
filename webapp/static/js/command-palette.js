@@ -5,6 +5,7 @@
 // modale (aucun système de dialogue réinventé).
 import { openPopup } from "./popup.js";
 import { api } from "./api.js";
+import { isPedagogyFree } from "./pedagogyFree.js";
 import { t } from "./i18n.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
 
@@ -19,7 +20,8 @@ const STATIC_COMMANDS = [
 ];
 
 function staticCommandsTranslated() {
-  return STATIC_COMMANDS.map((c) => ({ ...c, subtitle: t(c.subtitle, "") }));
+  const commands = isPedagogyFree() ? STATIC_COMMANDS.filter((c) => c.url !== "abonnement.html") : STATIC_COMMANDS;
+  return commands.map((c) => ({ ...c, subtitle: t(c.subtitle, "") }));
 }
 
 function renderList(container, items, onPick) {

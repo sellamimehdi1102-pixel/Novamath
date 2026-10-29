@@ -65,6 +65,14 @@ CSRF_COOKIE_SECURE = _env_flag("CSRF_COOKIE_SECURE", IS_PRODUCTION)
 # propres cas, comme n'importe quelle autre configuration de test ciblée.
 RATE_LIMIT_ENABLED = _env_flag("RATE_LIMIT_ENABLED", IS_PRODUCTION)
 
+# Gratuité des fonctionnalités pédagogiques (cours complets, exercices
+# illimités, statistiques, exercices sur mesure...) pour TOUS les comptes.
+# Réversible : PEDAGOGY_FREE=0 rétablit exactement les paliers Free/Premium/
+# Ultra (matrices, quotas, achat). Le chatbot IA n'est jamais concerné : son
+# quota, ses fournisseurs et son routage restent ceux du palier Free pour
+# tout le monde (voir owner_test_plan_service.effective_plan).
+PEDAGOGY_FREE = _env_flag("PEDAGOGY_FREE", True)
+
 # Journalisation structurée (webapp/logging_service.py) — niveau standard du
 # module logging ("DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL").
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").strip().upper()

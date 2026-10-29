@@ -9,7 +9,7 @@
 import { api } from "./api.js";
 import { hasFeature } from "./features.js";
 import { getStoredClassLevel } from "./curriculumSelector.js";
-import { setMathContent, formatStepLabels } from "./mathrender.js";
+import { setMathContent } from "./mathrender.js";
 import { icon } from "./icons.js";
 
 const $ = (id) => document.getElementById(id);
@@ -41,9 +41,10 @@ function groupByClassLevel(notions) {
 
 function selectorHtml(notionsForClass) {
   const notionOptions = notionsForClass
-    // Libellé lisible (« Chapitre 6 », jamais l'identifiant « Chapitre_6 ») ;
-    // la valeur reste l'index, chapter_id/notion sont transmis tels quels.
-    .map((n, i) => `<option value="${i}">${String(n.chapter_id).replace(/_/g, " ")} — ${n.notion}</option>`)
+    // Titre réel du chapitre (fourni par le serveur), jamais l'identifiant
+    // technique ; la valeur reste l'index, chapter_id/notion sont transmis
+    // tels quels.
+    .map((n, i) => `<option value="${i}">${n.chapter_title || "Chapitre"} — ${n.notion}</option>`)
     .join("");
   return `
     <label class="sub" for="custom-ex-notion">Notion</label>
@@ -74,7 +75,7 @@ function renderExercise(ex) {
   if (!resultEl) return;
   resultEl.innerHTML = `
     <div class="question-badges" style="margin-top:12px;">
-      <span class="badge badge--indigo">${ex.chapter_id}</span>
+      <span class="badge badge--indigo">${ex.chapter_title || ""}</span>
       <span class="badge badge--neutral">${ex.notion}</span>
       <span class="badge">${ex.difficulty_emoji || ""} ${ex.difficulty_label || ""}</span>
     </div>
@@ -92,12 +93,23 @@ function renderExercise(ex) {
     box.hidden = nowHidden;
     if (!nowHidden && !box.dataset.filled) {
       box.dataset.filled = "1";
-      const steps = (ex.solution_steps || []).map((s) => `<li>${formatStepLabels(s)}</li>`).join("");
-      box.innerHTML = `<div><strong>Réponse :</strong></div><div id="custom-ex-answer"></div>${steps ? `<ol>${steps}</ol>` : ""}`;
+      const steps = ex.solution_steps || [];
+      box.innerHTML = `<div><strong>Réponse :</strong></div><div id="custom-ex-answer"></div>${steps.length ? '<ol id="custom-ex-steps"></ol>' : ""}`;
       setMathContent($("custom-ex-answer"), ex.answer);
+      const list = $("custom-ex-steps");
+      steps.forEach((step) => {
+        const li = document.createElement("li");
+        list?.appendChild(li);
+        setMathContent(li, step);
+      });
     }
   });
 }
+
+// Dernières clés d'exercices servies, par notion et type : envoyées au serveur
+// (`exclude`) pour qu'il ne ressorte pas deux fois le même exercice de suite.
+const RECENT_LIMIT = 15;
+const recentKeys = new Map();
 
 async function handleGenerate(classLevel, notionsForClass) {
   const notionSelect = $("custom-ex-notion");
@@ -107,6 +119,7 @@ async function handleGenerate(classLevel, notionsForClass) {
   const notion = notionsForClass[Number(notionSelect.value)];
   if (!notion || !familySelect.value) return;
 
+  const memoryKey = `${classLevel}|${notion.chapter_id}|${notion.notion}|${familySelect.value}`;
   btn.disabled = true;
   try {
     const { exercise } = await api.practiceGenerate({
@@ -114,7 +127,11 @@ async function handleGenerate(classLevel, notionsForClass) {
       chapterId: notion.chapter_id,
       notion: notion.notion,
       familyId: familySelect.value,
+      exclude: recentKeys.get(memoryKey) || [],
     });
+    if (exercise.dedupe_key) {
+      recentKeys.set(memoryKey, [...(recentKeys.get(memoryKey) || []), exercise.dedupe_key].slice(-RECENT_LIMIT));
+    }
     renderExercise(exercise);
   } catch {
     const resultEl = $("custom-ex-result");

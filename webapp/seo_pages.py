@@ -429,8 +429,8 @@ def render_body(class_level, chapters, stats, logged_in, logo_src=None):
     )
     faq_items = list(page["faq"]) + [
         ("Mathadap est-il gratuit ?",
-         "Le plan Gratuit donne accès à tous les chapitres avec l'essentiel du cours, sans carte bancaire ni "
-         "engagement. Les formules Premium et Ultra débloquent un contenu plus complet."),
+         "Oui. Les cours complets, les exercices, les corrections, les révisions et le suivi de progression sont "
+         "gratuits, sans carte bancaire ni engagement. Seul l'assistant IA est limité à un nombre de messages par jour."),
     ]
     faq = "\n".join(
         f'<details class="seo-faq-item"><summary>{_e(q)}</summary>'
@@ -479,7 +479,7 @@ def render_body(class_level, chapters, stats, logged_in, logo_src=None):
     <div class="seo-cta">
 {_cta_buttons(class_level, logged_in)}
     </div>
-    <p class="seo-cta-note">Plan Gratuit sans carte bancaire ni engagement.</p>
+    <p class="seo-cta-note">Gratuit, sans carte bancaire ni engagement.</p>
   </header>
 
   <section class="seo-stats" aria-label="Mathadap en {_e(label)} en chiffres">
@@ -516,10 +516,10 @@ def render_body(class_level, chapters, stats, logged_in, logo_src=None):
       <h2>Comment Mathadap t'aide en {_e(label)}</h2>
     </div>
     <ul class="seo-features">
-      <li><strong>Des exercices adaptés à ton niveau.</strong> La difficulté s'ajuste à tes réponses, exercice après exercice, et tes notions faibles reviennent en priorité.</li>
+      <li><strong>Une difficulté qui suit tes résultats.</strong> Pour chaque notion, la difficulté monte ou descend selon tes réponses, par blocs de 5 exercices ; les révisions reprennent en priorité tes notions les plus fragiles.</li>
       <li><strong>Une méthode pas à pas.</strong> Chaque exercice propose un indice, la méthode détaillée et la solution.</li>
-      <li><strong>Un cours par chapitre.</strong> L'essentiel du cours est inclus dans le plan Gratuit ; Premium et Ultra débloquent un contenu plus complet.</li>
-      <li><strong>Un assistant IA.</strong> Il répond à tes questions sur l'exercice en cours ; le nombre de messages dépend de ta formule.</li>
+      <li><strong>Un cours par chapitre.</strong> Définitions, propriétés, exemples et démonstrations, gratuits pour tous.</li>
+      <li><strong>Un assistant IA.</strong> Il répond à tes questions sur l'exercice en cours, dans la limite d'un nombre de messages par jour.</li>
       <li><strong>Un suivi de progression.</strong> Chapitres maîtrisés, notions à revoir et historique de tes réponses.</li>
     </ul>
   </section>

@@ -201,6 +201,13 @@ os.environ["BACKUP_DIRECTORY"] = str(_TEST_DATA_DIR / "backups")
 import httpx  # noqa: E402
 import requests  # noqa: E402
 
+# Les tests historiques valident l'architecture Free/Premium/Ultra complète :
+# la gratuité pédagogique (config.PEDAGOGY_FREE, active en production par
+# défaut) y est désactivée par variable d'environnement, avant tout import,
+# pour survivre aux importlib.reload(config) de certains tests.
+# tests/test_pedagogy_free.py l'active explicitement pour ses propres cas.
+os.environ.setdefault("PEDAGOGY_FREE", "0")
+
 import config  # noqa: E402
 
 # ── 0. Neutraliser toute base externe pour la durée du processus pytest ───
@@ -337,6 +344,7 @@ auth.USER_COURSE_DIR = _TEST_DATA_DIR / "user_course_progress"
 auth.LEGACY_STATS_PATH = _TEST_DATA_DIR / "stats_store.json"
 
 config.BACKUP_DIRECTORY = str(_TEST_DATA_DIR / "backups")
+
 
 # `import server` exécute ici son code de niveau module (db.init_db(),
 # seeds par défaut, _get_or_create_secret...) — avec les chemins déjà

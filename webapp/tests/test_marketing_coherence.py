@@ -123,8 +123,23 @@ class TestAbonnementHtmlCoherence(_ClientPageCoherenceMixin, unittest.TestCase):
     filename = "abonnement.html"
 
 
-class TestIndexHtmlCoherence(_ClientPageCoherenceMixin, unittest.TestCase):
-    filename = "index.html"
+class TestIndexHtmlGratuite(unittest.TestCase):
+    """Depuis la gratuité pédagogique (config.PEDAGOGY_FREE), l'accueil ne
+    présente plus de formules payantes : ni prix, ni palier, ni paiement. Les
+    chiffres des matrices restent vérifiés sur abonnement.html (mixin ci-dessus).
+    """
+
+    def setUp(self):
+        self.html = (STATIC_DIR / "index.html").read_text(encoding="utf-8")
+
+    def test_aucune_formule_payante_ni_prix(self):
+        for forbidden in ("Premium", "Ultra", "€", "/mois", "Stripe", "pricing-card", "data-plan-button"):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, self.html)
+
+    def test_annonce_l_acces_gratuit_et_le_quota_du_chatbot(self):
+        self.assertIn("Tout l'entraînement est gratuit", self.html)
+        self.assertIn("Seul l'assistant IA est limité", self.html)
 
 
 class TestSuggestionsLimitByPlanEstBienUneMatricePlan(unittest.TestCase):

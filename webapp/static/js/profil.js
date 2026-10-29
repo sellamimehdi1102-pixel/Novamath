@@ -13,6 +13,7 @@ import {
 import { getStoredClassLevel, fetchCurricula } from "./curriculumSelector.js";
 import { getChapterTitles, buildSeriesRow } from "./seriesview.js";
 import { api } from "./api.js";
+import { isPedagogyFree } from "./pedagogyFree.js";
 import { bindLiveTranslations } from "./i18n.js";
 import { badgeIconSvg } from "./badgeIcons.js";
 
@@ -109,6 +110,9 @@ async function renderSubscription() {
   const card = $("subscription-card");
   try {
     const status = await api.billingStatus();
+    // Gratuité pédagogique : la carte n'existe plus que pour les anciens
+    // abonnés (gestion/résiliation via le portail Stripe).
+    if (isPedagogyFree() && !status.subscription_status) return;
     card.hidden = false;
     $("subscription-plan-badge").textContent = PLAN_LABELS[status.plan] || status.plan;
 

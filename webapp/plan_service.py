@@ -25,6 +25,8 @@ from functools import wraps
 
 from flask import jsonify, request
 
+import config
+
 
 class Plan(Enum):
     FREE = "free"
@@ -119,8 +121,31 @@ def get_plan(user):
     return Plan.from_value(user.get("plan"))
 
 
+# Fonctionnalités rattachées au chatbot IA : jamais ouvertes par la gratuité
+# pédagogique (config.PEDAGOGY_FREE) — le chatbot reste au palier Free.
+_CHATBOT_AI_FEATURES = frozenset({
+    Feature.CHATBOT_UNLIMITED,
+    Feature.ADVANCED_AI,
+    Feature.LONG_RESPONSES,
+    Feature.PRIORITY_QUEUE,
+    Feature.PRIORITY_SUPPORT,
+})
+
+
+def pedagogy_plan(plan):
+    """Palier à appliquer au contenu et aux quotas PÉDAGOGIQUES (cours,
+    statistiques, exercices) : Ultra pour le palier Free quand
+    config.PEDAGOGY_FREE est actif, sinon le palier tel quel. Jamais utilisé
+    pour le chatbot (quota, routage, modèles), qui suit le palier réel."""
+    if plan is Plan.FREE and config.PEDAGOGY_FREE:
+        return Plan.ULTRA
+    return plan
+
+
 def list_features(plan):
     """Ensemble des Feature disponibles pour un Plan donné."""
+    if plan is Plan.FREE and config.PEDAGOGY_FREE:
+        return FEATURE_MATRIX[Plan.ULTRA] - _CHATBOT_AI_FEATURES
     return FEATURE_MATRIX[plan]
 
 

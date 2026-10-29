@@ -680,6 +680,10 @@ def _serve_protected(page):
     user = get_current_user()
     if user is None:
         return redirect(f"/?next={page}")
+    # Gratuité pédagogique : plus d'offre à présenter. Les anciens abonnés
+    # gèrent leur abonnement depuis le profil (portail client Stripe).
+    if page == "abonnement.html" and config.PEDAGOGY_FREE:
+        return redirect("/profil.html")
     required_feature = PAGE_FEATURE_REQUIREMENTS.get(page)
     if required_feature is not None and not plan_service.has_feature(user, required_feature):
         return redirect(f"/abonnement.html?required={required_feature.value}")
@@ -697,7 +701,10 @@ def _serve_protected(page):
     # l'en-tête (middleware installé via security_headers_service.init_app()).
     nonce = secrets.token_urlsafe(16)
     g.csp_nonce = nonce
-    injected = f'<script nonce="{nonce}">window.__NOVAMATH_USER_ID__ = {json.dumps(user["id"])};</script>'
+    # Classe `pedagogy-free` posée avant tout rendu : le CSS/JS masquent les
+    # éléments d'abonnement sans clignotement (voir base.css, api.js).
+    free_flag = 'document.documentElement.classList.add("pedagogy-free");' if config.PEDAGOGY_FREE else ""
+    injected = f'<script nonce="{nonce}">window.__NOVAMATH_USER_ID__ = {json.dumps(user["id"])};{free_flag}</script>'
     html = html.replace("<head>", f"<head>\n{injected}", 1)
     return Response(html, mimetype="text/html")
 
@@ -801,7 +808,11 @@ def _public_chapter_outline(class_level):
                 notions.sort(key=lambda n: (rank.get(n, len(rank)), n))
             notions = list(meta.get("notions_cours", notions))
             raw_title = meta.get("title", chapter_id.replace("_", " "))
-            outline.append({"title": seo_pages.resolve_chapter_title(raw_title, notions), "notions": notions})
+            outline.append({
+                "id": chapter_id,
+                "title": seo_pages.resolve_chapter_title(raw_title, notions),
+                "notions": notions,
+            })
         _class_outline_cache[class_level] = outline
     return _class_outline_cache[class_level]
 
@@ -1122,7 +1133,7 @@ def api_stats():
         # l'historique complet depuis read_user_stats() côté POST).
         plan = owner_test_plan_service.effective_plan(request.current_user)
         series = stats.get("series") or []
-        window = _STATS_SERIES_WINDOW[plan]
+        window = _STATS_SERIES_WINDOW[plan_service.pedagogy_plan(plan)]
         if window is not None and len(series) > window:
             stats = {**stats, "series": series[-window:]}
         # suggestions_limit : jamais persistée sur disque (ajoutée uniquement
@@ -1130,7 +1141,7 @@ def api_stats():
         # ci-dessus) — dashboard.js l'utilise pour plafonner l'affichage des
         # suggestions déjà calculées côté client à partir de history[],
         # jamais recalculées ici.
-        stats = {**stats, "suggestions_limit": _SUGGESTIONS_LIMIT_BY_PLAN[plan]}
+        stats = {**stats, "suggestions_limit": _SUGGESTIONS_LIMIT_BY_PLAN[plan_service.pedagogy_plan(plan)]}
         # notion_breakdown_enabled (Chantier "Différenciateurs Premium/Ultra",
         # 2026-08-27) : réutilise Feature.ADVANCED_EXPLANATIONS (déjà
         # Premium+, déjà utilisée pour la richesse du contenu de cours —
@@ -1698,22 +1709,117 @@ def api_practice_result():
 # QUOTA_MATRIX[ULTRA][CUSTOM_EXERCISES] est illimité — consommer n'aurait
 # aucun effet pratique aujourd'hui (décision validée explicitement, pas
 # supposée).
+# ── Exercice sur mesure : couverture complète et diversité ──────────────────
+# Une notion est proposable dès que le système dispose d'exercices exploitables
+# pour elle : soit un générateur symbolique (exercise_generator.registry), soit,
+# à défaut, la banque d'exercices de la classe (curée + pool généré déjà
+# fusionnés par _class_bank) — jamais un exercice d'une autre notion.
+_BANK_FAMILY_PREFIX = "bank:"
+_ANY_FAMILY = "any"
+_bank_notion_levels_cache = {}
+
+
+def _custom_level_meta(difficulty):
+    from exercise_generator.derivatives import LEVEL_META
+    meta = LEVEL_META.get(difficulty) or {"emoji": "", "label": f"Niveau {difficulty}"}
+    return meta["emoji"], meta["label"]
+
+
+def _bank_notion_levels(class_level):
+    """{(chapter_id, notion): [difficultés disponibles, triées]} d'après la
+    banque de la classe (mis en cache : la banque ne change pas à chaud)."""
+    if class_level not in _bank_notion_levels_cache:
+        levels = {}
+        for e in _class_bank(class_level)["bank"]:
+            if e.get("chapter_id") and e.get("notion") and e.get("difficulty") is not None:
+                levels.setdefault((e["chapter_id"], e["notion"]), set()).add(e["difficulty"])
+        _bank_notion_levels_cache[class_level] = {k: sorted(v) for k, v in levels.items()}
+    return _bank_notion_levels_cache[class_level]
+
+
+def _chapter_titles(class_level):
+    return {c["id"]: c["title"] for c in _public_chapter_outline(class_level)}
+
+
 @app.route("/api/practice/generate/options")
 @login_required
 @requires_feature(Feature.CUSTOM_EXERCISES)
 def api_practice_generate_options():
-    """Notions/familles réellement générables à la demande, pour construire
-    le sélecteur frontend — jamais une liste inventée, dérivée de
-    exercise_generator.registry.available_notions() (FAMILIES réelles).
-    Couvre les 3 classes qui ont un moteur symbolique (troisieme/seconde/
-    premiere) — le frontend filtre par la classe actuellement sélectionnée
-    (getStoredClassLevel), une classe sans générateur reçoit simplement une
-    liste vide (jamais une fausse promesse)."""
-    notions = [
-        {"class_level": class_level, "chapter_id": chapter_id, "notion": notion, "families": families}
-        for (class_level, chapter_id, notion), families in exercise_generator_registry.available_notions().items()
-    ]
+    """Notions réellement proposables à la demande, pour construire le
+    sélecteur frontend — jamais une liste inventée : familles de
+    exercise_generator.registry.available_notions() et, pour les notions sans
+    générateur, niveaux de difficulté présents dans la banque de la classe
+    (family_id "bank:<difficulté>"). Une famille « any »/« bank:any » tire un
+    type (ou un niveau) au hasard."""
+    generated = exercise_generator_registry.available_notions()
+    order = {level: i for i, level in enumerate(curriculum_registry.CURRICULUM_REGISTRY)}
+    titles = {level: _chapter_titles(level) for level in order}
+    notions = []
+    for (class_level, chapter_id, notion), families in generated.items():
+        families = list(families)
+        if len(families) > 1:
+            families.insert(0, {"family_id": _ANY_FAMILY, "label": "Tous les types (varié)", "level": None})
+        notions.append({
+            "class_level": class_level, "chapter_id": chapter_id, "notion": notion, "families": families,
+            "chapter_title": titles.get(class_level, {}).get(chapter_id, chapter_id), "source": "generateur",
+        })
+    covered = {(level, chapter_id, notion) for (level, chapter_id, notion) in generated}
+    for class_level in order:
+        for (chapter_id, notion), difficulties in _bank_notion_levels(class_level).items():
+            if (class_level, chapter_id, notion) in covered:
+                continue
+            families = [
+                {"family_id": f"{_BANK_FAMILY_PREFIX}{d}", "label": _custom_level_meta(d)[1], "level": d}
+                for d in difficulties
+            ]
+            if len(families) > 1:
+                families.insert(0, {
+                    "family_id": f"{_BANK_FAMILY_PREFIX}{_ANY_FAMILY}", "label": "Tous les niveaux (varié)", "level": None,
+                })
+            notions.append({
+                "class_level": class_level, "chapter_id": chapter_id, "notion": notion, "families": families,
+                "chapter_title": titles.get(class_level, {}).get(chapter_id, chapter_id), "source": "banque",
+            })
+    notions.sort(key=lambda n: (order.get(n["class_level"], 99), get_chapter_num(n["chapter_id"]), n["notion"]))
     return jsonify({"notions": notions})
+
+
+def _draw_bank_exercise(class_level, chapter_id, notion, spec, exclude):
+    """Un exercice de la banque pour (chapitre, notion), au niveau demandé
+    ("<difficulté>" ou "any"), de préférence hors `exclude` (clés déjà vues)."""
+    res = _class_bank(class_level)
+    pool = [e for e in res["bank"] if e.get("chapter_id") == chapter_id and e.get("notion") == notion]
+    if spec != _ANY_FAMILY:
+        pool = [e for e in pool if str(e.get("difficulty")) == spec]
+    if not pool:
+        return None
+    fresh = [e for e in pool if f"{_BANK_FAMILY_PREFIX}{e['id']}" not in exclude] or pool
+    chosen = secrets.choice(fresh)
+    emoji, label = _custom_level_meta(chosen.get("difficulty"))
+    key = f"{_BANK_FAMILY_PREFIX}{chosen['id']}"
+    return {
+        **public_exercise(chosen, natural_by_id=res["natural_by_id"]),
+        "id": key, "dedupe_key": key, "difficulty_label": label, "difficulty_emoji": emoji, "source": "banque",
+    }
+
+
+def _draw_generated_exercise(class_level, chapter_id, notion, family_id, exclude):
+    """Exercice généré ; quelques tirages pour éviter un énoncé déjà vu
+    (`exclude`) — la dernière tentative est servie si l'espace de valeurs de
+    la famille est épuisé."""
+    families = exercise_generator_registry.available_notions(class_level).get((class_level, chapter_id, notion)) or []
+    if family_id == _ANY_FAMILY and not families:
+        return None
+    generated = None
+    for _ in range(12):
+        chosen_family = secrets.choice(families)["family_id"] if family_id == _ANY_FAMILY else family_id
+        generated = exercise_generator_registry.generate(class_level, chapter_id, notion, chosen_family)
+        if generated is None:
+            return None
+        if generated.get("enonce") not in exclude:
+            break
+    return {**generated, "id": f"generated:{generated.get('family', family_id)}:{uuid.uuid4().hex[:8]}",
+            "dedupe_key": generated.get("enonce")}
 
 
 @app.route("/api/practice/generate", methods=["POST"])
@@ -1734,14 +1840,24 @@ def api_practice_generate():
     if not (class_level and chapter_id and notion and family_id):
         return jsonify({"error": "class_level, chapter_id, notion et family_id sont requis"}), 400
 
-    generated = exercise_generator_registry.generate(class_level, chapter_id, notion, family_id)
-    if generated is None:
+    if class_level not in curriculum_registry.CURRICULUM_REGISTRY:
+        return jsonify({"error": "famille d'exercice inconnue"}), 404
+    raw_exclude = data.get("exclude")
+    exclude = {str(x) for x in raw_exclude[:40]} if isinstance(raw_exclude, list) else set()
+
+    if str(family_id).startswith(_BANK_FAMILY_PREFIX):
+        exercise = _draw_bank_exercise(
+            class_level, chapter_id, notion, str(family_id)[len(_BANK_FAMILY_PREFIX):], exclude,
+        )
+    else:
+        exercise = _draw_generated_exercise(class_level, chapter_id, notion, family_id, exclude)
+    if exercise is None:
         return jsonify({"error": "famille d'exercice inconnue"}), 404
 
     exercise = {
-        **generated,
-        "id": f"generated:{family_id}:{uuid.uuid4().hex[:8]}",
+        **exercise,
         "class_level": class_level,
+        "chapter_title": _chapter_titles(class_level).get(chapter_id, chapter_id),
     }
     return jsonify({"exercise": exercise})
 
@@ -3693,6 +3809,13 @@ def api_checkout_create_session():
     JSON non fiable du client — Plan.parse() est strict (None si inconnu),
     contrairement à Plan.from_value() utilisé pour lire des données internes
     déjà fiables (voir plan_service.py)."""
+    # Gratuité pédagogique : plus aucun nouvel achat. Webhook, portail client
+    # et changement de plan restent actifs pour les abonnements existants.
+    if config.PEDAGOGY_FREE:
+        return jsonify({
+            "error": "Les fonctionnalités pédagogiques de Mathadap sont désormais gratuites : aucun abonnement n'est nécessaire.",
+            "code": "pedagogy_free",
+        }), 410
     data = request.get_json(force=True) or {}
     plan = Plan.parse(data.get("plan"))
     if plan not in (Plan.PREMIUM, Plan.ULTRA):

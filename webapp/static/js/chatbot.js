@@ -1,4 +1,5 @@
 import { api, handleQuotaExceeded } from "./api.js";
+import { isPedagogyFree } from "./pedagogyFree.js";
 import { initSettingsManager } from "./settingsManager.js";
 import { bindSettingsButton } from "./settingsPopup.js";
 import { bindLiveTranslations, t } from "./i18n.js";
@@ -1032,7 +1033,9 @@ async function consumeStream(response, bubbleEl, onDone) {
         // serveur (vérifié avant tout appel LLM) — pas de refetch, qui le
         // ferait disparaître à tort.
         handleQuotaExceeded(payload);
-        const notice = "\n\n*Tu as atteint ta limite de messages aujourd'hui — redirection vers la page Abonnement…*";
+        const notice = isPedagogyFree()
+          ? "\n\n*Tu as atteint ta limite de messages aujourd'hui. Elle sera réinitialisée demain.*"
+          : "\n\n*Tu as atteint ta limite de messages aujourd'hui — redirection vers la page Abonnement…*";
         fullText += notice;
         typewriter.push(notice);
         typewriter.finish(() => {});
@@ -1144,7 +1147,9 @@ async function runAssistantTurn(convId, bubbleEl, startStream, onRetry) {
       // débloquerait rien avant demain ou une mise à niveau).
       renderMessageBody(
         bubbleEl,
-        "*Tu as atteint ta limite de messages aujourd'hui — redirection vers la page Abonnement…*",
+        isPedagogyFree()
+          ? "*Tu as atteint ta limite de messages aujourd'hui. Elle sera réinitialisée demain.*"
+          : "*Tu as atteint ta limite de messages aujourd'hui — redirection vers la page Abonnement…*",
       );
       return;
     }
@@ -1362,7 +1367,9 @@ pdfFileInput.addEventListener("change", async () => {
     // plan_service.Feature.ADVANCED_AI) : jamais afficher err.message brut
     // ("premium_required") — un message explicite + un lien direct vers
     // l'offre correspondante, jamais une erreur technique à l'écran.
-    if (err.isPremiumRequired) {
+    if (err.isPremiumRequired && isPedagogyFree()) {
+      insertIntoInput("[L'analyse de documents joints n'est pas disponible pour le moment.]");
+    } else if (err.isPremiumRequired) {
       const planLabel = err.requiredPlan === "ultra" ? "Ultra" : "Premium";
       insertIntoInput(
         `[${featureLabel(err.feature)} fait partie de la formule ${planLabel}. ` +

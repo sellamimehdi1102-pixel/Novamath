@@ -49,6 +49,7 @@ jamais un accès direct à ces clés ailleurs dans le projet.
 """
 import logging
 
+import config
 import db
 import owner_service
 from plan_service import Plan
@@ -150,6 +151,11 @@ def effective_plan(user):
       users.plan, qui reste inchangé en base."""
     if not owner_service.is_owner_account(user):
         from plan_service import get_plan
+        # Gratuité pédagogique : le chatbot (quota, routage, modèles) suit le
+        # palier Free pour tous les comptes, y compris les anciens Premium/
+        # Ultra. users.plan reste inchangé en base.
+        if config.PEDAGOGY_FREE:
+            return Plan.FREE
         return get_plan(user)
     test_plan = get_test_plan(user)
     return test_plan if test_plan is not None else Plan.ULTRA

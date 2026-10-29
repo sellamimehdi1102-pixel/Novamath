@@ -31,6 +31,7 @@ function notionsFixture() {
     {
       class_level: "seconde",
       chapter_id: "Chapitre_6",
+      chapter_title: "Droites du plan",
       notion: "Droites",
       families: [
         { family_id: "fam_a", label: "Type A", level: 1 },
@@ -40,6 +41,7 @@ function notionsFixture() {
     {
       class_level: "premiere",
       chapter_id: "Chapitre_2",
+      chapter_title: "Polynômes du second degré",
       notion: "Second degré",
       families: [{ family_id: "fam_c", label: "Type C", level: 1 }],
     },
@@ -50,6 +52,8 @@ function exerciseFixture(overrides = {}) {
   return {
     id: "generated:fam_a:abc123",
     chapter_id: "Chapitre_6",
+    chapter_title: "Droites du plan",
+    dedupe_key: "Calculer $2+2$.",
     notion: "Droites",
     difficulty: 1,
     difficulty_label: "Facile",
@@ -116,7 +120,8 @@ describe("customExercise.js — sélection et génération", () => {
     expect(options.length).toBe(1);
     expect(options[0].textContent).toContain("Droites");
     expect(options[0].textContent).not.toContain("_");
-    expect(options[0].textContent).toContain("Chapitre 6");
+    expect(options[0].textContent).toContain("Droites du plan");
+    expect(options[0].textContent).not.toMatch(/Chapitre[_ ]\d/);
   });
 
   it("aucune notion pour la classe active -> message, pas de sélecteur", async () => {
@@ -141,6 +146,7 @@ describe("customExercise.js — sélection et génération", () => {
       chapterId: "Chapitre_6",
       notion: "Droites",
       familyId: "fam_a",
+      exclude: [],
     });
   });
 
@@ -167,6 +173,46 @@ describe("customExercise.js — sélection et génération", () => {
     expect(box.hidden).toBe(false);
     expect(box.textContent).toContain("4");
     expect(box.textContent).toContain("Étape 1");
+  });
+
+  it("le badge affiche le titre du chapitre, jamais l'identifiant technique", async () => {
+    await mount({ planUser: { plan: "ultra" } });
+    document.getElementById("custom-ex-generate").click();
+    await flushPromises();
+    const badges = document.getElementById("custom-ex-result").textContent;
+    expect(badges).toContain("Droites du plan");
+    expect(badges).not.toMatch(/Chapitre_\d/);
+  });
+
+  it("la correction passe par le rendu KaTeX existant (réponse ET chaque étape)", async () => {
+    window.renderMathInElement = vi.fn();
+    try {
+      await mount({ planUser: { plan: "ultra" } });
+      mockApi.practiceGenerate.mockResolvedValue({
+        exercise: exerciseFixture({
+          answer: "$\frac{40 \times 25}{100} = 10$",
+          solution_steps: ["On calcule $\frac{1}{2}$."],
+        }),
+      });
+      document.getElementById("custom-ex-generate").click();
+      await flushPromises();
+      window.renderMathInElement.mockClear();
+      document.getElementById("custom-ex-toggle-correction").click();
+      const rendered = window.renderMathInElement.mock.calls.map((c) => c[0]);
+      expect(rendered).toContain(document.getElementById("custom-ex-answer"));
+      expect(rendered).toContain(document.querySelector("#custom-ex-steps li"));
+    } finally {
+      delete window.renderMathInElement;
+    }
+  });
+
+  it("anti-répétition : les clés des exercices déjà vus sont renvoyées au serveur", async () => {
+    await mount({ planUser: { plan: "ultra" } });
+    document.getElementById("custom-ex-generate").click();
+    await flushPromises();
+    document.getElementById("custom-ex-generate").click();
+    await flushPromises();
+    expect(mockApi.practiceGenerate.mock.calls[1][0].exclude).toEqual(["Calculer $2+2$."]);
   });
 
   it("échec de la génération : message d'erreur, aucune exception", async () => {
