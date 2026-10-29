@@ -4,6 +4,8 @@
 // défense en profondeur contre le CSRF en complément de SameSite=Lax (voir
 // webapp/auth.py::csrf_protect). Lecture directe du cookie : ce module n'a pas
 // besoin de connaître la valeur autrement, elle n'est jamais exposée par l'API.
+import { isPedagogyFree } from "./pedagogyFree.js";
+
 function readCookie(name) {
   const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
   return match ? decodeURIComponent(match[1]) : null;
@@ -24,6 +26,24 @@ const PLAN_LABELS_FOR_TOAST = { premium: "Premium", ultra: "Ultra" };
 let quotaToastTimer = null;
 
 export function handleQuotaExceeded(payload) {
+  if (isPedagogyFree()) {
+    // Plus d'offre à proposer : simple information, jamais de redirection.
+    let toast = document.getElementById("novamath-quota-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "novamath-quota-toast";
+      document.body.appendChild(toast);
+    }
+    clearTimeout(quotaToastTimer);
+    toast.className = "toast toast--error";
+    toast.innerHTML =
+      "<span>Tu as utilisé tous tes messages d'aujourd'hui. Ils seront disponibles à nouveau demain.</span>";
+    toast.hidden = false;
+    quotaToastTimer = setTimeout(() => {
+      toast.hidden = true;
+    }, 5000);
+    return;
+  }
   const planLabel = PLAN_LABELS_FOR_TOAST[payload.required_plan] || "Premium";
   let el = document.getElementById("novamath-quota-toast");
   if (!el) {
@@ -162,10 +182,10 @@ export const api = {
   // ci-dessus : un exercice généré n'est jamais posté à /api/practice/result
   // (voir server.py::api_practice_generate, pas dans _class_bank).
   practiceGenerateOptions: () => request("/api/practice/generate/options"),
-  practiceGenerate: ({ classLevel, chapterId, notion, familyId }) =>
+  practiceGenerate: ({ classLevel, chapterId, notion, familyId, exclude }) =>
     request("/api/practice/generate", {
       method: "POST",
-      body: { class_level: classLevel, chapter_id: chapterId, notion, family_id: familyId },
+      body: { class_level: classLevel, chapter_id: chapterId, notion, family_id: familyId, exclude },
     }),
   getStats: () => request("/api/stats"),
   saveStats: (stats) => request("/api/stats", { method: "POST", body: stats }),

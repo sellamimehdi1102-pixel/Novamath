@@ -4,6 +4,7 @@
 // Se met à jour en direct dans l'onglet courant via l'événement
 // novamath:account-updated (déclenché par profil.js après une modification).
 import { api } from "./api.js";
+import { isPedagogyFree } from "./pedagogyFree.js";
 import { ICONS } from "./icons.js";
 
 function initials(name) {
@@ -67,7 +68,10 @@ function paintSidebarUser(user) {
   // pour le compte Owner, reflète le plan de test simulé via le panneau
   // "🧪 Mode test Owner" (owner-test-panel.js) sans jamais confondre avec le
   // vrai plan Stripe — voir owner_test_plan_service.py::effective_plan().
-  if (subEl) subEl.textContent = planLabel(user.effective_plan ?? user.plan);
+  if (subEl) {
+    subEl.textContent = planLabel(user.effective_plan ?? user.plan);
+    subEl.hidden = isPedagogyFree();
+  }
   const onProfilePage = /(^|\/)profil\.html$/.test(window.location.pathname);
   userLink.classList.toggle("is-current", onProfilePage);
 

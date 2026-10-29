@@ -23,6 +23,7 @@ import { getChaptersMeta, buildSeriesRow } from "./seriesview.js";
 import { icon } from "./icons.js";
 import { badgeIconSvg } from "./badgeIcons.js";
 import { api } from "./api.js";
+import { isPedagogyFree } from "./pedagogyFree.js";
 import { animateCount } from "./animations.js";
 import { mountGuestLockOverlay, dismissGuestLockOverlay, unmountGuestLockOverlay } from "./guestLockOverlay.js";
 
@@ -460,7 +461,12 @@ window.addEventListener("resize", () => {
 const PLAN_WINDOW_ACCESS = { free: ["5"], premium: ["5", "15"], ultra: ["5", "15", "all"] };
 const WINDOW_LOCK_PLAN_LABEL = { 15: "Premium", all: "Ultra" };
 
+// Gratuité pédagogique : toutes les fenêtres du graphique sont accessibles
+// (le serveur renvoie alors l'historique complet, voir pedagogy_plan).
+const windowPlan = (plan) => (isPedagogyFree() ? "ultra" : plan);
+
 function applyChartWindowLocks(plan) {
+  plan = windowPlan(plan);
   const allowed = PLAN_WINDOW_ACCESS[plan] || PLAN_WINDOW_ACCESS.free;
   document.querySelectorAll(".chart-zoom-btn").forEach((btn) => {
     const w = btn.dataset.window;
@@ -506,6 +512,7 @@ function applyChartWindowLocks(plan) {
 // second filtrage : le serveur reste la seule source de vérité de la
 // troncature par plan.
 async function refreshChartWindowForPlan(effectivePlan) {
+  effectivePlan = windowPlan(effectivePlan);
   const allowed = PLAN_WINDOW_ACCESS[effectivePlan] || PLAN_WINDOW_ACCESS.free;
   if (!allowed.includes(String(chartWindow))) {
     chartWindow = 5;

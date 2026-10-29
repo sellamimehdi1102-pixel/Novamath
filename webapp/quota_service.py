@@ -37,7 +37,7 @@ from enum import Enum
 import db
 import owner_service
 import owner_test_plan_service
-from plan_service import Plan, get_plan
+from plan_service import Plan, get_plan, pedagogy_plan
 
 logger = logging.getLogger("quota_service")
 
@@ -148,6 +148,11 @@ QUOTA_MATRIX = {
 # davantage sur un quota donné (même principe que plan_service._PLAN_ORDER).
 _PLAN_ORDER = (Plan.FREE, Plan.PREMIUM, Plan.ULTRA)
 
+# Quotas pédagogiques ouverts par config.PEDAGOGY_FREE. CHAT_MESSAGES,
+# LLM_CALLS, PDF_ANALYSIS et AI_GENERATIONS (chatbot/IA) n'en font jamais
+# partie : ils gardent leurs limites Free.
+_PEDAGOGY_QUOTAS = frozenset({QuotaType.EXERCISES_DAILY, QuotaType.CUSTOM_EXERCISES, QuotaType.EXPORTS})
+
 
 class QuotaExceededError(Exception):
     """Levée par consume() quand la consommation demandée dépasserait la
@@ -218,6 +223,8 @@ def get_limit(user, quota):
     if owner_service.is_owner_account(user) and owner_test_plan_service.get_unlimited_quotas(user):
         return UNLIMITED
     plan = owner_test_plan_service.effective_plan(user)
+    if quota in _PEDAGOGY_QUOTAS:
+        plan = pedagogy_plan(plan)
     return QUOTA_MATRIX[plan][quota]
 
 

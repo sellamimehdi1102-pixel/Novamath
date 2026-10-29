@@ -76,7 +76,7 @@ import json
 
 import curriculum_registry
 import owner_test_plan_service
-from plan_service import Plan
+from plan_service import Plan, pedagogy_plan
 
 # Même technique que quota_service._PLAN_ORDER (module privé, non réutilisable
 # tel quel) — un rang par palier, pour comparer "le plan de l'utilisateur
@@ -104,7 +104,9 @@ _PREMIUM_SCALAR_FIELDS = (
 
 
 def _effective_plan(user):
-    return owner_test_plan_service.effective_plan(user)
+    # Cours complets (exemples, démonstrations) pour tous quand la gratuité
+    # pédagogique est active (voir plan_service.pedagogy_plan).
+    return pedagogy_plan(owner_test_plan_service.effective_plan(user))
 
 
 def _meets(plan, required):
