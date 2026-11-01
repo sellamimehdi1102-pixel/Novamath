@@ -1,11 +1,10 @@
 // ── Moteur adaptatif sur les VRAIES banques servies des cinq classes ────────
 // Les métadonnées (ids et difficultés par notion) sont la réponse réelle de
-// /api/chapters, obtenue par webapp/tests/dump_served_chapters.py (client de test
-// Flask, lecture seule, sans compte ni quota). Le vrai exercice.js,
+// /api/chapters, instantané produit par webapp/tests/dump_served_chapters.py --write
+// (client de test Flask, lecture seule, sans compte ni quota). Le vrai exercice.js,
 // adaptiveDifficulty.js et le vrai fichier de prérequis sont utilisés ; seuls le
 // réseau et la page sont simulés. Aucune question n'est ajoutée aux banques.
 import { describe, it, expect, vi, beforeAll, beforeEach, afterEach } from "vitest";
-import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -47,13 +46,10 @@ let META = {};
 let INDEX = {}; // classe -> id -> {id, chapter, notion, difficulty}
 
 beforeAll(() => {
-  META = JSON.parse(
-    execFileSync("python", [resolve(WEBAPP, "tests", "dump_served_chapters.py")], {
-      cwd: WEBAPP,
-      maxBuffer: 256 * 1024 * 1024,
-      stdio: ["ignore", "pipe", "ignore"],
-    }).toString("utf8"),
-  );
+  // Instantané versionné de la réponse réelle (le job frontend de la CI n'a pas
+  // Python) ; webapp/tests/test_served_chapters_fixture.py garantit qu'il est
+  // identique aux banques servies.
+  META = JSON.parse(readFileSync(resolve(HERE, "fixtures", "served_chapters.json"), "utf8"));
   CLASSES.forEach((cl) => {
     INDEX[cl] = {};
     META[cl].forEach((ch) =>

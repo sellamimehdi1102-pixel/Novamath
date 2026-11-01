@@ -54,6 +54,9 @@ class TestPrerequis(unittest.TestCase):
                 with self.subTest(classe=class_level, notion=notion):
                     self.assertFalse(atteint(notion, notion, set()))
 
+    # static-dist/ est produit par `npm run build` et ignoré par git : absent du job
+    # backend de la CI (le job frontend valide le build). Contrôlé dès qu'il existe.
+    @unittest.skipUnless(DIST.parent.parent.is_dir(), "static-dist absent (build frontend non exécuté)")
     def test_copie_servie_identique(self):
         # static-dist/ est servi en priorité par le serveur : il doit contenir la même version.
         self.assertEqual(json.loads(DIST.read_text(encoding="utf-8")), json.loads(SOURCE.read_text(encoding="utf-8")))
@@ -64,7 +67,7 @@ class TestPrerequis(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json(), json.loads(SOURCE.read_text(encoding="utf-8")))
 
-
+    @unittest.skipUnless(DIST.parent.parent.is_dir(), "static-dist absent (build frontend non exécuté)")
     def test_bundle_servi_charge_les_prerequis(self):
         # Le serveur sert static-dist : le bundle de exercice.html doit contenir le branchement.
         import re
