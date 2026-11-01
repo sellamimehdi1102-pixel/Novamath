@@ -204,8 +204,9 @@ FAMILIES = [
     Family("quartiles_effectifs", 3, "Quartiles et médiane avec effectifs", _gen_quartiles_effectifs, N_Q, 3.0),
     Family("variance_serie", 2, "Variance et écart-type d'une petite série", _gen_variance_serie, N_D, 2.4),
     Family("variance_formule", 3, "Variance par la seconde formule", _gen_variance_formule, N_D, 3.2),
-    Family("comparer_dispersion", 3, "Comparer deux dispersions", _gen_comparer_dispersion, N_D, 3.0),
-    Family("resume_serie", 4, "Résumer une série par ses indicateurs", _gen_resume_serie, N_D, 4.0),
+    # Niveaux servis = niveaux pédagogiques (tools/calibrage_pedagogique.py).
+    Family("comparer_dispersion", 3, "Comparer deux dispersions", _gen_comparer_dispersion, N_D, 3.0, served_level=2),
+    Family("resume_serie", 4, "Résumer une série par ses indicateurs", _gen_resume_serie, N_D, 4.0, served_level=3),
 ]
 FAMILIES_BY_ID = {f.id: f for f in FAMILIES}
 

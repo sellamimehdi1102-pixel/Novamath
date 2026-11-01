@@ -108,7 +108,8 @@ FAMILIES = [
     Family("reunion_formule", 2, "Probabilité d'une réunion", _gen_reunion_formule, N_EVT, 2.0),
     Family("intersection", 2, "Probabilité d'une intersection", _gen_intersection, N_EVT, 2.4),
     Family("de_morgan", 3, "Ni l'un ni l'autre (De Morgan)", _gen_de_morgan, N_EVT, 3.0),
-    Family("tableau_reunion", 4, "Tableau croisé : réunion et contraire", _gen_tableau_reunion, N_EVT, 4.0),
+    # Niveau servi = niveau pédagogique (tools/calibrage_pedagogique.py) : lecture d'un tableau croisé.
+    Family("tableau_reunion", 4, "Tableau croisé : réunion et contraire", _gen_tableau_reunion, N_EVT, 4.0, served_level=2),
 ]
 FAMILIES_BY_ID = {f.id: f for f in FAMILIES}
 

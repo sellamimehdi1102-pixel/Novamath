@@ -141,3 +141,8 @@ QUIZ = {
     "fonction-racine-carree": (82201, 82202, 82203),
     "fonction-cube": (82301, 82302, 82303),
 }
+
+# Chantier 2 (2026-11-01) : niveaux absents ou trop peu fournis (voir complements_chantier2.py).
+from premiere_specifique.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

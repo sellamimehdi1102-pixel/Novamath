@@ -1006,3 +1006,8 @@ EXERCISES += [
       checks=("x - 1 + \\sqrt{2}",),
       verify=_factorisation_juste(5 * _x ** 2 - 10 * _x - 5, 5 * (_x - 1 + sp.sqrt(2)) * (_x - 1 - sp.sqrt(2)))),
 ]
+
+# Chantier 2 (2026-11-01) : niveaux absents ou trop peu fournis (voir complements_chantier2.py).
+from premiere_specifique.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

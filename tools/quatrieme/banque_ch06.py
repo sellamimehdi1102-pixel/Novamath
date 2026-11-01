@@ -486,3 +486,9 @@ QUIZ = {
     "developper-factoriser": (46301, 46302, 46304),
     "prouver-calcul-litteral": (46401, 46402, 46404),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

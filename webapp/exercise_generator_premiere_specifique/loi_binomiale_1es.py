@@ -151,8 +151,9 @@ FAMILIES = [
     Family("coefficients", 1, "Compter les chemins : coefficient binomial", _gen_coefficients, N_BIN, 1.3),
     Family("proba_binomiale", 2, "Calculer P(X = k)", _gen_proba_binomiale, N_BIN, 2.5),
     Family("esperance_binomiale", 1, "Espérance et variance d'une loi binomiale", _gen_esperance_binomiale, N_BIN, 1.5),
-    Family("au_moins_un", 3, "Au moins un succès", _gen_au_moins_un, N_BIN, 3.0),
-    Family("cumul", 4, "Probabilité cumulée", _gen_cumul, N_BIN, 4.0),
+    # Niveaux servis = niveaux pédagogiques (tools/calibrage_pedagogique.py).
+    Family("au_moins_un", 3, "Au moins un succès", _gen_au_moins_un, N_BIN, 3.0, served_level=2),
+    Family("cumul", 4, "Probabilité cumulée", _gen_cumul, N_BIN, 4.0, served_level=3),
     Family("decision", 2, "Appliquer la règle de décision", _gen_decision, N_ECH, 2.0),
     Family("bornes", 3, "Déterminer l'intervalle de fluctuation", _gen_bornes, N_ECH, 3.5),
 ]

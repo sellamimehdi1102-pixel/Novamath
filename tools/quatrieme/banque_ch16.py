@@ -329,3 +329,9 @@ QUIZ = {
     "stats-mediane": (56201, 56202, 56204),
     "stats-comparer": (56301, 56302, 56304),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

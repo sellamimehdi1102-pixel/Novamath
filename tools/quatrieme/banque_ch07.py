@@ -402,3 +402,9 @@ QUIZ = {
     "equations-deux-membres": (47301, 47302, 47304),
     "equations-mettre-en-equation": (47401, 47402, 47404),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

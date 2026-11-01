@@ -143,8 +143,9 @@ FAMILIES = [
     Family("calcul_cube", 1, "Calculer des cubes", _gen_calcul_cube, N_CUBE, 1.2),
     Family("comparer_cubes", 1, "Comparer deux cubes", _gen_comparer_cubes, N_CUBE, 1.4),
     Family("equation_cube", 2, "Résoudre x³ = k", _gen_equation_cube, N_CUBE, 2.2),
-    Family("inequation_cube", 3, "Résoudre une inéquation avec un cube", _gen_inequation_cube, N_CUBE, 3.0),
-    Family("racine_et_cube", 4, "Combiner racine carrée et cube", _gen_racine_et_cube, N_RAC, 4.0),
+    # Niveaux servis = niveaux pédagogiques (tools/calibrage_pedagogique.py).
+    Family("inequation_cube", 3, "Résoudre une inéquation avec un cube", _gen_inequation_cube, N_CUBE, 3.0, served_level=2),
+    Family("racine_et_cube", 4, "Combiner racine carrée et cube", _gen_racine_et_cube, N_RAC, 4.0, served_level=3),
 ]
 FAMILIES_BY_ID = {f.id: f for f in FAMILIES}
 

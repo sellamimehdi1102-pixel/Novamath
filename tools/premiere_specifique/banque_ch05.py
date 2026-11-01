@@ -614,3 +614,8 @@ EXERCISES = [e for e in EXERCISES if e.id not in _hors]
 NOTIONS = (N1, N3, N4)
 NOTION_IDS = ("nombre-derive.-tangente", "fonction-derivee", "operations-et-derivation")
 QUIZ = {k: v for k, v in QUIZ.items() if k in NOTION_IDS}
+
+# Chantier 2 (2026-11-01) : niveaux absents ou trop peu fournis (voir complements_chantier2.py).
+from premiere_specifique.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

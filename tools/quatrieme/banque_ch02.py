@@ -542,3 +542,9 @@ QUIZ = {
     "fractions-additionner-soustraire": (42301, 42302, 42306),
     "fractions-problemes-sommes": (42401, 42402, 42405),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

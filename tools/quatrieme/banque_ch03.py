@@ -413,3 +413,9 @@ QUIZ = {
     "fractions-inverse-diviser": (43201, 43202, 43206),
     "fractions-calculs-problemes": (43301, 43302, 43305),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

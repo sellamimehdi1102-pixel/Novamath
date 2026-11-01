@@ -538,3 +538,9 @@ QUIZ = {
     "decomposition-facteurs-premiers": (44301, 44302, 44304),
     "nombres-premiers-applications": (44401, 44402, 44403),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

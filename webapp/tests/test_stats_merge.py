@@ -126,5 +126,23 @@ class TestApiStatsRoundTripHTTP(unittest.TestCase):
         self.assertEqual(body["xp"], 10)
 
 
+    def test_deux_reponses_legitimes_au_meme_horodatage_sont_conservees(self):
+        """Deux tentatives distinctes (exercices différents) enregistrées dans
+        la même milliseconde : aucune ne doit être perdue à la fusion."""
+        a = {**_entry(5, 10), "id": 101, "correct": True}
+        b = {**_entry(5, 0), "id": 102, "correct": False}
+        self.client.post("/api/stats", json={"xp": 10, "history": [a, b], "badges": [], "series": []},
+                         headers=self.headers)
+        body = self.client.get("/api/stats", headers=self.headers).get_json()
+        self.assertEqual(sorted(h["id"] for h in body["history"]), [101, 102])
+        # Retransmission de ces mêmes tentatives (autre onglet, nouvel envoi) : aucun doublon.
+        for _ in range(2):
+            self.client.post("/api/stats", json={"xp": 10, "history": [b, a], "badges": [], "series": []},
+                             headers=self.headers)
+        body = self.client.get("/api/stats", headers=self.headers).get_json()
+        self.assertEqual(len(body["history"]), 2)
+        self.assertEqual(body["xp"], 10)
+
+
 if __name__ == "__main__":
     unittest.main()

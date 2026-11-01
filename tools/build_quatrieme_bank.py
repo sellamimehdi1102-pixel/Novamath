@@ -1163,6 +1163,37 @@ EXERCISES = [
 # Mini-quiz (quizExerciseIds de cours_quatrieme/chapitre_8.json) : uniquement
 # des exercices curés (identifiants stables, jamais régénérés), de difficulté
 # 1-2, couvrant des compétences complémentaires de la notion.
+# Chantier 2 (2026-11-01) : niveau 4 complété à 4 exercices par notion
+# (voir tools/quatrieme/complements_chantier2.py pour les autres chapitres).
+assert [x for x in range(1, 16) if 5**2 + x**2 == (x + 1) ** 2] == [12]
+assert sq(7) < 50 < sq(D("7.1")) and sq(D("7.1")) == D("50.41")
+EXERCISES += [
+    E(48119, N1, 4,
+      "Le triangle $ABC$ est rectangle et isocèle en $A$. Démontrer que $BC^2 = 2 \\times AB^2$. On donne $BC = 10$ cm : calculer $AB^2$, puis $AB$ au millimètre près.",
+      f"$BC^2 = AB^2 + AC^2 = 2AB^2$ ; $AB^2 = 50$ et $AB \\approx {rnd(root(50), 1)}$ cm.",
+      "Dans un triangle isocèle en $A$, les côtés $[AB]$ et $[AC]$ ont la même longueur.",
+      S("Le triangle est rectangle en $A$ : $BC^2 = AB^2 + AC^2$.",
+        "Il est isocèle en $A$ : $AC = AB$, donc $BC^2 = AB^2 + AB^2 = 2AB^2$.",
+        f"$2AB^2 = 10^2 = 100$, donc $AB^2 = 50$ et $AB = \\sqrt{{50}} \\approx {rnd(root(50), 1)}$ cm."),
+      checks=("AB^2 = 50", rnd(root(50), 1))),
+    E(48120, N1, 4,
+      "Dans un triangle rectangle, un côté de l'angle droit mesure $5$ cm et l'hypoténuse mesure $1$ cm de plus que l'autre côté de l'angle droit, noté $x$. Écrire l'égalité de Pythagore, puis trouver $x$ en testant les valeurs entières de $1$ à $15$.",
+      "$5^2 + x^2 = (x + 1)^2$ est vérifiée pour $x = 12$ : les côtés mesurent $5$ cm, $12$ cm et $13$ cm.",
+      "L'hypoténuse mesure $x + 1$ : c'est elle qui est seule d'un côté de l'égalité.",
+      S("Égalité de Pythagore : $(x + 1)^2 = 5^2 + x^2$.",
+        "Pour $x = 11$ : $25 + 121 = 146$ et $12^2 = 144$ ; pour $x = 12$ : $25 + 144 = 169$ et $13^2 = 169$.",
+        "Parmi les entiers de $1$ à $15$, seul $x = 12$ convient : les côtés mesurent $5$ cm, $12$ cm et $13$ cm."),
+      checks=("x = 12",), extra={"rect_check": (5, 12, 13, True)}),
+    E(48225, N2, 4,
+      "Sans calculatrice, encadrer $\\sqrt{50}$ entre deux nombres entiers consécutifs, puis entre deux nombres décimaux consécutifs à un chiffre après la virgule.",
+      "$7 < \\sqrt{50} < 8$, puis $7 < \\sqrt{50} < 7{,}1$.",
+      "Compare $50$ aux carrés : $\\sqrt{50}$ est compris entre $a$ et $b$ si $a^2 < 50 < b^2$.",
+      S("$7^2 = 49$ et $8^2 = 64$ : $49 < 50 < 64$, donc $7 < \\sqrt{50} < 8$.",
+        "$7{,}1^2 = 50{,}41 > 50$ : donc $\\sqrt{50} < 7{,}1$.",
+        "Conclusion : $7 < \\sqrt{50} < 7{,}1$."),
+      checks=("7{,}1",), step_checks=("50{,}41",)),
+]
+
 QUIZ = {
     "pythagore-hypotenuse-et-egalite": (48101, 48104, 48108),
     "carres-et-racines-carrees": (48202, 48209, 48210),

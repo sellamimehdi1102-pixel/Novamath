@@ -145,7 +145,9 @@ FAMILIES = [
     Family("indice_taux", 1, "Interpréter un indice", _gen_indice_taux, N_IND, 1.2),
     Family("indice_valeur", 2, "Retrouver une valeur à partir de son indice", _gen_indice_valeur, N_IND, 2.0),
     Family("indice_changement_base", 3, "Changer d'année de référence", _gen_indice_changement_base, N_IND, 3.0),
-    Family("indice_evolutions", 4, "Indices, évolutions successives et taux réciproque", _gen_indice_evolutions, N_IND, 4.0),
+    # Niveau servi = niveau pédagogique (tools/calibrage_pedagogique.py).
+    Family("indice_evolutions", 4, "Indices, évolutions successives et taux réciproque", _gen_indice_evolutions, N_IND, 4.0,
+           served_level=2),
 ]
 FAMILIES_BY_ID = {f.id: f for f in FAMILIES}
 

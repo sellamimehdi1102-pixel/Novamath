@@ -23,6 +23,7 @@ vi.mock("../favorites.js", () => ({
 // `mock` prefix requis par Vitest pour être référencée depuis la factory
 // vi.mock ci-dessous (hoisting) — voir mockApi plus haut pour le même besoin.
 const mockScopedStats = vi.fn(() => ({ history: [] }));
+const mockInProgress = vi.fn(() => null);
 vi.mock("../store.js", () => ({
   getState: () => ({}),
   scopedStats: (...args) => mockScopedStats(...args),
@@ -30,7 +31,7 @@ vi.mock("../store.js", () => ({
   coverageByNotion: () => ({}),
   masteryByChapter: () => ({}),
   masteryByNotion: () => ({}),
-  getInProgressSeries: () => null,
+  getInProgressSeries: () => mockInProgress(),
   getChapterStatus: () => "todo",
   MASTERY_ACCURACY_THRESHOLD: 0.7,
   MASTERY_MIN_ATTEMPTS: 10,
@@ -67,6 +68,8 @@ function defaultMocks() {
   mockApi.chapters.mockResolvedValue({ chapters_meta: CHAPTERS });
   mockApi.me.mockResolvedValue({ user: { is_guest: false } });
   mockScopedStats.mockReturnValue({ history: [] });
+  mockInProgress.mockReset();
+  mockInProgress.mockReturnValue(null);
 }
 
 // `overrides` (optionnel) : appelé APRÈS defaultMocks() mais AVANT l'import
@@ -225,6 +228,25 @@ describe("chapitres.js — accueil éditorial invité (Phase 5, onboarding)", ()
     });
     expect($subtitle().textContent.trim()).toBe(
       "Choisis les chapitres à évaluer, ou explore ta progression par notion.",
+    );
+  });
+});
+
+describe("chapitres.js — reprise d'une série en cours depuis l'onglet Questions", () => {
+  it("« Reprendre » ouvre exercice.html avec ?resume=1 (sinon l'écran « Prêt pour une série ? » s'affichait)", async () => {
+    await mountChapitres(() =>
+      mockInProgress.mockReturnValue({
+        seriesConfig: { chapterId: "Chapitre_1", notions: ["Notion A"], notion: "Notion A" },
+      }),
+    );
+    const row = $('.notion-row[data-notion="Notion A"]');
+    expect(row.dataset.resumable).toBe("true");
+    await import("./testUtils.js").then(({ withMockedLocation }) =>
+      withMockedLocation(async () => {
+        row.click();
+        await flushPromises();
+        expect(window.location.href).toBe("exercice.html?resume=1");
+      }),
     );
   });
 });
