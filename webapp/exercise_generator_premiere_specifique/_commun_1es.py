@@ -28,6 +28,9 @@ class Family:
     generate: Callable
     notion: str
     score: float
+    # Niveau pédagogique servi quand il diffère du niveau de conception (level) :
+    # il doit rester égal à tools/calibrage_pedagogique.py (vérifié par les tests).
+    served_level: Optional[int] = None
 
 
 def level_from_score(score: float) -> int:
@@ -84,6 +87,7 @@ def build_exercise(family: Family, rng: random.Random, chapter_id: str) -> Optio
         return None
     level = level_from_score(family.score)
     assert level == family.level, family.id
+    level = family.served_level or level
     steps = [f"Étape {k} — {s}" for k, s in enumerate(notes["steps"], 1)]
     return {"enonce": notes["enonce"], "answer": notes["answer"], "hint": notes["hint"], "solution_steps": steps,
             "chapter_id": chapter_id, "notion": family.notion, "difficulty": level,

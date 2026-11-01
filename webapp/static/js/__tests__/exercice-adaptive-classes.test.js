@@ -79,7 +79,16 @@ async function mount(classLevel, pending, url = "/exercice.html") {
   mockApi.practiceLoad.mockImplementation((id) => {
     const e = INDEX[currentClass][id];
     return Promise.resolve({
-      exercise: { id, chapter_id: e.chapter, notion: e.notion, difficulty: e.difficulty, enonce: `#${id}`, hint: "", answer: "", solution_steps: [] },
+      exercise: {
+        id,
+        chapter_id: e.chapter,
+        notion: e.notion,
+        difficulty: e.difficulty,
+        enonce: `#${id}`,
+        hint: "",
+        answer: "",
+        solution_steps: [],
+      },
     });
   });
   mockApi.chapters.mockReset();
@@ -119,13 +128,23 @@ const maxLevel = (cl) => (cl === "quatrieme" || cl === "premiere_specifique" ? 4
 /** Notion couvrant toute l'échelle de la classe (et rien au-delà). */
 function fullNotion(cl, skip = []) {
   const top = maxLevel(cl);
-  return notionsOf(cl).find((n) => !skip.includes(n.key) && n.levels.join() === [...Array(top)].map((_, i) => i + 1).join());
+  return notionsOf(cl).find(
+    (n) => !skip.includes(n.key) && n.levels.join() === [...Array(top)].map((_, i) => i + 1).join(),
+  );
 }
 /** Toutes les questions de `level` de la notion ont-elles été servies avant la position `i` ? */
 const exhaustedBefore = (n, level, i) =>
-  n.ids.filter((id) => INDEX[currentClass][id].difficulty === level).every((id) => servedIds().slice(0, i).includes(id));
+  n.ids
+    .filter((id) => INDEX[currentClass][id].difficulty === level)
+    .every((id) => servedIds().slice(0, i).includes(id));
 const nearest = (levels, v) => levels.reduce((b, d) => (Math.abs(d - v) < Math.abs(b - v) ? d : b), levels[0]);
-const seriesFor = (n) => ({ mode: "notion", chapterId: n.chapter, notion: n.notion, notions: [n.notion], exerciseIds: n.ids.slice(0, 3) });
+const seriesFor = (n) => ({
+  mode: "notion",
+  chapterId: n.chapter,
+  notion: n.notion,
+  notions: [n.notion],
+  exerciseIds: n.ids.slice(0, 3),
+});
 /** Relation de prérequis : de préférence entre deux chapitres différents. */
 function relationOf(cl) {
   const rel = Object.entries(PREREQS[cl] || {});
@@ -230,7 +249,11 @@ describe.each(CLASSES)("classe %s — banque réellement servie", (cl) => {
       exerciseIds: [...a.ids.slice(0, 2), ...b.ids.slice(0, 2)],
     });
     await answers(Array(6).fill(true));
-    const byNotion = (key) => servedIds().map((id) => INDEX[cl][id]).filter((e) => `${e.chapter}|${e.notion}` === key).map((e) => e.difficulty);
+    const byNotion = (key) =>
+      servedIds()
+        .map((id) => INDEX[cl][id])
+        .filter((e) => `${e.chapter}|${e.notion}` === key)
+        .map((e) => e.difficulty);
     expect(byNotion(a.key).slice(0, 3)).toEqual([1, 3, nearest(a.levels, 5)]);
     expect(byNotion(b.key).slice(0, 3)).toEqual([1, 3, nearest(b.levels, 5)]);
   });
@@ -276,7 +299,9 @@ describe.each(CLASSES)("classe %s — banque réellement servie", (cl) => {
     const history = local();
     localStorage.clear();
     fetchMode = "fail";
-    mockApi.getStats.mockResolvedValue({ history: history.filter((h) => h.notion === rel.prereq.notion && h.chapter === rel.prereq.chapter) });
+    mockApi.getStats.mockResolvedValue({
+      history: history.filter((h) => h.notion === rel.prereq.notion && h.chapter === rel.prereq.chapter),
+    });
     await mount(cl, seriesFor(rel.dependent));
     expect(served()[0]).toBe(1);
   });
@@ -285,9 +310,20 @@ describe.each(CLASSES)("classe %s — banque réellement servie", (cl) => {
     const rel = relationOf(cl);
     if (!rel) return;
     const t0 = 1_000;
-    const mk = (n, d, ok, i) => ({ id: n.ids[i], ts: t0 + i, date: "2026-10-30", chapter: n.chapter, notion: n.notion, difficulty: d, correct: ok, class_level: cl });
+    const mk = (n, d, ok, i) => ({
+      id: n.ids[i],
+      ts: t0 + i,
+      date: "2026-10-30",
+      chapter: n.chapter,
+      notion: n.notion,
+      difficulty: d,
+      correct: ok,
+      class_level: cl,
+    });
     const prereqIds = rel.prereq.ids.filter((id) => INDEX[cl][id].difficulty >= 3);
-    const strong = prereqIds.slice(0, 5).map((id, i) => ({ ...mk(rel.prereq, INDEX[cl][id].difficulty, true, 0), id, ts: t0 + 10 + i }));
+    const strong = prereqIds
+      .slice(0, 5)
+      .map((id, i) => ({ ...mk(rel.prereq, INDEX[cl][id].difficulty, true, 0), id, ts: t0 + 10 + i }));
     const depLow = rel.dependent.ids.filter((id) => INDEX[cl][id].difficulty === 1);
     const weak = depLow.slice(0, 3).map((id, i) => ({ ...mk(rel.dependent, 1, false, 0), id, ts: t0 + 100 + i }));
     mockApi.getStats.mockResolvedValue({ history: [...strong, ...weak] });

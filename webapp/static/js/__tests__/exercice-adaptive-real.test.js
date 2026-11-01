@@ -34,11 +34,11 @@ vi.mock("../supportTicket.js", () => ({ openReportTicketPopup: vi.fn() }));
 
 const $ = (id) => document.getElementById(id);
 
-
 // Vraie banque : mêmes regroupements chapitre/notion que /api/chapters.
-const BANK_FILE = [resolve(process.cwd(), "exercises_bank.json"), resolve(process.cwd(), "..", "exercises_bank.json")].find(
-  (f) => existsSync(f),
-);
+const BANK_FILE = [
+  resolve(process.cwd(), "exercises_bank.json"),
+  resolve(process.cwd(), "..", "exercises_bank.json"),
+].find((f) => existsSync(f));
 const RAW = JSON.parse(readFileSync(BANK_FILE, "utf8"));
 const BANK = {};
 const GROUPS = new Map();
@@ -59,7 +59,9 @@ const CHAPTERS_META = [...GROUPS].map(([id, notions]) => ({
     exercise_difficulties: ids.map((x) => BANK[x].difficulty),
   })),
 }));
-const CHAPTER = CHAPTERS_META.find((c) => c.notions_detail.length >= 3 && c.notions_detail.every((n) => n.exercise_ids.length >= 12));
+const CHAPTER = CHAPTERS_META.find(
+  (c) => c.notions_detail.length >= 3 && c.notions_detail.every((n) => n.exercise_ids.length >= 12),
+);
 const NOTIONS = CHAPTER.notions_detail;
 const levelsOf = (n) => [...new Set(n.exercise_difficulties)].sort();
 
@@ -75,7 +77,8 @@ async function mountExercice(pending) {
   await import("../exercice.js");
   await flushPromises();
 }
-const shown = () => mockApi.practiceLoad.mock.calls.map((c) => ({ notion: BANK[c[0]].notion, d: BANK[c[0]].difficulty }));
+const shown = () =>
+  mockApi.practiceLoad.mock.calls.map((c) => ({ notion: BANK[c[0]].notion, d: BANK[c[0]].difficulty }));
 const seriesFor = (notions) => ({
   mode: "notion",
   chapterId: CHAPTER.id,
@@ -165,9 +168,36 @@ describe("parcours réel (vraie banque Seconde) : sélection -> affichage -> ré
 
   it("Révisions : chaque notion travaillée reprend SON niveau (pas de réinitialisation, pas de niveau global)", async () => {
     const hist = [
-      ...rec(NOTIONS[0], [[1, false], [1, false], [1, false], [1, true]], 1),
-      ...rec(NOTIONS[1], [[1, true], [3, true], [5, true], [5, true]], 10),
-      ...rec(NOTIONS[2], [[1, true], [3, true], [3, false], [2, true]], 20),
+      ...rec(
+        NOTIONS[0],
+        [
+          [1, false],
+          [1, false],
+          [1, false],
+          [1, true],
+        ],
+        1,
+      ),
+      ...rec(
+        NOTIONS[1],
+        [
+          [1, true],
+          [3, true],
+          [5, true],
+          [5, true],
+        ],
+        10,
+      ),
+      ...rec(
+        NOTIONS[2],
+        [
+          [1, true],
+          [3, true],
+          [3, false],
+          [2, true],
+        ],
+        20,
+      ),
     ];
     mockApi.getStats.mockResolvedValue({ history: hist });
     await mountExercice(null);
@@ -189,8 +219,25 @@ describe("parcours réel (vraie banque Seconde) : sélection -> affichage -> ré
     // les niveaux affichés alternent selon les notions, mais chaque notion
     // progresse ou se maintient après chaque bonne réponse.
     const hist = [
-      ...rec(NOTIONS[0], [[1, true], [2, true], [3, true], [4, true], [5, true]], 1),
-      ...rec(NOTIONS[1], [[1, true], [2, true]], 10),
+      ...rec(
+        NOTIONS[0],
+        [
+          [1, true],
+          [2, true],
+          [3, true],
+          [4, true],
+          [5, true],
+        ],
+        1,
+      ),
+      ...rec(
+        NOTIONS[1],
+        [
+          [1, true],
+          [2, true],
+        ],
+        10,
+      ),
       ...rec(NOTIONS[2], [[1, false]], 20),
     ];
     mockApi.getStats.mockResolvedValue({ history: hist });

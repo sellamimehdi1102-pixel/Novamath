@@ -235,7 +235,9 @@ describe("chapitres.js — accueil éditorial invité (Phase 5, onboarding)", ()
 describe("chapitres.js — reprise d'une série en cours depuis l'onglet Questions", () => {
   it("« Reprendre » ouvre exercice.html avec ?resume=1 (sinon l'écran « Prêt pour une série ? » s'affichait)", async () => {
     await mountChapitres(() =>
-      mockInProgress.mockReturnValue({ seriesConfig: { chapterId: "Chapitre_1", notions: ["Notion A"], notion: "Notion A" } }),
+      mockInProgress.mockReturnValue({
+        seriesConfig: { chapterId: "Chapitre_1", notions: ["Notion A"], notion: "Notion A" },
+      }),
     );
     const row = $('.notion-row[data-notion="Notion A"]');
     expect(row.dataset.resumable).toBe("true");

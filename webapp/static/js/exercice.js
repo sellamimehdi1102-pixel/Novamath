@@ -285,7 +285,11 @@ function loadPrerequisites() {
         if (!relations || typeof relations !== "object") return null;
         const map = new Map();
         Object.entries(relations).forEach(([key, prereqs]) => {
-          if (Array.isArray(prereqs) && prereqs.length) map.set(key, prereqs.filter((p) => typeof p === "string"));
+          if (Array.isArray(prereqs) && prereqs.length)
+            map.set(
+              key,
+              prereqs.filter((p) => typeof p === "string"),
+            );
         });
         return map.size ? map : null;
       } catch {

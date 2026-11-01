@@ -73,7 +73,12 @@ describe("calibration initiale (3 réponses)", () => {
   });
 
   it("estimation initiale utile dès la 3e réponse : l'incertitude a nettement baissé", () => {
-    for (const seq of [[T, T, T], [F, F, F], [T, F, T], [F, T, F]]) {
+    for (const seq of [
+      [T, T, T],
+      [F, F, F],
+      [T, F, T],
+      [F, T, F],
+    ]) {
       const { mastery } = simulate(seq);
       expect(mastery.n).toBe(CALIBRATION_ANSWERS);
       expect(mastery.sd).toBeLessThan(PRIOR_SD * 0.5);
@@ -81,7 +86,11 @@ describe("calibration initiale (3 réponses)", () => {
   });
 
   it("une notion déjà travaillée reprend son état depuis l'historique, sans recalibration", () => {
-    const pre = entries("N", [[1, T], [3, T], [5, T]]);
+    const pre = entries("N", [
+      [1, T],
+      [3, T],
+      [5, T],
+    ]);
     const { served } = simulate([T], { pre });
     expect(served[0]).toBeGreaterThanOrEqual(4); // pas de retour en Fondamental
   });
@@ -114,7 +123,10 @@ describe("aucun recul juste après une réussite", () => {
     const { served, next } = simulate([T, T], { pre, ts0: 100 });
     expect(served).toEqual([1, 3]);
     expect(next).toBeGreaterThanOrEqual(3);
-    const pre2 = entries("N", [[1, T], [2, T]]);
+    const pre2 = entries("N", [
+      [1, T],
+      [2, T],
+    ]);
     const r2 = simulate([T], { pre: pre2, ts0: 100 });
     expect(r2.served).toEqual([4]);
     expect(r2.next).toBeGreaterThanOrEqual(4);
@@ -124,14 +136,21 @@ describe("aucun recul juste après une réussite", () => {
     let seed = 7;
     const rnd = () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
     for (let t = 0; t < 300; t++) {
-      const pre = entries("N", Array.from({ length: Math.floor(rnd() * 7) }, () => [1 + Math.floor(rnd() * 5), rnd() < 0.6]));
+      const pre = entries(
+        "N",
+        Array.from({ length: Math.floor(rnd() * 7) }, () => [1 + Math.floor(rnd() * 5), rnd() < 0.6]),
+      );
       const { served, next } = simulate(Array(6).fill(T), { pre, ts0: 100 });
       [...served, next].forEach((d, i, all) => i && expect(d).toBeGreaterThanOrEqual(all[i - 1]));
     }
   });
 
   it("une erreur lève le plancher : la descente reste possible", () => {
-    const pre = entries("N", [[1, T], [3, T], [5, T]]);
+    const pre = entries("N", [
+      [1, T],
+      [3, T],
+      [5, T],
+    ]);
     const { served } = simulate([F, F, F, F, F, F], { pre, ts0: 100 });
     expect(served[served.length - 1]).toBeLessThan(served[0]);
   });
@@ -231,7 +250,10 @@ describe("adaptation continue", () => {
 
 describe("intégrité de l'historique", () => {
   it("une entrée dupliquée (même exercice au même instant, synchronisation) ne compte qu'une fois", () => {
-    const base = entries("N", [[1, T], [3, T]]);
+    const base = entries("N", [
+      [1, T],
+      [3, T],
+    ]);
     const dup = [...base, { ...base[1] }, { ...base[0] }];
     expect(notionMastery(dup, "C", "N")).toEqual(notionMastery(base, "C", "N"));
   });
@@ -247,12 +269,22 @@ describe("intégrité de l'historique", () => {
   });
 
   it("l'ordre des entrées de l'historique n'a pas d'importance (rejeu chronologique)", () => {
-    const h = entries("N", [[1, T], [3, T], [5, F], [3, T], [4, F]]);
+    const h = entries("N", [
+      [1, T],
+      [3, T],
+      [5, F],
+      [3, T],
+      [4, F],
+    ]);
     expect(notionMastery([...h].reverse(), "C", "N")).toEqual(notionMastery(h, "C", "N"));
   });
 
   it("une réponse sans difficulté connue n'apporte aucune information", () => {
-    const h = entries("N", [[1, T], [null, F], [undefined, F]]);
+    const h = entries("N", [
+      [1, T],
+      [null, F],
+      [undefined, F],
+    ]);
     const ref = entries("N", [[1, T]]);
     expect(notionMastery(h, "C", "N").theta).toBeCloseTo(notionMastery(ref, "C", "N").theta, 10);
   });
@@ -266,19 +298,52 @@ describe("intégrité de l'historique", () => {
   });
 
   it("deux élèves (historiques distincts) et deux notions sont indépendants", () => {
-    const a = entries("A", [[1, T], [3, T], [5, T]]);
-    const b = entries("A", [[1, F], [1, F], [1, F]]);
+    const a = entries("A", [
+      [1, T],
+      [3, T],
+      [5, T],
+    ]);
+    const b = entries("A", [
+      [1, F],
+      [1, F],
+      [1, F],
+    ]);
     expect(targetDifficulty(a, "C", "A", LEVELS5)).toBeGreaterThan(targetDifficulty(b, "C", "A", LEVELS5));
     // L'historique de A ne modifie pas la lecture de B quand B a ses propres réponses.
-    const own = entries("B", [[1, F], [1, F]], 10);
+    const own = entries(
+      "B",
+      [
+        [1, F],
+        [1, F],
+      ],
+      10,
+    );
     expect(notionMastery([...a, ...own], "C", "B")).toEqual(notionMastery(own, "C", "B"));
   });
 });
 
 describe("transfert prudent vers une notion nouvelle", () => {
   const strongProfile = [
-    ...entries("A", [[1, T], [3, T], [5, T], [4, T]], 1),
-    ...entries("B", [[1, T], [3, T], [4, T], [5, T]], 10),
+    ...entries(
+      "A",
+      [
+        [1, T],
+        [3, T],
+        [5, T],
+        [4, T],
+      ],
+      1,
+    ),
+    ...entries(
+      "B",
+      [
+        [1, T],
+        [3, T],
+        [4, T],
+        [5, T],
+      ],
+      10,
+    ),
   ];
 
   it("profil général solide : départ un peu plus haut que Fondamental, jamais au maximum", () => {
@@ -306,7 +371,11 @@ describe("transfert prudent vers une notion nouvelle", () => {
   });
 
   it("historique trop court ou trop étroit : aucun transfert", () => {
-    const few = entries("A", [[1, T], [3, T], [5, T]]);
+    const few = entries("A", [
+      [1, T],
+      [3, T],
+      [5, T],
+    ]);
     expect(notionMastery(few, "C", "Nouvelle").theta).toBe(initialState().theta);
     expect(notionMastery(few, "C", "Nouvelle").sd).toBe(PRIOR_SD);
     const oneNotion = entries("A", Array(12).fill([5, T]));
@@ -321,7 +390,16 @@ describe("transfert prudent vers une notion nouvelle", () => {
   });
 
   it("n'écrase jamais les observations de la notion : ses réponses l'emportent", () => {
-    const own = entries("Nouvelle", [[1, F], [1, F], [1, F], [1, F]], 100);
+    const own = entries(
+      "Nouvelle",
+      [
+        [1, F],
+        [1, F],
+        [1, F],
+        [1, F],
+      ],
+      100,
+    );
     const withProfile = notionMastery([...strongProfile, ...own], "C", "Nouvelle");
     const alone = notionMastery(own, "C", "Nouvelle");
     expect(withProfile.theta).toBeLessThan(2);
@@ -329,7 +407,14 @@ describe("transfert prudent vers une notion nouvelle", () => {
   });
 
   it("le prior n'est pas modifié rétroactivement par des réponses ultérieures sur d'autres notions", () => {
-    const own = entries("Nouvelle", [[1, T], [2, T]], 100);
+    const own = entries(
+      "Nouvelle",
+      [
+        [1, T],
+        [2, T],
+      ],
+      100,
+    );
     const later = entries("A", Array(10).fill([1, F]), 500);
     expect(notionMastery([...strongProfile, ...own, ...later], "C", "Nouvelle")).toEqual(
       notionMastery([...strongProfile, ...own], "C", "Nouvelle"),

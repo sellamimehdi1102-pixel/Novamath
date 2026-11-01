@@ -34,7 +34,6 @@ vi.mock("../supportTicket.js", () => ({ openReportTicketPopup: vi.fn() }));
 
 const $ = (id) => document.getElementById(id);
 
-
 // Banque Première telle que servie par le serveur : banque principale + exercices générés.
 const readBank = (name) =>
   JSON.parse(
@@ -54,7 +53,11 @@ const CHAPTERS_META = [
     id: CH,
     title: "Chapitre 3",
     notions_detail: [
-      ...new Set(Object.values(BANK).filter((e) => e.chapter_id === CH).map((e) => e.notion)),
+      ...new Set(
+        Object.values(BANK)
+          .filter((e) => e.chapter_id === CH)
+          .map((e) => e.notion),
+      ),
     ].map((notion) => {
       const ids = Object.values(BANK)
         .filter((e) => e.chapter_id === CH && e.notion === notion)
@@ -64,7 +67,13 @@ const CHAPTERS_META = [
   },
 ];
 const ND = CHAPTERS_META[0].notions_detail.find((n) => n.notion === NOTION);
-const SERIES = { mode: "notion", chapterId: CH, notion: NOTION, notions: [NOTION], exerciseIds: ND.exercise_ids.slice(0, 3) };
+const SERIES = {
+  mode: "notion",
+  chapterId: CH,
+  notion: NOTION,
+  notions: [NOTION],
+  exerciseIds: ND.exercise_ids.slice(0, 3),
+};
 
 async function mount(pending, url = "/exercice.html") {
   if (pending) localStorage.setItem("lumis:pending_series", JSON.stringify(pending));
@@ -86,7 +95,12 @@ async function answer(ok) {
   await flushPromises();
 }
 const local = () => JSON.parse(localStorage.getItem("lumis:stats")).history;
-const mastery = (h) => notionMastery(h.filter((e) => e.class_level === "premiere"), CH, NOTION);
+const mastery = (h) =>
+  notionMastery(
+    h.filter((e) => e.class_level === "premiere"),
+    CH,
+    NOTION,
+  );
 // Historique antérieur réel de la notion (1 ✓, 3 ✓, 5 ✓) : c'est lui qui fait démarrer en Défi.
 const PRIOR = [1, 3, 5].map((d, i) => ({
   id: ND.exercise_ids.find((x) => BANK[x].difficulty === d),
