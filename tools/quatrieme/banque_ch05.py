@@ -501,3 +501,9 @@ QUIZ = {
     "ecriture-scientifique": (45301, 45302, 45304),
     "prefixes-ordres-grandeur": (45401, 45402, 45405),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

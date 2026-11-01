@@ -387,3 +387,9 @@ QUIZ = {
     "triangles-egaux-cas": (52201, 52202, 52204),
     "triangles-egaux-demontrer": (52301, 52302, 52304),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

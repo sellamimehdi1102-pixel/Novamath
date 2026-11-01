@@ -13,6 +13,7 @@ import {
   getInProgressSeries,
   clearInProgressSeries,
   scopedStats,
+  hydrateFromServer,
 } from "./store.js";
 import { ActivityTimer } from "./timetrack.js";
 import { bindLiveTranslations } from "./i18n.js";
@@ -263,6 +264,38 @@ async function loadExerciseIndex() {
   return map;
 }
 
+// Prérequis pédagogiques vérifiés (static/data/notion_prerequisites.json), propres
+// à chaque classe : « notion -> [notions à maîtriser avant] ». Ils ne servent qu'à
+// l'estimation initiale d'une notion encore jamais travaillée (transferPrior,
+// incertitude élevée) ; une notion déjà travaillée repart toujours de son propre
+// historique. Classe sans relation, fichier absent ou invalide : null, et le
+// moteur garde son repli (profil général, sinon Fondamental). Un chargement par page.
+// Jamais copié dans seriesConfig (sauvegardé pour la reprise : une Map ne se
+// sérialise pas) ; rechargé par buildAdaptivePlan() et resumeSeries().
+let adaptiveRelations = null;
+let prerequisitesLoad = null;
+function loadPrerequisites() {
+  if (!prerequisitesLoad) {
+    prerequisitesLoad = (async () => {
+      try {
+        const response = await fetch("/data/notion_prerequisites.json");
+        if (!response.ok) return null;
+        const data = await response.json();
+        const relations = data?.[getStoredClassLevel()];
+        if (!relations || typeof relations !== "object") return null;
+        const map = new Map();
+        Object.entries(relations).forEach(([key, prereqs]) => {
+          if (Array.isArray(prereqs) && prereqs.length) map.set(key, prereqs.filter((p) => typeof p === "string"));
+        });
+        return map.size ? map : null;
+      } catch {
+        return null;
+      }
+    })();
+  }
+  return prerequisitesLoad;
+}
+
 function isAdaptiveRequest(m, config) {
   if (m === "revisions" || m === "objectif") return !config.exerciseIds;
   return m === "notion" && Array.isArray(config.notions) && Array.isArray(config.exerciseIds);
@@ -276,15 +309,57 @@ function dailyGoalRemaining(history) {
 
 /** Candidats, ordre de priorité des notions et longueur d'une série
  * adaptative — ou null si rien n'est disponible. */
+// Le niveau de chaque notion se calcule sur l'historique de l'élève. Le serveur
+// en détient la version complète : l'état local n'est qu'un cache, vide sur un
+// nouveau navigateur ou après un nettoyage du stockage (sans ce rechargement,
+// le niveau repartait de « Fondamental »). Une seule récupération par page.
+let historyHydration = null;
+function hydrateHistoryOnce() {
+  if (!historyHydration) historyHydration = hydrateFromServer().catch(() => null);
+  return historyHydration;
+}
+
+/** Historique de la classe active, interprété avec la difficulté ACTUELLE de
+ * chaque exercice. Les banques ont été recalibrées (chantier 2) sans changer
+ * les identifiants : une réponse enregistrée au niveau 5 sur un exercice
+ * désormais classé 1 ne doit plus compter comme une réussite Défi. Un exercice
+ * n'est retenu que s'il est identifié de manière certaine (même id, même
+ * chapitre, même notion dans la banque de la classe active) ; sinon (exercice
+ * retiré, sur mesure, index indisponible) la difficulté enregistrée est
+ * conservée, et une entrée sans difficulté ni exercice connu reste ignorée par
+ * le moteur. Copie : l'historique stocké n'est jamais modifié. */
+function adaptiveHistory() {
+  const { history } = scopedStats(getState(), getStoredClassLevel());
+  return history.map((h) => {
+    const known = exerciseIndex?.get(h.id);
+    const certain = known?.difficulty != null && known.chapter === h.chapter && known.notion === h.notion;
+    if (certain) return known.difficulty === h.difficulty ? h : { ...h, difficulty: known.difficulty };
+    if (h.difficulty != null) return h;
+    return known?.difficulty != null ? { ...h, difficulty: known.difficulty } : h;
+  });
+}
+
 async function buildAdaptivePlan(m, config) {
   const index = await loadExerciseIndex();
   if (!index.size) return null;
-  const { history } = scopedStats(getState(), getStoredClassLevel());
+  await hydrateHistoryOnce();
+  const history = adaptiveHistory();
   let ids;
   let order;
   let total = SERIES_TOTAL;
   if (m === "notion") {
-    ids = [...new Set(config.exerciseIds)].filter((id) => index.has(id));
+    // Les séries lancées depuis un cours ou l'assistant ne transmettent que les
+    // premiers exercices de la notion (une dizaine, tous de niveaux voisins) :
+    // le niveau calculé ne pouvait alors jamais dépasser ce plafond. Le pool
+    // adaptatif est donc la notion entière, repérée par (chapitre, notion).
+    const requested = [...new Set(config.exerciseIds)].filter((id) => index.has(id));
+    const notionKeys = new Set(
+      requested.map((id) => {
+        const c = index.get(id);
+        return notionKey(c.chapter, c.notion);
+      }),
+    );
+    ids = [...index.values()].filter((c) => notionKeys.has(notionKey(c.chapter, c.notion))).map((c) => c.id);
     order = [];
     config.notions.forEach((notion) => {
       ids.forEach((id) => {
@@ -305,6 +380,7 @@ async function buildAdaptivePlan(m, config) {
     if (m === "objectif") total = dailyGoalRemaining(history) || SERIES_TOTAL;
   }
   if (!ids.length) return null;
+  adaptiveRelations = await loadPrerequisites();
   return { ids, order, total: Math.min(total, ids.length) };
 }
 
@@ -314,12 +390,13 @@ function queueNextAdaptive() {
   const adaptive = seriesConfig.adaptive;
   if (!adaptive || seriesQueue.length > seriesIndex) return true;
   const candidates = adaptive.ids.map((id) => exerciseIndex?.get(id)).filter(Boolean);
-  const { history } = scopedStats(getState(), getStoredClassLevel());
+  const history = adaptiveHistory();
   const next = pickNextExercise({
     candidates,
     history,
     usedIds: [...seriesQueue, ...(adaptive.excluded || [])],
     notionOrder: adaptive.order,
+    relations: adaptiveRelations,
   });
   if (!next) return false;
   seriesQueue.push(next.id);
@@ -465,6 +542,8 @@ async function resumeSeries(snapshot) {
     // retombe sur un vrai appel réseau, jamais sur une supposition côté client.
     if (seriesConfig.adaptive) {
       await loadExerciseIndex();
+      await hydrateHistoryOnce();
+      adaptiveRelations = await loadPrerequisites();
       if (!queueNextAdaptive()) {
         finishSeries();
         return;

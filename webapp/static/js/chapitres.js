@@ -347,7 +347,10 @@ function renderChapters(chaptersMeta) {
         if (row.dataset.resumable === "true") {
           // Une série est déjà en cours sur cette notion précise : on reprend
           // exactement où on s'est arrêté, sans relancer une nouvelle série.
-          window.location.href = "exercice.html";
+          // `?resume=1` (comme dashboard.js/resume.js) : sans lui, exercice.js
+          // ne reprend que dans l'onglet déjà en série et affichait sinon
+          // l'écran « Prêt pour une série ? ».
+          window.location.href = "exercice.html?resume=1";
           return;
         }
         // Multi-sélection : un clic sélectionne/désélectionne la notion au

@@ -995,6 +995,11 @@ def _stats_entry_key(entry):
     d'avant l'ajout de ce champ) — jamais `id(entry)` (l'identité mémoire de
     l'objet Python), qui dupliquerait une même entrée à chaque fusion
     successive puisqu'elle change à chaque désérialisation JSON."""
+    # Réponse horodatée : (ts, id d'exercice) — deux tentatives distinctes
+    # enregistrées dans la même milliseconde ne s'écrasent plus, et une même
+    # tentative retransmise garde la même clé (aucun doublon).
+    if entry.get("ts") is not None:
+        return ("ts", entry["ts"], str(entry.get("id")))
     ts_or_id = entry.get("ts", entry.get("id"))
     if ts_or_id is not None:
         return ts_or_id

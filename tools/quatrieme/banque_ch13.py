@@ -371,3 +371,9 @@ QUIZ = {
     "espace-volumes": (53301, 53302, 53304),
     "espace-agrandissement-volumes": (53401, 53402, 53404),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

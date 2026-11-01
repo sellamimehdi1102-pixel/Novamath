@@ -440,6 +440,46 @@ describe("store.js — hydrateFromServer", () => {
     expect(result.history).toHaveLength(3);
   });
 
+  it("serveur plus long (autre appareil) : les réponses locales non synchronisées ne sont jamais perdues", async () => {
+    recordAnswer({ id: 7, chapter: "c", notion: "n", difficulty: 3, correct: false });
+    const localEntry = getState().history[0];
+    const remote = [1, 2, 3].map((ts) => h({ ts, id: 10 + ts }));
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: remote });
+    const result = await hydrateFromServer();
+    expect(result.history).toHaveLength(4);
+    expect(result.history).toContainEqual(localEntry);
+    expect(getState().history.map((e) => e.ts)).toEqual([1, 2, 3, localEntry.ts]); // ordre chronologique
+  });
+
+  it("serveur plus court mais avec des réponses d'un autre appareil : elles sont ajoutées (même état partout)", async () => {
+    recordAnswer({ id: 7, chapter: "c", notion: "n", difficulty: 3, correct: false });
+    recordAnswer({ id: 8, chapter: "c", notion: "n", difficulty: 3, correct: true });
+    const other = h({ ts: 5, id: 99 });
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: [other] });
+    const result = await hydrateFromServer();
+    expect(result.history).toHaveLength(3);
+    expect(result.history[0]).toEqual(other);
+  });
+
+  it("deux réponses distinctes au même horodatage : conservées toutes les deux (second navigateur et fusion)", async () => {
+    const a = h({ ts: 5, id: 101 });
+    const b = h({ ts: 5, id: 102, correct: false });
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: [a, b] });
+    expect((await hydrateFromServer()).history).toEqual([a, b]); // navigateur vide
+    localStorage.clear();
+    recordAnswer({ id: 7, chapter: "c", notion: "n", difficulty: 1, correct: true });
+    const local = { ...getState().history[0] };
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: [local, { ...local, id: 8 }] });
+    expect((await hydrateFromServer()).history.map((e) => e.id)).toEqual([7, 8]);
+  });
+
+  it("une même réponse présente des deux côtés n'est comptée qu'une fois", async () => {
+    recordAnswer({ id: 7, chapter: "c", notion: "n", difficulty: 3, correct: false });
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: getState().history.map((e) => ({ ...e })) });
+    const result = await hydrateFromServer();
+    expect(result.history).toHaveLength(1);
+  });
+
   it("garde l'état local si le serveur échoue", async () => {
     api.getStats.mockRejectedValueOnce(new Error("réseau"));
     const result = await hydrateFromServer();
@@ -453,7 +493,7 @@ describe("store.js — hydrateFromServer", () => {
   // déjà à jour").
   it("rafraîchit suggestions_limit même quand l'historique local est déjà à jour (pas de persist)", async () => {
     recordAnswer({ id: 1, chapter: "c", notion: "n", difficulty: 1, correct: true }); // 1 entrée locale
-    api.getStats.mockResolvedValueOnce({ xp: 0, history: [h()], suggestions_limit: 5 }); // même longueur (1)
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: getState().history, suggestions_limit: 5 }); // même entrée (déjà synchronisée)
     const result = await hydrateFromServer();
     expect(result.history).toHaveLength(1); // pas de persist() du remote (longueur égale)
     expect(result.suggestions_limit).toBe(5); // mais suggestions_limit vient bien du fetch frais
@@ -469,7 +509,7 @@ describe("store.js — hydrateFromServer", () => {
   // dépend du PLAN, pas de l'historique.
   it("rafraîchit notion_breakdown_enabled même quand l'historique local est déjà à jour (pas de persist)", async () => {
     recordAnswer({ id: 1, chapter: "c", notion: "n", difficulty: 1, correct: true }); // 1 entrée locale
-    api.getStats.mockResolvedValueOnce({ xp: 0, history: [h()], notion_breakdown_enabled: true }); // même longueur (1)
+    api.getStats.mockResolvedValueOnce({ xp: 0, history: getState().history, notion_breakdown_enabled: true }); // même entrée (déjà synchronisée)
     const result = await hydrateFromServer();
     expect(result.history).toHaveLength(1); // pas de persist() du remote (longueur égale)
     expect(result.notion_breakdown_enabled).toBe(true);

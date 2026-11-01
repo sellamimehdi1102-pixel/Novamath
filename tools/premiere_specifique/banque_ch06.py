@@ -352,3 +352,8 @@ EXERCISES = [e for e in EXERCISES if e.notion in (N1, N2)]
 NOTIONS = (N1, N2)
 NOTION_IDS = ("variations-d-une-fonction", "nombre-derive-et-extremums-locaux")
 QUIZ = {k: v for k, v in QUIZ.items() if k in NOTION_IDS}
+
+# Chantier 2 (2026-11-01) : niveaux absents ou trop peu fournis (voir complements_chantier2.py).
+from premiere_specifique.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)

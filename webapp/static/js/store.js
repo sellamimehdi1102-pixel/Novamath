@@ -443,14 +443,60 @@ export function clearInProgressSeries() {
   localStorage.removeItem(IN_PROGRESS_KEY);
 }
 
+/** Union de deux listes d'entrées : toutes les entrées locales, plus les
+ * entrées distantes dont la clé `keyOf` (même clé que _stats_entry_key côté
+ * serveur : `ts` + id d'exercice pour une réponse, `ts`/`id` pour une série) est absente en
+ * local. Les anciennes entrées distantes sans clé ne peuvent pas être
+ * appariées : elles ne sont reprises que si le serveur en a davantage. */
+function mergeEntries(local, remote, keyOf, sortKey) {
+  const known = new Set(local.map(keyOf).filter((k) => k != null));
+  const added = [];
+  remote.forEach((e) => {
+    const k = keyOf(e);
+    if (k == null || known.has(k)) return;
+    known.add(k);
+    added.push(e);
+  });
+  const unkeyedLocal = local.filter((e) => keyOf(e) == null);
+  const unkeyedRemote = remote.filter((e) => keyOf(e) == null);
+  const keyedLocal = local.filter((e) => keyOf(e) != null);
+  const unkeyed = unkeyedRemote.length > unkeyedLocal.length ? unkeyedRemote : unkeyedLocal;
+  return [...unkeyed, ...[...keyedLocal, ...added].sort((x, y) => (sortKey(x) || 0) - (sortKey(y) || 0))];
+}
+
 export async function hydrateFromServer() {
   try {
     const remote = await api.getStats();
     if (remote && Array.isArray(remote.history) && remote.history.length) {
       const local = load();
-      if (remote.history.length > local.history.length) {
-        persist(remote);
-        return remote;
+      // Union (comme _merge_stats_payload côté serveur), jamais un
+      // remplacement : adopter `remote` tel quel effaçait les réponses locales
+      // pas encore synchronisées dès que le serveur en avait davantage (autre
+      // appareil), et ignorer un `remote` plus court perdait celles des autres
+      // appareils — la maîtrise par notion différait alors d'un navigateur à
+      // l'autre (adaptiveDifficulty.js rejoue cet historique).
+      const history = mergeEntries(
+        local.history,
+        remote.history,
+        (e) => (e?.ts == null ? null : `${e.ts}|${e.id}`),
+        (e) => e.ts,
+      );
+      const series = mergeEntries(
+        local.series || [],
+        remote.series || [],
+        (e) => e?.ts ?? e?.id,
+        (e) => e.startedAt,
+      );
+      if (history.length > local.history.length || series.length > (local.series || []).length) {
+        const merged = {
+          ...remote,
+          history,
+          series,
+          badges: [...new Set([...(local.badges || []), ...(remote.badges || [])])],
+          xp: history.reduce((sum, e) => sum + (e.xp || 0), 0),
+        };
+        persist(merged);
+        return merged;
       }
       // Historique local déjà à jour (aucune nouvelle réponse depuis la
       // dernière visite) : `persist(remote)` est sauté, mais

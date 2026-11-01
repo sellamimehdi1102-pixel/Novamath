@@ -83,6 +83,11 @@ def main() -> None:
             print(f"  - {p}", file=sys.stderr)
         sys.exit(1)
 
+    # Chantier 2 : difficulté = niveau pédagogique de la famille, pas la
+    # longueur du calcul (voir tools/calibrage_pedagogique.py).
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from calibrage_pedagogique import calibrer
+    calibrer(combined, "seconde")
     OUTPUT_PATH.write_text(
         json.dumps(combined, ensure_ascii=False, indent=2), encoding="utf-8"
     )

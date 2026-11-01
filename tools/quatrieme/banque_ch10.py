@@ -398,3 +398,9 @@ QUIZ = {
     "cosinus-calculer-longueur": (50301, 50302, 50304),
     "cosinus-calculer-angle": (50401, 50402, 50404),
 }
+
+
+# Chantier 2 (2026-11-01) : niveau 4 complété (voir complements_chantier2.py).
+from quatrieme.complements_chantier2 import complements as _complements  # noqa: E402
+
+EXERCISES = EXERCISES + _complements(CHAPTER_NUMBER)
