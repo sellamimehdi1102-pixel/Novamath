@@ -58,35 +58,47 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/landing.css" />
-    <link rel="stylesheet" href="css/curriculum.css" />
     <link rel="stylesheet" href="css/reviews.css" />
     <link rel="stylesheet" href="css/auth.css" />
     <link rel="stylesheet" href="css/abonnement.css" />
     <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="css/classe-seo.css" />
   </head>
   <body>
-    <nav class="topnav">
-      <div class="topnav-left">
-        <button class="class-badge" id="class-badge-btn" type="button" aria-label="Changer de classe">
-          <span class="class-badge-icon" aria-hidden="true"
-            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" /></svg
-          ></span>
-          <span class="class-badge-label" id="class-badge-label">Seconde</span>
-          <span class="class-badge-chevron" aria-hidden="true"
-            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6" /></svg
-          ></span>
-        </button>
-        <a href="index.html" class="brand"><img src="assets/logo.svg" alt="" /> Mathadap</a>
-      </div>
-      <div class="nav-links">
-        <a href="#comment-ca-marche">Comment ça marche</a>
-        <a href="#fonctionnalites">Fonctionnalités</a>
-        <a href="#tarifs">Gratuit</a>
-        <a href="#avis">Avis</a>
-        <a href="#faq">FAQ</a>
+    <nav class="topnav" aria-label="Navigation principale">
+      <a href="index.html" class="brand"><img src="assets/logo.svg" alt="" /> Mathadap</a>
+      <div class="nav-center">
+        <div class="class-menu" data-class-menu>
+          <button
+            type="button"
+            class="class-menu-toggle nav-class-toggle"
+            aria-expanded="false"
+            aria-controls="class-menu-nav"
+          >
+            Classes
+            <svg
+              class="class-menu-chevron"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <ul class="class-menu-list" id="class-menu-nav" hidden>
+            <li><a href="/choisir-classe.html?classe=quatrieme">Quatrième</a></li>
+            <li><a href="/choisir-classe.html?classe=troisieme">Troisième</a></li>
+            <li><a href="/choisir-classe.html?classe=seconde">Seconde</a></li>
+            <li><a href="/choisir-classe.html?classe=premiere">Première spécialité mathématiques</a></li>
+            <li><a href="/choisir-classe.html?classe=premiere_specifique">Première mathématiques spécifiques</a></li>
+          </ul>
+        </div>
+        <div class="nav-links">
+          <a href="#avantages">Avantages</a>
+          <a href="#avis">Avis</a>
+          <a href="#faq">FAQ</a>
+        </div>
       </div>
       <div class="nav-actions">
         <button class="theme-toggle" id="theme-toggle" aria-label="Changer de thème">
@@ -107,402 +119,306 @@
 
     <header class="hero">
       <div class="hero-content">
-        <div class="hero-eyebrow">
-          <span class="badge badge--indigo"
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              style="width: 13px; height: 13px; vertical-align: -2px; margin-right: 5px"
-            >
-              <path d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z" stroke-linejoin="round" /></svg
-            >Apprentissage adaptatif par IA</span
-          >
-        </div>
-        <h1>Comprends les maths.<br /><span class="gradient-text">Pas seulement les réponses.</span></h1>
+        <h1>En maths, ton point de départ ne définit pas <span class="gradient-text">jusqu'où tu peux aller.</span></h1>
         <p class="lead">
-          De la Quatrième à la Première, Mathadap choisit les exercices qu'il te faut et t'explique chaque méthode en
-          français clair — pas en code mathématique.
+          Que tu souhaites consolider tes bases, améliorer tes résultats ou aller plus loin, Mathadap t'accompagne avec
+          des questions adaptées à tes acquis, des cours complets et des outils pour suivre ta progression.
         </p>
         <div class="hero-cta">
-          <button class="btn btn-primary btn-lg js-start-guest" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <a href="/choisir-classe.html" class="btn btn-primary btn-lg hero-start">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M6 4.5v15l13-7.5-13-7.5Z" stroke-linejoin="round" />
             </svg>
-            Commencer gratuitement
-          </button>
-          <a href="#comment-ca-marche" class="btn btn-secondary btn-lg">Voir comment ça marche</a>
+            Commencer
+          </a>
         </div>
       </div>
 
+      <!-- Cockpit : illustration statique (HTML/CSS/SVG), aucune donnée réelle,
+           aucune commande active — exposée comme une seule image aux
+           technologies d'assistance. -->
       <div class="hero-illustration-wrap">
-        <div class="hero-illustration-back" aria-hidden="true"></div>
-        <div class="hero-illustration card">
-          <div class="hero-mockup" aria-hidden="true">
-            <div class="hero-mockup-chrome"><span></span><span></span><span></span></div>
-            <div class="hero-mockup-body">
-              <div class="hero-mockup-sidebar">
-                <div class="hero-mockup-logo"></div>
-                <div class="hero-mockup-nav-item active"></div>
-                <div class="hero-mockup-nav-item"></div>
-                <div class="hero-mockup-nav-item"></div>
-                <div class="hero-mockup-nav-item"></div>
+        <div
+          class="cockpit"
+          role="img"
+          aria-label="Aperçu illustratif de Mathadap : une question d'équation en entraînement adaptatif avec indice, méthode et solution, un graphique d'évolution des résultats, une notion à renforcer, ainsi que les cours, l'assistant IA et les questions sur mesure."
+        >
+          <div class="ck-grid" aria-hidden="true">
+            <div class="ck-card ck-train">
+              <div class="ck-head">
+                <span class="ck-title">Ton entraînement</span>
+                <span class="ck-badge-adaptive">Adaptatif</span>
               </div>
-              <div class="hero-mockup-main">
-                <div class="hero-mockup-greeting"></div>
-                <div class="hero-mockup-goal">
-                  <div class="hero-mockup-goal-top">
-                    <div class="hero-mockup-goal-label"></div>
-                    <div class="hero-mockup-goal-value"></div>
-                  </div>
-                  <div class="hero-mockup-goal-bar"><span style="width: 68%"></span></div>
+              <div class="ck-question">
+                <span class="ck-question-meta">Équations · Intermédiaire</span>
+                <span class="ck-equation"
+                  ><span class="ck-num">3</span><span class="ck-var">x</span><span class="ck-op">+</span
+                  ><span class="ck-num">5</span><span class="ck-op">=</span><span class="ck-num">20</span></span
+                >
+              </div>
+              <div class="ck-aids">
+                <span class="ck-aid"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18h6M10 22h4" />
+                    <path d="M12 2a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 2Z" /></svg
+                  >Indice</span
+                >
+                <span class="ck-aid"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m16 8-2 6-6 2 2-6 6-2Z" stroke-linejoin="round" /></svg
+                  >Méthode</span
+                >
+                <span class="ck-aid"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
+                    <circle cx="12" cy="12" r="3" /></svg
+                  >Solution</span
+                >
+              </div>
+              <div class="ck-verdict">
+                <span class="ck-verdict-no"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                    <path d="M18 6 6 18M6 6l12 12" /></svg
+                  >Échoué</span
+                >
+                <span class="ck-verdict-yes"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                    <path d="m5 13 4 4L19 7" /></svg
+                  >Réussi</span
+                >
+              </div>
+            </div>
+
+            <div class="ck-card ck-results">
+              <div class="ck-head ck-head--icon">
+                <span class="ck-icon ck-icon--blue"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 3v18h18" />
+                    <path d="m7 15 4-4 3 3 6-6" /></svg
+                ></span>
+                <span class="ck-title">Suivi des résultats</span>
+              </div>
+              <div class="ck-chart">
+                <svg class="ck-chart-svg" viewBox="0 0 200 78" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="ck-line" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop offset="0" stop-color="#4c7ff0" />
+                      <stop offset="1" stop-color="#5ee0f7" />
+                    </linearGradient>
+                    <linearGradient id="ck-area" x1="0" y1="0" x2="0" y2="78" gradientUnits="userSpaceOnUse">
+                      <stop offset="0" stop-color="#5ee0f7" stop-opacity="0.28" />
+                      <stop offset="1" stop-color="#5ee0f7" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M10 60 L46 48 L82 53 L118 34 L154 38 L190 16 L190 78 L10 78 Z" fill="url(#ck-area)" />
+                  <path
+                    d="M10 60 L46 48 L82 53 L118 34 L154 38 L190 16"
+                    fill="none"
+                    stroke="url(#ck-line)"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    vector-effect="non-scaling-stroke"
+                  />
+                </svg>
+                <!-- Points en HTML (pas en SVG) : restent parfaitement ronds quel que
+                   soit l'étirement horizontal du graphique (preserveAspectRatio). -->
+                <div class="ck-chart-points">
+                  <span style="left: 5%; top: 76.9%"></span>
+                  <span style="left: 23%; top: 61.5%"></span>
+                  <span style="left: 41%; top: 67.9%"></span>
+                  <span style="left: 59%; top: 43.6%"></span>
+                  <span style="left: 77%; top: 48.7%"></span>
+                  <span style="left: 95%; top: 20.5%"></span>
                 </div>
-                <div class="hero-mockup-stats">
-                  <div class="hero-mockup-stat"></div>
-                  <div class="hero-mockup-stat"></div>
-                  <div class="hero-mockup-stat"></div>
-                </div>
-                <div class="hero-mockup-chart">
-                  <svg viewBox="0 0 400 110" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient
-                        id="hero-mockup-grad"
-                        x1="0"
-                        y1="0"
-                        x2="400"
-                        y2="0"
-                        gradientUnits="userSpaceOnUse"
-                      >
-                        <stop offset="0" stop-color="var(--brand-indigo)" />
-                        <stop offset="1" stop-color="var(--brand-violet)" />
-                      </linearGradient>
-                    </defs>
+              </div>
+              <span class="ck-caption">Évolution des résultats</span>
+            </div>
+
+            <div class="ck-card ck-focus">
+              <div class="ck-head ck-head--icon">
+                <span class="ck-icon ck-icon--blue"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" /></svg
+                ></span>
+                <span class="ck-title">À renforcer</span>
+              </div>
+              <span class="ck-focus-notion">Fractions</span>
+              <span class="ck-bar"><span></span></span>
+            </div>
+
+            <div class="ck-tiles">
+              <div class="ck-tile">
+                <span class="ck-icon ck-icon--violet"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" /></svg
+                ></span>
+                <span class="ck-tile-text"><strong>Cours</strong><span>Comprendre</span></span>
+              </div>
+              <div class="ck-tile">
+                <span class="ck-icon ck-icon--cyan"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 8V4H8" />
+                    <rect x="4" y="8" width="16" height="12" rx="2" />
+                    <path d="M2 14h2M20 14h2M15 13v2M9 13v2" /></svg
+                ></span>
+                <span class="ck-tile-text"><strong>Assistant IA</strong><span>Demander de l'aide</span></span>
+              </div>
+              <div class="ck-tile">
+                <span class="ck-icon ck-icon--gold"
+                  ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m12 3 1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3Z" stroke-linejoin="round" />
                     <path
-                      d="M0 85 C 40 80, 60 55, 100 50 S 160 30, 200 32 S 260 55, 300 40 S 360 12, 400 10"
-                      fill="none"
-                      stroke="url(#hero-mockup-grad)"
-                      stroke-width="3"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </div>
+                      d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"
+                      stroke-linejoin="round"
+                    /></svg
+                ></span>
+                <span class="ck-tile-text"><strong>Sur mesure</strong><span>Personnaliser</span></span>
               </div>
             </div>
           </div>
-        </div>
-        <div class="hero-float-chip" aria-hidden="true">
-          <span class="hero-float-chip-icon"
-            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path
-                d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"
-                stroke-linejoin="round"
-                stroke-linecap="round"
-              /></svg
-          ></span>
-          <span class="hero-float-chip-text"
-            ><strong>12 jours de série</strong><span>Objectif du jour atteint</span></span
-          >
         </div>
       </div>
     </header>
 
-    <section class="section transformation-section" id="transformation">
+    <section class="section advantages-section" id="avantages" aria-labelledby="avantages-title">
       <div class="section-header reveal">
-        <span class="section-tag">La différence</span>
-        <h2>D'un exercice raté à une méthode maîtrisée</h2>
-        <p>Ce n'est pas une question de travailler plus. C'est une question de travailler juste.</p>
-      </div>
-      <div class="transformation-grid reveal-stagger">
-        <div class="transformation-card transformation-card--before">
-          <span class="transformation-label">Sans accompagnement</span>
-          <ul>
-            <li>Tu refais les mêmes erreurs sans jamais savoir pourquoi</li>
-            <li>Les exercices sont soit trop faciles, soit hors de portée</li>
-            <li>Une correction affiche "faux", jamais le raisonnement</li>
-            <li>Tu perds pied, puis tu décroches</li>
-          </ul>
-        </div>
-        <div class="transformation-arrow" aria-hidden="true">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg>
-        </div>
-        <div class="transformation-card transformation-card--after">
-          <span class="transformation-label">Avec Mathadap</span>
-          <ul>
-            <li>Chaque erreur devient une notion identifiée, puis retravaillée</li>
-            <li>La difficulté s'ajuste à ton niveau réel, exercice après exercice</li>
-            <li>Une méthode expliquée pas à pas, jamais juste "faux"</li>
-            <li>Une progression visible qui donne envie de continuer</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="stats-strip reveal-stagger">
-      <div class="stat-item" data-stat="totalExercises" data-format="exercises">
-        <div class="stat-value tabular" data-count-target="0">0</div>
-        <div class="stat-label">exercices</div>
-        <p class="stat-desc">Une large base d'exercices, organisée chapitre par chapitre.</p>
-      </div>
-      <div class="stat-item" data-stat="chapters" data-format="chapters">
-        <div class="stat-value tabular" data-count-target="0">0</div>
-        <div class="stat-label">chapitres</div>
-        <p class="stat-desc">
-          Les chapitres de <span id="stats-class-label">Seconde</span>, organisés de manière progressive.
+        <h2 id="avantages-title">Bien plus que des exercices de maths.</h2>
+        <p>
+          Tu peux maîtriser certaines notions et rencontrer des difficultés dans d'autres. Mathadap tient compte de tes
+          acquis pour faire évoluer ton entraînement et t'aider à progresser là où tu en as besoin.
         </p>
       </div>
-      <div class="stat-item" data-stat="notions" data-format="notions">
-        <div class="stat-value tabular" data-count-target="0">0</div>
-        <div class="stat-label">notions</div>
-        <p class="stat-desc">Chaque notion dispose de ses propres séries d'entraînement.</p>
-      </div>
-      <div class="stat-item" data-stat="difficultyLevels" data-format="levels">
-        <div class="stat-value tabular" data-count-target="0">0</div>
-        <div class="stat-label">niveaux de difficulté</div>
-        <p class="stat-desc">Progresse du niveau découverte jusqu'au niveau expert.</p>
-      </div>
-    </section>
-
-    <section class="section" id="classes">
-      <div class="section-header">
-        <span class="section-tag">Classes</span>
-        <h2>Les maths du collège au lycée</h2>
-        <p>Cinq classes, chacune avec ses propres cours, exercices et suivi de progression.</p>
-      </div>
-      <ul class="seo-levels seo-levels--home">
-        <li>
-          <a class="seo-level-link card" href="/choisir-classe.html?classe=quatrieme">
-            <span class="seo-level-stage">Collège</span>
-            <span class="seo-level-name">Maths Quatrième</span>
-            <span class="seo-level-desc">Relatifs, fractions, puissances, Pythagore, Thalès</span>
-          </a>
-        </li>
-        <li>
-          <a class="seo-level-link card" href="/choisir-classe.html?classe=troisieme">
-            <span class="seo-level-stage">Collège</span>
-            <span class="seo-level-name">Maths Troisième</span>
-            <span class="seo-level-desc">Fonctions affines, trigonométrie, équations, probabilités</span>
-          </a>
-        </li>
-        <li>
-          <a class="seo-level-link card" href="/choisir-classe.html?classe=seconde">
-            <span class="seo-level-stage">Lycée</span>
-            <span class="seo-level-name">Maths Seconde</span>
-            <span class="seo-level-desc">Vecteurs, fonctions de référence, droites, inéquations</span>
-          </a>
-        </li>
-        <li>
-          <a class="seo-level-link card" href="/choisir-classe.html?classe=premiere">
-            <span class="seo-level-stage">Lycée</span>
-            <span class="seo-level-name">Maths Première spécialité</span>
-            <span class="seo-level-desc">Suites, second degré, dérivation, exponentielle</span>
-          </a>
-        </li>
-        <li>
-          <a class="seo-level-link card" href="/choisir-classe.html?classe=premiere_specifique">
-            <span class="seo-level-stage">Lycée</span>
-            <span class="seo-level-name">Maths Première spécifique</span>
-            <span class="seo-level-desc">Pourcentages, statistiques, suites, loi binomiale (ex-ES/L)</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-
-    <section class="section" id="comment-ca-marche">
-      <div class="section-header reveal">
-        <span class="section-tag">Fonctionnement</span>
-        <h2>Deux étapes, une progression continue</h2>
-        <p>Pas de cours magistral : Mathadap observe comment tu résous, puis ajuste.</p>
-      </div>
-      <div class="steps reveal-stagger">
-        <div class="step-card card">
-          <div class="step-number">1</div>
-          <h3>Entraîne-toi intelligemment</h3>
-          <p>L'IA sélectionne les exercices adaptés à ton niveau et à tes notions faibles, jamais au hasard.</p>
-        </div>
-        <div class="step-card card">
-          <div class="step-number">2</div>
-          <h3>Progresse, mesurablement</h3>
-          <p>Ton niveau se met à jour en continu. Tu vois exactement ce que tu maîtrises et ce qu'il reste à revoir.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section showcase-section" id="chatbot-showcase">
-      <div class="showcase-grid">
-        <div class="showcase-visual reveal">
-          <div class="showcase-window card">
-            <div class="showcase-window-chrome">
-              <span></span><span></span><span></span><span class="showcase-window-label">Exemple de conversation</span>
-            </div>
-            <div class="showcase-chat" id="showcase-chat">
-              <div class="showcase-bubble assistant">Pourquoi la dérivée s'annule en x = 2 ?</div>
-              <div class="showcase-bubble user">Parce que c'est un maximum</div>
-              <div class="showcase-bubble assistant">
-                Exactement — la tangente y est horizontale. On le vérifie en étudiant le signe de f' avant et après x =
-                2.
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="showcase-content reveal">
-          <span class="section-tag">Chatbot IA</span>
-          <h2>Un prof particulier, disponible à toute heure</h2>
-          <p class="showcase-lead">
-            Bloqué sur un exercice à 22h ? Le chatbot connaît exactement où tu en es dans le programme et t'explique la
-            méthode, pas juste la réponse.
-          </p>
-          <ul class="showcase-list">
-            <li>
-              <span class="showcase-check"
-                ><svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m5 13 4 4L19 7" /></svg></span
-              >Explications adaptées à ton niveau réel
-            </li>
-            <li>
-              <span class="showcase-check"
-                ><svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m5 13 4 4L19 7" /></svg></span
-              >Comprend le contexte de l'exercice en cours
-            </li>
-            <li>
-              <span class="showcase-check"
-                ><svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m5 13 4 4L19 7" /></svg></span
-              >Répond en français clair, jamais en jargon
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="fonctionnalites">
-      <div class="section-header reveal">
-        <span class="section-tag">Pourquoi Mathadap</span>
-        <h2>Une plateforme pensée comme un vrai outil pédagogique</h2>
-        <p>Tout ce qu'il faut pour progresser, rien de superflu.</p>
-      </div>
-      <div class="feature-grid reveal-stagger">
-        <div class="feature-card feature-card--wide feature-card--primary card card--interactive">
-          <div class="feature-icon">
+      <div class="advantages-grid reveal-stagger">
+        <article class="feature-card feature-card--primary advantage-card advantage-card--main card">
+          <div class="feature-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2a7 7 0 0 0-4 12.7V18a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-3.3A7 7 0 0 0 12 2Z" />
-              <path d="M9 22h6" />
+              <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3" />
+              <path d="M1 14h6M9 8h6M17 16h6" />
             </svg>
           </div>
-          <h3>IA adaptative</h3>
+          <div class="advantage-card-body">
+            <h3>Une difficulté qui évolue avec toi, notion par notion</h3>
+            <p>
+              Dans les entraînements adaptatifs, chaque réponse contribue à ajuster la difficulté des questions.
+              Mathadap mémorise tes acquis pour reprendre au niveau qui te correspond, même lorsque tu changes de série.
+            </p>
+          </div>
+        </article>
+        <article class="feature-card advantage-card card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <circle cx="12" cy="12" r="6" />
+              <circle cx="12" cy="12" r="2" />
+            </svg>
+          </div>
+          <h3>Travaille ce dont tu as réellement besoin</h3>
           <p>
-            Un modèle prédit ton niveau à partir de tes réponses et ajuste la difficulté en temps réel — chaque exercice
-            est choisi pour toi, pas pioché au hasard.
+            Prépare un contrôle, entraîne-toi sur une notion précise, révise tes points faibles ou utilise les questions
+            sur mesure. Tu choisis ton objectif et la façon de travailler pour l'atteindre.
           </p>
-        </div>
-        <div class="feature-card card card--interactive">
-          <div class="feature-icon">
+        </article>
+        <article class="feature-card advantage-card card">
+          <div class="feature-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
+              <path d="M12 8V4H8" />
+              <rect x="4" y="8" width="16" height="12" rx="2" />
+              <path d="M2 14h2M20 14h2M15 13v2M9 13v2" />
             </svg>
           </div>
-          <h3>Exercices en français naturel</h3>
-          <p>Les énoncés et corrections sont rédigés clairement — jamais sous forme de code mathématique brut.</p>
-        </div>
-        <div class="feature-card card card--interactive">
-          <div class="feature-icon">
+          <h3>Un assistant IA pour aller au-delà de la réponse</h3>
+          <p>
+            Une méthode te pose problème ? Pose tes questions à l'assistant IA pour obtenir des explications et
+            approfondir ta compréhension, en complément des cours et des corrections.
+          </p>
+        </article>
+        <article class="feature-card advantage-card card">
+          <div class="feature-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M3 3v18h18" />
               <path d="m19 9-5 5-4-4-4 4" />
             </svg>
           </div>
-          <h3>Suivi de progression réel</h3>
-          <p>Chapitres maîtrisés, notions faibles, historique complet — basé sur tes vraies réponses.</p>
-        </div>
-        <div class="feature-card card card--interactive">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="m12 15 3.5-2-3.5-2v4Z" />
-              <circle cx="12" cy="12" r="10" />
-            </svg>
-          </div>
-          <h3>Méthode pas à pas</h3>
-          <p>Chaque exercice propose indice, méthode détaillée et solution — jamais juste la réponse finale.</p>
-        </div>
-        <div class="feature-card card card--interactive">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.13.47.42.88.82 1.15.3.2.65.31 1.02.32H21a2 2 0 1 1 0 4h-.09c-.37.01-.72.12-1.02.32-.4.27-.69.68-.82 1.15Z"
-              />
-            </svg>
-          </div>
-          <h3>Modes d'entraînement variés</h3>
-          <p>Libre, révisions, objectif du jour, examen blanc, défi chronométré, erreurs précédentes...</p>
-        </div>
-        <div class="feature-card feature-card--wide card card--interactive">
-          <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2 2 7l10 5 10-5-10-5Z" />
-              <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <h3>Gamification motivante</h3>
+          <h3>Sache où tu progresses et ce qu'il te reste à travailler</h3>
           <p>
-            XP, niveaux, séries de jours, badges — pour donner vraiment envie de revenir chaque jour, pas juste de
-            "devoir" réviser.
+            Retrouve tes résultats par notion, identifie tes points forts et les connaissances à consolider. Ton suivi
+            t'aide à orienter tes prochaines séances.
           </p>
-        </div>
+        </article>
+        <article class="feature-card advantage-card card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 12v10H4V12" />
+              <path d="M2 7h20v5H2zM12 22V7" />
+              <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7ZM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z" />
+            </svg>
+          </div>
+          <h3>L'essentiel pour progresser, gratuitement.</h3>
+          <p>
+            Accède aux questions, aux cours, aux corrections, aux entraînements adaptatifs et au suivi de tes acquis
+            sans abonnement payant. L'assistant IA est également accessible, dans la limite de 15 messages par jour.
+          </p>
+        </article>
       </div>
     </section>
 
-    <!-- ── Accès gratuit — les fonctionnalités pédagogiques sont gratuites pour
-         tous ; seul l'assistant IA a un quota quotidien (voir
-         config.PEDAGOGY_FREE, webapp/plan_service.py). ─────────────────── -->
-    <section class="section pricing-section" id="tarifs">
+    <!-- Chiffres arrondis à la baisse, issus de l'audit des banques réellement
+         servies (2026-11-01) : 22 262 questions distinctes (les questions
+         communes aux deux Premières comptées une seule fois), 228 notions
+         distinctes, 5 parcours, 4 ou 5 niveaux de difficulté selon la classe. -->
+    <section class="section stats-section" id="chiffres" aria-labelledby="chiffres-title">
       <div class="section-header reveal">
-        <span class="section-tag">Accès gratuit</span>
-        <h2>Tout l'entraînement est gratuit</h2>
-        <p>
-          Cours complets, exercices, corrections détaillées, révisions et suivi de progression : aucun abonnement,
-          aucune carte bancaire.
-        </p>
+        <h2 id="chiffres-title">Les maths, en grand.</h2>
+        <p>Des milliers de questions, des centaines de notions et un entraînement adapté à tes acquis.</p>
       </div>
-      <div class="cta-final reveal">
-        <p>
-          Seul l'assistant IA est limité à un nombre de messages par jour, pour que chaque élève puisse l'utiliser
-          équitablement.
-        </p>
-        <button type="button" class="btn btn-primary btn-lg js-open-signup">Créer mon compte gratuit</button>
-      </div>
+      <ul class="stat-grid reveal-stagger">
+        <li class="stat-card card">
+          <span class="stat-card-icon" aria-hidden="true"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3" />
+              <path d="M12 17h.01" /></svg
+          ></span>
+          <span class="stat-card-value">22&#8239;000+</span>
+          <h3 class="stat-card-title">Questions</h3>
+          <p class="stat-card-desc">Pour t’entraîner sur tout le programme</p>
+        </li>
+        <li class="stat-card card">
+          <span class="stat-card-icon" aria-hidden="true"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <circle cx="12" cy="12" r="6" />
+              <circle cx="12" cy="12" r="2" /></svg
+          ></span>
+          <span class="stat-card-value">200+</span>
+          <h3 class="stat-card-title">Notions</h3>
+          <p class="stat-card-desc">Pour cibler précisément tes révisions</p>
+        </li>
+        <li class="stat-card card">
+          <span class="stat-card-icon" aria-hidden="true"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10 12 5 2 10l10 5 10-5Z" stroke-linejoin="round" />
+              <path d="M6 12v5c3 2 9 2 12 0v-5" /></svg
+          ></span>
+          <span class="stat-card-value">5</span>
+          <h3 class="stat-card-title">Parcours scolaires</h3>
+          <p class="stat-card-desc">De la 4e à la Première</p>
+        </li>
+        <li class="stat-card card">
+          <span class="stat-card-icon" aria-hidden="true"
+            ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M4 20v-4M9 20v-8M14 20v-11M19 20V5" /></svg
+          ></span>
+          <span class="stat-card-value">5</span>
+          <h3 class="stat-card-title">Niveaux de difficulté</h3>
+          <p class="stat-card-desc">Jusqu’à 5 niveaux selon ta classe</p>
+        </li>
+      </ul>
     </section>
 
     <section class="section" id="avis">
@@ -743,64 +659,98 @@
       </div>
     </div>
 
-    <section class="section" id="faq">
-      <div class="section-header reveal">
-        <span class="section-tag">FAQ</span>
-        <h2>Questions fréquentes</h2>
-      </div>
-      <div class="faq-list reveal-stagger">
-        <div class="faq-item card">
-          <div class="faq-question">
-            Est-ce gratuit ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </div>
-          <div class="faq-answer">
-            Oui. Les cours complets, les exercices, les corrections, les révisions et le suivi de progression sont
-            gratuits, sans carte bancaire ni engagement. Seul l'assistant IA est limité à un nombre de messages par
-            jour.
-          </div>
-        </div>
-        <div class="faq-item card">
-          <div class="faq-question">
-            Mes données sont-elles conservées ?<svg
+    <section class="section play-section" id="commencer" aria-labelledby="play-title">
+      <div class="play-cta reveal">
+        <h2 id="play-title">À toi de jouer.</h2>
+        <p>
+          Choisis ta classe, sélectionne la notion que tu veux travailler et commence à t'entraîner. Mathadap adapte
+          progressivement les questions à tes réponses.
+        </p>
+        <div class="class-menu class-menu--center" data-class-menu>
+          <button
+            type="button"
+            class="btn btn-primary btn-lg class-menu-toggle"
+            aria-expanded="false"
+            aria-controls="class-menu-cta"
+          >
+            Choisir ma classe
+            <svg
+              class="class-menu-chevron"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
+              aria-hidden="true"
             >
               <path d="m6 9 6 6 6-6" />
             </svg>
-          </div>
-          <div class="faq-answer">
-            Ta progression est conservée localement sur ton appareil et sauvegardée sur le serveur pour que tu la
-            retrouves d'une session à l'autre.
-          </div>
-        </div>
-        <div class="faq-item card">
-          <div class="faq-question">
-            Quel niveau scolaire est couvert ?<svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </div>
-          <div class="faq-answer">
-            Cinq classes du collège au lycée : Quatrième, Troisième, Seconde, Première spécialité et Première
-            spécifique. Chaque classe a ses propres chapitres, cours et exercices ; tu peux en changer à tout moment.
-          </div>
+          </button>
+          <ul class="class-menu-list" id="class-menu-cta" hidden>
+            <li><a href="/choisir-classe.html?classe=quatrieme">Quatrième</a></li>
+            <li><a href="/choisir-classe.html?classe=troisieme">Troisième</a></li>
+            <li><a href="/choisir-classe.html?classe=seconde">Seconde</a></li>
+            <li><a href="/choisir-classe.html?classe=premiere">Première spécialité mathématiques</a></li>
+            <li><a href="/choisir-classe.html?classe=premiere_specifique">Première mathématiques spécifiques</a></li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="cta-final reveal">
-        <h2>Prêt à comprendre les maths autrement ?</h2>
-        <p>Rejoins Mathadap gratuitement, en moins de 5 minutes.</p>
-        <button class="btn btn-primary btn-lg js-open-signup" type="button">Commencer gratuitement</button>
+    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="section-header reveal">
+        <h2 id="faq-title">Questions fréquentes</h2>
+      </div>
+      <div class="faq-list reveal-stagger">
+        <div class="faq-item">
+          <h3 class="faq-heading">
+            <button type="button" class="faq-question" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">
+              <span>À qui s'adresse Mathadap ?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-a1" role="region" aria-labelledby="faq-q1">
+            <p>
+              Mathadap accompagne les élèves de la 4e à la Première, en spécialité mathématiques ou en mathématiques
+              spécifiques. Que tu souhaites consolider tes bases, préparer un contrôle ou approfondir tes connaissances,
+              tu peux t'entraîner selon tes objectifs.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading">
+            <button type="button" class="faq-question" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
+              <span>Mathadap est-il gratuit ?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-a2" role="region" aria-labelledby="faq-q2">
+            <p>
+              Oui ! Mathadap propose un accès gratuit pour s'entraîner, consulter des cours et suivre ses résultats. Des
+              formules payantes permettent d'accéder à des contenus et des possibilités supplémentaires, sans être
+              obligatoires pour commencer.
+            </p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading">
+            <button type="button" class="faq-question" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
+              <span>Comment commencer à s'entraîner ?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </h3>
+          <div class="faq-answer" id="faq-a3" role="region" aria-labelledby="faq-q3">
+            <p>
+              Choisis ta classe, puis le chapitre et la notion que tu souhaites travailler. Lance une série de questions
+              : leur difficulté évolue progressivement en fonction de tes réponses.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 

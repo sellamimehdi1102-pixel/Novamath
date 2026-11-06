@@ -33,10 +33,34 @@ function resolveNextDestination() {
 // part). Un visiteur non connecté y est redirigé vers la connexion par le
 // serveur (server.py::_serve_protected, `/?next=dashboard.html`), puis
 // ramené sur ce tableau de bord.
-function enterCurriculum(classLevel) {
-  setStoredClassLevel(classLevel);
+//
+// Visiteur sans session (bouton « Commencer » de l'accueil) : session invité
+// créée ici puis ouverture des chapitres de la classe choisie — même
+// mécanisme que les liens ?classe= ci-dessous, au lieu d'un détour par la
+// connexion. Un compte (ou invité) déjà connecté garde le comportement
+// historique ; un échec réseau aussi.
+async function ensureSession() {
+  try {
+    await api.me();
+    return "existing";
+  } catch {
+    resetGuestLocalState();
+    await api.enterGuest();
+    return "guest";
+  }
+}
+
+async function enterCurriculum(classLevel) {
   const next = resolveNextDestination();
-  window.location.href = `/${next || "dashboard.html"}`;
+  let session = null;
+  try {
+    session = await ensureSession();
+  } catch {
+    /* réseau indisponible : comportement historique ci-dessous */
+  }
+  setStoredClassLevel(classLevel);
+  const fallback = session === "guest" ? "chapitres.html" : "dashboard.html";
+  window.location.href = `/${next || fallback}`;
 }
 
 // Liens /maths-<classe> (redirigés ici par le serveur) : classe présélectionnée
@@ -47,12 +71,7 @@ async function enterFromLink(curricula) {
   const requested = new URLSearchParams(window.location.search).get("classe");
   if (!requested || !curricula.some((c) => c.classLevel === requested)) return false;
   try {
-    try {
-      await api.me();
-    } catch {
-      resetGuestLocalState();
-      await api.enterGuest();
-    }
+    await ensureSession();
   } catch {
     return false;
   }

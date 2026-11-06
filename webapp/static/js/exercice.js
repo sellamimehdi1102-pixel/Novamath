@@ -401,6 +401,10 @@ function queueNextAdaptive() {
     usedIds: [...seriesQueue, ...(adaptive.excluded || [])],
     notionOrder: adaptive.order,
     relations: adaptiveRelations,
+    // Bloc de calibration des notions nouvelles (A, A, B, B…) : déduit de la
+    // file de la série, donc conservé tel quel après rechargement ou reprise.
+    seriesIds: seriesQueue,
+    remaining: SERIES_TOTAL - seriesQueue.length,
   });
   if (!next) return false;
   seriesQueue.push(next.id);

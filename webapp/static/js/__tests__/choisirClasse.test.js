@@ -7,7 +7,15 @@ import { loadPageBody, withMockedLocation, flushPromises } from "./testUtils.js"
 import { CLASS_LEVEL_KEY } from "../curriculumSelector.js";
 
 const mockGetCurricula = vi.fn();
-vi.mock("../api.js", () => ({ api: { getCurricula: (...a) => mockGetCurricula(...a) } }));
+const mockMe = vi.fn();
+const mockEnterGuest = vi.fn();
+vi.mock("../api.js", () => ({
+  api: {
+    getCurricula: (...a) => mockGetCurricula(...a),
+    me: (...a) => mockMe(...a),
+    enterGuest: (...a) => mockEnterGuest(...a),
+  },
+}));
 vi.mock("../theme.js", () => ({ bindThemeToggle: vi.fn() }));
 vi.mock("../scroll-reveal.js", () => ({ initScrollReveal: vi.fn() }));
 
@@ -25,17 +33,23 @@ async function mountChoisirClasse(url = "/choisir-classe.html") {
   document.body.innerHTML = loadPageBody("choisir-classe.html");
   mockGetCurricula.mockReset();
   mockGetCurricula.mockResolvedValue(CURRICULA);
+  mockMe.mockReset();
+  mockMe.mockResolvedValue({ user: { id: 1, is_guest: false } });
+  mockEnterGuest.mockReset();
   vi.resetModules();
   await import("../choisirClasse.js");
   await flushPromises();
   await flushPromises();
 }
 
-function clickCurriculum(label) {
+// Le choix vérifie d'abord la session (asynchrone) : on attend la fin de la
+// chaîne de promesses avant d'observer la redirection.
+async function clickCurriculum(label) {
   const cta = [...document.querySelectorAll(".cursus-card")]
     .find((card) => card.querySelector(".cursus-card-title").textContent === label)
     .querySelector(".cursus-card-cta");
   cta.click();
+  await flushPromises();
 }
 
 describe("choisirClasse.js — sélection sans ?next= (page ouverte directement)", () => {
@@ -43,7 +57,7 @@ describe("choisirClasse.js — sélection sans ?next= (page ouverte directement)
     localStorage.removeItem(CLASS_LEVEL_KEY);
     await mountChoisirClasse();
     await withMockedLocation(async () => {
-      clickCurriculum("Première");
+      await clickCurriculum("Première");
       expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("premiere");
       expect(window.location.href).toBe("/dashboard.html");
     });
@@ -54,7 +68,7 @@ describe("choisirClasse.js — Phase 5 (onboarding) : détour depuis auth.js via
   it("next=dashboard.html : redirige vers /dashboard.html après le choix", async () => {
     await mountChoisirClasse("/choisir-classe.html?next=dashboard.html");
     await withMockedLocation(async () => {
-      clickCurriculum("Seconde");
+      await clickCurriculum("Seconde");
       expect(window.location.href).toBe("/dashboard.html");
     });
   });
@@ -62,7 +76,7 @@ describe("choisirClasse.js — Phase 5 (onboarding) : détour depuis auth.js via
   it("next=chapitres.html : redirige vers /chapitres.html après le choix", async () => {
     await mountChoisirClasse("/choisir-classe.html?next=chapitres.html");
     await withMockedLocation(async () => {
-      clickCurriculum("Seconde");
+      await clickCurriculum("Seconde");
       expect(window.location.href).toBe("/chapitres.html");
     });
   });
@@ -70,7 +84,7 @@ describe("choisirClasse.js — Phase 5 (onboarding) : détour depuis auth.js via
   it("next externe (open redirect) : ignoré, retombe sur le tableau de bord interne", async () => {
     await mountChoisirClasse("/choisir-classe.html?next=https://evil.example.com");
     await withMockedLocation(async () => {
-      clickCurriculum("Seconde");
+      await clickCurriculum("Seconde");
       expect(window.location.href).toBe("/dashboard.html");
     });
   });
@@ -78,7 +92,7 @@ describe("choisirClasse.js — Phase 5 (onboarding) : détour depuis auth.js via
   it("next inconnu (hors liste blanche) : ignoré, retombe sur le tableau de bord interne", async () => {
     await mountChoisirClasse("/choisir-classe.html?next=admin.html");
     await withMockedLocation(async () => {
-      clickCurriculum("Seconde");
+      await clickCurriculum("Seconde");
       expect(window.location.href).toBe("/dashboard.html");
     });
   });
@@ -87,7 +101,7 @@ describe("choisirClasse.js — Phase 5 (onboarding) : détour depuis auth.js via
     localStorage.removeItem(CLASS_LEVEL_KEY);
     await mountChoisirClasse("/choisir-classe.html?next=dashboard.html");
     await withMockedLocation(async () => {
-      clickCurriculum("Première");
+      await clickCurriculum("Première");
       expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("premiere");
     });
   });
@@ -131,9 +145,43 @@ describe("choisirClasse.js — Quatrième en prévisualisation", () => {
     const titles = [...document.querySelectorAll(".cursus-card-title")].map((el) => el.textContent);
     expect(titles).toEqual(["Quatrième", "Seconde", "Première"]);
     await withMockedLocation(async () => {
-      clickCurriculum("Quatrième");
+      await clickCurriculum("Quatrième");
       expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("quatrieme");
     });
     localStorage.removeItem(CLASS_LEVEL_KEY);
+  });
+});
+
+describe("choisirClasse.js — visiteur sans session (bouton « Commencer » de l'accueil)", () => {
+  it("crée une session invité puis ouvre les chapitres de la classe choisie", async () => {
+    localStorage.removeItem(CLASS_LEVEL_KEY);
+    await mountChoisirClasse();
+    mockMe.mockRejectedValue(new Error("401"));
+    mockEnterGuest.mockResolvedValue({});
+    await withMockedLocation(async () => {
+      await clickCurriculum("Première");
+      expect(mockEnterGuest).toHaveBeenCalledTimes(1);
+      expect(localStorage.getItem(CLASS_LEVEL_KEY)).toBe("premiere");
+      expect(window.location.href).toBe("/chapitres.html");
+    });
+  });
+
+  it("compte déjà connecté : aucune session invité créée", async () => {
+    await mountChoisirClasse();
+    await withMockedLocation(async () => {
+      await clickCurriculum("Seconde");
+      expect(mockEnterGuest).not.toHaveBeenCalled();
+      expect(window.location.href).toBe("/dashboard.html");
+    });
+  });
+
+  it("échec réseau à la création de l'invité : comportement historique (tableau de bord)", async () => {
+    await mountChoisirClasse();
+    mockMe.mockRejectedValue(new Error("401"));
+    mockEnterGuest.mockRejectedValue(new Error("réseau"));
+    await withMockedLocation(async () => {
+      await clickCurriculum("Seconde");
+      expect(window.location.href).toBe("/dashboard.html");
+    });
   });
 });

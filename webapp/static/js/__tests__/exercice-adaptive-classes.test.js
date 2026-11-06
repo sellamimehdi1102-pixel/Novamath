@@ -327,3 +327,131 @@ describe.each(CLASSES)("classe %s — banque réellement servie", (cl) => {
     expect(served()[0]).toBe(1);
   });
 });
+
+// ── Bloc de calibration (ordonnancement des séries multi-notions) ───────────
+// Vrai exercice.js + vraie banque de chaque classe : une notion NOUVELLE reçoit
+// ses deux premières questions à la suite (la 2e choisie après la 1re réponse),
+// puis l'alternance habituelle reprend. Les difficultés restent celles du moteur.
+describe.each(CLASSES)("classe %s — bloc de calibration des notions nouvelles", (cl) => {
+  /** Trois notions d'un même chapitre proposant au moins Fondamental et Avancé. */
+  function threeNotions() {
+    const byChapter = new Map();
+    notionsOf(cl)
+      .filter((n) => n.levels.includes(1) && n.levels.includes(3) && n.ids.length >= 8)
+      .forEach((n) => byChapter.set(n.chapter, [...(byChapter.get(n.chapter) || []), n]));
+    return [...byChapter.values()].find((list) => list.length >= 3).slice(0, 3);
+  }
+  const multi = (list) => ({
+    mode: "notion",
+    chapterId: list[0].chapter,
+    notion: list.map((n) => n.notion).join(" + "),
+    notions: list.map((n) => n.notion),
+    exerciseIds: list.flatMap((n) => n.ids.slice(0, 2)),
+  });
+  const letters = (list) =>
+    servedIds()
+      .map((id) => INDEX[cl][id])
+      .map((e) => "ABC"[list.findIndex((n) => n.key === `${e.chapter}|${e.notion}`)])
+      .join("");
+
+  it("trois notions nouvelles, dix réussites : A, A, B, B, C, C puis alternance ; montée dès la 2e question", async () => {
+    const list = threeNotions();
+    await mount(cl, multi(list));
+    await answers(Array(10).fill(true));
+    expect(letters(list)).toBe("AABBCCABCA");
+    expect(served().slice(0, 6)).toEqual([1, 3, 1, 3, 1, 3]);
+    expect(new Set(servedIds()).size).toBe(10);
+    expect(Math.max(...served())).toBeLessThanOrEqual(maxLevel(cl));
+  });
+
+  it("réussite puis échec dans le bloc : le moteur redescend normalement", async () => {
+    const list = threeNotions();
+    await mount(cl, multi(list));
+    await answers([true, false, true, true, true, true, true]);
+    expect(letters(list).slice(0, 6)).toBe("AABBCC");
+    // 3e question de A (après 1 réussi puis 3 échoué) : jamais au-dessus de 2.
+    expect(served()[6]).toBeLessThanOrEqual(2);
+  });
+
+  it("rechargement après la 1re question d'un bloc, puis nouvelle série : bloc conservé, puis plus de regroupement", async () => {
+    const list = threeNotions();
+    await mount(cl, multi(list));
+    await answers([true, true, true]); // A, A, B : la 2e question de B est affichée
+    const before = servedIds().slice();
+    await mount(cl, null, "/exercice.html?resume=1");
+    expect(mockApi.practiceLoad).not.toHaveBeenCalled(); // même question, aucune consommation
+    // Question réaffichée depuis la sauvegarde (2e de B) : on y répond directement.
+    expect(badge()).toContain(DIFF_LABEL_SHORT[INDEX[cl][before.at(-1)].difficulty]);
+    $("ex-btn-yes").click();
+    await flushPromises();
+    await answers(Array(6).fill(true));
+    const all = [...before, ...servedIds()];
+    expect(new Set(all).size).toBe(all.length);
+    const seq = all
+      .map((id) => INDEX[cl][id])
+      .map((e) => "ABC"[list.findIndex((n) => n.key === `${e.chapter}|${e.notion}`)])
+      .join("");
+    expect(seq).toBe("AABBCCABCA");
+    // Nouvelle série sur les mêmes notions : notions connues, aucun bloc de deux
+    // (pas de recalibration), répartition selon le besoin, acquis conservés.
+    localStorage.removeItem("lumis:series_in_progress");
+    await mount(cl, multi(list));
+    await answers(Array(5).fill(true));
+    expect(letters(list).slice(0, 3)).toBe("ABC");
+    expect(letters(list)).not.toMatch(/(.)\1/);
+    expect(Math.min(...served())).toBeGreaterThanOrEqual(3);
+  });
+});
+
+// ── Répartition du nombre de questions selon le besoin (vrai exercice.js) ───
+// La réponse dépend de la notion de la question RÉELLEMENT affichée : le
+// nombre de questions par notion résulte des résultats, pas d'un ordre fixé.
+describe.each(CLASSES)("classe %s — répartition des questions selon le besoin", (cl) => {
+  function threeNotions() {
+    const byChapter = new Map();
+    notionsOf(cl)
+      .filter((n) => n.levels.includes(1) && n.levels.includes(3) && n.ids.length >= 12)
+      .forEach((n) => byChapter.set(n.chapter, [...(byChapter.get(n.chapter) || []), n]));
+    return [...byChapter.values()].find((list) => list.length >= 3).slice(0, 3);
+  }
+  async function playSeries(list, outcomeOf) {
+    await mount(cl, {
+      mode: "notion",
+      chapterId: list[0].chapter,
+      notion: list.map((n) => n.notion).join(" + "),
+      notions: list.map((n) => n.notion),
+      exerciseIds: list.flatMap((n) => n.ids.slice(0, 2)),
+    });
+    const seen = { A: 0, B: 0, C: 0 };
+    for (let i = 0; i < 10; i++) {
+      const e = INDEX[cl][servedIds().at(-1)];
+      const letter = "ABC"[list.findIndex((n) => n.key === `${e.chapter}|${e.notion}`)];
+      await answer(outcomeOf(letter, seen[letter]++));
+    }
+    return seen;
+  }
+  const scenario = (a, b) => (l, k) => ({ A: a, B: b, C: (j) => j % 2 === 0 })[l](k);
+
+  it("A réussit, B échoue : B reçoit plus de questions que A ; résultats inversés -> répartition inversée", async () => {
+    const list = threeNotions();
+    const first = await playSeries(
+      list,
+      scenario(
+        () => true,
+        () => false,
+      ),
+    );
+    localStorage.clear();
+    const second = await playSeries(
+      list,
+      scenario(
+        () => false,
+        () => true,
+      ),
+    );
+    expect(first.B).toBeGreaterThan(first.A);
+    expect(second.A).toBeGreaterThan(second.B);
+    expect([second.A, second.B, second.C]).toEqual([first.B, first.A, first.C]);
+    expect(first.A + first.B + first.C).toBe(10);
+  });
+});

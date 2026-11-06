@@ -168,8 +168,10 @@ api
     // éventuelle session invité précédente (localStorage/sessionStorage) — le
     // serveur a déjà détruit ses données, mais on élimine ici toute trace encore
     // visible dans CE navigateur avant que l'utilisateur ne relance quoi que ce
-    // soit (voir store.js::resetGuestLocalState).
-    if (document.querySelector(".js-start-guest")) resetGuestLocalState();
+    // soit (voir store.js::resetGuestLocalState). `[data-class-menu]` : menus
+    // « Classes » de la page d'accueil, qui ouvrent eux aussi une session
+    // invité (via choisir-classe.html) — même purge que .js-start-guest.
+    if (document.querySelector(".js-start-guest, [data-class-menu]")) resetGuestLocalState();
   });
 
 // ── Ré-acceptation forcée des CGU/politique de confidentialité (RGPD) ──────

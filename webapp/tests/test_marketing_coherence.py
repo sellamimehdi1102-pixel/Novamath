@@ -138,8 +138,11 @@ class TestIndexHtmlGratuite(unittest.TestCase):
                 self.assertNotIn(forbidden, self.html)
 
     def test_annonce_l_acces_gratuit_et_le_quota_du_chatbot(self):
-        self.assertIn("Tout l'entraînement est gratuit", self.html)
-        self.assertIn("Seul l'assistant IA est limité", self.html)
+        self.assertIn("L'essentiel pour progresser, gratuitement.", self.html)
+        # Quota lu depuis QUOTA_MATRIX : si la limite Free change, l'accueil
+        # doit être mis à jour (jamais une promesse silencieusement fausse).
+        limit = quota_service.QUOTA_MATRIX[Plan.FREE][QuotaType.CHAT_MESSAGES]
+        self.assertIn(f"dans la limite de {limit} messages par jour", self.html)
 
 
 class TestSuggestionsLimitByPlanEstBienUneMatricePlan(unittest.TestCase):

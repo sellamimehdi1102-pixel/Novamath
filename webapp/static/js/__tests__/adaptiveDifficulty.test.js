@@ -10,6 +10,8 @@ import {
   pickNextExercise,
   workedNotionsByWeakness,
   notionKey,
+  notionNeed,
+  NEED_WEIGHT,
   CALIBRATION_ANSWERS,
   PRIOR_SD,
   SD_MIN,
@@ -478,6 +480,469 @@ describe("pickNextExercise", () => {
     const order = [notionKey("C", "A"), notionKey("C", "B")];
     expect(pickNextExercise({ candidates, history, usedIds: [], notionOrder: order, rng: first }).id).toBe(2);
     expect(pickNextExercise({ candidates, history, usedIds: [2], notionOrder: order, rng: first }).id).toBe(3);
+  });
+});
+
+// ── Bloc de calibration des notions nouvelles (ordonnancement uniquement) ────
+// Boucle réelle de série : le moteur choisit, l'élève répond, l'historique est
+// complété, puis la question suivante est choisie APRÈS cette réponse — même
+// enchaînement que exercice.js::queueNextAdaptive.
+function runSeries({
+  notions,
+  outcomes,
+  total = outcomes.length,
+  pre = [],
+  levels = LEVELS5,
+  perLevel = 4,
+  ts0 = 5000,
+}) {
+  const candidates = [];
+  let id = 0;
+  notions.forEach((notion) =>
+    levels.forEach((d) => {
+      for (let k = 0; k < perLevel; k++)
+        candidates.push({ id: `${notion}-${id++}`, chapter: "C", notion, difficulty: d });
+    }),
+  );
+  const order = notions.map((n) => notionKey("C", n));
+  const history = [...pre];
+  const seriesIds = [];
+  const served = [];
+  for (let i = 0; i < total; i++) {
+    const next = pickNextExercise({
+      candidates,
+      history,
+      usedIds: seriesIds,
+      notionOrder: order,
+      seriesIds,
+      remaining: total - seriesIds.length,
+      rng: () => 0,
+    });
+    if (!next) break;
+    seriesIds.push(next.id);
+    served.push({ notion: next.notion, d: next.difficulty });
+    if (i < outcomes.length) {
+      history.push({
+        id: next.id,
+        chapter: "C",
+        notion: next.notion,
+        difficulty: next.difficulty,
+        correct: outcomes[i],
+        ts: ts0 + i,
+      });
+    }
+  }
+  return {
+    served,
+    notionsSeq: served.map((s) => s.notion).join(""),
+    levels: served.map((s) => s.d),
+    history,
+    seriesIds,
+    candidates,
+    order,
+  };
+}
+const ALL_RIGHT = (n) => Array(n).fill(T);
+const known = (notion, ts0) =>
+  entries(
+    notion,
+    [
+      [1, T],
+      [3, T],
+      [5, T],
+      [5, T],
+    ],
+    ts0,
+  );
+
+describe("bloc de calibration : 2 premières questions consécutives pour une notion nouvelle", () => {
+  it("trois notions nouvelles : A, A, B, B, C, C puis alternance habituelle", () => {
+    const r = runSeries({ notions: ["A", "B", "C"], outcomes: ALL_RIGHT(10) });
+    expect(r.notionsSeq).toBe("AABBCCABCA");
+    // La 2e question est choisie après la 1re réponse : réussite au Fondamental -> sondage plus haut.
+    expect(r.levels.slice(0, 6)).toEqual([1, 3, 1, 3, 1, 3]);
+  });
+
+  it("une seule notion : fonctionnement inchangé (même séquence qu'avant)", () => {
+    const withBlock = runSeries({ notions: ["A"], outcomes: ALL_RIGHT(10) }).levels;
+    const before = [];
+    const history = [];
+    const cands = runSeries({ notions: ["A"], outcomes: [], total: 0 }).candidates;
+    const used = [];
+    for (let i = 0; i < 10; i++) {
+      const next = pickNextExercise({ candidates: cands, history, usedIds: used, rng: () => 0 });
+      used.push(next.id);
+      before.push(next.difficulty);
+      history.push({ id: next.id, chapter: "C", notion: "A", difficulty: next.difficulty, correct: T, ts: 5000 + i });
+    }
+    expect(withBlock).toEqual(before);
+  });
+
+  it("trois notions déjà connues : alternance habituelle, aucune recalibration", () => {
+    const pre = [...known("A", 1), ...known("B", 10), ...known("C", 20)];
+    const r = runSeries({ notions: ["A", "B", "C"], outcomes: ALL_RIGHT(6), pre });
+    expect(r.notionsSeq).toBe("ABCABC");
+    // Maîtrise reprise : jamais de retour au Fondamental.
+    expect(Math.min(...r.levels)).toBeGreaterThanOrEqual(4);
+  });
+
+  it("mélange : seule la notion nouvelle est regroupée, les notions connues gardent leur niveau", () => {
+    const pre = [...known("A", 1), ...known("C", 20)];
+    const r = runSeries({ notions: ["A", "B", "C"], outcomes: ALL_RIGHT(8), pre });
+    // Après A, B, B, C : les notions les moins servies d'abord (A puis C), puis
+    // à égalité la moins récemment servie (B) — jamais deux fois de suite hors bloc.
+    expect(r.notionsSeq).toBe("ABBCACBA");
+    expect(r.notionsSeq.slice(3)).not.toMatch(/(.)\1/);
+    r.served.filter((s) => s.notion !== "B").forEach((s) => expect(s.d).toBeGreaterThanOrEqual(4));
+    // B part du prior transféré existant (profil général, A et C déjà travaillées),
+    // puis sa 2e question, choisie après la réussite, est plus difficile.
+    const [b1, b2] = r.served.filter((s) => s.notion === "B").map((s) => s.d);
+    expect(b1).toBe(targetDifficulty(pre, "C", "B", LEVELS5));
+    expect(b2).toBeGreaterThan(b1);
+  });
+
+  it("notion connue en tête puis deux nouvelles : A, B, B, C, C, puis répartition sans répétition injustifiée", () => {
+    const r = runSeries({ notions: ["A", "B", "C"], outcomes: ALL_RIGHT(10), pre: known("A", 1) });
+    expect(r.notionsSeq.slice(0, 5)).toBe("ABBCC");
+    // Après les blocs : jamais deux fois de suite la même notion (parts proches).
+    expect(r.notionsSeq.slice(4)).not.toMatch(/(.)\1/);
+    // A (déjà maîtrisée) ne reçoit pas plus de questions que les notions nouvelles.
+    const n = (x) => [...r.notionsSeq].filter((c) => c === x).length;
+    expect(n("A")).toBeLessThanOrEqual(Math.min(n("B"), n("C")));
+  });
+
+  it("réussite puis échec : la difficulté suivante reste celle du moteur (repli prudent)", () => {
+    const r = runSeries({ notions: ["A", "B"], outcomes: [T, F, T, T, T, T] });
+    expect(r.notionsSeq.slice(0, 4)).toBe("AABB");
+    const nextA = r.served.findIndex((s, i) => i > 1 && s.notion === "A");
+    // Après 1 (réussi) puis 3 (échoué), le moteur redescend : jamais plus haut que 3.
+    expect(r.levels[nextA]).toBeLessThanOrEqual(2);
+  });
+
+  it("plus de cinq notions dans une série de dix : chaque notion reçoit au moins une question", () => {
+    const notions = ["A", "B", "C", "D", "E", "F"];
+    const r = runSeries({ notions, outcomes: ALL_RIGHT(10) });
+    expect(r.notionsSeq).toBe("AABBCCDDEF");
+    expect(new Set(r.notionsSeq).size).toBe(6);
+    const seven = runSeries({ notions: [...notions, "G"], outcomes: ALL_RIGHT(10) });
+    expect(new Set(seven.notionsSeq).size).toBe(7);
+  });
+
+  it("aucune question dupliquée et pool épuisé : la série continue sans bloquer", () => {
+    // Une seule question par niveau et par notion (2 niveaux) : 2 questions par notion.
+    const r = runSeries({ notions: ["A", "B"], outcomes: ALL_RIGHT(6), levels: [1, 2], perLevel: 1 });
+    expect(new Set(r.seriesIds).size).toBe(r.seriesIds.length);
+    expect(r.notionsSeq).toBe("AABB");
+    // Notion avec une seule question : pas de second exemplaire, notion suivante.
+    const single = runSeries({ notions: ["A", "B"], outcomes: ALL_RIGHT(3), levels: [1], perLevel: 1 });
+    expect(single.notionsSeq).toBe("AB");
+  });
+
+  it("dernière question pas encore répondue (série interrompue) : aucun regroupement anticipé", () => {
+    const r = runSeries({ notions: ["A", "B"], outcomes: [], total: 1 });
+    const next = pickNextExercise({
+      candidates: r.candidates,
+      history: r.history,
+      usedIds: r.seriesIds,
+      notionOrder: r.order,
+      seriesIds: r.seriesIds,
+      remaining: 9,
+      rng: () => 0,
+    });
+    expect(next.notion).toBe("B");
+  });
+
+  it("reprise : le bloc est recalculé depuis la file et l'historique (aucun état caché)", () => {
+    const full = runSeries({ notions: ["A", "B", "C"], outcomes: ALL_RIGHT(10) });
+    // Reprise après la 1re question de B (index 2) : même choix que sans interruption.
+    const seriesIds = full.seriesIds.slice(0, 3);
+    const history = full.history.slice(0, 3);
+    const next = pickNextExercise({
+      candidates: full.candidates,
+      history,
+      usedIds: seriesIds,
+      notionOrder: full.order,
+      seriesIds,
+      remaining: 7,
+      rng: () => 0,
+    });
+    expect(next.id).toBe(full.seriesIds[3]);
+  });
+
+  it("nouvelle série sur les mêmes notions : plus de regroupement (notions déjà travaillées)", () => {
+    const first = runSeries({ notions: ["A", "B", "C"], outcomes: ALL_RIGHT(10) });
+    const second = runSeries({ notions: ["A", "B", "C"], outcomes: ALL_RIGHT(6), pre: first.history, ts0: 9000 });
+    // Premier passage dans l'ordre, sans bloc de deux (aucune recalibration),
+    // puis répartition selon le besoin, sans répétition immédiate.
+    expect(second.notionsSeq.slice(0, 3)).toBe("ABC");
+    expect(second.notionsSeq).not.toMatch(/(.)\1/);
+    expect(Math.min(...second.levels)).toBeGreaterThanOrEqual(3);
+  });
+
+  it("doublon de synchronisation (même réponse deux fois) : le bloc s'applique quand même", () => {
+    const r = runSeries({ notions: ["A", "B"], outcomes: [], total: 1 });
+    const answer = { id: r.seriesIds[0], chapter: "C", notion: "A", difficulty: 1, correct: T, ts: 42 };
+    const next = pickNextExercise({
+      candidates: r.candidates,
+      history: [answer, { ...answer }],
+      usedIds: r.seriesIds,
+      notionOrder: r.order,
+      seriesIds: r.seriesIds,
+      remaining: 9,
+      rng: () => 0,
+    });
+    expect(next.notion).toBe("A");
+    expect(next.difficulty).toBe(3);
+  });
+
+  it("classe à 4 niveaux : même ordonnancement, difficultés dans 1..4", () => {
+    const r = runSeries({ notions: ["A", "B", "C"], outcomes: ALL_RIGHT(10), levels: [1, 2, 3, 4] });
+    expect(r.notionsSeq).toBe("AABBCCABCA");
+    expect(r.levels.slice(0, 6)).toEqual([1, 3, 1, 3, 1, 3]);
+    expect(Math.max(...r.levels)).toBeLessThanOrEqual(4);
+  });
+
+  it("sans file de série transmise : comportement historique strictement inchangé", () => {
+    const r = runSeries({ notions: ["A", "B", "C"], outcomes: [], total: 0 });
+    const history = [{ id: r.candidates[0].id, chapter: "C", notion: "A", difficulty: 1, correct: T, ts: 1 }];
+    const next = pickNextExercise({
+      candidates: r.candidates,
+      history,
+      usedIds: [r.candidates[0].id],
+      notionOrder: r.order,
+      rng: () => 0,
+    });
+    expect(next.notion).toBe("B");
+  });
+});
+
+// ── Répartition du nombre de questions selon le besoin de chaque notion ─────
+// Vraie boucle de série (choix -> réponse -> choix suivant APRÈS la réponse),
+// avec des résultats fixés PAR NOTION : `answerOf(notion, k)` donne la k-ième
+// réponse de l'élève sur cette notion dans la série.
+function runByNotion({
+  notions,
+  answerOf,
+  total = 10,
+  pre = [],
+  levels = LEVELS5,
+  perLevel = 6,
+  sizes = {},
+  ts0 = 20000,
+}) {
+  const candidates = [];
+  let id = 0;
+  notions.forEach((n) =>
+    levels.forEach((d) => {
+      const k = sizes[n] ? (d === levels[0] ? sizes[n] : 0) : perLevel;
+      for (let j = 0; j < k; j++) candidates.push({ id: `${n}#${id++}`, chapter: "C", notion: n, difficulty: d });
+    }),
+  );
+  const order = notions.map((n) => notionKey("C", n));
+  const history = [...pre];
+  const seriesIds = [];
+  const served = [];
+  const count = Object.fromEntries(notions.map((n) => [n, 0]));
+  for (let i = 0; i < total; i++) {
+    const next = pickNextExercise({
+      candidates,
+      history,
+      usedIds: seriesIds,
+      notionOrder: order,
+      seriesIds,
+      remaining: total - seriesIds.length,
+      rng: () => 0,
+    });
+    if (!next) break;
+    const ok = answerOf(next.notion, count[next.notion]++);
+    seriesIds.push(next.id);
+    served.push({ notion: next.notion, d: next.difficulty, ok });
+    history.push({
+      id: next.id,
+      chapter: "C",
+      notion: next.notion,
+      difficulty: next.difficulty,
+      correct: ok,
+      ts: ts0 + i,
+    });
+  }
+  return { served, count, seq: served.map((s) => s.notion).join(""), history, seriesIds, candidates, order };
+}
+const RIGHT = () => T;
+const WRONG = () => F;
+const MIXED = (k) => k % 2 === 0;
+const by = (a, b, c) => (n, k) => ({ A: a, B: b, C: c })[n](k);
+const strongA = (ts0 = 1) =>
+  entries(
+    "A",
+    [
+      [3, T],
+      [4, T],
+      [5, T],
+      [5, T],
+    ],
+    ts0,
+  );
+const weakB = (ts0 = 20) =>
+  entries(
+    "B",
+    [
+      [1, F],
+      [1, T],
+      [2, F],
+      [1, F],
+    ],
+    ts0,
+  );
+const midC = (ts0 = 40) =>
+  entries(
+    "C",
+    [
+      [2, T],
+      [3, F],
+      [2, T],
+      [3, T],
+    ],
+    ts0,
+  );
+
+describe("répartition des questions selon le besoin de chaque notion", () => {
+  it("test comparatif : B en difficulté reçoit plus que A ; résultats inversés -> répartition inversée", () => {
+    const scenarioA = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, WRONG, MIXED), total: 15 });
+    const scenarioB = runByNotion({ notions: ["A", "B", "C"], answerOf: by(WRONG, RIGHT, MIXED), total: 15 });
+    expect(scenarioA.count.B).toBeGreaterThan(scenarioA.count.A);
+    expect(scenarioB.count.A).toBeGreaterThan(scenarioB.count.B);
+    // Toutes choses égales par ailleurs : inversion exacte des parts de A et B.
+    expect(scenarioB.count.A).toBe(scenarioA.count.B);
+    expect(scenarioB.count.B).toBe(scenarioA.count.A);
+    expect(scenarioB.count.C).toBe(scenarioA.count.C);
+  });
+
+  it("notions déjà connues (A forte, B faible, C moyenne) : B > C > A sur dix questions, total inchangé", () => {
+    const r = runByNotion({
+      notions: ["A", "B", "C"],
+      answerOf: by(RIGHT, WRONG, MIXED),
+      pre: [...strongA(), ...weakB(), ...midC()],
+    });
+    expect(r.served).toHaveLength(10);
+    expect(r.count.B).toBeGreaterThan(r.count.C);
+    expect(r.count.C).toBeGreaterThan(r.count.A);
+    expect(r.count.A).toBeGreaterThanOrEqual(1); // la notion maîtrisée est encore vérifiée
+  });
+
+  it("deux notions, une maîtrisée et une faible : la faible reçoit davantage, sans monopoliser la série", () => {
+    const r = runByNotion({ notions: ["A", "B"], answerOf: by(RIGHT, WRONG, RIGHT), pre: [...strongA(), ...weakB()] });
+    expect(r.count.B).toBeGreaterThan(r.count.A);
+    // Protection : la part de la notion faible reste bornée (poids au plus 1 + NEED_WEIGHT).
+    expect(r.count.A).toBeGreaterThanOrEqual(Math.floor(10 / (2 + NEED_WEIGHT)));
+  });
+
+  it("plusieurs échecs sur une notion : elle est davantage travaillée, mais les autres ne disparaissent pas", () => {
+    const r = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, WRONG, RIGHT), total: 15 });
+    expect(r.count.B).toBe(Math.max(...Object.values(r.count)));
+    expect(Math.min(r.count.A, r.count.C)).toBeGreaterThanOrEqual(3);
+  });
+
+  it("réussites puis échecs sur une même notion : sa part augmente (par rapport à des réussites)", () => {
+    const thenFail = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, (k) => k < 2, RIGHT), total: 15 });
+    const allRight = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, RIGHT, RIGHT), total: 15 });
+    expect(thenFail.count.B).toBeGreaterThan(allRight.count.B);
+  });
+
+  it("échecs puis réussites : la priorité baisse progressivement (moins qu'en échec continu)", () => {
+    const recover = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, (k) => k >= 3, RIGHT), total: 15 });
+    const keepFailing = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, WRONG, RIGHT), total: 15 });
+    expect(recover.count.B).toBeLessThanOrEqual(keepFailing.count.B);
+    // Le besoin de B diminue bien après ses réussites.
+    const needAt = (r, upto) => notionNeed(notionMastery(r.history.slice(0, upto), "C", "B"), LEVELS5);
+    expect(needAt(recover, recover.history.length)).toBeLessThan(needAt(keepFailing, keepFailing.history.length));
+  });
+
+  it("la difficulté évolue indépendamment dans chaque notion (A monte, B reste au Fondamental)", () => {
+    const r = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, WRONG, MIXED), total: 15 });
+    const levelsOf = (n) => r.served.filter((s) => s.notion === n).map((s) => s.d);
+    expect(levelsOf("A").slice(0, 3)).toEqual([1, 3, 5]);
+    expect(Math.max(...levelsOf("B"))).toBe(1);
+    // Chaque difficulté servie est exactement celle visée par le moteur à cet instant.
+    r.served.forEach((s, i) => {
+      const before = r.history.slice(0, i);
+      const levels = r.candidates.filter((c) => c.notion === s.notion).map((c) => c.difficulty);
+      expect(s.d).toBe(targetDifficulty(before, "C", s.notion, levels));
+    });
+  });
+
+  it("plus de notions que de questions : une question par notion, aucun bloc de deux", () => {
+    const notions = "ABCDEFGHIJKL".split("");
+    const r = runByNotion({ notions, answerOf: () => T });
+    expect(new Set(r.seq).size).toBe(10);
+  });
+
+  it("pool épuisé pour une notion faible : places redistribuées, série complète, aucune question répétée", () => {
+    const r = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, WRONG, MIXED), sizes: { B: 2 } });
+    expect(r.count.B).toBe(2);
+    expect(r.served).toHaveLength(10);
+    expect(new Set(r.seriesIds).size).toBe(10);
+  });
+
+  it("reprise / rechargement : chaque choix ne dépend que de la file et de l'historique (déterministe)", () => {
+    const full = runByNotion({ notions: ["A", "B", "C"], answerOf: by(RIGHT, WRONG, MIXED), total: 12 });
+    for (let k = 1; k < 12; k++) {
+      const next = pickNextExercise({
+        candidates: full.candidates,
+        history: full.history.slice(0, k),
+        usedIds: full.seriesIds.slice(0, k),
+        notionOrder: full.order,
+        seriesIds: full.seriesIds.slice(0, k),
+        remaining: 12 - k,
+        rng: () => 0,
+      });
+      expect(next.id).toBe(full.seriesIds[k]);
+    }
+  });
+
+  it("historique ancien : maîtrise basse -> plus de questions qu'une maîtrise élevée, à résultats égaux", () => {
+    const r = runByNotion({ notions: ["A", "B"], answerOf: () => MIXED(0), pre: [...strongA(), ...weakB()] });
+    expect(r.count.B).toBeGreaterThan(r.count.A);
+  });
+
+  it("4 ou 5 niveaux : une notion au sommet de SON échelle n'est pas pénalisée", () => {
+    expect(notionNeed({ theta: 4, sd: SD_MIN }, [1, 2, 3, 4])).toBe(0);
+    expect(notionNeed({ theta: 5, sd: SD_MIN }, LEVELS5)).toBe(0);
+    expect(notionNeed({ theta: 1, sd: SD_MIN }, [1, 2, 3, 4])).toBe(1);
+    const four = runByNotion({
+      notions: ["A", "B", "C"],
+      answerOf: by(RIGHT, WRONG, MIXED),
+      total: 15,
+      levels: [1, 2, 3, 4],
+    });
+    expect(four.count.B).toBeGreaterThan(four.count.A);
+    expect(Math.max(...four.served.map((s) => s.d))).toBeLessThanOrEqual(4);
+  });
+
+  it("une erreur isolée ne bouleverse pas la répartition", () => {
+    const oneSlip = runByNotion({
+      notions: ["A", "B"],
+      answerOf: by((k) => k !== 1, RIGHT, RIGHT),
+      pre: [
+        ...strongA(),
+        ...entries(
+          "B",
+          [
+            [3, T],
+            [4, T],
+            [5, T],
+            [5, T],
+          ],
+          20,
+        ),
+      ],
+    });
+    expect(Math.abs(oneSlip.count.A - oneSlip.count.B)).toBeLessThanOrEqual(2);
+  });
+
+  it("une seule notion : répartition sans effet (toutes les questions sur cette notion)", () => {
+    const r = runByNotion({ notions: ["A"], answerOf: MIXED });
+    expect(r.count.A).toBe(10);
   });
 });
 

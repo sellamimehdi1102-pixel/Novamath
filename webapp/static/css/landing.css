@@ -1,66 +1,55 @@
 /* ==========================================================================
-   Landing page — hero, sections marketing, FAQ, footer
+   Landing page — hero + cockpit, avantages, appel à l'action, FAQ, footer
    Applique le Design System validé : violet en signature ponctuelle (jamais
    en fond plein), cartes à profondeur maîtrisée, mouvement discret façon
    Apple. Aucune classe/`id` consommé par landing.js/auth.js/reviews.js n'est
-   renommé ou supprimé ici — uniquement des styles et de la structure visuelle
-   additionnelle.
+   renommé ou supprimé ici. Chargé uniquement par index.html et
+   choisir-classe.html (topnav public) : aucun effet sur les pages de
+   l'application.
    ========================================================================== */
 
 /* @keyframes nm-rise partagé — voir css/animations.css (chargé avant ce
    fichier), utilisé ci-dessous par les animations du hero. */
 
-/* ── Bascule thème clair/sombre sur la landing ────────────────────────────
-   Même bouton, même logique que le reste du site (js/theme.js::
-   bindThemeToggle/initTheme/initAppearance, base.css::.theme-toggle) —
-   aucun système dupliqué : la landing se contente de ne plus le masquer. */
-
-/* ── Hero V2 — split-screen (texte à gauche / illustration flottante à
-   droite), comme Linear/Raycast, plutôt que la mise en page centrée
-   empilée d'origine : rupture visuelle immédiate avec la V1. Repasse en
-   colonne unique centrée sous 960px (voir media query plus bas). */
 /* ── Hero — image de référence (Design System claude.ai, V4) ──────────────
    webapp/static/assets/backgrounds/hero-wave.png est la pièce d'ADN visuel
-   du produit (vagues violet/lavande) : source de toute la palette V4 (voir
-   tokens.css), utilisée ici en vrai fond photographique (jamais recréée en
-   dégradé CSS). `cover` + `center` : ne déforme jamais l'image, quel que
-   soit le ratio d'écran — recadrée plutôt qu'étirée. Un voile dégradé
-   (color-mix sur --bg, donc adapté automatiquement au thème actif) garantit
-   la lisibilité du texte à gauche sans jamais couvrir complètement l'image
-   à droite, où l'illustration flotte déjà par-dessus. */
-/* ── Full-bleed : l'image doit couvrir 100vw, jamais seulement la colonne de
-   contenu. Plutôt qu'un wrapper HTML dédié, .hero reste l'élément plein
-   largeur (aucune classe/id consommé par landing.js n'est touché) et le
-   contenu (.hero-content/.hero-illustration-wrap, toujours en grid direct)
-   est recentré via un padding calculé — équivalent visuel à l'ancien
-   max-width:1480px+margin:auto, mais l'arrière-plan, lui, s'étend sur toute
-   la largeur de l'écran, y compris au-delà de 1920/2560px. */
+   du produit (vagues violet/lavande), utilisée en vrai fond photographique.
+   `cover` + `center` : ne déforme jamais l'image. Un voile dégradé
+   (color-mix sur --bg, donc adapté au thème actif) garantit la lisibilité du
+   texte à gauche. Full-bleed : .hero couvre 100% de la largeur, le contenu
+   est recentré via un padding calculé. */
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: 0.86fr 1.14fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   align-items: center;
-  gap: 40px;
+  gap: 56px;
   width: 100%;
-  /* Un peu plus de hauteur qu'avant (132→156px de respiration en bas) pour
-     que l'image ait davantage de place avant de se fondre dans la section
-     suivante — voir le calque de fondu ci-dessous. */
-  padding: 132px max(48px, calc((100% - 1480px) / 2)) 156px;
+  padding: 104px max(48px, calc((100% - 1320px) / 2)) 112px;
   overflow: hidden;
   text-align: left;
+}
+/* Coupe uniquement l'horizontale (aucun défilement latéral) : le halo flou du
+   cockpit peut déborder vers le bas et se fondre dans la section suivante au
+   lieu d'être tranché net au bas du Hero. Sans support de `clip`, repli sur
+   overflow:hidden ci-dessus. */
+@supports (overflow: clip) {
+  .hero {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+}
+/* Image + voile sur un calque dédié, fondu en TRANSPARENCE vers le bas
+   (mask-image) : la jonction avec le fond global du site (body::after,
+   base.css — même image hero-wave.png, fixe) est continue, sans arête
+   horizontale sous le Hero, quelle que soit la section qui suit. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background:
-    /* Fondu vertical du bas du Hero — sans lui, l'image s'arrête net sur une
-       arête franche contre le padding (quasi blanc) de la section suivante,
-       ce qui se lit comme "une bande blanche sous l'image". Ce calque est
-       peint au-dessus de l'image/voile et ramène doucement vers --bg avant
-       la fin réelle de .hero, pour une transition continue plutôt qu'une
-       coupure. Le palier plat à 100% (--bg dès 90%, pas seulement à la toute
-       dernière ligne de pixels) est volontaire : le calque site-wide
-       (body::after, base.css) reprend la même image avec un cadrage propre à
-       lui — sans ce palier uni, les deux crops ne coïncident jamais
-       exactement et la jonction produit une arête visible juste sous le
-       Hero, quelle que soit la résolution. */
-    linear-gradient(to bottom, transparent 0%, transparent 55%, var(--bg) 90%, var(--bg) 100%),
     linear-gradient(
       100deg,
       color-mix(in srgb, var(--bg) 88%, transparent) 0%,
@@ -69,89 +58,40 @@
       color-mix(in srgb, var(--bg) 55%, transparent) 100%
     ),
     url("../assets/backgrounds/hero-wave.png") center 38% / cover no-repeat;
-  /* Les deux calques de dégradé n'ont pas de taille explicite : sans
-     `no-repeat` ils héritent du `repeat` par défaut, et sur une hauteur de
-     .hero non entière (ex. 835.578125px), le raccord de la tuile répétée
-     produit un liseré net visible pile au bas de la section, quelle que
-     soit la résolution. */
+  /* `no-repeat` explicite sur tous les calques : sans lui, le raccord d'une
+     tuile répétée produit un liseré visible au bas de la section. */
   background-repeat: no-repeat;
-  background-color: var(--bg);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
 }
 
-/* Lueur d'appoint très légère au-dessus de l'image réelle (jamais dominante :
-   l'image hero-wave.png est déjà la source de richesse visuelle) — garde un
-   soupçon de profondeur au raccord avec le reste de la page en dessous. */
+/* Lueur d'appoint très légère au-dessus de l'image réelle. */
 .hero::after {
   content: "";
   position: absolute;
-  inset: auto -15% -30% 55%;
+  /* Ellipse entièrement contenue dans le Hero : centrée sur son bord bas,
+     elle était coupée net par overflow:hidden (arête sous le Hero). */
+  inset: auto -15% 0 55%;
   height: 420px;
-  background: radial-gradient(ellipse at 50% 100%, rgba(var(--brand-gold-rgb), 0.06), transparent 70%);
+  background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(var(--brand-gold-rgb), 0.06), transparent 100%);
   pointer-events: none;
   z-index: 0;
 }
 
+/* z-index 2 (au-dessus du cockpit) : le menu « Commencer » ne doit jamais
+   passer sous l'illustration, y compris en colonne unique sur mobile. */
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  min-width: 0;
 }
 
-/* ── Décor discret autour du titre — symboles mathématiques et formes
-   flottantes très atténués (jamais un motif dominant, juste un indice
-   visuel qui ancre "maths" avant même la lecture du titre). Statique ou
-   quasi (translation lente sur 2 éléments seulement) : aucun impact sur les
-   performances, respecte prefers-reduced-motion (voir plus bas). ───────── */
-.hero-deco {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.hero-deco-symbol {
-  position: absolute;
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--violet-300);
-  line-height: 1;
-  user-select: none;
-}
-.hero-deco-symbol--sigma {
-  top: -8%;
-  left: 1%;
-  font-size: 3.6rem;
-  opacity: 0.28;
-  transform: rotate(-8deg);
-}
-.hero-deco-symbol--pi {
-  top: 60%;
-  left: -1%;
-  font-size: 2.1rem;
-  opacity: 0.2;
-  transform: rotate(6deg);
-}
-.hero-deco-symbol--radical {
-  top: 4%;
-  left: 46%;
-  font-size: 1.5rem;
-  opacity: 0.16;
-}
-@media (max-width: 960px) {
-  /* Layout empilé + centré : les décors flottants distrairaient du titre
-     centré plutôt que de l'entourer élégamment — retirés sous ce seuil. */
-  .hero-deco {
-    display: none;
-  }
-}
-
-/* Le badge "Apprentissage adaptatif par IA" (.hero-eyebrow) a été retiré du
-   Hero — h1 est maintenant le premier élément animé (délai 0), plus de
-   margin-top compensatoire nécessaire au-dessus du titre. */
 .hero h1 {
-  font-size: clamp(3rem, 4.4vw, 4.9rem);
+  font-size: clamp(2.5rem, 3.7vw, 3.75rem);
   font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  margin-bottom: 26px;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin-bottom: 22px;
   text-wrap: balance;
   animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -163,11 +103,11 @@
 }
 
 .hero p.lead {
-  font-size: 1.2rem;
+  font-size: 1.12rem;
   line-height: 1.6;
   color: var(--text-muted);
-  max-width: 480px;
-  margin: 0 0 40px;
+  max-width: 520px;
+  margin: 0 0 34px;
   animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) 70ms both;
 }
 
@@ -179,17 +119,14 @@
   animation: nm-rise 650ms cubic-bezier(0.16, 1, 0.3, 1) 130ms both;
 }
 
-/* ── Illustration flottante — composition à plusieurs plans (Stripe/Linear) :
-   une carte "arrière" décalée qui laisse deviner une seconde fenêtre, la
-   carte principale au premier plan avec bascule 3D, et un chip flottant qui
-   déborde du cadre — trois indices de profondeur superposés plutôt qu'une
-   carte plate isolée. Occupe volontairement toute la largeur disponible de
-   sa colonne, nettement plus large qu'un simple aperçu. */
+/* ── Conteneur de l'illustration — halo flou + flottement très lent (déjà
+   présents avant le cockpit, conservés pour l'ambiance du site). ───────── */
 .hero-illustration-wrap {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 640px;
+  max-width: 600px;
+  min-width: 0;
   margin-left: auto;
   animation:
     nm-rise 750ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both,
@@ -201,382 +138,644 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-9px);
+    transform: translateY(-6px);
   }
 }
 .hero-illustration-wrap::before {
   content: "";
   position: absolute;
-  inset: -20% -26%;
+  inset: -16% -18%;
   background:
-    radial-gradient(ellipse 62% 55% at 28% 18%, rgba(var(--accent-rgb), 0.16), transparent 70%),
-    radial-gradient(ellipse 54% 48% at 84% 84%, rgba(var(--brand-violet-rgb), 0.12), transparent 68%);
+    radial-gradient(ellipse 62% 55% at 28% 18%, rgba(var(--accent-rgb), 0.18), transparent 70%),
+    radial-gradient(ellipse 54% 48% at 84% 84%, rgba(var(--blue-electric-rgb), 0.14), transparent 68%);
   filter: blur(64px);
   z-index: -1;
-}
-/* Seconde fenêtre, en retrait — juste assez visible pour suggérer une pile
-   de fenêtres produit, jamais assez pour distraire du premier plan. */
-.hero-illustration-back {
-  position: absolute;
-  inset: 8% -8% -10% 14%;
-  border-radius: var(--radius-xl);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-float);
-  transform: perspective(1400px) rotateY(-9deg) rotateX(3deg) translateZ(-60px);
-  opacity: 0.55;
-  z-index: 0;
-}
-.hero-illustration {
-  position: relative;
-  z-index: 1;
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border);
-  background: linear-gradient(165deg, var(--bg-elevated), var(--surface));
-  box-shadow:
-    var(--shadow-float-lg),
-    0 0 0 1px rgba(var(--accent-rgb), 0.08);
-  padding: 14px;
-  transform: perspective(1400px) rotateY(-7deg) rotateX(2.5deg);
-  transition: transform var(--transition-slow);
-}
-.hero-illustration-wrap:hover .hero-illustration {
-  transform: perspective(1400px) rotateY(-2deg) rotateX(0.5deg) translateY(-4px);
-}
-.hero-illustration svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: calc(var(--radius-xl) - 8px);
+  pointer-events: none;
 }
 
-/* Chip flottant — déborde volontairement du cadre de la fenêtre pour casser
-   le contour rectangulaire et donner une touche vivante (moment de
-   récompense, donc accent Or comme partout ailleurs sur le produit). */
-.hero-float-chip {
-  position: absolute;
-  z-index: 2;
-  bottom: -22px;
-  left: -30px;
+/* ── Cockpit Mathadap — illustration statique (aucune donnée réelle, aucune
+   commande active). Deux palettes, uniquement via les variables --ck-* :
+   claire par défaut (comme le site, voir tokens.css), sombre sous
+   :root[data-theme="dark"] — le bouton de thème (theme.js) bascule cet
+   attribut sans rechargement, le cockpit suit donc immédiatement. Seules les
+   couleurs changent : dimensions, espacements et composition sont communs.
+   container-type : les proportions internes suivent la largeur réelle du
+   cockpit (et non celle de l'écran), ce qui garantit l'absence de débordement
+   quelle que soit la colonne qui l'accueille. ───────────────────────────── */
+/* Thème clair (défaut) — surfaces lavande/blanc, titres violet foncé. */
+.cockpit {
+  --ck-bg-top: #fdfbff;
+  --ck-bg: #f2ebfc;
+  --ck-glow-a: rgba(143, 99, 224, 0.16);
+  --ck-glow-b: rgba(76, 127, 240, 0.1);
+  --ck-frame-border: rgba(117, 67, 223, 0.18);
+  --ck-frame-inset: rgba(255, 255, 255, 0.9);
+  --ck-card-top: #ffffff;
+  --ck-card: #fcfaff;
+  --ck-border: rgba(117, 67, 223, 0.14);
+  --ck-card-shadow: 0 6px 18px -12px rgba(76, 44, 140, 0.3);
+  --ck-text: #2a1a56;
+  --ck-muted: #655a84;
+  --ck-icon-blue-bg: rgba(76, 127, 240, 0.13);
+  --ck-blue: #3866d6;
+  --ck-icon-violet-bg: rgba(143, 99, 224, 0.14);
+  --ck-violet: #6a3ecf;
+  --ck-icon-cyan-bg: rgba(18, 168, 204, 0.13);
+  --ck-cyan-icon: #0a87a6;
+  --ck-icon-gold-bg: rgba(224, 169, 64, 0.18);
+  --ck-gold: #9a6609;
+  --ck-badge-bg: #e2f5eb;
+  --ck-badge-border: rgba(47, 166, 109, 0.38);
+  --ck-badge-text: #1b6f46;
+  --ck-green: #2fa66d;
+  --ck-badge-glow: rgba(47, 166, 109, 0.4);
+  --ck-question-top: #f7f2ff;
+  --ck-card-light: #eee5fd;
+  --ck-question-border: rgba(117, 67, 223, 0.17);
+  --ck-equation: #22144d;
+  --ck-aid-bg: #ffffff;
+  --ck-aid-border: rgba(117, 67, 223, 0.22);
+  --ck-aid-text: #4a3d74;
+  --ck-no-bg: #ffffff;
+  --ck-no-border: #dd4b56;
+  --ck-danger: #bf3542;
+  --ck-yes-bg: color-mix(in srgb, #2fa66d 72%, black 28%);
+  --ck-yes-shadow: 0 4px 14px -4px rgba(34, 160, 90, 0.38);
+  --ck-chart-rule: rgba(117, 67, 223, 0.18);
+  --ck-point-bg: #ffffff;
+  --ck-cyan: #13aed3;
+  --ck-point-glow: rgba(19, 174, 211, 0.35);
+  --ck-line-a: #3a6be3;
+  --ck-line-b: #13aed3;
+  --ck-area: #13aed3;
+  --ck-bar-track: #e9e1f7;
+  --ck-bar-a: #3a6be3;
+  container-type: inline-size;
+  position: relative;
+  padding: 14px;
+  border-radius: var(--radius-xl);
+  color: var(--ck-text);
+  /* Le Hero se centre sous 960px : le cockpit garde son alignement propre. */
+  text-align: left;
+  background:
+    radial-gradient(ellipse 70% 55% at 12% 0%, var(--ck-glow-a), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, var(--ck-glow-b), transparent 70%),
+    linear-gradient(160deg, var(--ck-bg-top) 0%, var(--ck-bg) 100%);
+  border: 1px solid var(--ck-frame-border);
+  box-shadow:
+    var(--shadow-float-lg),
+    0 0 0 1px rgba(var(--accent-rgb), 0.08),
+    inset 0 1px 0 var(--ck-frame-inset);
+  user-select: none;
+}
+/* Thème sombre — valeurs strictement identiques au cockpit validé. */
+:root[data-theme="dark"] .cockpit {
+  --ck-bg-top: #2b2254;
+  --ck-bg: #1d1837;
+  --ck-glow-a: rgba(143, 99, 224, 0.32);
+  --ck-glow-b: rgba(76, 127, 240, 0.18);
+  --ck-frame-border: rgba(207, 177, 245, 0.2);
+  --ck-frame-inset: rgba(255, 255, 255, 0.07);
+  --ck-card-top: #2f2758;
+  --ck-card: #2a2250;
+  --ck-border: rgba(207, 177, 245, 0.15);
+  --ck-card-shadow: 0 6px 18px -10px rgba(8, 4, 24, 0.6);
+  --ck-text: #f6f2fd;
+  --ck-muted: #b9addb;
+  --ck-icon-blue-bg: rgba(76, 127, 240, 0.22);
+  --ck-blue: #8db0ff;
+  --ck-icon-violet-bg: rgba(175, 136, 236, 0.24);
+  --ck-violet: #d4bcff;
+  --ck-icon-cyan-bg: rgba(94, 224, 247, 0.16);
+  --ck-cyan-icon: #84e9fb;
+  --ck-icon-gold-bg: rgba(242, 195, 91, 0.17);
+  --ck-gold: #f6cf72;
+  --ck-badge-bg: rgba(52, 196, 127, 0.16);
+  --ck-badge-border: rgba(52, 196, 127, 0.4);
+  --ck-badge-text: #86e7b6;
+  --ck-green: #34c47f;
+  --ck-badge-glow: rgba(52, 196, 127, 0.8);
+  --ck-question-top: #40356f;
+  --ck-card-light: #3a3068;
+  --ck-question-border: rgba(207, 177, 245, 0.2);
+  --ck-equation: #ffffff;
+  --ck-aid-bg: rgba(255, 255, 255, 0.06);
+  --ck-aid-border: rgba(207, 177, 245, 0.24);
+  --ck-aid-text: #e6ddf8;
+  --ck-no-bg: rgba(20, 14, 40, 0.45);
+  --ck-no-border: #ef6b77;
+  --ck-danger: #ff8a95;
+  --ck-yes-bg: color-mix(in srgb, #2fa66d 72%, black 28%);
+  --ck-yes-shadow: 0 4px 16px -4px rgba(34, 197, 94, 0.5);
+  --ck-chart-rule: rgba(207, 177, 245, 0.16);
+  --ck-point-bg: #1d1837;
+  --ck-cyan: #5ee0f7;
+  --ck-point-glow: rgba(94, 224, 247, 0.55);
+  --ck-line-a: #4c7ff0;
+  --ck-line-b: #5ee0f7;
+  --ck-area: #5ee0f7;
+  --ck-bar-track: rgba(207, 177, 245, 0.17);
+  --ck-bar-a: #4c7ff0;
+}
+.ck-grid {
+  display: grid;
+  /* 1.4fr / 1fr : la carte d'entraînement occupe ~58% de la largeur interne. */
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-areas:
+    "train results"
+    "train focus"
+    "tiles tiles";
+  gap: 12px;
+}
+.ck-card {
+  min-width: 0;
+  padding: 16px;
+  border-radius: 22px;
+  background: linear-gradient(165deg, var(--ck-card-top), var(--ck-card));
+  border: 1px solid var(--ck-border);
+  box-shadow: var(--ck-card-shadow);
+}
+.ck-head {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 18px;
-  border-radius: var(--radius-lg);
-  background: var(--surface-elevated);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-float);
-  animation: nm-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
 }
-.hero-float-chip-icon {
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(155deg, rgba(var(--brand-gold-rgb), 0.28), rgba(var(--brand-gold-rgb), 0.12));
-  color: var(--brand-gold-text);
+.ck-head--icon {
+  justify-content: flex-start;
+  margin-bottom: 10px;
 }
-.hero-float-chip-icon svg {
-  width: 18px;
-  height: 18px;
-}
-.hero-float-chip-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
-.hero-float-chip-text strong {
+.ck-title {
+  min-width: 0;
   font-family: var(--font-display);
   font-size: 0.92rem;
   font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ck-text);
 }
-.hero-float-chip-text span {
-  font-size: 0.74rem;
-  color: var(--text-muted);
+.ck-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
 }
-@media (max-width: 640px) {
-  .hero-float-chip {
-    left: 12px;
-    bottom: -16px;
-    padding: 10px 14px;
-  }
+.ck-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.ck-icon--blue {
+  background: var(--ck-icon-blue-bg);
+  color: var(--ck-blue);
+}
+.ck-icon--violet {
+  background: var(--ck-icon-violet-bg);
+  color: var(--ck-violet);
+}
+.ck-icon--cyan {
+  background: var(--ck-icon-cyan-bg);
+  color: var(--ck-cyan-icon);
+}
+.ck-icon--gold {
+  background: var(--ck-icon-gold-bg);
+  color: var(--ck-gold);
 }
 
-/* ── Mockup produit — fenêtre applicative miniature representant le vrai
-   Dashboard Mathadap (sidebar + objectif du jour + stat-cards + graphique),
-   pas un graphique abstrait générique. Barre de titre façon navigateur pour
-   ancrer "c'est le produit, pas une illustration". ─────────────────────── */
-.hero-mockup {
-  border-radius: calc(var(--radius-xl) - 8px);
-  overflow: hidden;
-  background: var(--bg);
-  border: 1px solid var(--border);
-}
-.hero-mockup-chrome {
+/* Carte d'entraînement — reprend la structure de la vraie page Questions
+   (énoncé, aides, verdict) sans la copier intégralement. */
+.ck-train {
+  grid-area: train;
   display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 16px;
-  background: var(--bg-elevated);
-  border-bottom: 1px solid var(--border);
+  flex-direction: column;
 }
-.hero-mockup-chrome span {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--border-strong);
-}
-.hero-mockup-body {
-  display: flex;
-  align-items: stretch;
-  min-height: 460px;
-}
-.hero-mockup-sidebar {
-  width: 72px;
+.ck-badge-adaptive {
   flex-shrink: 0;
-  padding: 16px 12px;
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  background: var(--bg-elevated);
-  border-right: 1px solid var(--border);
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--ck-badge-bg);
+  border: 1px solid var(--ck-badge-border);
+  color: var(--ck-badge-text);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
-.hero-mockup-logo {
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
-  background: var(--brand-gradient);
-  margin-bottom: 8px;
+.ck-badge-adaptive::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ck-green);
+  box-shadow: 0 0 6px var(--ck-badge-glow);
 }
-.hero-mockup-nav-item {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  background: var(--surface-hover);
-}
-.hero-mockup-nav-item.active {
-  background: var(--brand-gradient);
-  box-shadow: 0 4px 12px -3px rgba(var(--accent-rgb), 0.5);
-}
-.hero-mockup-main {
+.ck-question {
   flex: 1;
-  min-width: 0;
-  padding: 22px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-.hero-mockup-greeting {
-  width: 46%;
-  height: 16px;
-  border-radius: 5px;
-  background: var(--surface-hover);
-}
-.hero-mockup-goal {
-  padding: 20px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(155deg, var(--surface), var(--surface-hover));
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 12px;
+  min-height: 96px;
+  padding: 14px 14px 18px;
+  border-radius: 16px;
+  background: linear-gradient(170deg, var(--ck-question-top), var(--ck-card-light));
+  border: 1px solid var(--ck-question-border);
 }
-.hero-mockup-goal-top {
+.ck-question-meta {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ck-muted);
+}
+/* Rendu mathématique : police mathématique système (Cambria Math sous
+   Windows, STIX/Latin Modern ailleurs), variable en italique — aucun
+   chargement de police supplémentaire pour une seule équation. */
+.ck-equation {
+  display: block;
+  text-align: center;
+  font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", "Times New Roman", serif;
+  font-size: clamp(1.35rem, 4.8cqi, 2rem);
+  line-height: 1.1;
+  color: var(--ck-equation);
+  white-space: nowrap;
+}
+.ck-var {
+  font-style: italic;
+}
+.ck-op {
+  margin: 0 0.3em;
+}
+.ck-aids {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+.ck-aid {
+  display: inline-flex;
   align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--ck-aid-bg);
+  border: 1px solid var(--ck-aid-border);
+  color: var(--ck-aid-text);
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
-.hero-mockup-goal-label {
-  width: 34%;
-  height: 10px;
-  border-radius: 4px;
-  background: rgba(var(--accent-rgb), 0.35);
+.ck-aid svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
 }
-.hero-mockup-goal-value {
-  width: 22%;
+.ck-verdict {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.ck-verdict-no,
+.ck-verdict-yes {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 10px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ck-verdict-no svg,
+.ck-verdict-yes svg {
+  width: 14px;
   height: 14px;
-  border-radius: 4px;
-  background: var(--text-faint);
-  opacity: 0.5;
+  flex-shrink: 0;
 }
-.hero-mockup-goal-bar {
+/* Mêmes codes que .btn-verdict-no/.btn-verdict-yes (exercice.css). */
+.ck-verdict-no {
+  background: var(--ck-no-bg);
+  border: 1px solid var(--ck-no-border);
+  color: var(--ck-danger);
+}
+.ck-verdict-yes {
+  background: var(--ck-yes-bg);
+  border: 1px solid transparent;
+  color: #ffffff;
+  box-shadow: var(--ck-yes-shadow);
+}
+
+/* Suivi des résultats — courbe SVG étirée en largeur ; les points sont en
+   HTML pour rester parfaitement ronds quel que soit l'étirement. */
+.ck-results {
+  grid-area: results;
+}
+.ck-chart {
+  position: relative;
+  height: clamp(52px, 13cqi, 76px);
+  margin: 2px 2px 8px;
+  border-bottom: 1px dashed var(--ck-chart-rule);
+}
+.ck-chart-svg {
+  display: block;
   width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+/* Couleurs de la courbe pilotées par le thème (les attributs stop-color du
+   SVG ne servent que de repli). */
+#ck-line stop:first-child {
+  stop-color: var(--ck-line-a);
+}
+#ck-line stop:last-child {
+  stop-color: var(--ck-line-b);
+}
+#ck-area stop {
+  stop-color: var(--ck-area);
+}
+.ck-chart-points span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--ck-point-bg);
+  border: 2px solid var(--ck-cyan);
+  box-shadow: 0 0 8px var(--ck-point-glow);
+}
+.ck-caption {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--ck-muted);
+}
+
+/* À renforcer — barre illustrative (aucune mesure réelle). */
+.ck-focus {
+  grid-area: focus;
+}
+.ck-focus-notion {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ck-text);
+}
+.ck-bar {
+  display: block;
   height: 8px;
   border-radius: var(--radius-pill);
-  background: var(--border);
+  background: var(--ck-bar-track);
   overflow: hidden;
 }
-.hero-mockup-goal-bar span {
+.ck-bar span {
   display: block;
+  width: 34%;
   height: 100%;
-  border-radius: var(--radius-pill);
-  background: var(--brand-gradient);
-}
-.hero-mockup-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-.hero-mockup-stat {
-  height: 64px;
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
-.hero-mockup-chart {
-  flex: 1;
-  min-height: 90px;
-  border-radius: var(--radius-md);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 14px;
-}
-.hero-mockup-chart svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--ck-bar-a), var(--ck-cyan));
 }
 
-/* .hero-mockup-body garde un min-height desktop (460px) pensé pour une
-   largeur ~640px (voir .hero-illustration-wrap) ; sous 640px de large,
-   .hero-illustration-wrap se limite à max-width:560px (mobile, media query
-   plus bas) puis rétrécit encore avec le viewport — la hauteur, elle,
-   restait figée à 460px, donnant une fenêtre étroite et anormalement haute
-   (rapport largeur/hauteur inversé) plutôt qu'une miniature de Dashboard
-   proportionnée. Réduite ici pour rester proche de la hauteur réellement
-   occupée par son contenu (sidebar + objectif + stats + graphique) à cette
-   largeur. Placée APRÈS la règle desktop (même spécificité : sinon la règle
-   non conditionnelle, plus bas dans la cascade, l'emporterait toujours). */
-@media (max-width: 640px) {
-  .hero-mockup-body {
-    min-height: 320px;
+/* Rangée des trois raccourcis — même hauteur, compacts. */
+.ck-tiles {
+  grid-area: tiles;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.ck-tile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 11px 12px;
+  border-radius: 18px;
+  background: linear-gradient(165deg, var(--ck-card-top), var(--ck-card));
+  border: 1px solid var(--ck-border);
+}
+.ck-tile-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+.ck-tile-text strong {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ck-text);
+}
+.ck-tile-text span {
+  font-size: 0.68rem;
+  color: var(--ck-muted);
+}
+
+/* Cockpit de largeur moyenne (petit portable, tablette) : espacements et
+   tailles réduits avec mesure, raccourcis en colonne (icône au-dessus). */
+@container (max-width: 500px) {
+  .ck-grid,
+  .ck-tiles {
+    gap: 10px;
   }
-  .hero-mockup-sidebar {
-    width: 56px;
-    padding: 12px 8px;
+  .ck-card {
+    padding: 13px;
+    border-radius: 18px;
   }
-  .hero-mockup-nav-item {
+  .ck-title {
+    font-size: 0.85rem;
+  }
+  .ck-icon {
     width: 26px;
     height: 26px;
   }
+  .ck-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+  /* Les trois aides se partagent la ligne : jamais de retour à la ligne. */
+  .ck-aids {
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
+  .ck-aid {
+    flex: 1 1 0;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 5px 4px;
+    font-size: 0.68rem;
+  }
+  .ck-tile {
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 6px;
+    text-align: center;
+  }
 }
 
-@media (max-width: 960px) {
-  .hero-illustration,
-  .hero-illustration-back {
-    transform: none;
+/* Cockpit étroit (téléphone, ou colonne étroite) : la carte d'entraînement
+   passe sur toute la largeur, les deux cartes de suivi côte à côte dessous. */
+@container (max-width: 430px) {
+  .ck-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "train train"
+      "results focus"
+      "tiles tiles";
   }
-  .hero-illustration-wrap:hover .hero-illustration {
-    transform: translateY(-4px);
+  .ck-question {
+    min-height: 0;
   }
-  .hero-illustration-wrap {
-    animation: nm-rise 750ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+  .ck-chart {
+    height: 50px;
   }
 }
 
-/* ── Bandeau statistiques : cartes à profondeur, pas du texte flottant ─────
-   Bande "île" en lavande très pâle plutôt qu'un bloc blanc de plus — casse
-   la succession hero/section/section identique en couleur. Le fond est
-   full-bleed (100vw, technique "container breakout" : ::before centré sur
-   le viewport même si .stats-strip garde son max-width propre — valable
-   tant que le conteneur reste centré via margin:auto, ce qui est le cas
-   ici), et se referme sur la section suivante par une vague douce plutôt
-   qu'une arête franche. Couleurs 100% pilotées par les jetons de thème
-   (--bg-secondary/--bg) : plus aucune teinte figée, la bande et sa vague
-   suivent le clair/sombre comme le reste de la page. */
-.stats-strip {
+/* Très petit téléphone (320px) : aides réparties sur toute la ligne. */
+@container (max-width: 300px) {
+  .cockpit .ck-card {
+    padding: 11px;
+  }
+  .ck-aids {
+    gap: 5px;
+  }
+  .ck-aid {
+    flex: 1 1 0;
+    justify-content: center;
+    gap: 4px;
+    padding: 5px 4px;
+  }
+  .ck-aid svg {
+    width: 11px;
+    height: 11px;
+  }
+  .ck-verdict-no,
+  .ck-verdict-yes {
+    font-size: 0.78rem;
+  }
+  .ck-tile-text strong {
+    font-size: 0.76rem;
+  }
+}
+
+/* ── Menus « Classes » (navigation, « Choisir ma classe ») ── */
+.class-menu {
   position: relative;
-  isolation: isolate;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  padding: 72px 24px 130px;
-  max-width: 1160px;
-  margin: 0 auto;
+  display: inline-block;
 }
-.stats-strip::before {
-  content: "";
+.class-menu-chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+.class-menu-toggle[aria-expanded="true"] .class-menu-chevron {
+  transform: rotate(180deg);
+}
+.class-menu-list {
   position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 50%;
-  width: 100vw;
-  height: 100%;
-  transform: translateX(-50%);
-  background: var(--bg-secondary);
-}
-.stats-strip::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  bottom: -1px;
-  left: 50%;
-  width: 100vw;
-  height: 90px;
-  transform: translateX(-50%);
-  /* La vague n'est qu'un masque de forme (technique déjà utilisée pour les
-     coches ci-dessous) : la couleur réelle vient de background-color, donc
-     elle suit --bg au lieu d'un fill blanc figé dans le SVG. */
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 L1440,100 L1440,30 C1080,80 720,0 360,50 C240,65 120,55 0,40 Z' fill='white'/%3E%3C/svg%3E")
-    bottom / 100% 100% no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath d='M0,100 L1440,100 L1440,30 C1080,80 720,0 360,50 C240,65 120,55 0,40 Z' fill='white'/%3E%3C/svg%3E")
-    bottom / 100% 100% no-repeat;
-  background-color: var(--bg);
-}
-.stat-item {
-  position: relative;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 60;
+  width: max-content;
+  min-width: 250px;
+  max-width: min(320px, calc(100vw - 32px));
+  margin: 0;
+  padding: 6px;
+  list-style: none;
   text-align: left;
-  padding: 32px 28px;
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  transition:
-    transform var(--transition-base),
-    box-shadow var(--transition-base),
-    border-color var(--transition-base);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float-lg);
+  animation: class-menu-in 160ms ease-out both;
 }
-.stat-item:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-float);
+.class-menu-list[hidden] {
+  display: none;
 }
-.stat-item .stat-value {
+@keyframes class-menu-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.class-menu-list a {
   display: block;
-  font-family: var(--font-display);
-  font-size: 2.35rem;
-  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
   color: var(--text);
-  letter-spacing: -0.02em;
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.35;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
 }
-.stat-item .stat-label {
-  display: block;
+.class-menu-list a:hover,
+.class-menu-list a:focus-visible {
+  background: rgba(var(--accent-rgb), 0.1);
   color: var(--accent-text);
-  font-size: 0.78rem;
-  font-weight: 700;
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
-.stat-item .stat-desc {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  margin-top: 12px;
-  line-height: 1.45;
+.class-menu-list a:focus-visible {
+  outline: 2px solid rgba(var(--accent-rgb), 0.55);
+  outline-offset: -2px;
+}
+/* Menus centrés (bouton « Choisir ma classe », Hero en colonne unique). */
+.class-menu--center .class-menu-list {
+  left: 50%;
+  translate: -50% 0;
+}
+
+/* Bouton « Classes » de la barre de navigation — style des liens du topnav. */
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-width: 0;
+}
+.nav-class-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+}
+.nav-class-toggle:hover,
+.nav-class-toggle[aria-expanded="true"] {
+  background: rgba(var(--accent-rgb), 0.1);
+  border-color: rgba(var(--accent-rgb), 0.18);
+}
+.nav-class-toggle:focus-visible,
+.faq-question:focus-visible {
+  outline: 2px solid rgba(var(--accent-rgb), 0.6);
+  outline-offset: 2px;
 }
 
 /* ── Sections génériques ────────────────────────────────────────────────── */
 .section {
   position: relative;
-  padding: 128px 24px;
+  padding: 88px 24px;
 }
-/* Blobs mesh alternés en arrière-plan de section — illustration abstraite
-   très discrète (jamais au-dessus du contenu, jamais gênante) pour éviter
-   le grand aplat vide entre le hero et le footer. */
+/* Blobs mesh alternés en arrière-plan de section — très discrets. */
 .section:nth-of-type(odd)::before {
   content: "";
   position: absolute;
@@ -593,88 +792,6 @@
   pointer-events: none;
   background: radial-gradient(ellipse 620px 420px at 95% 85%, rgba(var(--brand-violet-rgb), 0.07), transparent 70%);
 }
-/* ── Identités dédiées par section — remplace l'alternance générique
-   ci-dessus pour les sections où elle ne suffit pas à casser la monotonie
-   "bloc blanc + grille". Sélecteur par id : plus spécifique que
-   .section:nth-of-type(...), l'override gagne sans !important. ────────── */
-
-/* "Comment ça marche" — motif de symboles mathématiques semés en fond,
-   presque invisible, qui ancre discrètement le propos avant même le texte. */
-#comment-ca-marche::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 420'%3E%3Ctext x='14' y='70' font-family='Georgia,serif' font-size='46' fill='%23875ee0' fill-opacity='0.05'%3E+%3C/text%3E%3Ctext x='300' y='150' font-family='Georgia,serif' font-size='34' fill='%23875ee0' fill-opacity='0.045'%3E%C3%97%3C/text%3E%3Ctext x='90' y='330' font-family='Georgia,serif' font-size='38' fill='%23875ee0' fill-opacity='0.05'%3E%3D%3C/text%3E%3Ctext x='330' y='380' font-family='Georgia,serif' font-size='32' fill='%23875ee0' fill-opacity='0.045'%3E%E2%88%AB%3C/text%3E%3C/svg%3E");
-  background-size: 420px 420px;
-  background-repeat: repeat;
-  /* Le motif ne doit se deviner que dans les marges, jamais rivaliser avec
-     le contenu (titre + cartes) : estompé au centre via un masque radial. */
-  -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 45%, transparent 35%, black 85%);
-  mask-image: radial-gradient(ellipse 65% 60% at 50% 45%, transparent 35%, black 85%);
-}
-
-/* Vitrine chatbot — grand halo flou derrière la fenêtre de conversation,
-   pour lui donner la même profondeur que l'illustration du Hero plutôt
-   qu'un simple encart posé à plat sur le fond. `overflow-x: hidden` sur la
-   section (pas sur .showcase-visual, ce qui rognerait le halo pile sur son
-   bord) : `.showcase-visual::before` déborde volontairement de ±10/14% pour
-   son flou, ce qui reste dans le padding desktop (.showcase-grid), mais sous
-   860px .showcase-grid repasse en une seule colonne et .showcase-visual
-   occupe alors presque toute la largeur de la section — le débord du halo
-   dépasse le padding de section (24px) et provoquait un scroll horizontal
-   de toute la page (confirmé : body.scrollWidth > viewport en audit
-   navigateur réel, Playwright, à 768/430/390px de large). */
-#chatbot-showcase::before {
-  content: none;
-}
-#chatbot-showcase {
-  overflow-x: hidden;
-}
-.showcase-visual {
-  position: relative;
-}
-.showcase-visual::before {
-  content: "";
-  position: absolute;
-  inset: -14% -10%;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse 58% 55% at 24% 20%, rgba(var(--accent-rgb), 0.14), transparent 70%),
-    radial-gradient(ellipse 50% 46% at 80% 82%, rgba(var(--brand-violet-rgb), 0.12), transparent 68%);
-  filter: blur(56px);
-  pointer-events: none;
-}
-
-/* Fonctionnalités — texture pointillée très légère (grain "produit premium")
-   plutôt qu'un fond nu derrière le bento. */
-#fonctionnalites::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(var(--accent-rgb), 0.14) 1px, transparent 1.5px);
-  background-size: 26px 26px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 78%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 78%);
-}
-
-/* Tarifs — halo chaleureux centré derrière la grille, plus marqué au niveau
-   de l'offre Premium pour renforcer la mise en avant déjà portée par
-   .pricing-card--popular. */
-#tarifs::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 640px 420px at 50% 8%, rgba(var(--accent-rgb), 0.09), transparent 72%),
-    radial-gradient(ellipse 420px 320px at 50% 60%, rgba(var(--brand-gold-rgb), 0.05), transparent 70%);
-}
-
 .section > * {
   position: relative;
   z-index: 1;
@@ -682,8 +799,8 @@
 .section-header {
   position: relative;
   z-index: 1;
-  max-width: 640px;
-  margin: 0 auto 64px;
+  max-width: 680px;
+  margin: 0 auto 44px;
   text-align: center;
 }
 .section-header h2 {
@@ -711,405 +828,38 @@
   margin-bottom: 16px;
 }
 
-/* ── Étapes "Comment ça marche" — reliées par un fil discret, la mise en
-   page reflète qu'il s'agit d'une vraie séquence à 3 temps. ────────────── */
-.steps {
-  display: grid;
-  /* 2 étapes désormais (le test de placement initial a été retiré) */
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 1160px;
-  margin: 0 auto;
-  position: relative;
+/* La section suivant directement le Hero remonte un peu : le fondu bas du
+   Hero fournit déjà la respiration. */
+.advantages-section {
+  padding-top: 56px;
 }
-.step-card {
-  padding: 40px 34px;
-  border-radius: var(--radius-lg);
-  position: relative;
-  /* Plus plat qu'une carte produit : ce sont des étapes d'un même
-     processus, pas des offres à comparer visuellement (Phase 1 UX/UI). */
-  background: var(--bg-secondary);
-  border-color: transparent;
-  box-shadow: none;
-  transition:
-    transform var(--transition-base),
-    box-shadow var(--transition-base),
-    border-color var(--transition-base);
-}
-.step-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--border);
-  box-shadow: var(--shadow-sm);
-}
-.step-number {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  background: rgba(var(--accent-rgb), 0.12);
-  border: 1px solid rgba(var(--accent-rgb), 0.2);
-  color: var(--accent-text);
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 26px;
-}
-.steps .step-card:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: 52px;
-  left: calc(100% + 4px);
-  width: calc(28px - 8px);
-  height: 1px;
-  background: linear-gradient(90deg, var(--border-strong), transparent);
-}
-.step-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-}
-.step-card p {
-  color: var(--text-muted);
-  font-size: 0.96rem;
-  line-height: 1.6;
+/* Halo décalé vers le bas : centré en haut de section, il était coupé net
+   par le bord supérieur et dessinait une arête juste sous le Hero. */
+.section.advantages-section::before {
+  background: radial-gradient(ellipse 620px 420px at 8% 60%, rgba(var(--accent-rgb), 0.07), transparent 70%);
 }
 
-/* ── Transformation — storytelling avant/après plutôt qu'une liste de
-   fonctionnalités : le contraste visuel (carte mate et éteinte vs carte
-   vive et signée violet) raconte la transformation avant même de lire le
-   texte. Juste après le hero, avant toute mention de fonctionnalité. ───── */
-/* Cette section suit directement .hero, qui se fond jusqu'à un aplat --bg
-   (voir .hero background ci-dessus). Le calque site-wide (body::after,
-   base.css) reprend la même image hero-wave.png avec son propre cadrage —
-   sans ce voile, sa réapparition immédiate juste sous le Hero produit une
-   arête visible (deux crops différents qui ne se raccordent jamais).
-   Voile local qui prolonge le fondu du Hero avant de laisser le calque
-   site-wide réapparaître progressivement, quelle que soit la résolution
-   (la hauteur est fixe, ancrée en haut de section, indépendante de la
-   hauteur du Hero). */
-#transformation::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 340px;
-  /* Paliers progressifs plutôt qu'un fondu linéaire à deux arrêts : le
-     calque site-wide en dessous (body::after) redevient visible en douceur
-     (l'œil perçoit la moindre texture contre un aplat parfaitement uni,
-     même à faible opacité — un fondu linéaire court reste lu comme une
-     arête nette). */
-  background: linear-gradient(
-    to bottom,
-    var(--bg) 0%,
-    var(--bg) 25%,
-    color-mix(in srgb, var(--bg) 85%, transparent) 55%,
-    color-mix(in srgb, var(--bg) 55%, transparent) 80%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 0;
-}
-.transformation-grid {
-  position: relative;
-  z-index: 1;
+/* ── Avantages — une carte principale pleine largeur + 4 cartes (2×2) ───── */
+.advantages-grid {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: stretch;
-  gap: 28px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
   max-width: 1080px;
   margin: 0 auto;
 }
-.transformation-card {
-  padding: 40px 36px;
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border);
-}
-.transformation-card--before {
-  background: var(--surface);
-  opacity: 0.82;
-  filter: saturate(0.7);
-}
-.transformation-card--after {
-  background: linear-gradient(160deg, var(--surface), var(--surface-hover));
-  border-color: rgba(var(--accent-rgb), 0.28);
-  box-shadow: var(--shadow-float);
-  position: relative;
-  overflow: hidden;
-}
-.transformation-card--after::before {
-  content: "";
-  position: absolute;
-  inset: -30% 40% auto -20%;
-  height: 220px;
-  background: radial-gradient(ellipse at 30% 0%, rgba(var(--accent-rgb), 0.16), transparent 72%);
-  pointer-events: none;
-}
-.transformation-label {
-  display: inline-block;
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 22px;
-  color: var(--text-faint);
-}
-.transformation-card--after .transformation-label {
-  color: var(--accent-text);
-  position: relative;
-}
-.transformation-card ul {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  position: relative;
-}
-.transformation-card li {
-  font-size: 0.95rem;
-  line-height: 1.55;
-  padding-left: 26px;
-  position: relative;
-  color: var(--text-muted);
-}
-.transformation-card--before li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 8px;
-  width: 12px;
-  height: 2px;
-  border-radius: 1px;
-  background: var(--text-faint);
-}
-.transformation-card--after li {
-  color: var(--text);
-  font-weight: 500;
-}
-.transformation-card--after li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 3px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--brand-gradient);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 13 4 4L19 7'/%3E%3C/svg%3E")
-    center/10px no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 13 4 4L19 7'/%3E%3C/svg%3E")
-    center/10px no-repeat;
-}
-.transformation-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  align-self: center;
-  border-radius: 50%;
-  background: var(--surface-hover);
-  border: 1px solid var(--border);
-  color: var(--text-faint);
-}
-.transformation-arrow svg {
-  width: 18px;
-  height: 18px;
-}
-@media (max-width: 860px) {
-  .transformation-grid {
-    grid-template-columns: 1fr;
-  }
-  .transformation-arrow {
-    transform: rotate(90deg);
-    margin: -4px auto;
-  }
-}
-
-/* ── Section vitrine — rupture de rythme entre "Comment ça marche" et
-   "Fonctionnalités" : au lieu d'un énième bloc header+grille centré, un
-   split asymétrique (visuel à gauche, texte à droite) qui montre une
-   deuxième facette du produit (le chatbot) plutôt que de l'expliquer en
-   abstrait. Casse la répétition visuelle des sections précédente/suivante. */
-.showcase-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  align-items: center;
-  gap: 72px;
-  max-width: 1160px;
-  margin: 0 auto;
-}
-.showcase-window {
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  padding: 0;
-  box-shadow: var(--shadow-float);
-}
-.showcase-window-chrome {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 16px;
-  background: var(--bg-elevated);
-  border-bottom: 1px solid var(--border);
-}
-/* :not(.showcase-window-label) — la règle générique des 3 points du faux
-   navigateur cible tout <span> enfant de .showcase-window-chrome, ce qui
-   incluait aussi le badge <span class="showcase-window-label"> (lui aussi un
-   span) : à spécificité égale de classe, ".showcase-window-chrome span"
-   (classe + élément) l'emportait sur ".showcase-window-label" (classe seule)
-   pour width/height, écrasant son width:auto/height:auto à 9px/9px. Le badge
-   se retrouvait alors compressé à la taille de son seul padding+bordure
-   (26×10px, mesuré), tandis que son texte "Exemple de conversation"
-   (~87×59px nécessaires) débordait visuellement hors de cette boîte,
-   produisant les fragments "Exem.../de.../conv..." visibles hors de la
-   fenêtre du mockup — confirmé en audit navigateur réel (Playwright,
-   getBoundingClientRect + getComputedStyle). */
-.showcase-window-chrome span:not(.showcase-window-label) {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--border-strong);
-}
-.showcase-window-label {
-  /* Renforcé (Phase 1 UX/UI) : doit se voir clairement comme un badge de
-     démo, pas se fondre dans le chrome de fenêtre — évite de laisser croire
-     à une conversation live. */
-  width: auto;
-  height: auto;
-  border-radius: var(--radius-pill);
-  margin-left: auto;
-  padding: 4px 12px;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  color: var(--accent-text);
-  background: rgba(var(--accent-rgb), 0.12);
-  border: 1px solid rgba(var(--accent-rgb), 0.22);
-}
-.showcase-chat {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 28px;
-  background: var(--bg);
-  min-height: 280px;
-  justify-content: center;
-}
-.showcase-bubble {
-  max-width: 78%;
-  padding: 13px 17px;
-  border-radius: var(--radius-md);
-  font-size: 0.92rem;
-  line-height: 1.55;
-}
-.showcase-bubble.assistant {
-  align-self: flex-start;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-bottom-left-radius: 6px;
-}
-.showcase-bubble.user {
-  align-self: flex-end;
-  background: rgba(var(--accent-rgb), 0.14);
-  border-bottom-right-radius: 6px;
-}
-.showcase-content .section-tag {
-  margin-bottom: 18px;
-}
-.showcase-content h2 {
-  font-size: clamp(1.85rem, 3vw, 2.35rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin-bottom: 18px;
-  text-wrap: balance;
-}
-.showcase-lead {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  line-height: 1.65;
-  margin-bottom: 28px;
-  max-width: 46ch;
-}
-.showcase-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.showcase-list li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.96rem;
-  font-weight: 500;
-}
-.showcase-check {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--success-soft);
-  color: var(--success);
-}
-.showcase-check svg {
-  width: 13px;
-  height: 13px;
-}
-@media (max-width: 860px) {
-  .showcase-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: center;
-  }
-  .showcase-list {
-    align-items: center;
-  }
-  .showcase-lead {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* ── Grille fonctionnalités / pourquoi — vrai bento, pas une grille uniforme :
-   la première et la dernière carte (les deux messages les plus différenciants
-   — l'IA adaptative, et la gamification qui donne envie de revenir) occupent
-   deux colonnes et reçoivent un traitement visuel plus riche. Casse la
-   monotonie "6 cartes identiques" et guide l'œil vers ce qui compte. ────── */
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  max-width: 1160px;
-  margin: 0 auto;
-}
 .feature-card {
-  padding: 32px 30px;
+  padding: 30px 30px;
   border-radius: var(--radius-lg);
-  /* Allégé (Phase 1 UX/UI) mais pas totalement plat : en thème clair,
-     --surface (#fff) est quasi identique à --bg (#fbfaff) et --border seul
-     (10% d'opacité) ne suffit pas à délimiter la carte du fond — sans cette
-     ombre minimale, les cartes deviennent quasi invisibles au repos plutôt
-     que hiérarchisées. --shadow-sm reste nettement plus discret que
-     l'ancien --shadow-float utilisé avant cette passe. */
+  /* Ombre minimale : en thème clair, --surface est quasi identique à --bg. */
   box-shadow: var(--shadow-sm);
-}
-.feature-card--wide {
-  grid-column: span 2;
-  padding: 38px 36px;
-  background: linear-gradient(155deg, var(--surface), var(--surface-hover));
 }
 .feature-card--primary {
-  /* Seule la fonctionnalité IA adaptative reçoit ce traitement : c'est le
-     cœur différenciant du produit, le reste de la grille reste informatif. */
   border-color: rgba(var(--accent-rgb), 0.3);
-  box-shadow: var(--shadow-sm);
 }
 .feature-icon {
   width: 50px;
   height: 50px;
+  flex-shrink: 0;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -1117,19 +867,7 @@
   background: linear-gradient(150deg, rgba(var(--accent-rgb), 0.18), rgba(var(--brand-violet-rgb), 0.1));
   border: 1px solid rgba(var(--accent-rgb), 0.18);
   color: var(--accent-text);
-  margin-bottom: 22px;
-  transition: transform 260ms cubic-bezier(0.34, 1.4, 0.64, 1);
-}
-.feature-card:hover .feature-icon {
-  transform: scale(1.08) rotate(-4deg);
-}
-.feature-card--wide .feature-icon {
-  width: 56px;
-  height: 56px;
-}
-.feature-card--wide .feature-icon svg {
-  width: 27px;
-  height: 27px;
+  margin-bottom: 20px;
 }
 .feature-icon svg {
   width: 24px;
@@ -1137,62 +875,220 @@
 }
 .feature-card h3 {
   font-size: 1.12rem;
+  line-height: 1.3;
   margin-bottom: 10px;
-}
-.feature-card--wide h3 {
-  font-size: 1.28rem;
+  text-wrap: balance;
 }
 .feature-card p {
   color: var(--text-muted);
   font-size: 0.94rem;
   line-height: 1.6;
 }
-.feature-card--wide p {
-  font-size: 0.98rem;
-  max-width: 46ch;
+.advantage-card--main {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  padding: 38px 40px;
+  background:
+    radial-gradient(ellipse 60% 120% at 0% 0%, rgba(var(--accent-rgb), 0.1), transparent 70%),
+    linear-gradient(155deg, var(--surface), var(--surface-hover));
+  box-shadow:
+    var(--shadow-sm),
+    0 18px 40px -26px rgba(var(--accent-rgb), 0.45);
+}
+.advantage-card--main .feature-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 0;
+  background: var(--brand-gradient);
+  border-color: transparent;
+  color: var(--text-on-accent);
+}
+.advantage-card--main .feature-icon svg {
+  width: 28px;
+  height: 28px;
+}
+.advantage-card--main h3 {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  margin-bottom: 12px;
+}
+.advantage-card--main p {
+  font-size: 1.02rem;
+  max-width: 64ch;
+}
+.advantage-card-body {
+  min-width: 0;
 }
 
-/* ── Avis — bandeau résumé aplati (Phase 1 UX/UI) : une statistique de
-   confiance, pas une offre produit, ne doit pas porter le même relief carte
-   que les sections tarifs/fonctionnalités. Le reste (css/reviews.css, cartes
-   d'avis individuelles) n'est pas concerné par cette Phase. ───────────────── */
+/* ── « Les maths, en grand. » — 4 chiffres arrondis à la baisse (audit des
+   banques servies). Statiques : aucune animation de compteur. ──────────── */
+.stats-section {
+  padding-top: 40px;
+  padding-bottom: 56px;
+}
+/* Halo propre à cette section (positionné bas : jamais coupé par son bord
+   supérieur, même principe que .advantages-section). */
+.section.stats-section::before {
+  background: radial-gradient(ellipse 620px 420px at 92% 70%, rgba(var(--brand-violet-rgb), 0.07), transparent 70%);
+}
+/* L'insertion de cette section décale le rang (nth-of-type) des sections
+   suivantes : leurs halos sont fixés ici à leur position d'origine pour
+   qu'elles restent strictement identiques. */
+.section#avis::before {
+  background: radial-gradient(ellipse 620px 420px at 95% 85%, rgba(var(--brand-violet-rgb), 0.07), transparent 70%);
+}
+.section#commencer::before {
+  background: radial-gradient(ellipse 620px 420px at 8% 15%, rgba(var(--accent-rgb), 0.07), transparent 70%);
+}
+.section#faq::before {
+  background: radial-gradient(ellipse 620px 420px at 95% 85%, rgba(var(--brand-violet-rgb), 0.07), transparent 70%);
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* Toutes les rangées à la même hauteur (cartes identiques en 2 colonnes). */
+  grid-auto-rows: 1fr;
+  gap: 20px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 26px 24px 24px;
+  border-radius: var(--radius-lg);
+}
+.stat-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(150deg, rgba(var(--accent-rgb), 0.18), rgba(var(--brand-violet-rgb), 0.1));
+  border: 1px solid rgba(var(--accent-rgb), 0.18);
+  color: var(--accent-text);
+}
+.stat-card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+/* Le chiffre porte la hiérarchie : grand, dégradé de marque (assombri en
+   clair pour le contraste, éclairci en sombre). */
+.stat-card-value {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 3.2vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  background: linear-gradient(135deg, var(--indigo-600), var(--violet-700));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:root[data-theme="dark"] .stat-card-value {
+  background-image: linear-gradient(135deg, #aeaaf6, var(--violet-300));
+}
+.stat-card-title {
+  margin: 10px 0 6px;
+  font-size: 1.02rem;
+  line-height: 1.3;
+}
+.stat-card-desc {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* ── Avis — bandeau résumé aplati (statistique de confiance). ──────────── */
 #avis .reviews-summary {
   background: var(--bg-secondary);
   border-color: transparent;
   box-shadow: none;
 }
 
-/* ── FAQ — liste à séparateurs plutôt qu'une grille de cartes (Phase 1
-   UX/UI) : contenu de référence, pas des offres à comparer visuellement. ── */
+/* ── « À toi de jouer. » — appel à l'action court, pas un second Hero. ─── */
+.play-section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.play-cta {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 44px 40px;
+  text-align: center;
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(ellipse 70% 90% at 50% 0%, rgba(var(--accent-rgb), 0.14), transparent 72%),
+    linear-gradient(180deg, var(--bg-elevated), var(--surface));
+  border: 1px solid var(--border);
+  box-shadow:
+    var(--shadow-float),
+    0 0 80px -34px rgba(var(--accent-rgb), 0.4);
+}
+.play-cta h2 {
+  display: inline-block;
+  font-size: clamp(1.75rem, 3vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 12px;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.play-cta p {
+  max-width: 56ch;
+  margin: 0 auto 26px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ── FAQ — liste à séparateurs, accordéons accessibles (bouton + région). ─ */
 .faq-list {
   max-width: 760px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 0;
   border-top: 1px solid var(--border);
 }
 .faq-item {
   padding: 4px 4px;
-  background: none;
-  border: none;
   border-bottom: 1px solid var(--border);
-  border-radius: 0;
-  box-shadow: none;
   transition: border-color var(--transition-base);
 }
 .faq-item.open {
   border-color: var(--border-strong);
+}
+.faq-heading {
+  margin: 0;
+  font-size: inherit;
 }
 .faq-question {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  width: 100%;
   padding: 18px 4px;
-  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--text);
+  font-family: inherit;
   font-weight: 600;
   font-size: 0.98rem;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
 }
 .faq-question svg {
   width: 18px;
@@ -1205,64 +1101,29 @@
   transform: rotate(180deg);
   color: var(--accent-text);
 }
+/* Fermée : hauteur nulle ET visibility:hidden (retirée de l'arbre
+   d'accessibilité) — la visibilité bascule après la fin de la fermeture. */
 .faq-answer {
   max-height: 0;
   overflow: hidden;
+  visibility: hidden;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.6;
   transition:
     max-height var(--transition-slow),
-    padding var(--transition-base);
+    padding var(--transition-base),
+    visibility 0s linear 400ms;
+}
+.faq-answer p {
+  margin: 0;
+  padding: 0 4px;
 }
 .faq-item.open .faq-answer {
-  max-height: 300px;
+  max-height: 320px;
   padding-bottom: 20px;
-}
-
-/* ── CTA final — panneau à bordure dégradée et lueur maîtrisée, pas un bloc
-   plein aplati en violet néon. ─────────────────────────────────────────── */
-.cta-final {
-  position: relative;
-  max-width: 920px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 84px 48px;
-  border-radius: var(--radius-xl);
-  background: linear-gradient(180deg, var(--bg-elevated), var(--surface));
-  border: 1px solid var(--border);
-  box-shadow:
-    var(--shadow-float-lg),
-    0 0 90px -30px rgba(var(--accent-rgb), 0.4);
-  overflow: hidden;
-}
-.cta-final::before {
-  content: "";
-  position: absolute;
-  inset: -60% -20% auto -20%;
-  height: 260px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(var(--accent-rgb), 0.2), transparent 72%);
-  pointer-events: none;
-}
-.cta-final h2,
-.cta-final p,
-.cta-final .btn {
-  position: relative;
-  z-index: 1;
-}
-.cta-final h2 {
-  font-size: clamp(1.85rem, 3.4vw, 2.5rem);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin-bottom: 14px;
-  background: var(--brand-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.cta-final p {
-  color: var(--text-muted);
-  margin-bottom: 28px;
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 /* ── Footer ─────────────────────────────────────────────────────────────── */
@@ -1321,27 +1182,36 @@
   .hero h1,
   .hero p.lead,
   .hero-cta,
-  .hero-illustration-wrap {
+  .hero-illustration-wrap,
+  .class-menu-list {
     animation: none;
+  }
+  .faq-answer,
+  .faq-question svg,
+  .class-menu-chevron {
+    transition: none;
   }
 }
 
-/* Sous 960px, le split-screen n'a plus de place : retour à une colonne
-   unique centrée, illustration en dessous du texte. */
+/* Petit portable / tablette horizontale : marges et écart réduits pour
+   laisser au cockpit une largeur confortable à côté du titre. */
+@media (max-width: 1180px) {
+  .hero {
+    gap: 36px;
+    padding: 88px 32px 96px;
+  }
+}
+
+/* Sous 960px : colonne unique centrée, texte AVANT le cockpit. */
 @media (max-width: 960px) {
   .hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     text-align: center;
-    padding: 88px 24px 116px;
-    /* Texte centré sur toute la largeur de l'image plutôt que calé à
-       gauche : le voile passe d'une diagonale à un dégradé vertical
-       (sombre en haut où vit le texte, image plus visible en dessous),
-       et le point focal de l'image remonte pour rester lisible même
-       recadré plus serré par `cover` sur un écran étroit et haut. Le
-       premier calque referme la bas de l'image sur --bg (même fondu que
-       desktop) pour éviter toute arête franche contre la section suivante. */
+    padding: 72px 24px 88px;
+  }
+  /* Voile vertical (texte en haut), point focal de l'image remonté. */
+  .hero::before {
     background:
-      linear-gradient(to bottom, transparent 0%, transparent 50%, var(--bg) 88%, var(--bg) 100%),
       linear-gradient(
         180deg,
         color-mix(in srgb, var(--bg) 82%, transparent) 0%,
@@ -1349,10 +1219,12 @@
         color-mix(in srgb, var(--bg) 65%, transparent) 100%
       ),
       url("../assets/backgrounds/hero-wave.png") center 20% / cover no-repeat;
-    /* Voir le commentaire sur la règle desktop ci-dessus : même correctif
-       (palier uni + no-repeat explicite sur tous les calques). */
     background-repeat: no-repeat;
-    background-color: var(--bg);
+  }
+  .hero h1 {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .hero p.lead {
     margin-left: auto;
@@ -1362,45 +1234,31 @@
     justify-content: center;
   }
   .hero-illustration-wrap {
-    margin: 32px auto 0;
+    margin: 8px auto 0;
     max-width: 560px;
-  }
-  .hero-illustration-back {
-    display: none;
-  }
-  .hero-float-chip {
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -18px;
+    animation: nm-rise 750ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
   }
 }
 
-/* Écrans très larges (1920px+) : le point focal remonte légèrement pour que
-   le motif de vagues garde une composition élégante même très étiré en
-   largeur (cover recadre alors davantage en hauteur). */
+/* Écrans très larges (1920px+) : point focal légèrement remonté. */
 @media (min-width: 1920px) {
-  .hero {
+  .hero::before {
     background-position:
-      center,
       center,
       center 30%;
   }
 }
 
-@media (max-width: 860px) {
-  .stats-strip {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 900px) {
+  .stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
-  .steps,
-  .feature-grid,
+}
+
+@media (max-width: 860px) {
   .reviews-grid {
     grid-template-columns: 1fr;
-  }
-  .feature-card--wide {
-    grid-column: span 1;
-  }
-  .steps .step-card::after {
-    display: none;
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
@@ -1410,19 +1268,73 @@
   }
 }
 
+@media (max-width: 640px) {
+  .advantages-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .advantage-card--main {
+    flex-direction: column;
+    gap: 18px;
+    padding: 28px 24px;
+  }
+  .feature-card {
+    padding: 26px 22px;
+  }
+  .play-cta {
+    padding: 36px 22px;
+  }
+  /* Menu « Classes » de la navigation : positionné sous toute la barre
+     (.topnav, sticky donc bloc conteneur) avec 16px de marge de chaque côté
+     — jamais de débordement horizontal, quelle que soit la place du bouton. */
+  .topnav .class-menu {
+    position: static;
+  }
+  .topnav .class-menu-list {
+    top: calc(100% + 4px);
+    left: 16px;
+    right: 16px;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+}
+
 @media (max-width: 480px) {
-  .stats-strip {
-    grid-template-columns: 1fr;
-    padding-bottom: 72px;
+  .stat-grid {
+    gap: 12px;
   }
-  .stats-strip::after {
-    height: 56px;
+  .stat-card {
+    padding: 20px 16px 18px;
   }
-  .cta-final {
-    padding: 48px 24px;
+  .stat-card-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 12px;
+  }
+  .stat-card-value {
+    font-size: 1.9rem;
+  }
+  .stat-card-title {
+    font-size: 0.95rem;
+  }
+  .stat-card-desc {
+    font-size: 0.82rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.95rem, 8.4vw, 2.4rem);
+  }
+  .hero p.lead {
+    font-size: 1.02rem;
   }
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+}
+
+@media (max-width: 360px) {
+  .stat-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
