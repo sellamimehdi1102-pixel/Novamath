@@ -61,17 +61,31 @@ class TestMainContentClippeLesDecorsDebordants(unittest.TestCase):
         self.assertIn("overflow-x: hidden", body)
 
 
-class TestVitrineChatbotClippeeHorizontalement(unittest.TestCase):
-    """Mesuré en navigateur réel : .showcase-visual::before (halo décoratif,
-    inset:-14% -10%) débordait de la page sur mobile (grid en une seule
-    colonne sous 860px, voir .showcase-grid), provoquant un scroll horizontal
-    de toute la landing page (confirmé : body.scrollWidth > viewport à 768/
-    430/390px)."""
+class TestAccueilSansDebordementHorizontal(unittest.TestCase):
+    """Page d'accueil (cockpit + menus « Classes ») : remplace les anciens
+    garde-fous de la vitrine chatbot, section supprimée. Mesuré en navigateur
+    réel (Playwright, 320→1440px) : le halo flou du cockpit
+    (.hero-illustration-wrap::before, inset négatif) et un menu « Classes »
+    ouvert près du bord droit de la barre de navigation sont les deux seules
+    sources possibles de défilement horizontal de la page."""
 
-    def test_chatbot_showcase_clippe_le_halo_decoratif(self):
-        css = _read("webapp/static/css/landing.css")
-        body = _rule_body(css, "#chatbot-showcase")
-        self.assertIn("overflow-x: hidden", body)
+    def setUp(self):
+        self.css = _read("webapp/static/css/landing.css")
+
+    def test_le_hero_clippe_le_halo_du_cockpit(self):
+        self.assertIn("overflow: hidden", _rule_body(self.css, ".hero"))
+
+    def test_le_cockpit_suit_sa_propre_largeur(self):
+        self.assertIn("container-type: inline-size", _rule_body(self.css, ".cockpit"))
+        self.assertIn("minmax(0, 1.4fr) minmax(0, 1fr)", _rule_body(self.css, ".ck-grid"))
+
+    def test_menu_classes_mobile_borne_a_la_largeur_de_l_ecran(self):
+        blocks = re.findall(r"@media \(max-width:\s*640px\)\s*\{(.*?)\n\}", _strip_comments(self.css), re.DOTALL)
+        body = next((b for b in blocks if ".topnav .class-menu-list" in b), None)
+        self.assertIsNotNone(body, "menu « Classes » non borné sous 640px")
+        rule = re.search(r"\.topnav \.class-menu-list\s*\{([^}]*)\}", body).group(1)
+        self.assertIn("left: 16px", rule)
+        self.assertIn("right: 16px", rule)
 
 
 class TestHistoriqueSeriesProfilDefileHorizontalement(unittest.TestCase):
@@ -154,31 +168,6 @@ class TestPopupSettingsHauteurFixeReellementEnDur(unittest.TestCase):
     def test_popup_body_extensible_committe(self):
         body = _rule_body(self.css, ".popup-body")
         self.assertIn("flex:", body)
-
-
-class TestShowcaseWindowLabelNonEcraseParLesPointsDeChrome(unittest.TestCase):
-    """Mesuré en navigateur réel (Playwright, getBoundingClientRect +
-    getComputedStyle, 7 résolutions) : <span class="showcase-window-label">
-    (badge "Exemple de conversation") est aussi un <span> enfant de
-    .showcase-window-chrome ; la règle générique des 3 points du faux
-    navigateur (.showcase-window-chrome span, spécificité classe+élément)
-    écrasait son width/height (auto → 9px), le badge se retrouvant compressé
-    à 26×10px (son seul padding+bordure) pendant que son texte
-    "Exemple de conversation" (~87×59px) débordait visuellement hors de la
-    fenêtre du mockup ("Exem.../de.../conv..." visibles à l'extérieur).
-    Après correction : label mesuré à 171×28px, entièrement contenu dans la
-    fenêtre, à toutes les résolutions testées."""
-
-    def test_regle_des_points_exclut_le_badge_label(self):
-        css = _read("webapp/static/css/landing.css")
-        body = _rule_body(css, ".showcase-window-chrome span:not(.showcase-window-label)")
-        self.assertIn("width: 9px", body)
-
-    def test_le_badge_garde_sa_propre_regle_de_taille_auto(self):
-        css = _read("webapp/static/css/landing.css")
-        body = _rule_body(css, ".showcase-window-label")
-        self.assertIn("width: auto", body)
-        self.assertIn("height: auto", body)
 
 
 class TestCarteExerciceSurMesureEstPaddee(unittest.TestCase):

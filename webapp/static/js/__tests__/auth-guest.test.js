@@ -12,8 +12,12 @@ import { loadPageBody, withMockedLocation, flushPromises } from "./testUtils.js"
 const mockApi = { me: vi.fn(), enterGuest: vi.fn() };
 vi.mock("../api.js", () => ({ api: mockApi }));
 
+// La page d'accueil n'a plus de bouton .js-start-guest (remplacé par les
+// menus « Classes », voir classMenu.js) : le mécanisme générique d'auth.js
+// reste testé ici via un bouton ajouté au vrai corps de index.html.
 async function mountAuth({ meResolves = null } = {}) {
-  document.body.innerHTML = loadPageBody("index.html");
+  document.body.innerHTML =
+    loadPageBody("index.html") + '<button type="button" class="js-start-guest">Commencer</button>';
   Object.values(mockApi).forEach((fn) => fn.mockReset());
   mockApi.me.mockImplementation(() =>
     meResolves ? Promise.resolve({ user: meResolves }) : Promise.reject(new Error("401")),
@@ -43,5 +47,21 @@ describe("auth.js — mode invité", () => {
       expect(mockApi.enterGuest).toHaveBeenCalled();
       expect(window.location.href).toBe("/chapitres.html");
     });
+  });
+});
+
+describe("auth.js — purge d'un ancien état invité sur la page d'accueil", () => {
+  it("sans session (401), purge l'état local quand la page porte les menus « Classes »", async () => {
+    localStorage.setItem("lumis:stats", "{}");
+    localStorage.setItem("novamath:scoped_uid", "42");
+    document.body.innerHTML = loadPageBody("index.html");
+    expect(document.querySelector(".js-start-guest")).toBeNull();
+    Object.values(mockApi).forEach((fn) => fn.mockReset());
+    mockApi.me.mockRejectedValue(new Error("401"));
+    vi.resetModules();
+    await import("../auth.js");
+    await flushPromises();
+    expect(localStorage.getItem("lumis:stats")).toBeNull();
+    expect(localStorage.getItem("novamath:scoped_uid")).toBeNull();
   });
 });

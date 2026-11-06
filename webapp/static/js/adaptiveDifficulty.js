@@ -239,6 +239,87 @@ export function targetDifficulty(history, chapter, notion, levels, opts = {}) {
   return nearestLevel(sorted, targetValue(notionMastery(history, chapter, notion, opts)));
 }
 
+/** Nombre de questions consécutives d'une notion NOUVELLE au début de sa
+ * calibration (ordonnancement uniquement, voir calibrationBlockGroup). */
+export const CALIBRATION_BLOCK = 2;
+
+/** Groupe (notion) à reservir immédiatement pour compléter le bloc de
+ * calibration de la dernière notion servie, ou null. Conditions, toutes
+ * déduites de la file de la série et de l'historique (aucun état stocké :
+ * identique après rechargement ou reprise) :
+ *   - la dernière question de la série appartient à cette notion et a déjà
+ *     reçu sa réponse (la suivante est donc choisie APRÈS cette réponse) ;
+ *   - la notion était nouvelle au début de la série : sa seule réponse est
+ *     celle-ci (une notion déjà travaillée garde l'alternance) ;
+ *   - elle a été servie moins de CALIBRATION_BLOCK fois dans la série et il
+ *     lui reste une question inédite ;
+ *   - le regroupement laisse encore au moins une question à chaque notion pas
+ *     encore servie (séries courtes avec beaucoup de notions). */
+function calibrationBlockGroup(groups, history, seriesIds, remaining) {
+  if (!seriesIds?.length) return null;
+  const lastId = seriesIds[seriesIds.length - 1];
+  const inSeries = new Set(seriesIds);
+  const group = [...groups.values()].find((g) => g.all.some((c) => c.id === lastId));
+  if (!group || !group.fresh.length) return null;
+  if (group.all.filter((c) => inSeries.has(c.id)).length >= CALIBRATION_BLOCK) return null;
+  // Une seule réponse dans tout l'historique, celle de la question qui vient
+  // d'être servie : la notion était donc nouvelle au début de la série.
+  // (doublons de synchronisation — même exercice, même instant — comptés une fois)
+  const answers = [
+    ...new Map(answersOf(history, group.chapter, group.notion).map((a) => [`${a.id}@${a.ts}`, a])).values(),
+  ];
+  if (answers.length !== 1 || answers[0].id !== lastId) return null;
+  if (remaining != null) {
+    const unserved = [...groups.values()].filter(
+      (g) => g !== group && g.fresh.length && !g.all.some((c) => inSeries.has(c.id)),
+    ).length;
+    if (remaining - 1 < unserved) return null;
+  }
+  return group;
+}
+
+// ── Répartition des questions entre les notions d'une série ─────────────────
+// Ordonnancement uniquement : la difficulté de chaque question reste choisie
+// par le moteur (targetValue), et la maîtrise (theta, sd) est celle calculée
+// ci-dessus — aucun second système d'estimation.
+//   besoin  = écart entre la maîtrise estimée et le plus haut niveau que la
+//             notion propose réellement (0 = maîtrisée, 1 = tout à travailler),
+//             + UNCERTAINTY_WEIGHT × incertitude normalisée (peu de preuves ->
+//             à vérifier), borné à [0, 1]. Mesuré par rapport à la notion
+//             elle-même : une notion aux questions plus difficiles n'est pas
+//             pénalisée. Lissé par le modèle bayésien : une erreur isolée ne
+//             déplace theta que modérément (jamais un pourcentage brut).
+//   poids   = 1 + NEED_WEIGHT × besoin, donc dans [1, 1 + NEED_WEIGHT] : une
+//             notion maîtrisée garde toujours une part (vérification des
+//             acquis) et une notion faible ne peut pas recevoir plus de
+//             (1 + NEED_WEIGHT) fois la part d'une notion maîtrisée
+//             (protection contre la monopolisation).
+//   choix   = la notion de plus grand poids / (questions déjà servies + 1) :
+//             répartition proportionnelle au besoin, recalculée après chaque
+//             réponse (aucun quota fixé au départ).
+//   répétition : la notion qui vient d'être servie n'est reservie aussitôt que
+//             si sa part dépasse d'au moins REPEAT_MARGIN celle de la suivante
+//             (priorité pédagogique nettement supérieure).
+export const NEED_WEIGHT = 2;
+export const UNCERTAINTY_WEIGHT = 0.5;
+export const REPEAT_MARGIN = 1.25;
+
+/** Besoin de travail d'une notion, dans [0, 1], à partir de son état de
+ * maîtrise et des niveaux qu'elle propose réellement. */
+export function notionNeed(state, levels) {
+  const valid = levels.filter((d) => typeof d === "number");
+  const top = valid.length ? Math.max(...valid) : THETA_MAX;
+  const low = valid.length ? Math.min(...valid) : 1;
+  const gap = top > low ? clamp((top - state.theta) / (top - low), 0, 1) : state.theta >= top ? 0 : 1;
+  const uncertainty = clamp((state.sd - SD_MIN) / (PRIOR_SD - SD_MIN), 0, 1);
+  return clamp(gap + UNCERTAINTY_WEIGHT * uncertainty, 0, 1);
+}
+
+/** Poids de répartition d'une notion dans [1, 1 + NEED_WEIGHT]. */
+export function notionWeight(state, levels) {
+  return 1 + NEED_WEIGHT * notionNeed(state, levels);
+}
+
 /** Choisit le prochain exercice d'une série adaptative, ou `null` s'il n'en
  * reste aucun d'inédit.
  *   candidates  : [{id, chapter, notion, difficulty}]
@@ -246,6 +327,9 @@ export function targetDifficulty(history, chapter, notion, levels, opts = {}) {
  *   usedIds     : ids déjà servis (ou écartés) dans CETTE série
  *   notionOrder : clés notionKey par priorité (départage à égalité)
  *   relations   : prérequis vérifiés (optionnel, voir transferPrior)
+ *   seriesIds   : ids servis dans CETTE série, dans l'ordre (optionnel) —
+ *                 active le bloc de calibration des notions nouvelles
+ *   remaining   : questions restant à servir, celle-ci comprise (optionnel)
  *   rng         : générateur [0, 1) (injectable pour les tests) */
 export function pickNextExercise({
   candidates,
@@ -253,6 +337,8 @@ export function pickNextExercise({
   usedIds,
   notionOrder = [],
   relations = null,
+  seriesIds = null,
+  remaining = null,
   rng = Math.random,
 }) {
   const used = new Set(usedIds);
@@ -267,15 +353,58 @@ export function pickNextExercise({
   const available = [...groups.entries()].filter(([, g]) => g.fresh.length);
   if (!available.length) return null;
 
-  // Notion la moins servie dans la série (répartition équilibrée), puis
-  // l'ordre de priorité fourni.
+  // Notion la moins servie dans la série (répartition équilibrée), puis la
+  // moins récemment servie (sans file transmise, ou en alternance simple, cela
+  // revient exactement à l'ordre de priorité), puis l'ordre de priorité fourni.
+  // Le départage par récence évite qu'une notion repasse juste après elle-même
+  // à la fin des blocs de calibration (A, A, B, B, C, C, puis A, B, C…).
   const servedIn = (g) => g.all.length - g.fresh.length;
   const rank = (key) => {
     const i = notionOrder.indexOf(key);
     return i === -1 ? Number.MAX_SAFE_INTEGER : i;
   };
-  available.sort(([ka, a], [kb, b]) => servedIn(a) - servedIn(b) || rank(ka) - rank(kb));
-  const [, group] = available[0];
+  const position = new Map((seriesIds || []).map((id, i) => [id, i]));
+  const lastServed = (g) => Math.max(-1, ...g.all.map((c) => position.get(c.id) ?? -1));
+  const byBalance = ([ka, a], [kb, b]) =>
+    servedIn(a) - servedIn(b) || lastServed(a) - lastServed(b) || rank(ka) - rank(kb);
+  if (seriesIds) {
+    // Série adaptative (file transmise par exercice.js) : chaque notion encore
+    // jamais servie d'abord (couverture de toutes les notions), puis
+    // répartition proportionnelle au besoin (voir notionWeight). Égalité :
+    // départage historique ci-dessus.
+    const share = new Map(
+      available.map(([key, g]) => {
+        const state = notionMastery(history, g.chapter, g.notion, { relations });
+        const levels = g.all.map((c) => c.difficulty);
+        return [key, notionWeight(state, levels) / (servedIn(g) + 1)];
+      }),
+    );
+    // Premier passage dans l'ordre habituel (ordre de sélection conservé) ;
+    // la part de chaque notion ne départage que les notions déjà servies.
+    const unservedFirst = ([, a], [, b]) => (servedIn(a) === 0 ? 0 : 1) - (servedIn(b) === 0 ? 0 : 1);
+    const byShare = (x, y) => {
+      if (servedIn(x[1]) === 0 && servedIn(y[1]) === 0) return 0;
+      const d = share.get(y[0]) - share.get(x[0]);
+      return Math.abs(d) > 1e-9 ? d : 0;
+    };
+    available.sort((x, y) => unservedFirst(x, y) || byShare(x, y) || byBalance(x, y));
+    // Pas de répétition immédiate d'une notion (hors bloc de calibration, géré
+    // plus bas) sauf si sa part dépasse nettement celle de la suivante.
+    const lastId = seriesIds[seriesIds.length - 1];
+    if (available.length > 1 && available[0][1].all.some((c) => c.id === lastId)) {
+      const [first, second] = available;
+      if (servedIn(second[1]) === 0 || share.get(first[0]) < REPEAT_MARGIN * share.get(second[0])) {
+        available[0] = second;
+        available[1] = first;
+      }
+    }
+  } else {
+    available.sort(byBalance);
+  }
+  // Notion nouvelle : sa 2e question suit immédiatement la 1re (A, A, B, B…),
+  // puis la répartition ci-dessus reprend. La difficulté reste choisie plus bas,
+  // par le moteur, sur l'état mis à jour après la 1re réponse.
+  const group = calibrationBlockGroup(groups, history, seriesIds, remaining) || available[0][1];
 
   const target = targetValue(notionMastery(history, group.chapter, group.notion, { relations }));
   const seen = new Set(history.map((h) => h.id));
